@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CommissionPricing } from 'components/CommissionPricing';
+import { CommissionPricing } from 'components/commissionPricing';
 import PropTypes from 'prop-types';
 
 const TabCommissionPricing = (props) => {
