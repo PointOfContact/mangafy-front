@@ -1,0 +1,138 @@
+@import '../../styles/variables.scss';
+
+.header {
+	padding: 48px 0 0 0;
+	margin-bottom: 0;
+	&.inner_page {
+		box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.07);
+		padding: 48px 0;
+	}
+	&__top {
+		display: flex;
+		align-items: center;
+		@media (max-width: 767px) {
+			justify-content: space-between;
+		}
+	}
+	&__logo {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		@media (max-width: 991px) {
+			width: 130px;
+		}
+		@media (max-width: 767px) {
+			width: auto;
+			position: relative;
+			top: -3px;
+		}
+	}
+	&__mnu {
+		display: flex;
+		cursor: pointer;
+		align-items: center;
+		justify-content: center;
+		display: none;
+		z-index: 3;
+		@media (max-width: 767px) {
+			display: flex;
+		}
+	}
+	&__logIn {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		display: none;
+		@media (max-width: 767px) {
+			display: flex;
+		}
+	}
+	&__leftNav {
+		display: flex;
+		align-items: center;
+		padding-left: 45px;
+		@media (max-width: 991px) {
+			padding-left: 30px;
+		}
+		@media (max-width: 767px) {
+			display: none;
+		}
+	}
+	&__rightNav {
+		margin-left: auto;
+		display: flex;
+		align-items: center;
+		@media (max-width: 767px) {
+			display: none;
+		}
+	}
+	&__menu {
+		font-weight: 700;
+		font-size: 20px;
+		color: $black;
+		margin-right: 23px;
+		@media (max-width: 1399px) {
+			font-size: 16px;
+		}
+		@media (max-width: 991px) {
+			margin-right: 15px;
+			font-size: 14px;
+		}
+		&:last-child {
+			margin-right: 0;
+		}
+	}
+	.btn_submit {
+		margin-left: 45px;
+		@media (max-width: 991px) {
+			margin-left: 10px;
+			width: 130px;
+			height: 45px;
+			font-size: 14px;
+		}
+		@media (max-width: 767px) {
+			display: none;
+		}
+	}
+	.mobile_menu {
+		position: fixed;
+		height: 120%;
+		width: 78%;
+		top: 0;
+		z-index: 2;
+		background: #7b65f3;
+		transition: transform 300ms;
+	}
+	.isOpen {
+		transform: none;
+	}
+	.mobile_div_part1 {
+		background-color: #5644ba;
+		padding-top: 100px;
+	}
+	.main_list {
+		margin-top: 0px;
+		padding: 0px;
+		color: black;
+		list-style-type: none;
+		text-align: left;
+	}
+	.menu_item a {
+		color: #fff;
+		font-weight: 700;
+		margin-left: 0;
+		padding: 21px;
+		font-size: 20px;
+		&:hover {
+			background-color: #fff;
+			color: #5644ba;
+		}
+	}
+}
+.fixed_menu {
+	background-color: white;
+	width: 100%;
+	z-index: 3;
+	position: fixed;
+	padding: 20px 0;
+}

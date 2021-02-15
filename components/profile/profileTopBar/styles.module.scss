@@ -1,0 +1,150 @@
+@import '../../../styles/variables.scss';
+
+.content {
+  padding: 30px 25px 40px 25px;
+  border-radius: 10px;
+  border: 1px solid $white;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.07);
+  border-radius: 10px;
+  background-color: $primaryBG;
+  @include media-sm {
+    margin-top: 100px;
+    padding-bottom: 27px;
+  }
+  .contacts {
+    display: flex;
+    align-items: center;
+
+    @include media-sm {
+      justify-content: center;
+    }
+  }
+  .follow {
+    margin-left: 30px;
+    svg {
+      cursor: pointer;
+    }
+    span {
+      cursor: pointer;
+      font-weight: bold;
+      font-size: $text4;
+    }
+  }
+  .portfolio {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    @include media-sm {
+      position: absolute;
+      right: 5px;
+      top: -190px;
+    }
+    span {
+      position: absolute;
+      right: -11px;
+      top: 16px;
+    }
+  }
+  .img {
+    width: 18vw;
+    height: 18vw;
+    max-width: 180px;
+    max-height: 180px;
+    min-width: 140px;
+    min-height: 140px;
+    position: relative;
+    @include media-sm {
+      position: absolute;
+      transform: translate(50%, -50%);
+      top: -35px;
+      right: 50%;
+      margin: auto;
+      text-align: center;
+    }
+    img {
+      width: 18vw;
+      height: 18vw;
+      max-width: 180px;
+      max-height: 180px;
+      min-width: 140px;
+      min-height: 140px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid $avatar_outline;
+      border-bottom: white;
+    }
+    .add {
+      position: absolute;
+      border-radius: 50%;
+      background-color: $primaryBG;
+      bottom: 10px;
+      right: 10px;
+    }
+  }
+  .info_profile {
+    @include media-sm {
+      margin-top: 45px;
+      text-align: center;
+      button {
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+    color: $black;
+    h4 {
+      font-weight: 900;
+      font-size: $h4;
+      margin-bottom: 0;
+
+      .ant-input {
+        font-size: $text3;
+        font-weight: 500;
+      }
+      @include media-sm {
+        font-size: $text2;
+      }
+    }
+    h2 {
+      font-weight: 900;
+      font-size: $h4;
+      margin-bottom: 0;
+
+      .ant-input {
+        font-size: $text3;
+        font-weight: 500;
+      }
+    }
+    p {
+      font-weight: 500;
+      font-size: $text1;
+      margin-bottom: 15px;
+      @include media-sm {
+        font-size: $text4;
+      }
+    }
+  }
+
+  .errMessage {
+    color: red;
+    font-size: 10px;
+    line-height: inherit;
+  }
+
+  .buttonsProfile {
+    display: flex;
+    padding: 20px;
+    flex-wrap: wrap;
+  }
+
+  .shareButtonsProfile {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    @include media-sm {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+  }
+}

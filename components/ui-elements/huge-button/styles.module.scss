@@ -1,0 +1,38 @@
+@import '../../../styles/variables.scss';
+
+.hugeButton {
+  background-color: $white;
+  color: #5644BA;
+  font-family: Noto Sans JP;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 25px;
+  line-height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  width: 404px;
+  height: 104px;
+  box-shadow: 12px 12px $primaryDark;
+  transition: 0.5s;
+  border: none;
+  @media only screen and (max-width: 650px) {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 27px;
+    width: 220px;
+    height: 60px;
+  }
+  &:hover {
+    transition: 0.5s;
+    box-shadow: none;
+    color: $white !important;
+    background-color: $orangeDark;
+  }
+  &:focus {
+    outline: none;
+    background-color: $orangeDark !important;
+    color: $white !important;
+  }
+}

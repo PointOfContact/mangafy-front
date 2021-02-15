@@ -1,0 +1,42 @@
+.large_primary_button {
+  background-color: #7b65f3;
+  color: #fff;
+  font-family: Noto Sans JP;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 25px;
+  line-height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  width: 300px;
+  height: 80px;
+  box-shadow: 9px 9px #fec447;
+  transition: 0.5s;
+  border: none;
+
+  &:hover {
+    transition: 0.5s;
+    box-shadow: none;
+    color: #fff !important;
+    background-color: #fec447;
+  }
+
+  &:focus {
+    outline: none;
+    background-color: #7b65f3 !important;
+    color: #fff !important;
+  }
+}
+
+@media only screen and (max-width: 650px) {
+    .large_primary_button {
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 27px;
+      width: 220px;
+      height: 60px;
+    }
+  }
+  

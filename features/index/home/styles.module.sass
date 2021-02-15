@@ -1,0 +1,558 @@
+@import '../../../styles/variables.scss'
+
+.main
+    padding-bottom: 80px
+    @media (max-width: 767px)
+        padding-bottom: 70px
+    .container
+        @media (max-width: 767px)
+            padding: 0
+    &__wrap
+        display: flex
+        align-items: flex-start
+        @media (max-width: 767px)
+            flex-direction: column-reverse
+    &__left
+        display: flex
+        flex-direction: column
+        align-items: flex-start
+        width: 44%
+        padding-top: 290px
+        @media (max-width: 1399px)
+            padding-top: 140px
+        @media (max-width: 991px)
+            padding-top: 75px
+        @media (max-width: 767px)
+            width: 100%
+            padding: 0 30px
+            padding-top: 30px
+    &__title
+        display: flex
+        flex-direction: column
+        margin-bottom: 38px
+        @media (max-width: 767px)
+            margin-bottom: 20px
+        p
+            font-weight: 900
+            font-size: 50px
+            @media (max-width: 1399px)
+                font-size: 43px
+            @media (max-width: 767px)
+                font-size: 50px
+        span
+            font-family: "Permanent Marker"
+            font-weight: 400
+            color: $primaryDark
+            font-size: 50px
+            line-height: .9
+    &__descr
+        color: $grey
+        font-size: 26px
+        line-height: 35px
+        padding-right: 40px
+        margin-bottom: 50px
+        @media (max-width: 1399px)
+            font-size: 22px
+        @media (max-width: 991px)
+            font-size: 19px
+        @media (max-width: 767px)
+            font-size: 15px
+            line-height: 20px
+            padding-right: 0
+            margin-bottom: 26px
+    &__right
+        display: flex
+        flex-direction: column
+        padding-top: 45px
+        @media (max-width: 1199px)
+            padding-left: 40px
+        @media (max-width: 767px)
+            padding-left: 0
+    &__img
+        display: flex
+        align-items: center
+        justify-content: center
+        position: relative
+    .btn__signUp
+        @media (max-width: 767px)
+            margin: 0 auto
+
+.btn__signUp
+    width: 300px
+    height: 80px
+    background: $primaryDark
+    border-radius: 10px
+    position: relative
+    display: flex
+    align-items: center
+    justify-content: center
+    font-weight: 900
+    color: $white
+    font-size: 25px
+    box-shadow: 10px 10px $orangeDark
+    @media (max-width: 767px)
+        width: 265px
+        height: 70px
+        font-size: 20px
+
+.different
+    padding-top: 22px
+    padding-bottom: 70px
+    @media (max-width: 767px)
+        padding-top: 0
+    &__title
+        color: $black
+        text-align: center
+        font-weight: 900
+        font-size: 50px
+        margin-bottom: 66px
+        @media (max-width: 767px)
+            font-size: 30px
+            margin-bottom: 40px
+    &__wrap
+        display: flex
+        flex-wrap: wrap
+        justify-content: space-between
+        padding-left: 34px
+        position: relative
+        @media (max-width: 991px)
+            padding-left: 0
+    &__item
+        width: 406px
+        display: flex
+        flex-direction: column
+        align-items: flex-start
+        position: relative
+        @media (max-width: 904px)
+            width: 100%
+            margin-bottom: 30px
+    &__itemTitle
+        color: $black
+        font-size: 30px
+        font-weight: 900
+        margin-bottom: 13px
+        @media (max-width: 767px)
+            font-size: 25px
+    &__descr
+        color: rgba(0, 0, 0, 0.62)
+        font-size: 20px
+        line-height: 26px
+        @media (max-width: 767px)
+            font-size: 15px
+            line-height: 20px
+    .it1
+        position: absolute
+        right: -187px
+        bottom: -65px
+        @media (max-width: 991px)
+            bottom: -115px
+        @media (max-width: 767px)
+            right: -140px
+            bottom: -75px
+            width: 230px
+
+.mainDescriprion
+    padding-top: 74px
+    padding-bottom: 80px
+    @media (max-width: 767px)
+        padding-top: 20px
+    &__wrap
+        border: 4px solid $black
+        max-width: 1137px
+        margin: 0 auto
+        display: flex
+        flex-direction: column
+        padding: 63px 20px 49px
+        border-radius: 28px
+        position: relative
+        margin-bottom: 132px
+        @media (max-width: 767px)
+            padding: 30px 30px 35px
+            border: 2px solid $black
+        @media (max-width: 767px)
+            margin-bottom: 60px
+        .it1
+            position: absolute
+            bottom: -65px
+            right: 273px
+            width: 120px
+            height: 61px
+            background-image: url(/img/main-descr-ico1.png)
+            @media (max-width: 767px)
+                right: 60px
+                transform: scale(.6)
+                bottom: -51px
+            &::before
+                content: ""
+                width: 71px
+                height: 10px
+                background-color: #FAFAFA
+                position: absolute
+                right: 20px
+                top: -5px
+            &::after
+                content: ""
+                width: 10px
+                height: 30px
+                background-color: #FAFAFA
+                position: absolute
+                left: 22px
+                top: -16px
+                transform: rotate(-56deg)
+    .it2
+        position: absolute
+        bottom: -129px
+        left: 6px
+        @media (max-width: 991px)
+            width: 210px
+            bottom: -90px
+        @media (max-width: 767px)
+            left: -100px
+    &__text
+        display: flex
+        flex-direction: column
+        align-items: center
+        text-align: center
+        p
+            color: $grey
+            font-size: 35px
+            line-height: 45px
+            @media (max-width: 1399px)
+                font-size: 27px
+            @media (max-width: 991px)
+                font-size: 20px
+                line-height: 35px
+            @media (max-width: 767px)
+                font-size: 17px
+                line-height: 22px
+                text-align: left
+                margin-bottom: 30px
+            &:first-child
+                margin-bottom: 47px
+            span
+                color: $primaryDark
+            br
+                @media (max-width: 1399px)
+                    display: none
+    .btn__login
+        margin-left: auto
+        margin-right: 218px
+        position: relative
+        @media (max-width: 1399px)
+            margin: 0 auto
+
+.btn__login
+    display: flex
+    align-items: center
+    justify-content: center
+    width: 404px
+    height: 104px
+    background: $primaryDark
+    border-radius: 10px
+    box-shadow: 10px 10px $orangeDark
+    color: $white
+    font-size: 25px
+    font-weight: 900
+    @media (max-width: 767px)
+        width: 265px
+        height: 70px
+        font-size: 20px
+
+.btn__submit
+    display: flex
+    align-items: center
+    justify-content: center
+    width: 404px
+    height: 104px
+    background: $primaryDark
+    border-radius: 10px
+    box-shadow: 10px 10px $orangeDark
+    color: $white
+    font-size: 25px
+    font-weight: 900
+    @media (max-width: 767px)
+        width: 265px
+        height: 70px
+        font-size: 20px
+
+.howWorks
+    padding-top: 62px
+    @media (max-width: 767px)
+        padding-top: 0
+    .container
+        @media (max-width: 767px)
+            padding: 0
+    .it1
+        position: absolute
+        right: -165px
+        top: -238px
+        @media (max-width: 991px)
+            top: -285px
+            right: -200px
+        @media (max-width: 767px)
+            top: -275px
+            right: -165px
+            width: 210px
+    &__title
+        text-align: center
+        font-family: "Permanent Marker"
+        color: $black
+        font-size: 60px
+        margin-bottom: 65px
+        position: relative
+        @media (max-width: 1399px)
+            font-size: 45px
+        @media (max-width: 767px)
+            display: none
+    &__img
+        display: flex
+        align-items: center
+        justify-content: center
+        margin-bottom: 15px
+        @media (max-width: 767px)
+            display: none
+    &__descr
+        display: flex
+        align-items: flex-start
+        width: 100%
+    &__item
+        color: $grey
+        font-size: 25px
+        font-weight: 500
+        line-height: 30px
+        width: 33.3%
+        display: flex
+        align-items: center
+        justify-content: center
+        text-align: center
+        @media (max-width: 1399px)
+            font-size: 17px
+        @media (max-width: 767px)
+            display: none
+        &.pr65
+            padding-right: 65px
+            @media (max-width: 991px)
+                padding-right: 0
+    &__mobile
+        display: flex
+        flex-direction: column
+        display: none
+        @media (max-width: 767px)
+            display: flex
+    &__mobItem
+        display: flex
+        flex-direction: column
+        width: 100%
+        align-items: center
+        &_item1
+            background: #5644BA
+            background-image: url(/img/how-mob-ico1.png)
+            background-size: cover
+            background-repeat: no-repeat
+            padding-top: 65px
+            .how-works__mob-img
+                margin-bottom: -20px
+                z-index: 3
+        &_item2
+            background: $orangeDark
+            padding-top: 37px
+            margin-bottom: 15px
+            .howWorks__mobImg
+                width: 168px
+                margin-bottom: -35px
+        &_item3
+            padding-top: 37px
+            background-image: url(/img/how-mob-ico1.png)
+            background-size: cover
+            background-repeat: no-repeat
+            .howWorks__mobImg
+                width: 255px
+    &__mobText
+        font-size: 25px
+        font-weight: 900
+        line-height: 30px
+        color: $white
+        text-align: center
+        margin-bottom: 25px
+        &.colorBlack
+            color: $black
+    &__mobImg
+        width: 184px
+
+.gotIdea
+    padding-top: 132px
+    padding-bottom: 120px
+    @media (max-width: 767px)
+        padding-top: 70px
+    &__wrap
+        display: flex
+        align-items: center
+        flex-direction: column
+        position: relative
+        .it1
+            position: absolute
+            left: -158px
+            bottom: -171px
+            @media (max-width: 991px)
+                left: -180px
+            @media (max-width: 767px)
+                width: 150px
+                left: -80px
+                bottom: 0
+    &__title
+        color: $black
+        font-size: 50px
+        font-weight: 900
+        text-align: center
+        margin-bottom: 40px
+        @media (max-width: 1399px)
+            font-size: 45px
+        @media (max-width: 991px)
+            font-size: 35px
+        @media (max-width: 767px)
+            font-size: 30px
+            line-height: 35px
+    &__descr
+        color: $grey
+        font-size: 35px
+        line-height: 45px
+        text-align: center
+        margin-bottom: 72px
+        @media (max-width: 1399px)
+            font-size: 25px
+            line-height: normal
+        @media (max-width: 767px)
+            font-size: 15px
+            line-height: 20px
+        br
+            @media (max-width: 991px)
+                display: none
+    .btn__submit
+        position: relative
+        z-index: 2
+        @media (max-width: 767px)
+            width: 265px
+            height: 70px
+            font-size: 20px
+
+.useGoal
+    padding-top: 25px
+    padding-bottom: 50px
+    &__title
+        color: $black
+        font-size: 50px
+        font-weight: 900
+        text-align: center
+        @media (max-width: 1299px)
+            font-size: 45px
+        @media (max-width: 991px)
+            font-size: 35px
+        @media (max-width: 767px)
+            font-size: 30px
+            line-height: 35px
+        span
+            color: $primaryDark
+    &__images
+        padding-top: 150px
+        position: relative
+        @media (max-width: 1299px)
+            display: flex
+            align-items: center
+            padding-top: 60px
+        @media (max-width: 767px)
+            display: none
+    &__img
+        display: flex
+        @media (max-width: 767px)
+            align-items: center
+            justify-content: center
+        &_img2
+            position: absolute
+            left: 435px
+            top: 67px
+            z-index: 2
+            @media (max-width: 1299px)
+                position: relative
+                left: 0
+                top: 0
+        &_img3
+            position: absolute
+            right: 48px
+            top: 50px
+            z-index: 3
+            @media (max-width: 1299px)
+                position: relative
+                right: 0
+                top: 0
+    &__descr
+        color: $grey
+        font-size: 35px
+        line-height: 45px
+        text-align: center
+        margin-top: -40px
+        margin-bottom: 76px
+        @media (max-width: 1299px)
+            margin-top: 0
+            font-size: 28px
+        @media (max-width: 991px)
+            font-size: 23px
+            line-height: 38px
+        @media (max-width: 767px)
+            font-size: 15px
+            line-height: 20px
+            margin-bottom: 20px
+        br
+            @media (max-width: 1299px)
+                display: none
+    .btn__submit
+        margin: 0 auto
+    &__slider
+        margin-bottom: 25px
+        display: none
+        @media (max-width: 767px)
+            display: block
+
+.join
+    padding-top: 97px
+    padding-bottom: 70px
+    @media (max-width: 767px)
+        padding-top: 50px
+        padding-bottom: 30px
+    &__title
+        color: $black
+        font-size: 50px
+        font-weight: 900
+        text-align: center
+        margin-bottom: 40px
+        @media (max-width: 767px)
+            font-size: 30px
+            line-height: 35px
+            margin-bottom: 20px
+    &__descr
+        color: $grey
+        font-weight: 500
+        font-size: 35px
+        line-height: 45px
+        text-align: center
+        margin-bottom: 100px
+        @media (max-width: 1399px)
+            font-size: 28px
+        @media (max-width: 767px)
+            font-size: 15px
+            line-height: 20px
+            margin-bottom: 15px
+        br
+            @media (max-width: 1399px)
+                display: none
+    &__img
+        display: flex
+        justify-content: center
+        align-items: center
+        margin-bottom: 16px
+        @media (max-width: 991px)
+            width: 60%
+            margin: 0 auto
+        @media (max-width: 767px)
+            width: 100%
+    .btn__submit
+        margin: 0 auto

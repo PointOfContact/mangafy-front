@@ -1,0 +1,27 @@
+@import '../../styles/variables.scss';
+
+.shareButtons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  @include media-sm {
+    flex-direction: column !important;
+  }
+  .text {
+    font-weight: 900;
+    font-size: $text4;
+    line-height: 22px;
+    color: $black;
+    margin-bottom: 5px;
+  }
+  ul {
+    margin-bottom: 0;
+    display: flex;
+    flex-wrap: nowrap;
+    li {
+      display: inline-block;
+      margin-left: 5px;
+    }
+  }
+}

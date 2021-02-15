@@ -1,0 +1,46 @@
+import * as React from 'react';
+
+import cn from 'classnames';
+import PropTypes from 'prop-types';
+
+import SvgPrimaryAdd from '../../icon/PrimaryAdd';
+import styles from './styles.module.scss';
+
+const AddButton = ({ disabled, className, onClick, isDark, isActive, height, width, ...rest }) => (
+  <div
+    {...rest}
+    className={cn(
+      styles.add_button,
+      className,
+      isDark && styles.dark,
+      isActive && styles.active_primary
+    )}
+    onClick={onClick}
+    disabled={disabled}>
+    <SvgPrimaryAdd width={width} height={height} />
+  </div>
+);
+
+AddButton.propTypes = {
+  className: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+  width: PropTypes.string,
+  height: PropTypes.string,
+  isDark: PropTypes.bool,
+  isActive: PropTypes.bool,
+  disabled: PropTypes.bool,
+  onClick: PropTypes.func,
+  isFullWidth: PropTypes.bool,
+};
+
+AddButton.defaultProps = {
+  className: {},
+  isDark: false,
+  isActive: false,
+  disabled: false,
+  isFullWidth: false,
+  onClick: () => {},
+  width: '31px',
+  height: '31px',
+};
+
+export default AddButton;

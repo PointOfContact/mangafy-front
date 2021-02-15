@@ -1,0 +1,28 @@
+{
+  "editor.rulers": [100],
+  "[javascript]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.fixAll.stylelint": true
+  },
+  "eslint.alwaysShowStatus": true,
+  "prettier.disableLanguages": ["javascript"],
+  "workbench.iconTheme": "material-icon-theme",
+  "typescript.validate.enable": false,
+  "javascript.validate.enable": false,
+  "propTypes.autoImport": "ES6",
+  "terminal.integrated.shell.osx": "/bin/zsh",
+  "window.zoomLevel": 0,
+  "todo-tree.tree.showScanModeButton": false,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "diffEditor.ignoreTrimWhitespace": false,
+  "material-ui-snippets.showNotesOnStartup": false,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "editor.fontLigatures": null,
+  "editor.quickSuggestions": null,
+  "editor.formatOnSave": false,
+  "files.autoSave": "onFocusChange"
+}

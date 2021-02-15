@@ -1,0 +1,48 @@
+@import '../../styles/variables.scss';
+
+.MangeStoryCard {
+  display: inline-block;
+  border: 1px solid $white;
+  border-radius: 10px;
+  width: 306px;
+  cursor: pointer;
+  margin-right: 15px;
+  margin-bottom: 20px;
+  box-shadow: 0px 5px 20px 0px rgba(0, 0, 0, 0.04);
+  &:hover {
+    transition: 0.5s;
+    box-shadow: 0px 0px 20px $primaryLight;
+  }
+  .title {
+    color: $black;
+    font-weight: bold;
+    font-size: $text3;
+    margin: 18px 18px 5px 18px;
+  }
+  .description {
+    height: 83px;
+    overflow: hidden;
+    margin-bottom: 15px;
+
+    p {
+      color: $grey;
+      font-size: $text4;
+      line-height: 20px;
+      margin: 0px 18px 15px 18px;
+      display: -webkit-box;
+      max-width: 306px;
+      -webkit-line-clamp: 4;
+      white-space: pre-wrap;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+  img {
+    object-fit: cover;
+    width: 100%;
+    height: 172px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+}

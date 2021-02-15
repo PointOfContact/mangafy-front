@@ -1,0 +1,68 @@
+$primaryDark: #7b65f3;
+$primaryLight: #9a87fe;
+$secondaryDark: #2f2ea6;
+$secondaryLight: #403fc6;
+$orangeDark: #fec447;
+$orangeLight: #ffd67d;
+$black: #212121;
+$silver: #d3d3d3;
+$white: #f3f3f3;
+$grey: #7b7b7b;
+$primaryBG: #ffffff;
+$avatar_outline: #20c000;
+$switchBg: #9381f3;
+$text_white: #ffffff;
+
+$h1: 55px;
+$h2: 50px;
+$h3: 40px;
+$h4: 35px;
+
+$text1: 30px;
+$text2: 25px;
+$text3: 20px;
+$text4: 15px;
+$text5: 10px;
+
+$fontFamilyNatoSans: 'Noto Sans';
+$fontFamilyPermanentMarker: 'Permanent Marker';
+
+$media-xs: 'screen and (max-width: 576px)';
+@mixin media-xs {
+  @media #{$media-xs} {
+    @content;
+  }
+}
+
+$media-sm: 'screen and (max-width: 767px)';
+@mixin media-sm {
+  @media #{$media-sm} {
+    @content;
+  }
+}
+
+$media-md: 'screen and (max-width: 991px)';
+@mixin media-md {
+  @media #{$media-md} {
+    @content;
+  }
+}
+
+$media-lg: 'screen and (max-width: 1200px)';
+@mixin media-lg {
+  @media #{$media-lg} {
+    @content;
+  }
+}
+
+$media-xl: 'screen and (min-width: 1200px)';
+@mixin media-xl {
+  @media #{$media-xl} {
+    @content;
+  }
+}
+
+//example
+// @include media-xs {
+//    display: none;
+// }

@@ -1,0 +1,48 @@
+.add_button {
+  display: inline;
+  cursor: pointer;
+  border-radius: 50%;
+  svg {
+    padding: 0;
+    margin: 0;
+    border-radius: 50%;
+    fill: inherit;
+    &:hover {
+      path {
+        fill: #7b65f3;
+      }
+    }
+    path {
+      fill: #e5e0fd;
+    }
+    defs {
+      display: none;
+    }
+  }
+}
+
+.dark {
+  svg {
+    &:hover {
+      path {
+        fill: #858585;
+      }
+    }
+    path {
+      fill: #f3f3f3;
+    }
+  }
+}
+
+.active_primary {
+  svg {
+    &:hover {
+      path {
+        fill: #fec447;
+      }
+    }
+    path {
+      fill: #ffd67d;
+    }
+  }
+}

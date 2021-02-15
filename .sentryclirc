@@ -1,0 +1,6 @@
+[defaults]
+org = mangafy
+project = mangafy-next
+SENTRY_LOG_LEVEL = debug
+[auth]
+token = a00ad2d6ad594e4ab7c2e74c33b572d072d45bfe8e5645b48c83d1ae42a7f5a9

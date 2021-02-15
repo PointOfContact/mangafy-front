@@ -1,0 +1,135 @@
+.primary_button {
+  transition: 0.5s;
+  background: #7b65f3;
+  border: 1px solid #9a87fe;
+  box-sizing: border-box;
+  border-radius: 5px;
+  font-family: Noto Sans JP;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #ffffff;
+  height: initial;
+  padding: 10px 21px 12px 21px; 
+
+  .main{
+    height: 35px;
+    display: flex;
+    align-items: center;
+  }
+
+  &:hover {
+    transition: 0.5s;
+    box-shadow: 0px 0px 20px #7b65f3;
+    border: 1px solid #9a87fe !important;
+    background: #7b65f3 !important;
+    color: #ffffff !important;
+  }
+
+  &:focus {
+    outline: none;
+    background: #7b65f3 !important;
+    color: #ffffff !important;
+    border: 1px solid #9a87fe !important;
+  }
+
+  svg {
+    margin-left: 10px;
+    fill: inherit;
+    path {
+      fill: #fff;
+    }
+    defs{
+        display: none;
+    }
+  }
+
+  .users_img {
+    position: absolute;
+    margin-left: 10px;
+    border-radius: 100px;
+    width: 35px;
+    height: 35px;
+    overflow: hidden;
+    &:nth-child(2n+1) {
+      background: #fff;
+    }
+    &:nth-child(2n) {
+      background: #000;
+    }
+  }
+}
+
+.dark {
+  background: #d3d3d3;
+  border: 1px solid #f3f3f3;
+  padding: 12px 21px;
+
+  &:hover {
+    background: #858585 !important;
+    border: 1px solid #f3f3f3 !important;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 20px rgba(133, 133, 133, 0.5);
+  }
+
+  &:focus {
+    background: #858585 !important;
+    border: 1px solid #f3f3f3 !important;
+  }
+}
+
+.active_primary {
+  background: #fec447;
+  border: 1px solid #ffd67d;
+  padding: 12px 21px;
+
+  &:hover {
+    background: #fec447 !important;
+    border: 1px solid #ffd67d !important;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 20px #fec447;
+  }
+
+  &:focus {
+    background: #fec447 !important;
+    border: 1px solid #ffd67d !important;
+  }
+}
+
+.primary{
+    background: #7b65f3;
+    border: 1px solid #9a87fe;
+    padding: 10px 21px;
+  
+    &:hover {
+      background: #7b65f3 !important;
+      border: 1px solid #9a87fe !important;
+      box-sizing: border-box;
+      box-shadow: 0px 0px 20px #9a87fe;
+    }
+  
+    &:focus {
+      background: #7b65f3 !important;
+      border: 1px solid #9a87fe !important;
+    }
+}
+
+.plump{
+  padding: 10px;
+  height: 57px;
+}
+
+.full_width {
+    width: 100% !important;
+}
+
+.round {
+    border-radius: 250px !important;
+    max-height: 41px;
+    min-width: 100px;
+    font-size: 15px;
+}

@@ -1,0 +1,85 @@
+@import '../../styles/variables.scss';
+
+.box {
+	color: $black;
+	margin-bottom: 60px;
+	p {
+		margin: 0;
+	}
+	&__wrapper {
+		display: flex;
+		justify-content: flex-start;
+		align-items: flex-end;
+		flex-wrap: wrap;
+		width: 100%;
+		max-width: 1030px;
+		margin: 0 auto;
+	}
+	&__title {
+		margin-right: 35px;
+		&:last-child {
+			margin-right: 0;
+		}
+		&_text {
+			font-weight: bold;
+			font-size: 30px;
+			line-height: 1.2;
+		}
+	}
+	&__clear {
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		margin-right: 35px;
+		&:last-child {
+			margin-right: 0;
+		}
+		&:hover & {
+			&_text {
+				color: $primaryDark;
+			}
+			&_icon svg path {
+				fill: $primaryDark;
+			}
+		}
+		&_text {
+			font-weight: bold;
+			font-size: 20px;
+			line-height: 1.45;
+			transition: .3s;
+		}
+		&_icon {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin-left: 15px;
+			svg {
+				path {
+					fill: $black;
+					transition: .3s;
+				}
+			}
+		}
+	}
+	&__filter {
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		margin-right: 35px;
+		&:last-child {
+			margin-right: 0;
+		}
+		&_title {
+			font-weight: bold;
+			font-size: 20px;
+			line-height: 1.45;
+		}
+		&_data {
+			font-weight: bold;
+			font-size: 20px;
+			line-height: 1.45;
+			color: $primaryDark;
+			margin-left: 12px;
+		}
+	}
+}

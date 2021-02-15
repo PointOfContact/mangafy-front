@@ -1,0 +1,11 @@
+@import '../../../../styles/variables.scss';
+
+.content_tab_profile_1 {
+  .sub_title {
+    color: $black;
+    font-size: $text2;
+    @include media-sm {
+      font-size: $text4;
+    }
+  }
+}
