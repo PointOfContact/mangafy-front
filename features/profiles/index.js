@@ -4,17 +4,20 @@ import Head from 'next/head';
 import Link from 'next/link';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
+import styles from './styles.module.scss';
 import * as qs from 'query-string';
+import ColaborationCard from 'components/colaborationCard';
+import cn from 'classnames';
 
-import client from '../../api/client';
-import Footer from '../../components/footer';
-import Header from '../../components/header';
-import SvgSearch from '../../components/icon/Search';
-import ProfilesCard from '../../components/profilesCard';
-import { userTypes } from '../../helpers/constant';
-import { LinkCreator } from '../../utils/linkCreator';
-import ProfilesMobile from './mobile';
-
+import client from 'api/client';
+import Footer from 'components/footer';
+import Header from 'components/header';
+import SvgSearch from 'components/icon/Search';
+import ProfilesCard from 'components/profilesCard';
+import { userTypes } from 'helpers/constant';
+import { LinkCreator } from 'utils/linkCreator';
+// import ProfilesMobile from './mobile';
+import ProfilesHeader from 'components/profilesHeader'
 const { Option } = Select;
 
 const menuOptions = (handleCompasitionClick) =>
@@ -75,22 +78,8 @@ const Profiles = (props) => {
       </Head>
       <main className="main_back_2">
         <Header user={user} path="profiles" />
-        <section className="section_one_landing_three">
-          <div className="container mangafy_container">
-            <div className="row">
-              <div className="col-lg-6">
-                <div className="section_one_landing_three_cildren">
-                  <h1>Collect them All!</h1>
-                  <h4>All manga entusiast, all genres, one Place - MangaFY</h4>
-                  <Link href="/sign-in">
-                    <button id="profilesPostCollaborationBtnId">Join to MangaFY</button>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-        <section className="search_collab">
+        <ProfilesHeader />
+        {/* <section className="search_collab">
           <div className="container mangafy_container search_field">
             <div className="row">
               <div className="col-lg-12">
@@ -156,12 +145,31 @@ const Profiles = (props) => {
               <div id="selects" className="box"></div>
             </div>
           </div>
-        </section>
+        </section> */}
         <div className="container mangafy_container">
           <Row type="flux">
             <div className="wrap-to-cards">{<ProfilesCard users={users} client={client} />}</div>
+          <div className={styles.colabCards}>
+              <div className={'container'}>
+                <div className={styles.colabWrap}>
+                  {users &&
+                    users.map((label) => (
+                      <ProfilesCard key={label.id} label={label} client={client} />
+                    ))}
+                  <div className={cn(styles.PostColab)}>
+                    <div className={cn(styles.PostColab__item)}>
+                      <div className={cn(styles.PostColab__descr)}>
+                        Have an idea to coomics and looking for collaboration?
+                      </div>
+                      <button className={cn(styles.PostColab__btn)}>Post Collab</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </Row>
-          <div className="row">
+
+          {/* <div className="row">
             <div className="col-lg-12">
               <div className="pagination_cards">
                 <Pagination
@@ -177,11 +185,11 @@ const Profiles = (props) => {
                 />
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
         <Footer />
       </main>
-      <ProfilesMobile {...props} onChange={onChange} onInputChange={onInputChange} />
+      {/* <ProfilesMobile {...props} onChange={onChange} onInputChange={onInputChange} /> */}
     </div>
   );
 };
