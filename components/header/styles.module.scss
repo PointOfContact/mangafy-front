@@ -3,6 +3,10 @@
 .header {
 	padding: 48px 0 0 0;
 	margin-bottom: 0;
+	@media (max-width: 767px) {
+		border-bottom: 2px solid #EBEBEB;
+		padding: 20px 0;
+	}
 	&.inner_page {
 		box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.07);
 		padding: 48px 0;
