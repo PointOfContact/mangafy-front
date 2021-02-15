@@ -1,0 +1,62 @@
+@import '../../../styles/variables.scss';
+
+.select {
+  width: 300px;
+  padding: 7px 13px 9px 13px;
+  font-weight: 500;
+  font-size: $text4;
+  line-height: 22px;
+  color: $black;
+  background: #fafafa;
+  border: 1px solid $white;
+  box-sizing: border-box;
+  border-radius: 5px;
+  text-align: left;
+  &:focus {
+    box-shadow: $primaryShadow;
+    border: 1px solid $primaryDark;
+    color: $primaryDark;
+  }
+
+  &:hover {
+    box-shadow: $primaryShadow;
+    border: 1px solid $primaryDark;
+    color: $primaryDark;
+  }
+
+  &::placeholder {
+    color: $black;
+  }
+}
+
+.linear {
+  background: inherit;
+  border-radius: 0;
+  border: none;
+  border-bottom: 2px solid $black;
+  padding-left: 0;
+  div {
+    padding-left: 0 !important;
+  }
+  &:focus {
+    border: none;
+    border-bottom: 2px solid $primaryDark;
+    box-shadow: none;
+  }
+
+  &:hover {
+    border: none;
+    border-bottom: 2px solid $primaryDark;
+    box-shadow: none;
+  }
+}
+
+.label {
+  text-align: left;
+  font-size: $text4;
+  color: $black;
+}
+
+.full_width {
+  width: 100%;
+}
