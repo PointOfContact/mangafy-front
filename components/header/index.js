@@ -1,47 +1,56 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
+
 import cn from 'classnames';
 import { removeAllStorage } from 'helpers/shared';
 import Link from 'next/link';
+
 import styles from './styles.module.scss';
 
-const  Header = ({ user, path }) => {
-    const [isOpen, handleManuOpen] = useState(false)
+const Header = ({ user, path }) => {
+  const [isOpen, handleManuOpen] = useState(false);
 
-    useEffect(() => {
-        document.addEventListener('click', _handleDocumentClick, false);
-        document.addEventListener('scroll', _handleScroll);
+  useEffect(() => {
+    document.addEventListener('click', _handleDocumentClick, false);
+    document.addEventListener('scroll', _handleScroll);
 
-        return () => {
-          document.removeEventListener('click', _handleDocumentClick)
-          document.removeEventListener('scroll', _handleScroll)
-        };
-    })
-    const openMenu = (e) => {
-      e.nativeEvent.stopImmediatePropagation()
-      handleManuOpen(!isOpen)
+    return () => {
+      document.removeEventListener('click', _handleDocumentClick);
+      document.removeEventListener('scroll', _handleScroll);
+    };
+  });
+  const openMenu = (e) => {
+    e.nativeEvent.stopImmediatePropagation();
+    handleManuOpen(!isOpen);
+  };
+  const _handleScroll = () => {
+    const el = document.querySelector('.menubar');
+    const elbar = document.querySelector('.hedertopbar');
+    if (window.scrollY > 20) {
+      el.style.backgroundColor = 'white';
+      elbar.style.display = 'block';
+      elbar.style.height = '140px';
+      el.classList.add(styles.fixed_menu);
+    } else {
+      el.classList.remove(styles.fixed_menu);
+      elbar.style.display = 'none';
+      elbar.style.height = '0px';
+      el.style.backgroundColor = 'none';
     }
-    const _handleScroll = () => {
-      const el =  document.querySelector(".menubar")
-        if (window.scrollY > 20) {
-           el.style.backgroundColor = "white";
-           el.classList.add(styles.fixed_menu)
-        } else {
-            el.classList.remove(styles.fixed_menu)
-            el.style.backgroundColor = "none";
-        }
-    }
+  };
 
-    const _handleDocumentClick = () => {
-        handleManuOpen(false)
-    }
+  const _handleDocumentClick = () => {
+    handleManuOpen(false);
+  };
 
-     const _menuToggle = (e) => {
-      e.stopPropagation();
-      handleManuOpen(!isOpen)
-    }
+  const _menuToggle = (e) => {
+    e.stopPropagation();
+    handleManuOpen(!isOpen);
+  };
 
-    let menuStatus = isOpen ? 'isopen' : '';
-    return (
+  const menuStatus = isOpen ? 'isopen' : '';
+  return (
+    <>
+      <div className={`hedertopbar`}></div>
       <header className={`${styles.header} navbar menubar`}>
         <div className={'container'}>
           <div className={styles.header__top}>
@@ -102,73 +111,62 @@ const  Header = ({ user, path }) => {
         </div>
         {isOpen && <MenuLinks isOpen={isOpen} />}
       </header>
-    );
-}
+    </>
+  );
+};
 
+const MenuLinks = ({ isOpen }) => {
+  const initialLinks = [
+    {
+      text: 'About',
+      link: 'about',
+    },
+    {
+      text: 'Community Guidelines',
+      link: '#',
+    },
+    {
+      text: 'Terms',
+      link: 'terms',
+    },
+    {
+      text: 'Privacy Policy',
+      link: 'privacy',
+    },
+  ];
 
+  const links = initialLinks.map((link, i) => (
+    <li className={styles.menu_item} key={i}>
+      <Link href={`/${link.link}`}>
+        <a>{link.text}</a>
+      </Link>
+    </li>
+  ));
 
-const MenuLinks = ({isOpen}) => {
-    const initialLinks = [
-        {
-          text: 'About',
-          link: 'about',
-        },
-        {
-          text: 'Community Guidelines',
-          link: '#',
-        },
-        {
-          text: 'Terms',
-          link: 'terms',
-        },
-        {
-          text: 'Privacy Policy',
-          link: 'privacy',
-        },
-    ]
-
-    const links = initialLinks.map((link, i) => (
-      <li className={styles.menu_item} key={i}>
-        <Link href={`/${link.link}`}>
-          <a>{link.text}</a>
-        </Link>
-      </li>
-    ));
-
-    return (
-      <div id="menu" className={`${styles.mobile_menu} ${isOpen && styles.isOpen}`}>
-        <div className={styles.mobile_div_part1}>
-          <ul className={styles.main_list}>
-              <li className={styles.menu_item}>
-                <Link href="/collaborations?compensationModel=paid">
-                  Paid projects
-                </Link>
-              </li>
-            <li className={styles.menu_item}>
-              <Link href="/collaborations">
-                Collabs
-              </Link>
-            </li>
-            <li className={styles.menu_item}>
-              <Link href="/create-a-story/start">
-                Create a collab
-              </Link>
-            </li>
-            <li className={styles.menu_item}>
-              <Link href="/profiles">
-                Enthusiast
-              </Link>
-            </li>
-            <li className={styles.menu_item}>
-              <Link href="/profiles">
-                Members
-              </Link>
-            </li>
-          </ul>
-        </div>
-        <ul className="links">{links}</ul>
+  return (
+    <div id="menu" className={`${styles.mobile_menu} ${isOpen && styles.isOpen}`}>
+      <div className={styles.mobile_div_part1}>
+        <ul className={styles.main_list}>
+          <li className={styles.menu_item}>
+            <Link href="/collaborations?compensationModel=paid">Paid projects</Link>
+          </li>
+          <li className={styles.menu_item}>
+            <Link href="/collaborations">Collabs</Link>
+          </li>
+          <li className={styles.menu_item}>
+            <Link href="/create-a-story/start">Create a collab</Link>
+          </li>
+          <li className={styles.menu_item}>
+            <Link href="/profiles">Enthusiast</Link>
+          </li>
+          <li className={styles.menu_item}>
+            <Link href="/profiles">Members</Link>
+          </li>
+        </ul>
       </div>
-    );
-}
+      <ul className="links">{links}</ul>
+    </div>
+  );
+};
 
-export default Header
+export default Header;
