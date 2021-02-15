@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 import { Upload, Row, Col, Popconfirm } from 'antd';
 import client from 'api/client';
-import SvgDustbin from 'components/Icon/Dustbin';
-import SvgHeart from 'components/Icon/Heart';
+import SvgDustbin from 'components/icon/Dustbin';
+import SvgHeart from 'components/icon/Heart';
 import AddButton from 'components/ui-elements/add-button';
 import SocialButton from 'components/ui-elements/social-button';
 import PropTypes from 'prop-types';

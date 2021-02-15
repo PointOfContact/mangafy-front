@@ -1,12 +1,12 @@
 import * as React from 'react';
 
 import cn from 'classnames';
-import SvgBlackBehance from 'components/Icon/BlackBehance';
-import SvgBlackDeviantart from 'components/Icon/BlackDeviantart';
-import SvgBlackDribbble from 'components/Icon/BlackDribbble';
-import SvgBlackFacebook from 'components/Icon/BlackFacebook';
-import SvgBlackInstagram from 'components/Icon/BlackInstagram';
-import SvgBlackTwitter from 'components/Icon/BlackTwitter';
+import SvgBlackBehance from 'components/icon/BlackBehance';
+import SvgBlackDeviantart from 'components/icon/BlackDeviantart';
+import SvgBlackDribbble from 'components/icon/BlackDribbble';
+import SvgBlackFacebook from 'components/icon/BlackFacebook';
+import SvgBlackInstagram from 'components/icon/BlackInstagram';
+import SvgBlackTwitter from 'components/icon/BlackTwitter';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';

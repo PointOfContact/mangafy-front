@@ -3,7 +3,7 @@ import React from 'react';
 import { Select, Input, Row, Col } from 'antd';
 import cn from 'classnames';
 import Card from 'components/card';
-import SvgPurplePencil from 'components/Icon/PurplePencil';
+import SvgPurplePencil from 'components/icon/PurplePencil';
 import AddButton from 'components/ui-elements/add-button';
 import PrimaryButton from 'components/ui-elements/button';
 import { useRouter } from 'next/router';
