@@ -1,7 +1,7 @@
 @import '../../styles/variables.scss';
 
-.sign_up_content {
-  .sign_up {
+.sign_in_content {
+  .sign_in {
     text-align: center;
     img {
       margin: auto;
@@ -9,11 +9,11 @@
     }
     .title {
       font-weight: bold;
-      font-size: $h3;
+      font-size: $h2;
       color: $black;
     }
     .info {
-      font-size: $text2;
+      font-size: $text1;
       color: $black;
     }
 
@@ -22,10 +22,10 @@
         width: 210px;
       }
       .title {
-        font-size: $text2;
+        font-size: $h4;
       }
       .info {
-        font-size: $text5;
+        font-size: $text4;
         color: $grey;
       }
     }

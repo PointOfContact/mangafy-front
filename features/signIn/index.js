@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
 
+import { Layout, Row, Col } from 'antd';
+import AuthForm from 'components/authForm';
+import FooterPolicy from 'components/footer-policy';
+import Header from 'components/header';
+import LoginFooter from 'components/loginFooter';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import Head from 'next/head';
-import Link from 'next/link';
+import { login } from 'store';
 
-import AuthForm from '../../components/authForm';
-import { EVENTS } from '../../helpers/amplitudeEvents';
-import { login } from '../../store';
+import styles from './styles.module.scss';
+
+const { Content } = Layout;
 
 const Amplitude = require('amplitude');
 
@@ -32,6 +38,7 @@ const Login = () => {
       email,
       password,
     };
+    console.log('payloadpayloadpayloadpayloadpayloadpayload', payload);
     login(payload)
       .then((user) => {
         const data = [
@@ -57,36 +64,32 @@ const Login = () => {
   return (
     <>
       <Head></Head>
-      <div className="sign_in_page_container">
-        <div className="sign_in_content">
-          <div className="sign_in_header">Hello, who’s this?</div>
-          <div className="sign_in_info">
-            Sign in to get your personalized page connect with you love
-          </div>
-          <div className="sign_in_form sign_in_form col-lg-4 col-md-6 col-sm-8 col-xs-10">
-            <AuthForm
-              {...{
-                email,
-                password,
-                errorMessage,
-                onChange: handleOnChange,
-                onSubmit: handleLoginSubmit,
-                isLogin: true,
-              }}
-            />
-          </div>
-          <div className="sign_in_terms_info">
-            To make MangaFY work we log user data. Click "Sign in to accept MangaFY's{' '}
-            <Link href="/terms">
-              <a className="margin-horizontal-5">Term and service</a>
-            </Link>{' '}
-            &{' '}
-            <Link href="/privacy-policy">
-              <a className="margin-horizontal-5">Privacy Policy </a>
-            </Link>
-          </div>
-        </div>
-      </div>
+      <Header />
+      <Content className={styles.sign_in_content}>
+        <Row>
+          <Col className={styles.sign_in} span={24}>
+            <img src="/img/aboutme.png" alt="" />
+            <h2 className={styles.title}>Hello, who’s this?</h2>
+            <p className={styles.info}>
+              Sign in to get your personalized page connect with you love
+            </p>
+            <div>
+              <AuthForm
+                {...{
+                  email,
+                  password,
+                  errorMessage,
+                  onChange: handleOnChange,
+                  onSubmit: handleLoginSubmit,
+                  isLogin: true,
+                }}
+              />
+            </div>
+          </Col>
+        </Row>
+      </Content>
+      <LoginFooter acaunt={false} />
+      <FooterPolicy />
     </>
   );
 };

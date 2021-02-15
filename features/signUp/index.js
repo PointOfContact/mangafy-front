@@ -1,15 +1,20 @@
 import React from 'react';
 
 import * as Sentry from '@sentry/node';
+import { Layout, Row, Col } from 'antd';
+import AuthForm from 'components/authForm';
+import FooterPolicy from 'components/footer-policy';
+import Header from 'components/header';
+import LoginFooter from 'components/loginFooter';
+import { EVENTS } from 'helpers/amplitudeEvents';
+import { userTypes } from 'helpers/constant';
 import Head from 'next/head';
 import Router from 'next/router';
+import { register } from 'store';
 
-import AuthForm from '../../components/authForm';
-import Footer from '../../components/footer';
-import Header from '../../components/header';
-import { EVENTS } from '../../helpers/amplitudeEvents';
-import { userTypes } from '../../helpers/constant';
-import { register } from '../../store';
+import styles from './styles.module.scss';
+
+const { Content } = Layout;
 
 const Amplitude = require('amplitude');
 
@@ -146,35 +151,35 @@ const Register = () => {
   return (
     <>
       <Head></Head>
-      <div className="sign_in_page_container">
-        <Header />
-        <div className="sign_in_content">
-          <div className="sign_in_header">Make the most of your digital comics life</div>
-          <div className="sign_in_info">
-            Sign up to get your personalized page connect with enthusiast world wide
-          </div>
-          <div className="sign_in_form sign_in_form col-lg-4 col-md-6 col-sm-8 col-xs-10">
-            <AuthForm
-              disabled={disabled}
-              {...{
-                type,
-                name,
-                email,
-                password,
-                errorMessage,
-                onChange: handleOnChange,
-                onSubmit: handleRegisterSubmit,
-              }}
-            />
-            {err && <p>{err}</p>}
-          </div>
-          <div className="sign_in_terms_info">
-            To make MangaFY work we log user data. Click "Sign up to accept MangaFY's Term and
-            service & Privacy Policy
-          </div>
-        </div>
-        <Footer />
-      </div>
+      <Header />
+      <Content className={styles.sign_up_content}>
+        <Row>
+          <Col className={styles.sign_up} span={24}>
+            <img src="/img/aboutme.png" alt="" />
+            <h2 className={styles.title}>Make the most of your digital comics life</h2>
+            <p className={styles.info}>
+              Sign up to get your personalized page connect with enthusiast world wide
+            </p>
+            <div>
+              <AuthForm
+                disabled={disabled}
+                {...{
+                  type,
+                  name,
+                  email,
+                  password,
+                  errorMessage,
+                  onChange: handleOnChange,
+                  onSubmit: handleRegisterSubmit,
+                }}
+              />
+              {err && <p>{err}</p>}
+            </div>
+          </Col>
+        </Row>
+      </Content>
+      <LoginFooter acaunt={true} />
+      <FooterPolicy />
     </>
   );
 };
