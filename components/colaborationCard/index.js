@@ -6,6 +6,7 @@ import Router from 'next/router';
 import PropTypes from 'prop-types';
 
 import ButtonColab from './buttonColab';
+import Avatar from '../avatar-item';
 import styles from './styles.module.scss';
 
 const ColaborationCards = ({ label, client }) => {
@@ -19,9 +20,8 @@ const ColaborationCards = ({ label, client }) => {
   return (
     <div onClick={() => handleCallbCardsClick(label.id)} className={styles.colabWrap__item}>
       <div className={styles.colabWrap__top}>
-        <div className={cn(styles.colabWrap__img, styles.colabWrap__imgOnline)}>
-          <div className={styles.colabWrap__online}></div>
-          <div className={styles.colabWrap__avatar}>
+        <div className={cn(styles.avatar__img, styles.avatar__imgOnline)}>
+          <div className={styles.avatar__avatar}>
             <img
               src={label.image ? client.UPLOAD_URL + label.image : '/img/mangastory.jpg'}
               alt=""></img>

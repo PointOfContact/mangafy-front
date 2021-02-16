@@ -32,7 +32,9 @@
         padding: 3px;
         border-radius: 50%;
         img {
-            object-fit: contain;
+            object-fit: cover;
+            width: 104px;
+            height: 104px;
         }
     }
 }
