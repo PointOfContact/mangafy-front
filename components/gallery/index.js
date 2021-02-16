@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
-import { Upload, Row, Col, Popconfirm } from 'antd';
+import { Modal, Upload, Row, Col, Popconfirm } from 'antd';
 import client from 'api/client';
+import SvgClose from 'components/icon/Close';
 import SvgDustbin from 'components/icon/Dustbin';
 import SvgHeart from 'components/icon/Heart';
 import AddButton from 'components/ui-elements/add-button';
@@ -138,12 +139,23 @@ export const Gallery = (props) => {
         });
     });
   };
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const showModal = () => {
+    document.body.classList.add('body_remove_scroll');
+    setIsModalVisible(true);
+  };
+
+  const handleCancel = () => {
+    document.body.classList.remove('body_remove_scroll');
+    setIsModalVisible(false);
+  };
 
   const gallerySet = (e, indexImg) => {
     const currentImg = images[indexImg];
     const ll = images.filter((item, index) => index !== indexImg);
     const newArr = [currentImg, ...ll];
     setShowGallery(true);
+    showModal();
     setImages(newArr);
   };
 
@@ -211,15 +223,24 @@ export const Gallery = (props) => {
   return (
     <div>
       {showGallery && (
-        <div className={styles.main_popup}>
-          <ImageGallery
-            lazyLoad={true}
-            useBrowserFullscreen={true}
-            showIndex={true}
-            autoPlay={false}
-            items={images}
-          />
-        </div>
+        <Modal
+          className="galere_modal"
+          footer={null}
+          width={'100%'}
+          zIndex={200000000}
+          onCancel={handleCancel}
+          closeIcon={<SvgClose />}
+          visible={isModalVisible}>
+          <div className={styles.main_popup}>
+            <ImageGallery
+              lazyLoad={true}
+              useBrowserFullscreen={true}
+              showIndex={true}
+              autoPlay={false}
+              items={images}
+            />
+          </div>
+        </Modal>
       )}
       <h4 className={styles.title}>{title}</h4>
       {errMessage && <p>{errMessage}</p>}

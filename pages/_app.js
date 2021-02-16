@@ -1,7 +1,7 @@
 import React from 'react';
 
 import '../styles/styles.sass';
-import '../styles/antd.css';
+import 'antd/dist/antd.min.css';
 import 'react-chat-elements/dist/main.css';
 import * as Sentry from '@sentry/node';
 
