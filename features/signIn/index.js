@@ -68,11 +68,9 @@ const Login = () => {
       <Content className={styles.sign_in_content}>
         <Row>
           <Col className={styles.sign_in} span={24}>
-            <img src="/img/aboutme.png" alt="" />
+            <img src="/img/sing-in.svg" alt="" />
             <h2 className={styles.title}>Hello, who’s this?</h2>
-            <p className={styles.info}>
-              Sign in to get your personalized page connect with you love
-            </p>
+            <p className={styles.info}>Sign in to get your personalized page and start connecting</p>
             <div>
               <AuthForm
                 {...{

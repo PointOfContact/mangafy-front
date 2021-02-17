@@ -3,30 +3,51 @@
 .sign_in_content {
   .sign_in {
     text-align: center;
+    padding-top: 100px;
+    padding-bottom: 80px;
     img {
-      margin: auto;
-      width: 300px;
+      width: auto;
+      margin: 0 auto;
+      margin-bottom: 78px;
     }
     .title {
       font-weight: bold;
       font-size: $h2;
       color: $black;
+      margin-bottom: 0;
     }
     .info {
       font-size: $text1;
       color: $black;
+      margin-bottom: 47px;
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
-
     @include media-sm {
+      padding-top: 32px;
       img {
-        width: 210px;
+        max-width: 210px;
+        margin-bottom: 43px;
       }
       .title {
-        font-size: $h4;
+        font-size: 30px;
+        line-height: 1.2;
       }
       .info {
-        font-size: $text4;
-        color: $grey;
+        font-size: 20px;
+        line-height: 1.25;
+      }
+    }
+    @include media-xs {
+      img {
+        margin-bottom: 39px;
+      }
+      .title {
+        margin-bottom: 14px;
+      }
+      .info {
+        margin-bottom: 20px;
       }
     }
   }
