@@ -120,6 +120,33 @@ body {
   }
 }
 
+.ant-switch-checked {
+  background-color: $primaryDark !important;
+}
+
+.ant-switch-handle:before {
+  right: -1px !important;
+  left: 1px !important;
+  background-color: $grayBG !important;
+  border-radius: 30px !important;
+}
+.ant-switch {
+  min-width: 48px !important;
+  height: 27px !important;
+  line-height: 27px !important;
+}
+
+.ant-switch-checked .ant-switch-handle {
+  left: calc(100% - 24px) !important;
+}
+
+.ant-switch-handle {
+  top: 3px !important;
+  left: 2px !important;
+  width: 20px !important;
+  height: 20px !important;
+}
+
 @include media-sm {
   .mobile_full_content {
     max-width: 100%;
