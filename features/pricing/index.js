@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 
+import { Switch } from 'antd';
 import Footer from 'components/footer';
 import Header from 'components/header';
 import BlackVector from 'components/icon/BlackVector';
@@ -12,6 +13,40 @@ import styles from './styles.module.scss';
 
 const Pricing = (props) => {
   const { user } = props;
+
+  const [period, setPeriod] = useState('month');
+
+  const [personal1, setPersonal1] = useState(1);
+  const [personal2, setPersonal2] = useState(5);
+  const [personal3, setPersonal3] = useState(-1);
+
+  const [plus1, setPlus1] = useState(4);
+  const [plus2, setPlus2] = useState(6);
+  const [plus3, setPlus3] = useState(-1);
+
+  const paymentSwitch = (checked) => {
+    if (checked) {
+      setPeriod('year');
+
+      setPersonal1(1);
+      setPersonal2(8);
+      setPersonal3(0);
+
+      setPlus1(5);
+      setPlus2(5);
+      setPlus3(2);
+    } else {
+      setPeriod('month');
+
+      setPersonal1(1);
+      setPersonal2(5);
+      setPersonal3(-1);
+
+      setPlus1(4);
+      setPlus2(6);
+      setPlus3(-1);
+    }
+  };
 
   return (
     <div className="">
@@ -49,7 +84,7 @@ const Pricing = (props) => {
                 <div className={styles.repayment_type}>
                   <span>Monthly</span>
                   <div className={styles.payment_switch}>
-                    <span></span>
+                    <Switch defaultChecked onChange={paymentSwitch} />
                   </div>
                   <span>Yearly</span>
                 </div>
@@ -99,7 +134,58 @@ const Pricing = (props) => {
                   <img src="img/tools_image2.png"></img>
                   <div className={styles.item_category}>Personal Pro</div>
                   <div className={styles.item_price}>
-                    $15<span>per month</span>
+                    $
+                    <div className={styles.container}>
+                      <div
+                        className={styles.wrap}
+                        style={{ transform: `translateY(${-15 + personal1 * -50}px)` }}>
+                        <span className={styles.digit}>0</span>
+                        <span className={styles.digit}>1</span>
+                        <span className={styles.digit}>2</span>
+                        <span className={styles.digit}>3</span>
+                        <span className={styles.digit}>4</span>
+                        <span className={styles.digit}>5</span>
+                        <span className={styles.digit}>6</span>
+                        <span className={styles.digit}>7</span>
+                        <span className={styles.digit}>8</span>
+                        <span className={styles.digit}>9</span>
+                      </div>
+                    </div>
+                    <div className={styles.container}>
+                      <div
+                        className={styles.wrap}
+                        style={{ transform: `translateY(${-15 + personal2 * -50}px)` }}>
+                        <span className={styles.digit}>0</span>
+                        <span className={styles.digit}>1</span>
+                        <span className={styles.digit}>2</span>
+                        <span className={styles.digit}>3</span>
+                        <span className={styles.digit}>4</span>
+                        <span className={styles.digit}>5</span>
+                        <span className={styles.digit}>6</span>
+                        <span className={styles.digit}>7</span>
+                        <span className={styles.digit}>8</span>
+                        <span className={styles.digit}>9</span>
+                      </div>
+                    </div>
+                    {personal3 > -1 && (
+                      <div className={styles.container}>
+                        <div
+                          className={styles.wrap}
+                          style={{ transform: `translateY(${-15 + personal3 * -50}px)` }}>
+                          <span className={styles.digit}>0</span>
+                          <span className={styles.digit}>1</span>
+                          <span className={styles.digit}>2</span>
+                          <span className={styles.digit}>3</span>
+                          <span className={styles.digit}>4</span>
+                          <span className={styles.digit}>5</span>
+                          <span className={styles.digit}>6</span>
+                          <span className={styles.digit}>7</span>
+                          <span className={styles.digit}>8</span>
+                          <span className={styles.digit}>9</span>
+                        </div>
+                      </div>
+                    )}
+                    <span>per {period}</span>
                   </div>
                   <LargeButton
                     className={styles.tool_button}
@@ -151,7 +237,58 @@ const Pricing = (props) => {
                   <img src="img/tools_image3.jpg"></img>
                   <div className={styles.item_category}>Plus Plus</div>
                   <div className={styles.item_price}>
-                    $46<span>per month</span>
+                    $
+                    <div className={styles.container}>
+                      <div
+                        className={styles.wrap}
+                        style={{ transform: `translateY(${-15 + plus1 * -50}px)` }}>
+                        <span className={styles.digit}>0</span>
+                        <span className={styles.digit}>1</span>
+                        <span className={styles.digit}>2</span>
+                        <span className={styles.digit}>3</span>
+                        <span className={styles.digit}>4</span>
+                        <span className={styles.digit}>5</span>
+                        <span className={styles.digit}>6</span>
+                        <span className={styles.digit}>7</span>
+                        <span className={styles.digit}>8</span>
+                        <span className={styles.digit}>9</span>
+                      </div>
+                    </div>
+                    <div className={styles.container}>
+                      <div
+                        className={styles.wrap}
+                        style={{ transform: `translateY(${-15 + plus2 * -50}px)` }}>
+                        <span className={styles.digit}>0</span>
+                        <span className={styles.digit}>1</span>
+                        <span className={styles.digit}>2</span>
+                        <span className={styles.digit}>3</span>
+                        <span className={styles.digit}>4</span>
+                        <span className={styles.digit}>5</span>
+                        <span className={styles.digit}>6</span>
+                        <span className={styles.digit}>7</span>
+                        <span className={styles.digit}>8</span>
+                        <span className={styles.digit}>9</span>
+                      </div>
+                    </div>
+                    {plus3 > -1 && (
+                      <div className={styles.container}>
+                        <div
+                          className={styles.wrap}
+                          style={{ transform: `translateY(${-15 + plus3 * -50}px)` }}>
+                          <span className={styles.digit}>0</span>
+                          <span className={styles.digit}>1</span>
+                          <span className={styles.digit}>2</span>
+                          <span className={styles.digit}>3</span>
+                          <span className={styles.digit}>4</span>
+                          <span className={styles.digit}>5</span>
+                          <span className={styles.digit}>6</span>
+                          <span className={styles.digit}>7</span>
+                          <span className={styles.digit}>8</span>
+                          <span className={styles.digit}>9</span>
+                        </div>
+                      </div>
+                    )}
+                    <span>per {period}</span>
                   </div>
                   <LargeButton
                     className={styles.tool_button}
@@ -221,8 +358,8 @@ const Pricing = (props) => {
   );
 };
 
-Pricing.prototype = {
-  user: PropTypes.object,
+Pricing.propTypes = {
+  user: PropTypes.object.isRequired,
 };
 
 export default Pricing;
