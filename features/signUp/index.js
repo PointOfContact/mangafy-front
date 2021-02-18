@@ -155,7 +155,7 @@ const Register = () => {
       <Content className={styles.sign_up_content}>
         <Row>
           <Col className={styles.sign_up} span={24}>
-            <img src="/img/aboutme.png" alt="" />
+            <img src="/img/sing-in.svg" alt="" />
             <h2 className={styles.title}>Make the most of your digital comics life</h2>
             <p className={styles.info}>
               Sign up to get your personalized page connect with enthusiast world wide

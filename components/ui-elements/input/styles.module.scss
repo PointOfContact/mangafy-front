@@ -1,17 +1,21 @@
+@import '../../../styles/variables.scss';
+
 .primary_input {
   width: 300px;
   padding: 7px 13px 9px 13px;
   font-family: Noto Sans JP;
   font-style: normal;
   font-weight: 500;
-  font-size: 15px;
+  font-size: 25px;
   line-height: 22px;
   color: #212121;
   background: #fafafa;
   border: 1px solid #f4f4f4;
   box-sizing: border-box;
   border-radius: 5px;
-
+  @include media-sm {
+    font-size: 20px;
+  }
   &:focus {
     box-shadow: 0px 0px 20px rgba(123, 101, 243, 0.27);
     border: 1px solid #7b65f3;

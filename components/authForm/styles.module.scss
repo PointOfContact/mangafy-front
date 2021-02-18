@@ -1,39 +1,81 @@
 @import '../../styles/variables.scss';
 
 .auth_form {
-  max-width: 700px;
+  max-width: 807px;
   text-align: center;
   margin: auto;
   .select {
     margin-bottom: 40px;
     margin-top: 40px;
+    @include media-sm {
+      margin-top: 30px;
+    }
   }
-
   .login_form {
+    margin-bottom: 44px;
+    &:last-child {
+      margin-bottom: 0;
+    }
     input {
-      margin-top: 40px;
+      font-size: 25px;
+      margin-top: 28px;
       &:first-child {
         margin-top: 0px;
+      }
+      @include media-sm {
+        font-size: 20px;
+      }
+      @include media-xs {
+        margin-top: 42px;
       }
     }
     .forgot_password {
       text-align: left;
-      font-size: $text5;
+      font-size: 15px;
       color: $grey;
+      text-decoration: underline;
+      margin-top: 12px;
+      &:hover {
+        color: $primaryDark;
+      }
       span {
         cursor: pointer;
       }
+      @include media-sm {
+        font-size: 12px;
+        margin-top: 10px;
+      }
+      @include media-xs {
+        font-size: 10px;
+        margin-top: 6px;
+      }
+    }
+    @include media-xs {
+      margin-bottom: 48px;
     }
   }
   .login_button {
     text-align: center;
+    margin-bottom: 12px;
+    &:last-child {
+      margin-bottom: 0;
+    }
     button {
-      margin: 46px auto 22px auto;
+      font-size: 20px;
+      margin: 0 auto;
+      @include media-xs {
+        width: 303px;
+        height: 78px;
+      }
     }
   }
   .or {
     display: flex;
     justify-content: center;
+    margin-bottom: 17px;
+    @include media-xs {
+      margin-bottom: 14px;
+    }
     p {
       border-bottom: 1px solid $black;
       width: 263px;
@@ -43,9 +85,12 @@
       color: $black;
       font-size: 35px;
       padding: 0 5px;
+      @include media-xs {
+        font-size: 30px;
+        padding: 0 15px;
+      }
     }
   }
-
   .social_login {
     text-align: center;
     span {
@@ -59,20 +104,26 @@
       justify-content: center;
       width: 263px;
       height: 46px;
-      margin-bottom: 15px;
+      margin-right: 50px;
+      &:last-child {
+        margin-right: 0;
+      }
       svg {
         margin-right: 15px;
       }
       @include media-sm {
         display: flex;
         width: 100%;
+        margin-bottom: 15px;
+        &:last-child {
+          margin-bottom: 0;
+        }
       }
     }
     .facebook_btn {
       background: linear-gradient(90.35deg, #3b5998 7.18%, #2355be 98.21%);
       border: 1px solid #5170b3;
       color: $text_white;
-      margin-right: 50px;
     }
 
     .google_btn {
