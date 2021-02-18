@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { PlusOutlined } from '@ant-design/icons';
-import { Tabs, Popover, Input, Button, Upload } from 'antd';
+import { Tabs, Popover, Input, Button, Upload, Progress } from 'antd';
 import client from 'api/client';
 import { Chat } from 'components/chat';
 import { Comments } from 'components/comments';
@@ -20,6 +20,8 @@ import Head from 'next/head';
 import Link from 'next/link';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
+import {BookOutlined} from '@ant-design/icons';
+import styles from './styles.module.scss';
 
 const { TabPane } = Tabs;
 const { TextArea } = Input;
@@ -237,11 +239,12 @@ const MangeStory = (props) => {
       </Head>
       <main className="main_back_2">
         <Header path="mangaStory" user={user} />
+        <div className={styles.pageWrap}>
         <section className="section_landing_for">
           <div className="mangafy_vontainer  container">
             <div className="row">
               <div className="col-sm-12 manga-story manga-story-m">
-                {!editMode && canEdit ? (
+                {/* {!editMode && canEdit ? (
                   <div className="d-flex justify-content-end">
                     <img
                       className="cursor-pointer"
@@ -263,13 +266,13 @@ const MangeStory = (props) => {
                       </Button>
                     </div>
                   )
-                )}
+                )} */}
 
                 {!editMode ? (
-                  <>
+                  <div className={styles.header}>
                     <h2>{baseData.title}</h2>
                     <p>{baseData.introduce}</p>
-                  </>
+                  </div>
                 ) : (
                   canEdit && (
                     <div className="inputs">
@@ -295,10 +298,10 @@ const MangeStory = (props) => {
                 )}
               </div>
             </div>
-            <div className="row">
+            {/* <div className="row">
               <div className="col-lg-7 p-3">
-                <div className="manga-story-left p-3">
-                  <div className="profileImg">
+                <div className="manga-story-left p-3"> */}
+                  {/* <div className="profileImg">
                     <img
                       className="img-max-height"
                       src={
@@ -313,106 +316,32 @@ const MangeStory = (props) => {
                         </div>
                       </Upload>
                     )}
-                  </div>
-                  <div className="row ">
-                    <div className="col-xs-3">
-                      {mangaStory.genres.slice(0, 1).map((g) => (
-                        <>
-                          <SvgCat width="18px" height="24px" />
-                          <span>{g.name}</span>
-                        </>
-                      ))}
-                    </div>
-                    <div className="col-xs-3 d-flex align-items-center ">
-                      <Button
-                        data-id="preferredLanguage"
-                        type={editMode && canEdit ? 'dashed' : 'text'}
-                        onClick={onChangePopup}>
-                        <SvgLang width="24px" height="24px" />
-                        <span>{mangaStory.preferredLanguage}</span>
-                      </Button>
-                    </div>
-                    <div className="col-xs-2 d-flex align-items-center ">
-                      <Popover placement="top" title="Searching For" content={content}>
-                        <Button
-                          data-id="searchingFor"
-                          type={editMode && canEdit ? 'dashed' : 'text'}
-                          onClick={onChangePopup}>
-                          <SvgTie width="20px" height="20px" />
-                          {baseData.searchingFor[0] || 'Searching For'}
-                        </Button>
-                      </Popover>
-                    </div>
-                    <div className="col-xs-4 d-flex align-items-center ">
-                      <Button
-                        value="compensationModel"
-                        data-id="compensationModel"
-                        type={editMode & canEdit ? 'dashed' : 'text'}
-                        onClick={onChangePopup}>
-                        <SvgMone width="20px" height="20px" />
-                        <span>
-                          {mangaStory.compensationModel == 'paid'
-                            ? 'Paid Collaboration'
-                            : 'Freewill'}
-                        </span>
-                      </Button>
-                    </div>
-                  </div>
-                </div>
+                  </div> */}
+                 
+                {/* </div>
               </div>
-              <div className="col-lg-5 p-3">
-                <div className="manga-story-right">
-                  <div className="avatar_div">
-                    <img
-                      className="avatar"
-                      src={
-                        mangaStory.authorInfo && mangaStory.authorInfo.avatar
-                          ? client.UPLOAD_URL + mangaStory.authorInfo.avatar
-                          : 'https://swanbulk.com/wp-content/uploads/2020/03/user-icon.svg'
-                      }
-                      alt=""
-                    />
-                  </div>
-                  <div className="p-3">
-                    <p>
-                      <p>
-                        Hey My Name {mangaStory.authorInfo && mangaStory.authorInfo.name}, and i'm
-                        open for collaboration
-                      </p>
-                      <p>
-                        I am a looking to collaborate with{' '}
-                        {baseData.searchingFor
-                          .filter((item) => userTypesEnums[item])
-                          .map((item) => userTypesEnums[item])
-                          .join(', ')}
-                      </p>
-                      <p>
-                        Compensation model:{' '}
-                        {mangaStory.compensationModel == 'paid'
-                          ? 'Paid Collaboration $'
-                          : 'Freewill'}
-                      </p>
-                    </p>
-                    <div>
-                      <ModalStart pid={pid} isOwn={isOwn} user={user} />
-                    </div>
-                    {/* <button className="but-manga-story"><ModalStart /></button> */}
-                    <p>
-                      With the help of the creators' patrons (fans/donors), MangaFY is able to
-                      financially support manga artists
-                    </p>
-                    <ShareButtons shareUrl={originUrl} />
-                  </div>
-                </div>
-              </div>
-            </div>
+            </div> */}
           </div>
         </section>
-        <section className="container manga-story-section-2">
+        <section className={`${styles.section2} container`}>
           <div className="row">
             <div className="col-lg-7">
               <Tabs defaultActiveKey="1" onChange={onChangeTab}>
-                <TabPane tab="STORY" key="1" className="story">
+              <TabPane tab="STORY BOARD" key="1" className="story">
+                  {/* <Tabs centered defaultActiveKey="1" tabPosition= 'left'>
+                    <TabPane tab="Tab 1" key="1">
+                      <h3>Coming soon</h3>
+                    </TabPane>
+                    <TabPane tab="Tab 2" key="2">
+                      Content of Tab Pane 2
+                    </TabPane>
+                    <TabPane tab="Tab 3" key="3">
+                      Content of Tab Pane 3
+                    </TabPane>
+                  </Tabs> */}
+                  Coming soon
+                </TabPane>
+                {user && <TabPane tab="STORY" key="2" className="story">
                   <h3>Here is a my story!</h3>
                   <p>
                     {!editMode
@@ -430,7 +359,7 @@ const MangeStory = (props) => {
                         )}
                     <p></p>
                   </p>
-                </TabPane>
+                </TabPane>}
                 <TabPane tab="COMMENTS" key="3">
                   <Comments
                     commentsData={comments}
@@ -449,55 +378,87 @@ const MangeStory = (props) => {
                 </TabPane>
               </Tabs>
             </div>
-            <div className="col-lg-5">
-              <div className="row modal_boxmanga">
-                <div className="col-lg-6">
-                  <ModalStart pid={pid} isOwn={isOwn} user={user} />
-                </div>
-                <div className="col-lg-6">
-                  <button className="but-manga-story mt-3 mb-3">Back this project</button>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-lg-12">
-                  <div className="story_name">
-                    <Link href={`/profile/${mangaStory.authorInfo._id}`}>
-                      <div className="firsterDiv">
-                        <img
-                          className="avatar"
-                          src={
-                            mangaStory.authorInfo && mangaStory.authorInfo.avatar
-                              ? client.UPLOAD_URL + mangaStory.authorInfo.avatar
-                              : 'https://swanbulk.com/wp-content/uploads/2020/03/user-icon.svg'
-                          }
-                          alt=""
-                        />
-                        <h5>
-                          {mangaStory.authorInfo && mangaStory.authorInfo.name}
-                          <br />
-                          {mangaStory.authorInfo && mangaStory.authorInfo.type}
-                        </h5>
-                      </div>
-                    </Link>
-                    <div className="last_div_story">
-                      <h4>About me</h4>
-                      <p>{mangaStory.authorInfo && mangaStory.authorInfo.content}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </section>
         <section>
+          <div className={styles.bannerWrap}>
           <div className="row">
-            <div className="col-lg-7"></div>
-            <div className="col-lg-5"></div>
+            <div className={styles.banner}>
+              <img src="/img/banner.png" />
+              <p><img src="/img/upload.png" /></p>
+            </div>
+            <div className="row">
+              <div className={`${styles.bannerGenres} d-flex `}>
+                  <div className={styles.bannerGenresItem}>
+                    {mangaStory.genres.slice(0, 1).map((g) => (
+                      <Button data-id="preferredLanguage"
+                      type={editMode && canEdit ? 'dashed' : 'text'}
+                      onClick={onChangePopup}>
+                        <SvgCat width="18px" height="24px" />
+                        <span>{g.name}</span>
+                      </Button>
+                    ))}
+                  </div>
+                  <div className={styles.bannerGenresItem}>
+                    <Button
+                      data-id="preferredLanguage"
+                      type={editMode && canEdit ? 'dashed' : 'text'}
+                      onClick={onChangePopup}>
+                      <SvgLang width="24px" height="24px" />
+                      <span>{mangaStory.preferredLanguage}</span>
+                    </Button>
+                  </div>
+                  <div className={styles.bannerGenresItem}>
+                    <Popover placement="top" title="Searching For" content={content}>
+                      <Button
+                        data-id="searchingFor"
+                        type={editMode && canEdit ? 'dashed' : 'text'}
+                        onClick={onChangePopup}>
+                        <SvgTie width="20px" height="20px" />
+                        <span>{baseData.searchingFor[0] || 'Searching For'}</span>
+                      </Button>
+                    </Popover>
+                  </div>
+                  <div className={styles.bannerGenresItem}>
+                    <Button
+                      value="compensationModel"
+                      data-id="compensationModel"
+                      type={editMode & canEdit ? 'dashed' : 'text'}
+                      onClick={onChangePopup}>
+                      <SvgMone width="20px" height="20px" />
+                      <span>
+                        {mangaStory.compensationModel == 'paid'
+                          ? 'Paid Collaboration'
+                          : 'Freewill'}
+                      </span>
+                    </Button>
+                  </div>
+                </div>
+            </div>
+            <div className={styles.progressWrapper}>
+              <div className={styles.progress}>
+                <p>Your graphic novel in progress</p>
+                <div className={styles.Lamp}>
+                  <div><img src="/img/Group.png"/></div>
+                </div>
+                <div className={styles.progressWrap}>
+                  <Progress percent={30} size="small" /> 
+                </div>
+                <div className={styles.Lamp}>
+                  <div><img src="/img/notebook 1.png"/></div>
+                </div>
+              </div>
+              <div className={styles.socials}>
+                <ShareButtons text="Share collb!" shareUrl={originUrl} />
+              </div>
+            </div>
+          </div>
           </div>
         </section>
+        </div>
         <Footer />
       </main>
-      <MenuPageFour {...props} />
+      {/* <MenuPageFour {...props} /> */}
 
       <div className="">
         {showPopup && (

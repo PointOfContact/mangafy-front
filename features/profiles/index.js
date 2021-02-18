@@ -149,7 +149,7 @@ const Profiles = (props) => {
         <div className="container mangafy_container">
           <Row type="flux">
             <div className="wrap-to-cards">{<ProfilesCard users={users} client={client} />}</div>
-          <div className={styles.colabCards}>
+            <div className={styles.colabCards}>
               <div className={'container'}>
                 <div className={styles.colabWrap}>
                   {users &&
