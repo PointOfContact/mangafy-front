@@ -47,6 +47,3 @@ ShareButtons.propTypes = {
   text: PropTypes.string,
 };
 
-ShareButtons.defaultProps = {
-  text: 'Excited? share with world',
-};
