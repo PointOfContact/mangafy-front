@@ -1,0 +1,45 @@
+@import '../../../styles/variables.scss';
+
+.content {
+  width: 100%;
+  height: 100%;
+  text-align: left;
+  color: $grey;
+  padding: 30px;
+  @include media-sm {
+    padding: 21px;
+  }
+  .types {
+    display: flex;
+    align-items: center;
+    font-size: $text5;
+    color: $grey;
+    svg {
+      margin-right: 6px;
+    }
+  }
+  .description {
+    width: 100%;
+    text-align: center;
+    svg {
+      margin-top: 40px;
+      margin-bottom: 15px;
+      @include media-sm {
+        width: 87px !important;
+        height: 63px !important;
+      }
+    }
+    .title {
+      font-weight: bold;
+      font-size: $text3;
+      color: $black;
+    }
+    .text {
+      font-size: $text5;
+      color: $grey;
+      @include media-sm {
+        font-size: $text6;
+      }
+    }
+  }
+}
