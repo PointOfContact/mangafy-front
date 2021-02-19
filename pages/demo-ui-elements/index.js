@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import PrimaryUpload from 'components/ui-elements/upload';
+
 import SvgAdd from '../../components/icon/Add';
 import AddButton from '../../components/ui-elements/add-button';
 import PrimaryButton from '../../components/ui-elements/button';
@@ -14,6 +16,9 @@ export default class UIElements extends Component {
       <>
         <main>
           <div className={'container'}>
+            <div className="demo_ui_elements">
+              <PrimaryUpload />
+            </div>
             <div className="demo_ui_elements">
               <Search
                 placeholder="Head - Sketch"
