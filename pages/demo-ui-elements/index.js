@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import { ChooseLayout } from 'components/chooseLayout';
 import PrimaryUpload from 'components/ui-elements/upload';
 
 import SvgAdd from '../../components/icon/Add';
@@ -16,6 +17,7 @@ export default class UIElements extends Component {
       <>
         <main>
           <div className={'container'}>
+            <ChooseLayout />
             <div className="demo_ui_elements">
               <PrimaryUpload />
             </div>

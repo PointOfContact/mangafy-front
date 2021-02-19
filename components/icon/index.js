@@ -1,3 +1,4 @@
+export { default as PaginationArrowPrev } from './PaginationArrowPrev';
 export { default as ActiveChecked } from './ActiveChecked';
 export { default as AddUser } from './AddUser';
 export { default as Add } from './Add';
@@ -59,6 +60,7 @@ export { default as TwNew } from './TwNew';
 export { default as Twitter } from './Twitter';
 export { default as UserDrawing } from './UserDrawing';
 export { default as User } from './User';
+export { default as WhiteChecked } from './WhiteChecked';
 export { default as WhiteFacebook } from './WhiteFacebook';
 export { default as WhiteTwitter } from './WhiteTwitter';
 export { default as WhiteVector } from './WhiteVector';
