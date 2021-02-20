@@ -1,110 +1,107 @@
 import React from 'react';
 
+import Footer from 'components/footer';
+import Header from 'components/header';
 import Head from 'next/head';
-// import styles from "./styles.module.scss";
+import PropTypes from 'prop-types';
 
-const About = () => (
-  <>
-    <Head>
-      <title>When MangaFY stories begin.</title>
-      <meta name="description" content="Where and when does a story start?!"></meta>
-      <link rel="icon" href="/favicon.ico" />
-    </Head>
-    <div className="terms">
-      <header id="header" className="gnb" style={{ backgroundColor: 'rgb(123, 100, 242)' }}>
-        <a className="MangaFY-logo" href="/">
-          MangaFY
-        </a>
-      </header>
-      <link rel="stylesheet" href="styles/css.css" />{' '}
-      <div className="wrap" data-sticky-wrap>
-        <div className="medium-style">
-          <section className="about">
-            <div className="block">
-              СOVID19 impacted lives around us, and while many need to adapt to new working methods
-              away from the office, new social norms allow for greater online opportunities.{' '}
+import styles from './styles.module.scss';
+
+const About = (props) => {
+  const { user } = props;
+
+  return (
+    <div className="">
+      <Head>
+        <title>MangaFY About Policy</title>
+        <meta name="description" content="MangaFY About Policy"></meta>
+        <meta property="og:url" content="http://mangafy.club" />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content="MangaFY About Policy" />
+        <meta property="og:description" content="MangaFY About Policy" />
+        <meta property="og:image" content="http://mangafy.club/img/indexMobSec3.webp" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <main className="main_back_2">
+        <Header path="myProfile" user={user} />
+        <div className={styles.about_page}>
+          <div className={styles.title_section}>
+            <div className={styles.title_inner}>
+              <div className={styles.page_title}>About MangaFY</div>
+              <div className={styles.page_description}>
+                Hi There! If you’re reading this, you’re probably like me – spending most of your
+                time writing at your desk, in-front of a computer or a notebook, hoping to one day
+                see your vision turning into a graphic novel (comic or even a manga!).
+              </div>
             </div>
-            <div className="block">
-              Communities and socialism now play a major role to allow anyone to aspire towards
-              pursuing their dreams - even aspiring artists who dream of releasing their graphic
-              novel or comic to life.
+            <div className={styles.image_block}>
+              <img src="img/about_image.png"></img>
             </div>
-            <div className="block">
-              Enter MangaFy, where we support YOU! the aspiring or freelance artists, be it a writer
-              or an illustrator looking to collaborate together and unify your skills sets by
-              building a full production cycle to your story idea - from storyboard to digital
-              publication, releasing your joint work, monetizing it and building your brand.
+          </div>
+          <div className={styles.info_section}>
+            <div className={styles.update_block}>Updated Februar 14, 2021</div>
+            <div className={styles.info_block}>
+              <div className={styles.info_title}>A story of tools and the future of work</div>
+              <div className={styles.info_description}>
+                And, if you ever thought about self-publishing your work, you have multiple windows
+                opened all over the place – browser for Google docs, Power Point, Word, Excel, and
+                on, and on… <br></br>
+                <br></br>We want to make the dreamers dream come true, and help aspiring authors and
+                freelancers’ journey to self-publication as simple as it can be. After all, this is
+                the digital age, where the internet grants us countless opportunities.<br></br>
+                <br></br>We take steps designed to ensure that only those employees who need access
+                to your personal information to fulfil their employment duties will have access to
+                it. We may use and disclose your personal or account information for the following
+                purposes:<br></br>
+                <br></br>Meet MangaFY, a digital platform for the artists, viewing each (aspiring or
+                freelancer) as a potential business, inspiring you to connect with fellow community
+                members, open a project and collaborate, all while utilising our in-platform
+                management tools to take your idea from story to a fully digital product, ready to
+                be monetised and published. Come and make the next big IP, our platform is for you.
+                <br></br>
+                <br></br>Our team has vast experience in the online scene, and we are all avid fans
+                of all comic, manga and anime…and our vision is clear – to grant a platform that
+                simplifies the self-publishing process by encouraging collaboration between artists,
+                remove the skill gap, and deliver in-platform production tools that will ease the
+                production process. Thus, nurturing the artist community, making new authors, and
+                generating new, original content.
+              </div>
             </div>
-            <div className="block">
-              Today's dreams aren't limited to one's personal journey, as working as a team can
-              drive major success to help you complete your road.
+            <div className={styles.info_block}>
+              <div className={styles.info_title}>About us</div>
+              <div className={styles.info_description}>
+                MangaFY was established by online marketing professionals with over a decade of
+                experience in the online scene. With great passion and love for all things Manga,
+                Comics, and yes, even Anime, our desire is to establish a digital platform for the
+                artists, viewing each (aspiring or freelancer) as a potential business, inspiring
+                you to connect with fellow community members, open a project and collaborate, all
+                while utilising our in-platform management tools to take your idea from story to a
+                fully digital product, ready to be monetised and published. Come and make the next
+                big IP, our platform is for you.
+              </div>
             </div>
-            <div className="block">
-              To learn more, check us out in{' '}
-              <a href="#" target="_blank">
-                Medium
-              </a>
-              ,{' '}
-              <a href="#" target="_blank">
-                Product Hunt
-              </a>
+            <div className={styles.info_block}>
+              <div className={styles.info_title}>Contact Us</div>
+              <div className={styles.info_description}>
+                If you have any questions or comments about this Privacy Policy or your personal
+                information, to make an access or correction request, to exercise any applicable
+                rights, to make a complaint, or to obtain information about our policies and
+                practices with respect to any service providers outside Canada, our Privacy Officer
+                (or Data Protection Officer) can be reached by mail or email using the following
+                contact information: by email at privacy@dribbble.com or by mail at 524 Yates St.,
+                Victoria, BC, V8W 1K8, Canada.
+              </div>
             </div>
-            <div className="block">
-              Apply to be a MangaFY{' '}
-              <a href="https://mangafy.club/sign-up" target="_blank">
-                here
-              </a>
-              .
-            </div>
-          </section>
+          </div>
         </div>
-      </div>
-      <footer data-sticky-footer className="footer">
-        <div className="footer-left" style={{ width: '70%' }}>
-          <span style={{ color: 'rgb(47, 47, 47)' }}>
-            MangaFY , Inc. © 2020. All rights reserved.
-          </span>
-          <span>
-            <a href="/rules">Community Guidelines</a>
-          </span>
-          <span>/</span>
-          <span>
-            <a href="/content">Content</a>
-          </span>
-          <span>/</span>
-          <span>
-            <a href="/terms">Terms</a>
-          </span>
-          <span>/</span>
-          <span>
-            <a href="/privac-policy">Privacy Policy</a>
-          </span>
-        </div>
-        <div className="footer-right">
-          <a className="link" target="_blank" href="https://mangafy.herokuapp.com/sign-a">
-            Write on MangaFY
-          </a>{' '}
-          <a className="link icon" target="_blank" href="https://www.facebook.com/mangafyy">
-            {' '}
-            <i className="fa fa-facebook" aria-hidden="true" />
-          </a>
-          <a className="link icon" target="_blank" href="https://twitter.com/Mangafy1">
-            {' '}
-            <i className="fa fa-twitter" aria-hidden="true" />
-          </a>
-          <a className="link icon" target="_blank" href="//instagram.com/MangaFYfiction/">
-            <i className="fa fa-instagram" aria-hidden="true" />
-          </a>
-          <a className="link icon" target="_blank" href="//blog.MangaFY.club/">
-            <i className="fa fa-tumblr" aria-hidden="true" />
-          </a>
-          <a className="link icon" href="mailto:info@MangaFY.club">
-            <i className="fa fa-envelope" aria-hidden="true" />
-          </a>
-        </div>
-      </footer>
+        <Footer />
+      </main>
     </div>
-  </>
-);
+  );
+};
+
+About.prototype = {
+  user: PropTypes.object,
+};
 
 export default About;
