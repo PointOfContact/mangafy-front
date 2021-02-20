@@ -40,7 +40,8 @@ const MangeStory = (props) => {
   const [baseData, setBaseData] = useState(props.mangaStory);
   const [showPopup, setShowPopup] = useState(false);
   const [activeField, setActiveField] = useState('');
-  const [errMessage, setErrMessage] = useState('');
+  const [storyBoardActiveTab, setStoryBoardActiveTab] = useState(1);
+    const [errMessage, setErrMessage] = useState('');
   const [showMessage, setShowMessage] = useState(false);
   const [canEdit, setCanEdit] = useState(props.isOwn);
 
@@ -210,6 +211,8 @@ const MangeStory = (props) => {
     }
   };
 
+
+
   const content = () => (
     <div>
       {' '}
@@ -328,18 +331,31 @@ const MangeStory = (props) => {
             <div className="col-lg-7">
               <Tabs defaultActiveKey="1" onChange={onChangeTab}>
               <TabPane tab="STORY BOARD" key="1" className="story">
-                  {/* <Tabs centered defaultActiveKey="1" tabPosition= 'left'>
-                    <TabPane tab="Tab 1" key="1">
-                      <h3>Coming soon</h3>
+                  <Tabs className={styles.storyBoardTab} type="line" onChange={(activeKey) => setStoryBoardActiveTab(activeKey)} defaultActiveKey="1" tabPosition= 'left'>
+                    <TabPane tab={<span>
+                      <img src={`/img/Group${storyBoardActiveTab == 1 ? ' (1)' : ''}.svg`}/>
+                      </span>} key="1">
+                      Coming soon
                     </TabPane>
-                    <TabPane tab="Tab 2" key="2">
+                    <TabPane tab={<span><img src={`/img/superhero 1${storyBoardActiveTab == 2 ? ' (1)' : ''}.svg`}/></span>} key="2">
                       Content of Tab Pane 2
                     </TabPane>
-                    <TabPane tab="Tab 3" key="3">
+                    <TabPane tab={<span><img src={`/img/documents 1${storyBoardActiveTab == 3 ? ' (1)' : ''}.svg`}/></span>} key="3">
                       Content of Tab Pane 3
                     </TabPane>
-                  </Tabs> */}
-                  Coming soon
+                    <TabPane tab={<span><img src={`/img/comic-book 1${storyBoardActiveTab == 4 ? ' (1)' : ''}.svg`}/></span>} key="4">
+                      Content of Tab Pane 3
+                    </TabPane>
+                    <TabPane tab={<span><img src={`/img/pencil-case 1${storyBoardActiveTab == 5 ? ' (1)' : ''}.svg`}/></span>} key="5">
+                      Content of Tab Pane 3
+                    </TabPane>
+                    <TabPane tab={<span><img src={`/img/edit 1${storyBoardActiveTab == 6 ? ' (1)' : ''}.svg`}/></span>} key="6">
+                      Content of Tab Pane 3
+                    </TabPane>
+                    <TabPane tab={<span><img src={`/img/share 3${storyBoardActiveTab == 7 ? ' (1)' : ''}.svg`}/></span>} key="7">
+                      Content of Tab Pane 3
+                    </TabPane>
+                  </Tabs>
                 </TabPane>
                 {user && <TabPane tab="STORY" key="2" className="story">
                   <h3>Here is a my story!</h3>
@@ -385,7 +401,7 @@ const MangeStory = (props) => {
           <div className="row">
             <div className={styles.banner}>
               <img src="/img/banner.png" />
-              <p><img src="/img/upload.png" /></p>
+              <div><img src="/img/upload.png" /></div>
             </div>
             <div className="row">
               <div className={`${styles.bannerGenres} d-flex `}>
