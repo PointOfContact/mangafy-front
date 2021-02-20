@@ -14,14 +14,14 @@
     position: relative;
 }
 
-.banner > img{
+.banner > img {
     width: 100%;
     display: flex;
     height: 100%;
     align-items: center;
 }
 
-.banner p{
+.banner div{
     top: 0;
     left: 100px;
     width: 100%;
@@ -85,5 +85,52 @@
 .progressWrap {
     width: 237px;
 }
+.ant-tabs-tab {
+    display: flex;
+    justify-content: center;
+}
+.storyBoardTab .ant-tabs-tab  {
+     display: flex;
+     justify-content: center;
+}
 
-
+.ant-tabs-nav {
+    padding: 0px 25px;
+    .ant-tabs-tab {
+      padding: 35px 0;
+      display: flex;
+      justify-content: center;
+      font-family: $fontFamilyNatoSans, sans-serif;
+      font-style: normal;
+      font-weight: 500;
+      font-size: $text3;
+      line-height: 29px;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      color: $black;
+      &:hover {
+        color: $primaryDark;
+      }
+      @include media-sm {
+        font-size: $text5;
+        padding: 25px 0;
+      }
+      .ant-tabs-tab-btn {
+        &:focus {
+          outline: none !important;
+          border: 0;
+        }
+      }
+    }
+    .ant-tabs-tab-active {
+      .ant-tabs-tab-btn {
+        color: $primaryDark;
+      }
+    }
+    .ant-tabs-ink-bar {
+      background-color: $primaryDark;
+      height: 7px !important;
+      border-radius: 20px;
+    }
+  }
