@@ -18,7 +18,7 @@ body {
 
 .ant-tabs-content-holder {
   // padding: 15px 25px;
-  padding:15px 0;
+  padding: 15px 0;
   @include media-sm {
     padding: 15px 30px;
   }
@@ -163,6 +163,9 @@ body {
           }
         }
       }
+      h4 {
+        color: $black;
+      }
     }
   }
 }
@@ -192,6 +195,105 @@ body {
   left: 2px !important;
   width: 20px !important;
   height: 20px !important;
+}
+
+.modal_succses {
+  max-width: 1040px !important;
+  border-radius: 10px !important;
+  .ant-modal-close-x {
+    width: initial !important;
+    height: initial !important;
+    margin-top: 31px !important;
+    margin-right: 31px !important;
+  }
+  .close_succsess_modal {
+    margin-right: 0 !important;
+    background-color: $primaryDark;
+    border-radius: 50px;
+    width: 39px;
+    height: 39px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .anima {
+    position: absolute;
+    top: -70px;
+    img {
+      margin: 0 !important;
+      display: inline-block;
+      width: 49%;
+      min-height: 45vh;
+    }
+
+    opacity: 0;
+    -webkit-animation: anima 8s ease-out;
+    -moz-animation: anima 8s ease-out;
+    -o-animation: anima 8s ease-out;
+    animation: anima 8s ease-out;
+
+    @keyframes anima {
+      0% {
+        display: none;
+        opacity: 1;
+      }
+
+      50% {
+        display: block;
+        opacity: 1;
+      }
+
+      100% {
+        display: block;
+        opacity: 0;
+      }
+    }
+  }
+  .content {
+    text-align: center;
+    img {
+      margin: 90px auto 0 auto;
+    }
+    button {
+      margin: 40px auto;
+    }
+  }
+  .mobile-btn {
+    display: none;
+  }
+  .dek-btn {
+    display: block;
+  }
+  @include media-sm {
+    .mobile-btn {
+      display: block;
+    }
+    .dek-btn {
+      display: none;
+    }
+    .ant-modal-content {
+      box-shadow: none;
+    }
+    .ant-modal-close {
+      left: 50%;
+      transform: translate(-50%, 0px);
+    }
+    .ant-modal-close-x {
+      margin-top: 0px !important;
+      margin-right: 0px !important;
+    }
+    .close_succsess_modal {
+      width: 45px;
+      height: 45px;
+      svg {
+        width: 21px;
+        height: 21px;
+      }
+    }
+    .content button {
+      margin: 10px auto 40px auto !important;
+    }
+  }
 }
 
 @include media-sm {
