@@ -21,6 +21,13 @@ import Link from 'next/link';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
 import {BookOutlined} from '@ant-design/icons';
+import ShareSvg from 'components/icon/Share'
+import EditSvg from 'components/icon/Edit'
+import PencilCaseSvg from 'components/icon/PencilCase'
+import ComicBookSvg from 'components/icon/ComicBook'
+import DocumentsSvg from 'components/icon/Documents'
+import SuperHeroSvg from 'components/icon/SuperHero'
+import GroupSvg from 'components/icon/Group'
 import styles from './styles.module.scss';
 
 const { TabPane } = Tabs;
@@ -270,7 +277,6 @@ const MangeStory = (props) => {
                     </div>
                   )
                 )} */}
-
                 {!editMode ? (
                   <div className={styles.header}>
                     <h2>{baseData.title}</h2>
@@ -330,34 +336,51 @@ const MangeStory = (props) => {
           <div className="row">
             <div className="col-lg-7">
               <Tabs defaultActiveKey="1" onChange={onChangeTab}>
-              <TabPane tab="STORY BOARD" key="1" className="story">
+              { true && <TabPane tab="STORY BOARD" key="1" className="story">
                   <Tabs className={styles.storyBoardTab} type="line" onChange={(activeKey) => setStoryBoardActiveTab(activeKey)} defaultActiveKey="1" tabPosition= 'left'>
                     <TabPane tab={<span>
-                      <img src={`/img/Group${storyBoardActiveTab == 1 ? ' (1)' : ''}.svg`}/>
+                      <ShareSvg fill="black" />
                       </span>} key="1">
                       Coming soon
                     </TabPane>
-                    <TabPane tab={<span><img src={`/img/superhero 1${storyBoardActiveTab == 2 ? ' (1)' : ''}.svg`}/></span>} key="2">
+                    <TabPane tab={<span>
+                      <SuperHeroSvg />
+                      </span>} key="2">
                       Content of Tab Pane 2
                     </TabPane>
-                    <TabPane tab={<span><img src={`/img/documents 1${storyBoardActiveTab == 3 ? ' (1)' : ''}.svg`}/></span>} key="3">
+                    <TabPane tab={<span>
+                      <DocumentsSvg />
+                    </span>}
+                      key="3">
                       Content of Tab Pane 3
                     </TabPane>
-                    <TabPane tab={<span><img src={`/img/comic-book 1${storyBoardActiveTab == 4 ? ' (1)' : ''}.svg`}/></span>} key="4">
+                    <TabPane tab={<span>
+                      <ComicBookSvg />
+                      </span>} key="4">
                       Content of Tab Pane 3
                     </TabPane>
-                    <TabPane tab={<span><img src={`/img/pencil-case 1${storyBoardActiveTab == 5 ? ' (1)' : ''}.svg`}/></span>} key="5">
+                    <TabPane tab={<span>
+                      <PencilCaseSvg />
+                      </span>} key="5">
                       Content of Tab Pane 3
                     </TabPane>
-                    <TabPane tab={<span><img src={`/img/edit 1${storyBoardActiveTab == 6 ? ' (1)' : ''}.svg`}/></span>} key="6">
+                    <TabPane tab={<span>
+                      <EditSvg />
+                      </span>} key="6">
                       Content of Tab Pane 3
                     </TabPane>
-                    <TabPane tab={<span><img src={`/img/share 3${storyBoardActiveTab == 7 ? ' (1)' : ''}.svg`}/></span>} key="7">
+                    <TabPane tab={<span>
+                      <ShareSvg />
+                      </span>} key="7">
                       Content of Tab Pane 3
                     </TabPane>
                   </Tabs>
-                </TabPane>
-                {user && <TabPane tab="STORY" key="2" className="story">
+                  <div className={styles.actionButtons}> 
+                    <Button type="primary">Previous</Button>
+                    <Button type="primary">Next {storyBoardActiveTab + 1}</Button>
+                  </div>
+                </TabPane>}
+                <TabPane tab="STORY" key="2" className="story">
                   <h3>Here is a my story!</h3>
                   <p>
                     {!editMode
@@ -375,7 +398,7 @@ const MangeStory = (props) => {
                         )}
                     <p></p>
                   </p>
-                </TabPane>}
+                </TabPane>
                 <TabPane tab="COMMENTS" key="3">
                   <Comments
                     commentsData={comments}
@@ -384,14 +407,14 @@ const MangeStory = (props) => {
                     user={user}
                   />
                 </TabPane>
-                <TabPane tab="COMMUNITY" key="4">
+                {/* <TabPane tab="COMMUNITY" key="4">
                   <div className="container community">
                     <div className="row">
                       <div className="col-lg-12"></div>
                     </div>
                   </div>
                   <Chat requests={requests} mangaStory={baseData} user={user} isOwn={isOwn} />
-                </TabPane>
+                </TabPane> */}
               </Tabs>
             </div>
           </div>

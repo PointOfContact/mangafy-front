@@ -134,3 +134,14 @@
       border-radius: 20px;
     }
   }
+
+  .actionButtons {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+  }
+
+  .actionButtons button {
+    background-color: $primaryDark;
+    border: none;
+  }
