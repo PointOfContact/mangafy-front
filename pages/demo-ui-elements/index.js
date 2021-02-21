@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import { ModalSuccess } from 'components/modalSuccess';
 import PrimaryUpload from 'components/ui-elements/upload';
 
 import SvgAdd from '../../components/icon/Add';
@@ -16,6 +17,7 @@ export default class UIElements extends Component {
       <>
         <main>
           <div className={'container'}>
+            <ModalSuccess />
             <div className="demo_ui_elements">
               <PrimaryUpload />
             </div>
