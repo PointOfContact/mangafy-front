@@ -8,8 +8,9 @@
     "start": "next start -p $PORT",
     "start:prod": "next start -p 5050",
     "optimize-svg": "svgo --config=.svgo.yml -f ./public/icons",
-    "convert-svg": "svgr -d ./components/icon ./public/icons",
+    "convert-svg": "svgr -d ./components/icon ./public/icons && npm run format:icons",
     "lint": "eslint --fix .",
+    "format:icons": "prettier --write ./components/icon/*js --config ./.prettierrc",
     "format": "prettier --write . --config ./.prettierrc"
   },
   "engines": {

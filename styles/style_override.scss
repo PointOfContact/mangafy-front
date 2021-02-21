@@ -66,6 +66,46 @@ body {
   }
 }
 
+.MangeStory {
+  .ant-tabs-nav {
+    padding: 0px 25px;
+    .ant-tabs-tab {
+      padding: 35px 0;
+      font-family: $fontFamilyNatoSans, sans-serif;
+      font-style: normal;
+      font-weight: 500;
+      font-size: $text3;
+      line-height: 29px;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      color: $black;
+      &:hover {
+        color: $primaryDark;
+      }
+      @include media-sm {
+        font-size: $text5;
+        padding: 25px 0;
+      }
+      .ant-tabs-tab-btn {
+        &:focus {
+          outline: none !important;
+          border: 0;
+        }
+      }
+    }
+    .ant-tabs-tab-active {
+      .ant-tabs-tab-btn {
+        color: $primaryDark;
+      }
+    }
+    .ant-tabs-ink-bar {
+      background-color: $primaryDark;
+      border-radius: 20px;
+    }
+  }
+}
+
 .galere_modal {
   top: 0px !important;
   height: 100vh;
@@ -149,6 +189,9 @@ body {
             fill-opacity: 1;
           }
         }
+      }
+      h4 {
+        color: $black;
       }
     }
   }
