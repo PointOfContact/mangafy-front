@@ -239,7 +239,7 @@ const MangeStory = (props) => {
       )}
     </div>
   );
-
+  const IsOwnStory = mangaStory.authorInfo._id === user._id
   return (
     <div className="story_page">
       <Head>
@@ -336,7 +336,7 @@ const MangeStory = (props) => {
           <div className="row">
             <div className="col-lg-7">
               <Tabs defaultActiveKey="1" onChange={onChangeTab}>
-              { true && <TabPane tab="STORY BOARD" key="1" className="story">
+              { IsOwnStory && <TabPane tab="STORY BOARD" key="1" className="story">
                   <Tabs className={styles.storyBoardTab} type="line" onChange={(activeKey) => setStoryBoardActiveTab(activeKey)} defaultActiveKey="1" tabPosition= 'left'>
                     <TabPane tab={<span>
                       <ShareSvg fill="black" />
