@@ -1,0 +1,116 @@
+@import '../../styles/variables.scss';
+
+.shareStoryBoard {
+  // height: 500px;
+  text-align: center;
+  margin-top: 100px;
+  .social {
+    position: relative;
+    margin: auto;
+    width: 117px;
+    height: 117px;
+    margin-bottom: 40px;
+    .share {
+      position: absolute;
+      bottom: 0;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: $primaryBG;
+      border-radius: 50%;
+      width: 67px;
+      height: 67px;
+      box-shadow: 0px 0px 5px rgba(123, 101, 243, 0.1);
+      &:hover {
+        box-shadow: 0px 0px 30px 0px rgba(123, 101, 243, 0.59);
+      }
+    }
+    .fb {
+      position: absolute;
+      cursor: pointer;
+      left: 17px;
+    }
+    .in {
+      position: absolute;
+      cursor: pointer;
+      right: 17px;
+      top: 17px;
+    }
+    .wt {
+      position: absolute;
+      cursor: pointer;
+      right: 0px;
+      top: 61px;
+    }
+  }
+  .title {
+    font-weight: bold;
+    font-size: $text3;
+    color: $black;
+  }
+  .logos {
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+      cursor: pointer;
+    }
+    .webtoon {
+      margin-right: 29px;
+      margin-left: 23px;
+    }
+    @include media-sm {
+      display: none;
+    }
+  }
+  .logos_mobile {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    @include media-sm {
+      display: flex;
+    }
+    button {
+      font-weight: 900;
+      font-size: $text4;
+      margin-right: 8px;
+      margin-bottom: 8px;
+      box-sizing: border-box;
+      border-radius: 30px;
+      color: $text_white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 105px;
+      height: 41px;
+
+      &:nth-child(3n + 1) {
+        background: $primaryDark;
+        border: 1px solid $primaryLight;
+      }
+      &:nth-child(3n + 2) {
+        background: $orangeDark;
+        border: 1px solid $orangeLight;
+      }
+      &:nth-child(3n + 0) {
+        background: $secondaryDark;
+        border: 1px solid $secondaryLight;
+      }
+    }
+  }
+  .link {
+    h4 {
+      font-weight: bold;
+      font-size: $text3;
+      color: $primaryDark;
+      margin-top: 20px;
+      margin-bottom: 0;
+    }
+    p {
+      font-size: $text4;
+      color: $grey;
+    }
+  }
+}
