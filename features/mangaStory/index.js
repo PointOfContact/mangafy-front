@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import { Tabs, Popover, Input, Button, Progress } from 'antd';
 import client from 'api/client';
+import { ChooseLayout } from 'components/chooseLayout';
 import { Comments } from 'components/comments';
 import Footer from 'components/footer';
 import Header from 'components/header';
@@ -16,8 +17,11 @@ import PencilCaseSvg from 'components/icon/PencilCase';
 import ShareSvg from 'components/icon/Share';
 import SuperHeroSvg from 'components/icon/Superhero';
 import SvgTie from 'components/icon/Tie';
+import { ModalSuccess } from 'components/modalSuccess';
 import EditPopup from 'components/popup';
 import { ShareButtons } from 'components/share';
+import { ShareStoryBoard } from 'components/shareStoryBoard';
+import Upload from 'components/ui-elements/upload';
 import { userTypesEnums } from 'helpers/constant';
 import Head from 'next/head';
 import Router from 'next/router';
@@ -28,16 +32,8 @@ import styles from './styles.module.scss';
 const { TabPane } = Tabs;
 const { TextArea } = Input;
 
-const content = (
-  <div>
-    <p>Content</p>
-    <p>Content</p>
-  </div>
-);
-
 const MangeStory = (props) => {
-  const { mangaStory, user, requests, isOwn, originUrl, comments, pid } = props;
-  const [amount, setAmount] = useState(5);
+  const { mangaStory, user, isOwn, originUrl, comments } = props;
   const [editMode, setEditMode] = useState(false);
   const [baseData, setBaseData] = useState(props.mangaStory);
   const [showPopup, setShowPopup] = useState(false);
@@ -65,11 +61,6 @@ const MangeStory = (props) => {
           Router.reload();
         });
     });
-  };
-
-  const onInputChange = async (e) => {
-    const { value } = e.target;
-    setAmount(value);
   };
 
   const setStoryEditMode = () => {
@@ -346,7 +337,6 @@ const MangeStory = (props) => {
                         className={`${styles.storyBoardTab} storyBoardTabs`}
                         type="line"
                         onChange={(activeKey) => setStoryBoardActiveTab(activeKey)}
-                        defaultActiveKey="1"
                         tabPosition="left">
                         <TabPane
                           tab={
@@ -382,7 +372,7 @@ const MangeStory = (props) => {
                             </span>
                           }
                           key={4}>
-                          Content of Tab Pane 3
+                          <ChooseLayout />
                         </TabPane>
                         <TabPane
                           tab={
@@ -391,7 +381,7 @@ const MangeStory = (props) => {
                             </span>
                           }
                           key={5}>
-                          Content of Tab Pane 3
+                          <Upload />
                         </TabPane>
                         <TabPane
                           tab={
@@ -400,7 +390,7 @@ const MangeStory = (props) => {
                             </span>
                           }
                           key={6}>
-                          Content of Tab Pane 3
+                          <ModalSuccess />
                         </TabPane>
                         <TabPane
                           tab={
@@ -409,7 +399,7 @@ const MangeStory = (props) => {
                             </span>
                           }
                           key={7}>
-                          Content of Tab Pane 3
+                          <ShareStoryBoard />
                         </TabPane>
                       </Tabs>
                       <div className={styles.actionButtons}>
@@ -479,6 +469,7 @@ const MangeStory = (props) => {
                     <div className={styles.bannerGenresItem}>
                       {mangaStory.genres.slice(0, 1).map((g) => (
                         <Button
+                          key={g}
                           data-id="preferredLanguage"
                           type={editMode && canEdit ? 'dashed' : 'text'}
                           onClick={onChangePopup}>
@@ -570,13 +561,15 @@ const MangeStory = (props) => {
 };
 
 MangeStory.propTypes = {
-  mangaStory: PropTypes.object,
-  user: PropTypes.number,
-  requests: PropTypes.array,
-  isOwn: PropTypes.bool,
-  originUrl: PropTypes.string,
-  comments: PropTypes.array,
-  pid: PropTypes.string,
+  mangaStory: PropTypes.object.isRequired,
+  user: PropTypes.object,
+  isOwn: PropTypes.bool.isRequired,
+  originUrl: PropTypes.string.isRequired,
+  comments: PropTypes.array.isRequired,
+};
+
+MangeStory.defaultProps = {
+  user: null,
 };
 
 export default MangeStory;
