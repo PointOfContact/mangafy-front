@@ -1,6 +1,6 @@
 import client from "./client";
 
-const findStoryBoard = (userId, onSuccess, onFailure) => {
+const findStoryBoard = (userId, mangaStoryId, onSuccess, onFailure) => {
   const jwt = client.getCookie("feathers-jwt");
   import("./restClient").then((m) => {
     m.default
@@ -8,6 +8,7 @@ const findStoryBoard = (userId, onSuccess, onFailure) => {
       .find({
         query: {
           authorId: userId,
+          mangaStoryId
         },
         headers: { Authorization: `Bearer ${jwt}` },
       })
