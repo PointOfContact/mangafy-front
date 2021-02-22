@@ -75,7 +75,7 @@ const MangeStory = (props) => {
   });
 
   useEffect(() => {
-    // getStoryBoard();
+    getStoryBoard();
   }, []);
 
   const getStoryBoard = () => {
