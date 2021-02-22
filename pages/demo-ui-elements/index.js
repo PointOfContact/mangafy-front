@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import { ChooseLayout } from 'components/chooseLayout';
 import { ModalSuccess } from 'components/modalSuccess';
 import { ShareStoryBoard } from 'components/shareStoryBoard';
 import PrimaryUpload from 'components/ui-elements/upload';
@@ -20,6 +21,7 @@ export default class UIElements extends Component {
           <div className={'container'}>
             <ModalSuccess />
             <ShareStoryBoard />
+            <ChooseLayout />
             <div className="demo_ui_elements">
               <PrimaryUpload />
             </div>

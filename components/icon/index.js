@@ -66,6 +66,7 @@ export { default as Twitter } from './Twitter';
 export { default as UserDrawing } from './UserDrawing';
 export { default as User } from './User';
 export { default as Whatsapp } from './Whatsapp';
+export { default as WhiteChecked } from './WhiteChecked';
 export { default as WhiteFacebook } from './WhiteFacebook';
 export { default as WhiteTwitter } from './WhiteTwitter';
 export { default as WhiteVector } from './WhiteVector';
