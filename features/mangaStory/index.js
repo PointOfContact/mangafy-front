@@ -14,6 +14,7 @@ import SvgMone from 'components/icon/Mone';
 import PencilCaseSvg from 'components/icon/PencilCase';
 import ShareSvg from 'components/icon/Share';
 import SuperHeroSvg from 'components/icon/Superhero';
+import GroupSvg from 'components/icon/Group';
 import SvgTie from 'components/icon/Tie';
 import EditPopup from 'components/popup';
 import { ShareButtons } from 'components/share';
@@ -212,6 +213,17 @@ const MangeStory = (props) => {
     }
   };
 
+  const clickBack = ()=> {
+    const nextTab = +storyBoardActiveTab - 1
+    setStoryBoardActiveTab(nextTab)
+  }
+  const clickNext = ()=> {
+    const nextTab = +storyBoardActiveTab + 1
+    setStoryBoardActiveTab(nextTab)
+  }
+
+
+
   const content = () => (
     <div>
       {' '}
@@ -322,118 +334,84 @@ const MangeStory = (props) => {
               {/* </div>
               </div>
             </div> */}
-            </div>
-          </section>
-          <section className={`${styles.section2} container`}>
-            <div className="row">
-              <div className="col-lg-7">
-                <Tabs defaultActiveKey="1" onChange={onChangeTab}>
-                  {IsOwnStory && (
-                    <TabPane tab="STORY BOARD" key="1" className="story">
-                      <Tabs
-                        className={styles.storyBoardTab}
-                        type="line"
-                        onChange={(activeKey) => setStoryBoardActiveTab(activeKey)}
-                        defaultActiveKey="1"
-                        tabPosition="left">
-                        <TabPane
-                          tab={
-                            <span>
-                              <ShareSvg fill="black" />
-                            </span>
-                          }
-                          key="1">
-                          Coming soon
-                        </TabPane>
-                        <TabPane
-                          tab={
-                            <span>
-                              <SuperHeroSvg />
-                            </span>
-                          }
-                          key="2">
-                          Content of Tab Pane 2
-                        </TabPane>
-                        <TabPane
-                          tab={
-                            <span>
-                              <DocumentsSvg />
-                            </span>
-                          }
-                          key="3">
-                          Content of Tab Pane 3
-                        </TabPane>
-                        <TabPane
-                          tab={
-                            <span>
-                              <ComicBookSvg />
-                            </span>
-                          }
-                          key="4">
-                          Content of Tab Pane 3
-                        </TabPane>
-                        <TabPane
-                          tab={
-                            <span>
-                              <PencilCaseSvg />
-                            </span>
-                          }
-                          key="5">
-                          Content of Tab Pane 3
-                        </TabPane>
-                        <TabPane
-                          tab={
-                            <span>
-                              <EditSvg />
-                            </span>
-                          }
-                          key="6">
-                          Content of Tab Pane 3
-                        </TabPane>
-                        <TabPane
-                          tab={
-                            <span>
-                              <ShareSvg />
-                            </span>
-                          }
-                          key="7">
-                          Content of Tab Pane 3
-                        </TabPane>
-                      </Tabs>
-                      <div className={styles.actionButtons}>
-                        <Button type="primary">Previous</Button>
-                        <Button type="primary">Next {storyBoardActiveTab + 1}</Button>
-                      </div>
+          </div>
+        </section>
+        <section className={`${styles.section2} container`}>
+          <div className="row">
+            <div className="col-lg-7">
+              <Tabs defaultActiveKey="1" onChange={onChangeTab}>
+              { IsOwnStory && <TabPane tab="STORY BOARD" key="1" className="story">
+                  <Tabs activeKey={storyBoardActiveTab.toString()} defaultActiveKey={1} className={`${styles.storyBoardTab} storyBoardTabs`} type="line" onChange={(activeKey) => setStoryBoardActiveTab(activeKey)} defaultActiveKey="1" tabPosition= 'left'>
+                    <TabPane tab={<span>
+                      <GroupSvg fill="#7b65f3"  width="25px"/>
+                      </span>} key={1}>
+                      Coming soon
                     </TabPane>
-                  )}
-                  <TabPane tab="STORY" key="2" className="story">
-                    <h3>Here is a my story!</h3>
-                    <p>
-                      {!editMode
-                        ? baseData.story
-                        : canEdit && (
-                            <TextArea
-                              autoSize={{ minRows: 3, maxRows: 1000 }}
-                              placeholder="Type here..."
-                              value={baseData.story}
-                              onChange={onChangeSingleField}
-                              type="text"
-                              className="textarea_text"
-                              name="story"
-                            />
-                          )}
-                      <p></p>
-                    </p>
-                  </TabPane>
-                  <TabPane tab="COMMENTS" key="3">
-                    <Comments
-                      commentsData={comments}
-                      isOwn={isOwn}
-                      mangaStory={baseData}
-                      user={user}
-                    />
-                  </TabPane>
-                  {/* <TabPane tab="COMMUNITY" key="4">
+                    <TabPane tab={<span>
+                      <SuperHeroSvg width="25px"/>
+                      </span>} key={2}>
+                      Content of Tab Pane 2
+                    </TabPane>
+                    <TabPane tab={<span>
+                      <DocumentsSvg width="25px" />
+                    </span>}
+                      key={3}>
+                      Content of Tab Pane 3
+                    </TabPane>
+                    <TabPane tab={<span>
+                      <ComicBookSvg width="25px"/>
+                      </span>} key={4}>
+                      Content of Tab Pane 3
+                    </TabPane>
+                    <TabPane tab={<span>
+                      <PencilCaseSvg width="25px"/>
+                      </span>} key={5}>
+                      Content of Tab Pane 3
+                    </TabPane>
+                    <TabPane tab={<span>
+                      <EditSvg height="25px"/>
+                      </span>} key={6}>
+                      Content of Tab Pane 3
+                    </TabPane>
+                    <TabPane tab={<span>
+                      <ShareSvg height="25px" />
+                      </span>} key={7}>
+                      Content of Tab Pane 3
+                    </TabPane>
+                  </Tabs>
+                  <div className={styles.actionButtons}> 
+                    {+storyBoardActiveTab > 1 && <Button type="primary" onClick={clickBack}>Back</Button>}
+                    {+storyBoardActiveTab < 7 && <Button type="primary" onClick={clickNext}>Next</Button>}
+                  </div>
+                </TabPane>}
+                <TabPane tab="STORY" key="2" className="story">
+                  <h3>Here is a my story!</h3>
+                  <p>
+                    {!editMode
+                      ? baseData.story
+                      : canEdit && (
+                          <TextArea
+                            autoSize={{ minRows: 3, maxRows: 1000 }}
+                            placeholder="Type here..."
+                            value={baseData.story}
+                            onChange={onChangeSingleField}
+                            type="text"
+                            className="textarea_text"
+                            name="story"
+                          />
+                        )}
+                    <p></p>
+                  </p>
+                </TabPane>
+                <TabPane tab="COMMENTS" key="3">
+                  <Comments
+                    commentsData={comments}
+                    isOwn={isOwn}
+                    mangaStory={baseData}
+                    user={user}
+                  />
+                </TabPane>
+                {/* <TabPane tab="COMMUNITY" key="4">
                   <div className="container community">
                     <div className="row">
                       <div className="col-lg-12"></div>

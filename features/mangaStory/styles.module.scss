@@ -28,6 +28,7 @@
     height: 100%;
     display: flex;
     align-items: center;
+    position: absolute;
 }
 
 .header {
@@ -85,63 +86,25 @@
 .progressWrap {
     width: 237px;
 }
-.ant-tabs-tab {
+ .active {
+    fill: $primaryDark
+}
+
+.actionButtons {
     display: flex;
-    justify-content: center;
-}
-.storyBoardTab .ant-tabs-tab  {
-     display: flex;
-     justify-content: center;
+    width: 100%;
+    justify-content: flex-end;
 }
 
-.ant-tabs-nav {
-    padding: 0px 25px;
-    .ant-tabs-tab {
-      padding: 35px 0;
-      display: flex;
-      justify-content: center;
-      font-family: $fontFamilyNatoSans, sans-serif;
-      font-style: normal;
-      font-weight: 500;
-      font-size: $text3;
-      line-height: 29px;
-      display: flex;
-      align-items: center;
-      text-align: center;
-      color: $black;
-      &:hover {
-        color: $primaryDark;
-      }
-      @include media-sm {
-        font-size: $text5;
-        padding: 25px 0;
-      }
-      .ant-tabs-tab-btn {
-        &:focus {
-          outline: none !important;
-          border: 0;
-        }
-      }
-    }
-    .ant-tabs-tab-active {
-      .ant-tabs-tab-btn {
-        color: $primaryDark;
-      }
-    }
-    .ant-tabs-ink-bar {
-      background-color: $primaryDark;
-      height: 7px !important;
-      border-radius: 20px;
-    }
-  }
-
-  .actionButtons {
-      display: flex;
-      width: 100%;
-      justify-content: space-between;
-  }
-
-  .actionButtons button {
+.actionButtons button {
+    margin-left: 20px;
     background-color: $primaryDark;
-    border: none;
-  }
+    border: 1px solid $primaryLight;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+
+.actionButtons button:hover, .actionButtons button:focus {
+    background-color: $primaryLight;
+}
+  
