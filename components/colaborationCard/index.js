@@ -8,7 +8,6 @@ import Router from 'next/router';
 import PropTypes from 'prop-types';
 
 import ButtonColab from './buttonColab';
-import Avatar from '../avatar-item';
 import styles from './styles.module.scss';
 
 const ColaborationCards = ({ label, client }) => {
@@ -20,7 +19,8 @@ const ColaborationCards = ({ label, client }) => {
   };
 
   return (
-    <div onClick={() => handleCallbCardsClick(label.id)} className={styles.colabWrap__item}>
+    // eslint-disable-next-line no-underscore-dangle
+    <div onClick={() => handleCallbCardsClick(label._id)} className={styles.colabWrap__item}>
       <div className={styles.colabWrap__top}>
         <div className={cn(styles.avatar__img, styles.avatar__imgOnline)}>
           <div className={styles.avatar__avatar}>
@@ -54,7 +54,7 @@ const ColaborationCards = ({ label, client }) => {
   );
 };
 
-ColaborationCards.PropTypes = {
+ColaborationCards.propTypes = {
   label: PropTypes.object.isRequired,
   client: PropTypes.object.isRequired,
 };

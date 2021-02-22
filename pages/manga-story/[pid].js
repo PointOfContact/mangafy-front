@@ -2,14 +2,12 @@ import client from 'api/client';
 import restClient from 'api/restClient';
 import { withAuthComponent, withAuthServerSideProps } from 'components/withAuth';
 import MangeStory from 'features/mangaStory';
-import absoluteUrl from 'next-absolute-url';
 import { store } from 'store';
 
 export default withAuthComponent(MangeStory);
 export const getServerSideProps = withAuthServerSideProps(async (context, user = null, jwt) => {
   try {
     user = user || store.user;
-    const { origin } = absoluteUrl(context.req);
     const res = await client.service('/api/v2/manga-stories').get(context.params.pid);
     let requests = { data: [] };
     let comments = { data: [] };
@@ -31,7 +29,6 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
         },
       });
     }
-    console.log(comments);
     return {
       props: {
         path: context.req.url,
@@ -45,7 +42,7 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
       }, // will be passed to the page component as props
     };
   } catch (error) {
-    console.log('errr', error);
+    console.error(error);
     if (context.res) {
       context.res.writeHead(302, {
         Location: '/404',

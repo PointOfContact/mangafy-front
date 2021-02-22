@@ -79,7 +79,7 @@ const ProfileContent = (props) => {
       <Content
         className={cn(
           styles.my_profile_tabs,
-          'mobile_full_content mobile_top_round mobile_linear'
+          'profile-content mobile_full_content mobile_top_round mobile_linear'
         )}>
         <Row>
           <Col span={24}>

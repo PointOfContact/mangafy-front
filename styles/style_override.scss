@@ -17,10 +17,17 @@ body {
 }
 
 .ant-tabs-content-holder {
-  // padding: 15px 25px;
   padding: 15px 0;
   @include media-sm {
     padding: 15px 30px;
+  }
+}
+.profile-content {
+  .ant-tabs-content-holder {
+    padding: 15px 25px;
+  }
+  .ant-tabs-nav {
+    padding: 0px 25px;
   }
 }
 
@@ -28,7 +35,6 @@ body {
   background-color: rgba(0, 0, 0, 0.85);
 }
 .ant-tabs-nav {
-  // padding: 0px 25px;
   .ant-tabs-tab {
     padding: 35px 0;
     font-family: $fontFamilyNatoSans, sans-serif;
@@ -56,7 +62,7 @@ body {
   }
   .ant-tabs-tab-active {
     .ant-tabs-tab-btn {
-      color: $primaryDark;
+      color: $primaryDark !important;
     }
   }
   .ant-tabs-ink-bar {
@@ -68,7 +74,7 @@ body {
 
 .story_page {
   .storyBoardTabs .ant-tabs-nav {
-   .ant-tabs-ink-bar {
+    .ant-tabs-ink-bar {
       background-color: $primaryDark;
       border-radius: 20px;
       position: absolute;

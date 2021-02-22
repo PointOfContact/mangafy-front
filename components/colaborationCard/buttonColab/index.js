@@ -9,7 +9,7 @@ const ButtonColab = ({ text, className, ...rest }) => (
   <div className={cn(styles.ButtonColab, className)}>{text}</div>
 );
 
-ButtonColab.PropTypes = {
+ButtonColab.propTypes = {
   className: PropTypes.string,
   text: PropTypes.string,
 };
