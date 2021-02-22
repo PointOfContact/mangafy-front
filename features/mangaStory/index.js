@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 
 import { Tabs, Popover, Input, Button, Progress } from 'antd';
 import client from 'api/client';
-import { createHero, findStoryBoard } from 'api/storyBoardClient';
+import { findStoryBoard } from 'api/storyBoardClient';
+import cn from 'classnames';
 import { ChooseLayout } from 'components/chooseLayout';
 import { Comments } from 'components/comments';
 import Footer from 'components/footer';
 import Header from 'components/header';
+import Hero, { HeroTypes } from 'components/Hero';
 import SvgCat from 'components/icon/Cat';
 import ComicBookSvg from 'components/icon/ComicBook';
 import DocumentsSvg from 'components/icon/Documents';
@@ -18,17 +20,17 @@ import PencilCaseSvg from 'components/icon/PencilCase';
 import ShareSvg from 'components/icon/Share';
 import SuperHeroSvg from 'components/icon/Superhero';
 import SvgTie from 'components/icon/Tie';
+import Idea from 'components/Idea';
 import { ModalSuccess } from 'components/modalSuccess';
 import EditPopup from 'components/popup';
 import { ShareButtons } from 'components/share';
 import { ShareStoryBoard } from 'components/shareStoryBoard';
 import Upload from 'components/ui-elements/upload';
-import Idea from 'components/Idea';
-import Hero, {HeroTypes} from 'components/Hero';
 import { userTypesEnums } from 'helpers/constant';
 import Head from 'next/head';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
+import useWindowSize from 'utils/useWindowSize';
 
 import styles from './styles.module.scss';
 
@@ -45,15 +47,31 @@ const MangeStory = (props) => {
   const [errMessage, setErrMessage] = useState('');
   const [showMessage, setShowMessage] = useState(false);
   const [canEdit, setCanEdit] = useState(props.isOwn);
+  const { width } = useWindowSize();
+
+  const renderNavigationButtons = () => (
+    <div className={styles.actionButtons}>
+      {+storyBoardActiveTab > 1 && (
+        <Button type="primary" onClick={clickBack}>
+          Back
+        </Button>
+      )}
+      {+storyBoardActiveTab < 7 && (
+        <Button type="primary" onClick={clickNext}>
+          Next
+        </Button>
+      )}
+    </div>
+  );
   const [storyBoard, setStoryBoard] = useState({
     idea: {
       title: '',
-      text: ''
+      text: '',
     },
     pages: [],
     heroes: [],
     author: [],
-    layouts: []
+    layouts: [],
   });
 
   useEffect(() => {
@@ -61,10 +79,15 @@ const MangeStory = (props) => {
   }, []);
 
   const getStoryBoard = () => {
-    findStoryBoard(user._id, mangaStory._id, (res) => {
-      setStoryBoard(res?.data[0]);
-    }, (err) => {});
-  }
+    findStoryBoard(
+      user._id,
+      mangaStory._id,
+      (res) => {
+        setStoryBoard(res?.data[0]);
+      },
+      (err) => {}
+    );
+  };
 
   const onAccept = (id, isAccept) => {
     const jwt = client.getCookie('feathers-jwt');
@@ -265,7 +288,7 @@ const MangeStory = (props) => {
       </Head>
       <main className="main_back_2">
         <Header path="mangaStory" user={user} />
-        <div className={styles.pageWrap}>
+        <div className={cn(styles.pageWrap, 'manga-story-page')}>
           <section className="section_landing_for">
             <div className="mangafy_vontainer  container">
               <div className="row">
@@ -360,7 +383,7 @@ const MangeStory = (props) => {
                         className={`${styles.storyBoardTab} storyBoardTabs`}
                         type="line"
                         onChange={(activeKey) => setStoryBoardActiveTab(activeKey)}
-                        tabPosition="left">
+                        tabPosition={width < 992 ? 'bottom' : 'left'}>
                         <TabPane
                           tab={
                             <span>
@@ -368,7 +391,10 @@ const MangeStory = (props) => {
                             </span>
                           }
                           key={1}>
-                          <Idea storyBoard={storyBoard} />
+                          <div className={styles.tabContent}>
+                            <Idea storyBoard={storyBoard} />
+                            {renderNavigationButtons()}
+                          </div>
                         </TabPane>
                         <TabPane
                           tab={
@@ -378,6 +404,7 @@ const MangeStory = (props) => {
                           }
                           key={2}>
                             <Hero storyBoard={storyBoard} setStoryBoard={setStoryBoard}/>
+                            {renderNavigationButtons()}
                         </TabPane>
                         <TabPane
                           tab={
@@ -386,7 +413,10 @@ const MangeStory = (props) => {
                             </span>
                           }
                           key={3}>
-                          Content of Tab Pane 3
+                          <div className={styles.tabContent}>
+                            <div>Content of Tab Pane 3</div>
+                            {renderNavigationButtons()}
+                          </div>
                         </TabPane>
                         <TabPane
                           tab={
@@ -395,7 +425,10 @@ const MangeStory = (props) => {
                             </span>
                           }
                           key={4}>
-                          <ChooseLayout />
+                          <div className={styles.tabContent}>
+                            <ChooseLayout />
+                            {renderNavigationButtons()}
+                          </div>
                         </TabPane>
                         <TabPane
                           tab={
@@ -404,7 +437,10 @@ const MangeStory = (props) => {
                             </span>
                           }
                           key={5}>
-                          <Upload />
+                          <div className={styles.tabContent}>
+                            <Upload />
+                            {renderNavigationButtons()}
+                          </div>
                         </TabPane>
                         <TabPane
                           tab={
@@ -413,7 +449,10 @@ const MangeStory = (props) => {
                             </span>
                           }
                           key={6}>
-                          <ModalSuccess />
+                          <div className={styles.tabContent}>
+                            <ModalSuccess />
+                            {renderNavigationButtons()}
+                          </div>
                         </TabPane>
                         <TabPane
                           tab={
@@ -422,21 +461,12 @@ const MangeStory = (props) => {
                             </span>
                           }
                           key={7}>
-                          <ShareStoryBoard />
+                          <div className={styles.tabContent}>
+                            <ShareStoryBoard />
+                            {renderNavigationButtons()}
+                          </div>
                         </TabPane>
                       </Tabs>
-                      <div className={styles.actionButtons}>
-                        {+storyBoardActiveTab > 1 && (
-                          <Button type="primary" onClick={clickBack}>
-                            Back
-                          </Button>
-                        )}
-                        {+storyBoardActiveTab < 7 && (
-                          <Button type="primary" onClick={clickNext}>
-                            Next
-                          </Button>
-                        )}
-                      </div>
                     </TabPane>
                   )}
                   <TabPane tab="STORY" key="2" className="story">

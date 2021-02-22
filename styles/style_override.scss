@@ -73,6 +73,58 @@ body {
 }
 
 .story_page {
+  background: #fafafa;
+  .ant-tabs-nav {
+    padding: 0px 25px;
+    background: white;
+    @include media-md {
+      border-top-left-radius: 60px;
+      border-top-right-radius: 60px;
+    }
+  }
+
+  .ant-tabs-content .ant-tabs-content-left {
+    height: 100%;
+  }
+
+  .ant-tabs-content-holder {
+    padding: 0;
+    @include media-sm {
+      padding: 0;
+    }
+  }
+
+  .storyBoardTabs {
+    .ant-tabs-nav {
+      padding: 0;
+    }
+
+    .ant-tabs-nav-list {
+      padding-left: 30px;
+    }
+
+    @include media-md {
+      .ant-tabs-bottom>.ant-tabs-nav:before, .ant-tabs-bottom>div>.ant-tabs-nav:before, .ant-tabs-top>.ant-tabs-nav:before, .ant-tabs-top>div>.ant-tabs-nav:before {
+        border-bottom: 0;
+      }
+      .ant-tabs-nav-list {
+        height: 63px;
+      }
+      .ant-tabs-tab-btn {
+        svg {
+          height: 23px;
+        }
+      }
+    }
+    .ant-tabs-tab-active {
+      svg {
+        path {
+          fill: #7b65f3;
+        }
+      }
+    }
+  }
+
   .storyBoardTabs .ant-tabs-nav {
     .ant-tabs-ink-bar {
       background-color: $primaryDark;
@@ -81,6 +133,11 @@ body {
       left: 0;
       top: 0;
       height: 100%;
+      @include media-md {
+        height: 2px;
+        top: unset;
+        bottom: 12px;
+      }
     }
   }
 }

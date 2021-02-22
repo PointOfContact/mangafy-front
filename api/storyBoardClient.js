@@ -1,14 +1,14 @@
-import client from "./client";
+import client from './client';
 
 const findStoryBoard = (userId, mangaStoryId, onSuccess, onFailure) => {
-  const jwt = client.getCookie("feathers-jwt");
-  import("./restClient").then((m) => {
+  const jwt = client.getCookie('feathers-jwt');
+  import('./restClient').then((m) => {
     m.default
-      .service("/api/v2/story-boards")
+      .service('/api/v2/story-boards')
       .find({
         query: {
           authorId: userId,
-          mangaStoryId
+          mangaStoryId,
         },
         headers: { Authorization: `Bearer ${jwt}` },
       })
@@ -23,13 +23,13 @@ const findStoryBoard = (userId, mangaStoryId, onSuccess, onFailure) => {
 };
 
 const patchStoryBoard = (storyBoardId, data, onSuccess, onFailure) => {
-  const jwt = client.getCookie("feathers-jwt");
-  import("./restClient").then((m) => {
+  const jwt = client.getCookie('feathers-jwt');
+  import('./restClient').then((m) => {
     m.default
-      .service("/api/v2/story-boards")
+      .service('/api/v2/story-boards')
       .patch(storyBoardId, data, {
         headers: { Authorization: `Bearer ${jwt}` },
-        mode: "no-cors",
+        mode: 'no-cors',
       })
       .then((res) => {
         onSuccess(res);
@@ -42,10 +42,10 @@ const patchStoryBoard = (storyBoardId, data, onSuccess, onFailure) => {
 };
 
 const findLayouts = (onSuccess, onFailure) => {
-  const jwt = client.getCookie("feathers-jwt");
-  import("./restClient").then((m) => {
+  const jwt = client.getCookie('feathers-jwt');
+  import('./restClient').then((m) => {
     m.default
-      .service("/api/v2/layouts")
+      .service('/api/v2/layouts')
       .find({
         headers: { Authorization: `Bearer ${jwt}` },
       })
@@ -60,13 +60,13 @@ const findLayouts = (onSuccess, onFailure) => {
 };
 
 const createHero = (data, onSuccess, onFailure) => {
-  const jwt = client.getCookie("feathers-jwt");
-  import("./restClient").then((m) => {
+  const jwt = client.getCookie('feathers-jwt');
+  import('./restClient').then((m) => {
     m.default
-      .service("/api/v2/heroes")
+      .service('/api/v2/heroes')
       .create(data, {
         headers: { Authorization: `Bearer ${jwt}` },
-        mode: "no-cors",
+        mode: 'no-cors',
       })
       .then((res) => {
         onSuccess(res);
@@ -79,13 +79,13 @@ const createHero = (data, onSuccess, onFailure) => {
 };
 
 const patchHero = (heroId, data, onSuccess, onFailure) => {
-  const jwt = client.getCookie("feathers-jwt");
-  import("./restClient").then((m) => {
+  const jwt = client.getCookie('feathers-jwt');
+  import('./restClient').then((m) => {
     m.default
-      .service("/api/v2/heroes")
+      .service('/api/v2/heroes')
       .patch(heroId, data, {
         headers: { Authorization: `Bearer ${jwt}` },
-        mode: "no-cors",
+        mode: 'no-cors',
       })
       .then((res) => {
         onSuccess(res);
@@ -98,10 +98,10 @@ const patchHero = (heroId, data, onSuccess, onFailure) => {
 };
 
 const getPages = (storyBoardId, data, onSuccess, onFailure) => {
-  const jwt = client.getCookie("feathers-jwt");
-  import("./restClient").then((m) => {
+  const jwt = client.getCookie('feathers-jwt');
+  import('./restClient').then((m) => {
     m.default
-      .service("/api/v2/pages")
+      .service('/api/v2/pages')
       .find({
         query: {
           storyBoard: storyBoardId,
@@ -119,13 +119,13 @@ const getPages = (storyBoardId, data, onSuccess, onFailure) => {
 };
 
 const createPage = (data, onSuccess, onFailure) => {
-  const jwt = client.getCookie("feathers-jwt");
-  import("./restClient").then((m) => {
+  const jwt = client.getCookie('feathers-jwt');
+  import('./restClient').then((m) => {
     m.default
-      .service("/api/v2/pages")
+      .service('/api/v2/pages')
       .create(data, {
         headers: { Authorization: `Bearer ${jwt}` },
-        mode: "no-cors",
+        mode: 'no-cors',
       })
       .then((res) => {
         onSuccess(res);
@@ -138,13 +138,13 @@ const createPage = (data, onSuccess, onFailure) => {
 };
 
 const patchPage = (pageId, data, onSuccess, onFailure) => {
-  const jwt = client.getCookie("feathers-jwt");
-  import("./restClient").then((m) => {
+  const jwt = client.getCookie('feathers-jwt');
+  import('./restClient').then((m) => {
     m.default
-      .service("/api/v2/pages")
+      .service('/api/v2/pages')
       .patch(pageId, data, {
         headers: { Authorization: `Bearer ${jwt}` },
-        mode: "no-cors",
+        mode: 'no-cors',
       })
       .then((res) => {
         onSuccess(res);
@@ -163,5 +163,5 @@ export {
   createHero,
   patchHero,
   createPage,
-  patchPage
+  patchPage,
 };
