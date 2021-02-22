@@ -16,7 +16,7 @@ const PrimaryUpload = () => {
     const isJpgOrPng =
       file.type === 'image/jpeg' ||
       file.type === 'image/png' ||
-      file.type === 'image/pdf' ||
+      file.type === 'application/pdf' ||
       file.type === 'image/jpg';
     if (!isJpgOrPng) {
       message.error('You can only upload PDF, JPG, JPEG, PNG file!');
@@ -45,7 +45,7 @@ const PrimaryUpload = () => {
   return (
     <div className="primary_upload">
       <Upload
-        accept="image/jpg, image/png, image/pdf, image/jpeg "
+        accept="image/jpg, image/png, application/pdf, image/jpeg "
         listType="picture-card"
         fileList={fileList}
         onChange={onChange}

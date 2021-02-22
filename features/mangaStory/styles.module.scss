@@ -107,4 +107,10 @@
 .actionButtons button:hover, .actionButtons button:focus {
     background-color: $primaryLight;
 }
-  
+
+.tabContent {
+    justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
