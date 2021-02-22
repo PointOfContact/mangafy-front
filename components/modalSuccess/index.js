@@ -39,12 +39,12 @@ export const ModalSuccess = () => {
         onCancel={handleCancel}>
         <div className="content">
           <div className="anima">
-            <img src="img/anima.gif" alt="" />
-            <img src="img/anima.gif" alt="" />
-            <img src="img/anima.gif" alt="" />
-            <img src="img/anima.gif" alt="" />
+            <img src="/img/anima.gif" alt="" />
+            <img src="/img/anima.gif" alt="" />
+            <img src="/img/anima.gif" alt="" />
+            <img src="/img/anima.gif" alt="" />
           </div>
-          <img src="img/dog.png" alt="" />
+          <img src="/img/dog.png" alt="" />
           <PrimaryButton
             className="dek-btn"
             text="MangaFY Home"

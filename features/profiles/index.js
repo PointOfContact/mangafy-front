@@ -1,23 +1,22 @@
-import { Pagination, Row, Select, Input } from 'antd';
+import { Row, Select } from 'antd';
+import client from 'api/client';
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
+import cn from 'classnames';
+import Footer from 'components/footer';
+import Header from 'components/header';
+import ProfilesCard from 'components/profilesCard';
+import ProfilesHeader from 'components/profilesHeader';
+import PrimaryButton from 'components/ui-elements/button';
+import { userTypes } from 'helpers/constant';
 import Head from 'next/head';
 import Link from 'next/link';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
-import styles from './styles.module.scss';
 import * as qs from 'query-string';
-import ColaborationCard from 'components/colaborationCard';
-import cn from 'classnames';
-
-import client from 'api/client';
-import Footer from 'components/footer';
-import Header from 'components/header';
-import SvgSearch from 'components/icon/Search';
-import ProfilesCard from 'components/profilesCard';
-import { userTypes } from 'helpers/constant';
 import { LinkCreator } from 'utils/linkCreator';
-// import ProfilesMobile from './mobile';
-import ProfilesHeader from 'components/profilesHeader'
+
+import styles from './styles.module.scss';
+
 const { Option } = Select;
 
 const menuOptions = (handleCompasitionClick) =>
@@ -161,7 +160,9 @@ const Profiles = (props) => {
                       <div className={cn(styles.PostColab__descr)}>
                         Have an idea to coomics and looking for collaboration?
                       </div>
-                      <button className={cn(styles.PostColab__btn)}>Post Collab</button>
+                      <Link href="/create-a-story/start">
+                        <PrimaryButton text="Post Collab" className={cn(styles.PostColab__btn)} />
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -189,7 +190,6 @@ const Profiles = (props) => {
         </div>
         <Footer />
       </main>
-      {/* <ProfilesMobile {...props} onChange={onChange} onInputChange={onInputChange} /> */}
     </div>
   );
 };

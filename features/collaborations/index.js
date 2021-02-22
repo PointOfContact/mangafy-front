@@ -8,8 +8,10 @@ import ColaborationCard from 'components/colaborationCard';
 import CollaborationsHeader from 'components/collaborationsHeader';
 import Footer from 'components/footer';
 import Header from 'components/header';
+import PrimaryButton from 'components/ui-elements/button';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
+import Link from 'next/link';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
 import * as qs from 'query-string';
@@ -167,7 +169,9 @@ const Collaborations = (props) => {
                       <div className={cn(styles.PostColab__descr)}>
                         Have an idea to coomics and looking for collaboration?
                       </div>
-                      <button className={cn(styles.PostColab__btn)}>Post Collab</button>
+                      <Link href="/create-a-story/start">
+                        <PrimaryButton text="Post Collab" className={cn(styles.PostColab__btn)} />
+                      </Link>
                     </div>
                   </div>
                 </div>

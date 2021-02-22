@@ -2,6 +2,7 @@ import React from 'react';
 
 import cn from 'classnames';
 import HugeButton from 'components/ui-elements/huge-button';
+import Link from 'next/link';
 
 import styles from './styles.module.scss';
 
@@ -23,9 +24,7 @@ const ProfilesHeader = () => (
         <div className={styles.box__content}>
           <div className={styles.box__title_wrap}>
             <div className={styles.box__title}>
-              <p className={styles.box__title_text}>
-                Collect them All!
-              </p>
+              <p className={styles.box__title_text}>Collect them All!</p>
             </div>
             <div className={styles.box__description}>
               <p className={styles.box__description_text}>
@@ -34,11 +33,9 @@ const ProfilesHeader = () => (
             </div>
           </div>
           <div className={styles.box__link}>
-            <HugeButton
-              text="Join to MangaFY"
-              disabled={false}
-              onClick={() => alert('HugeButton')}
-            />
+            <Link href="/sign-in">
+              <HugeButton text="Join to MangaFY" disabled={false} />
+            </Link>
           </div>
         </div>
       </div>
