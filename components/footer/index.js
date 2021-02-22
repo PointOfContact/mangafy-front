@@ -1,9 +1,12 @@
 import React from 'react';
 
+import cn from 'classnames';
+import Link from 'next/link';
+
 import styles from './styles.module.scss';
 
-const Footer = ({}) => (
-  <footer className={`${'footer' + ' '}${styles.footer}`}>
+const Footer = () => (
+  <footer className={cn(styles.footer, 'footer')}>
     <div className={'container'}>
       <div className={styles.footer__wrap}>
         <div className={styles.footer__left}>
@@ -32,70 +35,70 @@ const Footer = ({}) => (
         <div className={styles.footer__nav}>
           <div className={styles.footer__item1}>
             <div className={styles.footer__itemTitle}>For dreames</div>
-            <a href="#" className={styles.footer__itemLink}>
-              Go PRO
-            </a>
-            <a href="#" className={styles.footer__itemLink}>
-              Find Collaboration
-            </a>
-            <a href="#" className={styles.footer__itemLink}>
-              Post Collaboration
-            </a>
+            <Link href="/pricing">
+              <a className={styles.footer__itemLink}>Go PRO</a>
+            </Link>
+            <Link href="/collaborations">
+              <a className={styles.footer__itemLink}>Find Collaboration</a>
+            </Link>
+            <Link href="/create-a-story/start">
+              <a className={styles.footer__itemLink}>Post Collaboration</a>
+            </Link>
           </div>
 
           <div className={styles.footer__item2}>
             <div className={styles.footer__itemTitle}>Resources</div>
-            <a href="#" className={styles.footer__itemLink}>
-              Resources
-            </a>
-            <a href="#" className={styles.footer__itemLink}>
-              Supports
-            </a>
-            <a href="#" className={styles.footer__itemLink}>
-              Terms of service
-            </a>
-            <a href="#" className={styles.footer__itemLink}>
-              Privacy policy
-            </a>
+            <Link href="/resources">
+              <a className={styles.footer__itemLink}>Resources</a>
+            </Link>
+            <Link href="/supports">
+              <a className={styles.footer__itemLink}>Supports</a>
+            </Link>
+            <Link href="/terms">
+              <a className={styles.footer__itemLink}>Terms of service</a>
+            </Link>
+            <Link href="/privacy-policy">
+              <a className={styles.footer__itemLink}>Privacy policy</a>
+            </Link>
           </div>
 
           <div className={styles.footer__item3}>
             <div className={styles.footer__itemTitle}>Browse</div>
-            <a href="#" className={styles.footer__itemLink}>
-              Find Collaboration
-            </a>
-            <a href="#" className={styles.footer__itemLink}>
-              Find Commisions Work
-            </a>
-            <a href="#" className={styles.footer__itemLink}>
-              Post Commission Work
-            </a>
+            <Link href="/collaborations">
+              <a className={styles.footer__itemLink}> Find Collaboration</a>
+            </Link>
+            <Link href="/collaborations?compensationModel=paid">
+              <a className={styles.footer__itemLink}>Find Commisions Work</a>
+            </Link>
+            <Link href="/create-a-story/start">
+              <a className={styles.footer__itemLink}>Post Commission Work</a>
+            </Link>
           </div>
 
           <div className={styles.footer__item4}>
             <div className={styles.footer__itemTitle}>Company</div>
-            <a href="#" className={styles.footer__itemLink}>
-              About
-            </a>
-            <a href="#" className={styles.footer__itemLink}>
-              Careers
-            </a>
-            <a href="#" className={styles.footer__itemLink}>
-              We open for collaborations
-            </a>
-            <a href="#" className={styles.footer__itemLink}>
-              Terms of service
-            </a>
-            <a href="#" className={styles.footer__itemLink}>
-              Privacy policy
-            </a>
+            <Link href="/about">
+              <a className={styles.footer__itemLink}>About</a>
+            </Link>
+            <Link href="/careers">
+              <a className={styles.footer__itemLink}>Careers</a>
+            </Link>
+            <Link href="/collaborations">
+              <a className={styles.footer__itemLink}>We open for collaborations</a>
+            </Link>
+            <Link href="/terms">
+              <a className={styles.footer__itemLink}>Terms of service</a>
+            </Link>
+            <Link href="/privacy-policy">
+              <a className={styles.footer__itemLink}>Privacy policy</a>
+            </Link>
           </div>
 
           <div className={styles.footer__item5}>
             <div className={styles.footer__itemTitle}>Comics assets</div>
-            <a href="#" className={styles.footer__itemLink}>
-              Shop Creative Market
-            </a>
+            <Link href="/pricing">
+              <a className={styles.footer__itemLink}>Shop Creative Market</a>
+            </Link>
           </div>
         </div>
       </div>

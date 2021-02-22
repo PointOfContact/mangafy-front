@@ -2,10 +2,11 @@ import React from 'react';
 
 import cn from 'classnames';
 import HugeButton from 'components/ui-elements/huge-button';
+import Link from 'next/link';
 
 import styles from './styles.module.scss';
 
-const CollaborationMainScreen = ({}) => (
+const CollaborationMainScreen = () => (
   <>
     <div className={styles.box}>
       <div className={'container'}>
@@ -36,11 +37,9 @@ const CollaborationMainScreen = ({}) => (
               </div>
             </div>
             <div className={styles.box__link}>
-              <HugeButton
-                text="Post Collaborations"
-                disabled={false}
-                onClick={() => alert('HugeButton')}
-              />
+              <Link href="/create-a-story/start">
+                <HugeButton text="Post Collaborations" disabled={false} />
+              </Link>
             </div>
           </div>
         </div>
@@ -102,11 +101,9 @@ const CollaborationMainScreen = ({}) => (
               </div>
             </div>
             <div className={styles.box__link}>
-              <HugeButton
-                text="Join to MangaFY"
-                disabled={false}
-                onClick={() => alert('HugeButton')}
-              />
+              <Link href="/sign-in">
+                <HugeButton text="Join to MangaFY" disabled={false} />
+              </Link>
             </div>
           </div>
         </div>

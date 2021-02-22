@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
 import cn from 'classnames';
+import PrimaryButton from 'components/ui-elements/button';
 import { removeAllStorage } from 'helpers/shared';
 import Link from 'next/link';
+import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
@@ -10,19 +12,19 @@ const Header = ({ user, path }) => {
   const [isOpen, handleManuOpen] = useState(false);
 
   useEffect(() => {
-    document.addEventListener('click', _handleDocumentClick, false);
-    document.addEventListener('scroll', _handleScroll);
+    document.addEventListener('click', handleDocumentClick, false);
+    document.addEventListener('scroll', handleScroll);
 
     return () => {
-      document.removeEventListener('click', _handleDocumentClick);
-      document.removeEventListener('scroll', _handleScroll);
+      document.removeEventListener('click', handleDocumentClick);
+      document.removeEventListener('scroll', handleScroll);
     };
   });
   const openMenu = (e) => {
     e.nativeEvent.stopImmediatePropagation();
     handleManuOpen(!isOpen);
   };
-  const _handleScroll = () => {
+  const handleScroll = () => {
     const el = document.querySelector('.menubar');
     const elbar = document.querySelector('.hedertopbar');
     if (window.scrollY > 20) {
@@ -38,16 +40,10 @@ const Header = ({ user, path }) => {
     }
   };
 
-  const _handleDocumentClick = () => {
+  const handleDocumentClick = () => {
     handleManuOpen(false);
   };
 
-  const _menuToggle = (e) => {
-    e.stopPropagation();
-    handleManuOpen(!isOpen);
-  };
-
-  const menuStatus = isOpen ? 'isopen' : '';
   return (
     <>
       <div className={`hedertopbar`}></div>
@@ -55,15 +51,15 @@ const Header = ({ user, path }) => {
         <div className={'container'}>
           <div className={styles.header__top}>
             <div onClick={openMenu} className={styles.header__mnu}>
-              <img src="img/mnu.svg" alt="" />
+              <img src="/img/mnu.svg" alt="" />
             </div>
             <Link href="/">
               <a className={styles.header__logo}>
-                <img src="img/logo-new.png" alt="" />
+                <img src="/img/logo-new.png" alt="" />
               </a>
             </Link>
             <div className={styles.header__logIn}>
-              <img src="img/header-log-in.svg" alt="" />
+              <img src="/img/header-log-in.svg" alt="" />
             </div>
             <div className={styles.header__leftNav}>
               <Link href="/collaborations?compensationModel=paid">
@@ -77,9 +73,10 @@ const Header = ({ user, path }) => {
               </Link>
             </div>
             <div className={styles.header__rightNav}>
-              <a href="#" className={styles.header__menu}>
-                Join
-              </a>
+              <Link href="#">
+                <a className={styles.header__menu}>Join</a>
+              </Link>
+
               {user ? (
                 <>
                   {path !== 'myProfile' && (
@@ -101,18 +98,28 @@ const Header = ({ user, path }) => {
                   )}
                 </>
               ) : (
-                <a href="/sign-in" className={styles.header__menu}>
-                  Log in
-                </a>
+                <Link href="/sign-in">
+                  <a className={styles.header__menu}>Log in</a>
+                </Link>
               )}
             </div>
-            <button className={`${'btn_submit' + ' '}${styles.btn_submit}`}>Submit an IDEA</button>
+            <Link href="/create-a-story/start">
+              <PrimaryButton
+                className={cn(styles.btn_submit, 'btn_submit')}
+                text="Submit an IDEA"
+              />
+            </Link>
           </div>
         </div>
         {isOpen && <MenuLinks isOpen={isOpen} />}
       </header>
     </>
   );
+};
+
+Header.propTypes = {
+  user: PropTypes.object.isRequired,
+  path: PropTypes.string.isRequired,
 };
 
 const MenuLinks = ({ isOpen }) => {
@@ -138,7 +145,7 @@ const MenuLinks = ({ isOpen }) => {
   const links = initialLinks.map((link, i) => (
     <li className={styles.menu_item} key={i}>
       <Link href={`/${link.link}`}>
-        <a>{link.text}</a>
+        <span>{link.text}</span>
       </Link>
     </li>
   ));
@@ -167,6 +174,14 @@ const MenuLinks = ({ isOpen }) => {
       <ul className="links">{links}</ul>
     </div>
   );
+};
+
+MenuLinks.propTypes = {
+  isOpen: PropTypes.bool,
+};
+
+MenuLinks.defaultProps = {
+  isOpen: false,
 };
 
 export default Header;
