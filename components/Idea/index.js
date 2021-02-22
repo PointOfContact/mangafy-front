@@ -1,0 +1,76 @@
+import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+// Antd design
+import { Input } from 'antd';
+// Styles
+import styles from './styles.module.scss';
+import { patchStoryBoard } from 'api/storyBoardClient';
+
+const { TextArea } = Input;
+
+const Idea = ({storyBoard}) => {
+
+  const [idea, setIdea] = useState(storyBoard);
+
+  useEffect(() => {
+    setIdea(storyBoard?.idea);
+  }, [storyBoard])
+
+  const handleTitleChange = (e) => {
+    setIdea({
+      ...idea, 
+      title: e.target.value,
+    });
+  };
+
+  const handleTextChange = (e) => {
+    setIdea({
+      ...idea, 
+      text: e.target.value,
+    });
+  };
+
+  const onBlure = () => {
+    if(!idea?.title) {
+      return;
+    }
+    const newIdea = {
+      title: idea?.title,
+      text: idea?.text,
+    }
+    patchStoryBoard(storyBoard?._id, {idea: newIdea}, () => {}, (err) => {});
+  }
+
+  return (
+    <div className={styles.idea__container}>
+      <Input 
+        placeholder="Title" 
+        className={styles.idea__title__input} 
+        value={idea.title} 
+        onChange={handleTitleChange} 
+        onBlur={onBlure}
+        maxLength={100}
+      />
+      <TextArea
+        autoSize={{ minRows: 3, maxRows: 10 }}
+        placeholder="Type here..."
+        value={idea.text}
+        onChange={handleTextChange}
+        onBlur={onBlure}
+        required
+        type="text"
+        maxLength={1000}
+        className={styles.idea__textarea}
+      />
+    </div>);
+};
+
+Idea.propTypes = {
+  storyBoard: PropTypes.object,
+};
+
+Idea.defaultProps = {
+    storyBoard: {}
+};
+
+export default Idea;

@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Tabs, Popover, Input, Button, Progress } from 'antd';
 import client from 'api/client';
+import { findStoryBoard } from 'api/storyBoardClient';
 import cn from 'classnames';
 import { ChooseLayout } from 'components/chooseLayout';
 import { Comments } from 'components/comments';
 import Footer from 'components/footer';
 import Header from 'components/header';
+import Hero, { HeroTypes } from 'components/Hero';
 import SvgCat from 'components/icon/Cat';
 import ComicBookSvg from 'components/icon/ComicBook';
 import DocumentsSvg from 'components/icon/Documents';
@@ -18,6 +20,7 @@ import PencilCaseSvg from 'components/icon/PencilCase';
 import ShareSvg from 'components/icon/Share';
 import SuperHeroSvg from 'components/icon/Superhero';
 import SvgTie from 'components/icon/Tie';
+import Idea from 'components/Idea';
 import { ModalSuccess } from 'components/modalSuccess';
 import EditPopup from 'components/popup';
 import { ShareButtons } from 'components/share';
@@ -60,6 +63,31 @@ const MangeStory = (props) => {
       )}
     </div>
   );
+  const [storyBoard, setStoryBoard] = useState({
+    idea: {
+      title: '',
+      text: '',
+    },
+    pages: [],
+    heroes: [],
+    author: [],
+    layouts: [],
+  });
+
+  useEffect(() => {
+    // getStoryBoard();
+  }, []);
+
+  const getStoryBoard = () => {
+    findStoryBoard(
+      user._id,
+      mangaStory._id,
+      (res) => {
+        setStoryBoard(res?.data[0]);
+      },
+      (err) => {}
+    );
+  };
 
   const onAccept = (id, isAccept) => {
     const jwt = client.getCookie('feathers-jwt');
@@ -251,6 +279,42 @@ const MangeStory = (props) => {
     </div>
   );
 
+  const getHeroesList = () => {
+    const heroes = [];
+    storyBoard?.heroes?.map((hero, index) => {
+      if (hero?.type === HeroTypes.personage) {
+        heroes.push(<Hero hero={hero} key={hero?._id || index} />);
+      }
+    });
+    return heroes;
+  };
+
+  const getComponentsList = () => {
+    const heroes = [];
+    storyBoard?.heroes?.map((hero, index) => {
+      if (hero?.type === HeroTypes.component) {
+        heroes.push(<Hero hero={hero} key={hero?._id || index} />);
+      }
+    });
+    return heroes;
+  };
+
+  const addHero = (type) => {
+    const newHero = {
+      newCreated: true,
+      name: '',
+      description: '',
+      imageUrl: '',
+      storyBoard: storyBoard?._id,
+      type,
+    };
+
+    setStoryBoard({
+      ...storyBoard,
+      heroes: [...storyBoard?.heroes, newHero],
+    });
+  };
+
   return (
     <div className="story_page">
       <Head>
@@ -364,7 +428,7 @@ const MangeStory = (props) => {
                           }
                           key={1}>
                           <div className={styles.tabContent}>
-                            <div>Coming soon</div>
+                            <Idea storyBoard={storyBoard} />
                             {renderNavigationButtons()}
                           </div>
                         </TabPane>
@@ -376,8 +440,25 @@ const MangeStory = (props) => {
                           }
                           key={2}>
                           <div className={styles.tabContent}>
-                            <div>Content of Tab Pane 2</div>
-                            {renderNavigationButtons()}
+                            <div className={styles.heroContainer}>
+                              <div className={styles.heroesRow}>{getHeroesList()}</div>
+                              <div className={styles.heroesRow}>{getComponentsList()}</div>
+                            </div>
+                            <div className={styles.addButtonContainer}>
+                              <div
+                                className={styles.addbutton}
+                                onClick={() => addHero(HeroTypes.personage)}>
+                                <img src={`/img/Group.svg`} />
+                                <p className={styles.addButtonText}>Add a hero</p>
+                              </div>
+                              <div
+                                className={styles.addbutton}
+                                onClick={() => addHero(HeroTypes.component)}>
+                                <img src={`/img/Group.svg`} />
+                                <p className={styles.addButtonText}>Add components</p>
+                              </div>
+                              {renderNavigationButtons()}
+                            </div>
                           </div>
                         </TabPane>
                         <TabPane
