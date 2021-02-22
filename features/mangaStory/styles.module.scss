@@ -107,39 +107,3 @@
 .actionButtons button:hover, .actionButtons button:focus {
     background-color: $primaryLight;
 }
-  
-.heroContainer {
-    width: fit-content;
-    max-width: 70%;
-    float: left;
-}
-
-.addButtonContainer {
-    width: 20%;
-    height: 100%;
-    float: left;
-}
-
-.addbutton {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 200px;
-    margin-bottom: 15px;
-    opacity: 0.5;
-}
-
-.addbutton:hover {
-    opacity: 1;
-    cursor: pointer
-}
-
-.addButtonText {
-    margin: 0;
-}
-
-.heroesRow {
-    height: 200px;
-    margin-bottom: 15px;
-}

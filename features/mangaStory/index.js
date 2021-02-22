@@ -256,42 +256,6 @@ const MangeStory = (props) => {
     </div>
   );
 
-  const getHeroesList = () => {
-    const heroes = []
-    storyBoard?.heroes?.map((hero, index) => {
-      if(hero?.type === HeroTypes.personage) {
-        heroes.push(<Hero hero={hero} key={hero?._id || index}/>);
-      }
-    });
-    return heroes;
-  }
-
-  const getComponentsList = () => {
-    const heroes = []
-    storyBoard?.heroes?.map((hero, index) => {
-      if(hero?.type === HeroTypes.component) {
-        heroes.push(<Hero hero={hero} key={hero?._id || index}/>);
-      }
-    });
-    return heroes;
-  }
-
-  const addHero = (type) => {
-    const newHero = {
-      newCreated: true,
-      name: '',
-      description: '',
-      imageUrl: '',
-      storyBoard: storyBoard?._id,
-      type
-    };
-
-    setStoryBoard({
-      ...storyBoard,
-      heroes: [...storyBoard?.heroes, newHero]
-    });
-  }
-
   return (
     <div className="story_page">
       <Head>
@@ -413,20 +377,7 @@ const MangeStory = (props) => {
                             </span>
                           }
                           key={2}>
-                          <div className={styles.heroContainer}>
-                            <div className={styles.heroesRow}>{getHeroesList()}</div>
-                            <div className={styles.heroesRow}>{getComponentsList()}</div>
-                          </div>
-                          <div className={styles.addButtonContainer}>
-                            <div className={styles.addbutton} onClick={() => addHero(HeroTypes.personage)}>
-                              <img src={`/img/Group.svg`}/>
-                              <p className={styles.addButtonText}>Add a hero</p>
-                            </div>
-                            <div className={styles.addbutton} onClick={() => addHero(HeroTypes.component)}>
-                              <img src={`/img/Group.svg`}/>
-                              <p className={styles.addButtonText}>Add components</p>
-                            </div>
-                          </div>
+                            <Hero storyBoard={storyBoard} setStoryBoard={setStoryBoard}/>
                         </TabPane>
                         <TabPane
                           tab={
