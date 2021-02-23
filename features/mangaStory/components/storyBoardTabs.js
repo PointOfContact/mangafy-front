@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Tabs, Button } from 'antd';
 import { findStoryBoard } from 'api/storyBoardClient';
 import { ChooseLayout } from 'components/chooseLayout';
-import Hero, { HeroTypes } from 'components/Hero';
+import Hero from 'components/Hero';
 import ComicBookSvg from 'components/icon/ComicBook';
 import DocumentsSvg from 'components/icon/Documents';
 import EditSvg from 'components/icon/Edit';
@@ -75,41 +75,6 @@ const StoryBoardTabs = ({ user, mangaStory }) => {
       (err) => {}
     );
   };
-  const addHero = (type) => {
-    const newHero = {
-      newCreated: true,
-      name: '',
-      description: '',
-      imageUrl: '',
-      storyBoard: storyBoard?._id,
-      type,
-    };
-
-    setStoryBoard({
-      ...storyBoard,
-      heroes: [...storyBoard?.heroes, newHero],
-    });
-  };
-
-  const getHeroesList = () => {
-    const heroes = [];
-    storyBoard?.heroes?.map((hero, index) => {
-      if (hero?.type === HeroTypes.personage) {
-        heroes.push(<Hero hero={hero} key={hero?._id || index} />);
-      }
-    });
-    return heroes;
-  };
-
-  const getComponentsList = () => {
-    const heroes = [];
-    storyBoard?.heroes?.map((hero, index) => {
-      if (hero?.type === HeroTypes.component) {
-        heroes.push(<Hero hero={hero} key={hero?._id || index} />);
-      }
-    });
-    return heroes;
-  };
 
   return (
     <Tabs
@@ -138,23 +103,8 @@ const StoryBoardTabs = ({ user, mangaStory }) => {
           </span>
         }
         key={2}>
-        <div className={styles.tabContent}>
-          <div className={styles.heroContainer}>
-            <div className={styles.heroesRow}>{getHeroesList()}</div>
-            <div className={styles.heroesRow}>{getComponentsList()}</div>
-          </div>
-          <div className={styles.addButtonContainer}>
-            <div className={styles.addbutton} onClick={() => addHero(HeroTypes.personage)}>
-              <img src={`/img/Group.svg`} />
-              <p className={styles.addButtonText}>Add a hero</p>
-            </div>
-            <div className={styles.addbutton} onClick={() => addHero(HeroTypes.component)}>
-              <img src={`/img/Group.svg`} />
-              <p className={styles.addButtonText}>Add components</p>
-            </div>
-            {renderNavigationButtons()}
-          </div>
-        </div>
+        <Hero storyBoard={storyBoard} setStoryBoard={setStoryBoard} />
+        {renderNavigationButtons()}
       </TabPane>
       <TabPane
         tab={

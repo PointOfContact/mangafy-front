@@ -1,84 +1,70 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-// Antd design
-import { Input } from 'antd';
-// Api
-import { createHero, patchHero } from 'api/storyBoardClient';
 // Styles
 import styles from './styles.module.scss';
-
-const { TextArea } = Input;
+import HeroCard from './HeroCard';
 
 export const HeroTypes = {
   personage: 'personage',
   component: 'component'
 }
 
-const Hero = ({hero}) => {
+const Hero = ({storyBoard, setStoryBoard}) => {
 
-  const [currentHero, setCurrentHero] = useState(hero);
-
-  const handleTitleChange = (e) => {
-    setCurrentHero({
-      ...currentHero,
-      name: e.target.value
+  const getHeroesList = () => {
+    const heroes = []
+    storyBoard?.heroes?.map((hero, index) => {
+      if(hero?.type === HeroTypes.personage) {
+        heroes.push(<HeroCard hero={hero} key={hero?._id || index}/>);
+      }
     });
-  };
+    return heroes;
+  }
 
-  const handleTextChange = (e) => {
-    setCurrentHero({
-      ...currentHero,
-      description: e.target.value
+  const getComponentsList = () => {
+    const heroes = []
+    storyBoard?.heroes?.map((hero, index) => {
+      if(hero?.type === HeroTypes.component) {
+        heroes.push(<HeroCard hero={hero} key={hero?._id || index}/>);
+      }
     });
-  };
+    return heroes;
+  }
 
-  const onBlur = () => {
-    if(!currentHero?.name) {
-      return;
-    }
+  const addHero = (type) => {
     const newHero = {
-      ...currentHero,
-    }
+      newCreated: true,
+      name: '',
+      description: '',
+      imageUrl: '',
+      storyBoard: storyBoard?._id,
+      type
+    };
 
-    if(newHero.newCreated) {
-      delete newHero.newCreated;
-      createHero(newHero, (res) => {
-        delete newHero.storyBoard;
-        setCurrentHero({
-          ...newHero,
-          _id: res?._id
-        });
-      }, (err) => {});
-    } else {
-      delete newHero?._id;
-      patchHero(currentHero?._id, newHero, () => {}, (err) => {});
-    }
+    setStoryBoard({
+      ...storyBoard,
+      heroes: [...storyBoard?.heroes, newHero]
+    });
   }
 
   return (
-    <div className={styles.hero__container}>
-      <div className={styles.hero__text__row}>
-        <Input 
-          className={styles.hero__text__input} 
-          placeholder={currentHero.type === HeroTypes.personage ? 'Hero name:' : 'Component name:'}
-          maxLength={100}
-          value={currentHero?.name}
-          onChange={handleTitleChange} 
-          onBlur={onBlur}
-        />
+    <>
+      <div className={styles.heroContainer}>
+        <div className={styles.heroesRow}>{getHeroesList()}</div>
+        <div className={styles.heroesRow}>{getComponentsList()}</div>
       </div>
-      <div className={styles.hero__text__row}>
-        <TextArea
-          className={styles.hero__text__input} 
-          placeholder={'text:'}
-          autoSize={{ minRows: 3, maxRows: 10 }}
-          maxLength={1000}
-          value={currentHero?.description}
-          onChange={handleTextChange} 
-          onBlur={onBlur}
-        />
+      <div className={styles.addButtonContainer}>
+        <div className={styles.addbutton} onClick={() => addHero(HeroTypes.personage)}>
+          <img className={styles.addIcon} src={`/icons/add.svg`}/>
+          <p className={styles.addButtonText}>Add a hero</p>
+        </div>
+        <div className={styles.addbutton} onClick={() => addHero(HeroTypes.component)}>
+          <img className={styles.addIcon} src={`/icons/add.svg`}/>
+          <p className={styles.addButtonText}>Add components</p>
+        </div>
       </div>
-    </div>);
+    </>
+    );
 };
 
 Hero.propTypes = {
