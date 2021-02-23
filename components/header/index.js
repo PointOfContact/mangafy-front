@@ -172,7 +172,9 @@ const MenuLinks = ({ isOpen }) => {
         </ul>
       </div>
       <ul className={styles.links}>{links}</ul>
-      <img src="img/Frame.jpg"></img>
+      <div className={styles.image_block}>
+        <img src="img/Frame.jpg"></img>
+      </div>
     </div>
   );
 };

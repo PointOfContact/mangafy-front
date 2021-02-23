@@ -181,4 +181,11 @@
     padding: 10px 30px;
     margin: 0;
   }
+  .image_block{
+    display: flex;
+    justify-content: flex-end;
+    img{
+      max-width: 157px;
+    }
+  }
 }
