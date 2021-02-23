@@ -2,155 +2,37 @@ import React, { useEffect, useState } from 'react';
 
 import { Tabs, Popover, Input, Button, Progress } from 'antd';
 import client from 'api/client';
-import { findStoryBoard } from 'api/storyBoardClient';
 import cn from 'classnames';
-import { ChooseLayout } from 'components/chooseLayout';
+// import { ChooseLayout } from 'components/chooseLayout';
 import { Comments } from 'components/comments';
 import Footer from 'components/footer';
 import Header from 'components/header';
-import Hero, { HeroTypes } from 'components/Hero';
-import SvgCat from 'components/icon/Cat';
-import ComicBookSvg from 'components/icon/ComicBook';
-import DocumentsSvg from 'components/icon/Documents';
-import EditSvg from 'components/icon/Edit';
-import GroupSvg from 'components/icon/Group';
-import SvgLang from 'components/icon/Lang';
-import SvgMone from 'components/icon/Mone';
-import PencilCaseSvg from 'components/icon/PencilCase';
-import ShareSvg from 'components/icon/Share';
-import SuperHeroSvg from 'components/icon/Superhero';
-import SvgTie from 'components/icon/Tie';
-import Idea from 'components/Idea';
-import { ModalSuccess } from 'components/modalSuccess';
-import EditPopup from 'components/popup';
-import { ShareButtons } from 'components/share';
-import { ShareStoryBoard } from 'components/shareStoryBoard';
-import Upload from 'components/ui-elements/upload';
-import { userTypesEnums } from 'helpers/constant';
-import Head from 'next/head';
+import EditPopup from 'components/popup';import Head from 'next/head';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
-import useWindowSize from 'utils/useWindowSize';
-
+import {onAccept} from './utils'
+import BannerSection from './components/bannersSection'
 import styles from './styles.module.scss';
-
+import StoryBoardTabs from './components/storyBoardTabs'
 const { TabPane } = Tabs;
 const { TextArea } = Input;
 
 const MangeStory = (props) => {
   const { mangaStory, user, isOwn, originUrl, comments } = props;
   const [editMode, setEditMode] = useState(false);
-  const [baseData, setBaseData] = useState(props.mangaStory);
+  const [baseData, setBaseData] = useState(mangaStory);
   const [showPopup, setShowPopup] = useState(false);
   const [activeField, setActiveField] = useState('');
   const [storyBoardActiveTab, setStoryBoardActiveTab] = useState(1);
   const [errMessage, setErrMessage] = useState('');
   const [showMessage, setShowMessage] = useState(false);
-  const [canEdit, setCanEdit] = useState(props.isOwn);
-  const { width } = useWindowSize();
-
-  const renderNavigationButtons = () => (
-    <div className={styles.actionButtons}>
-      {+storyBoardActiveTab > 1 && (
-        <Button type="primary" onClick={clickBack}>
-          Back
-        </Button>
-      )}
-      {+storyBoardActiveTab < 7 && (
-        <Button type="primary" onClick={clickNext}>
-          Next
-        </Button>
-      )}
-    </div>
-  );
-  const [storyBoard, setStoryBoard] = useState({
-    idea: {
-      title: '',
-      text: '',
-    },
-    pages: [],
-    heroes: [],
-    author: [],
-    layouts: [],
-  });
-
-  useEffect(() => {
-    getStoryBoard();
-  }, []);
-
-  const getStoryBoard = () => {
-    findStoryBoard(
-      user._id,
-      mangaStory._id,
-      (res) => {
-        setStoryBoard(res?.data[0]);
-      },
-      (err) => {}
-    );
-  };
-
-  const onAccept = (id, isAccept) => {
-    const jwt = client.getCookie('feathers-jwt');
-    import('api/restClient').then((m) => {
-      m.default
-        .service('/api/v2/join-manga-story-requests')
-        .patch(
-          id,
-          {
-            status: isAccept ? 'accepted' : 'rejected',
-          },
-          {
-            headers: { Authorization: `Bearer ${jwt}` },
-          }
-        )
-        .then((response) => {
-          Router.reload();
-        });
-    });
-  };
+  const [canEdit, setCanEdit] = useState(props.isOwn)
 
   const setStoryEditMode = () => {
     setEditMode(true);
   };
 
-  const beforeUpload = (file) => {
-    const reader = new FileReader();
-    // encode dataURI
-    reader.readAsDataURL(file);
-    reader.addEventListener('load', () => {
-      const jwt = client.getCookie('feathers-jwt');
-      import('api/restClient').then((m) => {
-        m.default
-          .service('/api/v2/uploads')
-          .create(
-            { uri: reader.result },
-            {
-              headers: { Authorization: `Bearer ${jwt}` },
-              mode: 'no-cors',
-            }
-          )
-          .then((response) => response)
-          .then((response) => {
-            m.default
-              .service('/api/v2/manga-stories')
-              .patch(
-                baseData._id,
-                {
-                  image: response.id,
-                },
-                {
-                  headers: { Authorization: `Bearer ${jwt}` },
-                  mode: 'no-cors',
-                }
-              )
-              .then((response) => setBaseData(response));
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      }, false);
-    });
-  };
+
 
   const saveUserDataByKey = (user, ...keys) => {
     const data = {};
@@ -250,71 +132,6 @@ const MangeStory = (props) => {
     }
   };
 
-  const clickBack = () => {
-    const nextTab = +storyBoardActiveTab - 1;
-    setStoryBoardActiveTab(nextTab);
-  };
-  const clickNext = () => {
-    const nextTab = +storyBoardActiveTab + 1;
-    setStoryBoardActiveTab(nextTab);
-  };
-
-  const content = () => (
-    <div>
-      {' '}
-      {baseData.searchingFor.map((item) =>
-        userTypesEnums[item] ? (
-          <p>
-            <Button
-              key={item}
-              value="searchingFor"
-              data-id="searchingFor"
-              type={editMode ? 'dashed' : 'text'}
-              onClick={onChangePopup}>
-              {userTypesEnums[item] && userTypesEnums[item]}
-            </Button>
-          </p>
-        ) : null
-      )}
-    </div>
-  );
-
-  const getHeroesList = () => {
-    const heroes = [];
-    storyBoard?.heroes?.map((hero, index) => {
-      if (hero?.type === HeroTypes.personage) {
-        heroes.push(<Hero hero={hero} key={hero?._id || index} />);
-      }
-    });
-    return heroes;
-  };
-
-  const getComponentsList = () => {
-    const heroes = [];
-    storyBoard?.heroes?.map((hero, index) => {
-      if (hero?.type === HeroTypes.component) {
-        heroes.push(<Hero hero={hero} key={hero?._id || index} />);
-      }
-    });
-    return heroes;
-  };
-
-  const addHero = (type) => {
-    const newHero = {
-      newCreated: true,
-      name: '',
-      description: '',
-      imageUrl: '',
-      storyBoard: storyBoard?._id,
-      type,
-    };
-
-    setStoryBoard({
-      ...storyBoard,
-      heroes: [...storyBoard?.heroes, newHero],
-    });
-  };
-
   return (
     <div className="story_page">
       <Head>
@@ -411,119 +228,9 @@ const MangeStory = (props) => {
             <div className="row">
               <div className="col-lg-7">
                 <Tabs defaultActiveKey="1" onChange={onChangeTab}>
-                  {isOwn && (
-                    <TabPane tab="STORY BOARD" key="1" className="story">
-                      <Tabs
-                        activeKey={storyBoardActiveTab.toString()}
-                        defaultActiveKey={1}
-                        className={`${styles.storyBoardTab} storyBoardTabs`}
-                        type="line"
-                        onChange={(activeKey) => setStoryBoardActiveTab(activeKey)}
-                        tabPosition={width < 992 ? 'bottom' : 'left'}>
-                        <TabPane
-                          tab={
-                            <span>
-                              <GroupSvg fill="#7b65f3" width="25px" />
-                            </span>
-                          }
-                          key={1}>
-                          <div className={styles.tabContent}>
-                            <Idea storyBoard={storyBoard} />
-                            {renderNavigationButtons()}
-                          </div>
-                        </TabPane>
-                        <TabPane
-                          tab={
-                            <span>
-                              <SuperHeroSvg width="25px" />
-                            </span>
-                          }
-                          key={2}>
-                          <div className={styles.tabContent}>
-                            <div className={styles.heroContainer}>
-                              <div className={styles.heroesRow}>{getHeroesList()}</div>
-                              <div className={styles.heroesRow}>{getComponentsList()}</div>
-                            </div>
-                            <div className={styles.addButtonContainer}>
-                              <div
-                                className={styles.addbutton}
-                                onClick={() => addHero(HeroTypes.personage)}>
-                                <img src={`/img/Group.svg`} />
-                                <p className={styles.addButtonText}>Add a hero</p>
-                              </div>
-                              <div
-                                className={styles.addbutton}
-                                onClick={() => addHero(HeroTypes.component)}>
-                                <img src={`/img/Group.svg`} />
-                                <p className={styles.addButtonText}>Add components</p>
-                              </div>
-                              {renderNavigationButtons()}
-                            </div>
-                          </div>
-                        </TabPane>
-                        <TabPane
-                          tab={
-                            <span>
-                              <DocumentsSvg width="25px" />
-                            </span>
-                          }
-                          key={3}>
-                          <div className={styles.tabContent}>
-                            <div>Content of Tab Pane 3</div>
-                            {renderNavigationButtons()}
-                          </div>
-                        </TabPane>
-                        <TabPane
-                          tab={
-                            <span>
-                              <ComicBookSvg width="25px" />
-                            </span>
-                          }
-                          key={4}>
-                          <div className={styles.tabContent}>
-                            <ChooseLayout />
-                            {renderNavigationButtons()}
-                          </div>
-                        </TabPane>
-                        <TabPane
-                          tab={
-                            <span>
-                              <PencilCaseSvg width="25px" />
-                            </span>
-                          }
-                          key={5}>
-                          <div className={styles.tabContent}>
-                            <Upload />
-                            {renderNavigationButtons()}
-                          </div>
-                        </TabPane>
-                        <TabPane
-                          tab={
-                            <span>
-                              <EditSvg height="25px" />
-                            </span>
-                          }
-                          key={6}>
-                          <div className={styles.tabContent}>
-                            <ModalSuccess />
-                            {renderNavigationButtons()}
-                          </div>
-                        </TabPane>
-                        <TabPane
-                          tab={
-                            <span>
-                              <ShareSvg height="25px" />
-                            </span>
-                          }
-                          key={7}>
-                          <div className={styles.tabContent}>
-                            <ShareStoryBoard />
-                            {renderNavigationButtons()}
-                          </div>
-                        </TabPane>
-                      </Tabs>
-                    </TabPane>
-                  )}
+                {isOwn &&<TabPane tab="STORY BOARD" key="1" className="story">
+                     <StoryBoardTabs mangaStory={mangaStory} user={user}/>
+                  </TabPane>}
                   <TabPane tab="STORY" key="2" className="story">
                     <h3>Here is a my story!</h3>
                     <p>
@@ -564,87 +271,14 @@ const MangeStory = (props) => {
             </div>
           </section>
           <section>
-            <div className={styles.bannerWrap}>
-              <div className="row">
-                <div className={styles.banner}>
-                  <img src="/img/banner.png" />
-                  <div>
-                    <img src="/img/upload.png" />
-                  </div>
-                </div>
-                <div className="row">
-                  <div className={`${styles.bannerGenres} d-flex `}>
-                    <div className={styles.bannerGenresItem}>
-                      {mangaStory.genres.slice(0, 1).map((g) => (
-                        <Button
-                          key={g}
-                          data-id="preferredLanguage"
-                          type={editMode && canEdit ? 'dashed' : 'text'}
-                          onClick={onChangePopup}>
-                          <SvgCat width="18px" height="24px" />
-                          <span>{g.name}</span>
-                        </Button>
-                      ))}
-                    </div>
-                    <div className={styles.bannerGenresItem}>
-                      <Button
-                        data-id="preferredLanguage"
-                        type={editMode && canEdit ? 'dashed' : 'text'}
-                        onClick={onChangePopup}>
-                        <SvgLang width="24px" height="24px" />
-                        <span>{mangaStory.preferredLanguage}</span>
-                      </Button>
-                    </div>
-                    <div className={styles.bannerGenresItem}>
-                      <Popover placement="top" title="Searching For" content={content}>
-                        <Button
-                          data-id="searchingFor"
-                          type={editMode && canEdit ? 'dashed' : 'text'}
-                          onClick={onChangePopup}>
-                          <SvgTie width="20px" height="20px" />
-                          <span>{baseData.searchingFor[0] || 'Searching For'}</span>
-                        </Button>
-                      </Popover>
-                    </div>
-                    <div className={styles.bannerGenresItem}>
-                      <Button
-                        value="compensationModel"
-                        data-id="compensationModel"
-                        type={editMode & canEdit ? 'dashed' : 'text'}
-                        onClick={onChangePopup}>
-                        <SvgMone width="20px" height="20px" />
-                        <span>
-                          {mangaStory.compensationModel == 'paid'
-                            ? 'Paid Collaboration'
-                            : 'Freewill'}
-                        </span>
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-                <div className={styles.progressWrapper}>
-                  <div className={styles.progress}>
-                    <p>Your graphic novel in progress</p>
-                    <div className={styles.Lamp}>
-                      <div>
-                        <img src="/img/Group.png" />
-                      </div>
-                    </div>
-                    <div className={styles.progressWrap}>
-                      <Progress percent={30} size="small" />
-                    </div>
-                    <div className={styles.Lamp}>
-                      <div>
-                        <img src="/img/notebook 1.png" />
-                      </div>
-                    </div>
-                  </div>
-                  <div className={styles.socials}>
-                    <ShareButtons text="Share collb!" shareUrl={originUrl} />
-                  </div>
-                </div>
-              </div>
-            </div>
+            <BannerSection 
+              originUrl={originUrl} 
+              canEdit={canEdit} 
+              baseData={baseData} 
+              onChangePopup={onChangePopup} 
+              mangaStory={mangaStory} 
+              editMode={editMode}
+            />
           </section>
         </div>
         <Footer />
