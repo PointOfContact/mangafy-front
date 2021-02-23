@@ -63,7 +63,7 @@ export const Gallery = (props) => {
         });
     }
     setImages(data);
-  }, images);
+  }, [images, canEdit, fromPath, mangaStories, profile, userData]);
 
   const getLikesCount = useCallback(
     (galleryId) =>

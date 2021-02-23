@@ -16,8 +16,8 @@ const ProjectScripts = () => {
   const [scripts, setScripts] = useState([
     {
       key: Math.floor(Math.random() * 1000000),
-      title: 'bbbbbbb',
-      description: 'aaaaaaaaa',
+      title: '',
+      description: '',
     },
     {
       key: Math.floor(Math.random() * 1000000),
@@ -93,8 +93,8 @@ const ProjectScripts = () => {
                       <TextArea
                         onBlur={(e) => updateScripts(e.target.value, index, 'description')}
                         placeholder="Page description"
-                        minRows={(width < 768 && 5) || 12}
-                        maxRows={(width < 768 && 6) || 15}
+                        minRows={width < 768 ? 5 : 12}
+                        maxRows={width < 768 ? 6 : 15}
                       />
                     </Form.Item>
                   </Form>

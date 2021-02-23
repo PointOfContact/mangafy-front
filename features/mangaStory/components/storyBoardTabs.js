@@ -13,8 +13,10 @@ import ShareSvg from 'components/icon/Share';
 import SuperHeroSvg from 'components/icon/Superhero';
 import Idea from 'components/Idea';
 import { ModalSuccess } from 'components/modalSuccess';
+import ProjectScripts from 'components/projectScripts';
 import { ShareStoryBoard } from 'components/shareStoryBoard';
 import Upload from 'components/ui-elements/upload';
+import PropTypes from 'prop-types';
 import useWindowSize from 'utils/useWindowSize';
 
 import styles from '../styles.module.scss';
@@ -162,7 +164,7 @@ const StoryBoardTabs = ({ user, mangaStory }) => {
         }
         key={3}>
         <div className={styles.tabContent}>
-          <div>Content of Tab Pane 3</div>
+          <ProjectScripts />
           {renderNavigationButtons()}
         </div>
       </TabPane>
@@ -216,6 +218,11 @@ const StoryBoardTabs = ({ user, mangaStory }) => {
       </TabPane>
     </Tabs>
   );
+};
+
+StoryBoardTabs.propTypes = {
+  user: PropTypes.object.isRequired,
+  mangaStory: PropTypes.object.isRequired,
 };
 
 export default StoryBoardTabs;

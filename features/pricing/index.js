@@ -96,7 +96,7 @@ const Pricing = (props) => {
               <div className={styles.individual_tools}>
                 <div className={styles.section_title}>For Individuals</div>
                 <div className={styles.tool_item}>
-                  <img src="img/tools_image1.jpg"></img>
+                  <img src="/img/tools_image1.jpg"></img>
                   <div className={styles.item_category}>Personal</div>
                   <div className={styles.item_price}>$0</div>
                   <LargeButton
@@ -131,7 +131,7 @@ const Pricing = (props) => {
                   </ul>
                 </div>
                 <div className={styles.tool_item}>
-                  <img src="img/tools_image2.png"></img>
+                  <img src="/img/tools_image2.png"></img>
                   <div className={styles.item_category}>Personal Pro</div>
                   <div className={styles.item_price}>
                     $
@@ -234,7 +234,7 @@ const Pricing = (props) => {
               <div className={styles.team_tools}>
                 <div className={styles.section_title}>For Big Teams</div>
                 <div className={styles.tool_item}>
-                  <img src="img/tools_image3.jpg"></img>
+                  <img src="/img/tools_image3.jpg"></img>
                   <div className={styles.item_category}>Plus Plus</div>
                   <div className={styles.item_price}>
                     $

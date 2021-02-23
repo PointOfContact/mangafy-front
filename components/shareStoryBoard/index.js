@@ -25,9 +25,9 @@ export const ShareStoryBoard = () => (
     </div>
     <h4 className={styles.title}>Self publishing platforms</h4>
     <div className={styles.logos}>
-      <img src="img/tapacs.svg" alt="" />
-      <img className="webtoon" src="img/webtoon.svg" alt="" />
-      <img src="img/comico.svg" alt="" />
+      <img src="/img/tapacs.svg" alt="" />
+      <img className="webtoon" src="/img/webtoon.svg" alt="" />
+      <img src="/img/comico.svg" alt="" />
     </div>
     <div className={styles.logos_mobile}>
       <button type="button">Tapas</button>
