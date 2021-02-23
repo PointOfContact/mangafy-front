@@ -104,7 +104,10 @@ body {
     }
 
     @include media-md {
-      .ant-tabs-bottom>.ant-tabs-nav:before, .ant-tabs-bottom>div>.ant-tabs-nav:before, .ant-tabs-top>.ant-tabs-nav:before, .ant-tabs-top>div>.ant-tabs-nav:before {
+      .ant-tabs-bottom > .ant-tabs-nav:before,
+      .ant-tabs-bottom > div > .ant-tabs-nav:before,
+      .ant-tabs-top > .ant-tabs-nav:before,
+      .ant-tabs-top > div > .ant-tabs-nav:before {
         border-bottom: 0;
       }
       .ant-tabs-nav-list {
@@ -356,6 +359,17 @@ body {
     .content button {
       margin: 10px auto 40px auto !important;
     }
+  }
+}
+
+.ant-popover-message-title {
+  color: $grey !important;
+}
+.ant-popover-buttons {
+  .ant-btn-primary {
+    outline: none;
+    border-color: $primaryDark !important;
+    background-color: $primaryDark !important;
   }
 }
 
