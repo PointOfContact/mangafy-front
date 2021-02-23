@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 import { Modal, Upload, Row, Col, Popconfirm } from 'antd';
 import client from 'api/client';
@@ -11,6 +11,7 @@ import PropTypes from 'prop-types';
 import ImageGallery from 'react-image-gallery';
 
 import styles from './style.module.scss';
+import { likeGallery, removeImg, prepareDataImages, beforeGalleryUpload, socials } from './utils';
 
 export const Gallery = (props) => {
   const { user = false, profile, mangaStories, fromPath = 'users', title = '' } = props;
@@ -22,61 +23,14 @@ export const Gallery = (props) => {
   } else if (profile._id === user._id) {
     canEditInit = true;
   }
-  const socials = [
-    {
-      id: '1',
-      name: 'facebook',
-      link: 'https://facebook.com',
-    },
-    {
-      id: '2',
-      name: 'twitter',
-      link: 'https://twitter.com',
-    },
-    {
-      id: '3',
-      name: 'instagram',
-      link: 'https://instagram.com',
-    },
-    {
-      id: '4',
-      name: 'dribbble',
-      link: 'https://dribbble.com',
-    },
-    {
-      id: '5',
-      name: 'deviantart',
-      link: 'https://deviantart.com',
-    },
-    {
-      id: '6',
-      name: 'behance',
-      link: 'https://behance.com',
-    },
-  ];
 
   const [images, setImages] = useState([]);
-  const [userData, setUserData] = useState(user);
+  const [userData, setUserData] = useState(profile || user);
   const [showUploadList, setShowUploadList] = useState(true);
   const [showGallery, setShowGallery] = useState(false);
   const [errMessage, setErrMessage] = useState('');
   const [canEdit, setCanEdit] = useState(canEditInit);
-  const prepareDataImages = (gallery) => {
-    const prepareData = [];
-    gallery &&
-      gallery.forEach((item) => {
-        prepareData.push({
-          original: client.UPLOAD_URL + item,
-          _id: item,
-        });
-      });
-    return prepareData;
-  };
-
-  const adaptedDataImages = (res) => {
-    const adaptedData = [...images.map((item) => item._id), res.id];
-    return adaptedData;
-  };
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   useEffect(() => {
     const data = [];
@@ -111,35 +65,39 @@ export const Gallery = (props) => {
     setImages(data);
   }, images);
 
-  function confirm(e, _id) {
-    removeImg(e, _id);
-  }
+  const getLikesCount = useCallback(
+    (galleryId) =>
+      userData?.galleryLikedUsers?.filter((item) => galleryId === item.galleryId).length || 0,
+    [userData?.galleryLikedUsers]
+  );
 
-  function cancel() {}
+  const isLiked = useCallback(
+    (galleryId, userId) =>
+      !!userData?.galleryLikedUsers?.find(
+        (item) => galleryId === item.galleryId && item.likedUserId === userId
+      ),
+    [userData?.galleryLikedUsers]
+  );
 
-  const removeImg = (e, _id) => {
-    e.stopPropagation();
-    const newImages = images.filter((item) => item._id !== _id);
-    const data = { gallery: [...newImages.map((item) => item._id)] };
-    const jwt = client.getCookie('feathers-jwt');
-
-    import('api/restClient').then((m) => {
-      m.default
-        .service(`/api/v2/${fromPath}`)
-        .patch(userData._id, data, {
-          headers: { Authorization: `Bearer ${jwt}` },
-          mode: 'no-cors',
-        })
-        .then((res) => {
-          setUserData(res);
-          setImages(prepareDataImages(res.gallery));
-        })
-        .catch((err) => {
-          setErrMessage(err.message);
+  const onLikeGallery = (galleryId, userId, likedUserId) => {
+    likeGallery(galleryId, userId)
+      .then(() => {
+        setUserData({
+          ...userData,
+          galleryLikedUsers: [
+            ...(userData?.galleryLikedUsers || []),
+            {
+              galleryId,
+              likedUserId,
+            },
+          ],
         });
-    });
+      })
+      .catch((err) => {
+        setErrMessage(err.message);
+      });
   };
-  const [isModalVisible, setIsModalVisible] = useState(false);
+
   const showModal = () => {
     document.body.classList.add('body_remove_scroll');
     setIsModalVisible(true);
@@ -159,67 +117,32 @@ export const Gallery = (props) => {
     setImages(newArr);
   };
 
-  const beforeGalleryUpload = (file) => {
-    // eslint-disable-next-line no-undef
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.addEventListener(
-      'load',
-      () => {
-        const jwt = client.getCookie('feathers-jwt');
-        import('api/restClient')
-          .then((m) => {
-            m.default
-              .service('/api/v2/uploads')
-              .create(
-                { uri: reader.result },
-                {
-                  headers: { Authorization: `Bearer ${jwt}` },
-                  mode: 'no-cors',
-                }
-              )
-              .then((response) => {
-                setShowUploadList(false);
-                return response;
-              })
-              .then((response) => {
-                m.default
-                  .service(`/api/v2/${fromPath}`)
-                  .patch(
-                    fromPath === 'users' ? userData._id : mangaStories._id,
-                    {
-                      gallery: adaptedDataImages(response),
-                    },
-                    {
-                      headers: { Authorization: `Bearer ${jwt}` },
-                      mode: 'no-cors',
-                    }
-                  )
-                  .then((res) => {
-                    setImages(prepareDataImages(res.gallery));
-                    setUserData(res);
-                    setShowUploadList(false);
-                  });
-              })
-              .catch((err) => {
-                setErrMessage(err.message);
-                setShowUploadList(false);
-                setTimeout(() => {
-                  setErrMessage('');
-                }, 2000);
-              });
-          })
-          .catch((err) => {
-            setErrMessage(err.message);
-            setShowUploadList(false);
-            setTimeout(() => {
-              setErrMessage('');
-            }, 2000);
-          });
-      },
-      false
+  const onRemoveImg = (e, _id) => {
+    e.stopPropagation();
+    removeImg(images, _id, fromPath, userData)
+      .then((res) => {
+        setUserData(res);
+        setImages(prepareDataImages(res.gallery));
+      })
+      .catch((err) => {
+        setErrMessage(err.message);
+      });
+  };
+
+  const onBeforeGalleryUpload = (file) => {
+    beforeGalleryUpload(
+      file,
+      setShowUploadList,
+      fromPath,
+      userData,
+      mangaStories,
+      images,
+      setImages,
+      setUserData,
+      setErrMessage
     );
   };
+
   return (
     <div>
       {showGallery && (
@@ -253,8 +176,8 @@ export const Gallery = (props) => {
                     {canEditInit && (
                       <Popconfirm
                         title="Are you sure to delete this task?"
-                        onConfirm={(e) => confirm(e, item._id)}
-                        onCancel={cancel}
+                        onConfirm={(e) => onRemoveImg(e, item._id)}
+                        onCancel={() => {}}
                         okText="Yes"
                         cancelText="No">
                         <span className={styles.dustbin} data-id={item._id}>
@@ -263,8 +186,17 @@ export const Gallery = (props) => {
                       </Popconfirm>
                     )}
                     <span className={styles.heart}>
-                      <SvgHeart width="18px" height="16px" />
-                      <span>122</span>
+                      <SvgHeart
+                        width="18px"
+                        height="16px"
+                        onClick={() =>
+                          !isLiked(item._id, user._id) &&
+                          !canEdit &&
+                          onLikeGallery(item._id, userData._id, user._id)
+                        }
+                        className={isLiked(item._id, user._id) && styles.liked}
+                      />
+                      <span>{getLikesCount(item._id)}</span>
                     </span>
                     <div className={styles.filter} onClick={(e) => gallerySet(e, index)}></div>
                     <img src={client.UPLOAD_URL + item._id} alt="" />
@@ -275,7 +207,7 @@ export const Gallery = (props) => {
         </Col>
         {canEditInit && (
           <Col span={1} className={styles.img_add_button}>
-            <Upload beforeUpload={beforeGalleryUpload} showUploadList={showUploadList}>
+            <Upload beforeUpload={onBeforeGalleryUpload} showUploadList={showUploadList}>
               <div className="">
                 <AddButton onClick={() => setCanEdit(false)} />
               </div>
@@ -298,7 +230,13 @@ export const Gallery = (props) => {
           </Col>
 
           <Col span={1} className={styles.add_button}>
-            {canEditInit && <AddButton onClick={() => 'aaa'} />}
+            {canEditInit && (
+              <AddButton
+                onClick={() => {
+                  // TODO: add funcionality
+                }}
+              />
+            )}
           </Col>
         </Row>
       </div>

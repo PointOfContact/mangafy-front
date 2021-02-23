@@ -7,6 +7,11 @@
     font-size: $text4;
   }
 }
+.liked {
+  path {
+    fill: red !important;
+  }
+}
 .img_add_button {
   display: flex;
   align-items: flex-end;
