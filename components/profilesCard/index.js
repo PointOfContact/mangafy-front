@@ -24,14 +24,13 @@ const ProfilesCard = ({ label, client }) =>  {
     
     <div onClick={() => handleCallbCardsClick(label._id)} className={styles.colabWrap__item}>
       <div className={styles.colabWrap__top}>
-        <div className={cn(styles.colabWrap__img, styles.colabWrap__imgOnline)}>
-          <div className={styles.colabWrap__online}></div>
-          <div className={styles.colabWrap__avatar}>
+         <div className={cn(styles.avatar__img, styles.avatar__imgOnline)}>
+          <div className={styles.avatar__avatar}>
             <img
               src={label.image ? client.UPLOAD_URL + label.image : '/img/mangastory.jpg'}
               alt=""></img>
           </div>
-        </div>
+         </div>
         <div className={styles.colabWrap__name}>
           <div className={styles.colabWrap__authorName}>{label.name}</div>
            <div className={styles.colabWrap__authorDescr}>{label.type}</div>

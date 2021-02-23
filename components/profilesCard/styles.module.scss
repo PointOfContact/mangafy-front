@@ -13,7 +13,8 @@
         flex-direction: column;
         justify-content: space-between;
         align-items: flex-start;
-        width: 325px;
+        // width: 325px;
+        width: calc(25% - 30px);
         min-height: 296px;
         background: #FFFFFF;
         box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.08);
@@ -26,6 +27,20 @@
         overflow: hidden;
         &:hover {
             filter: drop-shadow(0px 0px 50px rgba(123, 101, 243, 0.34));
+        }
+        @media (max-width: 1299px) {
+            width: calc(33.3% - 30px);
+        }
+        @media (max-width: 991px) {
+            width: 325px;
+        }
+        @media (max-width: 767px) {
+            width: calc(50% - 30px);
+        }
+        @media (max-width: 675px) {
+            width: 325px;
+            margin: 0 auto;
+            margin-bottom: 15px;
         }
     }
     &__top {
@@ -112,6 +127,9 @@
         img {
             margin-right: 7px;
         }
+        svg {
+            margin-right: 7px;
+        }
     }
     &__progress {
         display: flex;
@@ -131,6 +149,45 @@
     }
 }
 
+
+.avatar {
+    &__img {
+        width: 104px;
+        height: 104px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        &:before {
+            content: "";
+            width: 104px;
+            height: 104px;
+            background-image: url(../../public/img/green-eclips.svg);
+            background-size: cover;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        &Online {
+            &:before {
+                background-image: url(../../public/img/green-eclips-online.svg);
+            }
+        }
+    }
+    &__avatar {
+        width: 104px;
+        height: 104px;
+        overflow: hidden;
+        padding: 3px;
+        border-radius: 50%;
+        img {
+            object-fit: cover;
+            width: 104px;
+            height: 104px;
+        }
+    }
+}
 
 .ButtonPurple {
     background-color: $primaryDark;
