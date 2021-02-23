@@ -114,7 +114,7 @@ const StoryBoardTabs = ({ user, mangaStory }) => {
         }
         key={3}>
         <div className={styles.tabContent}>
-          <ProjectScripts />
+          <ProjectScripts  pages={storyBoard.pages} storyBoardId={storyBoard._id}/>
           {renderNavigationButtons()}
         </div>
       </TabPane>
@@ -126,7 +126,7 @@ const StoryBoardTabs = ({ user, mangaStory }) => {
         }
         key={4}>
         <div className={styles.tabContent}>
-          <ChooseLayout />
+          <ChooseLayout storyBoard={storyBoard}/>
           {renderNavigationButtons()}
         </div>
       </TabPane>
