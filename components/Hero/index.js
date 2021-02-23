@@ -1,35 +1,36 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
+
 // Styles
-import styles from './styles.module.scss';
 import HeroCard from './HeroCard';
+import styles from './styles.module.scss';
 
 export const HeroTypes = {
   personage: 'personage',
-  component: 'component'
-}
+  component: 'component',
+};
 
-const Hero = ({storyBoard, setStoryBoard}) => {
-
+const Hero = ({ storyBoard, setStoryBoard }) => {
   const getHeroesList = () => {
-    const heroes = []
+    const heroes = [];
     storyBoard?.heroes?.map((hero, index) => {
-      if(hero?.type === HeroTypes.personage) {
-        heroes.push(<HeroCard hero={hero} key={hero?._id || index}/>);
+      if (hero?.type === HeroTypes.personage) {
+        heroes.push(<HeroCard hero={hero} key={hero?._id || index} />);
       }
     });
     return heroes;
-  }
+  };
 
   const getComponentsList = () => {
-    const heroes = []
+    const heroes = [];
     storyBoard?.heroes?.map((hero, index) => {
-      if(hero?.type === HeroTypes.component) {
-        heroes.push(<HeroCard hero={hero} key={hero?._id || index}/>);
+      if (hero?.type === HeroTypes.component) {
+        heroes.push(<HeroCard hero={hero} key={hero?._id || index} />);
       }
     });
     return heroes;
-  }
+  };
 
   const addHero = (type) => {
     const newHero = {
@@ -38,14 +39,14 @@ const Hero = ({storyBoard, setStoryBoard}) => {
       description: '',
       imageUrl: '',
       storyBoard: storyBoard?._id,
-      type
+      type,
     };
 
     setStoryBoard({
       ...storyBoard,
-      heroes: [...storyBoard?.heroes, newHero]
+      heroes: [...storyBoard?.heroes, newHero],
     });
-  }
+  };
 
   return (
     <>
@@ -55,24 +56,26 @@ const Hero = ({storyBoard, setStoryBoard}) => {
       </div>
       <div className={styles.addButtonContainer}>
         <div className={styles.addbutton} onClick={() => addHero(HeroTypes.personage)}>
-          <img className={styles.addIcon} src={`/icons/add.svg`}/>
+          <img className={styles.addIcon} src={`/icons/add.svg`} />
           <p className={styles.addButtonText}>Add a hero</p>
         </div>
         <div className={styles.addbutton} onClick={() => addHero(HeroTypes.component)}>
-          <img className={styles.addIcon} src={`/icons/add.svg`}/>
+          <img className={styles.addIcon} src={`/icons/add.svg`} />
           <p className={styles.addButtonText}>Add components</p>
         </div>
       </div>
     </>
-    );
+  );
 };
 
 Hero.propTypes = {
   storyBoard: PropTypes.object,
+  setStoryBoard: PropTypes.func,
 };
 
 Hero.defaultProps = {
-    storyBoard: {}
+  storyBoard: {},
+  setStoryBoard: () => {},
 };
 
 export default Hero;
