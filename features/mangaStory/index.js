@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
-import { Tabs, Popover, Input, Button, Progress } from 'antd';
+import { Tabs, Input } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
-// import { ChooseLayout } from 'components/chooseLayout';
 import { Comments } from 'components/comments';
 import Footer from 'components/footer';
 import Header from 'components/header';
-import EditPopup from 'components/popup';import Head from 'next/head';
-import Router from 'next/router';
+import EditPopup from 'components/popup';
+import Head from 'next/head';
 import PropTypes from 'prop-types';
-import {onAccept} from './utils'
-import BannerSection from './components/bannersSection'
+
+import BannerSection from './components/bannersSection';
+import StoryBoardTabs from './components/storyBoardTabs';
 import styles from './styles.module.scss';
-import StoryBoardTabs from './components/storyBoardTabs'
+
 const { TabPane } = Tabs;
 const { TextArea } = Input;
 
@@ -23,16 +23,13 @@ const MangeStory = (props) => {
   const [baseData, setBaseData] = useState(mangaStory);
   const [showPopup, setShowPopup] = useState(false);
   const [activeField, setActiveField] = useState('');
-  const [storyBoardActiveTab, setStoryBoardActiveTab] = useState(1);
   const [errMessage, setErrMessage] = useState('');
   const [showMessage, setShowMessage] = useState(false);
-  const [canEdit, setCanEdit] = useState(props.isOwn)
+  const [canEdit, setCanEdit] = useState(props.isOwn);
 
   const setStoryEditMode = () => {
     setEditMode(true);
   };
-
-
 
   const saveUserDataByKey = (user, ...keys) => {
     const data = {};
@@ -228,9 +225,11 @@ const MangeStory = (props) => {
             <div className="row">
               <div className="col-lg-7">
                 <Tabs defaultActiveKey="1" onChange={onChangeTab}>
-                {isOwn &&<TabPane tab="STORY BOARD" key="1" className="story">
-                     <StoryBoardTabs mangaStory={mangaStory} user={user}/>
-                  </TabPane>}
+                  {isOwn && (
+                    <TabPane tab="STORY BOARD" key="1" className="story">
+                      <StoryBoardTabs mangaStory={mangaStory} user={user} />
+                    </TabPane>
+                  )}
                   <TabPane tab="STORY" key="2" className="story">
                     <h3>Here is a my story!</h3>
                     <p>
@@ -271,19 +270,18 @@ const MangeStory = (props) => {
             </div>
           </section>
           <section>
-            <BannerSection 
-              originUrl={originUrl} 
-              canEdit={canEdit} 
-              baseData={baseData} 
-              onChangePopup={onChangePopup} 
-              mangaStory={mangaStory} 
+            <BannerSection
+              originUrl={originUrl}
+              canEdit={canEdit}
+              baseData={baseData}
+              onChangePopup={onChangePopup}
+              mangaStory={mangaStory}
               editMode={editMode}
             />
           </section>
         </div>
         <Footer />
       </main>
-      {/* <MenuPageFour {...props} /> */}
 
       <div className="">
         {showPopup && (
