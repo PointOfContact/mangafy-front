@@ -7,7 +7,7 @@ import Link from 'next/link';
 
 import styles from './styles.module.scss';
 
-const headerNotification = ({}) => (
+const headerNotification = () => (
   <>
     <div className={cn(styles.box, styles.box_position_right, styles.box_width_273)}>
       <button className={styles.box__pro}>
@@ -38,7 +38,7 @@ const headerNotification = ({}) => (
         </div>
       </div>
       <div className={styles.box__toggle}>
-        <ButtonToggle />
+        <ButtonToggle onText="Aviable" offText="Not Aviable" />
       </div>
       <div className={styles.box__notifications}>
         <MenuNotificationsBox />
