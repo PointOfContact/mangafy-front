@@ -4,14 +4,101 @@ import { Popover, Button, Progress } from 'antd';
 import SvgCat from 'components/icon/Cat';
 import SvgLang from 'components/icon/Lang';
 import SvgMone from 'components/icon/Mone';
+import SvgPencilColored from 'components/icon/PencilColored';
 import SvgTie from 'components/icon/Tie';
 import { ShareButtons } from 'components/share';
-import { userTypesEnums } from 'helpers/constant';
+import ButtonToggle from 'components/ui-elements/button-toggle';
+import PrimarySelect from 'components/ui-elements/select';
+import { OPTIONS } from 'features/createStory/lenguage/constant';
+import { userTypes, userTypesEnums } from 'helpers/constant';
 import PropTypes from 'prop-types';
 
 import styles from '../styles.module.scss';
 
-const BannerSection = ({ originUrl, mangaStory, editMode, onChangePopup, baseData, canEdit }) => {
+const languages = OPTIONS.map((item) => ({ key: item, value: item }));
+
+const BannerSection = ({
+  originUrl,
+  editMode,
+  onChangePopup,
+  baseData,
+  canEdit,
+  saveUserDataByKey,
+  genres: genresEnums,
+}) => {
+  const genres = genresEnums.map(({ _id: key, value }) => ({ key, value }));
+  const defaultGenres = baseData.genres?.map(({ _id }) => _id);
+
+  const filteredOptions = baseData.preferredLanguage
+    ? languages.filter((o) => !baseData.preferredLanguage.includes(o.value))
+    : languages;
+
+  const changeSelectedLenguage = (preferredLanguage) => {
+    const data = { ...baseData, preferredLanguage };
+    saveUserDataByKey(data, 'preferredLanguage');
+  };
+
+  const changeSelectedGenre = (genresIds) => {
+    const data = { ...baseData, genresIds };
+    saveUserDataByKey(data, 'genresIds');
+  };
+
+  const changeSelectedUserType = (searchingFor) => {
+    const data = { ...baseData, searchingFor };
+    saveUserDataByKey(data, 'searchingFor');
+  };
+
+  const changeCollaborationIsPaid = (checked) => {
+    const data = { ...baseData, compensationModel: checked ? 'paid' : 'collaboration' };
+    saveUserDataByKey(data, 'compensationModel');
+  };
+
+  const editContent = (
+    <div className={styles.editContent}>
+      <PrimarySelect
+        mode="multiple"
+        onChange={changeSelectedGenre}
+        isLinear={true}
+        isFullWidth={true}
+        placeholder="Ganrys"
+        defaultValue={defaultGenres}
+        options={genres}
+        className={styles.edit_select}
+      />
+      <PrimarySelect
+        showSearch
+        onChange={changeSelectedLenguage}
+        isLinear={true}
+        isFullWidth={true}
+        placeholder="Lenguage"
+        value={baseData.preferredLanguage || undefined}
+        options={filteredOptions}
+        className={styles.edit_select}
+      />
+      <PrimarySelect
+        mode="multiple"
+        onChange={changeSelectedUserType}
+        isLinear={true}
+        isFullWidth={true}
+        placeholder="Profession"
+        defaultValue={baseData.searchingFor || []}
+        options={userTypes}
+        className={styles.edit_select}
+      />
+      <div>
+        <ButtonToggle
+          onChange={(e) => {
+            changeCollaborationIsPaid(e.target.checked);
+          }}
+          className={styles.togle}
+          isChecked={baseData.compensationModel === 'paid'}
+          offText="Free Collaboration"
+          onText="Paid Collaboration"
+        />
+      </div>
+    </div>
+  );
+
   const content = () => (
     <div>
       {' '}
@@ -41,50 +128,58 @@ const BannerSection = ({ originUrl, mangaStory, editMode, onChangePopup, baseDat
           </div>
         </div>
         <div className="row">
-          <div className={`${styles.bannerGenres} d-flex `}>
-            <div className={styles.bannerGenresItem}>
-              {mangaStory.genres.slice(0, 1).map((g) => (
+          <div className={styles.edit_setings}>
+            <div className={`${styles.bannerGenres} d-flex `}>
+              <div className={styles.bannerGenresItem}>
+                {baseData.genres?.slice(0, 1).map((g) => (
+                  <Button
+                    key={g}
+                    data-id="preferredLanguage"
+                    type={editMode && canEdit ? 'dashed' : 'text'}
+                    onClick={onChangePopup}>
+                    <SvgCat width="18px" height="24px" />
+                    <span>{g.name}</span>
+                  </Button>
+                ))}
+              </div>
+              <div className={styles.bannerGenresItem}>
                 <Button
-                  key={g}
                   data-id="preferredLanguage"
                   type={editMode && canEdit ? 'dashed' : 'text'}
                   onClick={onChangePopup}>
-                  <SvgCat width="18px" height="24px" />
-                  <span>{g.name}</span>
+                  <SvgLang width="24px" height="24px" />
+                  <span>{baseData.preferredLanguage}</span>
                 </Button>
-              ))}
-            </div>
-            <div className={styles.bannerGenresItem}>
-              <Button
-                data-id="preferredLanguage"
-                type={editMode && canEdit ? 'dashed' : 'text'}
-                onClick={onChangePopup}>
-                <SvgLang width="24px" height="24px" />
-                <span>{mangaStory.preferredLanguage}</span>
-              </Button>
-            </div>
-            <div className={styles.bannerGenresItem}>
-              <Popover placement="top" title="Searching For" content={content}>
+              </div>
+              <div className={styles.bannerGenresItem}>
+                <Popover placement="top" title="Searching For" content={content}>
+                  <Button
+                    data-id="searchingFor"
+                    type={editMode && canEdit ? 'dashed' : 'text'}
+                    onClick={onChangePopup}>
+                    <SvgTie width="20px" height="20px" />
+                    <span>{baseData.searchingFor[0] || 'Searching For'}</span>
+                  </Button>
+                </Popover>
+              </div>
+              <div className={styles.bannerGenresItem}>
                 <Button
-                  data-id="searchingFor"
+                  value="compensationModel"
+                  data-id="compensationModel"
                   type={editMode && canEdit ? 'dashed' : 'text'}
                   onClick={onChangePopup}>
-                  <SvgTie width="20px" height="20px" />
-                  <span>{baseData.searchingFor[0] || 'Searching For'}</span>
+                  <SvgMone width="20px" height="20px" />
+                  {baseData.compensationModel === 'paid' ? 'Paid Collaboration' : 'Freewill'}
                 </Button>
-              </Popover>
+              </div>
             </div>
-            <div className={styles.bannerGenresItem}>
-              <Button
-                value="compensationModel"
-                data-id="compensationModel"
-                type={editMode & canEdit ? 'dashed' : 'text'}
-                onClick={onChangePopup}>
-                <SvgMone width="20px" height="20px" />
+            <div className={styles.edit}>
+              <Popover content={editContent} trigger="click" placement="bottomRight">
+                <span>Edit</span>
                 <span>
-                  {mangaStory.compensationModel == 'paid' ? 'Paid Collaboration' : 'Freewill'}
+                  <SvgPencilColored width="22px" height="22px" />
                 </span>
-              </Button>
+              </Popover>
             </div>
           </div>
         </div>
@@ -114,12 +209,14 @@ const BannerSection = ({ originUrl, mangaStory, editMode, onChangePopup, baseDat
   );
 };
 
-BannerSection.prototype = {
-  mangaStory: PropTypes.object.isRequired,
+BannerSection.propTypes = {
+  originUrl: PropTypes.string.isRequired,
   baseData: PropTypes.object.isRequired,
   editMode: PropTypes.bool.isRequired,
   canEdit: PropTypes.bool.isRequired,
   onChangePopup: PropTypes.func.isRequired,
+  genres: PropTypes.array.isRequired,
+  saveUserDataByKey: PropTypes.func.isRequired,
 };
 
 export default BannerSection;
