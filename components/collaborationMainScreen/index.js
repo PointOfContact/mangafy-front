@@ -12,14 +12,14 @@ const CollaborationMainScreen = () => (
       <div className={'container'}>
         <div className={styles.box__wrapper}>
           <div className={styles.box__bgImgCloud}>
-            <img src="img/CollaborationMainScreen__cloud.png" alt="" />
+            <img src="/img/CollaborationMainScreen__cloud.png" alt="" />
           </div>
           <div className={cn(styles.box__bgImgs, styles.box__bgImgs_style1)}>
             <div className={styles.box__bgImgs_style1__img1}>
-              <img src="img/CollaborationMainScreen__bgImgs_style1__img1.png" alt="" />
+              <img src="/img/CollaborationMainScreen__bgImgs_style1__img1.png" alt="" />
             </div>
             <div className={styles.box__bgImgs_style1__img2}>
-              <img src="img/CollaborationMainScreen__bgImgs_style1__img2.png" alt="" />
+              <img src="/img/CollaborationMainScreen__bgImgs_style1__img2.png" alt="" />
             </div>
           </div>
           <div className={styles.box__content}>
@@ -49,14 +49,14 @@ const CollaborationMainScreen = () => (
       <div className={'container'}>
         <div className={styles.box__wrapper}>
           <div className={styles.box__bgImgCloud}>
-            <img src="img/CollaborationMainScreen__cloud.png" alt="" />
+            <img src="/img/CollaborationMainScreen__cloud.png" alt="" />
           </div>
           <div className={cn(styles.box__bgImgs, styles.box__bgImgs_style2)}>
             <div className={styles.box__bgImgs_style2__img1}>
-              <img src="img/CollaborationMainScreen__bgImgs_style2__img1.png" alt="" />
+              <img src="/img/CollaborationMainScreen__bgImgs_style2__img1.png" alt="" />
             </div>
             <div className={styles.box__bgImgs_style2__img2}>
-              <img src="img/CollaborationMainScreen__bgImgs_style2__img2.png" alt="" />
+              <img src="/img/CollaborationMainScreen__bgImgs_style2__img2.png" alt="" />
             </div>
           </div>
           <div className={styles.box__content}>
@@ -72,31 +72,31 @@ const CollaborationMainScreen = () => (
               </div>
               <div className={styles.box__users}>
                 <i className={styles.box__users_icon}>
-                  <img src="img/CollaborationMainScreen-user1.png" alt="" />
+                  <img src="/img/CollaborationMainScreen-user1.png" alt="" />
                 </i>
                 <i className={styles.box__users_icon}>
-                  <img src="img/CollaborationMainScreen-user2.png" alt="" />
+                  <img src="/img/CollaborationMainScreen-user2.png" alt="" />
                 </i>
                 <i className={styles.box__users_icon}>
-                  <img src="img/CollaborationMainScreen-user3.png" alt="" />
+                  <img src="/img/CollaborationMainScreen-user3.png" alt="" />
                 </i>
                 <i className={styles.box__users_icon}>
-                  <img src="img/CollaborationMainScreen-user4.png" alt="" />
+                  <img src="/img/CollaborationMainScreen-user4.png" alt="" />
                 </i>
                 <i className={styles.box__users_icon}>
-                  <img src="img/CollaborationMainScreen-user5.png" alt="" />
+                  <img src="/img/CollaborationMainScreen-user5.png" alt="" />
                 </i>
                 <i className={styles.box__users_icon}>
-                  <img src="img/CollaborationMainScreen-user6.png" alt="" />
+                  <img src="/img/CollaborationMainScreen-user6.png" alt="" />
                 </i>
                 <i className={styles.box__users_icon}>
-                  <img src="img/CollaborationMainScreen-user7.png" alt="" />
+                  <img src="/img/CollaborationMainScreen-user7.png" alt="" />
                 </i>
                 <i className={styles.box__users_icon}>
-                  <img src="img/CollaborationMainScreen-user8.png" alt="" />
+                  <img src="/img/CollaborationMainScreen-user8.png" alt="" />
                 </i>
                 <i className={styles.box__users_icon}>
-                  <img src="img/CollaborationMainScreen-user9.png" alt="" />
+                  <img src="/img/CollaborationMainScreen-user9.png" alt="" />
                 </i>
               </div>
             </div>

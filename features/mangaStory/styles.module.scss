@@ -101,6 +101,9 @@
   border-radius: 5px;
 }
 
+.actionButtons button:hover, .actionButtons button:focus {
+    background-color: $primaryLight;
+}
 .actionButtons button:hover,
 .actionButtons button:focus {
   background-color: $primaryLight;

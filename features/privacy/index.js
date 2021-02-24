@@ -35,7 +35,7 @@ const Privacy = (props) => {
               </div>
             </div>
             <div className={styles.image_block}>
-              <img src="img/privacy_image.png"></img>
+              <img src="/img/privacy_image.png"></img>
             </div>
           </div>
           <div className={styles.info_section}>

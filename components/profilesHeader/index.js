@@ -11,14 +11,14 @@ const ProfilesHeader = () => (
     <div className={'container'}>
       <div className={styles.box__wrapper}>
         <div className={styles.box__bgImgCloud}>
-          <img src="img/CollaborationMainScreen__cloud.png" alt="" />
+          <img src="/img/CollaborationMainScreen__cloud.png" alt="" />
         </div>
         <div className={cn(styles.box__bgImgs, styles.box__bgImgs_style1)}>
           <div className={styles.box__bgImgs_style1__img1}>
-            <img src="img/CollaborationMainScreen__bgImgs_style1__img1.png" alt="" />
+            <img src="/img/CollaborationMainScreen__bgImgs_style1__img1.png" alt="" />
           </div>
           <div className={styles.box__bgImgs_style1__img2}>
-            <img src="img/CollaborationMainScreen__bgImgs_style1__img2.png" alt="" />
+            <img src="/img/CollaborationMainScreen__bgImgs_style1__img2.png" alt="" />
           </div>
         </div>
         <div className={styles.box__content}>

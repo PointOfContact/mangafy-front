@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Tabs, Button } from 'antd';
 import { findStoryBoard } from 'api/storyBoardClient';
 import { ChooseLayout } from 'components/chooseLayout';
-import Hero, { HeroTypes } from 'components/Hero';
+import Hero from 'components/Hero';
 import ComicBookSvg from 'components/icon/ComicBook';
 import DocumentsSvg from 'components/icon/Documents';
 import EditSvg from 'components/icon/Edit';
@@ -13,8 +13,10 @@ import ShareSvg from 'components/icon/Share';
 import SuperHeroSvg from 'components/icon/Superhero';
 import Idea from 'components/Idea';
 import { ModalSuccess } from 'components/modalSuccess';
+import ProjectScripts from 'components/projectScripts';
 import { ShareStoryBoard } from 'components/shareStoryBoard';
 import Upload from 'components/ui-elements/upload';
+import PropTypes from 'prop-types';
 import useWindowSize from 'utils/useWindowSize';
 
 import styles from '../styles.module.scss';
@@ -73,41 +75,6 @@ const StoryBoardTabs = ({ user, mangaStory }) => {
       (err) => {}
     );
   };
-  const addHero = (type) => {
-    const newHero = {
-      newCreated: true,
-      name: '',
-      description: '',
-      imageUrl: '',
-      storyBoard: storyBoard?._id,
-      type,
-    };
-
-    setStoryBoard({
-      ...storyBoard,
-      heroes: [...storyBoard?.heroes, newHero],
-    });
-  };
-
-  const getHeroesList = () => {
-    const heroes = [];
-    storyBoard?.heroes?.map((hero, index) => {
-      if (hero?.type === HeroTypes.personage) {
-        heroes.push(<Hero hero={hero} key={hero?._id || index} />);
-      }
-    });
-    return heroes;
-  };
-
-  const getComponentsList = () => {
-    const heroes = [];
-    storyBoard?.heroes?.map((hero, index) => {
-      if (hero?.type === HeroTypes.component) {
-        heroes.push(<Hero hero={hero} key={hero?._id || index} />);
-      }
-    });
-    return heroes;
-  };
 
   return (
     <Tabs
@@ -136,23 +103,8 @@ const StoryBoardTabs = ({ user, mangaStory }) => {
           </span>
         }
         key={2}>
-        <div className={styles.tabContent}>
-          <div className={styles.heroContainer}>
-            <div className={styles.heroesRow}>{getHeroesList()}</div>
-            <div className={styles.heroesRow}>{getComponentsList()}</div>
-          </div>
-          <div className={styles.addButtonContainer}>
-            <div className={styles.addbutton} onClick={() => addHero(HeroTypes.personage)}>
-              <img src={`/img/Group.svg`} />
-              <p className={styles.addButtonText}>Add a hero</p>
-            </div>
-            <div className={styles.addbutton} onClick={() => addHero(HeroTypes.component)}>
-              <img src={`/img/Group.svg`} />
-              <p className={styles.addButtonText}>Add components</p>
-            </div>
-            {renderNavigationButtons()}
-          </div>
-        </div>
+        <Hero storyBoard={storyBoard} setStoryBoard={setStoryBoard} />
+        {renderNavigationButtons()}
       </TabPane>
       <TabPane
         tab={
@@ -162,7 +114,7 @@ const StoryBoardTabs = ({ user, mangaStory }) => {
         }
         key={3}>
         <div className={styles.tabContent}>
-          <div>Content of Tab Pane 3</div>
+          <ProjectScripts  pages={storyBoard.pages} storyBoardId={storyBoard._id}/>
           {renderNavigationButtons()}
         </div>
       </TabPane>
@@ -174,7 +126,7 @@ const StoryBoardTabs = ({ user, mangaStory }) => {
         }
         key={4}>
         <div className={styles.tabContent}>
-          <ChooseLayout />
+          <ChooseLayout storyBoard={storyBoard}/>
           {renderNavigationButtons()}
         </div>
       </TabPane>
@@ -216,6 +168,11 @@ const StoryBoardTabs = ({ user, mangaStory }) => {
       </TabPane>
     </Tabs>
   );
+};
+
+StoryBoardTabs.propTypes = {
+  user: PropTypes.object.isRequired,
+  mangaStory: PropTypes.object.isRequired,
 };
 
 export default StoryBoardTabs;

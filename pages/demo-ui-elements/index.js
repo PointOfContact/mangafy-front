@@ -1,9 +1,5 @@
 import React from 'react';
 
-import { ChooseLayout } from 'components/chooseLayout';
-import { ModalSuccess } from 'components/modalSuccess';
-import ProjectScripts from 'components/projectScripts';
-import { ShareStoryBoard } from 'components/shareStoryBoard';
 import PrimaryUpload from 'components/ui-elements/upload';
 
 import SvgAdd from '../../components/icon/Add';
@@ -18,10 +14,6 @@ const UIElements = () => (
   <>
     <main>
       <div className={'container'}>
-        <ProjectScripts />
-        <ModalSuccess />
-        <ShareStoryBoard />
-        <ChooseLayout />
         <div className="demo_ui_elements">
           <PrimaryUpload />
         </div>

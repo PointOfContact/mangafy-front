@@ -10,31 +10,16 @@ import TextArea from 'components/ui-elements/text-area';
 import useWindowSize from 'utils/useWindowSize';
 
 import styles from './styles.module.scss';
+import { patchPage, createPage } from 'api/storyBoardClient';
 
-const ProjectScripts = () => {
+const ProjectScripts = ({ pages, storyBoardId }) => {
   const { width } = useWindowSize();
-  const [scripts, setScripts] = useState([
-    {
-      key: Math.floor(Math.random() * 1000000),
-      title: 'bbbbbbb',
-      description: 'aaaaaaaaa',
-    },
-    {
-      key: Math.floor(Math.random() * 1000000),
-      title: '',
-      description: '',
-    },
-    {
-      key: Math.floor(Math.random() * 1000000),
-      title: '',
-      description: '',
-    },
-  ]);
+  const [scripts, setScripts] = useState(pages);
 
-  const [selectedScript, setSelectedScript] = useState(scripts[0]?.key);
+  const [selectedScript, setSelectedScript] = useState(scripts[0]?._id);
 
-  const cahangeSelectedScriot = (index, key) => {
-    if (index !== scripts.length) setSelectedScript(key);
+  const cahangeSelectedScriot = (index, id) => {
+    if (index !== scripts.length) setSelectedScript(id);
   };
 
   const confirm = (index) => {
@@ -52,14 +37,34 @@ const ProjectScripts = () => {
     if (feild === 'title') {
       items[index].title = value;
     }
-    if (feild === 'description') {
-      items[index].description = value;
+    if (feild === 'text') {
+      items[index].text = value;
+    }
+    if(items[index].title) {
+      const dataToSave = {
+        ...items[index]
+      };
+      delete dataToSave?._id;
+      if(items[index].newCreated) {
+        delete items[index]?.newCreated;
+        delete dataToSave?.newCreated;
+        dataToSave.order = index + 1;
+        dataToSave.storyBoard = storyBoardId;
+
+        createPage(dataToSave, (res) => {
+          items[index]._id = res?._id;
+          setScripts(items);
+        }, (err) => {})
+      } else {
+        patchPage(items[index]?._id, dataToSave, (res) => {}, (err) => {});
+      }
     }
     if (items[items.length - 2].title) {
       items.push({
-        key: Math.floor(Math.random() * 1000000),
+        _id: Math.floor(Math.random() * 1000000),
+        newCreated: true,
         title: '',
-        description: '',
+        text: '',
       });
     }
     setScripts(items);
@@ -68,33 +73,33 @@ const ProjectScripts = () => {
     <div className={styles.projectScripts}>
       {scripts.map((script, index) => (
         <div
-          key={script.key}
+          key={script._id}
           className={cn(
-            selectedScript === script.key && styles.active_script,
+            selectedScript === script._id && styles.active_script,
             styles.script,
             index + 1 === scripts.length && styles.disabled
           )}
-          onClick={() => cahangeSelectedScriot(index + 1, script.key)}>
+          onClick={() => cahangeSelectedScriot(index + 1, script._id)}>
           <div className={styles.content}>
             <div className={styles.text}>
-              {(selectedScript === script.key && (
+              {(selectedScript === script._id && (
                 <>
                   <h4 className={styles.title}>{`page #${index + 1}`}</h4>
                   <Form
                     name="basic"
-                    initialValues={{ title: script.title, description: script.description }}>
+                    initialValues={{ title: script.title, text: script.text }}>
                     <Form.Item name="title">
                       <PrimaryInput
                         onBlur={(e) => updateScripts(e.target.value, index, 'title')}
                         placeholder="Page title"
                       />
                     </Form.Item>
-                    <Form.Item name="description">
+                    <Form.Item name="text">
                       <TextArea
-                        onBlur={(e) => updateScripts(e.target.value, index, 'description')}
+                        onBlur={(e) => updateScripts(e.target.value, index, 'text')}
                         placeholder="Page description"
-                        minRows={(width < 768 && 5) || 12}
-                        maxRows={(width < 768 && 6) || 15}
+                        minRows={width < 768 ? 5 : 12}
+                        maxRows={width < 768 ? 6 : 15}
                       />
                     </Form.Item>
                   </Form>
@@ -108,7 +113,7 @@ const ProjectScripts = () => {
                     </h4>
                   )}
                   <h4 className={styles.title}>{script.title || `Add page #${index + 1}`}</h4>
-                  <p className={styles.description}>{script.description || ''}</p>
+                  <p className={styles.description}>{script.text || ''}</p>
                 </>
               )}
             </div>
