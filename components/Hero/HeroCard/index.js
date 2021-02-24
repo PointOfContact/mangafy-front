@@ -15,7 +15,7 @@ import styles from './styles.module.scss';
 const { TextArea } = Input;
 const src = '/img/profile6.png';
 
-const HeroCard = ({ hero }) => {
+const HeroCard = ({ hero, getStoryBoard }) => {
   const [currentHero, setCurrentHero] = useState(hero);
 
   const handleTitleChange = (e) => {
@@ -50,6 +50,7 @@ const HeroCard = ({ hero }) => {
             ...newHero,
             _id: res?._id,
           });
+          getStoryBoard();
         },
         (err) => {}
       );
@@ -58,7 +59,9 @@ const HeroCard = ({ hero }) => {
       patchHero(
         hero?._id,
         newHero,
-        () => {},
+        () => {
+          getStoryBoard();
+        },
         (err) => {}
       );
     }
@@ -117,7 +120,7 @@ const HeroCard = ({ hero }) => {
             maxLength={100}
             value={currentHero?.name}
             onChange={handleTitleChange}
-            onBlur={onBlur}
+            onBlur={() => onBlur(currentHero)}
           />
         </div>
         <div className={styles.hero__text__row}>
@@ -128,7 +131,7 @@ const HeroCard = ({ hero }) => {
             maxLength={1000}
             value={currentHero?.description}
             onChange={handleTextChange}
-            onBlur={onBlur}
+            onBlur={() => onBlur(currentHero)}
           />
         </div>
       </div>

@@ -59,6 +59,10 @@
   margin: 0;
 }
 
+.disabled {
+  cursor: not-allowed !important;
+}
+
 .heroesRow {
   height: 200px;
   margin-bottom: 15px;

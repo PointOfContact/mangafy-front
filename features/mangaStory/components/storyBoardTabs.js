@@ -103,7 +103,7 @@ const StoryBoardTabs = ({ user, mangaStory }) => {
           </span>
         }
         key={2}>
-        <Hero storyBoard={storyBoard} setStoryBoard={setStoryBoard} />
+        <Hero storyBoard={storyBoard} setStoryBoard={setStoryBoard} getStoryBoard={getStoryBoard}/>
         {renderNavigationButtons()}
       </TabPane>
       <TabPane
