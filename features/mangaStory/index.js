@@ -18,7 +18,7 @@ const { TabPane } = Tabs;
 const { TextArea } = Input;
 
 const MangeStory = (props) => {
-  const { mangaStory, user, isOwn, originUrl, comments } = props;
+  const { mangaStory, user, isOwn, originUrl, comments, genres } = props;
   const [editMode, setEditMode] = useState(false);
   const [baseData, setBaseData] = useState(mangaStory);
   const [showPopup, setShowPopup] = useState(false);
@@ -31,15 +31,16 @@ const MangeStory = (props) => {
     setEditMode(true);
   };
 
-  const saveUserDataByKey = (user, ...keys) => {
+  const saveUserDataByKey = (inComingData, ...keys) => {
     const data = {};
-    keys.forEach((item) => (data[item] = baseData[item]));
-
+    keys.forEach((item) => {
+      data[item] = inComingData[item];
+    });
     const jwt = client.getCookie('feathers-jwt');
     import('api/restClient').then((m) => {
       m.default
         .service('/api/v2/manga-stories')
-        .patch(baseData._id, data, {
+        .patch(inComingData._id, data, {
           headers: { Authorization: `Bearer ${jwt}` },
         })
         .then((res) => {
@@ -275,8 +276,9 @@ const MangeStory = (props) => {
               canEdit={canEdit}
               baseData={baseData}
               onChangePopup={onChangePopup}
-              mangaStory={mangaStory}
               editMode={editMode}
+              genres={genres}
+              saveUserDataByKey={saveUserDataByKey}
             />
           </section>
         </div>
@@ -301,6 +303,7 @@ const MangeStory = (props) => {
 };
 
 MangeStory.propTypes = {
+  genres: PropTypes.array.isRequired,
   mangaStory: PropTypes.object.isRequired,
   user: PropTypes.object,
   isOwn: PropTypes.bool.isRequired,

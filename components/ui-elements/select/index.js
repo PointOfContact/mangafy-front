@@ -42,9 +42,7 @@ function PrimarySelect({
         id={id}
         {...rest}>
         {options.map((item) => (
-          <Option key={item.key} value={item.key}>
-            {item.value}
-          </Option>
+          <Option key={item.key}>{item.value}</Option>
         ))}
       </Select>
     </>
