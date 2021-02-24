@@ -2,10 +2,9 @@ import * as React from 'react';
 
 import restClient from 'api/restClient';
 import cn from 'classnames';
-import { WhiteChecked } from 'components/icon';
 import PropTypes from 'prop-types';
+import { WhiteChecked, DownloadFile } from 'components/icon';
 
-// Api
 // Styles
 import styles from './styles.module.scss';
 
@@ -18,8 +17,13 @@ const ChooseLayoutCard = ({
   isActive,
   src,
   ...rest
-}) => (
-  <div
+}) => {
+
+const downloadImage = () => {
+  window.open(`${restClient.API_ENDPOINT}/api/v2/uploads/${src}`, "_blank")
+}
+
+return (<div
     {...rest}
     className={cn(
       styles.story_card,
@@ -29,13 +33,14 @@ const ChooseLayoutCard = ({
     )}
     onClick={onClick}>
     {isActive && <WhiteChecked className={styles.checked} width="31px" height="31px" />}
+    <DownloadFile className={styles.download} onClick={downloadImage} width="31px" height="31px" />
     <div className={styles.img}>
       <img src={`${restClient.API_ENDPOINT}/api/v2/uploads/${src}`} />
     </div>
     <h4 className={styles.title}>{title}</h4>
     <p className={styles.description}>{description}</p>
-  </div>
-);
+  </div>);
+}
 
 ChooseLayoutCard.propTypes = {
   className: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),

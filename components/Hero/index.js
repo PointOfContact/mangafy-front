@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 
+import cn from 'classnames';
 import PropTypes from 'prop-types';
 
 // Styles
@@ -11,12 +12,37 @@ export const HeroTypes = {
   component: 'component',
 };
 
-const Hero = ({ storyBoard, setStoryBoard }) => {
+const Hero = ({ storyBoard, setStoryBoard, getStoryBoard }) => {
+
+  const { allowPersonageCreate, allowComponentCreate } = useMemo(() => {
+    const allow = {
+      allowPersonageCreate: true,
+      allowComponentCreate: true
+    }
+    storyBoard.heroes.forEach((hero) => {
+      if(hero.name === '') {
+        if(hero.type === HeroTypes.personage) {
+          allow.allowPersonageCreate = false;
+        } else {
+          allow.allowComponentCreate = false;
+        }
+      }
+    });
+    return allow;
+  }, [storyBoard]);
+
+  const getAllowCreate = (type) => {
+    switch (type) {
+      case HeroTypes.personage: return allowPersonageCreate;
+      case HeroTypes.component: return allowComponentCreate;
+    };
+  }
+
   const getHeroesList = () => {
     const heroes = [];
     storyBoard?.heroes?.map((hero, index) => {
       if (hero?.type === HeroTypes.personage) {
-        heroes.push(<HeroCard hero={hero} key={hero?._id || index} />);
+        heroes.push(<HeroCard hero={hero} key={hero?._id || index} getStoryBoard={getStoryBoard}/>);
       }
     });
     return heroes;
@@ -26,13 +52,16 @@ const Hero = ({ storyBoard, setStoryBoard }) => {
     const heroes = [];
     storyBoard?.heroes?.map((hero, index) => {
       if (hero?.type === HeroTypes.component) {
-        heroes.push(<HeroCard hero={hero} key={hero?._id || index} />);
+        heroes.push(<HeroCard hero={hero} key={hero?._id || index} getStoryBoard={getStoryBoard}/>);
       }
     });
     return heroes;
   };
 
   const addHero = (type) => {
+    if(!getAllowCreate(type)) {
+      return;
+    }
     const newHero = {
       newCreated: true,
       name: '',
@@ -55,11 +84,11 @@ const Hero = ({ storyBoard, setStoryBoard }) => {
         <div className={styles.heroesRow}>{getComponentsList()}</div>
       </div>
       <div className={styles.addButtonContainer}>
-        <div className={styles.addbutton} onClick={() => addHero(HeroTypes.personage)}>
+        <div className={cn(styles.addbutton, !getAllowCreate(HeroTypes.personage) ? styles.disabled : '')} onClick={() => addHero(HeroTypes.personage)}>
           <img className={styles.addIcon} src={`/icons/add.svg`} />
           <p className={styles.addButtonText}>Add a hero</p>
         </div>
-        <div className={styles.addbutton} onClick={() => addHero(HeroTypes.component)}>
+        <div className={cn(styles.addbutton, !getAllowCreate(HeroTypes.component) ? styles.disabled : '')} onClick={() => addHero(HeroTypes.component)}>
           <img className={styles.addIcon} src={`/icons/add.svg`} />
           <p className={styles.addButtonText}>Add components</p>
         </div>

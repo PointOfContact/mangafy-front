@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Form } from 'antd';
 import cn from 'classnames';
@@ -17,6 +17,25 @@ const ProjectScripts = ({ pages, storyBoardId }) => {
   const [scripts, setScripts] = useState(pages);
 
   const [selectedScript, setSelectedScript] = useState(scripts[0]?._id);
+  
+  useEffect(() => {
+    const newScripts =  [
+      ...pages,
+      {
+        _id: Math.floor(Math.random() * 1000000),
+        newCreated: true,
+        title: '',
+        text: '',
+      }, {
+        _id: Math.floor(Math.random() * 1000000),
+        newCreated: true,
+        title: '',
+        text: '',
+      }
+    ];
+    setScripts(newScripts);
+  }, []);
+
 
   const cahangeSelectedScriot = (index, id) => {
     if (index !== scripts.length) setSelectedScript(id);
