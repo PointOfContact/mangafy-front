@@ -1,10 +1,11 @@
 import * as React from 'react';
 
-import cn from 'classnames';
-import PropTypes from 'prop-types';
-import { WhiteChecked } from 'components/icon';
-// Api
 import restClient from 'api/restClient';
+import cn from 'classnames';
+import { WhiteChecked } from 'components/icon';
+import PropTypes from 'prop-types';
+
+// Api
 // Styles
 import styles from './styles.module.scss';
 
