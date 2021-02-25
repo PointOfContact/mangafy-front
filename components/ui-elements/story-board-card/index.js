@@ -1,11 +1,10 @@
 import * as React from 'react';
 
+import restClient from 'api/restClient';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 import { WhiteChecked, DownloadFile } from 'components/icon';
-// Api
-import restClient from 'api/restClient';
-import client from 'api/client';
+
 // Styles
 import styles from './styles.module.scss';
 

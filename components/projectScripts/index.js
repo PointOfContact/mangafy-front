@@ -36,6 +36,7 @@ const ProjectScripts = ({ pages, storyBoardId }) => {
     setScripts(newScripts);
   }, []);
 
+
   const cahangeSelectedScriot = (index, id) => {
     if (index !== scripts.length) setSelectedScript(id);
   };
