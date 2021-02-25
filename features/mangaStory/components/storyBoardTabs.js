@@ -138,7 +138,7 @@ const StoryBoardTabs = ({ user, mangaStory }) => {
         }
         key={5}>
         <div className={styles.tabContent}>
-          <Upload />
+          <Upload storyBoardId={storyBoard?._id}/>
           {renderNavigationButtons()}
         </div>
       </TabPane>

@@ -55,4 +55,16 @@
       }
     }
   }
+
+  &__popconfirm {
+    position: absolute;
+    bottom: 0px;
+    right: 5px;
+    opacity: 0.6;
+
+    &:hover {
+      opacity: 1;
+      cursor: pointer;
+    }
+  }
 }

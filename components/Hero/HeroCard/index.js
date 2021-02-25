@@ -2,15 +2,20 @@ import React, { useState } from 'react';
 
 // Antd design
 import { Input, Upload } from 'antd';
+
 // Api
 import client from 'api/client';
 import restClient from 'api/restClient';
-import { createHero, patchHero } from 'api/storyBoardClient';
+import { createHero, patchHero, deleteHero, uploadFile } from 'api/storyBoardClient';
 import PropTypes from 'prop-types';
 
 // Styles
 import { HeroTypes } from '../index';
 import styles from './styles.module.scss';
+
+// Components
+import SvgDustbin from 'components/icon/Dustbin';
+import Popconfirm from 'components/popconfirm';
 
 const { TextArea } = Input;
 const src = '/img/profile6.png';
@@ -68,45 +73,37 @@ const HeroCard = ({ hero, getStoryBoard }) => {
   };
 
   const beforeUpload = (file) => {
-    console.log('beforeUpload > ', file.name);
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.addEventListener('load', () => {
-      const jwt = client.getCookie('feathers-jwt');
-      import('api/restClient').then((m) => {
-        m.default
-          .service('/api/v2/uploads')
-          .create(
-            { uri: reader.result },
-            {
-              headers: { Authorization: `Bearer ${jwt}` },
-              mode: 'no-cors',
-            }
-          )
-          .then((response) => {
-            console.log('response > ', response);
-            setCurrentHero({
-              ...currentHero,
-              imageUrl: response?.id,
-            });
-            onBlur({
-              ...currentHero,
-              imageUrl: response?.id,
-            });
-          });
-      });
+      uploadFile(reader.result, (res) => {
+        setCurrentHero({
+          ...currentHero,
+          imageUrl: res?.id,
+        });
+        onBlur({
+          ...currentHero,
+          imageUrl: res?.id,
+        });
+      }, (err) => {})
     });
   };
 
   const onPreview = (file) => {
-    console.log('onPreview url > ', file.url);
   };
 
   const onChange = (info) => {
-    console.log('onChange !!> ', info.file.status);
     if (info.file.status === 'done') {
     }
   };
+
+  const confirmDelete = () => {
+    deleteHero(currentHero._id, (res) => {
+      getStoryBoard();
+    }, (err) => {
+      getStoryBoard();
+    })
+  }
 
   return (
     <div className={styles.hero__container}>
@@ -151,6 +148,16 @@ const HeroCard = ({ hero, getStoryBoard }) => {
           />
         </Upload>
       </div>
+      <Popconfirm
+        title="Are you sure to delete this hero."
+        className={styles.hero__popconfirm}
+        onConfirm={() => confirmDelete()}
+        item={
+          <span>
+            <SvgDustbin width="22px" height="22px" />
+          </span>
+        }
+      />
     </div>
   );
 };

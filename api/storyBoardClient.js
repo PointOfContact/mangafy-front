@@ -97,6 +97,25 @@ const patchHero = (heroId, data, onSuccess, onFailure) => {
   });
 };
 
+const deleteHero = (heroId, onSuccess, onFailure) => {
+  const jwt = client.getCookie('feathers-jwt');
+  import('./restClient').then((m) => {
+    m.default
+      .service('/api/v2/heroes')
+      .remove(heroId, {
+        headers: { Authorization: `Bearer ${jwt}` },
+        mode: 'no-cors',
+      })
+      .then((res) => {
+        onSuccess(res);
+      })
+      .catch((err) => {
+        onFailure(err);
+        return err;
+      });
+  });
+};
+
 const getPages = (storyBoardId, data, onSuccess, onFailure) => {
   const jwt = client.getCookie('feathers-jwt');
   import('./restClient').then((m) => {
@@ -156,12 +175,55 @@ const patchPage = (pageId, data, onSuccess, onFailure) => {
   });
 };
 
+const deletePage = (pageId, onSuccess, onFailure) => {
+  const jwt = client.getCookie('feathers-jwt');
+  import('./restClient').then((m) => {
+    m.default
+      .service('/api/v2/pages')
+      .remove(pageId, {
+        headers: { Authorization: `Bearer ${jwt}` },
+        mode: 'no-cors',
+      })
+      .then((res) => {
+        onSuccess(res);
+      })
+      .catch((err) => {
+        onFailure(err);
+        return err;
+      });
+  });
+};
+
+const uploadFile = (uri, onSuccess, onFailure) => {
+  const jwt = client.getCookie('feathers-jwt');
+  import('api/restClient').then((m) => {
+    m.default
+      .service('/api/v2/uploads')
+      .create(
+        { uri },
+        {
+          headers: { Authorization: `Bearer ${jwt}` },
+          mode: 'no-cors',
+        }
+      )
+      .then((res) => {
+        onSuccess(res);
+      })
+      .catch((err) => {
+        onFailure(err);
+      })
+  });
+}
+
 export {
   findStoryBoard,
   patchStoryBoard,
   findLayouts,
   createHero,
   patchHero,
+  deleteHero,
   createPage,
   patchPage,
+  deletePage,
+  uploadFile,
 };
