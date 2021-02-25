@@ -3,7 +3,10 @@ import React from 'react';
 import LargeButton from 'components/ui-elements/large-button';
 import Link from 'next/link';
 
+import SimpleSlider from 'components/slider';
+
 import styles from './styles.module.sass';
+import cn from 'classnames';
 
 export default function Home() {
   return (
@@ -32,6 +35,7 @@ export default function Home() {
           </div>
         </div>
       </div>
+      
       <div className={styles.different}>
         <div className={'container'}>
           <div className={styles.different__title}>What makes us different</div>
@@ -156,6 +160,18 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+      <div className={cn('sliderMobile', styles.sliderInMobile)}>
+        <div className={styles.useGoal__title}>
+          <p>
+            Use <span>MangaFY</span> <br /> Goal-oriented Planner
+          </p>
+        </div>
+        <div className={'container'}>
+          <SimpleSlider />
+        </div>
+      </div>
+      
       <div className={styles.useGoal}>
         <div className={'container'}>
           <div className={styles.useGoal__title}>
