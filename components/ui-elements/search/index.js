@@ -19,13 +19,13 @@ function Search({ className, isFullWidth, onClick, ...rest }) {
 }
 
 Search.propTypes = {
-  className: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+  className: PropTypes.string,
   isFullWidth: PropTypes.bool,
   onClick: PropTypes.func,
 };
 
 Search.defaultProps = {
-  className: {},
+  className: '',
   isFullWidth: false,
   onClick: () => {},
 };

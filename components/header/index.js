@@ -104,10 +104,12 @@ const Header = ({ user, path }) => {
               )}
             </div>
             <Link href="/create-a-story/start">
-              <PrimaryButton
-                className={cn(styles.btn_submit, 'btn_submit')}
-                text="Submit an IDEA"
-              />
+              <span>
+                <PrimaryButton
+                  className={cn(styles.btn_submit, 'btn_submit')}
+                  text="Submit an IDEA"
+                />
+              </span>
             </Link>
           </div>
         </div>

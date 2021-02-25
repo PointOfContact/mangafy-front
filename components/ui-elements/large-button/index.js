@@ -17,7 +17,7 @@ const LargeButton = ({ text, disabled, className, onClick, isFullWidth, ...rest 
 );
 
 LargeButton.propTypes = {
-  className: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+  className: PropTypes.string,
   text: PropTypes.string,
   disabled: PropTypes.bool,
   onClick: PropTypes.func,
@@ -25,7 +25,7 @@ LargeButton.propTypes = {
 };
 
 LargeButton.defaultProps = {
-  className: {},
+  className: '',
   text: '',
   disabled: false,
   isFullWidth: false,

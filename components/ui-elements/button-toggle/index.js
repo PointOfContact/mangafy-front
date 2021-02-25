@@ -26,7 +26,7 @@ const ButtonToggle = ({ onText, offText, className, onChange, isChecked, ...rest
 );
 
 ButtonToggle.propTypes = {
-  className: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+  className: PropTypes.string,
   onText: PropTypes.string,
   offText: PropTypes.string,
   onChange: PropTypes.func,
@@ -34,7 +34,7 @@ ButtonToggle.propTypes = {
 };
 
 ButtonToggle.defaultProps = {
-  className: {},
+  className: '',
   onText: '',
   offText: '',
   isChecked: null,
