@@ -37,7 +37,9 @@ const CollaborationsHeader = () => (
           </div>
           <div className={styles.box__link}>
             <Link href="/create-a-story/start">
-              <HugeButton text="Post Collaborations" disabled={false} />
+              <span>
+                <HugeButton text="Post Collaborations" disabled={false} />
+              </span>
             </Link>
           </div>
         </div>

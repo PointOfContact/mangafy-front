@@ -112,8 +112,13 @@ const Header = ({ user, path }) => {
 };
 
 Header.propTypes = {
-  user: PropTypes.object.isRequired,
-  path: PropTypes.string.isRequired,
+  user: PropTypes.object,
+  path: PropTypes.string,
+};
+
+Header.defaultProps = {
+  user: null,
+  path: '',
 };
 
 const MenuLinks = ({ isOpen }) => {
