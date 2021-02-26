@@ -1,13 +1,11 @@
 import React from 'react';
 
+import cn from 'classnames';
+import SimpleSlider from 'components/slider';
 import LargeButton from 'components/ui-elements/large-button';
 import Link from 'next/link';
-import cn from 'classnames';
-
-import SimpleSlider from 'components/slider';
 
 import styles from './styles.module.sass';
-import cn from 'classnames';
 
 export default function Home() {
   return (
@@ -36,7 +34,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      
+
       <div className={styles.different}>
         <div className={'container'}>
           <div className={styles.different__title}>What makes us different</div>
@@ -172,7 +170,7 @@ export default function Home() {
           <SimpleSlider />
         </div>
       </div>
-      
+
       <div className={styles.useGoal}>
         <div className={'container'}>
           <div className={styles.useGoal__title}>
