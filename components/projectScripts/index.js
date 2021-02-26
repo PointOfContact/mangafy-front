@@ -10,7 +10,7 @@ import TextArea from 'components/ui-elements/text-area';
 import useWindowSize from 'utils/useWindowSize';
 
 import styles from './styles.module.scss';
-import { patchPage, createPage } from 'api/storyBoardClient';
+import { patchPage, createPage, deletePage } from 'api/storyBoardClient';
 
 const ProjectScripts = ({ pages, storyBoardId }) => {
   const { width } = useWindowSize();
@@ -46,6 +46,7 @@ const ProjectScripts = ({ pages, storyBoardId }) => {
   };
 
   const removeScript = (index) => {
+    deletePage(scripts[index]._id, (res) => {}, (err) => {})
     const items = [...scripts];
     items.splice(index, 1);
     setScripts(items);
