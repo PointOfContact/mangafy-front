@@ -24,7 +24,7 @@ const CollaborationsHeader = () => (
         <div className={styles.box__content}>
           <div className={styles.box__title_wrap}>
             <div className={styles.box__title}>
-              <p className={styles.box__title_text}>
+              <p className={cn(styles.box__title_text, styles.box__title_text__mobile_resize)}>
                 A platform for <br />
                 community collaboration.
               </p>
