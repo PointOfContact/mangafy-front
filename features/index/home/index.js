@@ -2,6 +2,7 @@ import React from 'react';
 
 import LargeButton from 'components/ui-elements/large-button';
 import Link from 'next/link';
+import cn from 'classnames';
 
 import SimpleSlider from 'components/slider';
 
@@ -12,7 +13,7 @@ export default function Home() {
   return (
     <>
       <div className={styles.main}>
-        <div className={'container'}>
+        <div className={cn('container', styles.main__container)}>
           <div className={styles.main__wrap}>
             <div className={styles.main__left}>
               <div className={styles.main__title}>
@@ -95,7 +96,7 @@ export default function Home() {
         </div>
       </div>
       <div className={styles.howWorks}>
-        <div className={'container'}>
+        <div className={cn('container', styles.howWorks__container)}>
           <div className={styles.howWorks__title}>
             <div className={styles.it1}>
               <img src="/img/main-descr-ico3.png" alt="" />

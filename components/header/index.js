@@ -26,17 +26,10 @@ const Header = ({ user, path }) => {
   };
   const handleScroll = () => {
     const el = document.querySelector('.menubar');
-    const elbar = document.querySelector('.hedertopbar');
     if (window.scrollY > 20) {
-      el.style.backgroundColor = 'white';
-      elbar.style.display = 'block';
-      elbar.style.height = '140px';
-      el.classList.add(styles.fixed_menu);
+      el.classList.add(styles.header__fixed);
     } else {
-      el.classList.remove(styles.fixed_menu);
-      elbar.style.display = 'none';
-      elbar.style.height = '0px';
-      el.style.backgroundColor = 'none';
+      el.classList.remove(styles.header__fixed);
     }
   };
 
@@ -46,7 +39,6 @@ const Header = ({ user, path }) => {
 
   return (
     <>
-      <div className={`hedertopbar`}></div>
       <header className={`${styles.header} navbar menubar`}>
         <div className={'container'}>
           <div className={styles.header__top}>
