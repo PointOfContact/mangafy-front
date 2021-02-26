@@ -43,7 +43,7 @@ return (<div
 }
 
 ChooseLayoutCard.propTypes = {
-  className: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+  className: PropTypes.string,
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   onClick: PropTypes.func,
@@ -53,7 +53,7 @@ ChooseLayoutCard.propTypes = {
 };
 
 ChooseLayoutCard.defaultProps = {
-  className: {},
+  className: '',
   text: '',
   isFullWidth: false,
   isActive: false,

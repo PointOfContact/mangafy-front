@@ -22,7 +22,7 @@ const AddButton = ({ disabled, className, onClick, isDark, isActive, height, wid
 );
 
 AddButton.propTypes = {
-  className: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+  className: PropTypes.string,
   width: PropTypes.string,
   height: PropTypes.string,
   isDark: PropTypes.bool,
@@ -33,7 +33,7 @@ AddButton.propTypes = {
 };
 
 AddButton.defaultProps = {
-  className: {},
+  className: '',
   isDark: false,
   isActive: false,
   disabled: false,

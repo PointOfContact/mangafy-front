@@ -50,7 +50,7 @@ function PrimarySelect({
 }
 
 PrimarySelect.propTypes = {
-  className: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+  className: PropTypes.string,
   isFullWidth: PropTypes.bool,
   isLinear: PropTypes.bool,
   bordered: PropTypes.bool,
@@ -63,7 +63,7 @@ PrimarySelect.propTypes = {
 };
 
 PrimarySelect.defaultProps = {
-  className: {},
+  className: '',
   isFullWidth: false,
   isLinear: false,
   bordered: false,

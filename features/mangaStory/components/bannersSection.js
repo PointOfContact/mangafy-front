@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { Popover, Button, Progress } from 'antd';
+import { Popover, Button, Progress, Upload } from 'antd';
+import client from 'api/client';
 import SvgCat from 'components/icon/Cat';
 import SvgLang from 'components/icon/Lang';
 import SvgMone from 'components/icon/Mone';
@@ -19,11 +20,11 @@ const languages = OPTIONS.map((item) => ({ key: item, value: item }));
 
 const BannerSection = ({
   originUrl,
-  editMode,
-  onChangePopup,
   baseData,
   canEdit,
   saveUserDataByKey,
+  setBaseData,
+  openNotification,
   genres: genresEnums,
 }) => {
   const genres = genresEnums.map(({ _id: key, value }) => ({ key, value }));
@@ -32,6 +33,39 @@ const BannerSection = ({
   const filteredOptions = baseData.preferredLanguage
     ? languages.filter((o) => !baseData.preferredLanguage.includes(o.value))
     : languages;
+
+  const beforeUpload = (file) => {
+    // eslint-disable-next-line no-undef
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.addEventListener(
+      'load',
+      async () => {
+        try {
+          const jwt = client.getCookie('feathers-jwt');
+          const { default: api } = await import('api/restClient');
+          const options = {
+            headers: { Authorization: `Bearer ${jwt}` },
+            mode: 'no-cors',
+          };
+          const { id: image } = await api
+            .service('/api/v2/uploads')
+            .create({ uri: reader.result }, options);
+          const data = await api.service('/api/v2/manga-stories').patch(
+            baseData._id,
+            {
+              image,
+            },
+            options
+          );
+          setBaseData(data);
+        } catch (err) {
+          openNotification('error', err.message);
+        }
+      },
+      false
+    );
+  };
 
   const changeSelectedLenguage = (preferredLanguage) => {
     const data = { ...baseData, preferredLanguage };
@@ -105,12 +139,7 @@ const BannerSection = ({
       {baseData.searchingFor.map((item) =>
         userTypesEnums[item] ? (
           <p>
-            <Button
-              key={item}
-              value="searchingFor"
-              data-id="searchingFor"
-              type={editMode ? 'dashed' : 'text'}
-              onClick={onChangePopup}>
+            <Button key={item} value="searchingFor" data-id="searchingFor" type="text">
               {userTypesEnums[item] && userTypesEnums[item]}
             </Button>
           </p>
@@ -121,66 +150,62 @@ const BannerSection = ({
   return (
     <div className={styles.bannerWrap}>
       <div className="row">
-        <div className={styles.banner}>
-          <img src="/img/banner.png" />
-          <div>
-            <img src="/img/upload.png" />
+        {canEdit ? (
+          <Upload className={styles.upload} beforeUpload={beforeUpload} fileList={[]}>
+            <div className={styles.banner}>
+              <img src={!baseData.image ? '/img/banner.png' : client.UPLOAD_URL + baseData.image} />
+              <div className={styles.upload}>
+                <img src="/img/upload.png" />
+              </div>
+            </div>
+          </Upload>
+        ) : (
+          <div className={styles.banner}>
+            <img src={!baseData.image ? '/img/banner.png' : client.UPLOAD_URL + baseData.image} />
           </div>
-        </div>
+        )}
         <div className="row">
           <div className={styles.edit_setings}>
             <div className={`${styles.bannerGenres} d-flex `}>
               <div className={styles.bannerGenresItem}>
                 {baseData.genres?.slice(0, 1).map((g) => (
-                  <Button
-                    key={g}
-                    data-id="preferredLanguage"
-                    type={editMode && canEdit ? 'dashed' : 'text'}
-                    onClick={onChangePopup}>
+                  <Button key={g} data-id="preferredLanguage" type="text">
                     <SvgCat width="18px" height="24px" />
                     <span>{g.name}</span>
                   </Button>
                 ))}
               </div>
               <div className={styles.bannerGenresItem}>
-                <Button
-                  data-id="preferredLanguage"
-                  type={editMode && canEdit ? 'dashed' : 'text'}
-                  onClick={onChangePopup}>
+                <Button data-id="preferredLanguage" type="text">
                   <SvgLang width="24px" height="24px" />
                   <span>{baseData.preferredLanguage}</span>
                 </Button>
               </div>
               <div className={styles.bannerGenresItem}>
                 <Popover placement="top" title="Searching For" content={content}>
-                  <Button
-                    data-id="searchingFor"
-                    type={editMode && canEdit ? 'dashed' : 'text'}
-                    onClick={onChangePopup}>
+                  <Button data-id="searchingFor" type="text">
                     <SvgTie width="20px" height="20px" />
                     <span>{baseData.searchingFor[0] || 'Searching For'}</span>
                   </Button>
                 </Popover>
               </div>
               <div className={styles.bannerGenresItem}>
-                <Button
-                  value="compensationModel"
-                  data-id="compensationModel"
-                  type={editMode && canEdit ? 'dashed' : 'text'}
-                  onClick={onChangePopup}>
+                <Button value="compensationModel" data-id="compensationModel" type="text">
                   <SvgMone width="20px" height="20px" />
                   {baseData.compensationModel === 'paid' ? 'Paid Collaboration' : 'Freewill'}
                 </Button>
               </div>
             </div>
-            <div className={styles.edit}>
-              <Popover content={editContent} trigger="click" placement="bottomRight">
-                <span>Edit</span>
-                <span>
-                  <SvgPencilColored width="22px" height="22px" />
-                </span>
-              </Popover>
-            </div>
+            {canEdit && (
+              <div className={styles.edit}>
+                <Popover content={editContent} trigger="click" placement="bottomRight">
+                  <span>Edit</span>
+                  <span>
+                    <SvgPencilColored width="22px" height="22px" />
+                  </span>
+                </Popover>
+              </div>
+            )}
           </div>
         </div>
         <div className={styles.progressWrapper}>
@@ -212,11 +237,11 @@ const BannerSection = ({
 BannerSection.propTypes = {
   originUrl: PropTypes.string.isRequired,
   baseData: PropTypes.object.isRequired,
-  editMode: PropTypes.bool.isRequired,
   canEdit: PropTypes.bool.isRequired,
-  onChangePopup: PropTypes.func.isRequired,
   genres: PropTypes.array.isRequired,
   saveUserDataByKey: PropTypes.func.isRequired,
+  setBaseData: PropTypes.func.isRequired,
+  openNotification: PropTypes.func.isRequired,
 };
 
 export default BannerSection;

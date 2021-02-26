@@ -34,12 +34,11 @@ const PrimaryButton = ({
     )}
     onClick={onClick}
     style={splitterStyle || {}}
-    onClick={onClick}
     disabled={disabled}>
     {items?.length ? (
       <div className={styles.main} style={{ width: `${items.length * 17 + 10}px` }}>
         {items.map((item, index) => (
-          <div className={styles.users_img} style={{ left: `${index * 17}px` }}>
+          <div key={index} className={styles.users_img} style={{ left: `${index * 17}px` }}>
             {item}
           </div>
         ))}
@@ -52,7 +51,7 @@ const PrimaryButton = ({
 );
 
 PrimaryButton.propTypes = {
-  className: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+  className: PropTypes.string,
   splitterStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   items: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   disabled: PropTypes.bool,
@@ -67,7 +66,7 @@ PrimaryButton.propTypes = {
 };
 
 PrimaryButton.defaultProps = {
-  className: {},
+  className: '',
   splitterStyle: {},
   text: '',
   items: null,

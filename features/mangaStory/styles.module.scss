@@ -8,12 +8,27 @@
   max-width: 998px;
   height: 150px;
   position: relative;
+  cursor: pointer;
+  .upload {
+    display: none;
+  }
+  &:hover {
+    .upload {
+      display: block;
+    }
+  }
+}
+.upload {
+  > div {
+    width: 100%;
+  }
 }
 
 .banner > img {
   object-fit: cover;
-  width: 100%;
+  // width: 100%;
   display: flex;
+  margin: 0 auto;
   height: 100%;
   align-items: center;
 }
@@ -46,6 +61,9 @@
 }
 .bannerWrap {
   padding: 21px;
+  @include media-sm {
+    display: none;
+  }
 }
 .bannerGenresItem {
   display: flex;
@@ -101,8 +119,9 @@
   border-radius: 5px;
 }
 
-.actionButtons button:hover, .actionButtons button:focus {
-    background-color: $primaryLight;
+.actionButtons button:hover,
+.actionButtons button:focus {
+  background-color: $primaryLight;
 }
 .actionButtons button:hover,
 .actionButtons button:focus {
