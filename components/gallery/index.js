@@ -6,12 +6,11 @@ import SvgClose from 'components/icon/Close';
 import SvgDustbin from 'components/icon/Dustbin';
 import SvgHeart from 'components/icon/Heart';
 import AddButton from 'components/ui-elements/add-button';
-import SocialButton from 'components/ui-elements/social-button';
 import PropTypes from 'prop-types';
 import ImageGallery from 'react-image-gallery';
 
 import styles from './style.module.scss';
-import { likeGallery, removeImg, prepareDataImages, beforeGalleryUpload, socials } from './utils';
+import { likeGallery, removeImg, prepareDataImages, beforeGalleryUpload } from './utils';
 
 export const Gallery = (props) => {
   const { user = false, profile, mangaStories, fromPath = 'users', title = '' } = props;
@@ -63,7 +62,7 @@ export const Gallery = (props) => {
         });
     }
     setImages(data);
-  }, [images, canEdit, fromPath, mangaStories, profile, userData]);
+  }, [canEdit, fromPath, mangaStories, profile, userData]);
 
   const getLikesCount = useCallback(
     (galleryId) =>
@@ -215,31 +214,6 @@ export const Gallery = (props) => {
           </Col>
         )}
       </Row>
-
-      <h4 className={styles.title}>Social</h4>
-      <div className={styles.social}>
-        <Row>
-          <Col span={23}>
-            {socials.map((social) => (
-              <span key={social.id} className={styles.social_icons}>
-                <a href={`${social.link}`} rel="noreferrer" target="_blank">
-                  <SocialButton name={social.name} />
-                </a>
-              </span>
-            ))}
-          </Col>
-
-          <Col span={1} className={styles.add_button}>
-            {canEditInit && (
-              <AddButton
-                onClick={() => {
-                  // TODO: add funcionality
-                }}
-              />
-            )}
-          </Col>
-        </Row>
-      </div>
     </div>
   );
 };

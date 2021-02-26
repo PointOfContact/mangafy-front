@@ -1,0 +1,75 @@
+@import '../../styles/variables.scss';
+
+.title {
+  color: $black;
+  font-size: $text2;
+  @include media-sm {
+    font-size: $text4;
+  }
+}
+
+.img_add_button {
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 100px;
+  @include media-sm {
+    align-items: self-end;
+    position: relative;
+    svg {
+      position: absolute;
+      top: -35px;
+      right: 0px;
+      height: 18px;
+      width: 18px;
+    }
+  }
+}
+
+.social {
+  .social_icons {
+    a {
+      display: inline-block;
+      margin-right: 15px;
+    }
+  }
+  .add_button {
+    display: flex;
+    align-items: flex-end;
+    @include media-sm {
+      align-items: self-end;
+      position: relative;
+      svg {
+        position: absolute;
+        top: -30px;
+        right: 0px;
+        height: 18px;
+        width: 18px;
+      }
+    }
+  }
+}
+
+.edit_social_content {
+  width: 350px;
+  padding: 10px 5px;
+  div {
+    margin-bottom: 0;
+  }
+  .social_inp {
+    position: relative;
+    svg {
+      position: absolute;
+      top: 8px;
+      z-index: 10;
+    }
+    input {
+      font-size: $text4;
+      padding-left: 35px !important;
+      padding-bottom: 5px;
+    }
+    span {
+      font-size: $text6;
+      color: $grey;
+    }
+  }
+}
