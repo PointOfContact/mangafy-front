@@ -2,13 +2,14 @@ import React from 'react';
 
 import cn from 'classnames';
 import Link from 'next/link';
+import PropTypes from 'prop-types';
 
 import BottomArrow from '../icon/BottomArrow';
 import Close from '../icon/Close';
 import SvgSearch from '../icon/Search';
 import styles from './styles.module.scss';
 
-const SearchForCollaborations = ({}) => (
+const SearchForCollaborations = ({ onChange, placeholder, initialValue }) => (
   <>
     <div className={styles.box}>
       <div className={'container'}>
@@ -21,7 +22,9 @@ const SearchForCollaborations = ({}) => (
               className={styles.box__search_field}
               type="search"
               name="search"
-              placeholder="Search for collaborations"
+              placeholder={placeholder}
+              onChange={onChange}
+              initialValue={initialValue}
             />
           </form>
           <div className={styles.box__nav}>
@@ -93,4 +96,16 @@ const SearchForCollaborations = ({}) => (
     </div>
   </>
 );
+
+SearchForCollaborations.propTypes = {
+  onChange: PropTypes.func.isRequired,
+  placeholder: PropTypes.string,
+  initialValue: PropTypes.string,
+};
+
+SearchForCollaborations.defaultProps = {
+  placeholder: '',
+  initialValue: '',
+};
+
 export default SearchForCollaborations;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Row, Select } from 'antd';
+import { Input, Row, Select } from 'antd';
 import client from 'api/client';
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import cn from 'classnames';
@@ -8,7 +8,9 @@ import ColaborationCard from 'components/colaborationCard';
 import CollaborationsHeader from 'components/collaborationsHeader';
 import Footer from 'components/footer';
 import Header from 'components/header';
+import SvgSearch from 'components/icon/Search';
 import Paginations from 'components/paginations';
+import SearchForCollaborations from 'components/searchForCollaborations';
 import PrimaryButton from 'components/ui-elements/button';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
@@ -95,7 +97,12 @@ const Collaborations = (props) => {
       <main className="main_back_2 colab_page">
         <Header path="collaborations" user={user} />
         <CollaborationsHeader />
-        {/* <section className="search_collab">
+        <SearchForCollaborations
+          onChange={onInputChange}
+          initialValue={search}
+          placeholder="Search for collab"
+        />
+        <section className="search_collab">
           <div className="container mangafy_container search_field">
             <div className="row">
               <div className="col-lg-12">
@@ -155,7 +162,7 @@ const Collaborations = (props) => {
               </div>
             </div>
           </div>
-        </section> */}
+        </section>
         <div className="container mangafy_container">
           <Row type="flux">
             <div className={styles.colabCards}>
