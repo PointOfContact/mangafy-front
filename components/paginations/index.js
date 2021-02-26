@@ -1,29 +1,51 @@
 import React from 'react';
 
-import cn from 'classnames';
+import { Pagination } from 'antd';
+import PropTypes from 'prop-types';
 
-import styles from './styles.module.scss';
-
-const Paginations = ({}) => (
-  <div className={styles.Paginations}>
-    <div className={'container'}>
-      <div className={styles.Paginations__wrap}>
-        <div className={styles.Paginations__prev}>
-          <img src="icons/Pagination-arrow-prev.svg" alt=""></img>
-        </div>
-        <div className={cn(styles.Paginations__item, styles.Paginations__itemActive)}>1</div>
-        <div className={styles.Paginations__item}>2</div>
-        <div className={styles.Paginations__item}>3</div>
-        <div className={styles.Paginations__item}>4</div>
-        <div className={styles.Paginations__item}>5</div>
-        <div className={styles.Paginations__item}>6</div>
-        <div className={styles.Paginations__item}>7</div>
-        <div className={styles.Paginations__item}>8</div>
-        <div className={styles.Paginations__next}>
-          <img src="icons/Pagination-arrow-prev.svg" alt=""></img>
-        </div>
-      </div>
-    </div>
+const Paginations = ({
+  className,
+  total,
+  pageSize,
+  defaultCurrent,
+  showSizeChanger,
+  hideOnSinglePage,
+  current,
+  onChange,
+  ...rest
+}) => (
+  <div className={'paginations'}>
+    <Pagination
+      {...rest}
+      className={className}
+      hideOnSinglePage={hideOnSinglePage}
+      showSizeChanger={showSizeChanger}
+      pageSize={pageSize}
+      defaultCurrent={defaultCurrent}
+      total={total}
+      current={current}
+      onChange={onChange}
+    />
   </div>
 );
+
+Paginations.propTypes = {
+  className: PropTypes.string,
+  hideOnSinglePage: PropTypes.bool,
+  showSizeChanger: PropTypes.bool,
+  pageSize: PropTypes.number,
+  defaultCurrent: PropTypes.number,
+  total: PropTypes.number.isRequired,
+  current: PropTypes.number.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
+
+Paginations.defaultProps = {
+  className: '',
+  hideOnSinglePage: true,
+  showSizeChanger: false,
+  pageSize: 9,
+  defaultCurrent: 9,
+};
+
 export default Paginations;

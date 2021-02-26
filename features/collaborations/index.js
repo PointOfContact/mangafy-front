@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Row, Select } from 'antd';
+import { Input, Row, Select } from 'antd';
 import client from 'api/client';
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import cn from 'classnames';
@@ -8,6 +8,9 @@ import ColaborationCard from 'components/colaborationCard';
 import CollaborationsHeader from 'components/collaborationsHeader';
 import Footer from 'components/footer';
 import Header from 'components/header';
+import SvgSearch from 'components/icon/Search';
+import Paginations from 'components/paginations';
+import SearchForCollaborations from 'components/searchForCollaborations';
 import PrimaryButton from 'components/ui-elements/button';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
@@ -94,7 +97,12 @@ const Collaborations = (props) => {
       <main className="main_back_2 colab_page">
         <Header path="collaborations" user={user} />
         <CollaborationsHeader />
-        {/* <section className="search_collab">
+        <SearchForCollaborations
+          onChange={onInputChange}
+          initialValue={search}
+          placeholder="Search for collab"
+        />
+        <section className="search_collab">
           <div className="container mangafy_container search_field">
             <div className="row">
               <div className="col-lg-12">
@@ -154,7 +162,7 @@ const Collaborations = (props) => {
               </div>
             </div>
           </div>
-        </section> */}
+        </section>
         <div className="container mangafy_container">
           <Row type="flux">
             <div className={styles.colabCards}>
@@ -162,7 +170,7 @@ const Collaborations = (props) => {
                 <div className={styles.colabWrap}>
                   {mangaStories &&
                     mangaStories.map((label) => (
-                      <ColaborationCard key={label.id} label={label} client={client} />
+                      <ColaborationCard key={label._id} label={label} client={client} />
                     ))}
                   <div className={cn(styles.PostColab)}>
                     <div className={cn(styles.PostColab__item)}>
@@ -170,7 +178,9 @@ const Collaborations = (props) => {
                         Have an idea to coomics and looking for collaboration?
                       </div>
                       <Link href="/create-a-story/start">
-                        <PrimaryButton text="Post Collab" className={cn(styles.PostColab__btn)} />
+                        <span>
+                          <PrimaryButton text="Post Collab" className={cn(styles.PostColab__btn)} />
+                        </span>
                       </Link>
                     </div>
                   </div>
@@ -178,14 +188,10 @@ const Collaborations = (props) => {
               </div>
             </div>
           </Row>
-          {/* <div className="row">
+          <div className="row">
             <div className="col-lg-12">
-              <div className="pagination_cards">
-                <Pagination
-                  hideOnSinglePage
-                  showSizeChanger={false}
-                  pageSize={9}
-                  defaultCurrent={9}
+              <div className={styles.pagination_cards}>
+                <Paginations
                   total={total}
                   current={current}
                   onChange={(page, pageSize) => {
@@ -194,7 +200,7 @@ const Collaborations = (props) => {
                 />
               </div>
             </div>
-          </div> */}
+          </div>
         </div>
         <Footer />
       </main>
@@ -207,20 +213,26 @@ const Collaborations = (props) => {
           iconColor="#7b65f3"
         />
       </div>
-      <div></div>
     </div>
   );
 };
 
-Collaborations.prototype = {
+Collaborations.propTypes = {
   user: PropTypes.object,
-  mangaStories: PropTypes.array,
-  selectedCompensationModel: PropTypes.array,
+  mangaStories: PropTypes.array.isRequired,
+  selectedCompensationModel: PropTypes.string,
   selectedGenres: PropTypes.array,
-  genres: PropTypes.array,
-  total: PropTypes.number,
-  current: PropTypes.number,
+  genres: PropTypes.array.isRequired,
+  total: PropTypes.number.isRequired,
+  current: PropTypes.number.isRequired,
   search: PropTypes.string,
+};
+
+Collaborations.defaultProps = {
+  user: null,
+  selectedCompensationModel: '',
+  selectedGenres: [],
+  search: '',
 };
 
 export default Collaborations;

@@ -389,8 +389,6 @@ body {
   }
 }
 
-
-
 .sliderMobile .slick-dots {
   padding: 0;
 }
@@ -405,11 +403,17 @@ body {
   cursor: pointer;
   background-color: #212121;
   background-size: 100% 100%;
-  background-image: -webkit-gradient(linear, left, right, color-stop(1, #7B65F3), color-stop(1, transparent));
-  background-image: -o-linear-gradient(left, #7B65F3 100%, transparent);
-  background-image: -moz-linear-gradient(left, #7B65F3 100%, transparent);
-  background-image: -webkit-linear-gradient(left, #7B65F3 100%, transparent);
-  background-image: linear-gradient(to right, #7B65F3 100%, transparent 100%);
+  background-image: -webkit-gradient(
+    linear,
+    left,
+    right,
+    color-stop(1, #7b65f3),
+    color-stop(1, transparent)
+  );
+  background-image: -o-linear-gradient(left, #7b65f3 100%, transparent);
+  background-image: -moz-linear-gradient(left, #7b65f3 100%, transparent);
+  background-image: -webkit-linear-gradient(left, #7b65f3 100%, transparent);
+  background-image: linear-gradient(to right, #7b65f3 100%, transparent 100%);
   background-repeat: no-repeat;
 }
 
@@ -417,7 +421,8 @@ body {
   margin-right: 0;
 }
 
-.sliderMobile .slick-dots li:hover, .slider .slick-dots li.slick-active {
+.sliderMobile .slick-dots li:hover,
+.slider .slick-dots li.slick-active {
   background-color: #212121;
 }
 
@@ -425,7 +430,7 @@ body {
   display: none !important;
 }
 
-.sliderMobile .slick-dots li.slick-active~li {
+.sliderMobile .slick-dots li.slick-active ~ li {
   background-size: 0% 0%;
 }
 
@@ -461,7 +466,7 @@ img.rot {
 
 @-webkit-keyframes rot {
   0% {
-     transform: rotate(0deg);
+    transform: rotate(0deg);
   }
   100% {
     transform: rotate(360deg);
@@ -534,5 +539,41 @@ img.rot4 {
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+.paginations {
+  display: inline-block;
+  .ant-pagination-item-link {
+    width: 30px !important;
+    height: 30px !important;
+    color: $black;
+    border: 1px solid rgba(33, 33, 33, 0.1) !important;
+    svg {
+      width: 30px;
+      height: 30px;
+      path {
+        fill: $black;
+      }
+    }
+  }
+  .ant-pagination-item {
+    border: none !important;
+    outline: none;
+    font-size: $text2;
+    @include media-sm {
+      font-size: $text3;
+    }
+    &:focus {
+      outline: none !important;
+    }
+    a {
+      color: $grey !important;
+    }
+  }
+  .ant-pagination-item-active {
+    a {
+      color: $black !important;
+    }
   }
 }

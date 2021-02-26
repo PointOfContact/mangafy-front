@@ -1,9 +1,12 @@
+import React from 'react';
+
 import { Row, Select } from 'antd';
 import client from 'api/client';
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import cn from 'classnames';
 import Footer from 'components/footer';
 import Header from 'components/header';
+import Paginations from 'components/paginations';
 import ProfilesCard from 'components/profilesCard';
 import ProfilesHeader from 'components/profilesHeader';
 import PrimaryButton from 'components/ui-elements/button';
@@ -153,7 +156,7 @@ const Profiles = (props) => {
                 <div className={styles.colabWrap}>
                   {users &&
                     users.map((label) => (
-                      <ProfilesCard key={label.id} label={label} client={client} />
+                      <ProfilesCard key={label._id} label={label} client={client} />
                     ))}
                   <div className={cn(styles.PostColab)}>
                     <div className={cn(styles.PostColab__item)}>
@@ -161,7 +164,9 @@ const Profiles = (props) => {
                         Have an idea to coomics and looking for collaboration?
                       </div>
                       <Link href="/create-a-story/start">
-                        <PrimaryButton text="Post Collab" className={cn(styles.PostColab__btn)} />
+                        <span>
+                          <PrimaryButton text="Post Collab" className={cn(styles.PostColab__btn)} />
+                        </span>
                       </Link>
                     </div>
                   </div>
@@ -169,39 +174,40 @@ const Profiles = (props) => {
               </div>
             </div>
           </Row>
-
-          {/* <div className="row">
-            <div className="col-lg-12">
-              <div className="pagination_cards">
-                <Pagination
-                  hideOnSinglePage
-                  showSizeChanger={false}
-                  pageSize={9}
-                  defaultCurrent={1}
-                  total={total}
-                  current={current}
-                  onChange={(page, pageSize) => {
-                    onChange(page, pageSize);
-                  }}
-                />
-              </div>
-            </div>
-          </div> */}
+          <div className={styles.pagination}>
+            <Paginations
+              total={total}
+              current={current}
+              onChange={(page, pageSize) => {
+                onChange(page, pageSize);
+              }}
+            />
+          </div>
         </div>
         <Footer />
       </main>
     </div>
   );
 };
-Profiles.prototype = {
+
+Profiles.propTypes = {
+  users: PropTypes.array.isRequired,
   user: PropTypes.object,
   mangaStories: PropTypes.array,
   selectedTypes: PropTypes.array,
   selectedGenres: PropTypes.array,
-  genres: PropTypes.array,
-  total: PropTypes.number,
+  genres: PropTypes.array.isRequired,
+  total: PropTypes.number.isRequired,
+  current: PropTypes.number.isRequired,
   search: PropTypes.string,
-  current: PropTypes.string,
+};
+
+Profiles.defaultProps = {
+  mangaStories: [],
+  user: null,
+  selectedTypes: '',
+  selectedGenres: [],
+  search: '',
 };
 
 export default Profiles;
