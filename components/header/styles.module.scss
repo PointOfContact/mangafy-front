@@ -145,6 +145,7 @@
   top: 0;
   padding: 20px 0 22px 0;
 }
+
 @media (max-width:767px){
   .header{
     .mobile_menu{
@@ -169,7 +170,7 @@
     }
     .mobile_div_part1{
       background: #FFFFFF;
-      padding-top: 0;
+      padding-top: 20px;
     }
     .menu_item {
       padding: 5px 0;
@@ -187,33 +188,8 @@
       }
     }
     .main_list{
-      padding: 45px 30px 10px 30px;
+      padding: 10px 30px;
       margin: 0;
-    }
-  }
-  .field_block{
-    width: 100%;
-    padding: 30px 30px 0;
-    position: relative;
-    input{
-      width: 100%;
-      border: 1px solid $black;
-      height: 50px;
-      font-size: 20px;
-      line-height: normal;
-      font-family: Noto Sans JP;
-      font-style: normal;
-      font-weight: bold;
-      border-radius: 60px;
-      padding: 5px 40px 5px 15px;
-    }
-    img{
-      width: 22px;
-      height: 22px;
-      position: absolute;
-      right: 45px;
-      bottom: 50%;
-      margin-bottom: -26px;
     }
   }
   .header__logIn,
@@ -231,6 +207,38 @@
       max-width: 257px;
     }
   }
+  // ///login
+  // .header {
+  //   .mobile_div_part2{
+  //     flex: none;
+  //     position: relative;
+  //   }
+  //   .mobile_div_part1{
+  //     flex: 1;
+  //     .main_list:last-child{
+  //       border-bottom: none;
+  //     }
+  //   }
+  // }
+  // .image_block{
+  //   position: absolute;
+  //   right: 0;
+  //   top: 0;
+  //   z-index: 0;
+  //   max-height: 100%;
+  //   img{
+  //     max-width: 200px;
+  //   }
+  // }
+  // .links{
+  //   position: relative;
+  //   z-index: 2;
+  //   padding: 15px 30px 15px;
+  // }
+  // .main_list{
+  //   border-bottom: 1px solid rgba($black, 0.07);
+  // }
+  // ////
 }
 @media (max-width:399px){
   .header{
@@ -249,22 +257,25 @@
       padding: 30px 30px 10px 30px;
     }
   }
-  .field_block{
-    padding-top: 20px;
-    input{
-      font-size: 18px;
-      height: 44px;
-    }
-    img{
-      margin-bottom: -20px;
-      width: 20px;
-      height: 20px;
-    }
-  }
   .links{
     padding: 20px 30px 10px;
   }
   .image_block img{
     max-width: 240px;
   }
+  // ///login
+  // .header{
+  //   .main_list{
+  //     padding: 10px 30px;
+  //   }
+  // }
+  // .image_block{
+  //   img{
+  //     max-width: 170px;
+  //   }
+  // }
+  // .links{
+  //   padding: 15px 30px 15px;
+  // }
+  // ///
 }

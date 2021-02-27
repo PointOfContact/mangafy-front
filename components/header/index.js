@@ -154,10 +154,6 @@ const MenuLinks = ({ isOpen }) => {
     <div id="menu" className={`${styles.mobile_menu} ${isOpen && styles.isOpen}`}>
       <div className={styles.menu_inner}>
         <div className={styles.mobile_div_part1}>
-          <div className={styles.field_block}>
-            <input type="search" placeholder="Search"></input>
-            <img src="img/search.svg"></img>
-          </div>
           <ul className={styles.main_list}>
             <li className={styles.menu_item}>
               <Link href="/collaborations?compensationModel=paid">Paid projects</Link>
@@ -175,11 +171,33 @@ const MenuLinks = ({ isOpen }) => {
               <Link href="/profiles">Members</Link>
             </li>
           </ul>
+
+          {/* login//
+          <ul className={styles.main_list}>
+            <li className={styles.menu_item}>
+              <Link href="/collaborations?compensationModel=paid">Paid projects</Link>
+            </li>
+            <li className={styles.menu_item}>
+              <Link href="/collaborations">Collabs</Link>
+            </li>
+            <li className={styles.menu_item}>
+              <Link href="/create-a-story/start">Create a collab</Link>
+            </li>
+            <li className={styles.menu_item}>
+              <Link href="/profiles">Enthusiast</Link>
+            </li>
+            <li className={styles.menu_item}>
+              <Link href="/profiles">Members</Link>
+            </li>
+          </ul> */}
         </div>
         <div className={styles.mobile_div_part2}>
           <ul className={styles.links}>{links}</ul>
           <div className={styles.image_block}>
             <img src="img/Frame.jpg"></img>
+            {/* //login */}
+            {/* <img src="img/header_bg.jpg"></img> */}
+            {/*  */}
           </div>
         </div>
       </div>
