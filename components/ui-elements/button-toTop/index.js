@@ -5,7 +5,7 @@ import styles from './styles.module.scss';
 const ButtonToTop = ({}) => (
   <div className={styles.button}>
     <div className={styles.button__circle}>
-      <img src="/img/to-top.svg" alt="" />
+      <img className={styles.button__circle_img} src="/img/to-top.svg" alt="" />
     </div>
   </div>
 );

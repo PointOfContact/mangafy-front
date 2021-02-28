@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 
 import { Upload, message } from 'antd';
+// Api
+import client from 'api/client';
+import { patchStoryBoard, uploadFile } from 'api/storyBoardClient';
+// Components
 import SvgCloud from 'components/icon/Cloud';
 import SvgImage from 'components/icon/Image';
 
 import styles from './styles.module.scss';
 
-const PrimaryUpload = () => {
+const PrimaryUpload = ({ storyBoardId }) => {
   const [fileList, setFileList] = useState([]);
 
   const onChange = ({ fileList: newFileList }) => {
@@ -25,6 +29,15 @@ const PrimaryUpload = () => {
     if (!isLt2M) {
       message.error('Image must smaller than 100MB!');
     }
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.addEventListener('load', () => {
+      uploadFile(reader.result, (res) => {
+        patchStoryBoard(storyBoardId, {
+          mangaUrl: res?.id,
+        }, (res) => {}, (err) => {});
+      }, (err) => {});
+    });
     return isJpgOrPng && isLt2M;
   }
 

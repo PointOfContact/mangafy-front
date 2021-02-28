@@ -43,7 +43,7 @@ html, body
 	font-size: 14px
 	line-height: 1.35
 	color: #000
-	background: #FAFAFA
+	background: #fff
 	min-width: 414px
 	text-size-adjust: 100%
 	overflow-x: hidden
@@ -113,6 +113,13 @@ input::-webkit-inner-spin-button
 		flex: 0 0 auto
 		overflow: hidden
 
+.content
+	padding-top: 139px
+	@media screen and (max-width: 991px)
+		padding-top: 129px
+	@media screen and (max-width: 767px)
+		padding-top: 72px
+
 .container
 	max-width: 1485px
 	width: 100%
@@ -139,29 +146,76 @@ input::-webkit-inner-spin-button
 	color: #fff
 	font-weight: 700
 
-#to-top
-	display: inline-block
-	background-color: #A60EED
-	width: 50px
-	height: 50px
-	text-align: center
-	border-radius: 4px
-	position: fixed
-	bottom: 30px
-	right: 30px
-	transition: background-color .3s, opacity .5s, visibility .5s
-	opacity: 0
-	visibility: hidden
-	z-index: 1000
-	display: flex
-	align-items: center
-	justify-content: center
-	&.show
-		opacity: 1
-		visibility: visible
-
 .demo_ui_elements
 	margin-bottom: 20px
 	&:last-child
 		margin-bottom: 0
+
+.slick-slider
+	position: relative
+	display: block
+	box-sizing: border-box
+	user-select: none
+	touch-action: pan-y
+	-webkit-tap-highlight-color: transparent
+.slick-list
+	position: relative
+	display: block
+	overflow: hidden
+	margin: 0
+	padding: 0
+	&:focus
+		outline: none
+	&.dragging
+		cursor: pointer
+		cursor: hand
+
+.slick-slider .slick-track, .slick-slider .slick-list
+	transform: translate3d(0, 0, 0)
+
+.slick-track
+	display: flex
+	align-items: stretch
+	position: relative
+	top: 0
+	left: 0
+	margin-left: auto
+	margin-right: auto
+	&:before, &:after
+		display: table
+		content: ''
+	&:after
+		clear: both
+
+.slick-loading .slick-track
+	visibility: hidden
+
+.slick-slide
+	display: none
+	min-height: 1px
+
+.slick-slide img
+	display: block
+
+.slick-slide.slick-loading img
+	display: none
+	
+.slick-slide.dragging img
+	pointer-events: none
+
+.slick-initialized .slick-slide
+	display: block
+
+.slick-loading .slick-slide
+	visibility: hidden
+
+.slick-arrow.slick-hidden
+	display: none
+
+.slick-vertical
+	.slick-track
+		flex-direction: column
+		.slick-slide
+			height: auto
+
 

@@ -34,7 +34,9 @@ const ProfilesHeader = () => (
           </div>
           <div className={styles.box__link}>
             <Link href="/sign-in">
-              <HugeButton text="Join to MangaFY" disabled={false} />
+              <span>
+                <HugeButton text="Join to MangaFY" disabled={false} />
+              </span>
             </Link>
           </div>
         </div>

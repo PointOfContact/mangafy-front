@@ -31,7 +31,7 @@ function TextArea({
 }
 
 TextArea.propTypes = {
-  className: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+  className: PropTypes.string,
   isFullWidth: PropTypes.bool,
   onChange: PropTypes.func,
   value: PropTypes.string,
@@ -41,7 +41,7 @@ TextArea.propTypes = {
 };
 
 TextArea.defaultProps = {
-  className: {},
+  className: '',
   isFullWidth: false,
   onChange: () => {},
   value: '',

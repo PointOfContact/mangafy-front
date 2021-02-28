@@ -1,5 +1,7 @@
 import React from 'react';
 
+import cn from 'classnames';
+import SimpleSlider from 'components/slider';
 import LargeButton from 'components/ui-elements/large-button';
 import Link from 'next/link';
 
@@ -9,7 +11,7 @@ export default function Home() {
   return (
     <>
       <div className={styles.main}>
-        <div className={'container'}>
+        <div className={cn('container', styles.main__container)}>
           <div className={styles.main__wrap}>
             <div className={styles.main__left}>
               <div className={styles.main__title}>
@@ -32,6 +34,7 @@ export default function Home() {
           </div>
         </div>
       </div>
+
       <div className={styles.different}>
         <div className={'container'}>
           <div className={styles.different__title}>What makes us different</div>
@@ -91,7 +94,7 @@ export default function Home() {
         </div>
       </div>
       <div className={styles.howWorks}>
-        <div className={'container'}>
+        <div className={cn('container', styles.howWorks__container)}>
           <div className={styles.howWorks__title}>
             <div className={styles.it1}>
               <img src="/img/main-descr-ico3.png" alt="" />
@@ -156,6 +159,18 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+      <div className={cn('sliderMobile', styles.sliderInMobile)}>
+        <div className={styles.useGoal__title}>
+          <p>
+            Use <span>MangaFY</span> <br /> Goal-oriented Planner
+          </p>
+        </div>
+        <div className={'container'}>
+          <SimpleSlider />
+        </div>
+      </div>
+
       <div className={styles.useGoal}>
         <div className={'container'}>
           <div className={styles.useGoal__title}>

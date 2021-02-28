@@ -152,27 +152,3 @@
     }
   }
 }
-
-.social {
-  .social_icons {
-    a {
-      display: inline-block;
-      margin-right: 15px;
-    }
-  }
-  .add_button {
-    display: flex;
-    align-items: flex-end;
-    @include media-sm {
-      align-items: self-end;
-      position: relative;
-      svg {
-        position: absolute;
-        top: -30px;
-        right: 0px;
-        height: 18px;
-        width: 18px;
-      }
-    }
-  }
-}

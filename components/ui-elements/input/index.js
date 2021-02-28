@@ -23,7 +23,7 @@ function PrimaryInput({ className, isFullWidth, isLinear, isSmall, onChange, ...
 }
 
 PrimaryInput.propTypes = {
-  className: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+  className: PropTypes.string,
   isFullWidth: PropTypes.bool,
   isLinear: PropTypes.bool,
   isSmall: PropTypes.bool,
@@ -31,7 +31,7 @@ PrimaryInput.propTypes = {
 };
 
 PrimaryInput.defaultProps = {
-  className: {},
+  className: '',
   isFullWidth: false,
   isLinear: false,
   isSmall: false,

@@ -1,47 +1,24 @@
-import React, { useState } from 'react';
-
+import React, { useState, useEffect } from 'react';
+// Components
 import ChooseLayoutCard from 'components/ui-elements/story-board-card';
-
+// Api
+import restClient from 'api/restClient';
+import { findLayouts, patchStoryBoard } from 'api/storyBoardClient';
+// Styles
 import styles from './styles.module.scss';
 
-export const ChooseLayout = () => {
-  const [layouts, setLayouts] = useState([
-    {
-      title: 'Title',
-      description:
-        'MangaFY can accept PDF Uploader files as big as 100MB, but no bigger.100MB should be enough space to handle even 220-page books that are rich with images.If your PDF is larger than 100MB, it probably has far more image information in each digital image than is necessary. ',
-      src: 'https://i.pinimg.com/736x/b1/51/d7/b151d719cef4301bb687e1385c89e956.jpg',
-      selected: false,
-    },
-    {
-      title: 'Title',
-      description:
-        'MangaFY can accept PDF Uploader files as big as 100MB, but no bigger.100MB should be enough space to handle even 220-page books that are rich with images.If your PDF is larger than 100MB, it probably has far more image information in each digital image than is necessary. ',
-      src: 'https://i.pinimg.com/736x/b1/51/d7/b151d719cef4301bb687e1385c89e956.jpg',
-      selected: true,
-    },
-    {
-      title: 'Title',
-      description:
-        'MangaFY can accept PDF Uploader files as big as 100MB, but no bigger.100MB should be enough space to handle even 220-page books that are rich with images.If your PDF is larger than 100MB, it probably has far more image information in each digital image than is necessary. ',
-      src: 'https://i.pinimg.com/736x/b1/51/d7/b151d719cef4301bb687e1385c89e956.jpg',
-      selected: false,
-    },
-    {
-      title: 'Title',
-      description:
-        'MangaFY can accept PDF Uploader files as big as 100MB, but no bigger.100MB should be enough space to handle even 220-page books that are rich with images.If your PDF is larger than 100MB, it probably has far more image information in each digital image than is necessary. ',
-      src: 'https://i.pinimg.com/736x/b1/51/d7/b151d719cef4301bb687e1385c89e956.jpg',
-      selected: false,
-    },
-    {
-      title: 'Title',
-      description:
-        'MangaFY can accept PDF Uploader files as big as 100MB, but no bigger.100MB should be enough space to handle even 220-page books that are rich with images.If your PDF is larger than 100MB, it probably has far more image information in each digital image than is necessary. ',
-      src: 'https://i.pinimg.com/736x/b1/51/d7/b151d719cef4301bb687e1385c89e956.jpg',
-      selected: false,
-    },
-  ]);
+export const ChooseLayout = ({storyBoard}) => {
+  const [layouts, setLayouts] = useState([]);
+
+  useEffect(()=> {
+    findLayouts((res) => {
+      const newItems = res?.data?.map((layout) => ({
+        ...layout,
+        selected: storyBoard?.layoutId === layout?._id,
+      }));
+      setLayouts(newItems);
+    }, (err) => {});
+  }, []);
 
   const changeSelectedBoard = (id) => {
     const storys = layouts;
@@ -50,7 +27,9 @@ export const ChooseLayout = () => {
       selected: false,
     }));
     newItems[id].selected = true;
-    setLayouts(newItems);
+    patchStoryBoard(storyBoard._id, {layoutId: newItems[id]._id}, (res) => {
+      setLayouts(newItems);
+    }, (err) => {});
   };
 
   return (
@@ -62,7 +41,7 @@ export const ChooseLayout = () => {
             key={index}
             title={board.title}
             description={board.description}
-            src={board.src}
+            src={board.presentationUrl}
             isActive={board.selected}
             onClick={() => changeSelectedBoard(index)}
           />

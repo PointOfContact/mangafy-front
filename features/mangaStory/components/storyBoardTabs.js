@@ -23,7 +23,7 @@ import styles from '../styles.module.scss';
 
 const { TabPane } = Tabs;
 
-const StoryBoardTabs = ({ user, mangaStory }) => {
+const StoryBoardTabs = ({ user, mangaStory, openNotification }) => {
   const [storyBoardActiveTab, setStoryBoardActiveTab] = useState(1);
   const { width } = useWindowSize();
 
@@ -62,7 +62,7 @@ const StoryBoardTabs = ({ user, mangaStory }) => {
 
   useEffect(() => {
     getStoryBoard();
-  }, []);
+  });
 
   const getStoryBoard = () => {
     if (!user) return;
@@ -72,7 +72,9 @@ const StoryBoardTabs = ({ user, mangaStory }) => {
       (res) => {
         setStoryBoard(res?.data[0]);
       },
-      (err) => {}
+      (err) => {
+        openNotification('error', err.message);
+      }
     );
   };
 
@@ -103,7 +105,7 @@ const StoryBoardTabs = ({ user, mangaStory }) => {
           </span>
         }
         key={2}>
-        <Hero storyBoard={storyBoard} setStoryBoard={setStoryBoard} />
+        <Hero storyBoard={storyBoard} setStoryBoard={setStoryBoard} getStoryBoard={getStoryBoard}/>
         {renderNavigationButtons()}
       </TabPane>
       <TabPane
@@ -114,7 +116,7 @@ const StoryBoardTabs = ({ user, mangaStory }) => {
         }
         key={3}>
         <div className={styles.tabContent}>
-          <ProjectScripts />
+          <ProjectScripts pages={storyBoard.pages} storyBoardId={storyBoard._id} />
           {renderNavigationButtons()}
         </div>
       </TabPane>
@@ -126,7 +128,7 @@ const StoryBoardTabs = ({ user, mangaStory }) => {
         }
         key={4}>
         <div className={styles.tabContent}>
-          <ChooseLayout />
+          <ChooseLayout storyBoard={storyBoard} />
           {renderNavigationButtons()}
         </div>
       </TabPane>
@@ -138,7 +140,7 @@ const StoryBoardTabs = ({ user, mangaStory }) => {
         }
         key={5}>
         <div className={styles.tabContent}>
-          <Upload />
+          <Upload storyBoardId={storyBoard?._id}/>
           {renderNavigationButtons()}
         </div>
       </TabPane>
@@ -173,6 +175,7 @@ const StoryBoardTabs = ({ user, mangaStory }) => {
 StoryBoardTabs.propTypes = {
   user: PropTypes.object.isRequired,
   mangaStory: PropTypes.object.isRequired,
+  openNotification: PropTypes.func.isRequired,
 };
 
 export default StoryBoardTabs;

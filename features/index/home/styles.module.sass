@@ -4,7 +4,7 @@
     padding-bottom: 80px
     @media (max-width: 767px)
         padding-bottom: 70px
-    .container
+    &__container
         @media (max-width: 767px)
             padding: 0
     &__wrap
@@ -279,6 +279,9 @@
     padding-top: 62px
     @media (max-width: 767px)
         padding-top: 0
+    &__container
+        @media (max-width: 767px)
+            padding: 0
     .container
         @media (max-width: 767px)
             padding: 0
@@ -384,6 +387,7 @@
     padding-bottom: 120px
     @media (max-width: 767px)
         padding-top: 70px
+        padding-bottom: 67px
     &__wrap
         display: flex
         align-items: center
@@ -438,6 +442,8 @@
 .useGoal
     padding-top: 25px
     padding-bottom: 50px
+    @media (max-width: 767px)
+        display: none
     &__title
         color: $black
         font-size: 50px
@@ -555,4 +561,11 @@
         @media (max-width: 767px)
             width: 100%
     .btn__submit
+        margin: 0 auto
+
+.sliderInMobile
+    display: none
+    @media (max-width: 767px)
+        display: block
+    img
         margin: 0 auto
