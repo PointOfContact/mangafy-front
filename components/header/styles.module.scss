@@ -148,3 +148,145 @@
     }
   }
 }
+.fixed_menu {
+  background-color: white;
+  width: 100%;
+  position: fixed;
+  z-index: 3;
+  top: 0;
+  padding: 20px 0 22px 0;
+}
+
+@media (max-width:767px){
+  .header{
+    .mobile_menu{
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      padding-top: 74px;
+    }
+    .mobile_div_part2{
+      background: $primaryDark;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .menu_inner{
+      height: 100%;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .mobile_div_part1{
+      background: #FFFFFF;
+      padding-top: 20px;
+    }
+    .menu_item {
+      padding: 5px 0;
+      a{
+        color: $black;
+        padding: 0;
+        line-height: normal;
+      }
+      span{
+        font-size: 20px;
+        line-height: normal;
+        padding: 0;
+        color: $white;
+        display: block;
+      }
+    }
+    .main_list{
+      padding: 10px 30px;
+      margin: 0;
+    }
+  }
+  .header__logIn,
+  .header__logo{
+    z-index: 5;
+  }
+  .links{
+    padding: 30px 30px 10px;
+    margin: 0 0 auto;
+  }
+  .image_block{
+    display: flex;
+    justify-content: flex-end;
+    img{
+      max-width: 257px;
+    }
+  }
+  // ///login
+  // .header {
+  //   .mobile_div_part2{
+  //     flex: none;
+  //     position: relative;
+  //   }
+  //   .mobile_div_part1{
+  //     flex: 1;
+  //     .main_list:last-child{
+  //       border-bottom: none;
+  //     }
+  //   }
+  // }
+  // .image_block{
+  //   position: absolute;
+  //   right: 0;
+  //   top: 0;
+  //   z-index: 0;
+  //   max-height: 100%;
+  //   img{
+  //     max-width: 200px;
+  //   }
+  // }
+  // .links{
+  //   position: relative;
+  //   z-index: 2;
+  //   padding: 15px 30px 15px;
+  // }
+  // .main_list{
+  //   border-bottom: 1px solid rgba($black, 0.07);
+  // }
+  // ////
+}
+@media (max-width:399px){
+  .header{
+    .menu_item {
+      padding: 5px 0;
+      a{
+        font-size: 18px;
+        line-height: 22px;
+      }
+      span{
+        font-size: 18px;
+        line-height: 22px;
+      }
+    }
+    .main_list{
+      padding: 30px 30px 10px 30px;
+    }
+  }
+  .links{
+    padding: 20px 30px 10px;
+  }
+  .image_block img{
+    max-width: 240px;
+  }
+  // ///login
+  // .header{
+  //   .main_list{
+  //     padding: 10px 30px;
+  //   }
+  // }
+  // .image_block{
+  //   img{
+  //     max-width: 170px;
+  //   }
+  // }
+  // .links{
+  //   padding: 15px 30px 15px;
+  // }
+  // ///
+}
