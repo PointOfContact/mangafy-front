@@ -24,26 +24,9 @@ import { LinkCreator } from 'utils/linkCreator';
 
 import styles from './styles.module.scss';
 
-const { Option } = Select;
 const Cookiebubble = dynamic(() => import('react-cookie-bubble'), {
   ssr: false,
 });
-
-const menuOptions = (handleCompasitionClick) => [
-  <Option key="all">Doesn't matter</Option>,
-  <Option key="collaboration">Joint Collab</Option>,
-  <Option key="paid">Paid Collab</Option>,
-];
-const menuGenresOptions = (genres = [], handleMenuClick) => [
-  <Option className="filterItem" key="all">
-    All
-  </Option>,
-  ...genres.map((g) => (
-    <Option className="filterItem" key={g._id}>
-      {g.name}
-    </Option>
-  )),
-];
 
 const Collaborations = (props) => {
   const {
@@ -51,42 +34,8 @@ const Collaborations = (props) => {
     total,
     current,
     user,
-    genres,
-    search,
-    selectedCompensationModel = [],
-    selectedGenres = [],
   } = props;
-  const searchAPI = (search) => {
-    const parsed = qs.parse(location.search);
-    Router.push(LinkCreator.toQuery({ ...parsed, search }, '/collaborations'));
-  };
-
-  const onInputChange = async (e) => {
-    const { value } = e.target;
-    await AwesomeDebouncePromise(searchAPI, 500)(value);
-  };
-  const onChange = (page, pageSize) => {
-    const parsed = qs.parse(location.search);
-    Router.push(LinkCreator.toQuery({ ...parsed, page }, '/collaborations'));
-  };
-  const handleCompasitionClick = (keys) => {
-    const parsed = qs.parse(location.search);
-    if (keys && keys.includes('all')) {
-      delete parsed.compensationModel;
-      Router.push(LinkCreator.toQuery({ ...parsed }, '/collaborations'));
-      return;
-    }
-    Router.push(LinkCreator.toQuery({ ...parsed, compensationModel: keys }, '/collaborations'));
-  };
-  const handleGenresClick = (keys) => {
-    const parsed = qs.parse(location.search);
-    if (keys && keys.includes('all')) {
-      delete parsed.genres;
-      Router.push(LinkCreator.toQuery({ ...parsed }, '/collaborations'));
-      return;
-    }
-    Router.push(LinkCreator.toQuery({ ...parsed, genres: keys }, '/collaborations'));
-  };
+  
   return (
     <>
       <Head>
@@ -102,72 +51,7 @@ const Collaborations = (props) => {
           <Header path="collaborations" user={user} />
           <main>
             <CollaborationsHeader />
-            <SearchForCollaborations
-              onChange={onInputChange}
-              initialValue={search}
-              placeholder="Search for collab"
-            />
-            <section className="search_collab">
-              <div className="container mangafy_container search_field">
-                <div className="row">
-                  <div className="col-lg-12">
-                    <div className="row">
-                      <div className="col-lg-4 col-md-4">
-                        <div
-                          style={{
-                            display: 'flex',
-                          }}>
-                          <button>
-                            <SvgSearch width="30px" height="30px" />
-                          </button>
-                          <Input
-                            type="text"
-                            style={{
-                              width: '100%',
-                            }}
-                            placeholder="Search for collab"
-                            initialValue={search}
-                            allowClear
-                            onChange={onInputChange}
-                          />
-                        </div>
-                      </div>
-                      <div className="col-lg-8 col-md-8">
-                        <div className="dropdowns">
-                          <Select
-                            bordered={false}
-                            showArrow={true}
-                            allowClear={true}
-                            showSearch={false}
-                            placeholder="Collab type"
-                            defaultValue={selectedCompensationModel}
-                            onChange={handleCompasitionClick}
-                            style={{ width: '50%' }}
-                            className="dropdownCollaboration">
-                            {menuOptions(handleCompasitionClick)}
-                          </Select>
-                          <Select
-                            bordered={false}
-                            menuItemSelectedIcon={null}
-                            showArrow={true}
-                            showSearch={false}
-                            allowClear={true}
-                            mode="multiple"
-                            placeholder="Genres"
-                            defaultValue={selectedGenres || []}
-                            value={selectedGenres || []}
-                            onChange={handleGenresClick}
-                            style={{ width: '50%' }}
-                            className="dropdownCollaboration">
-                            {menuGenresOptions(genres)}
-                          </Select>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
+            <SearchForCollaborations />
             <div className="container mangafy_container">
               <Row type="flux">
                 <div className={styles.colabCards}>
@@ -226,19 +110,12 @@ const Collaborations = (props) => {
 Collaborations.propTypes = {
   user: PropTypes.object,
   mangaStories: PropTypes.array.isRequired,
-  selectedCompensationModel: PropTypes.string,
-  selectedGenres: PropTypes.array,
-  genres: PropTypes.array.isRequired,
   total: PropTypes.number.isRequired,
   current: PropTypes.number.isRequired,
-  search: PropTypes.string,
 };
 
 Collaborations.defaultProps = {
   user: null,
-  selectedCompensationModel: '',
-  selectedGenres: [],
-  search: '',
 };
 
 export default Collaborations;

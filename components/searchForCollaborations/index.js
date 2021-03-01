@@ -1,68 +1,143 @@
 import React from 'react';
 
-import SelectFilter from 'components/ui-elements/select-filter';
-import { allCollaborations } from 'helpers/constant';
+import { Input, Row, Select } from 'antd';
+import AwesomeDebouncePromise from 'awesome-debounce-promise';
+import cn from 'classnames';
+import SvgSearch from 'components/icon/Search';
+import Link from 'next/link';
+import Router from 'next/router';
 import PropTypes from 'prop-types';
+import * as qs from 'query-string';
+import { LinkCreator } from 'utils/linkCreator';
 
-import SvgSearch from '../icon/Search';
 import styles from './styles.module.scss';
 
-const SearchForCollaborations = ({ onChange, placeholder, initialValue, type }) => (
-  <>
-    <div className={styles.box}>
-      <div className={'container'}>
-        <div className={styles.box__wrapper}>
-          <form className={styles.box__search}>
-            <i className={styles.box__search_icon}>
-              <SvgSearch width="30" height="30" />
-            </i>
-            <input
-              className={styles.box__search_field}
-              type="search"
-              name="search"
-              placeholder={placeholder}
-              onChange={onChange}
-              initialValue={initialValue}
-            />
-            <button type="submit" className={styles.box__search_submit}>
-              <SvgSearch width="22" height="22" />
-            </button>
-          </form>
-          <div className={styles.box__nav}>
-            <SelectFilter
-              className={styles.box__nav_select}
-              id="type"
-              name="type"
-              onChange={onChange}
-              placeholder="All collaboration"
-              value={type || undefined}
-              options={allCollaborations}
-            />
-            <SelectFilter
-              className={styles.box__nav_select}
-              id="type"
-              name="type"
-              onChange={onChange}
-              placeholder="All Fields"
-              value={type || undefined}
-              options={allCollaborations}
-            />
+const { Option } = Select;
+
+const menuOptions = (handleCompasitionClick) => [
+  <Option key="all">Doesn't matter</Option>,
+  <Option key="collaboration">Joint Collab</Option>,
+  <Option key="paid">Paid Collab</Option>,
+];
+const menuGenresOptions = (genres = [], handleMenuClick) => [
+  <Option className="filterItem" key="all">
+    All
+  </Option>,
+  ...genres.map((g) => (
+    <Option className="filterItem" key={g._id}>
+      {g.name}
+    </Option>
+  )),
+];
+
+const SearchForCollaborations = (props) => {
+  const {
+    genres,
+    search,
+    selectedCompensationModel = [],
+    selectedGenres = [],
+  } = props;
+
+  const searchAPI = (search) => {
+    const parsed = qs.parse(location.search);
+    Router.push(LinkCreator.toQuery({ ...parsed, search }, '/collaborations'));
+  };
+
+  const onInputChange = async (e) => {
+    const { value } = e.target;
+    await AwesomeDebouncePromise(searchAPI, 500)(value);
+  };
+  const onChange = (page, pageSize) => {
+    const parsed = qs.parse(location.search);
+    Router.push(LinkCreator.toQuery({ ...parsed, page }, '/collaborations'));
+  };
+  const handleCompasitionClick = (keys) => {
+    const parsed = qs.parse(location.search);
+    if (keys && keys.includes('all')) {
+      delete parsed.compensationModel;
+      Router.push(LinkCreator.toQuery({ ...parsed }, '/collaborations'));
+      return;
+    }
+    Router.push(LinkCreator.toQuery({ ...parsed, compensationModel: keys }, '/collaborations'));
+  };
+  const handleGenresClick = (keys) => {
+    const parsed = qs.parse(location.search);
+    if (keys && keys.includes('all')) {
+      delete parsed.genres;
+      Router.push(LinkCreator.toQuery({ ...parsed }, '/collaborations'));
+      return;
+    }
+    Router.push(LinkCreator.toQuery({ ...parsed, genres: keys }, '/collaborations'));
+  };
+
+  return (
+    <>
+      <div className={styles.box}>
+        <div className={'container'}>
+          <div className={styles.box__wrapper}>
+            <form className={styles.box__search}>
+              <i className={styles.box__search_icon}>
+                <SvgSearch width="30" height="30" />
+              </i>
+              <Input
+                className={cn(styles.box__search_field, "collaborations-search-input")}
+                type="text"
+                placeholder="Search for collaborations"
+                initialValue={search}
+                allowClear
+                onChange={onInputChange}
+              />
+              <button type="submit" className={styles.box__search_submit}>
+                <SvgSearch width="22" height="22" />
+              </button>
+            </form>
+            <div className={styles.box__nav}>
+              <Select
+                bordered={false}
+                showArrow={true}
+                allowClear={true}
+                showSearch={false}
+                placeholder="User Type"
+                defaultValue={selectedCompensationModel}
+                onChange={handleCompasitionClick}
+                dropdownClassName="select-filter"
+                className={cn(styles.box__nav_select, "select-filter")}>
+                {menuOptions(handleCompasitionClick)}
+              </Select>
+              <Select
+                bordered={false}
+                menuItemSelectedIcon={null}
+                showArrow={true}
+                showSearch={false}
+                allowClear={true}
+                mode="multiple"
+                placeholder="All Genres"
+                defaultValue={selectedGenres || []}
+                value={selectedGenres || []}
+                onChange={handleGenresClick}
+                dropdownClassName="select-filter"
+                className={cn(styles.box__nav_select, "select-filter")}>
+                {menuGenresOptions(genres)}
+              </Select>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </>
-);
+    </>
+  );
+};
 
 SearchForCollaborations.propTypes = {
-  onChange: PropTypes.func.isRequired,
-  placeholder: PropTypes.string,
-  initialValue: PropTypes.string,
+  selectedCompensationModel: PropTypes.string,
+  selectedGenres: PropTypes.array,
+  genres: PropTypes.array.isRequired,
+  search: PropTypes.string,
 };
 
 SearchForCollaborations.defaultProps = {
-  placeholder: '',
-  initialValue: '',
+  selectedCompensationModel: null,
+  selectedGenres: [],
+  search: '',
 };
 
 export default SearchForCollaborations;
