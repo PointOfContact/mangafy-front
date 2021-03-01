@@ -75,7 +75,7 @@ const TabStory = (props) => {
           </div>
         )}
       </div>
-      {!userData && profile && (
+      {!userData && profile?.content && (
         <>
           <h3 className={cn(styles.sub_title)}>Here is a my story!</h3>
           {profile?.content && <p className={styles.data_content}>{profile.content}</p>}
@@ -120,8 +120,10 @@ const TabStory = (props) => {
         {userGenres && (!!userGenres?.length || storyEditMode) && (
           <h3 className={cn(styles.sub_title)}>Genres</h3>
         )}
+        {profileGenres && !!profileGenres?.length && (
+          <h3 className={cn(styles.sub_title)}>Genres</h3>
+        )}
         <div className={styles.genres_wrap}>
-          {profileGenres && <h3 className={cn(styles.sub_title)}>Genres</h3>}
           {profileGenres &&
             profileGenres.map(({ name }, index) => (
               <button key={index} type="button" id={`myProfileGenresTag${index}Id`}>
@@ -174,6 +176,43 @@ const TabStory = (props) => {
                   description="Haven't created a project yet? </br> Let's start!"
                   btnText="Create your first project"
                   items={[<img key="1" src="/img/Projects.png" alt="" />]}
+                  onClick={() => routeChange()}
+                />
+              </div>
+            )}
+          </div>
+        )}
+        {!profile || storyEditMode || (
+          <div className={styles.card_wrap} gutter={[16, 16]}>
+            {!profile?.content && (
+              <div className={styles.card}>
+                <h3 className={cn(styles.sub_title)}>About Me</h3>
+                <Card
+                  description="Sorry, but there is nothing <br/> here (("
+                  btnText=""
+                  items={[<img key="1" src="/img/profile-apout-me.png" alt="" />]}
+                  onClick={() => setStoryEditMode(true)}
+                />
+              </div>
+            )}
+            {!!profileGenres?.length || (
+              <div className={styles.card}>
+                <h3 className={cn(styles.sub_title)}>Novel Type</h3>
+                <Card
+                  description="Nothing is filled in and it is <br/> very sad (("
+                  btnText=""
+                  items={[<img key="1" src="/img/ProfileNovelType.png" alt="" />]}
+                  onClick={() => setStoryEditMode(true)}
+                />
+              </div>
+            )}
+            {total === 0 && (
+              <div className={styles.card}>
+                <h3 className={cn(styles.sub_title)}>Projects</h3>
+                <Card
+                  description="There are no projects <br/> here (("
+                  btnText=""
+                  items={[<img key="1" src="/img/ProfileProjects.png" alt="" />]}
                   onClick={() => routeChange()}
                 />
               </div>
