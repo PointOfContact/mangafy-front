@@ -57,8 +57,9 @@ const TabStory = (props) => {
     <div className={cn(styles.content_tab_profile_1)}>
       <div className={cn(styles.change_btn)}>
         {storyEditMode && (
-          <div className={styles.buttonsProfile}>
+          <div className={cn(styles.buttonsProfile, 'buttonsProfile_styles')}>
             <PrimaryButton
+              className="buttonsProfile_cancel"
               text="Cancel"
               isDark
               isRound
@@ -66,6 +67,7 @@ const TabStory = (props) => {
               onClick={cancelStoryEditMode}
             />
             <PrimaryButton
+              className="buttonsProfile_save"
               text="save"
               isActive
               isRound
@@ -84,7 +86,7 @@ const TabStory = (props) => {
       <div>
         {userData && (userData?.content || storyEditMode) && (
           <>
-            <h3 className={cn(styles.sub_title)}>About Me</h3>
+            <h3 className={cn(styles.tab_title)}>About Me</h3>
             {storyEditMode || (
               <SvgPurplePencil
                 className={styles.editAboutButton}
@@ -113,17 +115,20 @@ const TabStory = (props) => {
               className={styles.textarea_text}
             />
           ) : (
-            userData?.content && <p className={styles.data_content}>{userData?.content}</p>
+            userData?.content && (
+              <p className={cn(styles.data_content, styles.tab_sub_title)}>{userData?.content}</p>
+            )
           )}
         </div>
 
         {userGenres && (!!userGenres?.length || storyEditMode) && (
-          <h3 className={cn(styles.sub_title)}>Genres</h3>
+          <h3 className={cn(styles.tab_title)}>Genres</h3>
         )}
         {profileGenres && !!profileGenres?.length && (
           <h3 className={cn(styles.sub_title)}>Genres</h3>
         )}
-        <div className={styles.genres_wrap}>
+        <div className={cn('garners_buttons', styles.genres_wrap)}>
+          {profileGenres && <h3 className={cn(styles.sub_title)}>Genres</h3>}
           {profileGenres &&
             profileGenres.map(({ name }, index) => (
               <button key={index} type="button" id={`myProfileGenresTag${index}Id`}>
