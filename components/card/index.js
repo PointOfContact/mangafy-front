@@ -23,14 +23,16 @@ const Card = ({
         __html: description,
       }}
     />
-    <PrimaryButton
-      onClick={onClick}
-      disabled={disabled}
-      text={btnText}
-      splitterStyle={{
-        fontSize: '15px',
-      }}
-    />
+    {btnText && (
+      <PrimaryButton
+        onClick={onClick}
+        disabled={disabled}
+        text={btnText}
+        splitterStyle={{
+          fontSize: '15px',
+        }}
+      />
+    )}
     {items?.length ? (
       <div className={styles.main}>
         {items.map((item, index) => (
