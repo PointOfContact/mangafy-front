@@ -109,6 +109,37 @@ export const userTypes = [
   },
 ];
 
+export const allCollaborations = [
+  {
+    key: 'writer',
+    value: 'Writer',
+  },
+  {
+    key: 'illustrator',
+    value: 'Illustrator',
+  },
+  {
+    key: 'editor',
+    value: 'Editor',
+  },
+  {
+    key: 'mentor',
+    value: 'Mentor',
+  },
+  {
+    key: 'publisher',
+    value: 'Publisher',
+  },
+  {
+    key: 'reviewer',
+    value: 'Reviewer',
+  },
+  {
+    key: 'translator',
+    value: 'Translator',
+  },
+];
+
 export const userTypesEnums = {
   writer: 'Writer',
   penciler: 'Penciler',

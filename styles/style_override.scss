@@ -577,3 +577,110 @@ img.rot4 {
     }
   }
 }
+
+.ant-select:not(.ant-select-customize-input) {
+  &.select-filter {
+    &.ant-select-focused:not(.ant-select-disabled) {
+      .ant-select-selector {
+        box-shadow: none;
+      }
+    }
+    &.ant-select-open {
+      .ant-select-selection-placeholder {
+        color: $primaryDark;
+      }
+      .ant-select-selector {
+        &:after {
+          background-color: $primaryDark;
+          transform: translate(0, -50%) rotate(-180deg);
+        }
+        .ant-select-selection-item {
+          color: $primaryDark;
+        }
+      }
+    }
+    .ant-select-selector {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      outline: none;
+      height: 100%;
+      border: none;
+      padding: 0;
+      padding-right: 30px;
+      position: relative;
+      &:after {
+        content: '';
+        display: block;
+        width: 17px;
+        height: 10px;
+        background-color: #000;
+        mask-image: url(/img/select-arrow.svg);
+        position: absolute;
+        top: 50%;
+        right: 0;
+        transform: translate(0, -50%);
+        visibility: visible;
+        margin-top: 1px;
+        transition: 0.3s;
+      }
+      &:focus {
+        border: none;
+      }
+      .ant-select-selection-search &:focus {
+        border: none;
+      }
+      .ant-select-selection-item {
+        color: #000;
+        padding: 0;
+      }
+    }
+    .ant-select-selection-placeholder {
+      color: $black;
+      padding: 0;
+    }
+    .ant-select-arrow {
+      display: none;
+    }
+  }
+}
+
+.ant-select-dropdown {
+  &.select-filter {
+    min-width: 295px !important;
+    background: #fff;
+    border: 1px solid #f3f3f3;
+    box-sizing: border-box;
+    box-shadow: 0px 5px 20px rgb(0 0 0 / 7%);
+    border-radius: 10px;
+    margin-top: 15px;
+    .rc-virtual-list-holder-inner {
+      &:hover {
+        background: transparent;
+      }
+    }
+    .ant-select-item {
+      font-weight: bold;
+      font-size: 20px;
+      line-height: 1.25;
+      color: $black;
+      padding: 0;
+      &:hover {
+        background: transparent;
+      }
+    }
+    .ant-select-item-option-content {
+      font-weight: bold;
+      font-size: 20px;
+      line-height: 1.25;
+      color: $black;
+      padding: 15px;
+      &:hover {
+        color: $primaryDark;
+      }
+      &:active {
+        color: $primaryLight;
+      }
+    }
+  }
+}
