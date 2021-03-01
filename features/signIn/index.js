@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import { Layout, Row, Col } from 'antd';
+import ButtonToTop from 'components/ui-elements/button-toTop';
 import AuthForm from 'components/authForm';
 import FooterPolicy from 'components/footer-policy';
 import Header from 'components/header';
@@ -64,30 +65,43 @@ const Login = () => {
   return (
     <>
       <Head></Head>
-      <Header />
-      <Content className={styles.sign_in_content}>
-        <Row>
-          <Col className={styles.sign_in} span={24}>
-            <img src="/img/sing-in.svg" alt="" />
-            <h2 className={styles.title}>Hello, who’s this?</h2>
-            <p className={styles.info}>Sign in to get your personalized page and start connecting</p>
-            <div>
-              <AuthForm
-                {...{
-                  email,
-                  password,
-                  errorMessage,
-                  onChange: handleOnChange,
-                  onSubmit: handleLoginSubmit,
-                  isLogin: true,
-                }}
-              />
+      <ButtonToTop />
+      <div className={'wrapper'}>
+        <div className={'content'}>
+          <Header />
+          <main className={styles.box}>
+            <div className={"container"}>
+              <div className={styles.box__wrapper}>
+                <div className={styles.box__img}>
+                  <img src="/img/sing-in.svg" alt="" />
+                </div>
+                <div className={styles.box__title_wrap}>
+                  <div className={styles.box__title}>
+                    <h2 className={styles.box__title_text}>Hello, who’s this?</h2>
+                  </div>
+                  <div className={styles.box__description}>
+                    <p className={styles.box__description_text}>Sign in to get your personalized page and start connecting</p>
+                  </div>
+                </div>
+                <div className={styles.box__form}>
+                  <AuthForm
+                    {...{
+                      email,
+                      password,
+                      errorMessage,
+                      onChange: handleOnChange,
+                      onSubmit: handleLoginSubmit,
+                      isLogin: true,
+                    }}
+                  />
+                </div>
+              </div>
             </div>
-          </Col>
-        </Row>
-      </Content>
-      <LoginFooter acaunt={false} />
-      <FooterPolicy />
+          </main>
+        </div>
+        <LoginFooter acaunt={false} />
+        <FooterPolicy />
+      </div>
     </>
   );
 };

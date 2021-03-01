@@ -5,20 +5,27 @@
   text-align: center;
   margin: auto;
   .select {
-    margin-bottom: 40px;
-    margin-top: 40px;
+    margin-bottom: 24px;
+    margin-top: 20px;
     @include media-sm {
       margin-top: 30px;
     }
+    @media #{$media-xs} {
+      margin-top: 30px;
+      margin-bottom: 40px;
+    }
+    label {
+      font-size: 12px;
+    }
   }
   .login_form {
-    margin-bottom: 44px;
+    margin-bottom: 28px;
     &:last-child {
       margin-bottom: 0;
     }
     input {
-      font-size: 25px;
-      margin-top: 28px;
+      font-size: 20px;
+      margin-top: 24px;
       &:first-child {
         margin-top: 0px;
       }
@@ -26,15 +33,15 @@
         font-size: 20px;
       }
       @include media-xs {
-        margin-top: 42px;
+        margin-top: 40px;
       }
     }
     .forgot_password {
       text-align: left;
-      font-size: 15px;
+      font-size: 10px;
       color: $grey;
       text-decoration: underline;
-      margin-top: 12px;
+      margin-top: 6px;
       &:hover {
         color: $primaryDark;
       }
@@ -56,43 +63,42 @@
   }
   .login_button {
     text-align: center;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     &:last-child {
       margin-bottom: 0;
     }
     button {
       font-size: 20px;
       margin: 0 auto;
-      @include media-xs {
-        width: 303px;
-        height: 78px;
-      }
     }
   }
   .or {
     display: flex;
     justify-content: center;
-    margin-bottom: 17px;
-    @include media-xs {
-      margin-bottom: 14px;
-    }
     p {
       border-bottom: 1px solid $black;
-      width: 263px;
+      width: 100%;
       font-size: 20px;
     }
     span {
       color: $black;
-      font-size: 35px;
+      font-size: 30px;
       padding: 0 5px;
       @include media-xs {
-        font-size: 30px;
         padding: 0 15px;
       }
     }
   }
   .social_login {
-    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    @include media-xs {
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      margin-top: 15px;
+    }
     span {
       box-sizing: border-box;
       border-radius: 5px;
@@ -102,9 +108,9 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 263px;
+      width: 274px;
       height: 46px;
-      margin-right: 50px;
+      margin-right: 30px;
       &:last-child {
         margin-right: 0;
       }
@@ -114,6 +120,7 @@
       @include media-sm {
         display: flex;
         width: 100%;
+        margin: 0;
         margin-bottom: 15px;
         &:last-child {
           margin-bottom: 0;
@@ -131,4 +138,18 @@
       border: 1px solid #dbdbdb;
     }
   }
+}
+
+.button_submit {
+  width: 248px;
+  height: 62px;
+}
+.input_login {
+  font-size: 20px;
+}
+.select_login {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  font-size: 20px;
 }

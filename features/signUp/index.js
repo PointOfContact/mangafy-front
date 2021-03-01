@@ -2,6 +2,7 @@ import React from 'react';
 
 import * as Sentry from '@sentry/node';
 import { Layout, Row, Col } from 'antd';
+import ButtonToTop from 'components/ui-elements/button-toTop';
 import AuthForm from 'components/authForm';
 import FooterPolicy from 'components/footer-policy';
 import Header from 'components/header';
@@ -151,35 +152,46 @@ const Register = () => {
   return (
     <>
       <Head></Head>
-      <Header />
-      <Content className={styles.sign_up_content}>
-        <Row>
-          <Col className={styles.sign_up} span={24}>
-            <img src="/img/sing-in.svg" alt="" />
-            <h2 className={styles.title}>Make the most of your digital comics life</h2>
-            <p className={styles.info}>
-              Sign up to get your personalized page connect with enthusiast world wide
-            </p>
-            <div>
-              <AuthForm
-                disabled={disabled}
-                {...{
-                  type,
-                  name,
-                  email,
-                  password,
-                  errorMessage,
-                  onChange: handleOnChange,
-                  onSubmit: handleRegisterSubmit,
-                }}
-              />
-              {err && <p>{err}</p>}
+      <ButtonToTop />
+      <div className={'wrapper'}>
+        <div className={'content'}>
+          <Header />
+          <main className={styles.box}>
+            <div className={"container"}>
+              <div className={styles.box__wrapper}>
+                <div className={styles.box__img}>
+                  <img src="/img/sing-in.svg" alt="" />
+                </div>
+                <div className={styles.box__title_wrap}>
+                  <div className={styles.box__title}>
+                    <h2 className={styles.box__title_text}>Make the most of your digital comics life</h2>
+                  </div>
+                  <div className={styles.box__description}>
+                    <p className={styles.box__description_text}>Sign up to get your personalized page connect with enthusiast world wide</p>
+                  </div>
+                </div>
+                <div className={styles.box__form}>
+                  <AuthForm
+                    disabled={disabled}
+                    {...{
+                      type,
+                      name,
+                      email,
+                      password,
+                      errorMessage,
+                      onChange: handleOnChange,
+                      onSubmit: handleRegisterSubmit,
+                    }}
+                  />
+                  {err && <p>{err}</p>}
+                </div>
+              </div>
             </div>
-          </Col>
-        </Row>
-      </Content>
-      <LoginFooter acaunt={true} />
-      <FooterPolicy />
+          </main>
+        </div>
+        <LoginFooter acaunt={true} />
+        <FooterPolicy />
+      </div>
     </>
   );
 };

@@ -1,54 +1,69 @@
 @import '../../styles/variables.scss';
 
-.sign_up_content {
-  .sign_up {
-    text-align: center;
-    padding-top: 100px;
-    padding-bottom: 80px;
-    img {
-      width: auto;
-      margin: 0 auto;
-      margin-bottom: 78px;
-    }
-    .title {
-      font-weight: bold;
-      font-size: $h2;
-      color: $black;
+
+.box {
+  font-family: Noto Sans JP;
+  padding: 30px 0 100px 0;
+  @media #{$media-sm} {
+    padding: 30px 0 80px 0;
+  }
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  &__img {
+    width: 174px;
+    margin-bottom: 43px;
+    &:last-child {
       margin-bottom: 0;
     }
-    .info {
-      font-size: $text1;
-      color: $black;
-      margin-bottom: 47px;
-      &:last-child {
-        margin-bottom: 0;
-      }
+    img {
+      width: 100%;
+      height: auto;
     }
-    @include media-sm {
-      padding-top: 32px;
-      img {
-        max-width: 210px;
-        margin-bottom: 43px;
-      }
-      .title {
-        font-size: 30px;
-        line-height: 1.2;
-      }
-      .info {
-        font-size: 20px;
-        line-height: 1.25;
-      }
+  }
+  &__title_wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 40px;
+    @media #{$media-sm} {
+      margin-bottom: 20px;
     }
-    @include media-xs {
-      img {
-        margin-bottom: 39px;
-      }
-      .title {
-        margin-bottom: 14px;
-      }
-      .info {
-        margin-bottom: 20px;
-      }
+    &:last-child {
+      margin-bottom: 0;
     }
+  }
+  &__title {
+    margin-bottom: 18px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+    &_text {
+      font-weight: 900;
+      font-size: 30px;
+      line-height: 1.25;
+      text-align: center;
+      margin: 0;
+    }
+  }
+  &__description {
+    margin-bottom: 18px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+    &_text {
+      font-size: 20px;
+      line-height: 1.25;
+      text-align: center;
+      margin: 0;
+    }
+  }
+  &__form {
+    width: 100%;
+    max-width: 606px;
   }
 }
