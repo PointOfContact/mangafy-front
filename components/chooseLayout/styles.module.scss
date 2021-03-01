@@ -2,10 +2,16 @@
 
 .story_board {
   padding: 30px;
+  @include media-sm {
+    padding: 10px 20px;
+  }
   .title {
     font-size: $text3;
     color: $black;
     margin-bottom: 16px;
+    @include media-sm {
+      margin-bottom: 0;
+    }
   }
 
   .cards {

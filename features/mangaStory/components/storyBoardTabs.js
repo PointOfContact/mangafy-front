@@ -29,16 +29,19 @@ const StoryBoardTabs = ({ user, mangaStory, openNotification }) => {
 
   const renderNavigationButtons = () => (
     <div className={styles.actionButtons}>
-      {+storyBoardActiveTab > 1 && (
-        <Button type="primary" onClick={clickBack}>
-          Back
-        </Button>
-      )}
-      {+storyBoardActiveTab < 7 && (
-        <Button type="primary" onClick={clickNext}>
-          Next
-        </Button>
-      )}
+      <div>
+        {+storyBoardActiveTab > 1 && (
+          <Button type="primary" className={styles.back} onClick={clickBack}>
+            Back
+          </Button>
+        )}
+        {+storyBoardActiveTab < 7 && (
+          <Button type="primary" onClick={clickNext}>
+            Next {+storyBoardActiveTab + 1}
+          </Button>
+        )}
+      </div>
+      <p className={styles.see_more}>Use more features in the desktop version</p>
     </div>
   );
   const clickBack = () => {
@@ -105,8 +108,14 @@ const StoryBoardTabs = ({ user, mangaStory, openNotification }) => {
           </span>
         }
         key={2}>
-        <Hero storyBoard={storyBoard} setStoryBoard={setStoryBoard} getStoryBoard={getStoryBoard}/>
-        {renderNavigationButtons()}
+        <div className={styles.tabContent}>
+          <Hero
+            storyBoard={storyBoard}
+            setStoryBoard={setStoryBoard}
+            getStoryBoard={getStoryBoard}
+          />
+          {renderNavigationButtons()}
+        </div>
       </TabPane>
       <TabPane
         tab={
@@ -140,7 +149,7 @@ const StoryBoardTabs = ({ user, mangaStory, openNotification }) => {
         }
         key={5}>
         <div className={styles.tabContent}>
-          <Upload storyBoardId={storyBoard?._id}/>
+          <Upload className={styles.upload} storyBoardId={storyBoard?._id} />
           {renderNavigationButtons()}
         </div>
       </TabPane>

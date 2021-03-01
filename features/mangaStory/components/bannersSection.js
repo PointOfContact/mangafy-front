@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Popover, Button, Progress, Upload } from 'antd';
 import client from 'api/client';
+import cn from 'classnames';
 import SvgCat from 'components/icon/Cat';
 import SvgLang from 'components/icon/Lang';
 import SvgMone from 'components/icon/Mone';
@@ -149,7 +150,7 @@ const BannerSection = ({
   );
   return (
     <div className={styles.bannerWrap}>
-      <div className="row">
+      <div className={cn(styles.bannerWrapContent, 'row')}>
         {canEdit ? (
           <Upload className={styles.upload} beforeUpload={beforeUpload} fileList={[]}>
             <div className={styles.banner}>

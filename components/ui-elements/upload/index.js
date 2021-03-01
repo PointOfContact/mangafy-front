@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 
-import { Upload, message } from 'antd';
+import { Upload, message, notification } from 'antd';
 // Api
-import client from 'api/client';
 import { patchStoryBoard, uploadFile } from 'api/storyBoardClient';
 // Components
 import SvgCloud from 'components/icon/Cloud';
 import SvgImage from 'components/icon/Image';
+import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
@@ -29,27 +29,51 @@ const PrimaryUpload = ({ storyBoardId }) => {
     if (!isLt2M) {
       message.error('Image must smaller than 100MB!');
     }
+    // eslint-disable-next-line no-undef
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.addEventListener('load', () => {
-      uploadFile(reader.result, (res) => {
-        patchStoryBoard(storyBoardId, {
-          mangaUrl: res?.id,
-        }, (res) => {}, (err) => {});
-      }, (err) => {});
+      uploadFile(
+        reader.result,
+        (res) => {
+          patchStoryBoard(
+            storyBoardId,
+            {
+              mangaUrl: res?.id,
+            },
+            (respons) => {
+              openNotification('error', respons.message);
+            },
+            (err) => {
+              openNotification('error', err.message);
+            }
+          );
+        },
+        (err) => {
+          openNotification('error', err.message);
+        }
+      );
     });
     return isJpgOrPng && isLt2M;
   }
+
+  const openNotification = (type, mes) => {
+    notification[type]({
+      message: mes,
+    });
+  };
 
   const onPreview = async (file) => {
     let src = file.url;
     if (!src) {
       src = await new Promise((resolve) => {
+        // eslint-disable-next-line no-undef
         const reader = new FileReader();
         reader.readAsDataURL(file.originFileObj);
         reader.onload = () => resolve(reader.result);
       });
     }
+    // eslint-disable-next-line no-undef
     const image = new Image();
     image.src = src;
     const imgWindow = window.open(src);
@@ -87,6 +111,10 @@ const PrimaryUpload = ({ storyBoardId }) => {
       </Upload>
     </div>
   );
+};
+
+PrimaryUpload.propTypes = {
+  storyBoardId: PropTypes.string.isRequired,
 };
 
 export default PrimaryUpload;
