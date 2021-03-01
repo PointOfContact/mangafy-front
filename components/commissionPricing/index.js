@@ -3,6 +3,11 @@ import React, { useState, useEffect } from 'react';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { Input, Button, Space } from 'antd';
 import client from 'api/client';
+import SvgPurplePencil from 'components/icon/PurplePencil';
+import cn from 'classnames';
+import AddButton from 'components/ui-elements/add-button';
+import PrimaryButton from 'components/ui-elements/button';
+import styles from './styles.module.scss';
 
 const { TextArea } = Input;
 
@@ -87,21 +92,30 @@ export const CommissionPricing = ({ id = null, user = null, fromMobile = false }
       className={`title d-flex ${
         fromMobile && 'justify-content-space-between  align-items-center'
       }`}>
-      <div className="buttons change_btn col-lg-12">
+      <div className="buttons change_btn_commission col-lg-12">
         {/* <div className="languages_btn"> */}
         {canEdit &&
           (!editMode ? (
-            <img
+            <SvgPurplePencil
               className="cursor-pointer"
               onClick={() => setEditMode(true)}
-              src="/img/edit_btn.png"
-              width="40"
+              width="22"
             />
           ) : (
-            <div className="buttonsProfile">
-              <Button onClick={() => setPricing(pricingList)} type="primary" htmlType="submit">
+            <div className={cn("buttonsProfile_styles", styles.commissionButton_save)}>
+              <PrimaryButton
+                className="buttonsProfile_save"
+                text="save"
+                onClick={() => setPricing(pricingList)}
+                type="primary"
+                htmlType="submit"
+                isActive
+                isRound
+                disabled={false}
+              />
+              {/* <Button onClick={() => setPricing(pricingList)} type="primary" htmlType="submit">
                 Save
-              </Button>
+              </Button> */}
             </div>
           ))}
       </div>
@@ -109,12 +123,12 @@ export const CommissionPricing = ({ id = null, user = null, fromMobile = false }
       <div className="">
         <div className="">
           <div className="">
-            <div className="pricingBlock">
+            <div className={cn("pricingBlock", styles.pricingBlock_wrap)}>
               {pricingList.map((field, index) => (
                 <Space
                   className="col-lg-12"
                   key={field.key}
-                  style={{ display: 'flex', marginBottom: 8, justifyContent: 'space-between' }}
+                  style={{ display: 'flex', alignItems: 'center', marginBottom: 15 }}
                   align="start">
                   <Input
                     className=""
@@ -126,7 +140,7 @@ export const CommissionPricing = ({ id = null, user = null, fromMobile = false }
                     onChange={handleChange}
                   />
                   <Input
-                    className=""
+                    className={styles.inputCost}
                     disabled={!(canEdit && editMode)}
                     placeholder="Cost"
                     name="last"

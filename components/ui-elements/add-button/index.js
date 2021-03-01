@@ -17,6 +17,7 @@ const AddButton = ({ disabled, className, onClick, isDark, isActive, height, wid
     )}
     onClick={onClick}
     disabled={disabled}>
+    <span>Add</span>
     <SvgPrimaryAdd width={width} height={height} />
   </div>
 );

@@ -25,6 +25,7 @@ body {
 .profile-content {
   .ant-tabs-content-holder {
     padding: 15px 25px;
+    position: relative;
   }
   .ant-tabs-nav {
     padding: 0px 25px;
@@ -37,7 +38,6 @@ body {
 .ant-tabs-nav {
   .ant-tabs-tab {
     padding: 35px 0;
-    font-family: $fontFamilyNatoSans, sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: $text3;
@@ -574,6 +574,190 @@ img.rot4 {
   .ant-pagination-item-active {
     a {
       color: $black !important;
+    }
+  }
+}
+
+
+.ant-tabs-nav .ant-tabs-ink-bar {
+  height: 7px !important;
+}
+
+.changeSelect.ant-select {
+  border: none;
+}
+
+.changeSelect.ant-select:not(.ant-select-customize-input) .ant-select-selector {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid #212121;
+  border-radius: 0;
+  height: 40px;
+  color: #212121;
+  font-weight: 500;
+  font-size: 15px;
+  padding: 0 13px;
+  display: flex;
+  align-items: center;
+  &:hover {
+    border-color: #7B65F3 !important;
+  }
+}
+.changeSelect.ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input) .ant-select-selector {
+  box-shadow: none;
+}
+
+.changeSelect.ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input) .ant-select-selector {
+  border-color: #7B65F3 ;
+}
+
+.change_btn_commission {
+  position: absolute;
+  right: 25px;
+  top: 32px;
+  cursor: pointer;
+}
+
+.pricingBlock .anticon-minus-circle svg {
+  display: none;
+}
+
+.pricingBlock .anticon-minus-circle {
+  width: 31px;
+  height: 31px;
+  background-image: url(../public/img/commission-deleate.svg);
+  margin-top: 5px;
+  margin-left: 30px;
+}
+
+.garners_buttons {
+  .ant-select {
+    border: 1px solid #7B65F3;
+    border-radius: 10px;
+    padding: 5px 5px;
+  }
+  .ant-select-multiple .ant-select-selection-item {
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    color: #FFFFFF;
+    font-size: 15px;
+    margin: 0;
+    margin-right: 6px;
+    border: none;
+    font-weight: 700;
+    padding: 0 15px;
+    position: relative;
+  }
+  .ant-select-selection-overflow-item {
+    &:nth-child(1n+1) {
+      .ant-select-selection-item {
+        background-color: #7B65F3;
+      }
+    }
+    &:nth-child(2n+2) {
+      .ant-select-selection-item {
+        background-color: #fec447;
+      }
+    }
+    &:nth-child(3n+3) {
+      .ant-select-selection-item {
+            background: #2f2ea6;
+      }
+    }
+  }
+  .ant-select-multiple .ant-select-selection-item-remove {
+    font-size: 9px;
+    right: 6px;
+    top: 0;
+    color: #fff;
+    &:hover {
+      color: #fff;
+    }
+  }
+}
+
+.garners_buttons .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+  border: none;
+  padding: 0;
+}
+
+.buttonsProfile_styles {
+  button.buttonsProfile_cancel {
+    background: none;
+    padding: 0;
+    border: none;
+    width: 31px;
+    height: 31px;
+    background-image: url(../public/img/btn-deleate.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-width: auto;
+    min-height: auto;
+    margin-right: 10px;
+    &:hover {
+      background: none !important;
+      border: none !important;
+      box-shadow: none;
+      background-image: url(../public/img/btn-deleate.svg) !important;
+    }
+    span {
+      display: none;
+    }
+  }
+  button.buttonsProfile_save {
+    background: none;
+    padding: 0;
+    border: none;
+    width: 31px;
+    height: 31px;
+    // background-image: url(../public/img/btn-confim.svg);
+    // background-size: cover;
+    // background-repeat: no-repeat;
+    min-width: auto;
+    min-height: auto;
+    box-shadow: none;
+    border-radius: 50%;
+    position: relative;
+    &:before {
+      content: "";
+      position: absolute;
+      display: block;
+      left: 3px;
+      top: 0;
+      width: 31px;
+      height: 31px;
+      background-color: #FEC447;
+      border-radius: 50%;
+      opacity: .7;
+    }
+    &:hover {
+      border: none !important;
+    }
+    span {
+      font-size: 0;
+      position: relative;
+      z-index: 3;
+      left: 0;
+      top: 0;
+      width: 31px;
+      height: 31px;
+      border-radius: 50%;
+      background-color: #7B65F3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      &:before {
+        content: "";
+        width: 16px;
+        height: 14px;
+        background-image: url(../public/img/confim-arr.svg);
+        background-size: cover;
+        background-repeat: no-repeat;
+        display: block;
+      }
     }
   }
 }

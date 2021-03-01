@@ -1,11 +1,23 @@
 @import '../../../../styles/variables.scss';
 
 .content_tab_profile_1 {
-  .sub_title {
-    color: $black;
-    font-size: $text2;
+  &__title {
+    font-weight: 900;
+    font-size: 25px;
+    line-height: 36px;
+  }
+  &__sub_title {
+    color: rgba(33, 33, 33, 0.55);
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 30px;
     @include media-sm {
       font-size: $text4;
     }
   }
+}
+.title {
+  font-weight: 900;
+  font-size: 25px;
+  line-height: 36px;
 }

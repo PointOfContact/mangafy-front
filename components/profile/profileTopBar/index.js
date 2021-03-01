@@ -35,7 +35,7 @@ const ProfileTopBar = (props) => {
   return (
     <Content className={cn(styles.content)}>
       <Row>
-        <Col className="gutter-row" xs={{ span: 24 }} md={{ span: 6 }}>
+        <Col className="gutter-row" xs={{ span: 24 }} md={{ span: 4 }}>
           <div className={styles.img}>
             {profile ? (
               <img
@@ -103,6 +103,7 @@ const ProfileTopBar = (props) => {
               <>
                 <h2>
                   <Input
+                    className={styles.changeTitle}
                     type="text"
                     onChange={(e) => setUserData({ ...userData, name: e.target.value })}
                     value={userData.name}
@@ -110,6 +111,7 @@ const ProfileTopBar = (props) => {
                 </h2>
                 <div>
                   <Select
+                    className="changeSelect"
                     defaultValue={userTypesEnums[userData.type]}
                     style={{ width: '100%' }}
                     onChange={(value) => setUserData({ ...userData, type: value })}>
@@ -128,8 +130,9 @@ const ProfileTopBar = (props) => {
         <Col className="gutter-row" xs={{ span: 24 }} md={{ span: 10 }}>
           <div className={styles.languages_btn}>
             {editMode && (
-              <div className={styles.buttonsProfile}>
+              <div className={cn(styles.buttonsProfile, "buttonsProfile_styles")}>
                 <PrimaryButton
+                  className="buttonsProfile_cancel"
                   text="Cancel"
                   isDark
                   isRound
@@ -137,6 +140,7 @@ const ProfileTopBar = (props) => {
                   onClick={cancelEditMode}
                 />
                 <PrimaryButton
+                  className="buttonsProfile_save"
                   text="save"
                   isActive
                   isRound
