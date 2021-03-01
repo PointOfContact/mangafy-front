@@ -104,9 +104,9 @@ const MangeStory = (props) => {
               </div>
             </div>
           </section>
-          <section className={`${styles.section2} container`}>
+          <section className={`container mobile_full_content mobile_top_round`}>
             <div className="row">
-              <div className="col-lg-7">
+              <div className="col-lg-7 mangaStoriTopPanel">
                 <Tabs defaultActiveKey="1">
                   {isOwn && (
                     <TabPane tab="STORY BOARD" key="1" className="story">

@@ -94,35 +94,60 @@ body {
     }
   }
 
-  .storyBoardTabs {
-    .ant-tabs-nav {
-      padding: 0;
+  .mangaStoriTopPanel {
+    background-color: $primaryBG;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    @include media-sm {
+      height: 645px;
     }
-
-    .ant-tabs-nav-list {
-      padding-left: 30px;
-    }
-
-    @include media-md {
-      .ant-tabs-bottom > .ant-tabs-nav:before,
-      .ant-tabs-bottom > div > .ant-tabs-nav:before,
-      .ant-tabs-top > .ant-tabs-nav:before,
-      .ant-tabs-top > div > .ant-tabs-nav:before {
-        border-bottom: 0;
-      }
-      .ant-tabs-nav-list {
-        height: 63px;
-      }
-      .ant-tabs-tab-btn {
-        svg {
-          height: 23px;
+    .ant-tabs {
+      height: 100% !important;
+      .ant-tabs-content-holder {
+        height: 100% !important;
+        .ant-tabs-content {
+          height: 100% !important;
         }
       }
     }
-    .ant-tabs-tab-active {
-      svg {
-        path {
-          fill: #7b65f3;
+    .ant-tabs-nav {
+      margin-bottom: 0 !important;
+    }
+
+    .storyBoardTabs {
+      .ant-tabs-nav {
+        padding: 0;
+      }
+      .ant-tabs-nav-wrap {
+        box-shadow: 4px 0px 10px 0px rgba(0, 0, 0, 0.03) !important;
+      }
+      .ant-tabs-tabpane {
+        padding-left: 0 !important;
+      }
+
+      @include media-md {
+        .ant-tabs-bottom > .ant-tabs-nav:before,
+        .ant-tabs-bottom > div > .ant-tabs-nav:before,
+        .ant-tabs-top > .ant-tabs-nav:before,
+        .ant-tabs-top > div > .ant-tabs-nav:before {
+          border-bottom: 0;
+        }
+        .ant-tabs-nav-list {
+          height: 63px;
+          padding-left: 30px;
+        }
+        .ant-tabs-tab-btn {
+          svg {
+            height: 23px;
+          }
+        }
+      }
+      .ant-tabs-tab-active {
+        svg {
+          path {
+            fill: #7b65f3;
+          }
         }
       }
     }
@@ -202,6 +227,7 @@ body {
 }
 
 .primary_upload {
+  margin: 30px;
   .ant-upload-list-picture-card-container,
   .ant-upload-list-item,
   .ant-upload {
@@ -233,6 +259,9 @@ body {
         color: $black;
       }
     }
+  }
+  @include media-sm {
+    margin: 15px 30px;
   }
 }
 
@@ -318,7 +347,7 @@ body {
   .content {
     text-align: center;
     img {
-      margin: 90px auto 0 auto;
+      margin: 0px auto 0 auto;
     }
     button {
       margin: 40px auto;
@@ -341,8 +370,8 @@ body {
       box-shadow: none;
     }
     .ant-modal-close {
-      left: 50%;
-      transform: translate(-50%, 0px);
+      right: 30px;
+      top: 30px;
     }
     .ant-modal-close-x {
       margin-top: 0px !important;
@@ -375,12 +404,14 @@ body {
 
 @include media-sm {
   .mobile_full_content {
-    max-width: 100%;
+    max-width: 100% !important;
+    padding: 0 !important;
   }
 
   .mobile_top_round {
     border-top-left-radius: 60px !important;
     border-top-right-radius: 60px !important;
+    overflow: hidden !important;
   }
 
   .mobile_linear {

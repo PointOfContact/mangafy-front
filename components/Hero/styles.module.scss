@@ -34,6 +34,10 @@
   height: 100%;
   float: left;
   border-left: 1px solid #f0f0f0;
+  @include media-sm {
+    text-align: center;
+    width: 30%;
+  }
 }
 
 .addbutton {
@@ -44,6 +48,9 @@
   height: 200px;
   margin-bottom: 15px;
   opacity: 0.5;
+  @include media-sm {
+    height: 160px;
+  }
 }
 
 .addbutton:hover {
@@ -66,4 +73,8 @@
 .heroesRow {
   height: 200px;
   margin-bottom: 15px;
+  @include media-sm {
+    text-align: center;
+    height: 160px;
+  }
 }

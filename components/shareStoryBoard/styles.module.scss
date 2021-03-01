@@ -4,6 +4,7 @@
   // height: 500px;
   text-align: center;
   margin-top: 100px;
+
   .social {
     position: relative;
     margin: auto;
@@ -112,6 +113,12 @@
     p {
       font-size: $text4;
       color: $grey;
+    }
+  }
+  @include media-sm {
+    margin-top: 40px;
+    .social {
+      margin-bottom: 15px;
     }
   }
 }

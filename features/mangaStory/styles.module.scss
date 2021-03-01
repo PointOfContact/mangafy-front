@@ -2,7 +2,8 @@
 
 .pageWrap {
   max-width: 1049px;
-  margin: 0 auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 .banner {
   max-width: 998px;
@@ -44,8 +45,9 @@
 }
 
 .header {
-  margin-top: 89px;
+  padding-top: 89px;
   text-align: center;
+  margin-bottom: 100px;
 }
 .header h2 {
   font-size: 30px;
@@ -60,9 +62,14 @@
   margin-bottom: 20px;
 }
 .bannerWrap {
-  padding: 21px;
+  padding: 50px 30px;
   @include media-sm {
     display: none;
+  }
+  .bannerWrapContent {
+    padding: 21px 21px 30px 21px;
+    background-color: $primaryBG;
+    border-radius: 10px;
   }
 }
 .bannerGenresItem {
@@ -106,17 +113,57 @@
 }
 
 .actionButtons {
-  display: flex;
-  width: 100%;
-  justify-content: flex-end;
+  div {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    background-color: $primaryBG;
+    margin-top: 25px;
+    .back {
+      background-color: rgba(211, 211, 211, 1);
+      border: 1px solid #f3f3f3;
+      &:hover {
+        background: #858585;
+        border: 1px solid #f3f3f3;
+      }
+    }
+  }
+}
+.see_more {
+  text-align: center;
+  font-size: $text4;
+  margin-bottom: 0;
+  color: #d7d7d7;
+  display: none;
+  @include media-sm {
+    display: block;
+  }
+}
+
+.upload {
+  margin-top: 30px;
 }
 
 .actionButtons button {
-  margin-left: 20px;
+  margin-bottom: 30px !important;
+  margin-right: 20px !important;
+  font-weight: bolder;
+  font-size: $text4;
+  width: 112px;
+  height: 46px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: $primaryDark;
   border: 1px solid $primaryLight;
   box-sizing: border-box;
   border-radius: 5px;
+  @include media-sm {
+    margin-bottom: 8px !important;
+    margin-right: 8px !important;
+    width: 100px;
+    height: 40px;
+  }
 }
 
 .actionButtons button:hover,
@@ -144,6 +191,10 @@
     width: 20%;
     height: 100%;
     float: left;
+    @include media-sm {
+      width: 30%;
+      text-align: center;
+    }
   }
 
   .addbutton {
@@ -179,6 +230,7 @@
     display: flex;
     align-items: center;
     margin-top: 22px;
+    cursor: pointer;
     span {
       margin-left: 10px;
     }
