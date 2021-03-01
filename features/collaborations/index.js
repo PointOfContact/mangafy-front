@@ -12,6 +12,8 @@ import SvgSearch from 'components/icon/Search';
 import Paginations from 'components/paginations';
 import SearchForCollaborations from 'components/searchForCollaborations';
 import PrimaryButton from 'components/ui-elements/button';
+import FooterPolicy from 'components/footer-policy';
+import ButtonToTop from 'components/ui-elements/button-toTop';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -86,7 +88,7 @@ const Collaborations = (props) => {
     Router.push(LinkCreator.toQuery({ ...parsed, genres: keys }, '/collaborations'));
   };
   return (
-    <div className="">
+    <>
       <Head>
         <title>MangaFY - platform for community collaboration.</title>
         <meta
@@ -94,117 +96,121 @@ const Collaborations = (props) => {
           content="At the heart of our vision – collaborations – allowing visionary of various roles to engage in a team effort to bring a story from uncertainty to digital life, with you – the artists – taking control of the production."></meta>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="main_back_2 colab_page">
-        <Header path="collaborations" user={user} />
-        <CollaborationsHeader />
-        <SearchForCollaborations
-          onChange={onInputChange}
-          initialValue={search}
-          placeholder="Search for collab"
-        />
-        <section className="search_collab">
-          <div className="container mangafy_container search_field">
-            <div className="row">
-              <div className="col-lg-12">
+      <ButtonToTop />
+      <div className={'wrapper'}>
+        <div className={'content'}>
+          <Header path="collaborations" user={user} />
+          <main>
+            <CollaborationsHeader />
+            <SearchForCollaborations
+              onChange={onInputChange}
+              initialValue={search}
+              placeholder="Search for collab"
+            />
+            <section className="search_collab">
+              <div className="container mangafy_container search_field">
                 <div className="row">
-                  <div className="col-lg-4 col-md-4">
-                    <div
-                      style={{
-                        display: 'flex',
-                      }}>
-                      <button>
-                        <SvgSearch width="30px" height="30px" />
-                      </button>
-                      <Input
-                        type="text"
-                        style={{
-                          width: '100%',
-                        }}
-                        placeholder="Search for collab"
-                        initialValue={search}
-                        allowClear
-                        onChange={onInputChange}
-                      />
-                    </div>
-                  </div>
-                  <div className="col-lg-8 col-md-8">
-                    <div className="dropdowns">
-                      <Select
-                        bordered={false}
-                        showArrow={true}
-                        allowClear={true}
-                        showSearch={false}
-                        placeholder="Collab type"
-                        defaultValue={selectedCompensationModel}
-                        onChange={handleCompasitionClick}
-                        style={{ width: '50%' }}
-                        className="dropdownCollaboration">
-                        {menuOptions(handleCompasitionClick)}
-                      </Select>
-                      <Select
-                        bordered={false}
-                        menuItemSelectedIcon={null}
-                        showArrow={true}
-                        showSearch={false}
-                        allowClear={true}
-                        mode="multiple"
-                        placeholder="Genres"
-                        defaultValue={selectedGenres || []}
-                        value={selectedGenres || []}
-                        onChange={handleGenresClick}
-                        style={{ width: '50%' }}
-                        className="dropdownCollaboration">
-                        {menuGenresOptions(genres)}
-                      </Select>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-        <div className="container mangafy_container">
-          <Row type="flux">
-            <div className={styles.colabCards}>
-              <div className={'container'}>
-                <div className={styles.colabWrap}>
-                  {mangaStories &&
-                    mangaStories.map((label) => (
-                      <ColaborationCard key={label._id} label={label} client={client} />
-                    ))}
-                  <div className={cn(styles.PostColab)}>
-                    <div className={cn(styles.PostColab__item)}>
-                      <div className={cn(styles.PostColab__descr)}>
-                        Have an idea to coomics and looking for collaboration?
+                  <div className="col-lg-12">
+                    <div className="row">
+                      <div className="col-lg-4 col-md-4">
+                        <div
+                          style={{
+                            display: 'flex',
+                          }}>
+                          <button>
+                            <SvgSearch width="30px" height="30px" />
+                          </button>
+                          <Input
+                            type="text"
+                            style={{
+                              width: '100%',
+                            }}
+                            placeholder="Search for collab"
+                            initialValue={search}
+                            allowClear
+                            onChange={onInputChange}
+                          />
+                        </div>
                       </div>
-                      <Link href="/create-a-story/start">
-                        <span>
-                          <PrimaryButton text="Post Collab" className={cn(styles.PostColab__btn)} />
-                        </span>
-                      </Link>
+                      <div className="col-lg-8 col-md-8">
+                        <div className="dropdowns">
+                          <Select
+                            bordered={false}
+                            showArrow={true}
+                            allowClear={true}
+                            showSearch={false}
+                            placeholder="Collab type"
+                            defaultValue={selectedCompensationModel}
+                            onChange={handleCompasitionClick}
+                            style={{ width: '50%' }}
+                            className="dropdownCollaboration">
+                            {menuOptions(handleCompasitionClick)}
+                          </Select>
+                          <Select
+                            bordered={false}
+                            menuItemSelectedIcon={null}
+                            showArrow={true}
+                            showSearch={false}
+                            allowClear={true}
+                            mode="multiple"
+                            placeholder="Genres"
+                            defaultValue={selectedGenres || []}
+                            value={selectedGenres || []}
+                            onChange={handleGenresClick}
+                            style={{ width: '50%' }}
+                            className="dropdownCollaboration">
+                            {menuGenresOptions(genres)}
+                          </Select>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </Row>
-          <div className="row">
-            <div className="col-lg-12">
-              <div className={styles.pagination_cards}>
-                <Paginations
-                  total={total}
-                  current={current}
-                  onChange={(page, pageSize) => {
-                    onChange(page, pageSize);
-                  }}
-                />
+            </section>
+            <div className="container mangafy_container">
+              <Row type="flux">
+                <div className={styles.colabCards}>
+                  <div className={'container'}>
+                    <div className={styles.colabWrap}>
+                      {mangaStories &&
+                        mangaStories.map((label) => (
+                          <ColaborationCard key={label._id} label={label} client={client} />
+                        ))}
+                      <div className={cn(styles.PostColab)}>
+                        <div className={cn(styles.PostColab__item)}>
+                          <div className={cn(styles.PostColab__descr)}>
+                            Have an idea to coomics and looking for collaboration?
+                          </div>
+                          <Link href="/create-a-story/start">
+                            <span>
+                              <PrimaryButton text="Post Collab" className={cn(styles.PostColab__btn)} />
+                            </span>
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Row>
+              <div className="row">
+                <div className="col-lg-12">
+                  <div className={styles.pagination_cards}>
+                    <Paginations
+                      total={total}
+                      current={current}
+                      onChange={(page, pageSize) => {
+                        onChange(page, pageSize);
+                      }}
+                    />
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+          </main>
         </div>
         <Footer />
-      </main>
-      <div>
+        <FooterPolicy />
         <Cookiebubble
           messageTextColor="#212121"
           buttonColor="#7b65f3"
@@ -213,7 +219,7 @@ const Collaborations = (props) => {
           iconColor="#7b65f3"
         />
       </div>
-    </div>
+    </>
   );
 };
 
