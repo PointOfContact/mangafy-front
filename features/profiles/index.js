@@ -9,6 +9,7 @@ import Paginations from 'components/paginations';
 import ProfilesCard from 'components/profilesCard';
 import ProfilesHeader from 'components/profilesHeader';
 import PrimaryButton from 'components/ui-elements/button';
+import ButtonToTop from 'components/ui-elements/button-toTop';
 import { userTypes } from 'helpers/constant';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -77,6 +78,7 @@ const Profiles = (props) => {
           content="Find an artist, storyteller or translator - tell them what you dream about, and collaborate"></meta>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <ButtonToTop />
       <main className="main_back_2">
         <Header user={user} path="profiles" />
         <ProfilesHeader />

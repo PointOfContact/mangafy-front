@@ -28,7 +28,7 @@ export const Gallery = (props) => {
   const [showUploadList, setShowUploadList] = useState(true);
   const [showGallery, setShowGallery] = useState(false);
   const [errMessage, setErrMessage] = useState('');
-  const [canEdit, setCanEdit] = useState(canEditInit);
+  const [canEdit] = useState(canEditInit);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   useEffect(() => {

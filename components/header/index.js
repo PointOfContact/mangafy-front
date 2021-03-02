@@ -20,13 +20,21 @@ const Header = ({ user, path }) => {
       document.removeEventListener('scroll', handleScroll);
     };
   });
+
   const openMenu = (e) => {
     e.nativeEvent.stopImmediatePropagation();
     handleManuOpen(!isOpen);
+    const el = document.body;
+    if (!isOpen) {
+      el.classList.add(styles.body_scrool);
+    } else {
+      el.classList.remove(styles.body_scrool);
+    }
   };
+
   const handleScroll = () => {
     const el = document.querySelector('.menubar');
-    if (window.scrollY > 20) {
+    if (window.scrollY > 44) {
       el.classList.add(styles.header__fixed);
     } else {
       el.classList.remove(styles.header__fixed);
@@ -35,10 +43,12 @@ const Header = ({ user, path }) => {
 
   const handleDocumentClick = () => {
     handleManuOpen(false);
+    const el = document.body;
+    el.classList.remove(styles.body_scrool);
   };
 
   return (
-    <>
+    <div className={styles.header_cont}>
       <header className={`${styles.header} navbar menubar`}>
         <div className={'container'}>
           <div className={styles.header__top}>
@@ -65,10 +75,6 @@ const Header = ({ user, path }) => {
               </Link>
             </div>
             <div className={styles.header__rightNav}>
-              <Link href="#">
-                <a className={styles.header__menu}>Join</a>
-              </Link>
-
               {user ? (
                 <>
                   {path !== 'myProfile' && (
@@ -105,9 +111,9 @@ const Header = ({ user, path }) => {
             </Link>
           </div>
         </div>
-        {isOpen && <MenuLinks isOpen={isOpen} />}
+        {isOpen && <MenuLinks isOpen={isOpen} user={user} />}
       </header>
-    </>
+    </div>
   );
 };
 
@@ -121,15 +127,11 @@ Header.defaultProps = {
   path: '',
 };
 
-const MenuLinks = ({ isOpen }) => {
+const MenuLinks = ({ isOpen, user }) => {
   const initialLinks = [
     {
-      text: 'About',
+      text: 'About Us',
       link: 'about',
-    },
-    {
-      text: 'Community Guidelines',
-      link: '#',
     },
     {
       text: 'Terms',
@@ -148,55 +150,74 @@ const MenuLinks = ({ isOpen }) => {
       </Link>
     </li>
   ));
-
   return (
     <div id="menu" className={`${styles.mobile_menu} ${isOpen && styles.isOpen}`}>
       <div className={styles.menu_inner}>
         <div className={styles.mobile_div_part1}>
-          <ul className={styles.main_list}>
-            <li className={styles.menu_item}>
-              <Link href="/collaborations?compensationModel=paid">Paid projects</Link>
-            </li>
-            <li className={styles.menu_item}>
-              <Link href="/collaborations">Collabs</Link>
-            </li>
-            <li className={styles.menu_item}>
-              <Link href="/create-a-story/start">Create a collab</Link>
-            </li>
-            <li className={styles.menu_item}>
-              <Link href="/profiles">Enthusiast</Link>
-            </li>
-            <li className={styles.menu_item}>
-              <Link href="/profiles">Members</Link>
-            </li>
-          </ul>
-
-          {/* login//
-          <ul className={styles.main_list}>
-            <li className={styles.menu_item}>
-              <Link href="/collaborations?compensationModel=paid">Paid projects</Link>
-            </li>
-            <li className={styles.menu_item}>
-              <Link href="/collaborations">Collabs</Link>
-            </li>
-            <li className={styles.menu_item}>
-              <Link href="/create-a-story/start">Create a collab</Link>
-            </li>
-            <li className={styles.menu_item}>
-              <Link href="/profiles">Enthusiast</Link>
-            </li>
-            <li className={styles.menu_item}>
-              <Link href="/profiles">Members</Link>
-            </li>
-          </ul> */}
+          {user ? (
+            <>
+              <ul className={styles.main_list}>
+                <li className={styles.menu_item}>
+                  <Link href="/collaborations?compensationModel=paid">Paid projects</Link>
+                </li>
+                <li className={styles.menu_item}>
+                  <Link href="/collaborations">Collabs</Link>
+                </li>
+                <li className={styles.menu_item}>
+                  <Link href="/profiles">Members</Link>
+                </li>
+                <li className={styles.menu_item}>
+                  <Link href="/create-a-story/start">Create a collab</Link>
+                </li>
+                <li className={styles.menu_item}>
+                  <Link href="/pricing">Go Pro</Link>
+                </li>
+              </ul>
+              <ul className={cn(`${styles.main_list} ${styles.ul_login}`)}>
+                <li className={styles.menu_item}>
+                  <Link href="/my-profile">Profile</Link>
+                </li>
+                {/* <li className={styles.menu_item}>
+                  <Link href="/collaborations?compensationModel=paid">Work Availability</Link>
+                </li> */}
+                <li className={styles.menu_item}>
+                  <Link href="/my-profile">My Notifications</Link>
+                </li>
+                {/* <li className={styles.menu_item}>
+                  <Link href="/settings">Account settings</Link>
+                </li> */}
+                <li className={styles.menu_item} onClick={removeAllStorage}>
+                  <Link href="/sign-in">Sign out</Link>
+                </li>
+              </ul>
+            </>
+          ) : (
+            <ul className={styles.main_list}>
+              <li className={styles.menu_item}>
+                <Link href="/sign-in">Sign in</Link>
+              </li>
+              <li className={styles.menu_item}>
+                <Link href="/collaborations?compensationModel=paid">Paid projects</Link>
+              </li>
+              <li className={styles.menu_item}>
+                <Link href="/collaborations">Collabs</Link>
+              </li>
+              <li className={styles.menu_item}>
+                <Link href="/create-a-story/start">Create a collab</Link>
+              </li>
+              <li className={styles.menu_item}>
+                <Link href="/profiles">Members</Link>
+              </li>
+              <li className={styles.menu_item}>
+                <Link href="/pricing">Go Pro</Link>
+              </li>
+            </ul>
+          )}
         </div>
         <div className={styles.mobile_div_part2}>
           <ul className={styles.links}>{links}</ul>
           <div className={styles.image_block}>
-            <img src="img/Frame.jpg"></img>
-            {/* //login */}
-            {/* <img src="img/header_bg.jpg"></img> */}
-            {/*  */}
+            {user ? <img src="img/Frame2.png"></img> : <img src="img/Frame.png"></img>}
           </div>
         </div>
       </div>
@@ -206,10 +227,12 @@ const MenuLinks = ({ isOpen }) => {
 
 MenuLinks.propTypes = {
   isOpen: PropTypes.bool,
+  user: PropTypes.object,
 };
 
 MenuLinks.defaultProps = {
   isOpen: false,
+  user: null,
 };
 
 export default Header;
