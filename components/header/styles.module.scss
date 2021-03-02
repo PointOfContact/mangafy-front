@@ -1,5 +1,18 @@
 @import '../../styles/variables.scss';
 
+.body_scrool{
+  overflow: hidden;
+  height: 100vh !important;
+}
+
+.header_cont{
+  height: 136px;
+  background-color: $primaryBG;
+  @include media-sm{
+    height: 0px;
+  }
+}
+
 .header {
   width: 100%;
   background: #fff;

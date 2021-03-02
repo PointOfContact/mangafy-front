@@ -20,13 +20,21 @@ const Header = ({ user, path }) => {
       document.removeEventListener('scroll', handleScroll);
     };
   });
+
   const openMenu = (e) => {
     e.nativeEvent.stopImmediatePropagation();
     handleManuOpen(!isOpen);
+    const el = document.body;
+    if (!isOpen) {
+      el.classList.add(styles.body_scrool);
+    } else {
+      el.classList.remove(styles.body_scrool);
+    }
   };
+
   const handleScroll = () => {
     const el = document.querySelector('.menubar');
-    if (window.scrollY > 20) {
+    if (window.scrollY > 44) {
       el.classList.add(styles.header__fixed);
     } else {
       el.classList.remove(styles.header__fixed);
@@ -38,7 +46,7 @@ const Header = ({ user, path }) => {
   };
 
   return (
-    <>
+    <div className={styles.header_cont}>
       <header className={`${styles.header} navbar menubar`}>
         <div className={'container'}>
           <div className={styles.header__top}>
@@ -65,10 +73,6 @@ const Header = ({ user, path }) => {
               </Link>
             </div>
             <div className={styles.header__rightNav}>
-              <Link href="#">
-                <a className={styles.header__menu}>Join</a>
-              </Link>
-
               {user ? (
                 <>
                   {path !== 'myProfile' && (
@@ -107,7 +111,7 @@ const Header = ({ user, path }) => {
         </div>
         {isOpen && <MenuLinks isOpen={isOpen} user={user} />}
       </header>
-    </>
+    </div>
   );
 };
 
