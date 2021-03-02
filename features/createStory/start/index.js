@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useCallback } from 'react';
 
+import { notification } from 'antd';
 import Footer from 'components/footer';
 import Header from 'components/header';
 import Head from 'next/head';
@@ -10,6 +11,12 @@ import { adaptData } from './utils';
 
 const Start = ({ genres, jwt, user }) => {
   const typeformRef = useRef(null);
+
+  const openNotification = (type, message) => {
+    notification[type]({
+      message,
+    });
+  };
 
   const onSubmit = useCallback(
     async (event) => {
@@ -24,7 +31,7 @@ const Start = ({ genres, jwt, user }) => {
         Router.push(`/manga-story/${response._id}`);
       } catch (error) {
         // eslint-disable-next-line no-console
-        console.error('error', error);
+        openNotification('error', error.message);
       }
     },
     [genres, jwt]

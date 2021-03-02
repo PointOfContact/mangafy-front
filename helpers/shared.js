@@ -1,3 +1,5 @@
+import { notification } from 'antd';
+
 import client from '../api/client';
 
 export const beforeUpload = (file, props, updater) => {
@@ -9,6 +11,12 @@ export const beforeUpload = (file, props, updater) => {
   // } else if (info.file.status === 'error') {
   //   message.error(`${info.file.name} file upload failed.`);
   // }
+  const openNotification = (type, message) => {
+    notification[type]({
+      message,
+    });
+  };
+
   const reader = new FileReader();
   // encode dataURI
   reader.readAsDataURL(file);
@@ -42,7 +50,7 @@ export const beforeUpload = (file, props, updater) => {
             })
             .then((res) => updater(res));
         })
-        .catch((err) => {});
+        .catch((err) => openNotification('error', err.message));
     },
     false
   );

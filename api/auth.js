@@ -1,7 +1,15 @@
+import { notification } from 'antd';
+
 import client from './client';
 
 const auth = {
   authenticate(jwtFromCookie = null, doAuthenticate = false) {
+    const openNotification = (type, message) => {
+      notification[type]({
+        message,
+      });
+    };
+
     console.log(
       `authenticate, cookie: ${jwtFromCookie ? 'yes' : 'no'} , doAuthenticate: ${doAuthenticate}`
     );
@@ -31,13 +39,18 @@ const auth = {
       })
       .catch((err) => {
         console.log('authenticate failed', err);
-
+        openNotification('error', err.message);
         return Promise.resolve({ user: null, jwt: null });
       });
   },
 
   signout() {
     console.log('signout');
+    const openNotification = (type, message) => {
+      notification[type]({
+        message,
+      });
+    };
 
     return client
       .logout()
@@ -48,8 +61,7 @@ const auth = {
         console.log('signout successful');
       })
       .catch((err) => {
-        console.log('signout failed', err);
-
+        openNotification('error', err.message);
         return Promise.reject(err);
       });
   },

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { SendOutlined, BackwardOutlined } from '@ant-design/icons';
-import { Input } from 'antd';
+import { Input, notification } from 'antd';
 import client from 'api/client';
 import moment from 'moment';
 import { MessageList } from 'react-chat-elements';
@@ -29,6 +29,12 @@ const AllMessages = ({ conversationId, user }) => {
     setValue(e.target.value);
   };
 
+  const openNotification = (type, message) => {
+    notification[type]({
+      message,
+    });
+  };
+
   const getMessages = (conversationId) => {
     if (!conversationId) {
       return;
@@ -47,7 +53,7 @@ const AllMessages = ({ conversationId, user }) => {
           setMessageList(adaptData(res.data));
           setShowMessage(true);
         })
-        .catch((err) => err);
+        .catch((err) => openNotification('error', err.message));
     });
   };
 
@@ -81,7 +87,7 @@ const AllMessages = ({ conversationId, user }) => {
           setValue('');
         })
         .catch((err) => {
-          console.log('Sssssssss', err);
+          openNotification('error', err.message);
           setValue('');
         });
     });
