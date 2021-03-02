@@ -5,7 +5,7 @@
 	background: linear-gradient(270.25deg, #7B65F3 0.24%, #5644BA 60.66%);
 	margin-bottom: 50px;
 	position: relative;
-	@media #{$media-xs} {
+	@media #{$media-sm} {
 		margin-bottom: 120px;
 	}
 	p {
