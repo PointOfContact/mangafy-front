@@ -176,6 +176,7 @@ const Profiles = (props) => {
           </Row>
           <div className={styles.pagination}>
             <Paginations
+              className={"no_border"}
               total={total}
               current={current}
               onChange={(page, pageSize) => {

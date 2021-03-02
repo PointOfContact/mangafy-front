@@ -983,3 +983,11 @@ img.rot4 {
     }
   }
 }
+
+.ant-pagination {
+  &.no_border {
+    .ant-pagination-item-link {
+      border: none !important;
+    }
+  }
+}
