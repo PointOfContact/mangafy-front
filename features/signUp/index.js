@@ -1,6 +1,5 @@
 import React from 'react';
 
-import * as Sentry from '@sentry/node';
 import AuthForm from 'components/authForm';
 import FooterPolicy from 'components/footer-policy';
 import Header from 'components/header';
@@ -55,96 +54,22 @@ const Register = ({ user }) => {
       email,
       password,
     };
-    register(payload)
-      .then(({ user, jwt }) => {
-        setState({ disabled: false });
+    register(payload).then(({ user }) => {
+      setState({ disabled: false });
 
-        const data = [
-          {
-            platform: 'WEB',
-            event_type: EVENTS.SIGN_UP,
-            user_id: user._id,
-            user_properties: {
-              ...user,
-            },
+      const data = [
+        {
+          platform: 'WEB',
+          event_type: EVENTS.SIGN_UP,
+          user_id: user._id,
+          user_properties: {
+            ...user,
           },
-        ];
-        amplitude.track(data);
-        const mangaData = JSON.parse(localStorage.getItem('mangaStory'));
-        if (!mangaData) {
-          Router.push(`/my-profile`);
-          return;
-        }
-        import('api/restClient').then((m) => {
-          const res = mangaData.image
-            ? m.default.service('/api/v2/uploads').create(
-                { uri: mangaData.image },
-                {
-                  headers: { Authorization: `Bearer ${jwt}` },
-                }
-              )
-            : Promise.resolve(null);
-          res
-            .then((response) => {
-              const data = {
-                story: mangaData.project_description,
-                introduce: mangaData.project_story,
-                description: mangaData.project_story,
-                title: mangaData.introduce,
-                searchingFor: mangaData.collaborators.map((c) => c.label),
-                compensationModel: mangaData.compensation ? 'paid' : 'collaboration',
-                country: mangaData.country,
-                preferredLanguage: mangaData.prefered_language,
-                price: mangaData.compensation,
-                launchDate: mangaData.date_picker,
-                genresIds: mangaData.manga_genres_obj.map((g) => g._id),
-              };
-              if (response) {
-                data.image = response.id;
-              }
-              return m.default.service('/api/v2/manga-stories').create(data, {
-                headers: { Authorization: `Bearer ${jwt}` },
-              });
-            })
-            .then((res) => {
-              const data = [
-                {
-                  event_type: EVENTS.CREATE_MANGA_STORY,
-                  user_id: user._id,
-                  user_properties: {
-                    ...user,
-                  },
-                  event_properties: {
-                    ...res,
-                  },
-                },
-              ];
-              amplitude.track(data);
-              localStorage.removeItem('mangaStory');
-              Router.push(`/manga-story/${res._id}`);
-            })
-            .catch((err) => {
-              console.log('err', err);
-              Router.push(`/my-profile`);
-              setState({
-                ...state,
-                disabled: false,
-              });
-              Sentry.captureException(err);
-            });
-        });
-      })
-      .catch((err) => {
-        Sentry.captureException(err);
-        setState({
-          ...state,
-          disabled: false,
-        });
-        setState({
-          ...state,
-          err: err.message,
-        });
-      });
+        },
+      ];
+      amplitude.track(data);
+      Router.push(`/my-profile`);
+    });
   };
 
   return (

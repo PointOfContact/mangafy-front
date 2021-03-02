@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { Form } from 'antd';
+import { patchPage, createPage, deletePage } from 'api/storyBoardClient';
 import cn from 'classnames';
 import SvgDustbin from 'components/icon/Dustbin';
 import Popconfirm from 'components/popconfirm';
@@ -10,32 +11,31 @@ import TextArea from 'components/ui-elements/text-area';
 import useWindowSize from 'utils/useWindowSize';
 
 import styles from './styles.module.scss';
-import { patchPage, createPage, deletePage } from 'api/storyBoardClient';
 
 const ProjectScripts = ({ pages, storyBoardId }) => {
   const { width } = useWindowSize();
   const [scripts, setScripts] = useState(pages);
 
   const [selectedScript, setSelectedScript] = useState(scripts[0]?._id);
-  
+
   useEffect(() => {
-    const newScripts =  [
+    const newScripts = [
       ...pages,
       {
         _id: Math.floor(Math.random() * 1000000),
         newCreated: true,
         title: '',
         text: '',
-      }, {
+      },
+      {
         _id: Math.floor(Math.random() * 1000000),
         newCreated: true,
         title: '',
         text: '',
-      }
+      },
     ];
     setScripts(newScripts);
   }, []);
-
 
   const cahangeSelectedScriot = (index, id) => {
     if (index !== scripts.length) setSelectedScript(id);
@@ -46,7 +46,11 @@ const ProjectScripts = ({ pages, storyBoardId }) => {
   };
 
   const removeScript = (index) => {
-    deletePage(scripts[index]._id, (res) => {}, (err) => {})
+    deletePage(
+      scripts[index]._id,
+      (res) => {},
+      (err) => {}
+    );
     const items = [...scripts];
     items.splice(index, 1);
     setScripts(items);
@@ -60,23 +64,32 @@ const ProjectScripts = ({ pages, storyBoardId }) => {
     if (feild === 'text') {
       items[index].text = value;
     }
-    if(items[index].title) {
+    if (items[index].title) {
       const dataToSave = {
-        ...items[index]
+        ...items[index],
       };
       delete dataToSave?._id;
-      if(items[index].newCreated) {
+      if (items[index].newCreated) {
         delete items[index]?.newCreated;
         delete dataToSave?.newCreated;
         dataToSave.order = index + 1;
         dataToSave.storyBoard = storyBoardId;
 
-        createPage(dataToSave, (res) => {
-          items[index]._id = res?._id;
-          setScripts(items);
-        }, (err) => {})
+        createPage(
+          dataToSave,
+          (res) => {
+            items[index]._id = res?._id;
+            setScripts(items);
+          },
+          (err) => {}
+        );
       } else {
-        patchPage(items[index]?._id, dataToSave, (res) => {}, (err) => {});
+        patchPage(
+          items[index]?._id,
+          dataToSave,
+          (res) => {},
+          (err) => {}
+        );
       }
     }
     if (items[items.length - 2].title) {
@@ -105,9 +118,7 @@ const ProjectScripts = ({ pages, storyBoardId }) => {
               {(selectedScript === script._id && (
                 <>
                   <h4 className={styles.title}>{`page #${index + 1}`}</h4>
-                  <Form
-                    name="basic"
-                    initialValues={{ title: script.title, text: script.text }}>
+                  <Form name="basic" initialValues={{ title: script.title, text: script.text }}>
                     <Form.Item name="title">
                       <PrimaryInput
                         onBlur={(e) => updateScripts(e.target.value, index, 'title')}

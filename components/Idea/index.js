@@ -1,53 +1,62 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-// Antd design
+
 import { Input } from 'antd';
+import { patchStoryBoard } from 'api/storyBoardClient';
+import PropTypes from 'prop-types';
+
+// Antd design
 // Styles
 import styles from './styles.module.scss';
-import { patchStoryBoard } from 'api/storyBoardClient';
 
 const { TextArea } = Input;
 
-const Idea = ({storyBoard}) => {
-
+const Idea = ({ storyBoard }) => {
   const [idea, setIdea] = useState(storyBoard);
 
   useEffect(() => {
-    setIdea(storyBoard?.idea);
-  }, [storyBoard])
+    setIdea({
+      title: storyBoard?.idea?.title?.trim(),
+      text: storyBoard?.idea?.text?.trim(),
+    });
+  }, [storyBoard]);
 
   const handleTitleChange = (e) => {
     setIdea({
-      ...idea, 
+      ...idea,
       title: e.target.value,
     });
   };
 
   const handleTextChange = (e) => {
     setIdea({
-      ...idea, 
+      ...idea,
       text: e.target.value,
     });
   };
 
   const onBlure = () => {
-    if(!idea?.title) {
+    if (!idea?.title) {
       return;
     }
     const newIdea = {
       title: idea?.title,
       text: idea?.text,
-    }
-    patchStoryBoard(storyBoard?._id, {idea: newIdea}, () => {}, (err) => {});
-  }
+    };
+    patchStoryBoard(
+      storyBoard?._id,
+      { idea: newIdea },
+      () => {},
+      (err) => {}
+    );
+  };
 
   return (
     <div className={styles.idea__container}>
-      <Input 
-        placeholder="Title" 
-        className={styles.idea__title__input} 
-        value={idea.title} 
-        onChange={handleTitleChange} 
+      <Input
+        placeholder="Title"
+        className={styles.idea__title__input}
+        value={idea.title}
+        onChange={handleTitleChange}
         onBlur={onBlure}
         maxLength={100}
       />
@@ -62,7 +71,8 @@ const Idea = ({storyBoard}) => {
         maxLength={1000}
         className={styles.idea__textarea}
       />
-    </div>);
+    </div>
+  );
 };
 
 Idea.propTypes = {
@@ -70,7 +80,7 @@ Idea.propTypes = {
 };
 
 Idea.defaultProps = {
-    storyBoard: {}
+  storyBoard: {},
 };
 
 export default Idea;

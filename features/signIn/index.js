@@ -37,7 +37,6 @@ const Login = ({ user }) => {
       email,
       password,
     };
-    console.log('payloadpayloadpayloadpayloadpayloadpayload', payload);
     login(payload)
       .then((user) => {
         const data = [

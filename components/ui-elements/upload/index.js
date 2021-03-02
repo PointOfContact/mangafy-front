@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
-const PrimaryUpload = ({ storyBoardId }) => {
+const PrimaryUpload = ({ storyBoardId, onUploadSuccess }) => {
   const [fileList, setFileList] = useState([]);
 
   const onChange = ({ fileList: newFileList }) => {
@@ -41,8 +41,8 @@ const PrimaryUpload = ({ storyBoardId }) => {
             {
               mangaUrl: res?.id,
             },
-            (respons) => {
-              openNotification('error', respons.message);
+            (response) => {
+              onUploadSuccess(response);
             },
             (err) => {
               openNotification('error', err.message);
@@ -115,6 +115,11 @@ const PrimaryUpload = ({ storyBoardId }) => {
 
 PrimaryUpload.propTypes = {
   storyBoardId: PropTypes.string.isRequired,
+  onUploadSuccess: PropTypes.func,
+};
+
+PrimaryUpload.defaultProps = {
+  onUploadSuccess: () => {},
 };
 
 export default PrimaryUpload;
