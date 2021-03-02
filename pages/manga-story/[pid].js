@@ -8,7 +8,11 @@ export default withAuthComponent(MangeStory);
 export const getServerSideProps = withAuthServerSideProps(async (context, user = null, jwt) => {
   try {
     user = user || store.user;
-    const genres = await client.service('/api/v2/genres').find();
+    const genres = await client.service('/api/v2/genres').find({
+      query: {
+        $limit: 100,
+      },
+    });
     const res = await client.service('/api/v2/manga-stories').get(context.params.pid);
     let requests = { data: [] };
     let comments = { data: [] };

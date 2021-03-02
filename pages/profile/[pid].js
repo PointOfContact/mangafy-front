@@ -8,7 +8,11 @@ export default withAuthComponent(Profile);
 export const getServerSideProps = withAuthServerSideProps(async (context, user = null) => {
   try {
     const profile = await client.service('/api/v2/users').get(context.params.pid);
-    const genres = await client.service('/api/v2/genres').find();
+    const genres = await client.service('/api/v2/genres').find({
+      query: {
+        $limit: 100,
+      },
+    });
     const res = await client.service('/api/v2/manga-stories').find({
       query: {
         author: context.params.pid,

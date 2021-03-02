@@ -1,13 +1,13 @@
 function getGenerIdByName(genres, name) {
   // eslint-disable-next-line no-underscore-dangle
-  return genres.find(({ value }) => value === name.toLocaleUpperCase())._id;
+  return genres.find(({ value }) => value === name.toLocaleUpperCase())?._id;
 }
 
 function getDataByFeildName(data, name, genres) {
   const { choice, text, choices } = data.find(({ field }) => field.ref === name);
   switch (name) {
     case 'searchingFor':
-      return [choice.label];
+      return choices.labels;
     case 'compensationModel':
       // eslint-disable-next-line no-constant-condition
       return [choice.label] === 'Freewill collaboration and ready to share'

@@ -31,7 +31,7 @@ const Start = ({ genres, jwt, user }) => {
         Router.push(`/manga-story/${response._id}`);
       } catch (error) {
         // eslint-disable-next-line no-console
-        openNotification('error', error.message);
+        openNotification('error', error?.message || error);
       }
     },
     [genres, jwt]

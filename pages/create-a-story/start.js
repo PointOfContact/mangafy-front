@@ -14,7 +14,11 @@ export const getServerSideProps = withAuthServerSideProps(
         context.res.end();
         return { props: {} };
       }
-      const genres = await client.service('/api/v2/genres').find();
+      const genres = await client.service('/api/v2/genres').find({
+        query: {
+          $limit: 100,
+        },
+      });
       return {
         props: {
           user,
