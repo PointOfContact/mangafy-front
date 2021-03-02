@@ -50,7 +50,8 @@ body {
       color: $primaryDark;
     }
     @include media-sm {
-      font-size: $text5;
+      font-size: 15px;
+      margin-right: 25px;
       padding: 25px 0;
     }
     .ant-tabs-tab-btn {
@@ -646,6 +647,7 @@ img.rot4 {
     font-size: 15px;
     margin: 0;
     margin-right: 6px;
+    margin-bottom: 10px;
     border: none;
     font-weight: 700;
     padding: 0 15px;
@@ -696,12 +698,16 @@ img.rot4 {
     background-repeat: no-repeat;
     min-width: auto;
     min-height: auto;
-    margin-right: 10px;
+    margin-right: 0;
     &:hover {
       background: none !important;
       border: none !important;
       box-shadow: none;
       background-image: url(../public/img/btn-deleate.svg) !important;
+    }
+    @media (max-width: 767px) {
+      width: 25px;
+      height: 25px;
     }
     span {
       display: none;
@@ -721,6 +727,10 @@ img.rot4 {
     box-shadow: none;
     border-radius: 50%;
     position: relative;
+    @media (max-width: 767px) {
+      width: 25px;
+      height: 25px;
+    }
     &:before {
       content: "";
       position: absolute;
@@ -732,6 +742,10 @@ img.rot4 {
       background-color: #FEC447;
       border-radius: 50%;
       opacity: .7;
+      @media (max-width: 767px) {
+        width: 25px;
+        height: 25px;
+      }
     }
     &:hover {
       border: none !important;
@@ -749,6 +763,10 @@ img.rot4 {
       display: flex;
       align-items: center;
       justify-content: center;
+      @media (max-width: 767px) {
+        width: 25px;
+        height: 25px;
+      }
       &:before {
         content: "";
         width: 16px;
@@ -757,7 +775,69 @@ img.rot4 {
         background-size: cover;
         background-repeat: no-repeat;
         display: block;
+        @media (max-width: 767px) {
+          width: 12px;
+          height: 10px;
+        }
       }
     }
   }
+<<<<<<< Updated upstream
 }
+=======
+}
+
+.ant-input-affix-wrapper {
+  &.collaborations-search-input {
+    border: none;
+		background: transparent;
+    box-shadow: none;
+    padding: 0;
+    &.ant-input-affix-wrapper-focused {
+      box-shadow: none;
+    }
+    &:focus {
+      outline: none;
+    }
+    & > input.ant-input {
+      display: flex;
+			align-items: center;
+			justify-content: flex-start;
+			width: 100%;
+			height: 100%;
+			font-weight: bold;
+			font-size: 20px;
+			line-height: 1.45;
+			color: $black;
+			border: none;
+			background: transparent;
+			padding: 0;
+			z-index: 1;
+			@media #{$media-md} {
+				padding: 0 20px;
+				position: relative;
+			}
+			&::placeholder {
+				color: $black;
+			}
+    }
+  }
+}
+
+.garners_buttons {
+  .ant-row {
+    @include media-sm {
+      flex-direction: column-reverse;
+    }
+  }
+}
+
+.mobile_top_round {
+  .ant-row {
+    @include media-sm {
+      flex-direction: column-reverse;
+    }
+  }
+}
+
+>>>>>>> Stashed changes

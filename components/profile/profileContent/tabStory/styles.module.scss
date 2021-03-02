@@ -16,6 +16,7 @@
   .sub_title {
     color: $black;
     font-size: $text2;
+    font-weight: 900;
     @include media-sm {
       font-size: $text4;
     }
@@ -56,12 +57,12 @@
     width: 31px;
   }
   @include media-sm {
-    align-items: self-end;
+    // align-items: self-end;
     position: relative;
     svg {
-      position: absolute;
-      top: -35px;
-      right: 0px;
+      // position: absolute;
+      // top: -35px;
+      // right: 0px;
       height: 18px;
       width: 18px;
     }
@@ -107,7 +108,8 @@
       border: 1px solid $secondaryLight;
     }
     @include media-sm {
-      padding: 8px 20px;
+      font-size: 13px;
+      padding: 8px 15px;
     }
   }
 }
@@ -117,7 +119,6 @@
   overflow-y: hidden;
   white-space: nowrap;
   margin-bottom: 10px;
-
   &::-webkit-scrollbar {
     height: 3px;
   }
@@ -146,6 +147,10 @@
   font-weight: 900;
   font-size: 25px;
   line-height: 36px;
+  margin-bottom: 20px;
+  @media (max-width: 767px) {
+    margin-bottom: 15px;
+  }
 }
 
 .tab_sub_title {
@@ -153,6 +158,11 @@
   font-weight: 500;
   font-size: 20px;
   line-height: 30px;
+  @media (max-width: 767px) {
+    font-size: 14px;
+    line-height: 22px;
+
+  }
 }
 
 .textarea_text {
@@ -160,4 +170,16 @@
   font-weight: 500;
   font-size: 20px;
   line-height: 30px;
+  margin-top: 0;
+  min-height: 198px !important;
+  @media (max-width: 767px) {
+    font-size: 14px;
+    line-height: 22px;
+  }
+  &:focus {
+    border-color: $primaryDark;
+  }
+  &:hover {
+    border-color: $primaryDark;
+  }
 }

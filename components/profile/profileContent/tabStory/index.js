@@ -34,14 +34,21 @@ const TabStory = (props) => {
     userGenres &&
     !!userGenres?.length && (
       <Row>
-        <Col span={23}>
+        <Col span={22}>
           {userGenres.map(({ value }, index) => (
             <button key={index} type="button" id={`myProfileGenresTag${index}Id`}>
               {value}
             </button>
           ))}
         </Col>
-        <Col span={1} className={styles.add_button}>
+        <Col
+          
+          xs={{ span: 24 }}
+          md={{ span: 2 }}
+          xl={{ span: 2 }}
+          xxl={{ span: 2 }}
+          span={2}
+          className={styles.add_button}>
           <AddButton onClick={() => setStoryEditMode(true)} />
         </Col>
       </Row>

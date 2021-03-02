@@ -97,9 +97,9 @@ export const CommissionPricing = ({ id = null, user = null, fromMobile = false }
         {canEdit &&
           (!editMode ? (
             <SvgPurplePencil
-              className="cursor-pointer"
-              onClick={() => setEditMode(true)}
-              width="22"
+              className={styles.editAboutButton}
+              onClick={() => setStoryEditMode(true)}
+              width="30"
             />
           ) : (
             <div className={cn("buttonsProfile_styles", styles.commissionButton_save)}>

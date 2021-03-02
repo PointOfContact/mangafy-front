@@ -35,7 +35,16 @@ const ProfileTopBar = (props) => {
   return (
     <Content className={cn(styles.content)}>
       <Row>
+<<<<<<< Updated upstream
         <Col className="gutter-row" xs={{ span: 24 }} md={{ span: 4 }}>
+=======
+        <Col
+          className="gutter-row"
+          xs={{ span: 24 }}
+          md={{ span: 6 }}
+          xl={{ span: 5 }}
+          xxl={{ span: 6 }}>
+>>>>>>> Stashed changes
           <div className={styles.img}>
             {profile ? (
               <img
@@ -63,13 +72,22 @@ const ProfileTopBar = (props) => {
               <SvgPrimaryAdd
                 className={styles.add}
                 id="myProfileUploadBtnId"
-                width="40px"
+                width="40"
                 height="40px"
               />
             </Upload>
           </div>
         </Col>
+<<<<<<< Updated upstream
         <Col className="gutter-row" xs={{ span: 24 }} md={{ span: 8 }}>
+=======
+        <Col
+          className="gutter-row"
+          xs={{ span: 24 }}
+          md={{ span: 8 }}
+          xl={{ span: 9 }}
+          xxl={{ span: 9 }}>
+>>>>>>> Stashed changes
           <div className={styles.info_profile}>
             {!editMode ? (
               <>
@@ -127,7 +145,7 @@ const ProfileTopBar = (props) => {
             )}
           </div>
         </Col>
-        <Col className="gutter-row" xs={{ span: 24 }} md={{ span: 10 }}>
+        <Col className="gutter-row" xs={{ span: 24 }} md={{ span: 9 }}>
           <div className={styles.languages_btn}>
             {editMode && (
               <div className={cn(styles.buttonsProfile, "buttonsProfile_styles")}>

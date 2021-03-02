@@ -30,13 +30,22 @@ const ProfileOpenCollabs = (props) => {
             'mobile_full_content mobile_top_round mobile_linear'
           )}>
           <Row>
-            <Col span={23}>
+            <Col
+              xs={{ span: 23 }}
+              md={{ span: 22 }}
+              xl={{ span: 22 }}
+              xxl={{ span: 22 }}>
               <div className={styles.card_wrap}>
                 <MangeStoryCard client={client} mangaStories={mangaStories} />
               </div>
             </Col>
             {!profile && (
-              <Col span={1} className={styles.add_button}>
+              <Col
+                xs={{ span: 22 }}
+                md={{ span: 2 }}
+                xl={{ span: 2 }}
+                xxl={{ span: 2 }}
+                className={styles.add_button}>
                 <AddButton onClick={() => routeChange()} />
               </Col>
             )}

@@ -8,7 +8,8 @@
   border-radius: 10px;
   margin-top: 30px;
   margin-bottom: 35px;
-  padding: 25px 25px 25px 25px;
+  padding: 10px 25px 25px 20px;
+  max-width: 1039px;
   @include media-sm {
     padding: 40px 5px 0px 5px;
     margin-top: 0px;
@@ -25,11 +26,11 @@
     @include media-sm {
       align-items: self-end;
       position: relative;
-
+      padding-top: 20px;
       svg {
-        position: absolute;
-        top: -20px;
-        right: 25px;
+        // position: absolute;
+        // top: -20px;
+        // right: 25px;
         width: 18px;
         height: 18px;
       }
@@ -49,7 +50,12 @@
   .card_wrap {
     overflow-x: auto;
     white-space: nowrap;
-    margin-right: 25px;
+    margin-right: 35px;
+    padding: 20px 0 0 20px;
+    @include media-sm {
+      margin-right: 0;
+      margin-left: 15px;
+    }
     &::-webkit-scrollbar {
       height: 3px;
     }
