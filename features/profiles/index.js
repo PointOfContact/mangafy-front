@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { Row, Select } from 'antd';
-import client from 'api/client';
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import cn from 'classnames';
 import Footer from 'components/footer';
@@ -150,14 +149,10 @@ const Profiles = (props) => {
         </section> */}
         <div className="container mangafy_container">
           <Row type="flux">
-            <div className="wrap-to-cards">{<ProfilesCard users={users} client={client} />}</div>
             <div className={styles.colabCards}>
               <div className={'container'}>
                 <div className={styles.colabWrap}>
-                  {users &&
-                    users.map((label) => (
-                      <ProfilesCard key={label._id} label={label} client={client} />
-                    ))}
+                  {users && users.map((u) => <ProfilesCard key={u._id} user={u} genres={genres} />)}
                   <div className={cn(styles.PostColab)}>
                     <div className={cn(styles.PostColab__item)}>
                       <div className={cn(styles.PostColab__descr)}>

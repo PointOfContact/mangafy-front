@@ -208,7 +208,7 @@ export const Gallery = (props) => {
           <Col span={1} className={styles.img_add_button}>
             <Upload beforeUpload={onBeforeGalleryUpload} showUploadList={showUploadList}>
               <div className="">
-                <AddButton onClick={() => setCanEdit(false)} />
+                <AddButton />
               </div>
             </Upload>
           </Col>
