@@ -105,7 +105,7 @@ const Header = ({ user, path }) => {
             </Link>
           </div>
         </div>
-        {isOpen && <MenuLinks isOpen={isOpen} />}
+        {isOpen && <MenuLinks isOpen={isOpen} user={user} />}
       </header>
     </>
   );
@@ -121,15 +121,11 @@ Header.defaultProps = {
   path: '',
 };
 
-const MenuLinks = ({ isOpen }) => {
+const MenuLinks = ({ isOpen, user }) => {
   const initialLinks = [
     {
-      text: 'About',
+      text: 'About Us',
       link: 'about',
-    },
-    {
-      text: 'Community Guidelines',
-      link: '#',
     },
     {
       text: 'Terms',
@@ -148,55 +144,74 @@ const MenuLinks = ({ isOpen }) => {
       </Link>
     </li>
   ));
-
   return (
     <div id="menu" className={`${styles.mobile_menu} ${isOpen && styles.isOpen}`}>
       <div className={styles.menu_inner}>
         <div className={styles.mobile_div_part1}>
-          <ul className={styles.main_list}>
-            <li className={styles.menu_item}>
-              <Link href="/collaborations?compensationModel=paid">Paid projects</Link>
-            </li>
-            <li className={styles.menu_item}>
-              <Link href="/collaborations">Collabs</Link>
-            </li>
-            <li className={styles.menu_item}>
-              <Link href="/create-a-story/start">Create a collab</Link>
-            </li>
-            <li className={styles.menu_item}>
-              <Link href="/profiles">Enthusiast</Link>
-            </li>
-            <li className={styles.menu_item}>
-              <Link href="/profiles">Members</Link>
-            </li>
-          </ul>
-
-          {/* login//
-          <ul className={styles.main_list}>
-            <li className={styles.menu_item}>
-              <Link href="/collaborations?compensationModel=paid">Paid projects</Link>
-            </li>
-            <li className={styles.menu_item}>
-              <Link href="/collaborations">Collabs</Link>
-            </li>
-            <li className={styles.menu_item}>
-              <Link href="/create-a-story/start">Create a collab</Link>
-            </li>
-            <li className={styles.menu_item}>
-              <Link href="/profiles">Enthusiast</Link>
-            </li>
-            <li className={styles.menu_item}>
-              <Link href="/profiles">Members</Link>
-            </li>
-          </ul> */}
+          {user ? (
+            <>
+              <ul className={styles.main_list}>
+                <li className={styles.menu_item}>
+                  <Link href="/collaborations?compensationModel=paid">Paid projects</Link>
+                </li>
+                <li className={styles.menu_item}>
+                  <Link href="/collaborations">Collabs</Link>
+                </li>
+                <li className={styles.menu_item}>
+                  <Link href="/profiles">Members</Link>
+                </li>
+                <li className={styles.menu_item}>
+                  <Link href="/create-a-story/start">Create a collab</Link>
+                </li>
+                <li className={styles.menu_item}>
+                  <Link href="/pricing">Go Pro</Link>
+                </li>
+              </ul>
+              <ul className={cn(`${styles.main_list} ${styles.ul_login}`)}>
+                <li className={styles.menu_item}>
+                  <Link href="/my-profile">Profile</Link>
+                </li>
+                {/* <li className={styles.menu_item}>
+                  <Link href="/collaborations?compensationModel=paid">Work Availability</Link>
+                </li> */}
+                <li className={styles.menu_item}>
+                  <Link href="/my-profile">My Notifications</Link>
+                </li>
+                {/* <li className={styles.menu_item}>
+                  <Link href="/settings">Account settings</Link>
+                </li> */}
+                <li className={styles.menu_item} onClick={removeAllStorage}>
+                  <Link href="/sign-in">Sign out</Link>
+                </li>
+              </ul>
+            </>
+          ) : (
+            <ul className={styles.main_list}>
+              <li className={styles.menu_item}>
+                <Link href="/sign-in">Sign in</Link>
+              </li>
+              <li className={styles.menu_item}>
+                <Link href="/collaborations?compensationModel=paid">Paid projects</Link>
+              </li>
+              <li className={styles.menu_item}>
+                <Link href="/collaborations">Collabs</Link>
+              </li>
+              <li className={styles.menu_item}>
+                <Link href="/create-a-story/start">Create a collab</Link>
+              </li>
+              <li className={styles.menu_item}>
+                <Link href="/profiles">Members</Link>
+              </li>
+              <li className={styles.menu_item}>
+                <Link href="/pricing">Go Pro</Link>
+              </li>
+            </ul>
+          )}
         </div>
         <div className={styles.mobile_div_part2}>
           <ul className={styles.links}>{links}</ul>
           <div className={styles.image_block}>
-            <img src="img/Frame.jpg"></img>
-            {/* //login */}
-            {/* <img src="img/header_bg.jpg"></img> */}
-            {/*  */}
+            {user ? <img src="img/Frame2.png"></img> : <img src="img/Frame.png"></img>}
           </div>
         </div>
       </div>
@@ -206,10 +221,12 @@ const MenuLinks = ({ isOpen }) => {
 
 MenuLinks.propTypes = {
   isOpen: PropTypes.bool,
+  user: PropTypes.object,
 };
 
 MenuLinks.defaultProps = {
   isOpen: false,
+  user: null,
 };
 
 export default Header;
