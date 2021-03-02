@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 
 import { notification } from 'antd';
+import FooterPolicy from 'components/footer-policy';
+import Header from 'components/header';
+import LoginFooter from 'components/loginFooter';
+import PrimaryInput from 'components/ui-elements/input';
+import LargeButton from 'components/ui-elements/large-button';
 import Head from 'next/head';
-import Link from 'next/link';
 
-const Amplitude = require('amplitude');
-
-const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
+import styles from './styles.module.scss';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const [message, setMessage] = useState('');
 
   const handleOnChange = ({ target }) => {
     setEmail(target.value);
@@ -31,12 +32,11 @@ const ForgotPassword = () => {
             mode: 'no-cors',
           }
         )
-        .then((res) => {
+        .then(() => {
           notification.success({
             message: 'Success',
             description: "Pls. check you mailbox. If you don't reactive pls. send again",
           });
-          // setMessage('Pls. check you mailbox. If you don\'t reactive pls. send again')
           setErrorMessage('');
           setEmail('');
         })
@@ -46,47 +46,42 @@ const ForgotPassword = () => {
             description: err.message,
           });
           setErrorMessage(err.message);
-          setMessage('');
         });
     });
   };
 
   return (
-    <div className="form_magafy">
+    <div className={styles.forgot_password}>
+      <Header />
       <Head></Head>
-      <div className="sign_in_page_container">
-        <div className="sign_in_content">
-          <div className="sign_in_header">Forgot your password? Don’t panic!</div>
-          <div className="sign_in_info">
-            Type the address linked to your account and we'll send you password reset instructions.
-            They might end up in your spam folder, so please check there as well.
-          </div>
-          <div className="sign_in_form forgot-pass-block sign_in_form col-lg-4 col-md-6 col-sm-8 col-xs-10">
-            <div className="input_login floating-label-wrap">
-              <label>Email</label>
-              <input type="email" name="email" value={email} onChange={handleOnChange} />
-            </div>
-            {/* {<p>{message}</p>} */}
-            {<p style={{ color: 'red' }}>{errorMessage}</p>}
-            <div className="login_button_container">
-              <button onClick={reset} className="login_btn">
-                Send instruction
-              </button>
-            </div>
-          </div>
-          <div className="sign_in_terms_info">
-            To make MangaFY work we log user data. Click "{<Link href="/sign-in">sign in</Link>}" to
-            accept MangaFY's{' '}
-            <Link href="/terms">
-              <a className="margin-horizontal-5">Term and service</a>
-            </Link>{' '}
-            &{' '}
-            <Link href="/privacy-policy">
-              <a className="margin-horizontal-5">Privacy Policy </a>
-            </Link>
-          </div>
-        </div>
+      <div className={styles.forgot_password_content}>
+        <img src="/img/forgot-password.png" alt="" />
+        <h2 className={styles.title}>Forgot your password? Don’t panic!</h2>
+        <p className={styles.info}>
+          Type the address linked to your account and we&apos;ll send you password reset
+          instructions.
+        </p>
+        <PrimaryInput
+          className={styles.input}
+          type="email"
+          name="email"
+          value={email}
+          placeholder="Email"
+          onChange={handleOnChange}
+          isFullWidth={true}
+          isLinear={true}
+        />
+        {<p style={{ color: 'red' }}>{errorMessage}</p>}
+        <LargeButton
+          onClick={reset}
+          className={styles.button_submit}
+          htmlType="submit"
+          text={'Send instruction'}
+          id="signInBtnId"
+        />
       </div>
+      <LoginFooter acaunt={false} />
+      <FooterPolicy />
     </div>
   );
 };
