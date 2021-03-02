@@ -1,4 +1,4 @@
-import { Modal, Select } from 'antd';
+import { Modal, notification, Select } from 'antd';
 import client from 'api/client';
 import Router from 'next/router';
 
@@ -101,6 +101,12 @@ class ModalStart extends React.Component {
     });
   };
 
+  openNotification = (type, message) => {
+    notification[type]({
+      message,
+    });
+  };
+
   createRequest = (_) => {
     const jwt = client.getCookie('feathers-jwt');
     import('api/restClient').then((m) => {
@@ -141,7 +147,7 @@ class ModalStart extends React.Component {
             visible: false,
           });
         })
-        .catch((err) => {});
+        .catch((err) => this.openNotification('error', err.message));
     });
   };
 

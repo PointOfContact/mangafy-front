@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { InboxOutlined } from '@ant-design/icons';
-import { Button, Upload } from 'antd';
+import { Button, notification, Upload } from 'antd';
 import client from 'api/client';
 import SvgLeftArrow from 'components/icon/LeftArrow';
 import { EVENTS } from 'helpers/amplitudeEvents';
@@ -19,6 +19,12 @@ const Introduce = ({ user }) => {
   const [fileList, changeFileList] = useState([]);
   const [loadings, changeLoadings] = useState([]);
   const [image, changeImage] = useState(null);
+
+  const openNotification = (type, message) => {
+    notification[type]({
+      message,
+    });
+  };
 
   const publish = async () => {
     const mangaData = JSON.parse(localStorage.getItem('mangaStory'));
@@ -73,7 +79,7 @@ const Introduce = ({ user }) => {
           Router.push(`/manga-story/${res._id}`);
         })
         .catch((err) => {
-          console.log('err', err);
+          openNotification('error', err.message);
           Router.push(`/my-profile`);
         });
     });
