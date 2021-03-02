@@ -65,10 +65,6 @@ const Header = ({ user, path }) => {
               </Link>
             </div>
             <div className={styles.header__rightNav}>
-              <Link href="#">
-                <a className={styles.header__menu}>Join</a>
-              </Link>
-
               {user ? (
                 <>
                   {path !== 'myProfile' && (
