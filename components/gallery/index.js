@@ -28,7 +28,7 @@ export const Gallery = (props) => {
   const [showUploadList, setShowUploadList] = useState(true);
   const [showGallery, setShowGallery] = useState(false);
   const [errMessage, setErrMessage] = useState('');
-  const [canEdit, setCanEdit] = useState(canEditInit);
+  const [canEdit] = useState(canEditInit);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   useEffect(() => {
@@ -208,7 +208,7 @@ export const Gallery = (props) => {
           <Col span={1} className={styles.img_add_button}>
             <Upload beforeUpload={onBeforeGalleryUpload} showUploadList={showUploadList}>
               <div className="">
-                <AddButton onClick={() => setCanEdit(false)} />
+                <AddButton />
               </div>
             </Upload>
           </Col>

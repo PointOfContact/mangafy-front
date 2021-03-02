@@ -35,7 +35,12 @@ const ProfileTopBar = (props) => {
   return (
     <Content className={cn(styles.content)}>
       <Row>
-        <Col className="gutter-row" xs={{ span: 24 }} md={{ span: 4 }}>
+        <Col
+          className="gutter-row"
+          xs={{ span: 24 }}
+          md={{ span: 6 }}
+          xl={{ span: 5 }}
+          xxl={{ span: 4 }}>
           <div className={styles.img}>
             {profile ? (
               <img
@@ -69,7 +74,12 @@ const ProfileTopBar = (props) => {
             </Upload>
           </div>
         </Col>
-        <Col className="gutter-row" xs={{ span: 24 }} md={{ span: 8 }}>
+        <Col
+          className="gutter-row"
+          xs={{ span: 24 }}
+          md={{ span: 8 }}
+          xl={{ span: 9 }}
+          xxl={{ span: 10 }}>
           <div className={styles.info_profile}>
             {!editMode ? (
               <>
@@ -78,7 +88,7 @@ const ProfileTopBar = (props) => {
 
                 {userData ? (
                   <PrimaryButton
-                    text="Settings"
+                    text="Edit"
                     splitterStyle={{ width: '120px', fontSize: '15px' }}
                     onClick={() => setEditMode(true)}
                   />
@@ -130,7 +140,7 @@ const ProfileTopBar = (props) => {
         <Col className="gutter-row" xs={{ span: 24 }} md={{ span: 10 }}>
           <div className={styles.languages_btn}>
             {editMode && (
-              <div className={cn(styles.buttonsProfile, "buttonsProfile_styles")}>
+              <div className={cn(styles.buttonsProfile, 'buttonsProfile_styles')}>
                 <PrimaryButton
                   className="buttonsProfile_cancel"
                   text="Cancel"

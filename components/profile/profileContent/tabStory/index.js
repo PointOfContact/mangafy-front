@@ -128,7 +128,6 @@ const TabStory = (props) => {
           <h3 className={cn(styles.sub_title)}>Genres</h3>
         )}
         <div className={cn('garners_buttons', styles.genres_wrap)}>
-          {profileGenres && <h3 className={cn(styles.sub_title)}>Genres</h3>}
           {profileGenres &&
             profileGenres.map(({ name }, index) => (
               <button key={index} type="button" id={`myProfileGenresTag${index}Id`}>

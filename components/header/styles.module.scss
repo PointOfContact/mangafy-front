@@ -9,7 +9,7 @@
   height: 136px;
   background-color: $primaryBG;
   @include media-sm{
-    height: 0px;
+    height: 72px;
   }
 }
 
@@ -238,38 +238,6 @@
       max-width: 257px;
     }
   }
-  // ///login
-  // .header {
-  //   .mobile_div_part2{
-  //     flex: none;
-  //     position: relative;
-  //   }
-  //   .mobile_div_part1{
-  //     flex: 1;
-  //     .main_list:last-child{
-  //       border-bottom: none;
-  //     }
-  //   }
-  // }
-  // .image_block{
-  //   position: absolute;
-  //   right: 0;
-  //   top: 0;
-  //   z-index: 0;
-  //   max-height: 100%;
-  //   img{
-  //     max-width: 200px;
-  //   }
-  // }
-  // .links{
-  //   position: relative;
-  //   z-index: 2;
-  //   padding: 15px 30px 15px;
-  // }
-  // .main_list{
-  //   border-bottom: 1px solid rgba($black, 0.07);
-  // }
-  // ////
 }
 @media (max-width: 399px) {
   .header {
@@ -294,19 +262,4 @@
   .image_block img {
     max-width: 240px;
   }
-  // ///login
-  // .header{
-  //   .main_list{
-  //     padding: 10px 30px;
-  //   }
-  // }
-  // .image_block{
-  //   img{
-  //     max-width: 170px;
-  //   }
-  // }
-  // .links{
-  //   padding: 15px 30px 15px;
-  // }
-  // ///
 }
