@@ -20,6 +20,7 @@ import Link from 'next/link';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
 import * as qs from 'query-string';
+import {options} from 'helpers/constant'
 import { LinkCreator } from 'utils/linkCreator';
 
 import styles from './styles.module.scss';
@@ -35,7 +36,6 @@ const Collaborations = (props) => {
     current,
     user,
   } = props;
-  
   return (
     <>
       <Head>
@@ -51,7 +51,7 @@ const Collaborations = (props) => {
           <Header path="collaborations" user={user} />
           <main>
             <CollaborationsHeader />
-            <SearchForCollaborations />
+            <SearchForCollaborations genres={options} />
             <div className="container mangafy_container">
               <Row type="flux">
                 <div className={styles.colabCards}>
