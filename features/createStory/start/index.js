@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 import { adaptData } from './utils';
 
-const Start = ({ genres, jwt }) => {
+const Start = ({ genres, jwt, user }) => {
   const typeformRef = useRef(null);
 
   const onSubmit = useCallback(
@@ -47,7 +47,7 @@ const Start = ({ genres, jwt }) => {
         <title>Start</title>
       </Head>
       <div>
-        <Header />
+        <Header path="create-a-story/start" user={user} />
         <div ref={typeformRef} style={{ height: '100vh', width: '100%' }}></div>
         <Footer />
       </div>
@@ -58,6 +58,7 @@ const Start = ({ genres, jwt }) => {
 Start.propTypes = {
   genres: PropTypes.array.isRequired,
   jwt: PropTypes.string,
+  user: PropTypes.object.isRequired,
 };
 
 Start.defaultProps = {

@@ -7,6 +7,7 @@ import Header from 'components/header';
 import LoginFooter from 'components/loginFooter';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import Head from 'next/head';
+import PropTypes from 'prop-types';
 import { login } from 'store';
 
 import styles from './styles.module.scss';
@@ -17,7 +18,7 @@ const Amplitude = require('amplitude');
 
 const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 
-const Login = () => {
+const Login = ({ user }) => {
   const defaultState = {
     email: '',
     password: '',
@@ -64,13 +65,15 @@ const Login = () => {
   return (
     <>
       <Head></Head>
-      <Header />
+      <Header path="sign-in" user={user} />
       <Content className={styles.sign_in_content}>
         <Row>
           <Col className={styles.sign_in} span={24}>
             <img src="/img/sing-in.svg" alt="" />
             <h2 className={styles.title}>Hello, who’s this?</h2>
-            <p className={styles.info}>Sign in to get your personalized page and start connecting</p>
+            <p className={styles.info}>
+              Sign in to get your personalized page and start connecting
+            </p>
             <div>
               <AuthForm
                 {...{
@@ -90,6 +93,14 @@ const Login = () => {
       <FooterPolicy />
     </>
   );
+};
+
+Login.propTypes = {
+  user: PropTypes.object,
+};
+
+Login.defaultProps = {
+  user: null,
 };
 
 export default Login;

@@ -23,7 +23,7 @@ const Privacy = (props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="main_back_2">
-        <Header path="myProfile" user={user} />
+        <Header path="privacy" user={user} />
         <div className={styles.privacy_page}>
           <div className={styles.title_section}>
             <div className={styles.title_inner}>

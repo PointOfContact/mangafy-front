@@ -10,6 +10,7 @@ import { EVENTS } from 'helpers/amplitudeEvents';
 import { userTypes } from 'helpers/constant';
 import Head from 'next/head';
 import Router from 'next/router';
+import PropTypes from 'prop-types';
 import { register } from 'store';
 
 import styles from './styles.module.scss';
@@ -20,7 +21,7 @@ const Amplitude = require('amplitude');
 
 const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 
-const Register = () => {
+const Register = ({ user }) => {
   const defaultState = {
     username: '',
     password: '',
@@ -151,7 +152,7 @@ const Register = () => {
   return (
     <>
       <Head></Head>
-      <Header />
+      <Header user={user} path="sign-up" />
       <Content className={styles.sign_up_content}>
         <Row>
           <Col className={styles.sign_up} span={24}>
@@ -182,6 +183,14 @@ const Register = () => {
       <FooterPolicy />
     </>
   );
+};
+
+Register.propTypes = {
+  user: PropTypes.object,
+};
+
+Register.defaultProps = {
+  user: null,
 };
 
 export default Register;

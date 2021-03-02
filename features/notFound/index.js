@@ -2,11 +2,12 @@ import React from 'react';
 
 import Head from 'next/head';
 import Link from 'next/link';
+import PropTypes from 'prop-types';
 
 import Footer from '../../components/footer';
 import Header from '../../components/header';
 
-const NotFound = () => (
+const NotFound = ({ user }) => (
   <>
     <Head>
       <title>Not to worry! MangaFY with you.</title>
@@ -18,11 +19,10 @@ const NotFound = () => (
     </Head>
 
     <div className="main_back_2 err_page">
-      <Header />
+      <Header path="404" user={user} />
       <div className="row justify-content-center">
         <div
-          className="col-lg-6 login_page"
-          className="notFoundCode"
+          className="col-lg-6 login_page notFoundCode"
           style={{
             justifyContent: 'center',
             display: 'flex',
@@ -55,5 +55,13 @@ const NotFound = () => (
     </div>
   </>
 );
+
+NotFound.propTypes = {
+  user: PropTypes.object,
+};
+
+NotFound.defaultProps = {
+  user: null,
+};
 
 export default NotFound;

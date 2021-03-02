@@ -56,7 +56,7 @@ const Pricing = (props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="main_back_2">
-        <Header path="myProfile" user={user} />
+        <Header path="pricing" user={user} />
         <div className={styles.pricing_page}>
           <div className={styles.banner_section}>
             <span
