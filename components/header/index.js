@@ -43,6 +43,12 @@ const Header = ({ user, path }) => {
 
   const handleDocumentClick = () => {
     handleManuOpen(false);
+    const el = document.body;
+    if (!isOpen) {
+      el.classList.add(styles.body_scrool);
+    } else {
+      el.classList.remove(styles.body_scrool);
+    }
   };
 
   return (
