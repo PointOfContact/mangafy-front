@@ -95,40 +95,35 @@ export const Comments = ({ commentsData = [], mangaStory = false, user = null, i
     const orderAs = '$sort[createdAt]';
   }, [comments.length]);
   return (
-    <div>
-      <div className="container">
-        <div className="row">
-          <div className="col-lg-12">
-            {comments.length > 0 && (
-              <div className="commentsBlock">
-                <CommentList comments={comments} />
-              </div>
-            )}
-            <Comment
-              author={user && user.name}
-              avatar={
-                <Avatar
-                  src={user ? client.UPLOAD_URL + user.avatar : '../public/img/four-left.svg'}
-                  alt={user && user.name}
-                />
-              }
-              content={
-                user ? (
-                  <Editor
-                    onChange={handleChange}
-                    onSubmit={handleSubmit}
-                    submitting={submitting}
-                    value={value}
-                  />
-                ) : (
-                  <p>Pls. Login</p>
-                )
-              }
-            />
-            {errMessage && <p>{errMessage}</p>}
-          </div>
+    <>
+      {comments.length > 0 && (
+        <div className="commentsBlock">
+          <CommentList comments={comments} />
         </div>
-      </div>
-    </div>
+      )}
+      <Comment
+        className={"manga-story-comments"}
+        author={user && user.name}
+        avatar={
+          <Avatar
+            src={user ? client.UPLOAD_URL + user.avatar : '../public/img/four-left.svg'}
+            alt={user && user.name}
+          />
+        }
+        content={
+          user ? (
+            <Editor
+              onChange={handleChange}
+              onSubmit={handleSubmit}
+              submitting={submitting}
+              value={value}
+            />
+          ) : (
+            <p>Pls. Login</p>
+          )
+        }
+      />
+      {errMessage && <p>{errMessage}</p>}
+    </>
   );
 };

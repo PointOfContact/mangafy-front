@@ -8,7 +8,8 @@ import SvgLang from 'components/icon/Lang';
 import SvgMone from 'components/icon/Mone';
 import SvgPencilColored from 'components/icon/PencilColored';
 import SvgTie from 'components/icon/Tie';
-import { ShareButtons } from 'components/share';
+import SvgCloudArrow from 'components/icon/CloudArrow';
+import { ShareButtonsColored } from 'components/shareColored';
 import ButtonToggle from 'components/ui-elements/button-toggle';
 import PrimarySelect from 'components/ui-elements/select';
 import { OPTIONS } from 'features/createStory/lenguage/constant';
@@ -149,86 +150,88 @@ const BannerSection = ({
     </div>
   );
   return (
-    <div className={styles.bannerWrap}>
-      <div className={cn(styles.bannerWrapContent, 'row')}>
-        {canEdit ? (
-          <Upload className={styles.upload} beforeUpload={beforeUpload} fileList={[]}>
-            <div className={styles.banner}>
-              <img src={!baseData.image ? '/img/banner.png' : client.UPLOAD_URL + baseData.image} />
-              <div className={styles.upload}>
-                <img src="/img/upload.png" />
+    <div className={styles.box__banner}>
+      {canEdit ? (
+        <div className={styles.box__banner_upload}>
+          <Upload className={styles.box__banner_upload__wrap} beforeUpload={beforeUpload} fileList={[]}>
+            {/* <img className={styles.box__banner_upload__img} src={!baseData.image ? '/img/banner.png' : client.UPLOAD_URL + baseData.image} /> */}
+            <img className={styles.box__banner_upload__img} src='/img/banner.png' alt=""/>
+            <div className={styles.box__banner_upload__content}>
+              <i className={styles.box__banner_upload__icon}>
+                <SvgCloudArrow width="81" height="59" fill="#fff" />
+              </i>
+              <div className={styles.box__banner_upload__text}>
+                <p><b>Upload your cover</b></p>
+                <p>MangaFY can accept PNG and JPEG Uploader files as big as 10MB, but no bigger.</p>
               </div>
             </div>
           </Upload>
-        ) : (
-          <div className={styles.banner}>
-            <img src={!baseData.image ? '/img/banner.png' : client.UPLOAD_URL + baseData.image} />
-          </div>
-        )}
-        <div className="row">
-          <div className={styles.edit_setings}>
-            <div className={`${styles.bannerGenres} d-flex `}>
-              <div className={styles.bannerGenresItem}>
-                {baseData.genres?.slice(0, 1).map((g) => (
-                  <Button key={g} data-id="preferredLanguage" type="text">
-                    <SvgCat width="18px" height="24px" />
-                    <span>{g.name}</span>
-                  </Button>
-                ))}
-              </div>
-              <div className={styles.bannerGenresItem}>
-                <Button data-id="preferredLanguage" type="text">
-                  <SvgLang width="24px" height="24px" />
-                  <span>{baseData.preferredLanguage}</span>
-                </Button>
-              </div>
-              <div className={styles.bannerGenresItem}>
-                <Popover placement="top" title="Searching For" content={content}>
-                  <Button data-id="searchingFor" type="text">
-                    <SvgTie width="20px" height="20px" />
-                    <span>{baseData.searchingFor[0] || 'Searching For'}</span>
-                  </Button>
-                </Popover>
-              </div>
-              <div className={styles.bannerGenresItem}>
-                <Button value="compensationModel" data-id="compensationModel" type="text">
-                  <SvgMone width="20px" height="20px" />
-                  {baseData.compensationModel === 'paid' ? 'Paid Collaboration' : 'Freewill'}
-                </Button>
-              </div>
+        </div>
+      ) : (
+        <div className={styles.box__banner_upload}>
+          {/* <img className={styles.box__banner_upload__img} src={!baseData.image ? '/img/banner.png' : client.UPLOAD_URL + baseData.image} /> */}
+          <img className={styles.box__banner_upload__img} src='/img/banner.png' alt=""/>
+        </div>
+      )}
+      <div className={styles.box__banner_block}>
+        <div className={styles.box__banner_block__nav}>
+          {baseData.genres?.slice(0, 1).map((g) => (
+            <div className={styles.box__banner_block__nav_item}>
+              <Button key={g} data-id="preferredLanguage" className={styles.box__banner_block__nav_button} type="text">
+                <SvgCat width="18px" height="24px" />
+                <span>{g.name}</span>
+              </Button>
             </div>
-            {canEdit && (
-              <div className={styles.edit}>
-                <Popover content={editContent} trigger="click" placement="bottomRight">
-                  <span>Edit</span>
-                  <span>
-                    <SvgPencilColored width="22px" height="22px" />
-                  </span>
-                </Popover>
-              </div>
-            )}
+          ))}
+          <div className={styles.box__banner_block__nav_item}>
+            <Button data-id="preferredLanguage" className={styles.box__banner_block__nav_button} type="text">
+              <SvgLang width="24px" height="24px" />
+              <span>{baseData.preferredLanguage}</span>
+            </Button>
+          </div>
+          <div className={styles.box__banner_block__nav_item}>
+            <Popover placement="top" title="Searching For" content={content}>
+              <Button data-id="searchingFor" className={styles.box__banner_block__nav_button} type="text">
+                <SvgTie width="20px" height="20px" />
+                <span>{baseData.searchingFor[0] || 'Searching For'}</span>
+              </Button>
+            </Popover>
+          </div>
+          <div className={styles.box__banner_block__nav_item}>
+            <Button value="compensationModel" data-id="compensationModel" className={styles.box__banner_block__nav_button} type="text">
+              <SvgMone width="20px" height="20px" />
+              {baseData.compensationModel === 'paid' ? 'Paid Collaboration' : 'Freewill'}
+            </Button>
           </div>
         </div>
-        <div className={styles.progressWrapper}>
-          <div className={styles.progress}>
-            <p>Your graphic novel in progress</p>
-            <div className={styles.Lamp}>
-              <div>
-                <img src="/img/Group.png" />
-              </div>
-            </div>
-            <div className={styles.progressWrap}>
-              <Progress percent={30} size="small" />
-            </div>
-            <div className={styles.Lamp}>
-              <div>
-                <img src="/img/notebook 1.png" />
-              </div>
-            </div>
+        {canEdit && (
+          <div className={styles.box__banner_block__edit}>
+            <Popover content={editContent} trigger="click" placement="bottomRight" className={styles.box__banner_block__edit_button}>
+              <span>Edit</span>
+              <i>
+                <SvgPencilColored width="22px" height="22px" />
+              </i>
+            </Popover>
           </div>
-          <div className={styles.socials}>
-            <ShareButtons text="Share collb!" shareUrl={originUrl} />
+        )}
+      </div>
+      <div className={styles.box__banner_bottom}>
+        <div className={styles.box__banner_progress}>
+          <p className={styles.box__banner_progress__text}>Your graphic novel in progress</p>
+          <div className={styles.box__banner_progress__content}>
+            <i className={styles.box__banner_progress__icon}>
+              <img src="/img/Group.png" />
+            </i>
+            <div className={styles.box__banner_progress__range}>
+              <Progress percent={30} size="small" className={"banner_progress"} />
+            </div>
+            <i className={styles.box__banner_progress__icon}>
+              <img src="/img/notebook 1.png" />
+            </i>
           </div>
+        </div>
+        <div className={styles.box__banner_socials}>
+          <ShareButtonsColored text="Share collab!" shareUrl={originUrl} />
         </div>
       </div>
     </div>

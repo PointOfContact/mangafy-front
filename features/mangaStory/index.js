@@ -5,7 +5,9 @@ import client from 'api/client';
 import cn from 'classnames';
 import { Comments } from 'components/comments';
 import Footer from 'components/footer';
+import FooterPolicy from 'components/footer-policy';
 import Header from 'components/header';
+import ButtonToTop from 'components/ui-elements/button-toTop';
 import Head from 'next/head';
 import PropTypes from 'prop-types';
 
@@ -59,28 +61,29 @@ const MangeStory = (props) => {
   };
 
   return (
-    <div className="story_page">
+    <>
       <Head>
         <title>MangaFY - All graphic novel enthusiast, all genres, one Place </title>
         <meta name="description" content={mangaStory.story}></meta>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="main_back_2">
-        <Header path="mangaStory" user={user} />
-        <div className={cn(styles.pageWrap, 'manga-story-page')}>
-          <section className="section_landing_for">
-            <div className="mangafy_vontainer  container">
-              <div className="row">
-                <div className="col-sm-12 manga-story manga-story-m">
+      <ButtonToTop />
+      <div className={'wrapper'}>
+        <div className={'content'}>
+          <Header path="mangaStory" user={user} />
+          <main className={styles.box}>
+            <div className={cn(styles.box__container, "container")}>
+              <div className={styles.box__wrapper}>
+                <div className={styles.box__head}>
                   {!editMode ? (
-                    <div className={styles.header}>
-                      <h2>{baseData.title}</h2>
-                      <p>{baseData.introduce}</p>
+                    <div className={styles.box__head_content}>
+                      <h2 className={styles.box__head_title}>{baseData.title}</h2>
+                      <p className={styles.box__head_description}>{baseData.introduce}</p>
                     </div>
-                  ) : (
+                    ) : (
                     canEdit && (
-                      <div className="inputs">
-                        <h2>
+                      <div className={styles.box__head_fields}>
+                        <h2 className={styles.box__head_title}>
                           <Input
                             name="title"
                             onChange={onChangeSingleField}
@@ -89,7 +92,7 @@ const MangeStory = (props) => {
                             value={baseData.title}
                           />
                         </h2>
-                        <p>
+                        <p className={styles.box__head_description}>
                           <Input
                             name="introduce"
                             onChange={onChangeSingleField}
@@ -101,70 +104,66 @@ const MangeStory = (props) => {
                     )
                   )}
                 </div>
-              </div>
-            </div>
-          </section>
-          <section className={`container mobile_full_content mobile_top_round`}>
-            <div className="row">
-              <div className="col-lg-7 mangaStoriTopPanel">
-                <Tabs defaultActiveKey="1">
-                  {isOwn && (
-                    <TabPane tab="STORY BOARD" key="1" className="story">
-                      <StoryBoardTabs
-                        mangaStory={mangaStory}
+                <div className={styles.box__tabs}>
+                  <Tabs defaultActiveKey="1" className="manga-story-tabs">
+                    {isOwn && (
+                      <TabPane tab="STORY BOARD" key="1" className="story">
+                        <StoryBoardTabs
+                          mangaStory={mangaStory}
+                          user={user}
+                          openNotification={openNotification}
+                        />
+                      </TabPane>
+                    )}
+                    <TabPane tab="STORY" key="2" className="story">
+                      <h3>Here is a my story!</h3>
+                      <p>
+                        {!editMode
+                          ? baseData.story
+                          : canEdit && (
+                              <TextArea
+                                autoSize={{ minRows: 3, maxRows: 1000 }}
+                                placeholder="Type here..."
+                                value={baseData.story}
+                                onChange={onChangeSingleField}
+                                type="text"
+                                className="textarea_text"
+                                name="story"
+                              />
+                            )}
+                        <p></p>
+                      </p>
+                    </TabPane>
+                    <TabPane tab="COMMENTS" key="3">
+                      <Comments
+                        className="belkin"
+                        commentsData={comments}
+                        isOwn={isOwn}
+                        mangaStory={baseData}
                         user={user}
-                        openNotification={openNotification}
                       />
                     </TabPane>
-                  )}
-                  <TabPane tab="STORY" key="2" className="story">
-                    <h3>Here is a my story!</h3>
-                    <p>
-                      {!editMode
-                        ? baseData.story
-                        : canEdit && (
-                            <TextArea
-                              autoSize={{ minRows: 3, maxRows: 1000 }}
-                              placeholder="Type here..."
-                              value={baseData.story}
-                              onChange={onChangeSingleField}
-                              type="text"
-                              className="textarea_text"
-                              name="story"
-                            />
-                          )}
-                      <p></p>
-                    </p>
-                  </TabPane>
-                  <TabPane tab="COMMENTS" key="3">
-                    <Comments
-                      commentsData={comments}
-                      isOwn={isOwn}
-                      mangaStory={baseData}
-                      user={user}
-                    />
-                  </TabPane>
-                </Tabs>
+                  </Tabs>
+                </div>
+                <BannerSection
+                  originUrl={originUrl}
+                  canEdit={canEdit}
+                  baseData={baseData}
+                  editMode={editMode}
+                  genres={genres}
+                  saveUserDataByKey={saveUserDataByKey}
+                  setBaseData={setBaseData}
+                  openNotification={openNotification}
+                />
               </div>
             </div>
-          </section>
-          <section>
-            <BannerSection
-              originUrl={originUrl}
-              canEdit={canEdit}
-              baseData={baseData}
-              editMode={editMode}
-              genres={genres}
-              saveUserDataByKey={saveUserDataByKey}
-              setBaseData={setBaseData}
-              openNotification={openNotification}
-            />
-          </section>
+          </main>
         </div>
         <Footer />
-      </main>
-    </div>
-  );
+        <FooterPolicy />
+      </div>
+    </>
+    );
 };
 
 MangeStory.propTypes = {
