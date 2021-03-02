@@ -19,8 +19,7 @@ export default function Home() {
                 <span>MangaFY</span>
               </div>
               <div className={styles.main__descr}>
-                Where we help you move your dream forward from story idea all the way to a full
-                digital release as a comic or graphic novel.
+                The digital hub designed to help you produce your very owm comic or manga. From story buidling to a full digital release.
               </div>
               <Link href="/sign-up">
                 <LargeButton className={styles.btn__signUp} text="SIGN UP for FREE" />
