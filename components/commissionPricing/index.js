@@ -3,21 +3,17 @@ import React, { useState, useEffect } from 'react';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { Input, Button, Space } from 'antd';
 import client from 'api/client';
-import SvgPurplePencil from 'components/icon/PurplePencil';
 import cn from 'classnames';
-import AddButton from 'components/ui-elements/add-button';
+import SvgPurplePencil from 'components/icon/PurplePencil';
 import PrimaryButton from 'components/ui-elements/button';
+
 import styles from './styles.module.scss';
 
-const { TextArea } = Input;
-
-export const CommissionPricing = ({ id = null, user = null, fromMobile = false }) => {
+export const CommissionPricing = ({ id = null, user = null }) => {
   const [pricingList, setPricingList] = useState([]);
-  const [submitting, setSubmitting] = useState(false);
-  const [value, setValue] = useState('');
   const [errMessage, setErrMessage] = useState('');
   const [editMode, setEditMode] = useState(false);
-  const canEdit = !user ? false : id == user._id;
+  const canEdit = !user ? false : id === user._id;
 
   const getPricing = () => {
     const jwt = client.getCookie('feathers-jwt');
@@ -86,12 +82,8 @@ export const CommissionPricing = ({ id = null, user = null, fromMobile = false }
     setPricingList(newList);
   };
 
-  const _id = user ? user._id : null;
   return (
-    <div
-      className={`title d-flex ${
-        fromMobile && 'justify-content-space-between  align-items-center'
-      }`}>
+    <div className={`title d-flex`}>
       <div className="buttons change_btn_commission col-lg-12">
         {/* <div className="languages_btn"> */}
         {canEdit &&
@@ -102,7 +94,7 @@ export const CommissionPricing = ({ id = null, user = null, fromMobile = false }
               width="22"
             />
           ) : (
-            <div className={cn("buttonsProfile_styles", styles.commissionButton_save)}>
+            <div className={cn('buttonsProfile_styles', styles.commissionButton_save)}>
               <PrimaryButton
                 className="buttonsProfile_save"
                 text="save"
@@ -123,7 +115,7 @@ export const CommissionPricing = ({ id = null, user = null, fromMobile = false }
       <div className="">
         <div className="">
           <div className="">
-            <div className={cn("pricingBlock", styles.pricingBlock_wrap)}>
+            <div className={cn('pricingBlock', styles.pricingBlock_wrap)}>
               {pricingList.map((field, index) => (
                 <Space
                   className="col-lg-12"

@@ -71,7 +71,7 @@ const ProfileContent = (props) => {
     {
       key: '3',
       tab: 'COMMISSION PRICING',
-      component: <TabCommissionPricing {...{ user }} />,
+      component: <TabCommissionPricing {...{ user, profile }} />,
     },
   ];
   return (

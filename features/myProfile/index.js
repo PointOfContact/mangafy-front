@@ -11,7 +11,7 @@ import Head from 'next/head';
 import PropTypes from 'prop-types';
 
 const MyProfile = (props) => {
-  const { user, mangaStories, total, originUrl, profile, fromMobile } = props;
+  const { user, mangaStories, total, originUrl, profile } = props;
   const { genres: genresEnums } = props;
 
   const [editMode, setEditMode] = useState(false);
@@ -106,7 +106,6 @@ const MyProfile = (props) => {
             handleChangeGenres,
             mangaStories,
             profile,
-            fromMobile,
             genresEnums,
             genres,
             total,
@@ -131,7 +130,6 @@ MyProfile.propTypes = {
   total: PropTypes.number.isRequired,
   originUrl: PropTypes.string.isRequired,
   profile: PropTypes.object.isRequired,
-  fromMobile: PropTypes.object.isRequired,
   genres: PropTypes.array.isRequired,
 };
 
