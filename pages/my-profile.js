@@ -29,6 +29,7 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
     return {
       props: {
         user,
+        profile: user,
         mangaStories: res.data,
         total: Math.ceil(res.total / res.limit),
         limit: res.limit,
