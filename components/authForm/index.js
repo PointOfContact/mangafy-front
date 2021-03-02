@@ -21,6 +21,7 @@ const AuthForm = ({ type, errorMessage, onChange, onSubmit, isLogin, disabled = 
       {!isLogin ? (
         <div className="input_login">
           <PrimaryInput
+            className={styles.input_login}
             id="name"
             type="name"
             isLinear={true}
@@ -32,6 +33,7 @@ const AuthForm = ({ type, errorMessage, onChange, onSubmit, isLogin, disabled = 
           />
           <div className={styles.select}>
             <PrimarySelect
+              className={styles.select_login}
               label="I'm a"
               id="type"
               name="type"
@@ -77,6 +79,7 @@ const AuthForm = ({ type, errorMessage, onChange, onSubmit, isLogin, disabled = 
       <div className={styles.login_button}>
         {!isLogin ? (
           <LargeButton
+            className={styles.button_submit}
             disabled={disabled}
             htmlType="submit"
             text={
@@ -93,6 +96,7 @@ const AuthForm = ({ type, errorMessage, onChange, onSubmit, isLogin, disabled = 
           />
         ) : (
           <LargeButton
+            className={styles.button_submit}
             htmlType="submit"
             disabled={disabled}
             text={'Start your Jorney'}
@@ -110,14 +114,14 @@ const AuthForm = ({ type, errorMessage, onChange, onSubmit, isLogin, disabled = 
             </div>
           </div>
           <div className={styles.social_login}>
-            <Link href="/api/v2/auth/facebook">
-              <span className={styles.facebook_btn}>
-                <SvgWhiteFacebook width="26px" height="26px" /> Sign in with Facebook
-              </span>
-            </Link>
             <Link href="/api/v2/auth/google">
               <span className={styles.google_btn}>
                 <SvgGoogle width="26px" height="26px" /> Sign in with Google
+              </span>
+            </Link>
+            <Link href="/api/v2/auth/facebook">
+              <span className={styles.facebook_btn}>
+                <SvgWhiteFacebook width="26px" height="26px" /> Sign in with Facebook
               </span>
             </Link>
           </div>
