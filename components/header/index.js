@@ -50,9 +50,6 @@ const Header = ({ user, path }) => {
                 <img src="/img/logo-new.png" alt="" />
               </a>
             </Link>
-            <div className={styles.header__logIn}>
-              <img src="/img/header-log-in.svg" alt="" />
-            </div>
             <div className={styles.header__leftNav}>
               <Link href="/collaborations?compensationModel=paid">
                 <a className={styles.header__menu}>Paid projects</a>
@@ -64,41 +61,66 @@ const Header = ({ user, path }) => {
                 <a className={styles.header__menu}>Members</a>
               </Link>
             </div>
-            <div className={styles.header__rightNav}>
-              {user ? (
-                <>
-                  {path !== 'myProfile' && (
-                    <Link href="/my-profile">
-                      <a className={styles.header__menu}>Profile</a>
+            {user ? (
+              <>
+                {path !== 'myProfile' && (
+                  <div className={styles.header__rightNav}>
+                    <div className={styles.header__rightNav_wrap}>
+                      <Link href="/my-profile">
+                        <a className={styles.header__menu}>Profile</a>
+                      </Link>
+                    </div>
+                    <Link href="/create-a-story/start">
+                      <PrimaryButton
+                        className={cn(styles.btn_submit, 'btn_submit')}
+                        text="Start a comics"
+                      />
                     </Link>
-                  )}
-                  {path === 'myProfile' && (
-                    <Link href="/">
-                      <a
-                        className={cn(
-                          path === 'main' ? 'whiteButton' : 'exploreBtn',
-                          styles.header__menu
-                        )}
-                        onClick={removeAllStorage}>
-                        Sign out
-                      </a>
+                  </div>
+                )}
+                {path === 'myProfile' && (
+                  <div className={styles.header__rightNav}>
+                    <div className={styles.header__rightNav_wrap}>
+                      <Link href="/">
+                        <a
+                          className={cn(
+                            path === 'main' ? 'whiteButton' : 'exploreBtn',
+                            styles.header__menu
+                          )}
+                          onClick={removeAllStorage}>
+                          Sign out
+                        </a>
+                      </Link>
+                    </div>
+                    <Link href="/create-a-story/start">
+                      <PrimaryButton
+                        className={cn(styles.btn_submit, 'btn_submit')}
+                        text="Start a comics"
+                      />
                     </Link>
-                  )}
-                </>
-              ) : (
+                  </div>
+                )}
+              </>
+            ) : (
+              <div className={styles.header__rightNav}>
                 <Link href="/sign-in">
-                  <a className={styles.header__menu}>Log in</a>
+                  <a className={styles.header__logIn}>
+                    <img src="/img/header-log-in.svg" alt="" />
+                  </a>
                 </Link>
-              )}
-            </div>
-            <Link href="/create-a-story/start">
-              <span>
-                <PrimaryButton
-                  className={cn(styles.btn_submit, 'btn_submit')}
-                  text="Submit an IDEA"
-                />
-              </span>
-            </Link>
+                <div className={styles.header__rightNav_wrap}>
+                  <Link href="/sign-in">
+                    <a className={styles.header__menu}>Log in</a>
+                  </Link>
+                </div>
+                <Link href="/create-a-story/start">
+                  <PrimaryButton
+                    className={cn(styles.btn_submit, 'btn_submit')}
+                    text="Submit an IDEA"
+                  />
+                </Link>
+              </div>
+            )}
           </div>
         </div>
         {isOpen && <MenuLinks isOpen={isOpen} />}
