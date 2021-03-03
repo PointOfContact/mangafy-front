@@ -90,7 +90,7 @@ export const CommissionPricing = ({ id = null, user = null }) => {
           (!editMode ? (
             <SvgPurplePencil
               className={styles.editAboutButton}
-              onClick={() => setStoryEditMode(true)}
+              onClick={() => setEditMode(true)}
               width="30"
             />
           ) : (
