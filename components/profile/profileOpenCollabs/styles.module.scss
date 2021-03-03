@@ -9,7 +9,9 @@
   margin-bottom: 35px;
   padding: 25px 25px 25px 15px !important;
   max-width: 1039px;
+  width: 90%;
   @include media-sm {
+    width: 100%;
     padding: 40px 5px 0px 25px !important;
     margin-top: 0px;
   }

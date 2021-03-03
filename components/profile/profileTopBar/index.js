@@ -3,7 +3,6 @@ import React from 'react';
 import { Upload, Input, Select, Layout, Row, Col } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
-import SvgAddUser from 'components/icon/AddUser';
 import SvgGreenChecked from 'components/icon/GreenChecked';
 import SvgPortfolio from 'components/icon/Portfolio';
 import SvgPrimaryAdd from 'components/icon/PrimaryAdd';
@@ -35,12 +34,7 @@ const ProfileTopBar = (props) => {
   return (
     <Content className={cn(styles.content)}>
       <Row>
-        <Col
-          className="gutter-row"
-          xs={{ span: 24 }}
-          md={{ span: 6 }}
-          xl={{ span: 5 }}
-          xxl={{ span: 4 }}>
+        <Col className="gutter-row" xs={{ span: 24 }} md={{ span: 6 }} xl={{ span: 5 }}>
           <div className={styles.img}>
             {profile ? (
               <img
@@ -74,12 +68,7 @@ const ProfileTopBar = (props) => {
             </Upload>
           </div>
         </Col>
-        <Col
-          className="gutter-row"
-          xs={{ span: 24 }}
-          md={{ span: 8 }}
-          xl={{ span: 9 }}
-          xxl={{ span: 10 }}>
+        <Col className="gutter-row" xs={{ span: 24 }} md={{ span: 8 }} xl={{ span: 9 }}>
           <div className={styles.info_profile}>
             {!editMode ? (
               <>
@@ -95,16 +84,19 @@ const ProfileTopBar = (props) => {
                 ) : (
                   profile && (
                     <span className={styles.contacts}>
-                      <a href={`mailto:${profile.email}`}>
+                      <a
+                        href={`mailto:${
+                          profile.email
+                        }?subject=${'The%20subject'}&body=${'The%20body'}`}>
                         <PrimaryButton
                           text="Contact"
                           splitterStyle={{ width: '120px', fontSize: '15px' }}
                         />
                       </a>
-                      <span className={styles.follow}>
+                      {/* <span className={styles.follow}>
                         <SvgAddUser width="22px" height="20px" />
                         <span>Follow</span>
-                      </span>
+                      </span> */}
                     </span>
                   )
                 )}

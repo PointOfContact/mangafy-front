@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import { Row, Col, Popover, Form, notification } from 'antd';
 import client from 'api/client';
+import Card from 'components/card';
 import SvgBlackBehance from 'components/icon/BlackBehance';
 import SvgBlackDeviantart from 'components/icon/BlackDeviantart';
 import SvgBlackDribbble from 'components/icon/BlackDribbble';
@@ -34,6 +35,7 @@ const SocialLinks = (props) => {
   const [facebookStatus, setFacebookStatus] = useState('');
   const [twitterStatus, setTwitterStatus] = useState('');
   const [instagramStatus, setInstagramStatus] = useState('');
+  const [visible, setVisible] = useState(false);
 
   const getSocialLink = (platform) => socialLinks.find((item) => item.platform === platform)?.link;
 
@@ -220,19 +222,51 @@ const SocialLinks = (props) => {
       <h4 className={styles.title}>Social</h4>
       <div className={styles.social}>
         <Row>
-          <Col span={23}>
-            {socialLinks?.map((social) => (
-              <span key={social.id} className={styles.social_icons}>
-                <a href={`${social.link}`} rel="noreferrer" target="_blank">
-                  <SocialButton name={social.platform} link={social.link} />
-                </a>
-              </span>
-            ))}
-          </Col>
+          {socialLinks?.length ? (
+            <Col span={23}>
+              {socialLinks?.map((social) => (
+                <span key={social.id} className={styles.social_icons}>
+                  <a href={`${social.link}`} rel="noreferrer" target="_blank">
+                    <SocialButton name={social.platform} link={social.link} />
+                  </a>
+                </span>
+              ))}
+            </Col>
+          ) : (
+            <Col span={23}>
+              {canEditInit ? (
+                <div
+                  className={styles.noSocial}
+                  onClick={() => {
+                    setVisible(!visible);
+                    console.log(visible);
+                  }}>
+                  <Card
+                    description="Do you not want <br/> to add a social?"
+                    btnText=""
+                    items={[<img key="1" src="/img/noSocial.png" alt="" />]}
+                  />
+                </div>
+              ) : (
+                <div className={styles.noSocial}>
+                  <Card
+                    description="Sorry, but there is nothing <br/> here (("
+                    btnText=""
+                    items={[<img key="1" src="/img/noSocial.png" alt="" />]}
+                  />
+                </div>
+              )}
+            </Col>
+          )}
 
           <Col span={1} className={styles.add_button}>
             {canEditInit && (
-              <Popover placement="topRight" content={editSocial} trigger="click">
+              <Popover
+                placement="topRight"
+                content={editSocial}
+                trigger="click"
+                visible={visible}
+                onVisibleChange={() => setVisible(!visible)}>
                 <AddButton />
               </Popover>
             )}

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 
 import { Modal, Upload, Row, Col, Popconfirm } from 'antd';
 import client from 'api/client';
+import Card from 'components/card';
 import SvgClose from 'components/icon/Close';
 import SvgDustbin from 'components/icon/Dustbin';
 import SvgHeart from 'components/icon/Heart';
@@ -169,39 +170,57 @@ export const Gallery = (props) => {
       <Row>
         <Col span={23}>
           <div className={styles.imagesBlock}>
-            {images.length
-              ? images.map((item, index) => (
-                  <div key={index} className={styles.galleryImg}>
-                    {canEditInit && (
-                      <Popconfirm
-                        title="Are you sure to delete this task?"
-                        onConfirm={(e) => onRemoveImg(e, item._id)}
-                        onCancel={() => {}}
-                        okText="Yes"
-                        cancelText="No">
-                        <span className={styles.dustbin} data-id={item._id}>
-                          <SvgDustbin width="18px" />
-                        </span>
-                      </Popconfirm>
-                    )}
-                    <span className={styles.heart}>
-                      <SvgHeart
-                        width="18px"
-                        height="16px"
-                        onClick={() =>
-                          !isLiked(item._id, user._id) &&
-                          !canEdit &&
-                          onLikeGallery(item._id, userData._id, user._id)
-                        }
-                        className={isLiked(item._id, user._id) && styles.liked}
-                      />
-                      <span>{getLikesCount(item._id)}</span>
-                    </span>
-                    <div className={styles.filter} onClick={(e) => gallerySet(e, index)}></div>
-                    <img src={client.UPLOAD_URL + item._id} alt="" />
-                  </div>
-                ))
-              : null}
+            {images.length ? (
+              images.map((item, index) => (
+                <div key={index} className={styles.galleryImg}>
+                  {canEditInit && (
+                    <Popconfirm
+                      title="Are you sure to delete this task?"
+                      onConfirm={(e) => onRemoveImg(e, item._id)}
+                      onCancel={() => {}}
+                      okText="Yes"
+                      cancelText="No">
+                      <span className={styles.dustbin} data-id={item._id}>
+                        <SvgDustbin width="18px" />
+                      </span>
+                    </Popconfirm>
+                  )}
+                  <span className={styles.heart}>
+                    <SvgHeart
+                      width="18px"
+                      height="16px"
+                      onClick={() =>
+                        !isLiked(item._id, user._id) &&
+                        !canEdit &&
+                        onLikeGallery(item._id, userData._id, user._id)
+                      }
+                      className={isLiked(item._id, user._id) && styles.liked}
+                    />
+                    <span>{getLikesCount(item._id)}</span>
+                  </span>
+                  <div className={styles.filter} onClick={(e) => gallerySet(e, index)}></div>
+                  <img src={client.UPLOAD_URL + item._id} alt="" />
+                </div>
+              ))
+            ) : (
+              <div>
+                {canEditInit ? (
+                  <Upload beforeUpload={onBeforeGalleryUpload} showUploadList={showUploadList}>
+                    <Card
+                      description="Do you not want <br/> to add a gallery?"
+                      btnText=""
+                      items={[<img key="1" src="/img/noGalere.png" alt="" />]}
+                    />
+                  </Upload>
+                ) : (
+                  <Card
+                    description="Sorry, but there is nothing <br/> here (("
+                    btnText=""
+                    items={[<img key="1" src="/img/noGalere.png" alt="" />]}
+                  />
+                )}
+              </div>
+            )}
           </div>
         </Col>
         {canEditInit && (
