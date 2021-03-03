@@ -23,12 +23,21 @@
   @include media-sm {
     align-items: self-end;
     position: relative;
+    justify-content: flex-end;
+    width: 100%;
     svg {
-      position: absolute;
-      top: -35px;
-      right: 0px;
+      // position: absolute;
+      // top: -35px;
+      // right: 0px;
       height: 18px;
       width: 18px;
+    }
+  }
+  & > span {
+    @include media-sm {
+      display: flex;
+      width: 100%;
+      justify-content: flex-end;
     }
   }
 }

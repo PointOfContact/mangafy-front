@@ -223,7 +223,7 @@ const SocialLinks = (props) => {
       <div className={styles.social}>
         <Row>
           {socialLinks?.length ? (
-            <Col span={23}>
+            <Col span={22}>
               {socialLinks?.map((social) => (
                 <span key={social.id} className={styles.social_icons}>
                   <a href={`${social.link}`} rel="noreferrer" target="_blank">
@@ -259,7 +259,12 @@ const SocialLinks = (props) => {
             </Col>
           )}
 
-          <Col span={1} className={styles.add_button}>
+          <Col
+            xs={{ span: 23 }}
+            md={{ span: 2 }}
+            xl={{ span: 2 }}
+            xxl={{ span: 2 }}
+            className={styles.add_button}>
             {canEditInit && (
               <Popover
                 placement="topRight"

@@ -168,7 +168,7 @@ export const Gallery = (props) => {
       <h4 className={styles.title}>{title}</h4>
       {errMessage && <p>{errMessage}</p>}
       <Row>
-        <Col span={23}>
+        <Col span={22}>
           <div className={styles.imagesBlock}>
             {images.length ? (
               images.map((item, index) => (
@@ -224,7 +224,13 @@ export const Gallery = (props) => {
           </div>
         </Col>
         {canEditInit && (
-          <Col span={1} className={styles.img_add_button}>
+          <Col
+            xs={{ span: 23 }}
+            md={{ span: 2 }}
+            xl={{ span: 2 }}
+            xxl={{ span: 2 }}
+            span={2}
+            className={styles.img_add_button}>
             <Upload beforeUpload={onBeforeGalleryUpload} showUploadList={showUploadList}>
               <div className="">
                 <AddButton />
