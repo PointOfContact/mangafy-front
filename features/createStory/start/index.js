@@ -7,7 +7,7 @@ import Head from 'next/head';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
 
-import { adaptData } from './utils';
+import { adaptData, timeout } from './utils';
 
 const Start = ({ genres, jwt, user }) => {
   const typeformRef = useRef(null);
@@ -22,6 +22,7 @@ const Start = ({ genres, jwt, user }) => {
     async (event) => {
       try {
         const { default: api } = await import('api/restClient');
+        await timeout(2000);
         const { answers } = await api.service('/api/v2/typeform').get(event.response_id);
         const mangaStory = adaptData(answers, genres);
         const response = await api.service('/api/v2/manga-stories').create(mangaStory, {
