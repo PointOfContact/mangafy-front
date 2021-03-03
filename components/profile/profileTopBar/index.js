@@ -68,7 +68,7 @@ const ProfileTopBar = (props) => {
               <SvgPrimaryAdd
                 className={styles.add}
                 id="myProfileUploadBtnId"
-                width="40px"
+                width="40"
                 height="40px"
               />
             </Upload>
@@ -137,7 +137,7 @@ const ProfileTopBar = (props) => {
             )}
           </div>
         </Col>
-        <Col className="gutter-row" xs={{ span: 24 }} md={{ span: 10 }}>
+        <Col className="gutter-row" xs={{ span: 24 }} md={{ span: 9 }}>
           <div className={styles.languages_btn}>
             {editMode && (
               <div className={cn(styles.buttonsProfile, 'buttonsProfile_styles')}>

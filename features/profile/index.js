@@ -6,6 +6,10 @@ import ProfileContent from 'components/profile/profileContent';
 import ProfileOpenCollabs from 'components/profile/profileOpenCollabs';
 import ProfileTopBar from 'components/profile/profileTopBar';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
+import ButtonToTop from 'components/ui-elements/button-toTop';
+import FooterPolicy from 'components/footer-policy';
+import styles from './styles.module.scss';
 
 const Profile = (props) => {
   const { user, profile, mangaStories, total } = props;
@@ -16,44 +20,55 @@ const Profile = (props) => {
   );
   const genres = profileGenres.map((item) => item.name);
   return (
-    <main className="main_back_2">
-      <Header path="profile" user={user} />
-      <ProfileTopBar
-        {...{
-          user,
-          profile,
-        }}
-      />
-      <ProfileContent
-        {...{
-          user,
-          mangaStories,
-          profile,
-          total,
-          profileGenres,
-          genres,
-        }}
-      />
-      <ProfileOpenCollabs
-        {...{
-          total,
-          mangaStories,
-          profile,
-        }}
-      />
-      <section>
-        <div className="container">
-          <div className="row">
-            {/* <div className="col-lg-12">
-                <div className="show_all">
-                  <button >Show all</button>
-                </div>
-              </div> */}
-          </div>
-        </div>
-      </section>
+    <>
+    <ButtonToTop />
+    <div className={'wrapper'}>
+      <div className={'content'}>
+        <Header path="profile" user={user} />
+        <main>
+          <section>
+            <div className="container">
+              <ProfileTopBar
+                {...{
+                  user,
+                  profile,
+                }}
+              />
+            </div>
+          </section>
+            
+          <section>
+              <div className={cn("container", styles.container_profile)}>
+              <ProfileContent
+                {...{
+                  user,
+                  mangaStories,
+                  profile,
+                  total,
+                  profileGenres,
+                  genres,
+                }}
+              />
+            </div>
+          </section>
+            
+          <section>
+            <div className="container">
+              <ProfileOpenCollabs
+                {...{
+                  total,
+                  mangaStories,
+                  profile,
+                }}
+              />
+            </div>
+          </section>
+        </main>
+      </div>
       <Footer />
-    </main>
+      <FooterPolicy />
+    </div>
+  </>
   );
 };
 
