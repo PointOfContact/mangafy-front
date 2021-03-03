@@ -4,6 +4,7 @@ import { Row, Select } from 'antd';
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import cn from 'classnames';
 import Footer from 'components/footer';
+import FooterPolicy from 'components/footer-policy';
 import Header from 'components/header';
 import Paginations from 'components/paginations';
 import ProfilesCard from 'components/profilesCard';
@@ -70,7 +71,7 @@ const Profiles = (props) => {
   };
 
   return (
-    <div className="">
+    <>
       <Head>
         <title>MangaFY - All graphic novel enthusiast, all genres, one Place</title>
         <meta
@@ -142,6 +143,9 @@ const Profiles = (props) => {
                     </div>
                   </div>
                 </div>
+                <div className="output_selects">
+                  <div id="selects" className="box"></div>
+                </div>
               </div>
             </div>
             <div className="output_selects">
@@ -169,21 +173,23 @@ const Profiles = (props) => {
                   {users && users.map((u) => <ProfilesCard key={u._id} user={u} genres={genres} />)}
                 </div>
               </div>
+
+              <div className={styles.pagination}>
+                <Paginations
+                  total={total}
+                  current={current}
+                  onChange={(page, pageSize) => {
+                    onChange(page, pageSize);
+                  }}
+                />
+              </div>
             </div>
           </Row>
-          <div className={styles.pagination}>
-            <Paginations
-              total={total}
-              current={current}
-              onChange={(page, pageSize) => {
-                onChange(page, pageSize);
-              }}
-            />
-          </div>
         </div>
-        <Footer />
       </main>
-    </div>
+      <Footer />
+      <FooterPolicy />
+    </>
   );
 };
 
