@@ -2,10 +2,12 @@
 
 .prof_tabs_sec {
   max-width: 1039px;
+  width: 90%;
   margin: 0 auto;
   margin-top: 50px;
   margin-bottom: 35px;
   @include media-sm {
+    width: 100%;
     margin-top: -15px;
     margin-bottom: 0px;
   }
@@ -18,5 +20,3 @@
     max-width: 1039px;
   }
 }
-
-

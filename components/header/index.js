@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
+import client from 'api/client';
 import cn from 'classnames';
 import PrimaryButton from 'components/ui-elements/button';
 import { removeAllStorage } from 'helpers/shared';
@@ -61,7 +62,25 @@ const Header = ({ user, path }) => {
               </a>
             </Link>
             <div className={styles.header__logIn}>
-              <img src="/img/header-log-in.svg" alt="" />
+              {user ? (
+                <Link href="/my-profile">
+                  <div className={cn(styles.img, styles.imgOnline)}>
+                    <div className={styles.avatar}>
+                      <img
+                        src={
+                          user.avatar
+                            ? client.UPLOAD_URL + user.avatar
+                            : 'https://swanbulk.com/wp-content/uploads/2020/03/user-icon.svg'
+                        }
+                        alt=""></img>
+                    </div>
+                  </div>
+                </Link>
+              ) : (
+                <Link href="/sign-in">
+                  <img src="/img/header-log-in.svg" alt="" />
+                </Link>
+              )}
             </div>
             <div className={styles.header__leftNav}>
               <Link href="/collaborations?compensationModel=paid">
@@ -79,7 +98,22 @@ const Header = ({ user, path }) => {
                 <>
                   {path !== 'myProfile' && (
                     <Link href="/my-profile">
-                      <a className={styles.header__menu}>Profile</a>
+                      <a className={styles.header__menu}>
+                        <span className={styles.user_img}>
+                          <span>Profile</span>
+                          <div className={cn(styles.img, styles.imgOnline)}>
+                            <div className={styles.avatar}>
+                              <img
+                                src={
+                                  user.avatar
+                                    ? client.UPLOAD_URL + user.avatar
+                                    : 'https://swanbulk.com/wp-content/uploads/2020/03/user-icon.svg'
+                                }
+                                alt=""></img>
+                            </div>
+                          </div>
+                        </span>
+                      </a>
                     </Link>
                   )}
                   {path === 'myProfile' && (
@@ -97,16 +131,20 @@ const Header = ({ user, path }) => {
                 </>
               ) : (
                 <Link href="/sign-in">
-                  <a className={styles.header__menu}>Log in</a>
+                  <a className={styles.header__menu}>
+                    <img
+                      className={styles.user_img_no_acaunt}
+                      src="/img/header-log-in.svg"
+                      alt=""
+                    />{' '}
+                    Log in
+                  </a>
                 </Link>
               )}
             </div>
             <Link href="/create-a-story/start">
-              <span>
-                <PrimaryButton
-                  className={cn(styles.btn_submit, 'btn_submit')}
-                  text="Submit an IDEA"
-                />
+              <span className={cn(styles.btn_submit, 'btn_submit')}>
+                <PrimaryButton text="Submit an IDEA" />
               </span>
             </Link>
           </div>
