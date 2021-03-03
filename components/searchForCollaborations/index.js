@@ -19,16 +19,18 @@ const menuOptions = (handleCompasitionClick) => [
   <Option key="collaboration">Joint Collab</Option>,
   <Option key="paid">Paid Collab</Option>,
 ];
-const menuGenresOptions = (genres = [], handleMenuClick) => [
-  <Option className="filterItem" key="all">
-    All
-  </Option>,
-  ...genres.map((g) => (
-    <Option className="filterItem" key={g._id}>
-      {g.name}
-    </Option>
-  )),
-];
+const menuGenresOptions = (genres = [], handleMenuClick) => (
+  <>
+    <Option className="filterItem" key="all">
+      All
+    </Option>,
+      {genres.map((g, index) => (
+        <Option className="filterItem" key={index}>
+          {g.value}
+        </Option>
+      ))}
+  </>
+);
 
 const SearchForCollaborations = (props) => {
   const {
@@ -37,7 +39,6 @@ const SearchForCollaborations = (props) => {
     selectedCompensationModel = [],
     selectedGenres = [],
   } = props;
-
   const searchAPI = (search) => {
     const parsed = qs.parse(location.search);
     Router.push(LinkCreator.toQuery({ ...parsed, search }, '/collaborations'));
