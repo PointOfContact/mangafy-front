@@ -1,10 +1,9 @@
 import React from 'react';
 
-import { Input, Row, Select } from 'antd';
+import { Input, Select } from 'antd';
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import cn from 'classnames';
 import SvgSearch from 'components/icon/Search';
-import Link from 'next/link';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
 import * as qs from 'query-string';
@@ -23,52 +22,75 @@ const menuGenresOptions = (genres = [], handleMenuClick) => (
   <>
     <Option className="filterItem" key="all">
       All
-    </Option>,
-      {genres.map((g, index) => (
-        <Option className="filterItem" key={index}>
-          {g.value}
-        </Option>
-      ))}
+    </Option>
+    ,
+    {genres.map((g) => (
+      <Option className="filterItem" key={g._id}>
+        {g.name}
+      </Option>
+    ))}
   </>
 );
 
 const SearchForCollaborations = (props) => {
-  const {
-    genres,
-    search,
-    selectedCompensationModel = [],
-    selectedGenres = [],
-  } = props;
+  const { genres, search, selectedCompensationModel = [], selectedGenres = [] } = props;
   const searchAPI = (search) => {
     const parsed = qs.parse(location.search);
-    Router.push(LinkCreator.toQuery({ ...parsed, search }, '/collaborations'));
+    Router.push(
+      LinkCreator.toQuery({ ...parsed, search }, '/collaborations'),
+      LinkCreator.toQuery({ ...parsed, search }, '/collaborations'),
+      {
+        scroll: false,
+      }
+    );
   };
 
   const onInputChange = async (e) => {
     const { value } = e.target;
     await AwesomeDebouncePromise(searchAPI, 500)(value);
   };
-  const onChange = (page, pageSize) => {
-    const parsed = qs.parse(location.search);
-    Router.push(LinkCreator.toQuery({ ...parsed, page }, '/collaborations'));
-  };
+
   const handleCompasitionClick = (keys) => {
     const parsed = qs.parse(location.search);
     if (keys && keys.includes('all')) {
       delete parsed.compensationModel;
-      Router.push(LinkCreator.toQuery({ ...parsed }, '/collaborations'));
+      Router.push(
+        LinkCreator.toQuery({ ...parsed }, '/collaborations'),
+        LinkCreator.toQuery({ ...parsed }, '/collaborations'),
+        {
+          scroll: false,
+        }
+      );
       return;
     }
-    Router.push(LinkCreator.toQuery({ ...parsed, compensationModel: keys }, '/collaborations'));
+    Router.push(
+      LinkCreator.toQuery({ ...parsed, compensationModel: keys }, '/collaborations'),
+      LinkCreator.toQuery({ ...parsed, compensationModel: keys }, '/collaborations'),
+      {
+        scroll: false,
+      }
+    );
   };
   const handleGenresClick = (keys) => {
     const parsed = qs.parse(location.search);
     if (keys && keys.includes('all')) {
       delete parsed.genres;
-      Router.push(LinkCreator.toQuery({ ...parsed }, '/collaborations'));
+      Router.push(
+        LinkCreator.toQuery({ ...parsed }, '/collaborations'),
+        LinkCreator.toQuery({ ...parsed }, '/collaborations'),
+        {
+          scroll: false,
+        }
+      );
       return;
     }
-    Router.push(LinkCreator.toQuery({ ...parsed, genres: keys }, '/collaborations'));
+    Router.push(
+      LinkCreator.toQuery({ ...parsed, genres: keys }, '/collaborations'),
+      LinkCreator.toQuery({ ...parsed, genres: keys }, '/collaborations'),
+      {
+        scroll: false,
+      }
+    );
   };
 
   return (
@@ -81,10 +103,11 @@ const SearchForCollaborations = (props) => {
                 <SvgSearch width="30" height="30" />
               </i>
               <Input
-                className={cn(styles.box__search_field, "collaborations-search-input")}
+                className={cn(styles.box__search_field, 'collaborations-search-input')}
                 type="text"
                 placeholder="Search for collaborations"
                 initialValue={search}
+                defaultValue={search}
                 allowClear
                 onChange={onInputChange}
               />
@@ -102,7 +125,7 @@ const SearchForCollaborations = (props) => {
                 defaultValue={selectedCompensationModel}
                 onChange={handleCompasitionClick}
                 dropdownClassName="select-filter"
-                className={cn(styles.box__nav_select, "select-filter")}>
+                className={cn(styles.box__nav_select, 'select-filter')}>
                 {menuOptions(handleCompasitionClick)}
               </Select>
               <Select
@@ -117,7 +140,7 @@ const SearchForCollaborations = (props) => {
                 value={selectedGenres || []}
                 onChange={handleGenresClick}
                 dropdownClassName="select-filter"
-                className={cn(styles.box__nav_select, "select-filter")}>
+                className={cn(styles.box__nav_select, 'select-filter')}>
                 {menuGenresOptions(genres)}
               </Select>
             </div>

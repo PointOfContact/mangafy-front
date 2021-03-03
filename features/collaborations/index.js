@@ -1,27 +1,21 @@
 import React from 'react';
 
-import { Input, Row, Select } from 'antd';
+import { Row } from 'antd';
 import client from 'api/client';
-import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import cn from 'classnames';
 import ColaborationCard from 'components/colaborationCard';
 import CollaborationsHeader from 'components/collaborationsHeader';
 import Footer from 'components/footer';
+import FooterPolicy from 'components/footer-policy';
 import Header from 'components/header';
-import SvgSearch from 'components/icon/Search';
 import Paginations from 'components/paginations';
 import SearchForCollaborations from 'components/searchForCollaborations';
 import PrimaryButton from 'components/ui-elements/button';
-import FooterPolicy from 'components/footer-policy';
 import ButtonToTop from 'components/ui-elements/button-toTop';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import Link from 'next/link';
-import Router from 'next/router';
 import PropTypes from 'prop-types';
-import * as qs from 'query-string';
-import {options} from 'helpers/constant'
-import { LinkCreator } from 'utils/linkCreator';
 
 import styles from './styles.module.scss';
 
@@ -35,6 +29,10 @@ const Collaborations = (props) => {
     total,
     current,
     user,
+    genres,
+    selectedGenres,
+    selectedCompensationModel,
+    search,
   } = props;
   return (
     <>
@@ -51,7 +49,12 @@ const Collaborations = (props) => {
           <Header path="collaborations" user={user} />
           <main>
             <CollaborationsHeader />
-            <SearchForCollaborations genres={options} />
+            <SearchForCollaborations
+              genres={genres}
+              selectedGenres={selectedGenres}
+              selectedCompensationModel={selectedCompensationModel}
+              search={search}
+            />
             <div className="container mangafy_container">
               <Row type="flux">
                 <div className={styles.colabCards}>
@@ -68,7 +71,10 @@ const Collaborations = (props) => {
                           </div>
                           <Link href="/create-a-story/start">
                             <span>
-                              <PrimaryButton text="Post Collab" className={cn(styles.PostColab__btn)} />
+                              <PrimaryButton
+                                text="Post Collab"
+                                className={cn(styles.PostColab__btn)}
+                              />
                             </span>
                           </Link>
                         </div>
@@ -112,10 +118,17 @@ Collaborations.propTypes = {
   mangaStories: PropTypes.array.isRequired,
   total: PropTypes.number.isRequired,
   current: PropTypes.number.isRequired,
+  genres: PropTypes.array.isRequired,
+  selectedGenres: PropTypes.array,
+  selectedCompensationModel: PropTypes.array,
+  search: PropTypes.string,
 };
 
 Collaborations.defaultProps = {
   user: null,
+  selectedGenres: [],
+  selectedCompensationModel: [],
+  search: '',
 };
 
 export default Collaborations;
