@@ -1,26 +1,24 @@
 import React from 'react';
 
-import { Input, Row, Select } from 'antd';
+import { Row } from 'antd';
 import client from 'api/client';
-import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import cn from 'classnames';
 import ColaborationCard from 'components/colaborationCard';
 import CollaborationsHeader from 'components/collaborationsHeader';
 import Footer from 'components/footer';
+import FooterPolicy from 'components/footer-policy';
 import Header from 'components/header';
-import SvgSearch from 'components/icon/Search';
 import Paginations from 'components/paginations';
 import SearchForCollaborations from 'components/searchForCollaborations';
 import PrimaryButton from 'components/ui-elements/button';
-import FooterPolicy from 'components/footer-policy';
 import ButtonToTop from 'components/ui-elements/button-toTop';
+import { options } from 'helpers/constant';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import Link from 'next/link';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
 import * as qs from 'query-string';
-import {options} from 'helpers/constant'
 import { LinkCreator } from 'utils/linkCreator';
 
 import styles from './styles.module.scss';
@@ -30,12 +28,11 @@ const Cookiebubble = dynamic(() => import('react-cookie-bubble'), {
 });
 
 const Collaborations = (props) => {
-  const {
-    mangaStories,
-    total,
-    current,
-    user,
-  } = props;
+  const { mangaStories, total, current, user } = props;
+  const onChange = (page) => {
+    const parsed = qs.parse(location.search);
+    Router.push(LinkCreator.toQuery({ ...parsed, page }, '/collaborations'));
+  };
   return (
     <>
       <Head>
@@ -57,22 +54,25 @@ const Collaborations = (props) => {
                 <div className={styles.colabCards}>
                   <div className={'container'}>
                     <div className={styles.colabWrap}>
-                      {mangaStories &&
-                        mangaStories.map((label) => (
-                          <ColaborationCard key={label._id} label={label} client={client} />
-                        ))}
                       <div className={cn(styles.PostColab)}>
                         <div className={cn(styles.PostColab__item)}>
                           <div className={cn(styles.PostColab__descr)}>
-                            Have an idea to coomics and looking for collaboration?
+                            Have an idea for a graphic novel or manga and looking for collaboration?
                           </div>
-                          <Link href="/create-a-story/start">
+                          <Link href="/sign-in">
                             <span>
-                              <PrimaryButton text="Post Collab" className={cn(styles.PostColab__btn)} />
+                              <PrimaryButton
+                                text="Post Collab"
+                                className={cn(styles.PostColab__btn)}
+                              />
                             </span>
                           </Link>
                         </div>
                       </div>
+                      {mangaStories &&
+                        mangaStories.map((label) => (
+                          <ColaborationCard key={label._id} label={label} client={client} />
+                        ))}
                     </div>
                   </div>
                 </div>
@@ -83,8 +83,8 @@ const Collaborations = (props) => {
                     <Paginations
                       total={total}
                       current={current}
-                      onChange={(page, pageSize) => {
-                        onChange(page, pageSize);
+                      onChange={(page) => {
+                        onChange(page);
                       }}
                     />
                   </div>

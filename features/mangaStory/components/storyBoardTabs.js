@@ -3,6 +3,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Tabs, Button } from 'antd';
 import { findStoryBoard } from 'api/storyBoardClient';
 import { ChooseLayout } from 'components/chooseLayout';
+import FindPartner from 'components/findPartner';
 import Hero from 'components/Hero';
 import ComicBookSvg from 'components/icon/ComicBook';
 import DocumentsSvg from 'components/icon/Documents';
@@ -115,6 +116,7 @@ const StoryBoardTabs = ({ user, mangaStory, openNotification }) => {
         }
         key={1}>
         <div className={styles.tabContent}>
+          <FindPartner />
           <Idea storyBoard={storyBoard} />
           {renderNavigationButtons()}
         </div>
@@ -127,6 +129,7 @@ const StoryBoardTabs = ({ user, mangaStory, openNotification }) => {
         }
         key={2}>
         <div className={styles.tabContent}>
+          <FindPartner />
           <Hero
             storyBoard={storyBoard}
             setStoryBoard={setStoryBoard}
@@ -143,6 +146,7 @@ const StoryBoardTabs = ({ user, mangaStory, openNotification }) => {
         }
         key={3}>
         <div className={styles.tabContent}>
+          <FindPartner />
           <ProjectScripts pages={storyBoard.pages} storyBoardId={storyBoard._id} />
           {renderNavigationButtons()}
         </div>
@@ -155,6 +159,7 @@ const StoryBoardTabs = ({ user, mangaStory, openNotification }) => {
         }
         key={4}>
         <div className={styles.tabContent}>
+          <FindPartner />
           <ChooseLayout storyBoard={storyBoard} />
           {renderNavigationButtons(!storyBoard?.layoutId)}
         </div>
@@ -168,6 +173,7 @@ const StoryBoardTabs = ({ user, mangaStory, openNotification }) => {
         }
         key={5}>
         <div className={styles.tabContent}>
+          <FindPartner />
           <Upload
             className={styles.upload}
             storyBoardId={storyBoard?._id}
@@ -197,6 +203,7 @@ const StoryBoardTabs = ({ user, mangaStory, openNotification }) => {
         disabled={!storyBoard?.mangaUrl}
         key={7}>
         <div className={styles.tabContent}>
+          <FindPartner />
           {isModalVisible ? (
             <ModalSuccess isModalVisible={isModalVisible} handleCancelModal={handleCancelModal} />
           ) : (
