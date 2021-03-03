@@ -104,29 +104,29 @@ const AuthForm = ({ type, errorMessage, onChange, onSubmit, isLogin, disabled = 
           />
         )}
       </div>
-      {isLogin ? (
-        <>
-          <div>
-            <div className={styles.or}>
-              <p></p>
-              <span>or</span>
-              <p></p>
-            </div>
+      {/* {isLogin ? ( */}
+      <>
+        <div>
+          <div className={styles.or}>
+            <p></p>
+            <span>or</span>
+            <p></p>
           </div>
-          <div className={styles.social_login}>
-            <Link href="/api/v2/auth/google">
-              <span className={styles.google_btn}>
-                <SvgGoogle width="26px" height="26px" /> Sign in with Google
-              </span>
-            </Link>
-            <Link href="/api/v2/auth/facebook">
-              <span className={styles.facebook_btn}>
-                <SvgWhiteFacebook width="26px" height="26px" /> Sign in with Facebook
-              </span>
-            </Link>
-          </div>
-        </>
-      ) : null}
+        </div>
+        <div className={styles.social_login}>
+          <Link href="/api/v2/auth/google">
+            <span className={styles.google_btn}>
+              <SvgGoogle width="26px" height="26px" /> Sign in with Google
+            </span>
+          </Link>
+          <Link href="/api/v2/auth/facebook">
+            <span className={styles.facebook_btn}>
+              <SvgWhiteFacebook width="26px" height="26px" /> Sign in with Facebook
+            </span>
+          </Link>
+        </div>
+      </>
+      {/* ) : null} */}
       <small className="error">
         {errorMessage && isLogin
           ? "Your login info isn't right. Try again, or reset your password if it slipped your mind."

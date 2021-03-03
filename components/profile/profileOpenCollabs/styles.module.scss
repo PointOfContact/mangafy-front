@@ -7,10 +7,10 @@
   box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.07);
   border-radius: 10px;
   margin-bottom: 35px;
-  padding: 10px 25px 25px 20px;
+  padding: 25px 25px 25px 15px !important;
   max-width: 1039px;
   @include media-sm {
-    padding: 40px 5px 0px 5px;
+    padding: 40px 5px 0px 25px !important;
     margin-top: 0px;
   }
 
@@ -49,11 +49,10 @@
   .card_wrap {
     overflow-x: auto;
     white-space: nowrap;
-    margin-right: 35px;
-    padding: 20px 0 0 20px;
+    margin-right: 25px;
+    padding: 20px 10px;
     @include media-sm {
-      margin-right: 0;
-      margin-left: 15px;
+      padding: 5px 10px;
     }
     &::-webkit-scrollbar {
       height: 3px;

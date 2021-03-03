@@ -206,17 +206,18 @@ const TabStory = (props) => {
                 />
               </div>
             )}
-            {!!profileGenres?.length || (
-              <div className={styles.card}>
-                <h3 className={cn(styles.sub_title)}>Novel Type</h3>
-                <Card
-                  description="Nothing is filled in and it is <br/> very sad (("
-                  btnText=""
-                  items={[<img key="1" src="/img/ProfileNovelType.png" alt="" />]}
-                  onClick={() => setStoryEditMode(true)}
-                />
-              </div>
-            )}
+            {profileGenres &&
+              (!!profileGenres?.length || (
+                <div className={styles.card}>
+                  <h3 className={cn(styles.sub_title)}>Novel Type</h3>
+                  <Card
+                    description="Nothing is filled in and it is <br/> very sad (("
+                    btnText=""
+                    items={[<img key="1" src="/img/ProfileNovelType.png" alt="" />]}
+                    onClick={() => setStoryEditMode(true)}
+                  />
+                </div>
+              ))}
             {total === 0 && (
               <div className={styles.card}>
                 <h3 className={cn(styles.sub_title)}>Projects</h3>

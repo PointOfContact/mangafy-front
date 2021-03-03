@@ -154,19 +154,19 @@ const Profiles = (props) => {
             <div className={styles.colabCards}>
               <div className={'container'}>
                 <div className={styles.colabWrap}>
-                  {users && users.map((u) => <ProfilesCard key={u._id} user={u} genres={genres} />)}
-                  <div className={cn(styles.PostColab)}>
-                    <div className={cn(styles.PostColab__item)}>
-                      <div className={cn(styles.PostColab__descr)}>
-                        Have an idea to coomics and looking for collaboration?
+                  {!user && (
+                    <div className={cn(styles.PostColab)}>
+                      <div className={cn(styles.PostColab__item)}>
+                        <div className={cn(styles.PostColab__descr)}>Welcome to MangaFY club</div>
+                        <Link href="/create-a-story/start">
+                          <span>
+                            <PrimaryButton text="Join" className={cn(styles.PostColab__btn)} />
+                          </span>
+                        </Link>
                       </div>
-                      <Link href="/create-a-story/start">
-                        <span>
-                          <PrimaryButton text="Post Collab" className={cn(styles.PostColab__btn)} />
-                        </span>
-                      </Link>
                     </div>
-                  </div>
+                  )}
+                  {users && users.map((u) => <ProfilesCard key={u._id} user={u} genres={genres} />)}
                 </div>
               </div>
             </div>

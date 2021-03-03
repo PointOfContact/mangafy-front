@@ -15,7 +15,10 @@ import ButtonToTop from 'components/ui-elements/button-toTop';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import Link from 'next/link';
+import Router from 'next/router';
 import PropTypes from 'prop-types';
+import * as qs from 'query-string';
+import { LinkCreator } from 'utils/linkCreator';
 
 import styles from './styles.module.scss';
 
@@ -34,6 +37,10 @@ const Collaborations = (props) => {
     selectedCompensationModel,
     search,
   } = props;
+  const onChange = (page) => {
+    const parsed = qs.parse(location.search);
+    Router.push(LinkCreator.toQuery({ ...parsed, page }, '/collaborations'));
+  };
   return (
     <>
       <Head>
@@ -60,16 +67,12 @@ const Collaborations = (props) => {
                 <div className={styles.colabCards}>
                   <div className={'container'}>
                     <div className={styles.colabWrap}>
-                      {mangaStories &&
-                        mangaStories.map((label) => (
-                          <ColaborationCard key={label._id} label={label} client={client} />
-                        ))}
                       <div className={cn(styles.PostColab)}>
                         <div className={cn(styles.PostColab__item)}>
                           <div className={cn(styles.PostColab__descr)}>
-                            Have an idea to coomics and looking for collaboration?
+                            Have an idea for a graphic novel or manga and looking for collaboration?
                           </div>
-                          <Link href="/create-a-story/start">
+                          <Link href="/sign-in">
                             <span>
                               <PrimaryButton
                                 text="Post Collab"
@@ -79,6 +82,10 @@ const Collaborations = (props) => {
                           </Link>
                         </div>
                       </div>
+                      {mangaStories &&
+                        mangaStories.map((label) => (
+                          <ColaborationCard key={label._id} label={label} client={client} />
+                        ))}
                     </div>
                   </div>
                 </div>
@@ -89,8 +96,8 @@ const Collaborations = (props) => {
                     <Paginations
                       total={total}
                       current={current}
-                      onChange={(page, pageSize) => {
-                        onChange(page, pageSize);
+                      onChange={(page) => {
+                        onChange(page);
                       }}
                     />
                   </div>
