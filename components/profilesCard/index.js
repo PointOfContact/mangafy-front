@@ -44,9 +44,11 @@ const ProfilesCard = ({ user, genres }) => {
         </div>
         <div className={styles.colabWrap__descr}>{user.description}</div>
         <div className={styles.colabWrap__buttons}>
-          {profileGenres.map((item) => (
-            <ButtonColab key={item._id} className={cn(styles.ButtonPurple)} text={item.name} />
-          ))}
+          {profileGenres.length
+            ? profileGenres.map((item) => (
+                <ButtonColab key={item._id} className={cn(styles.ButtonPurple)} text={item.name} />
+              ))
+            : 'No genre'}
         </div>
         <div className={styles.colabWrap__bot}>
           <div className={styles.colabWrap__commision}>

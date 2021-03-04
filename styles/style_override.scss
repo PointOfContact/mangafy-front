@@ -1030,7 +1030,7 @@ img.rot4 {
       font-weight: bold;
       font-size: 20px;
       line-height: 1.25;
-      color: $black;
+      color: $grey;
       padding: 15px 30px;
       @media #{$media-xs} {
         padding: 10px 15px;
@@ -1048,5 +1048,17 @@ img.rot4 {
     .ant-select-item-option-active:not(.ant-select-item-option-disabled) {
       background: transparent;
     }
+  }
+  .ant-select-item-option-selected {
+    .ant-select-item-option-content {
+      color: $black !important;
+    }
+  }
+}
+
+.ant-btn-block {
+  &:hover {
+    border-color: $primaryDark !important;
+    color: $primaryDark !important;
   }
 }

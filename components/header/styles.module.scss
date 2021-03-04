@@ -332,6 +332,14 @@
     }
   }
 }
+.go_to_pro{
+  span{
+    background-color: $primaryDark;
+    color: $text-white;
+    padding: 2px 3px;
+    border-radius: 3px;
+  }
+}
 @media (max-width: 399px) {
   .header {
     .menu_item {
