@@ -8,6 +8,7 @@ import ButtonToTop from 'components/ui-elements/button-toTop';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import Head from 'next/head';
 import PropTypes from 'prop-types';
+import * as qs from 'query-string';
 import { login } from 'store';
 
 import styles from './styles.module.scss';
@@ -23,6 +24,7 @@ const Login = ({ user }) => {
     errorMessage: '',
   };
   const [state, setState] = useState(defaultState);
+  const [loading, setLoading] = useState(false);
   const { email, password, errorMessage } = state;
   const handleOnChange = ({ target }) => {
     const { name, value } = target;
@@ -31,12 +33,16 @@ const Login = ({ user }) => {
       [name]: value,
     });
   };
+
   const handleLoginSubmit = (e) => {
     e.preventDefault();
+    const { page } = qs.parse(location.search);
     const payload = {
       email,
       password,
+      page,
     };
+    setLoading(true);
     login(payload)
       .then((user) => {
         const data = [
@@ -52,6 +58,7 @@ const Login = ({ user }) => {
         amplitude.track(data);
       })
       .catch((err) => {
+        setLoading(false);
         setState({
           ...state,
           errorMessage: err.message,
@@ -91,6 +98,7 @@ const Login = ({ user }) => {
                       onChange: handleOnChange,
                       onSubmit: handleLoginSubmit,
                       isLogin: true,
+                      loading,
                     }}
                   />
                 </div>

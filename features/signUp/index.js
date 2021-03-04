@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import AuthForm from 'components/authForm';
 import FooterPolicy from 'components/footer-policy';
@@ -27,6 +27,7 @@ const Register = ({ user }) => {
     disabled: false,
     err: '',
   };
+  const [loading, setLoading] = useState(false);
   const [state, setState] = React.useState(defaultState);
   const { name, email, password, errorMessage, type, err, disabled } = state;
 
@@ -54,22 +55,30 @@ const Register = ({ user }) => {
       email,
       password,
     };
-    register(payload).then(({ user }) => {
-      setState({ disabled: false });
+    register(payload)
+      .then(({ user }) => {
+        setState({ disabled: false });
 
-      const data = [
-        {
-          platform: 'WEB',
-          event_type: EVENTS.SIGN_UP,
-          user_id: user._id,
-          user_properties: {
-            ...user,
+        const data = [
+          {
+            platform: 'WEB',
+            event_type: EVENTS.SIGN_UP,
+            user_id: user._id,
+            user_properties: {
+              ...user,
+            },
           },
-        },
-      ];
-      amplitude.track(data);
-      Router.push(`/my-profile`);
-    });
+        ];
+        amplitude.track(data);
+        Router.push(`/my-profile`);
+      })
+      .catch((error) => {
+        setLoading(false);
+        setState({
+          ...state,
+          errorMessage: error.message,
+        });
+      });
   };
 
   return (
@@ -106,6 +115,7 @@ const Register = ({ user }) => {
                       email,
                       password,
                       errorMessage,
+                      loading,
                       onChange: handleOnChange,
                       onSubmit: handleRegisterSubmit,
                     }}

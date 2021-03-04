@@ -18,7 +18,11 @@ export function login(payload) {
     .then(({ user, jwt }) => {
       setClientCookie(FEATHERS_COOKIE, jwt);
       store.user = user;
-      Router.push('/collaborations');
+      if (payload.page) {
+        Router.push(`/${payload.page}`);
+      } else {
+        Router.push('/collaborations ');
+      }
       return user;
     });
 }
