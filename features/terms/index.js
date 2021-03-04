@@ -11,12 +11,12 @@ import styles from './styles.module.scss';
 const Terms = ({ user }) => (
   <>
     <Head>
-      <title>MangaFY Terms Policy</title>
-      <meta name="description" content="MangaFY Terms Policy"></meta>
+      <title>MangaFY Terms of Service</title>
+      <meta name="description" content="MangaFY Terms of Service"></meta>
       <meta property="og:url" content="http://mangafy.club" />
       <meta property="og:type" content="article" />
-      <meta property="og:title" content="MangaFY Terms Policy" />
-      <meta property="og:description" content="MangaFY Terms Policy" />
+      <meta property="og:title" content="MangaFY Terms of Service" />
+      <meta property="og:description" content="MangaFY Terms of Service" />
       <meta property="og:image" content="http://mangafy.club/img/indexMobSec3.webp" />
       <link rel="icon" href="/favicon.ico" />
     </Head>
@@ -40,16 +40,16 @@ const Terms = ({ user }) => (
               </div>
             </div>
             <div className={styles.info_section}>
-              <div className={styles.update_block}>Updated Februar 14, 2021</div>
+              <div className={styles.update_block}>Updated March 04, 2021</div>
               <div className={styles.info_block}>
-                <div className={styles.info_title}>A story of tools and the future of work</div>
+                <div className={styles.info_title}>TERMS OF SERVICE</div>
                 <div className={styles.info_description}>
                   And, if you ever thought about self-publishing your work, you have multiple windows
                   opened all over the place – browser for Google docs, Power Point, Word, Excel, and on,
                   and on… <br></br>
-                  <br></br>We want to make the dreamers dream come true, and help aspiring authors and
-                  freelancers’ journey to self-publication as simple as it can be. After all, this is
-                  the digital age, where the internet grants us countless opportunities.<br></br>
+                  <br></br>1.1 https://mangafy.club/, hereinafter referred to as "the Seller", publishes the Public Offer on realization of Services placed on the Seller's official website https://timestripe.com/.
+
+<br></br>
                   <br></br>We take steps designed to ensure that only those employees who need access to
                   your personal information to fulfil their employment duties will have access to it. We
                   may use and disclose your personal or account information for the following purposes:
@@ -71,25 +71,15 @@ const Terms = ({ user }) => (
               <div className={styles.info_block}>
                 <div className={styles.info_title}>Terms us</div>
                 <div className={styles.info_description}>
-                  MangaFY was established by online marketing professionals with over a decade of
-                  experience in the online scene. With great passion and love for all things Manga,
-                  Comics, and yes, even Anime, our desire is to establish a digital platform for the
-                  artists, viewing each (aspiring or freelancer) as a potential business, inspiring you
-                  to connect with fellow community members, open a project and collaborate, all while
-                  utilising our in-platform management tools to take your idea from story to a fully
-                  digital product, ready to be monetised and published. Come and make the next big IP,
-                  our platform is for you.
+                  Rights and obligations of User and Supplier, arising from this offer, may not be transferred to third parties without written consent of the other party. I, User, have read and agree with this agreement of use of "Recurring payments" service, with automatic writing off of funds from bank card for Supplier's services under the Agreement.
+
+
                 </div>
               </div>
               <div className={styles.info_block}>
-                <div className={styles.info_title}>Contact Us</div>
+                <div className={styles.info_title}>Contact Information</div>
                 <div className={styles.info_description}>
-                  If you have any questions or comments about this Privacy Policy or your personal
-                  information, to make an access or correction request, to exercise any applicable
-                  rights, to make a complaint, or to obtain information about our policies and practices
-                  with respect to any service providers outside Israel, our Privacy Officer (or Data
-                  Protection Officer) can be reached by mail or email using the following contact
-                  information: by email at info@mangafy.club
+                  Fikus 28/9, Tel Aviv Israel
                 </div>
               </div>
             </div>
