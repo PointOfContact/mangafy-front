@@ -55,17 +55,19 @@ const ProfileTopBar = (props) => {
                 alt=""
               />
             )}
-            <Upload
-              beforeUpload={(f) => {
-                beforeUpload(f, props);
-              }}>
-              <SvgPrimaryAdd
-                className={styles.add}
-                id="myProfileUploadBtnId"
-                width="40"
-                height="40px"
-              />
-            </Upload>
+            {user && !profile && (
+              <Upload
+                beforeUpload={(f) => {
+                  beforeUpload(f, props);
+                }}>
+                <SvgPrimaryAdd
+                  className={styles.add}
+                  id="myProfileUploadBtnId"
+                  width="40"
+                  height="40px"
+                />
+              </Upload>
+            )}
           </div>
         </Col>
         <Col className="gutter-row" xs={{ span: 24 }} md={{ span: 8 }} xl={{ span: 9 }}>

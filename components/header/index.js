@@ -96,6 +96,13 @@ const Header = ({ user, path }) => {
             <div className={styles.header__rightNav}>
               {user ? (
                 <>
+                  <Link href="/pricing">
+                    <a className={styles.header__menu}>
+                      <span className={styles.go_to_pro}>
+                        Go to <span>PRO</span>
+                      </span>
+                    </a>
+                  </Link>
                   {path !== 'myProfile' && (
                     <Link href="/my-profile">
                       <a className={styles.header__menu}>
@@ -131,14 +138,7 @@ const Header = ({ user, path }) => {
                 </>
               ) : (
                 <Link href="/sign-in">
-                  <a className={styles.header__menu}>
-                    <img
-                      className={styles.user_img_no_acaunt}
-                      src="/img/header-log-in.svg"
-                      alt=""
-                    />{' '}
-                    Log in
-                  </a>
+                  <a className={styles.header__menu}>Log in</a>
                 </Link>
               )}
             </div>

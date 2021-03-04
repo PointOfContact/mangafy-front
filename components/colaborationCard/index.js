@@ -36,9 +36,11 @@ const ColaborationCards = ({ label, client }) => {
       </div>
       <div className={styles.colabWrap__descr}>{label.description}</div>
       <div className={styles.colabWrap__buttons}>
-        {label.genres.map((item) => (
-          <ButtonColab key={item._id} className={cn(styles.ButtonPurple)} text={item.name} />
-        ))}
+        {label.genres.length
+          ? label.genres.map((item) => (
+              <ButtonColab key={item._id} className={cn(styles.ButtonPurple)} text={item.name} />
+            ))
+          : 'No genre'}
       </div>
       <div className={styles.colabWrap__bot}>
         <div className={styles.colabWrap__commision}>
