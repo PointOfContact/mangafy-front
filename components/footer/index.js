@@ -47,12 +47,12 @@ const Footer = () => (
           </div>
 
           <div className={styles.footer__item2}>
-            <div className={styles.footer__itemTitle}>Resources</div>
+            <div className={styles.footer__itemTitle}>Help & Support</div>
             <Link href="/resources">
-              <a className={styles.footer__itemLink}>Resources</a>
+              <a className={styles.footer__itemLink}>Help & Support</a>
             </Link>
             <Link href="/supports">
-              <a className={styles.footer__itemLink}>Support</a>
+              <a className={styles.footer__itemLink}>Guides & tutorials</a>
             </Link>
           </div>
 
