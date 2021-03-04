@@ -41,16 +41,17 @@
   }
   .add_button {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: flex-end;
     @include media-sm {
       align-items: self-end;
       position: relative;
+      width: 100%;
+      justify-content: flex-end;
       svg {
-        position: absolute;
-        top: -30px;
-        right: 0px;
+        // position: absolute;
+        // top: -30px;
+        // right: 0px;
         height: 18px;
         width: 18px;
       }
