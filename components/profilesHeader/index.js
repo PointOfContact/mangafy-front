@@ -24,7 +24,7 @@ const ProfilesHeader = () => (
         <div className={styles.box__content}>
           <div className={styles.box__title_wrap}>
             <div className={styles.box__title}>
-              <p className={styles.box__title_text}>Collect them All!</p>
+              <p className={cn(styles.box__title_text, styles.box__title_text__mobile_resize)}>Collect them All!</p>
             </div>
             <div className={styles.box__description}>
               <p className={styles.box__description_text}>

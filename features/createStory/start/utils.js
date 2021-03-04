@@ -41,4 +41,8 @@ function adaptData(data, genres) {
   };
 }
 
-export { adaptData };
+function timeout(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+export { adaptData, timeout };

@@ -75,10 +75,12 @@
   .or {
     display: flex;
     justify-content: center;
+    margin-bottom: 20px;
     p {
       border-bottom: 1px solid $black;
       width: 100%;
       font-size: 20px;
+      margin: 0;
     }
     span {
       color: $black;
