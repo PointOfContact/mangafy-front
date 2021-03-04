@@ -6,8 +6,11 @@
 }
 
 .header_cont {
-  height: 136px;
+  height: 114px;
   background-color: $primaryBG;
+  @media #{$media-md} {
+    height: 105px;
+  }
   @include media-sm {
     height: 72px;
   }
@@ -16,7 +19,7 @@
 .header {
   width: 100%;
   background: #fff;
-  padding: 42px 0 42px 0;
+  padding: 30px 0;
   margin-bottom: 0;
   position: fixed;
   top: 0;
@@ -25,7 +28,7 @@
   transition: 0.3s;
   &__fixed {
     box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.07);
-    padding: 20px 0 22px 0;
+    padding: 20px 0;
   }
   @media (max-width: 767px) {
     border-bottom: 2px solid #ebebeb;
