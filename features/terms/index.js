@@ -87,10 +87,9 @@ const Terms = ({ user }) => (
                   If you have any questions or comments about this Privacy Policy or your personal
                   information, to make an access or correction request, to exercise any applicable
                   rights, to make a complaint, or to obtain information about our policies and practices
-                  with respect to any service providers outside Canada, our Privacy Officer (or Data
+                  with respect to any service providers outside Israel, our Privacy Officer (or Data
                   Protection Officer) can be reached by mail or email using the following contact
-                  information: by email at privacy@dribbble.com or by mail at 524 Yates St., Victoria,
-                  BC, V8W 1K8, Canada.
+                  information: by email at info@mangafy.club
                 </div>
               </div>
             </div>
