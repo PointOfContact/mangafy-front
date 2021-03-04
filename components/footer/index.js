@@ -74,8 +74,8 @@ const Footer = () => (
             <Link href="/about">
               <a className={styles.footer__itemLink}>About</a>
             </Link>
-            <Link href="/careers">
-              <a className={styles.footer__itemLink}>Careers</a>
+            <Link href="/pricing">
+              <a className={styles.footer__itemLink}>Pricing</a>
             </Link>
             <Link href="/collaborations">
               <a className={styles.footer__itemLink}>We open for collaborations</a>
@@ -90,7 +90,7 @@ const Footer = () => (
 
           <div className={styles.footer__item5}>
             <div className={styles.footer__itemTitle}>Comics assets</div>
-            <Link href="/pricing">
+            <Link href="/coming-soon">
               <a className={styles.footer__itemLink}>Shop Creative Market</a>
             </Link>
           </div>
