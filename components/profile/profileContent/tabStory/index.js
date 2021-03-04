@@ -28,6 +28,7 @@ const TabStory = (props) => {
     total,
     profile,
     profileGenres,
+    isMyProfile,
   } = props;
 
   const renderStory = () =>
@@ -42,7 +43,6 @@ const TabStory = (props) => {
           ))}
         </Col>
         <Col
-          
           xs={{ span: 24 }}
           md={{ span: 2 }}
           xl={{ span: 2 }}
@@ -156,7 +156,7 @@ const TabStory = (props) => {
           )}
         </div>
 
-        {!userData || storyEditMode || (
+        {!isMyProfile || storyEditMode || (
           <div className={styles.card_wrap} gutter={[16, 16]}>
             {!userData?.content && (
               <div className={styles.card}>
@@ -193,7 +193,7 @@ const TabStory = (props) => {
             )}
           </div>
         )}
-        {!profile || storyEditMode || (
+        {isMyProfile || storyEditMode || (
           <div className={styles.card_wrap} gutter={[16, 16]}>
             {!profile?.content && (
               <div className={styles.card}>
@@ -250,6 +250,7 @@ TabStory.propTypes = {
   total: PropTypes.number,
   profile: PropTypes.object,
   profileGenres: PropTypes.array,
+  isMyProfile: PropTypes.bool,
 };
 
 TabStory.defaultProps = {
@@ -266,6 +267,7 @@ TabStory.defaultProps = {
   genres: null,
   total: null,
   profileGenres: null,
+  isMyProfile: null,
 };
 
 export default TabStory;

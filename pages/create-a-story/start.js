@@ -9,7 +9,7 @@ export const getServerSideProps = withAuthServerSideProps(
     try {
       if (!user) {
         context.res.writeHead(302, {
-          Location: '/sign-in',
+          Location: '/sign-in?page=create-a-story/start',
         });
         context.res.end();
         return { props: {} };

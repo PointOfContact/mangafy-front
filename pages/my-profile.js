@@ -10,7 +10,7 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
   try {
     if (!user) {
       context.res.writeHead(302, {
-        Location: '/sign-in',
+        Location: '/sign-in?page=my-profile',
       });
       context.res.end();
       return { props: {} };

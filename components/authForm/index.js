@@ -15,7 +15,7 @@ import styles from './styles.module.scss';
 
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
-const AuthForm = ({ type, errorMessage, onChange, onSubmit, isLogin, disabled = false }) => (
+const AuthForm = ({ type, errorMessage, onChange, onSubmit, isLogin, loading }) => (
   <>
     <form className={styles.auth_form} onSubmit={onSubmit}>
       {!isLogin ? (
@@ -78,30 +78,34 @@ const AuthForm = ({ type, errorMessage, onChange, onSubmit, isLogin, disabled = 
       </div>
       <div className={styles.login_button}>
         {!isLogin ? (
-          <LargeButton
-            className={styles.button_submit}
-            disabled={disabled}
-            htmlType="submit"
-            text={
-              <p style={{ margin: 0 }}>
-                Let&apos;s rock!
-                {disabled && (
-                  <span className="ml-2">
-                    <Spin indicator={antIcon} />
-                  </span>
-                )}
-              </p>
-            }
-            id="signUpBtnId"
-          />
+          <>
+            <LargeButton
+              className={styles.button_submit}
+              loading={loading}
+              htmlType="submit"
+              text={
+                <p style={{ margin: 0 }}>
+                  Let&apos;s rock!
+                  {loading && (
+                    <span className="ml-2">
+                      <Spin indicator={antIcon} />
+                    </span>
+                  )}
+                </p>
+              }
+              id="signUpBtnId"
+            />
+          </>
         ) : (
-          <LargeButton
-            className={styles.button_submit}
-            htmlType="submit"
-            disabled={disabled}
-            text={'Start your Jorney'}
-            id="signInBtnId"
-          />
+          <>
+            <LargeButton
+              className={styles.button_submit}
+              htmlType="submit"
+              loading={loading}
+              text={'Start your Jorney'}
+              id="signInBtnId"
+            />
+          </>
         )}
       </div>
       {/* {isLogin ? ( */}
@@ -142,12 +146,12 @@ AuthForm.propTypes = {
   onChange: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   isLogin: PropTypes.bool.isRequired,
-  disabled: PropTypes.bool,
+  loading: PropTypes.bool,
 };
 
 AuthForm.defaultProps = {
   type: null,
-  disabled: false,
+  loading: false,
 };
 
 export default AuthForm;

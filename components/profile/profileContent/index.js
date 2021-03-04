@@ -29,6 +29,7 @@ const ProfileContent = (props) => {
     genres,
     total,
     profileGenres,
+    isMyProfile,
   } = props;
 
   const tabPanels = [
@@ -51,6 +52,7 @@ const ProfileContent = (props) => {
             total,
             profile,
             profileGenres,
+            isMyProfile,
           }}
         />
       ),
@@ -113,6 +115,7 @@ ProfileContent.propTypes = {
   genres: PropTypes.array,
   total: PropTypes.number,
   profileGenres: PropTypes.array,
+  isMyProfile: PropTypes.bool,
 };
 
 ProfileContent.defaultProps = {
@@ -130,6 +133,7 @@ ProfileContent.defaultProps = {
   genres: null,
   total: null,
   profileGenres: null,
+  isMyProfile: null,
 };
 
 export default ProfileContent;
