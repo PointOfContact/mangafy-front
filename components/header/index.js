@@ -87,7 +87,7 @@ const Header = ({ user, path }) => {
                 <a className={styles.header__menu}>Paid projects</a>
               </Link>
               <Link href="/collaborations?compensationModel=collaboration">
-                <a className={styles.header__menu}>Collabas</a>
+                <a className={styles.header__menu}>Collabs</a>
               </Link>
               <Link href="/profiles">
                 <a className={styles.header__menu}>Members</a>
