@@ -111,6 +111,7 @@ module.exports = {
   globals: {
     window: true,
     document: true,
-    location: true,
+    sessionStorage: true,
+    localStorage: true,
   },
 };

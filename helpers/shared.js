@@ -71,4 +71,5 @@ export const removeAllStorage = () => {
   sessionStorage.clear();
   logout();
   removeCookies();
+  window.location.href = '/';
 };

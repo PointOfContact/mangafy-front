@@ -124,16 +124,14 @@ const Header = ({ user, path }) => {
                     </Link>
                   )}
                   {path === 'myProfile' && (
-                    <Link href="/">
-                      <a
-                        className={cn(
-                          path === 'main' ? 'whiteButton' : 'exploreBtn',
-                          styles.header__menu
-                        )}
-                        onClick={removeAllStorage}>
-                        Sign out
-                      </a>
-                    </Link>
+                    <a
+                      className={cn(
+                        path === 'main' ? 'whiteButton' : 'exploreBtn',
+                        styles.header__menu
+                      )}
+                      onClick={removeAllStorage}>
+                      Sign out
+                    </a>
                   )}
                 </>
               ) : (
