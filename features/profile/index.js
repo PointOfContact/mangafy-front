@@ -8,6 +8,7 @@ import ProfileContent from 'components/profile/profileContent';
 import ProfileOpenCollabs from 'components/profile/profileOpenCollabs';
 import ProfileTopBar from 'components/profile/profileTopBar';
 import ButtonToTop from 'components/ui-elements/button-toTop';
+import Head from 'next/head';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
@@ -22,6 +23,10 @@ const Profile = (props) => {
   const genres = profileGenres.map((item) => item.name);
   return (
     <>
+      <Head>
+        <title>Say Hello to {profile.name}!</title>
+        <meta name="description" content="Welcome to your professional Graphic Novel community" />
+      </Head>
       <ButtonToTop />
       <div className={'wrapper'}>
         <div className={'content'}>

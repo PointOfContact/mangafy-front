@@ -52,7 +52,8 @@ const Start = ({ genres, jwt, user }) => {
   return (
     <>
       <Head>
-        <title>Start</title>
+        <title>Focus on things that are really important</title>
+        <meta name="description" content="MangaFY Expand your planning horizons." />
       </Head>
       <div>
         <Header path="create-a-story/start" user={user} />

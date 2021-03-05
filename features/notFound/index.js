@@ -11,9 +11,8 @@ import styles from './styles.module.scss';
 const Error = () => (
   <div className="">
     <Head>
-      <title>MangaFY Error</title>
-      <meta name="MangaFY Error"></meta>
-      <link rel="icon" href="/favicon.ico" />
+      <title>Oooops...</title>
+      <meta name="description" content="Not to worry! Let's find a better place for you to go" />
     </Head>
     <main>
       <Header path="comming-soon" />

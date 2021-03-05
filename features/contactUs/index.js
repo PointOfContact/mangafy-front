@@ -27,7 +27,8 @@ const Start = ({ user }) => {
   return (
     <>
       <Head>
-        <title>Contact Us</title>
+        <title>Support</title>
+        <meta name="description" content="Contact us, and I'm sure we will find a solution" />
       </Head>
       <div>
         <Header path="contact-us" user={user} />

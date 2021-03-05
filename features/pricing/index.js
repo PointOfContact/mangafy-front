@@ -51,9 +51,11 @@ const Pricing = (props) => {
   return (
     <div className="">
       <Head>
-        <title>MangaFY Pricing</title>
-        <meta name="MangaFY Pricing"></meta>
-        <link rel="icon" href="/favicon.ico" />
+        <title>One tool for your whole team.</title>
+        <meta
+          name="description"
+          content="PRO account removes all restrictions and makes MangaFY an ultimate tool for dailiy conscious planning of your next great IP."
+        />
       </Head>
       <main className="main_back_2">
         <Header path="pricing" user={user} />

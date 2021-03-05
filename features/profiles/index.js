@@ -31,11 +31,8 @@ const Profiles = (props) => {
   return (
     <>
       <Head>
-        <title>MangaFY - All graphic novel enthusiast, all genres, one Place</title>
-        <meta
-          name="description"
-          content="Find an artist, storyteller or translator - tell them what you dream about, and collaborate"></meta>
-        <link rel="icon" href="/favicon.ico" />
+        <title>All manga entusiast, all genres, one Place - MangaFY </title>
+        <meta name="description" content="All manga entusiast, all genres, one Place - MangaFY" />
       </Head>
       <ButtonToTop />
       <main className="main_back_2">
