@@ -10,6 +10,7 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
     return {
       props: {
         user,
+        originUrl: `${origin}/profile/${user?._id}`,
       }, // will be passed to the page component as props
     };
   } catch (error) {

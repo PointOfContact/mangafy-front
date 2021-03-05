@@ -12,7 +12,7 @@ import PropTypes from 'prop-types';
 import styles from './styles.module.scss';
 
 const Pricing = (props) => {
-  const { user } = props;
+  const { user, originUrl } = props;
 
   const [period, setPeriod] = useState('month');
 
@@ -28,13 +28,13 @@ const Pricing = (props) => {
     if (checked) {
       setPeriod('year');
 
-      setPersonal1(1);
-      setPersonal2(8);
-      setPersonal3(0);
+      setPersonal1(9);
+      setPersonal2(9);
+      setPersonal3(-1);
 
-      setPlus1(5);
-      setPlus2(5);
-      setPlus3(2);
+      setPlus1(2);
+      setPlus2(4);
+      setPlus3(9);
     } else {
       setPeriod('month');
 
@@ -86,7 +86,7 @@ const Pricing = (props) => {
                 <div className={styles.repayment_type}>
                   <span>Monthly</span>
                   <div className={styles.payment_switch}>
-                    <Switch defaultChecked onChange={paymentSwitch} />
+                    <Switch onChange={paymentSwitch} />
                   </div>
                   <span>Yearly</span>
                 </div>
@@ -105,7 +105,7 @@ const Pricing = (props) => {
                     className={styles.tool_button}
                     text="Select Basic"
                     disabled={false}
-                    onClick={() => alert('large_primary_button')}
+                    onClick={() => {}}
                   />
                   <div className={styles.item_title}>
                     For organizing every cornerof graphic novel production.{' '}
@@ -189,12 +189,37 @@ const Pricing = (props) => {
                     )}
                     <span>per {period}</span>
                   </div>
-                  <LargeButton
-                    className={styles.tool_button}
-                    text="Select Basic"
-                    disabled={false}
-                    onClick={() => alert('large_primary_button')}
-                  />
+
+                  <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                    <input type="hidden" name="cmd" value="_s-xclick" />
+                    <input type="hidden" name="item_name" value={`Upgrade to Personal Pro`}></input>
+                    <input type="hidden" name="item_number" value={user?.id}></input>
+                    <input
+                      type="hidden"
+                      name="cancel_return"
+                      value={`${originUrl}?paypal_cancel=true`}></input>
+                    <input
+                      type="hidden"
+                      name="return"
+                      value={`${originUrl}?paypal_success=true`}></input>
+                    <input type="hidden" name="custom" value={user._id}></input>
+                    <input type="hidden" name="hosted_button_id" value="JURZNUSJ8HLJJ" />
+                    <LargeButton
+                      className={styles.tool_button}
+                      text="Select Basic"
+                      disabled={false}
+                      onClick={() => {}}
+                      htmlType="image"
+                      name="submit"
+                    />
+                    <img
+                      alt=""
+                      border="0"
+                      src="https://www.paypal.com/en_IL/i/scr/pixel.gif"
+                      width="1"
+                      height="1"
+                    />
+                  </form>
                   <div className={styles.item_title}>
                     For power users who want to do even more.{' '}
                     <span>Everything in Personal, plus</span>
@@ -236,7 +261,7 @@ const Pricing = (props) => {
               <div className={styles.team_tools}>
                 <div className={styles.section_title}>For Big Teams</div>
                 <div className={styles.tool_item}>
-                  <img src="/img/tools_image3.jpg"></img>
+                  <img className={styles.pricing_image} src="/img/tools_image3.jpg"></img>
                   <div className={styles.item_category}>Plus Plus</div>
                   <div className={styles.item_price}>
                     $
@@ -292,12 +317,39 @@ const Pricing = (props) => {
                     )}
                     <span>per {period}</span>
                   </div>
-                  <LargeButton
-                    className={styles.tool_button}
-                    text="Select Basic"
-                    disabled={false}
-                    onClick={() => alert('large_primary_button')}
-                  />
+
+                  <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                    <input type="hidden" name="cmd" value="_s-xclick" />
+                    <input type="hidden" name="item_name" value={`Upgrade to Plus Plus`}></input>
+                    <input type="hidden" name="item_number" value={user?.id}></input>
+                    <input type="hidden" name="amount" value="25.00"></input>
+                    <input type="hidden" name="currency_code" value="USD"></input>
+                    <input
+                      type="hidden"
+                      name="cancel_return"
+                      value={`${originUrl}?paypal_cancel=true`}></input>
+                    <input
+                      type="hidden"
+                      name="return"
+                      value={`${originUrl}?paypal_success=true`}></input>
+                    <input type="hidden" name="custom" value={user._id}></input>
+                    <input type="hidden" name="hosted_button_id" value="JURZNUSJ8HLJJ" />
+                    <LargeButton
+                      className={styles.tool_button}
+                      text="Select Basic"
+                      disabled={false}
+                      onClick={() => {}}
+                      htmlType="image"
+                      name="submit"
+                    />
+                    <img
+                      alt=""
+                      border="0"
+                      src="https://www.paypal.com/en_IL/i/scr/pixel.gif"
+                      width="1"
+                      height="1"
+                    />
+                  </form>
                   <div className={styles.item_title}>
                     Perfect for freelancers, agencies, and graphic novel teams.
                     <span>Everything in Pro, plus</span>
