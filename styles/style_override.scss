@@ -85,6 +85,10 @@ body {
   }
   .storyBoardTabs .ant-tabs-nav .ant-tabs-ink-bar {
     height: 50px !important;
+    @include media-md {
+      height: 2px !important;
+      width: 20px;
+    }
   }
 
   .ant-tabs-content .ant-tabs-content-left {
@@ -1304,5 +1308,3 @@ img.rot4 {
     }
   }
 }
-
-  

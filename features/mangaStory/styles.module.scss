@@ -247,3 +247,33 @@
     margin-bottom: 22px;
   }
 }
+
+.showAnimation {
+  opacity: 0;
+  // display: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: url('/img/anima.gif');
+  -webkit-animation: anima 3s ease-out;
+  -moz-animation: anima 3s ease-out;
+  -o-animation: anima 3s ease-out;
+  animation: anima 3s ease-out;
+
+  @keyframes anima {
+    0% {
+      display: none;
+      opacity: 1;
+    }
+
+    1% {
+      display: block;
+      opacity: 1;
+    }
+
+    100% {
+      display: block;
+      opacity: 0;
+    }
+  }
+}

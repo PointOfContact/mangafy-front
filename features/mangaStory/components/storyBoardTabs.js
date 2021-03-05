@@ -28,6 +28,7 @@ const StoryBoardTabs = ({ user, mangaStory, openNotification, originUrl }) => {
   const { width } = useWindowSize();
 
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isShowAnimation, setIsShowAnimation] = useState(false);
 
   const showModal = () => {
     document.body.classList.add('body_remove_scroll');
@@ -57,10 +58,15 @@ const StoryBoardTabs = ({ user, mangaStory, openNotification, originUrl }) => {
     </div>
   );
   const clickBack = () => {
+    setIsShowAnimation(false);
     const nextTab = +storyBoardActiveTab - 1;
     setStoryBoardActiveTab(nextTab);
   };
   const clickNext = () => {
+    setIsShowAnimation(true);
+    setTimeout(() => {
+      setIsShowAnimation(false);
+    }, 3000);
     const nextTab = +storyBoardActiveTab + 1;
     setStoryBoardActiveTab(nextTab);
   };
@@ -99,7 +105,7 @@ const StoryBoardTabs = ({ user, mangaStory, openNotification, originUrl }) => {
       showModal();
     }, 2000);
   };
-
+  console.log('mangaStorymangaStorymangaStorymangaStory', storyBoard);
   return (
     <Tabs
       activeKey={storyBoardActiveTab.toString()}
@@ -128,6 +134,7 @@ const StoryBoardTabs = ({ user, mangaStory, openNotification, originUrl }) => {
           </span>
         }
         key={2}>
+        {isShowAnimation && <span className={styles.showAnimation}></span>}
         <div className={styles.tabContent}>
           <FindPartner />
           <Hero
@@ -145,6 +152,7 @@ const StoryBoardTabs = ({ user, mangaStory, openNotification, originUrl }) => {
           </span>
         }
         key={3}>
+        {isShowAnimation && <span className={styles.showAnimation}></span>}
         <div className={styles.tabContent}>
           <FindPartner />
           <ProjectScripts pages={storyBoard.pages} storyBoardId={storyBoard._id} />
@@ -158,6 +166,7 @@ const StoryBoardTabs = ({ user, mangaStory, openNotification, originUrl }) => {
           </span>
         }
         key={4}>
+        {isShowAnimation && <span className={styles.showAnimation}></span>}
         <div className={styles.tabContent}>
           <FindPartner />
           <ChooseLayout storyBoard={storyBoard} />
@@ -172,12 +181,14 @@ const StoryBoardTabs = ({ user, mangaStory, openNotification, originUrl }) => {
           </span>
         }
         key={5}>
+        {isShowAnimation && <span className={styles.showAnimation}></span>}
         <div className={styles.tabContent}>
           <FindPartner />
           <Upload
             className={styles.upload}
             storyBoardId={storyBoard?._id}
             onUploadSuccess={onUploadSuccess}
+            mangaUrl={storyBoard?.mangaUrl}
           />
           {renderNavigationButtons(!storyBoard?.mangaUrl)}
         </div>
@@ -202,6 +213,7 @@ const StoryBoardTabs = ({ user, mangaStory, openNotification, originUrl }) => {
         }
         disabled={!storyBoard?.mangaUrl}
         key={7}>
+        {isShowAnimation && <span className={styles.showAnimation}></span>}
         <div className={styles.tabContent}>
           <FindPartner />
           {isModalVisible ? (
