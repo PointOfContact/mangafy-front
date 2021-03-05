@@ -27,23 +27,6 @@
         box-shadow: 0px 0px 30px 0px rgba(123, 101, 243, 0.59);
       }
     }
-    .fb {
-      position: absolute;
-      cursor: pointer;
-      left: 17px;
-    }
-    .in {
-      position: absolute;
-      cursor: pointer;
-      right: 17px;
-      top: 17px;
-    }
-    .wt {
-      position: absolute;
-      cursor: pointer;
-      right: 0px;
-      top: 61px;
-    }
   }
   .title {
     font-weight: bold;
@@ -121,4 +104,64 @@
       margin-bottom: 15px;
     }
   }
+}
+
+.share_btn {
+  position: relative;
+  z-index: 1;
+  width: inherit;
+  height: inherit;
+}
+.share_btn span {
+  height: 67px;
+  width: 67px;
+  line-height: 60px;
+  font-size: 25px;
+  color: #e9fcf8;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.share_btn a span {
+  position: absolute;
+  left: 20px;
+  top: 80px;
+  height: 30px;
+  width: 30px;
+  line-height: 30px;
+  font-size: 18px;
+  border: 1px solid transparent;
+  z-index: -1;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.6s;
+}
+.click:checked ~ .share_btn a span {
+  height: 32px;
+  width: 32px;
+  line-height: 32px;
+  font-size: 23px;
+  z-index: 1;
+  opacity: 1;
+  pointer-events: auto;
+}
+.click:checked ~ .share_btn a:nth-child(2) span {
+  top: 0px !important;
+  left: 15px !important;
+}
+.click:checked ~ .share_btn a:nth-child(3) span {
+  top: 17px !important;
+  left: 70px !important;
+}
+.share_btn a:nth-child(3) span {
+  transition-delay: 0.2s;
+}
+.click:checked ~ .share_btn a:nth-child(4) span {
+  top: 72px !important;
+  left: 87px !important;
+}
+.share_btn a:nth-child(4) span {
+  transition-delay: 0.4s;
+}
+.click {
+  display: none;
 }
