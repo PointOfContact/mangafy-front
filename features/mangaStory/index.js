@@ -114,6 +114,7 @@ const MangeStory = (props) => {
                         mangaStory={mangaStory}
                         user={user}
                         openNotification={openNotification}
+                        originUrl={originUrl}
                       />
                     </TabPane>
                   )}

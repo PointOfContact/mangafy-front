@@ -2,10 +2,13 @@ import client from 'api/client';
 import restClient from 'api/restClient';
 import { withAuthComponent, withAuthServerSideProps } from 'components/withAuth';
 import MangeStory from 'features/mangaStory';
+import absoluteUrl from 'next-absolute-url';
 import { store } from 'store';
 
 export default withAuthComponent(MangeStory);
 export const getServerSideProps = withAuthServerSideProps(async (context, user = null, jwt) => {
+  const { origin } = absoluteUrl(context.req);
+
   try {
     user = user || store.user;
     const genres = await client.service('/api/v2/genres').find({
@@ -44,7 +47,7 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
         pid: context.params.pid,
         comments: comments.data,
         isOwn: user && user._id === res.authorInfo._id,
-        originUrl: `https://mangafy.club${context.req.url}`,
+        originUrl: `${origin}/manga-story/${context.params.pid}`,
       }, // will be passed to the page component as props
     };
   } catch (error) {

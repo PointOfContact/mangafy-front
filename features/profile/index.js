@@ -13,7 +13,7 @@ import PropTypes from 'prop-types';
 import styles from './styles.module.scss';
 
 const Profile = (props) => {
-  const { user, profile, mangaStories, total } = props;
+  const { user, profile, mangaStories, total, originUrl } = props;
 
   const { genres: genresEnums } = props;
   const profileGenres = genresEnums.data.filter(
@@ -33,6 +33,7 @@ const Profile = (props) => {
                   {...{
                     user,
                     profile,
+                    originUrl,
                   }}
                 />
               </div>
@@ -74,12 +75,21 @@ const Profile = (props) => {
 };
 
 Profile.propTypes = {
-  mangaStories: PropTypes.array.isRequired,
+  mangaStories: PropTypes.array,
   profile: PropTypes.object.isRequired,
-  user: PropTypes.object.isRequired,
+  user: PropTypes.object,
   total: PropTypes.number.isRequired,
-  limit: PropTypes.number.isRequired,
+  limit: PropTypes.number,
   genres: PropTypes.object.isRequired,
+  originUrl: PropTypes.object,
+};
+
+Profile.defaultProps = {
+  mangaStories: [],
+  user: null,
+  search: '',
+  limit: 9,
+  originUrl: '',
 };
 
 export default Profile;

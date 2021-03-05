@@ -23,7 +23,7 @@ import styles from '../styles.module.scss';
 
 const { TabPane } = Tabs;
 
-const StoryBoardTabs = ({ user, mangaStory, openNotification }) => {
+const StoryBoardTabs = ({ user, mangaStory, openNotification, originUrl }) => {
   const [storyBoardActiveTab, setStoryBoardActiveTab] = useState(1);
   const { width } = useWindowSize();
 
@@ -207,7 +207,7 @@ const StoryBoardTabs = ({ user, mangaStory, openNotification }) => {
           {isModalVisible ? (
             <ModalSuccess isModalVisible={isModalVisible} handleCancelModal={handleCancelModal} />
           ) : (
-            <ShareStoryBoard />
+            <ShareStoryBoard shareUrl={originUrl} />
           )}
           {renderNavigationButtons()}
         </div>
@@ -220,6 +220,11 @@ StoryBoardTabs.propTypes = {
   user: PropTypes.object.isRequired,
   mangaStory: PropTypes.object.isRequired,
   openNotification: PropTypes.func.isRequired,
+  originUrl: PropTypes.string,
+};
+
+StoryBoardTabs.defaultProps = {
+  originUrl: '',
 };
 
 export default StoryBoardTabs;
