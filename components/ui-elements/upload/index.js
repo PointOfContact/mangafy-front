@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import { Upload, message, notification } from 'antd';
+import client from 'api/client';
 // Api
 import { patchStoryBoard, uploadFile } from 'api/storyBoardClient';
 // Components
@@ -10,8 +11,20 @@ import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
-const PrimaryUpload = ({ storyBoardId, onUploadSuccess }) => {
-  const [fileList, setFileList] = useState([]);
+const PrimaryUpload = ({ storyBoardId, onUploadSuccess, mangaUrl }) => {
+  const uplType = mangaUrl.slice(-3);
+  const img = [
+    {
+      uid: '-1',
+      url:
+        uplType === 'pdf' || uplType === 'PDF'
+          ? 'https://icons.iconarchive.com/icons/graphicloads/filetype/256/pdf-icon.png'
+          : client.UPLOAD_URL + mangaUrl,
+      status: 'done',
+    },
+  ];
+
+  const [fileList, setFileList] = useState(img || []);
 
   const onChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);
@@ -73,11 +86,15 @@ const PrimaryUpload = ({ storyBoardId, onUploadSuccess }) => {
         reader.onload = () => resolve(reader.result);
       });
     }
-    // eslint-disable-next-line no-undef
-    const image = new Image();
-    image.src = src;
-    const imgWindow = window.open(src);
-    imgWindow.document.write(image.outerHTML);
+    if (uplType === 'pdf' || uplType === 'PDF') {
+      window.open(client.UPLOAD_URL + mangaUrl);
+    } else {
+      // eslint-disable-next-line no-undef
+      const image = new Image();
+      image.src = src;
+      const imgWindow = window.open(src);
+      imgWindow.document.write(image.outerHTML);
+    }
   };
   return (
     <div className="primary_upload">
@@ -116,10 +133,12 @@ const PrimaryUpload = ({ storyBoardId, onUploadSuccess }) => {
 PrimaryUpload.propTypes = {
   storyBoardId: PropTypes.string.isRequired,
   onUploadSuccess: PropTypes.func,
+  mangaUrl: PropTypes.string,
 };
 
 PrimaryUpload.defaultProps = {
   onUploadSuccess: () => {},
+  mangaUrl: null,
 };
 
 export default PrimaryUpload;
