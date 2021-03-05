@@ -107,7 +107,7 @@ const Lenguage = ({ user }) => {
     </>
   );
 };
-Lenguage.prototype = {
+Lenguage.propTypes = {
   user: PropTypes.object.required,
 };
 

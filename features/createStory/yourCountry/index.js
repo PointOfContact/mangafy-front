@@ -107,7 +107,7 @@ const Country = ({ user }) => {
     </>
   );
 };
-Country.prototype = {
+Country.propTypes = {
   user: PropTypes.object.required,
 };
 

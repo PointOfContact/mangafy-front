@@ -112,7 +112,7 @@ const Introduce = ({ user }) => {
   );
 };
 
-Introduce.prototype = {
+Introduce.propTypes = {
   user: PropTypes.objec,
 };
 export default Introduce;

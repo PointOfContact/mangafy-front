@@ -23,7 +23,7 @@ const MangeStoryCard = ({ mangaStories, client }) =>
     </Link>
   ));
 
-MangeStoryCard.prototype = {
+MangeStoryCard.propTypes = {
   mangaStories: PropTypes.array,
   client: PropTypes.object,
 };

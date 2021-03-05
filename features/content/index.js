@@ -100,7 +100,7 @@ const Content = (props) => {
   );
 };
 
-Content.prototype = {
+Content.propTypes = {
   user: PropTypes.object,
 };
 

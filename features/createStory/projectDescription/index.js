@@ -110,7 +110,7 @@ const ProjectDescription = ({ user }) => {
     </>
   );
 };
-ProjectDescription.prototype = {
+ProjectDescription.propTypes = {
   user: PropTypes.objec,
 };
 export default ProjectDescription;

@@ -99,7 +99,7 @@ const About = (props) => {
   );
 };
 
-About.prototype = {
+About.propTypes = {
   user: PropTypes.object,
 };
 

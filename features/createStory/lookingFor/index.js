@@ -147,7 +147,7 @@ const LookingFor = ({ user }) => {
     </>
   );
 };
-LookingFor.prototype = {
+LookingFor.propTypes = {
   user: PropTypes.objec,
 };
 

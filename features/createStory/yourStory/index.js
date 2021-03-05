@@ -118,7 +118,7 @@ const ProjectStory = ({ user }) => {
   );
 };
 
-ProjectStory.prototype = {
+ProjectStory.propTypes = {
   user: PropTypes.object.required,
 };
 

@@ -120,7 +120,7 @@ const MangaGenres = (props) => {
     </>
   );
 };
-MangaGenres.prototype = {
+MangaGenres.propTypes = {
   label: PropTypes.string,
   value: PropTypes.string,
   closable: PropTypes.bool,

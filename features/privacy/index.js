@@ -1,8 +1,8 @@
 import React from 'react';
 
-import ButtonToTop from 'components/ui-elements/button-toTop';
 import Footer from 'components/footer';
 import Header from 'components/header';
+import ButtonToTop from 'components/ui-elements/button-toTop';
 import Head from 'next/head';
 import PropTypes from 'prop-types';
 
@@ -28,194 +28,303 @@ const Privacy = (props) => {
         <div className={'content'}>
           <Header path="privacy" user={user} />
           <main>
-          <div className={styles.privacy_page}>
-            <div className={styles.title_section}>
-              <div className={styles.title_inner}>
-                <div className={styles.page_title}>Privacy Policy</div>
-                <div className={styles.page_description}>
-                  Simply pay the amount agreed upon with your freelancer (plus a standard 3%
-                  processing fee on payments). Your freelancers pay for our services with a percentage
-                  fee. Choose the plan suits your goals
+            <div className={styles.privacy_page}>
+              <div className={styles.title_section}>
+                <div className={styles.title_inner}>
+                  <div className={styles.page_title}>Privacy Policy</div>
+                </div>
+                <div className={styles.image_block}>
+                  <img src="/img/privacy_image.png"></img>
                 </div>
               </div>
-              <div className={styles.image_block}>
-                <img src="/img/privacy_image.png"></img>
+              <div className="col-12 col-lg-10 offset-lg-1">
+                <p>
+                  <strong>Effective Date: 04-03-2021</strong>
+                </p>
+                <h3>Your privacy is important to us</h3>
+                <p>Mangafy Lab is located at:</p>
+                <address>
+                  Mangafy Lab
+                  <br />
+                  Fikus 28/9 Tel Aviv Yaffo, Tel Aviv Yaffo <br />
+                  6820256 Tel Aviv District , Israel
+                  <br />
+                </address>
+                <p>
+                  It is Mangafy Lab's policy to respect your privacy regarding any information we
+                  may collect while operating our website. This Privacy Policy applies to{' '}
+                  <a href="https://mangafy.club"> mangafy.club</a> (hereinafter, "us", "we", or
+                  "mangafy.club"). We respect your privacy and are committed to protecting
+                  personally identifiable information you may provide us through the Website. We
+                  have adopted this privacy policy ("Privacy Policy") to explain what information
+                  may be collected on our Website, how we use this information, and under what
+                  circumstances we may disclose the information to third parties. This Privacy
+                  Policy applies only to information we collect through the Website and does not
+                  apply to our collection of information from other sources.
+                </p>
+                <p>
+                  This Privacy Policy, together with the Terms of service posted on our Website, set
+                  forth the general rules and policies governing your use of our Website. Depending
+                  on your activities when visiting our Website, you may be required to agree to
+                  additional terms of service.
+                </p>
+                <h2 id="tableofcontents">Contents</h2>
+                <p>Click below to jump to any section of this privacy policy</p>
+                <ol type="1">
+                  <li>
+                    <a href="#websitevisitors">
+                      <strong>Website Visitors</strong>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#PII">
+                      <strong>Personally-Identifying Information</strong>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#Security">
+                      <strong>Security</strong>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#Ads">
+                      <strong>Advertisements</strong>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#ExternalLinks">
+                      <strong>Links To External Sites</strong>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#Remarketing">
+                      <strong>Mangafy Lab uses Google AdWords for remarketing</strong>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#PIIProtection">
+                      <strong>Protection of Certain Personally-Identifying Information</strong>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#Stats">
+                      <strong>Aggregated Statistics</strong>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#Cookies">
+                      <strong>Cookies</strong>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#Ecommerce">
+                      <strong>E-commerce</strong>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#Changes">
+                      <strong>Privacy Policy Changes</strong>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#Credit">
+                      <strong>Contact Information &amp; Credit</strong>
+                    </a>
+                  </li>
+                </ol>
+                <h2 id="websitevisitors">1. Website Visitors</h2>
+                <p>
+                  Like most website operators, Mangafy Lab collects non-personally-identifying
+                  information of the sort that web browsers and servers typically make available,
+                  such as the browser type, language preference, referring site, and the date and
+                  time of each visitor request. Mangafy Lab's purpose in collecting non-personally
+                  identifying information is to better understand how Mangafy Lab's visitors use its
+                  website. From time to time, Mangafy Lab may release non-personally-identifying
+                  information in the aggregate, e.g., by publishing a report on trends in the usage
+                  of its website.
+                </p>
+                <p>
+                  Mangafy Lab also collects potentially personally-identifying information like
+                  Internet Protocol (IP) addresses for logged in users and for users leaving
+                  comments on https://mangafy.club blog posts. Mangafy Lab only discloses logged in
+                  user and commenter IP addresses under the same circumstances that it uses and
+                  discloses personally-identifying information as described below.
+                </p>
+                <p>
+                  <a href="#tableofcontents">Back to table of contents</a>
+                </p>
+                <h2 id="PII">2. Personally-Identifying Information</h2>
+                <p>
+                  Certain visitors to Mangafy Lab's websites choose to interact with Mangafy Lab in
+                  ways that require Mangafy Lab to gather personally-identifying information. The
+                  amount and type of information that Mangafy Lab gathers depends on the nature of
+                  the interaction. For example, we ask visitors who leave a comment at
+                  https://mangafy.club to provide a username and email address.
+                </p>
+                <p>
+                  <a href="#tableofcontents">Back to table of contents</a>
+                </p>
+                <h2 id="Security">3. Security</h2>
+                <p>
+                  The security of your Personal Information is important to us, but remember that no
+                  method of transmission over the Internet, or method of electronic storage is 100%
+                  secure. While we strive to use commercially acceptable means to protect your
+                  Personal Information, we cannot guarantee its absolute security.
+                </p>
+                <p>
+                  <a href="#tableofcontents">Back to table of contents</a>
+                </p>
+                <h2 id="Ads">4. Advertisements</h2>
+                <p>
+                  Ads appearing on our website may be delivered to users by advertising partners,
+                  who may set cookies. These cookies allow the ad server to recognize your computer
+                  each time they send you an online advertisement to compile information about you
+                  or others who use your computer. This information allows ad networks to, among
+                  other things, deliver targeted advertisements that they believe will be of most
+                  interest to you. This Privacy Policy covers the use of cookies by Mangafy Lab and
+                  does not cover the use of cookies by any advertisers.
+                </p>
+                <p>
+                  <a href="#tableofcontents">Back to table of contents</a>
+                </p>
+                <h2 id="ExternalLinks">5. Links To External Sites</h2>
+                <p>
+                  Our Service may contain links to external sites that are not operated by us. If
+                  you click on a third party link, you will be directed to that third party's site.
+                  We strongly advise you to review the Privacy Policy and terms of service of every
+                  site you visit.
+                </p>
+                <p>
+                  We have no control over, and assume no responsibility for the content, privacy
+                  policies or practices of any third party sites, products or services.
+                </p>
+                <p>
+                  <a href="#tableofcontents">Back to table of contents</a>
+                </p>
+                <h2 id="Remarketing">6. Mangafy Lab uses Google AdWords for remarketing</h2>
+                <p>
+                  Mangafy Lab uses the remarketing services to advertise on third party websites
+                  (including Google) to previous visitors to our site. It could mean that we
+                  advertise to previous visitors who haven't completed a task on our site, for
+                  example using the contact form to make an enquiry. This could be in the form of an
+                  advertisement on the Google search results page, or a site in the Google Display
+                  Network. Third-party vendors, including Google, use cookies to serve ads based on
+                  someone's past visits. Of course, any data collected will be used in accordance
+                  with our own privacy policy and Google's privacy policy.
+                </p>
+                <p>
+                  You can set preferences for how Google advertises to you using the Google Ad
+                  Preferences page, and if you want to you can opt out of interest-based advertising
+                  entirely by cookie settings or permanently using a browser plugin.
+                </p>
+                <p>
+                  <a href="#tableofcontents">Back to table of contents</a>
+                </p>
+                <h2 id="PIIProtection">
+                  7. Protection of Certain Personally-Identifying Information
+                </h2>
+                <p>
+                  Mangafy Lab discloses potentially personally-identifying and
+                  personally-identifying information only to those of its employees, contractors and
+                  affiliated organizations that (i) need to know that information in order to
+                  process it on Mangafy Lab's behalf or to provide services available at Mangafy
+                  Lab's website, and (ii) that have agreed not to disclose it to others. Some of
+                  those employees, contractors and affiliated organizations may be located outside
+                  of your home country; by using Mangafy Lab's website, you consent to the transfer
+                  of such information to them. Mangafy Lab will not rent or sell potentially
+                  personally-identifying and personally-identifying information to anyone. Other
+                  than to its employees, contractors and affiliated organizations, as described
+                  above, Mangafy Lab discloses potentially personally-identifying and
+                  personally-identifying information only in response to a subpoena, court order or
+                  other governmental request, or when Mangafy Lab believes in good faith that
+                  disclosure is reasonably necessary to protect the property or rights of Mangafy
+                  Lab, third parties or the public at large.
+                </p>
+                <p>
+                  If you are a registered user of https://mangafy.club and have supplied your email
+                  address, Mangafy Lab may occasionally send you an email to tell you about new
+                  features, solicit your feedback, or just keep you up to date with what's going on
+                  with Mangafy Lab and our products. We primarily use our blog to communicate this
+                  type of information, so we expect to keep this type of email to a minimum. If you
+                  send us a request (for example via a support email or via one of our feedback
+                  mechanisms), we reserve the right to publish it in order to help us clarify or
+                  respond to your request or to help us support other users. Mangafy Lab takes all
+                  measures reasonably necessary to protect against the unauthorized access, use,
+                  alteration or destruction of potentially personally-identifying and
+                  personally-identifying information.
+                </p>
+                <p>
+                  <a href="#tableofcontents">Back to table of contents</a>
+                </p>
+                <h2 id="Stats">8. Aggregated Statistics</h2>
+                <p>
+                  Mangafy Lab may collect statistics about the behavior of visitors to its website.
+                  Mangafy Lab may display this information publicly or provide it to others.
+                  However, Mangafy Lab does not disclose your personally-identifying information.
+                </p>
+                <p>
+                  <a href="#tableofcontents">Back to table of contents</a>
+                </p>
+                <h2 id="Cookies">9. Cookies</h2>
+                <p>
+                  To enrich and perfect your online experience, Mangafy Lab uses "Cookies", similar
+                  technologies and services provided by others to display personalized content,
+                  appropriate advertising and store your preferences on your computer.
+                </p>
+                <p>
+                  A cookie is a string of information that a website stores on a visitor's computer,
+                  and that the visitor's browser provides to the website each time the visitor
+                  returns. Mangafy Lab uses cookies to help Mangafy Lab identify and track visitors,
+                  their usage of https://mangafy.club, and their website access preferences. Mangafy
+                  Lab visitors who do not wish to have cookies placed on their computers should set
+                  their browsers to refuse cookies before using Mangafy Lab's websites, with the
+                  drawback that certain features of Mangafy Lab's websites may not function properly
+                  without the aid of cookies.
+                </p>
+                <p>
+                  By continuing to navigate our website without changing your cookie settings, you
+                  hereby acknowledge and agree to Mangafy Lab's use of cookies.
+                </p>
+                <p>
+                  <a href="#tableofcontents">Back to table of contents</a>
+                </p>
+                <h2 id="Ecommerce">10. E-commerce</h2>
+                <p>
+                  Those who engage in transactions with Mangafy Lab – by purchasing Mangafy Lab's
+                  services or products, are asked to provide additional information, including as
+                  necessary the personal and financial information required to process those
+                  transactions. In each case, Mangafy Lab collects such information only insofar as
+                  is necessary or appropriate to fulfill the purpose of the visitor's interaction
+                  with Mangafy Lab. Mangafy Lab does not disclose personally-identifying information
+                  other than as described below. And visitors can always refuse to supply
+                  personally-identifying information, with the caveat that it may prevent them from
+                  engaging in certain website-related activities.
+                </p>
+                <p>
+                  <a href="#tableofcontents">Back to table of contents</a>
+                </p>
+                <h2 id="Changes">11. Privacy Policy Changes</h2>
+                <p>
+                  Although most changes are likely to be minor, Mangafy Lab may change its Privacy
+                  Policy from time to time, and in Mangafy Lab's sole discretion. Mangafy Lab
+                  encourages visitors to frequently check this page for any changes to its Privacy
+                  Policy. Your continued use of this site after any change in this Privacy Policy
+                  will constitute your acceptance of such change.
+                </p>
+                <p>
+                  <a href="#tableofcontents">Back to table of contents</a>
+                </p>
+                <h2 id="Credit">12. Contact Information &amp; Credit</h2>
+                <p>
+                  This privacy policy was created at . If you have any questions about our Privacy
+                  Policy, please contact us via <a href="mailto:max@mangafy.club">email</a> or{' '}
+                  <a href="tel:">phone</a>.
+                </p>
+                <p>
+                  <a href="#tableofcontents">Back to table of contents</a>
+                </p>{' '}
               </div>
             </div>
-            <div className={styles.info_section}>
-              <div className={styles.update_block}>Updated October 4, 2019</div>
-              <div className={styles.info_block}>
-                <div className={styles.info_title}>Overview</div>
-                <div className={styles.info_description}>
-                  Dribbble Holdings Ltd. (“Dribbble”, “we”, “us” or “our”) is committed to protecting
-                  the privacy of personal information (i.e. any information relating to an identified
-                  or identifiable natural person) who visit the https://dribbble.com website and
-                  Dribbble mobile software application (collectively, the “Site”) and use the services
-                  available thereon (the “Services”). Amendments to this Privacy Policy will be posted
-                  to the Site and/or Services and will be effective when posted. Your continued use of
-                  the Site and/or Services following the posting of any amendment to this Privacy
-                  Policy shall constitute your acceptance of such amendment.
-                </div>
-              </div>
-              <div className={styles.info_block}>
-                <div className={styles.info_title}>Consent and Information Collection and Use</div>
-                <div className={styles.info_description}>
-                  When you register as a user of our Site and Services, we ask for personal
-                  information that will be used to activate your account, provide the Services to you,
-                  communicate with you about the status of your account, and for other purposes set
-                  out in this Privacy Policy. Your name, company name, address, telephone number,
-                  email address, credit card information and certain other information about you may
-                  be required by us to provide the Services or be disclosed by you during your use of
-                  the Services. You will also be asked to create a user name and private password,
-                  which will become part of your account information. <br></br>
-                  <br></br>By providing personal information to us and by retaining us to provide you
-                  with the Services, you voluntarily consent to the collection, use and disclosure of
-                  such personal information as specified in this Privacy Policy. The legal bases for
-                  our processing of personal information are primarily that the processing is
-                  necessary for providing the Services and that the processing is carried out in our
-                  legitimate interests, which are further explained below. Without limiting the
-                  foregoing, we may on occasion ask you to consent when we collect, use, or disclose
-                  your personal information in specific circumstances.<br></br>
-                  <br></br>We take steps designed to ensure that only those employees who need access
-                  to your personal information to fulfil their employment duties will have access to
-                  it. We may use and disclose your personal or account information for the following
-                  purposes<br></br>
-                  <br></br>- To provide the Site and Services to you and to other users of the Site
-                  and Services; <br></br>- To improve the quality of the Site and Services through
-                  polls, surveys and other similar feedback gathering activities conducted by Dribbble
-                  and/or third parties; <br></br>- To create, manage and control your account
-                  information, and to verify access rights to the Site and Services; <br></br>- To
-                  bill your account; <br></br>- To communicate with you (subject to your opt-out
-                  rights set forth in this Privacy Policy), including without limitation for the
-                  purpose of providing you with information about the Services, or informing you of
-                  changes or additions to the Services or of the availability of any other services or
-                  features we provide; <br></br>- To assess service levels, monitor traffic patterns
-                  and gauge popularity of different features and service options of the Site and/or
-                  Services; <br></br>- To enforce this Privacy Policy or our Terms of Service;{' '}
-                  <br></br>- To protect against fraud or error, and to respond to claims of any
-                  violation of our rights or those of any third parties; <br></br>- To respond to your
-                  requests for customer service; <br></br>- To protect the rights, property or
-                  personal safety of you, us, our users and the public; and As required to comply with
-                  applicable laws or as authorized by applicable laws. For the purposes of billing
-                  your account (if you have a paid account) and in order to process payments, Dribbble
-                  utilizes third party payment gateways, such as Stripe and Paypal, who will utilize
-                  your credit card and other payment information in accordance with their respective
-                  privacy policies. Dribbble shall not be liable to you or any other person for any
-                  damages that might result from unauthorized use, publication, disclosure or any
-                  other misuse of such payment information, including credit card information<br></br>
-                  <br></br>Dribbble may share your personal information with its registered API
-                  application providers, including Chrome tab extensions Panda and Muz.li which
-                  deliver relevant design stories and inspiration. We invite you to review their
-                  applicable data protection policies.<br></br>
-                  <br></br>When we disclose your personal information to third parties, we take
-                  reasonable measures to ensure that the rules set forth in this Privacy Policy are
-                  complied with and these third parties provide sufficient guarantees to implement
-                  appropriate technical and organisational measures.<br></br>
-                  <br></br>Your personal information may be stored and processed in any country where
-                  we have facilities or in which we engage third party service providers. By using the
-                  Services, you consent to the transfer of information to countries outside your
-                  country of residence, which may have different data protection rules than in your
-                  country. While such information is outside of Canada, it is subject to the laws of
-                  the country in which it is held, and may be subject to disclosure to the
-                  governments, courts or law enforcement or regulatory agencies of such other country,
-                  pursuant to the laws of such country. However, our practices regarding your personal
-                  information will at all times continue to be governed by this Privacy Policy and, if
-                  applicable, we will comply with the General Data Protection Regulation (“GDPR”)
-                  requirements providing adequate protection for the transfer of personal information
-                  from the EU/EEA to third country.<br></br>
-                  <br></br>We may occasionally communicate with you regarding our products, services,
-                  news and events. You have the option to not receive this information. We provide an
-                  opt-out function within all email communications of this nature, or will cease to
-                  communicate with you for this purpose if you contact us and tell us not to
-                  communicate this information to you. The only kind of these communications that you
-                  may not “opt-out” of are those required to communicate announcements related to the
-                  Services, including information specific to your Account, planned Services
-                  suspensions and outages. We will attempt to minimize this type of communication to
-                  you
-                </div>
-              </div>
-              <div className={styles.info_block}>
-                <div className={styles.info_title}>Age of Consent</div>
-                <div className={styles.info_description}>
-                  We do not knowingly provide the Services to, and will not knowingly collect the
-                  personal information from anyone under the age of consent. If you live in a country
-                  in the EU/EEA, you must be at least 16 years old to use our Services or such greater
-                  age required in your country to register for or use our Services. If you live in any
-                  other country except those in the EU/EEA, you must be at least 13 years old to use
-                  our Services or such greater age required in your country to register for or use our
-                  Services. In addition to being of the minimum required age to use our Services under
-                  applicable law, if you are not old enough to have authority to agree to our Privacy
-                  Policy in your country, your parent or guardian must agree to our Privacy Policy on
-                  your behalf. If you have any concerns about your child’s personal information,
-                  please contact us at privacy@dribbble.com.<br></br>
-                  <br></br>Neither the Site nor the Services are intended for children under 13 years
-                  of age, and no one under age 13 may provide any personal information to, on or
-                  through the Site or Services. We do not knowingly collect personal information from
-                  children under 13. If you are under 13, do not use or provide any information to, on
-                  or through the Site or Services, make any purchases through the Site or Services,
-                  use any of the interactive or public comment features, or provide any information
-                  about yourself to us, including your name, address, telephone number, email address,
-                  or any screen name or user name you may use. If we learn we have collected or
-                  received personal information from a child under 13 without verification of parental
-                  consent, we will delete that information. If you believe we might have any
-                  information from or about a child under 13, please contact us at the email address
-                  provided in the paragraph above.
-                </div>
-              </div>
-              <div className={styles.info_block}>
-                <div className={styles.info_title}>Rights to Your Information</div>
-                <div className={styles.info_description}>
-                  You have the right to access and edit your information at any time through the web
-                  interface provided as part of the Services. On written request and subject to proof
-                  of identity, you may access the personal information that we hold, used or
-                  communicated and ask that any necessary corrections be made, where applicable, as
-                  authorized or required by law. However, to make sure that the personal information
-                  we maintain about you is accurate and up to date, please inform us immediately of
-                  any change in your personal information by mail or e-mail.<br></br>
-                  <br></br>Under the GDPR, you may be entitled to additional rights, including: (i)
-                  the right to withdraw consent to processing where consent is the basis of
-                  processing; (ii) the right to access your personal information and certain other
-                  supplementary information, under certain conditions; (iii) the right to object to
-                  unlawful data processing, under certain conditions; (iv) the right to erasure of
-                  personal information about you, under certain conditions; (v) the right to demand
-                  that we restrict processing of your personal information, under certain conditions,
-                  if you believe we have exceeded the legitimate basis for processing, processing is
-                  no longer necessary, are processing, or believe your personal information is
-                  inaccurate; (vi) the right to data portability of personal information concerning
-                  you that you provided us in a structured, commonly used, and machine-readable
-                  format, under certain conditions; (vii) the right object to decisions being taken by
-                  automated means which produce legal effects concerning you or similarly
-                  significantly affect you, under certain conditions; (viii) the right to lodge a
-                  complaint with data protection authorities. If you want to learn more about your
-                  rights under the GDPR, you can visit the European Commission’s page on Data
-                  Protection.
-                </div>
-              </div>
-              <div className={styles.info_block}>
-                <div className={styles.info_title}>Changes to this Policy</div>
-                <div className={styles.info_description}>
-                  We may update this Privacy Policy from time to time. If we do so, we will send an
-                  email to users subscribed to the Company News list. We will also add a site banner
-                  alerting users who may not be subscribed. If the change materially effects the
-                  treatment of your personal data, and we have your email but you are not subscribed
-                  to the Company News list, we will send you an email. (You are responsible for
-                  ensuring that we have an up-to-date email for this purpose.)
-                </div>
-              </div>
-              <div className={styles.info_block}>
-                <div className={styles.info_title}>Changes to this Policy</div>
-                <div className={styles.info_description}>
-                  If you have any questions or comments about this Privacy Policy or your personal
-                  information, to make an access or correction request, to exercise any applicable
-                  rights, to make a complaint, or to obtain information about our policies and
-                  practices with respect to any service providers outside Canada, our Privacy Officer
-                  (or Data Protection Officer) can be reached by mail or email using the following
-                  contact information: by email at privacy@dribbble.com or by mail at 524 Yates St.,
-                  Victoria, BC, V8W 1K8, Canada.
-                </div>
-              </div>
-            </div>
-          </div>
           </main>
         </div>
         <Footer />
@@ -224,7 +333,7 @@ const Privacy = (props) => {
   );
 };
 
-Privacy.prototype = {
+Privacy.PropTypes = {
   user: PropTypes.object,
 };
 

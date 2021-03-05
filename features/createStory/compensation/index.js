@@ -153,7 +153,7 @@ const Compensation = ({ user }) => {
   );
 };
 
-Compensation.prototype = {
+Compensation.propTypes = {
   user: PropTypes.object,
 };
 
