@@ -30,6 +30,7 @@ export function login(payload) {
 export function logout() {
   return auth.signout().then(() => {
     clearClientCookie(FEATHERS_COOKIE);
+    store.user = null;
     return {};
   });
 }

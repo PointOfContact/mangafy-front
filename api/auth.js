@@ -45,25 +45,7 @@ const auth = {
   },
 
   signout() {
-    console.log('signout');
-    const openNotification = (type, message) => {
-      notification[type]({
-        message,
-      });
-    };
-
-    return client
-      .logout()
-      .then(() => {
-        // set client.authenticated flag FALSE
-        client.authenticated = false;
-
-        console.log('signout successful');
-      })
-      .catch((err) => {
-        openNotification('error', err.message);
-        return Promise.reject(err);
-      });
+    client.authenticated = false;
   },
 
   register(email, password, name, type) {

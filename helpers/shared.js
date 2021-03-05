@@ -1,4 +1,5 @@
 import { notification } from 'antd';
+import { logout } from 'store';
 
 import client from '../api/client';
 
@@ -68,5 +69,6 @@ const removeCookies = () => {
 export const removeAllStorage = () => {
   localStorage.clear();
   sessionStorage.clear();
+  logout();
   removeCookies();
 };
