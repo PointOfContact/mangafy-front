@@ -5,7 +5,9 @@ import client from 'api/client';
 import cn from 'classnames';
 import { Comments } from 'components/comments';
 import Footer from 'components/footer';
+import FooterPolicy from 'components/footer-policy';
 import Header from 'components/header';
+import ButtonToTop from 'components/ui-elements/button-toTop';
 import Head from 'next/head';
 import PropTypes from 'prop-types';
 
@@ -65,6 +67,7 @@ const MangeStory = (props) => {
         <meta name="description" content={mangaStory.story}></meta>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <ButtonToTop />
       <main className="main_back_2">
         <Header path="mangaStory" user={user} />
         <div className={cn(styles.pageWrap, 'manga-story-page')}>
@@ -163,6 +166,7 @@ const MangeStory = (props) => {
           </section>
         </div>
         <Footer />
+        <FooterPolicy />
       </main>
     </div>
   );
