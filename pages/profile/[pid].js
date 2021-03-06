@@ -31,7 +31,7 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
         total: Math.ceil(res.total / res.limit),
         limit: res.limit,
         current: Math.ceil((res.skip - 1) / res.limit) + 1,
-        originUrl: `${origin}/profile/${profile._id}`,
+        originUrl: `https://mangafy.club/profile/${profile._id}`,
       }, // will be passed to the page component as props
     };
   } catch (error) {

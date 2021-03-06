@@ -47,7 +47,7 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
         pid: context.params.pid,
         comments: comments.data,
         isOwn: user && user._id === res.authorInfo._id,
-        originUrl: `${origin}/manga-story/${context.params.pid}`,
+        originUrl: `https://mangafy.club/manga-story/${context.params.pid}`,
       }, // will be passed to the page component as props
     };
   } catch (error) {
