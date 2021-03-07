@@ -1,9 +1,7 @@
 import React from 'react';
 
 import cn from 'classnames';
-// import SvgClock from 'components/icon/Clock';
 import SvgPortfolio from 'components/icon/Portfolio';
-// import moment from 'moment';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
 
@@ -49,10 +47,6 @@ const ColaborationCards = ({ label, client }) => {
           <SvgPortfolio width="14px" height="14px" />
           {label.compensationModel == 'paid' ? 'Commission' : 'Collaboration'}
         </div>
-        {/* <div className={styles.colabWrap__progress}>
-          <SvgClock width="14px" height="14px" />
-          {moment(new Date(label.createdAt)).from(moment(new Date()))}
-        </div> */}
       </div>
     </div>
   );

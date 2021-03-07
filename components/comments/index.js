@@ -10,26 +10,23 @@ const CommentList = ({ comments }) => (
   <List
     dataSource={comments}
     itemLayout="horizontal"
-    renderItem={(props) => {
-      console.log(props.senderInfo[0]);
-      return (
-        <Comment
-          datetime={props.createdAt}
-          {...props}
-          author={props.senderInfo[0] && props.senderInfo[0].name}
-          avatar={
-            <Avatar
-              src={
-                props.senderInfo[0]
-                  ? client.UPLOAD_URL + props.senderInfo[0].avatar
-                  : '../public/img/four-left.svg'
-              }
-              alt={props.senderInfo.name && props.senderInfo.name}
-            />
-          }
-        />
-      );
-    }}
+    renderItem={(props) => (
+      <Comment
+        datetime={props.createdAt}
+        {...props}
+        author={props.senderInfo[0] && props.senderInfo[0].name}
+        avatar={
+          <Avatar
+            src={
+              props.senderInfo[0]
+                ? client.UPLOAD_URL + props.senderInfo[0].avatar
+                : '../public/img/four-left.svg'
+            }
+            alt={props.senderInfo.name && props.senderInfo.name}
+          />
+        }
+      />
+    )}
   />
 );
 
@@ -102,7 +99,7 @@ export const Comments = ({ commentsData = [], mangaStory = false, user = null, i
         </div>
       )}
       <Comment
-        className={"manga-story-comments"}
+        className={'manga-story-comments'}
         author={user && user.name}
         avatar={
           <Avatar

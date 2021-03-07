@@ -1,6 +1,8 @@
 // Use the hidden-source-map option when you don't want the source maps to be
 // publicly available on the servers, only to the error reporting
 const withSourceMaps = require('@zeit/next-source-maps')();
+const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
+const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const withPlugins = require('next-compose-plugins');
 const SentryWebpackPlugin = require('@sentry/webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
@@ -46,6 +48,17 @@ const nextConfigs = {
       ],
       exclude: /node_modules/,
     });
+
+    if (options.defaultLoaders.babel.options.plugins === undefined) {
+      options.defaultLoaders.babel.options.plugins = [];
+    }
+    options.defaultLoaders.babel.options.plugins.push([
+      'import',
+      {
+        libraryName: 'antd',
+        style: true,
+      },
+    ]);
 
     webpackConfig.optimization.minimize = true;
     webpackConfig.optimization.minimizer = [];
@@ -106,4 +119,13 @@ const nextConfigs = {
   },
 };
 
-module.exports = withPlugins([[withSourceMaps]], nextConfigs);
+module.exports = withPlugins(
+  [
+    [withSourceMaps],
+    new MomentLocalesPlugin({
+      localesToKeep: ['es-us'],
+    }),
+    new DuplicatePackageCheckerPlugin(),
+  ],
+  nextConfigs
+);

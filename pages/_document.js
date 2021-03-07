@@ -1,13 +1,14 @@
+/* eslint-disable class-methods-use-this */
 import React from 'react';
 
-import Document, { Head, Main, NextScript } from 'next/document';
+import Document, { Html, Head, Main, NextScript } from 'next/document';
 
 const GA_TRACKING_ID = 'GTM-P6RRF46';
 
 export default class MyDocument extends Document {
   render() {
     return (
-      <html lang="en-US">
+      <Html lang="en-US">
         <Head>
           <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Proxima+Nova"></link>
           <link
@@ -52,7 +53,7 @@ export default class MyDocument extends Document {
           <Main />
           <NextScript />
         </body>
-      </html>
+      </Html>
     );
   }
 }
