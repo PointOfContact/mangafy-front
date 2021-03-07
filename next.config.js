@@ -6,6 +6,9 @@ const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const withPlugins = require('next-compose-plugins');
 const SentryWebpackPlugin = require('@sentry/webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const resolve = require('resolve');
+
+const path = require('path');
 
 const packageJson = require('./version.json');
 
@@ -21,7 +24,19 @@ const VERCEL_BITBUCKET_COMMIT_SHA = 'VERCEL_BITBUCKET_COMMIT_SHA';
 const COMMIT_SHA =
   VERCEL_GITHUB_COMMIT_SHA || VERCEL_GITLAB_COMMIT_SHA || VERCEL_BITBUCKET_COMMIT_SHA;
 
-const aliases = {};
+const aliases = {
+  '@babel/runtime': path.resolve(__dirname, 'node_modules/@babel/runtime'),
+  lodash: path.resolve(__dirname, 'node_modules/lodash'),
+  debug: path.resolve(__dirname, 'node_modules/debug'),
+  ms: path.resolve(__dirname, 'node_modules/ms'),
+  react: path.resolve(__dirname, 'node_modules/react'),
+  'react-is': path.resolve(__dirname, 'node_modules/react-is'),
+};
+
+// styled jsx will fail without it
+if (typeof require !== 'undefined') {
+  require.extensions['.less'] = (file) => {};
+}
 
 const nextConfigs = {
   experimental: {
@@ -29,6 +44,13 @@ const nextConfigs = {
   },
   webpack(webpackConfig, options) {
     Object.assign(webpackConfig.resolve.alias, aliases);
+
+    webpackConfig.plugins.push(
+      new MomentLocalesPlugin({
+        localesToKeep: ['es-us'],
+      })
+    );
+    webpackConfig.plugins.push(new DuplicatePackageCheckerPlugin());
 
     webpackConfig.module.rules.push({
       test: /\.(js|jsx)$/,
@@ -107,6 +129,40 @@ const nextConfigs = {
     //   );
     // }
 
+    webpackConfig.externals = [];
+
+    if (options.isServer) {
+      // add antd to https://github.com/zeit/next.js/blob/canary/build/webpack.js#L34-L59
+      // This makes sure paths are relative when pushing build to other systems
+      webpackConfig.externals.push((context, request, callback) => {
+        resolve(request, { basedir: options.dir, preserveSymlinks: true }, (err, res) => {
+          if (err) {
+            return callback();
+          }
+
+          // Default pages have to be transpiled
+          if (res.match(/node_modules[/\\]next[/\\]dist[/\\]pages/)) {
+            return callback();
+          }
+
+          // Webpack itself has to be compiled because it doesn't always use module relative paths
+          if (
+            res.match(/node_modules[/\\]webpack/) ||
+            res.match(/node_modules[/\\]css-loader/) ||
+            res.match(/node_modules[/\\]antd/)
+          ) {
+            return callback();
+          }
+
+          if (res.match(/node_modules[/\\].*\.js$/)) {
+            return callback(null, `commonjs ${request}`);
+          }
+
+          callback();
+        });
+      });
+    }
+
     return webpackConfig;
   },
   crossOrigin: 'anonymous',
@@ -121,10 +177,21 @@ const nextConfigs = {
 module.exports = withPlugins(
   [
     [withSourceMaps],
-    new MomentLocalesPlugin({
-      localesToKeep: ['es-us'],
-    }),
-    new DuplicatePackageCheckerPlugin(),
+    // [
+    //   withLess,
+    //   {
+    //     lessLoaderOptions: {
+    //       javascriptEnabled: true,
+    //       // theme antd here
+    //     },
+    //   },
+    // ],
+
+    // [
+    //   new MomentLocalesPlugin({
+    //     localesToKeep: ['es-us'],
+    //   }),
+    // ][new DuplicatePackageCheckerPlugin()],
   ],
   nextConfigs
 );
