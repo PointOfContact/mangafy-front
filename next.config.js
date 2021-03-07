@@ -56,7 +56,6 @@ const nextConfigs = {
       'import',
       {
         libraryName: 'antd',
-        style: true,
       },
     ]);
 
