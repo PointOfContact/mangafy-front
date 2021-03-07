@@ -156,7 +156,7 @@ const TabStory = (props) => {
           )}
         </div>
 
-        {isMyProfile || storyEditMode || (
+        {isMyProfile && !storyEditMode && (
           <div className={styles.card_wrap} gutter={[16, 16]}>
             {!userData?.content && (
               <div className={styles.card}>
@@ -193,7 +193,7 @@ const TabStory = (props) => {
             )}
           </div>
         )}
-        {!isMyProfile || storyEditMode || (
+        {!isMyProfile && (
           <div className={styles.card_wrap} gutter={[16, 16]}>
             {!profile?.content && (
               <div className={styles.card}>

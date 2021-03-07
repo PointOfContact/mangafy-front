@@ -13,7 +13,7 @@ import PropTypes from 'prop-types';
 const MyProfile = (props) => {
   const { user, mangaStories, total, originUrl, profile } = props;
   const { genres: genresEnums } = props;
-  const [isMyProfile] = useState(false);
+  const [isMyProfile] = useState(true);
   const [editMode, setEditMode] = useState(false);
   const [storyEditMode, setStoryEditMode] = useState(false);
   const [errMessage, setErrMessage] = useState('');

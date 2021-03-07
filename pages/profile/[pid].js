@@ -19,7 +19,7 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
     const res = await client.service('/api/v2/manga-stories').find({
       query: {
         author: context.params.pid,
-        $limit: 3,
+        $limit: 10,
       },
     });
     return {
