@@ -13,6 +13,7 @@ import PropTypes from 'prop-types';
 
 import BannerSection from './components/bannersSection';
 import StoryBoardTabs from './components/storyBoardTabs';
+import StoryTab from './components/StoryTab';
 import styles from './styles.module.scss';
 
 const { TabPane } = Tabs;
@@ -123,21 +124,24 @@ const MangeStory = (props) => {
                   )}
                   <TabPane tab="STORY" key="2" className="story">
                     <div className={styles.tabWrap}>
-                      <h3 className={styles.tabTitle}>Here is a my story!</h3>
+                      {/* <h3 className={styles.tabTitle}>Here is a my story!</h3> */}
+                      {/* <StoryTab baseData={baseData} /> */}
                       <p>
-                        {!editMode
-                          ? baseData.story
-                          : canEdit && (
-                              <TextArea
-                                autoSize={{ minRows: 3, maxRows: 1000 }}
-                                placeholder="Type here..."
-                                value={baseData.story}
-                                onChange={onChangeSingleField}
-                                type="text"
-                                className="textarea_text"
-                                name="story"
-                              />
-                            )}
+                        {!editMode ? (
+                          <StoryTab baseData={baseData} />
+                        ) : (
+                          canEdit && (
+                            <TextArea
+                              autoSize={{ minRows: 3, maxRows: 1000 }}
+                              placeholder="Type here..."
+                              value={baseData.story}
+                              onChange={onChangeSingleField}
+                              type="text"
+                              className="textarea_text"
+                              name="story"
+                            />
+                          )
+                        )}
                         <p></p>
                       </p>
                     </div>

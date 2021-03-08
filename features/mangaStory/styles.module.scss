@@ -10,6 +10,52 @@
   font-weight: 500;
   font-size: 20px;
 }
+.storyTab {
+  margin-top: 22px;
+  padding: 24px;
+  .storyTabTitle {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 30px;
+    text-align: center;
+    margin-bottom: 6px;
+    height: 99px;
+  }
+  .cardWrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 48px;
+  }
+  .card {
+    display: inline-block;
+  }
+  .storyTabDescription {
+    font-family: Noto Sans JP;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 35px;
+    .storyKey {
+      color:  $primaryDark;
+    }
+  }
+  .autherBlock {
+    margin-top: 48px;
+  }
+  .participents {
+    margin-left: 20px;
+    display: flex;
+    margin-top: 16px;
+  }
+  .participents img{
+    width: 68.8px;
+    height: 68.8px;
+    margin-left: -20px;
+    border-radius: 50%;
+    background: red;
+  }
+}
 .pageWrap {
   max-width: 1049px;
   margin-left: auto;
@@ -206,7 +252,7 @@
       text-align: center;
     }
   }
-
+  
   .addbutton {
     display: flex;
     flex-direction: column;
