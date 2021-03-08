@@ -53,7 +53,7 @@ const Idea = ({ storyBoard }) => {
   return (
     <div className={styles.idea__container}>
       <Input
-        placeholder="Title"
+        placeholder="Name your graphic novel"
         className={styles.idea__title__input}
         value={idea.title}
         onChange={handleTitleChange}
@@ -62,7 +62,7 @@ const Idea = ({ storyBoard }) => {
       />
       <TextArea
         autoSize={{ minRows: 3, maxRows: 10 }}
-        placeholder="Type here..."
+        placeholder="It's time to start typing your plot"
         value={idea.text}
         onChange={handleTextChange}
         onBlur={onBlure}
