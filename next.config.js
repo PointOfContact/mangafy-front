@@ -42,6 +42,9 @@ const nextConfigs = {
   experimental: {
     scss: true,
   },
+  images: {
+    domains: ['mangafy.club', 'ui-avatars.com'],
+  },
   webpack(webpackConfig, options) {
     Object.assign(webpackConfig.resolve.alias, aliases);
 

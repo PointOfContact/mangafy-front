@@ -4,6 +4,7 @@ import client from 'api/client';
 import cn from 'classnames';
 import PrimaryButton from 'components/ui-elements/button';
 import { removeAllStorage } from 'helpers/shared';
+import Image from 'next/image';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 
@@ -110,13 +111,16 @@ const Header = ({ user, path }) => {
                           <span>Profile</span>
                           <div className={cn(styles.img, styles.imgOnline)}>
                             <div className={styles.avatar}>
-                              <img
+                              <Image
+                                width={50}
+                                height={50}
                                 src={
                                   user.avatar
                                     ? client.UPLOAD_URL + user.avatar
-                                    : 'https://swanbulk.com/wp-content/uploads/2020/03/user-icon.svg'
+                                    : `https://ui-avatars.com/api/?background=7b65f3&name=${user.name}&rounded=true&color=ffffff`
                                 }
-                                alt=""></img>
+                                alt="Picture of the user"
+                              />
                             </div>
                           </div>
                         </span>

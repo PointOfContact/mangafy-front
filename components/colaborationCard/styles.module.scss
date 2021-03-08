@@ -55,6 +55,7 @@
     background-image: url(../../public/img/green-eclips.svg);
     background-size: cover;
     position: relative;
+    z-index: 1;
   }
   &__avatar {
     width: 104px;
@@ -171,6 +172,7 @@
     position: relative;
     &:before {
       content: '';
+      z-index: 1;
       width: 104px;
       height: 104px;
       background-image: url(../../public/img/green-eclips.svg);

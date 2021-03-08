@@ -2,6 +2,7 @@ import React from 'react';
 
 import cn from 'classnames';
 import SvgPortfolio from 'components/icon/Portfolio';
+import Image from 'next/image';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
 
@@ -22,9 +23,13 @@ const ColaborationCards = ({ label, client }) => {
       <div className={styles.colabWrap__top}>
         <div className={cn(styles.avatar__img, styles.avatar__imgOnline)}>
           <div className={styles.avatar__avatar}>
-            <img
+            <Image
+              width={104}
+              height={104}
+              layout="responsive"
               src={label.image ? client.UPLOAD_URL + label.image : '/img/mangastory.jpg'}
-              alt=""></img>
+              alt="Manga story cover"
+            />
           </div>
         </div>
         <div className={styles.colabWrap__name}>

@@ -145,6 +145,7 @@
     background-image: url(../../public/img/green-eclips.svg);
     background-size: cover;
     position: relative;
+    z-index: 1;
     @include media-md {
       width: 46px;
       height: 46px;
