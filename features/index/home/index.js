@@ -19,10 +19,15 @@ export default function Home() {
                 <span>MangaFY</span>
               </div>
               <div className={styles.main__descr}>
-                The digital hub designed to help you produce your very owm comic or manga. From story buidling to a full digital release.
+                The digital hub designed to help you produce your very owm comic or manga. From
+                story buidling to a full digital release.
               </div>
               <Link href="/sign-up">
-                <LargeButton className={styles.btn__signUp} text="SIGN UP for FREE" />
+                <LargeButton
+                  id="SignUpForFreeBtnId"
+                  className={styles.btn__signUp}
+                  text="SIGN UP for FREE"
+                />
               </Link>
             </div>
             <div className={styles.main__right}>
@@ -88,7 +93,7 @@ export default function Home() {
             </div>
           </div>
           <Link href="/sign-in">
-            <LargeButton className={styles.btn__login} text="LOG-IN Now" />
+            <LargeButton id="LoginBtnId" className={styles.btn__login} text="LOG-IN Now" />
           </Link>
         </div>
       </div>
@@ -153,7 +158,11 @@ export default function Home() {
               <br />a published bestseller
             </div>
             <Link href="/create-a-story/start">
-              <LargeButton className={styles.btn__submit} text="Submit an IDEA" />
+              <LargeButton
+                id="CreateAStoryBtnId"
+                className={styles.btn__submit}
+                text="Submit an IDEA"
+              />
             </Link>
           </div>
         </div>
@@ -215,7 +224,7 @@ export default function Home() {
             </p>
           </div>
           <Link href="/sign-up">
-            <LargeButton className={styles.btn__submit} text="Try For Free" />
+            <LargeButton id="TryForFreeBtnId" className={styles.btn__submit} text="Try For Free" />
           </Link>
         </div>
       </div>
@@ -233,7 +242,7 @@ export default function Home() {
             <img src="/img/join-ico.png" alt="" />
           </div>
           <Link href="/sign-up">
-            <LargeButton className={styles.btn__submit} text="Sign UP" />
+            <LargeButton id="SignUpBtnId" className={styles.btn__submit} text="Sign UP" />
           </Link>
         </div>
       </div>

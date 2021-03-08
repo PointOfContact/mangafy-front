@@ -47,9 +47,15 @@ export const ShareStoryBoard = ({ shareUrl }) => (
       <img src="/img/comico.svg" alt="" />
     </div>
     <div className={styles.logos_mobile}>
-      <button type="button">Tapas</button>
-      <button type="button">Webtoon</button>
-      <button type="button">Comicos</button>
+      <button id="TapasId" type="button">
+        Tapas
+      </button>
+      <button id="WebtoonId" type="button">
+        Webtoon
+      </button>
+      <button id="ComicosId" type="button">
+        Comicos
+      </button>
     </div>
     <div className={styles.link}>
       <h4>Link</h4>

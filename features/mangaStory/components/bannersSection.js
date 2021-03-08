@@ -140,7 +140,12 @@ const BannerSection = ({
       {baseData.searchingFor.map((item) =>
         userTypesEnums[item] ? (
           <p>
-            <Button key={item} value="searchingFor" data-id="searchingFor" type="text">
+            <Button
+              id="MangaStoryBannerSearchingForId"
+              key={item}
+              value="searchingFor"
+              data-id="searchingFor"
+              type="text">
               {userTypesEnums[item] && userTypesEnums[item]}
             </Button>
           </p>
@@ -170,28 +175,36 @@ const BannerSection = ({
             <div className={`${styles.bannerGenres} d-flex `}>
               <div className={styles.bannerGenresItem}>
                 {baseData.genres?.slice(0, 1).map((g) => (
-                  <Button key={g} data-id="preferredLanguage" type="text">
+                  <Button
+                    id={`${g.name}-genresBtnId`}
+                    key={g}
+                    data-id="preferredLanguage"
+                    type="text">
                     <SvgCat width="18px" height="24px" />
                     <span>{g.name}</span>
                   </Button>
                 ))}
               </div>
               <div className={styles.bannerGenresItem}>
-                <Button data-id="preferredLanguage" type="text">
+                <Button id="preferredLanguageBtnId" data-id="preferredLanguage" type="text">
                   <SvgLang width="24px" height="24px" />
                   <span>{baseData.preferredLanguage}</span>
                 </Button>
               </div>
               <div className={styles.bannerGenresItem}>
                 <Popover placement="top" title="Searching For" content={content}>
-                  <Button data-id="searchingFor" type="text">
+                  <Button id="searchingForBtnId" data-id="searchingFor" type="text">
                     <SvgTie width="20px" height="20px" />
                     <span>{baseData.searchingFor[0] || 'Searching For'}</span>
                   </Button>
                 </Popover>
               </div>
               <div className={styles.bannerGenresItem}>
-                <Button value="compensationModel" data-id="compensationModel" type="text">
+                <Button
+                  id="compensationModelBtnId"
+                  value="compensationModel"
+                  data-id="compensationModel"
+                  type="text">
                   <SvgMone width="20px" height="20px" />
                   {baseData.compensationModel === 'paid' ? 'Paid Collaboration' : 'Freewill'}
                 </Button>
@@ -199,7 +212,11 @@ const BannerSection = ({
             </div>
             {canEdit && (
               <div className={styles.edit}>
-                <Popover content={editContent} trigger="click" placement="bottomRight">
+                <Popover
+                  id="EditMangaStoryBtnId"
+                  content={editContent}
+                  trigger="click"
+                  placement="bottomRight">
                   <span>Edit</span>
                   <span>
                     <SvgPencilColored width="22px" height="22px" />
@@ -227,7 +244,7 @@ const BannerSection = ({
             </div>
           </div>
           <div className={styles.socials}>
-            <ShareButtons text="Share collb!" shareUrl={originUrl} />
+            <ShareButtons id="MangaStoryShareBtnId" text="Share collb!" shareUrl={originUrl} />
           </div>
         </div>
       </div>

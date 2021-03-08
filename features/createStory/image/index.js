@@ -163,7 +163,7 @@ const Introduce = ({ user }) => {
                     </Button>
                   ) : (
                     <Link href={'/sign-up'}>
-                      <button type="primary" className="title_but">
+                      <button id="createAccountBtnId" type="primary" className="title_but">
                         Create account!
                       </button>
                     </Link>

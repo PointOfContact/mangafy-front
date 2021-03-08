@@ -96,7 +96,7 @@ const ResetPassword = () => {
                 />
               </div>
               <div className="login_button_container">
-                <button type="button" onClick={reset} className="login_btn">
+                <button id="ResetBtnId" type="button" onClick={reset} className="login_btn">
                   Reset
                 </button>
               </div>

@@ -44,12 +44,20 @@ const StoryBoardTabs = ({ user, mangaStory, openNotification, originUrl }) => {
     <div className={styles.actionButtons}>
       <div>
         {+storyBoardActiveTab > 1 && (
-          <Button type="primary" className={styles.back} onClick={clickBack}>
+          <Button
+            id="StoryBoardBacktBtnId"
+            type="primary"
+            className={styles.back}
+            onClick={clickBack}>
             Back
           </Button>
         )}
         {+storyBoardActiveTab < 7 && (
-          <Button disabled={disableNextBtn} type="primary" onClick={clickNext}>
+          <Button
+            id="StoryBoardNextBtnId"
+            disabled={disableNextBtn}
+            type="primary"
+            onClick={clickNext}>
             Next {+storyBoardActiveTab + 1}
           </Button>
         )}

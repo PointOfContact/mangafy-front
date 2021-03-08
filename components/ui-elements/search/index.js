@@ -10,7 +10,7 @@ import styles from './styles.module.scss';
 function Search({ className, isFullWidth, onClick, ...rest }) {
   return (
     <div className={cn(styles.search, className, isFullWidth && styles.full_width)}>
-      <button onClick={onClick}>
+      <button id="searchBtnId" onClick={onClick}>
         <SvgSearch width="22px" height="22px" />
       </button>
       <Input {...rest} />

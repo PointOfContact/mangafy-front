@@ -113,7 +113,10 @@ const SearchForMembers = (props) => {
                 allowClear
                 onChange={onInputChange}
               />
-              <button type="submit" className={styles.box__search_submit}>
+              <button
+                id="searchForMembersSubmitId"
+                type="submit"
+                className={styles.box__search_submit}>
                 <SvgSearch width="22" height="22" />
               </button>
             </form>
