@@ -1,18 +1,7 @@
-import { notification } from 'antd';
-
 import client from './client';
 
 const auth = {
   authenticate(jwtFromCookie = null, doAuthenticate = false) {
-    const openNotification = (type, message) => {
-      notification[type]({
-        message,
-      });
-    };
-
-    console.log(
-      `authenticate, cookie: ${jwtFromCookie ? 'yes' : 'no'} , doAuthenticate: ${doAuthenticate}`
-    );
     client.authenticated = false;
 
     // If there is no JWT then we don't try to authenticate (because strategy 'jwt' normally needs a JWT), *unless* the
@@ -21,27 +10,18 @@ const auth = {
       return Promise.resolve({ user: null, jwt: null });
     }
 
-    let jwt = null;
-
     return client
       .authenticate({
         strategy: 'jwt',
         accessToken: jwtFromCookie,
       })
       .then((response) => {
-        console.log('authenticate successful', response);
-
-        jwt = response.accessToken;
         // set client.authenticated flag TRUE
         client.authenticated = true;
 
         return Promise.resolve({ user: response.user, jwt: response.accessToken });
       })
-      .catch((err) => {
-        console.log('authenticate failed', err);
-        openNotification('error', err.message);
-        return Promise.resolve({ user: null, jwt: null });
-      });
+      .catch((err) => Promise.resolve({ user: null, jwt: null }));
   },
 
   signout() {

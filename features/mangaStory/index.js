@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Tabs, Input, notification } from 'antd';
+import { Tabs, Input, notification, Spin } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
 import { Comments } from 'components/comments';
@@ -8,13 +8,16 @@ import Footer from 'components/footer';
 import FooterPolicy from 'components/footer-policy';
 import Header from 'components/header';
 import ButtonToTop from 'components/ui-elements/button-toTop';
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import PropTypes from 'prop-types';
 
 import BannerSection from './components/bannersSection';
-import StoryBoardTabs from './components/storyBoardTabs';
-import StoryTab from './components/StoryTab';
 import styles from './styles.module.scss';
+
+const StoryBoardTabs = dynamic(() => import('./components/storyBoardTabs'), {
+  loading: () => <Spin />,
+});
 
 const { TabPane } = Tabs;
 const { TextArea } = Input;
