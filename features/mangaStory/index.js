@@ -122,31 +122,35 @@ const MangeStory = (props) => {
                     </TabPane>
                   )}
                   <TabPane tab="STORY" key="2" className="story">
-                    <h3>Here is a my story!</h3>
-                    <p>
-                      {!editMode
-                        ? baseData.story
-                        : canEdit && (
-                            <TextArea
-                              autoSize={{ minRows: 3, maxRows: 1000 }}
-                              placeholder="Type here..."
-                              value={baseData.story}
-                              onChange={onChangeSingleField}
-                              type="text"
-                              className="textarea_text"
-                              name="story"
-                            />
-                          )}
-                      <p></p>
-                    </p>
+                    <div className={styles.tabWrap}>
+                      <h3 className={styles.tabTitle}>Here is a my story!</h3>
+                      <p>
+                        {!editMode
+                          ? baseData.story
+                          : canEdit && (
+                              <TextArea
+                                autoSize={{ minRows: 3, maxRows: 1000 }}
+                                placeholder="Type here..."
+                                value={baseData.story}
+                                onChange={onChangeSingleField}
+                                type="text"
+                                className="textarea_text"
+                                name="story"
+                              />
+                            )}
+                        <p></p>
+                      </p>
+                    </div>
                   </TabPane>
                   <TabPane tab="COMMENTS" key="3">
-                    <Comments
-                      commentsData={comments}
-                      isOwn={isOwn}
-                      mangaStory={baseData}
-                      user={user}
-                    />
+                    <div className={styles.tabWrap}>
+                      <Comments
+                        commentsData={comments}
+                        isOwn={isOwn}
+                        mangaStory={baseData}
+                        user={user}
+                      />
+                    </div>
                   </TabPane>
                 </Tabs>
               </div>

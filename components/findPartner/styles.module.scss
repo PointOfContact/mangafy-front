@@ -2,14 +2,18 @@
 
 .find_partner {
   position: absolute;
+  top: 25px;
   right: 20px;
   z-index: 20;
-  margin-top: 20px;
+  @include media-sm {
+    top: 90px;
+    right: 8px;
+  }
   button {
     font-size: $text4;
     @include media-sm {
       font-size: 12px;
-      padding: 10px 15px;
+      padding: 5px 10px;
     }
   }
 }

@@ -1,5 +1,15 @@
 @import '../../styles/variables.scss';
 
+.tabWrap {
+  padding: 30px;
+  p:last-child {
+    margin-bottom: 0;
+  }
+}
+.tabTitle {
+  font-weight: 500;
+  font-size: 20px;
+}
 .pageWrap {
   max-width: 1049px;
   margin-left: auto;
