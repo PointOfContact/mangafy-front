@@ -108,7 +108,7 @@ body {
     overflow: hidden;
     position: relative;
     @include media-sm {
-      height: 645px;
+      // height: 645px;
     }
     .ant-tabs {
       height: 100% !important;
