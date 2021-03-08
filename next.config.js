@@ -179,7 +179,7 @@ const nextConfigs = {
 
 module.exports = withPlugins(
   [
-    [withSourceMaps],
+    // [withSourceMaps],
     // [
     //   withLess,
     //   {
@@ -189,7 +189,6 @@ module.exports = withPlugins(
     //     },
     //   },
     // ],
-
     // [
     //   new MomentLocalesPlugin({
     //     localesToKeep: ['es-us'],

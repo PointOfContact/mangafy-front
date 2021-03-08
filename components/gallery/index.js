@@ -190,11 +190,12 @@ export const Gallery = (props) => {
                       width="18px"
                       height="16px"
                       onClick={() =>
+                        user &&
                         !isLiked(item._id, user._id) &&
                         !canEdit &&
                         onLikeGallery(item._id, userData._id, user._id)
                       }
-                      className={isLiked(item._id, user._id) && styles.liked}
+                      className={user && isLiked(item._id, user._id) && styles.liked}
                     />
                     <span>{getLikesCount(item._id)}</span>
                   </span>

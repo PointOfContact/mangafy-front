@@ -12,17 +12,19 @@ import PropTypes from 'prop-types';
 import styles from './styles.module.scss';
 
 const PrimaryUpload = ({ storyBoardId, onUploadSuccess, mangaUrl }) => {
-  const uplType = mangaUrl.slice(-3);
-  const img = [
-    {
-      uid: '-1',
-      url:
-        uplType === 'pdf' || uplType === 'PDF'
-          ? 'https://icons.iconarchive.com/icons/graphicloads/filetype/256/pdf-icon.png'
-          : client.UPLOAD_URL + mangaUrl,
-      status: 'done',
-    },
-  ];
+  const uplType = mangaUrl?.slice(-3);
+  const img = uplType
+    ? [
+        {
+          uid: '-1',
+          url:
+            uplType === 'pdf' || uplType === 'PDF'
+              ? 'https://icons.iconarchive.com/icons/graphicloads/filetype/256/pdf-icon.png'
+              : client.UPLOAD_URL + mangaUrl,
+          status: 'done',
+        },
+      ]
+    : [];
 
   const [fileList, setFileList] = useState(img || []);
 

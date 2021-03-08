@@ -1,23 +1,27 @@
 import React, { useState, useEffect } from 'react';
+
 // Components
-import ChooseLayoutCard from 'components/ui-elements/story-board-card';
 // Api
-import restClient from 'api/restClient';
 import { findLayouts, patchStoryBoard } from 'api/storyBoardClient';
+import ChooseLayoutCard from 'components/ui-elements/story-board-card';
+
 // Styles
 import styles from './styles.module.scss';
 
-export const ChooseLayout = ({storyBoard}) => {
+export const ChooseLayout = ({ storyBoard, setStoryBoard }) => {
   const [layouts, setLayouts] = useState([]);
 
-  useEffect(()=> {
-    findLayouts((res) => {
-      const newItems = res?.data?.map((layout) => ({
-        ...layout,
-        selected: storyBoard?.layoutId === layout?._id,
-      }));
-      setLayouts(newItems);
-    }, (err) => {});
+  useEffect(() => {
+    findLayouts(
+      (res) => {
+        const newItems = res?.data?.map((layout) => ({
+          ...layout,
+          selected: storyBoard?.layoutId === layout?._id,
+        }));
+        setLayouts(newItems);
+      },
+      (err) => {}
+    );
   }, []);
 
   const changeSelectedBoard = (id) => {
@@ -27,9 +31,18 @@ export const ChooseLayout = ({storyBoard}) => {
       selected: false,
     }));
     newItems[id].selected = true;
-    patchStoryBoard(storyBoard._id, {layoutId: newItems[id]._id}, (res) => {
-      setLayouts(newItems);
-    }, (err) => {});
+    patchStoryBoard(
+      storyBoard._id,
+      { layoutId: newItems[id]._id },
+      (res) => {
+        setLayouts(newItems);
+        setStoryBoard({
+          ...storyBoard,
+          layoutId: newItems[id]._id
+        });
+      },
+      (err) => {}
+    );
   };
 
   return (

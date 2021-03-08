@@ -52,7 +52,7 @@ const StoryBoardTabs = ({ user, mangaStory, openNotification, originUrl }) => {
             Back
           </Button>
         )}
-        {+storyBoardActiveTab < 7 && (
+        {+storyBoardActiveTab < 6 && (
           <Button
             id="StoryBoardNextBtnId"
             disabled={disableNextBtn}
@@ -109,11 +109,11 @@ const StoryBoardTabs = ({ user, mangaStory, openNotification, originUrl }) => {
 
   const onUploadSuccess = () => {
     setTimeout(() => {
-      setStoryBoardActiveTab(7);
+      setStoryBoardActiveTab(6);
       showModal();
     }, 2000);
   };
-  console.log('mangaStorymangaStorymangaStorymangaStory', storyBoard);
+
   return (
     <Tabs
       activeKey={storyBoardActiveTab.toString()}
@@ -177,7 +177,7 @@ const StoryBoardTabs = ({ user, mangaStory, openNotification, originUrl }) => {
         {isShowAnimation && <span className={styles.showAnimation}></span>}
         <div className={styles.tabContent}>
           <FindPartner />
-          <ChooseLayout storyBoard={storyBoard} />
+          <ChooseLayout storyBoard={storyBoard} setStoryBoard={setStoryBoard} />
           {renderNavigationButtons(!storyBoard?.layoutId)}
         </div>
       </TabPane>
@@ -220,7 +220,7 @@ const StoryBoardTabs = ({ user, mangaStory, openNotification, originUrl }) => {
           </span>
         }
         disabled={!storyBoard?.mangaUrl}
-        key={7}>
+        key={6}>
         {isShowAnimation && <span className={styles.showAnimation}></span>}
         <div className={styles.tabContent}>
           <FindPartner />
