@@ -52,6 +52,16 @@ const nextConfigs = {
     );
     webpackConfig.plugins.push(new DuplicatePackageCheckerPlugin());
 
+    if (options.defaultLoaders.babel.options.plugins === undefined) {
+      options.defaultLoaders.babel.options.plugins = [];
+    }
+    options.defaultLoaders.babel.options.plugins.push([
+      'import',
+      {
+        libraryName: 'antd',
+      },
+    ]);
+
     webpackConfig.module.rules.push({
       test: /\.(js|jsx)$/,
       use: [options.defaultLoaders.babel],
@@ -70,16 +80,6 @@ const nextConfigs = {
       ],
       exclude: /node_modules/,
     });
-
-    if (options.defaultLoaders.babel.options.plugins === undefined) {
-      options.defaultLoaders.babel.options.plugins = [];
-    }
-    options.defaultLoaders.babel.options.plugins.push([
-      'import',
-      {
-        libraryName: 'antd',
-      },
-    ]);
 
     webpackConfig.optimization.minimize = true;
     webpackConfig.optimization.minimizer = [];
