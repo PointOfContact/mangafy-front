@@ -2,7 +2,7 @@ import client from 'api/client';
 
 const likeGallery = (galleryId, userId) => {
   const data = { galleryId, userId };
-  const jwt = client.getCookie('feathers-jwts');
+  const jwt = client.getCookie('feathers-jwt');
 
   return import('api/restClient').then((m) =>
     m.default.service(`/api/v2/gallery-likes`).create(data, {
