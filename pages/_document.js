@@ -10,13 +10,9 @@ export default class MyDocument extends Document {
     return (
       <Html lang="en-US">
         <Head>
-          <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Proxima+Nova"></link>
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap"></link>
-          <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap"></link>
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap"></link>
