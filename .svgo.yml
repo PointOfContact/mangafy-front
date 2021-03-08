@@ -17,5 +17,5 @@ plugins:
   - removeEmptyContainers: true
   - removeUnusedNS: true
   - removeDesc: true
-  - prefixIds: false
+  - prefixIds: true
   - prefixClassNames: false

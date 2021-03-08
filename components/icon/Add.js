@@ -3,7 +3,7 @@ import * as React from 'react';
 function SvgAdd(props) {
   return (
     <svg viewBox="0 0 101 101" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
-      <g filter="url(#filter0_d)">
+      <g filter="url(#add_svg__add_svg__filter0_d)">
         <circle cx={50.5} cy={50.5} r={30.5} fill="#fff" />
       </g>
       <path
@@ -12,7 +12,7 @@ function SvgAdd(props) {
       />
       <defs>
         <filter
-          id="filter0_d"
+          id="add_svg__add_svg__filter0_d"
           x={0}
           y={0}
           width={101}
