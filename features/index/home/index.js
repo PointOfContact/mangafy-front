@@ -41,11 +41,11 @@ export default function Home() {
 
       <div className={styles.different}>
         <div className={'container'}>
+          <div className={styles.it1}>
+            <img src="/img/dif-pen.png" alt="" />
+          </div>
           <div className={styles.different__title}>What makes us different</div>
           <div className={styles.different__wrap}>
-            <div className={styles.it1}>
-              <img src="/img/dif-pen.png" alt="" />
-            </div>
             <div className={styles.different__item}>
               <div className={styles.different__itemTitle}>Grow as a graphic novelist</div>
               <div className={styles.different__descr}>

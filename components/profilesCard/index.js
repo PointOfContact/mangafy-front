@@ -59,7 +59,7 @@ const ProfilesCard = ({ user, genres }) => {
         </div>
         <div className={styles.colabWrap__bot}>
           <div className={styles.colabWrap__commision}>
-            <img src="icons/suitcase.svg" alt=""></img>
+            <SvgPortfolio width="14px" height="14px" />
             {user.compensationModel === 'paid' ? 'Commission' : 'Collaboration'}
           </div>
           <div className={styles.colabWrap__commision}>

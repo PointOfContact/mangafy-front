@@ -600,6 +600,7 @@ img.rot4 {
     border: none !important;
     outline: none;
     font-size: $text2;
+    background: transparent;
     @include media-sm {
       font-size: $text3;
     }
