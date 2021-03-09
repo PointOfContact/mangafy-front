@@ -13,6 +13,7 @@ import Head from 'next/head';
 import PropTypes from 'prop-types';
 
 import BannerSection from './components/bannersSection';
+import StoryTab from './components/storyTab';
 import styles from './styles.module.scss';
 
 const StoryBoardTabs = dynamic(() => import('./components/storyBoardTabs'), {
