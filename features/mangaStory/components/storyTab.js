@@ -15,7 +15,7 @@ const StoryTab = ({ baseData }) => {
       </div>
       <div className={styles.storyTabDescription}>
         <div>
-          <span className={styles.storyKey}>Lenguage: </span>
+          <span className={styles.storyKey}>Language: </span>
           <span className={styles.storyValue}>{preferredLanguage}</span>
         </div>
         <div>
