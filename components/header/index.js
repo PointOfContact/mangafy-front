@@ -71,7 +71,7 @@ const Header = ({ user, path }) => {
                         src={
                           user.avatar
                             ? client.UPLOAD_URL + user.avatar
-                            : 'https://swanbulk.com/wp-content/uploads/2020/03/user-icon.svg'
+                            : `https://ui-avatars.com/api/?background=7b65f3&name=${user.name}&rounded=true&color=ffffff`
                         }
                         alt=""></img>
                     </div>
