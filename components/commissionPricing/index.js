@@ -4,6 +4,7 @@ import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { Input, Button, Space } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
+import Card from 'components/card';
 import SvgPurplePencil from 'components/icon/PurplePencil';
 import PrimaryButton from 'components/ui-elements/button';
 
@@ -116,6 +117,25 @@ export const CommissionPricing = ({ id = null, user = null }) => {
         <div className="">
           <div className="">
             <div className={cn('pricingBlock', styles.pricingBlock_wrap)}>
+              {!pricingList.length && id !== user?._id && (
+                <div className={styles.noContent}>
+                  <Card
+                    description="Sorry, but there is nothing <br/> here (("
+                    btnText=""
+                    items={[<img key="1" src="/img/commisionList.png" alt="" />]}
+                  />
+                </div>
+              )}
+              {!pricingList.length && id === user?._id && !editMode && (
+                <div className={styles.noContent}>
+                  <Card
+                    description="It's time to tell about your services. <br/> Let's start!"
+                    btnText="Let's start"
+                    onClick={() => setEditMode(true)}
+                    items={[<img key="1" src="/img/commisionList.png" alt="" />]}
+                  />
+                </div>
+              )}
               {pricingList.map((field, index) => (
                 <Space
                   className="col-lg-12"
