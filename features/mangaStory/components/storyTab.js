@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import cn from 'classnames';
 import Card from 'components/card';
+import Modal from 'components/modals/Modal';
 import PropTypes from 'prop-types';
 
 import styles from '../styles.module.scss';
 
 const StoryTab = ({ baseData }) => {
+  const [showModal, changeShowModal] = useState(false);
   const { story, preferredLanguage, searchingFor, authorInfo, participents } = baseData;
   return (
     <div className={styles.storyTab}>
@@ -33,13 +35,13 @@ const StoryTab = ({ baseData }) => {
             description="Join to us and let’s make a fun"
             btnText="Join to Team"
             items={[<img key="1" src="/img/storyCardImg.png" alt="" />]}
-            onClick={() => setStoryEditMode(true)}
+            onClick={() => changeShowModal(true)}
           />
         </div>
       </div>
       <div className={cn(styles.storyTabDescription, styles.autherBlock)}>
         <div>
-          <span className={styles.storyKey}>Team Lead | </span>
+          <a className={styles.storyKey}>Team Lead | </a>
           <span className={styles.storyValue}>{authorInfo.name}</span>
         </div>
         <div className={styles.participents}>
@@ -48,19 +50,13 @@ const StoryTab = ({ baseData }) => {
           ))}
         </div>
       </div>
+      <Modal baseData={baseData} changeShowModal={changeShowModal} showModal={showModal} />
     </div>
   );
 };
 
 StoryTab.propTypes = {
   baseData: PropTypes.object.isRequired,
-  // mangaStory: PropTypes.object.isRequired,
-  // openNotification: PropTypes.func.isRequired,
-  // originUrl: PropTypes.string,
-};
-
-StoryTab.defaultProps = {
-  // originUrl: '',
 };
 
 export default StoryTab;
