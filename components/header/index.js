@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
-import { Popover } from 'antd';
+import { Badge, Popover } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
 import SvgBell from 'components/icon/Bell';
@@ -14,8 +14,49 @@ import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
+const findNotifications = (onSuccess, onFailure) => {
+  const jwt = client.getCookie('feathers-jwt');
+  import('../../api/restClient').then((m) => {
+    m.default
+      .service('/api/v2/notifications')
+      .find({
+        query: {
+          $sort: { createdAt: -1 },
+        },
+        headers: { Authorization: `Bearer ${jwt}` },
+      })
+      .then((res) => {
+        onSuccess(res);
+      })
+      .catch((err) => {
+        onFailure(err);
+        return err;
+      });
+  });
+};
+
 const Header = ({ user, path }) => {
   const [isOpen, handleManuOpen] = useState(false);
+  const [notifications, setNotifications] = useState(false);
+  const [notificationsCount, setNotificationsCount] = useState(false);
+  const getNotifications = useCallback(() => {
+    if (!user) return;
+    findNotifications(
+      (res) => {
+        setNotifications(res?.data);
+        setNotificationsCount(
+          res?.data.filter(({ read_by }) => !read_by.find((id) => id === user._id)).length
+        );
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }, [user]);
+
+  useEffect(() => {
+    getNotifications();
+  }, [user, getNotifications]);
 
   useEffect(() => {
     document.addEventListener('click', handleDocumentClick, false);
@@ -116,9 +157,13 @@ const Header = ({ user, path }) => {
                     <Popover
                       overlayClassName={styles.popover}
                       placement="bottom"
-                      content={<MenuNotificationsBox />}
+                      content={
+                        <MenuNotificationsBox notifications={notifications} uid={user._id} />
+                      }
                       trigger="click">
-                      <SvgBell width="23px" height="23px" />
+                      <Badge count={notificationsCount}>
+                        <SvgBell width="23px" height="23px" />
+                      </Badge>
                     </Popover>
                   </span>
                   {path !== 'myProfile' && (

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import MenuNotificationsItem from 'components/menu-notifications-item/';
+import MenuNotificationsBox from 'components/menu-notifications-box';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 
@@ -34,19 +34,7 @@ const MenuMobilePopover = ({ removeAllStorage }) => (
           <a className={styles.box__libk}>Sign out</a>
         </span>
       </div>
-      <div className={styles.box__title}>
-        <p className={styles.box__title_text}>Your notifications</p>
-      </div>
-      <div className={styles.box__content}>
-        <MenuNotificationsItem />
-        <MenuNotificationsItem />
-        <MenuNotificationsItem />
-      </div>
-      <div className={styles.box__more}>
-        <Link href="#">
-          <a className={styles.box__more_button}>+2 More Updates</a>
-        </Link>
-      </div>
+      <MenuNotificationsBox />
     </div>
   </>
 );
