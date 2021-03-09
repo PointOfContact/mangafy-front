@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
+import { Popover } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
+import SvgBell from 'components/icon/Bell';
+import MenuMobilePopover from 'components/menu-mobile-popover';
+import MenuNotificationsBox from 'components/menu-notifications-box';
 import PrimaryButton from 'components/ui-elements/button';
 import { removeAllStorage } from 'helpers/shared';
 import Image from 'next/image';
@@ -64,7 +68,11 @@ const Header = ({ user, path }) => {
             </Link>
             <div className={styles.header__logIn}>
               {user ? (
-                <Link href="/my-profile">
+                <Popover
+                  overlayClassName={styles.popover}
+                  placement="bottomRight"
+                  content={<MenuMobilePopover removeAllStorage={removeAllStorage} />}
+                  trigger="click">
                   <div className={cn(styles.img, styles.imgOnline)}>
                     <div className={styles.avatar}>
                       <img
@@ -76,7 +84,7 @@ const Header = ({ user, path }) => {
                         alt=""></img>
                     </div>
                   </div>
-                </Link>
+                </Popover>
               ) : (
                 <Link href="/sign-in">
                   <img src="/img/header-log-in.svg" alt="" />
@@ -104,6 +112,15 @@ const Header = ({ user, path }) => {
                       </span>
                     </a>
                   </Link>
+                  <span className={styles.notification}>
+                    <Popover
+                      overlayClassName={styles.popover}
+                      placement="bottom"
+                      content={<MenuNotificationsBox />}
+                      trigger="click">
+                      <SvgBell width="23px" height="23px" />
+                    </Popover>
+                  </span>
                   {path !== 'myProfile' && (
                     <Link href="/my-profile">
                       <a className={styles.header__menu}>

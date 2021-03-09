@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 import styles from './styles.module.scss';
 
-const menuNotificationsBox = ({}) => (
+const MenuNotificationsBox = () => (
   <>
     <div className={styles.box}>
       <div className={styles.box__title}>
@@ -25,4 +25,4 @@ const menuNotificationsBox = ({}) => (
   </>
 );
 
-export default menuNotificationsBox;
+export default MenuNotificationsBox;
