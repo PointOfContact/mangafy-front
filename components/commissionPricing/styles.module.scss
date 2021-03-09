@@ -1,43 +1,46 @@
 .pricingBlock_wrap {
-    margin-bottom: 50px;
-    input {
-        padding: 0;
-        background-color: transparent !important;
-        border: none;
-        border-bottom: 2px solid #212121;
-        color: #212121;
-        font-size: 20px;
-        height: 40px;
-        min-width: 350px;
-        &::placeholder {
-            color: #212121;
-            font-size: 20px;
-        }
-        &:hover {
-            border-color: #7B65F3 !important;
-            color: #7B65F3;
-            &::placeholder {
-                color: #7B65F3;
-            }
-        }
-        &:focus {
-            border-color: #7B65F3;
-            outline: none;
-            box-shadow: none;
-            &::placeholder {
-                color: #7B65F3;
-                font-weight: 700;
-            }
-        }
-        &.inputCost {
-            min-width: 156px;
-            max-width: 156px;
-            margin-left: 40px;
-        }
+  margin-bottom: 50px;
+  .noContent {
+    display: inline-block;
+  }
+  input {
+    padding: 0;
+    background-color: transparent !important;
+    border: none;
+    border-bottom: 2px solid #212121;
+    color: #212121;
+    font-size: 20px;
+    height: 40px;
+    min-width: 350px;
+    &::placeholder {
+      color: #212121;
+      font-size: 20px;
     }
+    &:hover {
+      border-color: #7b65f3 !important;
+      color: #7b65f3;
+      &::placeholder {
+        color: #7b65f3;
+      }
+    }
+    &:focus {
+      border-color: #7b65f3;
+      outline: none;
+      box-shadow: none;
+      &::placeholder {
+        color: #7b65f3;
+        font-weight: 700;
+      }
+    }
+    &.inputCost {
+      min-width: 156px;
+      max-width: 156px;
+      margin-left: 40px;
+    }
+  }
 }
 
 .editAboutButton {
-    width: 22px;
-    height: 22px;
+  width: 22px;
+  height: 22px;
 }
