@@ -2,7 +2,7 @@
 
 .story_card {
   width: 242px;
-  display: inline-block;
+  display: inline-table;
   margin-right: 30px;
   text-align: center;
   white-space: break-spaces;
@@ -15,13 +15,12 @@
     right: 14px;
     top: 16px;
   }
-
   .download {
-    position: absolute;
-    left: 14px;
-    top: 16px;
-    cursor: pointer;
-    z-index: 1000;
+    width: 100%;
+    font-size: $text4;
+    @include media-sm {
+      padding: 7px;
+    }
   }
 
   .img {
@@ -38,6 +37,9 @@
     img {
       height: 100%;
       opacity: 0.2;
+      @include media-sm {
+        margin-bottom: 10px;
+      }
     }
     &:hover {
       img {
@@ -49,6 +51,9 @@
   .title {
     font-size: $text3;
     color: $grey;
+    @include media-sm {
+      margin-bottom: 0;
+    }
   }
   .description {
     display: -webkit-box;
