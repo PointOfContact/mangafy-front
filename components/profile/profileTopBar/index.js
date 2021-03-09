@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Upload, Input, Select, Layout, Row, Col } from 'antd';
 import client from 'api/client';
+import { createRequest } from 'api/joinMangaStoryRequestClient';
 import cn from 'classnames';
 import SvgGreenChecked from 'components/icon/GreenChecked';
 import SvgPortfolio from 'components/icon/Portfolio';
@@ -31,6 +32,14 @@ const ProfileTopBar = (props) => {
     profile,
   } = props;
 
+  const onInvite = async () => {
+    await createRequest({
+      mangaStoryId: user.mangaStories[0]._id,
+      isInvite: true,
+      type: profile.type,
+    });
+  };
+
   return (
     <Content className={cn(styles.content)}>
       <Row>
@@ -41,7 +50,7 @@ const ProfileTopBar = (props) => {
                 src={
                   profile?.avatar
                     ? client.UPLOAD_URL + profile?.avatar
-                    : 'https://swanbulk.com/wp-content/uploads/2020/03/user-icon.svg'
+                    : `https://ui-avatars.com/api/?background=7b65f3&name=${profile.name}&rounded=true&color=ffffff`
                 }
                 alt=""
               />
@@ -50,7 +59,7 @@ const ProfileTopBar = (props) => {
                 src={
                   user.avatar
                     ? client.UPLOAD_URL + user.avatar
-                    : 'https://swanbulk.com/wp-content/uploads/2020/03/user-icon.svg'
+                    : `https://ui-avatars.com/api/?background=7b65f3&name=${user.name}&rounded=true&color=ffffff`
                 }
                 alt=""
               />
@@ -84,21 +93,15 @@ const ProfileTopBar = (props) => {
                     onClick={() => setEditMode(true)}
                   />
                 ) : (
-                  profile && (
+                  profile &&
+                  user?.mangaStories?.length && (
                     <span className={styles.contacts}>
-                      <a
-                        href={`mailto:${
-                          profile.email
-                        }?subject=${'The%20subject'}&body=${'The%20body'}`}>
-                        <PrimaryButton
-                          text="Contact"
-                          splitterStyle={{ width: '120px', fontSize: '15px' }}
-                        />
-                      </a>
-                      {/* <span className={styles.follow}>
-                        <SvgAddUser width="22px" height="20px" />
-                        <span>Follow</span>
-                      </span> */}
+                      <PrimaryButton
+                        onClick={onInvite}
+                        text="Invite to collaborate"
+                        splitterStyle={{ width: '120px', fontSize: '15px' }}
+                        disabled={user?.mangaStories?.participents?.include(profile._id)}
+                      />
                     </span>
                   )
                 )}

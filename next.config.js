@@ -7,6 +7,9 @@ const withPlugins = require('next-compose-plugins');
 const SentryWebpackPlugin = require('@sentry/webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const resolve = require('resolve');
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+});
 
 const path = require('path');
 
@@ -179,6 +182,7 @@ const nextConfigs = {
 
 module.exports = withPlugins(
   [
+    [withBundleAnalyzer],
     // [withSourceMaps],
     // [
     //   withLess,

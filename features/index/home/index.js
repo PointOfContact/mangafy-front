@@ -1,11 +1,14 @@
 import React from 'react';
 
+import { Spin } from 'antd';
 import cn from 'classnames';
-import SimpleSlider from 'components/slider';
 import LargeButton from 'components/ui-elements/large-button';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 
 import styles from './styles.module.sass';
+
+const SimpleSlider = dynamic(() => import('components/slider'), { loading: () => <Spin /> });
 
 export default function Home() {
   return (
