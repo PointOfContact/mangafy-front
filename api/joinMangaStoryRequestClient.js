@@ -19,7 +19,7 @@ const patchRequest = async (status) => {
 const createRequest = async ({ mangaStoryId, joinAs, isInvite }) => {
   const jwt = client.getCookie('feathers-jwt');
   const headers = {
-    headers: { Authorization: `Bearer ${jwt}` },
+    Authorization: `Bearer ${jwt}`,
   };
   const { default: restClient } = await import('api/restClient');
   const mangaStoryRequest = await restClient.service('/api/v2/join-manga-story-requests').create(

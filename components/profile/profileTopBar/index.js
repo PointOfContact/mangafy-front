@@ -36,7 +36,7 @@ const ProfileTopBar = (props) => {
     await createRequest({
       mangaStoryId: user.mangaStories[0]._id,
       isInvite: true,
-      type: profile.type,
+      joinAs: profile.type,
     });
   };
 
@@ -99,7 +99,7 @@ const ProfileTopBar = (props) => {
                       <PrimaryButton
                         onClick={onInvite}
                         text="Invite to collaborate"
-                        splitterStyle={{ width: '120px', fontSize: '15px' }}
+                        splitterStyle={{ fontSize: '15px' }}
                         disabled={user?.mangaStories?.participents?.include(profile._id)}
                       />
                     </span>
