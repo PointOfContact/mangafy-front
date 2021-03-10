@@ -1,121 +1,49 @@
-import { Modal, notification, Select } from 'antd';
+import { useState } from 'react';
+
+import { Modal, Select } from 'antd';
 import client from 'api/client';
-import Router from 'next/router';
+import HugeButton from 'components/ui-elements/huge-button';
+import { CHECKBOXES } from 'helpers/constant';
 
-const types = [
-  {
-    label: 'Writer',
-    description: 'lorem  lorem   lorem',
-    checked: false,
-  },
-  {
-    label: 'Penciler',
-    description: 'lorem  lorem   lorem',
-    checked: false,
-  },
-  {
-    label: 'Inker',
-    description: 'lorem  lorem   lorem',
-    checked: false,
-  },
-  {
-    label: 'Colorist',
-    description: 'lorem  lorem   lorem',
-    checked: false,
-  },
-  {
-    label: 'Letterer',
-    description: 'lorem  lorem   lorem',
-    checked: false,
-  },
-  {
-    label: 'Сover artist',
-    description: 'lorem  lorem   lorem',
-    checked: false,
-  },
-  {
-    label: 'Character Designer',
-    description: 'lorem  lorem   lorem',
-    checked: false,
-  },
-  {
-    label: 'Key Translator',
-    description: 'lorem  lorem   lorem',
-    checked: false,
-  },
-  {
-    label: 'Publisher',
-    description: 'lorem  lorem   lorem',
-    checked: false,
-  },
-  {
-    label: 'Editor',
-    description: 'lorem  lorem   lorem',
-    checked: false,
-  },
-  {
-    label: 'Backers',
-    description: 'lorem  lorem   lorem',
-    checked: false,
-  },
-  {
-    label: 'Mentorship',
-    description: 'lorem  lorem   lorem',
-    checked: false,
-  },
-];
+import styles from './styles.module.scss';
 
-const ModalTitle = <div className="modalTitle"></div>;
 const { Option, OptGroup } = Select;
-
-class ModalStart extends React.Component {
-  state = { visible: false, joinAs: 'Writer' };
-
-  showModal = () => {
-    this.props.user
-      ? this.setState({
-          visible: true,
-        })
-      : Router.push('/sign-in');
+const ModalStart = ({ changeShowModal, showModal, baseData }) => {
+  const [joinAs, changeJoinAs] = useState('');
+  const [text, changeText] = useState('');
+  console.log(baseData);
+  // state = { visible: false, joinAs: 'Writer' };
+  const ModalTitle = (
+    <div className={styles.titleWrapper}>
+      <div className={styles.modalTitle}>REQUEST TO JOIN</div>
+      <div className={styles.desc}>{baseData.title}</div>
+    </div>
+  );
+  const handleChange = (e) => {
+    changeJoinAs(e.target.options[e.target.selectedIndex].text);
   };
 
-  handleChange(e) {
-    this.setState({ joinAs: e.target.options[e.target.selectedIndex].text });
-  }
-
-  handleChangeText(e) {
-    this.setState({ text: e.target.value });
-  }
-
-  handleOk = (e) => {
-    console.log(e);
-    this.setState({
-      visible: false,
-    });
+  const handleChangeText = (e) => {
+    changeText(e.target.value);
   };
 
-  handleCancel = (e) => {
-    console.log(e);
-    this.setState({
-      visible: false,
-    });
+  const handleOk = (e) => {
+    changeShowModal(false);
   };
 
-  openNotification = (type, message) => {
-    notification[type]({
-      message,
-    });
+  const handleCancel = (e) => {
+    changeShowModal(false);
   };
 
-  createRequest = (_) => {
+  const createRequest = (_) => {
     const jwt = client.getCookie('feathers-jwt');
     import('api/restClient').then((m) => {
       m.default
         .service('/api/v2/join-manga-story-requests')
         .create(
           {
-            mangaStoryId: this.props.pid,
-            joinAs: this.state.joinAs,
+            mangaStoryId: baseData._id,
+            joinAs,
           },
           {
             headers: { Authorization: `Bearer ${jwt}` },
@@ -143,72 +71,74 @@ class ModalStart extends React.Component {
           )
         )
         .then((response) => {
-          this.setState({
-            visible: false,
-          });
+          changeVisible(false);
+          // this.setState({
+          //   visible: false,
+          // });
         })
-        .catch((err) => this.openNotification('error', err.message));
+        .catch((err) => err);
     });
   };
 
-  render() {
-    return (
-      <div>
-        {!this.props.isOwn ? (
-          <button
-            className="but-manga-story mt-3 mb-3"
-            id="modalJoinMyJourneyBtnId"
-            onClick={this.showModal}>
-            Join me on my journey
-          </button>
-        ) : null}
-
-        <Modal
-          className=""
-          title={ModalTitle}
-          style={{ width: '900px' }}
-          visible={this.state.visible}
-          onOk={this.handleOk}
-          onCancel={this.handleCancel}>
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-12 select_modal">
-                <form action="">
-                  <h2>Join as</h2>
-                  <select
-                    defaultValue="Writer"
-                    style={{ width: '100%' }}
-                    onChange={(e) => {
-                      this.handleChange(e);
-                    }}>
-                    {types.map((type) => (
-                      <option value={type.label}>{type.label}</option>
-                    ))}
-                  </select>
-                  <h2>Your message</h2>
-                  <textarea
-                    onChange={(e) => {
-                      this.handleChangeText(e);
-                    }}
-                    name=""
-                    id=""
-                    placeholder="Start writing :)"></textarea>
-                  <div className="modal_select_btn">
-                    <button
-                      id="modalJoinMyJourneySubmitBtnId"
-                      onClick={() => {
-                        this.createRequest();
-                      }}>
-                      Join me on my journey
-                    </button>
-                  </div>
-                </form>
+  return (
+    <Modal
+      className={styles.modal}
+      title={ModalTitle}
+      footer={null}
+      style={{ width: '900px' }}
+      visible={showModal}
+      okText="Send"
+      // onOk={handleOk}
+      // okButtonProps={}
+      onCancel={handleCancel}>
+      <div className="container">
+        <div className="row">
+          <div className="col-lg-12 select_modal">
+            <form action="">
+              <h2>Select</h2>
+              <select
+                className={styles.modalSelect}
+                defaultValue="Writer"
+                style={{ width: '100%' }}
+                onChange={(e) => {
+                  handleChange(e);
+                }}>
+                {CHECKBOXES.map((type) => (
+                  <option value={type.label}>{type.label}</option>
+                ))}
+              </select>
+              <h2>Your message</h2>
+              <textarea
+                className={styles.modalTexarea}
+                onChange={(e) => {
+                  handleChangeText(e);
+                }}
+                name=""
+                id=""
+                placeholder="Please write a personal message to the team leader explaining why you are a good fit"></textarea>
+              <div className="modal_select_btn">
+                <HugeButton
+                  onClick={() => {
+                    createRequest();
+                  }}
+                  id="modalJoinMyJourneySubmitBtnId"
+                  className={styles.hugeButton}
+                  isFullWidth={false}
+                  text={'send'}
+                />
+                {/* <button
+                  id="modalJoinMyJourneySubmitBtnId"
+                  onClick={() => {
+                    createRequest();
+                  }}>
+                  Send
+                </button> */}
               </div>
-            </div>
+            </form>
           </div>
-        </Modal>
+        </div>
       </div>
-    );
-  }
-}
+    </Modal>
+  );
+};
 export default ModalStart;
