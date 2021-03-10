@@ -235,7 +235,7 @@ const BannerSection = ({
               </div>
             </div>
             <div className={styles.progressWrap}>
-              <Progress percent={30} size="small" />
+              <Progress percent={baseData.progressPercentage} size="small" />
             </div>
             <div className={styles.Lamp}>
               <div>
