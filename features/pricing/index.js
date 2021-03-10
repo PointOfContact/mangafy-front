@@ -202,7 +202,7 @@ const Pricing = (props) => {
                       type="hidden"
                       name="return"
                       value={`${originUrl}?paypal_success=true`}></input>
-                    <input type="hidden" name="custom" value={user._id}></input>
+                    <input type="hidden" name="custom" value={user?._id}></input>
                     <input type="hidden" name="hosted_button_id" value="JURZNUSJ8HLJJ" />
                     <LargeButton
                       className={styles.tool_button}
@@ -332,7 +332,7 @@ const Pricing = (props) => {
                       type="hidden"
                       name="return"
                       value={`${originUrl}?paypal_success=true`}></input>
-                    <input type="hidden" name="custom" value={user._id}></input>
+                    <input type="hidden" name="custom" value={user?._id}></input>
                     <input type="hidden" name="hosted_button_id" value="JURZNUSJ8HLJJ" />
                     <LargeButton
                       className={styles.tool_button}

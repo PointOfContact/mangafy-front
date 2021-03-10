@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 import { Modal, Select } from 'antd';
 import client from 'api/client';
@@ -7,11 +7,10 @@ import { CHECKBOXES } from 'helpers/constant';
 
 import styles from './styles.module.scss';
 
-const { Option, OptGroup } = Select;
+const { Option } = Select;
 const ModalStart = ({ changeShowModal, showModal, baseData }) => {
   const [joinAs, changeJoinAs] = useState('');
   const [text, changeText] = useState('');
-  console.log(baseData);
   // state = { visible: false, joinAs: 'Writer' };
   const ModalTitle = (
     <div className={styles.titleWrapper}>
@@ -25,10 +24,6 @@ const ModalStart = ({ changeShowModal, showModal, baseData }) => {
 
   const handleChangeText = (e) => {
     changeText(e.target.value);
-  };
-
-  const handleOk = (e) => {
-    changeShowModal(false);
   };
 
   const handleCancel = (e) => {
@@ -62,7 +57,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData }) => {
         .then((response) =>
           m.default.service('/api/v2/messages').create(
             {
-              content: this.state.text || 'Hi',
+              content: text || 'Hi',
               conversationId: response._id,
             },
             {
@@ -71,10 +66,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData }) => {
           )
         )
         .then((response) => {
-          changeVisible(false);
-          // this.setState({
-          //   visible: false,
-          // });
+          changeShowModal(false);
         })
         .catch((err) => err);
     });
@@ -88,15 +80,13 @@ const ModalStart = ({ changeShowModal, showModal, baseData }) => {
       style={{ width: '900px' }}
       visible={showModal}
       okText="Send"
-      // onOk={handleOk}
-      // okButtonProps={}
       onCancel={handleCancel}>
       <div className="container">
         <div className="row">
           <div className="col-lg-12 select_modal">
             <form action="">
               <h2>Select</h2>
-              <select
+              <Select
                 className={styles.modalSelect}
                 defaultValue="Writer"
                 style={{ width: '100%' }}
@@ -104,9 +94,11 @@ const ModalStart = ({ changeShowModal, showModal, baseData }) => {
                   handleChange(e);
                 }}>
                 {CHECKBOXES.map((type) => (
-                  <option value={type.label}>{type.label}</option>
+                  <Option key={type.label} value={type.label}>
+                    {type.label}
+                  </Option>
                 ))}
-              </select>
+              </Select>
               <h2>Your message</h2>
               <textarea
                 className={styles.modalTexarea}
@@ -126,13 +118,6 @@ const ModalStart = ({ changeShowModal, showModal, baseData }) => {
                   isFullWidth={false}
                   text={'send'}
                 />
-                {/* <button
-                  id="modalJoinMyJourneySubmitBtnId"
-                  onClick={() => {
-                    createRequest();
-                  }}>
-                  Send
-                </button> */}
               </div>
             </form>
           </div>

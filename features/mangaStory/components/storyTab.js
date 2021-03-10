@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 
 import styles from '../styles.module.scss';
 
-const StoryTab = ({ baseData }) => {
+const StoryTab = ({ baseData, isOwn }) => {
   const [showModal, changeShowModal] = useState(false);
   const { story, preferredLanguage, searchingFor, authorInfo, participents } = baseData;
   return (
@@ -29,16 +29,18 @@ const StoryTab = ({ baseData }) => {
           ))}
         </div>
       </div>
-      <div className={styles.cardWrapper}>
-        <div className={styles.card}>
-          <Card
-            description="Join to us and let’s make a fun"
-            btnText="Join to Team"
-            items={[<img key="1" src="/img/storyCardImg.png" alt="" />]}
-            onClick={() => changeShowModal(true)}
-          />
+      {!isOwn && (
+        <div className={styles.cardWrapper}>
+          <div className={styles.card}>
+            <Card
+              description="Join to us and let’s make a fun"
+              btnText="Join to Team"
+              items={[<img key="1" src="/img/storyCardImg.png" alt="" />]}
+              onClick={() => changeShowModal(true)}
+            />
+          </div>
         </div>
-      </div>
+      )}
       <div className={cn(styles.storyTabDescription, styles.autherBlock)}>
         <div>
           <a className={styles.storyKey}>Team Lead | </a>
@@ -57,6 +59,7 @@ const StoryTab = ({ baseData }) => {
 
 StoryTab.propTypes = {
   baseData: PropTypes.object.isRequired,
+  isOwn: PropTypes.bool.isRequired,
 };
 
 export default StoryTab;
