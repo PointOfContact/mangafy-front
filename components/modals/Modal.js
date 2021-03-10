@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 
-import { Modal, Select } from 'antd';
+import { Modal, Select, Input } from 'antd';
 import client from 'api/client';
 import HugeButton from 'components/ui-elements/huge-button';
 import { CHECKBOXES } from 'helpers/constant';
 
 import styles from './styles.module.scss';
+
+const { TextArea } = Input;
 
 const { Option } = Select;
 const ModalStart = ({ changeShowModal, showModal, baseData }) => {
@@ -18,9 +20,6 @@ const ModalStart = ({ changeShowModal, showModal, baseData }) => {
       <div className={styles.desc}>{baseData.title}</div>
     </div>
   );
-  const handleChange = (e) => {
-    changeJoinAs(e.target.options[e.target.selectedIndex].text);
-  };
 
   const handleChangeText = (e) => {
     changeText(e.target.value);
@@ -85,14 +84,12 @@ const ModalStart = ({ changeShowModal, showModal, baseData }) => {
         <div className="row">
           <div className="col-lg-12 select_modal">
             <form action="">
-              <h2>Select</h2>
+              <h2>Join as</h2>
               <Select
                 className={styles.modalSelect}
                 defaultValue="Writer"
                 style={{ width: '100%' }}
-                onChange={(e) => {
-                  handleChange(e);
-                }}>
+                onChange={changeJoinAs}>
                 {CHECKBOXES.map((type) => (
                   <Option key={type.label} value={type.label}>
                     {type.label}
@@ -100,14 +97,17 @@ const ModalStart = ({ changeShowModal, showModal, baseData }) => {
                 ))}
               </Select>
               <h2>Your message</h2>
-              <textarea
+              <TextArea
+                placeholder="Please write a personal message to the team leader explaining why you are a good fit"
+                value={text}
+                onChange={handleChangeText}
+                required
+                type="text"
+                minLength={10}
+                maxLength={1000}
                 className={styles.modalTexarea}
-                onChange={(e) => {
-                  handleChangeText(e);
-                }}
-                name=""
-                id=""
-                placeholder="Please write a personal message to the team leader explaining why you are a good fit"></textarea>
+              />
+
               <div className="modal_select_btn">
                 <HugeButton
                   onClick={() => {
