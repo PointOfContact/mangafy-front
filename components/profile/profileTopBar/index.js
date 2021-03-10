@@ -37,6 +37,7 @@ const ProfileTopBar = (props) => {
       mangaStoryId: user.mangaStories[0]._id,
       isInvite: true,
       joinAs: profile.type,
+      senderId: profile._id,
     });
   };
 

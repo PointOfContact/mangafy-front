@@ -16,7 +16,7 @@ const patchRequest = async (status) => {
   );
 };
 
-const createRequest = async ({ mangaStoryId, joinAs, isInvite }) => {
+const createRequest = async ({ mangaStoryId, joinAs, isInvite, senderId, text }) => {
   const jwt = client.getCookie('feathers-jwt');
   const headers = {
     Authorization: `Bearer ${jwt}`,
@@ -27,6 +27,7 @@ const createRequest = async ({ mangaStoryId, joinAs, isInvite }) => {
       mangaStoryId,
       joinAs,
       isInvite,
+      senderId,
     },
     {
       headers,
@@ -42,7 +43,7 @@ const createRequest = async ({ mangaStoryId, joinAs, isInvite }) => {
   );
   return restClient.service('/api/v2/messages').create(
     {
-      content: this.state.text || 'Hi',
+      content: text || 'Hi',
       conversationId: conversation._id,
     },
     {
