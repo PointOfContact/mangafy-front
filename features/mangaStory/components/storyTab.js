@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import cn from 'classnames';
 import Card from 'components/card';
 import Modal from 'components/modals/Modal';
+import Link from 'next/link';
 import PropTypes from 'prop-types';
 
 import styles from '../styles.module.scss';
@@ -22,9 +23,9 @@ const StoryTab = ({ baseData, isOwn }) => {
         </div>
         <div>
           <span className={styles.storyKey}>We are looking for: </span>
-          {searchingFor.map((name) => (
+          {searchingFor.map((name, index) => (
             <span key={name} className={styles.storyValue}>
-              {`${name}, `}
+              {index === searchingFor.length - 1 ? name : `${name}, `}
             </span>
           ))}
         </div>
@@ -43,8 +44,11 @@ const StoryTab = ({ baseData, isOwn }) => {
       )}
       <div className={cn(styles.storyTabDescription, styles.autherBlock)}>
         <div>
-          <a className={styles.storyKey}>Team Lead | </a>
-          <span className={styles.storyValue}>{authorInfo.name}</span>
+          <Link href={`/profile/${authorInfo._id}`}>
+            <div className={styles.storyKey}>
+              Team Lead | <span className={styles.storyValue}>{authorInfo.name}</span>
+            </div>
+          </Link>
         </div>
         <div className={styles.participents}>
           {participents.map((item) => (
@@ -52,7 +56,9 @@ const StoryTab = ({ baseData, isOwn }) => {
           ))}
         </div>
       </div>
-      <Modal baseData={baseData} changeShowModal={changeShowModal} showModal={showModal} />
+      <div className="storyTabModal">
+        <Modal baseData={baseData} changeShowModal={changeShowModal} showModal={showModal} />
+      </div>
     </div>
   );
 };

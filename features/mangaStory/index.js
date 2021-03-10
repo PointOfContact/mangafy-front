@@ -98,14 +98,14 @@ const MangeStory = (props) => {
                             value={baseData.title}
                           />
                         </h2>
-                        <p>
+                        <div>
                           <Input
                             name="introduce"
                             onChange={onChangeSingleField}
                             type="text"
                             value={baseData.introduce}
                           />
-                        </p>
+                        </div>
                       </div>
                     )
                   )}
@@ -131,7 +131,7 @@ const MangeStory = (props) => {
                     <div className={styles.tabWrap}>
                       {/* <h3 className={styles.tabTitle}>Here is a my story!</h3> */}
                       {/* <StoryTab baseData={baseData} /> */}
-                      <p>
+                      <div>
                         {!editMode ? (
                           <StoryTab baseData={baseData} isOwn={isOwn} />
                         ) : (
@@ -148,7 +148,7 @@ const MangeStory = (props) => {
                           )
                         )}
                         <p></p>
-                      </p>
+                      </div>
                     </div>
                   </TabPane>
                   <TabPane tab="COMMENTS" key="3">

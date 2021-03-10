@@ -30,6 +30,9 @@
   .card {
     display: inline-block;
   }
+  .storyValue {
+    color:#212121
+  }
   .storyTabDescription {
     font-family: Noto Sans JP;
     font-style: normal;
@@ -38,6 +41,7 @@
     line-height: 35px;
     .storyKey {
       color:  $primaryDark;
+      cursor: pointer;
     }
   }
   .autherBlock {
