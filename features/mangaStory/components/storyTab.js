@@ -3,13 +3,24 @@ import React, { useState } from 'react';
 import cn from 'classnames';
 import Card from 'components/card';
 import Modal from 'components/modals/Modal';
+import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 
 import styles from '../styles.module.scss';
 
-const StoryTab = ({ baseData, isOwn }) => {
+const StoryTab = ({ baseData, isOwn, user }) => {
   const [showModal, changeShowModal] = useState(false);
-  const { story, preferredLanguage, searchingFor, authorInfo, participents } = baseData;
+  const { _id, story, preferredLanguage, searchingFor, authorInfo, participents } = baseData;
+  const history = useRouter();
+
+  const toTeam = () => {
+    if (user) {
+      changeShowModal(true);
+    } else {
+      history.push(`/sign-in?page=manga-story/${_id}`);
+    }
+  };
+
   return (
     <div className={styles.storyTab}>
       <div>
@@ -37,7 +48,7 @@ const StoryTab = ({ baseData, isOwn }) => {
               description="Join to us and let’s make a fun"
               btnText="Join to Team"
               items={[<img key="1" src="/img/storyCardImg.png" alt="" />]}
-              onClick={() => changeShowModal(true)}
+              onClick={() => toTeam()}
             />
           </div>
         </div>
@@ -61,6 +72,11 @@ const StoryTab = ({ baseData, isOwn }) => {
 StoryTab.propTypes = {
   baseData: PropTypes.object.isRequired,
   isOwn: PropTypes.bool.isRequired,
+  user: PropTypes.object,
+};
+
+StoryTab.defaultProps = {
+  user: null,
 };
 
 export default StoryTab;

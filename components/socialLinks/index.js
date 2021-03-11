@@ -233,7 +233,7 @@ const SocialLinks = (props) => {
               ))}
             </Col>
           ) : (
-            <Col span={23}>
+            <Col span={22}>
               {canEditInit ? (
                 <div
                   className={styles.noSocial}

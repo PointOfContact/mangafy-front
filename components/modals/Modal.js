@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 
 import { Modal, Select, Input } from 'antd';
 import client from 'api/client';
-import HugeButton from 'components/ui-elements/huge-button';
+import LargeButton from 'components/ui-elements/large-button';
+import PrimarySelect from 'components/ui-elements/select';
 import { CHECKBOXES } from 'helpers/constant';
 
 import styles from './styles.module.scss';
@@ -11,8 +12,9 @@ const { TextArea } = Input;
 
 const { Option } = Select;
 const ModalStart = ({ changeShowModal, showModal, baseData }) => {
-  const [joinAs, changeJoinAs] = useState('');
+  const [joinAs, changeJoinAs] = useState('Writer');
   const [text, changeText] = useState('');
+
   // state = { visible: false, joinAs: 'Writer' };
   const ModalTitle = (
     <div className={styles.titleWrapper}>
@@ -71,6 +73,13 @@ const ModalStart = ({ changeShowModal, showModal, baseData }) => {
     });
   };
 
+  const MyCheckboxes = CHECKBOXES.map((item) => ({
+    key: item.label,
+    valuy: item.label,
+  }));
+  const handleChangeJoinAs = (e) => {
+    changeJoinAs(e);
+  };
   return (
     <Modal
       className={styles.modal}
@@ -85,17 +94,13 @@ const ModalStart = ({ changeShowModal, showModal, baseData }) => {
           <div className="col-lg-12 select_modal">
             <form action="">
               <h2>Join as</h2>
-              <Select
+              <PrimarySelect
+                showSearch
                 className={styles.modalSelect}
-                defaultValue="Writer"
-                style={{ width: '100%' }}
-                onChange={changeJoinAs}>
-                {CHECKBOXES.map((type) => (
-                  <Option key={type.label} value={type.label}>
-                    {type.label}
-                  </Option>
-                ))}
-              </Select>
+                onChange={handleChangeJoinAs}
+                options={MyCheckboxes}
+                defaultValue={joinAs}
+              />
               <h2>Your message</h2>
               <TextArea
                 placeholder="Please write a personal message to the team leader explaining why you are a good fit"
@@ -109,7 +114,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData }) => {
               />
 
               <div className="modal_select_btn">
-                <HugeButton
+                <LargeButton
                   onClick={() => {
                     createRequest();
                   }}

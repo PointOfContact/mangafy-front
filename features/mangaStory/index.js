@@ -133,7 +133,7 @@ const MangeStory = (props) => {
                       {/* <StoryTab baseData={baseData} /> */}
                       <p>
                         {!editMode ? (
-                          <StoryTab baseData={baseData} isOwn={isOwn} />
+                          <StoryTab baseData={baseData} user={user} isOwn={isOwn} />
                         ) : (
                           canEdit && (
                             <TextArea
