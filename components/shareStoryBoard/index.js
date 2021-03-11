@@ -42,20 +42,32 @@ export const ShareStoryBoard = ({ shareUrl }) => (
     </div>
     <h4 className={styles.title}>Self publishing platforms</h4>
     <div className={styles.logos}>
-      <img src="/img/tapacs.svg" alt="" />
-      <img className="webtoon" src="/img/webtoon.svg" alt="" />
-      <img src="/img/comico.svg" alt="" />
+      <a href="https://tapas.io/" target="_blank" rel="noreferrer">
+        <img src="/img/tapacs.svg" alt="" />
+      </a>
+      <a href="https://www.webtoons.com" target="_blank" rel="noreferrer">
+        <img className="webtoon" src="/img/webtoon.svg" alt="" />
+      </a>
+      <a href="https://www.comico.jp/" target="_blank" rel="noreferrer">
+        <img src="/img/comico.svg" alt="" />
+      </a>
     </div>
     <div className={styles.logos_mobile}>
-      <button id="TapasId" type="button">
-        Tapas
-      </button>
-      <button id="WebtoonId" type="button">
-        Webtoon
-      </button>
-      <button id="ComicosId" type="button">
-        Comicos
-      </button>
+      <a href="https://tapas.io/" target="_blank" rel="noreferrer">
+        <button id="TapasId" type="button">
+          Tapas
+        </button>
+      </a>
+      <a href="https://www.webtoons.com" target="_blank" rel="noreferrer">
+        <button id="WebtoonId" type="button">
+          Webtoon
+        </button>
+      </a>
+      <a href="https://www.comico.jp/" target="_blank" rel="noreferrer">
+        <button id="ComicosId" type="button">
+          Comicos
+        </button>
+      </a>
     </div>
     <div className={styles.link}>
       <h4>Link</h4>

@@ -5,6 +5,11 @@
   height: 100vh !important;
 }
 
+.popover{
+  position: fixed;
+  z-index: 1111;
+}
+
 .header_cont {
   height: 114px;
   background-color: $primaryBG;
@@ -221,6 +226,15 @@
     }
     @media (max-width: 767px) {
       display: none;
+    }
+  }
+  .notification{
+    cursor: pointer;
+    margin-right: 12px;
+    &:hover{
+      path{
+        fill: $primaryDark;
+      }
     }
   }
   .mobile_menu {

@@ -1,7 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
+import { Badge, Popover } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
+import SvgBell from 'components/icon/Bell';
+import MenuMobilePopover from 'components/menu-mobile-popover';
+import MenuNotificationsBox from 'components/menu-notifications-box';
 import PrimaryButton from 'components/ui-elements/button';
 import { removeAllStorage } from 'helpers/shared';
 import Image from 'next/image';
@@ -10,8 +14,49 @@ import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
+const findNotificationsCount = (onSuccess, onFailure) => {
+  const jwt = client.getCookie('feathers-jwt');
+  import('../../api/restClient').then((m) => {
+    m.default
+      .service('/api/v2/notifications')
+      .find({
+        query: {
+          $limit: 0,
+          unread: true,
+        },
+        headers: { Authorization: `Bearer ${jwt}` },
+      })
+      .then((res) => {
+        onSuccess(res);
+      })
+      .catch((err) => {
+        onFailure(err);
+        return err;
+      });
+  });
+};
+
 const Header = ({ user, path }) => {
   const [isOpen, handleManuOpen] = useState(false);
+  const [notificationsCount, setNotificationsCount] = useState(false);
+  const [unreadNotificationsId, setUnreadNotificationsId] = useState([]);
+
+  const getNotificationsCount = useCallback(() => {
+    if (!user) return;
+    findNotificationsCount(
+      (res) => {
+        setUnreadNotificationsId(res);
+        setNotificationsCount(res.length);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }, [user]);
+
+  useEffect(() => {
+    getNotificationsCount();
+  }, [user]);
 
   useEffect(() => {
     document.addEventListener('click', handleDocumentClick, false);
@@ -64,7 +109,11 @@ const Header = ({ user, path }) => {
             </Link>
             <div className={styles.header__logIn}>
               {user ? (
-                <Link href="/my-profile">
+                <Popover
+                  overlayClassName={styles.popover}
+                  placement="bottomRight"
+                  content={<MenuMobilePopover removeAllStorage={removeAllStorage} />}
+                  trigger="click">
                   <div className={cn(styles.img, styles.imgOnline)}>
                     <div className={styles.avatar}>
                       <img
@@ -76,7 +125,7 @@ const Header = ({ user, path }) => {
                         alt=""></img>
                     </div>
                   </div>
-                </Link>
+                </Popover>
               ) : (
                 <Link href="/sign-in">
                   <img src="/img/header-log-in.svg" alt="" />
@@ -104,6 +153,22 @@ const Header = ({ user, path }) => {
                       </span>
                     </a>
                   </Link>
+                  <span className={styles.notification}>
+                    <Popover
+                      overlayClassName={styles.popover}
+                      placement="bottom"
+                      content={
+                        <MenuNotificationsBox
+                          user={user}
+                          unreadNotificationsId={unreadNotificationsId}
+                        />
+                      }
+                      trigger="click">
+                      <Badge count={notificationsCount}>
+                        <SvgBell width="23px" height="23px" />
+                      </Badge>
+                    </Popover>
+                  </span>
                   {path !== 'myProfile' && (
                     <Link href="/my-profile">
                       <a className={styles.header__menu}>

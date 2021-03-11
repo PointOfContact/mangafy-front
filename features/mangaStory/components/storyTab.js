@@ -22,9 +22,10 @@ const StoryTab = ({ baseData, isOwn }) => {
         </div>
         <div>
           <span className={styles.storyKey}>We are looking for: </span>
-          {searchingFor.map((name) => (
+          {searchingFor.map((name, index) => (
             <span key={name} className={styles.storyValue}>
-              {`${name}, `}
+              {name}
+              {index < searchingFor.length - 1 && ', '}
             </span>
           ))}
         </div>

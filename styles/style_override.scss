@@ -273,6 +273,13 @@ body {
   }
 }
 
+.mailNotificationSelect {
+  display: block;
+  position: relative;
+  min-width: 200px !important;
+  z-index: 200000 !important;
+}
+
 .ant-switch-checked {
   background-color: $primaryDark !important;
 }
@@ -1326,42 +1333,42 @@ img.rot4 {
       color: $black;
     }
     .ant-btn {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			height: 46px;
-			background: #7B65F3;
-			border: 1px solid #9A87FE;
-			border-radius: 5px;
-			padding: 0 25px;
-			&:hover {
-				background: #7B65F3;
-				box-shadow: 0px 0px 20px #7B65F3;
-			}
-			span {
-				font-family: Noto Sans JP;
-				font-weight: 900;
-				font-size: 15px;
-				line-height: 1;
-				text-align: center;
-			}
-		}
-		textarea.ant-input {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 46px;
+      background: #7b65f3;
+      border: 1px solid #9a87fe;
+      border-radius: 5px;
+      padding: 0 25px;
+      &:hover {
+        background: #7b65f3;
+        box-shadow: 0px 0px 20px #7b65f3;
+      }
+      span {
+        font-family: Noto Sans JP;
+        font-weight: 900;
+        font-size: 15px;
+        line-height: 1;
+        text-align: center;
+      }
+    }
+    textarea.ant-input {
       min-height: 140px;
-			font-weight: 500;
-			font-size: 20px;
-			line-height: 1.45;
-			border: 1px solid #7B65F3;
-			border-radius: 10px;
-			padding: 16px;
-			&:focus {
-				border: 1px solid #7B65F3;
-				outline: none;
-				box-shadow: none;
-			}
-			&::placeholder {
-				color: #858585;
-			}
-		}
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 1.45;
+      border: 1px solid #7b65f3;
+      border-radius: 10px;
+      padding: 16px;
+      &:focus {
+        border: 1px solid #7b65f3;
+        outline: none;
+        box-shadow: none;
+      }
+      &::placeholder {
+        color: #858585;
+      }
+    }
   }
 }

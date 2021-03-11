@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Tabs, Layout, Row, Col } from 'antd';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
+import * as qs from 'query-string';
 
 import styles from './styles.module.scss';
 import TabCommissionPricing from './tabCommissionPricing';
@@ -31,6 +32,25 @@ const ProfileContent = (props) => {
     profileGenres,
     isMyProfile,
   } = props;
+
+  const [selectedTab, setSelectidTab] = useState('1');
+
+  useEffect(() => {
+    const { tab } = qs.parse(location.search);
+    switch (tab) {
+      case 'story':
+        setSelectidTab('1');
+        break;
+      case 'gallery':
+        setSelectidTab('2');
+        break;
+      case 'services':
+        setSelectidTab('3');
+        break;
+      default:
+        setSelectidTab('1');
+    }
+  }, []);
 
   const tabPanels = [
     {
@@ -85,7 +105,7 @@ const ProfileContent = (props) => {
         )}>
         <Row>
           <Col span={24}>
-            <Tabs defaultActiveKey="1">
+            <Tabs activeKey={selectedTab} onTabClick={setSelectidTab}>
               {tabPanels.map((tabPanel) => (
                 <TabPane tab={tabPanel.tab} key={tabPanel.key}>
                   {tabPanel.component}
