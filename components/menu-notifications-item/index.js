@@ -40,7 +40,7 @@ const MenuNotificationsItem = ({
               <img
                 src={
                   icon
-                    ? client.UPLOAD_URL$ + { icon }
+                    ? `${client.UPLOAD_URL}${icon}`
                     : `https://ui-avatars.com/api/?background=7b65f3&name=${title}&rounded=true&color=ffffff`
                 }
                 alt=""
