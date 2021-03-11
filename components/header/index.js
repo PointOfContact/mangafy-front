@@ -14,14 +14,15 @@ import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
-const findNotifications = (onSuccess, onFailure) => {
+const findNotificationsCount = (onSuccess, onFailure) => {
   const jwt = client.getCookie('feathers-jwt');
   import('../../api/restClient').then((m) => {
     m.default
       .service('/api/v2/notifications')
       .find({
         query: {
-          $sort: { createdAt: -1 },
+          $limit: 0,
+          unread: true,
         },
         headers: { Authorization: `Bearer ${jwt}` },
       })
@@ -37,16 +38,15 @@ const findNotifications = (onSuccess, onFailure) => {
 
 const Header = ({ user, path }) => {
   const [isOpen, handleManuOpen] = useState(false);
-  const [notifications, setNotifications] = useState(false);
   const [notificationsCount, setNotificationsCount] = useState(false);
-  const getNotifications = useCallback(() => {
+  const [unreadNotificationsId, setUnreadNotificationsId] = useState([]);
+
+  const getNotificationsCount = useCallback(() => {
     if (!user) return;
-    findNotifications(
+    findNotificationsCount(
       (res) => {
-        setNotifications(res?.data);
-        setNotificationsCount(
-          res?.data.filter(({ read_by }) => !read_by.find((id) => id === user._id)).length
-        );
+        setUnreadNotificationsId(res);
+        setNotificationsCount(res.length);
       },
       (err) => {
         console.log(err);
@@ -55,8 +55,8 @@ const Header = ({ user, path }) => {
   }, [user]);
 
   useEffect(() => {
-    getNotifications();
-  }, [user, getNotifications]);
+    getNotificationsCount();
+  }, [user]);
 
   useEffect(() => {
     document.addEventListener('click', handleDocumentClick, false);
@@ -158,7 +158,10 @@ const Header = ({ user, path }) => {
                       overlayClassName={styles.popover}
                       placement="bottom"
                       content={
-                        <MenuNotificationsBox notifications={notifications} uid={user._id} />
+                        <MenuNotificationsBox
+                          user={user}
+                          unreadNotificationsId={unreadNotificationsId}
+                        />
                       }
                       trigger="click">
                       <Badge count={notificationsCount}>
