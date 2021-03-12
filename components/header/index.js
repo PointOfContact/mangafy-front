@@ -161,6 +161,7 @@ const Header = ({ user, path }) => {
                         <MenuNotificationsBox
                           user={user}
                           unreadNotificationsId={unreadNotificationsId}
+                          notificationsCount={notificationsCount}
                         />
                       }
                       trigger="click">

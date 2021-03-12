@@ -1372,3 +1372,13 @@ img.rot4 {
     }
   }
 }
+
+.mailNotificationSettingsPopover {
+  position: fixed !important;
+  z-index: 111111 !important;
+  width: 100%;
+  max-width: 230px;
+  .ant-popover-inner-content {
+    padding: 0 !important;
+  }
+}
