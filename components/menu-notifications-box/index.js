@@ -54,7 +54,7 @@ const findNotifications = (onSuccess, onFailure) => {
   });
 };
 
-const MenuNotificationsBox = ({ user, unreadNotificationsId }) => {
+const MenuNotificationsBox = ({ user, unreadNotificationsId, notificationsCount }) => {
   const [notifications, setNotifications] = useState([]);
 
   const getNotifications = useCallback(() => {
@@ -92,9 +92,11 @@ const MenuNotificationsBox = ({ user, unreadNotificationsId }) => {
   return (
     <>
       <div className={styles.box}>
-        <p className={styles.make_all} onClick={() => makeAllRead()}>
-          make all read
-        </p>
+        {notificationsCount > 0 && (
+          <p className={styles.make_all} onClick={() => makeAllRead()}>
+            make all read
+          </p>
+        )}
         <div className={styles.box__title}>
           <p className={styles.box__title_text}>Your notifications</p>
         </div>
@@ -117,12 +119,12 @@ const MenuNotificationsBox = ({ user, unreadNotificationsId }) => {
         </div>
 
         <div className={styles.box__more}>
-          <MenuMailNotification user={user} />
-        </div>
-        <div className={styles.box__more}>
           <Link href="#">
             <a className={styles.box__more_button}>+2 More Updates</a>
           </Link>
+        </div>
+        <div className={styles.box__more}>
+          <MenuMailNotification user={user} />
         </div>
       </div>
     </>
@@ -132,6 +134,10 @@ const MenuNotificationsBox = ({ user, unreadNotificationsId }) => {
 MenuNotificationsBox.propTypes = {
   user: PropTypes.object.isRequired,
   unreadNotificationsId: PropTypes.array.isRequired,
+  notificationsCount: PropTypes.number,
+};
+MenuNotificationsBox.defaultProps = {
+  notificationsCount: null,
 };
 
 export default MenuNotificationsBox;
