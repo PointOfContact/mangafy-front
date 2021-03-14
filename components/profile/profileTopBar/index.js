@@ -51,7 +51,7 @@ const ProfileTopBar = (props) => {
                 src={
                   profile?.avatar
                     ? client.UPLOAD_URL + profile?.avatar
-                    : `https://ui-avatars.com/api/?background=7b65f3&name=${profile.name}&rounded=true&color=ffffff`
+                    : `https://ui-avatars.com/api/?background=9A87FE&name=${profile.name}&rounded=true&color=ffffff`
                 }
                 alt=""
               />
@@ -60,7 +60,7 @@ const ProfileTopBar = (props) => {
                 src={
                   user.avatar
                     ? client.UPLOAD_URL + user.avatar
-                    : `https://ui-avatars.com/api/?background=7b65f3&name=${user.name}&rounded=true&color=ffffff`
+                    : `https://ui-avatars.com/api/?background=9A87FE&name=${user.name}&rounded=true&color=ffffff`
                 }
                 alt=""
               />

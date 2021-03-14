@@ -36,7 +36,7 @@ const ProfilesCard = ({ user, genres }) => {
                 src={
                   user.avatar
                     ? client.UPLOAD_URL + user.avatar
-                    : `https://ui-avatars.com/api/?background=7b65f3&name=${user.name}&rounded=true&color=ffffff&size=128`
+                    : `https://ui-avatars.com/api/?background=9A87FE&name=${user.name}&rounded=true&color=ffffff&size=128`
                 }
                 alt="User avatar"
               />

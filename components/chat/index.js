@@ -146,7 +146,7 @@ export const Chat = ({ mangaStory = false, user = null, requests, isOwn }) => {
                         src={
                           r.senderInfo.avatar
                             ? client.UPLOAD_URL + r.senderInfo.avatar
-                            : `https://ui-avatars.com/api/?background=7b65f3&name=${r.senderInfo.name}&rounded=true&color=ffffff`
+                            : `https://ui-avatars.com/api/?background=9A87FE&name=${r.senderInfo.name}&rounded=true&color=ffffff`
                         }
                         alt=""
                       />

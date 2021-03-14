@@ -120,7 +120,7 @@ const Header = ({ user, path }) => {
                         src={
                           user.avatar
                             ? client.UPLOAD_URL + user.avatar
-                            : `https://ui-avatars.com/api/?background=7b65f3&name=${user.name}&rounded=true&color=ffffff`
+                            : `https://ui-avatars.com/api/?background=9A87FE&name=${user.name}&rounded=true&color=ffffff`
                         }
                         alt=""></img>
                     </div>
@@ -140,7 +140,7 @@ const Header = ({ user, path }) => {
                 <a className={styles.header__menu}>Collabs</a>
               </Link>
               <Link href="/profiles">
-                <a className={styles.header__menu}>Members</a>
+                <a className={styles.header__menu}>People</a>
               </Link>
             </div>
             <div className={styles.header__rightNav}>
@@ -183,7 +183,7 @@ const Header = ({ user, path }) => {
                                 src={
                                   user.avatar
                                     ? client.UPLOAD_URL + user.avatar
-                                    : `https://ui-avatars.com/api/?background=7b65f3&name=${user.name}&rounded=true&color=ffffff`
+                                    : `https://ui-avatars.com/api/?background=9A87FE&name=${user.name}&rounded=true&color=ffffff`
                                 }
                                 alt="Picture of the user"
                               />
@@ -270,7 +270,7 @@ const MenuLinks = ({ isOpen, user }) => {
                   <Link href="/collaborations">Collabs</Link>
                 </li>
                 <li className={styles.menu_item}>
-                  <Link href="/profiles">Members</Link>
+                  <Link href="/profiles">People</Link>
                 </li>
                 <li className={styles.menu_item}>
                   <Link href="/create-a-story/start">Create a collab</Link>
@@ -312,7 +312,7 @@ const MenuLinks = ({ isOpen, user }) => {
                 <Link href="/create-a-story/start">Create a collab</Link>
               </li>
               <li className={styles.menu_item}>
-                <Link href="/profiles">Members</Link>
+                <Link href="/profiles">People</Link>
               </li>
               <li className={styles.menu_item}>
                 <Link href="/pricing">Go Pro</Link>

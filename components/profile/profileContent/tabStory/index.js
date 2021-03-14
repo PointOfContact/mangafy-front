@@ -87,7 +87,7 @@ const TabStory = (props) => {
       {!userData && profile?.content && (
         <>
           <h3 className={cn(styles.sub_title)}>Here is a my story!</h3>
-          {profile?.content && <p className={styles.data_content}>{profile.content}</p>}
+          {profile?.content && <pre className={styles.data_content}>{profile.content}</pre>}
         </>
       )}
       <div>

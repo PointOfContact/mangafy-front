@@ -20,7 +20,7 @@ const CommentList = ({ comments }) => (
             src={
               props.senderInfo[0]
                 ? client.UPLOAD_URL + props.senderInfo[0].avatar
-                : `https://ui-avatars.com/api/?background=7b65f3&name=${props?.senderInfo[0]?.name}&rounded=true&color=ffffff`
+                : `https://ui-avatars.com/api/?background=9A87FE&name=${props?.senderInfo[0]?.name}&rounded=true&color=ffffff`
             }
             alt={props.senderInfo.name && props.senderInfo.name}
           />
@@ -111,7 +111,7 @@ export const Comments = ({ commentsData = [], mangaStory = false, user = null, i
             src={
               user
                 ? client.UPLOAD_URL + user.avatar
-                : `https://ui-avatars.com/api/?background=7b65f3&name=${user.name}&rounded=true&color=ffffff`
+                : `https://ui-avatars.com/api/?background=9A87FE&name=${user.name}&rounded=true&color=ffffff`
             }
             alt={user && user.name}
           />
