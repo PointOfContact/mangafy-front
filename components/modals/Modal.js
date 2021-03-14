@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import { Modal, Select, Input } from 'antd';
 import client from 'api/client';
+import SvgClose from 'components/icon/Close';
 import LargeButton from 'components/ui-elements/large-button';
 import PrimarySelect from 'components/ui-elements/select';
 import { CHECKBOXES } from 'helpers/constant';
@@ -27,7 +28,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData }) => {
     changeText(e.target.value);
   };
 
-  const handleCancel = (e) => {
+  const handleCancel = () => {
     changeShowModal(false);
   };
 
@@ -75,7 +76,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData }) => {
 
   const MyCheckboxes = CHECKBOXES.map((item) => ({
     key: item.label,
-    valuy: item.label,
+    value: item.label,
   }));
   const handleChangeJoinAs = (e) => {
     changeJoinAs(e);
@@ -87,6 +88,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData }) => {
       footer={null}
       style={{ width: '900px' }}
       visible={showModal}
+      closeIcon={<SvgClose height="18px" width="18px" />}
       okText="Send"
       onCancel={handleCancel}>
       <div className="container">
@@ -99,7 +101,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData }) => {
                 className={styles.modalSelect}
                 onChange={handleChangeJoinAs}
                 options={MyCheckboxes}
-                defaultValue={joinAs}
+                value={joinAs}
               />
               <h2>Your message</h2>
               <TextArea
