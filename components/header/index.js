@@ -282,9 +282,9 @@ const MenuLinks = ({ isOpen, user }) => {
                 <li className={styles.menu_item}>
                   <Link href="/create-a-story/start">Create a collab</Link>
                 </li>
-                <li className={styles.menu_item}>
+                {/* <li className={styles.menu_item}>
                   <Link href="/pricing">Go Pro</Link>
-                </li>
+                </li> */}
               </ul>
               <ul className={cn(`${styles.main_list} ${styles.ul_login}`)}>
                 <li className={styles.menu_item}>
@@ -321,16 +321,16 @@ const MenuLinks = ({ isOpen, user }) => {
               <li className={styles.menu_item}>
                 <Link href="/profiles">People</Link>
               </li>
-              <li className={styles.menu_item}>
+              {/* <li className={styles.menu_item}>
                 <Link href="/pricing">Go Pro</Link>
-              </li>
+              </li> */}
             </ul>
           )}
         </div>
         <div className={styles.mobile_div_part2}>
           <ul className={styles.links}>{links}</ul>
           <div className={styles.image_block}>
-            {user ? <img src="img/Frame2.png"></img> : <img src="img/Frame.png"></img>}
+            {user ? <img src="/img/Frame2.png"></img> : <img src="/img/Frame.png"></img>}
           </div>
         </div>
       </div>

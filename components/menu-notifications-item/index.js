@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import client from 'api/client';
 import cn from 'classnames';
 import moment from 'moment';
+import Image from 'next/image';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 
@@ -13,7 +14,7 @@ const MenuNotificationsItem = ({
   title,
   image,
   icon,
-  discription,
+  description,
   createdAt,
   verified,
   profileId,
@@ -31,19 +32,21 @@ const MenuNotificationsItem = ({
 
   return (
     <>
-      <Link href={navigateTo}>
+      <Link href={navigateTo || '#'}>
         <div
           className={cn(styles.box, !verified && !verifi && styles.verified)}
           onMouseEnter={() => addUnreadNotificationsId()}>
           <Link href={`/profile/${profileId}`}>
             <div className={styles.box__img}>
-              <img
+              <Image
+                width={52}
+                height={52}
                 src={
                   icon
                     ? `${client.UPLOAD_URL}${icon}`
                     : `https://ui-avatars.com/api/?background=9A87FE&name=${title}&rounded=true&color=ffffff`
                 }
-                alt=""
+                alt="Notification icon img"
               />
             </div>
           </Link>
@@ -53,11 +56,18 @@ const MenuNotificationsItem = ({
                 <p className={styles.box__title_text}>{title}</p>
               </div>
               <div className={styles.box__description}>
-                <p className={styles.box__description_text}>{discription}</p>
+                <p className={styles.box__description_text}>{description}</p>
               </div>
             </div>
             <div className={styles.box__post}>
-              <img src={client.UPLOAD_URL + image} alt="" />
+              <Image
+                layout="fixed"
+                width={100}
+                height={50}
+                className={styles.box__image}
+                src={client.UPLOAD_URL + image}
+                alt=""
+              />
             </div>
             <div className={styles.box__date}>
               <p className={styles.box__date_text}>{moment(createdAt).fromNow()}</p>
@@ -73,7 +83,7 @@ MenuNotificationsItem.propTypes = {
   title: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
   icon: PropTypes.string.isRequired,
-  discription: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
   createdAt: PropTypes.string.isRequired,
   verified: PropTypes.bool.isRequired,
   profileId: PropTypes.string.isRequired,

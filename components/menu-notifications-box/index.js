@@ -3,7 +3,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 import client from 'api/client';
 import MenuMailNotification from 'components/menu-mail-notifications';
 import MenuNotificationsItem from 'components/menu-notifications-item/';
-import Link from 'next/link';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
@@ -33,7 +32,7 @@ const patchUnreadNotificationsId = (newUnreadNotificationsId, onSuccess, onFailu
   });
 };
 
-const findNotifications = (onSuccess, onFailure) => {
+const findNotifications = (limit, onSuccess, onFailure) => {
   const jwt = client.getCookie('feathers-jwt');
   import('../../api/restClient').then((m) => {
     m.default
@@ -41,6 +40,7 @@ const findNotifications = (onSuccess, onFailure) => {
       .find({
         query: {
           $sort: { createdAt: -1 },
+          $limit: limit,
         },
         headers: { Authorization: `Bearer ${jwt}` },
       })
@@ -56,18 +56,24 @@ const findNotifications = (onSuccess, onFailure) => {
 
 const MenuNotificationsBox = ({ user, unreadNotificationsId, notificationsCount }) => {
   const [notifications, setNotifications] = useState([]);
+  const [moreUpdatesCount, setMoreUpdatesCount] = useState(0);
 
-  const getNotifications = useCallback(() => {
-    if (!user) return;
-    findNotifications(
-      (res) => {
-        setNotifications(res?.data);
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-  }, [user]);
+  const getNotifications = useCallback(
+    (limit = 10) => {
+      if (!user) return;
+      findNotifications(
+        limit,
+        (res) => {
+          setNotifications(res?.data);
+          setMoreUpdatesCount(res.total - res?.data.length);
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+    },
+    [user]
+  );
 
   const patchNotification = (newUnreadNotificationsId) => {
     patchUnreadNotificationsId(
@@ -87,7 +93,11 @@ const MenuNotificationsBox = ({ user, unreadNotificationsId, notificationsCount 
 
   useEffect(() => {
     getNotifications();
-  }, [user]);
+  }, [user, getNotifications]);
+
+  const getMore = () => {
+    getNotifications(moreUpdatesCount + notifications.length);
+  };
 
   return (
     <>
@@ -107,7 +117,7 @@ const MenuNotificationsBox = ({ user, unreadNotificationsId, notificationsCount 
               image={notification.image}
               icon={notification.icon}
               title={notification.title}
-              discription={notification.discription}
+              description={notification.description}
               createdAt={notification.createdAt}
               verified={notification?.read_by?.find((id) => id.readerId === user._id)}
               profileId={notification.meta.params.userId}
@@ -118,11 +128,11 @@ const MenuNotificationsBox = ({ user, unreadNotificationsId, notificationsCount 
           ))}
         </div>
 
-        <div className={styles.box__more}>
-          <Link href="#">
-            <a className={styles.box__more_button}>+2 More Updates</a>
-          </Link>
-        </div>
+        {!!moreUpdatesCount && (
+          <div onClick={getMore} className={styles.box__more}>
+            <a className={styles.box__more_button}>+{moreUpdatesCount} More Updates</a>
+          </div>
+        )}
         <div className={styles.box__more}>
           <MenuMailNotification user={user} />
         </div>
