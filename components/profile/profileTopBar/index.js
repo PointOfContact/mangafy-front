@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Upload, Input, Select, Layout, Row, Col } from 'antd';
+import { Upload, Input, Select, Layout, Row, Col, notification } from 'antd';
 import client from 'api/client';
 import { createRequest } from 'api/joinMangaStoryRequestClient';
 import cn from 'classnames';
@@ -32,13 +32,24 @@ const ProfileTopBar = (props) => {
     profile,
   } = props;
 
-  const onInvite = async () => {
-    await createRequest({
-      mangaStoryId: user.mangaStories[0]._id,
-      isInvite: true,
-      joinAs: profile.type,
-      senderId: profile._id,
+  const openNotification = (type, message, description = '') => {
+    notification[type]({
+      message,
+      description,
     });
+  };
+
+  const onInvite = async () => {
+    try {
+      await createRequest({
+        mangaStoryId: user.mangaStories[0]._id,
+        isInvite: true,
+        joinAs: profile.type,
+        senderId: profile._id,
+      });
+    } catch (error) {
+      openNotification('error', 'Failed to invite');
+    }
   };
 
   return (
