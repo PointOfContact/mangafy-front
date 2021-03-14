@@ -3,7 +3,7 @@ import { logout } from 'store';
 
 import client from '../api/client';
 
-export const beforeUpload = (file, props, updater) => {
+export const beforeUpload = (file, props, updater = () => {}) => {
   // if (info.file.status !== 'uploading') {
   //   console.log(info.file, info.fileList);
   // }
