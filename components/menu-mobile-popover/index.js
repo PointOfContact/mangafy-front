@@ -6,10 +6,15 @@ import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
-const MenuMobilePopover = ({ removeAllStorage }) => (
+const MenuMobilePopover = ({
+  removeAllStorage,
+  user,
+  unreadNotificationsId,
+  notificationsCount,
+}) => (
   <>
     <div className={styles.box}>
-      <div className={styles.box__title}>
+      {/* <div className={styles.box__title}>
         <p className={styles.box__title_text}>
           <Link href="/pricing">
             <span className={styles.box__go_to_pro}>
@@ -17,7 +22,7 @@ const MenuMobilePopover = ({ removeAllStorage }) => (
             </span>
           </Link>
         </p>
-      </div>
+      </div> */}
       <div className={styles.box__subtitle}>
         <Link href="/my-profile">
           <a className={styles.box__libk}>Profile</a>
@@ -34,7 +39,11 @@ const MenuMobilePopover = ({ removeAllStorage }) => (
           <a className={styles.box__libk}>Sign out</a>
         </span>
       </div>
-      <MenuNotificationsBox />
+      <MenuNotificationsBox
+        user={user}
+        unreadNotificationsId={unreadNotificationsId}
+        notificationsCount={notificationsCount}
+      />
     </div>
   </>
 );

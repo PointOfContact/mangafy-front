@@ -112,7 +112,14 @@ const Header = ({ user, path }) => {
                 <Popover
                   overlayClassName={styles.popover}
                   placement="bottomRight"
-                  content={<MenuMobilePopover removeAllStorage={removeAllStorage} />}
+                  content={
+                    <MenuMobilePopover
+                      user={user}
+                      unreadNotificationsId={unreadNotificationsId}
+                      notificationsCount={notificationsCount}
+                      removeAllStorage={removeAllStorage}
+                    />
+                  }
                   trigger="click">
                   <div className={cn(styles.img, styles.imgOnline)}>
                     <div className={styles.avatar}>
