@@ -17,6 +17,7 @@ import ProjectScripts from 'components/projectScripts';
 import { ShareStoryBoard } from 'components/shareStoryBoard';
 import Upload from 'components/ui-elements/upload';
 import PropTypes from 'prop-types';
+import * as qs from 'query-string';
 import useWindowSize from 'utils/useWindowSize';
 
 import styles from '../styles.module.scss';
@@ -113,6 +114,32 @@ const StoryBoardTabs = ({ user, mangaStory, openNotification, originUrl }) => {
       showModal();
     }, 2000);
   };
+
+  useEffect(() => {
+    const { storyTab } = qs.parse(location.search);
+    switch (storyTab) {
+      case 'idea':
+        setStoryBoardActiveTab('1');
+        break;
+      case 'hero':
+        setStoryBoardActiveTab('2');
+        break;
+      case 'project-scripts':
+        setStoryBoardActiveTab('3');
+        break;
+      case 'choose-layout':
+        setStoryBoardActiveTab('4');
+        break;
+      case 'upload':
+        setStoryBoardActiveTab('5');
+        break;
+      case 'share-story-board':
+        setStoryBoardActiveTab('6');
+        break;
+      default:
+        setStoryBoardActiveTab('1');
+    }
+  }, []);
 
   return (
     <Tabs

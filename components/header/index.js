@@ -146,13 +146,13 @@ const Header = ({ user, path }) => {
             <div className={styles.header__rightNav}>
               {user ? (
                 <>
-                  <Link href="/pricing">
+                  {/* <Link href="/pricing">
                     <a className={styles.header__menu}>
                       <span className={styles.go_to_pro}>
                         Go to <span>PRO</span>
                       </span>
                     </a>
-                  </Link>
+                  </Link> */}
                   <span className={styles.notification}>
                     <Popover
                       overlayClassName={styles.popover}

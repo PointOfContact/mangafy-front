@@ -117,16 +117,6 @@ const MangeStory = (props) => {
             <div className="row">
               <div className="col-lg-7 mangaStoriTopPanel">
                 <Tabs defaultActiveKey="1">
-                  {isOwn && (
-                    <TabPane tab="STORY BOARD" key="1" className="story">
-                      <StoryBoardTabs
-                        mangaStory={mangaStory}
-                        user={user}
-                        openNotification={openNotification}
-                        originUrl={originUrl}
-                      />
-                    </TabPane>
-                  )}
                   <TabPane tab="STORY" key="2" className="story">
                     <div className={styles.tabWrap}>
                       {/* <h3 className={styles.tabTitle}>Here is a my story!</h3> */}
@@ -151,6 +141,16 @@ const MangeStory = (props) => {
                       </p>
                     </div>
                   </TabPane>
+                  {isOwn && (
+                    <TabPane tab="STORY BOARD" key="1" className="story">
+                      <StoryBoardTabs
+                        mangaStory={mangaStory}
+                        user={user}
+                        openNotification={openNotification}
+                        originUrl={originUrl}
+                      />
+                    </TabPane>
+                  )}
                   <TabPane tab="COMMENTS" key="3">
                     <div className={styles.tabWrap}>
                       <Comments
