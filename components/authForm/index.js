@@ -29,6 +29,8 @@ const AuthForm = ({ type, errorMessage, onChange, onSubmit, isLogin, loading }) 
             placeholder={'Your name'}
             name="name"
             required
+            pattern=".*\S+.*"
+            title="This field is required"
             onChange={onChange}
           />
           <div className={styles.select}>

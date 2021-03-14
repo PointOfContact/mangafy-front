@@ -20,7 +20,7 @@ const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 
 const Register = ({ user }) => {
   const defaultState = {
-    username: '',
+    name: '',
     password: '',
     errorMessage: '',
     type: userTypes[0].key,
