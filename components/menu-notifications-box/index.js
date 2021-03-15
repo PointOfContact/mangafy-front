@@ -79,7 +79,7 @@ const MenuNotificationsBox = ({ user, unreadNotificationsId, notificationsCount 
     patchUnreadNotificationsId(
       newUnreadNotificationsId,
       () => {
-        findNotifications();
+        getNotifications();
       },
       (err) => {
         console.log(err);
