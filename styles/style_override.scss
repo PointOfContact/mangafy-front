@@ -1382,3 +1382,32 @@ img.rot4 {
     padding: 0 !important;
   }
 }
+
+.rce-mbox {
+  background: $primaryDark !important;
+  color: $text_white;
+  padding: 15px 10px !important;
+  margin-bottom: 20px !important;
+  svg {
+    path {
+      fill: $primaryDark !important;
+    }
+  }
+}
+
+.rce-mbox-right {
+  background: $primaryLight !important;
+  color: $text_white;
+  padding: 15px 10px !important;
+  margin-bottom: 20px !important;
+  svg {
+    path {
+      fill: $primaryLight !important;
+    }
+  }
+}
+
+.rce-mbox-time.non-copiable:before {
+  position: relative;
+  top: 30px;
+}

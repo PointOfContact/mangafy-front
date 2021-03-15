@@ -1,22 +1,29 @@
 import React, { useState, useEffect } from 'react';
 
-import { SendOutlined, BackwardOutlined } from '@ant-design/icons';
-import { Input, notification } from 'antd';
+import { Input, notification, Popconfirm } from 'antd';
 import client from 'api/client';
+import cn from 'classnames';
+import SvgCheck from 'components/icon/Check';
+import PrimaryButton from 'components/ui-elements/button';
 import moment from 'moment';
+import PropTypes from 'prop-types';
 import { MessageList } from 'react-chat-elements';
 
-import SvgCheck from '../icon/Check';
+import { patchRequest } from '../../api/joinMangaStoryRequestClient';
 import SvgClose from '../icon/Close';
+import styles from './styles.module.scss';
 
+const onAccept = (event, id, status) => {
+  event.stopPropagation();
+  return patchRequest(id, status);
+};
 const AllMessages = ({ conversationId, user }) => {
   const [messageList, setMessageList] = useState([]);
-  const [errMessage, setErrMessage] = useState('');
   const [value, setValue] = useState('');
 
   const adaptData = (data) => {
     data.forEach((item) => {
-      item.position = item.senderId == user._id ? 'left' : 'right';
+      item.position = item.senderId === user._id ? 'left' : 'right';
       item.type = 'text';
       item.text = item.content;
       item.date = moment(item.createdAt).toDate();
@@ -51,7 +58,7 @@ const AllMessages = ({ conversationId, user }) => {
         })
         .then((res) => {
           setMessageList(adaptData(res.data));
-          setShowMessage(true);
+          // setShowMessage(true);
         })
         .catch((err) => openNotification('error', err.message));
     });
@@ -69,126 +76,180 @@ const AllMessages = ({ conversationId, user }) => {
   }, []);
 
   const sendMessage = () => {
-    const jwt = client.getCookie('feathers-jwt');
-    import('api/restClient').then((m) => {
-      m.default
-        .service('/api/v2/messages')
-        .create(
-          {
-            content: value,
-            conversationId,
-          },
-          {
-            headers: { Authorization: `Bearer ${jwt}` },
-          }
-        )
-        .then((res) => {
-          getMessages(conversationId);
-          setValue('');
-        })
-        .catch((err) => {
-          openNotification('error', err.message);
-          setValue('');
-        });
-    });
+    if (value) {
+      const jwt = client.getCookie('feathers-jwt');
+      import('api/restClient').then((m) => {
+        setValue('');
+        m.default
+          .service('/api/v2/messages')
+          .create(
+            {
+              content: value,
+              conversationId,
+            },
+            {
+              headers: { Authorization: `Bearer ${jwt}` },
+            }
+          )
+          .then(() => {
+            getMessages(conversationId);
+          })
+          .catch((err) => {
+            openNotification('error', err.message);
+          });
+      });
+    }
+  };
+
+  const handleKeyPressSend = (event) => {
+    if (event.key === 'Enter') {
+      sendMessage();
+    }
   };
 
   return (
-    <div className="chatContainer">
-      <div className="messageList" id="message-content">
+    <div className={styles.chatContainer}>
+      <div className={styles.messageList} id="message-content">
         <MessageList
-          className="message-list"
+          className={styles.message_list}
           lockable={false}
           toBottomHeight={'100%'}
           dataSource={messageList}
         />
       </div>
-      <div className="chatBlock2">
-        <Input placeholder="Type here..." value={value} onChange={handleChange} />
-        <span className="sendMessage" onClick={sendMessage}>
-          <SendOutlined />
+      <div className={styles.chatBlock2}>
+        <Input
+          placeholder="Type here..."
+          value={value}
+          onChange={handleChange}
+          onKeyPress={handleKeyPressSend}
+        />
+        <span className={styles.sendMessage} onClick={sendMessage}>
+          <img src="/img/send.svg" />
         </span>
       </div>
     </div>
   );
 };
 
-export const Chat = ({ mangaStory = false, user = null, requests, isOwn }) => {
+AllMessages.propTypes = {
+  user: PropTypes.object.isRequired,
+  conversationId: PropTypes.string.isRequired,
+};
+
+export const Chat = ({ user, requests: req, isOwn }) => {
   const [conversationId, setConversationId] = useState(null);
   const [showMessage, setShowMessage] = useState(false);
-
+  const [requests, setRequests] = useState(req);
   const showMessages = (e) => {
-    const conversationId = e.currentTarget.dataset.id;
-    setConversationId(conversationId);
+    const newConversationId = e.currentTarget.dataset.id;
+    setConversationId(newConversationId);
     setShowMessage(true);
   };
-  const _id = user ? user._id : null;
-  if (!requests.length) {
+
+  if (!requests?.length) {
     return <p>There is no any request</p>;
   }
-  console.log(requests);
+  const setRecvestStatus = (event, id, status) => {
+    onAccept(event, id, status).then((res) => {
+      const newRequest = [...requests];
+      newRequest.map((item) => {
+        if (item._id === res._id) {
+          item.status = res.status;
+        }
+        return item;
+      });
+      setRequests(newRequest);
+    });
+  };
+
   return (
     <div>
-      <div className="container">
+      <div>
         <div className="row">
           {!showMessage ? (
-            requests.map((r) => (
-              <div
-                key={r._id}
-                className="col-lg-12 "
-                onClick={showMessages}
-                data-id={r.conversations[0] && r.conversations[0]._id}>
-                <div className="row message_community">
-                  <div className="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                    <div className="title_block_community ">
-                      <img
-                        className="avatar"
-                        src={
-                          r.senderInfo.avatar
-                            ? client.UPLOAD_URL + r.senderInfo.avatar
-                            : `https://ui-avatars.com/api/?background=9A87FE&name=${r.senderInfo.name}&rounded=true&color=ffffff`
-                        }
-                        alt=""
-                      />
-                      <div className="name_special">
-                        <h4>{r.senderInfo && r.senderInfo.name}</h4>
-                        <p>{r.senderInfo && r.senderInfo.type}</p>
+            <div className={styles.messenger}>
+              {requests.map((r) => (
+                <div
+                  key={r._id}
+                  className="col-lg-12 "
+                  onClick={showMessages}
+                  data-id={r.conversations[0] && r.conversations[0]._id}>
+                  <div className={cn(styles.message_community, 'row')}>
+                    <div className={styles.mess_content}>
+                      <div className={cn(styles.title_block)}>
+                        <img
+                          className="avatar"
+                          src={
+                            r.senderInfo.avatar
+                              ? client.UPLOAD_URL + r.senderInfo.avatar
+                              : `https://ui-avatars.com/api/?background=9A87FE&name=${r.senderInfo.name}&rounded=true&color=ffffff`
+                          }
+                          alt=""
+                        />
+                        <div className={styles.name_special}>
+                          <h4>{r.senderInfo && r.senderInfo.name}</h4>
+                          <p>{r.senderInfo && r.senderInfo.type}</p>
+                        </div>
                       </div>
+                      <p className={styles.messages}>
+                        {r.messages && r.messages[0] && r.messages[0].content}
+                      </p>
                     </div>
-                    <p className="messages">
-                      {r.messages && r.messages[0] && r.messages[0].content}
-                    </p>
-                  </div>
-                  {r.status != 'new' ? <div className="request_status">{r.status}</div> : null}
-                  <div className="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                    {isOwn && r.status == 'new' ? (
-                      <div className="div_buttons">
-                        <button
-                          id="mangaStoryAcceptBtnId"
-                          onClick={() => {
-                            this.onAccept(r._id, true);
+                    {r.status !== 'new' ? (
+                      <div
+                        className={
+                          r.status === 'accepted'
+                            ? styles.request_status_acp
+                            : styles.request_status_rej
+                        }>
+                        {r.status}
+                      </div>
+                    ) : null}
+                    {isOwn && r.status === 'new' ? (
+                      <div className={styles.div_button}>
+                        <Popconfirm
+                          placement="top"
+                          title="Are you sure to delete this task?"
+                          onConfirm={(event) => {
+                            setRecvestStatus(event, r._id, 'accepted');
                           }}
-                          className="accepct_btn">
-                          <SvgCheck width="21px" height="19px" />
-                        </button>
-                        <button
-                          id="mangaStoryRejectBtnId"
-                          onClick={() => {
-                            this.onAccept(r._id, false);
+                          onClick={(event) => event.stopPropagation()}
+                          okText="Yes"
+                          cancelText="No">
+                          <PrimaryButton
+                            id="mangaStoryAcceptBtnId"
+                            className={styles.accepct_btn}
+                            text={<SvgCheck width="19px" height="19px" />}
+                          />
+                        </Popconfirm>
+
+                        <Popconfirm
+                          placement="top"
+                          title="Are you sure to delete this task?"
+                          onClick={(event) => event.stopPropagation()}
+                          onConfirm={(event) => {
+                            setRecvestStatus(event, r._id, 'rejected');
                           }}
-                          className="dont_accepct_btn">
-                          <SvgClose width="18px" height="18px" />
-                        </button>
+                          okText="Yes"
+                          cancelText="No">
+                          <PrimaryButton
+                            id="mangaStoryRejectBtnId"
+                            isDark={true}
+                            className={styles.dont_accepct_btn}
+                            text={<SvgClose width="19px" height="19px" />}
+                          />
+                        </Popconfirm>
                       </div>
                     ) : null}
                   </div>
                 </div>
-              </div>
-            ))
+              ))}
+            </div>
           ) : (
             <div className="chatBlock">
-              <span className="goBack" onClick={() => setShowMessage(false)}>
-                <BackwardOutlined />
+              <span className={styles.goBack} onClick={() => setShowMessage(false)}>
+                ←
               </span>
               <AllMessages user={user} conversationId={conversationId} />
             </div>
@@ -197,4 +258,11 @@ export const Chat = ({ mangaStory = false, user = null, requests, isOwn }) => {
       </div>
     </div>
   );
+};
+
+Chat.propTypes = {
+  mangaStory: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
+  requests: PropTypes.array.isRequired,
+  isOwn: PropTypes.bool.isRequired,
 };

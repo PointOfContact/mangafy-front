@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Tabs, Input, notification, Spin } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
+import { Chat } from 'components/chat';
 import { Comments } from 'components/comments';
 import Footer from 'components/footer';
 import FooterPolicy from 'components/footer-policy';
@@ -25,7 +26,7 @@ const { TabPane } = Tabs;
 const { TextArea } = Input;
 
 const MangeStory = (props) => {
-  const { mangaStory, user, isOwn, originUrl, comments, genres } = props;
+  const { mangaStory, user, requests, isOwn, originUrl, comments, genres } = props;
   const [editMode, setEditMode] = useState(false);
   const [baseData, setBaseData] = useState(mangaStory);
   const [canEdit] = useState(isOwn);
@@ -161,6 +162,11 @@ const MangeStory = (props) => {
                       />
                     </div>
                   </TabPane>
+                  <TabPane tab="INVITES" key="4">
+                    <div className={styles.tabWrap}>
+                      <Chat requests={requests} mangaStory={baseData} user={user} isOwn={isOwn} />
+                    </div>
+                  </TabPane>
                 </Tabs>
               </div>
             </div>
@@ -189,6 +195,7 @@ MangeStory.propTypes = {
   genres: PropTypes.array.isRequired,
   mangaStory: PropTypes.object.isRequired,
   user: PropTypes.object,
+  requests: PropTypes.array.isRequired,
   isOwn: PropTypes.bool.isRequired,
   originUrl: PropTypes.string.isRequired,
   comments: PropTypes.array.isRequired,

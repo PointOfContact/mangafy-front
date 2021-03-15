@@ -1,12 +1,11 @@
 import client from './client';
 
-const patchRequest = async (status) => {
+const patchRequest = async (reqId, status) => {
   const jwt = client.getCookie('feathers-jwt');
-  const headers = {
-    headers: { Authorization: `Bearer ${jwt}` },
-  };
+  const headers = { Authorization: `Bearer ${jwt}` };
   const { default: restClient } = await import('api/restClient');
   return restClient.service('/api/v2/join-manga-story-requests').patch(
+    reqId,
     {
       status,
     },
