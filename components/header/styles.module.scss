@@ -293,6 +293,28 @@
       height: 100%;
       background: transparent;
       padding-top: 71px;
+      display: none;
+      opacity: 0;
+    }
+    .isOpen {
+      opacity: 1;
+      display: block;
+      -webkit-animation: animaa 0.4s ease-out;
+      -moz-animation: animaa 0.4s ease-out;
+      -o-animation: animaa 0.4s ease-out;
+      animation: animaa 0.4s ease-out;
+  
+      @keyframes animaa {
+        0% {
+          display: none;
+          opacity: 0;
+        }
+  
+        100% {
+          display: block;
+          opacity: 1
+        }
+      }
     }
     .mobile_div_part2 {
       background: $primaryDark;

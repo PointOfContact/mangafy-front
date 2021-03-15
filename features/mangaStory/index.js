@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Tabs, Input, notification, Spin } from 'antd';
 import client from 'api/client';
@@ -7,10 +7,12 @@ import { Comments } from 'components/comments';
 import Footer from 'components/footer';
 import FooterPolicy from 'components/footer-policy';
 import Header from 'components/header';
+import SvgPencilColored from 'components/icon/PencilColored';
 import ButtonToTop from 'components/ui-elements/button-toTop';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import PropTypes from 'prop-types';
+import * as qs from 'query-string';
 
 import BannerSection from './components/bannersSection';
 // import StoryBoardTabs from './components/storyBoardTabs';
@@ -29,6 +31,24 @@ const MangeStory = (props) => {
   const [editMode, setEditMode] = useState(false);
   const [baseData, setBaseData] = useState(mangaStory);
   const [canEdit] = useState(isOwn);
+  const [collabActiveTab, setcollabActiveTab] = useState('1');
+
+  useEffect(() => {
+    const { tab } = qs.parse(location.search);
+    switch (tab) {
+      case 'srory':
+        setcollabActiveTab('1');
+        break;
+      case 'story-board':
+        setcollabActiveTab('2');
+        break;
+      case 'comments':
+        setcollabActiveTab('3');
+        break;
+      default:
+        setcollabActiveTab('1');
+    }
+  }, []);
 
   const openNotification = (type, message, description = '') => {
     notification[type]({
@@ -82,13 +102,21 @@ const MangeStory = (props) => {
               <div className="row">
                 <div className="col-sm-12 manga-story manga-story-m">
                   {!editMode ? (
-                    <div className={styles.header}>
-                      <h2>{baseData.title}</h2>
-                      <p>{baseData.introduce}</p>
+                    <div className={styles.storyTabContent}>
+                      <div className={styles.header}>
+                        <h2>{baseData.title}</h2>
+                        <p>{baseData.introduce}</p>
+                      </div>
+                      <SvgPencilColored
+                        className={styles.editSVG}
+                        onClick={() => setEditMode(true)}
+                        width="22px"
+                        height="22px"
+                      />
                     </div>
                   ) : (
                     canEdit && (
-                      <div className="inputs">
+                      <div className={styles.inputs}>
                         <h2>
                           <Input
                             name="title"
@@ -116,14 +144,23 @@ const MangeStory = (props) => {
           <section className={`container mobile_full_content mobile_top_round`}>
             <div className="row">
               <div className="col-lg-7 mangaStoriTopPanel">
-                <Tabs defaultActiveKey="1">
-                  <TabPane tab="STORY" key="2" className="story">
+                <Tabs
+                  activeKey={collabActiveTab}
+                  onChange={(activeKey) => setcollabActiveTab(activeKey)}>
+                  <TabPane tab="STORY" key="1" className="story">
                     <div className={styles.tabWrap}>
                       {/* <h3 className={styles.tabTitle}>Here is a my story!</h3> */}
                       {/* <StoryTab baseData={baseData} /> */}
                       <p>
                         {!editMode ? (
-                          <StoryTab baseData={baseData} user={user} isOwn={isOwn} />
+                          <div className={styles.storyTabContent}>
+                            <StoryTab baseData={baseData} user={user} isOwn={isOwn} />
+                            <SvgPencilColored
+                              onClick={() => setEditMode(true)}
+                              width="22px"
+                              height="22px"
+                            />
+                          </div>
                         ) : (
                           canEdit && (
                             <TextArea
@@ -142,7 +179,7 @@ const MangeStory = (props) => {
                     </div>
                   </TabPane>
                   {isOwn && (
-                    <TabPane tab="STORY BOARD" key="1" className="story">
+                    <TabPane tab="STORY BOARD" key="2" className="story">
                       <StoryBoardTabs
                         mangaStory={mangaStory}
                         user={user}

@@ -1,6 +1,10 @@
 @import '../../styles/variables.scss';
 
 .modal {
+  @include media-sm {
+    width: 95% !important;
+    max-width: 95% !important;
+  }
   .modalTitle {
     margin-top: 24px;
     text-align: center;

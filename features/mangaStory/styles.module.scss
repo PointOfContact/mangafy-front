@@ -10,6 +10,13 @@
   font-weight: 500;
   font-size: 20px;
 }
+.storyTabContent {
+  display: flex;
+  justify-content: space-between;
+  svg {
+    cursor: pointer;
+  }
+}
 .storyTab {
   margin-top: 22px;
   padding: 24px;
@@ -42,6 +49,8 @@
   }
   .autherBlock {
     margin-top: 48px;
+    cursor: pointer;
+    display: inline-block;
   }
   .participents {
     margin-left: 20px;
@@ -104,6 +113,17 @@
   padding-top: 89px;
   text-align: center;
   margin-bottom: 100px;
+  width: 100%;
+  display: block;
+}
+.editSVG {
+  position: relative;
+  top: 100px;
+  left: -35px;
+}
+.inputs {
+  margin-top: 89px;
+  margin-bottom: 20px;
 }
 .header h2 {
   font-size: 30px;
