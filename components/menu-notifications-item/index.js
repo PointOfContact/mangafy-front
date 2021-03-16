@@ -22,9 +22,9 @@ const MenuNotificationsItem = ({
   patchNotification,
   navigateTo,
 }) => {
-  const [verifi, setVerifai] = useState(null);
+  const [verify, setVerifai] = useState(null);
   const addUnreadNotificationsId = () => {
-    if (!verified && !verifi) {
+    if (!verified && !verify) {
       setVerifai(true);
       const newUnreadNotificationsId = [_id];
       patchNotification(newUnreadNotificationsId);
@@ -33,7 +33,7 @@ const MenuNotificationsItem = ({
 
   return (
     <>
-      <div className={cn(styles.box, !verified && !verifi && styles.verified)}>
+      <div className={cn(styles.box, !verified && !verify && styles.verified)}>
         <Tooltip
           overlayClassName={cn(styles.tooltip, 'tooltip')}
           placement="leftTop"
