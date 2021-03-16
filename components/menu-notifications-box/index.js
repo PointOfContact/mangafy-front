@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import client from 'api/client';
 import MenuMailNotification from 'components/menu-mail-notifications';
@@ -55,8 +55,10 @@ const findNotifications = (limit, onSuccess, onFailure) => {
 };
 
 const MenuNotificationsBox = ({ user, unreadNotificationsId, notificationsCount }) => {
-  const [notifications, setNotifications] = useState([]);
+  const [notifications, setNotifications] = useState(unreadNotificationsId);
+  const [allNot, setAllNot] = useState(false);
   const [moreUpdatesCount, setMoreUpdatesCount] = useState(0);
+  const [isAllNot, setIsAllNot] = useState(false);
 
   const getNotifications = useCallback(
     (limit = 10) => {
@@ -64,8 +66,10 @@ const MenuNotificationsBox = ({ user, unreadNotificationsId, notificationsCount 
       findNotifications(
         limit,
         (res) => {
+          setAllNot(res?.data);
           setNotifications(res?.data);
           setMoreUpdatesCount(res.total - res?.data.length);
+          setIsAllNot(true);
         },
         (err) => {
           console.log(err);
@@ -91,41 +95,69 @@ const MenuNotificationsBox = ({ user, unreadNotificationsId, notificationsCount 
     patchNotification(unreadNotificationsId);
   };
 
-  useEffect(() => {
-    getNotifications();
-  }, [user, getNotifications]);
+  // useEffect(() => {
+  //   // getNotifications();
+  // }, [user, getNotifications]);
 
   const getMore = () => {
     getNotifications(moreUpdatesCount + notifications.length);
   };
 
+  const setAllNoReadNot = () => {
+    setNotifications(unreadNotificationsId);
+    setIsAllNot(false);
+  };
+
+  const setAllReadNot = () => {
+    if (allNot) {
+      setNotifications(allNot);
+      setIsAllNot(true);
+    } else {
+      getNotifications();
+    }
+  };
+
   return (
     <>
       <div className={styles.box}>
-        {notificationsCount > 0 && (
-          <p className={styles.make_all} onClick={() => makeAllRead()}>
-            make all read
-          </p>
-        )}
+        <p className={styles.make_all} onClick={makeAllRead}>
+          {isAllNot ? (
+            <span onClick={setAllNoReadNot}>All new notifications</span>
+          ) : (
+            <span onClick={setAllReadNot}>All read</span>
+          )}
+          {notificationsCount > 0 && <span>make all read</span>}
+        </p>
+
         <div className={styles.box__title}>
           <p className={styles.box__title_text}>Your notifications</p>
         </div>
         <div className={styles.box__content}>
-          {notifications?.map((notification) => (
-            <MenuNotificationsItem
-              key={notification._id}
-              image={notification.image}
-              icon={notification.icon}
-              title={notification.title}
-              description={notification.description}
-              createdAt={notification.createdAt}
-              verified={notification?.read_by?.find((id) => id.readerId === user._id)}
-              profileId={notification.meta.params.userId}
-              patchNotification={patchNotification}
-              _id={notification._id}
-              navigateTo={notification.meta.navigateTo}
-            />
-          ))}
+          {notifications?.length ? (
+            notifications?.map((notification) => (
+              <MenuNotificationsItem
+                key={notification._id}
+                image={notification.image}
+                icon={notification.icon}
+                title={notification.title}
+                description={notification.description}
+                createdAt={notification.createdAt}
+                verified={notification?.read_by?.find((id) => id.readerId === user._id)}
+                profileId={notification.meta.params.userId}
+                patchNotification={patchNotification}
+                _id={notification._id}
+                navigateTo={notification.meta.navigateTo}
+              />
+            ))
+          ) : (
+            <div className={styles.noNot}>
+              <img src="/img/ProfileNovelType.png" width="89px" />
+              <h4>No unread notifications</h4>
+              <p>
+                Click <span onClick={setAllReadNot}>All read</span> to view all notifications
+              </p>
+            </div>
+          )}
         </div>
 
         {!!moreUpdatesCount && (

@@ -1395,6 +1395,13 @@ img.rot4 {
   }
 }
 
+.tooltip {
+  z-index: 2000000;
+  .ant-tooltip-inner {
+    background-color: $primaryLight !important;
+  }
+}
+
 .rce-mbox-right {
   background: $primaryLight !important;
   color: $text_white;
