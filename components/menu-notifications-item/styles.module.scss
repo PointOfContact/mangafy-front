@@ -2,8 +2,30 @@
 
 .verified {
   background-color: $white;
+  .isVerifiedBtn {
+    display: block;
+  }
 }
+
+.tooltip {
+  z-index: 2000000;
+}
+
+.isVerifiedBtn {
+  position: absolute;
+  display: none;
+  width: 15px;
+  height: 15px;
+  background-color: $primaryLight;
+  left: 5px;
+  border-radius: 30px;
+  &:hover {
+    background-color: $primaryDark;
+  }
+}
+
 .box {
+  position: relative;
   cursor: pointer;
   display: flex;
   align-items: flex-start;

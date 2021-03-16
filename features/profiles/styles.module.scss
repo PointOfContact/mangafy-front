@@ -3,6 +3,7 @@
 .colabCards {
   padding-top: 30px;
   padding-bottom: 30px;
+  width: 100%;
 }
 
 .colabWrap {
@@ -19,7 +20,7 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
-  width: 325px;
+  width: calc(25% - 30px);
   min-height: 296px;
   background: #ffffff;
   box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.08);
