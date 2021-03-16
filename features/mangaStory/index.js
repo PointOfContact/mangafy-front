@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { Tabs, Input, notification, Spin } from 'antd';
+import { Tabs, notification, Spin } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
 import { Chat } from 'components/chat';
@@ -9,7 +9,10 @@ import Footer from 'components/footer';
 import FooterPolicy from 'components/footer-policy';
 import Header from 'components/header';
 import SvgPencilColored from 'components/icon/PencilColored';
+import PrimaryButton from 'components/ui-elements/button';
 import ButtonToTop from 'components/ui-elements/button-toTop';
+import Input from 'components/ui-elements/input';
+import TextArea from 'components/ui-elements/text-area';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import PropTypes from 'prop-types';
@@ -25,7 +28,7 @@ const StoryBoardTabs = dynamic(() => import('./components/storyBoardTabs'), {
 });
 
 const { TabPane } = Tabs;
-const { TextArea } = Input;
+// const { TextArea } = Input;
 
 const MangeStory = (props) => {
   const { mangaStory, user, requests, isOwn, originUrl, comments, genres } = props;
@@ -58,16 +61,16 @@ const MangeStory = (props) => {
     });
   };
 
-  const saveUserDataByKey = (inComingData, ...keys) => {
+  const saveUserDataByKey = (...keys) => {
     const data = {};
     keys.forEach((item) => {
-      data[item] = inComingData[item];
+      data[item] = baseData[item];
     });
     const jwt = client.getCookie('feathers-jwt');
     import('api/restClient').then((m) => {
       m.default
         .service('/api/v2/manga-stories')
-        .patch(inComingData._id, data, {
+        .patch(baseData._id, data, {
           headers: { Authorization: `Bearer ${jwt}` },
         })
         .then((res) => {
@@ -85,6 +88,10 @@ const MangeStory = (props) => {
     const data = { ...baseData, [name]: value };
     setBaseData(data);
     setEditMode(true);
+  };
+
+  const cancelEditMode = () => {
+    setEditMode(false);
   };
 
   return (
@@ -108,34 +115,60 @@ const MangeStory = (props) => {
                         <h2>{baseData.title}</h2>
                         <p>{baseData.introduce}</p>
                       </div>
-                      <SvgPencilColored
-                        className={styles.editSVG}
-                        onClick={() => setEditMode(true)}
-                        width="22px"
-                        height="22px"
-                      />
+                      {canEdit && (
+                        <SvgPencilColored
+                          className={styles.editSVG}
+                          onClick={() => setEditMode(true)}
+                          width="22px"
+                          height="22px"
+                        />
+                      )}
                     </div>
                   ) : (
                     canEdit && (
-                      <div className={styles.inputs}>
-                        <h2>
-                          <Input
-                            name="title"
-                            onChange={onChangeSingleField}
-                            placeholder=""
-                            type="text"
-                            value={baseData.title}
+                      <>
+                        <div className={styles.inputs}>
+                          <h2>
+                            <Input
+                              isLinear={true}
+                              isFullWidth={true}
+                              name="title"
+                              onChange={onChangeSingleField}
+                              placeholder=""
+                              type="text"
+                              value={baseData.title}
+                            />
+                          </h2>
+                          <p>
+                            <Input
+                              isLinear={true}
+                              isFullWidth={true}
+                              name="introduce"
+                              onChange={onChangeSingleField}
+                              type="text"
+                              value={baseData.introduce}
+                            />
+                          </p>
+                        </div>
+                        <div className={cn(styles.editProfile, 'buttonsProfile_styles')}>
+                          <PrimaryButton
+                            className="buttonsProfile_cancel"
+                            text="Cancel"
+                            isDark
+                            isRound
+                            disabled={false}
+                            onClick={cancelEditMode}
                           />
-                        </h2>
-                        <p>
-                          <Input
-                            name="introduce"
-                            onChange={onChangeSingleField}
-                            type="text"
-                            value={baseData.introduce}
+                          <PrimaryButton
+                            className="buttonsProfile_save"
+                            text="save"
+                            isActive
+                            isRound
+                            disabled={false}
+                            onClick={() => saveUserDataByKey('title', 'introduce')}
                           />
-                        </p>
-                      </div>
+                        </div>
+                      </>
                     )
                   )}
                 </div>
@@ -154,25 +187,48 @@ const MangeStory = (props) => {
                       {/* <StoryTab baseData={baseData} /> */}
                       <p>
                         {!editMode ? (
-                          <div className={styles.storyTabContent}>
+                          <div>
                             <StoryTab baseData={baseData} user={user} isOwn={isOwn} />
-                            <SvgPencilColored
-                              onClick={() => setEditMode(true)}
-                              width="22px"
-                              height="22px"
-                            />
+                            {canEdit && (
+                              <SvgPencilColored
+                                className={styles.editTitleSvg}
+                                onClick={() => setEditMode(true)}
+                                width="22px"
+                                height="22px"
+                              />
+                            )}
                           </div>
                         ) : (
                           canEdit && (
-                            <TextArea
-                              autoSize={{ minRows: 3, maxRows: 1000 }}
-                              placeholder="Type here..."
-                              value={baseData.story}
-                              onChange={onChangeSingleField}
-                              type="text"
-                              className="textarea_text"
-                              name="story"
-                            />
+                            <>
+                              <TextArea
+                                isFullWidth={true}
+                                placeholder="Type here..."
+                                value={baseData.story}
+                                onChange={onChangeSingleField}
+                                type="text"
+                                className={styles.textarea_text}
+                                name="story"
+                              />
+                              <div className={cn(styles.editProfile, 'buttonsProfile_styles')}>
+                                <PrimaryButton
+                                  className="buttonsProfile_cancel"
+                                  text="Cancel"
+                                  isDark
+                                  isRound
+                                  disabled={false}
+                                  onClick={cancelEditMode}
+                                />
+                                <PrimaryButton
+                                  className="buttonsProfile_save"
+                                  text="save"
+                                  isActive
+                                  isRound
+                                  disabled={false}
+                                  onClick={() => saveUserDataByKey('story')}
+                                />
+                              </div>
+                            </>
                           )
                         )}
                         <p></p>

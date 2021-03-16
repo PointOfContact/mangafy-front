@@ -118,12 +118,32 @@
 }
 .editSVG {
   position: relative;
-  top: 100px;
-  left: -35px;
+  top: 100px !important;
+  left: -35px !important;
+}
+.editTitleSvg {
+  position: absolute;
+  top: 188px;
+  right: 40px;
+  cursor: pointer;
+  @include media-sm {
+    top: 156px;
+    right: 56px;
+  }
+}
+.editProfile {
+  display: flex;
+  margin-top: 20px;
+  justify-content: flex-end;
+  margin-bottom: 30px;
 }
 .inputs {
   margin-top: 89px;
   margin-bottom: 20px;
+  input {
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
 }
 .header h2 {
   font-size: 30px;
@@ -354,3 +374,7 @@
     }
   }
 }
+
+// .textarea_text{
+//   width: 100%;
+// }
