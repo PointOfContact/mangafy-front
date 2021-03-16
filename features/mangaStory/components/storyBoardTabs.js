@@ -16,12 +16,16 @@ import { ModalSuccess } from 'components/modalSuccess';
 import ProjectScripts from 'components/projectScripts';
 import { ShareStoryBoard } from 'components/shareStoryBoard';
 import Upload from 'components/ui-elements/upload';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import PropTypes from 'prop-types';
 import * as qs from 'query-string';
 import useWindowSize from 'utils/useWindowSize';
 
 import styles from '../styles.module.scss';
 
+const Amplitude = require('amplitude');
+
+const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 const { TabPane } = Tabs;
 
 const StoryBoardTabs = ({ user, mangaStory, openNotification, originUrl }) => {
@@ -72,6 +76,40 @@ const StoryBoardTabs = ({ user, mangaStory, openNotification, originUrl }) => {
     setStoryBoardActiveTab(nextTab);
   };
   const clickNext = () => {
+    let myEvent = '';
+    switch (storyBoardActiveTab) {
+      case '1':
+        myEvent = EVENTS.PILOT_COMPLETED;
+        break;
+      case '2':
+        myEvent = EVENTS.CHARACTERS_COMPLETED;
+        break;
+      case '3':
+        myEvent = EVENTS.PAGES_COMPLETED;
+        break;
+      case '4':
+        myEvent = EVENTS.TEMPLATES_COMPLETED;
+        break;
+      case '5':
+        myEvent = EVENTS.PROJECT_UPLOADED;
+        break;
+      case '6':
+        myEvent = EVENTS.PROJECT_PUBLISHED;
+        break;
+      default:
+    }
+
+    const data = [
+      {
+        platform: 'WEB',
+        event_type: myEvent,
+        user_id: user._id,
+        user_properties: {
+          ...user,
+        },
+      },
+    ];
+    amplitude.track(data);
     setIsShowAnimation(true);
     setTimeout(() => {
       setIsShowAnimation(false);
