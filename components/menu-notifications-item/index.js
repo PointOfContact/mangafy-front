@@ -38,12 +38,10 @@ const MenuNotificationsItem = ({
           overlayClassName={cn(styles.tooltip, 'tooltip')}
           placement="leftTop"
           title="Mark as read">
-          <button
-            className={styles.isVerifiedBtn}
-            onClick={() => addUnreadNotificationsId()}></button>
+          <button className={styles.isVerifiedBtn} onClick={addUnreadNotificationsId}></button>
         </Tooltip>
         <Link href={navigateTo || '#'}>
-          <div onClick={() => addUnreadNotificationsId()}>
+          <div onClick={addUnreadNotificationsId} className={styles.flex}>
             <Link href={`/profile/${profileId}`}>
               <div className={styles.box__img}>
                 <Image

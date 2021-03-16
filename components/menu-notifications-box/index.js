@@ -122,11 +122,11 @@ const MenuNotificationsBox = ({ user, unreadNotificationsId, notificationsCount 
       <div className={styles.box}>
         <p className={styles.make_all} onClick={makeAllRead}>
           {isAllNot ? (
-            <span onClick={setAllNoReadNot}>All new notifications</span>
+            <span onClick={setAllNoReadNot}>Filter by unread</span>
           ) : (
-            <span onClick={setAllReadNot}>All read</span>
+            <span onClick={setAllReadNot}>Show all</span>
           )}
-          {notificationsCount > 0 && <span>make all read</span>}
+          {notificationsCount > 0 && <span>Mark all notifications as read</span>}
         </p>
 
         <div className={styles.box__title}>
@@ -154,7 +154,7 @@ const MenuNotificationsBox = ({ user, unreadNotificationsId, notificationsCount 
               <img src="/img/ProfileNovelType.png" width="89px" />
               <h4>No unread notifications</h4>
               <p>
-                Click <span onClick={setAllReadNot}>All read</span> to view all notifications
+                Click <span onClick={setAllReadNot}>Show all</span> to view all notifications
               </p>
             </div>
           )}
