@@ -6,9 +6,14 @@ import Header from 'components/header';
 import ProfileContent from 'components/profile/profileContent';
 import ProfileOpenCollabs from 'components/profile/profileOpenCollabs';
 import ProfileTopBar from 'components/profile/profileTopBar';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import { beforeUpload } from 'helpers/shared';
 import Head from 'next/head';
 import PropTypes from 'prop-types';
+
+const Amplitude = require('amplitude');
+
+const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 
 const MyProfile = (props) => {
   const { user, mangaStories, total, originUrl, profile } = props;
@@ -62,6 +67,17 @@ const MyProfile = (props) => {
     setErrMessage('');
   };
   const handleChangeGenres = (value, selectedObj) => {
+    const data = [
+      {
+        platform: 'WEB',
+        event_type: EVENTS.PROJECT_CREATED,
+        user_id: user._id,
+        user_properties: {
+          ...user,
+        },
+      },
+    ];
+    amplitude.track(data);
     const genresIds = selectedObj.map((item) => item._id);
     return setUserData({ ...userData, genresIds });
   };
@@ -114,6 +130,7 @@ const MyProfile = (props) => {
         />
         <ProfileOpenCollabs
           {...{
+            user,
             total,
             client,
             mangaStories,

@@ -9,10 +9,15 @@ import SvgPortfolio from 'components/icon/Portfolio';
 import SvgPrimaryAdd from 'components/icon/PrimaryAdd';
 import { ShareButtons } from 'components/share';
 import PrimaryButton from 'components/ui-elements/button';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import { userTypes, userTypesEnums } from 'helpers/constant';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
+
+const Amplitude = require('amplitude');
+
+const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 
 const { Option } = Select;
 const { Content } = Layout;
@@ -52,6 +57,30 @@ const ProfileTopBar = (props) => {
     }
   };
 
+  const handleEvent = () => {
+    const data = [
+      {
+        platform: 'WEB',
+        event_type: EVENTS.ADDED_BIO,
+        user_id: user._id,
+        user_properties: {
+          ...user,
+        },
+      },
+    ];
+    amplitude.track(data);
+  };
+
+  const changeBio = () => {
+    handleEvent();
+    saveUserDataByKey('name', 'type');
+  };
+
+  const handleBeforeUpload = (f) => {
+    handleEvent();
+    beforeUpload(f, props);
+  };
+
   return (
     <Content className={cn(styles.content)}>
       <Row>
@@ -77,10 +106,7 @@ const ProfileTopBar = (props) => {
               />
             )}
             {user && !profile && (
-              <Upload
-                beforeUpload={(f) => {
-                  beforeUpload(f, props);
-                }}>
+              <Upload beforeUpload={handleBeforeUpload}>
                 <SvgPrimaryAdd
                   className={styles.add}
                   id="myProfileUploadBtnId"
@@ -164,7 +190,7 @@ const ProfileTopBar = (props) => {
                   isActive
                   isRound
                   disabled={false}
-                  onClick={() => saveUserDataByKey('name', 'type')}
+                  onClick={() => changeBio()}
                 />
               </div>
             )}

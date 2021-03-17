@@ -3,11 +3,16 @@ import React, { useEffect, useRef, useCallback } from 'react';
 import { notification } from 'antd';
 import Footer from 'components/footer';
 import Header from 'components/header';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import Head from 'next/head';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
 
 import { adaptData, timeout } from './utils';
+
+const Amplitude = require('amplitude');
+
+const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 
 const Start = ({ genres, jwt, user }) => {
   const typeformRef = useRef(null);
@@ -28,7 +33,18 @@ const Start = ({ genres, jwt, user }) => {
         const response = await api.service('/api/v2/manga-stories').create(mangaStory, {
           headers: { Authorization: `Bearer ${jwt}` },
         });
-        // eslint-disable-next-line no-underscore-dangle
+        const data = [
+          {
+            platform: 'WEB',
+            event_type: EVENTS.ADDED_GENRES,
+            user_id: user._id,
+            user_properties: {
+              ...user,
+            },
+          },
+        ];
+        amplitude.track(data);
+        // eslint- disable-next-line no-underscore-dangle
         Router.push(`/manga-story/${response._id}`);
       } catch (error) {
         // eslint-disable-next-line no-console

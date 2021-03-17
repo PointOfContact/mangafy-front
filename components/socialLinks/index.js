@@ -12,9 +12,14 @@ import SvgBlackTwitter from 'components/icon/BlackTwitter';
 import AddButton from 'components/ui-elements/add-button';
 import PrimaryInput from 'components/ui-elements/input';
 import SocialButton from 'components/ui-elements/social-button';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import PropTypes from 'prop-types';
 
 import styles from './style.module.scss';
+
+const Amplitude = require('amplitude');
+
+const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 
 const SocialLinks = (props) => {
   const { user, profile } = props;
@@ -57,7 +62,17 @@ const SocialLinks = (props) => {
     const filteredItems = newLinks.filter((item) => item.link);
 
     const newUserData = { ...user, socialLinks: filteredItems };
-
+    const data = [
+      {
+        platform: 'WEB',
+        event_type: EVENTS.SOCIAL_ACCOUNT,
+        user_id: user._id,
+        user_properties: {
+          ...user,
+        },
+      },
+    ];
+    amplitude.track(data);
     setUserData(newUserData);
     saveUserDataByKey({ socialLinks: filteredItems });
   };
