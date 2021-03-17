@@ -7,11 +7,16 @@ import SvgClose from 'components/icon/Close';
 import SvgDustbin from 'components/icon/Dustbin';
 import SvgHeart from 'components/icon/Heart';
 import AddButton from 'components/ui-elements/add-button';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import PropTypes from 'prop-types';
 import ImageGallery from 'react-image-gallery';
 
 import styles from './style.module.scss';
 import { likeGallery, removeImg, prepareDataImages, beforeGalleryUpload } from './utils';
+
+const Amplitude = require('amplitude');
+
+const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 
 export const Gallery = (props) => {
   const { user = false, profile, mangaStories, fromPath = 'users', title = '' } = props;
@@ -130,6 +135,17 @@ export const Gallery = (props) => {
   };
 
   const onBeforeGalleryUpload = (file) => {
+    const data = [
+      {
+        platform: 'WEB',
+        event_type: EVENTS.ADDED_PORTFOLIO,
+        user_id: user._id,
+        user_properties: {
+          ...user,
+        },
+      },
+    ];
+    amplitude.track(data);
     beforeGalleryUpload(
       file,
       setShowUploadList,
