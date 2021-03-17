@@ -37,7 +37,7 @@ const ColaborationCards = ({ label, client }) => {
           <div className={styles.colabWrap__authorDescr}>{label.searchingFor[0]}</div>
         </div>
       </div>
-      <div className={styles.colabWrap__descr}>{label.description}</div>
+      <div className={styles.colabWrap__descr}>{label.story}</div>
       <div className={styles.colabWrap__buttons}>
         {label.genres.length ? (
           label.genres.map((item) => (
