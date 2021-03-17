@@ -7,12 +7,17 @@ import SvgBell from 'components/icon/Bell';
 import MenuMobilePopover from 'components/menu-mobile-popover';
 import MenuNotificationsBox from 'components/menu-notifications-box';
 import PrimaryButton from 'components/ui-elements/button';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import { removeAllStorage } from 'helpers/shared';
 import Image from 'next/image';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
+
+const Amplitude = require('amplitude');
+
+const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 
 const findNotificationsCount = (onSuccess, onFailure) => {
   const jwt = client.getCookie('feathers-jwt');
@@ -92,6 +97,20 @@ const Header = ({ user, path }) => {
     handleManuOpen(false);
     const el = document.body;
     el.classList.remove(styles.body_scrool);
+  };
+
+  const addEvent = () => {
+    const data = [
+      {
+        platform: 'WEB',
+        event_type: EVENTS.SUBMIT_IDEA,
+        user_id: user._id,
+        user_properties: {
+          ...user,
+        },
+      },
+    ];
+    amplitude.track(data);
   };
 
   return (
@@ -217,11 +236,13 @@ const Header = ({ user, path }) => {
                 </Link>
               )}
             </div>
-            <Link href="/create-a-story/start">
-              <span className={cn(styles.btn_submit, 'btn_submit')}>
-                <PrimaryButton text="Submit an IDEA" />
-              </span>
-            </Link>
+            <span onClick={addEvent}>
+              <Link href="/create-a-story/start">
+                <span className={cn(styles.btn_submit, 'btn_submit')}>
+                  <PrimaryButton text="Submit an IDEA" />
+                </span>
+              </Link>
+            </span>
           </div>
         </div>
         {isOpen && <MenuLinks isOpen={isOpen} user={user} />}

@@ -7,8 +7,13 @@ import cn from 'classnames';
 import Card from 'components/card';
 import SvgPurplePencil from 'components/icon/PurplePencil';
 import PrimaryButton from 'components/ui-elements/button';
+import { EVENTS } from 'helpers/amplitudeEvents';
 
 import styles from './styles.module.scss';
+
+const Amplitude = require('amplitude');
+
+const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 
 export const CommissionPricing = ({ id = null, user = null }) => {
   const [pricingList, setPricingList] = useState([]);
@@ -74,6 +79,17 @@ export const CommissionPricing = ({ id = null, user = null }) => {
   };
 
   const add = (index) => {
+    const data = [
+      {
+        platform: 'WEB',
+        event_type: EVENTS.COMMISION_CREATED,
+        user_id: user._id,
+        user_properties: {
+          ...user,
+        },
+      },
+    ];
+    amplitude.track(data);
     const newList = [...pricingList, { first: '', last: '' }];
     setPricingList(newList);
   };
