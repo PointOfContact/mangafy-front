@@ -113,7 +113,6 @@ const MangeStory = (props) => {
                     <div className={styles.storyTabContent}>
                       <div className={styles.header}>
                         <h2>{baseData.title}</h2>
-                        <p>{baseData.introduce}</p>
                       </div>
                       {canEdit && (
                         <SvgPencilColored
@@ -139,16 +138,6 @@ const MangeStory = (props) => {
                               value={baseData.title}
                             />
                           </h2>
-                          <p>
-                            <Input
-                              isLinear={true}
-                              isFullWidth={true}
-                              name="introduce"
-                              onChange={onChangeSingleField}
-                              type="text"
-                              value={baseData.introduce}
-                            />
-                          </p>
                         </div>
                         <div className={cn(styles.editProfile, 'buttonsProfile_styles')}>
                           <PrimaryButton
@@ -165,7 +154,7 @@ const MangeStory = (props) => {
                             isActive
                             isRound
                             disabled={false}
-                            onClick={() => saveUserDataByKey('title', 'introduce')}
+                            onClick={() => saveUserDataByKey('title')}
                           />
                         </div>
                       </>
@@ -201,6 +190,15 @@ const MangeStory = (props) => {
                         ) : (
                           canEdit && (
                             <>
+                              <TextArea
+                                isFullWidth={true}
+                                placeholder="Type here..."
+                                value={baseData.introduce}
+                                onChange={onChangeSingleField}
+                                type="text"
+                                className={styles.textarea_text}
+                                name="introduce"
+                              />
                               <TextArea
                                 isFullWidth={true}
                                 placeholder="Type here..."

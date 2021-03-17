@@ -12,7 +12,7 @@ const MangeStoryCard = ({ mangaStories, client }) =>
         <div>
           <h3 className={styles.title}>{label.title}</h3>
           <div className={styles.description}>
-            <p>{label.introduce}</p>
+            <p>{label.story}</p>
           </div>
           <img
             alt="mangafy"

@@ -18,15 +18,18 @@
   }
 }
 .storyTab {
-  margin-top: 22px;
-  padding: 24px;
+  font-family: Noto Sans JP;
   .storyTabTitle {
     font-size: 20px;
     font-weight: 700;
     line-height: 30px;
-    text-align: center;
     margin-bottom: 6px;
-    height: 99px;
+    font-family: Noto Sans JP;
+  }
+  pre {
+    color: #858585;
+    font-size: 20px;
+    font-family: Noto Sans JP;
   }
   .cardWrapper {
     width: 100%;
@@ -123,7 +126,7 @@
 }
 .editTitleSvg {
   position: absolute;
-  top: 188px;
+  top: 120px;
   right: 40px;
   cursor: pointer;
   @include media-sm {
@@ -375,6 +378,6 @@
   }
 }
 
-// .textarea_text{
-//   width: 100%;
-// }
+.textarea_text {
+  margin-bottom: 20px;
+}

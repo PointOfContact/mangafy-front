@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 
+import { Tooltip } from 'antd';
+import client from 'api/client';
 import cn from 'classnames';
 import Card from 'components/card';
 import Modal from 'components/modals/Modal';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
@@ -14,11 +17,12 @@ const StoryTab = ({ baseData, isOwn, user }) => {
   const {
     _id,
     author,
+    introduce,
     story,
     preferredLanguage,
     searchingFor,
     authorInfo,
-    participents,
+    participentsInfo,
   } = baseData;
   const history = useRouter();
 
@@ -32,8 +36,15 @@ const StoryTab = ({ baseData, isOwn, user }) => {
 
   return (
     <div className={styles.storyTab}>
+      {isOwn && (
+        <div>
+          <h1 className={styles.storyTabTitle}>My inspiration</h1>
+          <pre>{introduce}</pre>
+        </div>
+      )}
       <div>
-        <h1 className={styles.storyTabTitle}>{story}</h1>
+        <h1 className={styles.storyTabTitle}>Description</h1>
+        <pre>{story}</pre>
       </div>
       <div className={styles.storyTabDescription}>
         <div>
@@ -66,13 +77,26 @@ const StoryTab = ({ baseData, isOwn, user }) => {
       <div className={cn(styles.storyTabDescription, styles.autherBlock)}>
         <Link href={`/profile/${author}`}>
           <div>
-            <a className={styles.storyKey}>Team Lead | </a>
+            <a className={styles.storyKey}>Owner | </a>
             <span className={styles.storyValue}> {authorInfo.name}</span>
           </div>
         </Link>
         <div className={styles.participents}>
-          {participents.map((item) => (
-            <img key="1" src="/img/myprofportfolio3.png" alt="" />
+          {participentsInfo.map(({ avatar, name, _id }) => (
+            <Link key={name} href={`/profile/${_id}`}>
+              <Tooltip placement="topLeft" title={name} arrowPointAtCenter>
+                <Image
+                  width={65}
+                  height={65}
+                  src={
+                    avatar
+                      ? client.UPLOAD_URL + avatar
+                      : `https://ui-avatars.com/api/?background=9A87FE&name=${name}&rounded=true&color=ffffff`
+                  }
+                  alt="Picture of the user"
+                />
+              </Tooltip>
+            </Link>
           ))}
         </div>
       </div>

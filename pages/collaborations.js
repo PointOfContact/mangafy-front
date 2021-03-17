@@ -29,7 +29,6 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
         { compensationModel: { $search: search } },
         { title: { $search: search } },
         { description: { $search: search } },
-        { introduce: { $search: search } },
         { story: { $search: search } },
         { country: { $search: search } },
         { preferredLanguage: { $search: search } },
