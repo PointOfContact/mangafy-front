@@ -49,6 +49,7 @@ const Collaborations = (props) => {
           name="description"
           content="At the heart of our vision – collaborations – allowing visionary of various roles to engage in a team effort to bring a story from uncertainty to digital life, with you – the artists – taking control of the production."></meta>
         <link rel="icon" href="/favicon.ico" />
+        <link rel="canonical" href="http://mangafy.club/collaborations" />
       </Head>
       <ButtonToTop />
       <div className={'wrapper'}>

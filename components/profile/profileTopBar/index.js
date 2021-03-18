@@ -134,12 +134,12 @@ const ProfileTopBar = (props) => {
                   profile &&
                   !!user?.mangaStories?.length && (
                     <span className={styles.contacts}>
-                      <PrimaryButton
+                      {/* <PrimaryButton
                         onClick={onInvite}
                         text="Invite to collaborate"
                         splitterStyle={{ fontSize: '15px' }}
                         disabled={user?.mangaStories?.participents?.include(profile._id)}
-                      />
+                      /> */}
                     </span>
                   )
                 )}

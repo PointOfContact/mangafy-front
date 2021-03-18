@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { Tabs, notification, Spin } from 'antd';
+import { Tabs, notification } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
 import { Chat } from 'components/chat';
@@ -13,19 +13,19 @@ import PrimaryButton from 'components/ui-elements/button';
 import ButtonToTop from 'components/ui-elements/button-toTop';
 import Input from 'components/ui-elements/input';
 import TextArea from 'components/ui-elements/text-area';
-import dynamic from 'next/dynamic';
+// import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import PropTypes from 'prop-types';
 import * as qs from 'query-string';
 
 import BannerSection from './components/bannersSection';
-// import StoryBoardTabs from './components/storyBoardTabs';
+import StoryBoardTabs from './components/storyBoardTabs';
 import StoryTab from './components/storyTab';
 import styles from './styles.module.scss';
 
-const StoryBoardTabs = dynamic(() => import('./components/storyBoardTabs'), {
-  loading: () => <Spin />,
-});
+// const StoryBoardTabs = dynamic(() => import('./components/storyBoardTabs'), {
+//   loading: () => <Spin />,
+// });
 
 const { TabPane } = Tabs;
 // const { TextArea } = Input;
