@@ -5,7 +5,7 @@
   height: 100vh !important;
 }
 
-.popover{
+.popover {
   position: fixed;
   z-index: 1111;
 }
@@ -228,11 +228,11 @@
       display: none;
     }
   }
-  .notification{
+  .notification {
     cursor: pointer;
     margin-right: 12px;
-    &:hover{
-      path{
+    &:hover {
+      path {
         fill: $primaryDark;
       }
     }
@@ -303,16 +303,16 @@
       -moz-animation: animaa 0.4s ease-out;
       -o-animation: animaa 0.4s ease-out;
       animation: animaa 0.4s ease-out;
-  
+
       @keyframes animaa {
         0% {
           display: none;
           opacity: 0;
         }
-  
+
         100% {
           display: block;
-          opacity: 1
+          opacity: 1;
         }
       }
     }
@@ -372,8 +372,8 @@
     }
   }
 }
-.go_to_pro{
-  span{
+.go_to_pro {
+  span {
     background-color: $primaryDark;
     color: $text-white;
     padding: 2px 3px;
@@ -402,5 +402,87 @@
   }
   .image_block img {
     max-width: 240px;
+  }
+}
+
+.menu_icon {
+  width: 30px;
+  height: 22.5px;
+  position: relative;
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  transform: rotate(0deg);
+  -webkit-transition: 0.5s ease-in-out;
+  -moz-transition: 0.5s ease-in-out;
+  -o-transition: 0.5s ease-in-out;
+  transition: 0.5s ease-in-out;
+  cursor: pointer;
+  span {
+    display: block;
+    position: absolute;
+    height: 4.5px;
+    width: 100%;
+    background: $black;
+    border-radius: 4.5px;
+    opacity: 1;
+    left: 0;
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+    -webkit-transition: 0.25s ease-in-out;
+    -moz-transition: 0.25s ease-in-out;
+    -o-transition: 0.25s ease-in-out;
+    transition: 0.25s ease-in-out;
+
+    &:nth-child(1) {
+      top: 0px;
+      -webkit-transform-origin: left center;
+      -moz-transform-origin: left center;
+      -o-transform-origin: left center;
+      transform-origin: left center;
+    }
+
+    &:nth-child(2) {
+      top: 9px;
+      -webkit-transform-origin: left center;
+      -moz-transform-origin: left center;
+      -o-transform-origin: left center;
+      transform-origin: left center;
+    }
+
+    &:nth-child(3) {
+      top: 18px;
+      -webkit-transform-origin: left center;
+      -moz-transform-origin: left center;
+      -o-transform-origin: left center;
+      transform-origin: left center;
+    }
+  }
+}
+
+.menu_icon_open {
+  span {
+    &:nth-child(1) {
+      -webkit-transform: rotate(45deg);
+      -moz-transform: rotate(45deg);
+      -o-transform: rotate(45deg);
+      transform: rotate(45deg);
+      top: -1.5px;
+      left: 4px;
+    }
+    &:nth-child(2) {
+      width: 0%;
+      opacity: 0;
+    }
+    &:nth-child(3) {
+      -webkit-transform: rotate(-45deg);
+      -moz-transform: rotate(-45deg);
+      -o-transform: rotate(-45deg);
+      transform: rotate(-45deg);
+      top: 19.5px;
+      left: 4px;
+    }
   }
 }

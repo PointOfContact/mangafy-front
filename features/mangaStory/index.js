@@ -49,6 +49,9 @@ const MangeStory = (props) => {
       case 'comments':
         setcollabActiveTab('3');
         break;
+      case 'invites':
+        setcollabActiveTab('4');
+        break;
       default:
         setcollabActiveTab('1');
     }

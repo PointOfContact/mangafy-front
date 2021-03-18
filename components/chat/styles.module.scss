@@ -1,5 +1,21 @@
 @import '../../styles/variables.scss';
 
+.subtitle {
+  color: $black;
+  font-size: $text2;
+  font-weight: 900;
+  font-size: 25px;
+  line-height: 36px;
+  @include media-sm {
+    font-size: $text4;
+  }
+}
+.accepted_message {
+  opacity: 0.6;
+  &:hover {
+    opacity: 1;
+  }
+}
 .messageList,
 .messenger {
   padding-bottom: 15px;
@@ -37,18 +53,13 @@
 }
 
 .message_community {
+  border-top: 2px solid rgba(33, 33, 33, 0.07);
   padding: 15px 20px 15px 20px;
-  margin-top: 25px;
-  margin-left: 10px;
-  margin-right: 10px;
   background-color: $primaryBG;
-  border-radius: 20px;
-  box-shadow: 0px 5px 20px 0px rgba(0, 0, 0, 0.04);
-  max-width: 567px;
+  width: 95%;
   display: flex;
   align-items: center;
   &:hover {
-    box-shadow: $primaryShadow;
     cursor: pointer;
   }
   .mess_content {
@@ -80,33 +91,9 @@
     margin-top: 15px;
   }
   .div_button {
-    .accepct_btn {
-      border-radius: 50px;
-      width: 39px;
-      height: 39px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0px;
-      cursor: pointer;
-      margin-bottom: 15px;
-      svg {
-        margin: 0;
-      }
-    }
-    .dont_accepct_btn {
-      border-radius: 50px;
-      width: 39px;
-      height: 39px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0px;
-      cursor: pointer;
-      svg {
-        margin: 0;
-      }
-    }
+    width: 80px;
+    display: flex;
+    justify-content: space-between;
   }
 }
 

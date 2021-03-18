@@ -1,5 +1,9 @@
 @import '../../styles/variables.scss';
 
+.error {
+  margin-bottom: 15px;
+  display: block;
+}
 .auth_form {
   max-width: 807px;
   text-align: center;

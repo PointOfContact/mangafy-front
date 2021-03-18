@@ -119,7 +119,11 @@ const Header = ({ user, path }) => {
         <div className={'container'}>
           <div className={styles.header__top}>
             <div onClick={openMenu} className={styles.header__mnu}>
-              <img src="/img/mnu.svg" alt="" />
+              <div className={cn(styles.menu_icon, isOpen && styles.menu_icon_open)}>
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
             </div>
             <Link href="/">
               <a className={styles.header__logo}>
@@ -236,9 +240,9 @@ const Header = ({ user, path }) => {
                 </Link>
               )}
             </div>
-            <span onClick={addEvent}>
+            <span className={cn(styles.btn_submit)} onClick={addEvent}>
               <Link href="/create-a-story/start">
-                <span className={cn(styles.btn_submit, 'btn_submit')}>
+                <span className={cn('btn_submit')}>
                   <PrimaryButton text="Submit an IDEA" />
                 </span>
               </Link>

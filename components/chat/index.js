@@ -3,14 +3,12 @@ import React, { useState, useEffect } from 'react';
 import { Input, notification, Popconfirm } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
-import SvgCheck from 'components/icon/Check';
 import PrimaryButton from 'components/ui-elements/button';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import { MessageList } from 'react-chat-elements';
 
 import { patchRequest } from '../../api/joinMangaStoryRequestClient';
-import SvgClose from '../icon/Close';
 import styles from './styles.module.scss';
 
 const onAccept = (event, id, status) => {
@@ -169,82 +167,118 @@ export const Chat = ({ user, requests: req, isOwn }) => {
         <div className="row">
           {!showMessage ? (
             <div className={styles.messenger}>
-              {requests.map((r) => (
-                <div
-                  key={r._id}
-                  className="col-lg-12 "
-                  onClick={showMessages}
-                  data-id={r.conversations[0] && r.conversations[0]._id}>
-                  <div className={cn(styles.message_community, 'row')}>
-                    <div className={styles.mess_content}>
-                      <div className={cn(styles.title_block)}>
-                        <img
-                          className="avatar"
-                          src={
-                            r.senderInfo.avatar
-                              ? client.UPLOAD_URL + r.senderInfo.avatar
-                              : `https://ui-avatars.com/api/?background=9A87FE&name=${r.senderInfo.name}&rounded=true&color=ffffff`
-                          }
-                          alt=""
-                        />
-                        <div className={styles.name_special}>
-                          <h4>{r.senderInfo && r.senderInfo.name}</h4>
-                          <p>{r.senderInfo && r.senderInfo.type}</p>
+              <h4 className={styles.subtitle}>New invites</h4>
+              {requests.map(
+                (r) =>
+                  r.status === 'new' && (
+                    <div
+                      key={r._id}
+                      className="col-lg-12 "
+                      onClick={showMessages}
+                      data-id={r.conversations[0] && r.conversations[0]._id}>
+                      <div className={cn(styles.message_community, 'row')}>
+                        <div className={styles.mess_content}>
+                          <div className={cn(styles.title_block)}>
+                            <img
+                              className="avatar"
+                              src={
+                                r.senderInfo.avatar
+                                  ? client.UPLOAD_URL + r.senderInfo.avatar
+                                  : `https://ui-avatars.com/api/?background=9A87FE&name=${r.senderInfo.name}&rounded=true&color=ffffff`
+                              }
+                              alt=""
+                            />
+                            <div className={styles.name_special}>
+                              <h4>{r.senderInfo && r.senderInfo.name}</h4>
+                              <p>{r.senderInfo && r.senderInfo.type}</p>
+                            </div>
+                          </div>
+                          <p className={styles.messages}>
+                            {r.messages && r.messages[0] && r.messages[0].content}
+                          </p>
+                        </div>
+                        {isOwn && (
+                          <div className={cn(styles.div_button, 'buttonsProfile_styles')}>
+                            <Popconfirm
+                              placement="top"
+                              title="Are you sure to delete this task?"
+                              onClick={(event) => event.stopPropagation()}
+                              onConfirm={(event) => {
+                                setRecvestStatus(event, r._id, 'rejected');
+                              }}
+                              okText="Yes"
+                              cancelText="No">
+                              <PrimaryButton
+                                className="buttonsProfile_cancel"
+                                text="Cancel"
+                                isDark
+                                isRound
+                              />
+                            </Popconfirm>
+                            <Popconfirm
+                              placement="top"
+                              title="Are you sure to delete this task?"
+                              onConfirm={(event) => {
+                                setRecvestStatus(event, r._id, 'accepted');
+                              }}
+                              onClick={(event) => event.stopPropagation()}
+                              okText="Yes"
+                              cancelText="No">
+                              <PrimaryButton
+                                className="buttonsProfile_save"
+                                text="save"
+                                isActive
+                                isRound
+                              />
+                            </Popconfirm>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )
+              )}
+              <h4 className={styles.subtitle}>Read invites</h4>
+              {requests.map(
+                (r) =>
+                  r.status === 'accepted' && (
+                    <div
+                      key={r._id}
+                      className="col-lg-12 "
+                      onClick={showMessages}
+                      data-id={r.conversations[0] && r.conversations[0]._id}>
+                      <div className={cn(styles.message_community, styles.accepted_message, 'row')}>
+                        <div className={styles.mess_content}>
+                          <div className={cn(styles.title_block)}>
+                            <img
+                              className="avatar"
+                              src={
+                                r.senderInfo.avatar
+                                  ? client.UPLOAD_URL + r.senderInfo.avatar
+                                  : `https://ui-avatars.com/api/?background=9A87FE&name=${r.senderInfo.name}&rounded=true&color=ffffff`
+                              }
+                              alt=""
+                            />
+                            <div className={styles.name_special}>
+                              <h4>{r.senderInfo && r.senderInfo.name}</h4>
+                              <p>{r.senderInfo && r.senderInfo.type}</p>
+                            </div>
+                          </div>
+                          <p className={styles.messages}>
+                            {r.messages && r.messages[0] && r.messages[0].content}
+                          </p>
+                        </div>
+                        <div
+                          className={
+                            r.status === 'accepted'
+                              ? styles.request_status_acp
+                              : styles.request_status_rej
+                          }>
+                          {r.status}
                         </div>
                       </div>
-                      <p className={styles.messages}>
-                        {r.messages && r.messages[0] && r.messages[0].content}
-                      </p>
                     </div>
-                    {r.status !== 'new' ? (
-                      <div
-                        className={
-                          r.status === 'accepted'
-                            ? styles.request_status_acp
-                            : styles.request_status_rej
-                        }>
-                        {r.status}
-                      </div>
-                    ) : null}
-                    {isOwn && r.status === 'new' ? (
-                      <div className={styles.div_button}>
-                        <Popconfirm
-                          placement="top"
-                          title="Are you sure to delete this task?"
-                          onConfirm={(event) => {
-                            setRecvestStatus(event, r._id, 'accepted');
-                          }}
-                          onClick={(event) => event.stopPropagation()}
-                          okText="Yes"
-                          cancelText="No">
-                          <PrimaryButton
-                            id="mangaStoryAcceptBtnId"
-                            className={styles.accepct_btn}
-                            text={<SvgCheck width="19px" height="19px" />}
-                          />
-                        </Popconfirm>
-
-                        <Popconfirm
-                          placement="top"
-                          title="Are you sure to delete this task?"
-                          onClick={(event) => event.stopPropagation()}
-                          onConfirm={(event) => {
-                            setRecvestStatus(event, r._id, 'rejected');
-                          }}
-                          okText="Yes"
-                          cancelText="No">
-                          <PrimaryButton
-                            id="mangaStoryRejectBtnId"
-                            isDark={true}
-                            className={styles.dont_accepct_btn}
-                            text={<SvgClose width="19px" height="19px" />}
-                          />
-                        </Popconfirm>
-                      </div>
-                    ) : null}
-                  </div>
-                </div>
-              ))}
+                  )
+              )}
             </div>
           ) : (
             <div className="chatBlock">

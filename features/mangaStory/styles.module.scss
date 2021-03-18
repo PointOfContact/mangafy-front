@@ -79,13 +79,9 @@
   height: 150px;
   position: relative;
   cursor: pointer;
+  background-color: rgb(217, 237, 255);
   .upload {
-    display: none;
-  }
-  &:hover {
-    .upload {
-      display: block;
-    }
+    display: block;
   }
 }
 .upload {
