@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { LoadingOutlined } from '@ant-design/icons';
-import { Spin } from 'antd';
+import { Alert, Spin } from 'antd';
 import SvgGoogle from 'components/icon/Google';
 import SvgWhiteFacebook from 'components/icon/WhiteFacebook';
 import PrimaryInput from 'components/ui-elements/input';
@@ -78,6 +78,18 @@ const AuthForm = ({ type, errorMessage, onChange, onSubmit, isLogin, loading }) 
           </div>
         )}
       </div>
+      <small className={styles.error}>
+        {errorMessage &&
+          (isLogin ? (
+            <Alert
+              message="Your login info isn't right. Try again, or reset your password if it slipped your mind."
+              type="error"
+              closable
+            />
+          ) : (
+            <Alert message={errorMessage} type="error" closable />
+          ))}
+      </small>
       <div className={styles.login_button}>
         {!isLogin ? (
           <>
@@ -133,11 +145,6 @@ const AuthForm = ({ type, errorMessage, onChange, onSubmit, isLogin, loading }) 
         </div>
       </>
       {/* ) : null} */}
-      <small className="error">
-        {errorMessage && isLogin
-          ? "Your login info isn't right. Try again, or reset your password if it slipped your mind."
-          : errorMessage}
-      </small>
     </form>
   </>
 );

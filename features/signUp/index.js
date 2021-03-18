@@ -46,6 +46,10 @@ const Register = ({ user }) => {
   };
 
   const handleRegisterSubmit = (e) => {
+    setState({
+      ...state,
+      errorMessage: '',
+    });
     e.preventDefault();
 
     setState({ disabled: true });

@@ -35,6 +35,10 @@ const Login = ({ user }) => {
   };
 
   const handleLoginSubmit = (e) => {
+    setState({
+      ...state,
+      errorMessage: '',
+    });
     e.preventDefault();
     const { page } = qs.parse(location.search);
     const payload = {
