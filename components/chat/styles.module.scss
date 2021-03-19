@@ -6,6 +6,21 @@
   font-weight: 900;
   font-size: 25px;
   line-height: 36px;
+  display: flex;
+  justify-content: space-between;
+  width: 95%;
+  .delete {
+    color: $grey;
+    cursor: pointer;
+    &:hover {
+      color: black;
+      text-decoration: underline;
+    }
+  }
+  &:last-of-type {
+    padding-top: 12.5px;
+    border-top: 2px solid rgba(33, 33, 33, 0.07);
+  }
   @include media-sm {
     font-size: $text4;
   }
@@ -19,8 +34,13 @@
 .messageList,
 .messenger {
   padding-bottom: 15px;
-  max-height: 416px;
+  max-height: 504px;
+  min-height: 504px;
   overflow-y: auto;
+  @include media-sm {
+    max-height: 400px;
+    min-height: 400px;
+  }
   &::-webkit-scrollbar {
     height: 3px;
     width: 5px;
@@ -46,13 +66,15 @@
   }
 }
 .messageList {
-  background-image: url('../../public/img/mess_bg.png');
+  padding-top: 16px;
+  background-image: url('../../public/img/chatBG.png');
   background-repeat: no-repeat;
-  background-size: 100%;
-  background-position: bottom;
+  background-size: cover;
+  background-position: bottom right;
 }
 
 .message_community {
+  position: relative;
   border-top: 2px solid rgba(33, 33, 33, 0.07);
   padding: 15px 20px 15px 20px;
   background-color: $primaryBG;
@@ -66,34 +88,71 @@
     width: 100%;
   }
   .title_block {
-    max-width: 80%;
     display: flex;
-    align-items: center;
     img {
       border-radius: 100px;
       width: 104px;
       height: 104px;
+      @include media-sm {
+        width: 51px;
+        height: 51px;
+      }
     }
   }
   .name_special {
+    width: calc(100% - 200px);
     margin-left: 14px;
     h4 {
       font-size: $text3;
+      line-height: 20px;
+      margin-bottom: 0px;
+      font-weight: 900;
     }
     p {
+      margin-bottom: 15px;
       font-size: $text4;
+    }
+    @include media-sm {
+      width: 100%;
+      div {
+        width: calc(100% - 70px);
+      }
+      h4 {
+        font-size: $text4;
+        line-height: 15px;
+      }
+      p {
+        font-size: $text5;
+        margin-top: 4px;
+        line-height: 1.2;
+      }
     }
   }
   .messages {
     font-size: $text4;
     color: $grey;
     line-height: 20px;
-    margin-top: 15px;
+    margin-bottom: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    white-space: pre-wrap;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    @include media-sm {
+      -webkit-line-clamp: 4;
+    }
   }
   .div_button {
     width: 80px;
     display: flex;
     justify-content: space-between;
+    @include media-sm {
+      position: absolute;
+      width: 60px;
+      top: 15px;
+      right: 0;
+    }
   }
 }
 
@@ -116,15 +175,16 @@
   .sendMessage {
     cursor: pointer;
     position: absolute;
-    top: 21px;
-    right: 4px;
-    height: 28px;
-    width: 28px;
-    background: $primaryDark;
-    border-radius: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    top: 8px;
+    right: 0px;
+    button {
+      font-size: $text4;
+      width: 112px;
+      height: 46px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
 }
 

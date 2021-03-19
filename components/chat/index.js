@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import { Input, notification, Popconfirm } from 'antd';
 import client from 'api/client';
@@ -15,16 +15,24 @@ const onAccept = (event, id, status) => {
   event.stopPropagation();
   return patchRequest(id, status);
 };
-const AllMessages = ({ conversationId, user }) => {
+const AllMessages = ({ conversationId, user, avatar }) => {
   const [messageList, setMessageList] = useState([]);
   const [value, setValue] = useState('');
 
+  const messanger = useRef(null);
+
   const adaptData = (data) => {
     data.forEach((item) => {
-      item.position = item.senderId === user._id ? 'left' : 'right';
+      item.position = 'left';
       item.type = 'text';
       item.text = item.content;
       item.date = moment(item.createdAt).toDate();
+      item.avatar =
+        item.senderId === user._id
+          ? user.avatar
+            ? client.UPLOAD_URL + user.avatar
+            : `https://ui-avatars.com/api/?background=9A87FE&name=${user.name}&rounded=true&color=ffffff`
+          : avatar;
     });
     return data;
   };
@@ -38,6 +46,9 @@ const AllMessages = ({ conversationId, user }) => {
     notification[type]({
       message,
     });
+  };
+  const scrollToBottom = () => {
+    messanger.current.mlistRef.scrollIntoView(false);
   };
 
   const getMessages = (conversationId) => {
@@ -56,7 +67,7 @@ const AllMessages = ({ conversationId, user }) => {
         })
         .then((res) => {
           setMessageList(adaptData(res.data));
-          // setShowMessage(true);
+          // scrollToBottom();
         })
         .catch((err) => openNotification('error', err.message));
     });
@@ -109,6 +120,7 @@ const AllMessages = ({ conversationId, user }) => {
     <div className={styles.chatContainer}>
       <div className={styles.messageList} id="message-content">
         <MessageList
+          ref={messanger}
           className={styles.message_list}
           lockable={false}
           toBottomHeight={'100%'}
@@ -123,7 +135,7 @@ const AllMessages = ({ conversationId, user }) => {
           onKeyPress={handleKeyPressSend}
         />
         <span className={styles.sendMessage} onClick={sendMessage}>
-          <img src="/img/send.svg" />
+          <PrimaryButton text="send" />
         </span>
       </div>
     </div>
@@ -133,13 +145,27 @@ const AllMessages = ({ conversationId, user }) => {
 AllMessages.propTypes = {
   user: PropTypes.object.isRequired,
   conversationId: PropTypes.string.isRequired,
+  avatar: PropTypes.string,
+};
+
+AllMessages.defaultProps = {
+  avatar: '',
 };
 
 export const Chat = ({ user, requests: req, isOwn }) => {
   const [conversationId, setConversationId] = useState(null);
   const [showMessage, setShowMessage] = useState(false);
   const [requests, setRequests] = useState(req);
-  const showMessages = (e) => {
+  const [av, setAv] = useState('');
+  const showMessages = (e, sender) => {
+    console.log(sender);
+    if (sender.avatar) {
+      setAv(client.UPLOAD_URL + sender.avatar);
+    } else {
+      setAv(
+        `https://ui-avatars.com/api/?background=9A87FE&name=${sender.name}&rounded=true&color=ffffff`
+      );
+    }
     const newConversationId = e.currentTarget.dataset.id;
     setConversationId(newConversationId);
     setShowMessage(true);
@@ -174,7 +200,7 @@ export const Chat = ({ user, requests: req, isOwn }) => {
                     <div
                       key={r._id}
                       className="col-lg-12 "
-                      onClick={showMessages}
+                      onClick={(e) => showMessages(e, r.senderInfo)}
                       data-id={r.conversations[0] && r.conversations[0]._id}>
                       <div className={cn(styles.message_community, 'row')}>
                         <div className={styles.mess_content}>
@@ -189,13 +215,15 @@ export const Chat = ({ user, requests: req, isOwn }) => {
                               alt=""
                             />
                             <div className={styles.name_special}>
-                              <h4>{r.senderInfo && r.senderInfo.name}</h4>
-                              <p>{r.senderInfo && r.senderInfo.type}</p>
+                              <div>
+                                <h4>{r.senderInfo && r.senderInfo.name}</h4>
+                                <p>{r.senderInfo && r.senderInfo.type}</p>
+                              </div>
+                              <p className={styles.messages}>
+                                {r.messages && r.messages[0] && r.messages[0].content}
+                              </p>
                             </div>
                           </div>
-                          <p className={styles.messages}>
-                            {r.messages && r.messages[0] && r.messages[0].content}
-                          </p>
                         </div>
                         {isOwn && (
                           <div className={cn(styles.div_button, 'buttonsProfile_styles')}>
@@ -237,14 +265,17 @@ export const Chat = ({ user, requests: req, isOwn }) => {
                     </div>
                   )
               )}
-              <h4 className={styles.subtitle}>Read invites</h4>
+              <h4 className={styles.subtitle}>
+                <span>Read invites</span>
+                <span className={styles.delete}>Delete all</span>
+              </h4>
               {requests.map(
                 (r) =>
                   r.status === 'accepted' && (
                     <div
                       key={r._id}
                       className="col-lg-12 "
-                      onClick={showMessages}
+                      onClick={(e) => showMessages(e, r.senderInfo)}
                       data-id={r.conversations[0] && r.conversations[0]._id}>
                       <div className={cn(styles.message_community, styles.accepted_message, 'row')}>
                         <div className={styles.mess_content}>
@@ -259,22 +290,37 @@ export const Chat = ({ user, requests: req, isOwn }) => {
                               alt=""
                             />
                             <div className={styles.name_special}>
-                              <h4>{r.senderInfo && r.senderInfo.name}</h4>
-                              <p>{r.senderInfo && r.senderInfo.type}</p>
+                              <div>
+                                <h4>{r.senderInfo && r.senderInfo.name}</h4>
+                                <p>{r.senderInfo && r.senderInfo.type}</p>
+                              </div>
+                              <p className={styles.messages}>
+                                {r.messages && r.messages[0] && r.messages[0].content}
+                              </p>
                             </div>
                           </div>
-                          <p className={styles.messages}>
-                            {r.messages && r.messages[0] && r.messages[0].content}
-                          </p>
                         </div>
-                        <div
-                          className={
-                            r.status === 'accepted'
-                              ? styles.request_status_acp
-                              : styles.request_status_rej
-                          }>
-                          {r.status}
-                        </div>
+                        {isOwn && (
+                          <div className={cn(styles.div_button, 'buttonsProfile_styles')}>
+                            <span></span>
+                            <Popconfirm
+                              placement="top"
+                              title="Are you sure to delete this task?"
+                              onClick={(event) => event.stopPropagation()}
+                              onConfirm={(event) => {
+                                setRecvestStatus(event, r._id, 'rejected');
+                              }}
+                              okText="Yes"
+                              cancelText="No">
+                              <PrimaryButton
+                                className="buttonsProfile_cancel"
+                                text="Cancel"
+                                isDark
+                                isRound
+                              />
+                            </Popconfirm>
+                          </div>
+                        )}
                       </div>
                     </div>
                   )
@@ -285,7 +331,7 @@ export const Chat = ({ user, requests: req, isOwn }) => {
               <span className={styles.goBack} onClick={() => setShowMessage(false)}>
                 ←
               </span>
-              <AllMessages user={user} conversationId={conversationId} />
+              <AllMessages user={user} conversationId={conversationId} avatar={av} />
             </div>
           )}
         </div>

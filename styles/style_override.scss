@@ -1384,13 +1384,19 @@ img.rot4 {
 }
 
 .rce-mbox {
-  background: $primaryDark !important;
-  color: $text_white;
+  background: $primaryBG !important;
+  color: $black;
   padding: 15px 10px !important;
   margin-bottom: 20px !important;
+  left: 50px !important;
+  border-top-left-radius: 5px !important;
+  border-top-right-radius: 5px !important;
+  border-bottom-left-radius: 0px !important;
+  border-bottom-right-radius: 5px !important;
+
   svg {
     path {
-      fill: $primaryDark !important;
+      fill: $primaryBG !important;
     }
   }
 }
@@ -1398,23 +1404,40 @@ img.rot4 {
 .tooltip {
   z-index: 2000000;
   .ant-tooltip-inner {
-    background-color: $primaryLight !important;
+    background-color: $primaryBG !important;
   }
 }
 
 .rce-mbox-right {
-  background: $primaryLight !important;
-  color: $text_white;
+  background: $primaryBG !important;
+  color: $black;
   padding: 15px 10px !important;
   margin-bottom: 20px !important;
   svg {
     path {
-      fill: $primaryLight !important;
+      fill: $primaryBG !important;
     }
   }
 }
 
 .rce-mbox-time.non-copiable:before {
   position: relative;
-  top: 30px;
+  color: $primaryDark;
+  top: 10px;
+}
+
+.rce-avatar-container.default {
+  position: absolute !important;
+  left: -63px;
+  top: -8px;
+  overflow: hidden;
+  border-radius: 40px;
+  width: 45px !important;
+  height: 45px !important;
+}
+
+.rce-mbox-left-notch {
+  top: auto !important;
+  bottom: 0 !important;
+  transform: rotate(90deg);
 }
