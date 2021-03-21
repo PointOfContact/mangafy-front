@@ -4,7 +4,7 @@ import { Tooltip } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
 import Card from 'components/card';
-import Modal from 'components/modals/Modal';
+import Modal from 'components/modals/joinToTeam';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';

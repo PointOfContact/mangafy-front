@@ -1,0 +1,56 @@
+@import '../../../styles/variables.scss';
+
+.modal {
+  @include media-sm {
+    width: 95% !important;
+    max-width: 95% !important;
+  }
+  .modalTitle {
+    margin-top: 24px;
+    text-align: center;
+    font-family: Noto Sans JP;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 30px;
+  }
+  .modalSelect {
+    box-sizing: border-box;
+    border-radius: 5px;
+    font-size: $text4;
+    padding: 0;
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  .modalTexarea {
+    min-height: 198px;
+    border: 1px solid $primaryDark;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding: 12px;
+  }
+  .hugeButton {
+    width: 240px;
+    height: 60px;
+    margin: 20px auto;
+  }
+  .titleWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .desc {
+    margin-top: 24px;
+    font-family: Noto Sans JP;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 25px;
+    line-height: 36px;
+  }
+  .anticon {
+    padding: 4px;
+    background: #7b65f3;
+    border-radius: 50%;
+    color: white;
+  }
+}

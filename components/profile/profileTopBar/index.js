@@ -1,16 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Upload, Input, Select, Layout, Row, Col, notification } from 'antd';
 import client from 'api/client';
-import { createRequest } from 'api/joinMangaStoryRequestClient';
 import cn from 'classnames';
 import SvgGreenChecked from 'components/icon/GreenChecked';
 import SvgPortfolio from 'components/icon/Portfolio';
 import SvgPrimaryAdd from 'components/icon/PrimaryAdd';
+import ModalInvites from 'components/modals/sendInvites';
 import { ShareButtons } from 'components/share';
 import PrimaryButton from 'components/ui-elements/button';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { userTypes, userTypesEnums } from 'helpers/constant';
+import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
@@ -37,6 +38,8 @@ const ProfileTopBar = (props) => {
     profile,
   } = props;
 
+  const [showModal, changeShowModal] = useState(false);
+
   const openNotification = (type, message, description = '') => {
     notification[type]({
       message,
@@ -44,16 +47,16 @@ const ProfileTopBar = (props) => {
     });
   };
 
-  const onInvite = async () => {
-    try {
-      await createRequest({
-        mangaStoryId: user.mangaStories[0]._id,
-        isInvite: true,
-        joinAs: profile.type,
-        senderId: profile._id,
-      });
-    } catch (error) {
-      openNotification('error', 'Failed to invite');
+  const history = useRouter();
+  const sendInvites = () => {
+    if (user) {
+      if (user.mangaStories.length) {
+        changeShowModal(true);
+      } else {
+        openNotification('error', "You don't have manga story");
+      }
+    } else {
+      history.push(`/sign-in?page=profile/${profile._id}`);
     }
   };
 
@@ -134,12 +137,12 @@ const ProfileTopBar = (props) => {
                   profile &&
                   !!user?.mangaStories?.length && (
                     <span className={styles.contacts}>
-                      {/* <PrimaryButton
-                        onClick={onInvite}
+                      <PrimaryButton
+                        onClick={sendInvites}
                         text="Invite to collaborate"
                         splitterStyle={{ fontSize: '15px' }}
                         disabled={user?.mangaStories?.participents?.include(profile._id)}
-                      /> */}
+                      />
                     </span>
                   )
                 )}
@@ -208,6 +211,12 @@ const ProfileTopBar = (props) => {
           </div>
         </Col>
       </Row>
+      <ModalInvites
+        user={user}
+        profile={profile}
+        changeShowModal={changeShowModal}
+        showModal={showModal}
+      />
     </Content>
   );
 };
