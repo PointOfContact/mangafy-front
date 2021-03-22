@@ -48,10 +48,6 @@ export const options = [
 
 export const userTypes = [
   {
-    key: 'reader',
-    value: 'Reader',
-  },
-  {
     key: 'illustrator',
     value: 'Illustrator',
   },
