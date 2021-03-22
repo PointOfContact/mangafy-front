@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Modal, Select, Input } from 'antd';
+import { Modal, Input } from 'antd';
 import client from 'api/client';
 import SvgClose from 'components/icon/Close';
 import LargeButton from 'components/ui-elements/large-button';
@@ -11,12 +11,10 @@ import styles from './styles.module.scss';
 
 const { TextArea } = Input;
 
-const { Option } = Select;
-const ModalStart = ({ changeShowModal, showModal, baseData }) => {
+const ModalStart = ({ changeShowModal, showModal, baseData, selectedTask }) => {
   const [joinAs, changeJoinAs] = useState('Writer');
   const [text, changeText] = useState('');
 
-  // state = { visible: false, joinAs: 'Writer' };
   const ModalTitle = (
     <div className={styles.titleWrapper}>
       <div className={styles.modalTitle}>REQUEST TO JOIN</div>
@@ -41,6 +39,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData }) => {
           {
             mangaStoryId: baseData._id,
             joinAs,
+            taskId: selectedTask._id,
           },
           {
             headers: { Authorization: `Bearer ${jwt}` },
@@ -78,9 +77,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData }) => {
     key: item.label,
     value: item.label,
   }));
-  const handleChangeJoinAs = (e) => {
-    changeJoinAs(e);
-  };
+
   return (
     <Modal
       className={styles.modal}
@@ -99,7 +96,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData }) => {
               <PrimarySelect
                 showSearch
                 className={styles.modalSelect}
-                onChange={handleChangeJoinAs}
+                onChange={changeJoinAs}
                 options={MyCheckboxes}
                 value={joinAs}
               />

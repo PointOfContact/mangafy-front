@@ -1,0 +1,40 @@
+@import '../../../../styles/variables.scss';
+
+$colors: $primaryLight, $orangeLight, #6fd257, $secondaryDark;
+$repeat: 20; // How often you want the pattern to repeat.
+// Warning: a higher number outputs more CSS.
+.ButtonPurple {
+  margin-bottom: 0;
+  display: inline-flex;
+  @for $i from 1 through $repeat {
+    &:nth-child(#{length($colors)}n + #{$i}) {
+      background: lighten(nth($colors, random(length($colors))), 20%);
+    }
+  }
+}
+
+.tasks {
+  margin-top: 18px;
+}
+
+.taskCont {
+  display: flex;
+  justify-content: space-between;
+}
+
+.description {
+  font-family: Noto Sans JP;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 35px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #858585;
+  word-break: break-word;
+}
+
+.addBtn {
+  display: flex;
+  margin-top: 5%;
+}
