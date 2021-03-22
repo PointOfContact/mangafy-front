@@ -16,6 +16,7 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
       $sort: {
         createdAt: -1,
       },
+      published: true,
     };
     if (genres && genres.length > 0) {
       genres = Array.isArray(genres) ? genres : [genres];

@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
-import { Tabs, notification } from 'antd';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
+import { Tabs, notification, Switch, Modal } from 'antd';
 import client from 'api/client';
+import { findStoryBoard } from 'api/storyBoardClient';
 import cn from 'classnames';
 import { Chat } from 'components/chat';
 import { Comments } from 'components/comments';
@@ -26,6 +28,7 @@ import styles from './styles.module.scss';
 // const StoryBoardTabs = dynamic(() => import('./components/storyBoardTabs'), {
 //   loading: () => <Spin />,
 // });
+const { confirm } = Modal;
 
 const { TabPane } = Tabs;
 // const { TextArea } = Input;
@@ -97,6 +100,78 @@ const MangeStory = (props) => {
     setEditMode(false);
   };
 
+  const onPublish = () => {
+    if (baseData.published) {
+      onGoToPrivate();
+    } else {
+      onGoToPublic();
+    }
+  };
+
+  const onGoToPublic = () => {
+    findStoryBoard(
+      user._id,
+      mangaStory._id,
+      (res) => {
+        const boad = res.data[0];
+        if (boad?.idea?.title && boad?.idea?.text) {
+          patchStory({
+            published: true,
+          });
+        } else {
+          confirm({
+            title: 'Update story board',
+            icon: <ExclamationCircleOutlined />,
+            style: { top: 120 },
+            content:
+              'Before switching to live mode, you must complete at last one step. Update this information in stroy board tab',
+            onOk() {
+              setcollabActiveTab('2');
+            },
+            onCancel() {},
+          });
+        }
+      },
+      (err) => {
+        openNotification('error', err.message);
+      }
+    );
+  };
+
+  const patchStory = (data) => {
+    const jwt = client.getCookie('feathers-jwt');
+    return import('api/restClient').then((m) =>
+      m.default
+        .service('/api/v2/manga-stories')
+        .patch(baseData._id, data, {
+          headers: { Authorization: `Bearer ${jwt}` },
+        })
+        .then((res) => {
+          setBaseData(res);
+        })
+        .catch((err) => {
+          openNotification('error', err.message);
+        })
+    );
+  };
+
+  const onGoToPrivate = () => {
+    confirm({
+      confirmLoading: true,
+      title: 'Switch to private Mode?',
+      style: { top: 120 },
+      icon: <ExclamationCircleOutlined />,
+      content:
+        'You are removing your app from public. Your story data access will be limited to people who have a role on the story.',
+      onOk() {
+        patchStory({
+          published: false,
+        });
+      },
+      onCancel() {},
+    });
+  };
+
   return (
     <div className="story_page">
       <Head>
@@ -112,6 +187,18 @@ const MangeStory = (props) => {
             <div className="mangafy_vontainer  container">
               <div className="row">
                 <div className="col-sm-12 manga-story manga-story-m">
+                  {isOwn && (
+                    <div className={styles.publishSwitch}>
+                      <Switch checked={baseData.published} onChange={onPublish} />
+                      <p
+                        className={cn(
+                          styles.publishText,
+                          baseData.published ? styles.published : styles.private
+                        )}>
+                        {baseData.published ? 'Published' : 'Private'}
+                      </p>
+                    </div>
+                  )}
                   {!editMode ? (
                     <div className={styles.storyTabContent}>
                       <div className={styles.header}>

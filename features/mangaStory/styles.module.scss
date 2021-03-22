@@ -26,7 +26,7 @@
     margin-bottom: 6px;
     font-family: Noto Sans JP;
   }
-  .participate{
+  .participate {
     margin-top: 40px;
   }
   pre {
@@ -68,7 +68,7 @@
     height: 68.8px;
     border-radius: 50%;
   }
-  .participents>div {
+  .participents > div {
     margin-left: -20px !important;
   }
 }
@@ -380,4 +380,23 @@
 
 .textarea_text {
   margin-bottom: 20px;
+}
+
+.publishSwitch {
+  display: flex;
+  position: relative;
+  top: 40px !important;
+  color: #858585;
+  font-family: Noto Sans JP;
+  .publishText {
+    margin-left: 10px;
+    margin-left: 10px;
+    font-size: 16px;
+  }
+  .published {
+    color: #7b65f3;
+  }
+  .private {
+    color: gray;
+  }
 }
