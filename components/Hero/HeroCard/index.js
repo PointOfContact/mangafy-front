@@ -4,9 +4,11 @@ import React, { useState } from 'react';
 import { Input, Upload } from 'antd';
 
 // Api
-import client from 'api/client';
 import restClient from 'api/restClient';
 import { createHero, patchHero, deleteHero, uploadFile } from 'api/storyBoardClient';
+import SvgCloud from 'components/icon/Cloud';
+import SvgDustbin from 'components/icon/Dustbin';
+import Popconfirm from 'components/popconfirm';
 import PropTypes from 'prop-types';
 
 // Styles
@@ -14,8 +16,6 @@ import { HeroTypes } from '../index';
 import styles from './styles.module.scss';
 
 // Components
-import SvgDustbin from 'components/icon/Dustbin';
-import Popconfirm from 'components/popconfirm';
 
 const { TextArea } = Input;
 const src = '/img/profile6.png';
@@ -76,21 +76,24 @@ const HeroCard = ({ hero, getStoryBoard }) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.addEventListener('load', () => {
-      uploadFile(reader.result, (res) => {
-        setCurrentHero({
-          ...currentHero,
-          imageUrl: res?.id,
-        });
-        onBlur({
-          ...currentHero,
-          imageUrl: res?.id,
-        });
-      }, (err) => {})
+      uploadFile(
+        reader.result,
+        (res) => {
+          setCurrentHero({
+            ...currentHero,
+            imageUrl: res?.id,
+          });
+          onBlur({
+            ...currentHero,
+            imageUrl: res?.id,
+          });
+        },
+        (err) => {}
+      );
     });
   };
 
-  const onPreview = (file) => {
-  };
+  const onPreview = (file) => {};
 
   const onChange = (info) => {
     if (info.file.status === 'done') {
@@ -98,12 +101,16 @@ const HeroCard = ({ hero, getStoryBoard }) => {
   };
 
   const confirmDelete = () => {
-    deleteHero(currentHero._id, (res) => {
-      getStoryBoard();
-    }, (err) => {
-      getStoryBoard();
-    })
-  }
+    deleteHero(
+      currentHero._id,
+      (res) => {
+        getStoryBoard();
+      },
+      (err) => {
+        getStoryBoard();
+      }
+    );
+  };
 
   return (
     <div className={styles.hero__container}>
@@ -146,6 +153,9 @@ const HeroCard = ({ hero, getStoryBoard }) => {
                 : src
             }
           />
+          <span className={styles.uploadSvg}>
+            <SvgCloud width="22px" height="22px" />
+          </span>
         </Upload>
       </div>
       <Popconfirm
