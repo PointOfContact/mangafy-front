@@ -48,10 +48,6 @@ export const options = [
 
 export const userTypes = [
   {
-    key: 'reader',
-    value: 'Reader',
-  },
-  {
     key: 'illustrator',
     value: 'Illustrator',
   },
@@ -153,7 +149,6 @@ export const userTypesEnums = {
   editor: 'Editor',
   backers: 'Backers',
   mentorship: 'Mentorship',
-  reader: 'Reader',
   illustrator: 'Illustrator',
   storyteller: 'Storyteller',
   new: 'New',

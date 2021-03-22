@@ -158,7 +158,6 @@ export const Chat = ({ user, requests: req, isOwn }) => {
   const [requests, setRequests] = useState(req);
   const [av, setAv] = useState('');
   const showMessages = (e, sender) => {
-    console.log(sender);
     if (sender.avatar) {
       setAv(client.UPLOAD_URL + sender.avatar);
     } else {
@@ -225,7 +224,7 @@ export const Chat = ({ user, requests: req, isOwn }) => {
                             </div>
                           </div>
                         </div>
-                        {isOwn && (
+                        {isOwn && !r.isInvite && (
                           <div className={cn(styles.div_button, 'buttonsProfile_styles')}>
                             <Popconfirm
                               placement="top"
