@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { Tooltip } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
-import Card from 'components/card';
 import Modal from 'components/modals/joinToTeam';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -11,9 +10,11 @@ import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 
 import styles from '../styles.module.scss';
+import Tasks from './tasks';
 
 const StoryTab = ({ baseData, isOwn, user }) => {
   const [showModal, changeShowModal] = useState(false);
+  const [selectedTask, setSelectedTask] = useState(null);
   const {
     _id,
     author,
@@ -26,9 +27,10 @@ const StoryTab = ({ baseData, isOwn, user }) => {
   } = baseData;
   const history = useRouter();
 
-  const toTeam = () => {
+  const toTeam = (task) => {
     if (user) {
       changeShowModal(true);
+      setSelectedTask(task);
     } else {
       history.push(`/sign-in?page=manga-story/${_id}`);
     }
@@ -62,18 +64,10 @@ const StoryTab = ({ baseData, isOwn, user }) => {
           ))}
         </div>
       </div>
-      {!isOwn && (
-        <div className={styles.cardWrapper}>
-          <div className={styles.card}>
-            <Card
-              description="Join to us and let’s make a fun"
-              btnText="Join to Team"
-              items={[<img key="1" src="/img/storyCardImg.png" alt="" />]}
-              onClick={() => toTeam()}
-            />
-          </div>
-        </div>
-      )}
+      <div>
+        <h1 className={cn(styles.storyTabTitle, styles.participate)}>How To Participate</h1>
+        <Tasks baseData={baseData} isOwn={isOwn} user={user} toTeam={toTeam} />
+      </div>
       <div className={cn(styles.storyTabDescription, styles.autherBlock)}>
         <Link href={`/profile/${author}`}>
           <div>
@@ -82,8 +76,8 @@ const StoryTab = ({ baseData, isOwn, user }) => {
           </div>
         </Link>
         <div className={styles.participents}>
-          {participentsInfo.map(({ avatar, name, _id }) => (
-            <Link key={name} href={`/profile/${_id}`}>
+          {[authorInfo].concat(participentsInfo).map(({ avatar, name, _id }) => (
+            <Link className={styles.participentsCont} key={name} href={`/profile/${_id}`}>
               <Tooltip placement="topLeft" title={name} arrowPointAtCenter>
                 <Image
                   width={65}
@@ -100,7 +94,12 @@ const StoryTab = ({ baseData, isOwn, user }) => {
           ))}
         </div>
       </div>
-      <Modal baseData={baseData} changeShowModal={changeShowModal} showModal={showModal} />
+      <Modal
+        baseData={baseData}
+        changeShowModal={changeShowModal}
+        showModal={showModal}
+        selectedTask={selectedTask}
+      />
     </div>
   );
 };

@@ -26,6 +26,9 @@
     margin-bottom: 6px;
     font-family: Noto Sans JP;
   }
+  .participate{
+    margin-top: 40px;
+  }
   pre {
     white-space: pre-wrap;
     color: #858585;
@@ -57,16 +60,16 @@
     display: inline-block;
   }
   .participents {
-    margin-left: 20px;
     display: flex;
     margin-top: 16px;
   }
   .participents img {
     width: 68.8px;
     height: 68.8px;
-    margin-left: -20px;
     border-radius: 50%;
-    background: red;
+  }
+  .participents>div {
+    margin-left: -20px !important;
   }
 }
 .pageWrap {
