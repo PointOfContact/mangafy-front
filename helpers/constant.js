@@ -531,7 +531,7 @@ export const COUNTRIES = [
   'Zulu',
 ];
 
-export const CHECKBOXES = [
+export const USER_TYPES = [
   {
     label: 'Writer',
     description: 'lorem  lorem   lorem',

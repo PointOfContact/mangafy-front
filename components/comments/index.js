@@ -18,11 +18,14 @@ const CommentList = ({ comments }) => (
         avatar={
           <Avatar
             src={
+              // eslint-disable-next-line no-nested-ternary
               props.senderInfo[0]
-                ? client.UPLOAD_URL + props.senderInfo[0].avatar
-                : `https://ui-avatars.com/api/?background=9A87FE&name=${props?.senderInfo[0]?.name}&rounded=true&color=ffffff`
+                ? props.senderInfo[0].avatar
+                  ? client.UPLOAD_URL + props.senderInfo[0].avatar
+                  : `https://ui-avatars.com/api/?background=9A87FE&name=${props?.senderInfo[0]?.name}&rounded=true&color=ffffff`
+                : undefined
             }
-            alt={props.senderInfo.name && props.senderInfo.name}
+            alt={props.senderInfo?.name}
           />
         }
       />
@@ -109,9 +112,12 @@ export const Comments = ({ commentsData = [], mangaStory = false, user = null, i
         avatar={
           <Avatar
             src={
+              // eslint-disable-next-line no-nested-ternary
               user
-                ? client.UPLOAD_URL + user.avatar
-                : `https://ui-avatars.com/api/?background=9A87FE&name=${user.name}&rounded=true&color=ffffff`
+                ? user.avatar
+                  ? client.UPLOAD_URL + user.avatar
+                  : `https://ui-avatars.com/api/?background=9A87FE&name=${user.name}&rounded=true&color=ffffff`
+                : undefined
             }
             alt={user && user.name}
           />

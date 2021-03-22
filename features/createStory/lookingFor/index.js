@@ -9,7 +9,7 @@ import Link from 'next/link';
 import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 
-import { CHECKBOXES } from './constant';
+import { USER_TYPES } from './constant';
 
 const Amplitude = require('amplitude');
 
@@ -18,7 +18,7 @@ const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 const LookingFor = ({ user }) => {
   const [loadings, changeLoading] = useState([]);
   const [checked, changeChecked] = useState(false);
-  const [checkboxes, changeCheckboxes] = useState(CHECKBOXES);
+  const [checkboxes, changeCheckboxes] = useState(USER_TYPES);
 
   useEffect(() => {
     let mangaData = localStorage.getItem('mangaStory');

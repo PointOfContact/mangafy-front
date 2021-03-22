@@ -5,7 +5,7 @@ import client from 'api/client';
 import SvgClose from 'components/icon/Close';
 import LargeButton from 'components/ui-elements/large-button';
 import PrimarySelect from 'components/ui-elements/select';
-import { CHECKBOXES } from 'helpers/constant';
+import { USER_TYPES } from 'helpers/constant';
 
 import styles from './styles.module.scss';
 
@@ -74,7 +74,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData }) => {
     });
   };
 
-  const MyCheckboxes = CHECKBOXES.map((item) => ({
+  const MyCheckboxes = USER_TYPES.map((item) => ({
     key: item.label,
     value: item.label,
   }));

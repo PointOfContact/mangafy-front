@@ -15,7 +15,10 @@ export function login(payload) {
   return auth
     .login(payload.email, payload.password)
     .then((_) => auth.authenticate(_.accessToken, true))
-    .then(({ user, jwt }) => {
+    .then(({ user, jwt, err }) => {
+      if (err) {
+        throw err;
+      }
       setClientCookie(FEATHERS_COOKIE, jwt);
       store.user = user;
       if (payload.page) {

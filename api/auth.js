@@ -21,7 +21,7 @@ const auth = {
 
         return Promise.resolve({ user: response.user, jwt: response.accessToken });
       })
-      .catch((err) => Promise.resolve({ user: null, jwt: null }));
+      .catch((err) => Promise.resolve({ user: null, jwt: null, err }));
   },
 
   signout() {

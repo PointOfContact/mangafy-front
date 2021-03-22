@@ -1,4 +1,4 @@
-export const CHECKBOXES = [
+export const USER_TYPES = [
   {
     label: 'Writer',
     description: 'lorem  lorem   lorem',
