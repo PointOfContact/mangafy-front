@@ -65,7 +65,7 @@ const StoryTab = ({ baseData, isOwn, user }) => {
         </div>
       </div>
       <div>
-        <h1 className={styles.storyTabTitle}>How To Participate</h1>
+        <h1 className={cn(styles.storyTabTitle, styles.participate)}>How To Participate</h1>
         <Tasks baseData={baseData} isOwn={isOwn} user={user} toTeam={toTeam} />
       </div>
       <div className={cn(styles.storyTabDescription, styles.autherBlock)}>

@@ -1441,3 +1441,23 @@ img.rot4 {
   bottom: 0 !important;
   transform: rotate(90deg);
 }
+
+.ant-modal-close {
+  svg {
+    height: $text3;
+    width: $text3;
+    font-size: $text3;
+    fill: $grey;
+    path {
+      fill: $grey;
+    }
+  }
+  &:hover {
+    svg {
+      fill: $text_white;
+      path {
+        fill: $primaryDark;
+      }
+    }
+  }
+}

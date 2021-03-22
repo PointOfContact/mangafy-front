@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import cn from 'classnames';
 import ButtonColab from 'components/colaborationCard/buttonColab';
 import Modal from 'components/modals/createTaskModal';
+import AddButton from 'components/ui-elements/add-button';
 import PrimaryButton from 'components/ui-elements/button';
 import PropTypes from 'prop-types';
 
@@ -16,39 +17,54 @@ const Tasks = ({ baseData, isOwn, toTeam }) => {
 
   return (
     <div className={styles.tasks}>
-      {taskList.map((task) => (
-        <div key={task._id} className={styles.taskCont}>
-          <div>
-            <ButtonColab className={cn(styles.ButtonPurple)} text={task.lookingFor} />
-            <div className={styles.description}>{task.description}</div>
-          </div>
-          <div>
-            <PrimaryButton
-              onClick={() => {
-                if (isOwn) {
-                  changeShowModal(true);
-                  setSelectedTask(task);
-                } else {
-                  toTeam(task);
-                }
-              }}
-              text={isOwn ? 'Edit' : 'Сontribute'}
-            />
-          </div>
-        </div>
-      ))}
-      {isOwn && (
-        <div className={styles.addBtn}>
-          {' '}
-          <PrimaryButton
+      <span className={styles.mobile_add}>
+        {isOwn && (
+          <AddButton
             onClick={() => {
               changeShowModal(true);
               setSelectedTask(null);
             }}
-            text="create a task"
           />
+        )}
+      </span>
+      <div className={styles.items}>
+        {taskList.map((task) => (
+          <div key={task._id} className={styles.taskCont}>
+            <div>
+              <ButtonColab className={cn(styles.ButtonPurple)} text={task.lookingFor} />
+              <div className={styles.description}>{task.description}</div>
+            </div>
+            <div>
+              <PrimaryButton
+                className={styles.editBtn}
+                onClick={() => {
+                  if (isOwn) {
+                    changeShowModal(true);
+                    setSelectedTask(task);
+                  } else {
+                    toTeam(task);
+                  }
+                }}
+                text={isOwn ? 'Edit' : 'Contribute'}
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+      <div>
+        <div className={styles.addBtn}>
+          <img src="/img/storyCardImg.png" alt="" />
+          {isOwn && (
+            <PrimaryButton
+              onClick={() => {
+                changeShowModal(true);
+                setSelectedTask(null);
+              }}
+              text="create a task"
+            />
+          )}
         </div>
-      )}
+      </div>
       <Modal
         baseData={baseData}
         changeShowModal={changeShowModal}

@@ -1,6 +1,9 @@
 import React from 'react';
 
 import cn from 'classnames';
+import SvgFbNew from 'components/icon/FbNew';
+import SvgInstNew from 'components/icon/InstNew';
+import SvgTwNew from 'components/icon/TwNew';
 import Link from 'next/link';
 
 import styles from './styles.module.scss';
@@ -21,13 +24,13 @@ const Footer = () => (
             </p>
             <div className={styles.footer__soc}>
               <a href="" className={styles.footer__socBtn}>
-                <img src="icons/fb-new.svg" alt=""></img>
+                <SvgFbNew width="25px" height="25px" />
               </a>
               <a href="" className={styles.footer__socBtn}>
-                <img src="icons/tw-new.svg" alt=""></img>
+                <SvgTwNew width="25px" height="25px" />
               </a>
               <a href="" className={styles.footer__socBtn}>
-                <img src="icons/inst-new.svg" alt=""></img>
+                <SvgInstNew width="25px" height="25px" />
               </a>
             </div>
           </div>

@@ -52,6 +52,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, tasks, setTask
       )
       .then((response) => {
         updateTasks();
+        changeText('');
         changeShowModal(false);
       })
       .catch((err) => err);

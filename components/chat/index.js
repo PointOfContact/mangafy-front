@@ -267,7 +267,7 @@ export const Chat = ({ user, requests: req, isOwn }) => {
               )}
               <h4 className={styles.subtitle}>
                 <span>Read invites</span>
-                <span className={styles.delete}>Delete all</span>
+                {isOwn && <span className={styles.delete}>Delete all</span>}
               </h4>
               {requests.map(
                 (r) =>

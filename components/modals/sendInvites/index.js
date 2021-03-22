@@ -15,11 +15,20 @@ const { TextArea } = Input;
 const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
   const [joinAs, changeJoinAs] = useState('Writer');
   const [text, changeText] = useState('');
+  const [task, setTask] = useState('');
+  const [optionsTasks, setOptionsTasks] = useState('');
   const [optionsMangaStories] = useState(
     user.mangaStories.map((item) => ({ key: item._id, value: item.title }))
   );
+
   const [story, setStory] = useState(optionsMangaStories[0]?.key);
 
+  const handleSetStory = (id) => {
+    const { tasks } = user.mangaStories.find((item) => item._id === id);
+    setOptionsTasks(tasks?.map((item) => ({ key: item._id, value: item.description })));
+    setTask(tasks?.[0]?._id);
+    setStory(id);
+  };
   const ModalTitle = (
     <div className={styles.titleWrapper}>
       <div className={styles.modalTitle}>Send Invite</div>
@@ -40,7 +49,9 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
         joinAs,
         senderId: profile._id,
         text,
+        task,
       });
+      changeShowModal(false);
     } catch (error) {
       openNotification('error', 'Failed to invite');
     }
@@ -84,10 +95,19 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
               <PrimarySelect
                 showSearch
                 className={styles.modalSelect}
-                onChange={setStory}
+                onChange={handleSetStory}
                 options={optionsMangaStories}
                 value={story}
               />
+              {story && optionsTasks && (
+                <PrimarySelect
+                  showSearch
+                  className={styles.modalSelect}
+                  onChange={setTask}
+                  options={optionsTasks}
+                  value={task}
+                />
+              )}
               <h2>Your message</h2>
               <TextArea
                 placeholder="Please write a personal message to the team leader explaining why you are a good fit"
