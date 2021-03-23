@@ -1,5 +1,12 @@
+@import '../../styles/variables.scss';
+
 .pricingBlock_wrap {
   margin-bottom: 50px;
+  div {
+    @include media-sm {
+      flex-direction: column;
+    }
+  }
   .noContent {
     display: inline-block;
   }
@@ -12,6 +19,9 @@
     font-size: 20px;
     height: 40px;
     min-width: 350px;
+    @include media-sm {
+      width: 100% !important;
+    }
     &::placeholder {
       color: #212121;
       font-size: 20px;
@@ -36,10 +46,28 @@
       min-width: 156px;
       max-width: 156px;
       margin-left: 40px;
+      @include media-sm {
+        min-width: calc(100% - 60px);
+        max-width: calc(100% - 60px);
+        margin-left: 0px;
+      }
+    }
+    &.inputService {
+      @include media-sm {
+        min-width: calc(100% - 60px);
+        max-width: calc(100% - 60px);
+        margin-left: 0px;
+      }
     }
   }
 }
-
+@include media-sm {
+  .close {
+    text-align: right;
+    position: relative;
+    top: -40px;
+  }
+}
 .editAboutButton {
   width: 22px;
   height: 22px;
