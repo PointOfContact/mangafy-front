@@ -343,11 +343,13 @@ const MangeStory = (props) => {
                       />
                     </div>
                   </TabPane>
-                  <TabPane tab="INVITES" key="4">
-                    <div className={styles.tabWrap}>
-                      <Chat requests={requests} mangaStory={baseData} user={user} isOwn={isOwn} />
-                    </div>
-                  </TabPane>
+                  {user && (
+                    <TabPane tab="INVITES" key="4">
+                      <div className={styles.tabWrap}>
+                        <Chat requests={requests} mangaStory={baseData} user={user} isOwn={isOwn} />
+                      </div>
+                    </TabPane>
+                  )}
                 </Tabs>
               </div>
             </div>

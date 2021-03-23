@@ -12,7 +12,7 @@ import { ShareButtons } from 'components/share';
 import ButtonToggle from 'components/ui-elements/button-toggle';
 import PrimarySelect from 'components/ui-elements/select';
 import { OPTIONS } from 'features/createStory/lenguage/constant';
-import { userTypes, userTypesEnums } from 'helpers/constant';
+import { userTypes } from 'helpers/constant';
 import PropTypes from 'prop-types';
 
 import styles from '../styles.module.scss';
@@ -134,23 +134,18 @@ const BannerSection = ({
     </div>
   );
 
-  const content = () => (
+  const searchingForContent = () => (
     <div>
-      {' '}
-      {baseData.searchingFor.map((item) =>
-        userTypesEnums[item] ? (
-          <p>
-            <Button
-              id="MangaStoryBannerSearchingForId"
-              key={item}
-              value="searchingFor"
-              data-id="searchingFor"
-              type="text">
-              {userTypesEnums[item] && userTypesEnums[item]}
-            </Button>
-          </p>
-        ) : null
-      )}
+      {baseData.searchingFor.map((item) => (
+        <p key={item}>{item}</p>
+      ))}
+    </div>
+  );
+  const genresContent = () => (
+    <div>
+      {baseData.genres.map((item) => (
+        <p key={item._id}>{item.name}</p>
+      ))}
     </div>
   );
   return (
@@ -175,16 +170,15 @@ const BannerSection = ({
             <div className={`${styles.bannerGenres} d-flex `}>
               <div className={styles.bannerGenresItem}>
                 {baseData.genres?.slice(0, 1).map((g) => (
-                  <Button
-                    id={`${g.name}-genresBtnId`}
-                    key={g}
-                    data-id="preferredLanguage"
-                    type="text">
-                    <SvgCat width="18px" height="24px" />
-                    <span>{g.name}</span>
-                  </Button>
+                  <Popover key={g} placement="top" title="Genres" content={genresContent}>
+                    <Button id={`${g.name}-genresBtnId`} data-id="preferredLanguage" type="text">
+                      <SvgCat width="18px" height="24px" />
+                      <span>{g.name}</span>
+                    </Button>
+                  </Popover>
                 ))}
               </div>
+
               <div className={styles.bannerGenresItem}>
                 <Button id="preferredLanguageBtnId" data-id="preferredLanguage" type="text">
                   <SvgLang width="24px" height="24px" />
@@ -192,7 +186,7 @@ const BannerSection = ({
                 </Button>
               </div>
               <div className={styles.bannerGenresItem}>
-                <Popover placement="top" title="Searching For" content={content}>
+                <Popover placement="top" title="Searching For" content={searchingForContent}>
                   <Button id="searchingForBtnId" data-id="searchingFor" type="text">
                     <SvgTie width="20px" height="20px" />
                     <span>{baseData.searchingFor[0] || 'Searching For'}</span>

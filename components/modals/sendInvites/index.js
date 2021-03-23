@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Modal, Input, notification } from 'antd';
 import { createRequest } from 'api/joinMangaStoryRequestClient';
@@ -17,11 +17,18 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
   const [text, changeText] = useState('');
   const [task, setTask] = useState('');
   const [optionsTasks, setOptionsTasks] = useState('');
-  const [optionsMangaStories] = useState(
-    user.mangaStories.map((item) => ({ key: item._id, value: item.title }))
-  );
+  const [optionsMangaStories, setOptionsMangaStories] = useState('');
+  const [story, setStory] = useState('');
 
-  const [story, setStory] = useState(optionsMangaStories[0]?.key);
+  useEffect(() => {
+    setOptionsMangaStories(
+      user.mangaStories?.map((item) => ({ key: item._id, value: item.title }))
+    );
+  }, [user]);
+
+  useEffect(() => {
+    setStory(optionsMangaStories[0] && optionsMangaStories[0].key);
+  }, [optionsMangaStories]);
 
   const handleSetStory = (id) => {
     const { tasks } = user.mangaStories.find((item) => item._id === id);
