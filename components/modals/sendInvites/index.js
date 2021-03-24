@@ -18,7 +18,7 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
   const [task, setTask] = useState('');
   const [optionsTasks, setOptionsTasks] = useState('');
   const [optionsMangaStories] = useState(
-    user.mangaStories.map((item) => ({ key: item._id, value: item.title }))
+    user?.mangaStories?.map((item) => ({ key: item._id, value: item.title })) || []
   );
 
   const [story, setStory] = useState(optionsMangaStories[0]?.key);
