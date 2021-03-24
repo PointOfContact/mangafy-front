@@ -77,7 +77,7 @@ const StoryBoardTabs = ({ user, mangaStory, openNotification, originUrl }) => {
   };
   const clickNext = () => {
     let myEvent = '';
-    switch (storyBoardActiveTab) {
+    switch (storyBoardActiveTab.toString()) {
       case '1':
         myEvent = EVENTS.PILOT_COMPLETED;
         break;
@@ -196,8 +196,8 @@ const StoryBoardTabs = ({ user, mangaStory, openNotification, originUrl }) => {
         key={1}>
         <div className={styles.tabContent}>
           <FindPartner />
-          <Idea storyBoard={storyBoard} />
-          {renderNavigationButtons()}
+          <Idea storyBoard={storyBoard} setStoryBoard={setStoryBoard} />
+          {renderNavigationButtons(!(storyBoard?.idea?.title && storyBoard?.idea?.text))}
         </div>
       </TabPane>
       <TabPane
@@ -228,8 +228,13 @@ const StoryBoardTabs = ({ user, mangaStory, openNotification, originUrl }) => {
         {isShowAnimation && <span className={styles.showAnimation}></span>}
         <div className={styles.tabContent}>
           <FindPartner />
-          <ProjectScripts pages={storyBoard.pages} storyBoardId={storyBoard._id} />
-          {renderNavigationButtons()}
+          <ProjectScripts
+            pages={storyBoard?.pages}
+            storyBoardId={storyBoard?._id}
+            storyBoard={storyBoard}
+            setStoryBoard={setStoryBoard}
+          />
+          {renderNavigationButtons(!storyBoard?.pages?.length)}
         </div>
       </TabPane>
       <TabPane

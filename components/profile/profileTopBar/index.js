@@ -46,12 +46,12 @@ const ProfileTopBar = (props) => {
       description,
     });
   };
-
   const history = useRouter();
   const sendInvites = () => {
     if (user) {
       if (user.mangaStories.length) {
         changeShowModal(true);
+        isShowModal();
       } else {
         openNotification('error', "You don't have manga story");
       }
@@ -82,6 +82,14 @@ const ProfileTopBar = (props) => {
   const handleBeforeUpload = (f) => {
     handleEvent();
     beforeUpload(f, props);
+  };
+  const isShowModal = () => {
+    const el = document.body;
+    if (showModal) {
+      el.classList.add(styles.body_scrool);
+    } else {
+      el.classList.remove(styles.body_scrool);
+    }
   };
 
   return (
@@ -214,7 +222,10 @@ const ProfileTopBar = (props) => {
       <ModalInvites
         user={user}
         profile={profile}
-        changeShowModal={changeShowModal}
+        changeShowModal={(e) => {
+          changeShowModal(e);
+          isShowModal();
+        }}
         showModal={showModal}
       />
     </Content>

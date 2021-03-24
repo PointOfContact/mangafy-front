@@ -189,7 +189,9 @@ const MangeStory = (props) => {
                 <div className="col-sm-12 manga-story manga-story-m">
                   {isOwn && (
                     <div className={styles.publishSwitch}>
-                      <Switch checked={baseData.published} onChange={onPublish} />
+                      <span>
+                        <Switch checked={baseData.published} onChange={onPublish} />
+                      </span>
                       <p
                         className={cn(
                           styles.publishText,

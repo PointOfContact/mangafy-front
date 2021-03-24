@@ -211,9 +211,9 @@ const uploadFile = (uri, onSuccess, onFailure) => {
       })
       .catch((err) => {
         onFailure(err);
-      })
+      });
   });
-}
+};
 
 export {
   findStoryBoard,
