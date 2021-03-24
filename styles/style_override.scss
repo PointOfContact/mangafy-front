@@ -2,7 +2,7 @@
 
 html,
 body {
-  height: inherit !important;
+  height: inherit;
 }
 
 .body_remove_scroll {
@@ -1468,5 +1468,13 @@ img.rot4 {
         fill: $primaryDark;
       }
     }
+  }
+}
+.send_invite {
+  .ant-select {
+    margin-bottom: -1px !important;
+  }
+  .ant-form-item {
+    margin-bottom: 10px;
   }
 }

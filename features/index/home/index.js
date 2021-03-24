@@ -112,7 +112,7 @@ export default function Home() {
             <img src="/img/how-img.png" alt="" />
           </div>
           <div className={styles.howWorks__descr}>
-            <div className={styles.howWorks__item}>Submit your graphinc novel idea</div>
+            <div className={styles.howWorks__item}>Submit your graphic novel idea</div>
             <div className={styles.howWorks__item}>Manage the production circle</div>
             <div className={`${styles.howWorks__item} ${styles.pr65}`}>
               Collaborate with graphic novel entusiasts
@@ -121,7 +121,7 @@ export default function Home() {
           <div className={styles.howWorks__mobile}>
             <div className={`${styles.howWorks__mobItem} ${styles.howWorks__mobItem_item1}`}>
               <div className={styles.howWorks__mobText}>
-                Submit your graphinc novel
+                Submit your graphic novel
                 <br /> idea
               </div>
               <div className={styles.howWorks__mobImg}>
@@ -155,7 +155,7 @@ export default function Home() {
             <div className={styles.it1}>
               <img src="/img/idea-ico.svg" alt="" />
             </div>
-            <div className={styles.gotIdea__title}>Got a great graphinc novel idea?</div>
+            <div className={styles.gotIdea__title}>Got a great graphic novel idea?</div>
             <div className={styles.gotIdea__descr}>
               Fill out our idea submission form for a chance to turn your idea into
               <br />a published bestseller

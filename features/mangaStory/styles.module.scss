@@ -18,14 +18,20 @@
   }
 }
 .sub_info {
+  margin-top: -7px;
+  margin-bottom: 13px;
   font-size: $text4;
   color: $grey;
+  display: inherit;
   @include media-sm {
     font-size: $text5;
   }
 }
 .storyTab {
   font-family: Noto Sans JP;
+  pre {
+    margin-bottom: 25px;
+  }
   .storyTabTitle {
     font-size: 20px;
     font-weight: 700;
@@ -391,6 +397,8 @@
 
 .publishSwitch {
   display: flex;
+  flex-direction: column;
+  text-align: right;
   position: relative;
   top: 40px !important;
   color: #858585;
