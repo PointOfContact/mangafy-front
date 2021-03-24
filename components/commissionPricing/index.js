@@ -136,6 +136,7 @@ export const CommissionPricing = ({ id = null, user = null }) => {
               {!pricingList.length && id !== user?._id && (
                 <div className={styles.noContent}>
                   <Card
+                    className={styles.card}
                     description="Sorry, but there is nothing <br/> here (("
                     btnText=""
                     items={[<img key="1" src="/img/commisionList.png" alt="" />]}
@@ -159,7 +160,7 @@ export const CommissionPricing = ({ id = null, user = null }) => {
                   style={{ display: 'flex', alignItems: 'center', marginBottom: 15 }}
                   align="start">
                   <Input
-                    className=""
+                    className={styles.inputService}
                     disabled={!(canEdit && editMode)}
                     placeholder="Service"
                     name="first"
@@ -176,7 +177,7 @@ export const CommissionPricing = ({ id = null, user = null }) => {
                     value={field.last}
                     onChange={handleChange}
                   />
-                  <div className="col-lg-1">
+                  <div className={styles.close}>
                     {editMode && canEdit && (
                       <MinusCircleOutlined
                         onClick={() => {

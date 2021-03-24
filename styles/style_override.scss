@@ -679,6 +679,13 @@ img.rot4 {
   margin-left: 30px;
 }
 
+.pricingBlock {
+  @include media-sm {
+    .ant-space-item {
+      width: 100%;
+    }
+  }
+}
 .garners_buttons {
   .ant-select {
     border: 1px solid #7b65f3;
@@ -816,10 +823,11 @@ img.rot4 {
         height: 25px;
       }
       &:before {
-        content: '';
+        content: 'aaa';
         width: 16px;
         height: 14px;
         background-image: url(../public/img/confim-arr.svg);
+        position: absolute;
         background-size: cover;
         background-repeat: no-repeat;
         display: block;
@@ -1167,10 +1175,11 @@ img.rot4 {
         height: 25px;
       }
       &:before {
-        content: '';
+        content: 'aaa';
         width: 16px;
         height: 14px;
         background-image: url(../public/img/confim-arr.svg);
+        position: absolute;
         background-size: cover;
         background-repeat: no-repeat;
         display: block;

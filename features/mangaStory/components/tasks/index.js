@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 
+import { Popconfirm } from 'antd';
+import client from 'api/client';
 import cn from 'classnames';
 import ButtonColab from 'components/colaborationCard/buttonColab';
+import SvgDustbin from 'components/icon/Dustbin';
+import SvgPencilColored from 'components/icon/PencilColored';
 import Modal from 'components/modals/createTaskModal';
 import AddButton from 'components/ui-elements/add-button';
 import PrimaryButton from 'components/ui-elements/button';
@@ -15,11 +19,43 @@ const Tasks = ({ baseData, isOwn, toTeam }) => {
   const [showModal, changeShowModal] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
 
+  const deleteTask = async (taskId) => {
+    const jwt = client.getCookie('feathers-jwt');
+    const { default: api } = await import('api/restClient');
+    api
+      .service('/api/v2/tasks')
+      .remove(taskId, {
+        headers: { Authorization: `Bearer ${jwt}` },
+        mode: 'no-cors',
+      })
+      .then(() => {
+        updateTasks();
+      })
+      .catch((err) => err);
+  };
+
+  const updateTasks = async () => {
+    const jwt = client.getCookie('feathers-jwt');
+    const { default: api } = await import('api/restClient');
+    api
+      .service('/api/v2/tasks')
+      .find({
+        query: {
+          mangaStoryId: baseData._id,
+        },
+        headers: { Authorization: `Bearer ${jwt}` },
+      })
+      .then((response) => {
+        setTasks(response.data);
+      })
+      .catch((err) => err);
+  };
   return (
     <div className={styles.tasks}>
       <span className={styles.mobile_add}>
         {isOwn && (
           <AddButton
+            text={'create a task'}
             onClick={() => {
               changeShowModal(true);
               setSelectedTask(null);
@@ -34,20 +70,36 @@ const Tasks = ({ baseData, isOwn, toTeam }) => {
               <ButtonColab className={cn(styles.ButtonPurple)} text={task.lookingFor} />
               <div className={styles.description}>{task.description}</div>
             </div>
-            <div>
-              <PrimaryButton
-                className={styles.editBtn}
-                onClick={() => {
-                  if (isOwn) {
+            {isOwn ? (
+              <div className={styles.editBtns}>
+                <SvgPencilColored
+                  onClick={() => {
                     changeShowModal(true);
                     setSelectedTask(task);
-                  } else {
+                  }}
+                  white="22px"
+                  height="22px"
+                />
+                <Popconfirm
+                  placement="topRight"
+                  title="You want to delete this task?"
+                  onConfirm={() => deleteTask(task._id)}
+                  okText="Yes"
+                  cancelText="No">
+                  <SvgDustbin white="22px" height="22px" />
+                </Popconfirm>
+              </div>
+            ) : (
+              <div>
+                <PrimaryButton
+                  className={styles.editBtn}
+                  onClick={() => {
                     toTeam(task);
-                  }
-                }}
-                text={isOwn ? 'Edit' : 'Contribute'}
-              />
-            </div>
+                  }}
+                  text="Contribute"
+                />
+              </div>
+            )}
           </div>
         ))}
       </div>
@@ -72,6 +124,7 @@ const Tasks = ({ baseData, isOwn, toTeam }) => {
         task={selectedTask}
         tasks={tasks}
         setTasks={setTasks}
+        updateTasks={updateTasks}
       />
     </div>
   );

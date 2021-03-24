@@ -11,7 +11,15 @@ import styles from './styles.module.scss';
 
 const { TextArea } = Input;
 
-const ModalStart = ({ changeShowModal, showModal, baseData, task, tasks, setTasks }) => {
+const ModalStart = ({
+  changeShowModal,
+  showModal,
+  baseData,
+  task,
+  tasks,
+  setTasks,
+  updateTasks,
+}) => {
   const [lookingFor, changeLookingFor] = useState('Writer');
   const [text, changeText] = useState('');
 
@@ -76,23 +84,6 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, tasks, setTask
       .then((response) => {
         updateTasks();
         changeShowModal(false);
-      })
-      .catch((err) => err);
-  };
-
-  const updateTasks = async () => {
-    const jwt = client.getCookie('feathers-jwt');
-    const { default: api } = await import('api/restClient');
-    api
-      .service('/api/v2/tasks')
-      .find({
-        query: {
-          mangaStoryId: baseData._id,
-        },
-        headers: { Authorization: `Bearer ${jwt}` },
-      })
-      .then((response) => {
-        setTasks(response.data);
       })
       .catch((err) => err);
   };

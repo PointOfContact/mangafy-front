@@ -17,6 +17,13 @@
     cursor: pointer;
   }
 }
+.sub_info {
+  font-size: $text4;
+  color: $grey;
+  @include media-sm {
+    font-size: $text5;
+  }
+}
 .storyTab {
   font-family: Noto Sans JP;
   .storyTabTitle {
