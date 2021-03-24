@@ -27,6 +27,7 @@ const MyProfile = (props) => {
     type: user.type,
     content: user.content,
     genresIds: user.genresIds,
+    avatar: user.avatar,
   });
 
   const cancelEditMode = () => {

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { Modal, Input } from 'antd';
+import Form from 'antd/lib/form/Form';
 import client from 'api/client';
 import SvgClose from 'components/icon/Close';
 import LargeButton from 'components/ui-elements/large-button';
@@ -106,40 +107,65 @@ const ModalStart = ({
       <div className="container">
         <div className="row">
           <div className="col-lg-12 select_modal">
-            <form action="">
+            <Form
+              name="send_inva it"
+              onFinish={() => {
+                task ? editTask() : createTask();
+              }}
+              initialValues={{
+                lookingFor,
+                text,
+              }}>
               <h2>Looking for</h2>
-              <PrimarySelect
-                showSearch
-                className={styles.modalSelect}
-                onChange={changeLookingFor}
-                options={MyCheckboxes}
-                value={lookingFor}
-              />
+              <Form.Item
+                name="lookingFor"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Genre is required',
+                  },
+                ]}>
+                <PrimarySelect
+                  showSearch
+                  className={styles.modalSelect}
+                  onChange={changeLookingFor}
+                  options={MyCheckboxes}
+                  value={lookingFor}
+                />
+              </Form.Item>
               <h2>Task description</h2>
-              <TextArea
-                placeholder=""
-                value={text}
-                defaultValue={text}
-                onChange={handleChangeText}
-                required
-                type="text"
-                minLength={10}
-                maxLength={1000}
-                className={styles.modalTexarea}
-              />
+              <Form.Item
+                name="text"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Text is required',
+                  },
+                ]}>
+                <TextArea
+                  placeholder=""
+                  value={text}
+                  defaultValue={text}
+                  onChange={handleChangeText}
+                  type="text"
+                  minLength={10}
+                  maxLength={1000}
+                  className={styles.modalTexarea}
+                />
+              </Form.Item>
 
               <div className="modal_select_btn">
-                <LargeButton
-                  onClick={() => {
-                    task ? editTask() : createTask();
-                  }}
-                  id="modalJoinMyJourneySubmitBtnId"
-                  className={styles.hugeButton}
-                  isFullWidth={false}
-                  text={task ? 'Edit' : 'Create'}
-                />
+                <Form.Item>
+                  <LargeButton
+                    htmlType="submit"
+                    id="modalJoinMyJourneySubmitBtnId"
+                    className={styles.hugeButton}
+                    isFullWidth={false}
+                    text={task ? 'Edit' : 'Create'}
+                  />
+                </Form.Item>
               </div>
-            </form>
+            </Form>
           </div>
         </div>
       </div>
