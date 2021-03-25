@@ -186,7 +186,6 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
               <div className="modal_select_btn">
                 <Form.Item>
                   <LargeButton
-                    // onClick={onInvite}
                     htmlType="submit"
                     id="modalJoinMyJourneySubmitBtnId"
                     className={styles.hugeButton}

@@ -81,8 +81,17 @@ const ProfileTopBar = (props) => {
 
   const handleBeforeUpload = (f) => {
     handleEvent();
-    beforeUpload(f, props);
+    beforeUpload(f, props, updater);
   };
+
+  const updater = (res) => {
+    setUserData(res);
+    setUserData({
+      ...userData,
+      avatar: res.avatar,
+    });
+  };
+
   const isShowModal = () => {
     const el = document.body;
     if (showModal) {
@@ -109,15 +118,15 @@ const ProfileTopBar = (props) => {
             ) : (
               <img
                 src={
-                  user.avatar
-                    ? client.UPLOAD_URL + user.avatar
+                  userData
+                    ? client.UPLOAD_URL + userData.avatar
                     : `https://ui-avatars.com/api/?background=9A87FE&name=${user.name}&rounded=true&color=ffffff`
                 }
                 alt=""
               />
             )}
             {user && !profile && (
-              <Upload beforeUpload={handleBeforeUpload}>
+              <Upload accept="image/jpg, image/png, image/jpeg " beforeUpload={handleBeforeUpload}>
                 <SvgPrimaryAdd
                   className={styles.add}
                   id="myProfileUploadBtnId"
