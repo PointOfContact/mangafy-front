@@ -122,6 +122,9 @@
       color: $primaryDark;
     }
   }
+  &__menu_active {
+    color: $primaryDark;
+  }
   .user_img_no_acaunt {
     display: inline-block;
     margin-right: 10px;
