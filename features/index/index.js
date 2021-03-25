@@ -5,6 +5,9 @@ import FooterPolicy from 'components/footer-policy';
 import Header from 'components/header';
 import ButtonToTop from 'components/ui-elements/button-toTop';
 import Home from 'features/index/home';
+
+import TypePage from 'features/typePage';
+
 import Head from 'next/head';
 import PropTypes from 'prop-types';
 
