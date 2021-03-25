@@ -1,6 +1,7 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 
 import cn from 'classnames';
+import ModalHero from 'components/modals/createEditHero';
 import PropTypes from 'prop-types';
 
 // Styles
@@ -12,7 +13,10 @@ export const HeroTypes = {
   component: 'component',
 };
 
-const Hero = ({ storyBoard, setStoryBoard, getStoryBoard }) => {
+const Hero = ({ storyBoard, getStoryBoard }) => {
+  const [showModal, changeShowModal] = useState(false);
+  const [selectedHero, setSelectedHero] = useState({});
+  const [selectedType, setSelectedType] = useState('');
   const { allowPersonageCreate, allowComponentCreate } = useMemo(() => {
     const allow = {
       allowPersonageCreate: true,
@@ -32,12 +36,23 @@ const Hero = ({ storyBoard, setStoryBoard, getStoryBoard }) => {
 
   const getAllowCreate = (type) =>
     type === HeroTypes.personage ? allowPersonageCreate : allowComponentCreate;
+
+  const changeHero = (newhero, type) => {
+    setSelectedHero(newhero);
+    setSelectedType(type);
+    changeShowModal(true);
+  };
   const getHeroesList = () => {
     const heroes = [];
     storyBoard?.heroes?.map((hero, index) => {
       if (hero?.type === HeroTypes.personage) {
         heroes.push(
-          <HeroCard hero={hero} key={hero?._id || index} getStoryBoard={getStoryBoard} />
+          <HeroCard
+            changeHero={changeHero}
+            hero={hero}
+            key={hero?._id || index}
+            getStoryBoard={getStoryBoard}
+          />
         );
       }
     });
@@ -49,7 +64,12 @@ const Hero = ({ storyBoard, setStoryBoard, getStoryBoard }) => {
     storyBoard?.heroes?.map((hero, index) => {
       if (hero?.type === HeroTypes.component) {
         heroes.push(
-          <HeroCard hero={hero} key={hero?._id || index} getStoryBoard={getStoryBoard} />
+          <HeroCard
+            changeHero={changeHero}
+            hero={hero}
+            key={hero?._id || index}
+            getStoryBoard={getStoryBoard}
+          />
         );
       }
     });
@@ -68,11 +88,11 @@ const Hero = ({ storyBoard, setStoryBoard, getStoryBoard }) => {
       storyBoard: storyBoard?._id,
       type,
     };
-
-    setStoryBoard({
-      ...storyBoard,
-      heroes: [...storyBoard?.heroes, newHero],
-    });
+    changeHero(newHero);
+    // setStoryBoard({
+    //   ...storyBoard,
+    //   heroes: [...storyBoard?.heroes, newHero],
+    // });
   };
 
   return (
@@ -101,6 +121,13 @@ const Hero = ({ storyBoard, setStoryBoard, getStoryBoard }) => {
           <p className={styles.addButtonText}>Add components</p>
         </div>
       </div>
+      <ModalHero
+        changeShowModal={changeShowModal}
+        showModal={showModal}
+        getStoryBoard={getStoryBoard}
+        hero={selectedHero}
+        type={selectedType}
+      />
     </div>
   );
 };
