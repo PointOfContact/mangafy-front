@@ -8,14 +8,14 @@ import Popconfirm from 'components/popconfirm';
 import AddButton from 'components/ui-elements/add-button';
 import PrimaryInput from 'components/ui-elements/input';
 import TextArea from 'components/ui-elements/text-area';
+import PropTypes from 'prop-types';
 import useWindowSize from 'utils/useWindowSize';
 
 import styles from './styles.module.scss';
 
-const ProjectScripts = ({ pages, storyBoardId }) => {
+const ProjectScripts = ({ pages, storyBoardId, storyBoard, setStoryBoard }) => {
   const { width } = useWindowSize();
   const [scripts, setScripts] = useState(pages);
-
   const [selectedScript, setSelectedScript] = useState(scripts[0]?._id);
 
   useEffect(() => {
@@ -48,12 +48,21 @@ const ProjectScripts = ({ pages, storyBoardId }) => {
   const removeScript = (index) => {
     deletePage(
       scripts[index]._id,
-      (res) => {},
-      (err) => {}
+      (res) => {
+        const items = [...scripts];
+        items.splice(index, 1);
+        setScripts(items);
+        console.log(items);
+        const newPages = items.filter((item) => item.title !== '');
+        setStoryBoard({
+          ...storyBoard,
+          pages: newPages,
+        });
+      },
+      (err) => {
+        console.log(err);
+      }
     );
-    const items = [...scripts];
-    items.splice(index, 1);
-    setScripts(items);
   };
 
   const updateScripts = (value, index, feild) => {
@@ -80,14 +89,26 @@ const ProjectScripts = ({ pages, storyBoardId }) => {
           (res) => {
             items[index]._id = res?._id;
             setScripts(items);
+            setSelectedScript(res?._id);
+            const newPages = scripts.filter((item) => !item.newCreated);
+            setStoryBoard({
+              ...storyBoard,
+              pages: newPages,
+            });
           },
           (err) => {}
         );
-      } else {
+      } else if (items[index].title) {
         patchPage(
           items[index]?._id,
           dataToSave,
-          (res) => {},
+          (res) => {
+            const newPages = scripts.filter((item) => item.newCreated);
+            setStoryBoard({
+              ...storyBoard,
+              pages: newPages,
+            });
+          },
           (err) => {}
         );
       }
@@ -119,7 +140,14 @@ const ProjectScripts = ({ pages, storyBoardId }) => {
                 <>
                   <h4 className={styles.title}>{`page #${index + 1}`}</h4>
                   <Form name="basic" initialValues={{ title: script.title, text: script.text }}>
-                    <Form.Item name="title">
+                    <Form.Item
+                      name="title"
+                      rules={[
+                        {
+                          required: true,
+                          message: 'Field is required!',
+                        },
+                      ]}>
                       <PrimaryInput
                         onBlur={(e) => updateScripts(e.target.value, index, 'title')}
                         placeholder="Page title"
@@ -128,6 +156,7 @@ const ProjectScripts = ({ pages, storyBoardId }) => {
                     <Form.Item name="text">
                       <TextArea
                         onBlur={(e) => updateScripts(e.target.value, index, 'text')}
+                        onChange={(e) => (script.text = e.target.value)}
                         placeholder="Page description"
                         minRows={width < 768 ? 5 : 12}
                         maxRows={width < 768 ? 6 : 15}
@@ -164,6 +193,19 @@ const ProjectScripts = ({ pages, storyBoardId }) => {
       ))}
     </div>
   );
+};
+ProjectScripts.propTypes = {
+  pages: PropTypes.array,
+  storyBoardId: PropTypes.string,
+  storyBoard: PropTypes.object,
+  setStoryBoard: PropTypes.func,
+};
+
+ProjectScripts.defaultProps = {
+  storyBoardId: '',
+  pages: [],
+  storyBoard: {},
+  setStoryBoard: () => {},
 };
 
 export default ProjectScripts;

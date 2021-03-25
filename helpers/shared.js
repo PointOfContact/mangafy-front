@@ -18,6 +18,17 @@ export const beforeUpload = (file, props, updater = () => {}) => {
     });
   };
 
+  const isJpgOrPng =
+    file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/jpg';
+
+  if (!isJpgOrPng) {
+    openNotification('error', 'You can only upload JPG, JPEG, PNG file!');
+  }
+  const isLt2M = file.size / 1024 / 1024 < 100;
+  if (!isLt2M) {
+    openNotification('error', 'Image must smaller than 100MB!');
+  }
+
   const reader = new FileReader();
   // encode dataURI
   reader.readAsDataURL(file);
@@ -37,7 +48,7 @@ export const beforeUpload = (file, props, updater = () => {}) => {
               }
             )
             .then((response) => response)
-            .then((response) => {
+            .then((response) =>
               m.default.service('/api/v2/users').patch(
                 props.user._id,
                 {
@@ -47,14 +58,15 @@ export const beforeUpload = (file, props, updater = () => {}) => {
                   headers: { Authorization: `Bearer ${jwt}` },
                   mode: 'no-cors',
                 }
-              );
-            })
+              )
+            )
             .then((res) => updater(res));
         })
         .catch((err) => openNotification('error', err.message));
     },
     false
   );
+  return isJpgOrPng && isLt2M;
 };
 
 const removeCookies = () => {

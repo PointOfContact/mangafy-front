@@ -7,6 +7,7 @@
   text-align: center;
   white-space: break-spaces;
   position: relative;
+  cursor: pointer;
   @include media-sm {
     width: auto;
   }

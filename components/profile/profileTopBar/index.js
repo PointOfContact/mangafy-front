@@ -46,12 +46,12 @@ const ProfileTopBar = (props) => {
       description,
     });
   };
-
   const history = useRouter();
   const sendInvites = () => {
     if (user) {
       if (user.mangaStories.length) {
         changeShowModal(true);
+        isShowModal();
       } else {
         openNotification('error', "You don't have manga story");
       }
@@ -81,7 +81,24 @@ const ProfileTopBar = (props) => {
 
   const handleBeforeUpload = (f) => {
     handleEvent();
-    beforeUpload(f, props);
+    beforeUpload(f, props, updater);
+  };
+
+  const updater = (res) => {
+    setUserData(res);
+    setUserData({
+      ...userData,
+      avatar: res.avatar,
+    });
+  };
+
+  const isShowModal = () => {
+    const el = document.body;
+    if (showModal) {
+      el.classList.add(styles.body_scrool);
+    } else {
+      el.classList.remove(styles.body_scrool);
+    }
   };
 
   return (
@@ -101,15 +118,15 @@ const ProfileTopBar = (props) => {
             ) : (
               <img
                 src={
-                  user.avatar
-                    ? client.UPLOAD_URL + user.avatar
+                  userData
+                    ? client.UPLOAD_URL + userData.avatar
                     : `https://ui-avatars.com/api/?background=9A87FE&name=${user.name}&rounded=true&color=ffffff`
                 }
                 alt=""
               />
             )}
             {user && !profile && (
-              <Upload beforeUpload={handleBeforeUpload}>
+              <Upload accept="image/jpg, image/png, image/jpeg " beforeUpload={handleBeforeUpload}>
                 <SvgPrimaryAdd
                   className={styles.add}
                   id="myProfileUploadBtnId"
@@ -214,7 +231,10 @@ const ProfileTopBar = (props) => {
       <ModalInvites
         user={user}
         profile={profile}
-        changeShowModal={changeShowModal}
+        changeShowModal={(e) => {
+          changeShowModal(e);
+          isShowModal();
+        }}
         showModal={showModal}
       />
     </Content>
