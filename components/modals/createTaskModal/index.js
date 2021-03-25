@@ -7,20 +7,13 @@ import SvgClose from 'components/icon/Close';
 import LargeButton from 'components/ui-elements/large-button';
 import PrimarySelect from 'components/ui-elements/select';
 import { USER_TYPES } from 'helpers/constant';
+import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
 const { TextArea } = Input;
 
-const ModalStart = ({
-  changeShowModal,
-  showModal,
-  baseData,
-  task,
-  tasks,
-  setTasks,
-  updateTasks,
-}) => {
+const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks }) => {
   const [lookingFor, changeLookingFor] = useState('Writer');
   const [text, changeText] = useState('');
   const [form] = Form.useForm();
@@ -35,9 +28,8 @@ const ModalStart = ({
   useEffect(() => {
     changeLookingFor(task?.lookingFor || 'Writer');
     changeText(task?.description || '');
-    form.setFieldsValue({ lookingFor: task?.lookingFor });
-    form.setFieldsValue({ text: task?.description });
-  }, [task]);
+    form.setFieldsValue({ lookingFor: task?.lookingFor, text: task?.description });
+  }, [task, form]);
 
   const handleChangeText = (e) => {
     changeText(e.target.value);
@@ -62,7 +54,7 @@ const ModalStart = ({
           headers: { Authorization: `Bearer ${jwt}` },
         }
       )
-      .then((response) => {
+      .then(() => {
         updateTasks();
         changeText('');
         changeShowModal(false);
@@ -85,7 +77,7 @@ const ModalStart = ({
           headers: { Authorization: `Bearer ${jwt}` },
         }
       )
-      .then((response) => {
+      .then(() => {
         updateTasks();
         changeShowModal(false);
       })
@@ -172,4 +164,18 @@ const ModalStart = ({
     </Modal>
   );
 };
+
+ModalStart.propTypes = {
+  changeShowModal: PropTypes.func.isRequired,
+  showModal: PropTypes.bool.isRequired,
+  baseData: PropTypes.object.isRequired,
+  task: PropTypes.object,
+  updateTasks: PropTypes.func,
+};
+
+ModalStart.defaultProps = {
+  task: {},
+  updateTasks: () => {},
+};
+
 export default ModalStart;
