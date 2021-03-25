@@ -49,7 +49,7 @@ const TabStory = (props) => {
           xxl={{ span: 2 }}
           span={2}
           className={styles.add_button}>
-          <AddButton onClick={() => setStoryEditMode(true)} />
+          <AddButton className={styles.btn_ganres} onClick={() => setStoryEditMode(true)} />
         </Col>
       </Row>
     );

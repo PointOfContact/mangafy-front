@@ -23,6 +23,7 @@ const ModalStart = ({
 }) => {
   const [lookingFor, changeLookingFor] = useState('Writer');
   const [text, changeText] = useState('');
+  const [form] = Form.useForm();
 
   const ModalTitle = (
     <div className={styles.titleWrapper}>
@@ -34,6 +35,8 @@ const ModalStart = ({
   useEffect(() => {
     changeLookingFor(task?.lookingFor || 'Writer');
     changeText(task?.description || '');
+    form.setFieldsValue({ lookingFor: task?.lookingFor });
+    form.setFieldsValue({ text: task?.description });
   }, [task]);
 
   const handleChangeText = (e) => {
@@ -108,7 +111,8 @@ const ModalStart = ({
         <div className="row">
           <div className="col-lg-12 select_modal">
             <Form
-              name="send_inva it"
+              name="tasks"
+              form={form}
               onFinish={() => {
                 task ? editTask() : createTask();
               }}
@@ -145,11 +149,7 @@ const ModalStart = ({
                 <TextArea
                   placeholder=""
                   value={text}
-                  defaultValue={text}
                   onChange={handleChangeText}
-                  type="text"
-                  minLength={10}
-                  maxLength={1000}
                   className={styles.modalTexarea}
                 />
               </Form.Item>

@@ -55,18 +55,18 @@
     width: 31px;
   }
   @include media-sm {
-    // align-items: self-end;
     position: relative;
+    .btn_ganres {
+      position: absolute;
+      top: -45px;
+    }
     svg {
-      // position: absolute;
-      // top: -35px;
-      // right: 0px;
       height: 18px;
       width: 18px;
     }
   }
 }
-.data_content{
+.data_content {
   white-space: pre-wrap;
   font-size: $text4;
   color: $grey;
@@ -160,7 +160,6 @@
   @media (max-width: 767px) {
     font-size: 14px;
     line-height: 22px;
-
   }
 }
 

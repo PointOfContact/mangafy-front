@@ -67,7 +67,7 @@ export default function Home() {
             </div>
 
             <div className={styles.different__item}>
-              <div className={styles.different__itemTitle}>Managment Tools</div>
+              <div className={styles.different__itemTitle}>Management Tools</div>
               <div className={styles.different__descr}>
                 Big goals require a good plan, consisting of small, measurable and clear objectives.
               </div>
@@ -115,7 +115,7 @@ export default function Home() {
             <div className={styles.howWorks__item}>Submit your graphic novel idea</div>
             <div className={styles.howWorks__item}>Manage the production circle</div>
             <div className={`${styles.howWorks__item} ${styles.pr65}`}>
-              Collaborate with graphic novel entusiasts
+              Collaborate with graphic novel enthusiasts
             </div>
           </div>
           <div className={styles.howWorks__mobile}>
@@ -140,7 +140,7 @@ export default function Home() {
             <div className={`${styles.howWorks__mobItem} ${styles.howWorks__mobItem_item3}`}>
               <div className={`${styles.howWorks__mobText} ${styles.colorBlack}`}>
                 Collaborate with graphic
-                <br /> novel entusiasts
+                <br /> novel enthusiasts
               </div>
               <div className={styles.howWorks__mobImg}>
                 <img src="/img/g3.png" alt="" />

@@ -91,7 +91,7 @@ const Register = ({ user }) => {
         <title>Make the most of your talant!</title>
         <meta
           name="description"
-          content="Sign in to get your personalized page and start connecting with graphic novel entusiasts"
+          content="Sign in to get your personalized page and start connecting with graphic novel enthusiasts"
         />
       </Head>
       <ButtonToTop />

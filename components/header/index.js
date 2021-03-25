@@ -11,6 +11,7 @@ import { EVENTS } from 'helpers/amplitudeEvents';
 import { removeAllStorage } from 'helpers/shared';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
@@ -45,7 +46,7 @@ const Header = ({ user, path }) => {
   const [isOpen, handleManuOpen] = useState(false);
   const [notificationsCount, setNotificationsCount] = useState(false);
   const [unreadNotificationsId, setUnreadNotificationsId] = useState([]);
-
+  const router = useRouter();
   const getNotificationsCount = useCallback(() => {
     if (!user) return;
     findNotificationsCount(
@@ -164,13 +165,35 @@ const Header = ({ user, path }) => {
             </div>
             <div className={styles.header__leftNav}>
               <Link href="/collaborations?compensationModel=paid">
-                <a className={styles.header__menu}>Paid projects</a>
+                <a
+                  className={cn(
+                    styles.header__menu,
+                    router.pathname === '/collaborations' &&
+                      router.query.compensationModel === 'paid' &&
+                      styles.header__menu_active
+                  )}>
+                  Paid projects
+                </a>
               </Link>
               <Link href="/collaborations?compensationModel=collaboration">
-                <a className={styles.header__menu}>Collabs</a>
+                <a
+                  className={cn(
+                    styles.header__menu,
+                    router.pathname === '/collaborations' &&
+                      router.query.compensationModel === 'collaboration' &&
+                      styles.header__menu_active
+                  )}>
+                  Collabs
+                </a>
               </Link>
               <Link href="/profiles">
-                <a className={styles.header__menu}>People</a>
+                <a
+                  className={cn(
+                    styles.header__menu,
+                    router.pathname === '/profiles' && styles.header__menu_active
+                  )}>
+                  People
+                </a>
               </Link>
             </div>
             <div className={styles.header__rightNav}>
@@ -236,7 +259,13 @@ const Header = ({ user, path }) => {
                 </>
               ) : (
                 <Link href="/sign-in">
-                  <a className={styles.header__menu}>Log in</a>
+                  <a
+                    className={cn(
+                      styles.header__menu,
+                      router.pathname === '/sign-in' && styles.header__menu_active
+                    )}>
+                    Log in
+                  </a>
                 </Link>
               )}
             </div>
