@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import { Tooltip } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
+import Imgix from 'components/imgix';
 import Modal from 'components/modals/joinToTeam';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
@@ -81,7 +81,7 @@ const StoryTab = ({ baseData, isOwn, user }) => {
           {[authorInfo].concat(participentsInfo).map(({ avatar, name, _id }) => (
             <Link className={styles.participentsCont} key={name} href={`/profile/${_id}`}>
               <Tooltip placement="topLeft" title={name} arrowPointAtCenter>
-                <Image
+                <Imgix
                   width={65}
                   height={65}
                   src={

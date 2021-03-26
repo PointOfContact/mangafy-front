@@ -2,7 +2,7 @@ import React from 'react';
 
 import client from 'api/client';
 import cn from 'classnames';
-import Image from 'next/image';
+import Imgix from 'components/imgix';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
 
@@ -29,17 +29,22 @@ const ProfilesCard = ({ user, genres }) => {
         <div className={styles.colabWrap__top}>
           <div className={cn(styles.avatar__img, styles.avatar__imgOnline)}>
             <div className={styles.avatar__avatar}>
-              <Image
-                width={104}
-                height={104}
-                layout="responsive"
-                src={
-                  user.avatar
-                    ? client.UPLOAD_URL + user.avatar
-                    : `https://ui-avatars.com/api/?background=9A87FE&name=${user.name}&rounded=true&color=ffffff&size=128`
-                }
-                alt="User avatar"
-              />
+              {user.avatar ? (
+                <Imgix
+                  width={104}
+                  height={104}
+                  layout="fixed"
+                  src={client.UPLOAD_URL + user.avatar}
+                  alt="User avatar"
+                />
+              ) : (
+                <img
+                  width={104}
+                  height={104}
+                  alt="User avatar"
+                  src={`https://ui-avatars.com/api/?background=9A87FE&name=${user.name}&rounded=true&color=ffffff&size=128`}
+                />
+              )}
             </div>
           </div>
           <div className={styles.colabWrap__name}>

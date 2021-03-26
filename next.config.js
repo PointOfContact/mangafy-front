@@ -46,7 +46,9 @@ const nextConfigs = {
     scss: true,
   },
   images: {
-    domains: ['mangafy.club', 'ui-avatars.com'],
+    domains: ['mangafy.club', 'ui-avatars.com', 'mangafy.imgix.net'],
+    loader: 'imgix',
+    path: 'https://mangafy.imgix.net',
   },
   webpack(webpackConfig, options) {
     Object.assign(webpackConfig.resolve.alias, aliases);

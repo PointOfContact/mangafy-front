@@ -4,12 +4,12 @@ import { Badge, Popover } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
 import SvgBell from 'components/icon/Bell';
+import Imgix from 'components/imgix';
 import MenuMobilePopover from 'components/menu-mobile-popover';
 import MenuNotificationsBox from 'components/menu-notifications-box';
 import PrimaryButton from 'components/ui-elements/button';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { removeAllStorage } from 'helpers/shared';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
@@ -230,7 +230,7 @@ const Header = ({ user, path }) => {
                           <span>Profile</span>
                           <div className={cn(styles.img, styles.imgOnline)}>
                             <div className={styles.avatar}>
-                              <Image
+                              <Imgix
                                 width={50}
                                 height={50}
                                 src={
