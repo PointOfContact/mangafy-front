@@ -3,6 +3,7 @@ import React from 'react';
 import client from 'api/client';
 import cn from 'classnames';
 import Imgix from 'components/imgix';
+import { userTypesEnums } from 'helpers/constant';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
 
@@ -49,7 +50,7 @@ const ProfilesCard = ({ user, genres }) => {
           </div>
           <div className={styles.colabWrap__name}>
             <div className={styles.colabWrap__authorName}>{user.name}</div>
-            <div className={styles.colabWrap__authorDescr}>{user.type}</div>
+            <div className={styles.colabWrap__authorDescr}>{userTypesEnums[user?.type]}</div>
           </div>
         </div>
         <div className={styles.colabWrap__descr}>{user.description}</div>
