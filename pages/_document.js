@@ -10,6 +10,8 @@ export default class MyDocument extends Document {
     return (
       <Html lang="en-US">
         <Head>
+          <link rel="preconnect" href="https://fonts.gstatic.com" />
+          <link rel="preconnect" href="https://www.google-analytics.com" />
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap"></link>

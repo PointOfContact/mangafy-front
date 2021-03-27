@@ -26,7 +26,9 @@ const Error = () => (
             <br /> Not to worry! Let's find a better place for you to go
           </div>
           <Link href="/">
-            <LargeButton className={styles.btn__submit} text="MangaFY Home" />
+            <a>
+              <LargeButton className={styles.btn__submit} text="MangaFY Home" />
+            </a>
           </Link>
         </div>
       </div>

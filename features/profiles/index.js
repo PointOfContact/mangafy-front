@@ -56,9 +56,9 @@ const Profiles = (props) => {
                       <div className={cn(styles.PostColab__item)}>
                         <div className={cn(styles.PostColab__descr)}>Welcome to MangaFY club</div>
                         <Link href="/create-a-story/start">
-                          <span>
+                          <a>
                             <PrimaryButton text="Join" className={cn(styles.PostColab__btn)} />
-                          </span>
+                          </a>
                         </Link>
                       </div>
                     </div>

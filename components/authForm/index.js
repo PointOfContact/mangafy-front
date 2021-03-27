@@ -73,7 +73,7 @@ const AuthForm = ({ type, errorMessage, onChange, onSubmit, isLogin, loading }) 
         {isLogin && (
           <div className={styles.forgot_password}>
             <Link href="/forgot-password">
-              <span>Forgot your password?</span>
+              <a>Forgot your password?</a>
             </Link>
           </div>
         )}

@@ -159,7 +159,10 @@ const Header = ({ user, path }) => {
                 </Popover>
               ) : (
                 <Link href="/sign-in">
-                  <img src="/img/header-log-in.svg" alt="" />
+                  <a>
+                    <img src="/img/header-log-in.svg" alt="" />
+                    {/* TODO: chage to svg component */}
+                  </a>
                 </Link>
               )}
             </div>
@@ -271,9 +274,9 @@ const Header = ({ user, path }) => {
             </div>
             <span className={cn(styles.btn_submit)} onClick={addEvent}>
               <Link href="/create-a-story/start">
-                <span className={cn('btn_submit')}>
+                <a className={cn('btn_submit')}>
                   <PrimaryButton text="Submit an IDEA" />
-                </span>
+                </a>
               </Link>
             </span>
           </div>
@@ -313,7 +316,7 @@ const MenuLinks = ({ isOpen, user }) => {
   const links = initialLinks.map((link, i) => (
     <li className={styles.menu_item} key={i}>
       <Link href={`/${link.link}`}>
-        <span>{link.text}</span>
+        <a>{link.text}</a>
       </Link>
     </li>
   ));

@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Imgix from 'components/imgix';
 import Slider from 'react-slick';
 
 const SimpleSlider = ({}) => {
@@ -16,19 +17,34 @@ const SimpleSlider = ({}) => {
   return (
     <Slider {...settings}>
       <div>
-        <img src="/img/goal-ico2.webp" alt=""></img>
+        <Imgix
+          layout="responsive"
+          width={267}
+          height={350}
+          quality={50}
+          src="https://mangafy.club/img/goal-ico1.webp"
+          alt=""
+        />
       </div>
       <div>
-        <img src="/img/goal-ico2.webp" alt=""></img>
+        <Imgix
+          layout="responsive"
+          width={267}
+          height={350}
+          quality={50}
+          src="https://mangafy.club/img/goal-ico2.webp"
+          alt=""
+        />
       </div>
       <div>
-        <img src="/img/goal-ico2.webp" alt=""></img>
-      </div>
-      <div>
-        <img src="/img/goal-ico2.webp" alt=""></img>
-      </div>
-      <div>
-        <img src="/img/goal-ico2.webp" alt=""></img>
+        <Imgix
+          layout="responsive"
+          width={267}
+          height={350}
+          quality={50}
+          src="https://mangafy.club/img/goal-ico3.webp"
+          alt=""
+        />
       </div>
     </Slider>
   );

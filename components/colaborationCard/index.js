@@ -3,23 +3,15 @@ import React from 'react';
 import cn from 'classnames';
 import SvgPortfolio from 'components/icon/Portfolio';
 import Imgix from 'components/imgix';
-import Router from 'next/router';
+import Link from 'next/link';
 import PropTypes from 'prop-types';
 
 import ButtonColab from './buttonColab';
 import styles from './styles.module.scss';
 
-const ColaborationCards = ({ label, client }) => {
-  const handleCallbCardsClick = (id) => {
-    Router.push({
-      pathname: `/manga-story/${id}`,
-      query: {},
-    });
-  };
-
-  return (
-    // eslint-disable-next-line no-underscore-dangle
-    <div onClick={() => handleCallbCardsClick(label._id)} className={styles.colabWrap__item}>
+const ColaborationCards = ({ label, client }) => (
+  <Link href={`/manga-story/${label._id}`}>
+    <a className={styles.colabWrap__item}>
       <div className={styles.colabWrap__top}>
         <div className={cn(styles.avatar__img, styles.avatar__imgOnline)}>
           <div className={styles.avatar__avatar}>
@@ -57,9 +49,9 @@ const ColaborationCards = ({ label, client }) => {
           {label.compensationModel == 'paid' ? 'Commission' : 'Collaboration'}
         </div>
       </div>
-    </div>
-  );
-};
+    </a>
+  </Link>
+);
 
 ColaborationCards.propTypes = {
   label: PropTypes.object.isRequired,

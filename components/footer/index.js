@@ -47,6 +47,9 @@ const Footer = () => (
             <Link href="/create-a-story/start">
               <a className={styles.footer__itemLink}>Post Collaboration</a>
             </Link>
+            <Link href="/profiles">
+              <a className={styles.footer__itemLink}>Find entusiast</a>
+            </Link>
           </div>
 
           <div className={styles.footer__item2}>

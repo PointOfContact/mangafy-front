@@ -74,12 +74,12 @@ const Collaborations = (props) => {
                             Have an idea for a graphic novel or manga and looking for collaboration?
                           </div>
                           <Link href="/sign-in">
-                            <span>
+                            <a>
                               <PrimaryButton
                                 text="Post Collab"
                                 className={cn(styles.PostColab__btn)}
                               />
-                            </span>
+                            </a>
                           </Link>
                         </div>
                       </div>

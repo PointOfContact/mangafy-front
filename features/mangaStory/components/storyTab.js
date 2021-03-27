@@ -72,26 +72,28 @@ const StoryTab = ({ baseData, isOwn, user }) => {
       </div>
       <div className={cn(styles.storyTabDescription, styles.autherBlock)}>
         <Link href={`/profile/${author}`}>
-          <div>
-            <a className={styles.storyKey}>Owner | </a>
+          <a>
+            <span className={styles.storyKey}>Owner | </span>
             <span className={styles.storyValue}> {authorInfo.name}</span>
-          </div>
+          </a>
         </Link>
         <div className={styles.participents}>
           {[authorInfo].concat(participentsInfo).map(({ avatar, name, _id }) => (
             <Link className={styles.participentsCont} key={name} href={`/profile/${_id}`}>
-              <Tooltip placement="topLeft" title={name} arrowPointAtCenter>
-                <Imgix
-                  width={65}
-                  height={65}
-                  src={
-                    avatar
-                      ? client.UPLOAD_URL + avatar
-                      : `https://ui-avatars.com/api/?background=9A87FE&name=${name}&rounded=true&color=ffffff`
-                  }
-                  alt="Picture of the user"
-                />
-              </Tooltip>
+              <a>
+                <Tooltip placement="topLeft" title={name} arrowPointAtCenter>
+                  <Imgix
+                    width={65}
+                    height={65}
+                    src={
+                      avatar
+                        ? client.UPLOAD_URL + avatar
+                        : `https://ui-avatars.com/api/?background=9A87FE&name=${name}&rounded=true&color=ffffff`
+                    }
+                    alt="Picture of the user"
+                  />
+                </Tooltip>
+              </a>
             </Link>
           ))}
         </div>

@@ -8,8 +8,8 @@ const imgixClient = new ImgixClient({
   secureURLToken: 'sppKpgrGRXTc2EEK',
 });
 
-const myLoader = ({ src, width, quality, height }) =>
-  imgixClient.buildURL(src, { w: width, q: quality, h: height });
+const myLoader = ({ src, width, quality }) =>
+  imgixClient.buildURL(src, { w: width, q: quality, auto: 'format' });
 
 const Imgix = (props) => <Image loader={myLoader} {...props} />;
 
