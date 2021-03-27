@@ -39,10 +39,11 @@ export default function Home() {
             <div className={styles.main__right}>
               <div className={styles.main__img}>
                 <Imgix
-                  layout="responsive"
-                  width={700}
-                  height={781}
-                  quality={10}
+                  priority
+                  layout="intrinsic"
+                  width={774}
+                  height={863}
+                  quality={50}
                   src="https://mangafy.club/img/main-img.webp"
                   alt=""
                 />
@@ -234,9 +235,9 @@ export default function Home() {
           <div className={styles.useGoal__images}>
             <div className={styles.useGoal__img}>
               <Imgix
-                layout="responsive"
-                width={267}
-                height={350}
+                layout="intrinsic"
+                width={373}
+                height={470}
                 quality={10}
                 src="https://mangafy.club/img/goal-ico1.webp"
                 alt=""
@@ -244,20 +245,20 @@ export default function Home() {
             </div>
             <div className={`${styles.useGoal__img} ${styles.useGoal__img_img2}`}>
               <Imgix
-                layout="responsive"
-                width={267}
-                height={350}
-                quality={10}
+                layout="intrinsic"
+                width={373}
+                height={470}
+                quality={90}
                 src="https://mangafy.club/img/goal-ico2.webp"
                 alt=""
               />
             </div>
             <div className={`${styles.useGoal__img} ${styles.useGoal__img_img3}`}>
               <Imgix
-                layout="responsive"
-                width={267}
-                height={350}
-                quality={10}
+                layout="intrinsic"
+                width={373}
+                height={470}
+                quality={90}
                 src="https://mangafy.club/img/goal-ico3.webp"
                 alt=""
               />
@@ -293,7 +294,7 @@ export default function Home() {
           </div>
           <div className={styles.join__img}>
             <Imgix
-              layout="responsive"
+              layout="intrinsic"
               width={720}
               height={606}
               src="https://mangafy.club/img/join-ico.webp"

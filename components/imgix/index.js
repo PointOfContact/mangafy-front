@@ -9,7 +9,7 @@ const imgixClient = new ImgixClient({
 });
 
 const myLoader = ({ src, width, quality }) =>
-  imgixClient.buildURL(src, { w: width, q: quality, auto: 'format' });
+  imgixClient.buildURL(src, { w: width, q: quality, auto: 'format', fit: 'max' });
 
 const Imgix = (props) => <Image loader={myLoader} {...props} />;
 
