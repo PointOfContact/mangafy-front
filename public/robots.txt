@@ -1,4 +1,3 @@
 User-agent: *
-Disallow: /profile
 Disallow: /api/*
 Sitemap: https://mangafy.club/sitemap.xml
