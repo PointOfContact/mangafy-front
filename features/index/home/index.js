@@ -35,7 +35,7 @@ export default function Home() {
             </div>
             <div className={styles.main__right}>
               <div className={styles.main__img}>
-                <img src="/img/main-img.png" alt="" />
+                <img src="/img/main-img.webp" alt="" />
               </div>
             </div>
           </div>
@@ -109,7 +109,7 @@ export default function Home() {
             <p>How MangaFY works?</p>
           </div>
           <div className={styles.howWorks__img}>
-            <img src="/img/how-img.png" alt="" />
+            <img src="/img/how-img.webp" alt="" />
           </div>
           <div className={styles.howWorks__descr}>
             <div className={styles.howWorks__item}>Submit your graphic novel idea</div>
@@ -191,31 +191,31 @@ export default function Home() {
           </div>
           <div className={styles.useGoal__images}>
             <div className={styles.useGoal__img}>
-              <img src="/img/goal-ico1.png" alt="" />
+              <img src="/img/goal-ico1.webp" alt="" />
             </div>
             <div className={`${styles.useGoal__img} ${styles.useGoal__img_img2}`}>
-              <img src="/img/goal-ico2.png" alt="" />
+              <img src="/img/goal-ico2.webp" alt="" />
             </div>
             <div className={`${styles.useGoal__img} ${styles.useGoal__img_img3}`}>
-              <img src="/img/goal-ico3.png" alt="" />
+              <img src="/img/goal-ico3.webp" alt="" />
             </div>
           </div>
           <div className={styles.useGoal__slider}>
             <div className={styles.slider}>
               <div>
-                <img src="/img/goal-ico2.png" alt="" />
+                <img src="/img/goal-ico2.webp" alt="" />
               </div>
               <div>
-                <img src="/img/goal-ico2.png" alt="" />
+                <img src="/img/goal-ico2.webp" alt="" />
               </div>
               <div>
-                <img src="/img/goal-ico2.png" alt="" />
+                <img src="/img/goal-ico2.webp" alt="" />
               </div>
               <div>
-                <img src="/img/goal-ico2.png" alt="" />
+                <img src="/img/goal-ico2.webp" alt="" />
               </div>
               <div>
-                <img src="/img/goal-ico2.png" alt="" />
+                <img src="/img/goal-ico2.webp" alt="" />
               </div>
             </div>
           </div>
@@ -242,7 +242,7 @@ export default function Home() {
             </p>
           </div>
           <div className={styles.join__img}>
-            <img src="/img/join-ico.png" alt="" />
+            <img src="/img/join-ico.webp" alt="" />
           </div>
           <Link href="/sign-up">
             <LargeButton id="SignUpBtnId" className={styles.btn__submit} text="Sign UP" />

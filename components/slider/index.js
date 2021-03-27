@@ -16,19 +16,19 @@ const SimpleSlider = ({}) => {
   return (
     <Slider {...settings}>
       <div>
-        <img src="/img/goal-ico2.png" alt=""></img>
+        <img src="/img/goal-ico2.webp" alt=""></img>
       </div>
       <div>
-        <img src="/img/goal-ico2.png" alt=""></img>
+        <img src="/img/goal-ico2.webp" alt=""></img>
       </div>
       <div>
-        <img src="/img/goal-ico2.png" alt=""></img>
+        <img src="/img/goal-ico2.webp" alt=""></img>
       </div>
       <div>
-        <img src="/img/goal-ico2.png" alt=""></img>
+        <img src="/img/goal-ico2.webp" alt=""></img>
       </div>
       <div>
-        <img src="/img/goal-ico2.png" alt=""></img>
+        <img src="/img/goal-ico2.webp" alt=""></img>
       </div>
     </Slider>
   );
