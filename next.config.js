@@ -10,6 +10,7 @@ const resolve = require('resolve');
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
+const withBabelMinify = require('next-babel-minify')({});
 
 const path = require('path');
 
@@ -182,24 +183,4 @@ const nextConfigs = {
   },
 };
 
-module.exports = withPlugins(
-  [
-    [withBundleAnalyzer],
-    // [withSourceMaps],
-    // [
-    //   withLess,
-    //   {
-    //     lessLoaderOptions: {
-    //       javascriptEnabled: true,
-    //       // theme antd here
-    //     },
-    //   },
-    // ],
-    // [
-    //   new MomentLocalesPlugin({
-    //     localesToKeep: ['es-us'],
-    //   }),
-    // ][new DuplicatePackageCheckerPlugin()],
-  ],
-  nextConfigs
-);
+module.exports = withPlugins([[withBundleAnalyzer], [withBabelMinify]], nextConfigs);

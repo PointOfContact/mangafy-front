@@ -10,6 +10,7 @@ import { MessageList } from 'react-chat-elements';
 
 import { patchRequest } from '../../api/joinMangaStoryRequestClient';
 import styles from './styles.module.scss';
+import 'react-chat-elements/dist/main.css';
 
 const onAccept = (event, id, status) => {
   event.stopPropagation();

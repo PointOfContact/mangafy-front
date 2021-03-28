@@ -2,9 +2,9 @@ import React from 'react';
 
 import '../styles/styles.sass';
 import 'antd/dist/antd.min.css';
-import 'react-chat-elements/dist/main.css';
 import * as Sentry from '@sentry/node';
 import { notification } from 'antd';
+import NextGoogleFontsHelper from 'next-google-fonts-helper';
 
 // if (process.env.NEXT_PUBLIC_SENTRY_DSN) {
 Sentry.init({
@@ -19,5 +19,12 @@ export default function MyApp({ Component, pageProps, err }) {
     top: 120,
     duration: 3,
   });
-  return <Component {...pageProps} err={err} />;
+  return (
+    <>
+      <NextGoogleFontsHelper
+        fonts={['Noto+Sans+JP:wght@300;400;500;700;900', 'Permanent+Marker']}
+      />
+      <Component {...pageProps} err={err} />
+    </>
+  );
 }

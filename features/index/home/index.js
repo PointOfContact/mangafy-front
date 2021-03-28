@@ -123,7 +123,7 @@ export default function Home() {
           </div>
           <div className={styles.howWorks__img}>
             <Imgix
-              layout="responsive"
+              layout="intrinsic"
               width={1100}
               height={554}
               quality={50}

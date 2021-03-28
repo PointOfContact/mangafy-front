@@ -8,12 +8,8 @@ export default class MyDocument extends Document {
     return (
       <Html lang="en-US">
         <Head>
-          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
           <link rel="preconnect" href="https://www.google-analytics.com" crossOrigin="anonymous" />
 
-          <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Permanent+Marker&display=swap&display=swap"></link>
           {/* Global Site Tag (gtag.js) - Google Analytics */}
           <script
             dangerouslySetInnerHTML={{

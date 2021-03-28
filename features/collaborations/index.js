@@ -67,7 +67,7 @@ const Collaborations = (props) => {
                           <div className={cn(styles.PostColab__descr)}>
                             Have an idea for a graphic novel or manga and looking for collaboration?
                           </div>
-                          <Link href="/sign-in">
+                          <Link href="/create-a-story/start">
                             <a>
                               <PrimaryButton
                                 text="Post Collab"
