@@ -14,19 +14,12 @@ import ButtonToTop from 'components/ui-elements/button-toTop';
 import { userTypes } from 'helpers/constant';
 import Head from 'next/head';
 import Link from 'next/link';
-import Router from 'next/router';
 import PropTypes from 'prop-types';
-import * as qs from 'query-string';
-import { LinkCreator } from 'utils/linkCreator';
 
 import styles from './styles.module.scss';
 
 const Profiles = (props) => {
   const { users, total, current, user, genres, search, selectedTypes, selectedGenres } = props;
-  const onChange = (page) => {
-    const parsed = qs.parse(location.search);
-    Router.push(LinkCreator.toQuery({ ...parsed, page }, '/profiles'));
-  };
 
   return (
     <>
@@ -68,13 +61,7 @@ const Profiles = (props) => {
               </div>
 
               <div className={styles.pagination}>
-                <Paginations
-                  total={total}
-                  current={current}
-                  onChange={(page) => {
-                    onChange(page);
-                  }}
-                />
+                <Paginations total={total} current={current} prefix="profiles" />
               </div>
             </div>
           </Row>
