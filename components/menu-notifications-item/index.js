@@ -66,7 +66,7 @@ const MenuNotificationsItem = ({
                 </div>
               </div>
               <div className={styles.box__post}>
-                <Image
+                <Imgix
                   layout="fixed"
                   width={100}
                   height={50}

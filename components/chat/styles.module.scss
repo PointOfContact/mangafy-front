@@ -67,7 +67,7 @@
 }
 .messageList {
   padding-top: 16px;
-  background-image: url('../../public/img/chatBG.png');
+  background-image: url('../../public/img/chatBG.webp');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: bottom right;
@@ -89,13 +89,22 @@
   }
   .title_block {
     display: flex;
-    img {
+    span{
       border-radius: 100px;
       width: 104px;
       height: 104px;
       @include media-sm {
         width: 51px;
         height: 51px;
+      }
+      img {
+        border-radius: 100px;
+        width: 104px;
+        height: 104px;
+        @include media-sm {
+          width: 51px;
+          height: 51px;
+        }
       }
     }
   }

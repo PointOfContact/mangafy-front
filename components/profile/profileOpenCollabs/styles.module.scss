@@ -49,6 +49,7 @@
   }
 
   .card_wrap {
+    display: flex;
     overflow-x: auto;
     white-space: nowrap;
     margin-right: 25px;

@@ -17,7 +17,7 @@ const MangeStoryCard = ({ mangaStories, client }) =>
             </div>
             <img
               alt="mangafy"
-              src={label.image ? client.UPLOAD_URL + label.image : '/img/mangastory.jpg'}
+              src={label.image ? client.UPLOAD_URL + label.image : '/img/mangastory.webp'}
             />
           </div>
         </div>

@@ -259,7 +259,7 @@ const SocialLinks = (props) => {
                   <Card
                     description="Do you not want <br/> to add a social?"
                     btnText=""
-                    items={[<img key="1" src="/img/noSocial.png" alt="" />]}
+                    items={[<img key="1" src="/img/noSocial.webp" alt="" />]}
                   />
                 </div>
               ) : (
@@ -267,7 +267,7 @@ const SocialLinks = (props) => {
                   <Card
                     description="Sorry, but there is nothing <br/> here (("
                     btnText=""
-                    items={[<img key="1" src="/img/noSocial.png" alt="" />]}
+                    items={[<img key="1" src="/img/noSocial.webp" alt="" />]}
                   />
                 </div>
               )}

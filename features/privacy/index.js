@@ -34,7 +34,7 @@ const Privacy = (props) => {
                   <div className={styles.page_title}>Privacy Policy</div>
                 </div>
                 <div className={styles.image_block}>
-                  <img src="/img/privacy_image.png"></img>
+                  <img src="/img/privacy_image.webp"></img>
                 </div>
               </div>
               <div className="col-12 col-lg-10 offset-lg-1">

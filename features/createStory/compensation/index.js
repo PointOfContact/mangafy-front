@@ -104,7 +104,7 @@ const Compensation = ({ user }) => {
             <div className="12 col-sm-12">
               <div className="collab_div">
                 <div className="logo_img_comp">
-                  <img src="/img/logo.png" width="250" alt="" />
+                  <img src="/img/logo.webp" width="250" alt="" />
                 </div>
                 <h1 className="collab">Choose your project type</h1>
                 <Radio.Group value={showField}>

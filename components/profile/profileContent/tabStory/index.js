@@ -164,7 +164,7 @@ const TabStory = (props) => {
                 <Card
                   description="It's time to tell about yourself.</br>  Let's start!"
                   btnText="Tell us about yourself"
-                  items={[<img key="1" src="/img/aboutme.png" alt="" />]}
+                  items={[<img key="1" src="/img/aboutme.webp" alt="" />]}
                   onClick={() => setStoryEditMode(true)}
                 />
               </div>
@@ -175,7 +175,7 @@ const TabStory = (props) => {
                 <Card
                   description="Select 3 categories that best </br> describe your art"
                   btnText="Choose 3 categories"
-                  items={[<img key="1" src="/img/NovelType.png" alt="" />]}
+                  items={[<img key="1" src="/img/NovelType.webp" alt="" />]}
                   onClick={() => setStoryEditMode(true)}
                 />
               </div>
@@ -186,7 +186,7 @@ const TabStory = (props) => {
                 <Card
                   description="Haven't created a project yet? </br> Let's start!"
                   btnText="Create your first project"
-                  items={[<img key="1" src="/img/Projects.png" alt="" />]}
+                  items={[<img key="1" src="/img/Projects.webp" alt="" />]}
                   onClick={() => routeChange()}
                 />
               </div>
@@ -201,7 +201,7 @@ const TabStory = (props) => {
                 <Card
                   description="Sorry, but there is nothing <br/> here (("
                   btnText=""
-                  items={[<img key="1" src="/img/profile-apout-me.png" alt="" />]}
+                  items={[<img key="1" src="/img/profile-apout-me.webp" alt="" />]}
                   onClick={() => setStoryEditMode(true)}
                 />
               </div>
@@ -213,7 +213,7 @@ const TabStory = (props) => {
                   <Card
                     description="Nothing is filled in and it is <br/> very sad (("
                     btnText=""
-                    items={[<img key="1" src="/img/ProfileNovelType.png" alt="" />]}
+                    items={[<img key="1" src="/img/ProfileNovelType.webp" alt="" />]}
                     onClick={() => setStoryEditMode(true)}
                   />
                 </div>
@@ -224,7 +224,7 @@ const TabStory = (props) => {
                 <Card
                   description="There are no projects <br/> here (("
                   btnText=""
-                  items={[<img key="1" src="/img/ProfileProjects.png" alt="" />]}
+                  items={[<img key="1" src="/img/ProfileProjects.webp" alt="" />]}
                   onClick={() => routeChange()}
                 />
               </div>

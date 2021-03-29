@@ -56,7 +56,16 @@ export default function Home() {
       <div className={styles.different}>
         <div className={'container'}>
           <div className={styles.it1}>
-            <img src="/img/dif-pen.png" alt="" />
+            {/* <Imgix
+              priority
+              layout="intrinsic"
+              width={300}
+              height={232}
+              quality={50}
+              src="https://mangafy.club/img/dif-pen.webp"
+              alt=""
+            /> */}
+            <img src="/img/dif-pen.webp" alt="" />
           </div>
           <div className={styles.different__title}>What makes us different</div>
           <div className={styles.different__wrap}>
@@ -91,7 +100,7 @@ export default function Home() {
           <div className={styles.mainDescriprion__wrap}>
             <div className={styles.it1}></div>
             <div className={styles.it2}>
-              <img src="/img/main-descr-ico2.png" alt="" />
+              <img src="/img/main-descr-ico2.webp" alt="" />
             </div>
             <div className={styles.mainDescriprion__text}>
               <p>
@@ -117,7 +126,7 @@ export default function Home() {
         <div className={cn('container', styles.howWorks__container)}>
           <div className={styles.howWorks__title}>
             <div className={styles.it1}>
-              <img src="/img/main-descr-ico3.png" alt="" />
+              <img src="/img/main-descr-ico3.webp" alt="" />
             </div>
             <p>How MangaFY works?</p>
           </div>

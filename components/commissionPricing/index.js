@@ -139,7 +139,7 @@ export const CommissionPricing = ({ id = null, user = null }) => {
                     className={styles.card}
                     description="Sorry, but there is nothing <br/> here (("
                     btnText=""
-                    items={[<img key="1" src="/img/commisionList.png" alt="" />]}
+                    items={[<img key="1" src="/img/commisionList.webp" alt="" />]}
                   />
                 </div>
               )}
@@ -149,7 +149,7 @@ export const CommissionPricing = ({ id = null, user = null }) => {
                     description="It's time to tell about your services. <br/> Let's start!"
                     btnText="Let's start"
                     onClick={() => setEditMode(true)}
-                    items={[<img key="1" src="/img/commisionList.png" alt="" />]}
+                    items={[<img key="1" src="/img/commisionList.webp" alt="" />]}
                   />
                 </div>
               )}

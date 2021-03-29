@@ -105,7 +105,7 @@ const Tasks = ({ baseData, isOwn, toTeam }) => {
       </div>
       <div>
         <div className={styles.addBtn}>
-          <img src="/img/storyCardImg.png" alt="" />
+          <img src="/img/storyCardImg.webp" alt="" />
           {isOwn && (
             <PrimaryButton
               onClick={() => {

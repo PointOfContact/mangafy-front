@@ -22,7 +22,7 @@ const CommingSoon = (props) => {
         <Header path="error" user={user} />
         <div className={styles.comming_page}>
           <div className={styles.page_inner}>
-            <img src="/img/coming_soon.png"></img>
+            <img src="/img/coming_soon.webp"></img>
             <div className={styles.page_title}>Coming soon</div>
             <div className={styles.page_description}>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit.
