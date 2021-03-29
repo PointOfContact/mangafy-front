@@ -6,6 +6,10 @@ import PropTypes from 'prop-types';
 import * as qs from 'query-string';
 import { LinkCreator } from 'utils/linkCreator';
 
+function is_server() {
+  return !(typeof window !== 'undefined' && window.document);
+}
+
 const Paginations = ({
   className,
   total,
@@ -35,6 +39,7 @@ const Paginations = ({
         current={current}
         onChange={onChange}
         itemRender={(page, type, originalElement) => {
+          if (is_server()) return originalElement;
           switch (type) {
             case 'page':
               return (
