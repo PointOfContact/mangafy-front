@@ -149,8 +149,13 @@
 
   .errMessage {
     color: red;
-    font-size: 10px;
+    font-size: 10px !important;
     line-height: inherit;
+    position: absolute;
+    margin-top: -10px;
+  }
+  .errImp{
+    border-color: red !important;
   }
 
   .buttonsProfile {
