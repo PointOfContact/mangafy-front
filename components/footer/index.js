@@ -14,7 +14,7 @@ const Footer = () => (
       <div className={styles.footer__wrap}>
         <div className={styles.footer__left}>
           <a href="#">
-            <img src="/img/logo-new.png" alt=""></img>
+            <img src="/img/logo-new.webp" alt=""></img>
           </a>
           <div className={styles.footerLeft__links}>
             <p className={styles.footerLeft__subtitle}>In collaboration we trust</p>

@@ -28,7 +28,7 @@ export const ModalSuccess = ({ isModalVisible, handleCancelModal }) => (
           <img src="/img/anima.gif" alt="" />
           <img src="/img/anima.gif" alt="" />
         </div>
-        <img src="/img/succsessModal.png" alt="" />
+        <img src="/img/succsessModal.webp" alt="" />
         <h2 className={styles.title}>THAT&apos;S COOL</h2>
         <p className={styles.desc}>WE DID IT</p>
         <PrimaryButton

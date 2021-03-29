@@ -34,7 +34,7 @@ const ProfilesCard = ({ user, genres }) => {
                   alt="User avatar"
                 />
               ) : (
-                <img
+                <Imgix
                   width={104}
                   height={104}
                   alt="User avatar"

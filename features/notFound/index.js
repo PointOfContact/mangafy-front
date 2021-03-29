@@ -18,7 +18,7 @@ const Error = () => (
       <Header path="comming-soon" />
       <div className={styles.error_page}>
         <div className={styles.page_inner}>
-          <img src="/img/error.png"></img>
+          <img src="/img/error.webp"></img>
           <div className={styles.error_title}>404</div>
           <div className={styles.page_title}>Ooops, we lost this page</div>
           <div className={styles.page_description}>

@@ -154,15 +154,17 @@ const BannerSection = ({
         {canEdit ? (
           <Upload className={styles.upload} beforeUpload={beforeUpload} fileList={[]}>
             <div className={styles.banner}>
-              <img src={!baseData.image ? '/img/banner.png' : client.UPLOAD_URL + baseData.image} />
+              <img
+                src={!baseData.image ? '/img/banner.webp' : client.UPLOAD_URL + baseData.image}
+              />
               <div className={styles.upload}>
-                <img src="/img/upload.png" />
+                <img src="/img/upload.webp" />
               </div>
             </div>
           </Upload>
         ) : (
           <div className={styles.banner}>
-            <img src={!baseData.image ? '/img/banner.png' : client.UPLOAD_URL + baseData.image} />
+            <img src={!baseData.image ? '/img/banner.webp' : client.UPLOAD_URL + baseData.image} />
           </div>
         )}
         <div className="row">
@@ -225,7 +227,7 @@ const BannerSection = ({
             <p>Your graphic novel in progress</p>
             <div className={styles.Lamp}>
               <div>
-                <img src="/img/Group.png" />
+                <img src="/img/Group.webp" />
               </div>
             </div>
             <div className={styles.progressWrap}>
@@ -233,7 +235,7 @@ const BannerSection = ({
             </div>
             <div className={styles.Lamp}>
               <div>
-                <img src="/img/notebook 1.png" />
+                <img src="/img/notebook1.webp" />
               </div>
             </div>
           </div>

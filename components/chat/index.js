@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 import { Input, notification, Popconfirm } from 'antd';
+import Avatar from 'antd/lib/avatar/avatar';
 import client from 'api/client';
 import cn from 'classnames';
 import PrimaryButton from 'components/ui-elements/button';
@@ -205,14 +206,13 @@ export const Chat = ({ user, requests: req, isOwn }) => {
                       <div className={cn(styles.message_community, 'row')}>
                         <div className={styles.mess_content}>
                           <div className={cn(styles.title_block)}>
-                            <img
+                            <Avatar
                               className="avatar"
                               src={
                                 r.senderInfo.avatar
                                   ? client.UPLOAD_URL + r.senderInfo.avatar
                                   : `https://ui-avatars.com/api/?background=9A87FE&name=${r.senderInfo.name}&rounded=true&color=ffffff`
                               }
-                              alt=""
                             />
                             <div className={styles.name_special}>
                               <div>
@@ -280,14 +280,13 @@ export const Chat = ({ user, requests: req, isOwn }) => {
                       <div className={cn(styles.message_community, styles.accepted_message, 'row')}>
                         <div className={styles.mess_content}>
                           <div className={cn(styles.title_block)}>
-                            <img
+                            <Avatar
                               className="avatar"
                               src={
                                 r.senderInfo.avatar
                                   ? client.UPLOAD_URL + r.senderInfo.avatar
                                   : `https://ui-avatars.com/api/?background=9A87FE&name=${r.senderInfo.name}&rounded=true&color=ffffff`
                               }
-                              alt=""
                             />
                             <div className={styles.name_special}>
                               <div>

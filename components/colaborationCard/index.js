@@ -24,7 +24,7 @@ const ColaborationCards = ({ label, client }) => (
                 alt="Manga story cover"
               />
             ) : (
-              <img width={104} height={104} src={'/img/mangastory.jpg'} />
+              <img width={104} height={104} src={'/img/mangastory.webp'} />
             )}
           </div>
         </div>

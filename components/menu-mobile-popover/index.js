@@ -50,6 +50,9 @@ const MenuMobilePopover = ({
 
 MenuMobilePopover.propTypes = {
   removeAllStorage: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
+  unreadNotificationsId: PropTypes.array.isRequired,
+  notificationsCount: PropTypes.number.isRequired,
 };
 
 export default MenuMobilePopover;

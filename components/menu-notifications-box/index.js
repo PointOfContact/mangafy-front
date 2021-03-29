@@ -151,7 +151,7 @@ const MenuNotificationsBox = ({ user, unreadNotificationsId, notificationsCount 
             ))
           ) : (
             <div className={styles.noNot}>
-              <img src="/img/ProfileNovelType.png" width="89px" />
+              <img src="/img/ProfileNovelType.webp" width="89px" />
               <h4>No unread notifications</h4>
               <p>
                 Click <span onClick={setAllReadNot}>Show all</span> to view all notifications

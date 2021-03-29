@@ -63,10 +63,10 @@ const Pricing = (props) => {
           <div className={styles.banner_section}>
             <span
               className={styles.banner_web}
-              style={{ backgroundImage: "url('./img/banner.jpg')" }}></span>
+              style={{ backgroundImage: "url('./img/banner1.webp')" }}></span>
             <span
               className={styles.banner_mobile}
-              style={{ backgroundImage: "url('./img/banner_mobile.jpg')" }}></span>
+              style={{ backgroundImage: "url('./img/banner_mobile.webp')" }}></span>
           </div>
           <div className={styles.pricing_inner}>
             <div className={styles.info_section}>
@@ -98,7 +98,7 @@ const Pricing = (props) => {
               <div className={styles.individual_tools}>
                 <div className={styles.section_title}>For Individuals</div>
                 <div className={styles.tool_item}>
-                  <img src="/img/tools_image1.jpg"></img>
+                  <img src="/img/tools_image1.webp"></img>
                   <div className={styles.item_category}>Personal</div>
                   <div className={styles.item_price}>$0</div>
                   <LargeButton
@@ -133,7 +133,7 @@ const Pricing = (props) => {
                   </ul>
                 </div>
                 <div className={styles.tool_item}>
-                  <img src="/img/tools_image2.png"></img>
+                  <img src="/img/tools_image2.webp"></img>
                   <div className={styles.item_category}>Personal Pro</div>
                   <div className={styles.item_price}>
                     $
@@ -261,7 +261,7 @@ const Pricing = (props) => {
               <div className={styles.team_tools}>
                 <div className={styles.section_title}>For Big Teams</div>
                 <div className={styles.tool_item}>
-                  <img className={styles.pricing_image} src="/img/tools_image3.jpg"></img>
+                  <img className={styles.pricing_image} src="/img/tools_image3.webp"></img>
                   <div className={styles.item_category}>Plus Plus</div>
                   <div className={styles.item_price}>
                     $

@@ -226,14 +226,14 @@ export const Gallery = (props) => {
                     <Card
                       description="Do you not want <br/> to add a gallery?"
                       btnText=""
-                      items={[<img key="1" src="/img/noGalere.png" alt="" />]}
+                      items={[<img key="1" src="/img/noGalere.webp" alt="" />]}
                     />
                   </Upload>
                 ) : (
                   <Card
                     description="Sorry, but there is nothing <br/> here (("
                     btnText=""
-                    items={[<img key="1" src="/img/noGalere.png" alt="" />]}
+                    items={[<img key="1" src="/img/noGalere.webp" alt="" />]}
                   />
                 )}
               </div>

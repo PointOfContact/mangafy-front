@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
 import { Badge, Popover } from 'antd';
+import Avatar from 'antd/lib/avatar/avatar';
 import client from 'api/client';
 import cn from 'classnames';
 import SvgBell from 'components/icon/Bell';
@@ -128,7 +129,7 @@ const Header = ({ user, path }) => {
             </div>
             <Link href="/">
               <a className={styles.header__logo}>
-                <img src="/img/logo-new.png" alt="" />
+                <img src="/img/logo-new.webp" alt="" />
               </a>
             </Link>
             <div className={styles.header__logIn}>
@@ -147,13 +148,13 @@ const Header = ({ user, path }) => {
                   trigger="click">
                   <div className={cn(styles.img, styles.imgOnline)}>
                     <div className={styles.avatar}>
-                      <img
+                      <Avatar
                         src={
                           user.avatar
                             ? client.UPLOAD_URL + user.avatar
                             : `https://ui-avatars.com/api/?background=9A87FE&name=${user.name}&rounded=true&color=ffffff`
                         }
-                        alt=""></img>
+                      />
                     </div>
                   </div>
                 </Popover>
@@ -387,7 +388,7 @@ const MenuLinks = ({ isOpen, user }) => {
         <div className={styles.mobile_div_part2}>
           <ul className={styles.links}>{links}</ul>
           <div className={styles.image_block}>
-            {user ? <img src="/img/Frame2.png"></img> : <img src="/img/Frame.png"></img>}
+            {user ? <img src="/img/Frame2.webp"></img> : <img src="/img/Frame.webp"></img>}
           </div>
         </div>
       </div>

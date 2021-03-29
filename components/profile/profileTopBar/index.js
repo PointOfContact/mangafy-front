@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import { Upload, Input, Select, Layout, Row, Col, notification } from 'antd';
+import Avatar from 'antd/lib/avatar/avatar';
 import client from 'api/client';
 import cn from 'classnames';
 import SvgGreenChecked from 'components/icon/GreenChecked';
@@ -107,7 +108,7 @@ const ProfileTopBar = (props) => {
         <Col className="gutter-row" xs={{ span: 24 }} md={{ span: 6 }} xl={{ span: 5 }}>
           <div className={styles.img}>
             {profile ? (
-              <img
+              <Avatar
                 src={
                   profile?.avatar
                     ? client.UPLOAD_URL + profile?.avatar
@@ -116,7 +117,7 @@ const ProfileTopBar = (props) => {
                 alt=""
               />
             ) : (
-              <img
+              <Avatar
                 src={
                   userData
                     ? client.UPLOAD_URL + userData.avatar

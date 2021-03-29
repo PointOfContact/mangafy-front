@@ -35,7 +35,7 @@ const Content = (props) => {
               </div>
             </div>
             <div className={styles.image_block}>
-              <img src="/img/about_image.png"></img>
+              <img src="/img/about_image.webp"></img>
             </div>
           </div>
           <div className={styles.info_section}>

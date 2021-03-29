@@ -55,7 +55,7 @@ const ForgotPassword = () => {
       <Header />
       <Head></Head>
       <div className={styles.forgot_password_content}>
-        <img src="/img/forgot-password.png" alt="" />
+        <img src="/img/forgot-password.webp" alt="" />
         <h2 className={styles.title}>Forgot your password? Don’t panic!</h2>
         <p className={styles.info}>
           Type the address linked to your account and we&apos;ll send you password reset
