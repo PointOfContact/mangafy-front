@@ -39,6 +39,9 @@ const MyProfile = (props) => {
   const saveUserDataByKey = (...keys) => {
     const data = {};
     keys.forEach((item) => (data[item] = userData[item]));
+    if (data?.name) {
+      data.name = data.name?.replace(/  +/g, ' ');
+    }
     const jwt = client.getCookie('feathers-jwt');
     import('../../api/restClient').then((m) => {
       m.default
@@ -105,6 +108,7 @@ const MyProfile = (props) => {
             setEditMode,
             setUserData,
             errMessage,
+            setErrMessage,
             cancelEditMode,
             saveUserDataByKey,
             originUrl,

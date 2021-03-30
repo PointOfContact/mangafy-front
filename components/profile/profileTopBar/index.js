@@ -37,6 +37,7 @@ const ProfileTopBar = (props) => {
     saveUserDataByKey,
     originUrl,
     profile,
+    setErrMessage,
   } = props;
 
   const [showModal, changeShowModal] = useState(false);
@@ -76,8 +77,12 @@ const ProfileTopBar = (props) => {
   };
 
   const changeBio = () => {
-    handleEvent();
-    saveUserDataByKey('name', 'type');
+    if (userData.name?.replace(/\s/g, '')) {
+      handleEvent();
+      saveUserDataByKey('name', 'type');
+    } else {
+      setErrMessage('Name is required');
+    }
   };
 
   const handleBeforeUpload = (f) => {
@@ -127,7 +132,10 @@ const ProfileTopBar = (props) => {
               />
             )}
             {user && !profile && (
-              <Upload accept="image/jpg, image/png, image/jpeg " beforeUpload={handleBeforeUpload}>
+              <Upload
+                fileList={[]}
+                accept="image/jpg, image/png, image/jpeg"
+                beforeUpload={handleBeforeUpload}>
                 <SvgPrimaryAdd
                   className={styles.add}
                   id="myProfileUploadBtnId"
@@ -169,11 +177,18 @@ const ProfileTopBar = (props) => {
               <>
                 <h2>
                   <Input
-                    className={styles.changeTitle}
+                    required
+                    className={cn(
+                      styles.changeTitle,
+                      !userData.name?.replace(/\s/g, '') && styles.errImp
+                    )}
                     type="text"
                     onChange={(e) => setUserData({ ...userData, name: e.target.value })}
                     value={userData.name}
                   />
+                  {errMessage && !userData.name?.replace(/\s/g, '') ? (
+                    <p className={styles.errMessage}>{errMessage}</p>
+                  ) : null}
                 </h2>
                 <div>
                   <Select
@@ -188,7 +203,6 @@ const ProfileTopBar = (props) => {
                     ))}
                   </Select>
                 </div>
-                {errMessage ? <p className={styles.errMessage}>{errMessage}</p> : null}
               </>
             )}
           </div>
@@ -254,6 +268,7 @@ ProfileTopBar.propTypes = {
   saveUserDataByKey: PropTypes.func,
   originUrl: PropTypes.string,
   profile: PropTypes.object,
+  setErrMessage: PropTypes.func,
 };
 
 ProfileTopBar.defaultProps = {
@@ -267,6 +282,7 @@ ProfileTopBar.defaultProps = {
   errMessage: '',
   originUrl: '',
   profile: null,
+  setErrMessage: () => {},
 };
 
 export default ProfileTopBar;
