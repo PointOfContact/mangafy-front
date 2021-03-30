@@ -67,16 +67,16 @@ const MangeStory = (props) => {
     });
   };
 
-  const saveUserDataByKey = (...keys) => {
+  const saveUserDataByKey = (newBaseData, ...keys) => {
     const data = {};
     keys.forEach((item) => {
-      data[item] = baseData[item];
+      data[item] = newBaseData[item];
     });
     const jwt = client.getCookie('feathers-jwt');
     import('api/restClient').then((m) => {
       m.default
         .service('/api/v2/manga-stories')
-        .patch(baseData._id, data, {
+        .patch(newBaseData._id, data, {
           headers: { Authorization: `Bearer ${jwt}` },
         })
         .then((res) => {
@@ -246,7 +246,7 @@ const MangeStory = (props) => {
                             isActive
                             isRound
                             disabled={false}
-                            onClick={() => saveUserDataByKey('title')}
+                            onClick={() => saveUserDataByKey(baseData, 'title')}
                           />
                         </div>
                       </>
@@ -315,7 +315,7 @@ const MangeStory = (props) => {
                                   isActive
                                   isRound
                                   disabled={false}
-                                  onClick={() => saveUserDataByKey('story')}
+                                  onClick={() => saveUserDataByKey(baseData, 'introduce', 'story')}
                                 />
                               </div>
                             </>

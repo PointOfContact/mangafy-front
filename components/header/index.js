@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
 import { Badge, Popover } from 'antd';
-import Avatar from 'antd/lib/avatar/avatar';
 import client from 'api/client';
 import cn from 'classnames';
 import SvgBell from 'components/icon/Bell';
 import Imgix from 'components/imgix';
 import MenuMobilePopover from 'components/menu-mobile-popover';
 import MenuNotificationsBox from 'components/menu-notifications-box';
+import Avatar from 'components/ui-elements/avatar';
 import PrimaryButton from 'components/ui-elements/button';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { removeAllStorage } from 'helpers/shared';
@@ -45,7 +45,7 @@ const findNotificationsCount = (onSuccess, onFailure) => {
 
 const Header = ({ user, path }) => {
   const [isOpen, handleManuOpen] = useState(false);
-  const [notificationsCount, setNotificationsCount] = useState(false);
+  const [notificationsCount, setNotificationsCount] = useState(0);
   const [unreadNotificationsId, setUnreadNotificationsId] = useState([]);
   const router = useRouter();
   const getNotificationsCount = useCallback(() => {
@@ -148,13 +148,16 @@ const Header = ({ user, path }) => {
                   trigger="click">
                   <div className={cn(styles.img, styles.imgOnline)}>
                     <div className={styles.avatar}>
-                      <Avatar
-                        src={
-                          user.avatar
-                            ? client.UPLOAD_URL + user.avatar
-                            : `https://ui-avatars.com/api/?background=9A87FE&name=${user.name}&rounded=true&color=ffffff`
-                        }
-                      />
+                      {user.avatar ? (
+                        <Imgix
+                          width={52}
+                          height={52}
+                          className="avatar"
+                          src={client.UPLOAD_URL + user.avatar}
+                        />
+                      ) : (
+                        <Avatar text={user.name} fontSize={20} />
+                      )}
                     </div>
                   </div>
                 </Popover>
@@ -234,16 +237,16 @@ const Header = ({ user, path }) => {
                           <span>Profile</span>
                           <div className={cn(styles.img, styles.imgOnline)}>
                             <div className={styles.avatar}>
-                              <Imgix
-                                width={50}
-                                height={50}
-                                src={
-                                  user.avatar
-                                    ? client.UPLOAD_URL + user.avatar
-                                    : `https://ui-avatars.com/api/?background=9A87FE&name=${user.name}&rounded=true&color=ffffff`
-                                }
-                                alt="Picture of the user"
-                              />
+                              {user.avatar ? (
+                                <Imgix
+                                  width={50}
+                                  height={50}
+                                  src={client.UPLOAD_URL + user.avatar}
+                                  alt="Picture of the user"
+                                />
+                              ) : (
+                                <Avatar text={user.name} fontSize={20} />
+                              )}
                             </div>
                           </div>
                         </span>

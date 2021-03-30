@@ -4,6 +4,7 @@ import { Tooltip } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
 import Imgix from 'components/imgix';
+import Avatar from 'components/ui-elements/avatar';
 import moment from 'moment';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
@@ -44,16 +45,16 @@ const MenuNotificationsItem = ({
           <div onClick={addUnreadNotificationsId} className={styles.flex}>
             <Link href={`/profile/${profileId}`}>
               <div className={styles.box__img}>
-                <Imgix
-                  width={52}
-                  height={52}
-                  src={
-                    icon
-                      ? `${client.UPLOAD_URL}${icon}`
-                      : `https://ui-avatars.com/api/?background=9A87FE&name=${title}&rounded=true&color=ffffff`
-                  }
-                  alt="Notification icon img"
-                />
+                {icon ? (
+                  <Imgix
+                    width={52}
+                    height={52}
+                    src={`${client.UPLOAD_URL}${icon}`}
+                    alt="Notification icon img"
+                  />
+                ) : (
+                  <Avatar text={title} size={52} />
+                )}
               </div>
             </Link>
             <div className={styles.box__content}>

@@ -30,7 +30,7 @@ const ProfilesHeader = () => (
             </div>
             <div className={styles.box__description}>
               <p className={styles.box__description_text}>
-                All manga entusiast, all genres, one Place - MangaFY
+                All manga enthusiast, all genres, one Place - MangaFY
               </p>
             </div>
           </div>

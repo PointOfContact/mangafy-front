@@ -19,7 +19,7 @@ const Footer = () => (
           <div className={styles.footerLeft__links}>
             <p className={styles.footerLeft__subtitle}>In collaboration we trust</p>
             <p className={styles.footerLeft__descr}>
-              MangaFY is the world’s leading community for comics entusiats to create share, grow,
+              MangaFY is the world’s leading community for comics enthusiast to create share, grow,
               and get published.
             </p>
             <div className={styles.footer__soc}>
@@ -48,7 +48,7 @@ const Footer = () => (
               <a className={styles.footer__itemLink}>Post Collaboration</a>
             </Link>
             <Link href="/profiles">
-              <a className={styles.footer__itemLink}>Find entusiast</a>
+              <a className={styles.footer__itemLink}>Find enthusiast</a>
             </Link>
           </div>
 

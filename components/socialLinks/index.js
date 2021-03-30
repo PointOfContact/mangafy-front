@@ -142,8 +142,8 @@ const SocialLinks = (props) => {
               className={styles.social_inp}
               defaultValue={getSocialLink('behance')}
               onBlur={(e) => {
-                e.target.value.includes('https://behance.com') ||
-                e.target.value.includes('https://www.behance.com') ||
+                e.target.value.includes('https://behance.net') ||
+                e.target.value.includes('https://www.behance.net') ||
                 e.target.value === ''
                   ? (updateSocialLink(e.target.value, 'behance'), setBehanceStatus('success'))
                   : (openNotification('error', 'invalid link'), setBehanceStatus('error'));

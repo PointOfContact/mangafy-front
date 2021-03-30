@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 import { Input, notification, Popconfirm } from 'antd';
-import Avatar from 'antd/lib/avatar/avatar';
 import client from 'api/client';
 import cn from 'classnames';
+import Imgix from 'components/imgix';
+import Avatar from 'components/ui-elements/avatar';
 import PrimaryButton from 'components/ui-elements/button';
 import moment from 'moment';
 import PropTypes from 'prop-types';
@@ -206,14 +207,22 @@ export const Chat = ({ user, requests: req, isOwn }) => {
                       <div className={cn(styles.message_community, 'row')}>
                         <div className={styles.mess_content}>
                           <div className={cn(styles.title_block)}>
-                            <Avatar
-                              className="avatar"
-                              src={
-                                r.senderInfo.avatar
-                                  ? client.UPLOAD_URL + r.senderInfo.avatar
-                                  : `https://ui-avatars.com/api/?background=9A87FE&name=${r.senderInfo.name}&rounded=true&color=ffffff`
-                              }
-                            />
+                            <div className={styles.avatar}>
+                              {r.senderInfo.avatar ? (
+                                <Imgix
+                                  className="avatar"
+                                  width={104}
+                                  height={104}
+                                  src={client.UPLOAD_URL + r.senderInfo.avatar}
+                                />
+                              ) : (
+                                <Avatar
+                                  text={r.senderInfo.name}
+                                  className={styles.avatarName}
+                                  fontSize={50}
+                                />
+                              )}
+                            </div>
                             <div className={styles.name_special}>
                               <div>
                                 <h4>{r.senderInfo && r.senderInfo.name}</h4>
@@ -280,14 +289,20 @@ export const Chat = ({ user, requests: req, isOwn }) => {
                       <div className={cn(styles.message_community, styles.accepted_message, 'row')}>
                         <div className={styles.mess_content}>
                           <div className={cn(styles.title_block)}>
-                            <Avatar
-                              className="avatar"
-                              src={
-                                r.senderInfo.avatar
-                                  ? client.UPLOAD_URL + r.senderInfo.avatar
-                                  : `https://ui-avatars.com/api/?background=9A87FE&name=${r.senderInfo.name}&rounded=true&color=ffffff`
-                              }
-                            />
+                            {r.senderInfo.avatar ? (
+                              <Imgix
+                                className="avatar"
+                                width={104}
+                                height={104}
+                                src={client.UPLOAD_URL + r.senderInfo.avatar}
+                              />
+                            ) : (
+                              <Avatar
+                                text={r.senderInfo.name}
+                                className={styles.avatarName}
+                                fontSize={50}
+                              />
+                            )}
                             <div className={styles.name_special}>
                               <div>
                                 <h4>{r.senderInfo && r.senderInfo.name}</h4>

@@ -14,7 +14,7 @@ const TabCommissionPricing = (props) => {
       {user && user._id === profile?._id && (
         <p className={styles.content_tab_profile_1__sub_title}>
           We believe that your talent is worth money, but how much, it's up to you, tell the whole
-          world about it =) If you miised service, please let us know, and we will add it!
+          world about it =) If you missed service, please let us know, and we will add it!
         </p>
       )}
       <CommissionPricing user={user} id={profile?._id} />

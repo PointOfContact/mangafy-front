@@ -24,8 +24,8 @@ const Profiles = (props) => {
   return (
     <>
       <Head>
-        <title>All manga entusiast, all genres, one Place - MangaFY </title>
-        <meta name="description" content="All manga entusiast, all genres, one Place - MangaFY" />
+        <title>All manga enthusiast, all genres, one Place - MangaFY </title>
+        <meta name="description" content="All manga enthusiast, all genres, one Place - MangaFY" />
         <link rel="canonical" href="http://mangafy.club/profiles" />
       </Head>
       <ButtonToTop />
