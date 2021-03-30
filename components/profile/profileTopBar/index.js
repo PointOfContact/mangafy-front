@@ -115,7 +115,7 @@ const ProfileTopBar = (props) => {
           <div className={styles.img}>
             {profile ? (
               <>
-                {user.avatar ? (
+                {profile.avatar ? (
                   <Imgix
                     width={52}
                     height={52}
@@ -128,7 +128,7 @@ const ProfileTopBar = (props) => {
               </>
             ) : (
               <>
-                {user.avatar ? (
+                {userData?.avatar ? (
                   <Imgix
                     width={52}
                     height={52}
@@ -136,7 +136,7 @@ const ProfileTopBar = (props) => {
                     src={client.UPLOAD_URL + user.avatar}
                   />
                 ) : (
-                  <Avatar text={user.name} fontSize={90} />
+                  <Avatar text={userData?.name} fontSize={90} />
                 )}
               </>
             )}
