@@ -15,7 +15,7 @@
     color: $grey;
     text-decoration: underline;
     cursor: pointer;
-    &:hover {
+    span:hover {
       color: $black;
     }
   }

@@ -92,7 +92,7 @@ const MenuNotificationsBox = ({ user, unreadNotificationsId, notificationsCount 
   };
 
   const makeAllRead = () => {
-    patchNotification(unreadNotificationsId);
+    patchNotification(unreadNotificationsId.map(({ _id }) => _id));
   };
 
   // useEffect(() => {
@@ -120,13 +120,15 @@ const MenuNotificationsBox = ({ user, unreadNotificationsId, notificationsCount 
   return (
     <>
       <div className={styles.box}>
-        <p className={styles.make_all} onClick={makeAllRead}>
+        <p className={styles.make_all}>
           {isAllNot ? (
             <span onClick={setAllNoReadNot}>Filter by unread</span>
           ) : (
             <span onClick={setAllReadNot}>Show all</span>
           )}
-          {notificationsCount > 0 && <span>Mark all notifications as read</span>}
+          {notificationsCount > 0 && (
+            <span onClick={makeAllRead}>Mark all notifications as read</span>
+          )}
         </p>
 
         <div className={styles.box__title}>

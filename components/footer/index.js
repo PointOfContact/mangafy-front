@@ -54,10 +54,10 @@ const Footer = () => (
 
           <div className={styles.footer__item2}>
             <div className={styles.footer__itemTitle}>Help & Support</div>
-            <Link href="/resources">
+            <Link href="/contact-us">
               <a className={styles.footer__itemLink}>Help & Support</a>
             </Link>
-            <Link href="/supports">
+            <Link href="/contact-us">
               <a className={styles.footer__itemLink}>Guides & tutorials</a>
             </Link>
           </div>
