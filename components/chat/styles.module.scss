@@ -89,7 +89,7 @@
   }
   .title_block {
     display: flex;
-    span{
+    .avatar {
       border-radius: 100px;
       width: 104px;
       height: 104px;
@@ -97,14 +97,21 @@
         width: 51px;
         height: 51px;
       }
-      img {
-        border-radius: 100px;
-        width: 104px;
-        height: 104px;
-        @include media-sm {
-          width: 51px;
-          height: 51px;
-        }
+    }
+    .avatarName {
+      @include media-sm {
+        font-size: 20px !important;
+        width: 51px !important;
+        height: 51px !important;
+      }
+    }
+    img {
+      border-radius: 100px;
+      width: 104px;
+      height: 104px;
+      @include media-sm {
+        width: 51px;
+        height: 51px;
       }
     }
   }

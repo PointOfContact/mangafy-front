@@ -10,6 +10,28 @@
   .noContent {
     display: inline-block;
   }
+  .errMessage {
+    font-size: 10px;
+    color: red;
+    position: absolute;
+    left: 0;
+    bottom: -25px;
+  }
+  .errInp {
+    border-color: red !important;
+  }
+  .grupe {
+    position: relative;
+  }
+  .ml {
+    margin-left: 40px;
+    @include media-sm {
+      margin-left: 0px;
+    }
+  }
+  .addBtn {
+    margin-top: 10px;
+  }
   input {
     padding: 0;
     background-color: transparent !important;
@@ -19,7 +41,11 @@
     font-size: 20px;
     height: 40px;
     min-width: 350px;
+    &::placeholder {
+      color: $grey !important;
+    }
     @include media-sm {
+      margin-top: 8px;
       width: 100% !important;
     }
     &::placeholder {

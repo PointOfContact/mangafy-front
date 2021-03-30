@@ -84,7 +84,7 @@
       margin: auto;
       text-align: center;
     }
-    span{
+    span {
       width: 18vw;
       height: 18vw;
       max-width: 175px;
@@ -101,7 +101,7 @@
       min-height: 140px;
       object-fit: cover;
       border-radius: 50%;
-      padding: 3px;
+      padding: 5px !important;
       // border: 3px solid $avatar_outline;
       // border-bottom: white;
     }

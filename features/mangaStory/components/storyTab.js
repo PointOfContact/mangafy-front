@@ -5,6 +5,7 @@ import client from 'api/client';
 import cn from 'classnames';
 import Imgix from 'components/imgix';
 import Modal from 'components/modals/joinToTeam';
+import Avatar from 'components/ui-elements/avatar';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
@@ -82,16 +83,16 @@ const StoryTab = ({ baseData, isOwn, user }) => {
             <Link className={styles.participentsCont} key={name} href={`/profile/${_id}`}>
               <a>
                 <Tooltip placement="topLeft" title={name} arrowPointAtCenter>
-                  <Imgix
-                    width={65}
-                    height={65}
-                    src={
-                      avatar
-                        ? client.UPLOAD_URL + avatar
-                        : `https://ui-avatars.com/api/?background=9A87FE&name=${name}&rounded=true&color=ffffff`
-                    }
-                    alt="Picture of the user"
-                  />
+                  {avatar ? (
+                    <Imgix
+                      width={65}
+                      height={65}
+                      src={client.UPLOAD_URL + avatar}
+                      alt="Picture of the user"
+                    />
+                  ) : (
+                    <Avatar text={name} size={69} />
+                  )}
                 </Tooltip>
               </a>
             </Link>

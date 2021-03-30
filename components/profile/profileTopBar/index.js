@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 
 import { Upload, Input, Select, Layout, Row, Col, notification } from 'antd';
-import Avatar from 'antd/lib/avatar/avatar';
 import client from 'api/client';
 import cn from 'classnames';
 import SvgGreenChecked from 'components/icon/GreenChecked';
 import SvgPortfolio from 'components/icon/Portfolio';
 import SvgPrimaryAdd from 'components/icon/PrimaryAdd';
+import Imgix from 'components/imgix';
 import ModalInvites from 'components/modals/sendInvites';
 import { ShareButtons } from 'components/share';
+import Avatar from 'components/ui-elements/avatar';
 import PrimaryButton from 'components/ui-elements/button';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { userTypes, userTypesEnums } from 'helpers/constant';
@@ -108,23 +109,31 @@ const ProfileTopBar = (props) => {
         <Col className="gutter-row" xs={{ span: 24 }} md={{ span: 6 }} xl={{ span: 5 }}>
           <div className={styles.img}>
             {profile ? (
-              <Avatar
-                src={
-                  profile?.avatar
-                    ? client.UPLOAD_URL + profile?.avatar
-                    : `https://ui-avatars.com/api/?background=9A87FE&name=${profile.name}&rounded=true&color=ffffff`
-                }
-                alt=""
-              />
+              <>
+                {user.avatar ? (
+                  <Imgix
+                    width={52}
+                    height={52}
+                    className="avatar"
+                    src={client.UPLOAD_URL + profile.avatar}
+                  />
+                ) : (
+                  <Avatar text={profile.name} fontSize={90} />
+                )}
+              </>
             ) : (
-              <Avatar
-                src={
-                  userData
-                    ? client.UPLOAD_URL + userData.avatar
-                    : `https://ui-avatars.com/api/?background=9A87FE&name=${user.name}&rounded=true&color=ffffff`
-                }
-                alt=""
-              />
+              <>
+                {user.avatar ? (
+                  <Imgix
+                    width={52}
+                    height={52}
+                    className="avatar"
+                    src={client.UPLOAD_URL + user.avatar}
+                  />
+                ) : (
+                  <Avatar text={user.name} fontSize={90} />
+                )}
+              </>
             )}
             {user && !profile && (
               <Upload accept="image/jpg, image/png, image/jpeg " beforeUpload={handleBeforeUpload}>

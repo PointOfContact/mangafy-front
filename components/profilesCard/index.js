@@ -3,6 +3,7 @@ import React from 'react';
 import client from 'api/client';
 import cn from 'classnames';
 import Imgix from 'components/imgix';
+import Avatar from 'components/ui-elements/avatar';
 import { userTypesEnums } from 'helpers/constant';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
@@ -34,12 +35,7 @@ const ProfilesCard = ({ user, genres }) => {
                   alt="User avatar"
                 />
               ) : (
-                <Imgix
-                  width={104}
-                  height={104}
-                  alt="User avatar"
-                  src={`https://ui-avatars.com/api/?background=9A87FE&name=${user.name}&rounded=true&color=ffffff&size=128`}
-                />
+                <Avatar text={user.name} size={104} />
               )}
             </div>
           </div>
