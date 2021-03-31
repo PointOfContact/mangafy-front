@@ -37,24 +37,21 @@
     background-color: transparent !important;
     border: none;
     border-bottom: 2px solid #212121;
-    color: #212121;
+    color: #212121 !important;
     font-size: 20px;
     height: 40px;
     min-width: 350px;
     &::placeholder {
       color: $grey !important;
+      font-size: 20px;
     }
     @include media-sm {
       margin-top: 8px;
       width: 100% !important;
     }
-    &::placeholder {
-      color: #212121;
-      font-size: 20px;
-    }
     &:hover {
       border-color: #7b65f3 !important;
-      color: #7b65f3;
+      color: #7b65f3 !important;
       &::placeholder {
         color: #7b65f3;
       }

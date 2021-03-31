@@ -289,20 +289,22 @@ export const Chat = ({ user, requests: req, isOwn }) => {
                       <div className={cn(styles.message_community, styles.accepted_message, 'row')}>
                         <div className={styles.mess_content}>
                           <div className={cn(styles.title_block)}>
-                            {r.senderInfo.avatar ? (
-                              <Imgix
-                                className="avatar"
-                                width={104}
-                                height={104}
-                                src={client.UPLOAD_URL + r.senderInfo.avatar}
-                              />
-                            ) : (
-                              <Avatar
-                                text={r.senderInfo.name}
-                                className={styles.avatarName}
-                                fontSize={50}
-                              />
-                            )}
+                            <div className={styles.avatar}>
+                              {r.senderInfo.avatar ? (
+                                <Imgix
+                                  className="avatar"
+                                  width={104}
+                                  height={104}
+                                  src={client.UPLOAD_URL + r.senderInfo.avatar}
+                                />
+                              ) : (
+                                <Avatar
+                                  text={r.senderInfo.name}
+                                  className={styles.avatarName}
+                                  fontSize={50}
+                                />
+                              )}
+                            </div>
                             <div className={styles.name_special}>
                               <div>
                                 <h4>{r.senderInfo && r.senderInfo.name}</h4>
