@@ -1,0 +1,51 @@
+@import '../../styles/variables.scss';
+
+.forgot_password {
+  .forgot_password_content {
+    margin: 66px auto 100px auto;
+    width: 80%;
+    max-width: 552px;
+    text-align: center;
+    img {
+      margin: 0 auto;
+      max-width: 100%;
+    }
+    .title {
+      color: $black;
+      font-size: $text1;
+      line-height: 35px;
+      margin-top: 40px;
+      margin-bottom: 17px;
+      @include media-sm {
+        width: 320px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+    .info {
+      font-size: $text3;
+      line-height: 25px;
+      margin-bottom: 0;
+      margin-top: 0;
+      font-weight: 400;
+    }
+    .input {
+      margin-bottom: 20px;
+      font-size: $text3;
+    }
+    .form {
+      margin-top: 40px;
+      margin-bottom: 30px;
+    }
+    .button_submit {
+      margin: 0 auto;
+      width: 247px;
+      height: 59px;
+      font-size: 20px;
+      @include media-sm {
+        width: 303px;
+        height: 78px;
+      }
+    }
+  }
+}

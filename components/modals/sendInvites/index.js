@@ -20,6 +20,7 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
   const [optionsTasks, setOptionsTasks] = useState('');
   const [optionsMangaStories, setOptionsMangaStories] = useState('');
   const [story, setStory] = useState(null);
+  const [form] = Form.useForm();
 
   useEffect(() => {
     if (!user) return;
@@ -38,12 +39,13 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
       setOptionsTasks(tasks?.map((item) => ({ key: item._id, value: item.description })));
       setTask(tasks?.[0]?._id);
     }
-  }, [story]);
+  }, [story, user?.mangaStories]);
 
   const handleSetStory = (id) => {
     const { tasks } = user.mangaStories.find((item) => item._id === id);
     setOptionsTasks(tasks?.map((item) => ({ key: item._id, value: item.description })));
     setTask(tasks?.[0]?._id);
+    form.setFieldsValue({ task: tasks?.[0]?._id });
     setStory(id);
   };
   const ModalTitle = (
@@ -61,12 +63,12 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
   const onInvite = async () => {
     try {
       await createRequest({
-        mangaStoryId: user.mangaStories[0]._id,
+        mangaStoryId: story,
         isInvite: true,
         joinAs,
         senderId: profile._id,
         text,
-        task,
+        taskId: task,
       });
       changeShowModal(false);
     } catch (error) {
@@ -103,6 +105,7 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
             <Form
               name="send_invait"
               onFinish={onInvite}
+              form={form}
               initialValues={{
                 joinAs,
                 story,

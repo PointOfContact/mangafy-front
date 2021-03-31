@@ -169,7 +169,10 @@ export const CommissionPricing = ({ id, user }) => {
                   align="start">
                   <span className={styles.grupe}>
                     <Input
-                      className={cn(styles.inputService, !field.first && styles.errInp)}
+                      className={cn(
+                        styles.inputService,
+                        !field.first && canEdit && editMode && styles.errInp
+                      )}
                       disabled={!(canEdit && editMode)}
                       placeholder="Service"
                       name="first"
@@ -177,11 +180,16 @@ export const CommissionPricing = ({ id, user }) => {
                       value={field.first}
                       onChange={handleChange}
                     />
-                    {!field.first && <span className={styles.errMessage}> Field is require </span>}
+                    {!field.first && canEdit && editMode && (
+                      <span className={styles.errMessage}> Field is require </span>
+                    )}
                   </span>
                   <span className={cn(styles.grupe)}>
                     <Input
-                      className={cn(styles.inputCost, !field.last && styles.errInp)}
+                      className={cn(
+                        styles.inputCost,
+                        !field.last && canEdit && editMode && styles.errInp
+                      )}
                       disabled={!(canEdit && editMode)}
                       placeholder="Cost"
                       name="last"
@@ -189,7 +197,7 @@ export const CommissionPricing = ({ id, user }) => {
                       value={field.last}
                       onChange={handleChange}
                     />
-                    {!field.last && (
+                    {!field.last && canEdit && editMode && (
                       <span className={cn(styles.errMessage, styles.ml)}> Field is require </span>
                     )}
                   </span>

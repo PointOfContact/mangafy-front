@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
 
 import { notification } from 'antd';
+import FooterPolicy from 'components/footer-policy';
+import Header from 'components/header';
+import LoginFooter from 'components/loginFooter';
+import PrimaryInput from 'components/ui-elements/input';
+import LargeButton from 'components/ui-elements/large-button';
 import Head from 'next/head';
-import Link from 'next/link';
 import Router from 'next/router';
+
+import styles from './styles.module.scss';
 
 const Amplitude = require('amplitude');
 
@@ -15,17 +21,27 @@ const ResetPassword = () => {
 
   const handleOnChangePassword = ({ target }) => {
     const { value } = target;
-    setPassword(value);
+    setPassword(value.trim());
   };
 
   const handleChangeNewPassword = ({ target }) => {
     const { value } = target;
-    setNewPassword(value);
+    setNewPassword(value.trim());
   };
 
-  const submit = () => {};
-
   const reset = () => {
+    if (password !== newPassword) {
+      notification.error({
+        message: 'Password and confirm password mismatch',
+      });
+      return;
+    }
+    if (!password) {
+      notification.error({
+        message: 'Field is required',
+      });
+      return;
+    }
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get('token');
     import('api/restClient').then((m) => {
@@ -66,55 +82,45 @@ const ResetPassword = () => {
   };
 
   return (
-    <div className="form_magafy">
+    <div className={styles.forgot_password}>
+      <Header />
       <Head></Head>
-      <div className="sign_in_page_container">
-        <div className="sign_in_content">
-          <div className="sign_in_header">Create new awesome password</div>
-          <div className="sign_in_info">Imagine about new, different and cool password.</div>
-          <form>
-            <div className="sign_in_form forgot-pass-block sign_in_form col-lg-4 col-md-6 col-sm-8 col-xs-10">
-              <div className="input_login floating-label-wrap">
-                <label>Password</label>
-                <input
-                  autoComplete="new-password"
-                  value={password}
-                  type="password"
-                  name="password"
-                  value={password}
-                  onChange={handleOnChangePassword}
-                />
-              </div>
-              <div className="input_login floating-label-wrap">
-                <label>Confirm Password</label>
-                <input
-                  autoComplete="new-password"
-                  value={newPassword}
-                  type="password"
-                  name="password"
-                  onChange={handleChangeNewPassword}
-                />
-              </div>
-              <div className="login_button_container">
-                <button id="ResetBtnId" type="button" onClick={reset} className="login_btn">
-                  Reset
-                </button>
-              </div>
-            </div>
-          </form>
-          <div className="sign_in_terms_info">
-            To make MangaFY work we log user data. Click "{<Link href="/sign-in">sign in</Link>}" to
-            accept MangaFY's{' '}
-            <Link href="/terms">
-              <a className="margin-horizontal-5">Term and service</a>
-            </Link>{' '}
-            &{' '}
-            <Link href="/privacy-policy">
-              <a className="margin-horizontal-5">Privacy Policy </a>
-            </Link>
-          </div>
+      <div className={styles.forgot_password_content}>
+        <img src="/img/forgot-password.webp" alt="" />
+        <h2 className={styles.title}>Create new awesome password</h2>
+        <p className={styles.info}>Imagine about new, different and cool password.</p>
+        <div className={styles.form}>
+          <PrimaryInput
+            className={styles.input}
+            type="password"
+            name="password"
+            value={password}
+            placeholder="Password"
+            onChange={handleOnChangePassword}
+            isFullWidth={true}
+            isLinear={true}
+          />
+          <PrimaryInput
+            className={styles.input}
+            type="password"
+            name="newPassword"
+            value={newPassword}
+            placeholder="Confirm Password"
+            onChange={handleChangeNewPassword}
+            isFullWidth={true}
+            isLinear={true}
+          />
         </div>
+        <LargeButton
+          onClick={reset}
+          className={styles.button_submit}
+          htmlType="submit"
+          text={'Change Password'}
+          id="signInBtnId"
+        />
       </div>
+      <LoginFooter acaunt={false} />
+      <FooterPolicy />
     </div>
   );
 };

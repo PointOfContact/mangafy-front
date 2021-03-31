@@ -23,6 +23,10 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
       const options = {
         query: {
           mangaStoryId: context.params.pid,
+          $limit: 100,
+          $sort: {
+            createdAt: -1,
+          },
         },
         headers: { Authorization: `Bearer ${jwt}` },
       };
