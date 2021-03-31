@@ -19,7 +19,7 @@ const OAuth = () => {
       const data = [
         {
           platform: 'WEB',
-          event_type: EVENTS.O_AUTH,
+          event_type: EVENTS.O_AUTH, // TODO: saparate facebook, googel
           user_id: user._id,
           user_properties: {
             ...user,

@@ -74,7 +74,7 @@ const MyProfile = (props) => {
     const data = [
       {
         platform: 'WEB',
-        event_type: EVENTS.PROJECT_CREATED,
+        event_type: EVENTS.ADDED_GENRES,
         user_id: user._id,
         user_properties: {
           ...user,

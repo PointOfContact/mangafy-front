@@ -215,7 +215,7 @@ export default function Home() {
                 <LargeButton
                   id="CreateAStoryBtnId"
                   className={styles.btn__submit}
-                  text="Submit an IDEA"
+                  text="Start a project"
                 />
               </a>
             </Link>

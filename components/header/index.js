@@ -105,7 +105,7 @@ const Header = ({ user, path }) => {
     const data = [
       {
         platform: 'WEB',
-        event_type: EVENTS.SUBMIT_IDEA,
+        event_type: EVENTS.CREATE_PROJECT_START,
         user_id: user._id,
         user_properties: {
           ...user,
@@ -279,7 +279,7 @@ const Header = ({ user, path }) => {
             <span className={cn(styles.btn_submit)} onClick={addEvent}>
               <Link href="/create-a-story/start">
                 <a className={cn('btn_submit')}>
-                  <PrimaryButton text="Submit an IDEA" />
+                  <PrimaryButton text="Start a project" />
                 </a>
               </Link>
             </span>
