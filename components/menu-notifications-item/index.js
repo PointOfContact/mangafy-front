@@ -25,6 +25,7 @@ const MenuNotificationsItem = ({
   navigateTo,
   type,
   requestId,
+  user,
 }) => {
   const [verify, setVerifai] = useState(null);
   const addUnreadNotificationsId = () => {
@@ -88,6 +89,8 @@ const MenuNotificationsItem = ({
           {(type === 'GET_INVITE_FOR_COLLABORATION' ||
             type === 'SOMEONE_REQUEST_FOR_COLLABORATION') && (
             <MenuNotificationsInvite
+              type={type}
+              user={user}
               navigateTo={navigateTo}
               requestId={requestId}
               addUnreadNotificationsId={addUnreadNotificationsId}
@@ -114,6 +117,7 @@ MenuNotificationsItem.propTypes = {
   navigateTo: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   requestId: PropTypes.string,
+  user: PropTypes.object.isRequired,
 };
 
 MenuNotificationsItem.defaultProps = {

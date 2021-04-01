@@ -4,9 +4,13 @@ import { Button, Comment, List, Form, Input } from 'antd';
 import client from 'api/client';
 import Imgix from 'components/imgix';
 import Avatar from 'components/ui-elements/avatar';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 
+const Amplitude = require('amplitude');
+
+const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 const { TextArea } = Input;
 
 const CommentList = ({ comments }) => (
@@ -108,6 +112,18 @@ export const Comments = ({ commentsData, mangaStory, user, isOwn }) => {
           setComments(commentsData);
           setSubmitting(false);
           setValue('');
+          const eventData = [
+            {
+              platform: 'WEB',
+              event_type: EVENTS.MINI_JOB_REMOVED,
+              event_properties: { mangaStoryId: mangaStory._id },
+              user_id: user._id,
+              user_properties: {
+                ...user,
+              },
+            },
+          ];
+          amplitude.track(eventData);
         })
         .catch((err) => {
           setErrMessage(err.message);

@@ -6,14 +6,19 @@ import client from 'api/client';
 import SvgClose from 'components/icon/Close';
 import LargeButton from 'components/ui-elements/large-button';
 import PrimarySelect from 'components/ui-elements/select';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import { USER_TYPES } from 'helpers/constant';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
+const Amplitude = require('amplitude');
+
+const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
+
 const { TextArea } = Input;
 
-const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks }) => {
+const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, user }) => {
   const [lookingFor, changeLookingFor] = useState('Writer');
   const [text, changeText] = useState('');
   const [form] = Form.useForm();
@@ -26,9 +31,12 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks })
   );
 
   useEffect(() => {
-    changeLookingFor(task?.lookingFor || 'Writer');
-    changeText(task?.description || '');
-    form.setFieldsValue({ lookingFor: task?.lookingFor, text: task?.description });
+    changeLookingFor(task?.lookingFor);
+    changeText(task?.description);
+    form.setFieldsValue({
+      lookingFor: task?.lookingFor || 'Writer',
+      text: task?.description || '',
+    });
   }, [task, form]);
 
   const handleChangeText = (e) => {
@@ -58,6 +66,18 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks })
         updateTasks();
         changeText('');
         changeShowModal(false);
+        const eventData = [
+          {
+            platform: 'WEB',
+            event_type: EVENTS.MINI_JOB_CREATED,
+            event_properties: { mangaStoryId: baseData._id, taskId: task._id },
+            user_id: user._id,
+            user_properties: {
+              ...user,
+            },
+          },
+        ];
+        amplitude.track(eventData);
       })
       .catch((err) => err);
   };
@@ -80,6 +100,19 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks })
       .then(() => {
         updateTasks();
         changeShowModal(false);
+
+        const eventData = [
+          {
+            platform: 'WEB',
+            event_type: EVENTS.MINI_JOB_EDITED,
+            event_properties: { mangaStoryId: baseData._id, taskId: task._id },
+            user_id: user._id,
+            user_properties: {
+              ...user,
+            },
+          },
+        ];
+        amplitude.track(eventData);
       })
       .catch((err) => err);
   };
@@ -169,6 +202,7 @@ ModalStart.propTypes = {
   changeShowModal: PropTypes.func.isRequired,
   showModal: PropTypes.bool.isRequired,
   baseData: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
   task: PropTypes.object,
   updateTasks: PropTypes.func,
 };
