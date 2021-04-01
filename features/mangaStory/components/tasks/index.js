@@ -9,11 +9,16 @@ import SvgPencilColored from 'components/icon/PencilColored';
 import Modal from 'components/modals/createTaskModal';
 import AddButton from 'components/ui-elements/add-button';
 import PrimaryButton from 'components/ui-elements/button';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
-const Tasks = ({ baseData, isOwn, toTeam }) => {
+const Amplitude = require('amplitude');
+
+const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
+
+const Tasks = ({ baseData, isOwn, user, toTeam }) => {
   const { tasks } = baseData;
   const [taskList, setTasks] = useState(tasks);
   const [showModal, changeShowModal] = useState(false);
@@ -30,6 +35,19 @@ const Tasks = ({ baseData, isOwn, toTeam }) => {
       })
       .then(() => {
         updateTasks();
+
+        const eventData = [
+          {
+            platform: 'WEB',
+            event_type: EVENTS.MINI_JOB_REMOVED,
+            event_properties: { mangaStoryId: baseData._id, taskId },
+            user_id: user._id,
+            user_properties: {
+              ...user,
+            },
+          },
+        ];
+        amplitude.track(eventData);
       })
       .catch((err) => err);
   };
@@ -125,6 +143,7 @@ const Tasks = ({ baseData, isOwn, toTeam }) => {
         tasks={tasks}
         setTasks={setTasks}
         updateTasks={updateTasks}
+        user={user}
       />
     </div>
   );

@@ -142,6 +142,7 @@ const MenuNotificationsBox = ({ user, unreadNotificationsId, notificationsCount 
                 image={notification.image}
                 icon={notification.icon}
                 title={notification.title}
+                type={notification.meta.type}
                 description={notification.description}
                 createdAt={notification.createdAt}
                 verified={notification?.read_by?.find((id) => id.readerId === user._id)}
@@ -149,6 +150,8 @@ const MenuNotificationsBox = ({ user, unreadNotificationsId, notificationsCount 
                 patchNotification={patchNotification}
                 _id={notification._id}
                 navigateTo={notification.meta.navigateTo}
+                requestId={notification?.meta?.params?.requestId}
+                user={user}
               />
             ))
           ) : (

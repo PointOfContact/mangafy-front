@@ -6,10 +6,15 @@ import { createRequest } from 'api/joinMangaStoryRequestClient';
 import SvgClose from 'components/icon/Close';
 import LargeButton from 'components/ui-elements/large-button';
 import PrimarySelect from 'components/ui-elements/select';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import { USER_TYPES } from 'helpers/constant';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
+
+const Amplitude = require('amplitude');
+
+const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 
 const { TextArea } = Input;
 
@@ -20,6 +25,7 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
   const [optionsTasks, setOptionsTasks] = useState('');
   const [optionsMangaStories, setOptionsMangaStories] = useState('');
   const [story, setStory] = useState(null);
+  const [form] = Form.useForm();
 
   useEffect(() => {
     if (!user) return;
@@ -38,12 +44,13 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
       setOptionsTasks(tasks?.map((item) => ({ key: item._id, value: item.description })));
       setTask(tasks?.[0]?._id);
     }
-  }, [story]);
+  }, [story, user?.mangaStories]);
 
   const handleSetStory = (id) => {
     const { tasks } = user.mangaStories.find((item) => item._id === id);
     setOptionsTasks(tasks?.map((item) => ({ key: item._id, value: item.description })));
     setTask(tasks?.[0]?._id);
+    form.setFieldsValue({ task: tasks?.[0]?._id });
     setStory(id);
   };
   const ModalTitle = (
@@ -61,13 +68,25 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
   const onInvite = async () => {
     try {
       await createRequest({
-        mangaStoryId: user.mangaStories[0]._id,
+        mangaStoryId: story,
         isInvite: true,
         joinAs,
         senderId: profile._id,
         text,
-        task,
+        taskId: task,
       });
+      const eventData = [
+        {
+          platform: 'WEB',
+          event_type: EVENTS.INVITE_SOMEONE,
+          event_properties: { mangaStoryId: story, taskId: task },
+          user_id: user._id,
+          user_properties: {
+            ...user,
+          },
+        },
+      ];
+      amplitude.track(eventData);
       changeShowModal(false);
     } catch (error) {
       openNotification('error', 'Failed to invite');
@@ -103,6 +122,7 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
             <Form
               name="send_invait"
               onFinish={onInvite}
+              form={form}
               initialValues={{
                 joinAs,
                 story,

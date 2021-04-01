@@ -16,16 +16,7 @@ import Tasks from './tasks';
 const StoryTab = ({ baseData, isOwn, user }) => {
   const [showModal, changeShowModal] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
-  const {
-    _id,
-    author,
-    introduce,
-    story,
-    preferredLanguage,
-    searchingFor,
-    authorInfo,
-    participentsInfo,
-  } = baseData;
+  const { _id, author, introduce, story, authorInfo, participentsInfo } = baseData;
   const history = useRouter();
 
   const toTeam = (task) => {
@@ -79,8 +70,8 @@ const StoryTab = ({ baseData, isOwn, user }) => {
           </a>
         </Link>
         <div className={styles.participents}>
-          {[authorInfo].concat(participentsInfo).map(({ avatar, name, _id }) => (
-            <Link className={styles.participentsCont} key={name} href={`/profile/${_id}`}>
+          {[authorInfo].concat(participentsInfo).map(({ avatar, name, id }) => (
+            <Link className={styles.participentsCont} key={name} href={`/profile/${id}`}>
               <a>
                 <Tooltip placement="topLeft" title={name} arrowPointAtCenter>
                   {avatar ? (
@@ -100,6 +91,7 @@ const StoryTab = ({ baseData, isOwn, user }) => {
         </div>
       </div>
       <Modal
+        user={user}
         baseData={baseData}
         changeShowModal={changeShowModal}
         showModal={showModal}
