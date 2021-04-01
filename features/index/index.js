@@ -14,19 +14,19 @@ const Landing = ({ user }) => (
       <title>MangaFY – From story buidling to a full digital release.</title>
       <meta
         name="description"
-        content="The digital hub designed to help you produce your very owm comic or manga."
+        content="The digital hub designed to help you produce your very owm comic or manga. From story buidling to a full digital release."
       />
       <meta property="og:url" content="https://www.mangafy.club" />
       <meta property="og:type" content="article" />
-      <meta property="og:title" content="When Great Minds Don’t Think Alike" />
+      <meta
+        property="og:title"
+        content="Start your Graphic Novel Journey and Get Creative with MangaFY"
+      />
       <meta
         property="og:description"
-        content="How much does culture influence creative thinking?"
+        content="The digital hub designed to help you produce your very owm comic or manga. From story buidling to a full digital release."
       />
-      <meta
-        property="og:image"
-        content="http://static01.nyt.com/images/2015/02/19/arts/international/19iht-btnumbers19A/19iht-btnumbers19A-facebookJumbo-v2.jpg"
-      />
+      <meta property="og:image" content="https://i.postimg.cc/cCy8qTg7/manga.jpg" />
     </Head>
     <ButtonToTop />
     <div className={'wrapper'}>
