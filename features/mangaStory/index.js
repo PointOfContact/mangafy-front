@@ -16,6 +16,7 @@ import ButtonToTop from 'components/ui-elements/button-toTop';
 import Input from 'components/ui-elements/input';
 import TextArea from 'components/ui-elements/text-area';
 // import dynamic from 'next/dynamic';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import Head from 'next/head';
 import PropTypes from 'prop-types';
 import * as qs from 'query-string';
@@ -24,6 +25,10 @@ import BannerSection from './components/bannersSection';
 import StoryBoardTabs from './components/storyBoardTabs';
 import StoryTab from './components/storyTab';
 import styles from './styles.module.scss';
+
+const Amplitude = require('amplitude');
+
+const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 
 // const StoryBoardTabs = dynamic(() => import('./components/storyBoardTabs'), {
 //   loading: () => <Spin />,
@@ -148,6 +153,20 @@ const MangeStory = (props) => {
         })
         .then((res) => {
           setBaseData(res);
+          const event_type = data.published ? EVENTS.GO_TO_PUBLIC : EVENTS.GO_TO_PRIVATE;
+
+          const eventData = [
+            {
+              platform: 'WEB',
+              event_type,
+              event_properties: { mangaStoryId: baseData._id },
+              user_id: user._id,
+              user_properties: {
+                ...user,
+              },
+            },
+          ];
+          amplitude.track(eventData);
         })
         .catch((err) => {
           openNotification('error', err.message);
@@ -188,17 +207,26 @@ const MangeStory = (props) => {
               <div className="row">
                 <div className="col-sm-12 manga-story manga-story-m">
                   {isOwn && (
-                    <div className={styles.publishSwitch}>
-                      <span>
-                        <Switch checked={baseData.published} onChange={onPublish} />
-                      </span>
-                      <p
-                        className={cn(
-                          styles.publishText,
-                          baseData.published ? styles.published : styles.private
-                        )}>
-                        {baseData.published ? 'Published' : 'Private'}
-                      </p>
+                    <div className={styles.publishContent}>
+                      <div className={styles.publishSwitch}>
+                        <p
+                          className={cn(
+                            styles.publishText,
+                            !baseData.published && styles.published
+                          )}>
+                          Private
+                        </p>
+                        <span>
+                          <Switch checked={baseData.published} onChange={onPublish} />
+                        </span>
+                        <p
+                          className={cn(
+                            styles.publishText,
+                            baseData.published && styles.published
+                          )}>
+                          Published
+                        </p>
+                      </div>
                     </div>
                   )}
                   {!editMode ? (

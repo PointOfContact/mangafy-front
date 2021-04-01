@@ -6,6 +6,7 @@ import cn from 'classnames';
 import Imgix from 'components/imgix';
 import Avatar from 'components/ui-elements/avatar';
 import PrimaryButton from 'components/ui-elements/button';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import { MessageList } from 'react-chat-elements';
@@ -13,6 +14,10 @@ import { MessageList } from 'react-chat-elements';
 import { patchRequest } from '../../api/joinMangaStoryRequestClient';
 import styles from './styles.module.scss';
 import 'react-chat-elements/dist/main.css';
+
+const Amplitude = require('amplitude');
+
+const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 
 const onAccept = (event, id, status) => {
   event.stopPropagation();
@@ -41,7 +46,6 @@ const AllMessages = ({ conversationId, user, avatar }) => {
   };
 
   const handleChange = (e) => {
-    console.log(e.target.value);
     setValue(e.target.value);
   };
 
@@ -186,6 +190,21 @@ export const Chat = ({ user, requests: req, isOwn }) => {
         return item;
       });
       setRequests(newRequest);
+
+      const event_type = status === 'accepted' ? EVENTS.INVITE_ACCEPTED : EVENTS.INVITE_REJECTED;
+
+      const eventData = [
+        {
+          platform: 'WEB',
+          event_type,
+          event_properties: { inviteRequestId: id },
+          user_id: user._id,
+          user_properties: {
+            ...user,
+          },
+        },
+      ];
+      amplitude.track(eventData);
     });
   };
 

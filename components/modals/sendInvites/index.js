@@ -6,10 +6,15 @@ import { createRequest } from 'api/joinMangaStoryRequestClient';
 import SvgClose from 'components/icon/Close';
 import LargeButton from 'components/ui-elements/large-button';
 import PrimarySelect from 'components/ui-elements/select';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import { USER_TYPES } from 'helpers/constant';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
+
+const Amplitude = require('amplitude');
+
+const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 
 const { TextArea } = Input;
 
@@ -70,6 +75,18 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
         text,
         taskId: task,
       });
+      const eventData = [
+        {
+          platform: 'WEB',
+          event_type: EVENTS.INVITE_SOMEONE,
+          event_properties: { mangaStoryId: story, taskId: task },
+          user_id: user._id,
+          user_properties: {
+            ...user,
+          },
+        },
+      ];
+      amplitude.track(eventData);
       changeShowModal(false);
     } catch (error) {
       openNotification('error', 'Failed to invite');
