@@ -419,3 +419,26 @@
     }
   }
 }
+.shareButtons{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+.modalTitle{
+  text-align: center;
+  font-weight: 900;
+  font-size: 30px;
+  line-height: 35px;
+  margin: 0 auto;
+}
+.publishedModal{
+  text-align: center;
+  p{
+    max-width: 580px;
+    padding: 0 15px;
+    font-weight: 500;
+    font-size: 25px;
+    line-height: 36px;
+    margin: 48px auto 50px auto;
+  }
+}
