@@ -25,7 +25,7 @@ const MangaPanelingBasics = () => (
         property="og:description"
         content="Hey All, in this first tutorial on MangaFY, we'd like to share with you the paneling basics for Manga, by our very own team member and consultant, Mina Petrovic."
       />
-      <meta property="og:image" content="https://i.postimg.cc/cCy8qTg7/manga.jpg" />
+      <meta property="og:image" content="https://mangafy.club/img/setovi.jpg" />
     </Head>
     <ButtonToTop />
     <div className={'wrapper'}>
