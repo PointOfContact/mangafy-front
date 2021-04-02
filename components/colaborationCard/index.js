@@ -24,7 +24,13 @@ const ColaborationCards = ({ label, client }) => (
                 alt="Manga story cover"
               />
             ) : (
-              <img width={104} height={104} src={'/img/mangastory.webp'} />
+              <Imgix
+                width={104}
+                height={104}
+                layout="fixed"
+                src="https://mangafy.club/img/mangastory.webp"
+                alt="Manga story cover"
+              />
             )}
           </div>
         </div>

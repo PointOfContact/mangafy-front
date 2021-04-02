@@ -4,6 +4,7 @@ import Footer from 'components/footer';
 import FooterPolicy from 'components/footer-policy';
 import Header from 'components/header';
 import Imgix from 'components/imgix';
+import { ShareButtons } from 'components/share';
 import ButtonToTop from 'components/ui-elements/button-toTop';
 import Head from 'next/head';
 
@@ -15,8 +16,16 @@ const MangaPanelingBasics = () => (
       <title>Manga Paneling Basics</title>
       <meta
         name="description"
-        content="Sign in to get your personalized page and start connecting with graphic novel enthusiasts"
+        content="Hey All, in this first tutorial on MangaFY, we'd like to share with you the paneling basics for Manga, by our very own team member and consultant, Mina Petrovic."
       />
+      <meta property="og:url" content="https://www.mangafy.club" />
+      <meta property="og:type" content="article" />
+      <meta property="og:title" content="Manga Paneling Basics" />
+      <meta
+        property="og:description"
+        content="Hey All, in this first tutorial on MangaFY, we'd like to share with you the paneling basics for Manga, by our very own team member and consultant, Mina Petrovic."
+      />
+      <meta property="og:image" content="https://mangafy.club/img/setovi.jpg" />
     </Head>
     <ButtonToTop />
     <div className={'wrapper'}>
@@ -24,9 +33,17 @@ const MangaPanelingBasics = () => (
         <Header />
         <div className={styles.content}>
           <h1 className={styles.pageTitle}>Manga Paneling Basics</h1>
-          <span className={styles.data}>
-            <a href="https://mistiqarts.com/">Mina Petrovic </a> March 30, 2021 ·3 min read
-          </span>
+          <div className={styles.share}>
+            <span className={styles.data}>
+              <a href="https://mistiqarts.com/">Mina Petrovic </a> March 30, 2021 ·3 min read
+            </span>
+            <div className={styles.items}>
+              <ShareButtons
+                shareUrl="https://mangafy.club/resources/manga-paneling-basics"
+                text="Share to the world!"
+              />
+            </div>
+          </div>
           <div>
             <p>
               Hey All, in this first tutorial on MangaFY, we'd like to share with you the paneling
@@ -47,11 +64,11 @@ const MangaPanelingBasics = () => (
               ongoing story.
             </p>
             <p>But, paneling also has many layers to it, which we will address in this tutorial.</p>
-            <Imgix width={860} height={860} src={'https://mangafy.club/img/setovi.jpg'} />
-            <Imgix width={860} height={860} src={'https://mangafy.club/img/lesson_1.jpg'} />
+            <Imgix width={860} height={1000} src={'https://mangafy.club/img/setovi.jpg'} />
+            <Imgix width={860} height={1000} src={'https://mangafy.club/img/lesson_1.jpg'} />
             <strong>CHECK LISTS AND TEMPLATES</strong>
             <p>There are several panel templates you can utilize.</p>
-            <Imgix width={860} height={860} src={'https://mangafy.club/img/Untitled.png'} />
+            <Imgix width={860} height={1000} src={'https://mangafy.club/img/Untitled.png'} />
             <p>But note:</p>
             <ul>
               <li>
@@ -79,8 +96,8 @@ const MangaPanelingBasics = () => (
               Elements of note here is that you are always allowed to play with characters popping
               outside the frames.
             </p>
-            <Imgix width={860} height={860} src={'https://mangafy.club/img/3.jpg'} />
-            <Imgix width={860} height={860} src={'https://mangafy.club/img/1.jpg'} />
+            <Imgix width={860} height={1000} src={'https://mangafy.club/img/3.jpg'} />
+            <Imgix width={860} height={1000} src={'https://mangafy.club/img/1.jpg'} />
             <h2>Fast scene</h2>
             <p>
               This is a paneling choice when we want to show a quick scene playing out, like this
@@ -103,15 +120,23 @@ const MangaPanelingBasics = () => (
             </p>
             <Imgix width={860} height={860} src={'https://mangafy.club/img/2.jpg'} />
             <p>
+              We hope you enjoyed the tutorial and you can also visit Mina's website for more
+              awesome content: <a href="https://mistiqarts.com/">https://mistiqarts.com/.</a>
+            </p>
+            <p>
               Now, it's time to train and be creative, go to the MangaFY platform, and share with us
               a panel from your upcoming project/story. Have a friend who also dreams of learning
               cool things? loves comics or manga? or has a story he wants to turn into a graphic
               novel? bring him over to MangaFY :).
             </p>
-            <p>
-              We hope you enjoyed the tutorial and you can also visit Mina's website for more
-              awesome content: <a href="https://mistiqarts.com/">https://mistiqarts.com/.</a>
-            </p>
+            <div className={styles.share}>
+              <div className={styles.items}>
+                <ShareButtons
+                  shareUrl="https://mangafy.club/resources/manga-paneling-basics"
+                  text="Share to the world!"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>

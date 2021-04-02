@@ -129,7 +129,15 @@ const Header = ({ user, path }) => {
             </div>
             <Link href="/">
               <a className={styles.header__logo}>
-                <img src="/img/logo-new.webp" alt="" />
+                <Imgix
+                  priority
+                  layout="intrinsic"
+                  width={185}
+                  height={30}
+                  quality={50}
+                  src="https://mangafy.club/img/logo-new.webp"
+                  alt=""
+                />
               </a>
             </Link>
             <div className={styles.header__logIn}>

@@ -22,11 +22,6 @@ const getRequest = async (reqId) => {
   return restClient.service('/api/v2/join-manga-story-requests').get(reqId, {
     headers,
   });
-  // const genres = await client.service('/api/v2/genres').find({
-  //   query: {
-  //     $limit: 100,
-  //   },
-  // });
 };
 
 const createRequest = async ({ mangaStoryId, joinAs, isInvite, senderId, text, taskId }) => {

@@ -6,6 +6,7 @@ import client from 'api/client';
 import cn from 'classnames';
 import Card from 'components/card';
 import SvgPurplePencil from 'components/icon/PurplePencil';
+import Imgix from 'components/imgix';
 import PrimaryButton from 'components/ui-elements/button';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import PropTypes from 'prop-types';
@@ -147,7 +148,16 @@ export const CommissionPricing = ({ id, user }) => {
                     className={styles.card}
                     description="Sorry, but there is nothing <br/> here (("
                     btnText=""
-                    items={[<img key="1" src="/img/commisionList.webp" alt="" />]}
+                    items={[
+                      <Imgix
+                        key="1"
+                        width={134}
+                        height={140}
+                        layout="fixed"
+                        src="https://mangafy.club/img/commisionList.webp"
+                        alt=""
+                      />,
+                    ]}
                   />
                 </div>
               )}
@@ -157,7 +167,16 @@ export const CommissionPricing = ({ id, user }) => {
                     description="It's time to tell about your services. <br/> Let's start!"
                     btnText="Let's start"
                     onClick={() => setEditMode(true)}
-                    items={[<img key="1" src="/img/commisionList.webp" alt="" />]}
+                    items={[
+                      <Imgix
+                        key="1"
+                        width={134}
+                        height={140}
+                        layout="fixed"
+                        src="https://mangafy.club/img/commisionList.webp"
+                        alt=""
+                      />,
+                    ]}
                   />
                 </div>
               )}
