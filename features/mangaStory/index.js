@@ -11,6 +11,7 @@ import Footer from 'components/footer';
 import FooterPolicy from 'components/footer-policy';
 import Header from 'components/header';
 import SvgPencilColored from 'components/icon/PencilColored';
+import { ShareButtons } from 'components/share';
 import PrimaryButton from 'components/ui-elements/button';
 import ButtonToTop from 'components/ui-elements/button-toTop';
 import Input from 'components/ui-elements/input';
@@ -34,6 +35,7 @@ const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 //   loading: () => <Spin />,
 // });
 const { confirm } = Modal;
+const { info } = Modal;
 
 const { TabPane } = Tabs;
 // const { TextArea } = Input;
@@ -122,7 +124,30 @@ const MangeStory = (props) => {
         if (boad?.idea?.title && boad?.idea?.text) {
           patchStory({
             published: true,
-          });
+          }).then(() =>
+            info({
+              title: (
+                <h3 className={styles.modalTitle}>
+                  AWESOME! You opened your graphic novel project!
+                </h3>
+              ),
+              icon: '',
+              width: '100%',
+              style: { top: 120, maxWidth: '1000px' },
+              content: (
+                <div className={styles.publishedModal}>
+                  <p>
+                    Congratulations , share with your network and build your collaboration to
+                    success!
+                  </p>
+                  <div className={styles.shareButtons}>
+                    <ShareButtons shareUrl={originUrl} text="Share to the world!" />
+                  </div>
+                </div>
+              ),
+              onOk() {},
+            })
+          );
         } else {
           confirm({
             title: 'Update story board',
