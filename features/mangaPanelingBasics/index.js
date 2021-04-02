@@ -18,7 +18,7 @@ const MangaPanelingBasics = () => (
         name="description"
         content="Hey All, in this first tutorial on MangaFY, we'd like to share with you the paneling basics for Manga, by our very own team member and consultant, Mina Petrovic."
       />
-      <meta property="og:url" content="https://www.mangafy.club" />
+      <meta property="og:url" content="https://mangafy.club/resources/manga-paneling-basics" />
       <meta property="og:type" content="article" />
       <meta property="og:title" content="Manga Paneling Basics" />
       <meta
