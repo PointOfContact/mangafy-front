@@ -1,9 +1,31 @@
 @import '../../styles/variables.scss';
+
+.share {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  @include media-sm {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+  .items {
+    display: inline-block;
+    margin-left: auto;
+    @include media-sm {
+      div{
+        flex-direction: row;
+      }
+      margin:auto
+    }
+  }
+}
 .content {
   max-width: 860px;
   width: 100%;
-  padding: 15px;
+  padding: 25px;
   margin: 0 auto;
+  margin-bottom: 50px;
   a {
     display: inline-block;
     text-decoration: underline;
@@ -40,9 +62,12 @@
     font-size: 2.5rem;
     font-weight: 700;
     margin-top: 0;
-    margin-bottom: 0.75em;
+    @include media-sm {
+      text-align: center;
+      margin-bottom: 0.75rem;
+    }
   }
-  img{
+  img {
     width: 100%;
     margin: 15px auto;
   }
