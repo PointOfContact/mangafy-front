@@ -16,7 +16,7 @@ const Amplitude = require('amplitude');
 const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 
 const MyProfile = (props) => {
-  const { user, mangaStories, total, originUrl, profile } = props;
+  const { user, originUrl, profile } = props;
   const { genres: genresEnums } = props;
   const [isMyProfile] = useState(true);
   const [editMode, setEditMode] = useState(false);
@@ -29,6 +29,8 @@ const MyProfile = (props) => {
     genresIds: user.genresIds,
     avatar: user.avatar,
   });
+  const mangaStories = profile.mangaStories.data;
+  const total = profile.mangaStories.data.length;
 
   const cancelEditMode = () => {
     setEditMode(false);
