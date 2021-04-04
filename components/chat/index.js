@@ -257,7 +257,7 @@ export const Chat = ({ user, requests: req, isOwn }) => {
                           <div className={cn(styles.div_button, 'buttonsProfile_styles')}>
                             <Popconfirm
                               placement="top"
-                              title="Are you sure to delete this task?"
+                              title="Are you sure to reject the invite?"
                               onClick={(event) => event.stopPropagation()}
                               onConfirm={(event) => {
                                 setRecvestStatus(event, r._id, 'rejected');
@@ -273,7 +273,7 @@ export const Chat = ({ user, requests: req, isOwn }) => {
                             </Popconfirm>
                             <Popconfirm
                               placement="top"
-                              title="Are you sure to delete this task?"
+                              title="Are you sure to accept the invite?"
                               onConfirm={(event) => {
                                 setRecvestStatus(event, r._id, 'accepted');
                               }}
@@ -335,27 +335,6 @@ export const Chat = ({ user, requests: req, isOwn }) => {
                             </div>
                           </div>
                         </div>
-                        {isOwn && (
-                          <div className={cn(styles.div_button, 'buttonsProfile_styles')}>
-                            <span></span>
-                            <Popconfirm
-                              placement="top"
-                              title="Are you sure to delete this task?"
-                              onClick={(event) => event.stopPropagation()}
-                              onConfirm={(event) => {
-                                setRecvestStatus(event, r._id, 'rejected');
-                              }}
-                              okText="Yes"
-                              cancelText="No">
-                              <PrimaryButton
-                                className="buttonsProfile_cancel"
-                                text="Cancel"
-                                isDark
-                                isRound
-                              />
-                            </Popconfirm>
-                          </div>
-                        )}
                       </div>
                     </div>
                   )

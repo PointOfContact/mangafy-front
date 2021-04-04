@@ -170,7 +170,7 @@ const ProfileTopBar = (props) => {
                   />
                 ) : (
                   profile &&
-                  !!user?.mangaStories?.length && (
+                  !!user?.mangaStories?.data?.length && (
                     <span className={styles.contacts}>
                       <PrimaryButton
                         onClick={sendInvites}
