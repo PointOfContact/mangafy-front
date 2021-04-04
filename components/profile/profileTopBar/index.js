@@ -52,7 +52,7 @@ const ProfileTopBar = (props) => {
   const history = useRouter();
   const sendInvites = () => {
     if (user) {
-      if (user.mangaStories.length) {
+      if (user.mangaStories?.data?.length) {
         changeShowModal(true);
         isShowModal();
       } else {

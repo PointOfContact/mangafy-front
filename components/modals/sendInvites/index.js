@@ -30,7 +30,7 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
   useEffect(() => {
     if (!user) return;
     setOptionsMangaStories(
-      user.mangaStories?.map((item) => ({ key: item._id, value: item.title }))
+      user.mangaStories?.data?.map((item) => ({ key: item._id, value: item.title }))
     );
   }, [user]);
 
@@ -40,14 +40,14 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
 
   useEffect(() => {
     if (story) {
-      const { tasks } = user?.mangaStories?.find((item) => item._id === story);
+      const { tasks } = user?.mangaStories?.data?.find((item) => item._id === story);
       setOptionsTasks(tasks?.map((item) => ({ key: item._id, value: item.description })));
       setTask(tasks?.[0]?._id);
     }
   }, [story, user?.mangaStories]);
 
   const handleSetStory = (id) => {
-    const { tasks } = user.mangaStories.find((item) => item._id === id);
+    const { tasks } = user.mangaStories?.data?.find((item) => item._id === id);
     setOptionsTasks(tasks?.map((item) => ({ key: item._id, value: item.description })));
     setTask(tasks?.[0]?._id);
     form.setFieldsValue({ task: tasks?.[0]?._id });
