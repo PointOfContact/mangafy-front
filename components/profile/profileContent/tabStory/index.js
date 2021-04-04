@@ -4,6 +4,7 @@ import { Select, Input, Row, Col } from 'antd';
 import cn from 'classnames';
 import Card from 'components/card';
 import SvgPurplePencil from 'components/icon/PurplePencil';
+import Imgix from 'components/imgix';
 import AddButton from 'components/ui-elements/add-button';
 import PrimaryButton from 'components/ui-elements/button';
 import { useRouter } from 'next/router';
@@ -201,7 +202,16 @@ const TabStory = (props) => {
                 <Card
                   description="Sorry, but there is nothing <br/> here (("
                   btnText=""
-                  items={[<img key="1" src="/img/profile-apout-me.webp" alt="" />]}
+                  items={[
+                    <Imgix
+                      key="1"
+                      width={123}
+                      height={140}
+                      layout="fixed"
+                      src="https://mangafy.club/img/profile-apout-me.webp"
+                      alt=""
+                    />,
+                  ]}
                   onClick={() => setStoryEditMode(true)}
                 />
               </div>
@@ -213,7 +223,16 @@ const TabStory = (props) => {
                   <Card
                     description="Nothing is filled in and it is <br/> very sad (("
                     btnText=""
-                    items={[<img key="1" src="/img/ProfileNovelType.webp" alt="" />]}
+                    items={[
+                      <Imgix
+                        key="1"
+                        width={134}
+                        height={140}
+                        layout="fixed"
+                        src="https://mangafy.club/img/ProfileNovelType.webp"
+                        alt=""
+                      />,
+                    ]}
                     onClick={() => setStoryEditMode(true)}
                   />
                 </div>
@@ -224,7 +243,16 @@ const TabStory = (props) => {
                 <Card
                   description="There are no projects <br/> here (("
                   btnText=""
-                  items={[<img key="1" src="/img/ProfileProjects.webp" alt="" />]}
+                  items={[
+                    <Imgix
+                      key="1"
+                      width={134}
+                      height={140}
+                      layout="fixed"
+                      src="https://mangafy.club/img/ProfileProjects.webp"
+                      alt=""
+                    />,
+                  ]}
                   onClick={() => routeChange()}
                 />
               </div>
