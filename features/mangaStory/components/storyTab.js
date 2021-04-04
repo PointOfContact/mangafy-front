@@ -70,8 +70,8 @@ const StoryTab = ({ baseData, isOwn, user }) => {
           </a>
         </Link>
         <div className={styles.participents}>
-          {[authorInfo].concat(participentsInfo).map(({ avatar, name, id }) => (
-            <Link className={styles.participentsCont} key={name} href={`/profile/${id}`}>
+          {[authorInfo].concat(participentsInfo).map(({ avatar, name, _id }) => (
+            <Link className={styles.participentsCont} key={name} href={`/profile/${_id}`}>
               <a>
                 <Tooltip placement="topLeft" title={name} arrowPointAtCenter>
                   {avatar ? (
