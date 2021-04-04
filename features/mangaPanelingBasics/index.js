@@ -46,10 +46,10 @@ const MangaPanelingBasics = () => (
           </div>
           <div>
             <p>
-              Hey All, in this tutorial on MangaFY, we'd like to share with you the paneling basics for Manga, 
-              by our very own team member and board consultant, Mina Petrovic. Mina (aka Mistiqarts) is a manga influencer, 
-              author of several books, and the founder of one of the first Manga schools outside of Japan.
-              
+              Hey All, in this tutorial on MangaFY, we'd like to share with you the paneling basics
+              for Manga, by our very own team member and board consultant, Mina Petrovic. Mina (aka
+              Mistiqarts) is a manga influencer, author of several books, and the founder of one of
+              the first Manga schools outside of Japan.
             </p>
           </div>
           <div>
@@ -66,10 +66,10 @@ const MangaPanelingBasics = () => (
               ongoing story.
             </p>
             <p>But, paneling also has many layers to it, which we will address in this tutorial.</p>
-              <br>
+            <br />
             <Imgix width={860} height={1000} src={'https://mangafy.club/img/setovi.jpg'} />
             <Imgix width={860} height={1000} src={'https://mangafy.club/img/lesson_1.jpg'} />
-             <br>
+            <br />
             <strong>CHECK LISTS AND TEMPLATES</strong>
             <p>There are several panel templates you can utilize.</p>
             <Imgix width={860} height={1000} src={'https://mangafy.club/img/Untitled.png'} />
@@ -132,9 +132,7 @@ const MangaPanelingBasics = () => (
               a panel from your upcoming project/story. Have a friend who also dreams of learning
               cool things? loves comics or manga? or has a story he wants to turn into a graphic
               novel? bring him over to MangaFY :).
-              
             </p>
-            <>
             <div className={styles.share}>
               <div className={styles.items}>
                 <ShareButtons
