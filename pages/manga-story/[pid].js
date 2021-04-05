@@ -19,6 +19,9 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
     const res = await client.service('/api/v2/manga-stories').get(context.params.pid);
     let requests = { data: [] };
     let comments = { data: [] };
+    let storyBoard = {};
+    let isParticipent = false;
+    let hasStoryBoardPermision = false;
     if (user) {
       const options = {
         query: {
@@ -40,7 +43,17 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
           mangaStoryId: context.params.pid,
         },
       });
+      isParticipent = user && res.participents.includes(user._id);
+      if (isParticipent) {
+        storyBoard = await client.service('/api/v2/story-boards').find({
+          query: {
+            mangaStoryId: res._id,
+          },
+        });
+        hasStoryBoardPermision = storyBoard?.data[0].permittedUsers.includes(user._id);
+      }
     }
+
     return {
       props: {
         genres: genres.data.map((g) => ({ value: g.name, _id: g._id })),
@@ -51,6 +64,8 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
         pid: context.params.pid,
         comments: comments.data,
         isOwn: user && user._id === res.authorInfo._id,
+        isParticipent,
+        hasStoryBoardPermision,
         originUrl: `https://mangafy.club/manga-story/${context.params.pid}`,
       }, // will be passed to the page component as props
     };

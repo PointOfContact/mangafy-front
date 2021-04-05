@@ -41,7 +41,17 @@ const { TabPane } = Tabs;
 // const { TextArea } = Input;
 
 const MangeStory = (props) => {
-  const { mangaStory, user, requests, isOwn, originUrl, comments, genres } = props;
+  const {
+    mangaStory,
+    user,
+    requests,
+    isOwn,
+    originUrl,
+    comments,
+    genres,
+    isParticipent,
+    hasStoryBoardPermision,
+  } = props;
   const [editMode, setEditMode] = useState(false);
   const [baseData, setBaseData] = useState(mangaStory);
   const [canEdit] = useState(isOwn);
@@ -322,7 +332,12 @@ const MangeStory = (props) => {
                       <p>
                         {!editMode ? (
                           <div>
-                            <StoryTab baseData={baseData} user={user} isOwn={isOwn} />
+                            <StoryTab
+                              baseData={baseData}
+                              user={user}
+                              isOwn={isOwn}
+                              isParticipent={isParticipent}
+                            />
                             {canEdit && (
                               <SvgPencilColored
                                 className={styles.editTitleSvg}
@@ -378,7 +393,7 @@ const MangeStory = (props) => {
                       </p>
                     </div>
                   </TabPane>
-                  {isOwn && (
+                  {(isOwn || hasStoryBoardPermision) && (
                     <TabPane tab="STORY BOARD" key="2" className="story">
                       <StoryBoardTabs
                         mangaStory={mangaStory}
@@ -437,6 +452,8 @@ MangeStory.propTypes = {
   isOwn: PropTypes.bool.isRequired,
   originUrl: PropTypes.string.isRequired,
   comments: PropTypes.array.isRequired,
+  hasStoryBoardPermision: PropTypes.bool.isRequired,
+  isParticipent: PropTypes.bool.isRequired,
 };
 
 MangeStory.defaultProps = {

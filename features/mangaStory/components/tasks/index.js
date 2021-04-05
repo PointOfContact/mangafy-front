@@ -19,7 +19,7 @@ const Amplitude = require('amplitude');
 
 const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 
-const Tasks = ({ baseData, isOwn, user, toTeam }) => {
+const Tasks = ({ baseData, isOwn, user, toTeam, isParticipent }) => {
   const { tasks } = baseData;
   const [taskList, setTasks] = useState(tasks);
   const [showModal, changeShowModal] = useState(false);
@@ -110,13 +110,15 @@ const Tasks = ({ baseData, isOwn, user, toTeam }) => {
               </div>
             ) : (
               <div>
-                <PrimaryButton
-                  className={styles.editBtn}
-                  onClick={() => {
-                    toTeam(task);
-                  }}
-                  text="Contribute"
-                />
+                {!isParticipent && (
+                  <PrimaryButton
+                    className={styles.editBtn}
+                    onClick={() => {
+                      toTeam(task);
+                    }}
+                    text="Contribute"
+                  />
+                )}
               </div>
             )}
           </div>
@@ -161,6 +163,7 @@ Tasks.propTypes = {
   isOwn: PropTypes.bool.isRequired,
   user: PropTypes.object,
   toTeam: PropTypes.func.isRequired,
+  isParticipent: PropTypes.bool.isRequired,
 };
 
 Tasks.defaultProps = {

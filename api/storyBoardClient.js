@@ -7,7 +7,6 @@ const findStoryBoard = (userId, mangaStoryId, onSuccess, onFailure) => {
       .service('/api/v2/story-boards')
       .find({
         query: {
-          authorId: userId,
           mangaStoryId,
         },
         headers: { Authorization: `Bearer ${jwt}` },
