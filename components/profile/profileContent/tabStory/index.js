@@ -165,7 +165,16 @@ const TabStory = (props) => {
                 <Card
                   description="It's time to tell about yourself.</br>  Let's start!"
                   btnText="Tell us about yourself"
-                  items={[<img key="1" src="/img/aboutme.webp" alt="" />]}
+                  items={[
+                    <Imgix
+                      key="1"
+                      width={133}
+                      height={140}
+                      layout="fixed"
+                      src="https://mangafy.club/img/aboutme.webp"
+                      alt=""
+                    />,
+                  ]}
                   onClick={() => setStoryEditMode(true)}
                 />
               </div>
@@ -176,7 +185,16 @@ const TabStory = (props) => {
                 <Card
                   description="Select 3 categories that best </br> describe your art"
                   btnText="Choose 3 categories"
-                  items={[<img key="1" src="/img/NovelType.webp" alt="" />]}
+                  items={[
+                    <Imgix
+                      key="1"
+                      width={187}
+                      height={140}
+                      layout="fixed"
+                      src="https://mangafy.club/img/NovelType.webp"
+                      alt=""
+                    />,
+                  ]}
                   onClick={() => setStoryEditMode(true)}
                 />
               </div>
@@ -187,7 +205,16 @@ const TabStory = (props) => {
                 <Card
                   description="Haven't created a project yet? </br> Let's start!"
                   btnText="Create your first project"
-                  items={[<img key="1" src="/img/Projects.webp" alt="" />]}
+                  items={[
+                    <Imgix
+                      key="1"
+                      width={111}
+                      height={140}
+                      layout="fixed"
+                      src="https://mangafy.club/img/Projects.webp"
+                      alt=""
+                    />,
+                  ]}
                   onClick={() => routeChange()}
                 />
               </div>
@@ -205,7 +232,7 @@ const TabStory = (props) => {
                   items={[
                     <Imgix
                       key="1"
-                      width={123}
+                      width={124}
                       height={140}
                       layout="fixed"
                       src="https://mangafy.club/img/profile-apout-me.webp"
@@ -226,7 +253,7 @@ const TabStory = (props) => {
                     items={[
                       <Imgix
                         key="1"
-                        width={134}
+                        width={143}
                         height={140}
                         layout="fixed"
                         src="https://mangafy.club/img/ProfileNovelType.webp"

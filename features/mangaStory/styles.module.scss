@@ -107,16 +107,23 @@
   }
 }
 
-.banner > img {
+.banner > div > img {
   object-fit: cover;
   // width: 100%;
-  display: flex;
-  margin: 0 auto;
-  height: 100%;
+  display: flex !important;
+  margin: 0 auto !important;
+  height: 100% !important;
+  min-width: initial !important;
+  width: initial !important;
   align-items: center;
 }
-
-.banner div {
+.banner > div {
+  width: 100% !important;
+}
+.Lamp {
+  margin: 0 15px;
+}
+.banner .upload {
   top: 0;
   left: 100px;
   width: 100%;
@@ -124,6 +131,7 @@
   display: flex;
   align-items: center;
   position: absolute;
+  margin-top: 0;
 }
 
 .header {
@@ -419,21 +427,21 @@
     }
   }
 }
-.shareButtons{
+.shareButtons {
   display: flex;
   justify-content: center;
   margin-bottom: 40px;
 }
-.modalTitle{
+.modalTitle {
   text-align: center;
   font-weight: 900;
   font-size: 30px;
   line-height: 35px;
   margin: 0 auto;
 }
-.publishedModal{
+.publishedModal {
   text-align: center;
-  p{
+  p {
     max-width: 580px;
     padding: 0 15px;
     font-weight: 500;

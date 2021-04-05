@@ -1,12 +1,13 @@
 import React from 'react';
 
+import Imgix from 'components/imgix';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
 const MangeStoryCard = ({ mangaStories, client }) =>
-  mangaStories.map((label, index) => (
+  mangaStories?.map((label, index) => (
     <Link key={index} href={`/manga-story/${label._id}`}>
       <a>
         <div className={styles.MangeStoryCard}>
@@ -15,9 +16,16 @@ const MangeStoryCard = ({ mangaStories, client }) =>
             <div className={styles.description}>
               <p>{label.story}</p>
             </div>
-            <img
+            <Imgix
+              width={304}
+              height={172}
+              layout="fixed"
+              src={
+                label.image
+                  ? client.UPLOAD_URL + label.image
+                  : 'https://mangafy.club/img/mangastory.webp'
+              }
               alt="mangafy"
-              src={label.image ? client.UPLOAD_URL + label.image : '/img/mangastory.webp'}
             />
           </div>
         </div>

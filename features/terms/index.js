@@ -2,6 +2,7 @@ import React from 'react';
 
 import Footer from 'components/footer';
 import Header from 'components/header';
+import Imgix from 'components/imgix';
 import ButtonToTop from 'components/ui-elements/button-toTop';
 import Head from 'next/head';
 import PropTypes from 'prop-types';
@@ -36,7 +37,13 @@ const Terms = ({ user }) => (
                 </div>
               </div>
               <div className={styles.image_block}>
-                <img src="/img/about_image.webp"></img>
+                <Imgix
+                  width={240}
+                  height={310}
+                  layout="fixed"
+                  src="https://mangafy.club/img/about_image.webp"
+                  alt=""
+                />
               </div>
             </div>
             <div className={styles.info_section}>

@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { notification } from 'antd';
 import FooterPolicy from 'components/footer-policy';
 import Header from 'components/header';
+import Imgix from 'components/imgix';
 import LoginFooter from 'components/loginFooter';
 import PrimaryInput from 'components/ui-elements/input';
 import LargeButton from 'components/ui-elements/large-button';
@@ -55,7 +56,13 @@ const ForgotPassword = () => {
       <Header />
       <Head></Head>
       <div className={styles.forgot_password_content}>
-        <img src="/img/forgot-password.webp" alt="" />
+        <Imgix
+          width={345}
+          height={284}
+          layout="fixed"
+          src="https://mangafy.club/img/forgot-password.webp"
+          alt=""
+        />
         <h2 className={styles.title}>Forgot your password? Don’t panic!</h2>
         <p className={styles.info}>
           Type the address linked to your account and we&apos;ll send you password reset

@@ -12,14 +12,13 @@ const ProfilesHeader = () => (
     <div className={'container'}>
       <div className={styles.box__wrapper}>
         <div className={styles.box__bgImgCloud}>
-          {/* <Imgix
+          <Imgix
             priority
             width={1190}
             height={608}
             src="https://mangafy.club/img/CollaborationMainScreen__cloud.webp"
             alt=""
-          /> */}
-          <img src="/img/CollaborationMainScreen__cloud.webp" alt="" />
+          />
         </div>
         <div className={cn(styles.box__bgImgs, styles.box__bgImgs_style1)}>
           <div className={styles.box__bgImgs_style1__img1}>

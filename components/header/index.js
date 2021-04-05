@@ -399,7 +399,17 @@ const MenuLinks = ({ isOpen, user }) => {
         <div className={styles.mobile_div_part2}>
           <ul className={styles.links}>{links}</ul>
           <div className={styles.image_block}>
-            {user ? <img src="/img/Frame2.webp"></img> : <img src="/img/Frame.webp"></img>}
+            <Imgix
+              width={257}
+              height={236}
+              layout="fixed"
+              src={
+                user
+                  ? 'https://mangafy.club/img/Frame2.webp'
+                  : 'https://mangafy.club/img/Frame.webp'
+              }
+              alt=""
+            />
           </div>
         </div>
       </div>
