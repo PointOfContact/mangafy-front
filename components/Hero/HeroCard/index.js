@@ -106,13 +106,6 @@ const HeroCard = ({ hero, getStoryBoard, changeHero }) => {
           accept="image/jpg, image/png, image/jpeg "
           beforeUpload={beforeUpload}
           showUploadList={false}>
-          <img
-            src={
-              currentHero.imageUrl
-                ? `${restClient.API_ENDPOINT}/api/v2/uploads/${currentHero.imageUrl}`
-                : src
-            }
-          />
           <Imgix
             width={104}
             height={95}

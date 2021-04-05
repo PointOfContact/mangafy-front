@@ -159,11 +159,52 @@ AllMessages.defaultProps = {
   avatar: '',
 };
 
-export const Chat = ({ user, requests: req, isOwn }) => {
+export const Chat = ({ mangaStory, user, isOwn, collabActiveTab }) => {
   const [conversationId, setConversationId] = useState(null);
   const [showMessage, setShowMessage] = useState(false);
-  const [requests, setRequests] = useState(req);
+  const [requests, setRequests] = useState([]);
   const [av, setAv] = useState('');
+
+  useEffect(() => {
+    if (collabActiveTab === '4') {
+      getRequest();
+    }
+  }, [collabActiveTab]);
+
+  const getRequest = () => {
+    const jwt = client.getCookie('feathers-jwt');
+    const options = {
+      query: {
+        mangaStoryId: mangaStory._id,
+        $limit: 100,
+        $sort: {
+          createdAt: -1,
+        },
+      },
+      headers: { Authorization: `Bearer ${jwt}` },
+    };
+    if (user._id !== mangaStory.authorInfo._id) {
+      options.query.senderId = user._id;
+    }
+    import('api/restClient').then((m) => {
+      m.default
+        .service('/api/v2/join-manga-story-requests')
+        .find(options)
+        .then((res) => {
+          setRequests(res.data);
+        })
+        .catch((err) => {
+          openNotification('error', err.message);
+        });
+    });
+  };
+
+  const openNotification = (type, message) => {
+    notification[type]({
+      message,
+    });
+  };
+
   const showMessages = (e, sender) => {
     if (sender.avatar) {
       setAv(client.UPLOAD_URL + sender.avatar);
@@ -357,6 +398,6 @@ export const Chat = ({ user, requests: req, isOwn }) => {
 Chat.propTypes = {
   mangaStory: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
-  requests: PropTypes.array.isRequired,
   isOwn: PropTypes.bool.isRequired,
+  collabActiveTab: PropTypes.number.isRequired,
 };

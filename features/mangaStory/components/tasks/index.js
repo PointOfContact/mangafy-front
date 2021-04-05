@@ -83,6 +83,15 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipent }) => {
         )}
       </span>
       <div className={styles.items}>
+        {!isParticipent && !taskList.length && (
+          <PrimaryButton
+            className={styles.contributeBtn}
+            onClick={() => {
+              toTeam(null);
+            }}
+            text="Contribute"
+          />
+        )}
         {taskList.map((task) => (
           <div key={task._id} className={styles.taskCont}>
             <div>

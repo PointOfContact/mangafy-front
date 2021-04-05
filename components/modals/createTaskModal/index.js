@@ -31,12 +31,14 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
   );
 
   useEffect(() => {
-    changeLookingFor(task?.lookingFor);
-    changeText(task?.description);
-    form.setFieldsValue({
-      lookingFor: task?.lookingFor || 'Writer',
-      text: task?.description || '',
-    });
+    if (task) {
+      changeLookingFor(task?.lookingFor || 'Writer');
+      changeText(task?.description || '');
+      form.setFieldsValue({
+        lookingFor: task?.lookingFor || 'Writer',
+        text: task?.description || '',
+      });
+    }
   }, [task, form]);
 
   const handleChangeText = (e) => {

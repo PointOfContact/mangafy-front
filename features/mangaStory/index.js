@@ -44,7 +44,6 @@ const MangeStory = (props) => {
   const {
     mangaStory,
     user,
-    requests,
     isOwn,
     originUrl,
     comments,
@@ -60,7 +59,7 @@ const MangeStory = (props) => {
   useEffect(() => {
     const { tab } = qs.parse(location.search);
     switch (tab) {
-      case 'srory':
+      case 'story':
         setcollabActiveTab('1');
         break;
       case 'story-board':
@@ -212,7 +211,7 @@ const MangeStory = (props) => {
   const onGoToPrivate = () => {
     confirm({
       confirmLoading: true,
-      title: 'Switch to private Mode?',
+      title: 'Switch to draft Mode?',
       style: { top: 120 },
       icon: <ExclamationCircleOutlined />,
       content:
@@ -249,7 +248,7 @@ const MangeStory = (props) => {
                             styles.publishText,
                             !baseData.published && styles.published
                           )}>
-                          Private
+                          Draft
                         </p>
                         <span>
                           <Switch checked={baseData.published} onChange={onPublish} />
@@ -416,7 +415,12 @@ const MangeStory = (props) => {
                   {user && (
                     <TabPane tab="INVITES" key="4">
                       <div className={styles.tabWrap}>
-                        <Chat requests={requests} mangaStory={baseData} user={user} isOwn={isOwn} />
+                        <Chat
+                          mangaStory={baseData}
+                          user={user}
+                          isOwn={isOwn}
+                          collabActiveTab={collabActiveTab}
+                        />
                       </div>
                     </TabPane>
                   )}
@@ -448,7 +452,6 @@ MangeStory.propTypes = {
   genres: PropTypes.array.isRequired,
   mangaStory: PropTypes.object.isRequired,
   user: PropTypes.object,
-  requests: PropTypes.array.isRequired,
   isOwn: PropTypes.bool.isRequired,
   originUrl: PropTypes.string.isRequired,
   comments: PropTypes.array.isRequired,
