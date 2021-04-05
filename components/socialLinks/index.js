@@ -9,6 +9,7 @@ import SvgBlackDribbble from 'components/icon/BlackDribbble';
 import SvgBlackFacebook from 'components/icon/BlackFacebook';
 import SvgBlackInstagram from 'components/icon/BlackInstagram';
 import SvgBlackTwitter from 'components/icon/BlackTwitter';
+import Imgix from 'components/imgix';
 import AddButton from 'components/ui-elements/add-button';
 import PrimaryInput from 'components/ui-elements/input';
 import SocialButton from 'components/ui-elements/social-button';
@@ -259,7 +260,16 @@ const SocialLinks = (props) => {
                   <Card
                     description="Do you not want <br/> to add a social?"
                     btnText=""
-                    items={[<img key="1" src="/img/noSocial.webp" alt="" />]}
+                    items={[
+                      <Imgix
+                        key="1"
+                        width={164}
+                        height={140}
+                        layout="fixed"
+                        src="https://mangafy.club/img/noSocial.webp"
+                        alt=""
+                      />,
+                    ]}
                   />
                 </div>
               ) : (
@@ -267,7 +277,16 @@ const SocialLinks = (props) => {
                   <Card
                     description="Sorry, but there is nothing <br/> here (("
                     btnText=""
-                    items={[<img key="1" src="/img/noSocial.webp" alt="" />]}
+                    items={[
+                      <Imgix
+                        key="1"
+                        width={164}
+                        height={140}
+                        layout="fixed"
+                        src="https://mangafy.club/img/noSocial.webp"
+                        alt=""
+                      />,
+                    ]}
                   />
                 </div>
               )}

@@ -2,6 +2,7 @@ import React from 'react';
 
 import Footer from 'components/footer';
 import Header from 'components/header';
+import Imgix from 'components/imgix';
 import LargeButton from 'components/ui-elements/large-button';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -18,7 +19,13 @@ const Error = () => (
       <Header path="comming-soon" />
       <div className={styles.error_page}>
         <div className={styles.page_inner}>
-          <img src="/img/error.webp"></img>
+          <Imgix
+            width={340}
+            height={295}
+            layout="fixed"
+            src="https://mangafy.club/img/error.webp"
+            alt=""
+          />
           <div className={styles.error_title}>404</div>
           <div className={styles.page_title}>Ooops, we lost this page</div>
           <div className={styles.page_description}>

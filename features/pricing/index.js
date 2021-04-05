@@ -5,6 +5,7 @@ import Footer from 'components/footer';
 import Header from 'components/header';
 import BlackVector from 'components/icon/BlackVector';
 import WhiteVector from 'components/icon/WhiteVector';
+import Imgix from 'components/imgix';
 import LargeButton from 'components/ui-elements/large-button';
 import Head from 'next/head';
 import PropTypes from 'prop-types';
@@ -98,7 +99,13 @@ const Pricing = (props) => {
               <div className={styles.individual_tools}>
                 <div className={styles.section_title}>For Individuals</div>
                 <div className={styles.tool_item}>
-                  <img src="/img/tools_image1.webp"></img>
+                  <Imgix
+                    width={136}
+                    height={157}
+                    layout="fixed"
+                    src="https://mangafy.club/img/tools_image1.webp"
+                    alt=""
+                  />
                   <div className={styles.item_category}>Personal</div>
                   <div className={styles.item_price}>$0</div>
                   <LargeButton
@@ -133,7 +140,13 @@ const Pricing = (props) => {
                   </ul>
                 </div>
                 <div className={styles.tool_item}>
-                  <img src="/img/tools_image2.webp"></img>
+                  <Imgix
+                    width={136}
+                    height={160}
+                    layout="fixed"
+                    src="https://mangafy.club/img/tools_image2.webp"
+                    alt=""
+                  />
                   <div className={styles.item_category}>Personal Pro</div>
                   <div className={styles.item_price}>
                     $
@@ -261,7 +274,13 @@ const Pricing = (props) => {
               <div className={styles.team_tools}>
                 <div className={styles.section_title}>For Big Teams</div>
                 <div className={styles.tool_item}>
-                  <img className={styles.pricing_image} src="/img/tools_image3.webp"></img>
+                  <Imgix
+                    width={160}
+                    height={160}
+                    layout="fixed"
+                    src="https://mangafy.club/img/tools_image3.webp"
+                    alt=""
+                  />
                   <div className={styles.item_category}>Plus Plus</div>
                   <div className={styles.item_price}>
                     $

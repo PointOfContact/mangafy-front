@@ -230,7 +230,7 @@ export const Gallery = (props) => {
                       items={[
                         <Imgix
                           key="1"
-                          width={134}
+                          width={124}
                           height={140}
                           layout="fixed"
                           src="https://mangafy.club/img/noGalere.webp"
@@ -246,7 +246,7 @@ export const Gallery = (props) => {
                     items={[
                       <Imgix
                         key="1"
-                        width={134}
+                        width={124}
                         height={140}
                         layout="fixed"
                         src="https://mangafy.club/img/noGalere.webp"

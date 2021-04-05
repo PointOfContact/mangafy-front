@@ -1,19 +1,22 @@
 import React, { useState } from 'react';
 
+import { Modal } from 'antd';
 import AuthForm from 'components/authForm';
 import FooterPolicy from 'components/footer-policy';
 import Header from 'components/header';
 import LoginFooter from 'components/loginFooter';
 import ButtonToTop from 'components/ui-elements/button-toTop';
+import LargeButton from 'components/ui-elements/large-button';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { userTypes } from 'helpers/constant';
 import Head from 'next/head';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import { register } from 'store';
 
 import styles from './styles.module.scss';
 
+const { info } = Modal;
 const Amplitude = require('amplitude');
 
 const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
@@ -43,6 +46,12 @@ const Register = ({ user }) => {
         [e.target.name]: e.target.value,
       });
     }
+  };
+
+  const history = useRouter();
+  const routeChange = () => {
+    const path = `/create-a-story/start`;
+    history.push(path);
   };
 
   const handleRegisterSubmit = (e) => {
@@ -75,6 +84,24 @@ const Register = ({ user }) => {
         ];
         amplitude.track(data);
         Router.push(`/my-profile`);
+        info({
+          className: 'MangaFY',
+          title: <h3 className={styles.modalTitle}>Welcome to MangaFY</h3>,
+          icon: '',
+          width: '100%',
+          okText: <LargeButton onClick={() => routeChange()} text="Create Your First Story" />,
+          style: { top: 120, maxWidth: '1000px' },
+          content: (
+            <div className={styles.publishedModal}>
+              <p>
+                Whether you have a story to tell or a cool illustration, our platform is here to
+                ensure you take your ideas forward. Share your stories and build the graphic novel
+                you always dreamt about (plus, our awesome community to interact with)
+              </p>
+            </div>
+          ),
+          onOk() {},
+        });
       })
       .catch((error) => {
         setLoading(false);

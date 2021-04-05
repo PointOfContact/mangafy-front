@@ -1473,3 +1473,39 @@ img.rot4 {
     margin-bottom: 10px;
   }
 }
+
+.MangaFY {
+  .ant-modal-confirm-btns{
+    width: 100%;
+    text-align: center;
+    margin-bottom: 45px;
+  }
+  .ant-btn-primary {
+    border: none !important;
+    background: inherit !important;
+    outline: none !important;
+    box-shadow: none !important;
+    &:hover {
+      border: none !important;
+      background: inherit !important;
+      outline: none !important;
+      box-shadow: none !important;
+    }
+    &:focus {
+      border: none !important;
+      background: inherit !important;
+      outline: none !important;
+      box-shadow: none !important;
+    }
+    button {
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 241.98px;
+      height: 56px;
+      font-weight: 500;
+      font-size: 20px;
+    }
+  }
+}

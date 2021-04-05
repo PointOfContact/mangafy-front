@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
 
 import client from 'api/client';
+import Imgix from 'components/imgix';
 import MenuMailNotification from 'components/menu-mail-notifications';
 import MenuNotificationsItem from 'components/menu-notifications-item/';
 import PropTypes from 'prop-types';
@@ -156,7 +157,13 @@ const MenuNotificationsBox = ({ user, unreadNotificationsId, notificationsCount 
             ))
           ) : (
             <div className={styles.noNot}>
-              <img src="/img/ProfileNovelType.webp" width="89px" />
+              <Imgix
+                width={257}
+                height={236}
+                layout="fixed"
+                src={'https://mangafy.club/img/img/ProfileNovelType.webp'}
+                alt=""
+              />
               <h4>No unread notifications</h4>
               <p>
                 Click <span onClick={setAllReadNot}>Show all</span> to view all notifications

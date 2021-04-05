@@ -8,6 +8,7 @@ import SvgLang from 'components/icon/Lang';
 import SvgMone from 'components/icon/Mone';
 import SvgPencilColored from 'components/icon/PencilColored';
 import SvgTie from 'components/icon/Tie';
+import Imgix from 'components/imgix';
 import { ShareButtons } from 'components/share';
 import ButtonToggle from 'components/ui-elements/button-toggle';
 import PrimarySelect from 'components/ui-elements/select';
@@ -154,17 +155,42 @@ const BannerSection = ({
         {canEdit ? (
           <Upload className={styles.upload} beforeUpload={beforeUpload} fileList={[]}>
             <div className={styles.banner}>
-              <img
-                src={!baseData.image ? '/img/banner.webp' : client.UPLOAD_URL + baseData.image}
+              <Imgix
+                className={styles.bannerCover}
+                width={944}
+                height={150}
+                layout="fixed"
+                src={
+                  !baseData.image
+                    ? 'https://mangafy.club/img/banner.webp'
+                    : client.UPLOAD_URL + baseData.image
+                }
+                alt=""
               />
               <div className={styles.upload}>
-                <img src="/img/upload.webp" />
+                <Imgix
+                  width={335}
+                  height={83}
+                  layout="fixed"
+                  src={'https://mangafy.club/img/upload.webp'}
+                  alt=""
+                />
               </div>
             </div>
           </Upload>
         ) : (
           <div className={styles.banner}>
-            <img src={!baseData.image ? '/img/banner.webp' : client.UPLOAD_URL + baseData.image} />
+            <Imgix
+              width={944}
+              height={150}
+              layout="fixed"
+              src={
+                !baseData.image
+                  ? 'https://mangafy.club/img/banner.webp'
+                  : client.UPLOAD_URL + baseData.image
+              }
+              alt=""
+            />
           </div>
         )}
         <div className="row">
@@ -227,7 +253,13 @@ const BannerSection = ({
             <p>Your graphic novel in progress</p>
             <div className={styles.Lamp}>
               <div>
-                <img src="/img/Group.webp" />
+                <Imgix
+                  width={20}
+                  height={29}
+                  layout="fixed"
+                  src={'https://mangafy.club/img/Group.webp'}
+                  alt=""
+                />
               </div>
             </div>
             <div className={styles.progressWrap}>
@@ -235,7 +267,13 @@ const BannerSection = ({
             </div>
             <div className={styles.Lamp}>
               <div>
-                <img src="/img/notebook1.webp" />
+                <Imgix
+                  width={30}
+                  height={30}
+                  layout="fixed"
+                  src={'https://mangafy.club/img/notebook1.webp'}
+                  alt=""
+                />
               </div>
             </div>
           </div>

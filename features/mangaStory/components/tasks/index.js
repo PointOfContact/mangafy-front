@@ -6,6 +6,7 @@ import cn from 'classnames';
 import ButtonColab from 'components/colaborationCard/buttonColab';
 import SvgDustbin from 'components/icon/Dustbin';
 import SvgPencilColored from 'components/icon/PencilColored';
+import Imgix from 'components/imgix';
 import Modal from 'components/modals/createTaskModal';
 import AddButton from 'components/ui-elements/add-button';
 import PrimaryButton from 'components/ui-elements/button';
@@ -123,7 +124,13 @@ const Tasks = ({ baseData, isOwn, user, toTeam }) => {
       </div>
       <div>
         <div className={styles.addBtn}>
-          <img src="/img/storyCardImg.webp" alt="" />
+          <Imgix
+            width={200}
+            height={211}
+            layout="fixed"
+            src="https://mangafy.club/img/storyCardImg.webp"
+            alt=""
+          />
           {isOwn && (
             <PrimaryButton
               onClick={() => {

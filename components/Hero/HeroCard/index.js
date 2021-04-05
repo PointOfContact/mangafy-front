@@ -7,6 +7,7 @@ import restClient from 'api/restClient';
 import { createHero, patchHero, deleteHero, uploadFile } from 'api/storyBoardClient';
 import SvgCloud from 'components/icon/Cloud';
 import SvgDustbin from 'components/icon/Dustbin';
+import Imgix from 'components/imgix';
 import Popconfirm from 'components/popconfirm';
 import PropTypes from 'prop-types';
 
@@ -15,7 +16,7 @@ import styles from './styles.module.scss';
 
 // Components
 
-const src = '/img/profile6.png';
+const src = '/img/profile6.webp';
 
 const HeroCard = ({ hero, getStoryBoard, changeHero }) => {
   const [currentHero, setCurrentHero] = useState(hero);
@@ -110,6 +111,16 @@ const HeroCard = ({ hero, getStoryBoard, changeHero }) => {
               currentHero.imageUrl
                 ? `${restClient.API_ENDPOINT}/api/v2/uploads/${currentHero.imageUrl}`
                 : src
+            }
+          />
+          <Imgix
+            width={104}
+            height={95}
+            layout="fixed"
+            src={
+              currentHero.imageUrl
+                ? `${restClient.API_ENDPOINT}/api/v2/uploads/${currentHero.imageUrl}`
+                : `https://mangafy.club${src}`
             }
           />
           <span className={styles.uploadSvg}>
