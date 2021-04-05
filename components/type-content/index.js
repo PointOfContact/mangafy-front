@@ -1,15 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import cn from 'classnames';
 import { DISCUSSIONS } from 'helpers/constant';
+import PropTypes from 'prop-types';
 
 import DiscussionCard from './discussionCard';
 import DiscussionLeftBar from './discussionLeftBar';
 import DiscussionRightBar from './discussionRightBar';
 import styles from './styles.module.scss';
 
-export default function TypePage() {
+export default function TypePage({ user, posts, dailyWarmUps, members, collaborations }) {
   const [discussions, setDiscussions] = useState(DISCUSSIONS);
+
+  useEffect(() => {
+    setDiscussions(posts);
+  }, [posts]);
+
   return (
     <>
       <div className={styles.type_main}>
@@ -22,23 +28,42 @@ export default function TypePage() {
 
               {discussions.map((discussion) => (
                 <DiscussionCard
-                  key={discussion.id}
-                  logo={discussion.logo}
+                  key={discussion._id}
+                  id={discussion._id}
+                  logo={discussion.logoUrl}
                   title={discussion.title}
-                  category={discussion.category}
                   type={discussion.type}
-                  img={discussion.img}
-                  description={discussion.description}
+                  categories={discussion.categories}
+                  img={discussion.imageUrl}
+                  description={discussion.title}
+                  url={discussion.button?.navigateTo}
+                  btnText={discussion.button?.title}
                 />
               ))}
 
               <button className={styles.projectsForYou_ShowMore}> Show More </button>
             </div>
-            <DiscussionRightBar />
-            <DiscussionLeftBar />
+            <DiscussionRightBar dailyWarmUps={dailyWarmUps} />
+            <DiscussionLeftBar members={members} collaborations={collaborations} />
           </div>
         </div>
       </div>
     </>
   );
 }
+
+TypePage.propTypes = {
+  user: PropTypes.object,
+  posts: PropTypes.array,
+  dailyWarmUps: PropTypes.array,
+  members: PropTypes.array,
+  collaborations: PropTypes.array,
+};
+
+TypePage.defaultProps = {
+  user: null,
+  posts: [],
+  dailyWarmUps: [],
+  members: [],
+  collaborations: [],
+};

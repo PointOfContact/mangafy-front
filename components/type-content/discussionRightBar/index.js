@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { CREATIVE_EXERCISES } from 'helpers/constant';
+import PropTypes from 'prop-types';
 
 import ExerciseCard from './exerciseCard';
 import styles from './styles.module.scss';
 
-const DiscussionRightBar = (props) => {
-  const {} = props;
-  const [exercises, setExercises] = useState(CREATIVE_EXERCISES);
+const DiscussionRightBar = ({ dailyWarmUps }) => {
+  const [exercises, setExercises] = useState([]);
+
+  useEffect(() => {
+    setExercises(dailyWarmUps);
+  }, [dailyWarmUps]);
 
   return (
     <>
@@ -22,10 +25,12 @@ const DiscussionRightBar = (props) => {
         <div className={styles.cards}>
           {exercises.map((exercise) => (
             <ExerciseCard
-              key={exercise.id}
-              count={exercise.count}
-              type={exercise.type}
-              description={exercise.description}
+              key={exercise._id}
+              order={exercise.order}
+              categories={exercise.categories}
+              title={exercise.title}
+              url={exercise.button.navigateTo}
+              btnText={exercise.button.title}
             />
           ))}
         </div>
@@ -35,8 +40,8 @@ const DiscussionRightBar = (props) => {
   );
 };
 
-DiscussionRightBar.propTypes = {};
+DiscussionRightBar.propTypes = { dailyWarmUps: PropTypes.array };
 
-DiscussionRightBar.defaultProps = {};
+DiscussionRightBar.defaultProps = { dailyWarmUps: [] };
 
 export default DiscussionRightBar;

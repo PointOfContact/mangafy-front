@@ -1,15 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { COMMUNITY_SPOTLIGHTS, HAPPENINGS } from 'helpers/constant';
+import PropTypes from 'prop-types';
 
 import CommunitySpotlightsCard from './communitySpotlightsCard';
 import HeppeningCard from './heppeningCard';
 import styles from './styles.module.scss';
 
 const DiscussionLeftBar = (props) => {
-  const {} = props;
+  const { members, collaborations } = props;
   const [heppenings, setHeppenings] = useState(HAPPENINGS);
   const [communitySpotlights, setCommunitySpotlights] = useState(COMMUNITY_SPOTLIGHTS);
+
+  useEffect(() => {
+    setHeppenings(collaborations);
+  }, [collaborations]);
+
+  useEffect(() => {
+    setCommunitySpotlights(members);
+  }, [members]);
 
   return (
     <>
@@ -22,8 +31,9 @@ const DiscussionLeftBar = (props) => {
             <ul className={styles.tagsList}>
               {heppenings.map((heppening) => (
                 <HeppeningCard
-                  key={heppening.id}
-                  img={heppening.img}
+                  key={heppening._id}
+                  id={heppening._id}
+                  img={heppening.image}
                   title={heppening.title}
                   like={heppening.like}
                 />
@@ -31,12 +41,12 @@ const DiscussionLeftBar = (props) => {
             </ul>
             <div className={styles.tagsButtons}>
               <button className={styles.tagsPrev}>
-                <span className={styles.tagsPrevArr}></span>
+                <span className={styles.prevArr}>❮</span>
                 Prev
               </button>
               <button className={styles.tagsNext}>
                 Next
-                <span className={styles.tagsPrevArr}></span>
+                <span className={styles.prevArr}>❯</span>
               </button>
             </div>
           </div>
@@ -46,9 +56,10 @@ const DiscussionLeftBar = (props) => {
             <ul className={styles.spotlightList}>
               {communitySpotlights.map((community) => (
                 <CommunitySpotlightsCard
-                  key={community.id}
-                  img={community.img}
-                  title={community.title}
+                  key={community._id}
+                  id={community._id}
+                  img={community.avatar}
+                  title={community.name}
                   like={community.like}
                 />
               ))}
@@ -60,8 +71,14 @@ const DiscussionLeftBar = (props) => {
   );
 };
 
-DiscussionLeftBar.propTypes = {};
+DiscussionLeftBar.propTypes = {
+  members: PropTypes.array,
+  collaborations: PropTypes.array,
+};
 
-DiscussionLeftBar.defaultProps = {};
+DiscussionLeftBar.defaultProps = {
+  members: [],
+  collaborations: [],
+};
 
 export default DiscussionLeftBar;

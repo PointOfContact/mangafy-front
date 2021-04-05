@@ -36,6 +36,7 @@
     }
   }
   &_Descr {
+    width: 100%;
     display: flex;
     flex-direction: column;
   }
@@ -58,6 +59,7 @@
       display: flex;
       align-items: center;
       margin-bottom: 0;
+      overflow: hidden;
       &_Item {
         display: flex;
         align-items: center;
@@ -96,11 +98,26 @@
     background-size: cover;
     background-position: 50%;
     border-radius: 4px;
-    overflow: hidden;
     margin-bottom: 15px;
+    position: relative;
+    span{
+      position: absolute;
+      bottom: -10px;
+      left:25px;
+      padding: 0px 15px;
+      border-radius: 25px;
+      background: $primaryLight;
+      color: $text_white;
+    }
   }
   &_BotDescr {
     font-size: 17px;
     font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    button{
+      font-size: 13px;
+      padding: 3px 15px;
+    }
   }
 }

@@ -1,35 +1,61 @@
 import React from 'react';
 
+import client from 'api/client';
+import PrimaryButton from 'components/ui-elements/button';
+import Link from 'next/link';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
 const DiscussionCard = (props) => {
-  const { logo, title, category, type, img, description } = props;
+  const { logo, title, category, categories, img, description, url, btnText } = props;
   return (
     <>
       <div className={styles.projectsForYou_Card}>
         <div className={styles.projectsForYou_Top}>
           <div
             className={styles.projectsForYou_Logo}
-            style={{ backgroundImage: `url(${logo})` }}></div>
+            style={{
+              backgroundImage: `url(${logo ? client.UPLOAD_URL + logo : '/img/mangastory.jpg'})`,
+            }}></div>
           <div className={styles.projectsForYou_Descr}>
             <div className={styles.projectsForYou_Name}>{title}</div>
             <div className={styles.projectsForYou_Category}>
               <div className={styles.projectsForYou_Category_Name}>{category}</div>
               <ul className={styles.projectsForYou_Category_List}>
-                <li className={styles.projectsForYou_Category_List_Item}>
-                  <div className={styles.projectsForYou_Category_List_Circle}></div>
-                  <div className={styles.projectsForYou_Category_List_Text}>{type}</div>
-                </li>
+                {categories?.map((categorie) => (
+                  <li key={categorie} className={styles.projectsForYou_Category_List_Item}>
+                    <div className={styles.projectsForYou_Category_List_Circle}></div>
+                    <div className={styles.projectsForYou_Category_List_Text}>{categorie}</div>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
         </div>
-        <div
-          className={styles.projectsForYou_MainImg}
-          style={{ backgroundImage: `url(${img})` }}></div>
-        <div className={styles.projectsForYou_BotDescr}>{description}</div>
+        <Link href={url || '/'}>
+          <a>
+            <div
+              className={styles.projectsForYou_MainImg}
+              style={{
+                backgroundImage: `url(${img ? client.UPLOAD_URL + img : '/img/mangastory.jpg'})`,
+              }}>
+              <span>{categories && categories[0]}</span>
+            </div>
+          </a>
+        </Link>
+
+        <div className={styles.projectsForYou_BotDescr}>
+          <span>{description}</span>
+          <Link href={url || '/'}>
+            <a>
+              <PrimaryButton
+                text={btnText}
+                suffix={<span style={{ marginLeft: '15px' }}>❯</span>}
+              />
+            </a>
+          </Link>
+        </div>
       </div>
     </>
   );
@@ -40,8 +66,10 @@ DiscussionCard.propTypes = {
   title: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
   img: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
+  categories: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
+  btnText: PropTypes.string.isRequired,
 };
 
 DiscussionCard.defaultProps = {};

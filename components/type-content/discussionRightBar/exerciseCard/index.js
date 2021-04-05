@@ -1,33 +1,42 @@
 import React from 'react';
 
+import Link from 'next/link';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
 const ExerciseCard = (props) => {
-  const { count, type, description } = props;
-
+  const { order, categories, title, url, btnText } = props;
   return (
     <>
       <div className={styles.card}>
         <div className={styles.cardTop}>
-          <div className={styles.cardNumberCount}>{count}</div>
-          <div className={styles.cardTheme}>
-            <div className={styles.cardThemeDot}></div>
-            {type}
-          </div>
+          <div className={styles.cardNumberCount}>{order}</div>
+          {categories.map((categorie) => (
+            <div key={categorie} className={styles.cardTheme}>
+              <div className={styles.cardThemeDot}></div>
+              {categorie}
+            </div>
+          ))}
         </div>
-        <div className={styles.cardDescr}>{description}</div>
-        <a className={styles.cardButton}>Snap a Photo</a>
+        <div className={styles.cardDescr}>{title}</div>
+        <Link href={url}>
+          <a className={styles.cardButton}>
+            {btnText}
+            <span>❯</span>
+          </a>
+        </Link>
       </div>
     </>
   );
 };
 
 ExerciseCard.propTypes = {
-  count: PropTypes.number.isRequired,
-  type: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
+  order: PropTypes.number.isRequired,
+  categories: PropTypes.array.isRequired,
+  title: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
+  btnText: PropTypes.string.isRequired,
 };
 
 ExerciseCard.defaultProps = {};
