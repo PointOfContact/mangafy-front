@@ -1,32 +1,41 @@
 import React, { useState, useEffect } from 'react';
 
-import { Button, Comment, List, Form, Input, Avatar } from 'antd';
+import { Button, Comment, List, Form, Input } from 'antd';
 import client from 'api/client';
+import Imgix from 'components/imgix';
+import Avatar from 'components/ui-elements/avatar';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import moment from 'moment';
+import PropTypes from 'prop-types';
 
+const Amplitude = require('amplitude');
+
+const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 const { TextArea } = Input;
 
 const CommentList = ({ comments }) => (
   <List
     dataSource={comments}
     itemLayout="horizontal"
-    renderItem={(props) => (
+    renderItem={(commentItem) => (
       <Comment
-        datetime={props.createdAt}
-        {...props}
-        author={props.senderInfo[0] && props.senderInfo[0].name}
+        datetime={commentItem.createdAt}
+        {...commentItem}
+        author={commentItem.senderInfo[0] && commentItem.senderInfo[0].name}
         avatar={
-          <Avatar
-            src={
-              // eslint-disable-next-line no-nested-ternary
-              props.senderInfo[0]
-                ? props.senderInfo[0].avatar
-                  ? client.UPLOAD_URL + props.senderInfo[0].avatar
-                  : `https://ui-avatars.com/api/?background=9A87FE&name=${props?.senderInfo[0]?.name}&rounded=true&color=ffffff`
-                : undefined
-            }
-            alt={props.senderInfo?.name}
-          />
+          commentItem.senderInfo[0] && (
+            <>
+              {commentItem.senderInfo[0].avatar ? (
+                <Imgix
+                  width={40}
+                  height={40}
+                  src={client.UPLOAD_URL + commentItem.senderInfo[0].avatar}
+                />
+              ) : (
+                <Avatar text={commentItem?.senderInfo[0]?.name} size={40} />
+              )}
+            </>
+          )
         }
       />
     )}
@@ -51,7 +60,21 @@ const Editor = ({ onChange, onSubmit, submitting, value }) => (
   </>
 );
 
-export const Comments = ({ commentsData = [], mangaStory = false, user = null, isOwn = false }) => {
+Editor.propTypes = {
+  onChange: PropTypes.func,
+  onSubmit: PropTypes.func,
+  value: PropTypes.any,
+  submitting: PropTypes.bool,
+};
+
+Editor.defaultProps = {
+  onChange: () => {},
+  onSubmit: () => {},
+  value: null,
+  submitting: null,
+};
+
+export const Comments = ({ commentsData, mangaStory, user, isOwn }) => {
   const [comments, setComments] = useState(commentsData);
   const [submitting, setSubmitting] = useState(false);
   const [value, setValue] = useState('');
@@ -89,6 +112,18 @@ export const Comments = ({ commentsData = [], mangaStory = false, user = null, i
           setComments(commentsData);
           setSubmitting(false);
           setValue('');
+          const eventData = [
+            {
+              platform: 'WEB',
+              event_type: EVENTS.MINI_JOB_REMOVED,
+              event_properties: { mangaStoryId: mangaStory._id },
+              user_id: user._id,
+              user_properties: {
+                ...user,
+              },
+            },
+          ];
+          amplitude.track(eventData);
         })
         .catch((err) => {
           setErrMessage(err.message);
@@ -110,17 +145,15 @@ export const Comments = ({ commentsData = [], mangaStory = false, user = null, i
         className={'manga-story-comments'}
         author={user && user.name}
         avatar={
-          <Avatar
-            src={
-              // eslint-disable-next-line no-nested-ternary
-              user
-                ? user.avatar
-                  ? client.UPLOAD_URL + user.avatar
-                  : `https://ui-avatars.com/api/?background=9A87FE&name=${user.name}&rounded=true&color=ffffff`
-                : undefined
-            }
-            alt={user && user.name}
-          />
+          user && (
+            <>
+              {user.avatar ? (
+                <Imgix width={52} height={52} src={client.UPLOAD_URL + user.avatar} />
+              ) : (
+                <Avatar text={user.name} size={52} />
+              )}
+            </>
+          )
         }
         content={
           user ? (
@@ -138,4 +171,18 @@ export const Comments = ({ commentsData = [], mangaStory = false, user = null, i
       {errMessage && <p>{errMessage}</p>}
     </>
   );
+};
+
+Comments.propTypes = {
+  commentsData: PropTypes.array,
+  mangaStory: PropTypes.object,
+  user: PropTypes.object,
+  isOwn: PropTypes.bool,
+};
+
+Comments.defaultProps = {
+  commentsData: [],
+  mangaStory: null,
+  user: null,
+  isOwn: false,
 };

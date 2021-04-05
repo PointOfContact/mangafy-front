@@ -3,13 +3,21 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Input, notification, Popconfirm } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
+import Imgix from 'components/imgix';
+import Avatar from 'components/ui-elements/avatar';
 import PrimaryButton from 'components/ui-elements/button';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import { MessageList } from 'react-chat-elements';
 
 import { patchRequest } from '../../api/joinMangaStoryRequestClient';
 import styles from './styles.module.scss';
+import 'react-chat-elements/dist/main.css';
+
+const Amplitude = require('amplitude');
+
+const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 
 const onAccept = (event, id, status) => {
   event.stopPropagation();
@@ -38,7 +46,6 @@ const AllMessages = ({ conversationId, user, avatar }) => {
   };
 
   const handleChange = (e) => {
-    console.log(e.target.value);
     setValue(e.target.value);
   };
 
@@ -183,6 +190,21 @@ export const Chat = ({ user, requests: req, isOwn }) => {
         return item;
       });
       setRequests(newRequest);
+
+      const event_type = status === 'accepted' ? EVENTS.INVITE_ACCEPTED : EVENTS.INVITE_REJECTED;
+
+      const eventData = [
+        {
+          platform: 'WEB',
+          event_type,
+          event_properties: { inviteRequestId: id },
+          user_id: user._id,
+          user_properties: {
+            ...user,
+          },
+        },
+      ];
+      amplitude.track(eventData);
     });
   };
 
@@ -204,15 +226,22 @@ export const Chat = ({ user, requests: req, isOwn }) => {
                       <div className={cn(styles.message_community, 'row')}>
                         <div className={styles.mess_content}>
                           <div className={cn(styles.title_block)}>
-                            <img
-                              className="avatar"
-                              src={
-                                r.senderInfo.avatar
-                                  ? client.UPLOAD_URL + r.senderInfo.avatar
-                                  : `https://ui-avatars.com/api/?background=9A87FE&name=${r.senderInfo.name}&rounded=true&color=ffffff`
-                              }
-                              alt=""
-                            />
+                            <div className={styles.avatar}>
+                              {r.senderInfo.avatar ? (
+                                <Imgix
+                                  className="avatar"
+                                  width={104}
+                                  height={104}
+                                  src={client.UPLOAD_URL + r.senderInfo.avatar}
+                                />
+                              ) : (
+                                <Avatar
+                                  text={r.senderInfo.name}
+                                  className={styles.avatarName}
+                                  fontSize={50}
+                                />
+                              )}
+                            </div>
                             <div className={styles.name_special}>
                               <div>
                                 <h4>{r.senderInfo && r.senderInfo.name}</h4>
@@ -228,7 +257,7 @@ export const Chat = ({ user, requests: req, isOwn }) => {
                           <div className={cn(styles.div_button, 'buttonsProfile_styles')}>
                             <Popconfirm
                               placement="top"
-                              title="Are you sure to delete this task?"
+                              title="Are you sure to reject the invite?"
                               onClick={(event) => event.stopPropagation()}
                               onConfirm={(event) => {
                                 setRecvestStatus(event, r._id, 'rejected');
@@ -244,7 +273,7 @@ export const Chat = ({ user, requests: req, isOwn }) => {
                             </Popconfirm>
                             <Popconfirm
                               placement="top"
-                              title="Are you sure to delete this task?"
+                              title="Are you sure to accept the invite?"
                               onConfirm={(event) => {
                                 setRecvestStatus(event, r._id, 'accepted');
                               }}
@@ -279,15 +308,22 @@ export const Chat = ({ user, requests: req, isOwn }) => {
                       <div className={cn(styles.message_community, styles.accepted_message, 'row')}>
                         <div className={styles.mess_content}>
                           <div className={cn(styles.title_block)}>
-                            <img
-                              className="avatar"
-                              src={
-                                r.senderInfo.avatar
-                                  ? client.UPLOAD_URL + r.senderInfo.avatar
-                                  : `https://ui-avatars.com/api/?background=9A87FE&name=${r.senderInfo.name}&rounded=true&color=ffffff`
-                              }
-                              alt=""
-                            />
+                            <div className={styles.avatar}>
+                              {r.senderInfo.avatar ? (
+                                <Imgix
+                                  className="avatar"
+                                  width={104}
+                                  height={104}
+                                  src={client.UPLOAD_URL + r.senderInfo.avatar}
+                                />
+                              ) : (
+                                <Avatar
+                                  text={r.senderInfo.name}
+                                  className={styles.avatarName}
+                                  fontSize={50}
+                                />
+                              )}
+                            </div>
                             <div className={styles.name_special}>
                               <div>
                                 <h4>{r.senderInfo && r.senderInfo.name}</h4>
@@ -299,27 +335,6 @@ export const Chat = ({ user, requests: req, isOwn }) => {
                             </div>
                           </div>
                         </div>
-                        {isOwn && (
-                          <div className={cn(styles.div_button, 'buttonsProfile_styles')}>
-                            <span></span>
-                            <Popconfirm
-                              placement="top"
-                              title="Are you sure to delete this task?"
-                              onClick={(event) => event.stopPropagation()}
-                              onConfirm={(event) => {
-                                setRecvestStatus(event, r._id, 'rejected');
-                              }}
-                              okText="Yes"
-                              cancelText="No">
-                              <PrimaryButton
-                                className="buttonsProfile_cancel"
-                                text="Cancel"
-                                isDark
-                                isRound
-                              />
-                            </Popconfirm>
-                          </div>
-                        )}
                       </div>
                     </div>
                   )

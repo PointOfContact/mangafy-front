@@ -2,6 +2,7 @@ import React from 'react';
 
 import Footer from 'components/footer';
 import Header from 'components/header';
+import Imgix from 'components/imgix';
 import ButtonToTop from 'components/ui-elements/button-toTop';
 import Head from 'next/head';
 import PropTypes from 'prop-types';
@@ -34,7 +35,13 @@ const Privacy = (props) => {
                   <div className={styles.page_title}>Privacy Policy</div>
                 </div>
                 <div className={styles.image_block}>
-                  <img src="/img/privacy_image.png"></img>
+                  <Imgix
+                    width={240}
+                    height={302}
+                    layout="fixed"
+                    src="https://mangafy.club/img/privacy_image.webp"
+                    alt=""
+                  />
                 </div>
               </div>
               <div className="col-12 col-lg-10 offset-lg-1">

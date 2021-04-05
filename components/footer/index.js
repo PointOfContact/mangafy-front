@@ -4,6 +4,7 @@ import cn from 'classnames';
 import SvgFbNew from 'components/icon/FbNew';
 import SvgInstNew from 'components/icon/InstNew';
 import SvgTwNew from 'components/icon/TwNew';
+import Imgix from 'components/imgix';
 import Link from 'next/link';
 
 import styles from './styles.module.scss';
@@ -14,12 +15,20 @@ const Footer = () => (
       <div className={styles.footer__wrap}>
         <div className={styles.footer__left}>
           <a href="#">
-            <img src="/img/logo-new.png" alt=""></img>
+            <Imgix
+              priority
+              layout="intrinsic"
+              width={185}
+              height={30}
+              quality={50}
+              src="https://mangafy.club/img/logo-new.webp"
+              alt=""
+            />
           </a>
           <div className={styles.footerLeft__links}>
             <p className={styles.footerLeft__subtitle}>In collaboration we trust</p>
             <p className={styles.footerLeft__descr}>
-              MangaFY is the world’s leading community for comics entusiats to create share, grow,
+              MangaFY is the world’s leading community for comics enthusiast to create share, grow,
               and get published.
             </p>
             <div className={styles.footer__soc}>
@@ -47,14 +56,17 @@ const Footer = () => (
             <Link href="/create-a-story/start">
               <a className={styles.footer__itemLink}>Post Collaboration</a>
             </Link>
+            <Link href="/profiles">
+              <a className={styles.footer__itemLink}>Find enthusiast</a>
+            </Link>
           </div>
 
           <div className={styles.footer__item2}>
             <div className={styles.footer__itemTitle}>Help & Support</div>
-            <Link href="/resources">
+            <Link href="/contact-us">
               <a className={styles.footer__itemLink}>Help & Support</a>
             </Link>
-            <Link href="/supports">
+            <Link href="/resources/manga-paneling-basics">
               <a className={styles.footer__itemLink}>Guides & tutorials</a>
             </Link>
           </div>

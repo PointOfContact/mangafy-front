@@ -1,24 +1,57 @@
+@import '../../styles/variables.scss';
+
 .pricingBlock_wrap {
   margin-bottom: 50px;
+  div {
+    @include media-sm {
+      flex-direction: column;
+    }
+  }
   .noContent {
     display: inline-block;
+  }
+  .errMessage {
+    font-size: 10px;
+    color: red;
+    position: absolute;
+    left: 0;
+    bottom: -25px;
+  }
+  .errInp {
+    border-color: red !important;
+  }
+  .grupe {
+    position: relative;
+  }
+  .ml {
+    margin-left: 40px;
+    @include media-sm {
+      margin-left: 0px;
+    }
+  }
+  .addBtn {
+    margin-top: 10px;
   }
   input {
     padding: 0;
     background-color: transparent !important;
     border: none;
     border-bottom: 2px solid #212121;
-    color: #212121;
+    color: #212121 !important;
     font-size: 20px;
     height: 40px;
     min-width: 350px;
     &::placeholder {
-      color: #212121;
+      color: $grey !important;
       font-size: 20px;
+    }
+    @include media-sm {
+      margin-top: 8px;
+      width: 100% !important;
     }
     &:hover {
       border-color: #7b65f3 !important;
-      color: #7b65f3;
+      color: #7b65f3 !important;
       &::placeholder {
         color: #7b65f3;
       }
@@ -36,10 +69,28 @@
       min-width: 156px;
       max-width: 156px;
       margin-left: 40px;
+      @include media-sm {
+        min-width: calc(100% - 60px);
+        max-width: calc(100% - 60px);
+        margin-left: 0px;
+      }
+    }
+    &.inputService {
+      @include media-sm {
+        min-width: calc(100% - 60px);
+        max-width: calc(100% - 60px);
+        margin-left: 0px;
+      }
     }
   }
 }
-
+@include media-sm {
+  .close {
+    text-align: right;
+    position: relative;
+    top: -40px;
+  }
+}
 .editAboutButton {
   width: 22px;
   height: 22px;

@@ -2,8 +2,10 @@ import React from 'react';
 
 import client from 'api/client';
 import cn from 'classnames';
-import Image from 'next/image';
-import Router from 'next/router';
+import Imgix from 'components/imgix';
+import Avatar from 'components/ui-elements/avatar';
+import { userTypesEnums } from 'helpers/constant';
+import Link from 'next/link';
 import PropTypes from 'prop-types';
 
 import SvgPortfolio from '../icon/Portfolio';
@@ -14,37 +16,32 @@ const ProfilesCard = ({ user, genres }) => {
   const profileGenres = genres.filter(
     (item) => user.genresIds && user.genresIds.includes(item._id)
   );
-  const handleCallbCardsClick = (id) => {
-    Router.push({
-      pathname: `/profile/${id}`,
-      query: {},
-    });
-  };
+
   if (!user) {
     return <></>;
   }
   return (
-    <>
-      <div onClick={() => handleCallbCardsClick(user._id)} className={styles.colabWrap__item}>
+    <Link href={`/profile/${user._id}`}>
+      <a className={styles.colabWrap__item}>
         <div className={styles.colabWrap__top}>
           <div className={cn(styles.avatar__img, styles.avatar__imgOnline)}>
             <div className={styles.avatar__avatar}>
-              <Image
-                width={104}
-                height={104}
-                layout="responsive"
-                src={
-                  user.avatar
-                    ? client.UPLOAD_URL + user.avatar
-                    : `https://ui-avatars.com/api/?background=9A87FE&name=${user.name}&rounded=true&color=ffffff&size=128`
-                }
-                alt="User avatar"
-              />
+              {user.avatar ? (
+                <Imgix
+                  width={104}
+                  height={104}
+                  layout="fixed"
+                  src={client.UPLOAD_URL + user.avatar}
+                  alt="User avatar"
+                />
+              ) : (
+                <Avatar text={user.name} size={104} />
+              )}
             </div>
           </div>
           <div className={styles.colabWrap__name}>
             <div className={styles.colabWrap__authorName}>{user.name}</div>
-            <div className={styles.colabWrap__authorDescr}>{user.type}</div>
+            <div className={styles.colabWrap__authorDescr}>{userTypesEnums[user?.type]}</div>
           </div>
         </div>
         <div className={styles.colabWrap__descr}>{user.description}</div>
@@ -67,8 +64,8 @@ const ProfilesCard = ({ user, genres }) => {
             {user.collaboration === 'paid' ? 'Paid Collab' : 'Joint Collab'}
           </div>
         </div>
-      </div>
-    </>
+      </a>
+    </Link>
   );
 };
 

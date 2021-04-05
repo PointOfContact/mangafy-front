@@ -6,8 +6,10 @@ import cn from 'classnames';
 import SvgGreenChecked from 'components/icon/GreenChecked';
 import SvgPortfolio from 'components/icon/Portfolio';
 import SvgPrimaryAdd from 'components/icon/PrimaryAdd';
+import Imgix from 'components/imgix';
 import ModalInvites from 'components/modals/sendInvites';
 import { ShareButtons } from 'components/share';
+import Avatar from 'components/ui-elements/avatar';
 import PrimaryButton from 'components/ui-elements/button';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { userTypes, userTypesEnums } from 'helpers/constant';
@@ -36,6 +38,7 @@ const ProfileTopBar = (props) => {
     saveUserDataByKey,
     originUrl,
     profile,
+    setErrMessage,
   } = props;
 
   const [showModal, changeShowModal] = useState(false);
@@ -46,12 +49,12 @@ const ProfileTopBar = (props) => {
       description,
     });
   };
-
   const history = useRouter();
   const sendInvites = () => {
     if (user) {
-      if (user.mangaStories.length) {
+      if (user.mangaStories?.data?.length) {
         changeShowModal(true);
+        isShowModal();
       } else {
         openNotification('error', "You don't have manga story");
       }
@@ -75,13 +78,34 @@ const ProfileTopBar = (props) => {
   };
 
   const changeBio = () => {
-    handleEvent();
-    saveUserDataByKey('name', 'type');
+    if (userData.name?.replace(/\s/g, '')) {
+      handleEvent();
+      saveUserDataByKey('name', 'type');
+    } else {
+      setErrMessage('Name is required');
+    }
   };
 
   const handleBeforeUpload = (f) => {
     handleEvent();
-    beforeUpload(f, props);
+    beforeUpload(f, props, updater);
+  };
+
+  const updater = (res) => {
+    setUserData(res);
+    setUserData({
+      ...userData,
+      avatar: res.avatar,
+    });
+  };
+
+  const isShowModal = () => {
+    const el = document.body;
+    if (showModal) {
+      el.classList.add(styles.body_scrool);
+    } else {
+      el.classList.remove(styles.body_scrool);
+    }
   };
 
   return (
@@ -90,26 +114,37 @@ const ProfileTopBar = (props) => {
         <Col className="gutter-row" xs={{ span: 24 }} md={{ span: 6 }} xl={{ span: 5 }}>
           <div className={styles.img}>
             {profile ? (
-              <img
-                src={
-                  profile?.avatar
-                    ? client.UPLOAD_URL + profile?.avatar
-                    : `https://ui-avatars.com/api/?background=9A87FE&name=${profile.name}&rounded=true&color=ffffff`
-                }
-                alt=""
-              />
+              <>
+                {profile.avatar ? (
+                  <Imgix
+                    width={52}
+                    height={52}
+                    className="avatar"
+                    src={client.UPLOAD_URL + profile.avatar}
+                  />
+                ) : (
+                  <Avatar text={profile.name} fontSize={90} />
+                )}
+              </>
             ) : (
-              <img
-                src={
-                  user.avatar
-                    ? client.UPLOAD_URL + user.avatar
-                    : `https://ui-avatars.com/api/?background=9A87FE&name=${user.name}&rounded=true&color=ffffff`
-                }
-                alt=""
-              />
+              <>
+                {userData?.avatar ? (
+                  <Imgix
+                    width={52}
+                    height={52}
+                    className="avatar"
+                    src={client.UPLOAD_URL + user.avatar}
+                  />
+                ) : (
+                  <Avatar text={userData?.name} fontSize={90} />
+                )}
+              </>
             )}
             {user && !profile && (
-              <Upload beforeUpload={handleBeforeUpload}>
+              <Upload
+                fileList={[]}
+                accept="image/jpg, image/png, image/jpeg"
+                beforeUpload={handleBeforeUpload}>
                 <SvgPrimaryAdd
                   className={styles.add}
                   id="myProfileUploadBtnId"
@@ -135,7 +170,7 @@ const ProfileTopBar = (props) => {
                   />
                 ) : (
                   profile &&
-                  !!user?.mangaStories?.length && (
+                  !!user?.mangaStories?.data?.length && (
                     <span className={styles.contacts}>
                       <PrimaryButton
                         onClick={sendInvites}
@@ -151,11 +186,18 @@ const ProfileTopBar = (props) => {
               <>
                 <h2>
                   <Input
-                    className={styles.changeTitle}
+                    required
+                    className={cn(
+                      styles.changeTitle,
+                      !userData.name?.replace(/\s/g, '') && styles.errImp
+                    )}
                     type="text"
                     onChange={(e) => setUserData({ ...userData, name: e.target.value })}
                     value={userData.name}
                   />
+                  {errMessage && !userData.name?.replace(/\s/g, '') ? (
+                    <p className={styles.errMessage}>{errMessage}</p>
+                  ) : null}
                 </h2>
                 <div>
                   <Select
@@ -170,7 +212,6 @@ const ProfileTopBar = (props) => {
                     ))}
                   </Select>
                 </div>
-                {errMessage ? <p className={styles.errMessage}>{errMessage}</p> : null}
               </>
             )}
           </div>
@@ -214,7 +255,10 @@ const ProfileTopBar = (props) => {
       <ModalInvites
         user={user}
         profile={profile}
-        changeShowModal={changeShowModal}
+        changeShowModal={(e) => {
+          changeShowModal(e);
+          isShowModal();
+        }}
         showModal={showModal}
       />
     </Content>
@@ -233,6 +277,7 @@ ProfileTopBar.propTypes = {
   saveUserDataByKey: PropTypes.func,
   originUrl: PropTypes.string,
   profile: PropTypes.object,
+  setErrMessage: PropTypes.func,
 };
 
 ProfileTopBar.defaultProps = {
@@ -246,6 +291,7 @@ ProfileTopBar.defaultProps = {
   errMessage: '',
   originUrl: '',
   profile: null,
+  setErrMessage: () => {},
 };
 
 export default ProfileTopBar;

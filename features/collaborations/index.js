@@ -15,10 +15,7 @@ import ButtonToTop from 'components/ui-elements/button-toTop';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import Link from 'next/link';
-import Router from 'next/router';
 import PropTypes from 'prop-types';
-import * as qs from 'query-string';
-import { LinkCreator } from 'utils/linkCreator';
 
 import styles from './styles.module.scss';
 
@@ -37,10 +34,7 @@ const Collaborations = (props) => {
     selectedCompensationModel,
     search,
   } = props;
-  const onChange = (page) => {
-    const parsed = qs.parse(location.search);
-    Router.push(LinkCreator.toQuery({ ...parsed, page }, '/collaborations'));
-  };
+
   return (
     <>
       <Head>
@@ -73,13 +67,13 @@ const Collaborations = (props) => {
                           <div className={cn(styles.PostColab__descr)}>
                             Have an idea for a graphic novel or manga and looking for collaboration?
                           </div>
-                          <Link href="/sign-in">
-                            <span>
+                          <Link href="/create-a-story/start">
+                            <a>
                               <PrimaryButton
                                 text="Post Collab"
                                 className={cn(styles.PostColab__btn)}
                               />
-                            </span>
+                            </a>
                           </Link>
                         </div>
                       </div>
@@ -94,13 +88,7 @@ const Collaborations = (props) => {
               <div className="row">
                 <div className="col-lg-12">
                   <div className={styles.pagination_cards}>
-                    <Paginations
-                      total={total}
-                      current={current}
-                      onChange={(page) => {
-                        onChange(page);
-                      }}
-                    />
+                    <Paginations total={total} current={current} prefix="collaborations" />
                   </div>
                 </div>
               </div>

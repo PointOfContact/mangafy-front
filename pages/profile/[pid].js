@@ -16,21 +16,11 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
         $limit: 100,
       },
     });
-    const res = await client.service('/api/v2/manga-stories').find({
-      query: {
-        author: context.params.pid,
-        $limit: 10,
-      },
-    });
     return {
       props: {
         user: user || store.user,
         profile,
         genres,
-        mangaStories: res.data || [],
-        total: Math.ceil(res.total / res.limit),
-        limit: res.limit,
-        current: Math.ceil((res.skip - 1) / res.limit) + 1,
         originUrl: `https://mangafy.club/profile/${profile._id}`,
       }, // will be passed to the page component as props
     };

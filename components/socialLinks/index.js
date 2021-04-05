@@ -9,6 +9,7 @@ import SvgBlackDribbble from 'components/icon/BlackDribbble';
 import SvgBlackFacebook from 'components/icon/BlackFacebook';
 import SvgBlackInstagram from 'components/icon/BlackInstagram';
 import SvgBlackTwitter from 'components/icon/BlackTwitter';
+import Imgix from 'components/imgix';
 import AddButton from 'components/ui-elements/add-button';
 import PrimaryInput from 'components/ui-elements/input';
 import SocialButton from 'components/ui-elements/social-button';
@@ -142,8 +143,8 @@ const SocialLinks = (props) => {
               className={styles.social_inp}
               defaultValue={getSocialLink('behance')}
               onBlur={(e) => {
-                e.target.value.includes('https://behance.com') ||
-                e.target.value.includes('https://www.behance.com') ||
+                e.target.value.includes('https://behance.net') ||
+                e.target.value.includes('https://www.behance.net') ||
                 e.target.value === ''
                   ? (updateSocialLink(e.target.value, 'behance'), setBehanceStatus('success'))
                   : (openNotification('error', 'invalid link'), setBehanceStatus('error'));
@@ -259,7 +260,16 @@ const SocialLinks = (props) => {
                   <Card
                     description="Do you not want <br/> to add a social?"
                     btnText=""
-                    items={[<img key="1" src="/img/noSocial.png" alt="" />]}
+                    items={[
+                      <Imgix
+                        key="1"
+                        width={164}
+                        height={140}
+                        layout="fixed"
+                        src="https://mangafy.club/img/noSocial.webp"
+                        alt=""
+                      />,
+                    ]}
                   />
                 </div>
               ) : (
@@ -267,7 +277,16 @@ const SocialLinks = (props) => {
                   <Card
                     description="Sorry, but there is nothing <br/> here (("
                     btnText=""
-                    items={[<img key="1" src="/img/noSocial.png" alt="" />]}
+                    items={[
+                      <Imgix
+                        key="1"
+                        width={164}
+                        height={140}
+                        layout="fixed"
+                        src="https://mangafy.club/img/noSocial.webp"
+                        alt=""
+                      />,
+                    ]}
                   />
                 </div>
               )}

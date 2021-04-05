@@ -8,9 +8,9 @@ import styles from './styles.module.scss';
 const FindPartner = () => (
   <div className={styles.find_partner}>
     <Link href="/profiles">
-      <span>
+      <a>
         <PrimaryButton text="Find a partner" />
-      </span>
+      </a>
     </Link>
   </div>
 );

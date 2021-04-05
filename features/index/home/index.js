@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Spin } from 'antd';
 import cn from 'classnames';
+import Imgix from 'components/imgix';
 import LargeButton from 'components/ui-elements/large-button';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
@@ -26,16 +27,26 @@ export default function Home() {
                 story buidling to a full digital release.
               </div>
               <Link href="/sign-up">
-                <LargeButton
-                  id="SignUpForFreeBtnId"
-                  className={styles.btn__signUp}
-                  text="SIGN UP for FREE"
-                />
+                <a>
+                  <LargeButton
+                    id="SignUpForFreeBtnId"
+                    className={styles.btn__signUp}
+                    text="SIGN UP for FREE"
+                  />
+                </a>
               </Link>
             </div>
             <div className={styles.main__right}>
               <div className={styles.main__img}>
-                <img src="/img/main-img.png" alt="" />
+                <Imgix
+                  priority
+                  layout="intrinsic"
+                  width={774}
+                  height={863}
+                  quality={50}
+                  src="https://mangafy.club/img/main-img.webp"
+                  alt=""
+                />
               </div>
             </div>
           </div>
@@ -45,7 +56,15 @@ export default function Home() {
       <div className={styles.different}>
         <div className={'container'}>
           <div className={styles.it1}>
-            <img src="/img/dif-pen.png" alt="" />
+            <Imgix
+              priority
+              layout="intrinsic"
+              width={300}
+              height={232}
+              quality={50}
+              src="https://mangafy.club/img/dif-pen.webp"
+              alt=""
+            />
           </div>
           <div className={styles.different__title}>What makes us different</div>
           <div className={styles.different__wrap}>
@@ -67,7 +86,7 @@ export default function Home() {
             </div>
 
             <div className={styles.different__item}>
-              <div className={styles.different__itemTitle}>Managment Tools</div>
+              <div className={styles.different__itemTitle}>Management Tools</div>
               <div className={styles.different__descr}>
                 Big goals require a good plan, consisting of small, measurable and clear objectives.
               </div>
@@ -80,7 +99,15 @@ export default function Home() {
           <div className={styles.mainDescriprion__wrap}>
             <div className={styles.it1}></div>
             <div className={styles.it2}>
-              <img src="/img/main-descr-ico2.png" alt="" />
+              <Imgix
+                priority
+                layout="intrinsic"
+                width={300}
+                height={232}
+                quality={50}
+                src="https://mangafy.club/img/main-descr-ico2.webp"
+                alt=""
+              />
             </div>
             <div className={styles.mainDescriprion__text}>
               <p>
@@ -96,7 +123,9 @@ export default function Home() {
             </div>
           </div>
           <Link href="/sign-in">
-            <LargeButton id="LoginBtnId" className={styles.btn__login} text="LOG-IN Now" />
+            <a>
+              <LargeButton id="LoginBtnId" className={styles.btn__login} text="LOG-IN Now" />
+            </a>
           </Link>
         </div>
       </div>
@@ -104,28 +133,50 @@ export default function Home() {
         <div className={cn('container', styles.howWorks__container)}>
           <div className={styles.howWorks__title}>
             <div className={styles.it1}>
-              <img src="/img/main-descr-ico3.png" alt="" />
+              <Imgix
+                priority
+                layout="intrinsic"
+                width={337}
+                height={370}
+                quality={50}
+                src="https://mangafy.club/img/main-descr-ico3.webp"
+                alt=""
+              />
             </div>
             <p>How MangaFY works?</p>
           </div>
           <div className={styles.howWorks__img}>
-            <img src="/img/how-img.png" alt="" />
+            <Imgix
+              layout="intrinsic"
+              width={1100}
+              height={554}
+              quality={50}
+              src="https://mangafy.club/img/how-img.webp"
+              alt=""
+            />
           </div>
           <div className={styles.howWorks__descr}>
-            <div className={styles.howWorks__item}>Submit your graphinc novel idea</div>
+            <div className={styles.howWorks__item}>Submit your graphic novel idea</div>
             <div className={styles.howWorks__item}>Manage the production circle</div>
             <div className={`${styles.howWorks__item} ${styles.pr65}`}>
-              Collaborate with graphic novel entusiasts
+              Collaborate with graphic novel enthusiasts
             </div>
           </div>
           <div className={styles.howWorks__mobile}>
             <div className={`${styles.howWorks__mobItem} ${styles.howWorks__mobItem_item1}`}>
               <div className={styles.howWorks__mobText}>
-                Submit your graphinc novel
+                Submit your graphic novel
                 <br /> idea
               </div>
               <div className={styles.howWorks__mobImg}>
-                <img src="/img/g1.png" alt="" />
+                <Imgix
+                  layout="responsive"
+                  width={720}
+                  height={600}
+                  quality={50}
+                  src="https://mangafy.club/img/g1.webp"
+                  alt=""
+                />
               </div>
             </div>
             <div className={`${styles.howWorks__mobItem} ${styles.howWorks__mobItem_item2}`}>
@@ -134,16 +185,30 @@ export default function Home() {
                 <br /> circle
               </div>
               <div className={styles.howWorks__mobImg}>
-                <img src="/img/g2.png" alt="" />
+                <Imgix
+                  layout="responsive"
+                  width={720}
+                  height={600}
+                  quality={50}
+                  src="https://mangafy.club/img/g2.webp"
+                  alt=""
+                />
               </div>
             </div>
             <div className={`${styles.howWorks__mobItem} ${styles.howWorks__mobItem_item3}`}>
               <div className={`${styles.howWorks__mobText} ${styles.colorBlack}`}>
                 Collaborate with graphic
-                <br /> novel entusiasts
+                <br /> novel enthusiasts
               </div>
               <div className={styles.howWorks__mobImg}>
-                <img src="/img/g3.png" alt="" />
+                <Imgix
+                  layout="responsive"
+                  width={720}
+                  height={600}
+                  quality={50}
+                  src="https://mangafy.club/img/g3.webp"
+                  alt=""
+                />
               </div>
             </div>
           </div>
@@ -153,19 +218,28 @@ export default function Home() {
         <div className={'container'}>
           <div className={styles.gotIdea__wrap}>
             <div className={styles.it1}>
-              <img src="/img/idea-ico.svg" alt="" />
+              <Imgix
+                layout="intrinsic"
+                width={379}
+                height={331}
+                quality={10}
+                src="https://mangafy.club/img/idea-ico.svg"
+                alt=""
+              />
             </div>
-            <div className={styles.gotIdea__title}>Got a great graphinc novel idea?</div>
+            <div className={styles.gotIdea__title}>Got a great graphic novel idea?</div>
             <div className={styles.gotIdea__descr}>
               Fill out our idea submission form for a chance to turn your idea into
               <br />a published bestseller
             </div>
             <Link href="/create-a-story/start">
-              <LargeButton
-                id="CreateAStoryBtnId"
-                className={styles.btn__submit}
-                text="Submit an IDEA"
-              />
+              <a>
+                <LargeButton
+                  id="CreateAStoryBtnId"
+                  className={styles.btn__submit}
+                  text="Start a project"
+                />
+              </a>
             </Link>
           </div>
         </div>
@@ -191,32 +265,34 @@ export default function Home() {
           </div>
           <div className={styles.useGoal__images}>
             <div className={styles.useGoal__img}>
-              <img src="/img/goal-ico1.png" alt="" />
+              <Imgix
+                layout="intrinsic"
+                width={373}
+                height={470}
+                quality={10}
+                src="https://mangafy.club/img/goal-ico1.webp"
+                alt=""
+              />
             </div>
             <div className={`${styles.useGoal__img} ${styles.useGoal__img_img2}`}>
-              <img src="/img/goal-ico2.png" alt="" />
+              <Imgix
+                layout="intrinsic"
+                width={373}
+                height={470}
+                quality={90}
+                src="https://mangafy.club/img/goal-ico2.webp"
+                alt=""
+              />
             </div>
             <div className={`${styles.useGoal__img} ${styles.useGoal__img_img3}`}>
-              <img src="/img/goal-ico3.png" alt="" />
-            </div>
-          </div>
-          <div className={styles.useGoal__slider}>
-            <div className={styles.slider}>
-              <div>
-                <img src="/img/goal-ico2.png" alt="" />
-              </div>
-              <div>
-                <img src="/img/goal-ico2.png" alt="" />
-              </div>
-              <div>
-                <img src="/img/goal-ico2.png" alt="" />
-              </div>
-              <div>
-                <img src="/img/goal-ico2.png" alt="" />
-              </div>
-              <div>
-                <img src="/img/goal-ico2.png" alt="" />
-              </div>
+              <Imgix
+                layout="intrinsic"
+                width={373}
+                height={470}
+                quality={90}
+                src="https://mangafy.club/img/goal-ico3.webp"
+                alt=""
+              />
             </div>
           </div>
           <div className={styles.useGoal__descr}>
@@ -227,7 +303,13 @@ export default function Home() {
             </p>
           </div>
           <Link href="/sign-up">
-            <LargeButton id="TryForFreeBtnId" className={styles.btn__submit} text="Try For Free" />
+            <a>
+              <LargeButton
+                id="TryForFreeBtnId"
+                className={styles.btn__submit}
+                text="Try For Free"
+              />
+            </a>
           </Link>
         </div>
       </div>
@@ -242,10 +324,18 @@ export default function Home() {
             </p>
           </div>
           <div className={styles.join__img}>
-            <img src="/img/join-ico.png" alt="" />
+            <Imgix
+              layout="intrinsic"
+              width={720}
+              height={606}
+              src="https://mangafy.club/img/join-ico.webp"
+              alt=""
+            />
           </div>
           <Link href="/sign-up">
-            <LargeButton id="SignUpBtnId" className={styles.btn__submit} text="Sign UP" />
+            <a>
+              <LargeButton id="SignUpBtnId" className={styles.btn__submit} text="Sign UP" />
+            </a>
           </Link>
         </div>
       </div>

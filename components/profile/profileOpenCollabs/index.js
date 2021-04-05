@@ -24,7 +24,7 @@ const ProfileOpenCollabs = (props) => {
     const data = [
       {
         platform: 'WEB',
-        event_type: EVENTS.CREATE_PROJECT,
+        event_type: EVENTS.CREATE_PROJECT_START,
         user_id: user?._id,
         user_properties: {
           ...user,

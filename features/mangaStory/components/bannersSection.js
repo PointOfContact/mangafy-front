@@ -8,11 +8,12 @@ import SvgLang from 'components/icon/Lang';
 import SvgMone from 'components/icon/Mone';
 import SvgPencilColored from 'components/icon/PencilColored';
 import SvgTie from 'components/icon/Tie';
+import Imgix from 'components/imgix';
 import { ShareButtons } from 'components/share';
 import ButtonToggle from 'components/ui-elements/button-toggle';
 import PrimarySelect from 'components/ui-elements/select';
 import { OPTIONS } from 'features/createStory/lenguage/constant';
-import { userTypes, userTypesEnums } from 'helpers/constant';
+import { userTypes } from 'helpers/constant';
 import PropTypes from 'prop-types';
 
 import styles from '../styles.module.scss';
@@ -134,23 +135,18 @@ const BannerSection = ({
     </div>
   );
 
-  const content = () => (
+  const searchingForContent = () => (
     <div>
-      {' '}
-      {baseData.searchingFor.map((item) =>
-        userTypesEnums[item] ? (
-          <p>
-            <Button
-              id="MangaStoryBannerSearchingForId"
-              key={item}
-              value="searchingFor"
-              data-id="searchingFor"
-              type="text">
-              {userTypesEnums[item] && userTypesEnums[item]}
-            </Button>
-          </p>
-        ) : null
-      )}
+      {baseData.searchingFor.map((item) => (
+        <p key={item}>{item}</p>
+      ))}
+    </div>
+  );
+  const genresContent = () => (
+    <div>
+      {baseData.genres.map((item) => (
+        <p key={item._id}>{item.name}</p>
+      ))}
     </div>
   );
   return (
@@ -159,15 +155,42 @@ const BannerSection = ({
         {canEdit ? (
           <Upload className={styles.upload} beforeUpload={beforeUpload} fileList={[]}>
             <div className={styles.banner}>
-              <img src={!baseData.image ? '/img/banner.png' : client.UPLOAD_URL + baseData.image} />
+              <Imgix
+                className={styles.bannerCover}
+                width={944}
+                height={150}
+                layout="fixed"
+                src={
+                  !baseData.image
+                    ? 'https://mangafy.club/img/banner.webp'
+                    : client.UPLOAD_URL + baseData.image
+                }
+                alt=""
+              />
               <div className={styles.upload}>
-                <img src="/img/upload.png" />
+                <Imgix
+                  width={335}
+                  height={83}
+                  layout="fixed"
+                  src={'https://mangafy.club/img/upload.webp'}
+                  alt=""
+                />
               </div>
             </div>
           </Upload>
         ) : (
           <div className={styles.banner}>
-            <img src={!baseData.image ? '/img/banner.png' : client.UPLOAD_URL + baseData.image} />
+            <Imgix
+              width={944}
+              height={150}
+              layout="fixed"
+              src={
+                !baseData.image
+                  ? 'https://mangafy.club/img/banner.webp'
+                  : client.UPLOAD_URL + baseData.image
+              }
+              alt=""
+            />
           </div>
         )}
         <div className="row">
@@ -175,16 +198,15 @@ const BannerSection = ({
             <div className={`${styles.bannerGenres} d-flex `}>
               <div className={styles.bannerGenresItem}>
                 {baseData.genres?.slice(0, 1).map((g) => (
-                  <Button
-                    id={`${g.name}-genresBtnId`}
-                    key={g}
-                    data-id="preferredLanguage"
-                    type="text">
-                    <SvgCat width="18px" height="24px" />
-                    <span>{g.name}</span>
-                  </Button>
+                  <Popover key={g} placement="top" title="Genres" content={genresContent}>
+                    <Button id={`${g.name}-genresBtnId`} data-id="preferredLanguage" type="text">
+                      <SvgCat width="18px" height="24px" />
+                      <span>{g.name}</span>
+                    </Button>
+                  </Popover>
                 ))}
               </div>
+
               <div className={styles.bannerGenresItem}>
                 <Button id="preferredLanguageBtnId" data-id="preferredLanguage" type="text">
                   <SvgLang width="24px" height="24px" />
@@ -192,7 +214,7 @@ const BannerSection = ({
                 </Button>
               </div>
               <div className={styles.bannerGenresItem}>
-                <Popover placement="top" title="Searching For" content={content}>
+                <Popover placement="top" title="Searching For" content={searchingForContent}>
                   <Button id="searchingForBtnId" data-id="searchingFor" type="text">
                     <SvgTie width="20px" height="20px" />
                     <span>{baseData.searchingFor[0] || 'Searching For'}</span>
@@ -231,7 +253,13 @@ const BannerSection = ({
             <p>Your graphic novel in progress</p>
             <div className={styles.Lamp}>
               <div>
-                <img src="/img/Group.png" />
+                <Imgix
+                  width={20}
+                  height={29}
+                  layout="fixed"
+                  src={'https://mangafy.club/img/Group.webp'}
+                  alt=""
+                />
               </div>
             </div>
             <div className={styles.progressWrap}>
@@ -239,7 +267,13 @@ const BannerSection = ({
             </div>
             <div className={styles.Lamp}>
               <div>
-                <img src="/img/notebook 1.png" />
+                <Imgix
+                  width={30}
+                  height={30}
+                  layout="fixed"
+                  src={'https://mangafy.club/img/notebook1.webp'}
+                  alt=""
+                />
               </div>
             </div>
           </div>

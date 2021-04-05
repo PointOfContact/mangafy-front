@@ -2,7 +2,7 @@
 
 html,
 body {
-  height: inherit !important;
+  height: inherit;
 }
 
 .body_remove_scroll {
@@ -662,8 +662,8 @@ img.rot4 {
 
 .change_btn_commission {
   position: absolute;
-  right: 25px;
-  top: 32px;
+  right: 28px;
+  top: 20px;
   cursor: pointer;
 }
 
@@ -679,6 +679,13 @@ img.rot4 {
   margin-left: 30px;
 }
 
+.pricingBlock {
+  @include media-sm {
+    .ant-space-item {
+      width: 100%;
+    }
+  }
+}
 .garners_buttons {
   .ant-select {
     border: 1px solid #7b65f3;
@@ -767,9 +774,6 @@ img.rot4 {
     border: none;
     width: 31px;
     height: 31px;
-    // background-image: url(../public/img/btn-confim.svg);
-    // background-size: cover;
-    // background-repeat: no-repeat;
     min-width: auto;
     min-height: auto;
     box-shadow: none;
@@ -816,10 +820,11 @@ img.rot4 {
         height: 25px;
       }
       &:before {
-        content: '';
+        content: 'aaa';
         width: 16px;
         height: 14px;
         background-image: url(../public/img/confim-arr.svg);
+        position: absolute;
         background-size: cover;
         background-repeat: no-repeat;
         display: block;
@@ -1117,9 +1122,6 @@ img.rot4 {
     border: none;
     width: 31px;
     height: 31px;
-    // background-image: url(../public/img/btn-confim.svg);
-    // background-size: cover;
-    // background-repeat: no-repeat;
     min-width: auto;
     min-height: auto;
     box-shadow: none;
@@ -1167,10 +1169,11 @@ img.rot4 {
         height: 25px;
       }
       &:before {
-        content: '';
+        content: 'aaa';
         width: 16px;
         height: 14px;
         background-image: url(../public/img/confim-arr.svg);
+        position: absolute;
         background-size: cover;
         background-repeat: no-repeat;
         display: block;
@@ -1405,6 +1408,7 @@ img.rot4 {
   z-index: 2000000;
   .ant-tooltip-inner {
     background-color: $primaryBG !important;
+    color: $black;
   }
 }
 
@@ -1458,6 +1462,50 @@ img.rot4 {
       path {
         fill: $primaryDark;
       }
+    }
+  }
+}
+.send_invite {
+  .ant-select {
+    margin-bottom: -1px !important;
+  }
+  .ant-form-item {
+    margin-bottom: 10px;
+  }
+}
+
+.MangaFY {
+  .ant-modal-confirm-btns{
+    width: 100%;
+    text-align: center;
+    margin-bottom: 45px;
+  }
+  .ant-btn-primary {
+    border: none !important;
+    background: inherit !important;
+    outline: none !important;
+    box-shadow: none !important;
+    &:hover {
+      border: none !important;
+      background: inherit !important;
+      outline: none !important;
+      box-shadow: none !important;
+    }
+    &:focus {
+      border: none !important;
+      background: inherit !important;
+      outline: none !important;
+      box-shadow: none !important;
+    }
+    button {
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 241.98px;
+      height: 56px;
+      font-weight: 500;
+      font-size: 20px;
     }
   }
 }

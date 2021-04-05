@@ -71,7 +71,7 @@ const LookingFor = ({ user }) => {
           <div className="nav1 nav1_logo">
             <div className="flex-center">
               <Link href="/">
-                <img src="/img/logoText.png" width="70%" alt="" />
+                <img src="/img/logoText.webp" width="70%" alt="" />
               </Link>
             </div>
           </div>

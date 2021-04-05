@@ -10,7 +10,7 @@ import styles from './styles.module.scss';
 
 const { TextArea } = Input;
 
-const Idea = ({ storyBoard }) => {
+const Idea = ({ storyBoard, setStoryBoard }) => {
   const [idea, setIdea] = useState(storyBoard);
 
   useEffect(() => {
@@ -21,16 +21,22 @@ const Idea = ({ storyBoard }) => {
   }, [storyBoard]);
 
   const handleTitleChange = (e) => {
-    setIdea({
-      ...idea,
-      title: e.target.value,
+    setStoryBoard({
+      ...storyBoard,
+      idea: {
+        ...idea,
+        title: e.target.value,
+      },
     });
   };
 
   const handleTextChange = (e) => {
-    setIdea({
-      ...idea,
-      text: e.target.value,
+    setStoryBoard({
+      ...storyBoard,
+      idea: {
+        ...idea,
+        text: e.target.value,
+      },
     });
   };
 
@@ -77,10 +83,12 @@ const Idea = ({ storyBoard }) => {
 
 Idea.propTypes = {
   storyBoard: PropTypes.object,
+  setStoryBoard: PropTypes.func,
 };
 
 Idea.defaultProps = {
   storyBoard: {},
+  setStoryBoard: () => {},
 };
 
 export default Idea;

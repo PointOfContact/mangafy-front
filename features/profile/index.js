@@ -14,8 +14,9 @@ import PropTypes from 'prop-types';
 import styles from './styles.module.scss';
 
 const Profile = (props) => {
-  const { user, profile, mangaStories, total, originUrl } = props;
-
+  const { user, profile, originUrl } = props;
+  const mangaStories = profile.mangaStories.data;
+  const total = profile.mangaStories.data.length;
   const { genres: genresEnums } = props;
   const profileGenres = genresEnums.data.filter(
     (item) => profile.genresIds && profile.genresIds.includes(item._id)

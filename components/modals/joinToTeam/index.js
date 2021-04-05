@@ -5,13 +5,19 @@ import client from 'api/client';
 import SvgClose from 'components/icon/Close';
 import LargeButton from 'components/ui-elements/large-button';
 import PrimarySelect from 'components/ui-elements/select';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import { USER_TYPES } from 'helpers/constant';
+import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
+const Amplitude = require('amplitude');
+
+const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
+
 const { TextArea } = Input;
 
-const ModalStart = ({ changeShowModal, showModal, baseData, selectedTask }) => {
+const ModalStart = ({ changeShowModal, showModal, baseData, selectedTask, user }) => {
   const [joinAs, changeJoinAs] = useState('Writer');
   const [text, changeText] = useState('');
 
@@ -30,7 +36,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, selectedTask }) => {
     changeShowModal(false);
   };
 
-  const createRequest = (_) => {
+  const createRequest = () => {
     const jwt = client.getCookie('feathers-jwt');
     import('api/restClient').then((m) => {
       m.default
@@ -66,8 +72,20 @@ const ModalStart = ({ changeShowModal, showModal, baseData, selectedTask }) => {
             }
           )
         )
-        .then((response) => {
+        .then(() => {
           changeShowModal(false);
+          const eventData = [
+            {
+              platform: 'WEB',
+              event_type: EVENTS.REQUEST_TO_JOIN,
+              event_properties: { mangaStoryId: baseData._id, taskId: selectedTask._id },
+              user_id: user._id,
+              user_properties: {
+                ...user,
+              },
+            },
+          ];
+          amplitude.track(eventData);
         })
         .catch((err) => err);
     });
@@ -130,4 +148,13 @@ const ModalStart = ({ changeShowModal, showModal, baseData, selectedTask }) => {
     </Modal>
   );
 };
+
+ModalStart.propTypes = {
+  baseData: PropTypes.object.isRequired,
+  showModal: PropTypes.bool.isRequired,
+  selectedTask: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
+  changeShowModal: PropTypes.func.isRequired,
+};
+
 export default ModalStart;

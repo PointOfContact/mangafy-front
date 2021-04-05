@@ -2,7 +2,6 @@ import React from 'react';
 
 import '../styles/styles.sass';
 import 'antd/dist/antd.min.css';
-import 'react-chat-elements/dist/main.css';
 import * as Sentry from '@sentry/node';
 import { notification } from 'antd';
 

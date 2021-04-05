@@ -29,6 +29,10 @@ class Verify extends Component {
           }, 1000);
         })
         .catch((err) => {
+          Router.push({
+            pathname: `/`,
+            query: {},
+          });
           // setMessage(err.message)
         });
     });

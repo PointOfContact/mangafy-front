@@ -15,7 +15,16 @@ const patchRequest = async (reqId, status) => {
   );
 };
 
-const createRequest = async ({ mangaStoryId, joinAs, isInvite, senderId, text }) => {
+const getRequest = async (reqId) => {
+  const jwt = client.getCookie('feathers-jwt');
+  const headers = { Authorization: `Bearer ${jwt}` };
+  const { default: restClient } = await import('api/restClient');
+  return restClient.service('/api/v2/join-manga-story-requests').get(reqId, {
+    headers,
+  });
+};
+
+const createRequest = async ({ mangaStoryId, joinAs, isInvite, senderId, text, taskId }) => {
   const jwt = client.getCookie('feathers-jwt');
   const headers = {
     Authorization: `Bearer ${jwt}`,
@@ -27,6 +36,7 @@ const createRequest = async ({ mangaStoryId, joinAs, isInvite, senderId, text })
       joinAs,
       isInvite,
       senderId,
+      taskId,
     },
     {
       headers,
@@ -51,4 +61,4 @@ const createRequest = async ({ mangaStoryId, joinAs, isInvite, senderId, text })
   );
 };
 
-export { createRequest, patchRequest };
+export { createRequest, patchRequest, getRequest };

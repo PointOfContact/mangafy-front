@@ -16,10 +16,18 @@ const OAuth = () => {
     auth.authenticate(accessToken, true).then(({ user, jwt }) => {
       setClientCookie(FEATHERS_COOKIE, jwt);
       store.user = user;
+      let event_type = EVENTS.O_AUTH;
+      if (user.googleId) {
+        event_type = EVENTS.O_AUTH_GOOGLE;
+      }
+      if (user.facebookId) {
+        event_type = EVENTS.O_AUTH_FACEBOOK;
+      }
+
       const data = [
         {
           platform: 'WEB',
-          event_type: EVENTS.O_AUTH,
+          event_type,
           user_id: user._id,
           user_properties: {
             ...user,

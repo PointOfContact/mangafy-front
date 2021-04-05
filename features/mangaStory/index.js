@@ -11,11 +11,13 @@ import Footer from 'components/footer';
 import FooterPolicy from 'components/footer-policy';
 import Header from 'components/header';
 import SvgPencilColored from 'components/icon/PencilColored';
+import { ShareButtons } from 'components/share';
 import PrimaryButton from 'components/ui-elements/button';
 import ButtonToTop from 'components/ui-elements/button-toTop';
 import Input from 'components/ui-elements/input';
 import TextArea from 'components/ui-elements/text-area';
 // import dynamic from 'next/dynamic';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import Head from 'next/head';
 import PropTypes from 'prop-types';
 import * as qs from 'query-string';
@@ -25,10 +27,15 @@ import StoryBoardTabs from './components/storyBoardTabs';
 import StoryTab from './components/storyTab';
 import styles from './styles.module.scss';
 
+const Amplitude = require('amplitude');
+
+const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
+
 // const StoryBoardTabs = dynamic(() => import('./components/storyBoardTabs'), {
 //   loading: () => <Spin />,
 // });
 const { confirm } = Modal;
+const { info } = Modal;
 
 const { TabPane } = Tabs;
 // const { TextArea } = Input;
@@ -67,16 +74,16 @@ const MangeStory = (props) => {
     });
   };
 
-  const saveUserDataByKey = (...keys) => {
+  const saveUserDataByKey = (newBaseData, ...keys) => {
     const data = {};
     keys.forEach((item) => {
-      data[item] = baseData[item];
+      data[item] = newBaseData[item];
     });
     const jwt = client.getCookie('feathers-jwt');
     import('api/restClient').then((m) => {
       m.default
         .service('/api/v2/manga-stories')
-        .patch(baseData._id, data, {
+        .patch(newBaseData._id, data, {
           headers: { Authorization: `Bearer ${jwt}` },
         })
         .then((res) => {
@@ -117,7 +124,30 @@ const MangeStory = (props) => {
         if (boad?.idea?.title && boad?.idea?.text) {
           patchStory({
             published: true,
-          });
+          }).then(() =>
+            info({
+              title: (
+                <h3 className={styles.modalTitle}>
+                  AWESOME! You opened your graphic novel project!
+                </h3>
+              ),
+              icon: '',
+              width: '100%',
+              style: { top: 120, maxWidth: '1000px' },
+              content: (
+                <div className={styles.publishedModal}>
+                  <p>
+                    Congratulations , share with your network and build your collaboration to
+                    success!
+                  </p>
+                  <div className={styles.shareButtons}>
+                    <ShareButtons shareUrl={originUrl} text="Share to the world!" />
+                  </div>
+                </div>
+              ),
+              onOk() {},
+            })
+          );
         } else {
           confirm({
             title: 'Update story board',
@@ -148,6 +178,20 @@ const MangeStory = (props) => {
         })
         .then((res) => {
           setBaseData(res);
+          const event_type = data.published ? EVENTS.GO_TO_PUBLIC : EVENTS.GO_TO_PRIVATE;
+
+          const eventData = [
+            {
+              platform: 'WEB',
+              event_type,
+              event_properties: { mangaStoryId: baseData._id },
+              user_id: user._id,
+              user_properties: {
+                ...user,
+              },
+            },
+          ];
+          amplitude.track(eventData);
         })
         .catch((err) => {
           openNotification('error', err.message);
@@ -188,15 +232,26 @@ const MangeStory = (props) => {
               <div className="row">
                 <div className="col-sm-12 manga-story manga-story-m">
                   {isOwn && (
-                    <div className={styles.publishSwitch}>
-                      <Switch checked={baseData.published} onChange={onPublish} />
-                      <p
-                        className={cn(
-                          styles.publishText,
-                          baseData.published ? styles.published : styles.private
-                        )}>
-                        {baseData.published ? 'Published' : 'Private'}
-                      </p>
+                    <div className={styles.publishContent}>
+                      <div className={styles.publishSwitch}>
+                        <p
+                          className={cn(
+                            styles.publishText,
+                            !baseData.published && styles.published
+                          )}>
+                          Private
+                        </p>
+                        <span>
+                          <Switch checked={baseData.published} onChange={onPublish} />
+                        </span>
+                        <p
+                          className={cn(
+                            styles.publishText,
+                            baseData.published && styles.published
+                          )}>
+                          Published
+                        </p>
+                      </div>
                     </div>
                   )}
                   {!editMode ? (
@@ -244,7 +299,7 @@ const MangeStory = (props) => {
                             isActive
                             isRound
                             disabled={false}
-                            onClick={() => saveUserDataByKey('title')}
+                            onClick={() => saveUserDataByKey(baseData, 'title')}
                           />
                         </div>
                       </>
@@ -313,7 +368,7 @@ const MangeStory = (props) => {
                                   isActive
                                   isRound
                                   disabled={false}
-                                  onClick={() => saveUserDataByKey('story')}
+                                  onClick={() => saveUserDataByKey(baseData, 'introduce', 'story')}
                                 />
                               </div>
                             </>
@@ -343,11 +398,13 @@ const MangeStory = (props) => {
                       />
                     </div>
                   </TabPane>
-                  <TabPane tab="INVITES" key="4">
-                    <div className={styles.tabWrap}>
-                      <Chat requests={requests} mangaStory={baseData} user={user} isOwn={isOwn} />
-                    </div>
-                  </TabPane>
+                  {user && (
+                    <TabPane tab="INVITES" key="4">
+                      <div className={styles.tabWrap}>
+                        <Chat requests={requests} mangaStory={baseData} user={user} isOwn={isOwn} />
+                      </div>
+                    </TabPane>
+                  )}
                 </Tabs>
               </div>
             </div>

@@ -4,13 +4,15 @@ import { Badge, Popover } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
 import SvgBell from 'components/icon/Bell';
+import Imgix from 'components/imgix';
 import MenuMobilePopover from 'components/menu-mobile-popover';
 import MenuNotificationsBox from 'components/menu-notifications-box';
+import Avatar from 'components/ui-elements/avatar';
 import PrimaryButton from 'components/ui-elements/button';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { removeAllStorage } from 'helpers/shared';
-import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
@@ -43,9 +45,9 @@ const findNotificationsCount = (onSuccess, onFailure) => {
 
 const Header = ({ user, path }) => {
   const [isOpen, handleManuOpen] = useState(false);
-  const [notificationsCount, setNotificationsCount] = useState(false);
+  const [notificationsCount, setNotificationsCount] = useState(0);
   const [unreadNotificationsId, setUnreadNotificationsId] = useState([]);
-
+  const router = useRouter();
   const getNotificationsCount = useCallback(() => {
     if (!user) return;
     findNotificationsCount(
@@ -103,7 +105,7 @@ const Header = ({ user, path }) => {
     const data = [
       {
         platform: 'WEB',
-        event_type: EVENTS.SUBMIT_IDEA,
+        event_type: EVENTS.CREATE_PROJECT_START,
         user_id: user._id,
         user_properties: {
           ...user,
@@ -127,7 +129,15 @@ const Header = ({ user, path }) => {
             </div>
             <Link href="/">
               <a className={styles.header__logo}>
-                <img src="/img/logo-new.png" alt="" />
+                <Imgix
+                  priority
+                  layout="intrinsic"
+                  width={185}
+                  height={30}
+                  quality={50}
+                  src="https://mangafy.club/img/logo-new.webp"
+                  alt=""
+                />
               </a>
             </Link>
             <div className={styles.header__logIn}>
@@ -146,31 +156,59 @@ const Header = ({ user, path }) => {
                   trigger="click">
                   <div className={cn(styles.img, styles.imgOnline)}>
                     <div className={styles.avatar}>
-                      <img
-                        src={
-                          user.avatar
-                            ? client.UPLOAD_URL + user.avatar
-                            : `https://ui-avatars.com/api/?background=9A87FE&name=${user.name}&rounded=true&color=ffffff`
-                        }
-                        alt=""></img>
+                      {user.avatar ? (
+                        <Imgix
+                          width={52}
+                          height={52}
+                          className="avatar"
+                          src={client.UPLOAD_URL + user.avatar}
+                        />
+                      ) : (
+                        <Avatar text={user.name} fontSize={20} />
+                      )}
                     </div>
                   </div>
                 </Popover>
               ) : (
                 <Link href="/sign-in">
-                  <img src="/img/header-log-in.svg" alt="" />
+                  <a>
+                    <img src="/img/header-log-in.svg" alt="" />
+                    {/* TODO: chage to svg component */}
+                  </a>
                 </Link>
               )}
             </div>
             <div className={styles.header__leftNav}>
               <Link href="/collaborations?compensationModel=paid">
-                <a className={styles.header__menu}>Paid projects</a>
+                <a
+                  className={cn(
+                    styles.header__menu,
+                    router.pathname === '/collaborations' &&
+                      router.query.compensationModel === 'paid' &&
+                      styles.header__menu_active
+                  )}>
+                  Paid projects
+                </a>
               </Link>
               <Link href="/collaborations?compensationModel=collaboration">
-                <a className={styles.header__menu}>Collabs</a>
+                <a
+                  className={cn(
+                    styles.header__menu,
+                    router.pathname === '/collaborations' &&
+                      router.query.compensationModel === 'collaboration' &&
+                      styles.header__menu_active
+                  )}>
+                  Collabs
+                </a>
               </Link>
               <Link href="/profiles">
-                <a className={styles.header__menu}>People</a>
+                <a
+                  className={cn(
+                    styles.header__menu,
+                    router.pathname === '/profiles' && styles.header__menu_active
+                  )}>
+                  People
+                </a>
               </Link>
             </div>
             <div className={styles.header__rightNav}>
@@ -207,16 +245,16 @@ const Header = ({ user, path }) => {
                           <span>Profile</span>
                           <div className={cn(styles.img, styles.imgOnline)}>
                             <div className={styles.avatar}>
-                              <Image
-                                width={50}
-                                height={50}
-                                src={
-                                  user.avatar
-                                    ? client.UPLOAD_URL + user.avatar
-                                    : `https://ui-avatars.com/api/?background=9A87FE&name=${user.name}&rounded=true&color=ffffff`
-                                }
-                                alt="Picture of the user"
-                              />
+                              {user.avatar ? (
+                                <Imgix
+                                  width={50}
+                                  height={50}
+                                  src={client.UPLOAD_URL + user.avatar}
+                                  alt="Picture of the user"
+                                />
+                              ) : (
+                                <Avatar text={user.name} fontSize={20} />
+                              )}
                             </div>
                           </div>
                         </span>
@@ -236,15 +274,21 @@ const Header = ({ user, path }) => {
                 </>
               ) : (
                 <Link href="/sign-in">
-                  <a className={styles.header__menu}>Log in</a>
+                  <a
+                    className={cn(
+                      styles.header__menu,
+                      router.pathname === '/sign-in' && styles.header__menu_active
+                    )}>
+                    Log in
+                  </a>
                 </Link>
               )}
             </div>
             <span className={cn(styles.btn_submit)} onClick={addEvent}>
               <Link href="/create-a-story/start">
-                <span className={cn('btn_submit')}>
-                  <PrimaryButton text="Submit an IDEA" />
-                </span>
+                <a className={cn('btn_submit')}>
+                  <PrimaryButton text="Start a project" />
+                </a>
               </Link>
             </span>
           </div>
@@ -284,7 +328,7 @@ const MenuLinks = ({ isOpen, user }) => {
   const links = initialLinks.map((link, i) => (
     <li className={styles.menu_item} key={i}>
       <Link href={`/${link.link}`}>
-        <span>{link.text}</span>
+        <a>{link.text}</a>
       </Link>
     </li>
   ));
@@ -355,7 +399,17 @@ const MenuLinks = ({ isOpen, user }) => {
         <div className={styles.mobile_div_part2}>
           <ul className={styles.links}>{links}</ul>
           <div className={styles.image_block}>
-            {user ? <img src="/img/Frame2.png"></img> : <img src="/img/Frame.png"></img>}
+            <Imgix
+              width={257}
+              height={236}
+              layout="fixed"
+              src={
+                user
+                  ? 'https://mangafy.club/img/Frame2.webp'
+                  : 'https://mangafy.club/img/Frame.webp'
+              }
+              alt=""
+            />
           </div>
         </div>
       </div>

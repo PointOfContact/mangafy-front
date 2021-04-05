@@ -6,6 +6,7 @@ import Card from 'components/card';
 import SvgClose from 'components/icon/Close';
 import SvgDustbin from 'components/icon/Dustbin';
 import SvgHeart from 'components/icon/Heart';
+import Imgix from 'components/imgix';
 import AddButton from 'components/ui-elements/add-button';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import PropTypes from 'prop-types';
@@ -226,14 +227,32 @@ export const Gallery = (props) => {
                     <Card
                       description="Do you not want <br/> to add a gallery?"
                       btnText=""
-                      items={[<img key="1" src="/img/noGalere.png" alt="" />]}
+                      items={[
+                        <Imgix
+                          key="1"
+                          width={124}
+                          height={140}
+                          layout="fixed"
+                          src="https://mangafy.club/img/noGalere.webp"
+                          alt=""
+                        />,
+                      ]}
                     />
                   </Upload>
                 ) : (
                   <Card
                     description="Sorry, but there is nothing <br/> here (("
                     btnText=""
-                    items={[<img key="1" src="/img/noGalere.png" alt="" />]}
+                    items={[
+                      <Imgix
+                        key="1"
+                        width={124}
+                        height={140}
+                        layout="fixed"
+                        src="https://mangafy.club/img/noGalere.webp"
+                        alt=""
+                      />,
+                    ]}
                   />
                 )}
               </div>

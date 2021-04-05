@@ -36,7 +36,7 @@ const Start = ({ genres, jwt, user }) => {
         const data = [
           {
             platform: 'WEB',
-            event_type: EVENTS.ADDED_GENRES,
+            event_type: EVENTS.CREATE_PROJECT_COMPLETE,
             user_id: user._id,
             user_properties: {
               ...user,

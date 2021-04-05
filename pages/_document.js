@@ -3,19 +3,14 @@ import React from 'react';
 
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 
-const GA_TRACKING_ID = 'GTM-P6RRF46';
-
 export default class MyDocument extends Document {
   render() {
     return (
       <Html lang="en-US">
         <Head>
-          <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap"></link>
-          <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap"></link>
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+          <link rel="preconnect" href="https://www.google-analytics.com" crossOrigin="anonymous" />
+
           {/* Global Site Tag (gtag.js) - Google Analytics */}
           <script
             dangerouslySetInnerHTML={{

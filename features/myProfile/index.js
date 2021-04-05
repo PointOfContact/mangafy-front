@@ -16,7 +16,7 @@ const Amplitude = require('amplitude');
 const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 
 const MyProfile = (props) => {
-  const { user, mangaStories, total, originUrl, profile } = props;
+  const { user, originUrl, profile } = props;
   const { genres: genresEnums } = props;
   const [isMyProfile] = useState(true);
   const [editMode, setEditMode] = useState(false);
@@ -27,7 +27,10 @@ const MyProfile = (props) => {
     type: user.type,
     content: user.content,
     genresIds: user.genresIds,
+    avatar: user.avatar,
   });
+  const mangaStories = profile.mangaStories.data;
+  const total = profile.mangaStories.data.length;
 
   const cancelEditMode = () => {
     setEditMode(false);
@@ -38,6 +41,9 @@ const MyProfile = (props) => {
   const saveUserDataByKey = (...keys) => {
     const data = {};
     keys.forEach((item) => (data[item] = userData[item]));
+    if (data?.name) {
+      data.name = data.name?.replace(/  +/g, ' ');
+    }
     const jwt = client.getCookie('feathers-jwt');
     import('../../api/restClient').then((m) => {
       m.default
@@ -70,7 +76,7 @@ const MyProfile = (props) => {
     const data = [
       {
         platform: 'WEB',
-        event_type: EVENTS.PROJECT_CREATED,
+        event_type: EVENTS.ADDED_GENRES,
         user_id: user._id,
         user_properties: {
           ...user,
@@ -104,6 +110,7 @@ const MyProfile = (props) => {
             setEditMode,
             setUserData,
             errMessage,
+            setErrMessage,
             cancelEditMode,
             saveUserDataByKey,
             originUrl,

@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
-import { Input, Button, Space } from 'antd';
+import { Input, Button, Space, notification } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
 import Card from 'components/card';
 import SvgPurplePencil from 'components/icon/PurplePencil';
+import Imgix from 'components/imgix';
 import PrimaryButton from 'components/ui-elements/button';
 import { EVENTS } from 'helpers/amplitudeEvents';
+import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
@@ -15,7 +17,7 @@ const Amplitude = require('amplitude');
 
 const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 
-export const CommissionPricing = ({ id = null, user = null }) => {
+export const CommissionPricing = ({ id, user }) => {
   const [pricingList, setPricingList] = useState([]);
   const [errMessage, setErrMessage] = useState('');
   const [editMode, setEditMode] = useState(false);
@@ -43,27 +45,34 @@ export const CommissionPricing = ({ id = null, user = null }) => {
   };
 
   const setPricing = () => {
-    const jwt = client.getCookie('feathers-jwt');
-    import('api/restClient').then((m) => {
-      m.default
-        .service('/api/v2/users')
-        .patch(
-          id,
-          { pricingTable: pricingList },
-          {
-            headers: { Authorization: `Bearer ${jwt}` },
-            mode: 'no-cors',
-          }
-        )
-        .then((res) => {
-          setPricingList(res.pricingTable);
-          setEditMode(false);
-        })
-        .catch((err) => {
-          setErrMessage(err.message);
-          return err;
-        });
-    });
+    const empti = pricingList.find((item) => item.first === '' || item.last === '');
+    if (!empti) {
+      const jwt = client.getCookie('feathers-jwt');
+      import('api/restClient').then((m) => {
+        m.default
+          .service('/api/v2/users')
+          .patch(
+            id,
+            { pricingTable: pricingList },
+            {
+              headers: { Authorization: `Bearer ${jwt}` },
+              mode: 'no-cors',
+            }
+          )
+          .then((res) => {
+            setPricingList(res.pricingTable);
+            setEditMode(false);
+          })
+          .catch((err) => {
+            setErrMessage(err.message);
+            return err;
+          });
+      });
+    } else {
+      notification.error({
+        message: 'invalid Form',
+      });
+    }
   };
 
   useEffect(() => {
@@ -72,13 +81,13 @@ export const CommissionPricing = ({ id = null, user = null }) => {
 
   const handleChange = ({ target, currentTarget }) => {
     const newList = [...pricingList];
-    const { id } = currentTarget.dataset;
+    const newId = currentTarget.dataset.id;
     const { value, name } = target;
-    newList[id][name] = value;
+    newList[newId][name] = value;
     setPricingList(newList);
   };
 
-  const add = (index) => {
+  const add = () => {
     const data = [
       {
         platform: 'WEB',
@@ -136,9 +145,19 @@ export const CommissionPricing = ({ id = null, user = null }) => {
               {!pricingList.length && id !== user?._id && (
                 <div className={styles.noContent}>
                   <Card
+                    className={styles.card}
                     description="Sorry, but there is nothing <br/> here (("
                     btnText=""
-                    items={[<img key="1" src="/img/commisionList.png" alt="" />]}
+                    items={[
+                      <Imgix
+                        key="1"
+                        width={124}
+                        height={140}
+                        layout="fixed"
+                        src="https://mangafy.club/img/commisionList.webp"
+                        alt=""
+                      />,
+                    ]}
                   />
                 </div>
               )}
@@ -148,7 +167,16 @@ export const CommissionPricing = ({ id = null, user = null }) => {
                     description="It's time to tell about your services. <br/> Let's start!"
                     btnText="Let's start"
                     onClick={() => setEditMode(true)}
-                    items={[<img key="1" src="/img/commisionList.png" alt="" />]}
+                    items={[
+                      <Imgix
+                        key="1"
+                        width={124}
+                        height={140}
+                        layout="fixed"
+                        src="https://mangafy.club/img/commisionList.webp"
+                        alt=""
+                      />,
+                    ]}
                   />
                 </div>
               )}
@@ -158,25 +186,41 @@ export const CommissionPricing = ({ id = null, user = null }) => {
                   key={field.key}
                   style={{ display: 'flex', alignItems: 'center', marginBottom: 15 }}
                   align="start">
-                  <Input
-                    className=""
-                    disabled={!(canEdit && editMode)}
-                    placeholder="Service"
-                    name="first"
-                    data-id={index}
-                    value={field.first}
-                    onChange={handleChange}
-                  />
-                  <Input
-                    className={styles.inputCost}
-                    disabled={!(canEdit && editMode)}
-                    placeholder="Cost"
-                    name="last"
-                    data-id={index}
-                    value={field.last}
-                    onChange={handleChange}
-                  />
-                  <div className="col-lg-1">
+                  <span className={styles.grupe}>
+                    <Input
+                      className={cn(
+                        styles.inputService,
+                        !field.first && canEdit && editMode && styles.errInp
+                      )}
+                      disabled={!(canEdit && editMode)}
+                      placeholder="Service"
+                      name="first"
+                      data-id={index}
+                      value={field.first}
+                      onChange={handleChange}
+                    />
+                    {!field.first && canEdit && editMode && (
+                      <span className={styles.errMessage}> Field is require </span>
+                    )}
+                  </span>
+                  <span className={cn(styles.grupe)}>
+                    <Input
+                      className={cn(
+                        styles.inputCost,
+                        !field.last && canEdit && editMode && styles.errInp
+                      )}
+                      disabled={!(canEdit && editMode)}
+                      placeholder="Cost"
+                      name="last"
+                      data-id={index}
+                      value={field.last}
+                      onChange={handleChange}
+                    />
+                    {!field.last && canEdit && editMode && (
+                      <span className={cn(styles.errMessage, styles.ml)}> Field is require </span>
+                    )}
+                  </span>
+                  <div className={styles.close}>
                     {editMode && canEdit && (
                       <MinusCircleOutlined
                         onClick={() => {
@@ -190,6 +234,7 @@ export const CommissionPricing = ({ id = null, user = null }) => {
               {editMode && canEdit && (
                 <>
                   <Button
+                    className={styles.addBtn}
                     type="dashed"
                     onClick={() => {
                       add();
@@ -211,4 +256,14 @@ export const CommissionPricing = ({ id = null, user = null }) => {
       </div>
     </div>
   );
+};
+
+CommissionPricing.propTypes = {
+  user: PropTypes.object,
+  id: PropTypes.string,
+};
+
+CommissionPricing.defaultProps = {
+  id: null,
+  user: null,
 };

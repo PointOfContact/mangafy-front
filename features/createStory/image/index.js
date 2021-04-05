@@ -133,7 +133,7 @@ const Introduce = ({ user }) => {
             <div className="col-lg-8">
               <div className="collab_div">
                 <div className="logo_img_comp">
-                  <img src="/img/logo.png" width="250" alt="" />
+                  <img src="/img/logo.webp" width="250" alt="" />
                 </div>
                 <h1 className="collab">Time to catch the eye!</h1>
                 <p className="title_text">Add an image that clearly represents your project.</p>

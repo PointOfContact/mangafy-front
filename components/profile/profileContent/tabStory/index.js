@@ -4,6 +4,7 @@ import { Select, Input, Row, Col } from 'antd';
 import cn from 'classnames';
 import Card from 'components/card';
 import SvgPurplePencil from 'components/icon/PurplePencil';
+import Imgix from 'components/imgix';
 import AddButton from 'components/ui-elements/add-button';
 import PrimaryButton from 'components/ui-elements/button';
 import { useRouter } from 'next/router';
@@ -49,7 +50,7 @@ const TabStory = (props) => {
           xxl={{ span: 2 }}
           span={2}
           className={styles.add_button}>
-          <AddButton onClick={() => setStoryEditMode(true)} />
+          <AddButton className={styles.btn_ganres} onClick={() => setStoryEditMode(true)} />
         </Col>
       </Row>
     );
@@ -164,7 +165,16 @@ const TabStory = (props) => {
                 <Card
                   description="It's time to tell about yourself.</br>  Let's start!"
                   btnText="Tell us about yourself"
-                  items={[<img key="1" src="/img/aboutme.png" alt="" />]}
+                  items={[
+                    <Imgix
+                      key="1"
+                      width={133}
+                      height={140}
+                      layout="fixed"
+                      src="https://mangafy.club/img/aboutme.webp"
+                      alt=""
+                    />,
+                  ]}
                   onClick={() => setStoryEditMode(true)}
                 />
               </div>
@@ -175,7 +185,16 @@ const TabStory = (props) => {
                 <Card
                   description="Select 3 categories that best </br> describe your art"
                   btnText="Choose 3 categories"
-                  items={[<img key="1" src="/img/NovelType.png" alt="" />]}
+                  items={[
+                    <Imgix
+                      key="1"
+                      width={187}
+                      height={140}
+                      layout="fixed"
+                      src="https://mangafy.club/img/NovelType.webp"
+                      alt=""
+                    />,
+                  ]}
                   onClick={() => setStoryEditMode(true)}
                 />
               </div>
@@ -186,7 +205,16 @@ const TabStory = (props) => {
                 <Card
                   description="Haven't created a project yet? </br> Let's start!"
                   btnText="Create your first project"
-                  items={[<img key="1" src="/img/Projects.png" alt="" />]}
+                  items={[
+                    <Imgix
+                      key="1"
+                      width={111}
+                      height={140}
+                      layout="fixed"
+                      src="https://mangafy.club/img/Projects.webp"
+                      alt=""
+                    />,
+                  ]}
                   onClick={() => routeChange()}
                 />
               </div>
@@ -201,7 +229,16 @@ const TabStory = (props) => {
                 <Card
                   description="Sorry, but there is nothing <br/> here (("
                   btnText=""
-                  items={[<img key="1" src="/img/profile-apout-me.png" alt="" />]}
+                  items={[
+                    <Imgix
+                      key="1"
+                      width={124}
+                      height={140}
+                      layout="fixed"
+                      src="https://mangafy.club/img/profile-apout-me.webp"
+                      alt=""
+                    />,
+                  ]}
                   onClick={() => setStoryEditMode(true)}
                 />
               </div>
@@ -213,7 +250,16 @@ const TabStory = (props) => {
                   <Card
                     description="Nothing is filled in and it is <br/> very sad (("
                     btnText=""
-                    items={[<img key="1" src="/img/ProfileNovelType.png" alt="" />]}
+                    items={[
+                      <Imgix
+                        key="1"
+                        width={143}
+                        height={140}
+                        layout="fixed"
+                        src="https://mangafy.club/img/ProfileNovelType.webp"
+                        alt=""
+                      />,
+                    ]}
                     onClick={() => setStoryEditMode(true)}
                   />
                 </div>
@@ -224,7 +270,16 @@ const TabStory = (props) => {
                 <Card
                   description="There are no projects <br/> here (("
                   btnText=""
-                  items={[<img key="1" src="/img/ProfileProjects.png" alt="" />]}
+                  items={[
+                    <Imgix
+                      key="1"
+                      width={134}
+                      height={140}
+                      layout="fixed"
+                      src="https://mangafy.club/img/ProfileProjects.webp"
+                      alt=""
+                    />,
+                  ]}
                   onClick={() => routeChange()}
                 />
               </div>

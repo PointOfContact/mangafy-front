@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Modal } from 'antd';
 import SvgClose from 'components/icon/Close';
+import Imgix from 'components/imgix';
 import PrimaryButton from 'components/ui-elements/button';
 import PrimaryLargeButton from 'components/ui-elements/large-button';
 
@@ -28,7 +29,13 @@ export const ModalSuccess = ({ isModalVisible, handleCancelModal }) => (
           <img src="/img/anima.gif" alt="" />
           <img src="/img/anima.gif" alt="" />
         </div>
-        <img src="/img/succsessModal.png" alt="" />
+        <Imgix
+          width={492}
+          height={380}
+          layout="fixed"
+          src="https://mangafy.club/img/succsessModal.webp"
+          alt=""
+        />
         <h2 className={styles.title}>THAT&apos;S COOL</h2>
         <p className={styles.desc}>WE DID IT</p>
         <PrimaryButton

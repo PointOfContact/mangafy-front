@@ -6,7 +6,17 @@ import PropTypes from 'prop-types';
 import SvgPrimaryAdd from '../../icon/PrimaryAdd';
 import styles from './styles.module.scss';
 
-const AddButton = ({ disabled, className, onClick, isDark, isActive, height, width, ...rest }) => (
+const AddButton = ({
+  disabled,
+  text,
+  className,
+  onClick,
+  isDark,
+  isActive,
+  height,
+  width,
+  ...rest
+}) => (
   <div
     {...rest}
     className={cn(
@@ -17,7 +27,7 @@ const AddButton = ({ disabled, className, onClick, isDark, isActive, height, wid
     )}
     onClick={onClick}
     disabled={disabled}>
-    <span>Add</span>
+    <span>{text}</span>
     <SvgPrimaryAdd width={width} height={height} />
   </div>
 );
@@ -31,6 +41,7 @@ AddButton.propTypes = {
   disabled: PropTypes.bool,
   onClick: PropTypes.func,
   isFullWidth: PropTypes.bool,
+  text: PropTypes.string,
 };
 
 AddButton.defaultProps = {
@@ -42,6 +53,7 @@ AddButton.defaultProps = {
   onClick: () => {},
   width: '31px',
   height: '31px',
+  text: 'Add',
 };
 
 export default AddButton;

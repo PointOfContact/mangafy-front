@@ -22,7 +22,7 @@
 }
 
 .header {
-  width: 100%;
+  width: calc(100% - 15px);
   background: #fff;
   padding: 30px 0;
   margin-bottom: 0;
@@ -36,6 +36,7 @@
     padding: 20px 0;
   }
   @media (max-width: 767px) {
+    width: 100%;
     border-bottom: 2px solid #ebebeb;
     padding: 20px 0;
   }
@@ -122,6 +123,9 @@
       color: $primaryDark;
     }
   }
+  &__menu_active {
+    color: $primaryDark;
+  }
   .user_img_no_acaunt {
     display: inline-block;
     margin-right: 10px;
@@ -166,18 +170,16 @@
     z-index: -1;
     width: 52px;
     height: 52px;
+    padding: 3px;
+    overflow: hidden;
     @include media-md {
       width: 46px;
       height: 46px;
     }
-    overflow: hidden;
+    div {
+      cursor: pointer;
+    }
     img {
-      width: 52px;
-      height: 52px;
-      @include media-md {
-        width: 46px;
-        height: 46px;
-      }
       border-radius: 50%;
     }
   }

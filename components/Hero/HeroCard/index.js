@@ -1,42 +1,27 @@
 import React, { useState } from 'react';
 
 // Antd design
-import { Input, Upload } from 'antd';
-
+import { Upload } from 'antd';
 // Api
 import restClient from 'api/restClient';
 import { createHero, patchHero, deleteHero, uploadFile } from 'api/storyBoardClient';
 import SvgCloud from 'components/icon/Cloud';
 import SvgDustbin from 'components/icon/Dustbin';
+import Imgix from 'components/imgix';
 import Popconfirm from 'components/popconfirm';
 import PropTypes from 'prop-types';
 
 // Styles
-import { HeroTypes } from '../index';
 import styles from './styles.module.scss';
 
 // Components
 
-const { TextArea } = Input;
-const src = '/img/profile6.png';
+const src = '/img/profile6.webp';
 
-const HeroCard = ({ hero, getStoryBoard }) => {
+const HeroCard = ({ hero, getStoryBoard, changeHero }) => {
   const [currentHero, setCurrentHero] = useState(hero);
 
-  const handleTitleChange = (e) => {
-    setCurrentHero({
-      ...currentHero,
-      name: e.target.value,
-    });
-  };
-
-  const handleTextChange = (e) => {
-    setCurrentHero({
-      ...currentHero,
-      description: e.target.value,
-    });
-  };
-
+  // eslint-disable-next-line no-shadow
   const onBlur = (hero = currentHero) => {
     if (!hero?.name) {
       return;
@@ -57,7 +42,7 @@ const HeroCard = ({ hero, getStoryBoard }) => {
           });
           getStoryBoard();
         },
-        (err) => {}
+        () => {}
       );
     } else {
       delete newHero?._id;
@@ -67,12 +52,13 @@ const HeroCard = ({ hero, getStoryBoard }) => {
         () => {
           getStoryBoard();
         },
-        (err) => {}
+        () => {}
       );
     }
   };
 
   const beforeUpload = (file) => {
+    // eslint-disable-next-line no-undef
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.addEventListener('load', () => {
@@ -88,25 +74,18 @@ const HeroCard = ({ hero, getStoryBoard }) => {
             imageUrl: res?.id,
           });
         },
-        (err) => {}
+        () => {}
       );
     });
-  };
-
-  const onPreview = (file) => {};
-
-  const onChange = (info) => {
-    if (info.file.status === 'done') {
-    }
   };
 
   const confirmDelete = () => {
     deleteHero(
       currentHero._id,
-      (res) => {
+      () => {
         getStoryBoard();
       },
-      (err) => {
+      () => {
         getStoryBoard();
       }
     );
@@ -114,43 +93,34 @@ const HeroCard = ({ hero, getStoryBoard }) => {
 
   return (
     <div className={styles.hero__container}>
-      <div className={styles.hero__top__section}>
+      <div className={styles.hero__top__section} onClick={() => changeHero(hero)}>
         <div className={styles.hero__text__row}>
-          <Input
-            className={styles.hero__text__input}
-            placeholder={
-              currentHero.type === HeroTypes.personage ? 'Hero name:' : 'Component name:'
-            }
-            maxLength={100}
-            value={currentHero?.name}
-            onChange={handleTitleChange}
-            onBlur={() => onBlur(currentHero)}
-          />
+          <h3>{hero?.name}</h3>
         </div>
         <div className={styles.hero__text__row}>
-          <TextArea
-            className={styles.hero__text__input}
-            placeholder={'text:'}
-            autoSize={{ minRows: 1, maxRows: 3 }}
-            maxLength={1000}
-            value={currentHero?.description}
-            onChange={handleTextChange}
-            onBlur={() => onBlur(currentHero)}
-          />
+          <p>{hero?.description}</p>
         </div>
       </div>
       <div className={styles.hero__img}>
         <Upload
           accept="image/jpg, image/png, image/jpeg "
           beforeUpload={beforeUpload}
-          onChange={onChange}
-          onPreview={onPreview}
           showUploadList={false}>
           <img
             src={
               currentHero.imageUrl
                 ? `${restClient.API_ENDPOINT}/api/v2/uploads/${currentHero.imageUrl}`
                 : src
+            }
+          />
+          <Imgix
+            width={104}
+            height={95}
+            layout="fixed"
+            src={
+              currentHero.imageUrl
+                ? `${restClient.API_ENDPOINT}/api/v2/uploads/${currentHero.imageUrl}`
+                : `https://mangafy.club${src}`
             }
           />
           <span className={styles.uploadSvg}>
@@ -174,6 +144,8 @@ const HeroCard = ({ hero, getStoryBoard }) => {
 
 HeroCard.propTypes = {
   hero: PropTypes.object,
+  getStoryBoard: PropTypes.func.isRequired,
+  changeHero: PropTypes.func.isRequired,
 };
 
 HeroCard.defaultProps = {
