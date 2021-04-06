@@ -100,14 +100,42 @@
     border-radius: 4px;
     margin-bottom: 15px;
     position: relative;
-    span{
+    .cat {
       position: absolute;
       bottom: -10px;
-      left:25px;
+      left: 25px;
       padding: 0px 15px;
       border-radius: 25px;
       background: $primaryLight;
       color: $text_white;
+    }
+    .comments {
+      padding: 8px;
+      display: flex;
+      height: 70px;
+      background: linear-gradient(#9198e5, rgba(255, 255, 255, 0));
+      justify-content: flex-end;
+      color: white;
+      div {
+        display: flex;
+        align-items: center;
+        height: min-content;
+      }
+      span {
+        margin-left: 15px;
+        font-size: 15px;
+        font-weight: bold;
+      }
+      svg {
+        margin-left: 4px;
+        fill: transparent;
+        stroke: #ffffff;
+        stroke-width: 1px;
+        stroke-linejoin: round;
+        path {
+          fill: transparent;
+        }
+      }
     }
   }
   &_BotDescr {
@@ -115,7 +143,7 @@
     font-weight: 500;
     display: flex;
     justify-content: space-between;
-    button{
+    button {
       font-size: 13px;
       padding: 3px 15px;
     }

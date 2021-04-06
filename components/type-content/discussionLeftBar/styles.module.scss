@@ -144,10 +144,9 @@
     color: #2981b8;
   }
   &Buttons {
-    justify-content: space-between;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     padding: 20px 30px;
   }
   &Prev {
@@ -199,7 +198,7 @@
   border: 1px solid #ddd;
   padding-top: 16px;
   padding-left: 16px;
-  padding-bottom: 4px;
+  padding-bottom: 20px;
   &Title {
     display: flex;
     align-items: center;
@@ -257,4 +256,15 @@
     color: #2981b8;
     flex-shrink: 0;
   }
+}
+
+.more {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+  width: 130px;
+  height: 35px;
+  margin: auto;
+  box-shadow: 4px 4px #fec447;
 }

@@ -9,7 +9,10 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
   try {
     const posts = await client.service('/api/v2/posts').find({
       query: {
-        $limit: 100,
+        $limit: 5,
+        $sort: {
+          createdAt: -1,
+        },
       },
     });
     const dailyWarmUps = await client.service('/api/v2/daily-warm-ups').find({

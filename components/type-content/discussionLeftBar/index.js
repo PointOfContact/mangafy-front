@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
+import LargeButton from 'components/ui-elements/large-button';
 import { COMMUNITY_SPOTLIGHTS, HAPPENINGS } from 'helpers/constant';
+import Link from 'next/link';
 import PropTypes from 'prop-types';
 
 import CommunitySpotlightsCard from './communitySpotlightsCard';
@@ -40,14 +42,11 @@ const DiscussionLeftBar = (props) => {
               ))}
             </ul>
             <div className={styles.tagsButtons}>
-              <button className={styles.tagsPrev}>
-                <span className={styles.prevArr}>❮</span>
-                Prev
-              </button>
-              <button className={styles.tagsNext}>
-                Next
-                <span className={styles.prevArr}>❯</span>
-              </button>
+              <Link href="/collaborations">
+                <a>
+                  <LargeButton text="All Collabs" className={styles.more} />
+                </a>
+              </Link>
             </div>
           </div>
 
@@ -64,6 +63,11 @@ const DiscussionLeftBar = (props) => {
                 />
               ))}
             </ul>
+            <Link href="/profiles">
+              <a>
+                <LargeButton text="All Members" className={styles.more} />
+              </a>
+            </Link>
           </div>
         </div>
       </div>

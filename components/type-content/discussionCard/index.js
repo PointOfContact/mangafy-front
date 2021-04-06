@@ -1,6 +1,8 @@
 import React from 'react';
 
 import client from 'api/client';
+import SvgComment from 'components/icon/Comment';
+import SvgHeart from 'components/icon/Heart';
 import PrimaryButton from 'components/ui-elements/button';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
@@ -40,7 +42,15 @@ const DiscussionCard = (props) => {
               style={{
                 backgroundImage: `url(${img ? client.UPLOAD_URL + img : '/img/mangastory.jpg'})`,
               }}>
-              <span>{categories && categories[0]}</span>
+              <div className={styles.comments}>
+                <div>
+                  <span>0</span>
+                  <SvgHeart width="17px" height="17px" />
+                  <span>0</span>
+                  <SvgComment width="17px" height="17px" />
+                </div>
+              </div>
+              <span className={styles.cat}>{categories && categories[0]}</span>
             </div>
           </a>
         </Link>

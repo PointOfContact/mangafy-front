@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
+import client from 'api/client';
 import cn from 'classnames';
-import { DISCUSSIONS } from 'helpers/constant';
 import PropTypes from 'prop-types';
 
 import DiscussionCard from './discussionCard';
@@ -9,12 +9,29 @@ import DiscussionLeftBar from './discussionLeftBar';
 import DiscussionRightBar from './discussionRightBar';
 import styles from './styles.module.scss';
 
-export default function TypePage({ user, posts, dailyWarmUps, members, collaborations }) {
-  const [discussions, setDiscussions] = useState(DISCUSSIONS);
+export default function TypePage({ posts, dailyWarmUps, members, collaborations }) {
+  const [discussions, setDiscussions] = useState([]);
+  const [more, setMore] = useState(true);
 
   useEffect(() => {
     setDiscussions(posts);
   }, [posts]);
+
+  const showMore = async () => {
+    const query = {
+      $limit: 5,
+      $skip: discussions.length,
+      $sort: {
+        createdAt: -1,
+      },
+    };
+    const newPosts = await client.service('/api/v2/posts').find({
+      query,
+    });
+    const allPosts = discussions.concat(newPosts.data);
+    allPosts.length === newPosts.total && setMore(false);
+    setDiscussions(allPosts);
+  };
 
   return (
     <>
@@ -41,7 +58,11 @@ export default function TypePage({ user, posts, dailyWarmUps, members, collabora
                 />
               ))}
 
-              <button className={styles.projectsForYou_ShowMore}> Show More </button>
+              {more && (
+                <button className={styles.projectsForYou_ShowMore} onClick={() => showMore()}>
+                  Show More
+                </button>
+              )}
             </div>
             <DiscussionRightBar dailyWarmUps={dailyWarmUps} />
             <DiscussionLeftBar members={members} collaborations={collaborations} />
@@ -53,7 +74,6 @@ export default function TypePage({ user, posts, dailyWarmUps, members, collabora
 }
 
 TypePage.propTypes = {
-  user: PropTypes.object,
   posts: PropTypes.array,
   dailyWarmUps: PropTypes.array,
   members: PropTypes.array,
@@ -61,7 +81,6 @@ TypePage.propTypes = {
 };
 
 TypePage.defaultProps = {
-  user: null,
   posts: [],
   dailyWarmUps: [],
   members: [],

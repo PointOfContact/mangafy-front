@@ -23,10 +23,10 @@ const DiscussionRightBar = ({ dailyWarmUps }) => {
           </div>
         </div>
         <div className={styles.cards}>
-          {exercises.map((exercise) => (
+          {exercises.map((exercise, index) => (
             <ExerciseCard
               key={exercise._id}
-              order={exercise.order}
+              order={index + 1}
               categories={exercise.categories}
               title={exercise.title}
               url={exercise.button.navigateTo}
