@@ -52,6 +52,7 @@ const MangeStory = (props) => {
     hasStoryBoardPermision,
   } = props;
   const [editMode, setEditMode] = useState(false);
+  const [editTitle, setEditTitle] = useState(false);
   const [baseData, setBaseData] = useState(mangaStory);
   const [canEdit] = useState(isOwn);
   const [collabActiveTab, setcollabActiveTab] = useState('1');
@@ -97,6 +98,7 @@ const MangeStory = (props) => {
         })
         .then((res) => {
           setEditMode(false);
+          setEditTitle(false);
           setBaseData(res);
         })
         .catch((err) => {
@@ -114,6 +116,9 @@ const MangeStory = (props) => {
 
   const cancelEditMode = () => {
     setEditMode(false);
+  };
+  const cancelEditTitle = () => {
+    setEditTitle(false);
   };
 
   const onPublish = () => {
@@ -263,7 +268,7 @@ const MangeStory = (props) => {
                       </div>
                     </div>
                   )}
-                  {!editMode ? (
+                  {!editTitle ? (
                     <div className={styles.storyTabContent}>
                       <div className={styles.header}>
                         <h2>{baseData.title}</h2>
@@ -271,7 +276,7 @@ const MangeStory = (props) => {
                       {canEdit && (
                         <SvgPencilColored
                           className={styles.editSVG}
-                          onClick={() => setEditMode(true)}
+                          onClick={() => setEditTitle(true)}
                           width="22px"
                           height="22px"
                         />
@@ -300,7 +305,7 @@ const MangeStory = (props) => {
                             isDark
                             isRound
                             disabled={false}
-                            onClick={cancelEditMode}
+                            onClick={cancelEditTitle}
                           />
                           <PrimaryButton
                             className="buttonsProfile_save"
