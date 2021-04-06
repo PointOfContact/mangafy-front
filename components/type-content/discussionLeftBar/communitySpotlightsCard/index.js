@@ -25,7 +25,9 @@ const CommunitySpotlightsCard = (props) => {
                 <div className={styles.spotlightLeftDescrRecords}>{like}</div>
               </div>
             </div>
-            <div className={styles.spotlightFollow}>Follow</div>
+            <div className={styles.spotlightFollow}>
+              Follow <span style={{ marginLeft: '15px' }}>❯</span>
+            </div>
           </li>
         </a>
       </Link>

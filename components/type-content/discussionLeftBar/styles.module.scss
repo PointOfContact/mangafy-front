@@ -107,6 +107,11 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 0;
+    a {
+      &:last-of-type {
+        border-color: transparent;
+      }
+    }
   }
   &ListItem {
     display: flex;
@@ -147,7 +152,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px 30px;
+    padding: 0px 0px 25px 0px;
   }
   &Prev {
     border: none;
@@ -215,6 +220,11 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 0;
+    a {
+      &:last-of-type {
+        border-color: transparent;
+      }
+    }
   }
   &ListItem {
     display: flex;
@@ -224,9 +234,6 @@
     padding-bottom: 16px;
     padding-right: 16px;
     border-bottom: 1px solid #ededed;
-    &:last-child {
-      border-color: transparent;
-    }
   }
   &Left {
     display: flex;
@@ -267,4 +274,5 @@
   height: 35px;
   margin: auto;
   box-shadow: 4px 4px #fec447;
+  margin-top: 25px;
 }

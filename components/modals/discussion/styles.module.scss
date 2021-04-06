@@ -1,0 +1,98 @@
+@import '../../../styles/variables.scss';
+
+.modal {
+  @include media-sm {
+    width: 95% !important;
+    max-width: 95% !important;
+  }
+  h2 {
+    margin-bottom: 0;
+  }
+  .br {
+    height: 100%;
+    border-right: 1px solid $grey;
+    padding-right: 30px;
+    margin-right: 30px;
+    @include media-sm {
+      border: none;
+      padding-right: 0px;
+      margin-right: 0px;
+    }
+  }
+  .modalTitle {
+    margin-top: 24px;
+    margin-bottom: 24px;
+    text-align: center;
+    font-family: Noto Sans JP;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 30px;
+  }
+  .subtitle {
+    margin-bottom: 24px;
+    font-family: Noto Sans JP;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 25px;
+  }
+  .modalSelect {
+    box-sizing: border-box;
+    border-radius: 5px;
+    font-size: $text4;
+    padding: 0;
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  .modalTexarea {
+    min-height: 198px;
+    border: 1px solid $primaryDark;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding: 12px;
+  }
+  .hugeButton {
+    width: 240px;
+    height: 60px;
+    margin: 20px auto;
+  }
+  .titleWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .desc {
+    margin-top: 24px;
+    font-family: Noto Sans JP;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 25px;
+    line-height: 36px;
+  }
+  .anticon {
+    padding: 4px;
+    background: #7b65f3;
+    border-radius: 50%;
+    color: white;
+  }
+  .info {
+    .like {
+      font-weight: bold;
+      font-size: 18px;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      svg {
+        margin-left: 4px;
+        fill: transparent;
+        stroke: $black;
+        stroke-width: 1px;
+        stroke-linejoin: round;
+        path {
+          fill: transparent;
+        }
+      }
+    }
+  }
+}

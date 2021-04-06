@@ -130,6 +130,20 @@
     &_Title {
       font-size: 25px;
       font-weight: 700;
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      .filtr {
+        font-size: 15px;
+        display: flex;
+        align-items: center;
+        span {
+          cursor: pointer;
+          margin-left: 10px;
+          display: inline-flex;
+          align-items: center;
+        }
+      }
     }
   }
   &_ShowMore {

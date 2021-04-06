@@ -34,9 +34,6 @@
     padding-bottom: 16px;
     padding-right: 16px;
     border-bottom: 1px solid #ededed;
-    &:last-child {
-      border-color: transparent;
-    }
   }
   &Left {
     display: flex;
@@ -66,4 +63,10 @@
     color: #2981b8;
     flex-shrink: 0;
   }
+}
+
+.spotlightLeftImages {
+  width: 40px;
+  height: 40px;
+  display: inline-table;
 }

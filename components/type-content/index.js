@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 
 import client from 'api/client';
 import cn from 'classnames';
+import SvgBulbColored from 'components/icon/BulbColored';
+import SvgFiltr from 'components/icon/Filtr';
 import PropTypes from 'prop-types';
 
 import DiscussionCard from './discussionCard';
@@ -9,12 +11,13 @@ import DiscussionLeftBar from './discussionLeftBar';
 import DiscussionRightBar from './discussionRightBar';
 import styles from './styles.module.scss';
 
-export default function TypePage({ posts, dailyWarmUps, members, collaborations }) {
+export default function TypePage({ posts, dailyWarmUps, members, collaborations, user }) {
   const [discussions, setDiscussions] = useState([]);
   const [more, setMore] = useState(true);
 
   useEffect(() => {
     setDiscussions(posts);
+    console.log('postspostspostsposts', posts);
   }, [posts]);
 
   const showMore = async () => {
@@ -40,7 +43,18 @@ export default function TypePage({ posts, dailyWarmUps, members, collaborations 
           <div className={styles.type_main__wrap}>
             <div className={styles.projectsForYou}>
               <div className={styles.projectsForYou__MainTitle}>
-                <h2 className={styles.projectsForYou__MainTitle_Title}>For you</h2>
+                <h2 className={styles.projectsForYou__MainTitle_Title}>
+                  <div>
+                    <SvgBulbColored width="20px" height="20px" /> For you
+                  </div>
+                  <div className={styles.filtr}>
+                    <span>All</span>
+                    <span>
+                      <SvgFiltr width="15px" height="15px" />
+                    </span>
+                    <span>&#8645;</span>
+                  </div>
+                </h2>
               </div>
 
               {discussions.map((discussion) => (
@@ -55,6 +69,9 @@ export default function TypePage({ posts, dailyWarmUps, members, collaborations 
                   description={discussion.title}
                   url={discussion.button?.navigateTo}
                   btnText={discussion.button?.title}
+                  user={user}
+                  commentsCount={discussion.commentsCount}
+                  likesCount={discussion.likesCount}
                 />
               ))}
 
@@ -74,6 +91,7 @@ export default function TypePage({ posts, dailyWarmUps, members, collaborations 
 }
 
 TypePage.propTypes = {
+  user: PropTypes.object,
   posts: PropTypes.array,
   dailyWarmUps: PropTypes.array,
   members: PropTypes.array,
@@ -81,6 +99,7 @@ TypePage.propTypes = {
 };
 
 TypePage.defaultProps = {
+  user: null,
   posts: [],
   dailyWarmUps: [],
   members: [],

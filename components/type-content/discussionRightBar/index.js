@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
+import SvgBulbColored from 'components/icon/BulbColored';
 import PropTypes from 'prop-types';
 
 import ExerciseCard from './exerciseCard';
@@ -16,10 +17,15 @@ const DiscussionRightBar = ({ dailyWarmUps }) => {
     <>
       <div className={styles.dailyWarmUps}>
         <div className={styles.dailyWarmUps_Top}>
-          <div className={styles.date}>Tue, Mar 23</div>
+          <div className={styles.date}>
+            {new Date().toGMTString().split(' ').slice(0, 3).join(' ')}
+          </div>
           <div className={styles.dialyTitle}>
-            <h4>Daily Warm-Ups</h4>
-            <p>3 quick & easy creative exercises</p>
+            <SvgBulbColored width="15px" height="15px" />
+            <div>
+              <h4>Daily Warm-Ups</h4>
+              <p>{exercises.length} quick & easy creative exercises</p>
+            </div>
           </div>
         </div>
         <div className={styles.cards}>

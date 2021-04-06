@@ -12,7 +12,7 @@ const HeppeningCard = (props) => {
   return (
     <>
       <Link href={`/manga-story/${id}`}>
-        <a>
+        <a className={styles.href}>
           <li className={styles.tagsListItem}>
             <div className={styles.tagsDescr}>
               <div
@@ -22,7 +22,10 @@ const HeppeningCard = (props) => {
                 }}></div>
               <div className={styles.tagsDescrText}>{title}</div>
             </div>
-            <div className={styles.tagsCount}>{like}</div>
+            <div className={styles.tagsCount}>
+              {like}
+              <span style={{ marginLeft: '15px' }}>❯</span>
+            </div>
           </li>
         </a>
       </Link>

@@ -21,13 +21,16 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
       },
     });
     const query = {
-      $limit: 3,
+      $limit: 5,
+      $sort: {
+        createdAt: -1,
+      },
     };
     const members = await client.service('/api/v2/users').find({
       query,
     });
     const query1 = {
-      $limit: 4,
+      $limit: 6,
       $sort: {
         createdAt: -1,
       },

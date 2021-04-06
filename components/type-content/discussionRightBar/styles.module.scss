@@ -20,11 +20,8 @@
     padding: 20px 15px;
   }
   &_Top {
-    display: flex;
-    flex-direction: column;
-    padding-left: 24px;
-    padding-right: 24px;
     @media (max-width: 475px) {
+      display: flex;
       flex-direction: row-reverse;
       justify-content: space-between;
       padding-right: 0;
@@ -52,5 +49,40 @@
     overflow-x: scroll;
     scroll-snap-type: x mandatory;
     scroll-padding: 16px;
+  }
+}
+.date {
+  padding: 1px 8px;
+  border: 1px solid $grey;
+  border-radius: 30px;
+  display: inline-block;
+  background-color: white;
+  margin-bottom: 20px;
+}
+.dialyTitle {
+  display: flex;
+  justify-content: space-between;
+  h4 {
+    color: #1f2224;
+    font-size: 17px;
+    font-weight: 500;
+    letter-spacing: normal;
+    line-height: 22px;
+    margin-bottom: 0;
+    @media (max-width: 475px) {
+      font-size: 20px;
+      line-height: 30px;
+    }
+  }
+  p {
+    color: #595959;
+    font-size: 13px;
+    margin-bottom: 0;
+    @media (max-width: 475px) {
+      font-size: 15px;
+    }
+  }
+  svg {
+    margin: 5px;
   }
 }

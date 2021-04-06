@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import client from 'api/client';
 import SvgComment from 'components/icon/Comment';
 import SvgHeart from 'components/icon/Heart';
+import ModalDiscussion from 'components/modals/discussion';
 import PrimaryButton from 'components/ui-elements/button';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
@@ -10,7 +11,21 @@ import PropTypes from 'prop-types';
 import styles from './styles.module.scss';
 
 const DiscussionCard = (props) => {
-  const { logo, title, category, categories, img, description, url, btnText } = props;
+  const {
+    id,
+    logo,
+    title,
+    category,
+    categories,
+    img,
+    description,
+    url,
+    btnText,
+    user,
+    commentsCount,
+    likesCount,
+  } = props;
+  const [showModal, changeShowModal] = useState(false);
   return (
     <>
       <div className={styles.projectsForYou_Card}>
@@ -35,25 +50,22 @@ const DiscussionCard = (props) => {
             </div>
           </div>
         </div>
-        <Link href={url || '/'}>
-          <a>
-            <div
-              className={styles.projectsForYou_MainImg}
-              style={{
-                backgroundImage: `url(${img ? client.UPLOAD_URL + img : '/img/mangastory.jpg'})`,
-              }}>
-              <div className={styles.comments}>
-                <div>
-                  <span>0</span>
-                  <SvgHeart width="17px" height="17px" />
-                  <span>0</span>
-                  <SvgComment width="17px" height="17px" />
-                </div>
-              </div>
-              <span className={styles.cat}>{categories && categories[0]}</span>
+        <div
+          onClick={() => changeShowModal(true)}
+          className={styles.projectsForYou_MainImg}
+          style={{
+            backgroundImage: `url(${img ? client.UPLOAD_URL + img : '/img/mangastory.jpg'})`,
+          }}>
+          <div className={styles.comments}>
+            <div>
+              <span>{likesCount}</span>
+              <SvgHeart width="20px" height="17px" />
+              <span>{commentsCount}</span>
+              <SvgComment width="17px" height="17px" />
             </div>
-          </a>
-        </Link>
+          </div>
+          <span className={styles.cat}>{categories && categories[0]}</span>
+        </div>
 
         <div className={styles.projectsForYou_BotDescr}>
           <span>{description}</span>
@@ -67,11 +79,23 @@ const DiscussionCard = (props) => {
           </Link>
         </div>
       </div>
+      <ModalDiscussion
+        changeShowModal={changeShowModal}
+        showModal={showModal}
+        img={img}
+        logo={logo}
+        like={0}
+        title={title}
+        commentsData={[]}
+        user={user}
+        postId={id}
+      />
     </>
   );
 };
 
 DiscussionCard.propTypes = {
+  id: PropTypes.string.isRequired,
   logo: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
@@ -80,8 +104,13 @@ DiscussionCard.propTypes = {
   description: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
   btnText: PropTypes.string.isRequired,
+  user: PropTypes.object,
+  commentsCount: PropTypes.number.isRequired,
+  likesCount: PropTypes.number.isRequired,
 };
 
-DiscussionCard.defaultProps = {};
+DiscussionCard.defaultProps = {
+  user: null,
+};
 
 export default DiscussionCard;
