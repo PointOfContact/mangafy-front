@@ -45,7 +45,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, selectedTask, user }
           {
             mangaStoryId: baseData._id,
             joinAs,
-            taskId: selectedTask._id,
+            taskId: selectedTask?._id,
           },
           {
             headers: { Authorization: `Bearer ${jwt}` },

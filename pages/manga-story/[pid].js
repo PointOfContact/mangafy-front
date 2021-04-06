@@ -1,5 +1,4 @@
 import client from 'api/client';
-import restClient from 'api/restClient';
 import { withAuthComponent, withAuthServerSideProps } from 'components/withAuth';
 import MangeStory from 'features/mangaStory';
 import absoluteUrl from 'next-absolute-url';
@@ -17,30 +16,28 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
       },
     });
     const res = await client.service('/api/v2/manga-stories').get(context.params.pid);
-    let requests = { data: [] };
+    const requests = { data: [] };
     let comments = { data: [] };
+    let storyBoard = {};
+    let isParticipent = false;
+    let hasStoryBoardPermision = false;
     if (user) {
-      const options = {
-        query: {
-          mangaStoryId: context.params.pid,
-          $limit: 100,
-          $sort: {
-            createdAt: -1,
-          },
-        },
-        headers: { Authorization: `Bearer ${jwt}` },
-      };
-      if (user._id !== res.authorInfo._id) {
-        options.query.senderId = user._id;
-      }
-
-      requests = await restClient.service('/api/v2/join-manga-story-requests').find(options);
       comments = await client.service('/api/v2/comments').find({
         query: {
           mangaStoryId: context.params.pid,
         },
       });
+      isParticipent = user && res.participents.includes(user._id);
+      if (isParticipent) {
+        storyBoard = await client.service('/api/v2/story-boards').find({
+          query: {
+            mangaStoryId: res._id,
+          },
+        });
+        hasStoryBoardPermision = storyBoard?.data[0].permittedUsers.includes(user._id);
+      }
     }
+
     return {
       props: {
         genres: genres.data.map((g) => ({ value: g.name, _id: g._id })),
@@ -51,6 +48,8 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
         pid: context.params.pid,
         comments: comments.data,
         isOwn: user && user._id === res.authorInfo._id,
+        isParticipent,
+        hasStoryBoardPermision,
         originUrl: `https://mangafy.club/manga-story/${context.params.pid}`,
       }, // will be passed to the page component as props
     };

@@ -30,7 +30,11 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
   useEffect(() => {
     if (!user) return;
     setOptionsMangaStories(
-      user.mangaStories?.data?.map((item) => ({ key: item._id, value: item.title }))
+      user.mangaStories?.data?.map((item) => ({
+        key: item._id,
+        value: `${item.title} ${!item.published && '(Draft project*)'}`,
+        disabled: !item.published,
+      }))
     );
   }, [user]);
 
@@ -41,7 +45,10 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
   useEffect(() => {
     if (story) {
       const { tasks } = user?.mangaStories?.data?.find((item) => item._id === story);
-      setOptionsTasks(tasks?.map((item) => ({ key: item._id, value: item.description })));
+      setOptionsTasks([
+        { key: undefined, value: 'not selected' },
+        ...tasks?.map((item) => ({ key: item._id, value: item.description })),
+      ]);
       setTask(tasks?.[0]?._id);
     }
   }, [story, user?.mangaStories]);
@@ -131,6 +138,7 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
               }}>
               <h2>Join as</h2>
               <Form.Item
+                hasFeedback
                 name="joinAs"
                 rules={[
                   {
@@ -146,8 +154,9 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
                   value={joinAs}
                 />
               </Form.Item>
-              <h2>Manga Stories</h2>
+              <h2>Your graphic novel</h2>
               <Form.Item
+                hasFeedback
                 name="story"
                 rules={[
                   {
@@ -166,14 +175,7 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
               {story && optionsTasks && (
                 <>
                   <h2>Tasks</h2>
-                  <Form.Item
-                    name="task"
-                    rules={[
-                      {
-                        required: true,
-                        message: 'Task is required',
-                      },
-                    ]}>
+                  <Form.Item hasFeedback name="task" rules={[]}>
                     <PrimarySelect
                       showSearch
                       className={styles.modalSelect}
@@ -186,6 +188,7 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
               )}
               <h2>Your message</h2>
               <Form.Item
+                hasFeedback
                 name="text"
                 rules={[
                   {
@@ -215,6 +218,11 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
                 </Form.Item>
               </div>
             </Form>
+            <div>
+              Draft project – if you are about to send a collaboration invite in draft mode, note
+              that user will not be able to see a summary of your project until they accept the
+              invite.
+            </div>
           </div>
         </div>
       </div>

@@ -13,7 +13,7 @@ import PropTypes from 'prop-types';
 import styles from '../styles.module.scss';
 import Tasks from './tasks';
 
-const StoryTab = ({ baseData, isOwn, user }) => {
+const StoryTab = ({ baseData, isOwn, user, isParticipent }) => {
   const [showModal, changeShowModal] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
   const { _id, author, introduce, story, authorInfo, participentsInfo } = baseData;
@@ -60,7 +60,13 @@ const StoryTab = ({ baseData, isOwn, user }) => {
             </span>
           </>
         )}
-        <Tasks baseData={baseData} isOwn={isOwn} user={user} toTeam={toTeam} />
+        <Tasks
+          baseData={baseData}
+          isOwn={isOwn}
+          user={user}
+          toTeam={toTeam}
+          isParticipent={isParticipent}
+        />
       </div>
       <div className={cn(styles.storyTabDescription, styles.autherBlock)}>
         <Link href={`/profile/${author}`}>
@@ -105,6 +111,7 @@ StoryTab.propTypes = {
   baseData: PropTypes.object.isRequired,
   isOwn: PropTypes.bool.isRequired,
   user: PropTypes.object,
+  isParticipent: PropTypes.bool.isRequired,
 };
 
 StoryTab.defaultProps = {

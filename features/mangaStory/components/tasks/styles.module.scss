@@ -38,6 +38,14 @@ $repeat: 5;
     margin-right: 10px;
   }
 }
+.contributeBtn {
+  max-width: 175px;
+  height: 46px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: $text4;
+}
 .editBtn {
   max-width: 175px;
   height: 46px;

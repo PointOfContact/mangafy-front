@@ -41,7 +41,16 @@ const { TabPane } = Tabs;
 // const { TextArea } = Input;
 
 const MangeStory = (props) => {
-  const { mangaStory, user, requests, isOwn, originUrl, comments, genres } = props;
+  const {
+    mangaStory,
+    user,
+    isOwn,
+    originUrl,
+    comments,
+    genres,
+    isParticipent,
+    hasStoryBoardPermision,
+  } = props;
   const [editMode, setEditMode] = useState(false);
   const [baseData, setBaseData] = useState(mangaStory);
   const [canEdit] = useState(isOwn);
@@ -50,7 +59,7 @@ const MangeStory = (props) => {
   useEffect(() => {
     const { tab } = qs.parse(location.search);
     switch (tab) {
-      case 'srory':
+      case 'story':
         setcollabActiveTab('1');
         break;
       case 'story-board':
@@ -202,7 +211,7 @@ const MangeStory = (props) => {
   const onGoToPrivate = () => {
     confirm({
       confirmLoading: true,
-      title: 'Switch to private Mode?',
+      title: 'Switch to draft Mode?',
       style: { top: 120 },
       icon: <ExclamationCircleOutlined />,
       content:
@@ -239,7 +248,7 @@ const MangeStory = (props) => {
                             styles.publishText,
                             !baseData.published && styles.published
                           )}>
-                          Private
+                          Draft
                         </p>
                         <span>
                           <Switch checked={baseData.published} onChange={onPublish} />
@@ -322,7 +331,12 @@ const MangeStory = (props) => {
                       <p>
                         {!editMode ? (
                           <div>
-                            <StoryTab baseData={baseData} user={user} isOwn={isOwn} />
+                            <StoryTab
+                              baseData={baseData}
+                              user={user}
+                              isOwn={isOwn}
+                              isParticipent={isParticipent}
+                            />
                             {canEdit && (
                               <SvgPencilColored
                                 className={styles.editTitleSvg}
@@ -378,7 +392,7 @@ const MangeStory = (props) => {
                       </p>
                     </div>
                   </TabPane>
-                  {isOwn && (
+                  {(isOwn || hasStoryBoardPermision) && (
                     <TabPane tab="STORY BOARD" key="2" className="story">
                       <StoryBoardTabs
                         mangaStory={mangaStory}
@@ -401,7 +415,12 @@ const MangeStory = (props) => {
                   {user && (
                     <TabPane tab="INVITES" key="4">
                       <div className={styles.tabWrap}>
-                        <Chat requests={requests} mangaStory={baseData} user={user} isOwn={isOwn} />
+                        <Chat
+                          mangaStory={baseData}
+                          user={user}
+                          isOwn={isOwn}
+                          collabActiveTab={collabActiveTab}
+                        />
                       </div>
                     </TabPane>
                   )}
@@ -433,10 +452,11 @@ MangeStory.propTypes = {
   genres: PropTypes.array.isRequired,
   mangaStory: PropTypes.object.isRequired,
   user: PropTypes.object,
-  requests: PropTypes.array.isRequired,
   isOwn: PropTypes.bool.isRequired,
   originUrl: PropTypes.string.isRequired,
   comments: PropTypes.array.isRequired,
+  hasStoryBoardPermision: PropTypes.bool.isRequired,
+  isParticipent: PropTypes.bool.isRequired,
 };
 
 MangeStory.defaultProps = {
