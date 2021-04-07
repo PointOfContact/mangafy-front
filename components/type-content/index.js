@@ -4,6 +4,7 @@ import client from 'api/client';
 import cn from 'classnames';
 import SvgBulbColored from 'components/icon/BulbColored';
 import SvgFiltr from 'components/icon/Filtr';
+import PrimaryButton from 'components/ui-elements/button';
 import PropTypes from 'prop-types';
 
 import DiscussionCard from './discussionCard';
@@ -14,13 +15,14 @@ import styles from './styles.module.scss';
 export default function TypePage({ posts, dailyWarmUps, members, collaborations, user }) {
   const [discussions, setDiscussions] = useState([]);
   const [more, setMore] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     setDiscussions(posts);
-    console.log('postspostspostsposts', posts);
   }, [posts]);
 
   const showMore = async () => {
+    setIsLoading(true);
     const query = {
       $limit: 5,
       $skip: discussions.length,
@@ -34,6 +36,7 @@ export default function TypePage({ posts, dailyWarmUps, members, collaborations,
     const allPosts = discussions.concat(newPosts.data);
     allPosts.length === newPosts.total && setMore(false);
     setDiscussions(allPosts);
+    setIsLoading(false);
   };
 
   return (
@@ -76,9 +79,12 @@ export default function TypePage({ posts, dailyWarmUps, members, collaborations,
               ))}
 
               {more && (
-                <button className={styles.projectsForYou_ShowMore} onClick={() => showMore()}>
-                  Show More
-                </button>
+                <PrimaryButton
+                  text="Show More"
+                  loading={isLoading}
+                  className={styles.projectsForYou_ShowMore}
+                  onClick={() => showMore()}
+                />
               )}
             </div>
             <DiscussionRightBar dailyWarmUps={dailyWarmUps} />

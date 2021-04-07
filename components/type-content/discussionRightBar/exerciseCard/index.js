@@ -1,5 +1,6 @@
 import React from 'react';
 
+import PrimaryButton from 'components/ui-elements/button';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 
@@ -22,8 +23,7 @@ const ExerciseCard = (props) => {
         <div className={styles.cardDescr}>{title}</div>
         <Link href={url}>
           <a className={styles.cardButton}>
-            {btnText}
-            <span>❯</span>
+            <PrimaryButton text={btnText} suffix={<span style={{ marginLeft: '15px' }}>❯</span>} />
           </a>
         </Link>
       </div>
