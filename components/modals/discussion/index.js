@@ -27,7 +27,7 @@ const ModalDiscussion = ({ changeShowModal, showModal, user, postId, title, logo
     const post = await client.service('api/v2/posts').get(postId);
     setLikesData(post.likes.data);
     setCommentsData(post.comments.data);
-    post.likes.data.find((item) => item.senderId === user._id) && setIsLiked(true);
+    post.likes.data.find((item) => item.senderId === user?._id) && setIsLiked(true);
   };
 
   const handleLike = () => {
