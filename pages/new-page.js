@@ -4,9 +4,10 @@ import LandingNew from 'features/typePage';
 import { store } from 'store';
 
 export default withAuthComponent(LandingNew);
-
 export const getServerSideProps = withAuthServerSideProps(async (context, user = null) => {
   try {
+    const selectedCategories = context.query.categories || null;
+    const selectedType = context.query.compensationModel || null;
     const posts = await client.service('/api/v2/posts').find({
       query: {
         $limit: 5,
@@ -42,6 +43,8 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
     return {
       props: {
         posts: posts.data,
+        selectedCategories,
+        selectedType,
         dailyWarmUps: dailyWarmUps.data,
         members: members.data,
         collaborations: collaborations.data,

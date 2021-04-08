@@ -26,7 +26,7 @@ const CommunitySpotlightsCard = (props) => {
               </div>
             </div>
             <div className={styles.spotlightFollow}>
-              Follow <span style={{ marginLeft: '15px' }}>❯</span>
+              Follow <span style={{ marginLeft: '8px' }}>❯</span>
             </div>
           </li>
         </a>

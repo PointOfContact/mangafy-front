@@ -158,10 +158,10 @@ const MenuNotificationsBox = ({ user, unreadNotificationsId, notificationsCount 
           ) : (
             <div className={styles.noNot}>
               <Imgix
-                width={257}
-                height={236}
+                width={130}
+                height={125}
                 layout="fixed"
-                src={'https://mangafy.club/img/img/ProfileNovelType.webp'}
+                src={'https://mangafy.club/img/ProfileNovelType.webp'}
                 alt=""
               />
               <h4>No unread notifications</h4>

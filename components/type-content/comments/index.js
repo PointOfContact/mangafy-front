@@ -4,9 +4,10 @@ import { Button, Comment, List, Form, Input } from 'antd';
 import client from 'api/client';
 import Imgix from 'components/imgix';
 import Avatar from 'components/ui-elements/avatar';
-import { EVENTS } from 'helpers/amplitudeEvents';
 import moment from 'moment';
 import PropTypes from 'prop-types';
+
+import styles from './styles.module.scss';
 
 const Amplitude = require('amplitude');
 
@@ -15,24 +16,25 @@ const { TextArea } = Input;
 
 const CommentList = ({ comments }) => (
   <List
-    dataSource={comments}
+    className={styles.list}
+    dataSource={comments.reverse()}
     itemLayout="horizontal"
     renderItem={(commentItem) => (
       <Comment
-        datetime={commentItem.createdAt}
+        datetime={moment(commentItem.createdAt).format('lll')}
         {...commentItem}
-        author={commentItem.senderInfo[0] && commentItem.senderInfo[0].name}
+        author={commentItem?.authorInfo?.name}
         avatar={
-          commentItem.senderInfo[0] && (
+          commentItem.authorInfo && (
             <>
-              {commentItem.senderInfo[0].avatar ? (
+              {commentItem.authorInfo?.avatar ? (
                 <Imgix
                   width={40}
                   height={40}
-                  src={client.UPLOAD_URL + commentItem.senderInfo[0].avatar}
+                  src={client.UPLOAD_URL + commentItem.authorInfo?.avatar}
                 />
               ) : (
-                <Avatar text={commentItem?.senderInfo[0]?.name} size={40} />
+                <Avatar text={commentItem?.authorInfo?.name} size={40} />
               )}
             </>
           )
@@ -42,10 +44,14 @@ const CommentList = ({ comments }) => (
   />
 );
 
+CommentList.propTypes = {
+  comments: PropTypes.array.isRequired,
+};
+
 const Editor = ({ onChange, onSubmit, submitting, value }) => (
   <>
     <Form.Item>
-      <TextArea rows={4} onChange={onChange} value={value} />
+      <TextArea autoSize={{ minRows: 1, maxRows: 7 }} onChange={onChange} value={value} />
     </Form.Item>
     <Form.Item>
       <Button
@@ -74,8 +80,8 @@ Editor.defaultProps = {
   submitting: null,
 };
 
-export const Comments = ({ commentsData, postId, user }) => {
-  const [comments, setComments] = useState(commentsData);
+export const Comments = ({ commentsData, postId, user, setCommentsData }) => {
+  const [comments, setComments] = useState([]);
   const [submitting, setSubmitting] = useState(false);
   const [value, setValue] = useState('');
   const [errMessage, setErrMessage] = useState('');
@@ -92,11 +98,11 @@ export const Comments = ({ commentsData, postId, user }) => {
     const jwt = client.getCookie('feathers-jwt');
     import('api/restClient').then((m) => {
       m.default
-        .service('/api/v2/comments')
+        .service('/api/v2/post-comments')
         .create(
           {
             content: value,
-            mangaStoryId: postId,
+            postId,
           },
           {
             headers: { Authorization: `Bearer ${jwt}` },
@@ -104,26 +110,24 @@ export const Comments = ({ commentsData, postId, user }) => {
           }
         )
         .then((res) => {
-          res.senderInfo = [{ _id: '', name: user.name, avatar: user.avatar }];
-          res.avatar = client.UPLOAD_URL + user.avatar;
+          res.authorInfo = { _id: user._id, name: user.name, avatar: user.avatar };
           res.datetime = moment().format('MMMM Do YYYY, h:mm:ss a');
-          res.author = user.name;
-          const commentsData = [{ ...res }, ...comments];
-          setComments(commentsData);
+          const newCommentsData = [...comments, { ...res }];
+          setCommentsData(newCommentsData);
           setSubmitting(false);
           setValue('');
-          const eventData = [
-            {
-              platform: 'WEB',
-              event_type: EVENTS.MINI_JOB_REMOVED,
-              event_properties: { postId },
-              user_id: user._id,
-              user_properties: {
-                ...user,
-              },
-            },
-          ];
-          amplitude.track(eventData);
+          // const eventData = [
+          //   {
+          //     platform: 'WEB',
+          //     event_type: EVENTS.POST_COMMENT,
+          //     event_properties: { postId },
+          //     user_id: user._id,
+          //     user_properties: {
+          //       ...user,
+          //     },
+          //   },
+          // ];
+          // amplitude.track(eventData);
         })
         .catch((err) => {
           setErrMessage(err.message);
@@ -131,9 +135,11 @@ export const Comments = ({ commentsData, postId, user }) => {
         });
     });
   };
+
   useEffect(() => {
-    const orderAs = '$sort[createdAt]';
-  }, [comments.length]);
+    setComments(commentsData);
+  }, [commentsData]);
+
   return (
     <>
       {comments.length > 0 && (
@@ -174,12 +180,14 @@ export const Comments = ({ commentsData, postId, user }) => {
 };
 
 Comments.propTypes = {
+  setCommentsData: PropTypes.func,
   commentsData: PropTypes.array,
   postId: PropTypes.string,
   user: PropTypes.object,
 };
 
 Comments.defaultProps = {
+  setCommentsData: () => {},
   commentsData: [],
   postId: null,
   user: null,

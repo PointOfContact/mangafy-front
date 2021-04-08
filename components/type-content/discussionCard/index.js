@@ -18,7 +18,7 @@ const DiscussionCard = (props) => {
     category,
     categories,
     img,
-    description,
+    subTitle,
     url,
     btnText,
     user,
@@ -26,6 +26,7 @@ const DiscussionCard = (props) => {
     likesCount,
   } = props;
   const [showModal, changeShowModal] = useState(false);
+
   return (
     <>
       <div className={styles.projectsForYou_Card}>
@@ -38,7 +39,7 @@ const DiscussionCard = (props) => {
           <div className={styles.projectsForYou_Descr}>
             <div className={styles.projectsForYou_Name}>{title}</div>
             <div className={styles.projectsForYou_Category}>
-              <div className={styles.projectsForYou_Category_Name}>{category}</div>
+              {category && <div className={styles.projectsForYou_Category_Name}>{category}</div>}
               <ul className={styles.projectsForYou_Category_List}>
                 {categories?.map((categorie) => (
                   <li key={categorie} className={styles.projectsForYou_Category_List_Item}>
@@ -68,7 +69,7 @@ const DiscussionCard = (props) => {
         </div>
 
         <div className={styles.projectsForYou_BotDescr}>
-          <span>{description}</span>
+          <span>{subTitle}</span>
           <Link href={url || '/'}>
             <a>
               <PrimaryButton
@@ -82,11 +83,10 @@ const DiscussionCard = (props) => {
       <ModalDiscussion
         changeShowModal={changeShowModal}
         showModal={showModal}
+        url={url}
         img={img}
         logo={logo}
-        like={0}
         title={title}
-        commentsData={[]}
         user={user}
         postId={id}
       />
@@ -101,7 +101,7 @@ DiscussionCard.propTypes = {
   category: PropTypes.string.isRequired,
   img: PropTypes.string.isRequired,
   categories: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
+  subTitle: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
   btnText: PropTypes.string.isRequired,
   user: PropTypes.object,

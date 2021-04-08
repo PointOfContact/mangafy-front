@@ -3,16 +3,30 @@ import React, { useEffect, useState } from 'react';
 import client from 'api/client';
 import cn from 'classnames';
 import SvgBulbColored from 'components/icon/BulbColored';
-import SvgFiltr from 'components/icon/Filtr';
 import PrimaryButton from 'components/ui-elements/button';
+// import { USER_TYPES } from 'helpers/constant';
 import PropTypes from 'prop-types';
 
 import DiscussionCard from './discussionCard';
 import DiscussionLeftBar from './discussionLeftBar';
 import DiscussionRightBar from './discussionRightBar';
+// import SearchForDiscussions from './searchForDiscussions';
 import styles from './styles.module.scss';
 
-export default function TypePage({ posts, dailyWarmUps, members, collaborations, user }) {
+// const categories = USER_TYPES.map((item) => ({
+//   key: item.label,
+//   value: item.label,
+// }));
+
+export default function TypePage({
+  posts,
+  dailyWarmUps,
+  members,
+  collaborations,
+  user,
+  selectedCategories,
+  selectedType,
+}) {
   const [discussions, setDiscussions] = useState([]);
   const [more, setMore] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
@@ -47,16 +61,16 @@ export default function TypePage({ posts, dailyWarmUps, members, collaborations,
             <div className={styles.projectsForYou}>
               <div className={styles.projectsForYou__MainTitle}>
                 <h2 className={styles.projectsForYou__MainTitle_Title}>
-                  <div>
+                  <div className={styles.forYou}>
                     <SvgBulbColored width="20px" height="20px" /> For you
                   </div>
-                  <div className={styles.filtr}>
-                    <span>All</span>
-                    <span>
-                      <SvgFiltr width="15px" height="15px" />
-                    </span>
-                    <span>&#8645;</span>
-                  </div>
+                  {/* <div className={styles.filtr}>
+                    <SearchForDiscussions
+                      categories={categories}
+                      selectedCategories={selectedCategories}
+                      selectedType={selectedType}
+                    />
+                  </div> */}
                 </h2>
               </div>
 
@@ -69,7 +83,7 @@ export default function TypePage({ posts, dailyWarmUps, members, collaborations,
                   type={discussion.type}
                   categories={discussion.categories}
                   img={discussion.imageUrl}
-                  description={discussion.title}
+                  subTitle={discussion.subTitle}
                   url={discussion.button?.navigateTo}
                   btnText={discussion.button?.title}
                   user={user}
@@ -102,6 +116,8 @@ TypePage.propTypes = {
   dailyWarmUps: PropTypes.array,
   members: PropTypes.array,
   collaborations: PropTypes.array,
+  selectedCategories: PropTypes.string,
+  selectedType: PropTypes.string,
 };
 
 TypePage.defaultProps = {
@@ -110,4 +126,6 @@ TypePage.defaultProps = {
   dailyWarmUps: [],
   members: [],
   collaborations: [],
+  selectedCategories: '',
+  selectedType: '',
 };

@@ -27,13 +27,21 @@
     font-style: normal;
     font-weight: 900;
     font-size: 30px;
+    line-height: 40px;
   }
   .subtitle {
     margin-bottom: 24px;
     font-family: Noto Sans JP;
     font-style: normal;
     font-weight: 900;
-    font-size: 25px;
+    font-size: 20px;
+  }
+  .isLiked {
+    fill: red !important;
+    stroke: red !important;
+    path {
+      fill: red !important;
+    }
   }
   .modalSelect {
     box-sizing: border-box;
@@ -75,16 +83,48 @@
     border-radius: 50%;
     color: white;
   }
+  .logo {
+    display: flex;
+    align-items: center;
+    span {
+      width: 54px;
+      height: 54px;
+      margin-right: 20px !important;
+    }
+    h2 {
+      margin-bottom: 0;
+    }
+    img {
+      border-radius: 54px;
+    }
+  }
   .info {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    .share {
+      width: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      svg {
+        cursor: pointer;
+      }
+    }
     .like {
+      margin-right: 10px;
       font-weight: bold;
-      font-size: 18px;
+      font-size: 22px;
       display: inline-flex;
       justify-content: center;
       align-items: center;
-      flex-direction: column;
+      span {
+        margin-bottom: 3px;
+      }
       svg {
-        margin-left: 4px;
+        margin-left: 8px;
         fill: transparent;
         stroke: $black;
         stroke-width: 1px;
@@ -93,6 +133,16 @@
           fill: transparent;
         }
       }
+    }
+  }
+  .img {
+    img {
+      width: 100% !important;
+      height: unset !important;
+      min-width: unset !important;
+      max-width: unset !important;
+      min-height: unset !important;
+      max-height: unset !important;
     }
   }
 }

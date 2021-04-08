@@ -7,7 +7,15 @@ import TypePage from 'components/type-content';
 import ButtonToTop from 'components/ui-elements/button-toTop';
 import PropTypes from 'prop-types';
 
-export default function LandingNew({ user, posts, dailyWarmUps, members, collaborations }) {
+export default function LandingNew({
+  user,
+  posts,
+  dailyWarmUps,
+  members,
+  collaborations,
+  selectedCategories,
+  selectedType,
+}) {
   return (
     <>
       <ButtonToTop />
@@ -21,6 +29,8 @@ export default function LandingNew({ user, posts, dailyWarmUps, members, collabo
               dailyWarmUps={dailyWarmUps}
               members={members}
               collaborations={collaborations}
+              selectedCategories={selectedCategories}
+              selectedType={selectedType}
             />
           </main>
         </div>
