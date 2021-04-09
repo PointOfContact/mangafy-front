@@ -2,7 +2,6 @@
 
 .box {
 	color: $white;
-	overflow: hidden;
 	background: linear-gradient(270.25deg, #7B65F3 0.24%, #5644BA 60.66%);
 	margin-bottom: 50px;
 	position: relative;
@@ -12,7 +11,10 @@
 	p {
 		margin-bottom: 0;
 	}
-	&:after {
+	.hid{
+		overflow: hidden;
+	}
+	&::before {
 		content: "";
 		width: 100%;
 		height: 100%;
@@ -39,9 +41,6 @@
 		}
 	}
 	&__bgImgCloud {
-		// div{
-		// 	position: absolute !important;
-		// }
 		width: auto;
 		height: 100%;
 		position: absolute;

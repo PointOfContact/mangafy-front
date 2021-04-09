@@ -112,6 +112,21 @@
       cursor: pointer;
     }
   }
+  .deleteAccount {
+    margin-top: 10px;
+    font-size: $text4;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    @include media-sm {
+      justify-content: center;
+    }
+    div {
+      color: $black;
+      margin-left: 5px;
+      text-decoration: underline;
+    }
+  }
   .info_profile {
     @include media-sm {
       margin-top: 45px;
@@ -121,6 +136,7 @@
         margin-right: auto;
       }
     }
+
     color: $black;
     h4 {
       font-weight: 900;
@@ -162,7 +178,7 @@
     position: absolute;
     margin-top: -10px;
   }
-  .errImp{
+  .errImp {
     border-color: red !important;
   }
 

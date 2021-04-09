@@ -9,17 +9,29 @@ import styles from './styles.module.scss';
 
 const CollaborationsHeader = () => (
   <div className={styles.box}>
+    <div className={styles.hid}>
+      <div className={styles.box__bgImgCloud}>
+        <Imgix
+          priority
+          width={1190}
+          height={608}
+          src="https://mangafy.club/img/CollaborationMainScreen__cloud.webp"
+          alt=""
+        />
+      </div>
+      <div className={styles.box__bgImgs_style1__img2}>
+        <Imgix
+          priority
+          layout="intrinsic"
+          width={629}
+          height={644}
+          src="https://mangafy.club/img/CollaborationMainScreen__bgImgs_style1__img2.webp"
+          alt=""
+        />
+      </div>
+    </div>
     <div className={'container'}>
       <div className={styles.box__wrapper}>
-        <div className={styles.box__bgImgCloud}>
-          <Imgix
-            priority
-            width={1190}
-            height={608}
-            src="https://mangafy.club/img/CollaborationMainScreen__cloud.webp"
-            alt=""
-          />
-        </div>
         <div className={cn(styles.box__bgImgs, styles.box__bgImgs_style1)}>
           <div className={styles.box__bgImgs_style1__img1}>
             <Imgix
@@ -28,16 +40,6 @@ const CollaborationsHeader = () => (
               width={542}
               height={537}
               src="https://mangafy.club/img/CollaborationMainScreen__bgImgs_style1__img1.webp"
-              alt=""
-            />
-          </div>
-          <div className={styles.box__bgImgs_style1__img2}>
-            <Imgix
-              priority
-              layout="intrinsic"
-              width={629}
-              height={644}
-              src="https://mangafy.club/img/CollaborationMainScreen__bgImgs_style1__img2.webp"
               alt=""
             />
           </div>

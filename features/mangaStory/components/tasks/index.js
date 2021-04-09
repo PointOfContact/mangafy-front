@@ -70,7 +70,7 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipent }) => {
       .catch((err) => err);
   };
   return (
-    <div className={styles.tasks}>
+    <div className={cn(styles.tasks, !taskList.length && styles.noTasks)}>
       <span className={styles.mobile_add}>
         {isOwn && (
           <AddButton
@@ -82,58 +82,60 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipent }) => {
           />
         )}
       </span>
-      <div className={styles.items}>
-        {!isParticipent && !taskList.length && (
-          <PrimaryButton
-            className={styles.contributeBtn}
-            onClick={() => {
-              toTeam(null);
-            }}
-            text="Contribute"
-          />
-        )}
-        {taskList.map((task) => (
-          <div key={task._id} className={styles.taskCont}>
-            <div>
-              <ButtonColab className={cn(styles.ButtonPurple)} text={task.lookingFor} />
-              <div className={styles.description}>{task.description}</div>
-            </div>
-            {isOwn ? (
-              <div className={styles.editBtns}>
-                <SvgPencilColored
-                  onClick={() => {
-                    changeShowModal(true);
-                    setSelectedTask(task);
-                  }}
-                  white="22px"
-                  height="22px"
-                />
-                <Popconfirm
-                  placement="topRight"
-                  title="You want to delete this task?"
-                  onConfirm={() => deleteTask(task._id)}
-                  okText="Yes"
-                  cancelText="No">
-                  <SvgDustbin white="22px" height="22px" />
-                </Popconfirm>
-              </div>
-            ) : (
+      {!!taskList.length && (
+        <div className={styles.items}>
+          {!isParticipent && !taskList.length && !isOwn && (
+            <PrimaryButton
+              className={styles.contributeBtn}
+              onClick={() => {
+                toTeam(null);
+              }}
+              text="Contribute"
+            />
+          )}
+          {taskList.map((task) => (
+            <div key={task._id} className={styles.taskCont}>
               <div>
-                {!isParticipent && (
-                  <PrimaryButton
-                    className={styles.editBtn}
-                    onClick={() => {
-                      toTeam(task);
-                    }}
-                    text="Contribute"
-                  />
-                )}
+                <ButtonColab className={cn(styles.ButtonPurple)} text={task.lookingFor} />
+                <div className={styles.description}>{task.description}</div>
               </div>
-            )}
-          </div>
-        ))}
-      </div>
-      <div>
+              {isOwn ? (
+                <div className={styles.editBtns}>
+                  <SvgPencilColored
+                    onClick={() => {
+                      changeShowModal(true);
+                      setSelectedTask(task);
+                    }}
+                    white="22px"
+                    height="22px"
+                  />
+                  <Popconfirm
+                    placement="topRight"
+                    title="You want to delete this task?"
+                    onConfirm={() => deleteTask(task._id)}
+                    okText="Yes"
+                    cancelText="No">
+                    <SvgDustbin white="22px" height="22px" />
+                  </Popconfirm>
+                </div>
+              ) : (
+                <div>
+                  {!isParticipent && (
+                    <PrimaryButton
+                      className={styles.editBtn}
+                      onClick={() => {
+                        toTeam(task);
+                      }}
+                      text="Contribute"
+                    />
+                  )}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+      <div className={styles.creatTask}>
         <div className={styles.addBtn}>
           <Imgix
             width={200}
