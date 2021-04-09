@@ -1340,13 +1340,11 @@ img.rot4 {
       align-items: center;
       justify-content: center;
       height: 46px;
-      background: #7b65f3;
-      border: 1px solid #9a87fe;
-      border-radius: 5px;
-      padding: 0 25px;
+      box-shadow: 5px 5px #fec447;
+      padding: 0 45px;
+      width: unset;
       &:hover {
-        background: #7b65f3;
-        box-shadow: 0px 0px 20px #7b65f3;
+        box-shadow: 0px 0px #fec447;
       }
       span {
         font-family: Noto Sans JP;
@@ -1475,7 +1473,7 @@ img.rot4 {
 }
 
 .MangaFY {
-  .ant-modal-confirm-btns{
+  .ant-modal-confirm-btns {
     width: 100%;
     text-align: center;
     margin-bottom: 45px;

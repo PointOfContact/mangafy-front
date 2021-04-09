@@ -1,0 +1,16 @@
+@import '../../styles/variables.scss';
+
+.loginText {
+  font-size: $text4;
+  color: $black;
+  span {
+    color: $primaryDark;
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+.subTitle {
+  font-size: $text2;
+}

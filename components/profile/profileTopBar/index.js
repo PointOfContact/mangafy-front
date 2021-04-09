@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Upload, Input, Select, Layout, Row, Col, notification } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
+import SvgDustbin from 'components/icon/Dustbin';
 import SvgGreenChecked from 'components/icon/GreenChecked';
 import SvgPortfolio from 'components/icon/Portfolio';
 import SvgPrimaryAdd from 'components/icon/PrimaryAdd';
@@ -13,6 +14,7 @@ import Avatar from 'components/ui-elements/avatar';
 import PrimaryButton from 'components/ui-elements/button';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { userTypes, userTypesEnums } from 'helpers/constant';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 
@@ -163,11 +165,21 @@ const ProfileTopBar = (props) => {
                 <p>{userTypesEnums[userData?.type || profile?.type]}</p>
 
                 {userData ? (
-                  <PrimaryButton
-                    text="Edit"
-                    splitterStyle={{ width: '120px', fontSize: '15px' }}
-                    onClick={() => setEditMode(true)}
-                  />
+                  <>
+                    <PrimaryButton
+                      text="Edit"
+                      splitterStyle={{ width: '120px', fontSize: '15px' }}
+                      onClick={() => setEditMode(true)}
+                    />
+                    <Link href="/contact-us">
+                      <a>
+                        <div className={styles.deleteAccount}>
+                          <SvgDustbin width="20px" height="20px" />
+                          <div>Delete account</div>
+                        </div>
+                      </a>
+                    </Link>
+                  </>
                 ) : (
                   profile &&
                   !!user?.mangaStories?.data?.length && (

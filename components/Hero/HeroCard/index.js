@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 // Antd design
-import { Upload } from 'antd';
+import { notification, Upload } from 'antd';
 // Api
 import restClient from 'api/restClient';
 import { createHero, patchHero, deleteHero, uploadFile } from 'api/storyBoardClient';
@@ -58,25 +58,45 @@ const HeroCard = ({ hero, getStoryBoard, changeHero }) => {
   };
 
   const beforeUpload = (file) => {
-    // eslint-disable-next-line no-undef
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.addEventListener('load', () => {
-      uploadFile(
-        reader.result,
-        (res) => {
-          setCurrentHero({
-            ...currentHero,
-            imageUrl: res?.id,
-          });
-          onBlur({
-            ...currentHero,
-            imageUrl: res?.id,
-          });
-        },
-        () => {}
-      );
-    });
+    const openNotification = (type, message) => {
+      notification[type]({
+        message,
+      });
+    };
+
+    const isJpgOrPng =
+      file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/jpg';
+
+    if (!isJpgOrPng) {
+      openNotification('error', 'You can only upload JPG, JPEG, PNG file!');
+    }
+
+    const isLt2M = file.size / 1024 / 1024 < 2;
+    if (!isLt2M) {
+      openNotification('error', 'Image must smaller than 2MB!');
+    }
+
+    if (isJpgOrPng && isLt2M) {
+      // eslint-disable-next-line no-undef
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.addEventListener('load', () => {
+        uploadFile(
+          reader.result,
+          (res) => {
+            setCurrentHero({
+              ...currentHero,
+              imageUrl: res?.id,
+            });
+            onBlur({
+              ...currentHero,
+              imageUrl: res?.id,
+            });
+          },
+          () => {}
+        );
+      });
+    }
   };
 
   const confirmDelete = () => {
