@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
-import { Button, Comment, List, Form, Input } from 'antd';
+import { Comment, List, Form, Input } from 'antd';
 import client from 'api/client';
 import Imgix from 'components/imgix';
 import Avatar from 'components/ui-elements/avatar';
+import LargeButton from 'components/ui-elements/large-button';
 import moment from 'moment';
+import Link from 'next/link';
+import Router from 'next/router';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
@@ -48,20 +51,26 @@ CommentList.propTypes = {
   comments: PropTypes.array.isRequired,
 };
 
-const Editor = ({ onChange, onSubmit, submitting, value }) => (
+const Editor = ({ onChange, onSubmit, submitting, value, user }) => (
   <>
     <Form.Item>
       <TextArea autoSize={{ minRows: 1, maxRows: 7 }} onChange={onChange} value={value} />
     </Form.Item>
     <Form.Item>
-      <Button
+      {!user && (
+        <Link href={`/sign-in?page=`}>
+          <h2 className={styles.loginOnText}>
+            You must me <span>logged in</span> to leave a comment
+          </h2>
+        </Link>
+      )}
+      <LargeButton
         id="AddACommentBtnId"
         htmlType="submit"
         loading={submitting}
         onClick={onSubmit}
-        type="primary">
-        Add Comment
-      </Button>
+        text="Add Comment"
+      />
     </Form.Item>
   </>
 );
@@ -71,6 +80,7 @@ Editor.propTypes = {
   onSubmit: PropTypes.func,
   value: PropTypes.any,
   submitting: PropTypes.bool,
+  user: PropTypes.object,
 };
 
 Editor.defaultProps = {
@@ -78,6 +88,7 @@ Editor.defaultProps = {
   onSubmit: () => {},
   value: null,
   submitting: null,
+  user: null,
 };
 
 export const Comments = ({ commentsData, postId, user, setCommentsData }) => {
@@ -91,6 +102,10 @@ export const Comments = ({ commentsData, postId, user, setCommentsData }) => {
   };
 
   const handleSubmit = () => {
+    if (!user) {
+      Router.push(`/sign-in?page=`);
+    }
+
     if (!value || !user) {
       return;
     }
@@ -162,16 +177,13 @@ export const Comments = ({ commentsData, postId, user, setCommentsData }) => {
           )
         }
         content={
-          user ? (
-            <Editor
-              onChange={handleChange}
-              onSubmit={handleSubmit}
-              submitting={submitting}
-              value={value}
-            />
-          ) : (
-            <p>Pls. Login</p>
-          )
+          <Editor
+            onChange={handleChange}
+            onSubmit={handleSubmit}
+            submitting={submitting}
+            value={value}
+            user={user}
+          />
         }
       />
       {errMessage && <p>{errMessage}</p>}

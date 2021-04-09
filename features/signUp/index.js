@@ -83,7 +83,7 @@ const Register = ({ user }) => {
           },
         ];
         amplitude.track(data);
-        Router.push(`/my-profile`);
+        Router.push(`/collaborations`);
         info({
           className: 'MangaFY',
           title: <h3 className={styles.modalTitle}>Welcome to MangaFY</h3>,

@@ -7,6 +7,7 @@ import LoginFooter from 'components/loginFooter';
 import ButtonToTop from 'components/ui-elements/button-toTop';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import Head from 'next/head';
+import Router from 'next/router';
 import PropTypes from 'prop-types';
 import * as qs from 'query-string';
 import { login } from 'store';
@@ -49,6 +50,7 @@ const Login = ({ user }) => {
     setLoading(true);
     login(payload)
       .then((user) => {
+        Router.push(`/`);
         const data = [
           {
             platform: 'WEB',
