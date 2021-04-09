@@ -17,10 +17,11 @@ const ChooseLayoutCard = ({
   isFullWidth,
   isActive,
   src,
+  downloadSrc,
   ...rest
 }) => {
   const downloadImage = () => {
-    window.open(`${restClient.API_ENDPOINT}/api/v2/uploads/${src}`, '_blank');
+    window.open(`${restClient.API_ENDPOINT}/api/v2/uploads/${downloadSrc}`, '_blank');
   };
 
   return (
@@ -54,6 +55,7 @@ ChooseLayoutCard.propTypes = {
   isFullWidth: PropTypes.bool,
   isActive: PropTypes.bool,
   src: PropTypes.string.isRequired,
+  downloadSrc: PropTypes.string.isRequired,
 };
 
 ChooseLayoutCard.defaultProps = {

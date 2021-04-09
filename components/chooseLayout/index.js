@@ -55,6 +55,7 @@ export const ChooseLayout = ({ storyBoard, setStoryBoard }) => {
             title={board.title}
             description={board.description}
             src={board.presentationUrl}
+            downloadSrc={board.templateUrl}
             isActive={board.selected}
             onClick={() => changeSelectedBoard(index)}
           />
