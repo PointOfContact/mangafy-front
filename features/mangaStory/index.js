@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { ExclamationCircleOutlined } from '@ant-design/icons';
-import { Tabs, notification, Switch, Modal } from 'antd';
+import { Tabs, notification, Switch, Modal, Popover } from 'antd';
 import client from 'api/client';
 import { findStoryBoard } from 'api/storyBoardClient';
 import cn from 'classnames';
@@ -216,11 +216,11 @@ const MangeStory = (props) => {
   const onGoToPrivate = () => {
     confirm({
       confirmLoading: true,
-      title: 'Switch to draft Mode?',
+      title: 'Oh, going private? No problem',
       style: { top: 120 },
       icon: <ExclamationCircleOutlined />,
       content:
-        'You are removing your app from public. Your story data access will be limited to people who have a role on the story.',
+        'Your project is moving to private mode. But no worries, if you want to collaborate or add members in various roles, you can always switch up to public. Good Luck!',
       onOk() {
         patchStory({
           published: false,
@@ -247,25 +247,34 @@ const MangeStory = (props) => {
                 <div className="col-sm-12 manga-story manga-story-m">
                   {isOwn && (
                     <div className={styles.publishContent}>
-                      <div className={styles.publishSwitch}>
-                        <p
-                          className={cn(
-                            styles.publishText,
-                            !baseData.published && styles.published
-                          )}>
-                          Draft
-                        </p>
-                        <span>
-                          <Switch checked={baseData.published} onChange={onPublish} />
-                        </span>
-                        <p
-                          className={cn(
-                            styles.publishText,
-                            baseData.published && styles.published
-                          )}>
-                          Published
-                        </p>
-                      </div>
+                      <Popover
+                        placement="bottomRight"
+                        overlayStyle={{ maxWidth: '400px' }}
+                        title={''}
+                        content={
+                          'Note: published projects will only show general information about your project (inc. what you look for, and what you aim to work on without disclosing anything else). In draft mode, you go off-grid and need to invite collaborations manually, while the member you invite sees nothing.'
+                        }
+                        trigger="hover">
+                        <div className={styles.publishSwitch}>
+                          <p
+                            className={cn(
+                              styles.publishText,
+                              !baseData.published && styles.published
+                            )}>
+                            Draft
+                          </p>
+                          <span>
+                            <Switch checked={baseData.published} onChange={onPublish} />
+                          </span>
+                          <p
+                            className={cn(
+                              styles.publishText,
+                              baseData.published && styles.published
+                            )}>
+                            Published
+                          </p>
+                        </div>
+                      </Popover>
                     </div>
                   )}
                   {!editTitle ? (
@@ -418,7 +427,7 @@ const MangeStory = (props) => {
                     </div>
                   </TabPane>
                   {user && (
-                    <TabPane tab="INVITES" key="4">
+                    <TabPane tab="TEAM CHAT" key="4">
                       <div className={styles.tabWrap}>
                         <Chat
                           mangaStory={baseData}

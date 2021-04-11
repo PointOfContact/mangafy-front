@@ -15,8 +15,8 @@ const Idea = ({ storyBoard, setStoryBoard }) => {
 
   useEffect(() => {
     setIdea({
-      title: storyBoard?.idea?.title?.trim(),
-      text: storyBoard?.idea?.text?.trim(),
+      title: storyBoard?.idea?.title,
+      text: storyBoard?.idea?.text,
     });
   }, [storyBoard]);
 

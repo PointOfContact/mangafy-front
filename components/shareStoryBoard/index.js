@@ -69,10 +69,6 @@ export const ShareStoryBoard = ({ shareUrl }) => (
         </button>
       </a>
     </div>
-    <div className={styles.link}>
-      <h4>Link</h4>
-      <p>Features of a Webtoon-style comic</p>
-    </div>
   </div>
 );
 

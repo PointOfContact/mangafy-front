@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from 'react';
 
-import { Button, Comment, List, Form, Input } from 'antd';
+import { Comment, List, Form, Input } from 'antd';
 import client from 'api/client';
 import Imgix from 'components/imgix';
 import Avatar from 'components/ui-elements/avatar';
+import LargeButton from 'components/ui-elements/large-button';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import moment from 'moment';
+import Link from 'next/link';
+import Router from 'next/router';
 import PropTypes from 'prop-types';
+
+import styles from './styles.module.scss';
 
 const Amplitude = require('amplitude');
 
@@ -14,53 +19,69 @@ const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 const { TextArea } = Input;
 
 const CommentList = ({ comments }) => (
-  <List
-    dataSource={comments}
-    itemLayout="horizontal"
-    renderItem={(commentItem) => (
-      <Comment
-        datetime={commentItem.createdAt}
-        {...commentItem}
-        author={commentItem.senderInfo[0] && commentItem.senderInfo[0].name}
-        avatar={
-          commentItem.senderInfo[0] && (
-            <>
-              {commentItem.senderInfo[0].avatar ? (
-                <Imgix
-                  width={40}
-                  height={40}
-                  src={client.UPLOAD_URL + commentItem.senderInfo[0].avatar}
-                />
-              ) : (
-                <Avatar text={commentItem?.senderInfo[0]?.name} size={40} />
-              )}
-            </>
-          )
-        }
-      />
-    )}
-  />
+  <>
+    <List
+      dataSource={comments}
+      itemLayout="horizontal"
+      renderItem={(commentItem) => (
+        <Comment
+          datetime={commentItem.createdAt}
+          {...commentItem}
+          author={commentItem.senderInfo[0] && commentItem.senderInfo[0].name}
+          avatar={
+            commentItem.senderInfo[0] && (
+              <>
+                {commentItem.senderInfo[0].avatar ? (
+                  <Imgix
+                    width={40}
+                    height={40}
+                    src={client.UPLOAD_URL + commentItem.senderInfo[0].avatar}
+                  />
+                ) : (
+                  <Avatar text={commentItem?.senderInfo[0]?.name} size={40} />
+                )}
+              </>
+            )
+          }
+        />
+      )}
+    />
+  </>
 );
 
-const Editor = ({ onChange, onSubmit, submitting, value }) => (
+CommentList.propTypes = {
+  comments: PropTypes.array.isRequired,
+};
+
+const Editor = ({ onChange, onSubmit, submitting, value, user, mangaStory }) => (
   <>
     <Form.Item>
       <TextArea rows={4} onChange={onChange} value={value} />
     </Form.Item>
     <Form.Item>
-      <Button
-        id="AddACommentBtnId"
-        htmlType="submit"
-        loading={submitting}
-        onClick={onSubmit}
-        type="primary">
-        Add Comment
-      </Button>
+      <>
+        {!user && (
+          <Link href={`/sign-in?page=/manga-story/${mangaStory._id}?tab=comments`}>
+            <h2 className={styles.loginText}>
+              You must me <span>logged in</span> to leave a comment
+            </h2>
+          </Link>
+        )}
+        <LargeButton
+          id="AddACommentBtnId"
+          htmlType="submit"
+          loading={submitting}
+          onClick={onSubmit}
+          text="Add Comment"
+        />
+      </>
     </Form.Item>
   </>
 );
 
 Editor.propTypes = {
+  user: PropTypes.object,
+  mangaStory: PropTypes.object.isRequired,
   onChange: PropTypes.func,
   onSubmit: PropTypes.func,
   value: PropTypes.any,
@@ -72,6 +93,7 @@ Editor.defaultProps = {
   onSubmit: () => {},
   value: null,
   submitting: null,
+  user: null,
 };
 
 export const Comments = ({ commentsData, mangaStory, user, isOwn }) => {
@@ -85,9 +107,14 @@ export const Comments = ({ commentsData, mangaStory, user, isOwn }) => {
   };
 
   const handleSubmit = () => {
+    if (!user) {
+      Router.push(`/sign-in?page=manga-story/${mangaStory._id}?tab=comments`);
+    }
+
     if (!value || !user) {
       return;
     }
+
     setSubmitting(true);
     const jwt = client.getCookie('feathers-jwt');
     import('api/restClient').then((m) => {
@@ -115,7 +142,7 @@ export const Comments = ({ commentsData, mangaStory, user, isOwn }) => {
           const eventData = [
             {
               platform: 'WEB',
-              event_type: EVENTS.MINI_JOB_REMOVED,
+              event_type: EVENTS.ADDED_COMMENT,
               event_properties: { mangaStoryId: mangaStory._id },
               user_id: user._id,
               user_properties: {
@@ -136,6 +163,7 @@ export const Comments = ({ commentsData, mangaStory, user, isOwn }) => {
   }, [comments.length]);
   return (
     <>
+      <h2 className={styles.subTitle}> {comments?.length} Comments</h2>
       {comments.length > 0 && (
         <div className="commentsBlock">
           <CommentList comments={comments} />
@@ -156,16 +184,14 @@ export const Comments = ({ commentsData, mangaStory, user, isOwn }) => {
           )
         }
         content={
-          user ? (
-            <Editor
-              onChange={handleChange}
-              onSubmit={handleSubmit}
-              submitting={submitting}
-              value={value}
-            />
-          ) : (
-            <p>Pls. Login</p>
-          )
+          <Editor
+            onChange={handleChange}
+            onSubmit={handleSubmit}
+            submitting={submitting}
+            mangaStory={mangaStory}
+            value={value}
+            user={user}
+          />
         }
       />
       {errMessage && <p>{errMessage}</p>}
