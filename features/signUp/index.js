@@ -10,7 +10,7 @@ import LargeButton from 'components/ui-elements/large-button';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { userTypes } from 'helpers/constant';
 import Head from 'next/head';
-import Router, { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import { register } from 'store';
 
@@ -83,12 +83,12 @@ const Register = ({ user }) => {
           },
         ];
         amplitude.track(data);
-        Router.push(`/collaborations`);
         info({
           className: 'MangaFY',
           title: <h3 className={styles.modalTitle}>Welcome to MangaFY</h3>,
           icon: '',
           width: '100%',
+          maskClosable: true,
           okText: <LargeButton onClick={() => routeChange()} text="Create Your First Story" />,
           style: { top: 120, maxWidth: '1000px' },
           content: (

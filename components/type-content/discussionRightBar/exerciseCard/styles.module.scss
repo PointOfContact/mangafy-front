@@ -62,3 +62,22 @@
     }
   }
 }
+
+.modalTitle {
+  font-weight: 900;
+  font-size: 30px;
+  line-height: 35px;
+  color: $black;
+  margin-top: 30px;
+  text-align: center;
+}
+.publishedModal {
+  p {
+    text-align: center;
+    max-width: 550px;
+    font-weight: 500;
+    font-size: 25px;
+    line-height: 36px;
+    margin: 30px auto 20px auto;
+  }
+}

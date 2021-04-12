@@ -1,13 +1,42 @@
 import React from 'react';
 
+import { Modal } from 'antd';
 import PrimaryButton from 'components/ui-elements/button';
-import Link from 'next/link';
+import LargeButton from 'components/ui-elements/large-button';
+import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
 const ExerciseCard = (props) => {
   const { order, categories, title, url, btnText } = props;
+
+  const { info } = Modal;
+  const history = useRouter();
+  const routeChange = () => {
+    history.push(url);
+  };
+
+  const showModal = () => {
+    info({
+      className: 'MangaFY',
+      title: <h3 className={styles.modalTitle}>AMAZING!</h3>,
+      icon: '',
+      width: '100%',
+      maskClosable: true,
+      okText: <LargeButton onClick={() => routeChange()} text="Go to profile" />,
+      style: { top: 120, maxWidth: '1000px' },
+      content: (
+        <div className={styles.publishedModal}>
+          <p>
+            Happy you have taken part in our daily fun tasks. We’d love for you to add it to your
+            portfolio to share with the MangaFY community
+          </p>
+        </div>
+      ),
+      onOk() {},
+    });
+  };
   return (
     <>
       <div className={styles.card}>
@@ -21,11 +50,13 @@ const ExerciseCard = (props) => {
           ))}
         </div>
         <div className={styles.cardDescr}>{title}</div>
-        <Link href={url}>
-          <a className={styles.cardButton}>
-            <PrimaryButton text={btnText} suffix={<span style={{ marginLeft: '15px' }}>❯</span>} />
-          </a>
-        </Link>
+        <a className={styles.cardButton}>
+          <PrimaryButton
+            onClick={showModal}
+            text={btnText}
+            suffix={<span style={{ marginLeft: '15px' }}>❯</span>}
+          />
+        </a>
       </div>
     </>
   );
