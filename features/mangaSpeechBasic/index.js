@@ -15,7 +15,7 @@ const MangaSpeechBasic = () => (
     <Head>
       <title>Manga Speech Basic</title>
       <meta
-        name="description"
+        name="Manga Speech and SFX basics"
         content="Hey All, in this first tutorial on MangaFY, we'd like to share with you the paneling basics for Manga, by our very own team member and consultant, Mina Petrovic."
       />
       <meta property="og:url" content="https://mangafy.club/resources/manga-paneling-basics" />
@@ -46,18 +46,18 @@ const MangaSpeechBasic = () => (
           </div>
           <div>
             <p>
-              Hey All, in this tutorial on MangaFY, we'd like to share with you the paneling basics
-              for Manga, by our very own team member and board consultant, Mina Petrovic. Mina (aka
-              Mistiqarts) is a manga influencer, author of several books, and the founder of one of
-              the first Manga schools outside of Japan.
+             Hey All, and welcome to yet another Manga basics tutorial thanks to our in-house resident advisor and staff member, 
+             Mina Petrovic (aka Mistiqarts) 😊 This time, we will cover the basics of doing Speech and SFX basics when writting/illustrating a Manga.
+             Ready to start reading? we hope you enjoy.
             </p>
+             <br />
+               <Imgix width={860} height={1000} src={'https://mangafy.club/img/setovi.jpg'} />
           </div>
           <div>
             <p>
-              When we think about what is setting Manga apart from other comic or graphic novel
-              variations, the first thing most likely to come to mind is the Japanese culture, and
-              the fact we read it right to left, etc. But another key feature to set it apart is the
-              paneling that makes it really stand out.
+             In this article, we will teach you about creating sound effects (or “onomatopoeia”). 
+             Such a process of creating a word that phonetically suggests the sound it comes to describe. 
+             For example – “Crash”, “Swoosh”, “Meow” or “Bang”.
             </p>
             <p>
               So, what is a panel? Panels are being used in all forms of graphic novels from western
@@ -65,73 +65,26 @@ const MangaSpeechBasic = () => (
               consists of a single drawing acting as a frozen moment. They use it to create an
               ongoing story.
             </p>
-            <p>But, paneling also has many layers to it, which we will address in this tutorial.</p>
+            <p>Here are a few examples:</p>
             <br />
             <Imgix width={860} height={1000} src={'https://mangafy.club/img/setovi.jpg'} />
             <Imgix width={860} height={1000} src={'https://mangafy.club/img/lesson_1.jpg'} />
             <br />
-            <strong>CHECK LISTS AND TEMPLATES</strong>
-            <p>There are several panel templates you can utilize.</p>
+            <strong>So...what are the basics? how do we get started?</strong>
             <Imgix width={860} height={1000} src={'https://mangafy.club/img/Untitled.png'} />
-            <p>But note:</p>
-            <ul>
-              <li>
-                Thin panel edges are often used for Shōjo <b> manga (少女漫画) </b>
-              </li>
-              <li>
-                Thick panel edges are often used for Shōnen <b> manga (少年漫画)</b>
-              </li>
-            </ul>
-            <h2>Now let's try panels that serve a purpose</h2>
-            <h2>Characters Introduction</h2>
+            <Imgix width={860} height={1000} src={'https://mangafy.club/img/Untitled.png'} />
+            <Imgix width={860} height={1000} src={'https://mangafy.club/img/Untitled.png'} />
+            <Imgix width={860} height={1000} src={'https://mangafy.club/img/Untitled.png'} />
+
+
             <p>
-              When introducing a new character into the story, a vertical panel showing the
-              character is the most efficient. Reactions to the character will add to the story.{' '}
-            </p>
-            <p>Some basic image elements are: </p>
-            <ul>
-              <li>Background for the environment but also for emotions.</li>
-              <li>
-                Character emotions with appropriate emotion symbols like arrows, sweat drops, blush
-                lines and etc.
-              </li>
-            </ul>
+              We hope you enjoyed reading. Give a warm thanks to Mina for sharing or experience with us. 
+            </p> 
             <p>
-              Elements of note here is that you are always allowed to play with characters popping
-              outside the frames.
-            </p>
-            <Imgix width={860} height={1000} src={'https://mangafy.club/img/3.jpg'} />
-            <Imgix width={860} height={1000} src={'https://mangafy.club/img/1.jpg'} />
-            <h2>Fast scene</h2>
-            <p>
-              This is a paneling choice when we want to show a quick scene playing out, like this
-              scent of the characters hair getting chopped off.
-            </p>
-            <p>Some basics image elements are:</p>
-            <ul>
-              <li>
-                Sound effect for a moving blade and right after we show the scent following the
-                sound.
-              </li>
-            </ul>
-            <p>
-              The panels for such speedy scenes are usually draw slightly tilted, creating almost a
-              tiny animated sequence of three images{' '}
+              Make sure to check out or website, books and other cool content on her website: <a href="https://mistiqarts.com/">https://mistiqarts.com/.</a>and social channels, including Youtube.
             </p>
             <p>
-              Even thought the scene is fast, try to add as much of emotion as possible. Manga
-              panels always need to evoke a feeling with the audience{' '}
-            </p>
-            <Imgix width={860} height={860} src={'https://mangafy.club/img/2.jpg'} />
-            <p>
-              We hope you enjoyed the tutorial and you can also visit Mina's website for more
-              awesome content: <a href="https://mistiqarts.com/">https://mistiqarts.com/.</a>
-            </p>
-            <p>
-              Now, it's time to train and be creative, go to the MangaFY platform, and share with us
-              a panel from your upcoming project/story. Have a friend who also dreams of learning
-              cool things? loves comics or manga? or has a story he wants to turn into a graphic
-              novel? bring him over to MangaFY :).
+              Now, let's get creative, show us how you emphasis effects in scenes in your story. More to come :)
             </p>
             <div className={styles.share}>
               <div className={styles.items}>
