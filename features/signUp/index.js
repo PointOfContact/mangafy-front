@@ -89,6 +89,7 @@ const Register = ({ user }) => {
           title: <h3 className={styles.modalTitle}>Welcome to MangaFY</h3>,
           icon: '',
           width: '100%',
+          maskClosable: true,
           okText: <LargeButton onClick={() => routeChange()} text="Create Your First Story" />,
           style: { top: 120, maxWidth: '1000px' },
           content: (

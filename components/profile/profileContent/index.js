@@ -7,6 +7,7 @@ import * as qs from 'query-string';
 
 import styles from './styles.module.scss';
 import TabCommissionPricing from './tabCommissionPricing';
+import TabMessenger from './tabMessenger';
 import TabPortfolio from './tabPortfolio';
 import TabStory from './tabStory';
 
@@ -34,24 +35,6 @@ const ProfileContent = (props) => {
   } = props;
 
   const [selectedTab, setSelectidTab] = useState('1');
-
-  useEffect(() => {
-    const { tab } = qs.parse(location.search);
-    switch (tab) {
-      case 'story':
-        setSelectidTab('1');
-        break;
-      case 'gallery':
-        setSelectidTab('2');
-        break;
-      case 'services':
-        setSelectidTab('3');
-        break;
-      default:
-        setSelectidTab('1');
-    }
-  }, []);
-
   const tabPanels = [
     {
       key: '1',
@@ -96,6 +79,27 @@ const ProfileContent = (props) => {
       component: <TabCommissionPricing {...{ user, profile }} />,
     },
   ];
+  useEffect(() => {
+    const { tab } = qs.parse(location.search);
+
+    switch (tab) {
+      case 'story':
+        setSelectidTab('1');
+        break;
+      case 'gallery':
+        setSelectidTab('2');
+        break;
+      case 'services':
+        setSelectidTab('3');
+        break;
+      case 'messenger':
+        setSelectidTab('4');
+        break;
+      default:
+        setSelectidTab('1');
+    }
+  }, [user]);
+
   return (
     <section className={styles.prof_tabs_sec}>
       <Content
@@ -111,6 +115,11 @@ const ProfileContent = (props) => {
                   {tabPanel.component}
                 </TabPane>
               ))}
+              {isMyProfile && (
+                <TabPane tab="MESSENGER" key={'4'}>
+                  <TabMessenger {...{ user }} />
+                </TabPane>
+              )}
             </Tabs>
           </Col>
         </Row>
