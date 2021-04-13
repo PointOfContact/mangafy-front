@@ -13,7 +13,6 @@ const MangeStoryCard = ({ mangaStories, client, user }) =>
   mangaStories?.map((label, index) => (
     <Link key={index} href={`/manga-story/${label._id}`}>
       <a>
-        {console.log('labellabel', label)}
         <div className={styles.MangeStoryCard}>
           <div>
             <h3 className={styles.title}>{label.title}</h3>
