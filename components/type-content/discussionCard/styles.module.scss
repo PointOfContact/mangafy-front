@@ -1,4 +1,6 @@
 @import '../../../styles/variables.scss';
+$colors: $primaryLight, $orangeLight, #6fd257, $secondaryDark;
+$repeat: 16;
 
 .projectsForYou {
   width: 100%;
@@ -40,6 +42,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
   }
   &_Name {
     font-size: 13px;
@@ -72,12 +75,18 @@
         height: 6px;
         border-radius: 50%;
         margin: 0 4px 0 0;
-        background: #7b65f3;
       }
       &_Text {
         font-size: 13px;
         white-space: nowrap;
         color: #595959;
+      }
+      @for $i from 1 through $repeat {
+        &_Item:nth-child(#{length($colors)}n + #{$i}) {
+          .circle {
+            background: nth($colors, random(length($colors)));
+          }
+        }
       }
     }
   }
@@ -112,7 +121,6 @@
       left: 10px;
       padding: 0px 15px;
       border-radius: 25px;
-      background: $primaryLight;
       color: $text_white;
     }
     .comments {
@@ -153,6 +161,13 @@
     button {
       font-size: 13px;
       padding: 3px 15px;
+    }
+  }
+  @for $i from 1 through $repeat {
+    &_Card:nth-child(#{length($colors)}n + #{$i}) {
+      .cat {
+        background: nth($colors, random(length($colors)));
+      }
     }
   }
 }

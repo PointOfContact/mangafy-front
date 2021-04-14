@@ -52,6 +52,7 @@ const ExerciseCard = (props) => {
         <div className={styles.cardDescr}>{title}</div>
         <a className={styles.cardButton}>
           <PrimaryButton
+            className={styles.navBtn}
             onClick={showModal}
             text={btnText}
             suffix={<span style={{ marginLeft: '15px' }}>❯</span>}

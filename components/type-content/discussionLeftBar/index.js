@@ -28,7 +28,7 @@ const DiscussionLeftBar = (props) => {
         <div className={styles.type_main__rightCol}>
           <div className={styles.tags}>
             <div className={styles.tagsTop}>
-              <h4>What&apos;s Happening </h4>
+              <h4>Latest collaboration requests</h4>
             </div>
             <ul className={styles.tagsList}>
               {heppenings.map((heppening) => (
@@ -51,7 +51,7 @@ const DiscussionLeftBar = (props) => {
           </div>
 
           <div className={styles.spotlight}>
-            <div className={styles.spotlightTitle}>Community Spotlight </div>
+            <div className={styles.spotlightTitle}>Our members </div>
             <ul className={styles.spotlightList}>
               {communitySpotlights.map((community) => (
                 <CommunitySpotlightsCard

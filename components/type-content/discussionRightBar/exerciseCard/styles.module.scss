@@ -63,6 +63,25 @@
   }
 }
 
+$colors: $primaryLight, $orangeLight, #6fd257, $secondaryDark;
+$repeat: 5;
+
+@for $i from 1 through $repeat {
+  .card:nth-child(#{length($colors)}n + #{$i}) {
+    $color: nth($colors, random(length($colors)));
+    .navBtn {
+      background: $color;
+      border-color: $color;
+    }
+    .cardThemeDot {
+      background-color: $color;
+    }
+    .cardNumberCount {
+      color: $color;
+    }
+  }
+}
+
 .modalTitle {
   font-weight: 900;
   font-size: 30px;

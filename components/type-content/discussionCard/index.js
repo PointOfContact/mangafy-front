@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import client from 'api/client';
+import cn from 'classnames';
 import SvgComment from 'components/icon/Comment';
 import SvgHeart from 'components/icon/Heart';
 import ModalDiscussion from 'components/modals/discussion';
@@ -8,6 +9,7 @@ import PrimaryButton from 'components/ui-elements/button';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 
+import DiscussionType from '../discussionType';
 import styles from './styles.module.scss';
 
 const DiscussionCard = (props) => {
@@ -24,6 +26,7 @@ const DiscussionCard = (props) => {
     user,
     commentsCount,
     likesCount,
+    type,
   } = props;
   const [showModal, changeShowModal] = useState(false);
 
@@ -39,11 +42,16 @@ const DiscussionCard = (props) => {
           <div className={styles.projectsForYou_Descr}>
             <div className={styles.projectsForYou_Name}>{title}</div>
             <div className={styles.projectsForYou_Category}>
+              <DiscussionType type={type} />
               {category && <div className={styles.projectsForYou_Category_Name}>{category}</div>}
               <ul className={styles.projectsForYou_Category_List}>
                 {categories?.map((categorie) => (
                   <li key={categorie} className={styles.projectsForYou_Category_List_Item}>
-                    <div className={styles.projectsForYou_Category_List_Circle}></div>
+                    <div
+                      className={cn(
+                        styles.projectsForYou_Category_List_Circle,
+                        styles.circle
+                      )}></div>
                     <div className={styles.projectsForYou_Category_List_Text}>{categorie}</div>
                   </li>
                 ))}
@@ -102,6 +110,7 @@ DiscussionCard.propTypes = {
   img: PropTypes.string.isRequired,
   categories: PropTypes.string.isRequired,
   subTitle: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
   btnText: PropTypes.string.isRequired,
   user: PropTypes.object,
