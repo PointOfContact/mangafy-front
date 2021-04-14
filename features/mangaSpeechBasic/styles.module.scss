@@ -1,5 +1,9 @@
 @import '../../styles/variables.scss';
-
+.content {
+  div {
+    width: 100%;
+  }
+}
 .share {
   display: flex;
   justify-content: space-between;
@@ -13,10 +17,10 @@
     display: inline-block;
     margin-left: auto;
     @include media-sm {
-      div{
+      div {
         flex-direction: row !important;
       }
-      margin:auto
+      margin: auto;
     }
   }
 }

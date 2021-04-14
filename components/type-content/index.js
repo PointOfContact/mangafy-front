@@ -62,7 +62,8 @@ export default function TypePage({
               <div className={styles.projectsForYou__MainTitle}>
                 <h2 className={styles.projectsForYou__MainTitle_Title}>
                   <div className={styles.forYou}>
-                    <SvgBulbColored width="20px" height="20px" /> For you
+                    <SvgBulbColored width="20px" height="20px" />
+                    <span>For you</span>
                   </div>
                   {/* <div className={styles.filtr}>
                     <SearchForDiscussions

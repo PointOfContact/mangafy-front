@@ -153,5 +153,9 @@
   }
   .forYou {
     white-space: nowrap;
+    margin-bottom: 5px;
+    span {
+      padding-left: 10px;
+    }
   }
 }
