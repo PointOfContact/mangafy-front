@@ -1,6 +1,7 @@
 import client from 'api/client';
 import { withAuthServerSideProps, withAuthComponent } from 'components/withAuth';
 import LandingNew from 'features/typePage';
+import moment from 'moment';
 import { store } from 'store';
 
 export default withAuthComponent(LandingNew);
@@ -19,6 +20,10 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
     const dailyWarmUps = await client.service('/api/v2/daily-warm-ups').find({
       query: {
         $limit: 100,
+        visibleDate: {
+          $gte: moment().format('YYYY-MM-DD'),
+          $lt: moment().add(1, 'day').format('YYYY-MM-DD'),
+        },
       },
     });
     const query = {

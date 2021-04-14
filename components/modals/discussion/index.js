@@ -119,9 +119,7 @@ const ModalDiscussion = ({ changeShowModal, showModal, user, postId, title, logo
                     <Popover
                       placement="bottomRight"
                       title={''}
-                      content={
-                        <ShareButtons shareUrl={`https://mangafy.club/resources/${url}`} text="" />
-                      }
+                      content={<ShareButtons shareUrl={`https://mangafy.club${url}`} text="" />}
                       trigger="click">
                       <SvgShareColored width="25px" height="25px" />
                     </Popover>
