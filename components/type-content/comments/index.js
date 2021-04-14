@@ -60,7 +60,7 @@ const Editor = ({ onChange, onSubmit, submitting, value, user }) => (
       {!user && (
         <Link href={`/sign-in?page=`}>
           <h2 className={styles.loginOnText}>
-            You must me <span>logged in</span> to leave a comment
+            Please <span>login</span> to add comments
           </h2>
         </Link>
       )}
