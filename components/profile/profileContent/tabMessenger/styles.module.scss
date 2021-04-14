@@ -1,0 +1,54 @@
+@import '../../../../styles/variables.scss';
+
+.title {
+  padding: 15px 20px 35px 30px;
+  margin: 0 -25px;
+  font-style: normal;
+  font-weight: 900;
+  font-size: $text2;
+  line-height: 36px;
+  color: $black;
+}
+.messenger_tab {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 -25px;
+  height: 100%;
+
+  .messenger_list {
+    width: 30%;
+    height: 100%;
+    border-right: 2px solid rgba(33, 33, 33, 0.07);
+    @include media-sm {
+      width: 20%;
+    }
+  }
+  .messenger_content {
+    width: 70%;
+    @include media-sm {
+      width: 80%;
+    }
+  }
+}
+.noRequest {
+  text-align: center;
+  margin-bottom: 30px;
+  div {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+  }
+  h2 {
+    font-size: 30px;
+  }
+  p {
+    font-size: 20px;
+  }
+  button {
+    width: 240px;
+    height: 60px;
+    font-size: 20px;
+    font-weight: bold;
+    box-shadow: 4px 4px #fec447;
+  }
+}

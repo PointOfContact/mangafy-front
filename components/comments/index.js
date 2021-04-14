@@ -63,7 +63,7 @@ const Editor = ({ onChange, onSubmit, submitting, value, user, mangaStory }) => 
         {!user && (
           <Link href={`/sign-in?page=manga-story/${mangaStory._id}?tab=comments`}>
             <h2 className={styles.loginText}>
-              You must me <span>logged in</span> to leave a comment
+              Please <span>login</span> to add comments
             </h2>
           </Link>
         )}
