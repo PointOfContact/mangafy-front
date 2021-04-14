@@ -58,6 +58,7 @@ export default function TypePage({
       <div className={styles.type_main}>
         <div className={cn('container', styles.main__container)}>
           <div className={styles.type_main__wrap}>
+            <DiscussionRightBar dailyWarmUps={dailyWarmUps} />
             <div className={styles.projectsForYou}>
               <div className={styles.projectsForYou__MainTitle}>
                 <h2 className={styles.projectsForYou__MainTitle_Title}>
@@ -105,7 +106,6 @@ export default function TypePage({
                 />
               )}
             </div>
-            <DiscussionRightBar dailyWarmUps={dailyWarmUps} />
             <DiscussionLeftBar members={members} collaborations={collaborations} />
           </div>
         </div>

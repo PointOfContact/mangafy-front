@@ -36,6 +36,8 @@
       grid-template-rows: -webkit-max-content;
       grid-template-rows: max-content;
       grid-gap: 1.5rem;
+      display: flex;
+      flex-direction: column;
     }
   }
   &__rightCol {
