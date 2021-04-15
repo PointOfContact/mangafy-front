@@ -7,10 +7,11 @@ import Imgix from 'components/imgix';
 import { ShareButtons } from 'components/share';
 import ButtonToTop from 'components/ui-elements/button-toTop';
 import Head from 'next/head';
+import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
-const MangaSpeechBasic = () => (
+const MangaSpeechBasic = ({ user }) => (
   <>
     <Head>
       <title>Manga Speech Basic</title>
@@ -34,7 +35,7 @@ const MangaSpeechBasic = () => (
     <ButtonToTop />
     <div className={'wrapper'}>
       <div className={'content'}>
-        <Header />
+        <Header user={user} />
         <div className={styles.content}>
           <h1 className={styles.pageTitle}>Manga Speech Basic</h1>
           <div className={styles.share}>
@@ -150,5 +151,9 @@ const MangaSpeechBasic = () => (
     </div>
   </>
 );
+
+MangaSpeechBasic.propTypes = {
+  user: PropTypes.object.isRequired,
+};
 
 export default MangaSpeechBasic;

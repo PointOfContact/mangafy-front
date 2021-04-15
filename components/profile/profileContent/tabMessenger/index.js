@@ -101,7 +101,13 @@ const TabMessenger = (props) => {
             />
           </div>
           <div className={cn(styles.messenger_content)}>
-            <MessengerContent user={user} selectedRequest={selectedRequest} />
+            <MessengerContent
+              user={user}
+              selectedRequest={selectedRequest}
+              requests={requests}
+              setRequests={setRequests}
+              setSelectedRequest={setSelectedRequest}
+            />
           </div>
         </div>
       )}

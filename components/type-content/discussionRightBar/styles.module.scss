@@ -55,7 +55,8 @@
   padding: 1px 8px;
   border: 1px solid $grey;
   border-radius: 30px;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   background-color: white;
   margin-bottom: 20px;
 }

@@ -45,6 +45,11 @@
       height: 40px;
       border-radius: 50%;
       margin-right: 16px;
+      img {
+        width: 40px !important;
+        height: 40px !important;
+        border-radius: 50% !important;
+      }
     }
     &Descr {
       display: flex;

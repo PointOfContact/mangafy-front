@@ -135,7 +135,7 @@ const ProfileTopBar = (props) => {
                     width={52}
                     height={52}
                     className="avatar"
-                    src={client.UPLOAD_URL + user.avatar}
+                    src={client.UPLOAD_URL + userData.avatar}
                   />
                 ) : (
                   <Avatar text={userData?.name} fontSize={90} />

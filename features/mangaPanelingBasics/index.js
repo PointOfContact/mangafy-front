@@ -7,10 +7,11 @@ import Imgix from 'components/imgix';
 import { ShareButtons } from 'components/share';
 import ButtonToTop from 'components/ui-elements/button-toTop';
 import Head from 'next/head';
+import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
-const MangaPanelingBasics = () => (
+const MangaPanelingBasics = ({ user }) => (
   <>
     <Head>
       <title>Manga Paneling Basics</title>
@@ -30,7 +31,7 @@ const MangaPanelingBasics = () => (
     <ButtonToTop />
     <div className={'wrapper'}>
       <div className={'content'}>
-        <Header />
+        <Header user={user} />
         <div className={styles.content}>
           <h1 className={styles.pageTitle}>Manga Paneling Basics</h1>
           <div className={styles.share}>
@@ -149,5 +150,9 @@ const MangaPanelingBasics = () => (
     </div>
   </>
 );
+
+MangaPanelingBasics.propTypes = {
+  user: PropTypes.object.isRequired,
+};
 
 export default MangaPanelingBasics;

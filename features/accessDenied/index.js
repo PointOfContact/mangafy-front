@@ -6,17 +6,18 @@ import Imgix from 'components/imgix';
 import LargeButton from 'components/ui-elements/large-button';
 import Head from 'next/head';
 import Link from 'next/link';
+import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
-const AccessDenied = () => (
+const AccessDenied = ({ user }) => (
   <div className="">
     <Head>
       <title>Access Denied</title>
       <meta name="description" content="Sorry, this confidential information is private" />
     </Head>
     <main>
-      <Header path="comming-soon" />
+      <Header user={user} path="comming-soon" />
       <div className={styles.error_page}>
         <div className={styles.page_inner}>
           <Imgix
@@ -42,5 +43,9 @@ const AccessDenied = () => (
     </main>
   </div>
 );
+
+AccessDenied.propTypes = {
+  user: PropTypes.object.isRequired,
+};
 
 export default AccessDenied;
