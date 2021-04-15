@@ -1,6 +1,8 @@
 import React from 'react';
 
 import client from 'api/client';
+import Imgix from 'components/imgix';
+import Avatar from 'components/ui-elements/avatar';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 
@@ -15,11 +17,23 @@ const CommunitySpotlightsCard = (props) => {
         <a>
           <li className={styles.spotlightListItem}>
             <div className={styles.spotlightLeft}>
-              <div
+              {/* <div
                 className={styles.spotlightLeftImages}
                 style={{
-                  backgroundImage: `url(${img ? client.UPLOAD_URL + img : '/img/mangastory.jpg'})`,
-                }}></div>
+                  backgroundImage: `url(${img ? client.UPLOAD_URL + img : '/img/manga story.jpg'})`,
+                }}></div> */}
+              <div className={styles.spotlightLeftImages}>
+                {img ? (
+                  <Imgix
+                    className="avatar"
+                    width={104}
+                    height={104}
+                    src={client.UPLOAD_URL + img}
+                  />
+                ) : (
+                  <Avatar text={title} size={40} />
+                )}
+              </div>
               <div className={styles.spotlightLeftDescr}>
                 <div className={styles.spotlightLeftDescrName}>{title}</div>
                 <div className={styles.spotlightLeftDescrRecords}>{like}</div>

@@ -1,5 +1,8 @@
 @import '../../styles/variables.scss';
 
+.hidden {
+  overflow: hidden;
+}
 .colabCards {
   padding-top: 30px;
   padding-bottom: 30px;

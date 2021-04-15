@@ -29,44 +29,47 @@ const Profiles = (props) => {
         <link rel="canonical" href="http://mangafy.club/profiles" />
       </Head>
       <ButtonToTop />
-      <main className="main_back_2">
-        <Header user={user} path="profiles" />
-        <ProfilesHeader />
-        <SearchForMembers
-          genres={genres}
-          search={search}
-          selectedTypes={selectedTypes}
-          selectedGenres={selectedGenres}
-          userTypes={userTypes}
-        />
-        <div className="container mangafy_container">
-          <Row type="flux">
-            <div className={styles.colabCards}>
-              <div className={'container'}>
-                <div className={styles.colabWrap}>
-                  {!user && (
-                    <div className={cn(styles.PostColab)}>
-                      <div className={cn(styles.PostColab__item)}>
-                        <div className={cn(styles.PostColab__descr)}>Welcome to MangaFY club</div>
-                        <Link href="/create-a-story/start">
-                          <a>
-                            <PrimaryButton text="Join" className={cn(styles.PostColab__btn)} />
-                          </a>
-                        </Link>
+      <div className={styles.hidden}>
+        <main className="main_back_2">
+          <Header user={user} path="profiles" />
+          <ProfilesHeader />
+          <SearchForMembers
+            genres={genres}
+            search={search}
+            selectedTypes={selectedTypes}
+            selectedGenres={selectedGenres}
+            userTypes={userTypes}
+          />
+          <div className="container mangafy_container">
+            <Row type="flux">
+              <div className={styles.colabCards}>
+                <div className={'container'}>
+                  <div className={styles.colabWrap}>
+                    {!user && (
+                      <div className={cn(styles.PostColab)}>
+                        <div className={cn(styles.PostColab__item)}>
+                          <div className={cn(styles.PostColab__descr)}>Welcome to MangaFY club</div>
+                          <Link href="/create-a-story/start">
+                            <a>
+                              <PrimaryButton text="Join" className={cn(styles.PostColab__btn)} />
+                            </a>
+                          </Link>
+                        </div>
                       </div>
-                    </div>
-                  )}
-                  {users && users.map((u) => <ProfilesCard key={u._id} user={u} genres={genres} />)}
+                    )}
+                    {users &&
+                      users.map((u) => <ProfilesCard key={u._id} user={u} genres={genres} />)}
+                  </div>
+                </div>
+
+                <div className={styles.pagination}>
+                  <Paginations total={total} current={current} prefix="profiles" />
                 </div>
               </div>
-
-              <div className={styles.pagination}>
-                <Paginations total={total} current={current} prefix="profiles" />
-              </div>
-            </div>
-          </Row>
-        </div>
-      </main>
+            </Row>
+          </div>
+        </main>
+      </div>
       <Footer />
       <FooterPolicy />
     </>

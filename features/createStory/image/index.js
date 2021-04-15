@@ -101,7 +101,6 @@ const Introduce = ({ user }) => {
       reader.addEventListener(
         'load',
         () => {
-          console.log('encoded file: ', reader.result);
           changeImage(reader.result);
         },
         false

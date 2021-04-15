@@ -77,14 +77,13 @@ const ChatCard = ({
       amplitude.track(eventData);
     });
   };
-  console.log(selectedRequest);
   return (
     <div
       key={rid}
       className={cn(
         styles.item,
         isSmall && styles.isSmall,
-        selectedRequest.rid === rid && styles.selected
+        selectedRequest?.rid === rid && styles.selected
       )}
       onClick={(e) => showMessages(e, senderInfo)}
       data-id={conversations[0] && conversations[0]._id}>
@@ -112,7 +111,7 @@ const ChatCard = ({
             </div>
           </div>
         </div>
-        {isOwn && !isInvite && (
+        {isOwn && !isInvite && status === 'new' && (
           <div className={cn(styles.div_button, 'buttonsProfile_styles')}>
             <Popconfirm
               placement="top"

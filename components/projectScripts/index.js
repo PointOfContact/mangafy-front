@@ -52,7 +52,6 @@ const ProjectScripts = ({ pages, storyBoardId, storyBoard, setStoryBoard }) => {
         const items = [...scripts];
         items.splice(index, 1);
         setScripts(items);
-        console.log(items);
         const newPages = items.filter((item) => item.title !== '');
         setStoryBoard({
           ...storyBoard,

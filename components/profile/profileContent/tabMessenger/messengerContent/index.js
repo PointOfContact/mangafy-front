@@ -23,12 +23,12 @@ const onAccept = (event, id, status) => {
   return patchRequest(id, status);
 };
 
-const MessengerContent = ({ user, selectedRequest }) => {
+const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests, setRequests }) => {
   const [messageList, setMessageList] = useState([]);
   const [value, setValue] = useState('');
 
   const messanger = useRef(null);
-  const { conversationId, name, isInvite, requestId, status } = selectedRequest;
+  const { conversationId, name, isInvite, rid: requestId, status } = selectedRequest;
   const avatar = selectedRequest.av;
   const adaptData = (data) => {
     data.forEach((item) => {
@@ -126,14 +126,16 @@ const MessengerContent = ({ user, selectedRequest }) => {
 
   const setRecvestStatus = (event, id, status) => {
     onAccept(event, id, status).then((res) => {
-      // const newRequest = [...requests];
-      // newRequest.map((item) => {
-      //   if (item._id === res._id) {
-      //     item.status = res.status;
-      //   }
-      //   return item;
-      // });
-      // setRequests(newRequest);
+      const newRequest = [...requests];
+      newRequest.map((item) => {
+        if (item._id === res._id) {
+          item.status = res.status;
+        }
+        return item;
+      });
+      const newSelectedRequest = { ...selectedRequest, status: res.status };
+      setSelectedRequest(newSelectedRequest);
+      setRequests(newRequest);
 
       const event_type = status === 'accepted' ? EVENTS.INVITE_ACCEPTED : EVENTS.INVITE_REJECTED;
 
@@ -182,6 +184,9 @@ const MessengerContent = ({ user, selectedRequest }) => {
             </Popconfirm>
           </div>
         )}
+        {isInvite && status === 'new' && <span className={styles.status}> Pending invite </span>}
+        {status === 'accepted' && <span className={styles.status}> Accepted </span>}
+        {status === 'rejected' && <span className={styles.status}> Rejected </span>}
       </div>
       <div className={styles.messageList} id="message-content">
         <MessageList
@@ -210,6 +215,9 @@ const MessengerContent = ({ user, selectedRequest }) => {
 MessengerContent.propTypes = {
   user: PropTypes.object.isRequired,
   selectedRequest: PropTypes.object.isRequired,
+  requests: PropTypes.object.isRequired,
+  setRequests: PropTypes.func.isRequired,
+  setSelectedRequest: PropTypes.func.isRequired,
 };
 
 MessengerContent.defaultProps = {

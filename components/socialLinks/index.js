@@ -255,7 +255,6 @@ const SocialLinks = (props) => {
                   className={styles.noSocial}
                   onClick={() => {
                     setVisible(!visible);
-                    console.log(visible);
                   }}>
                   <Card
                     description="Do you not want <br/> to add a social?"
