@@ -1,0 +1,16 @@
+@import '../../../styles/variables.scss';
+
+.shortStory {
+  margin-top: 30px;
+  min-height: 240px;
+  text-align: center;
+  h2 {
+    font-size: $text2;
+    margin-top: 30px;
+    margin-bottom: 20px;
+  }
+  pre {
+    padding: 50px 20px 30px 20px;
+    margin-top: 20px;
+  }
+}

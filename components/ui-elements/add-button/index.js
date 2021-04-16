@@ -15,6 +15,7 @@ const AddButton = ({
   isActive,
   height,
   width,
+  svg,
   ...rest
 }) => (
   <div
@@ -28,11 +29,12 @@ const AddButton = ({
     onClick={onClick}
     disabled={disabled}>
     <span>{text}</span>
-    <SvgPrimaryAdd width={width} height={height} />
+    {svg || <SvgPrimaryAdd width={width} height={height} />}
   </div>
 );
 
 AddButton.propTypes = {
+  svg: PropTypes.string,
   className: PropTypes.string,
   width: PropTypes.string,
   height: PropTypes.string,
@@ -54,6 +56,7 @@ AddButton.defaultProps = {
   width: '31px',
   height: '31px',
   text: 'Add',
+  svg: '',
 };
 
 export default AddButton;

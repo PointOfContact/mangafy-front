@@ -1,0 +1,121 @@
+@import '../../../styles/variables.scss';
+
+.galleryImg {
+  cursor: pointer;
+  position: relative;
+  width: 227px;
+  height: 207px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  margin-right: 15px;
+  color: $text_white;
+  font-weight: 900;
+  font-size: $text4;
+  @include media-sm {
+    display: inline-block;
+  }
+  .dustbin {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    display: flex;
+    align-items: center;
+    z-index: 15;
+    display: none;
+    svg {
+      margin-right: 10px;
+      margin-left: 20px;
+      path {
+        fill: transparent;
+        stroke: $text_white;
+        stroke-width: 1px;
+        stroke-linejoin: round;
+      }
+      &:hover {
+        path {
+          stroke: red;
+        }
+      }
+    }
+  }
+  .heart {
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+    display: flex;
+    align-items: center;
+    z-index: 15;
+    display: none;
+    svg {
+      margin-right: 10px;
+      margin-left: 20px;
+      path {
+        fill: transparent;
+        stroke: $text_white;
+        stroke-width: 1px;
+        stroke-linejoin: round;
+        &:hover {
+          fill: red;
+          stroke: red;
+        }
+      }
+    }
+  }
+  img {
+    width: 227px;
+    height: 207px;
+    border-radius: 10px;
+    object-fit: contain;
+    background: #dde5eb;
+  }
+  .filter {
+    position: absolute;
+    z-index: 10;
+    width: 227px;
+    height: 207px;
+    border-radius: 10px;
+    transition: 0.4s;
+    box-shadow: 0 0 8px #cbcb;
+  }
+  &:hover {
+    .heart {
+      display: block;
+    }
+    .dustbin {
+      display: block;
+    }
+    .filter {
+      position: absolute;
+      z-index: 10;
+      width: 227px;
+      height: 207px;
+      border-radius: 10px;
+      transition: 0.4s;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #7b65f3 100%);
+    }
+  }
+}
+
+.textContent {
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  h3 {
+    font-weight: bolder;
+  }
+  p {
+    height: 70px;
+    font-weight: normal;
+    font-size: $text4;
+    overflow: hidden;
+  }
+}
+.liked {
+  path {
+    fill: red !important;
+  }
+}

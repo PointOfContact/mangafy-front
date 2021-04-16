@@ -1,5 +1,27 @@
 import client from 'api/client';
 
+const getShortStorys = (authorId, onSuccess, onFailure) => {
+  const jwt = client.getCookie('feathers-jwt');
+  import('../../api/restClient').then((m) => {
+    m.default
+      .service('/api/v2/short-stories')
+      .find({
+        authorId,
+        query: {
+          $limit: 1000,
+        },
+        headers: { Authorization: `Bearer ${jwt}` },
+      })
+      .then((res) => {
+        onSuccess(res);
+      })
+      .catch((err) => {
+        onFailure(err);
+        return err;
+      });
+  });
+};
+
 const likeGallery = (galleryId, userId) => {
   const data = { galleryId, userId };
   const jwt = client.getCookie('feathers-jwt');
@@ -150,5 +172,6 @@ export {
   prepareDataImages,
   adaptedDataImages,
   beforeGalleryUpload,
+  getShortStorys,
   socials,
 };

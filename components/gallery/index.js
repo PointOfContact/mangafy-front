@@ -1,19 +1,21 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 
-import { Modal, Upload, Row, Col, Popconfirm } from 'antd';
+import { Upload, Row, Col } from 'antd';
 import client from 'api/client';
 import Card from 'components/card';
-import SvgClose from 'components/icon/Close';
-import SvgDustbin from 'components/icon/Dustbin';
-import SvgHeart from 'components/icon/Heart';
+import SvgDownloadFile from 'components/icon/DownloadFile';
+import SvgText from 'components/icon/Text';
 import Imgix from 'components/imgix';
 import AddButton from 'components/ui-elements/add-button';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import PropTypes from 'prop-types';
-import ImageGallery from 'react-image-gallery';
 
+import GalleryCard from './galleryCard';
+import HtmlGalleryModal from './htmlGalleryModal';
+import ShortStory from './shortStory';
+import { ShowGalleryModal } from './showGalleryModal';
 import styles from './style.module.scss';
-import { likeGallery, removeImg, prepareDataImages, beforeGalleryUpload } from './utils';
+import { beforeGalleryUpload, getShortStorys } from './utils';
 
 const Amplitude = require('amplitude');
 
@@ -29,26 +31,46 @@ export const Gallery = (props) => {
   } else if (profile._id === user._id) {
     canEditInit = true;
   }
-
+  // renderItem: () => <AccessDenied />,
   const [images, setImages] = useState([]);
+  const [startIndex, setStartIndex] = useState(0);
   const [userData, setUserData] = useState(profile || user);
   const [showUploadList, setShowUploadList] = useState(true);
   const [showGallery, setShowGallery] = useState(false);
+  const [createGalleryModal, setCreateGalleryModal] = useState(false);
   const [errMessage, setErrMessage] = useState('');
   const [canEdit] = useState(canEditInit);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   useEffect(() => {
     const data = [];
+    let textData = [];
     if (canEdit) {
       if (fromPath === 'users') {
         userData &&
-          userData.gallery.forEach((item) => {
+          (userData.gallery.forEach((item) => {
             data.push({
               original: client.UPLOAD_URL + item,
               _id: item,
             });
-          });
+          }),
+          getShortStorys(
+            user._id,
+            (res) => {
+              textData = res.data;
+              const newTextData = textData.map((item) => ({
+                ...item,
+                // eslint-disable-next-line react/display-name
+                renderItem: () => (
+                  <ShortStory title={item?.title} description={item?.description} />
+                ),
+              }));
+              setImages(data.concat(newTextData));
+            },
+            (err) => {
+              console.log(err);
+            }
+          ));
       } else {
         mangaStories &&
           mangaStories.gallery &&
@@ -61,48 +83,34 @@ export const Gallery = (props) => {
       }
     } else {
       profile &&
-        profile.gallery.forEach((item) => {
+        (profile.gallery.forEach((item) => {
           data.push({
             original: client.UPLOAD_URL + item,
             _id: item,
           });
-        });
+        }),
+        getShortStorys(
+          user._id,
+          (res) => {
+            textData = res.data;
+            const newTextData = textData.map((item) => ({
+              ...item,
+              // eslint-disable-next-line react/display-name
+              renderItem: () => <div>{item.description}</div>,
+            }));
+            setImages(data.concat(newTextData));
+          },
+          (err) => {
+            console.log(err);
+          }
+        ));
     }
-    setImages(data);
+    // data.push({
+    //   renderItem: () => <AccessDenied />,
+    //   type: 'text',
+    //   _id: 'e8720fd9436c6d72be45b63b3e40aed8594b35c7ce305e8b2b081a83c68a946a.png',
+    // });
   }, [canEdit, fromPath, mangaStories, profile, userData]);
-
-  const getLikesCount = useCallback(
-    (galleryId) =>
-      userData?.galleryLikedUsers?.filter((item) => galleryId === item.galleryId).length || 0,
-    [userData?.galleryLikedUsers]
-  );
-
-  const isLiked = useCallback(
-    (galleryId, userId) =>
-      !!userData?.galleryLikedUsers?.find(
-        (item) => galleryId === item.galleryId && item.likedUserId === userId
-      ),
-    [userData?.galleryLikedUsers]
-  );
-
-  const onLikeGallery = (galleryId, userId, likedUserId) => {
-    likeGallery(galleryId, userId)
-      .then(() => {
-        setUserData({
-          ...userData,
-          galleryLikedUsers: [
-            ...(userData?.galleryLikedUsers || []),
-            {
-              galleryId,
-              likedUserId,
-            },
-          ],
-        });
-      })
-      .catch((err) => {
-        setErrMessage(err.message);
-      });
-  };
 
   const showModal = () => {
     document.body.classList.add('body_remove_scroll');
@@ -111,28 +119,15 @@ export const Gallery = (props) => {
 
   const handleCancel = () => {
     document.body.classList.remove('body_remove_scroll');
+    setShowGallery(false);
+    setCreateGalleryModal(false);
     setIsModalVisible(false);
   };
 
   const gallerySet = (e, indexImg) => {
-    const currentImg = images[indexImg];
-    const ll = images.filter((item, index) => index !== indexImg);
-    const newArr = [currentImg, ...ll];
+    setStartIndex(indexImg);
     setShowGallery(true);
     showModal();
-    setImages(newArr);
-  };
-
-  const onRemoveImg = (e, _id) => {
-    e.stopPropagation();
-    removeImg(images, _id, fromPath, userData)
-      .then((res) => {
-        setUserData(res);
-        setImages(prepareDataImages(res.gallery));
-      })
-      .catch((err) => {
-        setErrMessage(err.message);
-      });
   };
 
   const onBeforeGalleryUpload = (file) => {
@@ -163,62 +158,34 @@ export const Gallery = (props) => {
   return (
     <div>
       {showGallery && (
-        <Modal
-          className="galere_modal"
-          footer={null}
-          width={'100%'}
-          zIndex={200000000}
-          onCancel={handleCancel}
-          closeIcon={<SvgClose />}
-          visible={isModalVisible}>
-          <div className={styles.main_popup}>
-            <ImageGallery
-              lazyLoad={true}
-              useBrowserFullscreen={true}
-              showIndex={true}
-              autoPlay={false}
-              items={images}
-            />
-          </div>
-        </Modal>
+        <ShowGalleryModal {...{ startIndex, images, handleCancel, isModalVisible }} />
+      )}
+      {createGalleryModal && (
+        <HtmlGalleryModal {...{ setImages, user, handleCancel, isModalVisible }} />
       )}
       <h4 className={styles.title}>{title}</h4>
       {errMessage && <p>{errMessage}</p>}
       <Row>
-        <Col span={22}>
+        <Col span={21}>
           <div className={styles.imagesBlock}>
             {images.length ? (
-              images.map((item, index) => (
-                <div key={index} className={styles.galleryImg}>
-                  {canEditInit && (
-                    <Popconfirm
-                      title="Are you sure to delete this task?"
-                      onConfirm={(e) => onRemoveImg(e, item._id)}
-                      onCancel={() => {}}
-                      okText="Yes"
-                      cancelText="No">
-                      <span className={styles.dustbin} data-id={item._id}>
-                        <SvgDustbin width="18px" />
-                      </span>
-                    </Popconfirm>
-                  )}
-                  <span className={styles.heart}>
-                    <SvgHeart
-                      width="18px"
-                      height="16px"
-                      onClick={() =>
-                        user &&
-                        !isLiked(item._id, user._id) &&
-                        !canEdit &&
-                        onLikeGallery(item._id, userData._id, user._id)
-                      }
-                      className={user && isLiked(item._id, user._id) && styles.liked}
-                    />
-                    <span>{getLikesCount(item._id)}</span>
-                  </span>
-                  <div className={styles.filter} onClick={(e) => gallerySet(e, index)}></div>
-                  <img src={client.UPLOAD_URL + item._id} alt="" />
-                </div>
+              images.map((galleryItem, index) => (
+                <GalleryCard
+                  key={galleryItem?.id}
+                  {...{
+                    index,
+                    canEdit,
+                    canEditInit,
+                    user,
+                    userData,
+                    galleryItem,
+                    gallerySet,
+                    setUserData,
+                    fromPath,
+                    setImages,
+                    images,
+                  }}
+                />
               ))
             ) : (
               <div>
@@ -262,16 +229,32 @@ export const Gallery = (props) => {
         {canEditInit && (
           <Col
             xs={{ span: 23 }}
-            md={{ span: 2 }}
-            xl={{ span: 2 }}
-            xxl={{ span: 2 }}
-            span={2}
+            md={{ span: 3 }}
+            xl={{ span: 3 }}
+            xxl={{ span: 3 }}
+            span={3}
             className={styles.img_add_button}>
+            <span
+              className={styles.uploadText}
+              onClick={() => {
+                setCreateGalleryModal(true);
+                setIsModalVisible(true);
+              }}>
+              <AddButton svg={<SvgText width="25px" height="25px" />} text={'Add text'} />
+            </span>
             <Upload beforeUpload={onBeforeGalleryUpload} showUploadList={showUploadList}>
-              <div className="">
+              <div>
                 <AddButton />
               </div>
             </Upload>
+            <span className={styles.uploadFile}>
+              <Upload beforeUpload={onBeforeGalleryUpload} showUploadList={showUploadList}>
+                <AddButton
+                  svg={<SvgDownloadFile width="25px" height="25px" />}
+                  text={'Upload file'}
+                />
+              </Upload>
+            </span>
           </Col>
         )}
       </Row>
