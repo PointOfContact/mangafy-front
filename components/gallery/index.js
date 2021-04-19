@@ -31,7 +31,7 @@ export const Gallery = (props) => {
   } else if (profile._id === user._id) {
     canEditInit = true;
   }
-  // renderItem: () => <AccessDenied />,
+
   const [images, setImages] = useState([]);
   const [startIndex, setStartIndex] = useState(0);
   const [userData, setUserData] = useState(profile || user);
@@ -41,6 +41,7 @@ export const Gallery = (props) => {
   const [errMessage, setErrMessage] = useState('');
   const [canEdit] = useState(canEditInit);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedGallery, setSelectedGallery] = useState(null);
 
   useEffect(() => {
     const data = [];
@@ -55,7 +56,7 @@ export const Gallery = (props) => {
             });
           }),
           getShortStorys(
-            user._id,
+            profile._id,
             (res) => {
               textData = res.data;
               const newTextData = textData.map((item) => ({
@@ -90,13 +91,13 @@ export const Gallery = (props) => {
           });
         }),
         getShortStorys(
-          user._id,
+          profile._id,
           (res) => {
             textData = res.data;
             const newTextData = textData.map((item) => ({
               ...item,
               // eslint-disable-next-line react/display-name
-              renderItem: () => <div>{item.description}</div>,
+              renderItem: () => <ShortStory title={item?.title} description={item?.description} />,
             }));
             setImages(data.concat(newTextData));
           },
@@ -105,11 +106,6 @@ export const Gallery = (props) => {
           }
         ));
     }
-    // data.push({
-    //   renderItem: () => <AccessDenied />,
-    //   type: 'text',
-    //   _id: 'e8720fd9436c6d72be45b63b3e40aed8594b35c7ce305e8b2b081a83c68a946a.png',
-    // });
   }, [canEdit, fromPath, mangaStories, profile, userData]);
 
   const showModal = () => {
@@ -119,6 +115,7 @@ export const Gallery = (props) => {
 
   const handleCancel = () => {
     document.body.classList.remove('body_remove_scroll');
+    setSelectedGallery(null);
     setShowGallery(false);
     setCreateGalleryModal(false);
     setIsModalVisible(false);
@@ -161,14 +158,17 @@ export const Gallery = (props) => {
         <ShowGalleryModal {...{ startIndex, images, handleCancel, isModalVisible }} />
       )}
       {createGalleryModal && (
-        <HtmlGalleryModal {...{ setImages, user, handleCancel, isModalVisible }} />
+        <HtmlGalleryModal
+          gallery={selectedGallery}
+          {...{ setImages, images, user, handleCancel, isModalVisible }}
+        />
       )}
       <h4 className={styles.title}>{title}</h4>
       {errMessage && <p>{errMessage}</p>}
       <Row>
         <Col span={21}>
           <div className={styles.imagesBlock}>
-            {images.length ? (
+            {images?.length ? (
               images.map((galleryItem, index) => (
                 <GalleryCard
                   key={galleryItem?.id}
@@ -184,6 +184,9 @@ export const Gallery = (props) => {
                     fromPath,
                     setImages,
                     images,
+                    setSelectedGallery,
+                    setCreateGalleryModal,
+                    setIsModalVisible,
                   }}
                 />
               ))
@@ -234,6 +237,7 @@ export const Gallery = (props) => {
             xxl={{ span: 3 }}
             span={3}
             className={styles.img_add_button}>
+            {/* {isShowAdd && ( */}
             <span
               className={styles.uploadText}
               onClick={() => {
@@ -242,19 +246,23 @@ export const Gallery = (props) => {
               }}>
               <AddButton svg={<SvgText width="25px" height="25px" />} text={'Add text'} />
             </span>
-            <Upload beforeUpload={onBeforeGalleryUpload} showUploadList={showUploadList}>
-              <div>
-                <AddButton />
-              </div>
-            </Upload>
+            {/* )}
+            <div onClick={() => setIsShowAdd(!isShowAdd)}>
+              <AddButton text={!isShowAdd && 'Add'} />
+            </div>
+            {isShowAdd && ( */}
             <span className={styles.uploadFile}>
-              <Upload beforeUpload={onBeforeGalleryUpload} showUploadList={showUploadList}>
+              <Upload
+                beforeUpload={onBeforeGalleryUpload}
+                showUploadList={false}
+                accept="image/jpg, image/png, image/jpeg ">
                 <AddButton
                   svg={<SvgDownloadFile width="25px" height="25px" />}
                   text={'Upload file'}
                 />
               </Upload>
             </span>
+            {/* )} */}
           </Col>
         )}
       </Row>

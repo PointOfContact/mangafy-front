@@ -2,15 +2,28 @@
 
 .shortStory {
   margin-top: 30px;
-  min-height: 240px;
+  height: 84vh;
+  overflow: auto;
   text-align: center;
+  line-height: 1.6;
+  white-space: pre-wrap;
   h2 {
     font-size: $text2;
     margin-top: 30px;
     margin-bottom: 20px;
+    line-height: 1.6;
+    white-space: pre-wrap;
   }
   pre {
-    padding: 50px 20px 30px 20px;
+    padding: 10px;
+    text-align: justify;
+    margin: auto;
+    width: calc(100% - 130px);
     margin-top: 20px;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    @include media-sm {
+      width: calc(100% - 70px);
+    }
   }
 }

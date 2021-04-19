@@ -38,6 +38,30 @@
       }
     }
   }
+  .edit {
+    position: absolute;
+    right: 40px;
+    top: 15px;
+    display: flex;
+    align-items: center;
+    z-index: 15;
+    display: none;
+    svg {
+      margin-right: 10px;
+      margin-left: 20px;
+      path {
+        fill: transparent;
+        stroke: $text_white;
+        stroke-width: 1px;
+        stroke-linejoin: round;
+      }
+      &:hover {
+        path {
+          stroke: red;
+        }
+      }
+    }
+  }
   .heart {
     position: absolute;
     right: 15px;
@@ -84,6 +108,9 @@
     .dustbin {
       display: block;
     }
+    .edit {
+      display: block;
+    }
     .filter {
       position: absolute;
       z-index: 10;
@@ -99,23 +126,48 @@
 .textContent {
   height: 100%;
   width: 100%;
+  padding: 0 15px;
+  overflow: hidden;
   flex-direction: column;
   display: flex;
   justify-content: center;
-  align-items: center;
-  color: black;
+  text-align: center;
+  color: $black;
   h3 {
+    margin-top: 0px;
     font-weight: bolder;
   }
   p {
-    height: 70px;
     font-weight: normal;
-    font-size: $text4;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    white-space: pre-wrap;
+    -webkit-box-orient: vertical;
     overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 10px;
   }
 }
 .liked {
   path {
     fill: red !important;
+  }
+}
+.typeRender {
+  &:hover {
+    .textContent {
+      border-radius: 10px;
+      background-color: $primaryDark;
+      color: $text_white;
+      h3 {
+        color: $text_white;
+      }
+      p {
+        color: $text_white;
+      }
+    }
+    .filter {
+      background: none;
+    }
   }
 }

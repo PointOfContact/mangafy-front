@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react';
 
+import { notification } from 'antd';
 import Form from 'antd/lib/form/Form';
 import TextArea from 'antd/lib/input/TextArea';
 import Modal from 'antd/lib/modal/Modal';
-import client from 'api/client';
 import SvgClose from 'components/icon/Close';
 import PrimaryInput from 'components/ui-elements/input';
 import LargeButton from 'components/ui-elements/large-button';
 import PropTypes from 'prop-types';
 
+import ShortStory from '../shortStory';
+import { editGallery, createGallery } from '../utils';
 import styles from './style.module.scss';
 
-const HtmlGalleryModal = ({ gallery, setImages, user, handleCancel, isModalVisible }) => {
+const HtmlGalleryModal = ({ gallery, setImages, images, handleCancel, isModalVisible }) => {
   const [text, changeText] = useState('');
   const [title, changeTitle] = useState('');
   const [form] = Form.useForm();
@@ -32,66 +34,67 @@ const HtmlGalleryModal = ({ gallery, setImages, user, handleCancel, isModalVisib
     </div>
   );
 
-  const createGallery = async () => {
-    const jwt = client.getCookie('feathers-jwt');
-    const { default: api } = await import('api/restClient');
-    api
-      .service('/api/v2/short-stories')
-      .create(
-        {
-          title,
-          description: text,
-        },
-        {
-          headers: { Authorization: `Bearer ${jwt}` },
-        }
-      )
-      .then(() => {
+  const handleCreateGallery = async () => {
+    const data = { title, description: text };
+    createGallery(
+      data,
+      (res) => {
+        changeTitle('');
         changeText('');
-        // setImages();
+        const newImages = [
+          ...images,
+          {
+            ...res,
+            // eslint-disable-next-line react/display-name
+            renderItem: () => <ShortStory title={res?.title} description={res?.description} />,
+          },
+        ];
+        setImages(newImages);
         handleCancel();
-      })
-      .catch((err) => err);
+      },
+      (err) => {
+        notification.error({
+          message: err.message,
+        });
+      }
+    );
   };
 
-  const editGallery = async () => {
-    const jwt = client.getCookie('feathers-jwt');
-    const { default: api } = await import('api/restClient');
-    api
-      .service('/api/v2/short-stories')
-      .patch(
-        gallery._id,
-        {
-          description: text,
-        },
-        {
-          headers: { Authorization: `Bearer ${jwt}` },
-        }
-      )
-      .then(() => {
-        setImages();
+  const handleEditGallery = async () => {
+    const galleryId = gallery._id;
+    const data = { title, description: text };
+    editGallery(
+      galleryId,
+      data,
+      (res) => {
+        const newImages = images.map((item) => {
+          if (item._id === res._id) {
+            const newItem = {
+              ...item,
+              description: res.description,
+              title: res.title,
+              // eslint-disable-next-line react/display-name
+              renderItem: () => <ShortStory title={res?.title} description={res?.description} />,
+            };
+            return newItem;
+          }
+          return item;
+        });
+        setImages(newImages);
         handleCancel();
-
-        // const eventData = [
-        //   {
-        //     platform: 'WEB',
-        //     event_type: EVENTS.MINI_JOB_EDITED,
-        //     event_properties: { mangaStoryId: baseData._id, taskId: task._id },
-        //     user_id: user._id,
-        //     user_properties: {
-        //       ...user,
-        //     },
-        //   },
-        // ];
-        // amplitude.track(eventData);
-      })
-      .catch((err) => err);
+      },
+      (err) => {
+        notification.error({
+          message: err.message,
+        });
+      }
+    );
   };
 
   useEffect(() => {
     if (gallery) {
       changeText(gallery?.description || '');
-      changeText(gallery?.title || '');
+      changeTitle(gallery?.title || '');
       form.setFieldsValue({
         text: gallery?.description || '',
         title: gallery?.title || '',
@@ -116,7 +119,7 @@ const HtmlGalleryModal = ({ gallery, setImages, user, handleCancel, isModalVisib
             name="tasks"
             form={form}
             onFinish={() => {
-              gallery ? editGallery() : createGallery();
+              gallery ? handleEditGallery() : handleCreateGallery();
             }}
             initialValues={{
               title,
@@ -130,6 +133,10 @@ const HtmlGalleryModal = ({ gallery, setImages, user, handleCancel, isModalVisib
                   required: true,
                   message: 'Title is required',
                 },
+                {
+                  pattern: /^[^\s]+(\s+[^\s]+)*$/,
+                  message: 'Remove whitespaces',
+                },
               ]}>
               <PrimaryInput
                 placeholder=""
@@ -138,13 +145,17 @@ const HtmlGalleryModal = ({ gallery, setImages, user, handleCancel, isModalVisib
                 className={styles.modalInput}
               />
             </Form.Item>
-            <h2>Shot Story</h2>
+            <h2>Short Story</h2>
             <Form.Item
               name="text"
               rules={[
                 {
                   required: true,
-                  message: 'Text is required',
+                  message: 'Title is required',
+                },
+                {
+                  pattern: /^[^\s]+(\s+[^\s]+)*$/,
+                  message: 'Remove whitespaces',
                 },
               ]}>
               <TextArea
@@ -177,12 +188,13 @@ HtmlGalleryModal.propTypes = {
   handleCancel: PropTypes.func.isRequired,
   isModalVisible: PropTypes.bool.isRequired,
   setImages: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
+  images: PropTypes.array,
   gallery: PropTypes.object,
 };
 
 HtmlGalleryModal.defaultProps = {
   gallery: null,
+  images: null,
 };
 
 export default HtmlGalleryModal;
