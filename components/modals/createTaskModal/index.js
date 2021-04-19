@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 
-import { Modal, Input } from 'antd';
+import { Modal, Input, notification } from 'antd';
 import Form from 'antd/lib/form/Form';
 import client from 'api/client';
 import SvgClose from 'components/icon/Close';
+import PrimaryInput from 'components/ui-elements/input';
 import LargeButton from 'components/ui-elements/large-button';
 import PrimarySelect from 'components/ui-elements/select';
 import { EVENTS } from 'helpers/amplitudeEvents';
@@ -20,6 +21,11 @@ const { TextArea } = Input;
 
 const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, user }) => {
   const [lookingFor, changeLookingFor] = useState('Writer');
+  const [minValue, changeMinValue] = useState(10);
+  const [maxValue, changeMaxValue] = useState(100);
+
+  const [rewardType, changeRewardType] = useState('Revenue Split');
+
   const [text, changeText] = useState('');
   const [form] = Form.useForm();
 
@@ -34,12 +40,31 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
     if (task) {
       changeLookingFor(task?.lookingFor || 'Writer');
       changeText(task?.description || '');
+      changeRewardType(task?.rewardType || 'Revenue Split');
+      changeMaxValue(task?.maxValue || '100');
+      changeMinValue(task?.minValue || '10');
       form.setFieldsValue({
         lookingFor: task?.lookingFor || 'Writer',
         text: task?.description || '',
+        rewardType: task?.rewardType || 'Revenue Split',
+        maxValue: task?.maxValue || '100',
+        minValue: task?.minValue || '10',
+      });
+    } else {
+      changeLookingFor('Writer');
+      changeText('');
+      changeRewardType('Revenue Split');
+      changeMaxValue('100');
+      changeMinValue('10');
+      form.setFieldsValue({
+        lookingFor: 'Writer',
+        text: '',
+        rewardType: 'Revenue Split',
+        maxValue: '100',
+        minValue: '10',
       });
     }
-  }, [task, form]);
+  }, [task, form, showModal]);
 
   const handleChangeText = (e) => {
     changeText(e.target.value);
@@ -59,20 +84,27 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
           mangaStoryId: baseData._id,
           lookingFor,
           description: text,
+          rewardType,
+          minValue,
+          maxValue,
         },
         {
           headers: { Authorization: `Bearer ${jwt}` },
         }
       )
-      .then(() => {
+      .then((res) => {
         updateTasks();
+        changeLookingFor('Writer');
         changeText('');
+        changeRewardType('Revenue Split');
+        changeMaxValue('100');
+        changeMinValue('10');
         changeShowModal(false);
         const eventData = [
           {
             platform: 'WEB',
             event_type: EVENTS.MINI_JOB_CREATED,
-            event_properties: { mangaStoryId: baseData._id, taskId: task._id },
+            event_properties: { mangaStoryId: baseData._id, taskId: res._id },
             user_id: user._id,
             user_properties: {
               ...user,
@@ -81,7 +113,11 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
         ];
         amplitude.track(eventData);
       })
-      .catch((err) => err);
+      .catch((err) =>
+        notification.error({
+          message: err.message,
+        })
+      );
   };
 
   const editTask = async () => {
@@ -94,6 +130,9 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
         {
           lookingFor,
           description: text,
+          rewardType,
+          minValue,
+          maxValue,
         },
         {
           headers: { Authorization: `Bearer ${jwt}` },
@@ -116,13 +155,36 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
         ];
         amplitude.track(eventData);
       })
-      .catch((err) => err);
+      .catch((err) =>
+        notification.error({
+          message: err.message,
+        })
+      );
   };
 
   const MyCheckboxes = USER_TYPES.map((item) => ({
     key: item.label,
     value: item.label,
   }));
+
+  const RewardTypes = [
+    {
+      key: 'Free',
+      value: 'Free',
+    },
+    {
+      key: 'PerPage',
+      value: 'Per Page',
+    },
+    {
+      key: 'FlatRate',
+      value: 'Flat Rate',
+    },
+    {
+      key: 'RevenueSplit',
+      value: 'Revenue Split',
+    },
+  ];
 
   return (
     <Modal
@@ -146,6 +208,9 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
               initialValues={{
                 lookingFor,
                 text,
+                rewardType,
+                minValue,
+                maxValue,
               }}>
               <h2>Looking for</h2>
               <Form.Item
@@ -164,6 +229,65 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
                   value={lookingFor}
                 />
               </Form.Item>
+              <h2>Reward type</h2>
+              <Form.Item
+                name="rewardType"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Reward Type is required',
+                  },
+                ]}>
+                <PrimarySelect
+                  showSearch
+                  className={styles.modalSelect}
+                  onChange={changeRewardType}
+                  options={RewardTypes}
+                  value={rewardType}
+                />
+              </Form.Item>
+              {rewardType !== 'Free' && (
+                <div className={styles.value}>
+                  <div>
+                    <h2>Min Value</h2>
+                    <Form.Item
+                      name="minValue"
+                      rules={[
+                        {
+                          required: true,
+                          message: 'Min Value is required',
+                        },
+                      ]}>
+                      <PrimaryInput
+                        type="number"
+                        isFullWidth={true}
+                        className={styles.modalInput}
+                        onChange={changeMinValue}
+                        value={minValue}
+                      />
+                    </Form.Item>
+                  </div>
+                  <div>
+                    <h2>Max Value</h2>
+                    <Form.Item
+                      name="maxValue"
+                      rules={[
+                        {
+                          required: true,
+                          message: 'Max Value is required',
+                        },
+                      ]}>
+                      <PrimaryInput
+                        type="number"
+                        isFullWidth={true}
+                        className={styles.modalInput}
+                        onChange={changeMaxValue}
+                        value={maxValue}
+                      />
+                    </Form.Item>
+                  </div>
+                </div>
+              )}
               <h2>Task description</h2>
               <Form.Item
                 name="text"

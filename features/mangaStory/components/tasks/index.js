@@ -96,7 +96,13 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipent }) => {
           {taskList.map((task) => (
             <div key={task._id} className={styles.taskCont}>
               <div>
-                <ButtonColab className={cn(styles.ButtonPurple)} text={task.lookingFor} />
+                <ButtonColab className={cn(styles.ButtonPurple)} text={task?.lookingFor} />
+                {task?.rewardType && (
+                  <ButtonColab
+                    className={cn(styles.ButtonPurple, styles.rewardType)}
+                    text={task?.rewardType}
+                  />
+                )}
                 <div className={styles.description}>{task.description}</div>
               </div>
               {isOwn ? (

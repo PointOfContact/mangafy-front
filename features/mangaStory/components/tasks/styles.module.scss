@@ -21,6 +21,11 @@ $repeat: 5;
           display: inline-flex;
           background: nth($colors, random(length($colors)));
         }
+        .rewardType {
+          margin-bottom: 0;
+          display: inline-flex;
+          background: nth($colors, random(length($colors)));
+        }
       }
     }
   }

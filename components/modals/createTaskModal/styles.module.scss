@@ -53,4 +53,12 @@
     border-radius: 50%;
     color: white;
   }
+  .value {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    .modalInput {
+      font-size: $text4;
+    }
+  }
 }
