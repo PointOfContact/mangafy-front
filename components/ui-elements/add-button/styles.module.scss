@@ -1,9 +1,21 @@
+@import '../../../styles/variables.scss';
+
 .add_button {
   display: inline;
   cursor: pointer;
   border-radius: 50%;
   display: inline-flex;
   align-items: center;
+  &:hover {
+    span {
+      color: $grey;
+    }
+    svg {
+      path {
+        fill: #7b65f3;
+      }
+    }
+  }
   @media screen and (max-width: 767px) {
     width: 100%;
     justify-content: flex-end;
@@ -12,7 +24,7 @@
   span {
     font-weight: 500;
     font-size: 16px;
-    color: #D3D3D3;
+    color: #d3d3d3;
     margin-right: 7px;
   }
   svg {
@@ -20,11 +32,6 @@
     margin: 0;
     border-radius: 50%;
     fill: inherit;
-    &:hover {
-      path {
-        fill: #7b65f3;
-      }
-    }
     path {
       fill: #e5e0fd;
     }
