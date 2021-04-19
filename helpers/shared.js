@@ -61,7 +61,9 @@ export const beforeUpload = (file, props, updater = () => {}) => {
                   }
                 )
               )
-              .then((res) => updater(res));
+              .then((res) => {
+                updater(res);
+              });
           })
           .catch((err) => openNotification('error', err.message));
       },

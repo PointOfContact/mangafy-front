@@ -46,7 +46,7 @@ const Collaborations = (props) => {
         <link rel="canonical" href="http://mangafy.club/collaborations" />
       </Head>
       <ButtonToTop />
-      <div className={'wrapper'}>
+      <div className={styles.hidden}>
         <div className={'content'}>
           <Header path="collaborations" user={user} />
           <main>

@@ -92,10 +92,12 @@
     .avatar {
       border-radius: 100px;
       width: 104px;
+      min-width: 104px;
       height: 104px;
       @include media-sm {
         width: 51px;
         height: 51px;
+        min-width: 51px;
       }
     }
     .avatarName {
@@ -229,6 +231,7 @@
 .isSmall {
   .message_community {
     padding: 10px 5px 0px 10px;
+    width: 100%;
     @include media-sm {
       padding: 10px;
       text-align: center;
@@ -236,10 +239,12 @@
     .title_block {
       .avatar {
         width: 54px;
+        min-width: 54px;
         height: 54px;
         @include media-sm {
           width: 40px;
           height: 40px;
+          min-width: 40px;
           margin: 0 auto;
         }
       }
@@ -247,15 +252,18 @@
         @include media-sm {
           font-size: 20px !important;
           width: 40px !important;
+          min-width: 40px !important;
           height: 40px !important;
         }
       }
       img {
         border-radius: 100px;
         width: 54px;
+        min-width: 54px;
         height: 54px;
         @include media-sm {
           width: 40px;
+          min-width: 40px;
           height: 40px;
         }
       }

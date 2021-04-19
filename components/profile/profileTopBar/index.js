@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Upload, Input, Select, Layout, Row, Col, notification } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
+import SvgAddUser from 'components/icon/AddUser';
+import SvgCheck from 'components/icon/Check';
 import SvgDustbin from 'components/icon/Dustbin';
 import SvgGreenChecked from 'components/icon/GreenChecked';
 import SvgPortfolio from 'components/icon/Portfolio';
 import SvgPrimaryAdd from 'components/icon/PrimaryAdd';
+import SvgUserDrawing from 'components/icon/UserDrawing';
 import Imgix from 'components/imgix';
 import ModalInvites from 'components/modals/sendInvites';
 import { ShareButtons } from 'components/share';
@@ -44,6 +47,7 @@ const ProfileTopBar = (props) => {
   } = props;
 
   const [showModal, changeShowModal] = useState(false);
+  const [likedUsers, setLikedUsers] = useState([]);
 
   const openNotification = (type, message, description = '') => {
     notification[type]({
@@ -60,6 +64,31 @@ const ProfileTopBar = (props) => {
       } else {
         openNotification('error', "You don't have manga story");
       }
+    } else {
+      history.push(`/sign-in?page=profile/${profile._id}`);
+    }
+  };
+
+  const followUser = (userId) => {
+    const data = { userId };
+    const jwt = client.getCookie('feathers-jwt');
+    return import('api/restClient').then((m) =>
+      m.default.service(`/api/v2/likes`).create(data, {
+        headers: { Authorization: `Bearer ${jwt}` },
+        mode: 'no-cors',
+      })
+    );
+  };
+
+  const onFollowUser = (profileId) => {
+    if (user) {
+      followUser(profileId)
+        .then(() => {
+          setLikedUsers([...likedUsers, user._id]);
+        })
+        .catch((err) => {
+          setErrMessage(err.message);
+        });
     } else {
       history.push(`/sign-in?page=profile/${profile._id}`);
     }
@@ -110,6 +139,10 @@ const ProfileTopBar = (props) => {
     }
   };
 
+  useEffect(() => {
+    setLikedUsers(profile?.likedUsers);
+  }, [profile?.likedUsers]);
+
   return (
     <Content className={cn(styles.content)}>
       <Row>
@@ -135,7 +168,7 @@ const ProfileTopBar = (props) => {
                     width={52}
                     height={52}
                     className="avatar"
-                    src={client.UPLOAD_URL + user.avatar}
+                    src={client.UPLOAD_URL + userData.avatar}
                   />
                 ) : (
                   <Avatar text={userData?.name} fontSize={90} />
@@ -171,6 +204,9 @@ const ProfileTopBar = (props) => {
                       splitterStyle={{ width: '120px', fontSize: '15px' }}
                       onClick={() => setEditMode(true)}
                     />
+                    <span className={styles.followe_content}>
+                      <span className={styles.count}>{user?.likedUsers?.length} followers</span>
+                    </span>
                     <Link href="/contact-us">
                       <a>
                         <div className={styles.deleteAccount}>
@@ -181,17 +217,34 @@ const ProfileTopBar = (props) => {
                     </Link>
                   </>
                 ) : (
-                  profile &&
-                  !!user?.mangaStories?.data?.length && (
-                    <span className={styles.contacts}>
-                      <PrimaryButton
-                        onClick={sendInvites}
-                        text="Invite to collaborate"
-                        splitterStyle={{ fontSize: '15px' }}
-                        disabled={user?.mangaStories?.participents?.include(profile._id)}
-                      />
-                    </span>
-                  )
+                  <>
+                    {profile && !!user?.mangaStories?.data?.length && (
+                      <span className={styles.contacts}>
+                        <PrimaryButton
+                          onClick={sendInvites}
+                          text="Invite to collaborate"
+                          splitterStyle={{ fontSize: '15px' }}
+                          disabled={user?.mangaStories?.participents?.include(profile._id)}
+                        />
+                      </span>
+                    )}
+                    {profile && (
+                      <span className={styles.followe_content}>
+                        <span className={styles.count}>{likedUsers.length} followers</span>
+                        {likedUsers.includes(user?._id) ? (
+                          <span className={styles.icons}>
+                            <SvgCheck width="16px" height="16px" />
+                            <SvgUserDrawing width="22px" height="22px" />
+                          </span>
+                        ) : (
+                          <span onClick={() => onFollowUser(profile._id)} className={styles.btn}>
+                            <SvgAddUser width="22px" height="22px" />
+                            Follow
+                          </span>
+                        )}
+                      </span>
+                    )}
+                  </>
                 )}
               </>
             ) : (
