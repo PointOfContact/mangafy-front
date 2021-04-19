@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { Modal, Input } from 'antd';
+import { Modal, Input, notification } from 'antd';
 import Form from 'antd/lib/form/Form';
 import client from 'api/client';
 import SvgClose from 'components/icon/Close';
@@ -24,7 +24,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
   const [minValue, changeMinValue] = useState(10);
   const [maxValue, changeMaxValue] = useState(100);
 
-  const [rewardType, changeRewardType] = useState('paid');
+  const [rewardType, changeRewardType] = useState('Revenue Split');
 
   const [text, changeText] = useState('');
   const [form] = Form.useForm();
@@ -40,31 +40,31 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
     if (task) {
       changeLookingFor(task?.lookingFor || 'Writer');
       changeText(task?.description || '');
-      changeRewardType(task?.rewardType || 'Paid');
+      changeRewardType(task?.rewardType || 'Revenue Split');
       changeMaxValue(task?.maxValue || '100');
       changeMinValue(task?.minValue || '10');
       form.setFieldsValue({
         lookingFor: task?.lookingFor || 'Writer',
         text: task?.description || '',
-        rewardType: task?.rewardType || 'Paid',
+        rewardType: task?.rewardType || 'Revenue Split',
         maxValue: task?.maxValue || '100',
         minValue: task?.minValue || '10',
       });
     } else {
       changeLookingFor('Writer');
       changeText('');
-      changeRewardType('Paid');
+      changeRewardType('Revenue Split');
       changeMaxValue('100');
       changeMinValue('10');
       form.setFieldsValue({
         lookingFor: 'Writer',
         text: '',
-        rewardType: 'Paid',
+        rewardType: 'Revenue Split',
         maxValue: '100',
         minValue: '10',
       });
     }
-  }, [task, form]);
+  }, [task, form, showModal]);
 
   const handleChangeText = (e) => {
     changeText(e.target.value);
@@ -92,15 +92,19 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
           headers: { Authorization: `Bearer ${jwt}` },
         }
       )
-      .then(() => {
+      .then((res) => {
         updateTasks();
+        changeLookingFor('Writer');
         changeText('');
+        changeRewardType('Revenue Split');
+        changeMaxValue('100');
+        changeMinValue('10');
         changeShowModal(false);
         const eventData = [
           {
             platform: 'WEB',
             event_type: EVENTS.MINI_JOB_CREATED,
-            event_properties: { mangaStoryId: baseData._id, taskId: task._id },
+            event_properties: { mangaStoryId: baseData._id, taskId: res._id },
             user_id: user._id,
             user_properties: {
               ...user,
@@ -109,7 +113,11 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
         ];
         amplitude.track(eventData);
       })
-      .catch((err) => err);
+      .catch((err) =>
+        notification.error({
+          message: err.message,
+        })
+      );
   };
 
   const editTask = async () => {
@@ -147,7 +155,11 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
         ];
         amplitude.track(eventData);
       })
-      .catch((err) => err);
+      .catch((err) =>
+        notification.error({
+          message: err.message,
+        })
+      );
   };
 
   const MyCheckboxes = USER_TYPES.map((item) => ({
@@ -157,12 +169,20 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
 
   const RewardTypes = [
     {
-      key: 'Paid',
-      value: 'Paid',
+      key: 'Free',
+      value: 'Free',
     },
     {
-      key: 'NotPaid',
-      value: 'Not Paid',
+      key: 'PerPage',
+      value: 'Per Page',
+    },
+    {
+      key: 'FlatRate',
+      value: 'Flat Rate',
+    },
+    {
+      key: 'RevenueSplit',
+      value: 'Revenue Split',
     },
   ];
 
@@ -226,7 +246,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
                   value={rewardType}
                 />
               </Form.Item>
-              {rewardType === 'Paid' && (
+              {rewardType !== 'Free' && (
                 <div className={styles.value}>
                   <div>
                     <h2>Min Value</h2>
