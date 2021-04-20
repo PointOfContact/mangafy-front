@@ -4,19 +4,12 @@ import client from 'api/client';
 import cn from 'classnames';
 import SvgBulbColored from 'components/icon/BulbColored';
 import PrimaryButton from 'components/ui-elements/button';
-// import { USER_TYPES } from 'helpers/constant';
 import PropTypes from 'prop-types';
 
 import DiscussionCard from './discussionCard';
 import DiscussionLeftBar from './discussionLeftBar';
 import DiscussionRightBar from './discussionRightBar';
-// import SearchForDiscussions from './searchForDiscussions';
 import styles from './styles.module.scss';
-
-// const categories = USER_TYPES.map((item) => ({
-//   key: item.label,
-//   value: item.label,
-// }));
 
 export default function TypePage({
   posts,
@@ -27,7 +20,7 @@ export default function TypePage({
   selectedCategories,
   selectedType,
 }) {
-  const [discussions, setDiscussions] = useState([]);
+  const [discussions, setDiscussions] = useState(posts);
   const [more, setMore] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
