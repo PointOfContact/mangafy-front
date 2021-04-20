@@ -1,5 +1,16 @@
 @import '../../../styles/variables.scss';
 
+.title {
+  color: $black;
+  font-size: $text2;
+  font-weight: 900;
+  line-height: 36px;
+  padding-left: 10px;
+  @include media-sm {
+    font-size: $text4;
+  }
+}
+
 .my_portfolio {
   background: $primaryBG;
   border: 1px solid $white;

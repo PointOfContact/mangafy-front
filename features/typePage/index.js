@@ -1,5 +1,6 @@
 import React from 'react';
 
+import AnimePlatform from 'components/anime-platform';
 import Footer from 'components/footer';
 import FooterPolicy from 'components/footer-policy';
 import Header from 'components/header';
@@ -42,6 +43,7 @@ export default function LandingNew({
         <div className={'content'}>
           <Header user={user} />
           <main>
+            <AnimePlatform />
             <TypePage
               user={user}
               posts={posts}

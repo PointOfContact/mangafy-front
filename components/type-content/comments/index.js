@@ -29,17 +29,19 @@ const CommentList = ({ comments }) => (
         author={commentItem?.authorInfo?.name}
         avatar={
           commentItem.authorInfo && (
-            <>
-              {commentItem.authorInfo?.avatar ? (
-                <Imgix
-                  width={40}
-                  height={40}
-                  src={client.UPLOAD_URL + commentItem.authorInfo?.avatar}
-                />
-              ) : (
-                <Avatar text={commentItem?.authorInfo?.name} size={40} />
-              )}
-            </>
+            <Link href={`/profile/${commentItem.authorInfo?._id}`}>
+              <a>
+                {commentItem.authorInfo?.avatar ? (
+                  <Imgix
+                    width={40}
+                    height={40}
+                    src={client.UPLOAD_URL + commentItem.authorInfo?.avatar}
+                  />
+                ) : (
+                  <Avatar text={commentItem?.authorInfo?.name} size={40} />
+                )}
+              </a>
+            </Link>
           )
         }
       />

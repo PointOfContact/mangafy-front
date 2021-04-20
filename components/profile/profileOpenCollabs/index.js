@@ -45,6 +45,7 @@ const ProfileOpenCollabs = (props) => {
             styles.portfolio_new,
             'mobile_full_content mobile_top_round mobile_linear'
           )}>
+          <h2 className={styles.title}>Projects</h2>
           <Row>
             <Col xs={{ span: 23 }} md={{ span: 22 }} xl={{ span: 22 }} xxl={{ span: 22 }}>
               <div className={styles.card_wrap}>

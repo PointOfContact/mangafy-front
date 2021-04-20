@@ -47,7 +47,9 @@ $repeat: 5;
   font-size: $text4;
 }
 .editBtn {
-  max-width: 175px;
+  padding: 0;
+  width: 100%;
+  max-width: 155px;
   height: 46px;
   display: flex;
   justify-content: center;
