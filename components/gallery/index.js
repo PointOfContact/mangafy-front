@@ -60,11 +60,7 @@ export const Gallery = (props) => {
                 original: client.UPLOAD_URL + item,
                 _id: item,
                 // eslint-disable-next-line react/display-name
-                renderItem: () => (
-                  <div style={{ height: '100px', margin: '50px' }}>
-                    <PDFViewer url={client.UPLOAD_URL + item} />
-                  </div>
-                ),
+                renderItem: () => <PDFViewer url={client.UPLOAD_URL + item} />,
               });
             } else {
               data.push({
@@ -99,11 +95,7 @@ export const Gallery = (props) => {
                 original: client.UPLOAD_URL + item,
                 _id: item,
                 // eslint-disable-next-line react/display-name
-                renderItem: () => (
-                  <div styles={{ height: '100px', margin: '100px' }}>
-                    <PDFViewer url={client.UPLOAD_URL + item} />
-                  </div>
-                ),
+                renderItem: () => <PDFViewer url={client.UPLOAD_URL + item} />,
               });
             } else {
               data.push({
@@ -121,11 +113,7 @@ export const Gallery = (props) => {
               original: client.UPLOAD_URL + item,
               _id: item,
               // eslint-disable-next-line react/display-name
-              renderItem: () => (
-                <div styles={{ height: '100px', margin: '100px' }}>
-                  <PDFViewer url={client.UPLOAD_URL + item} />
-                </div>
-              ),
+              renderItem: () => <PDFViewer url={client.UPLOAD_URL + item} />,
             });
           } else {
             data.push({

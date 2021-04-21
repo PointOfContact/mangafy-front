@@ -12,7 +12,7 @@ const AnimePlatform = () => {
     {
       key: '1',
       img: 'Artists.webp',
-      title: 'Grow As an Artist - MangaFY believes in Grooming Artists',
+      title: 'Grow As an Artist',
       description:
         'MangaFY connects you with an active community of aspiring, amateur, and freelance artists and freelance professionals (translators, editors, etc.), direct content from self-publishing experts, tutorials, tips of the trade, all to grow your inner artists to success. ',
     },
@@ -27,7 +27,7 @@ const AnimePlatform = () => {
     {
       key: '3',
       img: 'Cycle.webp',
-      title: 'Manage Your Comic and Manga Creation Cycle',
+      title: 'Manage Your Comic',
       width: 157,
       description:
         "Manga and Comic production simplified through MangaFY. Use our platform's tools to manage tasks, organize time, and team collaboration communication to take your story from idea to a ready-to-be-published product.",
@@ -45,7 +45,7 @@ const AnimePlatform = () => {
   return (
     <div className={'container'}>
       <div className={styles.animePlatform}>
-        <h3 className={styles.title}>The Next-Generation Comics Self-Production Platform</h3>
+        <h3 className={styles.title}>The Next-Generation Self-Production Platform</h3>
         <p className={styles.info}>
           Collaborate, Produce, and Self-publish your story as a Manga or Comics with MangaFY
         </p>
