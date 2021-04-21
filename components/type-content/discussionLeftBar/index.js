@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
 import LargeButton from 'components/ui-elements/large-button';
-import { COMMUNITY_SPOTLIGHTS, HAPPENINGS } from 'helpers/constant';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 
@@ -11,8 +10,8 @@ import styles from './styles.module.scss';
 
 const DiscussionLeftBar = (props) => {
   const { members, collaborations } = props;
-  const [heppenings, setHeppenings] = useState(HAPPENINGS);
-  const [communitySpotlights, setCommunitySpotlights] = useState(COMMUNITY_SPOTLIGHTS);
+  const [heppenings, setHeppenings] = useState(collaborations);
+  const [communitySpotlights, setCommunitySpotlights] = useState(members);
 
   useEffect(() => {
     setHeppenings(collaborations);

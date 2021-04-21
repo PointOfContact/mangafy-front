@@ -8,15 +8,17 @@ import ButtonToTop from 'components/ui-elements/button-toTop';
 import Head from 'next/head';
 import PropTypes from 'prop-types';
 
-export default function LandingNew({
-  user,
-  posts,
-  dailyWarmUps,
-  members,
-  collaborations,
-  selectedCategories,
-  selectedType,
-}) {
+export default function LandingNew(props) {
+  const {
+    user,
+    posts,
+    dailyWarmUps,
+    members,
+    collaborations,
+    selectedCategories,
+    selectedType,
+  } = props;
+  console.log('gyguygyuguyg', props);
   return (
     <>
       <Head>
