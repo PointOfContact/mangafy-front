@@ -1,6 +1,8 @@
 import React from 'react';
 
 import { Row } from 'antd';
+import PrimaryButton from 'components/ui-elements/button';
+import Link from 'next/link';
 
 import AnimePlatformCard from './anime-platform copy';
 import styles from './styles.module.scss';
@@ -9,7 +11,7 @@ const AnimePlatform = () => {
   const platforms = [
     {
       key: '1',
-      img: 'coming_soon.webp',
+      img: 'Artists.webp',
       title: 'Grow As an Artist - MangaFY believes in Grooming Artists',
       description:
         'MangaFY connects you with an active community of aspiring, amateur, and freelance artists and freelance professionals (translators, editors, etc.), direct content from self-publishing experts, tutorials, tips of the trade, all to grow your inner artists to success. ',
@@ -18,15 +20,15 @@ const AnimePlatform = () => {
       key: '2',
       img: 'NovelType.webp',
       title: 'Discover The Power of Collaboration',
-      width: 180,
+      width: 170,
       description:
         "Got a story to tell but cannot illustrate? Have great characters but lack the storytelling behind them? collaborate with MangaFY's community of freelance and amateur partners.",
     },
     {
       key: '3',
-      img: 'about_image.webp',
+      img: 'Cycle.webp',
       title: 'Manage Your Comic and Manga Creation Cycle',
-      width: 115,
+      width: 157,
       description:
         "Manga and Comic production simplified through MangaFY. Use our platform's tools to manage tasks, organize time, and team collaboration communication to take your story from idea to a ready-to-be-published product.",
     },
@@ -34,7 +36,7 @@ const AnimePlatform = () => {
       key: '4',
       img: 'noSocial.webp',
       title: 'Ready, Set - Publish!',
-      width: 183,
+      width: 154,
       description:
         'Done with the production of your Manga or comics? MangaFY got you covered. Start monetizing and making money with exclusive benefits via our direct self-publishing platform partners.',
     },
@@ -47,7 +49,11 @@ const AnimePlatform = () => {
         <p className={styles.info}>
           Collaborate, Produce, and Self-publish your story as a Manga or Comics with MangaFY
         </p>
-        <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+        <Row
+          gutter={[
+            { xs: 20, sm: 30, md: 40, lg: 60 },
+            { xs: 20, sm: 40, md: 10, lg: 10 },
+          ]}>
           {platforms.map((platform) => (
             <AnimePlatformCard
               key={platform.key}
@@ -58,6 +64,11 @@ const AnimePlatform = () => {
             />
           ))}
         </Row>
+        <Link href="/sign-in">
+          <a>
+            <PrimaryButton className={styles.joinBtn} text="Join Now" isRound={true} />
+          </a>
+        </Link>
       </div>
     </div>
   );

@@ -1,0 +1,8 @@
+@import '../../styles/variables.scss';
+
+.main {
+  background-color: $primaryBG;
+  @include media-sm {
+    padding-top: 60px;
+  }
+}

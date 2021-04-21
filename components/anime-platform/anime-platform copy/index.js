@@ -36,8 +36,8 @@ AnimePlatformCard.propTypes = {
 };
 
 AnimePlatformCard.defaultProps = {
-  width: 150,
-  height: 150,
+  width: 130,
+  height: 130,
 };
 
 export default AnimePlatformCard;
