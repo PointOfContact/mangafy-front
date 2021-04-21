@@ -1508,3 +1508,19 @@ img.rot4 {
     }
   }
 }
+
+.galeryModal {
+  @include media-sm {
+    .ant-modal-content {
+      height: 100vh;
+      .ant-modal-body {
+        height: 100vh;
+        .image-gallery-slide {
+          height: calc(100vh - 100px);
+          align-items: center;
+          display: flex;
+        }
+      }
+    }
+  }
+}

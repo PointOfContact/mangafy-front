@@ -8,6 +8,7 @@ import SvgText from 'components/icon/Text';
 import Imgix from 'components/imgix';
 import AddButton from 'components/ui-elements/add-button';
 import { EVENTS } from 'helpers/amplitudeEvents';
+import dynamic from 'next/dynamic';
 import PropTypes from 'prop-types';
 
 import GalleryCard from './galleryCard';
@@ -16,6 +17,10 @@ import ShortStory from './shortStory';
 import { ShowGalleryModal } from './showGalleryModal';
 import styles from './style.module.scss';
 import { beforeGalleryUpload, getShortStorys } from './utils';
+
+const PDFViewer = dynamic(() => import('components/pdfViewer'), {
+  ssr: false,
+});
 
 const Amplitude = require('amplitude');
 
@@ -50,10 +55,23 @@ export const Gallery = (props) => {
       if (fromPath === 'users') {
         userData &&
           (userData.gallery.forEach((item) => {
-            data.push({
-              original: client.UPLOAD_URL + item,
-              _id: item,
-            });
+            if (item.slice(-3) === 'pdf' || item.slice(-3) === 'PDF') {
+              data.push({
+                original: client.UPLOAD_URL + item,
+                _id: item,
+                // eslint-disable-next-line react/display-name
+                renderItem: () => (
+                  <div style={{ height: '100px', margin: '50px' }}>
+                    <PDFViewer url={client.UPLOAD_URL + item} />
+                  </div>
+                ),
+              });
+            } else {
+              data.push({
+                original: client.UPLOAD_URL + item,
+                _id: item,
+              });
+            }
           }),
           getShortStorys(
             profile._id,
@@ -76,19 +94,45 @@ export const Gallery = (props) => {
         mangaStories &&
           mangaStories.gallery &&
           mangaStories.gallery.forEach((item) => {
-            data.push({
-              original: client.UPLOAD_URL + item,
-              _id: item,
-            });
+            if (item.slice(-3) === 'pdf' || item.slice(-3) === 'PDF') {
+              data.push({
+                original: client.UPLOAD_URL + item,
+                _id: item,
+                // eslint-disable-next-line react/display-name
+                renderItem: () => (
+                  <div styles={{ height: '100px', margin: '100px' }}>
+                    <PDFViewer url={client.UPLOAD_URL + item} />
+                  </div>
+                ),
+              });
+            } else {
+              data.push({
+                original: client.UPLOAD_URL + item,
+                _id: item,
+              });
+            }
           });
       }
     } else {
       profile &&
         (profile.gallery.forEach((item) => {
-          data.push({
-            original: client.UPLOAD_URL + item,
-            _id: item,
-          });
+          if (item.slice(-3) === 'pdf' || item.slice(-3) === 'PDF') {
+            data.push({
+              original: client.UPLOAD_URL + item,
+              _id: item,
+              // eslint-disable-next-line react/display-name
+              renderItem: () => (
+                <div styles={{ height: '100px', margin: '100px' }}>
+                  <PDFViewer url={client.UPLOAD_URL + item} />
+                </div>
+              ),
+            });
+          } else {
+            data.push({
+              original: client.UPLOAD_URL + item,
+              _id: item,
+            });
+          }
         }),
         getShortStorys(
           profile._id,
@@ -255,7 +299,7 @@ export const Gallery = (props) => {
               <Upload
                 beforeUpload={onBeforeGalleryUpload}
                 showUploadList={false}
-                accept="image/jpg, image/png, image/jpeg ">
+                accept="image/jpg, image/png, image/jpeg, application/pdf ">
                 <AddButton
                   svg={<SvgDownloadFile width="25px" height="25px" />}
                   text={'Upload file'}

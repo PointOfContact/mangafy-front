@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import { notification, Popconfirm } from 'antd';
 import client from 'api/client';
@@ -27,6 +27,7 @@ const GalleryCard = ({
   setCreateGalleryModal,
   setIsModalVisible,
 }) => {
+  const [type] = useState(galleryItem?._id?.slice(-3));
   const getLikesCount = useCallback(
     (galleryId) =>
       userData?.galleryLikedUsers?.filter((item) => galleryId === item.galleryId).length || 0,
@@ -141,14 +142,24 @@ const GalleryCard = ({
           </span>
         )}
         <div className={styles.filter} onClick={(e) => gallerySet(e, index)}></div>
-        {galleryItem.renderItem ? (
-          <div className={styles.textContent}>
-            <h3>{galleryItem.title}</h3>
-            <p>{galleryItem.description}</p>
-          </div>
-        ) : (
-          <img src={client.UPLOAD_URL + galleryItem._id} alt="" />
-        )}
+        {
+          // eslint-disable-next-line no-nested-ternary
+          galleryItem.renderItem ? (
+            type === 'pdf' || type === 'PDF' ? (
+              <img
+                src="https://icons.iconarchive.com/icons/graphicloads/filetype/256/pdf-icon.png"
+                alt=""
+              />
+            ) : (
+              <div className={styles.textContent}>
+                <h3>{galleryItem.title}</h3>
+                <p>{galleryItem.description}</p>
+              </div>
+            )
+          ) : (
+            <img src={client.UPLOAD_URL + galleryItem._id} alt="" />
+          )
+        }
       </div>
     </div>
   );

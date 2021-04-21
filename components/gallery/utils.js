@@ -101,10 +101,13 @@ const beforeGalleryUpload = (
   };
 
   const isJpgOrPng =
-    file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/jpg';
+    file.type === 'image/jpeg' ||
+    file.type === 'image/png' ||
+    file.type === 'image/jpg' ||
+    file.type === 'application/pdf';
 
   if (!isJpgOrPng) {
-    openNotification('error', 'You can only upload JPG, JPEG or PNG file!');
+    openNotification('error', 'You can only upload JPG, JPEG, PDF or PNG file!');
   }
 
   const isLt2M = file.size / 1024 / 1024 < 5;

@@ -1,0 +1,14 @@
+@import '../../styles/variables.scss';
+
+.pdf {
+  width: 100%;
+  height: 88vh;
+  overflow: auto;
+  margin: auto;
+  div {
+    width: 100% !important;
+    canvas {
+      margin: auto;
+    }
+  }
+}

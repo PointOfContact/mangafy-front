@@ -51,6 +51,9 @@ const nextConfigs = {
     loader: 'imgix',
     path: 'https://mangafy.imgix.net',
   },
+  future: {
+    webpack5: true,
+  },
   webpack(webpackConfig, options) {
     Object.assign(webpackConfig.resolve.alias, aliases);
 
@@ -95,6 +98,20 @@ const nextConfigs = {
     if (Array.isArray(webpackConfig.optimization.minimizer)) {
       webpackConfig.optimization.minimizer.push(new OptimizeCSSAssetsPlugin({}));
     }
+
+    webpackConfig.module.rules.unshift({
+      test: /pdf\.worker\.(min\.)?js/,
+      use: [
+        {
+          loader: 'file-loader',
+          options: {
+            name: '[contenthash].[ext]',
+            publicPath: '_next/static/worker',
+            outputPath: 'static/worker',
+          },
+        },
+      ],
+    });
 
     // In `pages/_app.js`, Sentry is imported from @sentry/browser. While
     // @sentry/node will run in a Node.js environment. @sentry/node will use

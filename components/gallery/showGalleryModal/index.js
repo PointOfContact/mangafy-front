@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Modal from 'antd/lib/modal/Modal';
+import cn from 'classnames';
 import SvgClose from 'components/icon/Close';
 import PropTypes from 'prop-types';
 import ImageGallery from 'react-image-gallery';
@@ -10,7 +11,7 @@ import styles from './style.module.scss';
 export const ShowGalleryModal = ({ startIndex, images, handleCancel, isModalVisible }) => (
   <div>
     <Modal
-      className={styles.modal}
+      className={cn(styles.modal, 'galeryModal')}
       bodyStyle={{ height: 'calc(100vh- 60px)', overflow: 'auto' }}
       footer={null}
       width={'100%'}
