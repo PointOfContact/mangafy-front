@@ -1517,8 +1517,12 @@ img.rot4 {
         height: 100vh;
         .image-gallery-slide {
           height: calc(100vh - 100px);
-          align-items: center;
-          display: flex;
+          div {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            align-items: center;
+          }
         }
       }
     }
