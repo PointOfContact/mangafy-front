@@ -1,30 +1,37 @@
 import React from 'react';
 
 import cn from 'classnames';
-import moment from 'moment';
-import Router from 'next/router';
+import SvgPortfolio from 'components/icon/Portfolio';
+import Imgix from 'components/imgix';
+import Link from 'next/link';
 import PropTypes from 'prop-types';
 
 import ButtonColab from './buttonColab';
 import styles from './styles.module.scss';
 
-const ColaborationCards = ({ label, client }) => {
-  const handleCallbCardsClick = (id) => {
-    Router.push({
-      pathname: `/manga-story/${id}`,
-      query: {},
-    });
-  };
-
-  return (
-    <div onClick={() => handleCallbCardsClick(label.id)} className={styles.colabWrap__item}>
+const ColaborationCards = ({ label, client }) => (
+  <Link href={`/manga-story/${label._id}`}>
+    <a className={styles.colabWrap__item}>
       <div className={styles.colabWrap__top}>
-        <div className={cn(styles.colabWrap__img, styles.colabWrap__imgOnline)}>
-          <div className={styles.colabWrap__online}></div>
-          <div className={styles.colabWrap__avatar}>
-            <img
-              src={label.image ? client.UPLOAD_URL + label.image : '/img/mangastory.jpg'}
-              alt=""></img>
+        <div className={cn(styles.avatar__img, styles.avatar__imgOnline)}>
+          <div className={styles.avatar__avatar}>
+            {label.image ? (
+              <Imgix
+                width={104}
+                height={104}
+                layout="fixed"
+                src={client.UPLOAD_URL + label.image}
+                alt="Manga story cover"
+              />
+            ) : (
+              <Imgix
+                width={104}
+                height={104}
+                layout="fixed"
+                src="https://mangafy.club/img/mangastory.webp"
+                alt="Manga story cover"
+              />
+            )}
           </div>
         </div>
         <div className={styles.colabWrap__name}>
@@ -32,27 +39,27 @@ const ColaborationCards = ({ label, client }) => {
           <div className={styles.colabWrap__authorDescr}>{label.searchingFor[0]}</div>
         </div>
       </div>
-      <div className={styles.colabWrap__descr}>{label.description}</div>
+      <div className={styles.colabWrap__descr}>{label.story}</div>
       <div className={styles.colabWrap__buttons}>
-        {label.genres.map((item) => (
-          <ButtonColab key={item._id} className={cn(styles.ButtonPurple)} text={item.name} />
-        ))}
+        {label.genres.length ? (
+          label.genres.map((item) => (
+            <ButtonColab key={item._id} className={cn(styles.ButtonPurple)} text={item.name} />
+          ))
+        ) : (
+          <ButtonColab className={cn(styles.ButtonWhite)} text={'💪 fan of all genres'} />
+        )}
       </div>
       <div className={styles.colabWrap__bot}>
         <div className={styles.colabWrap__commision}>
-          <img src="icons/suitcase.svg" alt=""></img>
+          <SvgPortfolio width="14px" height="14px" />
           {label.compensationModel == 'paid' ? 'Commission' : 'Collaboration'}
         </div>
-        <div className={styles.colabWrap__progress}>
-          <img src="icons/clock.svg" alt=""></img>
-          {moment(new Date(label.createdAt)).from(moment(new Date()))}
-        </div>
       </div>
-    </div>
-  );
-};
+    </a>
+  </Link>
+);
 
-ColaborationCards.PropTypes = {
+ColaborationCards.propTypes = {
   label: PropTypes.object.isRequired,
   client: PropTypes.object.isRequired,
 };

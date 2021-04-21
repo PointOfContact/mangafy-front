@@ -1,0 +1,125 @@
+@import '../../../../styles/variables.scss';
+
+$colors: $primaryLight, $orangeLight, #6fd257, $secondaryDark;
+$repeat: 5;
+
+.tasks {
+  position: relative;
+  margin-top: 18px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.items {
+  padding-bottom: 15px;
+  width: 100%;
+  @for $i from 1 through $repeat {
+    .taskCont {
+      &:nth-child(#{length($colors)}n + #{$i}) {
+        .ButtonPurple {
+          margin-bottom: 0;
+          display: inline-flex;
+          background: nth($colors, random(length($colors)));
+        }
+        .rewardType {
+          margin-bottom: 0;
+          display: inline-flex;
+          background: nth($colors, random(length($colors)));
+        }
+      }
+    }
+  }
+}
+.editBtns {
+  @include media-sm {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  display: flex;
+  flex-wrap: nowrap;
+  svg {
+    cursor: pointer;
+    margin-right: 10px;
+  }
+}
+.contributeBtn {
+  max-width: 175px;
+  height: 46px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: $text4;
+}
+.editBtn {
+  max-width: 175px;
+  height: 46px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: $text4;
+  margin-left: 70px;
+  margin-right: 35px;
+  @include media-sm {
+    position: absolute;
+    font-size: $text4;
+    height: 28px;
+    margin-left: 30px;
+    margin-right: 15px;
+    top: -1px;
+    right: 0px;
+  }
+}
+
+.taskCont {
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: space-between;
+  @include media-sm {
+    position: relative;
+    display: block;
+    margin-right: 0px;
+  }
+}
+
+.description {
+  font-family: Noto Sans JP;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 35px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #858585;
+  word-break: break-word;
+}
+
+.addBtn {
+  margin-left: 35px;
+  @include media-sm {
+    display: none;
+  }
+  img {
+    max-width: 200px;
+  }
+  button {
+    margin: 15px auto;
+  }
+}
+
+.mobile_add {
+  display: none;
+  @include media-sm {
+    position: absolute;
+    display: block;
+    top: -50px;
+    right: 0;
+  }
+}
+
+.noTasks {
+  .creatTask {
+    width: 100%;
+    text-align: center;
+  }
+}

@@ -1,0 +1,39 @@
+@import '../../styles/variables.scss';
+
+.dropItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
+  width: 100%;
+  padding-left: 20px;
+  padding-right: 10px;
+  cursor: pointer;
+  &:hover {
+    background-color: $white;
+  }
+  p {
+    margin-bottom: 0;
+  }
+  span {
+    display: none;
+  }
+}
+
+.selectid {
+  span {
+    display: inline;
+  }
+}
+
+.title {
+  font-size: 12px;
+  margin: 15px 0 5px 0;
+  text-align: center;
+  cursor: pointer;
+  color: $grey;
+  text-decoration: underline;
+  &:hover {
+    color: $black;
+  }
+}

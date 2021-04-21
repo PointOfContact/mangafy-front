@@ -1,54 +1,62 @@
+@import '../../../styles/variables.scss';
+
 .primary_input {
   width: 300px;
   padding: 7px 13px 9px 13px;
   font-family: Noto Sans JP;
   font-style: normal;
   font-weight: 500;
-  font-size: 15px;
+  font-size: 25px;
   line-height: 22px;
   color: #212121;
   background: #fafafa;
   border: 1px solid #f4f4f4;
   box-sizing: border-box;
   border-radius: 5px;
-
-  &:focus{
+  @include media-sm {
+    font-size: 20px;
+  }
+  &:focus {
     box-shadow: 0px 0px 20px rgba(123, 101, 243, 0.27);
-    border: 1px solid #7B65F3;
-    color: #7B65F3;
+    border: 1px solid #7b65f3;
+    color: #7b65f3;
   }
 
-  &:hover{
+  &:hover {
     box-shadow: 0px 0px 20px rgba(123, 101, 243, 0.27);
-    border: 1px solid #7B65F3;
-    color: #7B65F3;
+    border: 1px solid #7b65f3;
+    color: #7b65f3;
   }
 
+  &::placeholder {
+    color: #212121;
+  }
 }
 
-.linear{
+.linear {
   background: inherit;
   border-radius: 0;
+  padding-left: 0;
   border: none;
   border-bottom: 2px solid #212121;
 
-  &:focus{
+  &:focus {
     border: none;
-    border-bottom: 2px solid #7B65F3;
-    box-shadow:none;
+    border-bottom: 2px solid #7b65f3;
+    box-shadow: none;
   }
 
-  &:hover{
+  &:hover {
     border: none;
-    border-bottom: 2px solid #7B65F3;
-    box-shadow:none;
+    border-bottom: 2px solid #7b65f3;
+    box-shadow: none;
   }
 }
 
-.small{
+.small {
   width: 80px;
 }
 
-.full_width{
+.full_width {
   width: 100%;
 }

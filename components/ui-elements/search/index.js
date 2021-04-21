@@ -10,7 +10,7 @@ import styles from './styles.module.scss';
 function Search({ className, isFullWidth, onClick, ...rest }) {
   return (
     <div className={cn(styles.search, className, isFullWidth && styles.full_width)}>
-      <button onClick={onClick}>
+      <button id="searchBtnId" onClick={onClick}>
         <SvgSearch width="22px" height="22px" />
       </button>
       <Input {...rest} />
@@ -19,13 +19,13 @@ function Search({ className, isFullWidth, onClick, ...rest }) {
 }
 
 Search.propTypes = {
-  className: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+  className: PropTypes.string,
   isFullWidth: PropTypes.bool,
   onClick: PropTypes.func,
 };
 
 Search.defaultProps = {
-  className: {},
+  className: '',
   isFullWidth: false,
   onClick: () => {},
 };

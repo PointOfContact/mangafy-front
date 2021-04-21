@@ -1,129 +1,150 @@
 import React from 'react';
 
 import { LoadingOutlined } from '@ant-design/icons';
-import { Select, Spin } from 'antd';
+import { Alert, Spin } from 'antd';
+import SvgGoogle from 'components/icon/Google';
+import SvgWhiteFacebook from 'components/icon/WhiteFacebook';
+import PrimaryInput from 'components/ui-elements/input';
+import LargeButton from 'components/ui-elements/large-button';
+import PrimarySelect from 'components/ui-elements/select';
 import { userTypes } from 'helpers/constant';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 
-const { Option } = Select;
+import styles from './styles.module.scss';
 
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
-const AuthForm = ({ type, errorMessage, onChange, onSubmit, isLogin, disabled = false }) => (
+const AuthForm = ({ type, errorMessage, onChange, onSubmit, isLogin, loading }) => (
   <>
-    <form className="form_magafy" onSubmit={onSubmit}>
+    <form className={styles.auth_form} onSubmit={onSubmit}>
       {!isLogin ? (
         <div className="input_login">
-          <div className="sign-in-name">
-            <label htmlFor="name">I'm</label>
-            <input
-              id="name"
-              required
-              type="text"
-              name="name"
-              placeholder="Your name"
-              onChange={onChange}
-            />
-          </div>
-          <div style={{ marginTop: '5%', borderBottom: '1px solid black' }}>
-            <label htmlFor="type">I'm a</label>
-            <Select
+          <PrimaryInput
+            className={styles.input_login}
+            id="name"
+            type="name"
+            isLinear={true}
+            isFullWidth={true}
+            placeholder={'Your name'}
+            name="name"
+            required
+            pattern=".*\S+.*"
+            title="This field is required"
+            onChange={onChange}
+          />
+          <div className={styles.select}>
+            <PrimarySelect
+              className={styles.select_login}
+              label="I'm a"
               id="type"
+              name="type"
+              onChange={onChange}
+              isLinear={true}
+              isFullWidth={true}
               placeholder="Your title"
               value={type || undefined}
-              bordered={false}
-              style={{ width: '100%', marginBottom: 15 }}
-              name="type"
-              onChange={onChange}>
-              {userTypes.map((item) => (
-                <Option key={item.key} value={item.key}>
-                  {item.value}
-                </Option>
-              ))}
-            </Select>
+              options={userTypes}
+            />
           </div>
         </div>
       ) : null}
-      <div className="input_login floating-label-wrap">
-        <label htmlFor="email">Email</label>
-        <input
+      <div className={styles.login_form}>
+        <PrimaryInput
           id="email"
-          required
           type="email"
+          isLinear={true}
+          isFullWidth={true}
+          placeholder={'Email'}
           name="email"
-          placeholder="example@gmail.com"
+          required
           onChange={onChange}
         />
-      </div>
-      <div className="input_login">
-        <label htmlFor="password">Password</label>
-        <input id="password" required type="password" name="password" onChange={onChange} />
-      </div>
-      {isLogin && (
-        <div className="forgot_password">
-          <Link href="/forgot-password">
-            <span className="login_links underline">Forgot your password?</span>
-          </Link>
-        </div>
-      )}
-      <div className="login_button_container">
-        <button
-          disabled={disabled}
-          id={!isLogin ? 'signUpBtnId' : 'signInBtnId'}
-          className="login_btn"
-          style={{ minWidth: !isLogin ? 140 : 200 }}>
-          {!isLogin ? (
-            <p style={{ margin: 0 }}>
-              {' '}
-              Let's rock!{' '}
-              {disabled && (
-                <span className="ml-2">
-                  <Spin indicator={antIcon} />
-                </span>
-              )}
-            </p>
-          ) : (
-            'Start your Jorney'
-          )}
-        </button>
-      </div>
-      {isLogin ? (
-        <>
-          <div>
-            <p className="sign_in_or_separator">
-              <span className="or-text">or</span>
-            </p>
-          </div>
-          <div className="facebook_center">
-            <Link href="/api/v2/auth/facebook">
-              <span className="fb connect">Sign in with Facebook</span>
-            </Link>
-            <Link href="/api/v2/auth/google">
-              <span className="login-with-google-btn">Sign in with Google</span>
-            </Link>
-          </div>
-        </>
-      ) : null}
-      <div>
-        {!isLogin ? (
-          <Link href="/sign-in">
-            <span className="login_links">Already have account? Login</span>
-          </Link>
-        ) : (
-          <div className="new_to_manga">
-            <span className="login_links_info">New to ManagaFY? </span>
-            <Link href="/sign-up">
-              <span className="login_links margin-horizontal-5 underline">Join now</span>
+        <PrimaryInput
+          id="password"
+          type="password"
+          isLinear={true}
+          isFullWidth={true}
+          placeholder={'Password'}
+          name="password"
+          required
+          onChange={onChange}
+        />
+        {isLogin && (
+          <div className={styles.forgot_password}>
+            <Link href="/forgot-password">
+              <a>Forgot your password?</a>
             </Link>
           </div>
         )}
       </div>
-      <small className="error">
-        {errorMessage && isLogin
-          ? "Your login info isn't right. Try again, or reset your password if it slipped your mind."
-          : errorMessage}
+      <small className={styles.error}>
+        {errorMessage &&
+          (isLogin ? (
+            <Alert
+              message="Your login info isn't right. Try again, or reset your password if it slipped your mind."
+              type="error"
+              closable
+            />
+          ) : (
+            <Alert message={errorMessage} type="error" closable />
+          ))}
       </small>
+      <div className={styles.login_button}>
+        {!isLogin ? (
+          <>
+            <LargeButton
+              className={styles.button_submit}
+              loading={loading}
+              htmlType="submit"
+              text={
+                <p style={{ margin: 0 }}>
+                  Let&apos;s rock!
+                  {loading && (
+                    <span className="ml-2">
+                      <Spin indicator={antIcon} />
+                    </span>
+                  )}
+                </p>
+              }
+              id="signUpBtnId"
+            />
+          </>
+        ) : (
+          <>
+            <LargeButton
+              className={styles.button_submit}
+              htmlType="submit"
+              loading={loading}
+              text={'Start your Jorney'}
+              id="signInBtnId"
+            />
+          </>
+        )}
+      </div>
+      {/* {isLogin ? ( */}
+      <>
+        <div>
+          <div className={styles.or}>
+            <p></p>
+            <span>or</span>
+            <p></p>
+          </div>
+        </div>
+        <div className={styles.social_login}>
+          <Link href="/api/v2/auth/google">
+            <span className={styles.google_btn}>
+              <SvgGoogle width="26px" height="26px" /> Sign in with Google
+            </span>
+          </Link>
+          <Link href="/api/v2/auth/facebook">
+            <span className={styles.facebook_btn}>
+              <SvgWhiteFacebook width="26px" height="26px" /> Sign in with Facebook
+            </span>
+          </Link>
+        </div>
+      </>
+      {/* ) : null} */}
     </form>
   </>
 );
@@ -134,7 +155,12 @@ AuthForm.propTypes = {
   onChange: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   isLogin: PropTypes.bool.isRequired,
-  disabled: PropTypes.bool,
+  loading: PropTypes.bool,
+};
+
+AuthForm.defaultProps = {
+  type: null,
+  loading: false,
 };
 
 export default AuthForm;

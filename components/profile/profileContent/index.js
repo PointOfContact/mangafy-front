@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Tabs, Layout, Row, Col } from 'antd';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
+import * as qs from 'query-string';
 
 import styles from './styles.module.scss';
 import TabCommissionPricing from './tabCommissionPricing';
+import TabMessenger from './tabMessenger';
 import TabPortfolio from './tabPortfolio';
 import TabStory from './tabStory';
 
@@ -29,8 +31,10 @@ const ProfileContent = (props) => {
     genres,
     total,
     profileGenres,
+    isMyProfile,
   } = props;
 
+  const [selectedTab, setSelectidTab] = useState('1');
   const tabPanels = [
     {
       key: '1',
@@ -51,6 +55,7 @@ const ProfileContent = (props) => {
             total,
             profile,
             profileGenres,
+            isMyProfile,
           }}
         />
       ),
@@ -70,25 +75,51 @@ const ProfileContent = (props) => {
     },
     {
       key: '3',
-      tab: 'COMMISSION PRICING',
-      component: <TabCommissionPricing {...{ user }} />,
+      tab: 'SERVICES',
+      component: <TabCommissionPricing {...{ user, profile }} />,
     },
   ];
+  useEffect(() => {
+    const { tab } = qs.parse(location.search);
+
+    switch (tab) {
+      case 'story':
+        setSelectidTab('1');
+        break;
+      case 'gallery':
+        setSelectidTab('2');
+        break;
+      case 'services':
+        setSelectidTab('3');
+        break;
+      case 'messenger':
+        setSelectidTab('4');
+        break;
+      default:
+        setSelectidTab('1');
+    }
+  }, [user]);
+
   return (
     <section className={styles.prof_tabs_sec}>
       <Content
         className={cn(
           styles.my_profile_tabs,
-          'mobile_full_content mobile_top_round mobile_linear'
+          'profile-content mobile_full_content mobile_top_round mobile_linear'
         )}>
         <Row>
           <Col span={24}>
-            <Tabs defaultActiveKey="1">
+            <Tabs activeKey={selectedTab} onTabClick={setSelectidTab}>
               {tabPanels.map((tabPanel) => (
                 <TabPane tab={tabPanel.tab} key={tabPanel.key}>
                   {tabPanel.component}
                 </TabPane>
               ))}
+              {isMyProfile && (
+                <TabPane tab="MESSENGER" key={'4'}>
+                  <TabMessenger {...{ user }} />
+                </TabPane>
+              )}
             </Tabs>
           </Col>
         </Row>
@@ -113,6 +144,7 @@ ProfileContent.propTypes = {
   genres: PropTypes.array,
   total: PropTypes.number,
   profileGenres: PropTypes.array,
+  isMyProfile: PropTypes.bool,
 };
 
 ProfileContent.defaultProps = {
@@ -130,6 +162,7 @@ ProfileContent.defaultProps = {
   genres: null,
   total: null,
   profileGenres: null,
+  isMyProfile: null,
 };
 
 export default ProfileContent;

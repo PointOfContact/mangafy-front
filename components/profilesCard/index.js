@@ -1,56 +1,77 @@
 import React from 'react';
 
+import client from 'api/client';
+import cn from 'classnames';
+import Imgix from 'components/imgix';
+import Avatar from 'components/ui-elements/avatar';
+import { userTypesEnums } from 'helpers/constant';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 
 import SvgPortfolio from '../icon/Portfolio';
-import PopoverCard from '../popoverCard';
+import ButtonColab from './buttonColab';
+import styles from './styles.module.scss';
 
-const ProfilesCard = ({ users, client }) =>
-  users.map((user) => (
-    <a className="link_card">
-      <Link href={`profile/${user._id}`}>
-        <div className="cards_div" style={{ backgroundImage: "url('./img/profile3back.png')" }}>
-          <div className="card_autor">
-            <img
-              className="avatar"
-              src={
-                user.avatar
-                  ? client.UPLOAD_URL + user.avatar
-                  : 'https://swanbulk.com/wp-content/uploads/2020/03/user-icon.svg'
-              }
-              alt=""
-            />
-            <div className="card_name">
-              <h3>{user.name}</h3>
-              <p className="special">{user.type}</p>
+const ProfilesCard = ({ user, genres }) => {
+  const profileGenres = genres.filter(
+    (item) => user.genresIds && user.genresIds.includes(item._id)
+  );
+
+  if (!user) {
+    return <></>;
+  }
+  return (
+    <Link href={`/profile/${user._id}`}>
+      <a className={styles.colabWrap__item}>
+        <div className={styles.colabWrap__top}>
+          <div className={cn(styles.avatar__img, styles.avatar__imgOnline)}>
+            <div className={styles.avatar__avatar}>
+              {user.avatar ? (
+                <Imgix
+                  width={104}
+                  height={104}
+                  layout="fixed"
+                  src={client.UPLOAD_URL + user.avatar}
+                  alt="User avatar"
+                />
+              ) : (
+                <Avatar text={user.name} size={104} />
+              )}
             </div>
           </div>
-          <div className="tags_btn">
-            {user.skills && user.skills.length > 0
-              ? user.skills.map(({ content }) => <button>{content}</button>)
-              : null}
-          </div>
-          <p className="card-text card_description">{user.content || 'No description'}</p>
-          <div className="card_icons">
-            <span>
-              <SvgPortfolio width="14px" height="14px" />
-              <span style={{ marginLeft: '5px', marginTop: '2px' }}>
-                {user.collaboration == 'paid' ? 'Paid Collab' : 'Joint Collab'}
-              </span>
-            </span>
-            <span style={{ marginLeft: '5px' }}>
-              <PopoverCard id={user._id} />
-            </span>
+          <div className={styles.colabWrap__name}>
+            <div className={styles.colabWrap__authorName}>{user.name}</div>
+            <div className={styles.colabWrap__authorDescr}>{userTypesEnums[user?.type]}</div>
           </div>
         </div>
-      </Link>
-    </a>
-  ));
+        <div className={styles.colabWrap__descr}>{user.description}</div>
+        <div className={styles.colabWrap__buttons}>
+          {profileGenres.length ? (
+            profileGenres.map((item) => (
+              <ButtonColab key={item._id} className={cn(styles.ButtonPurple)} text={item.name} />
+            ))
+          ) : (
+            <ButtonColab className={cn(styles.ButtonWhite)} text={'💪 fan of all genres'} />
+          )}
+        </div>
+        <div className={styles.colabWrap__bot}>
+          <div className={styles.colabWrap__commision}>
+            <SvgPortfolio width="14px" height="14px" />
+            {user.compensationModel === 'paid' ? 'Commission' : 'Collaboration'}
+          </div>
+          <div className={styles.colabWrap__commision}>
+            <SvgPortfolio width="14px" height="14px" />
+            {user.collaboration === 'paid' ? 'Paid Collab' : 'Joint Collab'}
+          </div>
+        </div>
+      </a>
+    </Link>
+  );
+};
 
-ProfilesCard.prototype = {
-  users: PropTypes.array,
-  client: PropTypes.object,
+ProfilesCard.propTypes = {
+  user: PropTypes.object.isRequired,
+  genres: PropTypes.array.isRequired,
 };
 
 export default ProfilesCard;

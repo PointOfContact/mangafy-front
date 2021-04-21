@@ -1,418 +1,347 @@
 import React from 'react';
 
+import Footer from 'components/footer';
+import Header from 'components/header';
+import Imgix from 'components/imgix';
+import ButtonToTop from 'components/ui-elements/button-toTop';
 import Head from 'next/head';
-// import styles from './styles.module.scss';
+import PropTypes from 'prop-types';
 
-const Privacy = () => (
-  <>
-    <Head>
-      <title>MangaFY Privacy Policy</title>
-      <meta name="description" content="MangaFY Privacy Policy"></meta>
-      <meta property="og:url" content="http://mangafy.club" />
-      <meta property="og:type" content="article" />
-      <meta property="og:title" content="MangaFY Privacy Policy" />
-      <meta property="og:description" content="MangaFY Privacy Policy" />
-      <meta property="og:image" content="http://mangafy.club/img/indexMobSec3.webp" />
-      <link rel="icon" href="/favicon.ico" />
-    </Head>
-    <div className="terms">
-      <header id="header" className="gnb" style={{ backgroundColor: 'rgb(123, 100, 242)' }}>
-        <a className="MangaFY-logo" href="/">
-          MangaFY
-        </a>
-      </header>
-      <link rel="stylesheet" href="styles/css.css" />{' '}
-      <div className="wrap" data-sticky-wrap>
-        <section className="about" style={{ marginTop: '70px' }}>
-          <div className="block" style={{ fontSize: '24px' }}>
-            PRIVACY POLICY
-          </div>
-          <div className="block">
-            <ol>
-              <li>
-                <b>Introduction.</b>
-                <ul>
-                  <li className="no-mark">
-                    This privacy policy (<b>“Privacy Policy”</b>) applies to and governs MangaFY
-                    registered in the state of Israel with offices at Fikus 28, Tel Aviv, Israel (
-                    <b>“MangaFY”</b>, <b>“we”</b>, <b>“our”</b>) relationship with users (
-                    <b>“users”</b>, <b>“you”</b>) of the Platform in connection with how MangaFY
-                    collects information about you during your visits to the Platform, how MangaFY
-                    uses and safeguards this information, who MangaFY shares this information with
-                    and for what purposes, and the choices you can make about how we use this
-                    information. Your privacy and trust are very important to MangaFY and it is our
-                    commitment to be transparent about the use of collected information.
-                  </li>
-                  <li className="no-mark">
-                    By accessing or using the Platform, you confirm that you unconditionally accept
-                    this Privacy Policy. Please read this Privacy Policy carefully before using the
-                    Platform. If you do not agree to the terms found on this Privacy Policy, please
-                    do not use the Platform and you are not granted permission to access, view, or
-                    otherwise use the Platform for any purpose.
-                  </li>
-                  <li className="no-mark">
-                    As further described in the Terms, the Platform is intended for users aged 18
-                    and older. We will not knowingly collect or use any Personal Information (as
-                    defined below) from a child younger than 13 years of age (a “Child”). In
-                    addition, we will delete any information in our databases that we know
-                    originates from a Child in accordance with the Terms.
-                  </li>
-                  <li className="no-mark">
-                    Capitalized terms we use here that are not defined here are defined in the
-                    MangaFY User Terms of Service (the <b>“Terms”</b>). This Privacy Policy is
-                    incorporated into the Terms and is subject to all terms and conditions found on
-                    the Terms.
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <b>Overview.</b>
-                <ul>
+import styles from './styles.module.scss';
+
+const Privacy = (props) => {
+  const { user } = props;
+
+  return (
+    <>
+      <Head>
+        <title>MangaFY Privacy Policy</title>
+        <meta name="description" content="MangaFY Privacy Policy"></meta>
+        <meta property="og:url" content="http://mangafy.club" />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content="MangaFY Privacy Policy" />
+        <meta property="og:description" content="MangaFY Privacy Policy" />
+        <meta property="og:image" content="http://mangafy.club/img/indexMobSec3.webp" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <ButtonToTop />
+      <div className={'wrapper'}>
+        <div className={'content'}>
+          <Header path="privacy" user={user} />
+          <main>
+            <div className={styles.privacy_page}>
+              <div className={styles.title_section}>
+                <div className={styles.title_inner}>
+                  <div className={styles.page_title}>Privacy Policy</div>
+                </div>
+                <div className={styles.image_block}>
+                  <Imgix
+                    width={240}
+                    height={302}
+                    layout="fixed"
+                    src="https://mangafy.club/img/privacy_image.webp"
+                    alt=""
+                  />
+                </div>
+              </div>
+              <div className="col-12 col-lg-10 offset-lg-1">
+                <p>
+                  <strong>Effective Date: 04-03-2021</strong>
+                </p>
+                <h3>Your privacy is important to us</h3>
+                <p>Mangafy Lab is located at:</p>
+                <address>
+                  Mangafy Lab
+                  <br />
+                  Fikus 28/9 Tel Aviv Yaffo, Tel Aviv Yaffo <br />
+                  6820256 Tel Aviv District , Israel
+                  <br />
+                </address>
+                <p>
+                  It is Mangafy Lab's policy to respect your privacy regarding any information we
+                  may collect while operating our website. This Privacy Policy applies to{' '}
+                  <a href="https://mangafy.club"> mangafy.club</a> (hereinafter, "us", "we", or
+                  "mangafy.club"). We respect your privacy and are committed to protecting
+                  personally identifiable information you may provide us through the Website. We
+                  have adopted this privacy policy ("Privacy Policy") to explain what information
+                  may be collected on our Website, how we use this information, and under what
+                  circumstances we may disclose the information to third parties. This Privacy
+                  Policy applies only to information we collect through the Website and does not
+                  apply to our collection of information from other sources.
+                </p>
+                <p>
+                  This Privacy Policy, together with the Terms of service posted on our Website, set
+                  forth the general rules and policies governing your use of our Website. Depending
+                  on your activities when visiting our Website, you may be required to agree to
+                  additional terms of service.
+                </p>
+                <h2 id="tableofcontents">Contents</h2>
+                <p>Click below to jump to any section of this privacy policy</p>
+                <ol type="1">
                   <li>
-                    <b>Who We Are.</b> For the purpose of applicable data protection legislation,
-                    the data controller of your personal information is MangaFY.
-                  </li>
-                  <li>
-                    <b>Must-Read Sections.</b> We draw your attention in particular to the sections
-                    entitled “International Use” and “Your Rights Regarding What We Collect.”
-                  </li>
-                  <li>
-                    <b>Changes to This Policy.</b> We will post any modifications or changes to the
-                    Policy on our Platform. You are encouraged to frequently visit the following
-                    website, specifically at https://www.mangafy.club/privacy-policy, to review the
-                    current Privacy Policy. MangaFY will attempt to notify you in a reasonable
-                    amount of time any changes to the Privacy Policy. Your continued use of the
-                    Platform means that you will be bound by the most current revision to the
-                    Privacy Policy.
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <b>What We Collect.</b> There’s a range of information we need to collect about you
-                so that we can operate MangaFY. This information may include:
-                <ul>
-                  <li>
-                    <b>Information You Give Us.</b> We collect your name, email address, your
-                    Internet Protocol (IP) Address, and certain geographic data (
-                    <b>“Personal Information”</b>). If you provide it, then this information may
-                    also include your name and username. You are responsible for ensuring the
-                    accuracy of the Personal Information that you submit to us. We also collect
-                    Non-Personal Information. <b>“Non-Personal Information”</b> means information
-                    that is anonymous or we cannot easily use to personally identify you or contact
-                    you, including, without limitation, your web or mobile browser type, mobile
-                    carrier, operating system, hardware device type, the URL of the previous website
-                    you visited, and, upon leaving the Platform, and the URL of the next website you
-                    go to.
+                    <a href="#websitevisitors">
+                      <strong>Website Visitors</strong>
+                    </a>
                   </li>
                   <li>
-                    <b>Cookies.</b> MangaFY requires that Cookies be enabled on your device(s) so
-                    that we can identify you as a repeat visitor or customer and maintain session
-                    information for logged-in users. When you visit the Platform, create an Account,
-                    or download or purchase Works or Services from us, we may set Cookies on your
-                    computer or device. Cookies are small data files stored on your device by a
-                    website. Cookies are useful for gathering information, such as usage trends and
-                    patterns, so that we may better understand your use of the Platform, and manage
-                    and optimize the Platform for users. If you use our Platform from a mobile
-                    device, that device may send us data about your physical location, which we will
-                    get your separate permission for before MangaFY collects information about your
-                    precise location. Most devices allow you to prevent location data from being
-                    sent to us and we honor your settings upon your action of revoking your consent
-                    through the settings on your device.
+                    <a href="#PII">
+                      <strong>Personally-Identifying Information</strong>
+                    </a>
                   </li>
                   <li>
-                    <b>Payment Processing.</b> As of the date of this Privacy Policy, MangaFY does
-                    not store any credit or debit card details on or offline. Payments and other
-                    similar transactions via the Platform are completed by a third party payment
-                    processor, such as Apple or Google (<b>“Payment Processor”</b>), and any
-                    purchases you make via the Platform shall be additionally governed by the
-                    Payment Processor’s terms and conditions and/or privacy policies. MangaFY is not
-                    liable for the security or performance of the Payment Processor. MangaFY
-                    reserves the right to immediately change our Payment Processors at any time
-                    without notice to you. Additional Payment Processor terms concerning a writer’s
-                    Account and the monetization of Works provided or uploaded by a writer can be
-                    found on MangaFY’s Writer Content Policy.
+                    <a href="#Security">
+                      <strong>Security</strong>
+                    </a>
                   </li>
                   <li>
-                    <b>Information We Give to Others.</b> From time to time, a third party may be
-                    able to collect information about you in connection with your use of the
-                    Platform, including, without limitation, by authenticating your Account via
-                    Facebook or when we authorize a third party to render services to us, such as
-                    via a Payment Processor. Certain features of the Platform may also allow you to
-                    voluntarily provide Personal Information to third parties. When you opt to
-                    authenticate or otherwise link your Account with a third party service,
-                    voluntarily submit Personal Information to a third party, or an authorized third
-                    party receives such information, your Personal Information may not be under our
-                    control. MangaFY encourages you to review the terms and conditions and privacy
-                    policies of any third-party website or platform that you visit or allow access
-                    to. We may share Non-Personal Information collected by Cookies with third
-                    parties in accordance with this Privacy Policy, but MangaFY will not sell it to
-                    third parties. MangaFY will only use such it for MangaFY’s own business,
-                    marketing, and administrative purposes.
+                    <a href="#Ads">
+                      <strong>Advertisements</strong>
+                    </a>
                   </li>
                   <li>
-                    <b>Newsletters.</b> At various times we may ask you to provide us Personal
-                    Information in order to receive recurring informational or promotional
-                    newsletters via email, or otherwise through mobile applications, from us and/or
-                    directly from third parties (<b>“Newsletters”</b>). When you sign up for
-                    Newsletters, or at any time you use the Platform thereafter, you may unsubscribe
-                    from Newsletters by following the directions included in the Newsletter or by
-                    visiting your Account. We will take commercially reasonable steps to implement
-                    your opt-out and unsubscribe requests promptly, but you may still receive
-                    communications from us for up to ten business days as we process your request.
+                    <a href="#ExternalLinks">
+                      <strong>Links To External Sites</strong>
+                    </a>
                   </li>
                   <li>
-                    <b>Surveys.</b> From time to time, we may use Non-Personal Information to
-                    conduct research surveys, including, without limitation, through email
-                    invitations, pop-up surveys, and online focus groups (each a “Survey”) for our
-                    internal use. If you submit Personal Information in a Survey, we or authorized
-                    third parties may use it for research and measurement purposes related to the
-                    Platform. When a Survey collects Personal Information we will not knowingly
-                    accept participants who are under the age of 13, and will treat any such
-                    information in accordance with the terms and conditions herein and in the Terms.
-                    Surveys conducted by or on behalf of us will contain a link to the Terms. If
-                    your browser is not enabled to accept Cookies, you may not be able to
-                    participate in a Survey.
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <b>Your Rights Regarding What We Collect.</b>
-                <ul>
-                  <li>
-                    In some circumstances, you may control the amount of Personal Information that
-                    is accessible to us by adjusting the account privacy settings on your Account
-                    page or via certain privacy controls contained on a social media account you
-                    have with a third party. MangaFY makes it easy for you to keep certain aspects
-                    of your Personal Information accurate, complete, and up to date. To review or
-                    update certain of your Personal Information, or to alter your email preferences,
-                    or preferences regarding Personal Information, visit your Account page on the
-                    Platform. If you do not want us to use your Personal Information as provided in
-                    this Privacy Policy, or otherwise as stated in the Terms, you should not use any
-                    part of the Platform that collects Personal Information, such as forms
-                    requesting Personal Information (for example, creating an Account).
+                    <a href="#Remarketing">
+                      <strong>Mangafy Lab uses Google AdWords for remarketing</strong>
+                    </a>
                   </li>
                   <li>
-                    If at any time you would like to close your Account, please send an email to
-                    support@MangaFYfiction.com. Personal Information will be removed from our active
-                    user database and will be deleted as long as you are current with all payment
-                    obligations owed to and we do not believe it reasonably necessary to retain such
-                    information for any pending legal action or other legal obligation. We will only
-                    keep Personal Information for a limited period of time as reasonably necessary
-                    to comply with our legal obligations, meet regulatory requirements, resolve
-                    disputes, maintain security, prevent fraud and abuse, and enforce our Terms.
+                    <a href="#PIIProtection">
+                      <strong>Protection of Certain Personally-Identifying Information</strong>
+                    </a>
                   </li>
                   <li>
-                    Please be aware that in the event of Account closure, any unfulfilled sales or
-                    subscriptions may be cancelled without refund and it is your responsibility to
-                    request a refund from applicable third party merchants or vendors, which may be
-                    a Payment Processor, such as contacting Apple for a refund through the Apple App
-                    Store or Google for a refund through the Play Store. In the event such
-                    applicable third party grants a refund, the refund may be charged back to you
-                    through the Platform, subject to the terms and conditions between MangaFY and
-                    such third parties. For the avoidance of doubt, you understand and acknowledge
-                    that MangaFY does not directly handle refunds.
+                    <a href="#Stats">
+                      <strong>Aggregated Statistics</strong>
+                    </a>
                   </li>
                   <li>
-                    If you later determine you wish to use certain features of the Platform again,
-                    you may have to register a new Account and the most up to date Privacy Policy
-                    will apply to such Account.
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <b>Use of Collected Information.</b> MangaFY may access, store, and otherwise use
-                Personal Information and Non-Personal Information (collectively,{' '}
-                <b>“Collected Information”</b>) in the following ways:
-                <ul>
-                  <li>To operate, maintain, and improve our Platform.</li>
-                  <li>
-                    To create your account, identify you as a user, and customize MangaFY for your
-                    account.
+                    <a href="#Cookies">
+                      <strong>Cookies</strong>
+                    </a>
                   </li>
                   <li>
-                    To send you promotional communications. These may include the deals email,
-                    alerts related to authors you follow, social notifications, surveys, or other
-                    newsletters depending on your settings. You may opt-out of receiving such
-                    information at any time: such marketing emails tell you how to “opt-out.”
+                    <a href="#Ecommerce">
+                      <strong>E-commerce</strong>
+                    </a>
                   </li>
                   <li>
-                    To send you administrative communications. These may include administrative
-                    emails, confirmations, technical notices, updates, and security alerts.
+                    <a href="#Changes">
+                      <strong>Privacy Policy Changes</strong>
+                    </a>
                   </li>
                   <li>
-                    To respond to your comments and questions and provide you with user support.
+                    <a href="#Credit">
+                      <strong>Contact Information &amp; Credit</strong>
+                    </a>
                   </li>
-                  <li>To track and measure MangaFY’s advertising.</li>
-                  <li>
-                    To process payments you make via MangaFY, which as of the date of this Policy,
-                    we do not do directly, but only through third party processors.
-                  </li>
-                  <li>
-                    To reply to support requests and other inquiries, to deliver our products and
-                    services, and to provide product information and news.
-                  </li>
-                  <li>
-                    To protect, investigate, and deter against fraudulent, unauthorized, or illegal
-                    activity.
-                  </li>
-                  <li>
-                    To prevent an emergency, to enforce the rights of a third party, or as required
-                    by law.
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <b>How We Share Collected Information.</b> We may share your Collected Information
-                as follows:
-                <ul>
-                  <li>
-                    <b>Third Parties Designated By You.</b> We may share your personal information
-                    with third parties where you have provided your consent to do so.
-                  </li>
-                  <li>
-                    <b>Our Third-Party Service Providers.</b> We may share your personal information
-                    with our third-party service providers, who provide services such as data
-                    analysis, payment processing, information technology and related infrastructure,
-                    email delivery, and other similar services. We require that our third-party
-                    service providers use your Personal Information only to provide the services
-                    we've requested. We may also share the Collected Information to third parties
-                    who MangaFY is negotiating a business dealing with, selling or distributing
-                    publications or other products or services to, including, without limitation,
-                    the Works found on the Platform, in connection with or as is necessary to
-                    fulfill requests for products, programs or services, or to satisfy other core
-                    business functions. This includes, without limitation, literary publishers,
-                    distributors, and other similar merchants in the literary and distribution
-                    industries.
-                  </li>
-                  <li>
-                    <b>Corporate Restructuring.</b> We may share personal information when we do a
-                    business deal, or negotiate a business deal, involving the sale or transfer of
-                    all or a part of our business or assets. These deals can include any merger,
-                    financing, acquisition, or bankruptcy transaction or proceeding.
-                  </li>
-                  <li>
-                    <b>Other Disclosures.</b> We may share personal information as we believe
-                    necessary or appropriate (a) to comply with applicable laws; (b) to comply with
-                    lawful requests and legal process, including to respond to requests from public
-                    and government authorities to meet national security or law enforcement
-                    requirements; (c) to enforce our Policy; and (d) to protect our rights, privacy,
-                    safety or property, and/or that of you or others.
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <b>Data Retention.</b>
-                <ul>
-                  <li>
-                    We retain Personal Information while your Account is active, not closed, as
-                    needed to provide you access to the Platform, and as otherwise stated herein.
-                  </li>
-                  <li>
-                    Some information you have shared with others on the Platform may, and will
-                    likely, remain visible after you close your Account, such as chat messages,
-                    comments, or message board postings, any communications you have with other
-                    users of the Platform, and certain Submissions. In addition, your Account page
-                    may appear to others until their respective cache is refreshed. You understand
-                    and agree that in the event you terminate your Account, MangaFY shall have no
-                    obligation to delete any public comments, reviews, chat messages, comments, or
-                    message board postings, or the like you make and post to the Platform, even if
-                    such material contains Personal Information, as MangaFY cannot reasonably
-                    anticipate, and is generally unaware, of what you are actually contributing to
-                    the Platform or including on the Platform. Nonetheless, please contact MangaFY
-                    at <a href="mailto:support@mangafy.club">support@mangafy.club</a> and MangaFY,
-                    in MangaFY’s sole and reasonable discretion, may assist you in deleting such
-                    content.
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <b>Exclusions.</b>
-                <ul>
-                  <li>
-                    This Privacy Policy does not apply to Submissions and any materials that you
-                    post or otherwise make available on the Platform in a public way. PLEASE DO NOT
-                    POST OR ADD PERSONAL INFORMATION TO THE PLATFORM IN A PUBLIC WAY THAT YOU WOULD
-                    NOT WANT TO BE PUBLICLY AVAILABLE.
-                  </li>
-                  <li>
-                    We are not responsible for the actions of others, as further outlined in the
-                    Terms. You should not assume that your Personal Information, or any other
-                    communication you post or add to the Platform will be kept private. We do not
-                    control information that other users of the Platform have copied out of our
-                    Platform.
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <b>International Uses.</b>
-                <ul>
-                  <li>
-                    As further described in the Terms, the Platform is directed to, and is for use
-                    by, only users in the United States. Please be aware, if you use the Platform
-                    outside of the United States, that any information MangaFY collects may be
-                    transferred to, stored, and/or processed in the United States or may be sent
-                    back out of the United States to your country of residence or elsewhere in the
-                    normal course of MangaFY providing the Platform. Notwithstanding the foregoing,
-                    MangaFY may transfer any information or data to any other country in which
-                    MangaFY chooses to operates in the future.
-                  </li>
-                  <li>
-                    Depending on your location, you may also have certain additional rights by law
-                    with respect to your information, such as: (i) data access and portability; (ii)
-                    data correction; (iii) data deletion; and (iv) withdrawal of consent or
-                    objection to processing, including, in limited circumstances, the right to ask
-                    MangaFY to stop processing your personal data, with some exceptions, by
-                    contacting us. For data that may be subject to the European Union’s General Data
-                    Protection Regulation (GDPR), MangaFY relies on several legal bases to process
-                    your data, including, without limitation, when you have given MangaFY your
-                    consent for Personal Information, which you may withdraw at any time in
-                    accordance with this Privacy Policy (such as deleting your Account), when the
-                    processing of data is necessary to perform services or obligations to you, and
-                    for MangaFY’s legitimate business interests, such as offering, improving, and
-                    personalizing the Platform for you and marketing new features or products that
-                    may be of interest to you. If you are in the European Union and have any
-                    GDPR-related inquiries about MangaFY’s collection and storage of data, please
-                    contact MangaFY head office or{' '}
-                    <a href="mailto:support@mangafy.club">support@mangafy.club</a>.
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <b>Contact Information.</b> If you have any questions, concerns, or comments about
-                our Privacy Policy, you may contact us at:{' '}
-                <a href="mailto:support@mangafy.club">support@mangafy.club</a>.
-              </li>
-            </ol>
-          </div>
-        </section>
-      </div>
-      <footer data-sticky-footer className="footer">
-        <div className="footer-left" style={{ width: '70%' }}>
-          <span style={{ color: 'rgb(47, 47, 47)' }}>
-            MangaFY , Inc. © 2020. All rights reserved.
-          </span>
-          <span>
-            <a href="/about">About Us</a>
-          </span>
-          <span>/</span>
-          <span>
-            <a href="/rules">Community Guidelines</a>
-          </span>
-          <span>/</span>
-          <span>
-            <a href="/content">Content</a>
-          </span>
-          <span>/</span>
-          <span>
-            <a href="/terms">Terms</a>
-          </span>
-          <span>/</span>
-          <span>
-            <a href="/privac-policy">Privacy Policy</a>
-          </span>
+                </ol>
+                <h2 id="websitevisitors">1. Website Visitors</h2>
+                <p>
+                  Like most website operators, Mangafy Lab collects non-personally-identifying
+                  information of the sort that web browsers and servers typically make available,
+                  such as the browser type, language preference, referring site, and the date and
+                  time of each visitor request. Mangafy Lab's purpose in collecting non-personally
+                  identifying information is to better understand how Mangafy Lab's visitors use its
+                  website. From time to time, Mangafy Lab may release non-personally-identifying
+                  information in the aggregate, e.g., by publishing a report on trends in the usage
+                  of its website.
+                </p>
+                <p>
+                  Mangafy Lab also collects potentially personally-identifying information like
+                  Internet Protocol (IP) addresses for logged in users and for users leaving
+                  comments on https://mangafy.club blog posts. Mangafy Lab only discloses logged in
+                  user and commenter IP addresses under the same circumstances that it uses and
+                  discloses personally-identifying information as described below.
+                </p>
+                <p>
+                  <a href="#tableofcontents">Back to table of contents</a>
+                </p>
+                <h2 id="PII">2. Personally-Identifying Information</h2>
+                <p>
+                  Certain visitors to Mangafy Lab's websites choose to interact with Mangafy Lab in
+                  ways that require Mangafy Lab to gather personally-identifying information. The
+                  amount and type of information that Mangafy Lab gathers depends on the nature of
+                  the interaction. For example, we ask visitors who leave a comment at
+                  https://mangafy.club to provide a username and email address.
+                </p>
+                <p>
+                  <a href="#tableofcontents">Back to table of contents</a>
+                </p>
+                <h2 id="Security">3. Security</h2>
+                <p>
+                  The security of your Personal Information is important to us, but remember that no
+                  method of transmission over the Internet, or method of electronic storage is 100%
+                  secure. While we strive to use commercially acceptable means to protect your
+                  Personal Information, we cannot guarantee its absolute security.
+                </p>
+                <p>
+                  <a href="#tableofcontents">Back to table of contents</a>
+                </p>
+                <h2 id="Ads">4. Advertisements</h2>
+                <p>
+                  Ads appearing on our website may be delivered to users by advertising partners,
+                  who may set cookies. These cookies allow the ad server to recognize your computer
+                  each time they send you an online advertisement to compile information about you
+                  or others who use your computer. This information allows ad networks to, among
+                  other things, deliver targeted advertisements that they believe will be of most
+                  interest to you. This Privacy Policy covers the use of cookies by Mangafy Lab and
+                  does not cover the use of cookies by any advertisers.
+                </p>
+                <p>
+                  <a href="#tableofcontents">Back to table of contents</a>
+                </p>
+                <h2 id="ExternalLinks">5. Links To External Sites</h2>
+                <p>
+                  Our Service may contain links to external sites that are not operated by us. If
+                  you click on a third party link, you will be directed to that third party's site.
+                  We strongly advise you to review the Privacy Policy and terms of service of every
+                  site you visit.
+                </p>
+                <p>
+                  We have no control over, and assume no responsibility for the content, privacy
+                  policies or practices of any third party sites, products or services.
+                </p>
+                <p>
+                  <a href="#tableofcontents">Back to table of contents</a>
+                </p>
+                <h2 id="Remarketing">6. Mangafy Lab uses Google AdWords for remarketing</h2>
+                <p>
+                  Mangafy Lab uses the remarketing services to advertise on third party websites
+                  (including Google) to previous visitors to our site. It could mean that we
+                  advertise to previous visitors who haven't completed a task on our site, for
+                  example using the contact form to make an enquiry. This could be in the form of an
+                  advertisement on the Google search results page, or a site in the Google Display
+                  Network. Third-party vendors, including Google, use cookies to serve ads based on
+                  someone's past visits. Of course, any data collected will be used in accordance
+                  with our own privacy policy and Google's privacy policy.
+                </p>
+                <p>
+                  You can set preferences for how Google advertises to you using the Google Ad
+                  Preferences page, and if you want to you can opt out of interest-based advertising
+                  entirely by cookie settings or permanently using a browser plugin.
+                </p>
+                <p>
+                  <a href="#tableofcontents">Back to table of contents</a>
+                </p>
+                <h2 id="PIIProtection">
+                  7. Protection of Certain Personally-Identifying Information
+                </h2>
+                <p>
+                  Mangafy Lab discloses potentially personally-identifying and
+                  personally-identifying information only to those of its employees, contractors and
+                  affiliated organizations that (i) need to know that information in order to
+                  process it on Mangafy Lab's behalf or to provide services available at Mangafy
+                  Lab's website, and (ii) that have agreed not to disclose it to others. Some of
+                  those employees, contractors and affiliated organizations may be located outside
+                  of your home country; by using Mangafy Lab's website, you consent to the transfer
+                  of such information to them. Mangafy Lab will not rent or sell potentially
+                  personally-identifying and personally-identifying information to anyone. Other
+                  than to its employees, contractors and affiliated organizations, as described
+                  above, Mangafy Lab discloses potentially personally-identifying and
+                  personally-identifying information only in response to a subpoena, court order or
+                  other governmental request, or when Mangafy Lab believes in good faith that
+                  disclosure is reasonably necessary to protect the property or rights of Mangafy
+                  Lab, third parties or the public at large.
+                </p>
+                <p>
+                  If you are a registered user of https://mangafy.club and have supplied your email
+                  address, Mangafy Lab may occasionally send you an email to tell you about new
+                  features, solicit your feedback, or just keep you up to date with what's going on
+                  with Mangafy Lab and our products. We primarily use our blog to communicate this
+                  type of information, so we expect to keep this type of email to a minimum. If you
+                  send us a request (for example via a support email or via one of our feedback
+                  mechanisms), we reserve the right to publish it in order to help us clarify or
+                  respond to your request or to help us support other users. Mangafy Lab takes all
+                  measures reasonably necessary to protect against the unauthorized access, use,
+                  alteration or destruction of potentially personally-identifying and
+                  personally-identifying information.
+                </p>
+                <p>
+                  <a href="#tableofcontents">Back to table of contents</a>
+                </p>
+                <h2 id="Stats">8. Aggregated Statistics</h2>
+                <p>
+                  Mangafy Lab may collect statistics about the behavior of visitors to its website.
+                  Mangafy Lab may display this information publicly or provide it to others.
+                  However, Mangafy Lab does not disclose your personally-identifying information.
+                </p>
+                <p>
+                  <a href="#tableofcontents">Back to table of contents</a>
+                </p>
+                <h2 id="Cookies">9. Cookies</h2>
+                <p>
+                  To enrich and perfect your online experience, Mangafy Lab uses "Cookies", similar
+                  technologies and services provided by others to display personalized content,
+                  appropriate advertising and store your preferences on your computer.
+                </p>
+                <p>
+                  A cookie is a string of information that a website stores on a visitor's computer,
+                  and that the visitor's browser provides to the website each time the visitor
+                  returns. Mangafy Lab uses cookies to help Mangafy Lab identify and track visitors,
+                  their usage of https://mangafy.club, and their website access preferences. Mangafy
+                  Lab visitors who do not wish to have cookies placed on their computers should set
+                  their browsers to refuse cookies before using Mangafy Lab's websites, with the
+                  drawback that certain features of Mangafy Lab's websites may not function properly
+                  without the aid of cookies.
+                </p>
+                <p>
+                  By continuing to navigate our website without changing your cookie settings, you
+                  hereby acknowledge and agree to Mangafy Lab's use of cookies.
+                </p>
+                <p>
+                  <a href="#tableofcontents">Back to table of contents</a>
+                </p>
+                <h2 id="Ecommerce">10. E-commerce</h2>
+                <p>
+                  Those who engage in transactions with Mangafy Lab – by purchasing Mangafy Lab's
+                  services or products, are asked to provide additional information, including as
+                  necessary the personal and financial information required to process those
+                  transactions. In each case, Mangafy Lab collects such information only insofar as
+                  is necessary or appropriate to fulfill the purpose of the visitor's interaction
+                  with Mangafy Lab. Mangafy Lab does not disclose personally-identifying information
+                  other than as described below. And visitors can always refuse to supply
+                  personally-identifying information, with the caveat that it may prevent them from
+                  engaging in certain website-related activities.
+                </p>
+                <p>
+                  <a href="#tableofcontents">Back to table of contents</a>
+                </p>
+                <h2 id="Changes">11. Privacy Policy Changes</h2>
+                <p>
+                  Although most changes are likely to be minor, Mangafy Lab may change its Privacy
+                  Policy from time to time, and in Mangafy Lab's sole discretion. Mangafy Lab
+                  encourages visitors to frequently check this page for any changes to its Privacy
+                  Policy. Your continued use of this site after any change in this Privacy Policy
+                  will constitute your acceptance of such change.
+                </p>
+                <p>
+                  <a href="#tableofcontents">Back to table of contents</a>
+                </p>
+                <h2 id="Credit">12. Contact Information &amp; Credit</h2>
+                <p>
+                  This privacy policy was created at . If you have any questions about our Privacy
+                  Policy, please contact us via <a href="mailto:max@mangafy.club">email</a> or{' '}
+                  <a href="tel:">phone</a>.
+                </p>
+                <p>
+                  <a href="#tableofcontents">Back to table of contents</a>
+                </p>{' '}
+              </div>
+            </div>
+          </main>
         </div>
-      </footer>
-    </div>
-  </>
-);
+        <Footer />
+      </div>
+    </>
+  );
+};
+
+Privacy.PropTypes = {
+  user: PropTypes.object,
+};
+
 export default Privacy;

@@ -48,10 +48,6 @@ export const options = [
 
 export const userTypes = [
   {
-    key: 'reader',
-    value: 'Reader',
-  },
-  {
     key: 'illustrator',
     value: 'Illustrator',
   },
@@ -109,6 +105,37 @@ export const userTypes = [
   },
 ];
 
+export const allCollaborations = [
+  {
+    key: 'writer',
+    value: 'Writer',
+  },
+  {
+    key: 'illustrator',
+    value: 'Illustrator',
+  },
+  {
+    key: 'editor',
+    value: 'Editor',
+  },
+  {
+    key: 'mentor',
+    value: 'Mentor',
+  },
+  {
+    key: 'publisher',
+    value: 'Publisher',
+  },
+  {
+    key: 'reviewer',
+    value: 'Reviewer',
+  },
+  {
+    key: 'translator',
+    value: 'Translator',
+  },
+];
+
 export const userTypesEnums = {
   writer: 'Writer',
   penciler: 'Penciler',
@@ -122,7 +149,6 @@ export const userTypesEnums = {
   editor: 'Editor',
   backers: 'Backers',
   mentorship: 'Mentorship',
-  reader: 'Reader',
   illustrator: 'Illustrator',
   storyteller: 'Storyteller',
   new: 'New',
@@ -500,7 +526,7 @@ export const COUNTRIES = [
   'Zulu',
 ];
 
-export const CHECKBOXES = [
+export const USER_TYPES = [
   {
     label: 'Writer',
     description: 'lorem  lorem   lorem',
@@ -560,5 +586,121 @@ export const CHECKBOXES = [
     label: 'Mentorship',
     description: 'lorem  lorem   lorem',
     checked: false,
+  },
+];
+
+export const DISCUSSIONS = [
+  {
+    id: '1',
+    logo: '/img/mangastory.jpg',
+    title: 'Street Art for Desire',
+    category: 'Short Story',
+    type: 'Photography',
+    img: '/img/mangastory.jpg',
+    description:
+      'Take photos of the street art in your city, or contribute that picture of the mural you saw when you were traveling',
+  },
+  {
+    id: '1',
+    logo: '/img/mangastory.jpg',
+    title: 'Street Art for Desire',
+    category: 'Short Story',
+    type: 'Photography',
+    img: '/img/mangastory.jpg',
+    description:
+      'Take photos of the street art in your city, or contribute that picture of the mural you saw when you were traveling',
+  },
+  {
+    id: '1',
+    logo: '/img/mangastory.jpg',
+    title: 'Street Art for Desire',
+    category: 'Short Story',
+    type: 'Photography',
+    img: '/img/mangastory.jpg',
+    description:
+      'Take photos of the street art in your city, or contribute that picture of the mural you saw when you were traveling',
+  },
+  {
+    id: '1',
+    logo: '/img/mangastory.jpg',
+    title: 'Street Art for Desire',
+    category: 'Short Story',
+    type: 'Photography',
+    img: '/img/mangastory.jpg',
+    description:
+      'Take photos of the street art in your city, or contribute that picture of the mural you saw when you were traveling',
+  },
+  {
+    id: '1',
+    logo: '/img/mangastory.jpg',
+    title: 'Street Art for Desire',
+    category: 'Short Story',
+    type: 'Photography',
+    img: '/img/mangastory.jpg',
+    description:
+      'Take photos of the street art in your city, or contribute that picture of the mural you saw when you were traveling',
+  },
+];
+
+export const CREATIVE_EXERCISES = [
+  {
+    id: 1,
+    count: 1,
+    type: 'Photography',
+    description: 'Snap a photo of a National Park',
+  },
+  {
+    id: 2,
+    count: 3,
+    type: 'Photography',
+    description: 'Snap a photo of a National Park',
+  },
+  {
+    id: 3,
+    count: 3,
+    type: 'Photography',
+    description: 'Snap a photo of a National Park',
+  },
+];
+
+export const HAPPENINGS = [
+  {
+    id: 1,
+    img: '/img/mangastory.jpg',
+    title: 'Create Together Season 2',
+    like: '35.5k',
+  },
+  {
+    id: 2,
+    img: '/img/mangastory.jpg',
+    title: 'Create Together Season 2',
+    like: '35.5k',
+  },
+  {
+    id: 3,
+    img: '/img/mangastory.jpg',
+    title: 'Create Together Season 2',
+    like: '35.5k',
+  },
+];
+
+export const COMMUNITY_SPOTLIGHTS = [
+  {
+    id: 1,
+    img: '/img/mangastory.jpg',
+    title: '1sttovah',
+    like: '234 Records',
+  },
+  {
+    id: 2,
+    img: '/img/mangastory.jpg',
+    title: '1sttovah',
+    like: '234 Records',
+  },
+  {
+    id: 3,
+    img: '/img/mangastory.jpg',
+    title: '1sttovah',
+    like: '234 Records',
   },
 ];

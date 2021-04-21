@@ -1,18 +1,31 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { Upload, Input, Select, Layout, Row, Col } from 'antd';
+import { Upload, Input, Select, Layout, Row, Col, notification } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
-import SvgAddUser from 'components/Icon/AddUser';
-import SvgGreenChecked from 'components/Icon/GreenChecked';
-import SvgPortfolio from 'components/Icon/Portfolio';
-import SvgPrimaryAdd from 'components/Icon/PrimaryAdd';
+import SvgAddUser from 'components/icon/AddUser';
+import SvgCheck from 'components/icon/Check';
+import SvgDustbin from 'components/icon/Dustbin';
+import SvgGreenChecked from 'components/icon/GreenChecked';
+import SvgPortfolio from 'components/icon/Portfolio';
+import SvgPrimaryAdd from 'components/icon/PrimaryAdd';
+import SvgUserDrawing from 'components/icon/UserDrawing';
+import Imgix from 'components/imgix';
+import ModalInvites from 'components/modals/sendInvites';
 import { ShareButtons } from 'components/share';
+import Avatar from 'components/ui-elements/avatar';
 import PrimaryButton from 'components/ui-elements/button';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import { userTypes, userTypesEnums } from 'helpers/constant';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
+
+const Amplitude = require('amplitude');
+
+const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 
 const { Option } = Select;
 const { Content } = Layout;
@@ -30,46 +43,154 @@ const ProfileTopBar = (props) => {
     saveUserDataByKey,
     originUrl,
     profile,
+    setErrMessage,
   } = props;
+
+  const [showModal, changeShowModal] = useState(false);
+  const [likedUsers, setLikedUsers] = useState([]);
+
+  const openNotification = (type, message, description = '') => {
+    notification[type]({
+      message,
+      description,
+    });
+  };
+  const history = useRouter();
+  const sendInvites = () => {
+    if (user) {
+      if (user.mangaStories?.data?.length) {
+        changeShowModal(true);
+        isShowModal();
+      } else {
+        openNotification('error', "You don't have manga story");
+      }
+    } else {
+      history.push(`/sign-in?page=profile/${profile._id}`);
+    }
+  };
+
+  const followUser = (userId) => {
+    const data = { userId };
+    const jwt = client.getCookie('feathers-jwt');
+    return import('api/restClient').then((m) =>
+      m.default.service(`/api/v2/likes`).create(data, {
+        headers: { Authorization: `Bearer ${jwt}` },
+        mode: 'no-cors',
+      })
+    );
+  };
+
+  const onFollowUser = (profileId) => {
+    if (user) {
+      followUser(profileId)
+        .then(() => {
+          setLikedUsers([...likedUsers, user._id]);
+        })
+        .catch((err) => {
+          setErrMessage(err.message);
+        });
+    } else {
+      history.push(`/sign-in?page=profile/${profile._id}`);
+    }
+  };
+
+  const handleEvent = () => {
+    const data = [
+      {
+        platform: 'WEB',
+        event_type: EVENTS.ADDED_BIO,
+        user_id: user._id,
+        user_properties: {
+          ...user,
+        },
+      },
+    ];
+    amplitude.track(data);
+  };
+
+  const changeBio = () => {
+    if (userData.name?.replace(/\s/g, '')) {
+      handleEvent();
+      saveUserDataByKey('name', 'type');
+    } else {
+      setErrMessage('Name is required');
+    }
+  };
+
+  const handleBeforeUpload = (f) => {
+    handleEvent();
+    beforeUpload(f, props, updater);
+  };
+
+  const updater = (res) => {
+    setUserData(res);
+    setUserData({
+      ...userData,
+      avatar: res.avatar,
+    });
+  };
+
+  const isShowModal = () => {
+    const el = document.body;
+    if (showModal) {
+      el.classList.add(styles.body_scrool);
+    } else {
+      el.classList.remove(styles.body_scrool);
+    }
+  };
+
+  useEffect(() => {
+    setLikedUsers(profile?.likedUsers);
+  }, [profile?.likedUsers]);
 
   return (
     <Content className={cn(styles.content)}>
       <Row>
-        <Col className="gutter-row" xs={{ span: 24 }} md={{ span: 6 }}>
+        <Col className="gutter-row" xs={{ span: 24 }} md={{ span: 6 }} xl={{ span: 5 }}>
           <div className={styles.img}>
             {profile ? (
-              <img
-                src={
-                  profile?.avatar
-                    ? client.UPLOAD_URL + profile?.avatar
-                    : 'https://swanbulk.com/wp-content/uploads/2020/03/user-icon.svg'
-                }
-                alt=""
-              />
+              <>
+                {profile.avatar ? (
+                  <Imgix
+                    width={52}
+                    height={52}
+                    className="avatar"
+                    src={client.UPLOAD_URL + profile.avatar}
+                  />
+                ) : (
+                  <Avatar text={profile.name} fontSize={90} />
+                )}
+              </>
             ) : (
-              <img
-                src={
-                  user.avatar
-                    ? client.UPLOAD_URL + user.avatar
-                    : 'https://swanbulk.com/wp-content/uploads/2020/03/user-icon.svg'
-                }
-                alt=""
-              />
+              <>
+                {userData?.avatar ? (
+                  <Imgix
+                    width={52}
+                    height={52}
+                    className="avatar"
+                    src={client.UPLOAD_URL + userData.avatar}
+                  />
+                ) : (
+                  <Avatar text={userData?.name} fontSize={90} />
+                )}
+              </>
             )}
-            <Upload
-              beforeUpload={(f) => {
-                beforeUpload(f, props);
-              }}>
-              <SvgPrimaryAdd
-                className={styles.add}
-                id="myProfileUploadBtnId"
-                width="40px"
-                height="40px"
-              />
-            </Upload>
+            {user && !profile && (
+              <Upload
+                fileList={[]}
+                accept="image/jpg, image/png, image/jpeg"
+                beforeUpload={handleBeforeUpload}>
+                <SvgPrimaryAdd
+                  className={styles.add}
+                  id="myProfileUploadBtnId"
+                  width="40"
+                  height="40px"
+                />
+              </Upload>
+            )}
           </div>
         </Col>
-        <Col className="gutter-row" xs={{ span: 24 }} md={{ span: 8 }}>
+        <Col className="gutter-row" xs={{ span: 24 }} md={{ span: 8 }} xl={{ span: 9 }}>
           <div className={styles.info_profile}>
             {!editMode ? (
               <>
@@ -77,39 +198,75 @@ const ProfileTopBar = (props) => {
                 <p>{userTypesEnums[userData?.type || profile?.type]}</p>
 
                 {userData ? (
-                  <PrimaryButton
-                    text="Settings"
-                    splitterStyle={{ width: '120px', fontSize: '15px' }}
-                    onClick={() => setEditMode(true)}
-                  />
-                ) : (
-                  profile && (
-                    <span className={styles.contacts}>
-                      <a href={`mailto:${profile.email}`}>
-                        <PrimaryButton
-                          text="Contact"
-                          splitterStyle={{ width: '120px', fontSize: '15px' }}
-                        />
-                      </a>
-                      <span className={styles.follow}>
-                        <SvgAddUser width="22px" height="20px" />
-                        <span>Follow</span>
-                      </span>
+                  <>
+                    <PrimaryButton
+                      text="Edit"
+                      splitterStyle={{ width: '120px', fontSize: '15px' }}
+                      onClick={() => setEditMode(true)}
+                    />
+                    <span className={styles.followe_content}>
+                      <span className={styles.count}>{user?.likedUsers?.length} followers</span>
                     </span>
-                  )
+                    <Link href="/contact-us">
+                      <a>
+                        <div className={styles.deleteAccount}>
+                          <SvgDustbin width="20px" height="20px" />
+                          <div>Delete account</div>
+                        </div>
+                      </a>
+                    </Link>
+                  </>
+                ) : (
+                  <>
+                    {profile && !!user?.mangaStories?.data?.length && (
+                      <span className={styles.contacts}>
+                        <PrimaryButton
+                          onClick={sendInvites}
+                          text="Invite to collaborate"
+                          splitterStyle={{ fontSize: '15px' }}
+                          disabled={user?.mangaStories?.participents?.include(profile._id)}
+                        />
+                      </span>
+                    )}
+                    {profile && (
+                      <span className={styles.followe_content}>
+                        <span className={styles.count}>{likedUsers.length} followers</span>
+                        {likedUsers.includes(user?._id) ? (
+                          <span className={styles.icons}>
+                            <SvgCheck width="16px" height="16px" />
+                            <SvgUserDrawing width="22px" height="22px" />
+                          </span>
+                        ) : (
+                          <span onClick={() => onFollowUser(profile._id)} className={styles.btn}>
+                            <SvgAddUser width="22px" height="22px" />
+                            Follow
+                          </span>
+                        )}
+                      </span>
+                    )}
+                  </>
                 )}
               </>
             ) : (
               <>
                 <h2>
                   <Input
+                    required
+                    className={cn(
+                      styles.changeTitle,
+                      !userData.name?.replace(/\s/g, '') && styles.errImp
+                    )}
                     type="text"
                     onChange={(e) => setUserData({ ...userData, name: e.target.value })}
                     value={userData.name}
                   />
+                  {errMessage && !userData.name?.replace(/\s/g, '') ? (
+                    <p className={styles.errMessage}>{errMessage}</p>
+                  ) : null}
                 </h2>
                 <div>
                   <Select
+                    className="changeSelect"
                     defaultValue={userTypesEnums[userData.type]}
                     style={{ width: '100%' }}
                     onChange={(value) => setUserData({ ...userData, type: value })}>
@@ -120,16 +277,16 @@ const ProfileTopBar = (props) => {
                     ))}
                   </Select>
                 </div>
-                {errMessage ? <p className={styles.errMessage}>{errMessage}</p> : null}
               </>
             )}
           </div>
         </Col>
-        <Col className="gutter-row" xs={{ span: 24 }} md={{ span: 10 }}>
+        <Col className="gutter-row" xs={{ span: 24 }} md={{ span: 9 }}>
           <div className={styles.languages_btn}>
             {editMode && (
-              <div className={styles.buttonsProfile}>
+              <div className={cn(styles.buttonsProfile, 'buttonsProfile_styles')}>
                 <PrimaryButton
+                  className="buttonsProfile_cancel"
                   text="Cancel"
                   isDark
                   isRound
@@ -137,11 +294,12 @@ const ProfileTopBar = (props) => {
                   onClick={cancelEditMode}
                 />
                 <PrimaryButton
+                  className="buttonsProfile_save"
                   text="save"
                   isActive
                   isRound
                   disabled={false}
-                  onClick={() => saveUserDataByKey('name', 'type')}
+                  onClick={() => changeBio()}
                 />
               </div>
             )}
@@ -159,6 +317,15 @@ const ProfileTopBar = (props) => {
           </div>
         </Col>
       </Row>
+      <ModalInvites
+        user={user}
+        profile={profile}
+        changeShowModal={(e) => {
+          changeShowModal(e);
+          isShowModal();
+        }}
+        showModal={showModal}
+      />
     </Content>
   );
 };
@@ -175,6 +342,7 @@ ProfileTopBar.propTypes = {
   saveUserDataByKey: PropTypes.func,
   originUrl: PropTypes.string,
   profile: PropTypes.object,
+  setErrMessage: PropTypes.func,
 };
 
 ProfileTopBar.defaultProps = {
@@ -188,6 +356,7 @@ ProfileTopBar.defaultProps = {
   errMessage: '',
   originUrl: '',
   profile: null,
+  setErrMessage: () => {},
 };
 
 export default ProfileTopBar;

@@ -1,14 +1,14 @@
 import React from 'react';
 
+import SvgFacebook from 'components/icon/Facebook';
+import SvgTwitter from 'components/icon/Twitter';
+import SvgWhatsapp from 'components/icon/Whatsapp';
 import PropTypes from 'prop-types';
 import {
-  FacebookIcon,
   FacebookShareButton,
   TelegramIcon,
   TelegramShareButton,
-  TwitterIcon,
   TwitterShareButton,
-  WhatsappIcon,
   WhatsappShareButton,
 } from 'react-share';
 
@@ -20,12 +20,12 @@ export const ShareButtons = ({ shareUrl, text }) => (
     <ul>
       <li>
         <FacebookShareButton quote={'Mangafy-Club'} title="Mangafy-Club" url={shareUrl}>
-          <FacebookIcon size={32} round={true} />
+          <SvgFacebook width="32px" height="32px" />
         </FacebookShareButton>
       </li>
       <li>
         <TwitterShareButton quote={'Mangafy-Club'} title="Mangafy-Club" url={shareUrl}>
-          <TwitterIcon size={32} round={true} />
+          <SvgTwitter width="32px" height="32px" />
         </TwitterShareButton>
       </li>
       <li>
@@ -35,7 +35,7 @@ export const ShareButtons = ({ shareUrl, text }) => (
       </li>
       <li>
         <WhatsappShareButton quote={'Mangafy-Club'} title="Mangafy-Club" url={shareUrl}>
-          <WhatsappIcon size={32} round={true} />
+          <SvgWhatsapp width="32px" height="32px" />
         </WhatsappShareButton>
       </li>
     </ul>
@@ -45,8 +45,4 @@ export const ShareButtons = ({ shareUrl, text }) => (
 ShareButtons.propTypes = {
   shareUrl: PropTypes.string.isRequired,
   text: PropTypes.string,
-};
-
-ShareButtons.defaultProps = {
-  text: 'Excited? share with world',
 };

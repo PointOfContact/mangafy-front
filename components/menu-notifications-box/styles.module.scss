@@ -1,0 +1,99 @@
+@import '../../styles/variables.scss';
+
+.mail_not {
+  font-size: $text4;
+}
+.box {
+  width: 100%;
+  max-width: 230px;
+  color: $black;
+  .make_all {
+    display: flex;
+    justify-content: space-between;
+    text-align: right;
+    margin-bottom: 0;
+    color: $grey;
+    text-decoration: underline;
+    cursor: pointer;
+    span:hover {
+      color: $black;
+    }
+  }
+  p {
+    margin: 0;
+  }
+  .noNot {
+    text-align: center;
+    width: 100%;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    img {
+      margin: 0 auto;
+    }
+    h4 {
+      font-size: $text4;
+      font-weight: normal;
+      line-height: 30px;
+      color: $black;
+      margin: 0;
+    }
+    p {
+      font-size: $text5;
+      color: $grey;
+      span {
+        text-decoration: underline;
+        cursor: pointer;
+        &:hover {
+          color: $black;
+        }
+      }
+    }
+  }
+  &__title {
+    padding: 7px 20px 7px 20px;
+    border-bottom: 1px solid $white;
+    &:last-child {
+      border-bottom: none;
+    }
+    &_text {
+      font-weight: 500;
+      font-size: 15px;
+      line-height: 2;
+      text-transform: uppercase;
+    }
+  }
+  &__content {
+    width: 100%;
+    max-height: 265px;
+    border-bottom: 1px solid $white;
+    overflow: auto;
+    &:last-child {
+      border-bottom: none;
+    }
+    &::-webkit-scrollbar {
+      width: 2px;
+      height: 2px;
+      background-color: $primaryDark;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: $black;
+    }
+  }
+  &__more {
+    width: 100%;
+    border-bottom: 1px solid $white;
+    &:last-child {
+      border-bottom: none;
+    }
+    &_button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 10px;
+      line-height: 1.4;
+      text-align: center;
+      padding: 12px;
+    }
+  }
+}

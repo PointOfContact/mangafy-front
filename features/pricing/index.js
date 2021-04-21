@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 
+import { Switch } from 'antd';
 import Footer from 'components/footer';
 import Header from 'components/header';
 import BlackVector from 'components/icon/BlackVector';
 import WhiteVector from 'components/icon/WhiteVector';
+import Imgix from 'components/imgix';
 import LargeButton from 'components/ui-elements/large-button';
 import Head from 'next/head';
 import PropTypes from 'prop-types';
@@ -11,25 +13,61 @@ import PropTypes from 'prop-types';
 import styles from './styles.module.scss';
 
 const Pricing = (props) => {
-  const { user } = props;
+  const { user, originUrl } = props;
+
+  const [period, setPeriod] = useState('month');
+
+  const [personal1, setPersonal1] = useState(1);
+  const [personal2, setPersonal2] = useState(5);
+  const [personal3, setPersonal3] = useState(-1);
+
+  const [plus1, setPlus1] = useState(4);
+  const [plus2, setPlus2] = useState(6);
+  const [plus3, setPlus3] = useState(-1);
+
+  const paymentSwitch = (checked) => {
+    if (checked) {
+      setPeriod('year');
+
+      setPersonal1(9);
+      setPersonal2(9);
+      setPersonal3(-1);
+
+      setPlus1(2);
+      setPlus2(4);
+      setPlus3(9);
+    } else {
+      setPeriod('month');
+
+      setPersonal1(1);
+      setPersonal2(5);
+      setPersonal3(-1);
+
+      setPlus1(4);
+      setPlus2(6);
+      setPlus3(-1);
+    }
+  };
 
   return (
     <div className="">
       <Head>
-        <title>MangaFY Pricing</title>
-        <meta name="MangaFY Pricing"></meta>
-        <link rel="icon" href="/favicon.ico" />
+        <title>One tool for your whole team.</title>
+        <meta
+          name="description"
+          content="PRO account removes all restrictions and makes MangaFY an ultimate tool for dailiy conscious planning of your next great IP."
+        />
       </Head>
       <main className="main_back_2">
-        <Header path="myProfile" user={user} />
+        <Header path="pricing" user={user} />
         <div className={styles.pricing_page}>
           <div className={styles.banner_section}>
             <span
               className={styles.banner_web}
-              style={{ backgroundImage: "url('./img/banner.jpg')" }}></span>
+              style={{ backgroundImage: "url('./img/banner1.webp')" }}></span>
             <span
               className={styles.banner_mobile}
-              style={{ backgroundImage: "url('./img/banner_mobile.jpg')" }}></span>
+              style={{ backgroundImage: "url('./img/banner_mobile.webp')" }}></span>
           </div>
           <div className={styles.pricing_inner}>
             <div className={styles.info_section}>
@@ -49,7 +87,7 @@ const Pricing = (props) => {
                 <div className={styles.repayment_type}>
                   <span>Monthly</span>
                   <div className={styles.payment_switch}>
-                    <span></span>
+                    <Switch onChange={paymentSwitch} />
                   </div>
                   <span>Yearly</span>
                 </div>
@@ -61,14 +99,20 @@ const Pricing = (props) => {
               <div className={styles.individual_tools}>
                 <div className={styles.section_title}>For Individuals</div>
                 <div className={styles.tool_item}>
-                  <img src="img/tools_image1.jpg"></img>
+                  <Imgix
+                    width={136}
+                    height={157}
+                    layout="fixed"
+                    src="https://mangafy.club/img/tools_image1.webp"
+                    alt=""
+                  />
                   <div className={styles.item_category}>Personal</div>
                   <div className={styles.item_price}>$0</div>
                   <LargeButton
                     className={styles.tool_button}
                     text="Select Basic"
                     disabled={false}
-                    onClick={() => alert('large_primary_button')}
+                    onClick={() => {}}
                   />
                   <div className={styles.item_title}>
                     For organizing every cornerof graphic novel production.{' '}
@@ -96,17 +140,99 @@ const Pricing = (props) => {
                   </ul>
                 </div>
                 <div className={styles.tool_item}>
-                  <img src="img/tools_image2.png"></img>
+                  <Imgix
+                    width={136}
+                    height={160}
+                    layout="fixed"
+                    src="https://mangafy.club/img/tools_image2.webp"
+                    alt=""
+                  />
                   <div className={styles.item_category}>Personal Pro</div>
                   <div className={styles.item_price}>
-                    $15<span>per month</span>
+                    $
+                    <div className={styles.container}>
+                      <div
+                        className={styles.wrap}
+                        style={{ transform: `translateY(${-15 + personal1 * -50}px)` }}>
+                        <span className={styles.digit}>0</span>
+                        <span className={styles.digit}>1</span>
+                        <span className={styles.digit}>2</span>
+                        <span className={styles.digit}>3</span>
+                        <span className={styles.digit}>4</span>
+                        <span className={styles.digit}>5</span>
+                        <span className={styles.digit}>6</span>
+                        <span className={styles.digit}>7</span>
+                        <span className={styles.digit}>8</span>
+                        <span className={styles.digit}>9</span>
+                      </div>
+                    </div>
+                    <div className={styles.container}>
+                      <div
+                        className={styles.wrap}
+                        style={{ transform: `translateY(${-15 + personal2 * -50}px)` }}>
+                        <span className={styles.digit}>0</span>
+                        <span className={styles.digit}>1</span>
+                        <span className={styles.digit}>2</span>
+                        <span className={styles.digit}>3</span>
+                        <span className={styles.digit}>4</span>
+                        <span className={styles.digit}>5</span>
+                        <span className={styles.digit}>6</span>
+                        <span className={styles.digit}>7</span>
+                        <span className={styles.digit}>8</span>
+                        <span className={styles.digit}>9</span>
+                      </div>
+                    </div>
+                    {personal3 > -1 && (
+                      <div className={styles.container}>
+                        <div
+                          className={styles.wrap}
+                          style={{ transform: `translateY(${-15 + personal3 * -50}px)` }}>
+                          <span className={styles.digit}>0</span>
+                          <span className={styles.digit}>1</span>
+                          <span className={styles.digit}>2</span>
+                          <span className={styles.digit}>3</span>
+                          <span className={styles.digit}>4</span>
+                          <span className={styles.digit}>5</span>
+                          <span className={styles.digit}>6</span>
+                          <span className={styles.digit}>7</span>
+                          <span className={styles.digit}>8</span>
+                          <span className={styles.digit}>9</span>
+                        </div>
+                      </div>
+                    )}
+                    <span>per {period}</span>
                   </div>
-                  <LargeButton
-                    className={styles.tool_button}
-                    text="Select Basic"
-                    disabled={false}
-                    onClick={() => alert('large_primary_button')}
-                  />
+
+                  <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                    <input type="hidden" name="cmd" value="_s-xclick" />
+                    <input type="hidden" name="item_name" value={`Upgrade to Personal Pro`}></input>
+                    <input type="hidden" name="item_number" value={user?.id}></input>
+                    <input
+                      type="hidden"
+                      name="cancel_return"
+                      value={`${originUrl}?paypal_cancel=true`}></input>
+                    <input
+                      type="hidden"
+                      name="return"
+                      value={`${originUrl}?paypal_success=true`}></input>
+                    <input type="hidden" name="custom" value={user?._id}></input>
+                    <input type="hidden" name="hosted_button_id" value="JURZNUSJ8HLJJ" />
+                    <LargeButton
+                      className={styles.tool_button}
+                      text="Select Basic"
+                      disabled={false}
+                      onClick={() => {}}
+                      htmlType="image"
+                      name="submit"
+                    />
+                    <img
+                      alt=""
+                      border="0"
+                      src="https://www.paypal.com/en_IL/i/scr/pixel.gif"
+                      width="1"
+                      height="1"
+                    />
+                  </form>
                   <div className={styles.item_title}>
                     For power users who want to do even more.{' '}
                     <span>Everything in Personal, plus</span>
@@ -148,17 +274,101 @@ const Pricing = (props) => {
               <div className={styles.team_tools}>
                 <div className={styles.section_title}>For Big Teams</div>
                 <div className={styles.tool_item}>
-                  <img src="img/tools_image3.jpg"></img>
+                  <Imgix
+                    width={160}
+                    height={160}
+                    layout="fixed"
+                    src="https://mangafy.club/img/tools_image3.webp"
+                    alt=""
+                  />
                   <div className={styles.item_category}>Plus Plus</div>
                   <div className={styles.item_price}>
-                    $46<span>per month</span>
+                    $
+                    <div className={styles.container}>
+                      <div
+                        className={styles.wrap}
+                        style={{ transform: `translateY(${-15 + plus1 * -50}px)` }}>
+                        <span className={styles.digit}>0</span>
+                        <span className={styles.digit}>1</span>
+                        <span className={styles.digit}>2</span>
+                        <span className={styles.digit}>3</span>
+                        <span className={styles.digit}>4</span>
+                        <span className={styles.digit}>5</span>
+                        <span className={styles.digit}>6</span>
+                        <span className={styles.digit}>7</span>
+                        <span className={styles.digit}>8</span>
+                        <span className={styles.digit}>9</span>
+                      </div>
+                    </div>
+                    <div className={styles.container}>
+                      <div
+                        className={styles.wrap}
+                        style={{ transform: `translateY(${-15 + plus2 * -50}px)` }}>
+                        <span className={styles.digit}>0</span>
+                        <span className={styles.digit}>1</span>
+                        <span className={styles.digit}>2</span>
+                        <span className={styles.digit}>3</span>
+                        <span className={styles.digit}>4</span>
+                        <span className={styles.digit}>5</span>
+                        <span className={styles.digit}>6</span>
+                        <span className={styles.digit}>7</span>
+                        <span className={styles.digit}>8</span>
+                        <span className={styles.digit}>9</span>
+                      </div>
+                    </div>
+                    {plus3 > -1 && (
+                      <div className={styles.container}>
+                        <div
+                          className={styles.wrap}
+                          style={{ transform: `translateY(${-15 + plus3 * -50}px)` }}>
+                          <span className={styles.digit}>0</span>
+                          <span className={styles.digit}>1</span>
+                          <span className={styles.digit}>2</span>
+                          <span className={styles.digit}>3</span>
+                          <span className={styles.digit}>4</span>
+                          <span className={styles.digit}>5</span>
+                          <span className={styles.digit}>6</span>
+                          <span className={styles.digit}>7</span>
+                          <span className={styles.digit}>8</span>
+                          <span className={styles.digit}>9</span>
+                        </div>
+                      </div>
+                    )}
+                    <span>per {period}</span>
                   </div>
-                  <LargeButton
-                    className={styles.tool_button}
-                    text="Select Basic"
-                    disabled={false}
-                    onClick={() => alert('large_primary_button')}
-                  />
+
+                  <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                    <input type="hidden" name="cmd" value="_s-xclick" />
+                    <input type="hidden" name="item_name" value={`Upgrade to Plus Plus`}></input>
+                    <input type="hidden" name="item_number" value={user?.id}></input>
+                    <input type="hidden" name="amount" value="25.00"></input>
+                    <input type="hidden" name="currency_code" value="USD"></input>
+                    <input
+                      type="hidden"
+                      name="cancel_return"
+                      value={`${originUrl}?paypal_cancel=true`}></input>
+                    <input
+                      type="hidden"
+                      name="return"
+                      value={`${originUrl}?paypal_success=true`}></input>
+                    <input type="hidden" name="custom" value={user?._id}></input>
+                    <input type="hidden" name="hosted_button_id" value="JURZNUSJ8HLJJ" />
+                    <LargeButton
+                      className={styles.tool_button}
+                      text="Select Basic"
+                      disabled={false}
+                      onClick={() => {}}
+                      htmlType="image"
+                      name="submit"
+                    />
+                    <img
+                      alt=""
+                      border="0"
+                      src="https://www.paypal.com/en_IL/i/scr/pixel.gif"
+                      width="1"
+                      height="1"
+                    />
+                  </form>
                   <div className={styles.item_title}>
                     Perfect for freelancers, agencies, and graphic novel teams.
                     <span>Everything in Pro, plus</span>
@@ -221,8 +431,8 @@ const Pricing = (props) => {
   );
 };
 
-Pricing.prototype = {
-  user: PropTypes.object,
+Pricing.propTypes = {
+  user: PropTypes.object.isRequired,
 };
 
 export default Pricing;

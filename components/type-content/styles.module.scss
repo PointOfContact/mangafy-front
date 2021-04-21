@@ -1,0 +1,169 @@
+@import '../../styles/variables.scss';
+
+.main__container {
+  @media (max-width: 767px) {
+    padding: 0;
+  }
+}
+.type_main {
+  background-color: white;
+  padding-top: 20px;
+  padding-bottom: 50px;
+  &__wrap {
+    display: grid;
+    grid-template-columns: 25% 47% 25%;
+    grid-template-areas:
+      'daily-warm-ups'
+      'projects-for-you'
+      'right-col';
+    grid-template-rows: -webkit-max-content;
+    grid-template-rows: max-content;
+    grid-gap: 1.5%;
+    grid-template-areas: 'daily-warm-ups projects-for-you right-col';
+    @media (max-width: 900px) {
+      grid-template-columns: 30% 67%;
+      grid-template-areas:
+        'daily-warm-ups projects-for-you'
+        'daily-warm-ups right-col'
+        'daily-warm-ups right-col';
+    }
+    @media (max-width: 767px) {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        'daily-warm-ups'
+        'projects-for-you'
+        'right-col';
+      grid-template-rows: -webkit-max-content;
+      grid-template-rows: max-content;
+      grid-gap: 1.5rem;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  &__dailyWarmUps {
+    background-color: #f9f9f9;
+    width: 100%;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 110px;
+    align-self: start;
+    will-change: transform;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    grid-area: daily-warm-ups;
+    padding: 24px;
+    @media (max-width: 767px) {
+      position: relative;
+      top: 0;
+      overflow: hidden;
+      padding: 20px 15px;
+    }
+    &_Top {
+      display: flex;
+      flex-direction: column;
+      padding-left: 24px;
+      padding-right: 24px;
+      @media (max-width: 475px) {
+        flex-direction: row-reverse;
+        justify-content: space-between;
+        padding-right: 0;
+      }
+    }
+  }
+  &__rightCol {
+    width: 100%;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 110px;
+    align-self: start;
+    will-change: transform;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    grid-area: right-col;
+    @media (max-width: 900px) {
+      position: relative;
+      top: 0;
+    }
+    @media (max-width: 767px) {
+      padding: 0 20px;
+    }
+  }
+  &__dialyTitle {
+    display: flex;
+    flex-direction: column;
+    h4 {
+      color: #1f2224;
+      font-size: 17px;
+      font-weight: 500;
+      letter-spacing: normal;
+      line-height: 22px;
+      margin-bottom: 0;
+      @media (max-width: 475px) {
+        font-size: 20px;
+        line-height: 30px;
+      }
+    }
+    p {
+      color: #595959;
+      font-size: 13px;
+      margin-bottom: 0;
+      @media (max-width: 475px) {
+        font-size: 15px;
+      }
+    }
+  }
+}
+
+.projectsForYou {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  grid-area: projects-for-you;
+  @media (max-width: 767px) {
+    padding: 0 20px;
+  }
+  &__MainTitle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    &_Title {
+      font-size: 25px;
+      font-weight: 700;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      justify-content: space-between;
+      .filtr {
+        font-size: 15px;
+        display: flex;
+        align-items: center;
+        span {
+          cursor: pointer;
+          margin-left: 10px;
+          display: inline-flex;
+          align-items: center;
+        }
+      }
+    }
+  }
+  &_ShowMore {
+    font-size: 15px;
+    padding: 4px 15px;
+    margin: 0 auto;
+  }
+  .forYou {
+    white-space: nowrap;
+    span {
+      padding-left: 10px;
+    }
+  }
+  .forYouSub {
+    margin-bottom: 15px;
+    color: #595959;
+    font-size: 13px;
+    margin-bottom: 10px;
+    margin-left: 30px;
+  }
+}

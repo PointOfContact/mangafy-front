@@ -1,0 +1,78 @@
+@import '../../../../styles/variables.scss';
+
+.spotlight {
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+  border: 1px solid #ddd;
+  padding-top: 16px;
+  padding-left: 16px;
+  padding-bottom: 4px;
+  &Title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    color: #1f2224;
+    font-size: 17px;
+    font-weight: 500;
+    letter-spacing: normal;
+    line-height: 22px;
+  }
+  &List {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0;
+  }
+  &ListItem {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    padding-right: 16px;
+    border-bottom: 1px solid #ededed;
+  }
+  &Left {
+    display: flex;
+    align-items: center;
+    padding-right: 15px;
+    &Images {
+      background-size: contain;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 16px;
+      img {
+        width: 40px !important;
+        height: 40px !important;
+        border-radius: 50% !important;
+      }
+    }
+    &Descr {
+      display: flex;
+      flex-direction: column;
+      &Name {
+        color: #1f2224;
+        font-weight: 500;
+        font-size: 16px;
+      }
+      &Records {
+        color: #a5a5a5;
+      }
+    }
+  }
+  &Follow {
+    color: #2981b8;
+    flex-shrink: 0;
+    font-size: 12px;
+  }
+}
+
+.spotlightLeftImages {
+  width: 40px;
+  height: 40px;
+  display: inline-table;
+}

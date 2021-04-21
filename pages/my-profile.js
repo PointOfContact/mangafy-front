@@ -10,27 +10,22 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
   try {
     if (!user) {
       context.res.writeHead(302, {
-        Location: '/sign-in',
+        Location: '/sign-in?page=my-profile',
       });
       context.res.end();
       return { props: {} };
     }
-    const res = await client.service('/api/v2/manga-stories').find({
+    const genres = await client.service('/api/v2/genres').find({
       query: {
-        author: user._id,
-        $limit: 3,
+        $limit: 100,
       },
     });
-    const genres = await client.service('/api/v2/genres').find();
     return {
       props: {
         user,
-        mangaStories: res.data,
-        total: Math.ceil(res.total / res.limit),
-        limit: res.limit,
-        current: Math.ceil((res.skip - 1) / res.limit) + 1,
+        profile: user,
         genres: genres.data.map((g) => ({ value: g.name, _id: g._id })),
-        originUrl: `https://mangafy.club${context.req.url}`,
+        originUrl: `https://mangafy.club/profile/${user._id}`,
       }, // will be passed to the page component as props
     };
   } catch (error) {

@@ -12,7 +12,7 @@ const handle = app.getRequestHandler();
 const extraPaths = [];
 
 axios
-  .get('https://mangafy.club/api/v2/manga-stories?$select=_id&$limit=1000&$sort[createdAt]=-1')
+  .get('https://mangafy.club/api/v2/manga-stories?$limit=1000&$sort[createdAt]=-1')
   .then((res) => {
     if (!res || !res.data || !res.data.data) return;
     extraPaths.push(...res.data.data.map(({ _id }) => `/manga-story/${_id}`));

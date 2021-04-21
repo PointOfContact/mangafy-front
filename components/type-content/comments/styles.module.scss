@@ -1,0 +1,19 @@
+@import '../../../styles/variables.scss';
+
+.loginOnText {
+  font-size: $text4;
+  color: $black;
+  padding-bottom: 15px;
+  span {
+    color: $primaryDark;
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.list {
+  max-height: 30vh;
+  overflow: auto;
+}

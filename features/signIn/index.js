@@ -1,23 +1,30 @@
 import React, { useState } from 'react';
 
+import AuthForm from 'components/authForm';
+import FooterPolicy from 'components/footer-policy';
+import Header from 'components/header';
+import LoginFooter from 'components/loginFooter';
+import ButtonToTop from 'components/ui-elements/button-toTop';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import Head from 'next/head';
-import Link from 'next/link';
+import PropTypes from 'prop-types';
+import * as qs from 'query-string';
+import { login } from 'store';
 
-import AuthForm from '../../components/authForm';
-import { EVENTS } from '../../helpers/amplitudeEvents';
-import { login } from '../../store';
+import styles from './styles.module.scss';
 
 const Amplitude = require('amplitude');
 
 const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 
-const Login = () => {
+const Login = ({ user }) => {
   const defaultState = {
     email: '',
     password: '',
     errorMessage: '',
   };
   const [state, setState] = useState(defaultState);
+  const [loading, setLoading] = useState(false);
   const { email, password, errorMessage } = state;
   const handleOnChange = ({ target }) => {
     const { name, value } = target;
@@ -26,12 +33,20 @@ const Login = () => {
       [name]: value,
     });
   };
+
   const handleLoginSubmit = (e) => {
+    setState({
+      ...state,
+      errorMessage: '',
+    });
     e.preventDefault();
+    const { page } = qs.parse(location.search);
     const payload = {
       email,
       password,
+      page,
     };
+    setLoading(true);
     login(payload)
       .then((user) => {
         const data = [
@@ -47,6 +62,7 @@ const Login = () => {
         amplitude.track(data);
       })
       .catch((err) => {
+        setLoading(false);
         setState({
           ...state,
           errorMessage: err.message,
@@ -56,39 +72,63 @@ const Login = () => {
 
   return (
     <>
-      <Head></Head>
-      <div className="sign_in_page_container">
-        <div className="sign_in_content">
-          <div className="sign_in_header">Hello, who’s this?</div>
-          <div className="sign_in_info">
-            Sign in to get your personalized page connect with you love
-          </div>
-          <div className="sign_in_form sign_in_form col-lg-4 col-md-6 col-sm-8 col-xs-10">
-            <AuthForm
-              {...{
-                email,
-                password,
-                errorMessage,
-                onChange: handleOnChange,
-                onSubmit: handleLoginSubmit,
-                isLogin: true,
-              }}
-            />
-          </div>
-          <div className="sign_in_terms_info">
-            To make MangaFY work we log user data. Click "Sign in to accept MangaFY's{' '}
-            <Link href="/terms">
-              <a className="margin-horizontal-5">Term and service</a>
-            </Link>{' '}
-            &{' '}
-            <Link href="/privacy-policy">
-              <a className="margin-horizontal-5">Privacy Policy </a>
-            </Link>
-          </div>
+      <Head>
+        <title>Make the most of your talant!</title>
+        <meta
+          name="description"
+          content="Sign in to get your personalized page and start connecting with graphic novel enthusiasts"
+        />
+      </Head>
+      <ButtonToTop />
+      <div className={'wrapper'}>
+        <div className={'content'}>
+          <Header path="sign-in" user={user} />
+          <main className={styles.box}>
+            <div className={'container'}>
+              <div className={styles.box__wrapper}>
+                <div className={styles.box__img}>
+                  <img src="/img/sing-in.svg" alt="" />
+                </div>
+                <div className={styles.box__title_wrap}>
+                  <div className={styles.box__title}>
+                    <h2 className={styles.box__title_text}>Hello, who’s this?</h2>
+                  </div>
+                  <div className={styles.box__description}>
+                    <p className={styles.box__description_text}>
+                      Sign in to get your personalized page and start connecting
+                    </p>
+                  </div>
+                </div>
+                <div className={styles.box__form}>
+                  <AuthForm
+                    {...{
+                      email,
+                      password,
+                      errorMessage,
+                      onChange: handleOnChange,
+                      onSubmit: handleLoginSubmit,
+                      isLogin: true,
+                      loading,
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+          </main>
         </div>
+        <LoginFooter acaunt={false} />
+        <FooterPolicy />
       </div>
     </>
   );
+};
+
+Login.propTypes = {
+  user: PropTypes.object,
+};
+
+Login.defaultProps = {
+  user: null,
 };
 
 export default Login;

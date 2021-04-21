@@ -22,6 +22,10 @@
   margin: 0 auto;
 }
 
+.pricing_image {
+  height: 160px;
+}
+
 .info_section {
   display: flex;
   align-items: center;
@@ -92,41 +96,10 @@
   }
 
   .payment_switch {
-    width: 48px;
-    height: 27px;
-    background: $primaryDark;
-    border-radius: 13.5px;
-    position: relative;
     margin: 0 15px;
-
-    .checked {
-      background: $silver;
-
-      span {
-        right: 3px;
-        left: unset;
-      }
-    }
-
-    span {
-      display: block;
-      width: 21px;
-      height: 21px;
-      min-width: 21px;
-      border-radius: 50%;
-      background: $white;
-      border: 1px solid $switchBg;
-      position: absolute;
-      cursor: pointer;
-      top: 3px;
-      left: 3px;
-      right: 0;
-      bottom: 0;
-      -webkit-transition: 0.4s;
-      transition: 0.4s;
-    }
   }
 }
+
 
 .save_up {
   font-size: 15px;
@@ -225,8 +198,44 @@
     color: $grey;
     font-weight: normal;
     font-style: normal;
-    padding-left: 5px;
   }
+
+  font-size: 50px;
+
+  .price {
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    top: 6px;
+  }
+
+  .container {
+    display: inline-block;
+    position: relative;
+    line-height: 1;
+    height: $h2;
+    width: 33px;
+    overflow: hidden;
+    perspective: 1px;
+    position: relative;
+    top: 6px;
+  }
+
+  .wrap {
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    transition: transform 0.3s ease;
+  }
+
+  .digit {
+    display: inline-block;
+    height: $h2;
+    font-size: $h2;
+    font-weight: bold;
+    color: $black;
+  }
+
 }
 
 .tool_button {

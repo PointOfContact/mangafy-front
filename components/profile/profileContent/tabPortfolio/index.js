@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Gallery } from 'components/gallery';
+import SocialLinks from 'components/socialLinks';
 import PropTypes from 'prop-types';
 
 const TabStory = (props) => {
@@ -14,6 +15,12 @@ const TabStory = (props) => {
           user,
           profile,
           mangaStories,
+        }}
+      />
+      <SocialLinks
+        {...{
+          user,
+          profile,
         }}
       />
     </div>

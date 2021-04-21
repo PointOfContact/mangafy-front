@@ -7,27 +7,33 @@ import auth from './api/auth';
 // -- CONSTANTS
 export const FEATHERS_COOKIE = 'feathers-jwt';
 
+export function setClientCookie(cname, cvalue, exdays = 5) {
+  const d = new Date();
+  d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
+  const expires = `expires=${d.toUTCString()}`;
+  document.cookie = `${cname}=${cvalue};${expires};path=/`;
+}
+
 export const store = {
   user: null,
 };
 
 export function login(payload) {
-  return auth
-    .login(payload.email, payload.password)
-    .then((_) => auth.authenticate(_.accessToken, true))
-    .then(({ user, jwt }) => {
-      setClientCookie(FEATHERS_COOKIE, jwt);
-      store.user = user;
-      Router.push('/collaborations');
-      return user;
-    });
+  return auth.login(payload.email, payload.password).then((_) => {
+    setClientCookie(FEATHERS_COOKIE, _.accessToken, 5);
+    store.user = _.user;
+    if (payload.page) {
+      Router.push(`/${payload.page}`);
+    } else {
+      Router.push('/');
+    }
+    return _.user;
+  });
 }
 
 export function logout() {
-  return auth.signout().then(() => {
-    clearClientCookie(FEATHERS_COOKIE);
-    return {};
-  });
+  auth.signout();
+  store.user = null;
 }
 
 export function register(payload) {
@@ -36,18 +42,13 @@ export function register(payload) {
     .then((_) => auth.login(payload.email, payload.password))
     .then((_) => auth.authenticate(_.accessToken, true))
     .then(({ user, jwt }) => {
-      setClientCookie(FEATHERS_COOKIE, jwt);
+      setClientCookie(FEATHERS_COOKIE, jwt, 5);
       return { user, jwt };
     });
 }
 
 export function authenticate(jwtFromCookie = null) {
   return auth.authenticate(jwtFromCookie).then(({ user, jwt }) => ({ user, jwt }));
-}
-
-// UTILS
-export function setClientCookie(name, value) {
-  document.cookie = `${name}=${value}`;
 }
 
 export function clearClientCookie(name) {

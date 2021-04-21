@@ -3,7 +3,7 @@ import * as React from 'react';
 function SvgFbNew(props) {
   return (
     <svg viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
-      <g clipPath="url(#clip0)">
+      <g clipPath="url(#fb-new_svg__fb-new_svg__clip0)">
         <path
           d="M25 12.5C25 19.404 19.404 25 12.5 25S0 19.404 0 12.5 5.596 0 12.5 0 25 5.596 25 12.5z"
           fill="#4A7AFF"
@@ -22,7 +22,7 @@ function SvgFbNew(props) {
         />
       </g>
       <defs>
-        <clipPath id="clip0">
+        <clipPath id="fb-new_svg__fb-new_svg__clip0">
           <path fill="#fff" d="M0 0h25v25H0z" />
         </clipPath>
       </defs>

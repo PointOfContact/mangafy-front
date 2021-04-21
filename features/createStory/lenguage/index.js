@@ -64,7 +64,7 @@ const Lenguage = ({ user }) => {
             <div className="col-lg-8">
               <div className="collab_div">
                 <div className="logo_img_comp">
-                  <img src="/img/logo.png" width="250" alt="" />
+                  <img src="/img/logo.webp" width="250" alt="" />
                 </div>
                 <h1 className="collab">Where are you from?</h1>
                 <Select
@@ -107,7 +107,7 @@ const Lenguage = ({ user }) => {
     </>
   );
 };
-Lenguage.prototype = {
+Lenguage.propTypes = {
   user: PropTypes.object.required,
 };
 

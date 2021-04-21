@@ -1,0 +1,19 @@
+@import '../../styles/variables.scss';
+
+.find_partner {
+  position: absolute;
+  top: 25px;
+  right: 20px;
+  z-index: 20;
+  @include media-sm {
+    top: 90px;
+    right: 8px;
+  }
+  button {
+    font-size: $text4;
+    @include media-sm {
+      font-size: 12px;
+      padding: 5px 10px;
+    }
+  }
+}

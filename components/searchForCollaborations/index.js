@@ -1,96 +1,170 @@
 import React from 'react';
 
+import { Input, Select } from 'antd';
+import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import cn from 'classnames';
-import Link from 'next/link';
+import SvgSearch from 'components/icon/Search';
+import Router from 'next/router';
+import PropTypes from 'prop-types';
+import * as qs from 'query-string';
+import { LinkCreator } from 'utils/linkCreator';
 
-import BottomArrow from '../icon/BottomArrow';
-import Close from '../icon/Close';
-import SvgSearch from '../icon/Search';
 import styles from './styles.module.scss';
 
-const SearchForCollaborations = ({}) => (
+const { Option } = Select;
+
+const menuOptions = (handleCompasitionClick) => [
+  <Option key="all">Doesn't matter</Option>,
+  <Option key="collaboration">Joint Collab</Option>,
+  <Option key="paid">Paid Collab</Option>,
+];
+const menuGenresOptions = (genres = [], handleMenuClick) => (
   <>
-    <div className={styles.box}>
-      <div className={'container'}>
-        <div className={styles.box__wrapper}>
-          <form className={styles.box__search}>
-            <i className={styles.box__search_icon}>
-              <SvgSearch width="30" height="30" />
-            </i>
-            <input
-              className={styles.box__search_field}
-              type="search"
-              name="search"
-              placeholder="Search for collaborations"
-            />
-          </form>
-          <div className={styles.box__nav}>
-            <button className={cn(styles.box__nav_button)}>
-              <span className={styles.box__nav_button__text}>All collaboration</span>
-              <i className={styles.box__nav_button__icon}>
-                <BottomArrow width="17" height="10" />
+    <Option className="filterItem" key="all">
+      All
+    </Option>
+    ,
+    {genres.map((g) => (
+      <Option className="filterItem" key={g._id}>
+        {g.name}
+      </Option>
+    ))}
+  </>
+);
+
+const SearchForCollaborations = (props) => {
+  const { genres, search, selectedCompensationModel = [], selectedGenres = [] } = props;
+  const searchAPI = (search) => {
+    const parsed = qs.parse(location.search);
+    Router.push(
+      LinkCreator.toQuery({ ...parsed, search }, '/collaborations'),
+      LinkCreator.toQuery({ ...parsed, search }, '/collaborations'),
+      {
+        scroll: false,
+      }
+    );
+  };
+
+  const onInputChange = async (e) => {
+    const { value } = e.target;
+    await AwesomeDebouncePromise(searchAPI, 500)(value);
+  };
+
+  const handleCompasitionClick = (keys) => {
+    const parsed = qs.parse(location.search);
+    if (keys && keys.includes('all')) {
+      delete parsed.compensationModel;
+      Router.push(
+        LinkCreator.toQuery({ ...parsed }, '/collaborations'),
+        LinkCreator.toQuery({ ...parsed }, '/collaborations'),
+        {
+          scroll: false,
+        }
+      );
+      return;
+    }
+    Router.push(
+      LinkCreator.toQuery({ ...parsed, compensationModel: keys }, '/collaborations'),
+      LinkCreator.toQuery({ ...parsed, compensationModel: keys }, '/collaborations'),
+      {
+        scroll: false,
+      }
+    );
+  };
+  const handleGenresClick = (keys) => {
+    const parsed = qs.parse(location.search);
+    if (keys && keys.includes('all')) {
+      delete parsed.genres;
+      Router.push(
+        LinkCreator.toQuery({ ...parsed }, '/collaborations'),
+        LinkCreator.toQuery({ ...parsed }, '/collaborations'),
+        {
+          scroll: false,
+        }
+      );
+      return;
+    }
+    Router.push(
+      LinkCreator.toQuery({ ...parsed, genres: keys }, '/collaborations'),
+      LinkCreator.toQuery({ ...parsed, genres: keys }, '/collaborations'),
+      {
+        scroll: false,
+      }
+    );
+  };
+
+  return (
+    <>
+      <div className={styles.box}>
+        <div className={'container'}>
+          <div className={styles.box__wrapper}>
+            <form className={styles.box__search}>
+              <i className={styles.box__search_icon}>
+                <SvgSearch width="30" height="30" />
               </i>
-            </button>
-            <button className={cn(styles.box__nav_button, styles.box__nav_button__active)}>
-              <span className={styles.box__nav_button__text}>All Fields</span>
-              <i className={styles.box__nav_button__icon}>
-                <BottomArrow width="17" height="10" />
-              </i>
-            </button>
-            <div className={styles.box__nav_menu}>
-              <button className={styles.box__nav_menu__close}>
-                <Close width="12" height="12" />
+              <Input
+                className={cn(styles.box__search_field, 'collaborations-search-input')}
+                type="text"
+                placeholder="Search for collaborations"
+                initialValue={search}
+                defaultValue={search}
+                allowClear
+                onChange={onInputChange}
+              />
+              <button
+                id="searchForCollaborationSubmitId"
+                type="submit"
+                className={styles.box__search_submit}>
+                <SvgSearch width="22" height="22" />
               </button>
-              <ul className={styles.box__nav_menu__list}>
-                <li className={styles.box__nav_menu__list_item}>
-                  <Link href="#">
-                    <button className={styles.box__nav_menu__list_link}>Writer</button>
-                  </Link>
-                </li>
-                <li className={styles.box__nav_menu__list_item}>
-                  <Link href="#">
-                    <button className={styles.box__nav_menu__list_link}>Illustrator</button>
-                  </Link>
-                </li>
-                <li className={styles.box__nav_menu__list_item}>
-                  <Link href="#">
-                    <button className={styles.box__nav_menu__list_link} disabled>
-                      Editor
-                    </button>
-                  </Link>
-                </li>
-                <li className={styles.box__nav_menu__list_item}>
-                  <Link href="#">
-                    <button className={styles.box__nav_menu__list_link} disabled>
-                      Mentor
-                    </button>
-                  </Link>
-                </li>
-                <li className={styles.box__nav_menu__list_item}>
-                  <Link href="#">
-                    <button className={styles.box__nav_menu__list_link}>Publisher</button>
-                  </Link>
-                </li>
-                <li className={styles.box__nav_menu__list_item}>
-                  <Link href="#">
-                    <button className={styles.box__nav_menu__list_link} disabled>
-                      Reviewer
-                    </button>
-                  </Link>
-                </li>
-                <li className={styles.box__nav_menu__list_item}>
-                  <Link href="#">
-                    <button className={styles.box__nav_menu__list_link} disabled>
-                      Translator
-                    </button>
-                  </Link>
-                </li>
-              </ul>
+            </form>
+            <div className={styles.box__nav}>
+              <Select
+                bordered={false}
+                showArrow={true}
+                allowClear={true}
+                showSearch={false}
+                placeholder="User Type"
+                defaultValue={selectedCompensationModel}
+                onChange={handleCompasitionClick}
+                dropdownClassName="select-filter"
+                className={cn(styles.box__nav_select, 'select-filter')}>
+                {menuOptions(handleCompasitionClick)}
+              </Select>
+              <Select
+                bordered={false}
+                menuItemSelectedIcon={null}
+                showArrow={true}
+                showSearch={false}
+                allowClear={true}
+                mode="multiple"
+                placeholder="All Genres"
+                defaultValue={selectedGenres || []}
+                value={selectedGenres || []}
+                onChange={handleGenresClick}
+                dropdownClassName="select-filter"
+                className={cn(styles.box__nav_select, 'select-filter')}>
+                {menuGenresOptions(genres)}
+              </Select>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </>
-);
+    </>
+  );
+};
+
+SearchForCollaborations.propTypes = {
+  selectedCompensationModel: PropTypes.string,
+  selectedGenres: PropTypes.array,
+  genres: PropTypes.array.isRequired,
+  search: PropTypes.string,
+};
+
+SearchForCollaborations.defaultProps = {
+  selectedCompensationModel: null,
+  selectedGenres: [],
+  search: '',
+};
+
 export default SearchForCollaborations;

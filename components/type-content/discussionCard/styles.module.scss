@@ -1,0 +1,173 @@
+@import '../../../styles/variables.scss';
+$colors: $primaryLight, $orangeLight, #6fd257, $secondaryDark;
+$repeat: 16;
+
+.projectsForYou {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  grid-area: projects-for-you;
+  @media (max-width: 767px) {
+    padding: 0 20px;
+  }
+  &__MainTitle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    &_Title {
+      font-size: 25px;
+      font-weight: 700;
+    }
+  }
+  &_Top {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  &_Logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-size: contain;
+    margin-right: 8px;
+    display: table;
+    img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: contain;
+    }
+  }
+  &_Descr {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  &_Name {
+    font-size: 13px;
+    color: #595959;
+    font-weight: 700;
+  }
+  &_Category {
+    display: flex;
+    align-items: center;
+    &_Name {
+      flex-shrink: 0;
+      font-size: 11px;
+      color: #a5a5a5;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    &_List {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0;
+      overflow: hidden;
+      &_Item {
+        display: flex;
+        align-items: center;
+        margin-right: 12px;
+      }
+      &_Circle {
+        display: block;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        margin: 0 4px 0 0;
+      }
+      &_Text {
+        font-size: 13px;
+        white-space: nowrap;
+        color: #595959;
+      }
+      @for $i from 1 through $repeat {
+        &_Item:nth-child(#{length($colors)}n + #{$i}) {
+          .circle {
+            background: nth($colors, random(length($colors)));
+          }
+        }
+      }
+    }
+  }
+  &_Card {
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 4px 16px rgb(0 0 0 / 8%);
+    border-radius: 16px;
+    padding: 16px;
+    margin: 0 0 32px 0;
+    transition: all 0.2s;
+    height: 465px;
+    width: 100%;
+    &:hover {
+      box-shadow: 0px 4px 16px rgb(0 0 0 / 19%);
+    }
+  }
+  &_MainImg {
+    cursor: pointer;
+    width: 100%;
+    height: 312px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: 50%;
+    background-position: 50%;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    position: relative;
+    .cat {
+      position: absolute;
+      bottom: -10px;
+      left: 10px;
+      padding: 0px 15px;
+      border-radius: 25px;
+      color: $text_white;
+    }
+    .comments {
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+      padding: 8px;
+      display: flex;
+      height: 70px;
+      background: linear-gradient(#9198e5, rgba(255, 255, 255, 0));
+      justify-content: flex-end;
+      color: white;
+      div {
+        display: flex;
+        align-items: center;
+        height: min-content;
+      }
+      span {
+        margin-left: 15px;
+        font-size: 15px;
+      }
+      svg {
+        margin-left: 4px;
+        fill: transparent;
+        stroke: #ffffff;
+        stroke-width: 1px;
+        stroke-linejoin: round;
+        path {
+          fill: transparent;
+        }
+      }
+    }
+  }
+  &_BotDescr {
+    font-size: 17px;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    button {
+      font-size: 13px;
+      padding: 3px 15px;
+    }
+  }
+  @for $i from 1 through $repeat {
+    &_Card:nth-child(#{length($colors)}n + #{$i}) {
+      .cat {
+        background: nth($colors, random(length($colors)));
+      }
+    }
+  }
+}

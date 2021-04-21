@@ -1,29 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import * as Sentry from '@sentry/node';
+import { Modal } from 'antd';
+import AuthForm from 'components/authForm';
+import FooterPolicy from 'components/footer-policy';
+import Header from 'components/header';
+import LoginFooter from 'components/loginFooter';
+import ButtonToTop from 'components/ui-elements/button-toTop';
+import LargeButton from 'components/ui-elements/large-button';
+import { EVENTS } from 'helpers/amplitudeEvents';
+import { userTypes } from 'helpers/constant';
 import Head from 'next/head';
-import Router from 'next/router';
+import { useRouter } from 'next/router';
+import PropTypes from 'prop-types';
+import { register } from 'store';
 
-import AuthForm from '../../components/authForm';
-import Footer from '../../components/footer';
-import Header from '../../components/header';
-import { EVENTS } from '../../helpers/amplitudeEvents';
-import { userTypes } from '../../helpers/constant';
-import { register } from '../../store';
+import styles from './styles.module.scss';
 
+const { info } = Modal;
 const Amplitude = require('amplitude');
 
 const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 
-const Register = () => {
+const Register = ({ user }) => {
   const defaultState = {
-    username: '',
+    name: '',
     password: '',
     errorMessage: '',
     type: userTypes[0].key,
     disabled: false,
     err: '',
   };
+  const [loading, setLoading] = useState(false);
   const [state, setState] = React.useState(defaultState);
   const { name, email, password, errorMessage, type, err, disabled } = state;
 
@@ -41,7 +48,17 @@ const Register = () => {
     }
   };
 
+  const history = useRouter();
+  const routeChange = () => {
+    const path = `/create-a-story/start`;
+    history.push(path);
+  };
+
   const handleRegisterSubmit = (e) => {
+    setState({
+      ...state,
+      errorMessage: '',
+    });
     e.preventDefault();
 
     setState({ disabled: true });
@@ -52,7 +69,7 @@ const Register = () => {
       password,
     };
     register(payload)
-      .then(({ user, jwt }) => {
+      .then(({ user }) => {
         setState({ disabled: false });
 
         const data = [
@@ -66,117 +83,99 @@ const Register = () => {
           },
         ];
         amplitude.track(data);
-        const mangaData = JSON.parse(localStorage.getItem('mangaStory'));
-        if (!mangaData) {
-          Router.push(`/my-profile`);
-          return;
-        }
-        import('api/restClient').then((m) => {
-          const res = mangaData.image
-            ? m.default.service('/api/v2/uploads').create(
-                { uri: mangaData.image },
-                {
-                  headers: { Authorization: `Bearer ${jwt}` },
-                }
-              )
-            : Promise.resolve(null);
-          res
-            .then((response) => {
-              const data = {
-                story: mangaData.project_description,
-                introduce: mangaData.project_story,
-                description: mangaData.project_story,
-                title: mangaData.introduce,
-                searchingFor: mangaData.collaborators.map((c) => c.label),
-                compensationModel: mangaData.compensation ? 'paid' : 'collaboration',
-                country: mangaData.country,
-                preferredLanguage: mangaData.prefered_language,
-                price: mangaData.compensation,
-                launchDate: mangaData.date_picker,
-                genresIds: mangaData.manga_genres_obj.map((g) => g._id),
-              };
-              if (response) {
-                data.image = response.id;
-              }
-              return m.default.service('/api/v2/manga-stories').create(data, {
-                headers: { Authorization: `Bearer ${jwt}` },
-              });
-            })
-            .then((res) => {
-              const data = [
-                {
-                  event_type: EVENTS.CREATE_MANGA_STORY,
-                  user_id: user._id,
-                  user_properties: {
-                    ...user,
-                  },
-                  event_properties: {
-                    ...res,
-                  },
-                },
-              ];
-              amplitude.track(data);
-              localStorage.removeItem('mangaStory');
-              Router.push(`/manga-story/${res._id}`);
-            })
-            .catch((err) => {
-              console.log('err', err);
-              Router.push(`/my-profile`);
-              setState({
-                ...state,
-                disabled: false,
-              });
-              Sentry.captureException(err);
-            });
+        info({
+          className: 'MangaFY',
+          title: <h3 className={styles.modalTitle}>Welcome to MangaFY</h3>,
+          icon: '',
+          width: '100%',
+          maskClosable: true,
+          okText: <LargeButton onClick={() => routeChange()} text="Create Your First Story" />,
+          style: { top: 120, maxWidth: '1000px' },
+          content: (
+            <div className={styles.publishedModal}>
+              <p>
+                Whether you have a story to tell or a cool illustration, our platform is here to
+                ensure you take your ideas forward. Share your stories and build the graphic novel
+                you always dreamt about (plus, our awesome community to interact with)
+              </p>
+            </div>
+          ),
+          onOk() {},
         });
       })
-      .catch((err) => {
-        Sentry.captureException(err);
+      .catch((error) => {
+        setLoading(false);
         setState({
           ...state,
-          disabled: false,
-        });
-        setState({
-          ...state,
-          err: err.message,
+          errorMessage: error.message,
         });
       });
   };
 
   return (
     <>
-      <Head></Head>
-      <div className="sign_in_page_container">
-        <Header />
-        <div className="sign_in_content">
-          <div className="sign_in_header">Make the most of your digital comics life</div>
-          <div className="sign_in_info">
-            Sign up to get your personalized page connect with enthusiast world wide
-          </div>
-          <div className="sign_in_form sign_in_form col-lg-4 col-md-6 col-sm-8 col-xs-10">
-            <AuthForm
-              disabled={disabled}
-              {...{
-                type,
-                name,
-                email,
-                password,
-                errorMessage,
-                onChange: handleOnChange,
-                onSubmit: handleRegisterSubmit,
-              }}
-            />
-            {err && <p>{err}</p>}
-          </div>
-          <div className="sign_in_terms_info">
-            To make MangaFY work we log user data. Click "Sign up to accept MangaFY's Term and
-            service & Privacy Policy
-          </div>
+      <Head>
+        <title>Make the most of your talant!</title>
+        <meta
+          name="description"
+          content="Sign in to get your personalized page and start connecting with graphic novel enthusiasts"
+        />
+      </Head>
+      <ButtonToTop />
+      <div className={'wrapper'}>
+        <div className={'content'}>
+          <Header user={user} path="sign-up" />
+          <main className={styles.box}>
+            <div className={'container'}>
+              <div className={styles.box__wrapper}>
+                <div className={styles.box__img}>
+                  <img src="/img/sing-in.svg" alt="" />
+                </div>
+                <div className={styles.box__title_wrap}>
+                  <div className={styles.box__title}>
+                    <h2 className={styles.box__title_text}>
+                      Make the most of your digital comics life
+                    </h2>
+                  </div>
+                  <div className={styles.box__description}>
+                    <p className={styles.box__description_text}>
+                      Sign up to get your personalized page connect with enthusiast world wide
+                    </p>
+                  </div>
+                </div>
+                <div className={styles.box__form}>
+                  <AuthForm
+                    disabled={disabled}
+                    {...{
+                      type,
+                      name,
+                      email,
+                      password,
+                      errorMessage,
+                      loading,
+                      onChange: handleOnChange,
+                      onSubmit: handleRegisterSubmit,
+                    }}
+                  />
+                  {err && <p>{err}</p>}
+                </div>
+              </div>
+            </div>
+          </main>
         </div>
-        <Footer />
+        <LoginFooter acaunt={true} />
+        <FooterPolicy />
       </div>
     </>
   );
+};
+
+Register.propTypes = {
+  user: PropTypes.object,
+};
+
+Register.defaultProps = {
+  user: null,
 };
 
 export default Register;

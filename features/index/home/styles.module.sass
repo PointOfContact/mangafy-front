@@ -4,7 +4,7 @@
     padding-bottom: 80px
     @media (max-width: 767px)
         padding-bottom: 70px
-    .container
+    &__container
         @media (max-width: 767px)
             padding: 0
     &__wrap
@@ -35,6 +35,7 @@
         p
             font-weight: 900
             font-size: 50px
+            margin-bottom: 0
             @media (max-width: 1399px)
                 font-size: 43px
             @media (max-width: 767px)
@@ -62,6 +63,8 @@
             margin-bottom: 26px
     &__right
         display: flex
+        flex: 1
+        width: 100%
         flex-direction: column
         padding-top: 45px
         @media (max-width: 1199px)
@@ -69,7 +72,6 @@
         @media (max-width: 767px)
             padding-left: 0
     &__img
-        display: flex
         align-items: center
         justify-content: center
         position: relative
@@ -98,6 +100,7 @@
 .different
     padding-top: 22px
     padding-bottom: 70px
+    position: relative
     @media (max-width: 767px)
         padding-top: 0
     &__title
@@ -142,13 +145,13 @@
             line-height: 20px
     .it1
         position: absolute
-        right: -187px
-        bottom: -65px
+        right: -60px
+        bottom: 0px
         @media (max-width: 991px)
-            bottom: -115px
+            bottom: -70px
         @media (max-width: 767px)
-            right: -140px
-            bottom: -75px
+            right: -80px
+            bottom: -15px
             width: 230px
 
 .mainDescriprion
@@ -177,7 +180,7 @@
             right: 273px
             width: 120px
             height: 61px
-            background-image: url(/img/main-descr-ico1.png)
+            background-image: url(/img/main-descr-ico1.webp)
             @media (max-width: 767px)
                 right: 60px
                 transform: scale(.6)
@@ -279,6 +282,9 @@
     padding-top: 62px
     @media (max-width: 767px)
         padding-top: 0
+    &__container
+        @media (max-width: 767px)
+            padding: 0
     .container
         @media (max-width: 767px)
             padding: 0
@@ -346,7 +352,7 @@
         align-items: center
         &_item1
             background: #5644BA
-            background-image: url(/img/how-mob-ico1.png)
+            background-image: url(/img/how-mob-ico1.webp)
             background-size: cover
             background-repeat: no-repeat
             padding-top: 65px
@@ -362,7 +368,7 @@
                 margin-bottom: -35px
         &_item3
             padding-top: 37px
-            background-image: url(/img/how-mob-ico1.png)
+            background-image: url(/img/how-mob-ico1.webp)
             background-size: cover
             background-repeat: no-repeat
             .howWorks__mobImg
@@ -384,6 +390,7 @@
     padding-bottom: 120px
     @media (max-width: 767px)
         padding-top: 70px
+        padding-bottom: 67px
     &__wrap
         display: flex
         align-items: center
@@ -438,6 +445,8 @@
 .useGoal
     padding-top: 25px
     padding-bottom: 50px
+    @media (max-width: 767px)
+        display: none
     &__title
         color: $black
         font-size: 50px
@@ -462,7 +471,8 @@
         @media (max-width: 767px)
             display: none
     &__img
-        display: flex
+        display: block
+        height: 100%
         @media (max-width: 767px)
             align-items: center
             justify-content: center
@@ -545,7 +555,8 @@
             @media (max-width: 1399px)
                 display: none
     &__img
-        display: flex
+        max-width: 720px
+        margin: auto
         justify-content: center
         align-items: center
         margin-bottom: 16px
@@ -555,4 +566,11 @@
         @media (max-width: 767px)
             width: 100%
     .btn__submit
+        margin: 0 auto
+
+.sliderInMobile
+    display: none
+    @media (max-width: 767px)
+        display: block
+    img
         margin: 0 auto

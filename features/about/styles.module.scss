@@ -1,0 +1,156 @@
+@import '../../styles/variables.scss';
+
+.about_page{
+  padding: 52px 30px 64px;
+  max-width: 1270px;
+  margin: 0 auto;
+}
+.title_section{
+  display: flex;
+  align-items: center;
+}
+.title_inner{
+  max-width: 853px;
+  padding-right: 84px;
+}
+.page_title{
+  font-size: 50px;
+  line-height: normal;
+  font-family: Noto Sans JP;
+  font-style: normal;
+  font-weight: bold;
+  color: $black;
+  padding-bottom: 30px;
+}
+.page_description{
+  font-size: 20px;
+  line-height: 30px;
+  font-family: Noto Sans JP;
+  font-style: normal;
+  font-weight: normal;
+  color: $gray85;
+}
+.image_block{
+  img{
+    max-width: 301px;
+  }
+}
+.info_section{
+  padding-top: 75px;
+}
+.update_block{
+  font-size: 25px;
+  line-height: normal;
+  font-family: Noto Sans JP;
+  font-style: normal;
+  font-weight: bold;
+  color: $black;   
+}
+.info_block{
+  padding-top: 35px;
+  font-size: 20px;
+  line-height: 30px;
+  font-family: Noto Sans JP;
+  font-style: normal;
+}
+.info_title{
+  font-weight: bold;
+  color: $black;  
+}
+.info_description{
+  font-weight: normal;
+  color: rgba($black,0.55);  
+  padding-top: 25px;
+}
+@media (max-width: 1199px){
+  .image_block img{
+    max-width: 240px;
+  }
+  .page_title{
+    font-size: 44px;
+  }
+  .page_description{
+    font-size: 18px;
+    line-height: 27px;
+  }
+  .info_block{
+    font-size: 18px;
+    line-height: 27px;
+  }
+  .title_inner{
+    padding-right: 60px;
+  }
+}
+@media (max-width: 991px){
+  .image_block img{
+    max-width: 200px;
+  }
+  .page_title{
+    font-size: 38px;
+    padding-bottom: 20px;
+  }
+  .title_inner{
+    padding: 0 20px 0 0;
+    max-width: none;
+  }
+}
+@media (max-width: 767px){
+  .about_page{
+    padding: 40px 30px 60px;
+  }
+  .image_block img{
+    max-width: 180px;
+  }
+  .page_title{
+    font-size: 32px;
+  }
+  .page_description{
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .info_block{
+    padding-top: 20px;
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .info_section{
+    padding-top: 60px;
+  }
+  .info_description{
+    padding-top: 20px;
+  }
+}
+@media (max-width: 575px){
+  .title_section{
+    flex-direction: column-reverse;
+  }
+  .page_title{
+    padding: 40px 0 10px;
+  }
+}
+@media (max-width: 479px){
+  .image_block img{
+    max-width: 170px;
+  }
+  .page_title{
+    font-size: 30px;
+    line-height: 35px;
+  }
+  .page_description{
+    font-size: 15px;
+    line-height: 20px;
+  }
+  .info_block{
+    padding-top: 15px;
+    font-size: 16px;
+    line-height: 20px;
+  }
+  .info_description{
+    padding-top: 15px;
+  }
+}
+@media (max-width: 359px){
+  .about_page{ 
+    padding: 30px 20px 60px;
+  }   
+}

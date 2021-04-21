@@ -16,6 +16,7 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
       $sort: {
         createdAt: -1,
       },
+      published: true,
     };
     if (genres && genres.length > 0) {
       genres = Array.isArray(genres) ? genres : [genres];
@@ -29,7 +30,6 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
         { compensationModel: { $search: search } },
         { title: { $search: search } },
         { description: { $search: search } },
-        { introduce: { $search: search } },
         { story: { $search: search } },
         { country: { $search: search } },
         { preferredLanguage: { $search: search } },
@@ -38,8 +38,11 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
     const res = await client.service('/api/v2/manga-stories').find({
       query,
     });
-    const genresRes = await client.service('/api/v2/genres').find();
-    console.log(res);
+    const genresRes = await client.service('/api/v2/genres').find({
+      query: {
+        $limit: 100,
+      },
+    });
     return {
       props: {
         user: user || store.user,

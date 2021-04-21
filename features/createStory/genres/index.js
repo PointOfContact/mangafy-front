@@ -73,7 +73,7 @@ const MangaGenres = (props) => {
             <div className="col-lg-8">
               <div className="collab_div">
                 <div className="logo_img_comp">
-                  <img src="/img/logo.png" width="250" alt="" />
+                  <img src="/img/logo.webp" width="250" alt="" />
                 </div>
 
                 <h1 className="collab">Which Graphic Novel genre you aim to work on</h1>
@@ -120,7 +120,7 @@ const MangaGenres = (props) => {
     </>
   );
 };
-MangaGenres.prototype = {
+MangaGenres.propTypes = {
   label: PropTypes.string,
   value: PropTypes.string,
   closable: PropTypes.bool,

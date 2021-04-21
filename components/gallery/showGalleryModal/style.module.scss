@@ -1,0 +1,11 @@
+@import '../../../styles/variables.scss';
+
+.modal {
+  top: 20px;
+  height: calc(100% - 30px);
+  margin: auto;
+  @include media-sm {
+    max-width: calc(100% - 16px);
+    height: 100vh;
+  }
+}

@@ -13,7 +13,7 @@
             content: "";
             width: 104px;
             height: 104px;
-            background-image: url(../../public/icons/green-eclips.svg);
+            background-image: url(../../public/img/green-eclips.svg);
             background-size: cover;
             position: absolute;
             left: 0;
@@ -21,7 +21,7 @@
         }
         &Online {
             &:before {
-                background-image: url(../../public/icons/green-eclips-online.svg);
+                background-image: url(../../public/img/green-eclips-online.svg);
             }
         }
     }
@@ -29,10 +29,12 @@
         width: 104px;
         height: 104px;
         overflow: hidden;
-        padding: 3px;
+        // padding: 3px;
         border-radius: 50%;
         img {
-            object-fit: contain;
+            object-fit: cover;
+            width: 104px;
+            height: 104px;
         }
     }
 }

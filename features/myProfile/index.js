@@ -6,14 +6,19 @@ import Header from 'components/header';
 import ProfileContent from 'components/profile/profileContent';
 import ProfileOpenCollabs from 'components/profile/profileOpenCollabs';
 import ProfileTopBar from 'components/profile/profileTopBar';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import { beforeUpload } from 'helpers/shared';
 import Head from 'next/head';
 import PropTypes from 'prop-types';
 
-const MyProfile = (props) => {
-  const { user, mangaStories, total, originUrl, profile, fromMobile } = props;
-  const { genres: genresEnums } = props;
+const Amplitude = require('amplitude');
 
+const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
+
+const MyProfile = (props) => {
+  const { user, originUrl, profile } = props;
+  const { genres: genresEnums } = props;
+  const [isMyProfile] = useState(true);
   const [editMode, setEditMode] = useState(false);
   const [storyEditMode, setStoryEditMode] = useState(false);
   const [errMessage, setErrMessage] = useState('');
@@ -22,7 +27,10 @@ const MyProfile = (props) => {
     type: user.type,
     content: user.content,
     genresIds: user.genresIds,
+    avatar: user.avatar,
   });
+  const mangaStories = profile.mangaStories.data;
+  const total = profile.mangaStories.data.length;
 
   const cancelEditMode = () => {
     setEditMode(false);
@@ -33,6 +41,9 @@ const MyProfile = (props) => {
   const saveUserDataByKey = (...keys) => {
     const data = {};
     keys.forEach((item) => (data[item] = userData[item]));
+    if (data?.name) {
+      data.name = data.name?.replace(/  +/g, ' ');
+    }
     const jwt = client.getCookie('feathers-jwt');
     import('../../api/restClient').then((m) => {
       m.default
@@ -62,6 +73,17 @@ const MyProfile = (props) => {
     setErrMessage('');
   };
   const handleChangeGenres = (value, selectedObj) => {
+    const data = [
+      {
+        platform: 'WEB',
+        event_type: EVENTS.ADDED_GENRES,
+        user_id: user._id,
+        user_properties: {
+          ...user,
+        },
+      },
+    ];
+    amplitude.track(data);
     const genresIds = selectedObj.map((item) => item._id);
     return setUserData({ ...userData, genresIds });
   };
@@ -88,6 +110,7 @@ const MyProfile = (props) => {
             setEditMode,
             setUserData,
             errMessage,
+            setErrMessage,
             cancelEditMode,
             saveUserDataByKey,
             originUrl,
@@ -106,14 +129,15 @@ const MyProfile = (props) => {
             handleChangeGenres,
             mangaStories,
             profile,
-            fromMobile,
             genresEnums,
             genres,
             total,
+            isMyProfile,
           }}
         />
         <ProfileOpenCollabs
           {...{
+            user,
             total,
             client,
             mangaStories,
@@ -131,7 +155,6 @@ MyProfile.propTypes = {
   total: PropTypes.number.isRequired,
   originUrl: PropTypes.string.isRequired,
   profile: PropTypes.object.isRequired,
-  fromMobile: PropTypes.object.isRequired,
   genres: PropTypes.array.isRequired,
 };
 

@@ -63,7 +63,7 @@ const ProjectStory = ({ user }) => {
             <div className="cool-lg-8">
               <div className="collab_div">
                 <div className="logo_img_comp">
-                  <img src="/img/logo.png" width="250" alt="" />
+                  <img src="/img/logo.webp" width="250" alt="" />
                 </div>
                 <h1 className="collab">Introduce your graphic novel project/idea</h1>
                 <p className="title_text">
@@ -118,7 +118,7 @@ const ProjectStory = ({ user }) => {
   );
 };
 
-ProjectStory.prototype = {
+ProjectStory.propTypes = {
   user: PropTypes.object.required,
 };
 

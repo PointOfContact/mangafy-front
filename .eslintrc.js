@@ -29,6 +29,7 @@ module.exports = {
     },
   },
   rules: {
+    'no-underscore-dangle': ['error', { allow: ['_id'] }],
     'linebreak-style': ['error', 'unix'],
     'no-unused-vars': [
       'error',
@@ -86,7 +87,6 @@ module.exports = {
     'global-require': 1,
     'max-len': [0, 100, 2, { ignoreUrls: true }],
     'import/no-cycle': 0,
-    'no-underscore-dangle': 1,
     'no-return-assign': 1,
     'import/prefer-default-export': 0,
     'jsx-quotes': ['error', 'prefer-double'],
@@ -107,5 +107,11 @@ module.exports = {
         bracketSpacing: true,
       },
     ],
+  },
+  globals: {
+    window: true,
+    document: true,
+    sessionStorage: true,
+    localStorage: true,
   },
 };
