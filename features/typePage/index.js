@@ -9,6 +9,8 @@ import ButtonToTop from 'components/ui-elements/button-toTop';
 import Head from 'next/head';
 import PropTypes from 'prop-types';
 
+import styles from './styles.module.scss';
+
 export default function LandingNew(props) {
   const {
     user,
@@ -19,7 +21,6 @@ export default function LandingNew(props) {
     selectedCategories,
     selectedType,
   } = props;
-  console.log('gyguygyuguyg', props);
   return (
     <>
       <Head>
@@ -44,8 +45,8 @@ export default function LandingNew(props) {
       <div className={'wrapper'}>
         <div className={'content'}>
           <Header user={user} />
-          <main>
-            <AnimePlatform />
+          <main className={styles.main}>
+            {!user && <AnimePlatform />}
             <TypePage
               user={user}
               posts={posts}
