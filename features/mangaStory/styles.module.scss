@@ -136,16 +136,32 @@
 }
 
 .header {
+  padding: 0 35px;
   padding-top: 89px;
   text-align: center;
   margin-bottom: 100px;
   width: 100%;
   display: block;
+  @include media-sm {
+    padding: 0px;
+    padding-top: 89px;
+  }
+  span {
+    color: $primaryDark;
+  }
+  p {
+    max-width: 700px;
+    margin: 0 auto;
+  }
 }
 .editSVG {
   position: relative;
   top: 100px !important;
   left: -35px !important;
+  @include media-sm {
+    padding: 0px;
+    left: 10px !important;
+  }
 }
 .editTitleSvg {
   position: absolute;

@@ -51,6 +51,7 @@ const MangeStory = (props) => {
     isParticipent,
     hasStoryBoardPermision,
   } = props;
+  const [stage] = useState(1);
   const [editMode, setEditMode] = useState(false);
   const [editTitle, setEditTitle] = useState(false);
   const [baseData, setBaseData] = useState(mangaStory);
@@ -280,7 +281,40 @@ const MangeStory = (props) => {
                   {!editTitle ? (
                     <div className={styles.storyTabContent}>
                       <div className={styles.header}>
-                        <h2>{baseData.title}</h2>
+                        {
+                          // eslint-disable-next-line no-nested-ternary
+                          stage === 1 ? (
+                            <>
+                              <h2>
+                                STORY BIBLE <span>STAGE 1</span> - {baseData.title}
+                              </h2>
+                              <p>
+                                Every good story begins with an idea. This part should include the
+                                concept, location, and synopses
+                              </p>
+                            </>
+                          ) : stage === 2 ? (
+                            <>
+                              <h2>
+                                STORY BIBLE <span>STAGE 2</span> - {baseData.title}
+                              </h2>
+                              <p>
+                                To get the reader engaged, a good cast must be included. Add full
+                                bios of your characters
+                              </p>
+                            </>
+                          ) : (
+                            <>
+                              <h2>
+                                STORY BIBLE <span>STAGE 2</span> - {baseData.title}
+                              </h2>
+                              <p>
+                                To get the reader engaged, a good cast must be included. Add full
+                                bios of your characters
+                              </p>
+                            </>
+                          )
+                        }
                       </div>
                       {canEdit && (
                         <SvgPencilColored

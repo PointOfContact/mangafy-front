@@ -23,8 +23,7 @@ const HeppeningCard = (props) => {
               <div className={styles.tagsDescrText}>{title}</div>
             </div>
             <div className={styles.tagsCount}>
-              {like}
-              <span style={{ marginLeft: '15px' }}>❯</span>
+              Join <span style={{ marginLeft: '8px' }}>❯</span>
             </div>
           </li>
         </a>
