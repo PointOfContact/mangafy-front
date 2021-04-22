@@ -3,8 +3,6 @@ import React, { useState, useEffect } from 'react';
 import { Upload, Row, Col } from 'antd';
 import client from 'api/client';
 import Card from 'components/card';
-import SvgDownloadFile from 'components/icon/DownloadFile';
-import SvgText from 'components/icon/Text';
 import Imgix from 'components/imgix';
 import AddButton from 'components/ui-elements/add-button';
 import { EVENTS } from 'helpers/amplitudeEvents';
@@ -276,7 +274,7 @@ export const Gallery = (props) => {
                 setCreateGalleryModal(true);
                 setIsModalVisible(true);
               }}>
-              <AddButton svg={<SvgText width="25px" height="25px" />} text={'Add text'} />
+              <AddButton width="25px" height="25px" text={'Add text'} />
             </span>
             {/* )}
             <div onClick={() => setIsShowAdd(!isShowAdd)}>
@@ -288,10 +286,7 @@ export const Gallery = (props) => {
                 beforeUpload={onBeforeGalleryUpload}
                 showUploadList={false}
                 accept="image/jpg, image/png, image/jpeg, application/pdf ">
-                <AddButton
-                  svg={<SvgDownloadFile width="25px" height="25px" />}
-                  text={'Upload file'}
-                />
+                <AddButton width="25px" height="25px" text={'Upload'} />
               </Upload>
             </span>
             {/* )} */}
