@@ -5,12 +5,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  p{
+  p {
     margin-bottom: 0;
     color: $grey;
   }
-  .active{
-  color: $black;
+  .active {
+    color: $black;
   }
   input {
     height: 0px;
@@ -129,9 +129,6 @@
   }
 
   .doggo:checked {
-    ~ .cup {
-      animation: 0.2s linear cup 1s forwards;
-    }
     + label {
       .dog {
         left: 58px;
