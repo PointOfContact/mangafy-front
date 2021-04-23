@@ -1528,3 +1528,18 @@ img.rot4 {
     }
   }
 }
+
+.toggle-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  * {
+    box-sizing: border-box;
+    &:before,
+    &:after {
+      content: '';
+      position: absolute;
+    }
+  }
+}

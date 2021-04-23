@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { ExclamationCircleOutlined } from '@ant-design/icons';
-import { Tabs, notification, Switch, Modal, Popover } from 'antd';
+import { Tabs, notification, Modal, Popover } from 'antd';
 import client from 'api/client';
 import { findStoryBoard } from 'api/storyBoardClient';
 import cn from 'classnames';
@@ -13,6 +13,7 @@ import Header from 'components/header';
 import SvgPencilColored from 'components/icon/PencilColored';
 import { ShareButtons } from 'components/share';
 import PrimaryButton from 'components/ui-elements/button';
+import ButtonToggle from 'components/ui-elements/button-toggle';
 import ButtonToTop from 'components/ui-elements/button-toTop';
 import Input from 'components/ui-elements/input';
 import TextArea from 'components/ui-elements/text-area';
@@ -51,7 +52,7 @@ const MangeStory = (props) => {
     isParticipent,
     hasStoryBoardPermision,
   } = props;
-  const [stage] = useState(1);
+  const [stage, setStage] = useState({});
   const [editMode, setEditMode] = useState(false);
   const [editTitle, setEditTitle] = useState(false);
   const [baseData, setBaseData] = useState(mangaStory);
@@ -257,66 +258,38 @@ const MangeStory = (props) => {
                         }
                         trigger="hover">
                         <div className={styles.publishSwitch}>
-                          <p
-                            className={cn(
-                              styles.publishText,
-                              !baseData.published && styles.published
-                            )}>
-                            Draft
-                          </p>
-                          <span>
-                            <Switch checked={baseData.published} onChange={onPublish} />
-                          </span>
-                          <p
-                            className={cn(
-                              styles.publishText,
-                              baseData.published && styles.published
-                            )}>
-                            Published
-                          </p>
+                          <ButtonToggle
+                            id={'Draft'}
+                            isChecked={baseData.published}
+                            size={50}
+                            offText="Draft"
+                            onText="Published"
+                            onChange={onPublish}
+                          />
                         </div>
                       </Popover>
                     </div>
                   )}
+
                   {!editTitle ? (
                     <div className={styles.storyTabContent}>
                       <div className={styles.header}>
-                        {
-                          // eslint-disable-next-line no-nested-ternary
-                          stage === 1 ? (
-                            <>
+                        {collabActiveTab === '2' ? (
+                          <>
+                            {stage?.tab !== '6' ? (
                               <h2>
-                                STORY BIBLE <span>STAGE 1</span> - {baseData.title}
+                                STORY BIBLE <span>STAGE {stage?.tab}</span> - {stage?.title}
                               </h2>
-                              <p>
-                                Every good story begins with an idea. This part should include the
-                                concept, location, and synopses
-                              </p>
-                            </>
-                          ) : stage === 2 ? (
-                            <>
-                              <h2>
-                                STORY BIBLE <span>STAGE 2</span> - {baseData.title}
-                              </h2>
-                              <p>
-                                To get the reader engaged, a good cast must be included. Add full
-                                bios of your characters
-                              </p>
-                            </>
-                          ) : (
-                            <>
-                              <h2>
-                                STORY BIBLE <span>STAGE 2</span> - {baseData.title}
-                              </h2>
-                              <p>
-                                To get the reader engaged, a good cast must be included. Add full
-                                bios of your characters
-                              </p>
-                            </>
-                          )
-                        }
+                            ) : (
+                              <h2>{stage?.title}</h2>
+                            )}
+                            <p>{stage?.description}</p>
+                          </>
+                        ) : (
+                          <h2>{baseData.title}</h2>
+                        )}
                       </div>
-                      {canEdit && (
+                      {canEdit && collabActiveTab !== '2' && (
                         <SvgPencilColored
                           className={styles.editSVG}
                           onClick={() => setEditTitle(true)}
@@ -443,6 +416,7 @@ const MangeStory = (props) => {
                   {(isOwn || hasStoryBoardPermision) && (
                     <TabPane tab="STORY BOARD" key="2" className="story">
                       <StoryBoardTabs
+                        setStage={setStage}
                         mangaStory={mangaStory}
                         user={user}
                         openNotification={openNotification}
