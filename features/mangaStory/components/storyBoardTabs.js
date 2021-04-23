@@ -28,9 +28,69 @@ const Amplitude = require('amplitude');
 const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 const { TabPane } = Tabs;
 
-const StoryBoardTabs = ({ user, mangaStory, openNotification, originUrl }) => {
-  const [storyBoardActiveTab, setStoryBoardActiveTab] = useState(1);
+const StoryBoardTabs = ({ user, mangaStory, openNotification, originUrl, setStage }) => {
+  const [storyBoardActiveTab, setStoryBoardActiveTabSeter] = useState(1);
   const { width } = useWindowSize();
+
+  const setStoryBoardActiveTab = (tab) => {
+    setStoryBoardActiveTabSeter(tab);
+    switch (tab.toString()) {
+      case '1':
+        setStage({
+          tab,
+          title: 'THE SETTING',
+          description:
+            'Every good story begins with an idea. This part should include the concept, location, and synopses',
+        });
+        break;
+      case '2':
+        setStage({
+          tab,
+          title: 'THE CHARACTERS',
+          description:
+            'To get the reader engaged, a good cast must be included. Add full bios of your characters',
+        });
+        break;
+      case '3':
+        setStage({
+          tab,
+          title: 'SCRIPT',
+          description:
+            'Add a full comic strip/5 pages/a volume/arc or full script of your comic book or novel',
+        });
+        break;
+      case '4':
+        setStage({
+          tab,
+          title: 'DIGITAL ILLUSTRATION',
+          description:
+            'Got the story and plot down, now bring life to your characters and add visualization (characters, strips, pages, etc.)',
+        });
+        break;
+      case '5':
+        setStage({
+          tab,
+          title: 'UPLOAD YOUR DIGITAL WORK',
+          description: 'Upload your volume, arc, or novel',
+        });
+        break;
+      case '6':
+        setStage({
+          tab,
+          title: 'PUBLISH',
+          description:
+            "Congratulations! you finalized your volume, arc or novel and now it's time to publish. Select one of MangaFY's self-publishing partners and start monetizing",
+        });
+        break;
+      default:
+        setStage({
+          tab,
+          title: 'THE SETTING',
+          description:
+            'Every good story begins with an idea. This part should include the concept, location, and synopses',
+        });
+    }
+  };
 
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isShowAnimation, setIsShowAnimation] = useState(false);
@@ -310,6 +370,7 @@ StoryBoardTabs.propTypes = {
   user: PropTypes.object.isRequired,
   mangaStory: PropTypes.object.isRequired,
   openNotification: PropTypes.func.isRequired,
+  setStage: PropTypes.func.isRequired,
   originUrl: PropTypes.string,
 };
 

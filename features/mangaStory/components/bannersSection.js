@@ -123,6 +123,7 @@ const BannerSection = ({
       />
       <div>
         <ButtonToggle
+          id={'paidOrFree'}
           onChange={(e) => {
             changeCollaborationIsPaid(e.target.checked);
           }}
