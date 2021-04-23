@@ -28,7 +28,14 @@ const Amplitude = require('amplitude');
 const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 const { TabPane } = Tabs;
 
-const StoryBoardTabs = ({ user, mangaStory, openNotification, originUrl, setStage }) => {
+const StoryBoardTabs = ({
+  user,
+  mangaStory,
+  openNotification,
+  originUrl,
+  setStage,
+  participentsInfo,
+}) => {
   const [storyBoardActiveTab, setStoryBoardActiveTabSeter] = useState(1);
   const { width } = useWindowSize();
 
@@ -255,7 +262,7 @@ const StoryBoardTabs = ({ user, mangaStory, openNotification, originUrl, setStag
         }
         key={1}>
         <div className={styles.tabContent}>
-          <FindPartner />
+          <FindPartner participentsInfo={participentsInfo} />
           <Idea storyBoard={storyBoard} setStoryBoard={setStoryBoard} />
           {renderNavigationButtons(!(storyBoard?.idea?.title && storyBoard?.idea?.text))}
         </div>
@@ -269,7 +276,7 @@ const StoryBoardTabs = ({ user, mangaStory, openNotification, originUrl, setStag
         key={2}>
         {isShowAnimation && <span className={styles.showAnimation}></span>}
         <div className={styles.tabContent}>
-          <FindPartner />
+          <FindPartner participentsInfo={participentsInfo} />
           <Hero
             storyBoard={storyBoard}
             setStoryBoard={setStoryBoard}
@@ -287,7 +294,7 @@ const StoryBoardTabs = ({ user, mangaStory, openNotification, originUrl, setStag
         key={3}>
         {isShowAnimation && <span className={styles.showAnimation}></span>}
         <div className={styles.tabContent}>
-          <FindPartner />
+          <FindPartner participentsInfo={participentsInfo} />
           <ProjectScripts
             pages={storyBoard?.pages}
             storyBoardId={storyBoard?._id}
@@ -306,7 +313,7 @@ const StoryBoardTabs = ({ user, mangaStory, openNotification, originUrl, setStag
         key={4}>
         {isShowAnimation && <span className={styles.showAnimation}></span>}
         <div className={styles.tabContent}>
-          <FindPartner />
+          <FindPartner participentsInfo={participentsInfo} />
           <ChooseLayout storyBoard={storyBoard} setStoryBoard={setStoryBoard} />
           {renderNavigationButtons(!storyBoard?.layoutId)}
         </div>
@@ -321,7 +328,7 @@ const StoryBoardTabs = ({ user, mangaStory, openNotification, originUrl, setStag
         key={5}>
         {isShowAnimation && <span className={styles.showAnimation}></span>}
         <div className={styles.tabContent}>
-          <FindPartner />
+          <FindPartner participentsInfo={participentsInfo} />
           <Upload
             className={styles.upload}
             storyBoardId={storyBoard?._id}
@@ -353,7 +360,7 @@ const StoryBoardTabs = ({ user, mangaStory, openNotification, originUrl, setStag
         key={6}>
         {isShowAnimation && <span className={styles.showAnimation}></span>}
         <div className={styles.tabContent}>
-          <FindPartner />
+          <FindPartner participentsInfo={participentsInfo} />
           {isModalVisible ? (
             <ModalSuccess isModalVisible={isModalVisible} handleCancelModal={handleCancelModal} />
           ) : (
@@ -372,10 +379,12 @@ StoryBoardTabs.propTypes = {
   openNotification: PropTypes.func.isRequired,
   setStage: PropTypes.func.isRequired,
   originUrl: PropTypes.string,
+  participentsInfo: PropTypes.array,
 };
 
 StoryBoardTabs.defaultProps = {
   originUrl: '',
+  participentsInfo: [],
 };
 
 export default StoryBoardTabs;

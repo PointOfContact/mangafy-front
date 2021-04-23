@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { notification } from 'antd';
 import client from 'api/client';
 import ChatCard from 'components/chatCard';
+import NoRequest from 'components/noRequest';
 import MessengerContent from 'components/profile/profileContent/tabMessenger/messengerContent';
 import PropTypes from 'prop-types';
 
@@ -55,7 +56,7 @@ export const Chat = ({ mangaStory, user, isOwn, collabActiveTab }) => {
   };
 
   if (!requests?.length) {
-    return <p>There is no any request</p>;
+    return <NoRequest />;
   }
 
   return (

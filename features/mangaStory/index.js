@@ -421,6 +421,7 @@ const MangeStory = (props) => {
                         user={user}
                         openNotification={openNotification}
                         originUrl={originUrl}
+                        participentsInfo={baseData.participentsInfo}
                       />
                     </TabPane>
                   )}

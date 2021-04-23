@@ -58,7 +58,7 @@ const ProfileTopBar = (props) => {
   const history = useRouter();
   const sendInvites = () => {
     if (user) {
-      if (user.mangaStories?.data?.length) {
+      if (user.mangaStories?.data?.length && !(user?._id === profile?._id)) {
         changeShowModal(true);
         isShowModal();
       } else {
@@ -224,7 +224,10 @@ const ProfileTopBar = (props) => {
                           onClick={sendInvites}
                           text="Invite to collaborate"
                           splitterStyle={{ fontSize: '15px' }}
-                          disabled={user?.mangaStories?.participents?.include(profile._id)}
+                          disabled={
+                            user?.mangaStories?.participents?.include(profile._id) ||
+                            user?._id === profile?._id
+                          }
                         />
                       </span>
                     )}
@@ -237,10 +240,16 @@ const ProfileTopBar = (props) => {
                             <SvgUserDrawing width="22px" height="22px" />
                           </span>
                         ) : (
-                          <span onClick={() => onFollowUser(profile._id)} className={styles.btn}>
-                            <SvgAddUser width="22px" height="22px" />
-                            Follow
-                          </span>
+                          <>
+                            {!user?._id === profile?._id && (
+                              <span
+                                onClick={() => onFollowUser(profile._id)}
+                                className={styles.btn}>
+                                <SvgAddUser width="22px" height="22px" />
+                                Follow
+                              </span>
+                            )}
+                          </>
                         )}
                       </span>
                     )}

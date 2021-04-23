@@ -4,8 +4,8 @@ import { Modal, Input, notification } from 'antd';
 import Form from 'antd/lib/form/Form';
 import client from 'api/client';
 import SvgClose from 'components/icon/Close';
+import PrimaryButton from 'components/ui-elements/button';
 import PrimaryInput from 'components/ui-elements/input';
-import LargeButton from 'components/ui-elements/large-button';
 import PrimarySelect from 'components/ui-elements/select';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { USER_TYPES } from 'helpers/constant';
@@ -21,8 +21,7 @@ const { TextArea } = Input;
 
 const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, user }) => {
   const [lookingFor, changeLookingFor] = useState('Writer');
-  const [minValue, changeMinValue] = useState(10);
-  const [maxValue, changeMaxValue] = useState(100);
+  const [amount, changeAmount] = useState(40);
 
   const [rewardType, changeRewardType] = useState('Revenue Split');
 
@@ -41,27 +40,23 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
       changeLookingFor(task?.lookingFor || 'Writer');
       changeText(task?.description || '');
       changeRewardType(task?.rewardType || 'Revenue Split');
-      changeMaxValue(task?.maxValue || '100');
-      changeMinValue(task?.minValue || '10');
+      changeAmount(task?.maxValue || '100');
       form.setFieldsValue({
         lookingFor: task?.lookingFor || 'Writer',
         text: task?.description || '',
         rewardType: task?.rewardType || 'Revenue Split',
-        maxValue: task?.maxValue || '100',
-        minValue: task?.minValue || '10',
+        amount: task?.amount || '40',
       });
     } else {
       changeLookingFor('Writer');
       changeText('');
       changeRewardType('Revenue Split');
-      changeMaxValue('100');
-      changeMinValue('10');
+      changeAmount('40');
       form.setFieldsValue({
         lookingFor: 'Writer',
         text: '',
         rewardType: 'Revenue Split',
-        maxValue: '100',
-        minValue: '10',
+        amount: '40',
       });
     }
   }, [task, form, showModal]);
@@ -85,8 +80,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
           lookingFor,
           description: text,
           rewardType,
-          minValue,
-          maxValue,
+          amount,
         },
         {
           headers: { Authorization: `Bearer ${jwt}` },
@@ -97,8 +91,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
         changeLookingFor('Writer');
         changeText('');
         changeRewardType('Revenue Split');
-        changeMaxValue('100');
-        changeMinValue('10');
+        changeAmount('40');
         changeShowModal(false);
         const eventData = [
           {
@@ -131,8 +124,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
           lookingFor,
           description: text,
           rewardType,
-          minValue,
-          maxValue,
+          amount,
         },
         {
           headers: { Authorization: `Bearer ${jwt}` },
@@ -196,128 +188,113 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
       closeIcon={<SvgClose height="18px" width="18px" />}
       okText="Send"
       onCancel={handleCancel}>
-      <div className="container">
-        <div className="row">
-          <div className="col-lg-12 select_modal">
-            <Form
-              name="tasks"
-              form={form}
-              onFinish={() => {
-                task ? editTask() : createTask();
-              }}
-              initialValues={{
-                lookingFor,
-                text,
-                rewardType,
-                minValue,
-                maxValue,
-              }}>
-              <h2>Looking for</h2>
-              <Form.Item
-                name="lookingFor"
-                rules={[
-                  {
-                    required: true,
-                    message: 'Genre is required',
-                  },
-                ]}>
-                <PrimarySelect
-                  showSearch
-                  className={styles.modalSelect}
-                  onChange={changeLookingFor}
-                  options={MyCheckboxes}
-                  value={lookingFor}
-                />
-              </Form.Item>
-              <h2>Reward type</h2>
-              <Form.Item
-                name="rewardType"
-                rules={[
-                  {
-                    required: true,
-                    message: 'Reward Type is required',
-                  },
-                ]}>
-                <PrimarySelect
-                  showSearch
-                  className={styles.modalSelect}
-                  onChange={changeRewardType}
-                  options={RewardTypes}
-                  value={rewardType}
-                />
-              </Form.Item>
-              {rewardType !== 'Free' && (
-                <div className={styles.value}>
-                  <div>
-                    <h2>Min Value</h2>
-                    <Form.Item
-                      name="minValue"
-                      rules={[
-                        {
-                          required: true,
-                          message: 'Min Value is required',
-                        },
-                      ]}>
-                      <PrimaryInput
-                        type="number"
-                        isFullWidth={true}
-                        className={styles.modalInput}
-                        onChange={changeMinValue}
-                        value={minValue}
-                      />
-                    </Form.Item>
-                  </div>
-                  <div>
-                    <h2>Max Value</h2>
-                    <Form.Item
-                      name="maxValue"
-                      rules={[
-                        {
-                          required: true,
-                          message: 'Max Value is required',
-                        },
-                      ]}>
-                      <PrimaryInput
-                        type="number"
-                        isFullWidth={true}
-                        className={styles.modalInput}
-                        onChange={changeMaxValue}
-                        value={maxValue}
-                      />
-                    </Form.Item>
-                  </div>
+      <div className="row">
+        <div className="col-lg-12 select_modal">
+          <Form
+            name="tasks"
+            form={form}
+            onFinish={() => {
+              task ? editTask() : createTask();
+            }}
+            initialValues={{
+              lookingFor,
+              text,
+              rewardType,
+              amount,
+            }}>
+            <h2>Looking for</h2>
+            <Form.Item
+              name="lookingFor"
+              rules={[
+                {
+                  required: true,
+                  message: 'Genre is required',
+                },
+              ]}>
+              <PrimarySelect
+                showSearch
+                className={styles.modalSelect}
+                onChange={changeLookingFor}
+                options={MyCheckboxes}
+                value={lookingFor}
+              />
+            </Form.Item>
+            <h2>Reward type</h2>
+            <Form.Item
+              name="rewardType"
+              rules={[
+                {
+                  required: true,
+                  message: 'Reward Type is required',
+                },
+              ]}>
+              <PrimarySelect
+                showSearch
+                className={styles.modalSelect}
+                onChange={changeRewardType}
+                options={RewardTypes}
+                value={rewardType}
+              />
+            </Form.Item>
+            {rewardType !== 'Free' && (
+              <div className={styles.value}>
+                <div>
+                  <h2>Amount</h2>
+                  <Form.Item
+                    name="amount"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Amount is required',
+                      },
+                    ]}>
+                    <PrimaryInput
+                      type="number"
+                      isFullWidth={true}
+                      className={styles.modalInput}
+                      onChange={changeAmount}
+                      value={amount}
+                      prefix="$"
+                      suffix="USD"
+                    />
+                  </Form.Item>
+                  <span className={styles.short_info}>
+                    You can change the amount, or choose a different type of reward
+                  </span>
                 </div>
-              )}
-              <h2>Task description</h2>
-              <Form.Item
-                name="text"
-                rules={[
-                  {
-                    required: true,
-                    message: 'Text is required',
-                  },
-                ]}>
-                <TextArea
-                  placeholder=""
-                  value={text}
-                  onChange={handleChangeText}
-                  className={styles.modalTexarea}
+              </div>
+            )}
+            <div className={styles.line}></div>
+            <h2>Task description</h2>
+            <Form.Item
+              name="text"
+              rules={[
+                {
+                  required: true,
+                  message: 'Text is required',
+                },
+              ]}>
+              <TextArea
+                autoSize={{ minRows: 3, maxRows: 10 }}
+                placeholder=""
+                value={text}
+                onChange={handleChangeText}
+                className={styles.modalTexarea}
+              />
+            </Form.Item>
+
+            <div className="modal_select_btn">
+              <Form.Item>
+                <PrimaryButton
+                  htmlType="submit"
+                  id="modalJoinMyJourneySubmitBtnId"
+                  className={styles.hugeButton}
+                  isFullWidth={false}
+                  text={task ? 'Edit a task' : 'Create a task'}
                 />
               </Form.Item>
-
-              <div className="modal_select_btn">
-                <Form.Item>
-                  <LargeButton
-                    htmlType="submit"
-                    id="modalJoinMyJourneySubmitBtnId"
-                    className={styles.hugeButton}
-                    isFullWidth={false}
-                    text={task ? 'Edit' : 'Create'}
-                  />
-                </Form.Item>
-              </div>
-            </Form>
-          </div>
+            </div>
+          </Form>
         </div>
       </div>
     </Modal>
