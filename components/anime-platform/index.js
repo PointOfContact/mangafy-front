@@ -34,7 +34,7 @@ const AnimePlatform = () => {
     },
     {
       key: '4',
-      img: 'noSocial.webp',
+      img: 'Publish.webp',
       title: 'Ready, Set - Publish!',
       width: 154,
       description:

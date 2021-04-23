@@ -321,7 +321,7 @@ const MenuLinks = ({ isOpen, user }) => {
     },
     {
       text: 'Privacy Policy',
-      link: 'privacy',
+      link: 'privacy-policy',
     },
   ];
 

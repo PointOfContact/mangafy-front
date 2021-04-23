@@ -32,13 +32,17 @@ const Footer = () => (
               and get published.
             </p>
             <div className={styles.footer__soc}>
-              <a href="" className={styles.footer__socBtn}>
+              <a
+                href="https://www.facebook.com/mangafyy"
+                target="_blank"
+                rel="noreferrer"
+                className={styles.footer__socBtn}>
                 <SvgFbNew width="25px" height="25px" />
               </a>
-              <a href="" className={styles.footer__socBtn}>
+              <a href="" target="_blank" rel="noreferrer" className={styles.footer__socBtn}>
                 <SvgTwNew width="25px" height="25px" />
               </a>
-              <a href="" className={styles.footer__socBtn}>
+              <a href="" target="_blank" rel="noreferrer" className={styles.footer__socBtn}>
                 <SvgInstNew width="25px" height="25px" />
               </a>
             </div>

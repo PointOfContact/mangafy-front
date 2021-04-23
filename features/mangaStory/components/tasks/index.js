@@ -25,7 +25,7 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipent }) => {
   const [showModal, changeShowModal] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
 
-  const deleteTask = async (taskId) => {
+  const deleteTask = async (mangaStoryId, taskId) => {
     const jwt = client.getCookie('feathers-jwt');
     const { default: api } = await import('api/restClient');
     api
@@ -118,7 +118,7 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipent }) => {
                   <Popconfirm
                     placement="topRight"
                     title="You want to delete this task?"
-                    onConfirm={() => deleteTask(task._id)}
+                    onConfirm={() => deleteTask(baseData._id, task._id)}
                     okText="Yes"
                     cancelText="No">
                     <SvgDustbin white="22px" height="22px" />
@@ -144,8 +144,8 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipent }) => {
       <div className={styles.creatTask}>
         <div className={styles.addBtn}>
           <Imgix
-            width={200}
-            height={211}
+            width={264}
+            height={241}
             layout="fixed"
             src="https://mangafy.club/img/storyCardImg.webp"
             alt=""

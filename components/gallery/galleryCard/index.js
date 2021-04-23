@@ -115,7 +115,7 @@ const GalleryCard = ({
                 <SvgDustbin width="18px" />
               </span>
             </Popconfirm>
-            {galleryItem.renderItem && (
+            {galleryItem.renderItem && type !== 'pdf' && type !== 'PDF' && (
               <span
                 onClick={(e) => onEditImg(e, galleryItem._id)}
                 className={styles.edit}
@@ -125,22 +125,22 @@ const GalleryCard = ({
             )}
           </>
         )}
-        {!galleryItem.renderItem && (
-          <span className={styles.heart}>
-            <SvgHeart
-              width="18px"
-              height="16px"
-              onClick={() =>
-                user &&
-                !isLiked(galleryItem._id, user._id) &&
-                !canEdit &&
-                onLikeGallery(galleryItem._id, userData._id, user._id)
-              }
-              className={user && isLiked(galleryItem._id, user._id) && styles.liked}
-            />
-            <span>{getLikesCount(galleryItem._id)}</span>
-          </span>
-        )}
+
+        <span className={styles.heart}>
+          <SvgHeart
+            width="18px"
+            height="16px"
+            onClick={() =>
+              user &&
+              !isLiked(galleryItem._id, user._id) &&
+              !canEdit &&
+              onLikeGallery(galleryItem._id, userData._id, user._id)
+            }
+            className={user && isLiked(galleryItem._id, user._id) && styles.liked}
+          />
+          <span>{getLikesCount(galleryItem._id)}</span>
+        </span>
+
         <div className={styles.filter} onClick={(e) => gallerySet(e, index)}></div>
         {
           // eslint-disable-next-line no-nested-ternary

@@ -3,9 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { notification } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
-import Imgix from 'components/imgix';
-import LargeButton from 'components/ui-elements/large-button';
-import Link from 'next/link';
+import NoRequest from 'components/noRequest';
 import PropTypes from 'prop-types';
 
 import MessengerContent from './messengerContent';
@@ -73,24 +71,7 @@ const TabMessenger = (props) => {
     <div>
       {/* <h2 className={cn(styles.title)}>Messenger</h2> */}
       {noRequest ? (
-        <div className={styles.noRequest}>
-          <Imgix
-            layout="intrinsic"
-            width={240}
-            height={202}
-            src="https://mangafy.club/img/join-ico.webp"
-            alt=""
-          />
-          <h2>No Messages, yet.</h2>
-          <p>No messages in your inbox, yet! Start collaborate with people around you.</p>
-          <div>
-            <Link href="/profiles">
-              <a>
-                <LargeButton text="Find enthusiasts" />
-              </a>
-            </Link>
-          </div>
-        </div>
+        <NoRequest />
       ) : (
         <div className={cn(styles.messenger_tab)}>
           <div className={cn(styles.messenger_list)}>
