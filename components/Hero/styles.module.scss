@@ -27,6 +27,14 @@
   &::-webkit-scrollbar-thumb:hover {
     background: $primaryDark;
   }
+
+  .noHero{
+    margin-top: 40px;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
 }
 
 .addButtonContainer {

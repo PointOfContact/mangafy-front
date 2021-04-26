@@ -11,7 +11,7 @@ const AnimePlatform = () => {
   const platforms = [
     {
       key: '1',
-      img: 'Artists.webp',
+      img: 'Artists1.webp',
       title: 'Grow As an Artist',
       description:
         'MangaFY connects you with an active community of aspiring, amateur, and freelance artists and freelance professionals (translators, editors, etc.), direct content from self-publishing experts, tutorials, tips of the trade, all to grow your inner artists to success. ',
@@ -26,7 +26,7 @@ const AnimePlatform = () => {
     },
     {
       key: '3',
-      img: 'Cycle.webp',
+      img: 'Cycle1.webp',
       title: 'Manage Your Comic',
       width: 157,
       description:

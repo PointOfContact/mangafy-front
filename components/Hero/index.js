@@ -106,21 +106,24 @@ const Hero = ({ storyBoard, getStoryBoard }) => {
             <div className={styles.heroesRow}>{getComponentsList()}</div>
           </>
         ) : (
-          <Card
-            className={styles.card}
-            description="Sorry, but there is nothing <br/> here (("
-            btnText="Start now"
-            items={[
-              <Imgix
-                key="1"
-                width={185}
-                height={140}
-                layout="fixed"
-                src="https://mangafy.club/img/noHero.webp"
-                alt=""
-              />,
-            ]}
-          />
+          <div className={styles.noHero}>
+            <Card
+              className={styles.card}
+              description="Sorry, but there is nothing <br/> here (("
+              btnText="Start now"
+              onClick={() => addHero(HeroTypes.personage)}
+              items={[
+                <Imgix
+                  key="1"
+                  width={185}
+                  height={140}
+                  layout="fixed"
+                  src="https://mangafy.club/img/noHero.webp"
+                  alt=""
+                />,
+              ]}
+            />
+          </div>
         )}
       </div>
       <div className={styles.addButtonContainer}>

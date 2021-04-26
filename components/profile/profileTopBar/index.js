@@ -241,7 +241,7 @@ const ProfileTopBar = (props) => {
                           </span>
                         ) : (
                           <>
-                            {!user?._id === profile?._id && (
+                            {user?._id !== profile?._id && (
                               <span
                                 onClick={() => onFollowUser(profile._id)}
                                 className={styles.btn}>
