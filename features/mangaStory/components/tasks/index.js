@@ -100,7 +100,7 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipent }) => {
                 {task?.rewardType && (
                   <ButtonColab
                     className={cn(styles.ButtonPurple, styles.rewardType)}
-                    text={task?.rewardType}
+                    text={task.rewardType === 'Free' ? 'Free' : `${task?.amount} $`}
                   />
                 )}
                 <div className={styles.description}>{task.description}</div>

@@ -35,7 +35,7 @@ const OAuth = () => {
         },
       ];
       amplitude.track(data);
-      Router.push('/collaborations');
+      Router.push('/');
       return user;
     });
   });

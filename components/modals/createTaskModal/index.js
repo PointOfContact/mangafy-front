@@ -40,7 +40,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
       changeLookingFor(task?.lookingFor || 'Writer');
       changeText(task?.description || '');
       changeRewardType(task?.rewardType || 'Revenue Split');
-      changeAmount(task?.maxValue || '100');
+      changeAmount(task?.maxValue || '40');
       form.setFieldsValue({
         lookingFor: task?.lookingFor || 'Writer',
         text: task?.description || '',
@@ -252,7 +252,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
                       type="number"
                       isFullWidth={true}
                       className={styles.modalInput}
-                      onChange={changeAmount}
+                      onChange={(e) => changeAmount(e.target.value)}
                       value={amount}
                       prefix="$"
                       suffix="USD"

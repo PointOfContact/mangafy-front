@@ -1,6 +1,8 @@
 import React, { useMemo, useState } from 'react';
 
 import cn from 'classnames';
+import Card from 'components/card';
+import Imgix from 'components/imgix';
 import ModalHero from 'components/modals/createEditHero';
 import PropTypes from 'prop-types';
 
@@ -98,8 +100,28 @@ const Hero = ({ storyBoard, getStoryBoard }) => {
   return (
     <div>
       <div className={styles.heroContainer}>
-        <div className={styles.heroesRow}>{getHeroesList()}</div>
-        <div className={styles.heroesRow}>{getComponentsList()}</div>
+        {storyBoard?.heroes?.length ? (
+          <>
+            <div className={styles.heroesRow}>{getHeroesList()}</div>
+            <div className={styles.heroesRow}>{getComponentsList()}</div>
+          </>
+        ) : (
+          <Card
+            className={styles.card}
+            description="Sorry, but there is nothing <br/> here (("
+            btnText="Start now"
+            items={[
+              <Imgix
+                key="1"
+                width={185}
+                height={140}
+                layout="fixed"
+                src="https://mangafy.club/img/noHero.webp"
+                alt=""
+              />,
+            ]}
+          />
+        )}
       </div>
       <div className={styles.addButtonContainer}>
         <div
