@@ -42,7 +42,15 @@ const FindPartner = ({ participentsInfo }) => {
             text="Find a partner"
             isPlump={true}
             items={items}
-            suffix={<SvgAdd2 width="25px" height="25px" />}
+            suffix={
+              <Link className={styles.participentsCont} href={`/profiles`}>
+                <a>
+                  <Tooltip placement="topLeft" title="Add new users" arrowPointAtCenter>
+                    <SvgAdd2 width="25px" height="25px" />
+                  </Tooltip>
+                </a>
+              </Link>
+            }
           />
         </a>
       </Link>

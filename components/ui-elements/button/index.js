@@ -19,6 +19,7 @@ const PrimaryButton = ({
   items,
   isPlump,
   suffix,
+  limit,
   ...rest
 }) => (
   <Button
@@ -36,16 +37,34 @@ const PrimaryButton = ({
     style={splitterStyle || {}}
     disabled={disabled}>
     {items?.length ? (
-      <div className={styles.main} style={{ width: `${items.length * 17 + 10}px` }}>
-        {items.map((item, index) => (
-          <div key={index} className={styles.users_img} style={{ left: `${index * 17}px` }}>
-            {item}
+      <>
+        {items?.length <= limit + 1 ? (
+          <div className={styles.main} style={{ width: `${items.length * 17 + 10}px` }}>
+            {items.map((item, index) => (
+              <div key={index} className={styles.users_img} style={{ left: `${index * 17}px` }}>
+                {item}
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
+        ) : (
+          <>
+            <div className={styles.main} style={{ width: `${(limit + 1) * 17 + 10}px` }}>
+              {items.slice(0, limit).map((item, index) => (
+                <div key={index} className={styles.users_img} style={{ left: `${index * 17}px` }}>
+                  {item}
+                </div>
+              ))}
+              <div className={styles.users_img_count} style={{ left: `${limit * 17}px` }}>
+                <div className={styles.count}>+{items.length - limit}</div>
+              </div>
+            </div>
+          </>
+        )}
+      </>
     ) : (
       text
     )}
+
     {suffix}
   </Button>
 );
@@ -63,6 +82,7 @@ PrimaryButton.propTypes = {
   isPlump: PropTypes.bool,
   isActive: PropTypes.bool,
   suffix: PropTypes.node,
+  limit: PropTypes.number,
 };
 
 PrimaryButton.defaultProps = {
@@ -78,6 +98,7 @@ PrimaryButton.defaultProps = {
   isActive: false,
   onClick: () => {},
   suffix: '',
+  limit: 3,
 };
 
 export default PrimaryButton;

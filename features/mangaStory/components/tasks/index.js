@@ -94,50 +94,55 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipent }) => {
             />
           )}
           {taskList.map((task) => (
-            <div key={task._id} className={styles.taskCont}>
-              <div>
-                <ButtonColab className={cn(styles.ButtonPurple)} text={task?.lookingFor} />
-                {task?.rewardType && (
-                  <ButtonColab
-                    className={cn(styles.ButtonPurple, styles.rewardType)}
-                    text={task?.rewardType}
-                  />
-                )}
-                <div className={styles.description}>{task.description}</div>
-              </div>
-              {isOwn ? (
-                <div className={styles.editBtns}>
-                  <SvgPencilColored
-                    onClick={() => {
-                      changeShowModal(true);
-                      setSelectedTask(task);
-                    }}
-                    white="22px"
-                    height="22px"
-                  />
-                  <Popconfirm
-                    placement="topRight"
-                    title="You want to delete this task?"
-                    onConfirm={() => deleteTask(baseData._id, task._id)}
-                    okText="Yes"
-                    cancelText="No">
-                    <SvgDustbin white="22px" height="22px" />
-                  </Popconfirm>
-                </div>
-              ) : (
+            <>
+              <div key={task._id} className={styles.taskCont}>
                 <div>
-                  {!isParticipent && (
-                    <PrimaryButton
-                      className={styles.editBtn}
-                      onClick={() => {
-                        toTeam(task);
-                      }}
-                      text="Contribute"
-                    />
-                  )}
+                  <h2 className={styles.taskName}>Looking For - {task?.lookingFor}</h2>
+                  <div>
+                    <ButtonColab className={cn(styles.ButtonPurple)} text={task?.lookingFor} />
+                    {task?.rewardType && (
+                      <ButtonColab
+                        className={cn(styles.ButtonPurple, styles.rewardType)}
+                        text={task.rewardType === 'Free' ? 'Free' : `${task?.amount} $`}
+                      />
+                    )}
+                    <div className={styles.description}>-{task.description}</div>
+                  </div>
                 </div>
-              )}
-            </div>
+                {isOwn ? (
+                  <div className={styles.editBtns}>
+                    <SvgPencilColored
+                      onClick={() => {
+                        changeShowModal(true);
+                        setSelectedTask(task);
+                      }}
+                      white="22px"
+                      height="22px"
+                    />
+                    <Popconfirm
+                      placement="topRight"
+                      title="You want to delete this task?"
+                      onConfirm={() => deleteTask(baseData._id, task._id)}
+                      okText="Yes"
+                      cancelText="No">
+                      <SvgDustbin white="22px" height="22px" />
+                    </Popconfirm>
+                  </div>
+                ) : (
+                  <div className={styles.contribiutContent}>
+                    {!isParticipent && (
+                      <PrimaryButton
+                        onClick={() => {
+                          toTeam(task);
+                        }}
+                        text="Contribute"
+                      />
+                    )}
+                  </div>
+                )}
+              </div>
+              <div className={styles.line}></div>
+            </>
           ))}
         </div>
       )}
@@ -147,7 +152,7 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipent }) => {
             width={264}
             height={241}
             layout="fixed"
-            src="https://mangafy.club/img/storyCardImg.webp"
+            src="https://mangafy.club/img/storyCardImg1.webp"
             alt=""
           />
           {isOwn && (
