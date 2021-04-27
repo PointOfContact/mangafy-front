@@ -1,0 +1,27 @@
+@import '../../styles/variables.scss';
+
+.card {
+  min-width: 276px;
+  max-width: 276px;
+  background-color: $white;
+  text-align: center;
+  padding: 0;
+  padding-top: 9vh;
+  border-radius: 10px;
+  .description {
+    margin-bottom: 30px;
+    font-size: 15px;
+    line-height: 20px;
+    font-weight: 500;
+  }
+  button {
+    margin-top: 15px;
+    margin: 0 auto;
+  }
+  .card_img {
+    img {
+      margin: auto;
+      max-height: 140px;
+    }
+  }
+}
