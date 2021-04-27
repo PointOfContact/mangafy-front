@@ -1386,6 +1386,7 @@ img.rot4 {
 }
 
 .rce-mbox {
+  max-width: calc(100% - 90px);
   background: $primaryBG !important;
   color: $black;
   padding: 15px 10px !important;

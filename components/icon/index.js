@@ -1,6 +1,12 @@
 export { default as ActiveChecked } from './ActiveChecked';
 export { default as AddUser } from './AddUser';
 export { default as Add } from './Add';
+export { default as Add2 } from './Add2';
+export { default as Bell } from './Bell';
+export { default as BlackPatreon } from './BlackPatreon';
+export { default as BlackTapas } from './BlackTapas';
+export { default as BlackTiktok } from './BlackTiktok';
+export { default as BlackWebtoon } from './BlackWebtoon';
 export { default as BlackBehance } from './BlackBehance';
 export { default as BlackDeviantart } from './BlackDeviantart';
 export { default as BlackDribbble } from './BlackDribbble';

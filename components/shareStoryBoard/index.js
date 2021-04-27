@@ -62,13 +62,23 @@ export const ShareStoryBoard = ({ shareUrl, user }) => {
       </div>
       <h4 className={styles.title}>Self publishing platform</h4>
       <div className={styles.logos}>
-        <a
-          onClick={setAmplitude}
-          href="https://mangacat.io?utm_source=mangafy.club"
-          target="_blank"
-          rel="noreferrer">
-          <img src="/img/MangaCatButton.png" alt="" />
-        </a>
+        <div>
+          <a
+            onClick={setAmplitude}
+            href="https://mangacat.io?utm_source=mangafy.club"
+            target="_blank"
+            rel="noreferrer">
+            <img src="/img/MangaCatButton.png" alt="" />
+          </a>
+          <p>
+            <span>Terms : </span>
+            <a href="https://mangacat.io/terms" target="_blank" rel="noreferrer">
+              https://mangacat.io/terms
+            </a>
+          </p>
+        </div>
+        {/* Button link: https://mangacat.io
+Terms: https://mangacat.io/terms */}
         {/* 
       <a href="https://tapas.io/" target="_blank" rel="noreferrer">
         <img src="/img/tapacs.svg" alt="" />

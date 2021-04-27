@@ -30,7 +30,8 @@ const AccessDenied = ({ user }) => (
           {/* <div className={styles.error_title}>404</div> */}
           <div className={styles.page_title}>Access Denied</div>
           <div className={styles.page_description}>
-            Sorry, this confidential information is private.
+            Hello there! seems like you&apos;ve been invited to a private collaboration. Once you
+            confirm (you can always cancel) you&apos;ll be able to see the project details.
           </div>
           <Link href="/">
             <a>

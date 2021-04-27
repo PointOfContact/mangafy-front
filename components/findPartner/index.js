@@ -45,7 +45,12 @@ const FindPartner = ({ participentsInfo }) => {
             suffix={
               <Link className={styles.participentsCont} href={`/profiles`}>
                 <a>
-                  <Tooltip placement="topLeft" title="Add new users" arrowPointAtCenter>
+                  <Tooltip
+                    className={styles.text}
+                    placement="topLeft"
+                    title="Add new users"
+                    arrowPointAtCenter>
+                    {!!items?.length && <span>Find a partner</span>}
                     <SvgAdd2 width="25px" height="25px" />
                   </Tooltip>
                 </a>

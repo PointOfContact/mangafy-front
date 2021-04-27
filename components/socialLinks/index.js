@@ -8,7 +8,11 @@ import SvgBlackDeviantart from 'components/icon/BlackDeviantart';
 import SvgBlackDribbble from 'components/icon/BlackDribbble';
 import SvgBlackFacebook from 'components/icon/BlackFacebook';
 import SvgBlackInstagram from 'components/icon/BlackInstagram';
+import SvgBlackPatreon from 'components/icon/BlackPatreon';
+import SvgBlackTapas from 'components/icon/BlackTapas';
+import SvgBlackTiktok from 'components/icon/BlackTiktok';
 import SvgBlackTwitter from 'components/icon/BlackTwitter';
+import SvgBlackWebtoon from 'components/icon/BlackWebtoon';
 import Imgix from 'components/imgix';
 import AddButton from 'components/ui-elements/add-button';
 import PrimaryInput from 'components/ui-elements/input';
@@ -41,6 +45,10 @@ const SocialLinks = (props) => {
   const [facebookStatus, setFacebookStatus] = useState('');
   const [twitterStatus, setTwitterStatus] = useState('');
   const [instagramStatus, setInstagramStatus] = useState('');
+  const [patreonStatus, setPatreonStatus] = useState('');
+  const [tickTokStatus, setTickTokStatus] = useState('');
+  const [webtoonsStatus, setWebtoonsStatus] = useState('');
+  const [tapasStatus, setTapasStatus] = useState('');
   const [visible, setVisible] = useState(false);
 
   const getSocialLink = (platform) => socialLinks.find((item) => item.platform === platform)?.link;
@@ -113,6 +121,10 @@ const SocialLinks = (props) => {
         facebook: getSocialLink('facebook'),
         twitter: getSocialLink('twitter'),
         instagram: getSocialLink('instagram'),
+        patreon: getSocialLink('patreon'),
+        ticktok: getSocialLink('ticktok'),
+        webtoons: getSocialLink('webtoons'),
+        tapas: getSocialLink('tapas'),
       }}>
       <div className={styles.edit_social_content}>
         <div className={styles.social_inp}>
@@ -229,6 +241,82 @@ const SocialLinks = (props) => {
             <span>Instagram</span>
           </Form.Item>
         </div>
+        <div className={styles.social_inp}>
+          <SvgBlackPatreon width="21px" height="21px" />
+          <Form.Item validateStatus={patreonStatus} name="patreon">
+            <PrimaryInput
+              isLinear={true}
+              isFullWidth={true}
+              className={styles.social_inp}
+              defaultValue={getSocialLink('patreon')}
+              onBlur={(e) => {
+                e.target.value.includes('https://patreon.com') ||
+                e.target.value.includes('https://www.patreon.com') ||
+                e.target.value === ''
+                  ? (updateSocialLink(e.target.value, 'patreon'), setPatreonStatus('success'))
+                  : (openNotification('error', 'invalid link'), setPatreonStatus('error'));
+              }}
+            />
+            <span>Patreon</span>
+          </Form.Item>
+        </div>
+        <div className={styles.social_inp}>
+          <SvgBlackWebtoon width="21px" height="21px" />
+          <Form.Item validateStatus={webtoonsStatus} name="webtoons">
+            <PrimaryInput
+              isLinear={true}
+              isFullWidth={true}
+              className={styles.social_inp}
+              defaultValue={getSocialLink('webtoons')}
+              onBlur={(e) => {
+                e.target.value.includes('https://webtoons.com') ||
+                e.target.value.includes('https://www.webtoons.com') ||
+                e.target.value === ''
+                  ? (updateSocialLink(e.target.value, 'webtoons'), setWebtoonsStatus('success'))
+                  : (openNotification('error', 'invalid link'), setWebtoonsStatus('error'));
+              }}
+            />
+            <span>Webtoons</span>
+          </Form.Item>
+        </div>
+        <div className={styles.social_inp}>
+          <SvgBlackTiktok width="21px" height="21px" />
+          <Form.Item validateStatus={tickTokStatus} name="tiktok">
+            <PrimaryInput
+              isLinear={true}
+              isFullWidth={true}
+              className={styles.social_inp}
+              defaultValue={getSocialLink('tiktok')}
+              onBlur={(e) => {
+                e.target.value.includes('https://tiktok.com') ||
+                e.target.value.includes('https://www.tiktok.com') ||
+                e.target.value === ''
+                  ? (updateSocialLink(e.target.value, 'tiktok'), setTickTokStatus('success'))
+                  : (openNotification('error', 'invalid link'), setTickTokStatus('error'));
+              }}
+            />
+            <span>TickTok</span>
+          </Form.Item>
+        </div>
+        <div className={styles.social_inp}>
+          <SvgBlackTapas width="21px" height="21px" />
+          <Form.Item validateStatus={tapasStatus} name="tapas">
+            <PrimaryInput
+              isLinear={true}
+              isFullWidth={true}
+              className={styles.social_inp}
+              defaultValue={getSocialLink('tapas')}
+              onBlur={(e) => {
+                e.target.value.includes('https://tapas.io') ||
+                e.target.value.includes('https://www.tapas.io') ||
+                e.target.value === ''
+                  ? (updateSocialLink(e.target.value, 'tapas'), setTapasStatus('success'))
+                  : (openNotification('error', 'invalid link'), setTapasStatus('error'));
+              }}
+            />
+            <span>Tapas</span>
+          </Form.Item>
+        </div>
       </div>
     </Form>
   );
@@ -300,6 +388,7 @@ const SocialLinks = (props) => {
             className={styles.add_button}>
             {canEditInit && (
               <Popover
+                overlayStyle={{ zIndex: '935' }}
                 placement="topRight"
                 content={editSocial}
                 trigger="click"

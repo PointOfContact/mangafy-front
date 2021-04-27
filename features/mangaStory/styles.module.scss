@@ -320,6 +320,20 @@
   height: 100%;
   min-height: 500px;
 
+  .addNewbuttons {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 20px;
+    border-bottom: 1px solid rgba(33, 33, 33, 0.07);
+
+    .addTask {
+      margin-left: 10px;
+      font-size: 15px;
+      border-radius: 10px;
+    }
+  }
+
   .heroContainer {
     width: fit-content;
     max-width: 70%;
