@@ -12,7 +12,17 @@ import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
-const ModalDiscussion = ({ changeShowModal, showModal, user, postId, title, logo, img, url }) => {
+const ModalDiscussion = ({
+  changeShowModal,
+  showModal,
+  user,
+  postId,
+  title,
+  logo,
+  img,
+  url,
+  likesCount,
+}) => {
   const [commentsData, setCommentsData] = useState([]);
   const [likesData, setLikesData] = useState([]);
   const [isLiked, setIsLiked] = useState(false);
@@ -108,7 +118,7 @@ const ModalDiscussion = ({ changeShowModal, showModal, user, postId, title, logo
                   </spam>
                   <div className={styles.share}>
                     <span className={styles.like}>
-                      <span>{likesData.length}</span>
+                      <span>{likesData.length || likesCount}</span>
                       <SvgHeart
                         width="25px"
                         height="22px"
@@ -163,6 +173,7 @@ ModalDiscussion.propTypes = {
   logo: PropTypes.string.isRequired,
   img: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
+  likesCount: PropTypes.string,
   commentsData: PropTypes.array,
   user: PropTypes.object,
 };
@@ -170,4 +181,5 @@ ModalDiscussion.propTypes = {
 ModalDiscussion.defaultProps = {
   user: null,
   commentsData: [],
+  likesCount: 0,
 };

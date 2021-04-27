@@ -8,7 +8,11 @@ import SvgBlackDeviantart from 'components/icon/BlackDeviantart';
 import SvgBlackDribbble from 'components/icon/BlackDribbble';
 import SvgBlackFacebook from 'components/icon/BlackFacebook';
 import SvgBlackInstagram from 'components/icon/BlackInstagram';
+import SvgBlackPatreon from 'components/icon/BlackPatreon';
+import SvgBlackTapas from 'components/icon/BlackTapas';
+import SvgBlackTiktok from 'components/icon/BlackTiktok';
 import SvgBlackTwitter from 'components/icon/BlackTwitter';
+import SvgBlackWebtoon from 'components/icon/BlackWebtoon';
 import Imgix from 'components/imgix';
 import AddButton from 'components/ui-elements/add-button';
 import PrimaryInput from 'components/ui-elements/input';
@@ -238,7 +242,7 @@ const SocialLinks = (props) => {
           </Form.Item>
         </div>
         <div className={styles.social_inp}>
-          <SvgBlackDribbble width="21px" height="21px" />
+          <SvgBlackPatreon width="21px" height="21px" />
           <Form.Item validateStatus={patreonStatus} name="patreon">
             <PrimaryInput
               isLinear={true}
@@ -257,7 +261,7 @@ const SocialLinks = (props) => {
           </Form.Item>
         </div>
         <div className={styles.social_inp}>
-          <SvgBlackDribbble width="21px" height="21px" />
+          <SvgBlackWebtoon width="21px" height="21px" />
           <Form.Item validateStatus={webtoonsStatus} name="webtoons">
             <PrimaryInput
               isLinear={true}
@@ -276,7 +280,7 @@ const SocialLinks = (props) => {
           </Form.Item>
         </div>
         <div className={styles.social_inp}>
-          <SvgBlackDribbble width="21px" height="21px" />
+          <SvgBlackTiktok width="21px" height="21px" />
           <Form.Item validateStatus={tickTokStatus} name="tiktok">
             <PrimaryInput
               isLinear={true}
@@ -295,7 +299,7 @@ const SocialLinks = (props) => {
           </Form.Item>
         </div>
         <div className={styles.social_inp}>
-          <SvgBlackDribbble width="21px" height="21px" />
+          <SvgBlackTapas width="21px" height="21px" />
           <Form.Item validateStatus={tapasStatus} name="tapas">
             <PrimaryInput
               isLinear={true}

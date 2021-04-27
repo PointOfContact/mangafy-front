@@ -97,6 +97,7 @@ const DiscussionCard = (props) => {
         title={title}
         user={user}
         postId={id}
+        likesCount={likesCount}
       />
     </>
   );
