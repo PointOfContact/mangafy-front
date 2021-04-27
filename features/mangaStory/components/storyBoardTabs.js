@@ -5,6 +5,7 @@ import { findStoryBoard } from 'api/storyBoardClient';
 import { ChooseLayout } from 'components/chooseLayout';
 import FindPartner from 'components/findPartner';
 import Hero from 'components/Hero';
+import SvgAdd2 from 'components/icon/Add2';
 import ComicBookSvg from 'components/icon/ComicBook';
 import DocumentsSvg from 'components/icon/Documents';
 import GroupSvg from 'components/icon/Group';
@@ -15,6 +16,7 @@ import Idea from 'components/Idea';
 import { ModalSuccess } from 'components/modalSuccess';
 import ProjectScripts from 'components/projectScripts';
 import { ShareStoryBoard } from 'components/shareStoryBoard';
+import PrimaryButton from 'components/ui-elements/button';
 import Upload from 'components/ui-elements/upload';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import PropTypes from 'prop-types';
@@ -246,6 +248,20 @@ const StoryBoardTabs = ({
     }
   }, []);
 
+  const addNewbuttons = (
+    <div className={styles.addNewbuttons}>
+      <FindPartner participentsInfo={participentsInfo} />
+      <PrimaryButton
+        className={styles.addTask}
+        text="Add a task"
+        isPlump={true}
+        isActive={true}
+        items={[]}
+        suffix={<SvgAdd2 width="25px" height="25px" />}
+      />
+    </div>
+  );
+
   return (
     <Tabs
       activeKey={storyBoardActiveTab.toString()}
@@ -262,7 +278,7 @@ const StoryBoardTabs = ({
         }
         key={1}>
         <div className={styles.tabContent}>
-          <FindPartner participentsInfo={participentsInfo} />
+          {addNewbuttons}
           <Idea storyBoard={storyBoard} setStoryBoard={setStoryBoard} />
           {renderNavigationButtons(!(storyBoard?.idea?.title && storyBoard?.idea?.text))}
         </div>
@@ -276,7 +292,7 @@ const StoryBoardTabs = ({
         key={2}>
         {isShowAnimation && <span className={styles.showAnimation}></span>}
         <div className={styles.tabContent}>
-          <FindPartner participentsInfo={participentsInfo} />
+          {addNewbuttons}
           <Hero
             storyBoard={storyBoard}
             setStoryBoard={setStoryBoard}
@@ -294,7 +310,7 @@ const StoryBoardTabs = ({
         key={3}>
         {isShowAnimation && <span className={styles.showAnimation}></span>}
         <div className={styles.tabContent}>
-          <FindPartner participentsInfo={participentsInfo} />
+          {addNewbuttons}
           <ProjectScripts
             pages={storyBoard?.pages}
             storyBoardId={storyBoard?._id}
@@ -313,7 +329,7 @@ const StoryBoardTabs = ({
         key={4}>
         {isShowAnimation && <span className={styles.showAnimation}></span>}
         <div className={styles.tabContent}>
-          <FindPartner participentsInfo={participentsInfo} />
+          {addNewbuttons}
           <ChooseLayout storyBoard={storyBoard} setStoryBoard={setStoryBoard} />
           {renderNavigationButtons(!storyBoard?.layoutId)}
         </div>
@@ -328,7 +344,7 @@ const StoryBoardTabs = ({
         key={5}>
         {isShowAnimation && <span className={styles.showAnimation}></span>}
         <div className={styles.tabContent}>
-          <FindPartner participentsInfo={participentsInfo} />
+          {addNewbuttons}
           <Upload
             className={styles.upload}
             storyBoardId={storyBoard?._id}
@@ -360,7 +376,7 @@ const StoryBoardTabs = ({
         key={6}>
         {isShowAnimation && <span className={styles.showAnimation}></span>}
         <div className={styles.tabContent}>
-          <FindPartner participentsInfo={participentsInfo} />
+          {addNewbuttons}
           {isModalVisible ? (
             <ModalSuccess isModalVisible={isModalVisible} handleCancelModal={handleCancelModal} />
           ) : (

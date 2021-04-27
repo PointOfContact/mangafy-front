@@ -70,22 +70,28 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
   };
 
   const createTask = async () => {
+    const data =
+      rewardType === 'Free'
+        ? {
+            mangaStoryId: baseData._id,
+            lookingFor,
+            description: text,
+            rewardType,
+          }
+        : {
+            mangaStoryId: baseData._id,
+            lookingFor,
+            description: text,
+            rewardType,
+            amount,
+          };
     const jwt = client.getCookie('feathers-jwt');
     const { default: api } = await import('api/restClient');
     api
       .service('/api/v2/tasks')
-      .create(
-        {
-          mangaStoryId: baseData._id,
-          lookingFor,
-          description: text,
-          rewardType,
-          amount,
-        },
-        {
-          headers: { Authorization: `Bearer ${jwt}` },
-        }
-      )
+      .create(data, {
+        headers: { Authorization: `Bearer ${jwt}` },
+      })
       .then((res) => {
         updateTasks();
         changeLookingFor('Writer');

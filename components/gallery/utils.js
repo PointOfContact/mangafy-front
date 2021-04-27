@@ -239,6 +239,26 @@ const socials = [
     name: 'behance',
     link: 'https://behance.com',
   },
+  {
+    id: '7',
+    name: 'patreon',
+    link: 'https://patreon.com',
+  },
+  {
+    id: '8',
+    name: 'ticktok',
+    link: 'https://ticktok.com',
+  },
+  {
+    id: '9',
+    name: 'webtoons',
+    link: 'https://webtoons.com',
+  },
+  {
+    id: '10',
+    name: 'tapas',
+    link: 'https://tapas.io',
+  },
 ];
 
 export {
