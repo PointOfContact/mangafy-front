@@ -364,7 +364,7 @@ const StoryBoardTabs = ({
           {isModalVisible ? (
             <ModalSuccess isModalVisible={isModalVisible} handleCancelModal={handleCancelModal} />
           ) : (
-            <ShareStoryBoard shareUrl={originUrl} />
+            <ShareStoryBoard user={user} shareUrl={originUrl} />
           )}
           {renderNavigationButtons()}
         </div>

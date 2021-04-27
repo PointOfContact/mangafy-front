@@ -38,7 +38,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    a {
+      height: 100%;
+      display: inline-block;
+    }
     img {
+      height: 100%;
       cursor: pointer;
     }
     .webtoon {
@@ -55,6 +60,13 @@
     align-items: center;
     @include media-sm {
       display: flex;
+    }
+    a {
+      display: inline-block;
+    }
+    img {
+      height: 60px;
+      cursor: pointer;
     }
     button {
       margin-top: 16px;
