@@ -50,7 +50,7 @@ const FindPartner = ({ participentsInfo }) => {
                     placement="topLeft"
                     title="Add new users"
                     arrowPointAtCenter>
-                    {items && <span>Find a partner</span>}
+                    {!!items?.length && <span>Find a partner</span>}
                     <SvgAdd2 width="25px" height="25px" />
                   </Tooltip>
                 </a>
