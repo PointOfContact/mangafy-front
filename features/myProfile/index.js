@@ -144,7 +144,7 @@ const MyProfile = (props) => {
             mangaStories,
           }}
         />
-        <ProfileStages user={userData} />
+        <ProfileStages total={total} user={user} userData={userData} />
         <Footer />
       </main>
     </div>

@@ -8,8 +8,8 @@ import styles from './styles.module.scss';
 
 const { Step } = Steps;
 
-const ProfileStages = ({ user }) => {
-  const [isContent, setIsContent] = useState(!!user?.content);
+const ProfileStages = ({ user, userData, total }) => {
+  const [isContent, setIsContent] = useState(!!userData?.content);
   const [content] = useState({
     title: 'Introduce the artist in you!',
     description:
@@ -26,31 +26,36 @@ const ProfileStages = ({ user }) => {
     status: 'process',
   });
 
+  const [isPricingTable, setIsPricingTable] = useState(!!user?.pricingTable?.length);
+  const [pricingTable] = useState({
+    title: 'Are you open for commissions?',
+    description:
+      'Add your commission list and get more relevant offers for collaboration on paid projects.',
+  });
+
+  const [isMangaStories, setIsMangaStories] = useState(total > 0);
+  const [mangaStories] = useState({
+    title: 'Start a project',
+    description: 'Now you are ready to get started on your comic or manga project',
+    status: true,
+  });
+
   const [stages] = useState([
-    {
-      title: 'Are you open for commissions?',
-      description:
-        'Add your commission list and get more relevant offers for collaboration on paid projects.',
-      status: 'finish',
-    },
     {
       title: 'Create a task',
       description: 'We believe no one should work alone, create task and find collaboration',
       status: 'error',
-    },
-    {
-      title: 'Start a project',
-      description: 'Now you are ready to get started on your comic or manga project',
-      status: true,
     },
   ]);
   // content
   console.log('useruseruseruser', user);
 
   useEffect(() => {
-    setIsContent(!!user?.content);
+    setIsContent(!!userData?.content);
     setIsGeleriOrLink(!!(user?.gallery?.length || user?.socialLinks?.length));
-  }, [user]);
+    setIsPricingTable(!!user?.pricingTable?.length);
+    setIsMangaStories(total > 0);
+  }, [userData, user, total]);
 
   return (
     <div className={cn(styles.profileStages)}>
@@ -65,6 +70,16 @@ const ProfileStages = ({ user }) => {
           title={geleriOrLink.title}
           description={geleriOrLink.description}
         />
+        <Step
+          status={isPricingTable ? 'process' : 'wait'}
+          title={pricingTable.title}
+          description={pricingTable.description}
+        />
+        <Step
+          status={isMangaStories ? 'process' : 'wait'}
+          title={mangaStories.title}
+          description={mangaStories.description}
+        />
       </Steps>
     </div>
   );
@@ -72,8 +87,12 @@ const ProfileStages = ({ user }) => {
 
 ProfileStages.propTypes = {
   user: PropTypes.object.isRequired,
+  userData: PropTypes.object.isRequired,
+  total: PropTypes.number,
 };
 
-ProfileStages.defaultProps = {};
+ProfileStages.defaultProps = {
+  total: 0,
+};
 
 export default ProfileStages;
