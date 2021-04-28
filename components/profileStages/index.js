@@ -10,19 +10,23 @@ const { Step } = Steps;
 
 const ProfileStages = ({ user }) => {
   const [isContent, setIsContent] = useState(!!user?.content);
+  const [content] = useState({
+    title: 'Introduce the artist in you!',
+    description:
+      'Tell us your story about yourself, what drives you? where do you draw inspiration from?',
+  });
+
+  const [isGeleriOrLink, setIsGeleriOrLink] = useState(
+    !!(user?.gallery?.length || user?.socialLinks?.length)
+  );
+  const [geleriOrLink] = useState({
+    title: "It's all about portfolio",
+    description:
+      'Upload or share links to your work, social artistic profile. Highlight your presence in the MangaFY community.',
+    status: 'process',
+  });
+
   const [stages] = useState([
-    {
-      title: 'Introduce the artist in you!',
-      description:
-        'Tell us your story about yourself, what drives you? where do you draw inspiration from?',
-      status: isContent ? 'process' : 'wait',
-    },
-    {
-      title: "It's all about portfolio",
-      description:
-        'Upload or share links to your work, social artistic profile. Highlight your presence in the MangaFY community.',
-      status: 'process',
-    },
     {
       title: 'Are you open for commissions?',
       description:
@@ -45,29 +49,29 @@ const ProfileStages = ({ user }) => {
 
   useEffect(() => {
     setIsContent(!!user?.content);
-    stages[0].status = !!user?.content;
-    console.log('isContentisContentisContent', user?.content, isContent);
+    setIsGeleriOrLink(!!(user?.gallery?.length || user?.socialLinks?.length));
   }, [user]);
-
-  // const getIsContent = () => {
-  //   if (!!user?.content) {
-  //     return true
-  //   }
-  // };
 
   return (
     <div className={cn(styles.profileStages)}>
       <Steps direction="vertical">
-        {stages.map((stage) => (
-          <Step status title description />
-        ))}
+        <Step
+          status={isContent ? 'process' : 'wait'}
+          title={content.title}
+          description={content.description}
+        />
+        <Step
+          status={isGeleriOrLink ? 'process' : 'wait'}
+          title={geleriOrLink.title}
+          description={geleriOrLink.description}
+        />
       </Steps>
     </div>
   );
 };
 
 ProfileStages.propTypes = {
-  user: PropTypes.string.isRequired,
+  user: PropTypes.object.isRequired,
 };
 
 ProfileStages.defaultProps = {};
