@@ -422,6 +422,8 @@ const MangeStory = (props) => {
                         openNotification={openNotification}
                         originUrl={originUrl}
                         participentsInfo={baseData.participentsInfo}
+                        baseData={baseData}
+                        setBaseData={setBaseData}
                       />
                     </TabPane>
                   )}
@@ -435,18 +437,20 @@ const MangeStory = (props) => {
                       />
                     </div>
                   </TabPane>
-                  {user && (
-                    <TabPane tab="TEAM CHAT" key="4">
-                      <div className={styles.tabWrap}>
-                        <Chat
-                          mangaStory={baseData}
-                          user={user}
-                          isOwn={isOwn}
-                          collabActiveTab={collabActiveTab}
-                        />
-                      </div>
-                    </TabPane>
-                  )}
+                  {user &&
+                    (baseData?.participentsInfo?.find((item) => item._id === user._id) ||
+                      baseData?.author === user._id) && (
+                      <TabPane tab="TEAM CHAT" key="4">
+                        <div className={styles.tabWrap}>
+                          <Chat
+                            mangaStory={baseData}
+                            user={user}
+                            isOwn={isOwn}
+                            collabActiveTab={collabActiveTab}
+                          />
+                        </div>
+                      </TabPane>
+                    )}
                 </Tabs>
               </div>
             </div>
