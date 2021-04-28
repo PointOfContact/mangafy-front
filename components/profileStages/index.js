@@ -37,16 +37,17 @@ const ProfileStages = ({ user, userData, total }) => {
   const [mangaStories] = useState({
     title: 'Start a project',
     description: 'Now you are ready to get started on your comic or manga project',
-    status: true,
   });
 
-  const [stages] = useState([
-    {
-      title: 'Create a task',
-      description: 'We believe no one should work alone, create task and find collaboration',
-      status: 'error',
-    },
-  ]);
+  const getIsTask = () => {
+    return user?.mangaStories?.data?.some((manga) => manga.tasks?.length);
+  };
+
+  const [isTask, setIsTask] = useState(getIsTask());
+  const [task] = useState({
+    title: 'Create a task',
+    description: 'We believe no one should work alone, create task and find collaboration',
+  });
   // content
   console.log('useruseruseruser', user);
 
@@ -55,6 +56,7 @@ const ProfileStages = ({ user, userData, total }) => {
     setIsGeleriOrLink(!!(user?.gallery?.length || user?.socialLinks?.length));
     setIsPricingTable(!!user?.pricingTable?.length);
     setIsMangaStories(total > 0);
+    setIsTask(getIsTask());
   }, [userData, user, total]);
 
   return (
@@ -79,6 +81,11 @@ const ProfileStages = ({ user, userData, total }) => {
           status={isMangaStories ? 'process' : 'wait'}
           title={mangaStories.title}
           description={mangaStories.description}
+        />
+        <Step
+          status={isTask ? 'process' : 'wait'}
+          title={task.title}
+          description={task.description}
         />
       </Steps>
     </div>
