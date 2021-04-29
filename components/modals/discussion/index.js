@@ -8,6 +8,7 @@ import SvgShareColored from 'components/icon/ShareColored';
 import Imgix from 'components/imgix';
 import { ShareButtons } from 'components/share';
 import { Comments } from 'components/type-content/comments';
+import Router from 'next/router';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
@@ -42,6 +43,7 @@ const ModalDiscussion = ({
 
   const handleLike = () => {
     if (!user) {
+      Router.push(`/sign-in`);
       return;
     }
 

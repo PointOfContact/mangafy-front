@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import LargeButton from 'components/ui-elements/large-button';
+import PrimaryButton from 'components/ui-elements/button';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 
@@ -43,7 +43,7 @@ const DiscussionLeftBar = (props) => {
             <div className={styles.tagsButtons}>
               <Link href="/collaborations">
                 <a>
-                  <LargeButton text="All Collabs" className={styles.more} />
+                  <PrimaryButton text="All Collabs" className={styles.more} />
                 </a>
               </Link>
             </div>
@@ -64,7 +64,7 @@ const DiscussionLeftBar = (props) => {
             </ul>
             <Link href="/profiles">
               <a>
-                <LargeButton text="All Members" className={styles.more} />
+                <PrimaryButton text="All Members" className={styles.more} />
               </a>
             </Link>
           </div>

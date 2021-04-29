@@ -62,9 +62,16 @@ const DiscussionCard = (props) => {
         <div
           onClick={() => changeShowModal(true)}
           className={styles.projectsForYou_MainImg}
-          style={{
-            backgroundImage: `url(${img ? client.UPLOAD_URL + img : '/img/mangastory.jpg'})`,
-          }}>
+          style={
+            img
+              ? {
+                  backgroundImage: `url(${client.UPLOAD_URL + img})`,
+                }
+              : {
+                  backgroundImage: `url(/img/mangastory.jpg)`,
+                  backgroundSize: 'cover',
+                }
+          }>
           <div className={styles.comments}>
             <div>
               <span>{likesCount}</span>

@@ -44,5 +44,12 @@
         height: 78px;
       }
     }
+    .back {
+      margin-top: 20px;
+      color: black;
+      &:hover {
+        color: $primaryDark;
+      }
+    }
   }
 }

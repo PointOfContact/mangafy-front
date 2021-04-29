@@ -50,7 +50,8 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipent }) => {
         ];
         amplitude.track(eventData);
       })
-      .catch((err) => err);
+      .catch(() => updateTasks());
+    // To do 404
   };
 
   const updateTasks = async () => {
@@ -164,7 +165,7 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipent }) => {
             src="https://mangafy.club/img/storyCardImg1.webp"
             alt=""
           />
-          {isOwn && (
+          {isOwn ? (
             <PrimaryButton
               onClick={() => {
                 changeShowModal(true);
@@ -172,6 +173,15 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipent }) => {
               }}
               text="create a task"
             />
+          ) : (
+            !tasks?.length && (
+              <PrimaryButton
+                onClick={() => {
+                  toTeam(null);
+                }}
+                text="Contribute"
+              />
+            )
           )}
         </div>
       </div>

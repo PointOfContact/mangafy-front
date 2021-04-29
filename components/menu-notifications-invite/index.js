@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 
-import { Popconfirm } from 'antd';
 import cn from 'classnames';
 import PrimaryButton from 'components/ui-elements/button';
 import { EVENTS } from 'helpers/amplitudeEvents';
@@ -64,50 +63,30 @@ const MenuNotificationsInvite = ({
       {status === 'new' && (
         <div className={styles.status}>
           <div className={cn(styles.div_button, 'buttonsProfile_styles')}>
-            <Popconfirm
-              overlayClassName={styles.popconfirm}
-              placement="top"
-              title="Are you sure to disapprove this invite?"
-              onClick={(event) => event.stopPropagation()}
-              onConfirm={(event) => {
+            <PrimaryButton
+              onClick={(event) => {
                 setRecvestStatus(event, requestId, 'rejected');
               }}
-              okText="Yes"
-              cancelText="No">
-              <PrimaryButton className="buttonsProfile_cancel" text="Cancel" isDark isRound />
-            </Popconfirm>
-            <Popconfirm
-              placement="top"
-              overlayClassName={styles.popconfirm}
-              title="Are you sure to approve this invite?"
-              onConfirm={(event) => {
+              className="buttonsProfile_cancel"
+              text="Cancel"
+              isDark
+              isRound
+            />
+            <PrimaryButton
+              onClick={(event) => {
                 setRecvestStatus(event, requestId, 'accepted');
               }}
-              onClick={(event) => event.stopPropagation()}
-              okText="Yes"
-              cancelText="No">
-              <PrimaryButton className="buttonsProfile_save" text="save" isActive isRound />
-            </Popconfirm>
+              className="buttonsProfile_save"
+              text="save"
+              isActive
+              isRound
+            />
           </div>
         </div>
       )}
       {status === 'accepted' && (
         <div className={styles.status}>
           <span>Invite is accepted!</span>
-          {/* <div className={cn(styles.div_button, 'buttonsProfile_styles')}>
-            <Popconfirm
-              overlayClassName={styles.popconfirm}
-              placement="top"
-              title="Are you sure to disapprove this invite?"
-              onClick={(event) => event.stopPropagation()}
-              onConfirm={(event) => {
-                setRecvestStatus(event, requestId, 'rejected');
-              }}
-              okText="Yes"
-              cancelText="No">
-              <PrimaryButton className="buttonsProfile_cancel" text="Cancel" isDark isRound />
-            </Popconfirm>
-          </div> */}
         </div>
       )}
 
