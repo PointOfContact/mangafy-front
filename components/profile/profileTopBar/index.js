@@ -4,13 +4,10 @@ import { Upload, Input, Select, Layout, Row, Col, notification } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
 import Follow from 'components/follow';
-import SvgAddUser from 'components/icon/AddUser';
-import SvgCheck from 'components/icon/Check';
 import SvgDustbin from 'components/icon/Dustbin';
 import SvgGreenChecked from 'components/icon/GreenChecked';
 import SvgPortfolio from 'components/icon/Portfolio';
 import SvgPrimaryAdd from 'components/icon/PrimaryAdd';
-import SvgUserDrawing from 'components/icon/UserDrawing';
 import Imgix from 'components/imgix';
 import ModalInvites from 'components/modals/sendInvites';
 import { ShareButtons } from 'components/share';
@@ -65,32 +62,6 @@ const ProfileTopBar = (props) => {
       } else {
         openNotification('error', "You don't have manga story");
       }
-    } else {
-      history.push(`/sign-in?page=profile/${profile._id}`);
-    }
-  };
-
-  const followUser = (userId) => {
-    const data = { userId };
-    const jwt = client.getCookie('feathers-jwt');
-    return import('api/restClient').then((m) =>
-      m.default.service(`/api/v2/likes`).create(data, {
-        headers: { Authorization: `Bearer ${jwt}` },
-        mode: 'no-cors',
-      })
-    );
-  };
-
-  const onFollowUser = () => {
-    console.log(profile._id);
-    if (user) {
-      followUser(profile._id)
-        .then(() => {
-          setLikedUsers([...likedUsers, user._id]);
-        })
-        .catch((err) => {
-          setErrMessage(err.message);
-        });
     } else {
       history.push(`/sign-in?page=profile/${profile._id}`);
     }
@@ -208,10 +179,10 @@ const ProfileTopBar = (props) => {
                     />
                     <Follow
                       count={user?.likedUsers?.length}
-                      onFollowUser={onFollowUser}
                       profile={profile}
                       user={user}
                       likedUsers={user?.likedUsers}
+                      setLikedUsers={setLikedUsers}
                     />
                     <Link href="/contact-us">
                       <a>
@@ -239,34 +210,11 @@ const ProfileTopBar = (props) => {
                     )}
                     <Follow
                       count={likedUsers?.length}
-                      onFollowUser={onFollowUser}
                       profile={profile}
                       user={user}
                       likedUsers={likedUsers}
+                      setLikedUsers={setLikedUsers}
                     />
-                    {console.log('likedUsers', likedUsers.length)}
-                    {profile && (
-                      <span className={styles.followe_content}>
-                        <span className={styles.count}>{likedUsers.length} followers</span>
-                        {likedUsers.includes(user?._id) ? (
-                          <span className={styles.icons}>
-                            <SvgCheck width="16px" height="16px" />
-                            <SvgUserDrawing width="22px" height="22px" />
-                          </span>
-                        ) : (
-                          <>
-                            {user?._id !== profile?._id && (
-                              <span
-                                onClick={() => onFollowUser(profile._id)}
-                                className={styles.btn}>
-                                <SvgAddUser width="22px" height="22px" />
-                                Follow
-                              </span>
-                            )}
-                          </>
-                        )}
-                      </span>
-                    )}
                   </>
                 )}
               </>

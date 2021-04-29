@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 
+import { notification } from 'antd';
+import client from 'api/client';
 import cn from 'classnames';
+import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
@@ -8,10 +11,65 @@ import styles from './styles.module.scss';
 const confettiAmount = 60;
 const confettiColors = ['#7d32f5', '#f6e434', '#63fdf1', '#e672da', '#295dfe', '#6e57ff'];
 
-const Follow = ({ count, user, profile, onFollowUser, likedUsers }) => {
+const Follow = ({ count, user, profile, likedUsers, setLikedUsers }) => {
   const [isMe] = useState(user?._id === profile?._id || !profile);
-  const random = (min, max) => {
-    Math.floor(Math.random() * (max - min + 1) + min);
+
+  const history = useRouter();
+
+  const random = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
+
+  const followUser = (userId) => {
+    const data = { userId };
+    const jwt = client.getCookie('feathers-jwt');
+    return import('api/restClient').then((m) =>
+      m.default.service(`/api/v2/likes`).create(data, {
+        headers: { Authorization: `Bearer ${jwt}` },
+        mode: 'no-cors',
+      })
+    );
+  };
+
+  const unFollowUser = (userId) => {
+    const jwt = client.getCookie('feathers-jwt');
+    return import('api/restClient').then((m) =>
+      m.default.service(`/api/v2/likes`).remove(userId, {
+        headers: { Authorization: `Bearer ${jwt}` },
+        mode: 'no-cors',
+      })
+    );
+  };
+
+  const onFollowUser = () => {
+    if (user) {
+      followUser(profile._id)
+        .then(() => {
+          setLikedUsers([...likedUsers, user._id]);
+        })
+        .catch((err) => {
+          notification.error({
+            message: err.message,
+          });
+        });
+    } else {
+      history.push(`/sign-in?page=profile/${profile._id}`);
+    }
+  };
+
+  const onUnFollowUser = () => {
+    if (user) {
+      unFollowUser(profile._id)
+        .then(() => {
+          const newLikedUsers = likedUsers.filter((item) => item !== user._id);
+          setLikedUsers([...newLikedUsers]);
+        })
+        .catch((err) => {
+          notification.error({
+            message: err.message,
+          });
+        });
+    } else {
+      history.push(`/sign-in?page=profile/${profile._id}`);
+    }
   };
 
   const createConfetti = (to) => {
@@ -26,40 +84,15 @@ const Follow = ({ count, user, profile, onFollowUser, likedUsers }) => {
 
   const handleFollow = (e) => {
     e.preventDefault();
-
-    // if (user?._id && profile?._id && !isMe) {
-    //   document.querySelectorAll(`.${styles.paw_button}`).forEach((elem) => {
-    //     elem.addEventListener('click', (event) => {
-    //       // const number = elem.children[1].textContent;
-    //       if (likedUsers.includes(user._id)) {
-    //         elem.classList.remove(styles.animation, styles.liked, styles.confetti);
-    //         // elem.children[1].textContent = parseInt(number, 10) - 1;
-    //       } else {
-    //         // onFollowUser();
-    //         elem.classList.add(styles.animation);
-    //         for (let i = 0; i < confettiAmount; i++) {
-    //           createConfetti(elem);
-    //         }
-    //         setTimeout(() => {
-    //           elem.classList.add(styles.confetti);
-    //           setTimeout(() => {
-    //             elem.classList.add(styles.liked);
-    //             // elem.children[1].textContent = parseInt(number, 10) + 1;
-    //           }, 400);
-    //           setTimeout(() => {
-    //             elem.querySelectorAll('i').forEach((i) => i.remove());
-    //           }, 600);
-    //         }, 260);
-    //       }
-    //       event.preventDefault();
-    //     });
-    //   });
-
-    document.querySelectorAll(`.${styles.paw_button}`).forEach((elem) => {
-      elem.addEventListener('click', (event) => {
-        const number = elem.children[1].textContent;
-        if (!elem.classList.contains(styles.animation)) {
+    if (user?._id && profile?._id && !isMe) {
+      document.querySelectorAll(`.${styles.paw_button}`).forEach((elem) => {
+        if (likedUsers.includes(user._id)) {
+          // onUnFollowUser();
+          // elem.classList.remove(styles.animation, styles.liked, styles.confetti);
+        } else {
+          onFollowUser();
           elem.classList.add(styles.animation);
+          // eslint-disable-next-line no-plusplus
           for (let i = 0; i < confettiAmount; i++) {
             createConfetti(elem);
           }
@@ -67,39 +100,20 @@ const Follow = ({ count, user, profile, onFollowUser, likedUsers }) => {
             elem.classList.add(styles.confetti);
             setTimeout(() => {
               elem.classList.add(styles.liked);
-              elem.children[1].textContent = parseInt(number, 10) + 1;
             }, 400);
             setTimeout(() => {
               elem.querySelectorAll('i').forEach((i) => i.remove());
             }, 600);
           }, 260);
-        } else {
-          elem.classList.remove(styles.animation, styles.liked, styles.confetti);
-          elem.children[1].textContent = parseInt(number, 10) - 1;
         }
-        event.preventDefault();
       });
-    });
-    // }
+    } else if (!user?._id) {
+      history.push(`/sign-in?page=profile/${profile._id}`);
+    }
   };
+
   return (
     <div className={cn(styles.follow)}>
-      {/* {likedUsers.includes(user?._id) ? (
-        <span className={styles.icons}>
-          <SvgCheck width="16px" height="16px" />
-          <SvgUserDrawing width="22px" height="22px" />
-        </span>
-      ) : (
-        <>
-          {user?._id !== profile?._id && (
-            <span onClick={() => onFollowUser(profile._id)} className={styles.btn}>
-              <SvgAddUser width="22px" height="22px" />
-              Follow
-            </span>
-          )}
-        </>
-      )} */}
-
       <a
         onClick={handleFollow}
         href=""
@@ -179,13 +193,12 @@ Follow.propTypes = {
   count: PropTypes.string,
   user: PropTypes.object,
   profile: PropTypes.object,
-  onFollowUser: PropTypes.object,
   likedUsers: PropTypes.array,
+  setLikedUsers: PropTypes.func.isRequired,
 };
 
 Follow.defaultProps = {
   count: 0,
-  onFollowUser: () => {},
   profile: {},
   user: {},
   likedUsers: [],
