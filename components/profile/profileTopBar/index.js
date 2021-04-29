@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Upload, Input, Select, Layout, Row, Col, notification } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
+import Follow from 'components/follow';
 import SvgAddUser from 'components/icon/AddUser';
 import SvgCheck from 'components/icon/Check';
 import SvgDustbin from 'components/icon/Dustbin';
@@ -80,9 +81,10 @@ const ProfileTopBar = (props) => {
     );
   };
 
-  const onFollowUser = (profileId) => {
+  const onFollowUser = () => {
+    console.log(profile._id);
     if (user) {
-      followUser(profileId)
+      followUser(profile._id)
         .then(() => {
           setLikedUsers([...likedUsers, user._id]);
         })
@@ -152,8 +154,8 @@ const ProfileTopBar = (props) => {
               <>
                 {profile.avatar ? (
                   <Imgix
-                    width={52}
-                    height={52}
+                    width={500}
+                    height={500}
                     className="avatar"
                     src={client.UPLOAD_URL + profile.avatar}
                   />
@@ -165,8 +167,8 @@ const ProfileTopBar = (props) => {
               <>
                 {userData?.avatar ? (
                   <Imgix
-                    width={52}
-                    height={52}
+                    width={500}
+                    height={500}
                     className="avatar"
                     src={client.UPLOAD_URL + userData.avatar}
                   />
@@ -204,9 +206,13 @@ const ProfileTopBar = (props) => {
                       splitterStyle={{ width: '120px', fontSize: '15px' }}
                       onClick={() => setEditMode(true)}
                     />
-                    <span className={styles.followe_content}>
-                      <span className={styles.count}>{user?.likedUsers?.length} followers</span>
-                    </span>
+                    <Follow
+                      count={user?.likedUsers?.length}
+                      onFollowUser={onFollowUser}
+                      profile={profile}
+                      user={user}
+                      likedUsers={user?.likedUsers}
+                    />
                     <Link href="/contact-us">
                       <a>
                         <div className={styles.deleteAccount}>
@@ -231,6 +237,14 @@ const ProfileTopBar = (props) => {
                         />
                       </span>
                     )}
+                    <Follow
+                      count={likedUsers?.length}
+                      onFollowUser={onFollowUser}
+                      profile={profile}
+                      user={user}
+                      likedUsers={likedUsers}
+                    />
+                    {console.log('likedUsers', likedUsers.length)}
                     {profile && (
                       <span className={styles.followe_content}>
                         <span className={styles.count}>{likedUsers.length} followers</span>
