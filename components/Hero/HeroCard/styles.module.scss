@@ -28,6 +28,7 @@
       text-overflow: ellipsis;
     }
     p {
+      height: 40px;
       display: -webkit-box;
       -webkit-line-clamp: 2;
       white-space: pre-wrap;
@@ -39,7 +40,6 @@
 
   &__text__row {
     width: 100%;
-    height: 30px;
   }
 
   &__text__input {
