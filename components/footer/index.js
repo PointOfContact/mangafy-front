@@ -42,7 +42,11 @@ const Footer = () => (
               <a href="" target="_blank" rel="noreferrer" className={styles.footer__socBtn}>
                 <SvgTwNew width="25px" height="25px" />
               </a>
-              <a href="" target="_blank" rel="noreferrer" className={styles.footer__socBtn}>
+              <a
+                href="https://www.instagram.com/mangaka_ody/"
+                target="_blank"
+                rel="noreferrer"
+                className={styles.footer__socBtn}>
                 <SvgInstNew width="25px" height="25px" />
               </a>
             </div>

@@ -91,13 +91,21 @@ Terms: https://mangacat.io/terms */}
       </a> */}
       </div>
       <div className={styles.logos_mobile}>
-        <a
-          onClick={setAmplitude}
-          href="https://mangacat.io?utm_source=mangafy.club"
-          target="_blank"
-          rel="noreferrer">
-          <img src="/img/MangaCatButton.png" alt="" />
-        </a>
+        <div>
+          <a
+            onClick={setAmplitude}
+            href="https://mangacat.io?utm_source=mangafy.club"
+            target="_blank"
+            rel="noreferrer">
+            <img src="/img/MangaCatButton.png" alt="" />
+          </a>
+          <p>
+            <span>Terms : </span>
+            <a href="https://mangacat.io/terms" target="_blank" rel="noreferrer">
+              https://mangacat.io/terms
+            </a>
+          </p>
+        </div>
       </div>
       {/* 
       <a href="https://tapas.io/" target="_blank" rel="noreferrer">

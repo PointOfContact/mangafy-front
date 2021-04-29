@@ -29,6 +29,9 @@ const findNotificationsCount = (onSuccess, onFailure) => {
       .find({
         query: {
           $limit: 0,
+          $sort: {
+            createdAt: -1,
+          },
           unread: true,
         },
         headers: { Authorization: `Bearer ${jwt}` },
