@@ -29,6 +29,7 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
     const query = {
       $limit: 5,
       $sort: {
+        internalOrder: -1,
         createdAt: -1,
       },
     };
@@ -38,6 +39,7 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
     const query1 = {
       $limit: 6,
       $sort: {
+        internalOrder: -1,
         createdAt: -1,
       },
       published: true,

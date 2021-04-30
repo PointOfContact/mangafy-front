@@ -16,6 +16,7 @@ const DiscussionCard = (props) => {
   const {
     id,
     logo,
+    logoNavigate,
     title,
     category,
     categories,
@@ -34,11 +35,17 @@ const DiscussionCard = (props) => {
     <>
       <div className={styles.projectsForYou_Card}>
         <div className={styles.projectsForYou_Top}>
-          <div
-            className={styles.projectsForYou_Logo}
-            style={{
-              backgroundImage: `url(${logo ? client.UPLOAD_URL + logo : '/img/mangastory.jpg'})`,
-            }}></div>
+          <Link href={logoNavigate}>
+            <a>
+              <div
+                className={styles.projectsForYou_Logo}
+                style={{
+                  backgroundImage: `url(${
+                    logo ? client.UPLOAD_URL + logo : '/img/mangastory.jpg'
+                  })`,
+                }}></div>
+            </a>
+          </Link>
           <div className={styles.projectsForYou_Descr}>
             <div className={styles.projectsForYou_Name}>{title}</div>
             <div className={styles.projectsForYou_Category}>
@@ -105,6 +112,7 @@ const DiscussionCard = (props) => {
         user={user}
         postId={id}
         likesCount={likesCount}
+        logoNavigate={logoNavigate}
       />
     </>
   );
@@ -124,10 +132,12 @@ DiscussionCard.propTypes = {
   user: PropTypes.object,
   commentsCount: PropTypes.number.isRequired,
   likesCount: PropTypes.number.isRequired,
+  logoNavigate: PropTypes.string,
 };
 
 DiscussionCard.defaultProps = {
   user: null,
+  logoNavigate: '',
 };
 
 export default DiscussionCard;
