@@ -8,6 +8,7 @@ import SvgShareColored from 'components/icon/ShareColored';
 import Imgix from 'components/imgix';
 import { ShareButtons } from 'components/share';
 import { Comments } from 'components/type-content/comments';
+import Link from 'next/link';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
 
@@ -23,6 +24,7 @@ const ModalDiscussion = ({
   img,
   url,
   likesCount,
+  logoNavigate,
 }) => {
   const [commentsData, setCommentsData] = useState([]);
   const [likesData, setLikesData] = useState([]);
@@ -99,23 +101,27 @@ const ModalDiscussion = ({
               <div className={styles.br}>
                 <div className={styles.info}>
                   <spam className={styles.logo}>
-                    <span>
-                      {logo ? (
-                        <Imgix
-                          width={54}
-                          height={54}
-                          src={client.UPLOAD_URL + logo}
-                          layout="fixed"
-                        />
-                      ) : (
-                        <Imgix
-                          width={54}
-                          height={54}
-                          layout="fixed"
-                          src={'https://mangafy.club/img/mangastory.webp'}
-                        />
-                      )}
-                    </span>
+                    <Link href={logoNavigate}>
+                      <a>
+                        <span>
+                          {logo ? (
+                            <Imgix
+                              width={54}
+                              height={54}
+                              src={client.UPLOAD_URL + logo}
+                              layout="intrinsic"
+                            />
+                          ) : (
+                            <Imgix
+                              width={54}
+                              height={54}
+                              layout="intrinsic"
+                              src={'https://mangafy.club/img/mangastory.webp'}
+                            />
+                          )}
+                        </span>
+                      </a>
+                    </Link>
                     <h2 className={styles.subtitle}>{title}</h2>
                   </spam>
                   <div className={styles.share}>
@@ -178,10 +184,12 @@ ModalDiscussion.propTypes = {
   likesCount: PropTypes.string,
   commentsData: PropTypes.array,
   user: PropTypes.object,
+  logoNavigate: PropTypes.string,
 };
 
 ModalDiscussion.defaultProps = {
   user: null,
+  logoNavigate: '',
   commentsData: [],
   likesCount: 0,
 };
