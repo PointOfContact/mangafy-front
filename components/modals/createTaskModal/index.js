@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Modal, Input, notification } from 'antd';
 import Form from 'antd/lib/form/Form';
 import client from 'api/client';
+import cn from 'classnames';
 import SvgClose from 'components/icon/Close';
 import PrimaryButton from 'components/ui-elements/button';
 import PrimaryInput from 'components/ui-elements/input';
@@ -194,7 +195,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
       closeIcon={<SvgClose height="18px" width="18px" />}
       okText="Send"
       onCancel={handleCancel}>
-      <div className="row">
+      <div className={cn(styles.content, 'row')}>
         <div className="col-lg-12 select_modal">
           <Form
             name="tasks"

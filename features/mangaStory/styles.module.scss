@@ -19,7 +19,7 @@
 }
 .sub_info {
   margin-top: -7px;
-  margin-bottom: 13px;
+  margin-bottom: 16px;
   font-size: $text4;
   color: $grey;
   display: inherit;
@@ -29,15 +29,16 @@
 }
 .storyTab {
   font-family: Noto Sans JP;
-  pre {
-    margin-bottom: 25px;
-  }
   .storyTabTitle {
     font-size: 20px;
     font-weight: 700;
-    line-height: 30px;
+    line-height: 35px;
     margin-bottom: 6px;
     font-family: Noto Sans JP;
+    @include media-sm {
+      font-size: 15px;
+      line-height: 20px;
+    }
   }
   .participate {
     margin-top: 40px;
@@ -47,6 +48,11 @@
     color: #858585;
     font-size: 20px;
     font-family: Noto Sans JP;
+    margin-bottom: 45px;
+    @include media-sm {
+      font-size: 15px;
+      line-height: 20px;
+    }
   }
   .cardWrapper {
     width: 100%;
