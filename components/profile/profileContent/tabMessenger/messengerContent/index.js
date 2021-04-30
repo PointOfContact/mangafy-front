@@ -29,21 +29,23 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
 
   const messanger = useRef(null);
   const { conversationId, name, isInvite, rid: requestId, status } = selectedRequest;
-  const avatar = selectedRequest.av;
-  const adaptData = (data) => {
+  const adaptData = (data, participants) => {
     data.forEach((item) => {
+      let avatar;
+      const part = participants.find((p) => p._id === item.senderId);
+      if (part?.avatar) {
+        avatar = client.UPLOAD_URL + part.avatar;
+      } else {
+        avatar = `https://ui-avatars.com/api/?background=9A87FE&name=${part?.name}&rounded=true&color=ffffff`;
+      }
+      // avatar = part?.avatar :
       item.position = 'left';
       item.type = 'text';
       item.text = item.content;
       item.date = moment(item.createdAt).toDate();
-      item.avatar =
-        item.senderId === user._id
-          ? user.avatar
-            ? client.UPLOAD_URL + user.avatar
-            : `https://ui-avatars.com/api/?background=9A87FE&name=${user.name}&rounded=true&color=ffffff`
-          : avatar;
+      item.avatar = avatar;
     });
-    return data;
+    return data.reverse();
   };
 
   const handleChange = (e) => {
@@ -66,15 +68,13 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
     const jwt = client.getCookie('feathers-jwt');
     import('api/restClient').then((m) => {
       m.default
-        .service('/api/v2/messages')
-        .find({
-          query: {
-            conversationId,
-          },
+        .service('/api/v2/conversations')
+        .get(conversationId, {
+          query: {},
           headers: { Authorization: `Bearer ${jwt}` },
         })
         .then((res) => {
-          setMessageList(adaptData(res.data));
+          setMessageList(adaptData(res.messages, res.participentsInfo));
           // scrollToBottom();
         })
         .catch((err) => openNotification('error', err.message));
