@@ -11,8 +11,8 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
     let genres = context.query.genres || null;
     const compensationModel = context.query.compensationModel || null;
     const query = {
-      $limit: 9,
-      $skip: (page - 1) * 9,
+      $limit: 11,
+      $skip: (page - 1) * 11,
       $sort: {
         createdAt: -1,
       },

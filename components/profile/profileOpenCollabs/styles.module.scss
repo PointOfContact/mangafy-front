@@ -1,13 +1,15 @@
 @import '../../../styles/variables.scss';
 
 .title {
-  color: $black;
-  font-size: $text2;
   font-weight: 900;
+  font-size: 25px;
   line-height: 36px;
+  margin-bottom: 20px;
   padding-left: 10px;
-  @include media-sm {
-    font-size: $text4;
+  @media (max-width: 767px) {
+    position: absolute;
+    padding-top: 13px;
+    margin-bottom: 0;
   }
 }
 
@@ -23,7 +25,7 @@
   width: 90%;
   @include media-sm {
     width: 100%;
-    padding: 40px 7px 0px 25px !important;
+    padding: 40px 7px 0px 15px !important;
     margin-top: 0px;
   }
 

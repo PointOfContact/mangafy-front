@@ -11,9 +11,11 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
     const { search } = context.query;
     let genres = context.query.genres || null;
     let types = context.query.types || null;
+    const count = user ? 12 : 11;
+
     const query = {
-      $limit: 9,
-      $skip: (page - 1) * 9,
+      $limit: count,
+      $skip: (page - 1) * count,
     };
     if (genres && genres.length > 0) {
       genres = Array.isArray(genres) ? genres : [genres];
