@@ -6,7 +6,7 @@
     "dev": "node server.js",
     "build": "next build",
     "start": "next start -p $PORT",
-    "start:prod": "next start -p 5050",
+    "start:prod": "NODE_ENV=production next start -p 5050",
     "optimize-svg": "svgo --config=.svgo.yml -f ./public/icons",
     "convert-svg": "svgr -d ./components/icon ./public/icons && npm run format:icons",
     "lint": "eslint --fix .",
