@@ -1,0 +1,34 @@
+@import '../../styles/variables.scss';
+.colabWrap {
+  &__buttons {
+    display: flex;
+    align-items: start;
+    flex-wrap: wrap;
+  }
+}
+
+.ButtonPurple {
+  &:nth-child(4n + 1) {
+    background: $primaryDark;
+    border: 1px solid $primaryLight;
+  }
+  &:nth-child(4n + 2) {
+    background: $orangeDark;
+    border: 1px solid $orangeLight;
+  }
+  &:nth-child(4n + 3) {
+    background: #6fd257;
+    border: 1px solid #6fd257;
+  }
+  &:nth-child(4n + 0) {
+    background: $secondaryDark;
+    border: 1px solid $secondaryLight;
+  }
+}
+
+.ButtonWhite {
+  background: #ffffff;
+  border: 1px solid #9a87fe;
+  color: #212121;
+  text-transform: uppercase;
+}

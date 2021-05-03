@@ -84,10 +84,10 @@ Profile.propTypes = {
   mangaStories: PropTypes.array,
   profile: PropTypes.object.isRequired,
   user: PropTypes.object,
-  total: PropTypes.number.isRequired,
+  total: PropTypes.number,
   limit: PropTypes.number,
   genres: PropTypes.object.isRequired,
-  originUrl: PropTypes.object,
+  originUrl: PropTypes.string,
 };
 
 Profile.defaultProps = {
@@ -96,6 +96,7 @@ Profile.defaultProps = {
   search: '',
   limit: 9,
   originUrl: '',
+  total: null,
 };
 
 export default Profile;

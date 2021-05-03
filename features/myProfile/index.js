@@ -151,11 +151,16 @@ const MyProfile = (props) => {
 
 MyProfile.propTypes = {
   user: PropTypes.object.isRequired,
-  mangaStories: PropTypes.array.isRequired,
-  total: PropTypes.number.isRequired,
+  mangaStories: PropTypes.array,
+  total: PropTypes.number,
   originUrl: PropTypes.string.isRequired,
   profile: PropTypes.object.isRequired,
   genres: PropTypes.array.isRequired,
+};
+
+MyProfile.defaultProps = {
+  mangaStories: [],
+  total: 0,
 };
 
 export default MyProfile;

@@ -43,7 +43,9 @@
     }
   }
   &__top {
-    display: flex;
+    width: 100%;
+    overflow: hidden;
+    display: inline-flex;
     align-items: center;
   }
   &__img {
@@ -93,6 +95,7 @@
     display: flex;
     flex-direction: column;
     padding-left: 13px;
+    width: calc(100% - 117px);
   }
   &__authorName {
     font-weight: 900;

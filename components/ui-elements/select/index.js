@@ -56,7 +56,7 @@ PrimarySelect.propTypes = {
   bordered: PropTypes.bool,
   value: PropTypes.any,
   name: PropTypes.string,
-  options: PropTypes.array.isRequired,
+  options: PropTypes.array,
   onChange: PropTypes.func,
   id: PropTypes.string,
   label: PropTypes.string,
@@ -72,6 +72,7 @@ PrimarySelect.defaultProps = {
   onChange: () => {},
   id: null,
   label: null,
+  options: [],
 };
 
 export default PrimarySelect;

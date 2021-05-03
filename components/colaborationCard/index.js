@@ -1,12 +1,12 @@
 import React from 'react';
 
 import cn from 'classnames';
+import СardGenres from 'components/card-genres';
 import SvgPortfolio from 'components/icon/Portfolio';
 import Imgix from 'components/imgix';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 
-import ButtonColab from './buttonColab';
 import styles from './styles.module.scss';
 
 const ColaborationCards = ({ label, client }) => (
@@ -40,19 +40,11 @@ const ColaborationCards = ({ label, client }) => (
         </div>
       </div>
       <div className={styles.colabWrap__descr}>{label.story}</div>
-      <div className={styles.colabWrap__buttons}>
-        {label.genres.length ? (
-          label.genres.map((item) => (
-            <ButtonColab key={item._id} className={cn(styles.ButtonPurple)} text={item.name} />
-          ))
-        ) : (
-          <ButtonColab className={cn(styles.ButtonWhite)} text={'💪 fan of all genres'} />
-        )}
-      </div>
+      <СardGenres genres={label.genres} />
       <div className={styles.colabWrap__bot}>
         <div className={styles.colabWrap__commision}>
           <SvgPortfolio width="14px" height="14px" />
-          {label.compensationModel == 'paid' ? 'Commission' : 'Collaboration'}
+          {label.compensationModel === 'paid' ? 'Commission' : 'Collaboration'}
         </div>
       </div>
     </a>

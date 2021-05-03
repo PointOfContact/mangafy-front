@@ -47,6 +47,7 @@
     .back {
       margin-top: 20px;
       color: black;
+      text-decoration: underline;
       &:hover {
         color: $primaryDark;
       }
