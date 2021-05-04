@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Popconfirm } from 'antd';
+import { notification, Popconfirm } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
 import Imgix from 'components/imgix';
@@ -51,31 +51,37 @@ const ChatCard = ({
   };
 
   const setRecvestStatus = (event, id, status) => {
-    onAccept(event, id, status).then((res) => {
-      const newRequest = [...requests];
-      newRequest.map((item) => {
-        if (item._id === res._id) {
-          item.status = res.status;
-        }
-        return item;
-      });
-      setRequests(newRequest);
+    onAccept(event, id, status)
+      .then((res) => {
+        const newRequest = [...requests];
+        newRequest.map((item) => {
+          if (item._id === res._id) {
+            item.status = res.status;
+          }
+          return item;
+        });
+        setRequests(newRequest);
 
-      const event_type = status === 'accepted' ? EVENTS.INVITE_ACCEPTED : EVENTS.INVITE_REJECTED;
+        const event_type = status === 'accepted' ? EVENTS.INVITE_ACCEPTED : EVENTS.INVITE_REJECTED;
 
-      const eventData = [
-        {
-          platform: 'WEB',
-          event_type,
-          event_properties: { inviteRequestId: id },
-          user_id: user._id,
-          user_properties: {
-            ...user,
+        const eventData = [
+          {
+            platform: 'WEB',
+            event_type,
+            event_properties: { inviteRequestId: id },
+            user_id: user._id,
+            user_properties: {
+              ...user,
+            },
           },
-        },
-      ];
-      amplitude.track(eventData);
-    });
+        ];
+        amplitude.track(eventData);
+      })
+      .catch((err) => {
+        notification.error({
+          message: err.message,
+        });
+      });
   };
   return (
     <div
@@ -111,7 +117,7 @@ const ChatCard = ({
             </div>
           </div>
         </div>
-        {isOwn && !isInvite && status === 'new' && (
+        {isOwn && !isInvite && !isInvite && status === 'new' && (
           <div className={cn(styles.div_button, 'buttonsProfile_styles')}>
             <Popconfirm
               placement="top"

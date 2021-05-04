@@ -174,7 +174,8 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipent }) => {
               text="create a task"
             />
           ) : (
-            !tasks?.length && (
+            !tasks?.length &&
+            !isParticipent && (
               <PrimaryButton
                 onClick={() => {
                   toTeam(null);

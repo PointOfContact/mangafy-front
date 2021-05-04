@@ -12,8 +12,8 @@ import Paginations from 'components/paginations';
 import SearchForCollaborations from 'components/searchForCollaborations';
 import PrimaryButton from 'components/ui-elements/button';
 import ButtonToTop from 'components/ui-elements/button-toTop';
+import { NextSeo } from 'next-seo';
 import dynamic from 'next/dynamic';
-import Head from 'next/head';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 
@@ -37,14 +37,30 @@ const Collaborations = (props) => {
 
   return (
     <>
-      <Head>
-        <title>MangaFY - platform for community collaboration.</title>
-        <meta
-          name="description"
-          content="At the heart of our vision – collaborations – allowing visionary of various roles to engage in a team effort to bring a story from uncertainty to digital life, with you – the artists – taking control of the production."></meta>
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="canonical" href="http://mangafy.club/collaborations" />
-      </Head>
+      <NextSeo
+        title="MangaFY - platform for community collaboration."
+        description="At the heart of our vision – collaborations – allowing visionary of various roles to engage in a team effort to bring a story from uncertainty to digital life, with you – the artists – taking control of the production."
+        canonical="http://mangafy.club/collaborations"
+        openGraph={{
+          url: '',
+          title: '',
+          description: '',
+          images: [
+            {
+              url: '',
+              width: 800,
+              height: 600,
+              alt: '',
+            },
+          ],
+          site_name: 'MangaFY',
+        }}
+        twitter={{
+          handle: '@handle',
+          site: '@site',
+          cardType: 'summary_large_image',
+        }}
+      />
       <ButtonToTop />
       <div className={styles.hidden}>
         <div className={'content'}>

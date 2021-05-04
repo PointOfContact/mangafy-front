@@ -65,24 +65,28 @@ export const Chat = ({ mangaStory, user, isOwn, collabActiveTab }) => {
         <div className="row">
           {!selectedRequest ? (
             <div className={styles.messenger}>
-              <h4 className={styles.subtitle}>New invites</h4>
-              {requests.map(
-                (r) =>
-                  r.status === 'new' && (
-                    <ChatCard
-                      key={r._id}
-                      isOwn={isOwn}
-                      user={user}
-                      rid={r._id}
-                      status={r.status}
-                      isInvite={r.isInvite}
-                      messages={r.messages}
-                      senderInfo={r.senderInfo}
-                      conversations={r.conversations}
-                      selectedRequest={selectedRequest}
-                      setSelectedRequest={setSelectedRequest}
-                    />
-                  )
+              {user?._id === mangaStory.authorInfo._id && (
+                <>
+                  <h4 className={styles.subtitle}>New invites</h4>
+                  {requests.map(
+                    (r) =>
+                      r.status === 'new' && (
+                        <ChatCard
+                          key={r._id}
+                          isOwn={isOwn}
+                          user={user}
+                          rid={r._id}
+                          status={r.status}
+                          isInvite={r.isInvite}
+                          messages={r.messages}
+                          senderInfo={r.senderInfo}
+                          conversations={r.conversations}
+                          selectedRequest={selectedRequest}
+                          setSelectedRequest={setSelectedRequest}
+                        />
+                      )
+                  )}
+                </>
               )}
               <h4 className={styles.subtitle}>
                 <span>Read invites</span>

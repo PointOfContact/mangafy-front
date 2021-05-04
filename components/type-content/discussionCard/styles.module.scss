@@ -121,6 +121,9 @@ $repeat: 16;
       height: 312px;
       position: absolute;
       z-index: 0;
+      .defaultBg {
+        object-fit: cover !important;
+      }
       img {
         object-fit: contain;
       }

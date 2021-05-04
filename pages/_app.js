@@ -4,6 +4,7 @@ import '../styles/styles.sass';
 import 'antd/dist/antd.min.css';
 import * as Sentry from '@sentry/node';
 import { notification } from 'antd';
+import { DefaultSeo } from 'next-seo';
 
 Sentry.init({
   enabled: process.env.SENTRY_ENABLED,
@@ -17,5 +18,22 @@ export default function MyApp({ Component, pageProps, err }) {
     top: 120,
     duration: 3,
   });
-  return <Component {...pageProps} err={err} />;
+  return (
+    <>
+      <DefaultSeo
+        openGraph={{
+          type: 'website',
+          locale: 'en_IE',
+          url: 'https://mangafy.club/',
+          site_name: 'MangaFY',
+        }}
+        twitter={{
+          handle: '@handle',
+          site: '@site',
+          cardType: 'summary_large_image',
+        }}
+      />
+      <Component {...pageProps} err={err} />
+    </>
+  );
 }

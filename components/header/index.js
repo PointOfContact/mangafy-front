@@ -105,6 +105,9 @@ const Header = ({ user, path }) => {
   };
 
   const addEvent = () => {
+    if (!user?._id) {
+      return;
+    }
     const data = [
       {
         platform: 'WEB',
