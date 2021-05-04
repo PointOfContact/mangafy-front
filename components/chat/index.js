@@ -33,9 +33,9 @@ export const Chat = ({ mangaStory, user, isOwn, collabActiveTab }) => {
       },
       headers: { Authorization: `Bearer ${jwt}` },
     };
-    if (user._id !== mangaStory.authorInfo._id) {
-      options.query.senderId = user._id;
-    }
+    // if (user._id !== mangaStory.authorInfo._id) {
+    //   options.query.senderId = user._id;
+    // }
     import('api/restClient').then((m) => {
       m.default
         .service('/api/v2/join-manga-story-requests')

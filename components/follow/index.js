@@ -87,8 +87,8 @@ const Follow = ({ count, user, profile, likedUsers, setLikedUsers }) => {
     if (user?._id && profile?._id && !isMe) {
       document.querySelectorAll(`.${styles.paw_button}`).forEach((elem) => {
         if (likedUsers.includes(user._id)) {
-          // onUnFollowUser();
-          // elem.classList.remove(styles.animation, styles.liked, styles.confetti);
+          onUnFollowUser();
+          elem.classList.remove(styles.animation, styles.liked, styles.confetti);
         } else {
           onFollowUser();
           elem.classList.add(styles.animation);
