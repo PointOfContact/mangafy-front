@@ -4,23 +4,38 @@ import Footer from 'components/footer';
 import Header from 'components/header';
 import Imgix from 'components/imgix';
 import ButtonToTop from 'components/ui-elements/button-toTop';
-import Head from 'next/head';
+import { NextSeo } from 'next-seo';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
 const Terms = ({ user }) => (
   <>
-    <Head>
-      <title>MangaFY Terms of Service</title>
-      <meta name="description" content="MangaFY Terms of Service"></meta>
-      <meta property="og:url" content="http://mangafy.club" />
-      <meta property="og:type" content="article" />
-      <meta property="og:title" content="MangaFY Terms of Service" />
-      <meta property="og:description" content="MangaFY Terms of Service" />
-      <meta property="og:image" content="http://mangafy.club/img/indexMobSec3.webp" />
-      <link rel="icon" href="/favicon.ico" />
-    </Head>
+    <NextSeo
+      title="MangaFY Terms of Service"
+      description="MangaFY Terms of Service"
+      canonical=""
+      openGraph={{
+        url: 'http://mangafy.club/terms',
+        title: 'MangaFY Terms of Service',
+        description: 'MangaFY Terms of Service',
+        type: 'article',
+        images: [
+          {
+            url: 'http://mangafy.club/img/indexMobSec3.webp',
+            width: 800,
+            height: 600,
+            alt: '',
+          },
+        ],
+        site_name: 'MangaFY',
+      }}
+      twitter={{
+        handle: '@handle',
+        site: '@site',
+        cardType: 'summary_large_image',
+      }}
+    />
     <ButtonToTop />
     <div className={'wrapper'}>
       <div className={'content'}>

@@ -179,9 +179,9 @@ ModalDiscussion.propTypes = {
   postId: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   logo: PropTypes.string.isRequired,
-  img: PropTypes.string.isRequired,
+  img: PropTypes.string,
   url: PropTypes.string.isRequired,
-  likesCount: PropTypes.string,
+  likesCount: PropTypes.number,
   commentsData: PropTypes.array,
   user: PropTypes.object,
   logoNavigate: PropTypes.string,
@@ -189,6 +189,7 @@ ModalDiscussion.propTypes = {
 
 ModalDiscussion.defaultProps = {
   user: null,
+  img: null,
   logoNavigate: '',
   commentsData: [],
   likesCount: 0,

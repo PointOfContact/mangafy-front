@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Modal, Input } from 'antd';
+import { Modal, Input, notification } from 'antd';
 import client from 'api/client';
 import SvgClose from 'components/icon/Close';
 import LargeButton from 'components/ui-elements/large-button';
@@ -78,7 +78,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, selectedTask, user }
             {
               platform: 'WEB',
               event_type: EVENTS.REQUEST_TO_JOIN,
-              event_properties: { mangaStoryId: baseData._id, taskId: selectedTask._id },
+              event_properties: { mangaStoryId: baseData._id, taskId: selectedTask?._id },
               user_id: user._id,
               user_properties: {
                 ...user,
@@ -87,7 +87,17 @@ const ModalStart = ({ changeShowModal, showModal, baseData, selectedTask, user }
           ];
           amplitude.track(eventData);
         })
-        .catch((err) => err);
+        .catch((err) => {
+          if (err.name === 'Conflict') {
+            notification.error({
+              message: `You have already sent a request with "${joinAs}"`,
+            });
+          } else {
+            notification.error({
+              message: err.message,
+            });
+          }
+        });
     });
   };
 

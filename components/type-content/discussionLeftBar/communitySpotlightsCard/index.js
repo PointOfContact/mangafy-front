@@ -51,11 +51,14 @@ const CommunitySpotlightsCard = (props) => {
 
 CommunitySpotlightsCard.propTypes = {
   id: PropTypes.string.isRequired,
-  img: PropTypes.string.isRequired,
+  img: PropTypes.string,
   title: PropTypes.string.isRequired,
-  like: PropTypes.string.isRequired,
+  like: PropTypes.number,
 };
 
-CommunitySpotlightsCard.defaultProps = {};
+CommunitySpotlightsCard.defaultProps = {
+  img: null,
+  like: null,
+};
 
 export default CommunitySpotlightsCard;

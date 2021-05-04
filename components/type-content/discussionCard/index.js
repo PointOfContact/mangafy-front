@@ -70,7 +70,7 @@ const DiscussionCard = (props) => {
         <div onClick={() => changeShowModal(true)} className={styles.projectsForYou_MainImg}>
           <div className={styles.bgImg}>
             <Imgix
-              // layout="intrinsic"
+              className={(!img && styles.defaultBg) || ''}
               layout="fill"
               src={img ? `${client.UPLOAD_URL + img}` : `https://mangafy.club/img/mangastory.webp`}
               alt=""
@@ -119,9 +119,9 @@ DiscussionCard.propTypes = {
   id: PropTypes.string.isRequired,
   logo: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  category: PropTypes.string.isRequired,
+  category: PropTypes.string,
   img: PropTypes.string.isRequired,
-  categories: PropTypes.string.isRequired,
+  categories: PropTypes.array.isRequired,
   subTitle: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
@@ -135,6 +135,7 @@ DiscussionCard.propTypes = {
 DiscussionCard.defaultProps = {
   user: null,
   logoNavigate: '',
+  category: '',
 };
 
 export default DiscussionCard;
