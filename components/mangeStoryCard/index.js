@@ -28,6 +28,11 @@ const MangeStoryCard = ({ mangaStories, client, user }) =>
               ) : (
                 <div className={cn(styles.type, styles.isCollab)}>Collab</div>
               )}
+              {label.published ? (
+                <div className={cn(styles.type, styles.isPublic)}>Public</div>
+              ) : (
+                <div className={cn(styles.type, styles.isDraft)}>Draft</div>
+              )}
             </div>
             <div className={styles.colabImg}>
               <Imgix

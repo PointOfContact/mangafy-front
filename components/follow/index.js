@@ -190,7 +190,7 @@ const Follow = ({ count, user, profile, likedUsers, setLikedUsers }) => {
 };
 
 Follow.propTypes = {
-  count: PropTypes.string,
+  count: PropTypes.number,
   user: PropTypes.object,
   profile: PropTypes.object,
   likedUsers: PropTypes.array,

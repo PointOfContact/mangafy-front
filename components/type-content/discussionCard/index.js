@@ -4,6 +4,7 @@ import client from 'api/client';
 import cn from 'classnames';
 import SvgComment from 'components/icon/Comment';
 import SvgHeart from 'components/icon/Heart';
+import Imgix from 'components/imgix';
 import ModalDiscussion from 'components/modals/discussion';
 import PrimaryButton from 'components/ui-elements/button';
 import Link from 'next/link';
@@ -66,19 +67,15 @@ const DiscussionCard = (props) => {
             </div>
           </div>
         </div>
-        <div
-          onClick={() => changeShowModal(true)}
-          className={styles.projectsForYou_MainImg}
-          style={
-            img
-              ? {
-                  backgroundImage: `url(${client.UPLOAD_URL + img})`,
-                }
-              : {
-                  backgroundImage: `url(/img/mangastory.jpg)`,
-                  backgroundSize: 'cover',
-                }
-          }>
+        <div onClick={() => changeShowModal(true)} className={styles.projectsForYou_MainImg}>
+          <div className={styles.bgImg}>
+            <Imgix
+              // layout="intrinsic"
+              layout="fill"
+              src={img ? `${client.UPLOAD_URL + img}` : `https://mangafy.club/img/mangastory.webp`}
+              alt=""
+            />
+          </div>
           <div className={styles.comments}>
             <div>
               <span>{likesCount}</span>

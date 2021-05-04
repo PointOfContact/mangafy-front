@@ -136,7 +136,7 @@ const GalleryCard = ({
               !canEdit &&
               onLikeGallery(galleryItem._id, userData._id, user._id)
             }
-            className={user && isLiked(galleryItem._id, user._id) && styles.liked}
+            className={(user && isLiked(galleryItem._id, user._id) && styles.liked) || ''}
           />
           <span>{getLikesCount(galleryItem._id)}</span>
         </span>
@@ -169,17 +169,23 @@ GalleryCard.propTypes = {
   user: PropTypes.object.isRequired,
   galleryItem: PropTypes.object.isRequired,
   userData: PropTypes.object.isRequired,
-  canEditInit: PropTypes.bool.isRequired,
+  canEditInit: PropTypes.bool,
   setUserData: PropTypes.func.isRequired,
   index: PropTypes.number.isRequired,
-  canEdit: PropTypes.bool.isRequired,
+  canEdit: PropTypes.bool,
   gallerySet: PropTypes.func.isRequired,
   setImages: PropTypes.func.isRequired,
   images: PropTypes.array.isRequired,
-  fromPath: PropTypes.string.isRequired,
+  fromPath: PropTypes.string,
   setCreateGalleryModal: PropTypes.func.isRequired,
   setIsModalVisible: PropTypes.func.isRequired,
   setSelectedGallery: PropTypes.func.isRequired,
+};
+
+GalleryCard.defaultProps = {
+  canEditInit: false,
+  canEdit: false,
+  fromPath: 'users',
 };
 
 export default GalleryCard;

@@ -2,6 +2,7 @@ import React from 'react';
 
 import client from 'api/client';
 import cn from 'classnames';
+import СardGenres from 'components/card-genres';
 import Imgix from 'components/imgix';
 import Avatar from 'components/ui-elements/avatar';
 import { userTypesEnums } from 'helpers/constant';
@@ -9,7 +10,6 @@ import Link from 'next/link';
 import PropTypes from 'prop-types';
 
 import SvgPortfolio from '../icon/Portfolio';
-import ButtonColab from './buttonColab';
 import styles from './styles.module.scss';
 
 const ProfilesCard = ({ user, genres }) => {
@@ -44,16 +44,7 @@ const ProfilesCard = ({ user, genres }) => {
             <div className={styles.colabWrap__authorDescr}>{userTypesEnums[user?.type]}</div>
           </div>
         </div>
-        <div className={styles.colabWrap__descr}>{user.description}</div>
-        <div className={styles.colabWrap__buttons}>
-          {profileGenres.length ? (
-            profileGenres.map((item) => (
-              <ButtonColab key={item._id} className={cn(styles.ButtonPurple)} text={item.name} />
-            ))
-          ) : (
-            <ButtonColab className={cn(styles.ButtonWhite)} text={'💪 fan of all genres'} />
-          )}
-        </div>
+        <СardGenres genres={profileGenres} />
         <div className={styles.colabWrap__bot}>
           <div className={styles.colabWrap__commision}>
             <SvgPortfolio width="14px" height="14px" />

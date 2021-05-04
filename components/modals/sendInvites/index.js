@@ -4,7 +4,7 @@ import { Modal, Input, notification } from 'antd';
 import Form from 'antd/lib/form/Form';
 import { createRequest } from 'api/joinMangaStoryRequestClient';
 import SvgClose from 'components/icon/Close';
-import LargeButton from 'components/ui-elements/large-button';
+import PrimaryButton from 'components/ui-elements/button';
 import PrimarySelect from 'components/ui-elements/select';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { USER_TYPES } from 'helpers/constant';
@@ -22,8 +22,8 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
   const [joinAs, changeJoinAs] = useState('Writer');
   const [text, changeText] = useState('');
   const [task, setTask] = useState('');
-  const [optionsTasks, setOptionsTasks] = useState('');
-  const [optionsMangaStories, setOptionsMangaStories] = useState('');
+  const [optionsTasks, setOptionsTasks] = useState([]);
+  const [optionsMangaStories, setOptionsMangaStories] = useState([]);
   const [story, setStory] = useState(null);
   const [form] = Form.useForm();
 
@@ -201,19 +201,19 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
                   value={text}
                   onChange={handleChangeText}
                   type="text"
-                  autoSize={{ minRows: 3, maxRows: 5 }}
+                  autoSize={{ minRows: 3, maxRows: 3 }}
                   className={styles.modalTexarea}
                 />
               </Form.Item>
 
               <div className="modal_select_btn">
                 <Form.Item>
-                  <LargeButton
+                  <PrimaryButton
                     htmlType="submit"
                     id="modalJoinMyJourneySubmitBtnId"
                     className={styles.hugeButton}
                     isFullWidth={false}
-                    text={'send'}
+                    text={'Send Invite'}
                   />
                 </Form.Item>
               </div>
@@ -229,11 +229,16 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
     </Modal>
   );
 };
-export default SendInvites;
 
 SendInvites.propTypes = {
   user: PropTypes.object.isRequired,
-  profile: PropTypes.object.isRequired,
+  profile: PropTypes.object,
   changeShowModal: PropTypes.func.isRequired,
   showModal: PropTypes.bool.isRequired,
 };
+
+SendInvites.defaultProps = {
+  profile: null,
+};
+
+export default SendInvites;

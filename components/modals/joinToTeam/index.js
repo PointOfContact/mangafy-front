@@ -152,9 +152,13 @@ const ModalStart = ({ changeShowModal, showModal, baseData, selectedTask, user }
 ModalStart.propTypes = {
   baseData: PropTypes.object.isRequired,
   showModal: PropTypes.bool.isRequired,
-  selectedTask: PropTypes.object.isRequired,
+  selectedTask: PropTypes.object,
   user: PropTypes.object.isRequired,
   changeShowModal: PropTypes.func.isRequired,
+};
+
+ModalStart.defaultProps = {
+  selectedTask: null,
 };
 
 export default ModalStart;

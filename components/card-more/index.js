@@ -1,7 +1,7 @@
 import React from 'react';
 
 import cn from 'classnames';
-import PrimaryButton from 'component/ui-elements/button';
+import PrimaryButton from 'components/ui-elements/button';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 
