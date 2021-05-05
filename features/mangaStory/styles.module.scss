@@ -82,14 +82,16 @@
     padding-left: 20px;
     display: flex;
     margin-top: 16px;
-  }
-  .participents img {
-    width: 68.8px;
-    height: 68.8px;
-    border-radius: 50%;
-  }
-  .participents > a {
-    margin-left: -20px !important;
+    img {
+      min-width: 68.8px;
+      min-height: 68.8px;
+      max-width: 68.8px;
+      max-height: 68.8px;
+      border-radius: 50%;
+    }
+    .participentInfo {
+      margin-left: -20px !important;
+    }
   }
 }
 .pageWrap {
