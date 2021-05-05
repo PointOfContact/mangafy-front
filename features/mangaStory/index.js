@@ -353,6 +353,7 @@ const MangeStory = (props) => {
                         {!editMode ? (
                           <div>
                             <StoryTab
+                              setBaseData={setBaseData}
                               baseData={baseData}
                               user={user}
                               isOwn={isOwn}

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Tooltip } from 'antd';
+import { notification, Popover, Tooltip } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
 import Imgix from 'components/imgix';
@@ -11,14 +11,37 @@ import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 
 import styles from '../styles.module.scss';
+import ParticipentCard from './participentCard';
 import Tasks from './tasks';
 
-const StoryTab = ({ baseData, isOwn, user, isParticipent }) => {
+const StoryTab = ({ setBaseData, baseData, isOwn, user, isParticipent }) => {
   const [showModal, changeShowModal] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
   const { _id, author, introduce, story, authorInfo, participentsInfo } = baseData;
   const history = useRouter();
-
+  const leaveManga = (participentId) => {
+    const data = { participentId };
+    const jwt = client.getCookie('feathers-jwt');
+    return import('api/restClient').then((m) =>
+      m.default
+        .service('/api/v2/manga-stories')
+        .patch(_id, data, {
+          headers: { Authorization: `Bearer ${jwt}` },
+        })
+        .then((res) => {
+          if (participentId === user._id) {
+            history.push(`/collaborations`);
+          } else {
+            setBaseData(res);
+          }
+        })
+        .catch((err) => {
+          notification.error({
+            message: err.message,
+          });
+        })
+    );
+  };
   const toTeam = (task) => {
     if (user) {
       changeShowModal(true);
@@ -76,10 +99,25 @@ const StoryTab = ({ baseData, isOwn, user, isParticipent }) => {
           </a>
         </Link>
         <div className={styles.participents}>
-          {[authorInfo].concat(participentsInfo).map(({ avatar, name, _id }) => (
-            <Link className={styles.participentsCont} key={name} href={`/profile/${_id}`}>
-              <a>
-                <Tooltip placement="topLeft" title={name} arrowPointAtCenter>
+          {[authorInfo].concat(participentsInfo).map(({ avatar, name, _id, type }) => (
+            <Popover
+              key={_id}
+              placement="bottomLeft"
+              title={''}
+              content={
+                <ParticipentCard
+                  isOwn={isOwn}
+                  avatar={avatar}
+                  name={name}
+                  id={_id}
+                  type={type}
+                  leaveManga={leaveManga}
+                  user={user}
+                />
+              }
+              trigger="click">
+              <Tooltip placement="topLeft" title={name} arrowPointAtCenter>
+                <div className={styles.participentInfo}>
                   {avatar ? (
                     <Imgix
                       width={65}
@@ -90,9 +128,9 @@ const StoryTab = ({ baseData, isOwn, user, isParticipent }) => {
                   ) : (
                     <Avatar text={name} size={69} />
                   )}
-                </Tooltip>
-              </a>
-            </Link>
+                </div>
+              </Tooltip>
+            </Popover>
           ))}
         </div>
       </div>
@@ -108,6 +146,7 @@ const StoryTab = ({ baseData, isOwn, user, isParticipent }) => {
 };
 
 StoryTab.propTypes = {
+  setBaseData: PropTypes.func.isRequired,
   baseData: PropTypes.object.isRequired,
   isOwn: PropTypes.bool.isRequired,
   user: PropTypes.object,
