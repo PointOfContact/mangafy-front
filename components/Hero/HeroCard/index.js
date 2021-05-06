@@ -8,6 +8,7 @@ import { createHero, patchHero, deleteHero, uploadFile } from 'api/storyBoardCli
 import SvgCloud from 'components/icon/Cloud';
 import SvgDustbin from 'components/icon/Dustbin';
 import Imgix from 'components/imgix';
+import ShowImgModal from 'components/modals/showImg';
 import Popconfirm from 'components/popconfirm';
 import PropTypes from 'prop-types';
 
@@ -20,6 +21,8 @@ const src = '/img/profile6.webp';
 
 const HeroCard = ({ hero, getStoryBoard, changeHero }) => {
   const [currentHero, setCurrentHero] = useState(hero);
+  const [showImg, setShowImg] = useState('');
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   // eslint-disable-next-line no-shadow
   const onBlur = (hero = currentHero) => {
@@ -122,25 +125,38 @@ const HeroCard = ({ hero, getStoryBoard, changeHero }) => {
         </div>
       </div>
       <div className={styles.hero__img}>
+        <Imgix
+          onClick={() => {
+            setShowImg(
+              currentHero.imageUrl
+                ? `${restClient.API_ENDPOINT}/api/v2/uploads/${currentHero.imageUrl}`
+                : `https://mangafy.club${src}`
+            );
+            setIsModalVisible(true);
+          }}
+          width={104}
+          height={95}
+          layout="fixed"
+          src={
+            currentHero.imageUrl
+              ? `${restClient.API_ENDPOINT}/api/v2/uploads/${currentHero.imageUrl}`
+              : `https://mangafy.club${src}`
+          }
+        />
         <Upload
           accept="image/jpg, image/png, image/jpeg "
           beforeUpload={beforeUpload}
           showUploadList={false}>
-          <Imgix
-            width={104}
-            height={95}
-            layout="fixed"
-            src={
-              currentHero.imageUrl
-                ? `${restClient.API_ENDPOINT}/api/v2/uploads/${currentHero.imageUrl}`
-                : `https://mangafy.club${src}`
-            }
-          />
           <span className={styles.uploadSvg}>
             <SvgCloud width="22px" height="22px" />
           </span>
         </Upload>
       </div>
+      <ShowImgModal
+        isModalVisible={isModalVisible}
+        setIsModalVisible={setIsModalVisible}
+        img={showImg}
+      />
       <Popconfirm
         title="Are you sure to delete this hero."
         className={styles.hero__popconfirm}
