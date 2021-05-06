@@ -125,21 +125,22 @@ const GalleryCard = ({
             )}
           </>
         )}
-
-        <span className={styles.heart}>
-          <SvgHeart
-            width="18px"
-            height="16px"
-            onClick={() =>
-              user &&
-              !isLiked(galleryItem._id, user._id) &&
-              !canEdit &&
-              onLikeGallery(galleryItem._id, userData._id, user._id)
-            }
-            className={(user && isLiked(galleryItem._id, user._id) && styles.liked) || ''}
-          />
-          <span>{getLikesCount(galleryItem._id)}</span>
-        </span>
+        {(!galleryItem.renderItem || type === 'pdf' || type === 'PDF') && (
+          <span className={styles.heart}>
+            <SvgHeart
+              width="18px"
+              height="16px"
+              onClick={() =>
+                user &&
+                !isLiked(galleryItem._id, user._id) &&
+                !canEdit &&
+                onLikeGallery(galleryItem._id, userData._id, user._id)
+              }
+              className={(user && isLiked(galleryItem._id, user._id) && styles.liked) || ''}
+            />
+            <span>{getLikesCount(galleryItem._id)}</span>
+          </span>
+        )}
 
         <div className={styles.filter} onClick={(e) => gallerySet(e, index)}></div>
         {

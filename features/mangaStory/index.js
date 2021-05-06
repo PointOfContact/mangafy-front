@@ -251,7 +251,7 @@ const MangeStory = (props) => {
                     <div className={styles.publishContent}>
                       <Popover
                         placement="bottomRight"
-                        overlayStyle={{ maxWidth: '400px' }}
+                        overlayStyle={{ maxWidth: '400px', zIndex: '100' }}
                         title={''}
                         content={
                           'Note: published projects will only show general information about your project (inc. what you look for, and what you aim to work on without disclosing anything else). In draft mode, you go off-grid and need to invite collaborations manually, while the member you invite sees nothing.'
