@@ -43,7 +43,7 @@ const TabMessenger = (props) => {
               senderInfo:
                 (item.mangaStoryTitle && {
                   name: item.mangaStoryTitle,
-                  avatar: item.mangaStoryImage || 'Group.webp',
+                  avatar: item.mangaStoryImage,
                 }) ||
                 item.participentsInfo[0],
               messages: item.lastMessage,
@@ -73,7 +73,7 @@ const TabMessenger = (props) => {
                 profileId: newRequests[0].senderInfo._id,
               };
             }
-
+            debugger;
             setSelectedRequest(newSelectedRequest);
           } else {
             setNoRequest(true);

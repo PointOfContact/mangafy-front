@@ -18,7 +18,7 @@ import 'react-chat-elements/dist/main.css';
 const Amplitude = require('amplitude');
 
 const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
-
+let interval;
 const onAccept = (event, id, status) => {
   event.stopPropagation();
   return patchRequest(id, status);
@@ -48,7 +48,7 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
           {item.content}
           {item.joinMangaStoryRequest[0].isInvite &&
             item.joinMangaStoryRequest[0].status === 'new' &&
-            item.joinMangaStoryRequest[0].senderInfo._id !== user._id && (
+            item.joinMangaStoryRequest[0].senderInfo._id === user._id && (
               <div className={cn(styles.div_button, 'buttonsProfile_styles')}>
                 <Popconfirm
                   placement="top"
@@ -144,11 +144,12 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
   }, [conversationId]);
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    clearInterval(interval);
+    interval = setInterval(() => {
       getMessages(conversationId);
     }, 3000);
-    return () => clearInterval(interval);
-  }, []);
+    // return () => clearInterval(interval);
+  }, [conversationId]);
 
   const isShowModal = () => {
     const el = document.body;

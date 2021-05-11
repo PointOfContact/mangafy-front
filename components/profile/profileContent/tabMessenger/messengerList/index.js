@@ -39,6 +39,7 @@ const MessengerList = ({ user, requests, selectedRequest, setSelectedRequest }) 
                 conversations={r.conversations}
                 selectedRequest={selectedRequest}
                 setSelectedRequest={setSelectedRequest}
+                profileId={r.senderInfo?._id}
               />
             ))}
           </div>

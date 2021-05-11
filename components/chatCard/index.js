@@ -32,6 +32,7 @@ const ChatCard = ({
   conversations,
   isSmall,
   status,
+  profileId,
   setSelectedRequest,
   selectedRequest,
   isTeamChat,
@@ -43,6 +44,7 @@ const ChatCard = ({
       conversationId: e.currentTarget.dataset.id,
       name: sender.name,
       isTeamChat,
+      profileId,
       av: sender.avatar
         ? client.UPLOAD_URL + sender.avatar
         : `https://ui-avatars.com/api/?background=9A87FE&name=${sender.name}&rounded=true&color=ffffff`,
@@ -105,7 +107,14 @@ const ChatCard = ({
                   src={client.UPLOAD_URL + senderInfo.avatar}
                 />
               ) : (
-                <Avatar text={senderInfo.name} className={styles.avatarName} fontSize={50} />
+                (isTeamChat && (
+                  <Imgix
+                    className="avatar"
+                    width={104}
+                    height={104}
+                    src={'https://mangafy.club/img/mangastory.webp'}
+                  />
+                )) || <Avatar text={senderInfo.name} className={styles.avatarName} fontSize={50} />
               )}
             </div>
             <div className={styles.name_special}>
@@ -163,10 +172,12 @@ ChatCard.propTypes = {
   setSelectedRequest: PropTypes.object.isRequired,
   selectedRequest: PropTypes.object.isRequired,
   isTeamChat: PropTypes.bool.isRequired,
+  profileId: PropTypes.string,
 };
 
 ChatCard.defaultProps = {
   conversations: [],
+  profileId: null,
 };
 
 export default ChatCard;
