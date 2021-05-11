@@ -41,25 +41,28 @@ const TabMessenger = (props) => {
               conversations: [{ _id: item._id }],
               participents: item.participents,
               senderInfo:
-                (item.mangaStoryTitle && { name: item.mangaStoryTitle }) ||
+                (item.mangaStoryTitle && {
+                  name: item.mangaStoryTitle,
+                  avatar: item.mangaStoryImage || 'Group.webp',
+                }) ||
                 item.participentsInfo[0],
               messages: item.lastMessage,
             }));
-          if (newRequests) {
+          if (newRequests.length) {
             setRequests(newRequests);
             const { conversation } = qs.parse(location.search);
-
             let newSelectedRequest = {};
 
             if (conversation) {
               const thisConv = newRequests.find((r) => r._id === conversation);
-
               newSelectedRequest = {
                 rid: thisConv?._id,
+                isTeamChat: !!thisConv?.mangaStoryId,
                 conversationId:
                   thisConv?.conversations[0]._id || newRequests[0].conversations[0]._id,
                 name: thisConv?.senderInfo.name,
-                av: client.UPLOAD_URL + thisConv?.senderInfo.name || '',
+                av: client.UPLOAD_URL + thisConv?.senderInfo.avatar || '',
+                profileId: thisConv?.senderInfo?._id,
               };
             } else {
               newSelectedRequest = {
@@ -67,6 +70,7 @@ const TabMessenger = (props) => {
                 conversationId: newRequests[0].conversations[0]._id,
                 name: newRequests[0].senderInfo.name,
                 av: client.UPLOAD_URL + newRequests[0].senderInfo.avatar || '',
+                profileId: newRequests[0].senderInfo._id,
               };
             }
 

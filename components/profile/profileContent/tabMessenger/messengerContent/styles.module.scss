@@ -72,8 +72,7 @@
   background-size: cover;
   background-position: bottom right;
 }
-
-.name {
+.userName {
   padding: 15px 20px 15px 20px;
   font-style: normal;
   font-weight: 900;
@@ -88,14 +87,27 @@
     font-size: $text4;
     line-height: 26px;
   }
+}
+.name {
+  padding: 0;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  margin-bottom: -15px;
 
   .div_button {
     width: 80px;
     display: flex;
+    margin: 0 auto;
+    margin-top: 15px;
     justify-content: space-between;
     @include media-sm {
       width: 60px;
     }
+  }
+  span {
+    width: 100%;
+    text-align: center;
   }
 }
 
@@ -242,13 +254,19 @@
 }
 
 .request_status_acp {
+  max-width: 100px;
+  margin-top: 15px;
   padding: 5px 10px;
   border-radius: 50px;
-  border: 1px solid $primaryDark;
-  color: $primaryDark;
+  border: 1px solid #6fd257;
+  color: #6fd257;
+  margin: 0 auto;
 }
 
 .request_status_rej {
+  max-width: 100px;
+  margin: 0 auto;
+  margin-top: 15px;
   padding: 5px 10px;
   border-radius: 50px;
   border: 1px solid #dc3545;

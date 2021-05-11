@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Input, notification, Popconfirm } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
+import ModalInvites from 'components/modals/sendInvites';
 import PrimaryButton from 'components/ui-elements/button';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import moment from 'moment';
@@ -26,9 +27,10 @@ const onAccept = (event, id, status) => {
 const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests, setRequests }) => {
   const [messageList, setMessageList] = useState([]);
   const [value, setValue] = useState('');
+  const [showModal, changeShowModal] = useState(false);
 
   const messanger = useRef(null);
-  const { conversationId, name, isInvite, rid: requestId, status } = selectedRequest;
+  const { conversationId, name, profileId } = selectedRequest;
   const adaptData = (data, participants) => {
     data.forEach((item) => {
       let avatar;
@@ -41,7 +43,63 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
       // avatar = part?.avatar :
       item.position = 'left';
       item.type = 'text';
-      item.text = item.content;
+      item.text = item.joinMangaStoryRequest?.length ? (
+        <div className={styles.name}>
+          {item.content}
+          {item.joinMangaStoryRequest[0].isInvite &&
+            item.joinMangaStoryRequest[0].status === 'new' &&
+            item.joinMangaStoryRequest[0].senderInfo._id !== user._id && (
+              <div className={cn(styles.div_button, 'buttonsProfile_styles')}>
+                <Popconfirm
+                  placement="top"
+                  title="Are you sure to reject the invite?"
+                  onClick={(event) => event.stopPropagation()}
+                  onConfirm={(event) => {
+                    setRecvestStatus(event, item.joinMangaStoryRequestId, 'rejected');
+                  }}
+                  okText="Yes"
+                  cancelText="No">
+                  <PrimaryButton className="buttonsProfile_cancel" text="Cancel" isDark isRound />
+                </Popconfirm>
+                <Popconfirm
+                  placement="top"
+                  title="Are you sure to accept the invite?"
+                  onConfirm={(event) => {
+                    setRecvestStatus(event, item.joinMangaStoryRequestId, 'accepted');
+                  }}
+                  onClick={(event) => event.stopPropagation()}
+                  okText="Yes"
+                  cancelText="No">
+                  <PrimaryButton className="buttonsProfile_save" text="save" isActive isRound />
+                </Popconfirm>
+              </div>
+            )}
+          {item.joinMangaStoryRequest[0].isInvite &&
+            item.joinMangaStoryRequest[0].status === 'new' && (
+              <span className={styles.status}> Pending invite </span>
+            )}
+          {item.joinMangaStoryRequest[0].status === 'accepted' && (
+            <span
+              className={cn(
+                styles.status,
+                item.joinMangaStoryRequest[0].status === 'accepted' && styles.request_status_acp
+              )}>
+              Accepted
+            </span>
+          )}
+          {item.joinMangaStoryRequest[0].status === 'rejected' && (
+            <span
+              className={cn(
+                styles.status,
+                item.joinMangaStoryRequest[0].status === 'rejected' && styles.request_status_rej
+              )}>
+              Rejected
+            </span>
+          )}
+        </div>
+      ) : (
+        item.content
+      );
       item.date = moment(item.createdAt).toDate();
       item.avatar = avatar;
     });
@@ -61,7 +119,7 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
     messanger.current.mlistRef.scrollIntoView(false);
   };
 
-  const getMessages = (conversationId) => {
+  const getMessages = () => {
     if (!conversationId) {
       return;
     }
@@ -92,32 +150,45 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
     return () => clearInterval(interval);
   }, []);
 
-  const sendMessage = (isInviteType) => {
-    if (value) {
-      if (isInviteType) {
+  const isShowModal = () => {
+    const el = document.body;
+    if (showModal) {
+      el.classList.add(styles.body_scrool);
+    } else {
+      el.classList.remove(styles.body_scrool);
+    }
+  };
+
+  const sendMessage = (isInviteType = false) => {
+    if (isInviteType) {
+      if (user.mangaStories?.data?.length && !(user?._id === profileId)) {
+        changeShowModal(true);
+        isShowModal();
       } else {
-        const jwt = client.getCookie('feathers-jwt');
-        import('api/restClient').then((m) => {
-          setValue('');
-          m.default
-            .service('/api/v2/messages')
-            .create(
-              {
-                content: value,
-                conversationId,
-              },
-              {
-                headers: { Authorization: `Bearer ${jwt}` },
-              }
-            )
-            .then(() => {
-              getMessages(conversationId);
-            })
-            .catch((err) => {
-              openNotification('error', err.message);
-            });
-        });
+        openNotification('error', "You don't have manga story");
       }
+    } else if (value) {
+      const jwt = client.getCookie('feathers-jwt');
+      import('api/restClient').then((m) => {
+        setValue('');
+        m.default
+          .service('/api/v2/messages')
+          .create(
+            {
+              content: value,
+              conversationId,
+            },
+            {
+              headers: { Authorization: `Bearer ${jwt}` },
+            }
+          )
+          .then(() => {
+            getMessages(conversationId);
+          })
+          .catch((err) => {
+            openNotification('error', err.message);
+          });
+      });
     }
   };
 
@@ -159,38 +230,7 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
 
   return (
     <div className={styles.chatContainer}>
-      <div className={styles.name}>
-        {name}
-        {!isInvite && status === 'new' && (
-          <div className={cn(styles.div_button, 'buttonsProfile_styles')}>
-            <Popconfirm
-              placement="top"
-              title="Are you sure to reject the invite?"
-              onClick={(event) => event.stopPropagation()}
-              onConfirm={(event) => {
-                setRecvestStatus(event, requestId, 'rejected');
-              }}
-              okText="Yes"
-              cancelText="No">
-              <PrimaryButton className="buttonsProfile_cancel" text="Cancel" isDark isRound />
-            </Popconfirm>
-            <Popconfirm
-              placement="top"
-              title="Are you sure to accept the invite?"
-              onConfirm={(event) => {
-                setRecvestStatus(event, requestId, 'accepted');
-              }}
-              onClick={(event) => event.stopPropagation()}
-              okText="Yes"
-              cancelText="No">
-              <PrimaryButton className="buttonsProfile_save" text="save" isActive isRound />
-            </Popconfirm>
-          </div>
-        )}
-        {isInvite && status === 'new' && <span className={styles.status}> Pending invite </span>}
-        {status === 'accepted' && <span className={styles.status}> Accepted </span>}
-        {status === 'rejected' && <span className={styles.status}> Rejected </span>}
-      </div>
+      <div className={styles.userName}>{name}</div>
       <div className={styles.messageList} id="message-content">
         <MessageList
           ref={messanger}
@@ -211,9 +251,18 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
           {!selectedRequest.isTeamChat && (
             <PrimaryButton text="send Invite" onClick={() => sendMessage(true)} />
           )}
-          <PrimaryButton text="send Message" onClick={sendMessage} />
+          <PrimaryButton text="send Message" onClick={() => sendMessage(false)} />
         </span>
       </div>
+      <ModalInvites
+        user={user}
+        profile={{ _id: profileId }}
+        changeShowModal={(e) => {
+          changeShowModal(e);
+          isShowModal();
+        }}
+        showModal={showModal}
+      />
     </div>
   );
 };

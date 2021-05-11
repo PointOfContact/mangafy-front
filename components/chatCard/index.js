@@ -42,6 +42,7 @@ const ChatCard = ({
       rid,
       conversationId: e.currentTarget.dataset.id,
       name: sender.name,
+      isTeamChat,
       av: sender.avatar
         ? client.UPLOAD_URL + sender.avatar
         : `https://ui-avatars.com/api/?background=9A87FE&name=${sender.name}&rounded=true&color=ffffff`,

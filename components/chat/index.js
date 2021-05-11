@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import { notification, Tooltip } from 'antd';
 import client from 'api/client';
-import ChatCard from 'components/chatCard';
 import Imgix from 'components/imgix';
-import NoRequest from 'components/noRequest';
 import MessengerContent from 'components/profile/profileContent/tabMessenger/messengerContent';
 import Avatar from 'components/ui-elements/avatar';
 import PropTypes from 'prop-types';
@@ -40,6 +38,7 @@ export const Chat = ({ mangaStory, user, isOwn, collabActiveTab }) => {
         .then((res) => {
           setConversation(res[0] || {});
           setSelectedRequest({
+            isTeamChat: true,
             conversationId: res[0]._id,
           });
         })
@@ -114,80 +113,79 @@ export const Chat = ({ mangaStory, user, isOwn, collabActiveTab }) => {
     </div>
   );
 
-  if (!requests?.length) {
-    return <NoRequest />;
-  }
-
-  return (
-    <div>
-      <div>
-        <div className="row">
-          {!selectedRequest ? (
-            <div className={styles.messenger}>
-              {user?._id === mangaStory.authorInfo._id && (
-                <>
-                  <h4 className={styles.subtitle}>New invites</h4>
-                  {requests.map(
-                    (r) =>
-                      r.status === 'new' && (
-                        <ChatCard
-                          key={r._id}
-                          isOwn={isOwn}
-                          user={user}
-                          rid={r._id}
-                          status={r.status}
-                          isInvite={r.isInvite}
-                          messages={r.messages}
-                          senderInfo={r.senderInfo}
-                          conversations={r.conversations}
-                          selectedRequest={selectedRequest}
-                          setSelectedRequest={setSelectedRequest}
-                        />
-                      )
-                  )}
-                </>
-              )}
-              <h4 className={styles.subtitle}>
-                <span>Read invites</span>
-                {isOwn && <span className={styles.delete}>Delete all</span>}
-              </h4>
-              {requests.map(
-                (r) =>
-                  r.status === 'accepted' && (
-                    <ChatCard
-                      key={r._id}
-                      isOwn={isOwn}
-                      user={user}
-                      rid={r._id}
-                      status={r.status}
-                      isInvite={r.isInvite}
-                      messages={r.messages}
-                      senderInfo={r.senderInfo}
-                      conversations={r.conversations}
-                      selectedRequest={selectedRequest}
-                      setSelectedRequest={setSelectedRequest}
-                    />
-                  )
-              )}
-            </div>
-          ) : (
-            <div className="chatBlock">
-              <span className={styles.goBack} onClick={() => setSelectedRequest(null)}>
-                ←
-              </span>
-              <MessengerContent
-                user={user}
-                selectedRequest={selectedRequest}
-                requests={requests}
-                setRequests={setRequests}
-                setSelectedRequest={setSelectedRequest}
-              />
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
-  );
+  //   if (!requests?.length) {
+  //     return <NoRequest />;
+  //   }
+  //   return (
+  //     <div>
+  //       <div>
+  //         <div className="row">
+  //           {!selectedRequest ? (
+  //             <div className={styles.messenger}>
+  //               {user?._id === mangaStory.authorInfo._id && (
+  //                 <>
+  //                   <h4 className={styles.subtitle}>New invites</h4>
+  //                   {requests.map(
+  //                     (r) =>
+  //                       r.status === 'new' && (
+  //                         <ChatCard
+  //                           key={r._id}
+  //                           isOwn={isOwn}
+  //                           user={user}
+  //                           rid={r._id}
+  //                           status={r.status}
+  //                           isInvite={r.isInvite}
+  //                           messages={r.messages}
+  //                           senderInfo={r.senderInfo}
+  //                           conversations={r.conversations}
+  //                           selectedRequest={selectedRequest}
+  //                           setSelectedRequest={setSelectedRequest}
+  //                         />
+  //                       )
+  //                   )}
+  //                 </>
+  //               )}
+  //               <h4 className={styles.subtitle}>
+  //                 <span>Read invites</span>
+  //                 {isOwn && <span className={styles.delete}>Delete all</span>}
+  //               </h4>
+  //               {requests.map(
+  //                 (r) =>
+  //                   r.status === 'accepted' && (
+  //                     <ChatCard
+  //                       key={r._id}
+  //                       isOwn={isOwn}
+  //                       user={user}
+  //                       rid={r._id}
+  //                       status={r.status}
+  //                       isInvite={r.isInvite}
+  //                       messages={r.messages}
+  //                       senderInfo={r.senderInfo}
+  //                       conversations={r.conversations}
+  //                       selectedRequest={selectedRequest}
+  //                       setSelectedRequest={setSelectedRequest}
+  //                     />
+  //                   )
+  //               )}
+  //             </div>
+  //           ) : (
+  //             <div className="chatBlock">
+  //               <span className={styles.goBack} onClick={() => setSelectedRequest(null)}>
+  //                 ←
+  //               </span>
+  //               <MessengerContent
+  //                 user={user}
+  //                 selectedRequest={selectedRequest}
+  //                 requests={requests}
+  //                 setRequests={setRequests}
+  //                 setSelectedRequest={setSelectedRequest}
+  //               />
+  //             </div>
+  //           )}
+  //         </div>
+  //       </div>
+  //     </div>
+  //   );
 };
 
 Chat.propTypes = {
