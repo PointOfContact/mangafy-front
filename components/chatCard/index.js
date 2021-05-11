@@ -34,14 +34,13 @@ const ChatCard = ({
   status,
   setSelectedRequest,
   selectedRequest,
+  isTeamChat,
 }) => {
   const [requests, setRequests] = useState([]);
   const showMessages = (e, sender) => {
     const newSelectedRequest = {
       rid,
-      status,
       conversationId: e.currentTarget.dataset.id,
-      isInvite,
       name: sender.name,
       av: sender.avatar
         ? client.UPLOAD_URL + sender.avatar
@@ -113,7 +112,7 @@ const ChatCard = ({
                 <h4>{senderInfo && senderInfo.name}</h4>
                 <p>{senderInfo && senderInfo.type}</p>
               </div>
-              <p className={styles.messages}>{messages && messages[0] && messages[0].content}</p>
+              <p className={styles.messages}>{messages && messages.content}</p>
             </div>
           </div>
         </div>
@@ -156,12 +155,17 @@ ChatCard.propTypes = {
   isInvite: PropTypes.bool.isRequired,
   messages: PropTypes.array.isRequired,
   senderInfo: PropTypes.object.isRequired,
-  conversations: PropTypes.array.isRequired,
+  conversations: PropTypes.array,
   setAv: PropTypes.func.isRequired,
   isSmall: PropTypes.bool.isRequired,
   status: PropTypes.string.isRequired,
   setSelectedRequest: PropTypes.object.isRequired,
   selectedRequest: PropTypes.object.isRequired,
+  isTeamChat: PropTypes.bool.isRequired,
+};
+
+ChatCard.defaultProps = {
+  conversations: [],
 };
 
 export default ChatCard;

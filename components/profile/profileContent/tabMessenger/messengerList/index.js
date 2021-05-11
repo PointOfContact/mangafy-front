@@ -26,6 +26,7 @@ const MessengerList = ({ user, requests, selectedRequest, setSelectedRequest }) 
           <div className={styles.messenger}>
             {requests.map((r) => (
               <ChatCard
+                isTeamChat={r.isTeamChat}
                 key={r._id}
                 isSmall={true}
                 isOwn={false}

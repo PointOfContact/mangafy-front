@@ -92,29 +92,32 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
     return () => clearInterval(interval);
   }, []);
 
-  const sendMessage = () => {
+  const sendMessage = (isInviteType) => {
     if (value) {
-      const jwt = client.getCookie('feathers-jwt');
-      import('api/restClient').then((m) => {
-        setValue('');
-        m.default
-          .service('/api/v2/messages')
-          .create(
-            {
-              content: value,
-              conversationId,
-            },
-            {
-              headers: { Authorization: `Bearer ${jwt}` },
-            }
-          )
-          .then(() => {
-            getMessages(conversationId);
-          })
-          .catch((err) => {
-            openNotification('error', err.message);
-          });
-      });
+      if (isInviteType) {
+      } else {
+        const jwt = client.getCookie('feathers-jwt');
+        import('api/restClient').then((m) => {
+          setValue('');
+          m.default
+            .service('/api/v2/messages')
+            .create(
+              {
+                content: value,
+                conversationId,
+              },
+              {
+                headers: { Authorization: `Bearer ${jwt}` },
+              }
+            )
+            .then(() => {
+              getMessages(conversationId);
+            })
+            .catch((err) => {
+              openNotification('error', err.message);
+            });
+        });
+      }
     }
   };
 
@@ -204,8 +207,11 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
           onChange={handleChange}
           onKeyPress={handleKeyPressSend}
         />
-        <span className={styles.sendMessage} onClick={sendMessage}>
-          <PrimaryButton text="send" />
+        <span className={styles.sendMessage}>
+          {!selectedRequest.isTeamChat && (
+            <PrimaryButton text="send Invite" onClick={() => sendMessage(true)} />
+          )}
+          <PrimaryButton text="send Message" onClick={sendMessage} />
         </span>
       </div>
     </div>

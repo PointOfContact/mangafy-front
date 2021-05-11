@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
-import { notification } from 'antd';
+import { notification, Tooltip } from 'antd';
 import client from 'api/client';
 import ChatCard from 'components/chatCard';
+import Imgix from 'components/imgix';
 import NoRequest from 'components/noRequest';
 import MessengerContent from 'components/profile/profileContent/tabMessenger/messengerContent';
+import Avatar from 'components/ui-elements/avatar';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
@@ -13,13 +15,39 @@ import 'react-chat-elements/dist/main.css';
 
 export const Chat = ({ mangaStory, user, isOwn, collabActiveTab }) => {
   const [selectedRequest, setSelectedRequest] = useState(null);
+  const [conversation, setConversation] = useState({});
   const [requests, setRequests] = useState([]);
 
-  useEffect(() => {
-    if (collabActiveTab === '4') {
-      getRequest();
-    }
-  }, [collabActiveTab]);
+  const openNotification = (type, message) => {
+    notification[type]({
+      message,
+    });
+  };
+
+  const getConversation = () => {
+    const jwt = client.getCookie('feathers-jwt');
+    const options = {
+      query: {
+        mangaStoryId: mangaStory._id,
+        isTeamChat: true,
+      },
+      headers: { Authorization: `Bearer ${jwt}` },
+    };
+    import('api/restClient').then((m) => {
+      m.default
+        .service('/api/v2/conversations')
+        .find(options)
+        .then((res) => {
+          setConversation(res[0] || {});
+          setSelectedRequest({
+            conversationId: res[0]._id,
+          });
+        })
+        .catch((err) => {
+          openNotification('error', err.message);
+        });
+    });
+  };
 
   const getRequest = () => {
     const jwt = client.getCookie('feathers-jwt');
@@ -49,11 +77,42 @@ export const Chat = ({ mangaStory, user, isOwn, collabActiveTab }) => {
     });
   };
 
-  const openNotification = (type, message) => {
-    notification[type]({
-      message,
-    });
-  };
+  useEffect(() => {
+    if (collabActiveTab === '4') {
+      // getRequest();
+      getConversation();
+    }
+  }, [collabActiveTab]);
+
+  return (
+    <div>
+      <div className={styles.participents}>
+        {[user].concat(conversation?.participentsInfo || []).map(({ avatar, name }) => (
+          <Tooltip key={name} placement="topLeft" title={name} arrowPointAtCenter>
+            <div className={styles.participentInfo}>
+              {avatar ? (
+                <Imgix
+                  width={65}
+                  height={65}
+                  src={client.UPLOAD_URL + avatar}
+                  alt="Picture of the user"
+                />
+              ) : (
+                <Avatar text={name} size={69} />
+              )}
+            </div>
+          </Tooltip>
+        ))}
+      </div>
+      {selectedRequest && (
+        <MessengerContent
+          user={user}
+          selectedRequest={selectedRequest}
+          setSelectedRequest={setSelectedRequest}
+        />
+      )}
+    </div>
+  );
 
   if (!requests?.length) {
     return <NoRequest />;

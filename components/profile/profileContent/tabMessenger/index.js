@@ -5,6 +5,7 @@ import client from 'api/client';
 import cn from 'classnames';
 import NoRequest from 'components/noRequest';
 import PropTypes from 'prop-types';
+import * as qs from 'query-string';
 
 import MessengerContent from './messengerContent';
 import MessengerList from './messengerList';
@@ -16,8 +17,73 @@ const TabMessenger = (props) => {
   const [selectedRequest, setSelectedRequest] = useState({});
   const [noRequest, setNoRequest] = useState(false);
 
+  const openNotification = (type, message) => {
+    notification[type]({
+      message,
+    });
+  };
+
+  const getConversation = () => {
+    const jwt = client.getCookie('feathers-jwt');
+    const options = {
+      headers: { Authorization: `Bearer ${jwt}` },
+    };
+    import('api/restClient').then((m) => {
+      m.default
+        .service('/api/v2/conversations')
+        .find(options)
+        .then((res) => {
+          const newRequests = res
+            .filter((i) => !i.joinMangaStoryRequestId)
+            .map((item) => ({
+              _id: item._id,
+              isTeamChat: !!item.mangaStoryId,
+              conversations: [{ _id: item._id }],
+              participents: item.participents,
+              senderInfo:
+                (item.mangaStoryTitle && { name: item.mangaStoryTitle }) ||
+                item.participentsInfo[0],
+              messages: item.lastMessage,
+            }));
+          if (newRequests) {
+            setRequests(newRequests);
+            const { conversation } = qs.parse(location.search);
+
+            let newSelectedRequest = {};
+
+            if (conversation) {
+              const thisConv = newRequests.find((r) => r._id === conversation);
+
+              newSelectedRequest = {
+                rid: thisConv?._id,
+                conversationId:
+                  thisConv?.conversations[0]._id || newRequests[0].conversations[0]._id,
+                name: thisConv?.senderInfo.name,
+                av: client.UPLOAD_URL + thisConv?.senderInfo.name || '',
+              };
+            } else {
+              newSelectedRequest = {
+                rid: newRequests[0]._id,
+                conversationId: newRequests[0].conversations[0]._id,
+                name: newRequests[0].senderInfo.name,
+                av: client.UPLOAD_URL + newRequests[0].senderInfo.avatar || '',
+              };
+            }
+
+            setSelectedRequest(newSelectedRequest);
+          } else {
+            setNoRequest(true);
+          }
+        })
+        .catch((err) => {
+          openNotification('error', err.message);
+        });
+    });
+  };
+
   useEffect(() => {
-    getRequest();
+    // getRequest();
+    getConversation();
   }, []);
 
   const getRequest = () => {
@@ -58,12 +124,6 @@ const TabMessenger = (props) => {
         .catch((err) => {
           openNotification('error', err.message);
         });
-    });
-  };
-
-  const openNotification = (type, message) => {
-    notification[type]({
-      message,
     });
   };
 
