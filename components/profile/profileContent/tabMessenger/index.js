@@ -14,6 +14,8 @@ import styles from './styles.module.scss';
 const TabMessenger = (props) => {
   const { user } = props;
   const [requests, setRequests] = useState([]);
+  const [arcRequests, setArcRequests] = useState(true);
+  const [showArchive, setShowArchive] = useState(true);
   const [selectedRequest, setSelectedRequest] = useState({});
   const [noRequest, setNoRequest] = useState(false);
 
@@ -23,7 +25,7 @@ const TabMessenger = (props) => {
     });
   };
 
-  const getConversation = () => {
+  const getConversation = (isArchive = true) => {
     const jwt = client.getCookie('feathers-jwt');
     const options = {
       headers: { Authorization: `Bearer ${jwt}` },
@@ -33,21 +35,44 @@ const TabMessenger = (props) => {
         .service('/api/v2/conversations')
         .find(options)
         .then((res) => {
-          const newRequests = res
-            .filter((i) => !i.joinMangaStoryRequestId)
-            .map((item) => ({
-              _id: item._id,
-              isTeamChat: !!item.mangaStoryId,
-              conversations: [{ _id: item._id }],
-              participents: item.participents,
-              senderInfo:
-                (item.mangaStoryTitle && {
-                  name: item.mangaStoryTitle,
-                  avatar: item.mangaStoryImage,
-                }) ||
-                item.participentsInfo[0],
-              messages: item.lastMessage,
-            }));
+          let newRequests;
+          if (isArchive) {
+            newRequests = res
+              .filter((i) => !i.joinMangaStoryRequestId)
+              .map((item) => ({
+                _id: item._id,
+                isTeamChat: !!item.mangaStoryId,
+                conversations: [{ _id: item._id }],
+                participents: item.participents,
+                senderInfo:
+                  (item.mangaStoryTitle && {
+                    name: item.mangaStoryTitle,
+                    avatar: item.mangaStoryImage,
+                  }) ||
+                  item.participentsInfo[0],
+                messages: item.lastMessage,
+              }))
+              ?.reverse();
+            if (newRequests.lengt === res.length && showArchive) setShowArchive(false);
+          } else {
+            newRequests = res
+              .map((item) => ({
+                _id: item._id,
+                isTeamChat: !!item.mangaStoryId,
+                conversations: [{ _id: item._id }],
+                participents: item.participents,
+                joinMangaStoryRequestId: item.joinMangaStoryRequestId,
+                senderInfo:
+                  (item.mangaStoryTitle && {
+                    name: item.mangaStoryTitle,
+                    avatar: item.mangaStoryImage,
+                  }) ||
+                  item.participentsInfo[0],
+                messages: item.lastMessage,
+              }))
+              ?.reverse();
+            setArcRequests(false);
+          }
           if (newRequests.length) {
             setRequests(newRequests);
             const { conversation } = qs.parse(location.search);
@@ -63,6 +88,7 @@ const TabMessenger = (props) => {
                 name: thisConv?.senderInfo.name,
                 av: client.UPLOAD_URL + thisConv?.senderInfo.avatar || '',
                 profileId: thisConv?.senderInfo?._id,
+                isArchive: !!thisConv?.joinMangaStoryRequestId,
               };
             } else {
               newSelectedRequest = {
@@ -71,9 +97,10 @@ const TabMessenger = (props) => {
                 name: newRequests[0].senderInfo.name,
                 av: client.UPLOAD_URL + newRequests[0].senderInfo.avatar || '',
                 profileId: newRequests[0].senderInfo._id,
+                isTeamChat: !!newRequests[0].mangaStoryId,
+                isArchive: !!newRequests[0].joinMangaStoryRequestId,
               };
             }
-            debugger;
             setSelectedRequest(newSelectedRequest);
           } else {
             setNoRequest(true);
@@ -86,7 +113,6 @@ const TabMessenger = (props) => {
   };
 
   useEffect(() => {
-    // getRequest();
     getConversation();
   }, []);
 
@@ -140,6 +166,9 @@ const TabMessenger = (props) => {
         <div className={cn(styles.messenger_tab)}>
           <div className={cn(styles.messenger_list)}>
             <MessengerList
+              arcRequests={arcRequests}
+              getConversation={getConversation}
+              showArchive={showArchive}
               requests={requests}
               selectedRequest={selectedRequest}
               setSelectedRequest={setSelectedRequest}

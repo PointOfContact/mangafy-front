@@ -93,21 +93,96 @@
   display: flex;
   width: 100%;
   flex-direction: column;
-  margin-bottom: -15px;
+  margin-bottom: -5px;
 
   .div_button {
-    width: 80px;
-    display: flex;
-    margin: 0 auto;
-    margin-top: 15px;
+    width: 46px;
+    display: inline-flex;
     justify-content: space-between;
-    @include media-sm {
-      width: 60px;
+    margin-right: 10px;
+    .buttonsProfile_cancel {
+      background: none;
+      padding: 0;
+      border: none;
+      width: 20px;
+      height: 20px;
+      background-image: url('/img/btn-deleate.svg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      min-width: 20px;
+      min-height: 20px;
+      margin-right: 0;
+      &:hover {
+        background: none !important;
+        border: none !important;
+        box-shadow: none !important;
+        background-image: url('/img/btn-deleate.svg') !important;
+        background-size: cover !important;
+        background-repeat: no-repeat !important;
+        width: 20px;
+        height: 20px;
+        min-width: 20px;
+        min-height: 20px;
+      }
+      span {
+        display: none;
+      }
+    }
+    .buttonsProfile_save {
+      background: none;
+      padding: 0;
+      border: none;
+      width: 20px;
+      height: 20px;
+      min-width: auto;
+      min-height: auto;
+      box-shadow: none;
+      border-radius: 50%;
+      position: relative;
+      margin-left: 10px;
+      &:before {
+        content: '';
+        position: absolute;
+        display: block;
+        left: 3px;
+        top: 0;
+        width: 20px;
+        height: 20px;
+        background-color: #fec447;
+        border-radius: 50%;
+        opacity: 0.7;
+      }
+      &:hover {
+        border: none !important;
+      }
+      span {
+        font-size: 0;
+        position: relative;
+        z-index: 3;
+        left: 0;
+        top: 0;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: #7b65f3;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &:before {
+          content: 'aaa';
+          width: 10px;
+          height: 8px;
+          background-image: url('/img/confim-arr.svg');
+          position: absolute;
+          background-size: cover;
+          background-repeat: no-repeat;
+          display: block;
+        }
+      }
     }
   }
   span {
-    width: 100%;
-    text-align: center;
+    font-size: $text6;
   }
 }
 
@@ -235,12 +310,12 @@
     right: 10px;
     button {
       font-size: $text4;
-      width: 112px;
       height: 46px;
       display: inline-flex;
       justify-content: center;
       align-items: center;
       margin-left: 10px;
+      padding: 0 25px;
     }
   }
 }
@@ -255,20 +330,45 @@
 
 .request_status_acp {
   max-width: 100px;
-  margin-top: 15px;
-  padding: 5px 10px;
+  margin-top: 0px;
+  padding: 0px 5px;
   border-radius: 50px;
   border: 1px solid #6fd257;
   color: #6fd257;
-  margin: 0 auto;
+  margin-left: auto;
 }
 
 .request_status_rej {
   max-width: 100px;
-  margin: 0 auto;
-  margin-top: 15px;
-  padding: 5px 10px;
+  margin-top: 0px;
+  padding: 0px 5px;
   border-radius: 50px;
   border: 1px solid #dc3545;
   color: #dc3545;
+  margin-left: auto;
+}
+.messText {
+  font-family: Noto Sans JP;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 13px;
+  margin-bottom: 15px;
+}
+
+.statusContainer {
+  display: flex;
+  justify-content: space-between;
+  min-width: 160px;
+  text-align: center;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.mangaTitle {
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 13px;
+  margin-bottom: 10px;
 }

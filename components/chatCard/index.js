@@ -36,6 +36,7 @@ const ChatCard = ({
   setSelectedRequest,
   selectedRequest,
   isTeamChat,
+  isArchive,
 }) => {
   const [requests, setRequests] = useState([]);
   const showMessages = (e, sender) => {
@@ -45,9 +46,10 @@ const ChatCard = ({
       name: sender.name,
       isTeamChat,
       profileId,
+      isArchive,
       av: sender.avatar
         ? client.UPLOAD_URL + sender.avatar
-        : `https://ui-avatars.com/api/?background=9A87FE&name=${sender.name}&rounded=true&color=ffffff`,
+        : `https://ui-avatars.com/api/?background=9A87FE&name=${sender?.name}&rounded=true&color=ffffff`,
     };
     setSelectedRequest(newSelectedRequest);
   };
@@ -173,11 +175,13 @@ ChatCard.propTypes = {
   selectedRequest: PropTypes.object.isRequired,
   isTeamChat: PropTypes.bool.isRequired,
   profileId: PropTypes.string,
+  isArchive: PropTypes.bool,
 };
 
 ChatCard.defaultProps = {
   conversations: [],
   profileId: null,
+  isArchive: false,
 };
 
 export default ChatCard;

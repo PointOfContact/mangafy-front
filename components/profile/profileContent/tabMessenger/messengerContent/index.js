@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-import { Input, notification, Popconfirm } from 'antd';
+import { Input, notification } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
 import ModalInvites from 'components/modals/sendInvites';
@@ -40,65 +40,66 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
       } else {
         avatar = `https://ui-avatars.com/api/?background=9A87FE&name=${part?.name}&rounded=true&color=ffffff`;
       }
-      // avatar = part?.avatar :
+      // item.position = user._id === item.senderId ? 'left' : 'right';
       item.position = 'left';
       item.type = 'text';
       item.text = item.joinMangaStoryRequest?.length ? (
         <div className={styles.name}>
-          {item.content}
-          {item.joinMangaStoryRequest[0].isInvite &&
-            item.joinMangaStoryRequest[0].status === 'new' &&
-            item.joinMangaStoryRequest[0].senderInfo._id === user._id && (
-              <div className={cn(styles.div_button, 'buttonsProfile_styles')}>
-                <Popconfirm
-                  placement="top"
-                  title="Are you sure to reject the invite?"
-                  onClick={(event) => event.stopPropagation()}
-                  onConfirm={(event) => {
-                    setRecvestStatus(event, item.joinMangaStoryRequestId, 'rejected');
-                  }}
-                  okText="Yes"
-                  cancelText="No">
-                  <PrimaryButton className="buttonsProfile_cancel" text="Cancel" isDark isRound />
-                </Popconfirm>
-                <Popconfirm
-                  placement="top"
-                  title="Are you sure to accept the invite?"
-                  onConfirm={(event) => {
-                    setRecvestStatus(event, item.joinMangaStoryRequestId, 'accepted');
-                  }}
-                  onClick={(event) => event.stopPropagation()}
-                  okText="Yes"
-                  cancelText="No">
-                  <PrimaryButton className="buttonsProfile_save" text="save" isActive isRound />
-                </Popconfirm>
-              </div>
-            )}
-          {item.joinMangaStoryRequest[0].isInvite &&
-            item.joinMangaStoryRequest[0].status === 'new' && (
+          {item.joinMangaStoryRequest[0].mangaStory?.title && (
+            <h2 className={styles.mangaTitle}>{item.joinMangaStoryRequest[0].mangaStory?.title}</h2>
+          )}
+          <p className={styles.messText}>{item.content}</p>
+          <div className={styles.statusContainer}>
+            {item.joinMangaStoryRequest[0].status === 'new' && (
               <span className={styles.status}> Pending invite </span>
             )}
-          {item.joinMangaStoryRequest[0].status === 'accepted' && (
-            <span
-              className={cn(
-                styles.status,
-                item.joinMangaStoryRequest[0].status === 'accepted' && styles.request_status_acp
-              )}>
-              Accepted
-            </span>
-          )}
-          {item.joinMangaStoryRequest[0].status === 'rejected' && (
-            <span
-              className={cn(
-                styles.status,
-                item.joinMangaStoryRequest[0].status === 'rejected' && styles.request_status_rej
-              )}>
-              Rejected
-            </span>
-          )}
+            {item.joinMangaStoryRequest[0].status === 'accepted' && (
+              <span
+                className={cn(
+                  styles.status,
+                  item.joinMangaStoryRequest[0].status === 'accepted' && styles.request_status_acp
+                )}>
+                Accepted
+              </span>
+            )}
+            {item.joinMangaStoryRequest[0].status === 'rejected' && (
+              <span
+                className={cn(
+                  styles.status,
+                  item.joinMangaStoryRequest[0].status === 'rejected' && styles.request_status_rej
+                )}>
+                Rejected
+              </span>
+            )}
+            {item.joinMangaStoryRequest[0].status === 'new' &&
+              user._id === item.joinMangaStoryRequest[0].mangaStory?.author && (
+                <div className={cn(styles.div_button, 'buttonsProfile_styles')}>
+                  <PrimaryButton
+                    onClick={(event) => {
+                      setRecvestStatus(event, item.joinMangaStoryRequestId, 'rejected');
+                    }}
+                    className={styles.buttonsProfile_cancel}
+                    text="Cancel"
+                    isDark
+                    isRound
+                  />
+                  <PrimaryButton
+                    className={styles.buttonsProfile_save}
+                    text="save"
+                    isActive
+                    isRound
+                    onClick={(event) => {
+                      setRecvestStatus(event, item.joinMangaStoryRequestId, 'accepted');
+                    }}
+                  />
+                </div>
+              )}
+          </div>
         </div>
       ) : (
-        item.content
+        <p className={styles.messText} style={{ marginBottom: '-5px' }}>
+          {item.content}
+        </p>
       );
       item.date = moment(item.createdAt).toDate();
       item.avatar = avatar;
@@ -241,20 +242,22 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
           dataSource={messageList}
         />
       </div>
-      <div className={styles.chatBlock2}>
-        <Input
-          placeholder="Type here..."
-          value={value}
-          onChange={handleChange}
-          onKeyPress={handleKeyPressSend}
-        />
-        <span className={styles.sendMessage}>
-          {!selectedRequest.isTeamChat && (
-            <PrimaryButton text="send Invite" onClick={() => sendMessage(true)} />
-          )}
-          <PrimaryButton text="send Message" onClick={() => sendMessage(false)} />
-        </span>
-      </div>
+      {!selectedRequest?.isArchive && (
+        <div className={styles.chatBlock2}>
+          <Input
+            placeholder="Type here..."
+            value={value}
+            onChange={handleChange}
+            onKeyPress={handleKeyPressSend}
+          />
+          <span className={styles.sendMessage}>
+            {!selectedRequest.isTeamChat && (
+              <PrimaryButton isActive={true} text="Send Invite" onClick={() => sendMessage(true)} />
+            )}
+            <PrimaryButton text="Send Message" onClick={() => sendMessage(false)} />
+          </span>
+        </div>
+      )}
       <ModalInvites
         user={user}
         profile={{ _id: profileId }}
