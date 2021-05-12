@@ -1,5 +1,21 @@
 @import '../../styles/variables.scss';
 
+.participents {
+  padding-left: 20px;
+  display: flex;
+  margin-top: 16px;
+  img {
+    min-width: 68.8px;
+    min-height: 68.8px;
+    max-width: 68.8px;
+    max-height: 68.8px;
+    border-radius: 50%;
+  }
+  .participentInfo {
+    margin-left: -20px !important;
+  }
+}
+
 .subtitle {
   color: $black;
   font-size: $text2;

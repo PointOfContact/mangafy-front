@@ -79,6 +79,7 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
         isInvite: true,
         joinAs,
         senderId: profile._id,
+        userId: user._id,
         text,
         taskId: task,
       });

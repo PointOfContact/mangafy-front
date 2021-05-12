@@ -32,20 +32,24 @@ const ChatCard = ({
   conversations,
   isSmall,
   status,
+  profileId,
   setSelectedRequest,
   selectedRequest,
+  isTeamChat,
+  isArchive,
 }) => {
   const [requests, setRequests] = useState([]);
   const showMessages = (e, sender) => {
     const newSelectedRequest = {
       rid,
-      status,
       conversationId: e.currentTarget.dataset.id,
-      isInvite,
       name: sender.name,
+      isTeamChat,
+      profileId,
+      isArchive,
       av: sender.avatar
         ? client.UPLOAD_URL + sender.avatar
-        : `https://ui-avatars.com/api/?background=9A87FE&name=${sender.name}&rounded=true&color=ffffff`,
+        : `https://ui-avatars.com/api/?background=9A87FE&name=${sender?.name}&rounded=true&color=ffffff`,
     };
     setSelectedRequest(newSelectedRequest);
   };
@@ -105,7 +109,14 @@ const ChatCard = ({
                   src={client.UPLOAD_URL + senderInfo.avatar}
                 />
               ) : (
-                <Avatar text={senderInfo.name} className={styles.avatarName} fontSize={50} />
+                (isTeamChat && (
+                  <Imgix
+                    className="avatar"
+                    width={104}
+                    height={104}
+                    src={'https://mangafy.club/img/mangastory.webp'}
+                  />
+                )) || <Avatar text={senderInfo.name} className={styles.avatarName} fontSize={50} />
               )}
             </div>
             <div className={styles.name_special}>
@@ -113,7 +124,7 @@ const ChatCard = ({
                 <h4>{senderInfo && senderInfo.name}</h4>
                 <p>{senderInfo && senderInfo.type}</p>
               </div>
-              <p className={styles.messages}>{messages && messages[0] && messages[0].content}</p>
+              <p className={styles.messages}>{messages && messages.content}</p>
             </div>
           </div>
         </div>
@@ -156,12 +167,21 @@ ChatCard.propTypes = {
   isInvite: PropTypes.bool.isRequired,
   messages: PropTypes.array.isRequired,
   senderInfo: PropTypes.object.isRequired,
-  conversations: PropTypes.array.isRequired,
+  conversations: PropTypes.array,
   setAv: PropTypes.func.isRequired,
   isSmall: PropTypes.bool.isRequired,
   status: PropTypes.string.isRequired,
   setSelectedRequest: PropTypes.object.isRequired,
   selectedRequest: PropTypes.object.isRequired,
+  isTeamChat: PropTypes.bool.isRequired,
+  profileId: PropTypes.string,
+  isArchive: PropTypes.bool,
+};
+
+ChatCard.defaultProps = {
+  conversations: [],
+  profileId: null,
+  isArchive: false,
 };
 
 export default ChatCard;

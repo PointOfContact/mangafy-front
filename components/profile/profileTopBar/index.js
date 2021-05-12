@@ -67,6 +67,66 @@ const ProfileTopBar = (props) => {
     }
   };
 
+  const createConversation = () => {
+    if (user) {
+      const jwt = client.getCookie('feathers-jwt');
+      import('api/restClient').then((m) => {
+        m.default
+          .service('/api/v2/conversations')
+          .create(
+            {
+              participents: [profile._id],
+            },
+            {
+              headers: { Authorization: `Bearer ${jwt}` },
+            }
+          )
+          .then((res) => {
+            history.push(`/my-profile?tab=messenger&conversation=${res._id}`);
+          })
+          .catch((err) => {
+            openNotification('error', err.message);
+          });
+      });
+    } else {
+      history.push(`/sign-in?page=profile/${profile._id}`);
+    }
+  };
+
+  const sendMessage = () => {
+    if (user) {
+      const jwt = client.getCookie('feathers-jwt');
+      import('api/restClient').then((m) => {
+        m.default
+          .service('/api/v2/conversations')
+          .find({
+            query: {
+              $or: [
+                { participents: [user._id, profile._id] },
+                { participents: [profile._id, user._id] },
+              ],
+            },
+            headers: { Authorization: `Bearer ${jwt}` },
+          })
+          .then((res) => {
+            const conv = res?.data?.find(
+              (item) => !item.joinMangaStoryRequestId && !item.mangaStoryId
+            );
+            if (conv) {
+              history.push(`/my-profile?tab=messenger&conversation=${conv._id}`);
+            } else {
+              createConversation();
+            }
+          })
+          .catch((err) => {
+            openNotification('error', err.message);
+          });
+      });
+    } else {
+      history.push(`/sign-in?page=profile/${profile._id}`);
+    }
+  };
+
   const handleEvent = () => {
     const data = [
       {
@@ -196,17 +256,30 @@ const ProfileTopBar = (props) => {
                 ) : (
                   <>
                     {profile && !!user?.mangaStories?.data?.length && (
-                      <span className={styles.contacts}>
-                        <PrimaryButton
-                          onClick={sendInvites}
-                          text="Invite to collaborate"
-                          splitterStyle={{ fontSize: '15px' }}
-                          disabled={
-                            user?.mangaStories?.participents?.include(profile._id) ||
-                            user?._id === profile?._id
-                          }
-                        />
-                      </span>
+                      <>
+                        <span className={styles.contacts}>
+                          <PrimaryButton
+                            onClick={sendInvites}
+                            text="Invite to collaborate"
+                            splitterStyle={{ fontSize: '15px' }}
+                            disabled={
+                              user?.mangaStories?.participents?.include(profile._id) ||
+                              user?._id === profile?._id
+                            }
+                          />
+                        </span>
+                        <span className={styles.contacts}>
+                          <PrimaryButton
+                            onClick={sendMessage}
+                            text="send message"
+                            splitterStyle={{ fontSize: '15px', marginTop: '15px' }}
+                            disabled={
+                              user?.mangaStories?.participents?.include(profile._id) ||
+                              user?._id === profile?._id
+                            }
+                          />
+                        </span>
+                      </>
                     )}
                     <Follow
                       count={likedUsers?.length}

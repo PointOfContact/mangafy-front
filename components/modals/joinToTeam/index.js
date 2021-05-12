@@ -36,10 +36,14 @@ const ModalStart = ({ changeShowModal, showModal, baseData, selectedTask, user }
     changeShowModal(false);
   };
 
-  const createRequest = () => {
-    const jwt = client.getCookie('feathers-jwt');
-    import('api/restClient').then((m) => {
-      m.default
+  const createRequest = async () => {
+    try {
+      const jwt = client.getCookie('feathers-jwt');
+      const headers = {
+        Authorization: `Bearer ${jwt}`,
+      };
+      const { default: restClient } = await import('api/restClient');
+      const mangaStoryRequest = await restClient
         .service('/api/v2/join-manga-story-requests')
         .create(
           {
@@ -48,29 +52,51 @@ const ModalStart = ({ changeShowModal, showModal, baseData, selectedTask, user }
             taskId: selectedTask?._id,
           },
           {
-            headers: { Authorization: `Bearer ${jwt}` },
+            headers,
           }
-        )
-        .then((response) =>
-          m.default.service('/api/v2/conversations').create(
-            {
-              joinMangaStoryRequestId: response._id,
-            },
-            {
-              headers: { Authorization: `Bearer ${jwt}` },
-            }
-          )
-        )
-        .then((response) =>
-          m.default.service('/api/v2/messages').create(
-            {
-              content: text || 'Hi',
-              conversationId: response._id,
-            },
-            {
-              headers: { Authorization: `Bearer ${jwt}` },
-            }
-          )
+        );
+
+      const isConv = await restClient.service('/api/v2/conversations').find({
+        query: {
+          $sort: {
+            createdAt: -1,
+          },
+          $or: [
+            { participents: [user._id, baseData.author] },
+            { participents: [baseData.author, user._id] },
+          ],
+        },
+        headers: { Authorization: `Bearer ${jwt}` },
+      });
+
+      const conv = isConv?.data?.find(
+        (item) => !item.joinMangaStoryRequestId && !item.mangaStoryId
+      );
+
+      let conversation;
+
+      if (!conv?._id) {
+        conversation = await restClient.service('/api/v2/conversations').create(
+          {
+            participents: [baseData.author],
+          },
+          {
+            headers,
+          }
+        );
+      }
+
+      return restClient
+        .service('/api/v2/messages')
+        .create(
+          {
+            content: text || 'Hi',
+            conversationId: conv?._id || conversation._id,
+            joinMangaStoryRequestId: mangaStoryRequest._id,
+          },
+          {
+            headers,
+          }
         )
         .then(() => {
           changeShowModal(false);
@@ -86,19 +112,18 @@ const ModalStart = ({ changeShowModal, showModal, baseData, selectedTask, user }
             },
           ];
           amplitude.track(eventData);
-        })
-        .catch((err) => {
-          if (err.name === 'Conflict') {
-            notification.error({
-              message: `You have already sent a request with "${joinAs}"`,
-            });
-          } else {
-            notification.error({
-              message: err.message,
-            });
-          }
         });
-    });
+    } catch (err) {
+      if (err.name === 'Conflict') {
+        notification.error({
+          message: `You have already sent a request with "${joinAs}"`,
+        });
+      } else {
+        notification.error({
+          message: err.message,
+        });
+      }
+    }
   };
 
   const MyCheckboxes = USER_TYPES.map((item) => ({

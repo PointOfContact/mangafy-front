@@ -1,0 +1,12 @@
+@import '../../../styles/variables.scss';
+
+.avatar {
+  border-radius: 50%;
+  padding: 3px;
+  color: $text_white;
+  background-color: $primaryLight;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
