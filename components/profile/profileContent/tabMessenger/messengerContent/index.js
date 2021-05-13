@@ -72,7 +72,10 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
               </span>
             )}
             {item.joinMangaStoryRequest[0].status === 'new' &&
-              user._id === item.joinMangaStoryRequest[0].mangaStory?.author && (
+              ((user._id === item.joinMangaStoryRequest[0].mangaStory?.author &&
+                !item.joinMangaStoryRequest[0].isInvite) ||
+                (user._id === item.joinMangaStoryRequest[0].senderId &&
+                  item.joinMangaStoryRequest[0].isInvite)) && (
                 <div className={cn(styles.div_button, 'buttonsProfile_styles')}>
                   <PrimaryButton
                     onClick={(event) => {
@@ -149,7 +152,7 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
     interval = setInterval(() => {
       getMessages(conversationId);
     }, 3000);
-    // return () => clearInterval(interval);
+    return () => clearInterval(interval);
   }, [conversationId]);
 
   const isShowModal = () => {
@@ -230,9 +233,45 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
     });
   };
 
+  // const members = (data) => (
+  //   <div className={styles.participentsContent}>
+  //     {data?.map((item, index) => (
+  //       <div key={index}>
+  //         <Link key={item?.id} href={`/profile/${item?.id}`}>
+  //           <a className={styles.participentName}>
+  //             {item.avatar ? (
+  //               <Imgix
+  //                 width={50}
+  //                 height={50}
+  //                 src={client.UPLOAD_URL + item.avatar}
+  //                 alt="Picture of the user"
+  //               />
+  //             ) : (
+  //               <Avatar text={item.name} size={50} />
+  //             )}
+  //             <div className={styles.info}>
+  //               <h2>{item.name}</h2>
+  //             </div>
+  //           </a>
+  //         </Link>
+  //       </div>
+  //     ))}
+  //   </div>
+  // );
+
   return (
     <div className={styles.chatContainer}>
       <div className={styles.userName}>{name}</div>
+      {selectedRequest.isTeamChat && (
+        // <Popover
+        //   placement="bottomLeft"
+        //   title={'Members'}
+        //   content={members(selectedRequest.participentsInfo)}
+        //   trigger="click">
+        <p className={styles.members}>Members - {selectedRequest?.participentsInfo?.length}</p>
+        // </Popover>
+      )}
+
       <div className={styles.messageList} id="message-content">
         <MessageList
           ref={messanger}

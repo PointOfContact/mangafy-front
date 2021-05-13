@@ -247,8 +247,16 @@
   &:hover {
     color: $black;
   }
+  @include media-lg {
+    margin-bottom: 30px;
+    border-right: 2px solid rgba(33, 33, 33, 0.07);
+  }
   @include media-sm() {
     width: calc(20% - 2px);
+    margin-bottom: 50px;
+  }
+  @media (max-width: 579px) {
+    margin-bottom: 37px;
   }
 }
 

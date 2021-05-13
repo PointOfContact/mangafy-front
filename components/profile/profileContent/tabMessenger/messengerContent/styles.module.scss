@@ -37,9 +37,13 @@
   max-height: 370px;
   min-height: 370px;
   overflow-y: auto;
+  @include media-lg {
+    max-height: 360px;
+    min-height: 360px;
+  }
   @include media-sm {
-    max-height: 284px;
-    min-height: 284px;
+    max-height: 274px !important;
+    min-height: 274px !important;
   }
   &::-webkit-scrollbar {
     height: 3px;
@@ -294,12 +298,15 @@
     position: relative;
     width: 100%;
     input {
-      width: calc(100% - 140px);
+      width: calc(100% - 310px);
       padding-top: 20px;
       border: none !important;
       &:focus {
         outline: none !important;
         box-shadow: none !important;
+      }
+      @include media-lg() {
+        width: 100%;
       }
     }
   }
@@ -308,6 +315,18 @@
     position: absolute;
     top: 8px;
     right: 10px;
+    @include media-lg() {
+      position: unset;
+      display: flex;
+      justify-content: flex-end;
+      padding-right: 15px;
+      padding-top: 15px;
+      border-top: 2px solid rgba(33, 33, 33, 0.07);
+      margin-top: 15px;
+    }
+    @include media-sm {
+      margin-bottom: 30px;
+    }
     button {
       font-size: $text4;
       height: 46px;
@@ -372,3 +391,58 @@
   line-height: 13px;
   margin-bottom: 10px;
 }
+
+.members {
+  color: $grey;
+  margin-left: 20px;
+  position: absolute;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: $text5;
+  top: 57px;
+  @include media-sm() {
+    margin-left: 12px;
+    top: 45px;
+  }
+}
+
+// .participentsContent {
+//   min-width: 150px;
+//   margin-top: -16px;
+//   >div{
+//     width: calc( 100% + 32px);
+//     margin-left: -16px;
+//     border-top: 2px solid rgba(33, 33, 33, 0.07);
+//     padding: 10px 15px;
+//     &:hover{
+//       background-color: aliceblue;
+//     }
+//   }
+//   .participentName {
+//     width: 100%;
+//     display: flex;
+//     align-items: center;
+//     div {
+//       margin: 0;
+//     }
+//     img {
+//       min-width: 50px;
+//       min-height: 50px;
+//       max-width: 50px;
+//       max-height: 50px;
+//       border-radius: 50%;
+//     }
+//     .info {
+//       padding-left: 10px;
+//       p {
+//         margin-bottom: 0;
+//         font-size: $text4;
+//         color: $grey;
+//       }
+//       h2 {
+//         margin-bottom: 0px;
+//         font-size: $text3;
+//       }
+//     }
+//   }
+// }

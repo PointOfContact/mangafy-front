@@ -47,6 +47,7 @@ const MessengerList = ({
             setSelectedRequest={setSelectedRequest}
             profileId={r.senderInfo?._id}
             isArchive={r.joinMangaStoryRequestId}
+            participentsInfo={r.participentsInfo}
           />
         ))}
       </div>

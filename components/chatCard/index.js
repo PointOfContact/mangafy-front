@@ -37,6 +37,7 @@ const ChatCard = ({
   selectedRequest,
   isTeamChat,
   isArchive,
+  participentsInfo,
 }) => {
   const [requests, setRequests] = useState([]);
   const showMessages = (e, sender) => {
@@ -47,6 +48,7 @@ const ChatCard = ({
       isTeamChat,
       profileId,
       isArchive,
+      participentsInfo,
       av: sender.avatar
         ? client.UPLOAD_URL + sender.avatar
         : `https://ui-avatars.com/api/?background=9A87FE&name=${sender?.name}&rounded=true&color=ffffff`,
@@ -176,12 +178,14 @@ ChatCard.propTypes = {
   isTeamChat: PropTypes.bool.isRequired,
   profileId: PropTypes.string,
   isArchive: PropTypes.bool,
+  participentsInfo: PropTypes.array,
 };
 
 ChatCard.defaultProps = {
   conversations: [],
   profileId: null,
   isArchive: false,
+  participentsInfo: [],
 };
 
 export default ChatCard;
