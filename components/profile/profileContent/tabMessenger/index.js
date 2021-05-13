@@ -44,7 +44,7 @@ const TabMessenger = (props) => {
                 isTeamChat: !!item.mangaStoryId,
                 conversations: [{ _id: item._id }],
                 participents: item.participents,
-                participentsInfo: [item.mangaStoryAuthor, ...item.participentsInfo],
+                participentsInfo: [...item.participentsInfo, item.mangaStoryAuthor],
                 senderInfo:
                   (item.mangaStoryTitle && {
                     name: item.mangaStoryTitle,
@@ -63,7 +63,7 @@ const TabMessenger = (props) => {
                 conversations: [{ _id: item._id }],
                 participents: item.participents,
                 joinMangaStoryRequestId: item.joinMangaStoryRequestId,
-                participentsInfo: [item.mangaStoryAuthor, ...item.participentsInfo],
+                participentsInfo: [...item.participentsInfo, item.mangaStoryAuthor],
                 senderInfo:
                   (item.mangaStoryTitle && {
                     name: item.mangaStoryTitle,
