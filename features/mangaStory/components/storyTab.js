@@ -113,6 +113,7 @@ const StoryTab = ({ setBaseData, baseData, isOwn, user, isParticipent }) => {
                   type={type}
                   leaveManga={leaveManga}
                   user={user}
+                  author={author}
                 />
               }
               trigger="click">

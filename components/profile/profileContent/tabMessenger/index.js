@@ -44,6 +44,7 @@ const TabMessenger = (props) => {
                 isTeamChat: !!item.mangaStoryId,
                 conversations: [{ _id: item._id }],
                 participents: item.participents,
+                participentsInfo: [item.mangaStoryAuthor, ...item.participentsInfo],
                 senderInfo:
                   (item.mangaStoryTitle && {
                     name: item.mangaStoryTitle,
@@ -62,6 +63,7 @@ const TabMessenger = (props) => {
                 conversations: [{ _id: item._id }],
                 participents: item.participents,
                 joinMangaStoryRequestId: item.joinMangaStoryRequestId,
+                participentsInfo: [item.mangaStoryAuthor, ...item.participentsInfo],
                 senderInfo:
                   (item.mangaStoryTitle && {
                     name: item.mangaStoryTitle,
@@ -82,13 +84,14 @@ const TabMessenger = (props) => {
               const thisConv = newRequests.find((r) => r._id === conversation);
               newSelectedRequest = {
                 rid: thisConv?._id,
-                isTeamChat: !!thisConv?.mangaStoryId,
+                isTeamChat: !!thisConv?.isTeamChat,
                 conversationId:
                   thisConv?.conversations[0]._id || newRequests[0].conversations[0]._id,
                 name: thisConv?.senderInfo.name,
                 av: client.UPLOAD_URL + thisConv?.senderInfo.avatar || '',
                 profileId: thisConv?.senderInfo?._id,
                 isArchive: !!thisConv?.joinMangaStoryRequestId,
+                participentsInfo: thisConv?.participentsInfo,
               };
             } else {
               newSelectedRequest = {
@@ -97,8 +100,9 @@ const TabMessenger = (props) => {
                 name: newRequests[0].senderInfo.name,
                 av: client.UPLOAD_URL + newRequests[0].senderInfo.avatar || '',
                 profileId: newRequests[0].senderInfo._id,
-                isTeamChat: !!newRequests[0].mangaStoryId,
+                isTeamChat: newRequests[0].isTeamChat,
                 isArchive: !!newRequests[0].joinMangaStoryRequestId,
+                participentsInfo: newRequests[0].participentsInfo,
               };
             }
             setSelectedRequest(newSelectedRequest);

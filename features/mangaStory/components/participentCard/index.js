@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
-const ParticipentCard = ({ isOwn, avatar, name, id, type, leaveManga, user }) => (
+const ParticipentCard = ({ isOwn, avatar, name, id, type, leaveManga, user, author }) => (
   <div className={styles.participentsContent}>
     <Link key={id} href={`/profile/${id}`}>
       <a className={styles.participentName}>
@@ -31,46 +31,51 @@ const ParticipentCard = ({ isOwn, avatar, name, id, type, leaveManga, user }) =>
       </a>
     </Link>
     <div className={styles.steps}>
-      {isOwn && (
-        <div>
-          <p>Change permissions</p>
-          <Popconfirm
-            placement="top"
-            title={
-              <div
-                style={{
-                  width: '200px',
-                }}>{`Do you really want ${name} to be excluded from this manga-story?`}</div>
-            }
-            onConfirm={() => {
-              leaveManga(id);
-            }}
-            onClick={(event) => event.stopPropagation()}
-            okText="Yes"
-            cancelText="No">
-            <p>Remove participant</p>
-          </Popconfirm>
-        </div>
-      )}
-      {id === user._id && (
-        <Popconfirm
-          placement="top"
-          title={
-            <div
-              style={{
-                width: '200px',
-              }}>
-              Do you really want to get out of this Manga-Story
+      {author === id ? (
+        <></>
+      ) : (
+        <>
+          {isOwn && (
+            <div>
+              <Popconfirm
+                placement="top"
+                title={
+                  <div
+                    style={{
+                      width: '200px',
+                    }}>{`Do you really want ${name} to be excluded from this manga-story?`}</div>
+                }
+                onConfirm={() => {
+                  leaveManga(id);
+                }}
+                onClick={(event) => event.stopPropagation()}
+                okText="Yes"
+                cancelText="No">
+                <p>Remove participant</p>
+              </Popconfirm>
             </div>
-          }
-          onConfirm={() => {
-            leaveManga(user._id);
-          }}
-          onClick={(event) => event.stopPropagation()}
-          okText="Yes"
-          cancelText="No">
-          <p className={styles.out}> Leave Manga-Story</p>
-        </Popconfirm>
+          )}
+          {id === user._id && (
+            <Popconfirm
+              placement="top"
+              title={
+                <div
+                  style={{
+                    width: '200px',
+                  }}>
+                  Do you really want to get out of this Manga-Story
+                </div>
+              }
+              onConfirm={() => {
+                leaveManga(user._id);
+              }}
+              onClick={(event) => event.stopPropagation()}
+              okText="Yes"
+              cancelText="No">
+              <p className={styles.out}> Leave Manga-Story</p>
+            </Popconfirm>
+          )}
+        </>
       )}
     </div>
   </div>
@@ -84,6 +89,7 @@ ParticipentCard.propTypes = {
   avatar: PropTypes.string,
   type: PropTypes.string.isRequired,
   user: PropTypes.object,
+  author: PropTypes.string.isRequired,
 };
 
 ParticipentCard.defaultProps = {
