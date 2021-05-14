@@ -11,12 +11,15 @@ import styles from './styles.module.scss';
 const { TextArea } = Input;
 
 const Idea = ({ storyBoard, setStoryBoard }) => {
-  const [idea, setIdea] = useState(storyBoard);
+  const [idea, setIdea] = useState({
+    title: storyBoard?.idea?.title.trimStart(),
+    text: storyBoard?.idea?.text.trimStart(),
+  });
 
   useEffect(() => {
     setIdea({
-      title: storyBoard?.idea?.title,
-      text: storyBoard?.idea?.text,
+      title: storyBoard?.idea?.title?.trimStart(),
+      text: storyBoard?.idea?.text?.trimStart(),
     });
   }, [storyBoard]);
 

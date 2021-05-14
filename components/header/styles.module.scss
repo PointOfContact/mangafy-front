@@ -181,6 +181,7 @@
     }
     img {
       border-radius: 50%;
+      object-fit: cover;
     }
   }
   .online {
@@ -272,7 +273,7 @@
     font-weight: 700;
     margin-left: 0;
     padding: 21px;
-    font-size: 20px;
+    font-size: 25px;
     &:hover {
       background-color: #fff;
       color: #5644ba;
@@ -319,7 +320,9 @@
       }
     }
     .mobile_div_part2 {
-      background: $primaryDark;
+      background: $text-white;
+      border-top: 1px solid #ebebeb;
+      margin-top: -1px;
       flex: 1;
       display: flex;
       flex-direction: column;

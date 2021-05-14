@@ -29,6 +29,9 @@ const findNotificationsCount = (onSuccess, onFailure) => {
       .find({
         query: {
           $limit: 0,
+          $sort: {
+            createdAt: -1,
+          },
           unread: true,
         },
         headers: { Authorization: `Bearer ${jwt}` },
@@ -102,6 +105,9 @@ const Header = ({ user, path }) => {
   };
 
   const addEvent = () => {
+    if (!user?._id) {
+      return;
+    }
     const data = [
       {
         platform: 'WEB',

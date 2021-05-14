@@ -1,30 +1,48 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Upload, message, notification } from 'antd';
+import Modal from 'antd/lib/modal/Modal';
 import client from 'api/client';
 // Api
 import { patchStoryBoard, uploadFile } from 'api/storyBoardClient';
 // Components
+import cn from 'classnames';
+import SvgClose from 'components/icon/Close';
 import SvgCloud from 'components/icon/Cloud';
 import SvgImage from 'components/icon/Image';
+import Imgix from 'components/imgix';
+import dynamic from 'next/dynamic';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
+const PDFViewer = dynamic(() => import('components/pdfViewer'), {
+  ssr: false,
+});
+
 const PrimaryUpload = ({ storyBoardId, onUploadSuccess, mangaUrl }) => {
-  const uplType = mangaUrl?.slice(-3);
-  const img = uplType
-    ? [
-        {
-          uid: '-1',
-          url:
-            uplType === 'pdf' || uplType === 'PDF'
-              ? 'https://icons.iconarchive.com/icons/graphicloads/filetype/256/pdf-icon.png'
-              : client.UPLOAD_URL + mangaUrl,
-          status: 'done',
-        },
-      ]
-    : [];
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [modalContent, setIsModalContent] = useState('');
+  const [img, setImg] = useState(null);
+  const [uplType, setUplType] = useState(null);
+
+  useEffect(() => {
+    setUplType(mangaUrl?.slice(-3));
+    const newImg = mangaUrl?.slice(-3)
+      ? [
+          {
+            uid: '-1',
+            url:
+              mangaUrl?.slice(-3) === 'pdf' || mangaUrl?.slice(-3) === 'PDF'
+                ? 'https://icons.iconarchive.com/icons/graphicloads/filetype/256/pdf-icon.png'
+                : client.UPLOAD_URL + mangaUrl,
+            status: 'done',
+          },
+        ]
+      : [];
+    setImg(newImg);
+    setFileList(newImg);
+  }, [mangaUrl]);
 
   const [fileList, setFileList] = useState(img || []);
 
@@ -89,13 +107,11 @@ const PrimaryUpload = ({ storyBoardId, onUploadSuccess, mangaUrl }) => {
       });
     }
     if (uplType === 'pdf' || uplType === 'PDF') {
-      window.open(client.UPLOAD_URL + mangaUrl);
+      setIsModalContent(<PDFViewer url={client.UPLOAD_URL + mangaUrl} />);
+      setIsModalVisible(true);
     } else {
-      // eslint-disable-next-line no-undef
-      const image = new Image();
-      image.src = src;
-      const imgWindow = window.open(src);
-      imgWindow.document.write(image.outerHTML);
+      setIsModalContent(<Imgix layout="fill" src={src} alt="" />);
+      setIsModalVisible(true);
     }
   };
   return (
@@ -128,6 +144,17 @@ const PrimaryUpload = ({ storyBoardId, onUploadSuccess, mangaUrl }) => {
           </div>
         )}
       </Upload>
+      <Modal
+        className={cn(styles.modal)}
+        bodyStyle={{ height: 'calc(100vh - 30px)', overflow: 'auto' }}
+        footer={null}
+        width={'100%'}
+        zIndex={200000000}
+        onCancel={() => setIsModalVisible(false)}
+        closeIcon={<SvgClose />}
+        visible={isModalVisible}>
+        <div className={styles.modalContent}>{modalContent}</div>
+      </Modal>
     </div>
   );
 };

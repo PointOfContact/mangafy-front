@@ -4,6 +4,7 @@ import client from 'api/client';
 import cn from 'classnames';
 import SvgComment from 'components/icon/Comment';
 import SvgHeart from 'components/icon/Heart';
+import Imgix from 'components/imgix';
 import ModalDiscussion from 'components/modals/discussion';
 import PrimaryButton from 'components/ui-elements/button';
 import Link from 'next/link';
@@ -16,6 +17,7 @@ const DiscussionCard = (props) => {
   const {
     id,
     logo,
+    logoNavigate,
     title,
     category,
     categories,
@@ -34,11 +36,17 @@ const DiscussionCard = (props) => {
     <>
       <div className={styles.projectsForYou_Card}>
         <div className={styles.projectsForYou_Top}>
-          <div
-            className={styles.projectsForYou_Logo}
-            style={{
-              backgroundImage: `url(${logo ? client.UPLOAD_URL + logo : '/img/mangastory.jpg'})`,
-            }}></div>
+          <Link href={logoNavigate}>
+            <a>
+              <div
+                className={styles.projectsForYou_Logo}
+                style={{
+                  backgroundImage: `url(${
+                    logo ? client.UPLOAD_URL + logo : '/img/mangastory.jpg'
+                  })`,
+                }}></div>
+            </a>
+          </Link>
           <div className={styles.projectsForYou_Descr}>
             <div className={styles.projectsForYou_Name}>{title}</div>
             <div className={styles.projectsForYou_Category}>
@@ -59,12 +67,15 @@ const DiscussionCard = (props) => {
             </div>
           </div>
         </div>
-        <div
-          onClick={() => changeShowModal(true)}
-          className={styles.projectsForYou_MainImg}
-          style={{
-            backgroundImage: `url(${img ? client.UPLOAD_URL + img : '/img/mangastory.jpg'})`,
-          }}>
+        <div onClick={() => changeShowModal(true)} className={styles.projectsForYou_MainImg}>
+          <div className={styles.bgImg}>
+            <Imgix
+              className={(!img && styles.defaultBg) || ''}
+              layout="fill"
+              src={img ? `${client.UPLOAD_URL + img}` : `https://mangafy.club/img/mangastory.webp`}
+              alt=""
+            />
+          </div>
           <div className={styles.comments}>
             <div>
               <span>{likesCount}</span>
@@ -97,6 +108,8 @@ const DiscussionCard = (props) => {
         title={title}
         user={user}
         postId={id}
+        likesCount={likesCount}
+        logoNavigate={logoNavigate}
       />
     </>
   );
@@ -106,9 +119,9 @@ DiscussionCard.propTypes = {
   id: PropTypes.string.isRequired,
   logo: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  category: PropTypes.string.isRequired,
+  category: PropTypes.string,
   img: PropTypes.string.isRequired,
-  categories: PropTypes.string.isRequired,
+  categories: PropTypes.array.isRequired,
   subTitle: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
@@ -116,10 +129,13 @@ DiscussionCard.propTypes = {
   user: PropTypes.object,
   commentsCount: PropTypes.number.isRequired,
   likesCount: PropTypes.number.isRequired,
+  logoNavigate: PropTypes.string,
 };
 
 DiscussionCard.defaultProps = {
   user: null,
+  logoNavigate: '',
+  category: '',
 };
 
 export default DiscussionCard;

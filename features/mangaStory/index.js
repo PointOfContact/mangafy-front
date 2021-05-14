@@ -251,7 +251,7 @@ const MangeStory = (props) => {
                     <div className={styles.publishContent}>
                       <Popover
                         placement="bottomRight"
-                        overlayStyle={{ maxWidth: '400px' }}
+                        overlayStyle={{ maxWidth: '400px', zIndex: '100' }}
                         title={''}
                         content={
                           'Note: published projects will only show general information about your project (inc. what you look for, and what you aim to work on without disclosing anything else). In draft mode, you go off-grid and need to invite collaborations manually, while the member you invite sees nothing.'
@@ -353,6 +353,7 @@ const MangeStory = (props) => {
                         {!editMode ? (
                           <div>
                             <StoryTab
+                              setBaseData={setBaseData}
                               baseData={baseData}
                               user={user}
                               isOwn={isOwn}
@@ -422,6 +423,8 @@ const MangeStory = (props) => {
                         openNotification={openNotification}
                         originUrl={originUrl}
                         participentsInfo={baseData.participentsInfo}
+                        baseData={baseData}
+                        setBaseData={setBaseData}
                       />
                     </TabPane>
                   )}
@@ -435,18 +438,20 @@ const MangeStory = (props) => {
                       />
                     </div>
                   </TabPane>
-                  {user && (
-                    <TabPane tab="TEAM CHAT" key="4">
-                      <div className={styles.tabWrap}>
-                        <Chat
-                          mangaStory={baseData}
-                          user={user}
-                          isOwn={isOwn}
-                          collabActiveTab={collabActiveTab}
-                        />
-                      </div>
-                    </TabPane>
-                  )}
+                  {user &&
+                    (baseData?.participentsInfo?.find((item) => item._id === user._id) ||
+                      baseData?.author === user._id) && (
+                      <TabPane tab="TEAM CHAT" key="4">
+                        <div className={styles.tabWrap}>
+                          <Chat
+                            mangaStory={baseData}
+                            user={user}
+                            isOwn={isOwn}
+                            collabActiveTab={collabActiveTab}
+                          />
+                        </div>
+                      </TabPane>
+                    )}
                 </Tabs>
               </div>
             </div>

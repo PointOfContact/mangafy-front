@@ -64,9 +64,9 @@ const AnimePlatform = () => {
             />
           ))}
         </Row>
-        <Link href="/sign-in">
+        <Link href="/create-a-story/start">
           <a>
-            <PrimaryButton className={styles.joinBtn} text="Join Now" isRound={true} />
+            <PrimaryButton className={styles.joinBtn} text="Start a project" isRound={true} />
           </a>
         </Link>
       </div>

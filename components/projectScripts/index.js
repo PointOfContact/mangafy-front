@@ -156,9 +156,10 @@ const ProjectScripts = ({ pages, storyBoardId, storyBoard, setStoryBoard }) => {
                       <TextArea
                         onBlur={(e) => updateScripts(e.target.value, index, 'text')}
                         onChange={(e) => (script.text = e.target.value)}
+                        style={{ lineHeight: 1.2, overflow: 'auto' }}
                         placeholder="Page description"
                         minRows={width < 768 ? 5 : 12}
-                        maxRows={width < 768 ? 6 : 15}
+                        maxRows={width < 768 ? 5 : 12}
                       />
                     </Form.Item>
                   </Form>

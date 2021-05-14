@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import Head from 'next/head';
+import Router from 'next/router';
 
 class Verify extends Component {
   componentDidMount() {

@@ -19,7 +19,7 @@
 }
 .sub_info {
   margin-top: -7px;
-  margin-bottom: 13px;
+  margin-bottom: 16px;
   font-size: $text4;
   color: $grey;
   display: inherit;
@@ -29,15 +29,16 @@
 }
 .storyTab {
   font-family: Noto Sans JP;
-  pre {
-    margin-bottom: 25px;
-  }
   .storyTabTitle {
     font-size: 20px;
     font-weight: 700;
-    line-height: 30px;
+    line-height: 35px;
     margin-bottom: 6px;
     font-family: Noto Sans JP;
+    @include media-sm {
+      font-size: 15px;
+      line-height: 20px;
+    }
   }
   .participate {
     margin-top: 40px;
@@ -47,6 +48,11 @@
     color: #858585;
     font-size: 20px;
     font-family: Noto Sans JP;
+    margin-bottom: 45px;
+    @include media-sm {
+      font-size: 15px;
+      line-height: 20px;
+    }
   }
   .cardWrapper {
     width: 100%;
@@ -76,14 +82,16 @@
     padding-left: 20px;
     display: flex;
     margin-top: 16px;
-  }
-  .participents img {
-    width: 68.8px;
-    height: 68.8px;
-    border-radius: 50%;
-  }
-  .participents > a {
-    margin-left: -20px !important;
+    img {
+      min-width: 68.8px;
+      min-height: 68.8px;
+      max-width: 68.8px;
+      max-height: 68.8px;
+      border-radius: 50%;
+    }
+    .participentInfo {
+      margin-left: -20px !important;
+    }
   }
 }
 .pageWrap {
@@ -319,6 +327,20 @@
   flex-direction: column;
   height: 100%;
   min-height: 500px;
+
+  .addNewbuttons {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 20px;
+    border-bottom: 1px solid rgba(33, 33, 33, 0.07);
+
+    .addTask {
+      margin-left: 10px;
+      font-size: 15px;
+      border-radius: 10px;
+    }
+  }
 
   .heroContainer {
     width: fit-content;

@@ -201,7 +201,7 @@ export const Gallery = (props) => {
             {images?.length ? (
               images.map((galleryItem, index) => (
                 <GalleryCard
-                  key={galleryItem?.id}
+                  key={galleryItem._id}
                   {...{
                     index,
                     canEdit,

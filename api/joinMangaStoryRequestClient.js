@@ -24,7 +24,15 @@ const getRequest = async (reqId) => {
   });
 };
 
-const createRequest = async ({ mangaStoryId, joinAs, isInvite, senderId, text, taskId }) => {
+const createRequest = async ({
+  mangaStoryId,
+  joinAs,
+  isInvite,
+  senderId,
+  text,
+  taskId,
+  userId,
+}) => {
   const jwt = client.getCookie('feathers-jwt');
   const headers = {
     Authorization: `Bearer ${jwt}`,
@@ -42,18 +50,37 @@ const createRequest = async ({ mangaStoryId, joinAs, isInvite, senderId, text, t
       headers,
     }
   );
-  const conversation = await restClient.service('/api/v2/conversations').create(
-    {
-      joinMangaStoryRequestId: mangaStoryRequest._id,
+
+  const isConv = await restClient.service('/api/v2/conversations').find({
+    query: {
+      $sort: {
+        createdAt: -1,
+      },
+      $or: [{ participents: [userId, senderId] }, { participents: [senderId, userId] }],
     },
-    {
-      headers,
-    }
-  );
+    headers: { Authorization: `Bearer ${jwt}` },
+  });
+
+  const conv = isConv?.data?.find((item) => !item.joinMangaStoryRequestId && !item.mangaStoryId);
+
+  let conversation;
+
+  if (!conv?._id) {
+    conversation = await restClient.service('/api/v2/conversations').create(
+      {
+        participents: [senderId],
+      },
+      {
+        headers,
+      }
+    );
+  }
+
   return restClient.service('/api/v2/messages').create(
     {
       content: text || 'Hi',
-      conversationId: conversation._id,
+      conversationId: conv?._id || conversation._id,
+      joinMangaStoryRequestId: mangaStoryRequest._id,
     },
     {
       headers,

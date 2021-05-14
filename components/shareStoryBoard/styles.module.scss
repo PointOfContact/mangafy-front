@@ -34,17 +34,17 @@
     color: $black;
   }
   .logos {
-    height: 80px;
     display: flex;
     justify-content: center;
     align-items: center;
-    a {
-      height: 100%;
-      display: inline-block;
-    }
-    img {
-      height: 100%;
-      cursor: pointer;
+    div {
+      a {
+        display: inline-block;
+      }
+      img {
+        height: 80px;
+        cursor: pointer;
+      }
     }
     .webtoon {
       margin-right: 29px;

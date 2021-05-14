@@ -107,21 +107,26 @@ const MenuNotificationsItem = ({
 MenuNotificationsItem.propTypes = {
   _id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  image: PropTypes.string.isRequired,
+  image: PropTypes.string,
   icon: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
+  description: PropTypes.string,
   createdAt: PropTypes.string.isRequired,
-  verified: PropTypes.bool.isRequired,
+  verified: PropTypes.bool,
   profileId: PropTypes.string.isRequired,
   patchNotification: PropTypes.func.isRequired,
-  navigateTo: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
+  navigateTo: PropTypes.string,
+  type: PropTypes.string,
   requestId: PropTypes.string,
   user: PropTypes.object.isRequired,
 };
 
 MenuNotificationsItem.defaultProps = {
   requestId: null,
+  image: null,
+  description: '',
+  verified: false,
+  navigateTo: '',
+  type: null,
 };
 
 export default MenuNotificationsItem;

@@ -14,7 +14,7 @@
     box-shadow: 0px 0px 12px $primaryLight;
   }
   .type {
-    width: 94px;
+    width: 80px;
     height: 27px;
     display: inline-flex;
     justify-content: center;
@@ -36,6 +36,20 @@
     background-color: $orangeDark;
     &:hover {
       box-shadow: 0 0 8px $orangeLight;
+    }
+  }
+
+  .isDraft {
+    background-color: $black;
+    &:hover {
+      box-shadow: 0 0 8px $black;
+    }
+  }
+
+  .isPublic {
+    background-color: #6fd257;
+    &:hover {
+      box-shadow: 0 0 8px #6fd257;
     }
   }
 

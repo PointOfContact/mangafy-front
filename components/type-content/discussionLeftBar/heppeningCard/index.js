@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import styles from './styles.module.scss';
 
 const HeppeningCard = (props) => {
-  const { id, img, title, like } = props;
+  const { id, img, title } = props;
 
   return (
     <>
@@ -34,11 +34,12 @@ const HeppeningCard = (props) => {
 
 HeppeningCard.propTypes = {
   id: PropTypes.string.isRequired,
-  img: PropTypes.string.isRequired,
+  img: PropTypes.string,
   title: PropTypes.string.isRequired,
-  like: PropTypes.string.isRequired,
 };
 
-HeppeningCard.defaultProps = {};
+HeppeningCard.defaultProps = {
+  img: null,
+};
 
 export default HeppeningCard;

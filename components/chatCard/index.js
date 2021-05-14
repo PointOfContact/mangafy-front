@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Popconfirm } from 'antd';
+import { notification, Popconfirm } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
 import Imgix from 'components/imgix';
@@ -32,50 +32,62 @@ const ChatCard = ({
   conversations,
   isSmall,
   status,
+  profileId,
   setSelectedRequest,
   selectedRequest,
+  isTeamChat,
+  isArchive,
+  participentsInfo,
 }) => {
   const [requests, setRequests] = useState([]);
   const showMessages = (e, sender) => {
     const newSelectedRequest = {
       rid,
-      status,
       conversationId: e.currentTarget.dataset.id,
-      isInvite,
       name: sender.name,
+      isTeamChat,
+      profileId,
+      isArchive,
+      participentsInfo,
       av: sender.avatar
         ? client.UPLOAD_URL + sender.avatar
-        : `https://ui-avatars.com/api/?background=9A87FE&name=${sender.name}&rounded=true&color=ffffff`,
+        : `https://ui-avatars.com/api/?background=9A87FE&name=${sender?.name}&rounded=true&color=ffffff`,
     };
     setSelectedRequest(newSelectedRequest);
   };
 
   const setRecvestStatus = (event, id, status) => {
-    onAccept(event, id, status).then((res) => {
-      const newRequest = [...requests];
-      newRequest.map((item) => {
-        if (item._id === res._id) {
-          item.status = res.status;
-        }
-        return item;
-      });
-      setRequests(newRequest);
+    onAccept(event, id, status)
+      .then((res) => {
+        const newRequest = [...requests];
+        newRequest.map((item) => {
+          if (item._id === res._id) {
+            item.status = res.status;
+          }
+          return item;
+        });
+        setRequests(newRequest);
 
-      const event_type = status === 'accepted' ? EVENTS.INVITE_ACCEPTED : EVENTS.INVITE_REJECTED;
+        const event_type = status === 'accepted' ? EVENTS.INVITE_ACCEPTED : EVENTS.INVITE_REJECTED;
 
-      const eventData = [
-        {
-          platform: 'WEB',
-          event_type,
-          event_properties: { inviteRequestId: id },
-          user_id: user._id,
-          user_properties: {
-            ...user,
+        const eventData = [
+          {
+            platform: 'WEB',
+            event_type,
+            event_properties: { inviteRequestId: id },
+            user_id: user._id,
+            user_properties: {
+              ...user,
+            },
           },
-        },
-      ];
-      amplitude.track(eventData);
-    });
+        ];
+        amplitude.track(eventData);
+      })
+      .catch((err) => {
+        notification.error({
+          message: err.message,
+        });
+      });
   };
   return (
     <div
@@ -99,7 +111,14 @@ const ChatCard = ({
                   src={client.UPLOAD_URL + senderInfo.avatar}
                 />
               ) : (
-                <Avatar text={senderInfo.name} className={styles.avatarName} fontSize={50} />
+                (isTeamChat && (
+                  <Imgix
+                    className="avatar"
+                    width={104}
+                    height={104}
+                    src={'https://mangafy.club/img/mangastory.webp'}
+                  />
+                )) || <Avatar text={senderInfo.name} className={styles.avatarName} fontSize={50} />
               )}
             </div>
             <div className={styles.name_special}>
@@ -107,11 +126,11 @@ const ChatCard = ({
                 <h4>{senderInfo && senderInfo.name}</h4>
                 <p>{senderInfo && senderInfo.type}</p>
               </div>
-              <p className={styles.messages}>{messages && messages[0] && messages[0].content}</p>
+              <p className={styles.messages}>{messages && messages.content}</p>
             </div>
           </div>
         </div>
-        {isOwn && !isInvite && status === 'new' && (
+        {isOwn && !isInvite && !isInvite && status === 'new' && (
           <div className={cn(styles.div_button, 'buttonsProfile_styles')}>
             <Popconfirm
               placement="top"
@@ -150,12 +169,23 @@ ChatCard.propTypes = {
   isInvite: PropTypes.bool.isRequired,
   messages: PropTypes.array.isRequired,
   senderInfo: PropTypes.object.isRequired,
-  conversations: PropTypes.array.isRequired,
+  conversations: PropTypes.array,
   setAv: PropTypes.func.isRequired,
   isSmall: PropTypes.bool.isRequired,
   status: PropTypes.string.isRequired,
   setSelectedRequest: PropTypes.object.isRequired,
   selectedRequest: PropTypes.object.isRequired,
+  isTeamChat: PropTypes.bool.isRequired,
+  profileId: PropTypes.string,
+  isArchive: PropTypes.bool,
+  participentsInfo: PropTypes.array,
+};
+
+ChatCard.defaultProps = {
+  conversations: [],
+  profileId: null,
+  isArchive: false,
+  participentsInfo: [],
 };
 
 export default ChatCard;

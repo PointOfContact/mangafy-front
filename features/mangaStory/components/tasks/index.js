@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Popconfirm } from 'antd';
 import client from 'api/client';
@@ -50,7 +50,8 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipent }) => {
         ];
         amplitude.track(eventData);
       })
-      .catch((err) => err);
+      .catch(() => updateTasks());
+    // To do 404
   };
 
   const updateTasks = async () => {
@@ -69,6 +70,11 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipent }) => {
       })
       .catch((err) => err);
   };
+
+  useEffect(() => {
+    setTasks(baseData.tasks);
+  }, [baseData.tasks]);
+
   return (
     <div className={cn(styles.tasks, !taskList.length && styles.noTasks)}>
       <span className={styles.mobile_add}>
@@ -103,7 +109,11 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipent }) => {
                     {task?.rewardType && (
                       <ButtonColab
                         className={cn(styles.ButtonPurple, styles.rewardType)}
-                        text={task.rewardType === 'Free' ? 'Free' : `${task?.amount} $`}
+                        text={
+                          task.rewardType === 'Free'
+                            ? 'Free'
+                            : `${task?.amount || task?.maxValue} $`
+                        }
                       />
                     )}
                     <div className={styles.description}>-{task.description}</div>
@@ -155,7 +165,7 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipent }) => {
             src="https://mangafy.club/img/storyCardImg1.webp"
             alt=""
           />
-          {isOwn && (
+          {isOwn ? (
             <PrimaryButton
               onClick={() => {
                 changeShowModal(true);
@@ -163,6 +173,16 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipent }) => {
               }}
               text="create a task"
             />
+          ) : (
+            !tasks?.length &&
+            !isParticipent && (
+              <PrimaryButton
+                onClick={() => {
+                  toTeam(null);
+                }}
+                text="Contribute"
+              />
+            )
           )}
         </div>
       </div>

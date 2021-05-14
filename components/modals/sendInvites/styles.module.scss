@@ -1,12 +1,16 @@
 @import '../../../styles/variables.scss';
 
 .modal {
+  margin-top: 35px;
   @include media-sm {
     width: 95% !important;
     max-width: 95% !important;
+    margin-top: 15px;
   }
   h2 {
-    margin-bottom: 0;
+    margin-bottom: 15px;
+    font-weight: 400;
+    font-size: $text4;
   }
   .modalTitle {
     margin-top: 24px;
@@ -22,7 +26,7 @@
     font-size: $text4;
     padding: 0;
     width: 100%;
-    margin-bottom: 15px;
+    margin-bottom: 25px !important;
   }
   .modalTexarea {
     min-height: 198px;
@@ -32,9 +36,10 @@
     padding: 12px;
   }
   .hugeButton {
-    width: 240px;
-    height: 60px;
-    margin: 20px auto;
+    width: 170px;
+    height: 46px;
+    margin: 30px auto 10px auto;
+    font-size: 15px;
   }
   .titleWrapper {
     display: flex;

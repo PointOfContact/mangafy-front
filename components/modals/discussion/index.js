@@ -8,11 +8,24 @@ import SvgShareColored from 'components/icon/ShareColored';
 import Imgix from 'components/imgix';
 import { ShareButtons } from 'components/share';
 import { Comments } from 'components/type-content/comments';
+import Link from 'next/link';
+import Router from 'next/router';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
-const ModalDiscussion = ({ changeShowModal, showModal, user, postId, title, logo, img, url }) => {
+const ModalDiscussion = ({
+  changeShowModal,
+  showModal,
+  user,
+  postId,
+  title,
+  logo,
+  img,
+  url,
+  likesCount,
+  logoNavigate,
+}) => {
   const [commentsData, setCommentsData] = useState([]);
   const [likesData, setLikesData] = useState([]);
   const [isLiked, setIsLiked] = useState(false);
@@ -32,6 +45,7 @@ const ModalDiscussion = ({ changeShowModal, showModal, user, postId, title, logo
 
   const handleLike = () => {
     if (!user) {
+      Router.push(`/sign-in`);
       return;
     }
 
@@ -87,28 +101,32 @@ const ModalDiscussion = ({ changeShowModal, showModal, user, postId, title, logo
               <div className={styles.br}>
                 <div className={styles.info}>
                   <spam className={styles.logo}>
-                    <span>
-                      {logo ? (
-                        <Imgix
-                          width={54}
-                          height={54}
-                          src={client.UPLOAD_URL + logo}
-                          layout="fixed"
-                        />
-                      ) : (
-                        <Imgix
-                          width={54}
-                          height={54}
-                          layout="fixed"
-                          src={'https://mangafy.club/img/mangastory.webp'}
-                        />
-                      )}
-                    </span>
+                    <Link href={logoNavigate}>
+                      <a>
+                        <span>
+                          {logo ? (
+                            <Imgix
+                              width={54}
+                              height={54}
+                              src={client.UPLOAD_URL + logo}
+                              layout="intrinsic"
+                            />
+                          ) : (
+                            <Imgix
+                              width={54}
+                              height={54}
+                              layout="intrinsic"
+                              src={'https://mangafy.club/img/mangastory.webp'}
+                            />
+                          )}
+                        </span>
+                      </a>
+                    </Link>
                     <h2 className={styles.subtitle}>{title}</h2>
                   </spam>
                   <div className={styles.share}>
                     <span className={styles.like}>
-                      <span>{likesData.length}</span>
+                      <span>{likesData.length || likesCount}</span>
                       <SvgHeart
                         width="25px"
                         height="22px"
@@ -161,13 +179,18 @@ ModalDiscussion.propTypes = {
   postId: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   logo: PropTypes.string.isRequired,
-  img: PropTypes.string.isRequired,
+  img: PropTypes.string,
   url: PropTypes.string.isRequired,
+  likesCount: PropTypes.number,
   commentsData: PropTypes.array,
   user: PropTypes.object,
+  logoNavigate: PropTypes.string,
 };
 
 ModalDiscussion.defaultProps = {
   user: null,
+  img: null,
+  logoNavigate: '',
   commentsData: [],
+  likesCount: 0,
 };

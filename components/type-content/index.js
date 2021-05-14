@@ -71,7 +71,6 @@ export default function TypePage({
                   </div> */}
                 </h2>
               </div>
-
               {discussions.map((discussion) => (
                 <DiscussionCard
                   key={discussion._id}
@@ -87,6 +86,7 @@ export default function TypePage({
                   user={user}
                   commentsCount={discussion.commentsCount}
                   likesCount={discussion.likesCount}
+                  logoNavigate={discussion.logoNavigate}
                 />
               ))}
 

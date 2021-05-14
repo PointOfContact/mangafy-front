@@ -8,6 +8,7 @@ import LoginFooter from 'components/loginFooter';
 import PrimaryInput from 'components/ui-elements/input';
 import LargeButton from 'components/ui-elements/large-button';
 import Head from 'next/head';
+import Link from 'next/link';
 
 import styles from './styles.module.scss';
 
@@ -64,10 +65,7 @@ const ForgotPassword = () => {
           alt=""
         />
         <h2 className={styles.title}>Forgot your password? Don’t panic!</h2>
-        <p className={styles.info}>
-          Type the address linked to your account and we&apos;ll send you password reset
-          instructions.
-        </p>
+        <p className={styles.info}>Enter the email you&apos;re using for your account.</p>
         <PrimaryInput
           className={styles.input}
           type="email"
@@ -86,6 +84,9 @@ const ForgotPassword = () => {
           text={'Send instruction'}
           id="signInBtnId"
         />
+        <Link href={'/sign-in'}>
+          <a className={styles.back}>Back to Sign in</a>
+        </Link>
       </div>
       <LoginFooter acaunt={false} />
       <FooterPolicy />

@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
 import { Tabs, Button } from 'antd';
+import client from 'api/client';
 import { findStoryBoard } from 'api/storyBoardClient';
 import { ChooseLayout } from 'components/chooseLayout';
 import FindPartner from 'components/findPartner';
 import Hero from 'components/Hero';
+import SvgAdd2 from 'components/icon/Add2';
 import ComicBookSvg from 'components/icon/ComicBook';
 import DocumentsSvg from 'components/icon/Documents';
 import GroupSvg from 'components/icon/Group';
@@ -12,9 +14,11 @@ import PencilCaseSvg from 'components/icon/PencilCase';
 import ShareSvg from 'components/icon/Share';
 import SuperHeroSvg from 'components/icon/Superhero';
 import Idea from 'components/Idea';
+import Modal from 'components/modals/createTaskModal';
 import { ModalSuccess } from 'components/modalSuccess';
 import ProjectScripts from 'components/projectScripts';
 import { ShareStoryBoard } from 'components/shareStoryBoard';
+import PrimaryButton from 'components/ui-elements/button';
 import Upload from 'components/ui-elements/upload';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import PropTypes from 'prop-types';
@@ -35,8 +39,11 @@ const StoryBoardTabs = ({
   originUrl,
   setStage,
   participentsInfo,
+  baseData,
+  setBaseData,
 }) => {
   const [storyBoardActiveTab, setStoryBoardActiveTabSeter] = useState(1);
+  const [showTaskModal, changeShowTaskModal] = useState(false);
   const { width } = useWindowSize();
 
   const setStoryBoardActiveTab = (tab) => {
@@ -246,99 +253,136 @@ const StoryBoardTabs = ({
     }
   }, []);
 
+  const updateTasks = async () => {
+    const jwt = client.getCookie('feathers-jwt');
+    const { default: api } = await import('api/restClient');
+    api
+      .service('/api/v2/tasks')
+      .find({
+        query: {
+          mangaStoryId: baseData._id,
+        },
+        headers: { Authorization: `Bearer ${jwt}` },
+      })
+      .then((response) => {
+        const newBaisData = {
+          ...baseData,
+          tasks: response.data,
+        };
+        setBaseData(newBaisData);
+      })
+      .catch((err) => err);
+  };
+
+  const addNewbuttons = (
+    <div className={styles.addNewbuttons}>
+      <FindPartner participentsInfo={participentsInfo} />
+      <PrimaryButton
+        onClick={() => changeShowTaskModal(true)}
+        className={styles.addTask}
+        text="Add a task"
+        isPlump={true}
+        isActive={true}
+        items={[]}
+        suffix={<SvgAdd2 width="25px" height="25px" />}
+      />
+    </div>
+  );
+
   return (
-    <Tabs
-      activeKey={storyBoardActiveTab.toString()}
-      defaultActiveKey={1}
-      className={`${styles.storyBoardTab} storyBoardTabs`}
-      type="line"
-      onChange={(activeKey) => setStoryBoardActiveTab(activeKey)}
-      tabPosition={width < 992 ? 'bottom' : 'left'}>
-      <TabPane
-        tab={
-          <span>
-            <GroupSvg fill="#7b65f3" width="25px" />
-          </span>
-        }
-        key={1}>
-        <div className={styles.tabContent}>
-          <FindPartner participentsInfo={participentsInfo} />
-          <Idea storyBoard={storyBoard} setStoryBoard={setStoryBoard} />
-          {renderNavigationButtons(!(storyBoard?.idea?.title && storyBoard?.idea?.text))}
-        </div>
-      </TabPane>
-      <TabPane
-        tab={
-          <span>
-            <SuperHeroSvg width="25px" />
-          </span>
-        }
-        key={2}>
-        {isShowAnimation && <span className={styles.showAnimation}></span>}
-        <div className={styles.tabContent}>
-          <FindPartner participentsInfo={participentsInfo} />
-          <Hero
-            storyBoard={storyBoard}
-            setStoryBoard={setStoryBoard}
-            getStoryBoard={getStoryBoard}
-          />
-          {renderNavigationButtons()}
-        </div>
-      </TabPane>
-      <TabPane
-        tab={
-          <span>
-            <DocumentsSvg width="25px" />
-          </span>
-        }
-        key={3}>
-        {isShowAnimation && <span className={styles.showAnimation}></span>}
-        <div className={styles.tabContent}>
-          <FindPartner participentsInfo={participentsInfo} />
-          <ProjectScripts
-            pages={storyBoard?.pages}
-            storyBoardId={storyBoard?._id}
-            storyBoard={storyBoard}
-            setStoryBoard={setStoryBoard}
-          />
-          {renderNavigationButtons(!storyBoard?.pages?.length)}
-        </div>
-      </TabPane>
-      <TabPane
-        tab={
-          <span>
-            <ComicBookSvg width="25px" />
-          </span>
-        }
-        key={4}>
-        {isShowAnimation && <span className={styles.showAnimation}></span>}
-        <div className={styles.tabContent}>
-          <FindPartner participentsInfo={participentsInfo} />
-          <ChooseLayout storyBoard={storyBoard} setStoryBoard={setStoryBoard} />
-          {renderNavigationButtons(!storyBoard?.layoutId)}
-        </div>
-      </TabPane>
-      <TabPane
-        disabled={!storyBoard?.layoutId}
-        tab={
-          <span>
-            <PencilCaseSvg width="25px" />
-          </span>
-        }
-        key={5}>
-        {isShowAnimation && <span className={styles.showAnimation}></span>}
-        <div className={styles.tabContent}>
-          <FindPartner participentsInfo={participentsInfo} />
-          <Upload
-            className={styles.upload}
-            storyBoardId={storyBoard?._id}
-            onUploadSuccess={onUploadSuccess}
-            mangaUrl={storyBoard?.mangaUrl}
-          />
-          {renderNavigationButtons(!storyBoard?.mangaUrl)}
-        </div>
-      </TabPane>
-      {/* <TabPane
+    <>
+      <Tabs
+        activeKey={storyBoardActiveTab.toString()}
+        defaultActiveKey={1}
+        className={`${styles.storyBoardTab} storyBoardTabs`}
+        type="line"
+        onChange={(activeKey) => setStoryBoardActiveTab(activeKey)}
+        tabPosition={width < 992 ? 'bottom' : 'left'}>
+        <TabPane
+          tab={
+            <span>
+              <GroupSvg fill="#7b65f3" width="25px" />
+            </span>
+          }
+          key={1}>
+          <div className={styles.tabContent}>
+            {addNewbuttons}
+            <Idea storyBoard={storyBoard} setStoryBoard={setStoryBoard} />
+            {renderNavigationButtons(!(storyBoard?.idea?.title && storyBoard?.idea?.text))}
+          </div>
+        </TabPane>
+        <TabPane
+          tab={
+            <span>
+              <SuperHeroSvg width="25px" />
+            </span>
+          }
+          key={2}>
+          {isShowAnimation && <span className={styles.showAnimation}></span>}
+          <div className={styles.tabContent}>
+            {addNewbuttons}
+            <Hero
+              storyBoard={storyBoard}
+              setStoryBoard={setStoryBoard}
+              getStoryBoard={getStoryBoard}
+            />
+            {renderNavigationButtons()}
+          </div>
+        </TabPane>
+        <TabPane
+          tab={
+            <span>
+              <DocumentsSvg width="25px" />
+            </span>
+          }
+          key={3}>
+          {isShowAnimation && <span className={styles.showAnimation}></span>}
+          <div className={styles.tabContent}>
+            {addNewbuttons}
+            <ProjectScripts
+              pages={storyBoard?.pages}
+              storyBoardId={storyBoard?._id}
+              storyBoard={storyBoard}
+              setStoryBoard={setStoryBoard}
+            />
+            {renderNavigationButtons(!storyBoard?.pages?.length)}
+          </div>
+        </TabPane>
+        <TabPane
+          tab={
+            <span>
+              <ComicBookSvg width="25px" />
+            </span>
+          }
+          key={4}>
+          {isShowAnimation && <span className={styles.showAnimation}></span>}
+          <div className={styles.tabContent}>
+            {addNewbuttons}
+            <ChooseLayout storyBoard={storyBoard} setStoryBoard={setStoryBoard} />
+            {renderNavigationButtons(!storyBoard?.layoutId)}
+          </div>
+        </TabPane>
+        <TabPane
+          disabled={!storyBoard?.layoutId}
+          tab={
+            <span>
+              <PencilCaseSvg width="25px" />
+            </span>
+          }
+          key={5}>
+          {isShowAnimation && <span className={styles.showAnimation}></span>}
+          <div className={styles.tabContent}>
+            {addNewbuttons}
+            <Upload
+              className={styles.upload}
+              storyBoardId={storyBoard?._id}
+              onUploadSuccess={onUploadSuccess}
+              mangaUrl={storyBoard?.mangaUrl}
+            />
+            {renderNavigationButtons(!storyBoard?.mangaUrl)}
+          </div>
+        </TabPane>
+        {/* <TabPane
         tab={
           <span>
             <EditSvg height="25px" />
@@ -350,26 +394,35 @@ const StoryBoardTabs = ({
           {renderNavigationButtons()}
         </div>
       </TabPane> */}
-      <TabPane
-        tab={
-          <span>
-            <ShareSvg height="25px" />
-          </span>
-        }
-        disabled={!storyBoard?.mangaUrl}
-        key={6}>
-        {isShowAnimation && <span className={styles.showAnimation}></span>}
-        <div className={styles.tabContent}>
-          <FindPartner participentsInfo={participentsInfo} />
-          {isModalVisible ? (
-            <ModalSuccess isModalVisible={isModalVisible} handleCancelModal={handleCancelModal} />
-          ) : (
-            <ShareStoryBoard user={user} shareUrl={originUrl} />
-          )}
-          {renderNavigationButtons()}
-        </div>
-      </TabPane>
-    </Tabs>
+        <TabPane
+          tab={
+            <span>
+              <ShareSvg height="25px" />
+            </span>
+          }
+          disabled={!storyBoard?.mangaUrl}
+          key={6}>
+          {isShowAnimation && <span className={styles.showAnimation}></span>}
+          <div className={styles.tabContent}>
+            {addNewbuttons}
+            {isModalVisible ? (
+              <ModalSuccess isModalVisible={isModalVisible} handleCancelModal={handleCancelModal} />
+            ) : (
+              <ShareStoryBoard user={user} shareUrl={originUrl} />
+            )}
+            {renderNavigationButtons()}
+          </div>
+        </TabPane>
+      </Tabs>
+      <Modal
+        user={user}
+        baseData={baseData}
+        changeShowModal={changeShowTaskModal}
+        task={null}
+        showModal={showTaskModal}
+        updateTasks={updateTasks}
+      />
+    </>
   );
 };
 
@@ -378,12 +431,15 @@ StoryBoardTabs.propTypes = {
   mangaStory: PropTypes.object.isRequired,
   openNotification: PropTypes.func.isRequired,
   setStage: PropTypes.func.isRequired,
+  baseData: PropTypes.object.isRequired,
+  setBaseData: PropTypes.func,
   originUrl: PropTypes.string,
   participentsInfo: PropTypes.array,
 };
 
 StoryBoardTabs.defaultProps = {
   originUrl: '',
+  setBaseData: () => {},
   participentsInfo: [],
 };
 

@@ -1,19 +1,25 @@
 @import '../../styles/variables.scss';
 
 .find_partner {
-  position: absolute;
-  top: 25px;
-  right: 20px;
-  z-index: 20;
-  @include media-sm {
-    top: 90px;
-    right: 8px;
-  }
   button {
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
     font-size: $text4;
+    a {
+      display: inline-flex;
+      height: inherit;
+      align-items: center;
+    }
     @include media-sm {
       font-size: 12px;
       padding: 5px 10px;
     }
+  }
+  .text {
+    color: white;
+    margin-left: 15px;
+    display: flex;
+    align-items: center;
   }
 }

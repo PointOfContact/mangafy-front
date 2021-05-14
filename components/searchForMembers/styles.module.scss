@@ -76,6 +76,9 @@
     }
     &_field {
       height: 100%;
+      input {
+        font-weight: 500 !important;
+      }
     }
   }
   &__nav {

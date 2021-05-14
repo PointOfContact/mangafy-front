@@ -1,25 +1,24 @@
 import React, { useEffect, useState } from 'react';
 
-import { Upload, Input, Select, Layout, Row, Col, notification } from 'antd';
+import { Upload, Input, Select, Layout, Row, Col, notification, Popover } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
-import SvgAddUser from 'components/icon/AddUser';
-import SvgCheck from 'components/icon/Check';
+import Follow from 'components/follow';
+import SvgChat from 'components/icon/Chat';
 import SvgDustbin from 'components/icon/Dustbin';
-import SvgGreenChecked from 'components/icon/GreenChecked';
-import SvgPortfolio from 'components/icon/Portfolio';
+import SvgHand from 'components/icon/Hand';
 import SvgPrimaryAdd from 'components/icon/PrimaryAdd';
-import SvgUserDrawing from 'components/icon/UserDrawing';
 import Imgix from 'components/imgix';
 import ModalInvites from 'components/modals/sendInvites';
-import { ShareButtons } from 'components/share';
 import Avatar from 'components/ui-elements/avatar';
 import PrimaryButton from 'components/ui-elements/button';
+import Share from 'components/ui-elements/share';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { userTypes, userTypesEnums } from 'helpers/constant';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
+import useWindowSize from 'utils/useWindowSize';
 
 import styles from './styles.module.scss';
 
@@ -48,6 +47,7 @@ const ProfileTopBar = (props) => {
 
   const [showModal, changeShowModal] = useState(false);
   const [likedUsers, setLikedUsers] = useState([]);
+  const { width } = useWindowSize();
 
   const openNotification = (type, message, description = '') => {
     notification[type]({
@@ -69,26 +69,61 @@ const ProfileTopBar = (props) => {
     }
   };
 
-  const followUser = (userId) => {
-    const data = { userId };
-    const jwt = client.getCookie('feathers-jwt');
-    return import('api/restClient').then((m) =>
-      m.default.service(`/api/v2/likes`).create(data, {
-        headers: { Authorization: `Bearer ${jwt}` },
-        mode: 'no-cors',
-      })
-    );
+  const createConversation = () => {
+    if (user) {
+      const jwt = client.getCookie('feathers-jwt');
+      import('api/restClient').then((m) => {
+        m.default
+          .service('/api/v2/conversations')
+          .create(
+            {
+              participents: [profile._id],
+            },
+            {
+              headers: { Authorization: `Bearer ${jwt}` },
+            }
+          )
+          .then((res) => {
+            history.push(`/my-profile?tab=messenger&conversation=${res._id}`);
+          })
+          .catch((err) => {
+            openNotification('error', err.message);
+          });
+      });
+    } else {
+      history.push(`/sign-in?page=profile/${profile._id}`);
+    }
   };
 
-  const onFollowUser = (profileId) => {
+  const sendMessage = () => {
     if (user) {
-      followUser(profileId)
-        .then(() => {
-          setLikedUsers([...likedUsers, user._id]);
-        })
-        .catch((err) => {
-          setErrMessage(err.message);
-        });
+      const jwt = client.getCookie('feathers-jwt');
+      import('api/restClient').then((m) => {
+        m.default
+          .service('/api/v2/conversations')
+          .find({
+            query: {
+              $or: [
+                { participents: [user._id, profile._id] },
+                { participents: [profile._id, user._id] },
+              ],
+            },
+            headers: { Authorization: `Bearer ${jwt}` },
+          })
+          .then((res) => {
+            const conv = res?.data?.find(
+              (item) => !item.joinMangaStoryRequestId && !item.mangaStoryId
+            );
+            if (conv) {
+              history.push(`/my-profile?tab=messenger&conversation=${conv._id}`);
+            } else {
+              createConversation();
+            }
+          })
+          .catch((err) => {
+            openNotification('error', err.message);
+          });
+      });
     } else {
       history.push(`/sign-in?page=profile/${profile._id}`);
     }
@@ -152,8 +187,8 @@ const ProfileTopBar = (props) => {
               <>
                 {profile.avatar ? (
                   <Imgix
-                    width={52}
-                    height={52}
+                    width={500}
+                    height={500}
                     className="avatar"
                     src={client.UPLOAD_URL + profile.avatar}
                   />
@@ -165,8 +200,8 @@ const ProfileTopBar = (props) => {
               <>
                 {userData?.avatar ? (
                   <Imgix
-                    width={52}
-                    height={52}
+                    width={500}
+                    height={500}
                     className="avatar"
                     src={client.UPLOAD_URL + userData.avatar}
                   />
@@ -204,9 +239,13 @@ const ProfileTopBar = (props) => {
                       splitterStyle={{ width: '120px', fontSize: '15px' }}
                       onClick={() => setEditMode(true)}
                     />
-                    <span className={styles.followe_content}>
-                      <span className={styles.count}>{user?.likedUsers?.length} followers</span>
-                    </span>
+                    <Follow
+                      count={user?.likedUsers?.length}
+                      profile={profile}
+                      user={user}
+                      likedUsers={user?.likedUsers}
+                      setLikedUsers={setLikedUsers}
+                    />
                     <Link href="/contact-us">
                       <a>
                         <div className={styles.deleteAccount}>
@@ -218,41 +257,13 @@ const ProfileTopBar = (props) => {
                   </>
                 ) : (
                   <>
-                    {profile && !!user?.mangaStories?.data?.length && (
-                      <span className={styles.contacts}>
-                        <PrimaryButton
-                          onClick={sendInvites}
-                          text="Invite to collaborate"
-                          splitterStyle={{ fontSize: '15px' }}
-                          disabled={
-                            user?.mangaStories?.participents?.include(profile._id) ||
-                            user?._id === profile?._id
-                          }
-                        />
-                      </span>
-                    )}
-                    {profile && (
-                      <span className={styles.followe_content}>
-                        <span className={styles.count}>{likedUsers.length} followers</span>
-                        {likedUsers.includes(user?._id) ? (
-                          <span className={styles.icons}>
-                            <SvgCheck width="16px" height="16px" />
-                            <SvgUserDrawing width="22px" height="22px" />
-                          </span>
-                        ) : (
-                          <>
-                            {user?._id !== profile?._id && (
-                              <span
-                                onClick={() => onFollowUser(profile._id)}
-                                className={styles.btn}>
-                                <SvgAddUser width="22px" height="22px" />
-                                Follow
-                              </span>
-                            )}
-                          </>
-                        )}
-                      </span>
-                    )}
+                    <Follow
+                      count={likedUsers?.length}
+                      profile={profile}
+                      user={user}
+                      likedUsers={likedUsers}
+                      setLikedUsers={setLikedUsers}
+                    />
                   </>
                 )}
               </>
@@ -313,17 +324,68 @@ const ProfileTopBar = (props) => {
               </div>
             )}
           </div>
-          {profile && (
-            <div className={styles.portfolio}>
-              <SvgPortfolio width="34px" height="34px" />
-              <span>
-                <SvgGreenChecked width="22px" height="22px" />
-              </span>
-            </div>
+          {userData ? (
+            <>
+              <div className={styles.hotBtns}>
+                <div className={styles.shere}>
+                  <Popover
+                    overlayClassName={styles.popover}
+                    placement={width < 768 ? 'bottom' : 'left'}
+                    content={'Share'}
+                    trigger="hover">
+                    <div className={styles.svgBg}>
+                      <Share shareUrl={originUrl} size={39} />
+                    </div>
+                  </Popover>
+                </div>
+              </div>
+            </>
+          ) : (
+            <>
+              {profile &&
+                !!user?.mangaStories?.data?.length &&
+                !(
+                  user?.mangaStories?.participents?.include(profile._id) ||
+                  user?._id === profile?._id
+                ) && (
+                  <div className={styles.hotBtns}>
+                    <div className={styles.shere}>
+                      <Popover
+                        overlayClassName={styles.popover}
+                        placement={width < 768 ? 'bottom' : 'left'}
+                        content={'Share'}
+                        trigger="hover">
+                        <div className={styles.svgBg}>
+                          <Share shareUrl={originUrl} size={39} />
+                        </div>
+                      </Popover>
+                    </div>
+                    <div className={styles.contacts}>
+                      <Popover
+                        overlayClassName={styles.popover}
+                        placement={width < 768 ? 'bottom' : 'left'}
+                        content={'Messenger'}
+                        trigger="hover">
+                        <div onClick={sendInvites} className={styles.svgBg}>
+                          <SvgHand width="19px" height="19px" />
+                        </div>
+                      </Popover>
+                    </div>
+                    <div className={styles.contacts}>
+                      <Popover
+                        overlayClassName={styles.popover}
+                        placement={width < 768 ? 'bottom' : 'left'}
+                        content={'Collab'}
+                        trigger="hover">
+                        <div onClick={sendMessage} className={styles.svgBg}>
+                          <SvgChat width="19px" height="19px" />
+                        </div>
+                      </Popover>
+                    </div>
+                  </div>
+                )}
+            </>
           )}
-          <div className={styles.shareButtonsProfile}>
-            <ShareButtons shareUrl={originUrl} text="Share profile" />
-          </div>
         </Col>
       </Row>
       <ModalInvites

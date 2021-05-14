@@ -952,11 +952,17 @@ img.rot4 {
         fill: $primaryDark;
       }
     }
+    span {
+      font-weight: 500 !important;
+    }
     &.ant-select-multiple {
       .ant-select-selector {
         .ant-select-selection-overflow {
           width: auto;
           position: relative;
+          @include media-xs {
+            width: 100%;
+          }
           .ant-select-selection-item {
             display: flex;
             align-items: center;
@@ -975,6 +981,11 @@ img.rot4 {
             svg {
               fill: #fff;
             }
+          }
+        }
+        .ant-select-selection-placeholder {
+          @include media-xs {
+            margin-top: -33px;
           }
         }
       }
@@ -1386,9 +1397,10 @@ img.rot4 {
 }
 
 .rce-mbox {
+  max-width: calc(100% - 90px);
   background: $primaryBG !important;
   color: $black;
-  padding: 15px 10px !important;
+  padding: 15px !important;
   margin-bottom: 20px !important;
   left: 50px !important;
   border-top-left-radius: 5px !important;
@@ -1465,6 +1477,7 @@ img.rot4 {
   }
 }
 .send_invite {
+  padding: 5px !important;
   .ant-select {
     margin-bottom: -1px !important;
   }

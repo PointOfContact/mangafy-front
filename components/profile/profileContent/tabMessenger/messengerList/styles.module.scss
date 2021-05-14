@@ -33,6 +33,7 @@
 }
 .messageList,
 .messenger {
+  position: relative;
   padding-bottom: 15px;
   max-height: 504px;
   min-height: 504px;
@@ -228,4 +229,43 @@
 
 .loding {
   padding: 30px 20px;
+}
+
+.archive {
+  border-top: 2px solid rgba(33, 33, 33, 0.07);
+  padding-top: 10px;
+  color: $grey;
+  font-size: 10px;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: underline;
+  position: absolute;
+  padding-bottom: 30px;
+  bottom: 0;
+  background-color: #fff;
+  width: calc(30% - 2px);
+  &:hover {
+    color: $black;
+  }
+  @include media-lg {
+    margin-bottom: 30px;
+    border-right: 2px solid rgba(33, 33, 33, 0.07);
+  }
+  @include media-sm() {
+    width: calc(20% - 2px);
+    margin-bottom: 50px;
+  }
+  @media (max-width: 579px) {
+    margin-bottom: 37px;
+  }
+}
+
+.archiveMess {
+  border-top: 2px solid rgba(33, 33, 33, 0.07);
+  padding-top: 10px;
+  color: black;
+  font-size: 20px;
+  font-weight: 500;
+  text-align: center;
+  cursor: pointer;
 }

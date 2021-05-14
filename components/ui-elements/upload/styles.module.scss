@@ -43,3 +43,21 @@
     }
   }
 }
+
+.modal {
+  top: 20px;
+  height: calc(100% - 30px);
+  margin: auto;
+  @include media-sm {
+    max-width: calc(100% - 16px);
+    height: 100vh;
+  }
+}
+.modalContent {
+  height: calc(100vh - 100px);
+  width: 100%;
+  margin-top: 20px;
+  img {
+    object-fit: contain;
+  }
+}

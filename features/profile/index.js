@@ -8,7 +8,7 @@ import ProfileContent from 'components/profile/profileContent';
 import ProfileOpenCollabs from 'components/profile/profileOpenCollabs';
 import ProfileTopBar from 'components/profile/profileTopBar';
 import ButtonToTop from 'components/ui-elements/button-toTop';
-import Head from 'next/head';
+import { NextSeo } from 'next-seo';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
@@ -24,10 +24,30 @@ const Profile = (props) => {
   const genres = profileGenres.map((item) => item.name);
   return (
     <>
-      <Head>
-        <title>Say Hello to {profile.name}!</title>
-        <meta name="description" content="Welcome to your professional Graphic Novel community" />
-      </Head>
+      <NextSeo
+        title={`Let's give a big hello to ${profile.name}!`}
+        description="Check their work or cool projects at MangaFY. Welcome aboard."
+        canonical=""
+        openGraph={{
+          url: '',
+          title: '',
+          description: '',
+          images: [
+            {
+              url: '',
+              width: 800,
+              height: 600,
+              alt: '',
+            },
+          ],
+          site_name: 'MangaFY',
+        }}
+        twitter={{
+          handle: '@handle',
+          site: '@site',
+          cardType: 'summary_large_image',
+        }}
+      />
       <ButtonToTop />
       <div className={'wrapper'}>
         <div className={'content'}>
@@ -84,10 +104,10 @@ Profile.propTypes = {
   mangaStories: PropTypes.array,
   profile: PropTypes.object.isRequired,
   user: PropTypes.object,
-  total: PropTypes.number.isRequired,
+  total: PropTypes.number,
   limit: PropTypes.number,
   genres: PropTypes.object.isRequired,
-  originUrl: PropTypes.object,
+  originUrl: PropTypes.string,
 };
 
 Profile.defaultProps = {
@@ -96,6 +116,7 @@ Profile.defaultProps = {
   search: '',
   limit: 9,
   originUrl: '',
+  total: null,
 };
 
 export default Profile;

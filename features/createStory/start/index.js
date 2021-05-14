@@ -4,7 +4,7 @@ import { notification } from 'antd';
 import Footer from 'components/footer';
 import Header from 'components/header';
 import { EVENTS } from 'helpers/amplitudeEvents';
-import Head from 'next/head';
+import { NextSeo } from 'next-seo';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
 
@@ -67,10 +67,30 @@ const Start = ({ genres, jwt, user }) => {
 
   return (
     <>
-      <Head>
-        <title>Focus on things that are really important</title>
-        <meta name="description" content="MangaFY Expand your planning horizons." />
-      </Head>
+      <NextSeo
+        title="Focus on things that are really important"
+        description="MangaFY Expand your planning horizons."
+        canonical=""
+        openGraph={{
+          url: '',
+          title: '',
+          description: '',
+          images: [
+            {
+              url: '',
+              width: 800,
+              height: 600,
+              alt: '',
+            },
+          ],
+          site_name: 'MangaFY',
+        }}
+        twitter={{
+          handle: '@handle',
+          site: '@site',
+          cardType: 'summary_large_image',
+        }}
+      />
       <div>
         <Header path="create-a-story/start" user={user} />
         <div ref={typeformRef} style={{ height: '100vh', width: '100%' }}></div>

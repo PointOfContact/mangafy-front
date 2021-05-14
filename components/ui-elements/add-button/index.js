@@ -42,7 +42,6 @@ AddButton.propTypes = {
   isActive: PropTypes.bool,
   disabled: PropTypes.bool,
   onClick: PropTypes.func,
-  isFullWidth: PropTypes.bool,
   text: PropTypes.string,
 };
 
@@ -51,7 +50,6 @@ AddButton.defaultProps = {
   isDark: false,
   isActive: false,
   disabled: false,
-  isFullWidth: false,
   onClick: () => {},
   width: '31px',
   height: '31px',
