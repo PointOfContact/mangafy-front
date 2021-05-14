@@ -19,38 +19,39 @@ const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 const AuthForm = ({ type, errorMessage, onChange, onSubmit, isLogin, loading }) => (
   <>
     <form className={styles.auth_form} onSubmit={onSubmit}>
-      {!isLogin ? (
-        <div className="input_login">
-          <PrimaryInput
-            className={styles.input_login}
-            id="name"
-            type="name"
-            isLinear={true}
-            isFullWidth={true}
-            placeholder={'Your name'}
-            name="name"
-            required
-            pattern=".*\S+.*"
-            title="This field is required"
-            onChange={onChange}
-          />
-          <div className={styles.select}>
-            <PrimarySelect
-              className={styles.select_login}
-              label="I'm a"
-              id="type"
-              name="type"
-              onChange={onChange}
+      
+      <div className={styles.login_form}>
+        {!isLogin ? (
+          <div className="input_login">
+            <PrimaryInput
+              className={styles.input_login}
+              id="name"
+              type="name"
               isLinear={true}
               isFullWidth={true}
-              placeholder="Your title"
-              value={type || undefined}
-              options={userTypes}
+              placeholder={'Your name'}
+              name="name"
+              required
+              pattern=".*\S+.*"
+              title="This field is required"
+              onChange={onChange}
             />
+            <div className={styles.select}>
+              <PrimarySelect
+                className={styles.select_login}
+                label="I'm a"
+                id="type"
+                name="type"
+                onChange={onChange}
+                isLinear={true}
+                isFullWidth={true}
+                placeholder="Your title"
+                value={type || undefined}
+                options={userTypes}
+              />
+            </div>
           </div>
-        </div>
-      ) : null}
-      <div className={styles.login_form}>
+        ) : null}
         <PrimaryInput
           className={styles.email}
           id="email"
