@@ -145,15 +145,13 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
 
   useEffect(() => {
     getMessages(conversationId);
-  }, [conversationId]);
-
-  useEffect(() => {
     clearInterval(interval);
     interval = setInterval(() => {
       getMessages(conversationId);
     }, 3000);
-    return () => clearInterval(interval);
   }, [conversationId]);
+
+  useEffect(() => () => clearInterval(interval), []);
 
   const isShowModal = () => {
     const el = document.body;

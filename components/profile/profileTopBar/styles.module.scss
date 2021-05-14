@@ -268,3 +268,51 @@
     border-color: #7b65f3;
   }
 }
+.popover {
+  div {
+    background: inherit;
+    box-shadow: none;
+    color: #858585;
+    margin-right: -7px;
+    @include media-sm() {
+      margin-right: 0px;
+      margin-top: -7px;
+      padding: 0;
+    }
+  }
+}
+
+.hotBtns {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  .svgBg {
+    margin-bottom: 15px;
+    width: 39px;
+    height: 39px;
+    min-width: 39px;
+    min-height: 39px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #d3d3d3;
+    border-radius: 50%;
+    cursor: pointer;
+    &:hover {
+      background-color: $primaryLight;
+    }
+    @include media-sm() {
+      margin-bottom: 0px;
+    }
+  }
+  @include media-sm() {
+    margin-top: 30px;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 25px;
+    > div {
+      margin: 0 8px;
+    }
+  }
+}
