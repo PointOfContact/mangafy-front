@@ -1,23 +1,24 @@
 import React, { useEffect, useState } from 'react';
 
-import { Upload, Input, Select, Layout, Row, Col, notification } from 'antd';
+import { Upload, Input, Select, Layout, Row, Col, notification, Popover } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
 import Follow from 'components/follow';
+import SvgChat from 'components/icon/Chat';
 import SvgDustbin from 'components/icon/Dustbin';
-import SvgGreenChecked from 'components/icon/GreenChecked';
-import SvgPortfolio from 'components/icon/Portfolio';
+import SvgHand from 'components/icon/Hand';
 import SvgPrimaryAdd from 'components/icon/PrimaryAdd';
 import Imgix from 'components/imgix';
 import ModalInvites from 'components/modals/sendInvites';
-import { ShareButtons } from 'components/share';
 import Avatar from 'components/ui-elements/avatar';
 import PrimaryButton from 'components/ui-elements/button';
+import Share from 'components/ui-elements/share';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { userTypes, userTypesEnums } from 'helpers/constant';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
+import useWindowSize from 'utils/useWindowSize';
 
 import styles from './styles.module.scss';
 
@@ -46,6 +47,7 @@ const ProfileTopBar = (props) => {
 
   const [showModal, changeShowModal] = useState(false);
   const [likedUsers, setLikedUsers] = useState([]);
+  const { width } = useWindowSize();
 
   const openNotification = (type, message, description = '') => {
     notification[type]({
@@ -255,32 +257,6 @@ const ProfileTopBar = (props) => {
                   </>
                 ) : (
                   <>
-                    {profile && !!user?.mangaStories?.data?.length && (
-                      <>
-                        <span className={styles.contacts}>
-                          <PrimaryButton
-                            onClick={sendInvites}
-                            text="Invite to collaborate"
-                            splitterStyle={{ fontSize: '15px' }}
-                            disabled={
-                              user?.mangaStories?.participents?.include(profile._id) ||
-                              user?._id === profile?._id
-                            }
-                          />
-                        </span>
-                        <span className={styles.contacts}>
-                          <PrimaryButton
-                            onClick={sendMessage}
-                            text="send message"
-                            splitterStyle={{ fontSize: '15px', marginTop: '15px' }}
-                            disabled={
-                              user?.mangaStories?.participents?.include(profile._id) ||
-                              user?._id === profile?._id
-                            }
-                          />
-                        </span>
-                      </>
-                    )}
                     <Follow
                       count={likedUsers?.length}
                       profile={profile}
@@ -348,17 +324,68 @@ const ProfileTopBar = (props) => {
               </div>
             )}
           </div>
-          {profile && (
-            <div className={styles.portfolio}>
-              <SvgPortfolio width="34px" height="34px" />
-              <span>
-                <SvgGreenChecked width="22px" height="22px" />
-              </span>
-            </div>
+          {userData ? (
+            <>
+              <div className={styles.hotBtns}>
+                <div className={styles.shere}>
+                  <Popover
+                    overlayClassName={styles.popover}
+                    placement={width < 768 ? 'bottom' : 'left'}
+                    content={'Share'}
+                    trigger="hover">
+                    <div className={styles.svgBg}>
+                      <Share shareUrl={originUrl} size={39} />
+                    </div>
+                  </Popover>
+                </div>
+              </div>
+            </>
+          ) : (
+            <>
+              {profile &&
+                !!user?.mangaStories?.data?.length &&
+                !(
+                  user?.mangaStories?.participents?.include(profile._id) ||
+                  user?._id === profile?._id
+                ) && (
+                  <div className={styles.hotBtns}>
+                    <div className={styles.shere}>
+                      <Popover
+                        overlayClassName={styles.popover}
+                        placement={width < 768 ? 'bottom' : 'left'}
+                        content={'Share'}
+                        trigger="hover">
+                        <div className={styles.svgBg}>
+                          <Share shareUrl={originUrl} size={39} />
+                        </div>
+                      </Popover>
+                    </div>
+                    <div className={styles.contacts}>
+                      <Popover
+                        overlayClassName={styles.popover}
+                        placement={width < 768 ? 'bottom' : 'left'}
+                        content={'Messenger'}
+                        trigger="hover">
+                        <div onClick={sendInvites} className={styles.svgBg}>
+                          <SvgHand width="19px" height="19px" />
+                        </div>
+                      </Popover>
+                    </div>
+                    <div className={styles.contacts}>
+                      <Popover
+                        overlayClassName={styles.popover}
+                        placement={width < 768 ? 'bottom' : 'left'}
+                        content={'Collab'}
+                        trigger="hover">
+                        <div onClick={sendMessage} className={styles.svgBg}>
+                          <SvgChat width="19px" height="19px" />
+                        </div>
+                      </Popover>
+                    </div>
+                  </div>
+                )}
+            </>
           )}
-          <div className={styles.shareButtonsProfile}>
-            <ShareButtons shareUrl={originUrl} text="Share profile" />
-          </div>
         </Col>
       </Row>
       <ModalInvites
