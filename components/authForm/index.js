@@ -149,16 +149,16 @@ const AuthForm = ({ type, errorMessage, onChange, onSubmit, isLogin, loading }) 
             </span>
           </Link>
           <div className={styles.policy}>
-            <Link href="">
+            <Link href="/terms">
               <span>By continuing, you agree to the Terms of Service and Privacy Policy MangaFy</span>
             </Link>
           </div>
-          <div className={styles.new_account}>
+          {isLogin && ( <div className={styles.new_account}>
             <span>No account yet ?</span>
-            <Link href="">
+            <Link href="/sign-up">
               Create account here 
             </Link>
-          </div>
+          </div>)}
         </div>
         
       </>
