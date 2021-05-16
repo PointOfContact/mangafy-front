@@ -260,7 +260,7 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
   return (
     <div className={styles.chatContainer}>
       <div className={styles.userName}>{name}</div>
-      {selectedRequest.isTeamChat && (
+      {selectedRequest.isTeamChat && selectedRequest.rid && (
         // <Popover
         //   placement="bottomLeft"
         //   title={'Members'}

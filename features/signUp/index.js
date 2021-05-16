@@ -13,6 +13,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import { register } from 'store';
+import cn from 'classnames';
 
 import styles from './styles.module.scss';
 
@@ -125,23 +126,25 @@ const Register = ({ user }) => {
       <div className={'wrapper'}>
         <div className={'content'}>
           <Header user={user} path="sign-up" />
-          <main className={styles.box}>
+          <main className={cn(styles.box, styles.boxBg)}>
             <div className={'container'}>
               <div className={styles.box__wrapper}>
-                <div className={styles.box__img}>
+                {/* <div className={styles.box__img}>
                   <img src="/img/sing-in.svg" alt="" />
-                </div>
+                </div> */}
                 <div className={styles.box__title_wrap}>
                   <div className={styles.box__title}>
                     <h2 className={styles.box__title_text}>
-                      Make the most of your digital comics life
+                      Get started today
                     </h2>
                   </div>
+                  <div className={styles.box__hr}></div>
                   <div className={styles.box__description}>
                     <p className={styles.box__description_text}>
-                      Sign up to get your personalized page connect with enthusiast world wide
+                      Make most of your talant
                     </p>
                   </div>
+                  <div className={styles.box__hr}></div>
                 </div>
                 <div className={styles.box__form}>
                   <AuthForm
@@ -163,8 +166,8 @@ const Register = ({ user }) => {
             </div>
           </main>
         </div>
-        <LoginFooter acaunt={true} />
-        <FooterPolicy />
+        {/* <LoginFooter acaunt={true} />
+        <FooterPolicy /> */}
       </div>
     </>
   );
