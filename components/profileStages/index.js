@@ -4,11 +4,64 @@ import { Steps } from 'antd';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 
+import Quest from './card';
 import styles from './styles.module.scss';
 
+const AllQuests = [
+  {
+    point: 5,
+    status: 'finish',
+    title: 'Introduce the artist in you!',
+    description:
+      'Tell us your story about yourself, what drives you? where do you draw inspiration from?',
+    navUrl: ' ',
+  },
+  {
+    point: 5,
+    status: 'wait',
+    title: 'Introduce the artist in you!',
+    description:
+      'Tell us your story about yourself, what drives you? where do you draw inspiration from?',
+    navUrl: ' ',
+  },
+  {
+    point: 5,
+    status: 'wait',
+    title: 'Introduce the artist in you!',
+    description:
+      'Tell us your story about yourself, what drives you? where do you draw inspiration from?',
+    navUrl: ' ',
+  },
+  {
+    point: 5,
+    status: 'wait',
+    title: 'Introduce the artist in you!',
+    description:
+      'Tell us your story about yourself, what drives you? where do you draw inspiration from?',
+    navUrl: ' ',
+  },
+  {
+    point: 5,
+    status: 'wait',
+    title: 'Introduce the artist in you!',
+    description:
+      'Tell us your story about yourself, what drives you? where do you draw inspiration from?',
+    navUrl: ' ',
+  },
+  {
+    point: 5,
+    status: 'wait',
+    title: 'Introduce the artist in you!',
+    description:
+      'Tell us your story about yourself, what drives you? where do you draw inspiration from?',
+    navUrl: ' ',
+  },
+];
 const { Step } = Steps;
 
 const ProfileStages = ({ user, userData, total }) => {
+  const [visible, setVisible] = useState(false);
+  const [quests, setQuests] = useState(AllQuests);
   const [isContent, setIsContent] = useState(!!userData?.content);
   const [content] = useState({
     title: 'Introduce the artist in you!',
@@ -48,7 +101,6 @@ const ProfileStages = ({ user, userData, total }) => {
     },
   ]);
   // content
-  console.log('useruseruseruser', user);
 
   useEffect(() => {
     setIsContent(!!userData?.content);
@@ -57,9 +109,23 @@ const ProfileStages = ({ user, userData, total }) => {
     setIsMangaStories(total > 0);
   }, [userData, user, total]);
 
+  const showDrawer = () => {
+    setVisible(true);
+  };
+
+  const onClose = () => {
+    setVisible(false);
+  };
+
+  const onChange = (e) => {
+    this.setState({
+      placement: e.target.value,
+    });
+  };
+
   return (
     <div className={cn(styles.profileStages)}>
-      <Steps direction="vertical">
+      {/* <Steps direction="vertical">
         <Step
           status={isContent ? 'process' : 'wait'}
           title={content.title}
@@ -80,7 +146,33 @@ const ProfileStages = ({ user, userData, total }) => {
           title={mangaStories.title}
           description={mangaStories.description}
         />
-      </Steps>
+      </Steps> */}
+      <>
+        <div
+          onMouseEnter={() => setVisible(true)}
+          onMouseLeave={() => setVisible(false)}
+          className={cn(styles.bar, visible && styles.visible)}>
+          <div className={styles.content}>
+            <h2 className={styles.title}>Fill out the form and get points</h2>
+            <div className={styles.img}>
+              <img src="/img/quests.png" />
+            </div>
+            <h2 className={styles.filter}>All Quests</h2>
+            <div className={styles.quests}>
+              {quests.map((quest, index) => (
+                <Quest
+                  key={index}
+                  point={quest.point}
+                  status={quest.status}
+                  title={quest.title}
+                  description={quest.description}
+                  navUrl={quest.navUrl}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      </>
     </div>
   );
 };
