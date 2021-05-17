@@ -266,7 +266,7 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
         //   title={'Members'}
         //   content={members(selectedRequest.participentsInfo)}
         //   trigger="click">
-        <p className={styles.members}>Members - {selectedRequest?.participentsInfo?.length}</p>
+        <p className={styles.members}>{selectedRequest?.participentsInfo?.length} members </p>
         // </Popover>
       )}
 
