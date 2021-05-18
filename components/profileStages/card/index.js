@@ -7,26 +7,26 @@ import PropTypes from 'prop-types';
 import styles from './styles.module.scss';
 
 const Quest = ({ point, status, title, description, navUrl }) => (
-  <div
-    className={cn(
-      styles.quest,
-      status === 'wait' && styles.wait,
-      status === 'finish' && styles.finish,
-      status === 'process' && styles.process
-    )}>
-    <div className={styles.point}>
-      <img src="/img/point.png" />
-      <span>{point}</span>
-    </div>
-    <Link href={navUrl}>
-      <a>
+  <Link className={styles.link} href={navUrl}>
+    <a>
+      <div
+        className={cn(
+          styles.quest,
+          status === 'WAIT' && styles.wait,
+          status === 'FINISH' && styles.finish,
+          status === 'PROCESS' && styles.process
+        )}>
+        <div className={styles.point}>
+          <img src="/img/point.png" />
+          {point && <span>{point}</span>}
+        </div>
         <div className={styles.indo}>
           <h2 className={styles.title}>{title}</h2>
           <p className={styles.description}>{description}</p>
         </div>
-      </a>
-    </Link>
-  </div>
+      </div>
+    </a>
+  </Link>
 );
 
 Quest.propTypes = {
