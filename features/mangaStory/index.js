@@ -304,6 +304,7 @@ const MangeStory = (props) => {
                         <div className={styles.inputs}>
                           <h2>
                             <Input
+                              className={!baseData.title.replace(/\s+/g, '') && styles.error}
                               isLinear={true}
                               isFullWidth={true}
                               name="title"
@@ -311,7 +312,11 @@ const MangeStory = (props) => {
                               placeholder=""
                               type="text"
                               value={baseData.title}
+                              required
                             />
+                            {!baseData.title.replace(/\s+/g, '') && (
+                              <p className={styles.error}>Title is required</p>
+                            )}
                           </h2>
                         </div>
                         <div className={cn(styles.editProfile, 'buttonsProfile_styles')}>
@@ -329,7 +334,10 @@ const MangeStory = (props) => {
                             isActive
                             isRound
                             disabled={false}
-                            onClick={() => saveUserDataByKey(baseData, 'title')}
+                            onClick={() => {
+                              baseData.title.replace(/\s+/g, '') &&
+                                saveUserDataByKey(baseData, 'title');
+                            }}
                           />
                         </div>
                       </>
