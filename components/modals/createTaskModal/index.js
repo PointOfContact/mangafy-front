@@ -209,7 +209,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
               rewardType,
               amount,
             }}>
-            <h2>Looking for</h2>
+            <h2>What roles are you looking to add to your project</h2>
             <Form.Item
               name="lookingFor"
               rules={[
@@ -226,7 +226,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
                 value={lookingFor}
               />
             </Form.Item>
-            <h2>Reward type</h2>
+            <h2>Offered Commission or Reward Type</h2>
             <Form.Item
               name="rewardType"
               rules={[
@@ -246,7 +246,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
             {rewardType !== 'Free' && (
               <div className={styles.value}>
                 <div>
-                  <h2>Amount</h2>
+                  <h2>How much are you willing to offer per work</h2>
                   <Form.Item
                     name="amount"
                     rules={[
@@ -272,7 +272,10 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
               </div>
             )}
             <div className={styles.line}></div>
-            <h2>Task description</h2>
+            <h2>
+              Please write and define as clearly as possible what are you looking for when working
+              on the task.
+            </h2>
             <Form.Item
               name="text"
               rules={[

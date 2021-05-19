@@ -2,6 +2,7 @@ import React from 'react';
 
 import { LoadingOutlined } from '@ant-design/icons';
 import { Alert, Spin } from 'antd';
+import cn from 'classnames';
 import SvgGoogle from 'components/icon/Google';
 import SvgWhiteFacebook from 'components/icon/WhiteFacebook';
 import PrimaryInput from 'components/ui-elements/input';
@@ -10,7 +11,6 @@ import PrimarySelect from 'components/ui-elements/select';
 import { userTypes } from 'helpers/constant';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
-import cn from 'classnames';
 
 import styles from './styles.module.scss';
 
@@ -19,7 +19,6 @@ const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 const AuthForm = ({ type, errorMessage, onChange, onSubmit, isLogin, loading }) => (
   <>
     <form className={styles.auth_form} onSubmit={onSubmit}>
-      
       <div className={styles.login_form}>
         {!isLogin ? (
           <div className="input_login">
@@ -126,8 +125,7 @@ const AuthForm = ({ type, errorMessage, onChange, onSubmit, isLogin, loading }) 
         </div>
       </div>
       <div className={styles.hr}></div>
-      
-      
+
       {/* {isLogin ? ( */}
       <>
         <div>
@@ -150,17 +148,16 @@ const AuthForm = ({ type, errorMessage, onChange, onSubmit, isLogin, loading }) 
           </Link>
           <div className={styles.policy}>
             <Link href="/terms">
-              <span>By continuing, you agree to the Terms of Service and Privacy Policy MangaFy</span>
+              <span>By continuing, you agree to the MangaFY site T&C and Privacy Policy.</span>
             </Link>
           </div>
-          {isLogin && ( <div className={styles.new_account}>
-            <span>No account yet ?</span>
-            <Link href="/sign-up">
-              Create account here 
-            </Link>
-          </div>)}
+          {isLogin && (
+            <div className={styles.new_account}>
+              <span>No account yet ?</span>
+              <Link href="/sign-up">Start your journey</Link>
+            </div>
+          )}
         </div>
-        
       </>
       {/* ) : null} */}
     </form>

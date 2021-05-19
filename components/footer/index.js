@@ -39,7 +39,11 @@ const Footer = () => (
                 className={styles.footer__socBtn}>
                 <SvgFbNew width="25px" height="25px" />
               </a>
-              <a href="" target="_blank" rel="noreferrer" className={styles.footer__socBtn}>
+              <a
+                href="https://twitter.com/FyManga"
+                target="_blank"
+                rel="noreferrer"
+                className={styles.footer__socBtn}>
                 <SvgTwNew width="25px" height="25px" />
               </a>
               <a

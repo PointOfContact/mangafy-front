@@ -297,6 +297,14 @@ const ProfileTopBar = (props) => {
                     ))}
                   </Select>
                 </div>
+                <Link href="/contact-us">
+                  <a>
+                    <div className={styles.deleteAccount}>
+                      <SvgDustbin width="20px" height="20px" />
+                      <div>Delete account</div>
+                    </div>
+                  </a>
+                </Link>
               </>
             )}
           </div>
