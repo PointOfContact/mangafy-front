@@ -81,7 +81,7 @@ const ForgotPassword = () => {
           onClick={reset}
           className={styles.button_submit}
           htmlType="submit"
-          text={'Send instruction'}
+          text={'RESTART YOUR PASSWORD'}
           id="signInBtnId"
         />
         <Link href={'/sign-in'}>

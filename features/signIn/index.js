@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
 
+import cn from 'classnames';
 import AuthForm from 'components/authForm';
-import FooterPolicy from 'components/footer-policy';
 import Header from 'components/header';
-import LoginFooter from 'components/loginFooter';
 import ButtonToTop from 'components/ui-elements/button-toTop';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import Head from 'next/head';
 import PropTypes from 'prop-types';
 import * as qs from 'query-string';
 import { login } from 'store';
-import cn from 'classnames';
 
 import styles from './styles.module.scss';
 
@@ -97,7 +95,7 @@ const Login = ({ user }) => {
                   <div className={styles.box__hr}></div>
                   <div className={styles.box__description}>
                     <p className={styles.box__description_text}>
-                      We want to see your growth
+                      We look forward seeing your artistic growth
                     </p>
                   </div>
                   <div className={styles.box__hr}></div>

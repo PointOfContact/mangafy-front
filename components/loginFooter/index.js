@@ -12,7 +12,7 @@ const LoginFooter = ({ acaunt }) => (
         <>
           <p>No account yet?</p>
           <Link href="/sign-up">
-            <a className="margin-horizontal-5">Create account here</a>
+            <a className="margin-horizontal-5">Start your journey</a>
           </Link>
         </>
       )}

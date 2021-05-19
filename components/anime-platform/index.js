@@ -14,7 +14,7 @@ const AnimePlatform = () => {
       img: 'Artists1.webp',
       title: 'Grow As an Artist',
       description:
-        'MangaFY connects you with an active community of aspiring, amateur, and freelance artists and freelance professionals (translators, editors, etc.), direct content from self-publishing experts, tutorials, tips of the trade, all to grow your inner artists to success. ',
+        'Connect with an active community of aspiring and freelance artists (inc. writers, illustrators, editors, inkers, etc.), and get direct content and tutorials from self-published professionals. ',
     },
     {
       key: '2',
@@ -22,7 +22,7 @@ const AnimePlatform = () => {
       title: 'Discover The Power of Collaboration',
       width: 170,
       description:
-        "Got a story to tell but cannot illustrate? Have great characters but lack the storytelling behind them? collaborate with MangaFY's community of freelance and amateur partners.",
+        "Don't let the Skill Gap bite you -  collaborate with fellow artists at MangaFY.",
     },
     {
       key: '3',
@@ -30,7 +30,7 @@ const AnimePlatform = () => {
       title: 'Manage Your Comic',
       width: 157,
       description:
-        "Manga and Comic production simplified through MangaFY. Use our platform's tools to manage tasks, organize time, and team collaboration communication to take your story from idea to a ready-to-be-published product.",
+        "Simplify the comic production process via our platform's tools to manage tasks, organize time, and team collaboration communication.",
     },
     {
       key: '4',
@@ -38,7 +38,7 @@ const AnimePlatform = () => {
       title: 'Ready, Set - Publish!',
       width: 154,
       description:
-        'Done with the production of your Manga or comics? MangaFY got you covered. Start monetizing and making money with exclusive benefits via our direct self-publishing platform partners.',
+        "Start monetizing with exclusive benefits via MangaFY's direct self-publishing platform partners.",
     },
   ];
 
