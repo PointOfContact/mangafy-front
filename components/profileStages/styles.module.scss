@@ -1,0 +1,56 @@
+@import '../../styles/variables.scss';
+
+.visible {
+  width: 275px !important;
+  max-width: 275px !important;
+  transition: width 0.5s;
+  .content {
+    overflow-y: scroll;
+  }
+}
+.bar {
+  transition: width 0.5s;
+  background-color: #fff;
+  display: inline-block;
+  width: 33px;
+  max-width: 33px;
+  position: fixed;
+  z-index: 10111;
+  top: 50%;
+  right: -34px;
+  transform: translate(-33px, -50%);
+  overflow: hidden;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  box-shadow: 0px 0px 18px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+
+  .content {
+    max-height: 540px;
+    width: 275px;
+    .title {
+      margin: 0;
+      padding: 25px 15px;
+      font-weight: normal;
+      font-size: $text4;
+      line-height: 20px;
+      color: $black;
+      border-bottom: 2px solid rgba(33, 33, 33, 0.07);
+    }
+    .img {
+      margin-top: -20px;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      border-bottom: 2px solid rgba(33, 33, 33, 0.07);
+    }
+    .filter {
+      font-size: $text5;
+      line-height: 14px;
+      padding: 18px 20px;
+      border-bottom: 2px solid rgba(33, 33, 33, 0.07);
+      font-weight: bold;
+      margin: 0;
+    }
+  }
+}

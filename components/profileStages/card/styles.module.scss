@@ -1,0 +1,62 @@
+@import '../../../styles/variables.scss';
+.link {
+  display: block;
+  color: $black;
+  a {
+    display: block;
+    color: $black;
+  }
+}
+.quest {
+  border-bottom: 2px solid rgba(33, 33, 33, 0.07);
+  display: flex;
+  cursor: pointer;
+  .point {
+    color: $black;
+    position: relative;
+    width: 30px;
+    min-width: 30px;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    img {
+      width: 23px;
+      position: absolute;
+      z-index: 3;
+    }
+    span {
+      position: relative;
+      z-index: 5;
+      line-height: 0;
+      font-size: 10px;
+      display: inline-block;
+      margin-top: 9px;
+    }
+  }
+  .indo {
+    border-left: 2px solid rgba(33, 33, 33, 0.07);
+    padding: 15px 10px;
+    .title {
+      margin-bottom: 10px;
+      font-weight: bold;
+      font-size: $text5;
+      line-height: 15px;
+    }
+    .description {
+      margin: 0;
+      font-weight: normal;
+      font-size: $text5;
+      line-height: 15px;
+      color: $grey;
+    }
+  }
+}
+.wait {
+  opacity: 0.4;
+}
+.finish {
+}
+.process {
+}
