@@ -62,7 +62,7 @@ const ProfileContent = (props) => {
     },
     {
       key: '2',
-      tab: 'GALLERY AND SOCIAL',
+      tab: 'PORTFOLIO',
       component: (
         <TabPortfolio
           {...{
