@@ -1409,6 +1409,8 @@ img.rot4 {
   border-bottom-right-radius: 5px !important;
 
   svg {
+    filter: drop-shadow(2px 4px 0px rgba(0, 0, 0, 0.2));
+    left: -11px;
     path {
       fill: $primaryBG !important;
     }
@@ -1423,12 +1425,23 @@ img.rot4 {
   }
 }
 
-.rce-mbox-right {
+.rce-mbox.rce-mbox-right {
   background: $primaryBG !important;
   color: $black;
   padding: 15px 10px !important;
   margin-bottom: 20px !important;
+  margin-right: 80px !important;
+  max-width: calc(100% - 150px);
+  border-bottom-left-radius: 15px !important;
+  border-bottom-right-radius: 0px !important;
+  box-shadow: -1px 1px 1px 1px rgb(0 0 0 / 20%) !important;
   svg {
+    bottom: 0;
+    top: unset;
+    left: unset !important;
+    right: -14px !important;
+    transform: rotateZ(270deg);
+    filter: drop-shadow(-2px 1px 1px rgba(0, 0, 0, 0.2));
     path {
       fill: $primaryBG !important;
     }
