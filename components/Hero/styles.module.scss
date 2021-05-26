@@ -1,5 +1,10 @@
 @import '../../styles/variables.scss';
 
+
+.container{
+  width: 100%;
+}
+
 .heroContainer {
   width: fit-content;
   width: 70%;
@@ -38,10 +43,13 @@
 }
 
 .addButtonContainer {
-  width: 20%;
-  height: 100%;
+  width: 90%;
   float: left;
   border-left: 1px solid #f0f0f0;
+  border: 1px solid black;
+  display: flex;
+  justify-content: space-around;
+  margin: auto;
   @include media-sm {
     text-align: center;
     width: 30%;
@@ -50,10 +58,9 @@
 
 .addbutton {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
-  height: 200px;
   margin-bottom: 15px;
   opacity: 0.5;
   @include media-sm {

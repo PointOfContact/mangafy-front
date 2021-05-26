@@ -1,8 +1,6 @@
 import React, { useMemo, useState } from 'react';
 
 import cn from 'classnames';
-import Card from 'components/card';
-import Imgix from 'components/imgix';
 import ModalHero from 'components/modals/createEditHero';
 import PropTypes from 'prop-types';
 
@@ -98,8 +96,8 @@ const Hero = ({ storyBoard, getStoryBoard }) => {
   };
 
   return (
-    <div>
-      <div className={styles.heroContainer}>
+    <div className={styles.container}>
+      {/* <div className={styles.heroContainer}>
         {storyBoard?.heroes?.length ? (
           <>
             <div className={styles.heroesRow}>{getHeroesList()}</div>
@@ -125,7 +123,7 @@ const Hero = ({ storyBoard, getStoryBoard }) => {
             />
           </div>
         )}
-      </div>
+      </div> */}
       <div className={styles.addButtonContainer}>
         <div
           className={cn(
@@ -136,6 +134,7 @@ const Hero = ({ storyBoard, getStoryBoard }) => {
           <img className={styles.addIcon} src={`/icons/add.svg`} />
           <p className={styles.addButtonText}>Add a hero</p>
         </div>
+
         <div
           className={cn(
             styles.addbutton,
@@ -145,7 +144,18 @@ const Hero = ({ storyBoard, getStoryBoard }) => {
           <img className={styles.addIcon} src={`/icons/add.svg`} />
           <p className={styles.addButtonText}>Add components</p>
         </div>
+
+        <div
+          className={cn(
+            styles.addbutton,
+            !getAllowCreate(HeroTypes.component) ? styles.disabled : ''
+          )}
+          onClick={() => addHero(HeroTypes.component)}>
+          <img className={styles.addIcon} src={`/icons/add.svg`} />
+          <p className={styles.addButtonText}>Add background</p>
+        </div>
       </div>
+
       <ModalHero
         changeShowModal={changeShowModal}
         showModal={showModal}

@@ -106,7 +106,7 @@ const GalleryCard = ({
         {canEditInit && (
           <>
             <Popconfirm
-              title="Are you sure to delete this task?"
+              title="Are you sure to delete this gallery?"
               onConfirm={(e) => onRemoveImg(e, galleryItem._id)}
               onCancel={() => {}}
               okText="Yes"
