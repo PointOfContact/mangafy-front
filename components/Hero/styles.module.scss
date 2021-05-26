@@ -3,6 +3,8 @@
 
 .container{
   width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .heroContainer {
@@ -46,43 +48,13 @@
   width: 90%;
   float: left;
   border-left: 1px solid #f0f0f0;
-  border: 1px solid black;
   display: flex;
   justify-content: space-around;
-  margin: auto;
+  margin-bottom: 100px;
   @include media-sm {
     text-align: center;
     width: 30%;
   }
-}
-
-.addbutton {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 15px;
-  opacity: 0.5;
-  @include media-sm {
-    height: 160px;
-  }
-}
-
-.addbutton:hover {
-  opacity: 1;
-  cursor: pointer;
-}
-
-.addIcon {
-  width: 40px;
-}
-
-.addButtonText {
-  margin: 0;
-}
-
-.disabled {
-  cursor: not-allowed !important;
 }
 
 .heroesRow {

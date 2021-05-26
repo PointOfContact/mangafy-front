@@ -1,8 +1,9 @@
 import React, { useMemo, useState } from 'react';
 
-import cn from 'classnames';
 import ModalHero from 'components/modals/createEditHero';
 import PropTypes from 'prop-types';
+
+import AddHeroCard from './addHeroCard/index';
 
 // Styles
 import HeroCard from './HeroCard';
@@ -125,35 +126,26 @@ const Hero = ({ storyBoard, getStoryBoard }) => {
         )}
       </div> */}
       <div className={styles.addButtonContainer}>
-        <div
-          className={cn(
-            styles.addbutton,
-            !getAllowCreate(HeroTypes.personage) ? styles.disabled : ''
-          )}
-          onClick={() => addHero(HeroTypes.personage)}>
-          <img className={styles.addIcon} src={`/icons/add.svg`} />
-          <p className={styles.addButtonText}>Add a hero</p>
-        </div>
+        <AddHeroCard
+          addHero={addHero}
+          heroTypes={HeroTypes}
+          getAllowCreate={getAllowCreate}
+          title={'Add a hero'}
+        />
 
-        <div
-          className={cn(
-            styles.addbutton,
-            !getAllowCreate(HeroTypes.component) ? styles.disabled : ''
-          )}
-          onClick={() => addHero(HeroTypes.component)}>
-          <img className={styles.addIcon} src={`/icons/add.svg`} />
-          <p className={styles.addButtonText}>Add components</p>
-        </div>
+        <AddHeroCard
+          addHero={addHero}
+          heroTypes={HeroTypes}
+          getAllowCreate={getAllowCreate}
+          title={'Add component'}
+        />
 
-        <div
-          className={cn(
-            styles.addbutton,
-            !getAllowCreate(HeroTypes.component) ? styles.disabled : ''
-          )}
-          onClick={() => addHero(HeroTypes.component)}>
-          <img className={styles.addIcon} src={`/icons/add.svg`} />
-          <p className={styles.addButtonText}>Add background</p>
-        </div>
+        <AddHeroCard
+          addHero={addHero}
+          heroTypes={HeroTypes}
+          getAllowCreate={getAllowCreate}
+          title={'Add description'}
+        />
       </div>
 
       <ModalHero

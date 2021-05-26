@@ -1,0 +1,32 @@
+@import '../../../styles/variables.scss';
+
+
+.addbutton {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+    opacity: 0.5;
+    @include media-sm {
+      height: 160px;
+    }
+}
+
+.addIcon {
+    width: 40px;
+}
+
+.addbutton:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+
+.addButtonText {
+    margin: 0;
+}
+  
+.disabled {
+    cursor: not-allowed !important;
+}
+  
