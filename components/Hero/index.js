@@ -3,9 +3,8 @@ import React, { useMemo, useState } from 'react';
 import ModalHero from 'components/modals/createEditHero';
 import PropTypes from 'prop-types';
 
-import AddHeroCard from './addHeroCard/index';
-
 // Styles
+import AddHeroCard from './addHeroCard/index';
 import HeroCard from './HeroCard';
 import styles from './styles.module.scss';
 
@@ -127,24 +126,33 @@ const Hero = ({ storyBoard, getStoryBoard }) => {
       </div> */}
       <div className={styles.addButtonContainer}>
         <AddHeroCard
+          imgWidth={151}
+          imgHeight={178.61}
           addHero={addHero}
           heroTypes={HeroTypes}
           getAllowCreate={getAllowCreate}
           title={'Add a hero'}
+          img="addHero.png"
         />
 
         <AddHeroCard
+          imgWidth={138}
+          imgHeight={177}
           addHero={addHero}
           heroTypes={HeroTypes}
           getAllowCreate={getAllowCreate}
           title={'Add component'}
+          img="addComponent.png"
         />
 
         <AddHeroCard
+          imgWidth={208.9}
+          imgHeight={179}
           addHero={addHero}
           heroTypes={HeroTypes}
           getAllowCreate={getAllowCreate}
           title={'Add description'}
+          img="addDescription.png"
         />
       </div>
 

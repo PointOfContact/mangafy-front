@@ -1,5 +1,10 @@
 @import '../../../styles/variables.scss';
 
+.container{
+    margin-top: 70px;
+    width: 280.9px;
+    height: 179px;
+}
 
 .addbutton {
     display: flex;
@@ -13,6 +18,10 @@
     }
 }
 
+.showImage{
+    display: none;
+}
+
 .addIcon {
     width: 40px;
 }
@@ -20,6 +29,10 @@
 .addbutton:hover {
     opacity: 1;
     cursor: pointer;
+    & + .showImage{
+      display: flex;
+      justify-content: center;
+    }
 }
 
 .addButtonText {
