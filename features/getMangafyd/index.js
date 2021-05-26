@@ -1,5 +1,6 @@
 import React from 'react';
 
+import PayPal from 'components/payPal';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -300,6 +301,7 @@ const GetMangafyd = (props) => {
                 <input type="text" className="mail" placeholder="Email" />
                 <button className="pay">Pay</button>
               </form>
+              <PayPal />
             </div>
           </div>
           <footer className="footer">
