@@ -7,6 +7,7 @@ import ModalInvites from 'components/modals/sendInvites';
 import PrimaryButton from 'components/ui-elements/button';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import moment from 'moment';
+import Router from 'next/router';
 import PropTypes from 'prop-types';
 import { MessageList } from 'react-chat-elements';
 
@@ -40,8 +41,7 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
       } else {
         avatar = `https://ui-avatars.com/api/?background=9A87FE&name=${part?.name}&rounded=true&color=ffffff`;
       }
-      // item.position = user._id === item.senderId ? 'left' : 'right';
-      item.position = 'left';
+      item.position = user._id === item.senderId ? 'left' : 'right';
       item.type = 'text';
       item.text = item.joinMangaStoryRequest?.length ? (
         <div className={styles.name}>
@@ -277,6 +277,15 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
           lockable={false}
           toBottomHeight={'100%'}
           dataSource={messageList}
+          onClick={(messData, index, e) => {
+            if (e.target.classList.contains('rce-avatar')) {
+              if (messData.senderId === user._id) {
+                Router.push(`/my-profile`);
+              } else {
+                Router.push(`/profile/${messData.senderId}`);
+              }
+            }
+          }}
         />
       </div>
       {!selectedRequest?.isArchive && (
