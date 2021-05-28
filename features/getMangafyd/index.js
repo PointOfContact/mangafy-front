@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import PayPal from 'components/payPal';
 import { EVENTS } from 'helpers/amplitudeEvents';
@@ -11,6 +11,42 @@ const Amplitude = require('amplitude');
 const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 const GetMangafyd = (props) => {
   const { user } = props;
+  const packages = [
+    {
+      _id: '1',
+      title: '',
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod,adipiscing elit.',
+      price: 20,
+      currency: '$',
+      img1: '/img/getmangaf/img2.png',
+      img2: '/img/getmangaf/img2-2.png',
+      btnText: 'Choose',
+    },
+    {
+      _id: '2',
+      title: '',
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod,adipiscing elit.',
+      price: 24,
+      currency: '$',
+      img1: '/img/getmangaf/img2.png',
+      img2: '/img/getmangaf/img2-2.png',
+      btnText: 'Choose',
+    },
+    {
+      _id: '3',
+      title: '',
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod,adipiscing elit.',
+      price: 35,
+      currency: '$',
+      img1: '/img/getmangaf/img2.png',
+      img2: '/img/getmangaf/img2-2.png',
+      btnText: 'Choose',
+    },
+  ];
+  const [selectedPackage, setSelectedPackage] = useState(packages[1]);
 
   const giveItTry = (e) => {
     e.preventDefault();
@@ -237,71 +273,44 @@ const GetMangafyd = (props) => {
             <div className="containner get">
               <div className="title">Choose style:</div>
               <div className="section7__wrap">
-                <div className="section7__box">
-                  <div id="container2" className="twentytwenty-container2 my-container2">
-                    {/* Изображение "ДО" */}
-                    <img src="/img/getmangaf/img2.png" />
-                    {/* Изображение "ПОСЛЕ" */}
-                    <img src="/img/getmangaf/img2-2.png" />
+                {packages.map((pac) => (
+                  <div
+                    key={pac._id}
+                    className={`section7__box ${selectedPackage?._id === pac?._id && 'active'}`}>
+                    <div id="container2" className="twentytwenty-container2 my-container2">
+                      {/* Изображение "ДО" */}
+                      <img src={pac.img1} />
+                      {/* Изображение "ПОСЛЕ" */}
+                      <img src={pac.img2} />
+                    </div>
+                    <div className="section7__descr">{pac.description}</div>
+                    <div className="section7__buy">
+                      <div className="section7__price">
+                        {pac.price} {pac.currency}
+                      </div>
+                      <a
+                        href="#"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setSelectedPackage(pac);
+                        }}
+                        className="section7__btn">
+                        {pac.btnText}
+                      </a>
+                    </div>
                   </div>
-                  <div className="section7__descr">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod,
-                    adipiscing elit.
-                  </div>
-                  <div className="section7__buy">
-                    <div className="section7__price">20 $</div>
-                    <a href="#" className="section7__btn">
-                      Choose
-                    </a>
-                  </div>
-                </div>
-                <div className="section7__box">
-                  <div id="container3" className="twentytwenty-container2 my-container2">
-                    {/* Изображение "ДО" */}
-                    <img src="/img/getmangaf/img2.png" />
-                    {/* Изображение "ПОСЛЕ" */}
-                    <img src="/img/getmangaf/img2-2.png" />
-                  </div>
-                  <div className="section7__descr">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod,
-                    adipiscing elit.
-                  </div>
-                  <div className="section7__buy">
-                    <div className="section7__price">24 $</div>
-                    <a href="#" className="section7__btn">
-                      Choose
-                    </a>
-                  </div>
-                </div>
-                <div className="section7__box">
-                  <div id="container4" className="twentytwenty-container2 my-container2">
-                    {/* Изображение "ДО" */}
-                    <img src="/img/getmangaf/img2.png" />
-                    {/* Изображение "ПОСЛЕ" */}
-                    <img src="/img/getmangaf/img2-2.png" />
-                  </div>
-                  <div className="section7__descr">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod,
-                    adipiscing elit.
-                  </div>
-                  <div className="section7__buy">
-                    <div className="section7__price">35 $</div>
-                    <a href="#" className="section7__btn">
-                      Choose
-                    </a>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
           </div>
           <div className="section8">
             <div className="container">
-              <form className="form">
+              {/* <form className="form">
                 <input type="text" className="name" placeholder="Name" />
                 <input type="text" className="mail" placeholder="Email" />
                 <button className="pay">Pay</button>
-              </form>
-              <PayPal />
+              </form> */}
+              <PayPal price={selectedPackage.price} />
             </div>
           </div>
           <footer className="footer">

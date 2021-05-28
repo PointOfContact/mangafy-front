@@ -3,11 +3,13 @@ import React, { useState } from 'react';
 import { PayPalButtons, PayPalScriptProvider } from '@paypal/react-paypal-js';
 import PropTypes from 'prop-types';
 
+import styles from './styles.module.scss';
+
 const PAYPAL_CLIENT_ID = {
   clientId: 'AbcgqDT6fy2AiCXtmvEy_pb5d7m3qRjj89ibbNi9-GSF6ri0xTjIeDNiX9QzDXup6zPX39X9gpKZmEGk',
 };
 
-const PayPal = () => {
+const PayPal = ({ price }) => {
   const [succeeded, setSucceeded] = useState(false);
   const [paypalErrorMessage, setPaypalErrorMessage] = useState('');
   const [orderID, setOrderID] = useState(false);
@@ -19,8 +21,7 @@ const PayPal = () => {
         purchase_units: [
           {
             amount: {
-              // charge users $499 per order
-              value: 499,
+              value: price,
             },
           },
         ],
@@ -38,43 +39,47 @@ const PayPal = () => {
     actions.order
       .capture()
       .then((details) => {
-        const { payer } = details;
-        setBillingDetails(payer);
+        setBillingDetails(details);
         setSucceeded(true);
       })
-      .catch((err) => setPaypalErrorMessage('Something went wrong.'));
+      .catch(() => setPaypalErrorMessage('Something went wrong.'));
 
   const initialOptions = {
+    locale: 'en_US',
     'client-id': PAYPAL_CLIENT_ID.clientId,
     currency: 'USD',
     intent: 'capture',
   };
 
   return (
-    <div className="get">
+    <div className={styles.get}>
       <PayPalScriptProvider options={initialOptions}>
         <PayPalButtons
           style={{
-            color: 'blue',
+            color: 'gold',
             shape: 'pill',
             label: 'pay',
             tagline: false,
             layout: 'horizontal',
+            size: 'large',
           }}
+          forceReRender={[price]}
           createOrder={createOrder}
           onApprove={onApprove}
         />
       </PayPalScriptProvider>
+      {paypalErrorMessage && paypalErrorMessage}
+      {succeeded && 'succeeded'}
     </div>
   );
 };
 
 PayPal.propTypes = {
-  user: PropTypes.object,
+  price: PropTypes.number,
 };
 
 PayPal.defaultProps = {
-  user: {},
+  price: 0,
 };
 
 export default PayPal;
