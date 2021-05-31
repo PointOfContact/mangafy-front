@@ -20,6 +20,7 @@ import TextArea from 'components/ui-elements/text-area';
 // import dynamic from 'next/dynamic';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import Head from 'next/head';
+import Router from 'next/router';
 import PropTypes from 'prop-types';
 import * as qs from 'query-string';
 
@@ -72,7 +73,9 @@ const MangeStory = (props) => {
         setcollabActiveTab('3');
         break;
       case 'invites':
-        setcollabActiveTab('4');
+        user
+          ? setcollabActiveTab('4')
+          : Router.push(`/sign-in?page=manga-story/${mangaStory._id}?tab=invites`);
         break;
       default:
         setcollabActiveTab('1');
