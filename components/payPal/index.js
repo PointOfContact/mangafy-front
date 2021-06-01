@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import styles from './styles.module.scss';
 
 const PAYPAL_CLIENT_ID = {
-  clientId: 'AbcgqDT6fy2AiCXtmvEy_pb5d7m3qRjj89ibbNi9-GSF6ri0xTjIeDNiX9QzDXup6zPX39X9gpKZmEGk',
+  clientId: 'ARYBEIrA9abI578VrxgodkT3O8BOjijZJYzhzandXfXYc_jW2sl_mj_-NolHvK89EkpG7cskc6YWgZHO',
 };
 
 const PayPal = ({ price }) => {
