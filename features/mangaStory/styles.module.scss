@@ -17,6 +17,21 @@
     cursor: pointer;
   }
 }
+.deleteManga {
+  margin-top: 10px;
+  font-size: $text4;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  @include media-sm {
+    justify-content: center;
+  }
+  div {
+    color: $black;
+    margin-left: 5px;
+    text-decoration: underline;
+  }
+}
 .sub_info {
   margin-top: -7px;
   margin-bottom: 16px;
