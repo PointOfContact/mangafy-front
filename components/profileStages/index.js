@@ -10,7 +10,7 @@ import Quest from './card';
 import styles from './styles.module.scss';
 
 const ProfileStages = ({ userData }) => {
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(true);
   const [quests, setQuests] = useState([]);
   const ref = useClickAway(() => {
     setVisible(false);
@@ -41,11 +41,7 @@ const ProfileStages = ({ userData }) => {
 
   return (
     <div ref={ref} className={cn(styles.profileStages)}>
-      <div
-        onMouseEnter={() => setVisible(true)}
-        onMouseLeave={() => setVisible(false)}
-        onClick={() => setVisible(true)}
-        className={cn(styles.bar, visible && styles.visible)}>
+      <div onClick={() => setVisible(true)} className={cn(styles.bar, visible && styles.visible)}>
         <div className={styles.content}>
           <h2 className={styles.title}>Fill out the form and get points</h2>
           <div className={styles.img}>
@@ -56,7 +52,7 @@ const ProfileStages = ({ userData }) => {
             {quests.map((quest, index) => (
               <Quest
                 key={index}
-                point={quest.point}
+                point={quest.points}
                 status={quest.status}
                 title={quest.title}
                 description={quest.description}

@@ -65,7 +65,7 @@ const GalleryCard = ({
 
   const onRemoveImg = (e, _id) => {
     e.stopPropagation();
-    if (!galleryItem.renderItem) {
+    if (!galleryItem.renderItem || (galleryItem.renderItem && (type !== 'pdf' || type !== 'PDF'))) {
       removeImg(images, _id, fromPath, userData)
         .then((res) => {
           setUserData(res);
