@@ -58,6 +58,12 @@
     line-height: 20px;
     color: #1f2224;
     font-weight: 500;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    white-space: pre-wrap;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   &Count {
     display: flex;
