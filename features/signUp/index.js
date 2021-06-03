@@ -88,6 +88,7 @@ const Register = ({ user }) => {
           icon: '',
           width: '100%',
           maskClosable: true,
+          afterClose: history.push('/my-profile'),
           okText: <LargeButton onClick={() => routeChange()} text="Create Your First Story" />,
           style: { top: 120, maxWidth: '1000px' },
           content: (
