@@ -62,6 +62,19 @@ const Terms = ({ user }) => (
               </div>
             </div>
             <div className={styles.info_section}>
+              <div className={styles.page_title}>Service Master Terms of Use</div>
+              <div className={styles.update_block}>26th of May, 2021</div>
+              <div className={styles.info_block}>
+                <div className={styles.info_description}>
+                  At this stage, MangaFY is currently in an initial demo trial run. Users own all
+                  data and have copyrights to their materials. In any case of ceasing operations,
+                  MangaFY will not hold or store any user property or content. Nor will MangaFY be
+                  involved in the team production and creation process or communication between
+                  parties on their projects. Projects belong to the users. And will not be
+                  accountable. Once an official launch begins or new features added, the T&C section
+                  will be updated accordingly to reflect such changes.
+                </div>
+              </div>
               <div className={styles.info_block}>
                 <div className={styles.info_title}> Article 1. Introduction</div>
                 <div className={styles.info_description}>
