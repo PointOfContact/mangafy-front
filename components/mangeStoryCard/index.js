@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { Tooltip } from 'antd';
+import { Popover, Tooltip } from 'antd';
 import cn from 'classnames';
+import SvgDustbin from 'components/icon/Dustbin';
 import Imgix from 'components/imgix';
 import Avatar from 'components/ui-elements/avatar';
 import Link from 'next/link';
@@ -15,7 +16,18 @@ const MangeStoryCard = ({ mangaStories, client, user }) =>
       <a>
         <div className={styles.MangeStoryCard}>
           <div>
-            <h3 className={styles.title}>{label.title}</h3>
+            <div className={styles.titleBlok}>
+              <h3 className={styles.title}>{label.title}</h3>
+              <Link href="/contact-us">
+                <a>
+                  <span>
+                    <Popover placement="left" content={'delete project'} trigger="hover">
+                      <SvgDustbin width="14px" height="14px" />
+                    </Popover>
+                  </span>
+                </a>
+              </Link>
+            </div>
             <div className={styles.description}>
               <p>{label.story}</p>
             </div>
@@ -43,7 +55,7 @@ const MangeStoryCard = ({ mangaStories, client, user }) =>
                 src={
                   label.image
                     ? client.UPLOAD_URL + label.image
-                    : 'https://mangafy.club/img/mangastory.webp'
+                    : 'https://mangafy.club/img/collab_baner.webp'
                 }
                 alt="mangafy"
               />
