@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import { notification } from 'antd';
+import Modal from 'antd/lib/modal/Modal';
 import FooterPolicy from 'components/footer-policy';
 import Header from 'components/header';
 import Imgix from 'components/imgix';
@@ -35,9 +36,9 @@ const ForgotPassword = () => {
           }
         )
         .then(() => {
-          notification.success({
-            message: 'Success',
-            description: "Pls. check you mailbox. If you don't reactive pls. send again",
+          Modal.success({
+            content: "Pls. check you mailbox. If you don't reactive pls. send again",
+            width: 500,
           });
           setErrorMessage('');
           setEmail('');
