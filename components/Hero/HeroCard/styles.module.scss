@@ -1,5 +1,11 @@
 @import '../../../styles/variables.scss';
 
+
+.hero__container{
+  display: flex;
+  flex-direction: column;
+}
+
 .hero {
   &__container {
     position: relative;
@@ -8,18 +14,43 @@
     border: 1px solid rgb(240, 240, 240);
     box-shadow: 0px 5px 20px 0px rgb(123 101 243 / 0.3);
     border-radius: 9px;
-    width: 160px;
-    height: 160px;
-    margin-right: 15px;
+    width: 148px;
+    height: 220px;
+    margin: 0 10px;
+    margin-bottom: 20px;
+
+    @include media-md {
+      width: 148px;
+    }
+
     @include media-sm {
-      height: 160px;
+      height: 190px;
+    }
+
+    @include media-xs {
+      width: 119px;
+      margin: 15px 8px 5px 9px;
+      box-shadow: 0px 5px 8px 0px rgb(123 101 243 / 0.3);
     }
   }
 
   &__top__section {
-    padding: 10px;
+    padding: 10px 10px 0 10px;
     cursor: pointer;
+
+    & > button {
+      padding: 0 13px;
+      height: 17px;
+      border-radius: 20px;
+      font-weight: bold;
+      font-size: 10px;
+      line-height: 14px;
+      color: $text_white;
+      box-sizing: border-box;
+    }
     h3 {
+      color: $gray85;
+      font-size: 10px;
       display: -webkit-box;
       -webkit-line-clamp: 1;
       white-space: pre-wrap;
@@ -28,7 +59,10 @@
       text-overflow: ellipsis;
     }
     p {
-      height: 45px;
+      margin: 0;
+      height: 31px;
+      font-size: 10px;
+      color: $gray85;
       display: -webkit-box;
       -webkit-line-clamp: 2;
       white-space: pre-wrap;
@@ -60,15 +94,16 @@
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     text-align: center;
-    background-color: #7560e7;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
     @include media-sm {
       height: 70px;
     }
 
     img {
       object-fit: cover;
-      width: 100%;
-      height: 95px;
+      height: 100%;
       border-bottom-left-radius: 10px;
       border-bottom-right-radius: 10px;
       @include media-sm {
@@ -102,22 +137,5 @@
       opacity: 1;
       cursor: pointer;
     }
-  }
-}
-.uploadSvg {
-  position: absolute;
-  bottom: 35px;
-  right: 5px;
-  z-index: 5;
-  width: 27px;
-  height: 27px;
-  display: flex;
-  border-radius: 30px;
-  background: white;
-  cursor: pointer;
-  justify-content: center;
-  align-items: center;
-  path {
-    fill: $black;
   }
 }

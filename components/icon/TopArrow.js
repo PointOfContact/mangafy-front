@@ -3,7 +3,7 @@ import * as React from 'react';
 function SvgTopArrow(props) {
   return (
     <svg viewBox="0 0 130 130" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
-      <g filter="url(#top-arrow_svg__top-arrow_svg__filter0_d)">
+      <g filter="url(#top-arrow_svg__top-arrow_svg__top-arrow_svg__filter0_d)">
         <circle cx={64.915} cy={64.915} r={34.915} fill="#fff" />
       </g>
       <path
@@ -12,7 +12,7 @@ function SvgTopArrow(props) {
       />
       <defs>
         <filter
-          id="top-arrow_svg__top-arrow_svg__filter0_d"
+          id="top-arrow_svg__top-arrow_svg__top-arrow_svg__filter0_d"
           x={0}
           y={0}
           width={129.83}

@@ -107,6 +107,7 @@ module.exports = {
         bracketSpacing: true,
       },
     ],
+    'no-plusplus': 'off',
   },
   globals: {
     window: true,

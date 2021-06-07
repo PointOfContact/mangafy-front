@@ -1,74 +1,83 @@
 import React, { useMemo, useState } from 'react';
 
+// import { createHero, patchHero, deleteHero, uploadFile } from 'api/storyBoardClient';
+import { deleteHero } from 'api/storyBoardClient';
 import ModalHero from 'components/modals/createEditHero';
 import PropTypes from 'prop-types';
 
 // Styles
-import AddHeroCard from './addHeroCard/index';
+import CreateBoard from './createBoard';
+import createButtons from './createButtons/createButtons';
 import HeroCard from './HeroCard';
 import styles from './styles.module.scss';
 
 export const HeroTypes = {
   personage: 'personage',
   component: 'component',
+  background: 'background',
 };
 
 const Hero = ({ storyBoard, getStoryBoard }) => {
   const [showModal, changeShowModal] = useState(false);
   const [selectedHero, setSelectedHero] = useState({});
   const [selectedType, setSelectedType] = useState('');
-  const { allowPersonageCreate, allowComponentCreate } = useMemo(() => {
+
+  const { allowPersonageCreate, allowComponentCreate, allowBackgroundCreate } = useMemo(() => {
     const allow = {
       allowPersonageCreate: true,
       allowComponentCreate: true,
+      allowBackgroundCreate: true,
     };
     storyBoard.heroes.forEach((hero) => {
       if (hero.name === '') {
-        if (hero.type === HeroTypes.personage) {
-          allow.allowPersonageCreate = false;
-        } else {
-          allow.allowComponentCreate = false;
+        switch (hero.type) {
+          case HeroTypes.personage:
+            allow.allowPersonageCreate = false;
+            break;
+          case HeroTypes.component:
+            allow.allowComponentCreate = false;
+            break;
+          default:
+            allow.allowBackgroundCreate = false;
         }
       }
     });
     return allow;
   }, [storyBoard]);
 
-  const getAllowCreate = (type) =>
-    type === HeroTypes.personage ? allowPersonageCreate : allowComponentCreate;
+  const getAllowCreate = (type) => {
+    switch (type) {
+      case HeroTypes.personage:
+        return allowPersonageCreate;
+      case HeroTypes.component:
+        return allowComponentCreate;
+      default:
+        return allowBackgroundCreate;
+    }
+  };
 
   const changeHero = (newhero, type) => {
     setSelectedHero(newhero);
     setSelectedType(type);
     changeShowModal(true);
   };
-  const getHeroesList = () => {
-    const heroes = [];
-    storyBoard?.heroes?.map((hero, index) => {
-      if (hero?.type === HeroTypes.personage) {
-        heroes.push(
-          <HeroCard
-            changeHero={changeHero}
-            hero={hero}
-            key={hero?._id || index}
-            getStoryBoard={getStoryBoard}
-          />
-        );
-      }
-    });
-    return heroes;
+
+  const confirmDelete = (hero) => {
+    deleteHero(hero._id, getStoryBoard, getStoryBoard);
   };
 
-  const getComponentsList = () => {
+  const getLists = (type) => {
     const heroes = [];
+
     storyBoard?.heroes?.map((hero, index) => {
-      if (hero?.type === HeroTypes.component) {
+      if (hero?.type === type) {
         heroes.push(
           <HeroCard
             changeHero={changeHero}
             hero={hero}
             key={hero?._id || index}
             getStoryBoard={getStoryBoard}
+            confirmDelete={confirmDelete}
           />
         );
       }
@@ -89,71 +98,50 @@ const Hero = ({ storyBoard, getStoryBoard }) => {
       type,
     };
     changeHero(newHero);
-    // setStoryBoard({
-    //   ...storyBoard,
-    //   heroes: [...storyBoard?.heroes, newHero],
-    // });
   };
 
   return (
     <div className={styles.container}>
-      {/* <div className={styles.heroContainer}>
-        {storyBoard?.heroes?.length ? (
-          <>
-            <div className={styles.heroesRow}>{getHeroesList()}</div>
-            <div className={styles.heroesRow}>{getComponentsList()}</div>
-          </>
+      <div className={styles.heroContainer}>
+        {!!storyBoard?.heroes?.length ? (
+          <div className={styles.cardContainer}>
+            {
+              <CreateBoard
+                title="Heroes"
+                list={() => getLists(HeroTypes.personage)}
+                addHero={addHero}
+                heroTypes={HeroTypes.personage}
+                getAllowCreate={getAllowCreate}
+              />
+            }
+            {
+              <CreateBoard
+                title="Component"
+                list={() => getLists(HeroTypes.component)}
+                addHero={addHero}
+                heroTypes={HeroTypes.component}
+                getAllowCreate={getAllowCreate}
+              />
+            }
+            {
+              <CreateBoard
+                title="Background"
+                list={() => getLists(HeroTypes.background)}
+                addHero={addHero}
+                heroTypes={HeroTypes.background}
+                getAllowCreate={getAllowCreate}
+              />
+            }
+            <div className={styles.buttonContainerListValid}>
+              <div className={styles.border}></div>
+              {createButtons(addHero, HeroTypes, getAllowCreate, false)}
+            </div>
+          </div>
         ) : (
-          <div className={styles.noHero}>
-            <Card
-              className={styles.card}
-              description="Sorry, but there is nothing <br/> here (("
-              btnText="Start now"
-              onClick={() => addHero(HeroTypes.personage)}
-              items={[
-                <Imgix
-                  key="1"
-                  width={185}
-                  height={140}
-                  layout="fixed"
-                  src="https://mangafy.club/img/noHero.webp"
-                  alt=""
-                />,
-              ]}
-            />
+          <div className={styles.buttonContainer}>
+            {createButtons(addHero, HeroTypes, getAllowCreate, true)}
           </div>
         )}
-      </div> */}
-      <div className={styles.addButtonContainer}>
-        <AddHeroCard
-          imgWidth={151}
-          imgHeight={178.61}
-          addHero={addHero}
-          heroTypes={HeroTypes}
-          getAllowCreate={getAllowCreate}
-          title={'Add a hero'}
-          img="addHero.png"
-        />
-
-        <AddHeroCard
-          imgWidth={138}
-          imgHeight={177}
-          addHero={addHero}
-          heroTypes={HeroTypes}
-          getAllowCreate={getAllowCreate}
-          title={'Add component'}
-          img="addComponent.png"
-        />
-
-        <AddHeroCard
-          imgWidth={208.9}
-          imgHeight={179}
-          addHero={addHero}
-          heroTypes={HeroTypes}
-          getAllowCreate={getAllowCreate}
-          title={'Add description'}
-          img="addDescription.png"
-        />
       </div>
 
       <ModalHero
