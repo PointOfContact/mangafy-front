@@ -3,10 +3,11 @@ import React from 'react';
 import Imgix from 'components/imgix';
 import HugeButton from 'components/ui-elements/huge-button';
 import Link from 'next/link';
+import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
-const ProfilesHeader = () => (
+const ProfilesHeader = ({ user }) => (
   <div className={styles.box}>
     <div className={'container'}>
       <div className={styles.box__container}>
@@ -30,16 +31,32 @@ const ProfilesHeader = () => (
             </div>
           </div>
           <div className={styles.box__link}>
-            <Link href="/sign-in">
-              <span>
-                <HugeButton text="Join MangaFy" disabled={false} />
-              </span>
-            </Link>
+            {user ? (
+              <Link href="/create-a-story/start">
+                <span>
+                  <HugeButton text="Post Collaborations" disabled={false} />
+                </span>
+              </Link>
+            ) : (
+              <Link href="/sign-in">
+                <span>
+                  <HugeButton text="Join MangaFy" disabled={false} />
+                </span>
+              </Link>
+            )}
           </div>
         </div>
       </div>
     </div>
   </div>
 );
+
+ProfilesHeader.propTypes = {
+  user: PropTypes.object,
+};
+
+ProfilesHeader.defaultProps = {
+  user: null,
+};
 
 export default ProfilesHeader;
