@@ -37,36 +37,53 @@ const BannerSection = ({
     : languages;
 
   const beforeUpload = (file) => {
-    // eslint-disable-next-line no-undef
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.addEventListener(
-      'load',
-      async () => {
-        try {
-          const jwt = client.getCookie('feathers-jwt');
-          const { default: api } = await import('api/restClient');
-          const options = {
-            headers: { Authorization: `Bearer ${jwt}` },
-            mode: 'no-cors',
-          };
-          const { id: image } = await api
-            .service('/api/v2/uploads')
-            .create({ uri: reader.result }, options);
-          const data = await api.service('/api/v2/manga-stories').patch(
-            baseData._id,
-            {
-              image,
-            },
-            options
-          );
-          setBaseData(data);
-        } catch (err) {
-          openNotification('error', err.message);
-        }
-      },
-      false
-    );
+    const isJpgOrPng =
+      file.type === 'image/jpeg' ||
+      file.type === 'image/png' ||
+      file.type === 'image/jpg' ||
+      file.type === 'application/pdf';
+
+    if (!isJpgOrPng) {
+      openNotification('error', 'You can only upload JPG, JPEG, PDF or PNG file!');
+    }
+
+    const isLt2M = file.size / 1024 / 1024 < 10;
+    if (!isLt2M) {
+      openNotification('error', 'Image must be smaller than 10MB!');
+    }
+
+    if (isJpgOrPng && isLt2M) {
+      // eslint-disable-next-line no-undef
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.addEventListener(
+        'load',
+        async () => {
+          try {
+            const jwt = client.getCookie('feathers-jwt');
+            const { default: api } = await import('api/restClient');
+            const options = {
+              headers: { Authorization: `Bearer ${jwt}` },
+              mode: 'no-cors',
+            };
+            const { id: image } = await api
+              .service('/api/v2/uploads')
+              .create({ uri: reader.result }, options);
+            const data = await api.service('/api/v2/manga-stories').patch(
+              baseData._id,
+              {
+                image,
+              },
+              options
+            );
+            setBaseData(data);
+          } catch (err) {
+            openNotification('error', err.message);
+          }
+        },
+        false
+      );
+    }
   };
 
   const changeSelectedLenguage = (preferredLanguage) => {
