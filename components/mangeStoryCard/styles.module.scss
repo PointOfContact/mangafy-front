@@ -12,6 +12,36 @@
   &:hover {
     transition: 0.5s;
     box-shadow: 0px 0px 12px $primaryLight;
+    .titleBlok {
+      span {
+        display: flex;
+      }
+    }
+  }
+  .titleBlok {
+    display: flex;
+    justify-content: space-between;
+    h3 {
+      width: calc(100% - 50px);
+    }
+    span {
+      max-width: 25px;
+      min-width: 25px;
+      max-height: 25px;
+      min-height: 25px;
+      border-radius: 50px;
+      margin-top: 18px;
+      margin-right: 18px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background-color: $primaryLight;
+      svg {
+        path {
+          fill: #fff;
+        }
+      }
+    }
   }
   .type {
     width: 80px;
@@ -91,6 +121,7 @@
     height: 172px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
+    background-color: $primaryLight;
   }
   .colabImg {
     position: relative;

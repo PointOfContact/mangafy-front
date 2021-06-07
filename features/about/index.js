@@ -46,7 +46,7 @@ const About = (props) => {
             </div>
           </div>
           <div className={styles.info_section}>
-            <div className={styles.update_block}>Updated Februar 14, 2021</div>
+            <div className={styles.update_block}>Update May 12, 2021</div>
             <div className={styles.info_block}>
               <div className={styles.info_title}>A story of tools and the future of work</div>
               <div className={styles.info_description}>
@@ -72,6 +72,12 @@ const About = (props) => {
                 remove the skill gap, and deliver in-platform production tools that will ease the
                 production process. Thus, nurturing the artist community, making new authors, and
                 generating new, original content.
+              </div>
+              <div className={styles.info_description}>
+                MangaFY is currently at the beta and experimental stage. The user acknowledges there
+                might be upgrades or added features to the website, as well as maintenance. The user
+                owns all content and is able to remove or add his work or projects. MangaFY has no
+                claim on the user's work.
               </div>
             </div>
             <div className={styles.info_block}>

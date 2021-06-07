@@ -32,7 +32,7 @@ const Profiles = (props) => {
       <div className={styles.hidden}>
         <main className="main_back_2">
           <Header user={user} path="profiles" />
-          <ProfilesHeader />
+          <ProfilesHeader user={user} />
           <SearchForMembers
             genres={genres}
             search={search}

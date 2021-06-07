@@ -10,6 +10,7 @@ import { Comments } from 'components/comments';
 import Footer from 'components/footer';
 import FooterPolicy from 'components/footer-policy';
 import Header from 'components/header';
+import SvgDustbin from 'components/icon/Dustbin';
 import SvgPencilColored from 'components/icon/PencilColored';
 import { ShareButtons } from 'components/share';
 import PrimaryButton from 'components/ui-elements/button';
@@ -20,6 +21,8 @@ import TextArea from 'components/ui-elements/text-area';
 // import dynamic from 'next/dynamic';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import Head from 'next/head';
+import Link from 'next/link';
+import Router from 'next/router';
 import PropTypes from 'prop-types';
 import * as qs from 'query-string';
 
@@ -72,7 +75,9 @@ const MangeStory = (props) => {
         setcollabActiveTab('3');
         break;
       case 'invites':
-        setcollabActiveTab('4');
+        user
+          ? setcollabActiveTab('4')
+          : Router.push(`/sign-in?page=manga-story/${mangaStory._id}?tab=invites`);
         break;
       default:
         setcollabActiveTab('1');
@@ -248,27 +253,39 @@ const MangeStory = (props) => {
               <div className="row">
                 <div className="col-sm-12 manga-story manga-story-m">
                   {isOwn && (
-                    <div className={styles.publishContent}>
-                      <Popover
-                        placement="bottomRight"
-                        overlayStyle={{ maxWidth: '400px', zIndex: '100' }}
-                        title={''}
-                        content={
-                          'Note: published projects will only show general information about your project (inc. what you look for, and what you aim to work on without disclosing anything else). In draft mode, you go off-grid and need to invite collaborations manually, while the member you invite sees nothing.'
-                        }
-                        trigger="hover">
-                        <div className={styles.publishSwitch}>
-                          <ButtonToggle
-                            id={'Draft'}
-                            isChecked={baseData.published}
-                            size={50}
-                            offText="Draft"
-                            onText="Published"
-                            onChange={onPublish}
-                          />
-                        </div>
-                      </Popover>
-                    </div>
+                    <>
+                      <div className={styles.publishContent}>
+                        <Popover
+                          placement="bottomRight"
+                          overlayStyle={{ maxWidth: '400px', zIndex: '100' }}
+                          title={''}
+                          content={
+                            'Note: published projects will only show general information about your project (inc. what you look for, and what you aim to work on without disclosing anything else). In draft mode, you go off-grid and need to invite collaborations manually, while the member you invite sees nothing.'
+                          }
+                          trigger="hover">
+                          <div className={styles.publishSwitch}>
+                            <ButtonToggle
+                              id={'Draft'}
+                              isChecked={baseData.published}
+                              size={50}
+                              offText="Draft"
+                              onText="Published"
+                              onChange={onPublish}
+                            />
+                          </div>
+                        </Popover>
+                      </div>
+                      <div className={styles.publishContent}>
+                        <Link href="/contact-us">
+                          <a>
+                            <div className={styles.deleteManga}>
+                              <SvgDustbin width="20px" height="20px" />
+                              <div>Delete Manga Story</div>
+                            </div>
+                          </a>
+                        </Link>
+                      </div>
+                    </>
                   )}
 
                   {!editTitle ? (

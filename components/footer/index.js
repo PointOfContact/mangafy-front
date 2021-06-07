@@ -58,7 +58,7 @@ const Footer = () => (
         </div>
         <div className={styles.footer__nav}>
           <div className={styles.footer__item1}>
-            <div className={styles.footer__itemTitle}>For dreames</div>
+            <div className={styles.footer__itemTitle}>For Dreamers</div>
             {/* <Link href="/pricing">
               <a className={styles.footer__itemLink}>Go PRO</a>
             </Link> */}
@@ -79,7 +79,7 @@ const Footer = () => (
               <a className={styles.footer__itemLink}>Help & Support</a>
             </Link>
             <Link href="/resources/manga-paneling-basics">
-              <a className={styles.footer__itemLink}>Guides & tutorials</a>
+              <a className={styles.footer__itemLink}>Guides and Tutorials</a>
             </Link>
           </div>
 
@@ -108,7 +108,7 @@ const Footer = () => (
               <a className={styles.footer__itemLink}>Welcome</a>
             </Link>
             <Link href="/contact-us">
-              <a className={styles.footer__itemLink}>We open for collaborations</a>
+              <a className={styles.footer__itemLink}>We Are Open For Collaboration</a>
             </Link>
             <Link href="/terms">
               <a className={styles.footer__itemLink}>Terms of service</a>
