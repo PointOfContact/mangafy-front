@@ -1,14 +1,17 @@
 import React from 'react';
 
-import { Popconfirm as AntPopconfirm } from 'antd';
+import { Popconfirm as AntPopConfirm } from 'antd';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 
+import styles from './styles.module.scss';
+
 function Popconfirm({ className, title, onConfirm, onCancel, okText, cancelText, item, ...rest }) {
   return (
-    <span className="popconfirm">
-      <AntPopconfirm
-        className={cn(className)}
+    <span className={cn('popconfirm', styles.confirm)}>
+      <AntPopConfirm
+        className={className}
+        placement="right"
         title={title}
         onConfirm={onConfirm}
         onCancel={onCancel}
@@ -16,7 +19,7 @@ function Popconfirm({ className, title, onConfirm, onCancel, okText, cancelText,
         cancelText={cancelText}
         {...rest}>
         {item}
-      </AntPopconfirm>
+      </AntPopConfirm>
     </span>
   );
 }

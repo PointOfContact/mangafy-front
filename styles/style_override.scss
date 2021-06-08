@@ -273,6 +273,20 @@ body {
   }
 }
 
+.hero_upload.primary_upload {
+  .ant-upload-list-picture-card-container,
+  .ant-upload-list-item,
+  .ant-upload {
+    width: 100% !important;
+    height: 220px !important;
+    max-height: 220px !important;
+    max-width: 320px !important;
+    @include media-sm {
+      height: 331px !important;
+    }
+  }
+}
+
 .mailNotificationSelect {
   display: block;
   position: relative;

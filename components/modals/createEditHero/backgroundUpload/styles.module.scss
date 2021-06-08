@@ -1,0 +1,55 @@
+@import '../../../../styles/variables.scss';
+
+@mixin upload {
+  max-width: 320px;
+  min-width: 180px;
+  max-height: 220px;
+  height: 220px;
+  border-radius: 20px;
+}
+
+.editImageContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  .editImage {
+    @include upload;
+  }
+  .loadContainer {
+    position: absolute;
+    .backgroundColor {
+      @include upload;
+      width: 320px;
+      opacity: 0.8;
+      background-color: $primaryLight;
+      @include media-xs {
+        max-width: 326px;
+      }
+    }
+    .upload {
+      width: 320px;
+      height: 220px;
+      top: 0;
+      left: 0;
+      position: absolute;
+      border-radius: 20px;
+      div {
+        margin: 0;
+        div {
+          color: $text_white;
+          svg {
+            path {
+              fill: $text_white;
+            }
+          }
+          h4 {
+            color: $text_white;
+          }
+        }
+      }
+    }
+  }
+}
