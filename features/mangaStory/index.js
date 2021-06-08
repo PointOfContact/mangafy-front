@@ -366,7 +366,7 @@ const MangeStory = (props) => {
           </section>
           <section className={`container mobile_full_content mobile_top_round`}>
             <div className="row">
-              <div className="col-lg-7 mangaStoriTopPanel">
+              <div className={cn('col-lg-7 mangaStoriTopPanel', styles.story_page)}>
                 <Tabs
                   activeKey={collabActiveTab}
                   onChange={(activeKey) => setcollabActiveTab(activeKey)}>
