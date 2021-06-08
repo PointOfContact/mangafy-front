@@ -3,7 +3,7 @@ import * as React from 'react';
 function SvgGoogle(props) {
   return (
     <svg viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
-      <g clipPath="url(#google_svg__google_svg__google_svg__clip0)">
+      <g clipPath="url(#google_svg__google_svg__clip0)">
         <path
           d="M5.762 15.712l-.905 3.379-3.308.07A12.941 12.941 0 010 13c0-2.157.524-4.19 1.454-5.98l2.945.54 1.29 2.928A7.728 7.728 0 005.272 13c0 .954.173 1.869.49 2.712z"
           fill="#FBBB00"
@@ -22,7 +22,7 @@ function SvgGoogle(props) {
         />
       </g>
       <defs>
-        <clipPath id="google_svg__google_svg__google_svg__clip0">
+        <clipPath id="google_svg__google_svg__clip0">
           <path fill="#fff" d="M0 0h26v26H0z" />
         </clipPath>
       </defs>

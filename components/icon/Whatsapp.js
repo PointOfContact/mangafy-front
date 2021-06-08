@@ -3,7 +3,7 @@ import * as React from 'react';
 function SvgWhatsapp(props) {
   return (
     <svg viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
-      <g clipPath="url(#whatsapp_svg__whatsapp_svg__whatsapp_svg__clip0)">
+      <g clipPath="url(#whatsapp_svg__whatsapp_svg__clip0)">
         <path
           d="M16.5 33C25.613 33 33 25.613 33 16.5S25.613 0 16.5 0 0 7.387 0 16.5 7.387 33 16.5 33z"
           fill="#75B73B"
@@ -30,7 +30,7 @@ function SvgWhatsapp(props) {
         />
       </g>
       <defs>
-        <clipPath id="whatsapp_svg__whatsapp_svg__whatsapp_svg__clip0">
+        <clipPath id="whatsapp_svg__whatsapp_svg__clip0">
           <path fill="#fff" d="M0 0h33v33H0z" />
         </clipPath>
       </defs>
