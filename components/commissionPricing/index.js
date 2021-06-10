@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
-import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { MinusCircleOutlined } from '@ant-design/icons';
 import { Input, Button, Space, notification } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
 import Card from 'components/card';
 import SvgPurplePencil from 'components/icon/PurplePencil';
 import Imgix from 'components/imgix';
-import PrimaryButton from 'components/ui-elements/button';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import PropTypes from 'prop-types';
 
@@ -21,6 +20,9 @@ export const CommissionPricing = ({ id, user }) => {
   const [pricingList, setPricingList] = useState([]);
   const [errMessage, setErrMessage] = useState('');
   const [editMode, setEditMode] = useState(false);
+  const [isSubmitted, setSubmitted] = useState(false);
+  const [inputValue, setInputValue] = useState(false);
+  const [addMore, setAddMore] = useState(false);
   const canEdit = !user ? false : id === user._id;
 
   const getPricing = () => {
@@ -72,6 +74,7 @@ export const CommissionPricing = ({ id, user }) => {
       notification.error({
         message: 'invalid Form',
       });
+      setSubmitted(true);
     }
   };
 
@@ -85,6 +88,8 @@ export const CommissionPricing = ({ id, user }) => {
     const { value, name } = target;
     newList[newId][name] = value;
     setPricingList(newList);
+    // if input value is not a empty
+    setInputValue(!!target.defaultValue.length + 1);
   };
 
   const add = () => {
@@ -111,33 +116,14 @@ export const CommissionPricing = ({ id, user }) => {
   return (
     <div className={`title d-flex`}>
       <div className="buttons change_btn_commission col-lg-12">
-        {/* <div className="languages_btn"> */}
-        {canEdit &&
-          (!editMode ? (
-            <SvgPurplePencil
-              className={styles.editAboutButton}
-              onClick={() => setEditMode(true)}
-              width="30"
-            />
-          ) : (
-            <div className={cn('buttonsProfile_styles', styles.commissionButton_save)}>
-              <PrimaryButton
-                className="buttonsProfile_save"
-                text="save"
-                onClick={() => setPricing(pricingList)}
-                type="primary"
-                htmlType="submit"
-                isActive
-                isRound
-                disabled={false}
-              />
-              {/* <Button onClick={() => setPricing(pricingList)} type="primary" htmlType="submit">
-                Save
-              </Button> */}
-            </div>
-          ))}
+        {canEdit && (
+          <SvgPurplePencil
+            className={styles.editAboutButton}
+            onClick={() => setEditMode(true)}
+            width="30"
+          />
+        )}
       </div>
-      {/* </div> */}
       <div className="">
         <div className="">
           <div className="">
@@ -182,15 +168,15 @@ export const CommissionPricing = ({ id, user }) => {
               )}
               {pricingList.map((field, index) => (
                 <Space
-                  className="col-lg-12"
+                  className={'col-lg-12'}
                   key={field.key}
-                  style={{ display: 'flex', alignItems: 'center', marginBottom: 15 }}
+                  style={{ display: 'flex', position: 'relative', marginBottom: 15 }}
                   align="start">
                   <span className={styles.grupe}>
                     <Input
                       className={cn(
                         styles.inputService,
-                        !field.first && canEdit && editMode && styles.errInp
+                        !field.first && canEdit && editMode && isSubmitted && styles.errInp
                       )}
                       disabled={!(canEdit && editMode)}
                       placeholder="Service"
@@ -199,7 +185,7 @@ export const CommissionPricing = ({ id, user }) => {
                       value={field.first}
                       onChange={handleChange}
                     />
-                    {!field.first && canEdit && editMode && (
+                    {!field.first && canEdit && editMode && isSubmitted && (
                       <span className={styles.errMessage}> Field is require </span>
                     )}
                   </span>
@@ -207,7 +193,7 @@ export const CommissionPricing = ({ id, user }) => {
                     <Input
                       className={cn(
                         styles.inputCost,
-                        !field.last && canEdit && editMode && styles.errInp
+                        !field.last && canEdit && editMode && isSubmitted && styles.errInp
                       )}
                       disabled={!(canEdit && editMode)}
                       placeholder="Cost"
@@ -216,14 +202,16 @@ export const CommissionPricing = ({ id, user }) => {
                       value={field.last}
                       onChange={handleChange}
                     />
-                    {!field.last && canEdit && editMode && (
+                    {!field.last && canEdit && editMode && isSubmitted && (
                       <span className={cn(styles.errMessage, styles.ml)}> Field is require </span>
                     )}
                   </span>
                   <div className={styles.close}>
                     {editMode && canEdit && (
                       <MinusCircleOutlined
+                        style={{ 'margin-left': '11px' }}
                         onClick={() => {
+                          setSubmitted(false);
                           remove(index);
                         }}
                       />
@@ -232,23 +220,34 @@ export const CommissionPricing = ({ id, user }) => {
                 </Space>
               ))}
               {editMode && canEdit && (
-                <>
+                <div className={styles.addService}>
                   <Button
                     className={styles.addBtn}
                     type="dashed"
                     onClick={() => {
+                      setAddMore(true);
                       add();
                     }}
                     block>
-                    <PlusOutlined /> Add more services
+                    Add more
                   </Button>
-                  <Space style={{ display: 'flex', marginTop: 8 }}>
-                    {/* <Button onClick={() => setPricing(pricingList)} type="primary" htmlType="submit">
-                  Save
-              </Button> */}
-                    {errMessage && <p>{errMessage}</p>}
-                  </Space>
-                </>
+                  <Button
+                    className={styles.saveBtn}
+                    onClick={
+                      inputValue
+                        ? () => {
+                            // if input is not a empty
+                            setPricing(pricingList);
+                          }
+                        : () => {
+                            setSubmitted(addMore);
+                          }
+                    }
+                    htmlType="submit">
+                    Save
+                  </Button>
+                  {errMessage && <p>{errMessage}</p>}
+                </div>
               )}
             </div>
           </div>

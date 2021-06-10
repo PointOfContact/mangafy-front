@@ -1,10 +1,26 @@
 @import '../../styles/variables.scss';
 
+@mixin buttonStyle {
+  background-color: #dcdcdc;
+  color: $text_white;
+  border-radius: 5px;
+  line-height: 21.72px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
+  &:hover {
+    background-color: $primaryLight;
+    border: none;
+    color: $text_white !important;
+  }
+}
 .pricingBlock_wrap {
   margin-bottom: 50px;
   div {
     @include media-sm {
-      flex-direction: column;
+      flex-wrap: wrap;
     }
   }
   .noContent {
@@ -13,82 +29,130 @@
   .errMessage {
     font-size: 10px;
     color: red;
-    position: absolute;
-    left: 0;
-    bottom: -25px;
+    margin-left: 8px;
   }
   .errInp {
     border-color: red !important;
   }
   .grupe {
-    position: relative;
+    display: flex;
+    flex-direction: column;
+    @include media-sm {
+      width: 333px;
+      flex-wrap: wrap;
+    }
   }
   .ml {
-    margin-left: 40px;
+    margin-left: 22px;
     @include media-sm {
       margin-left: 0px;
     }
   }
-  .addBtn {
-    margin-top: 10px;
+  .addService {
+    max-width: 507px;
+    padding-right: 50px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: flex-end;
+    @include media-sm {
+      flex-direction: initial;
+      padding-right: 94px;
+    }
+    .addBtn {
+      max-width: 90px;
+      min-width: 80px;
+      width: 90px;
+      max-height: 43px;
+      height: 43px;
+      font-size: 15px;
+      margin-right: 2px;
+      @include buttonStyle();
+    }
+    .saveBtn {
+      max-width: 89px;
+      min-width: 80px;
+      width: 89px;
+      max-height: 42px;
+      height: 42px;
+      font-size: 14px;
+      margin-left: 10px;
+      @include buttonStyle();
+    }
   }
   input {
     padding: 0;
     background-color: transparent !important;
     border: none;
-    border-bottom: 2px solid #212121;
-    color: #212121 !important;
+    color: $gray85 !important;
     font-size: 20px;
     height: 40px;
     min-width: 350px;
     &::placeholder {
       color: $grey !important;
-      font-size: 20px;
+      font-size: 15px;
     }
     @include media-sm {
       margin-top: 8px;
-      width: 100% !important;
+      width: 48% !important;
     }
     &:hover {
-      border-color: #7b65f3 !important;
-      color: #7b65f3 !important;
+      border-color: $primaryDark !important;
+      color: $primaryDark !important;
       &::placeholder {
-        color: #7b65f3;
+        color: $primaryDark;
       }
     }
     &:focus {
-      border-color: #7b65f3;
+      border-color: $primaryDark;
       outline: none;
       box-shadow: none;
       &::placeholder {
-        color: #7b65f3;
+        color: $primaryDark;
         font-weight: 700;
       }
     }
     &.inputCost {
-      min-width: 156px;
-      max-width: 156px;
-      margin-left: 40px;
+      max-width: 90px;
+      min-width: 80px;
+      height: 43px;
+      margin-left: 11px;
+      border-radius: 10px;
+      font-size: 15px;
+      line-height: 22px;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      border: 1px solid #dcdcdc;
       @include media-sm {
         min-width: calc(100% - 60px);
-        max-width: calc(100% - 60px);
+        max-width: calc(100% - 00px);
         margin-left: 0px;
       }
     }
     &.inputService {
+      width: 346px;
+      height: 43px;
+      border: 1px solid #dcdcdc;
+      border-radius: 10px;
+      padding-left: 20px;
+      box-sizing: border-box;
+      font-size: 15px;
+      line-height: 22px;
       @include media-sm {
         min-width: calc(100% - 60px);
-        max-width: calc(100% - 60px);
+        max-width: calc(100% - 0px);
         margin-left: 0px;
       }
     }
   }
 }
-@include media-sm {
-  .close {
-    text-align: right;
-    position: relative;
-    top: -40px;
+.close{
+  display: flex;
+  align-items: flex-start !important;
+  @include media-sm{
+    position: absolute;
+    left: 76%;
+    top: 36%;
   }
 }
 .editAboutButton {
