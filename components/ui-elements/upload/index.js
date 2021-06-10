@@ -75,7 +75,7 @@ const PrimaryUpload = ({ storyBoardId, onUploadSuccess, mangaUrl }) => {
               mangaUrl: res?.id,
             },
             (response) => {
-              onUploadSuccess(response);
+              // onUploadSuccess(response);
             },
             (err) => {
               openNotification('error', err.message);
