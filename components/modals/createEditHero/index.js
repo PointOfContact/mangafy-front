@@ -25,8 +25,8 @@ const ModalHero = ({ changeShowModal, showModal, hero, getStoryBoard }) => {
   const title = {
     modal: 'Character creation just got easier!',
     write: 'Create a hero, tell us about him:',
-    firstInput: 'Name',
-    button: 'Create your Hero',
+    firstInput: 'NAME YOUR CHARACTER',
+    button: 'Create',
   };
 
   const setDialogTitles = (write, modal, firstInput, button) => {
@@ -38,7 +38,7 @@ const ModalHero = ({ changeShowModal, showModal, hero, getStoryBoard }) => {
 
   const setGlobalTitle = (type) => {
     if (type === 'personage') {
-      return 'Create a Hero';
+      return 'CREATE YOUR CHARACTERS';
     }
     if (type === 'component') {
       setDialogTitles(
@@ -187,7 +187,11 @@ const ModalHero = ({ changeShowModal, showModal, hero, getStoryBoard }) => {
                     },
                   ]}>
                   <TextArea
-                    placeholder={ifIsEdit ? 'A short description of your component' : 'Description'}
+                    placeholder={
+                      ifIsEdit
+                        ? 'A short description of your component'
+                        : 'add a bio to your character'
+                    }
                     className={styles.modalTexarea}
                     isFullWidth={true}
                     isLinear={true}
