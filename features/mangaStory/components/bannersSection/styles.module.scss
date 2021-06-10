@@ -1,5 +1,14 @@
 @import '../../../../styles/variables.scss';
-
+@mixin bannerMix($bacColor) {
+  max-width: 1920px;
+  width: 100%;
+  height: 170px;
+  position: relative;
+  cursor: pointer;
+  background-color: $bacColor;
+  overflow: hidden;
+  display: flex;
+}
 .editContent {
   width: 328px;
   min-height: 256px;
@@ -21,59 +30,45 @@
     border-radius: 10px;
   }
 }
-
 .banner {
-  max-width: 1920px;
-  width: 100%;
-  height: 150px;
-  position: relative;
-  cursor: pointer;
-  background-color: #d9edff;
-  overflow: hidden;
+  @include bannerMix(#d9edff);
+}
+.upload{
+  width: 30%;
+  height: 100%;
   display: flex;
-  .upload {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex: 1;
-    margin-left: 15px;
-  }
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+}
+.uploadDefault {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
 }
 .bannerDefault{
-  max-width: 1920px;
-  width: 100%;
-  height: 150px;
-  position: relative;
-  cursor: pointer;
-  background-color: $primaryDark;
-  overflow: hidden;
-  display: flex;
-  .upload {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex: 1;
-  }
+  @include bannerMix($primaryDark)
 }
 .bannerPhotoDefault {
   flex: 1;
   display: flex;
   justify-content: flex-end;
+  align-items: center;
+  overflow: hidden;
 }
 .bannerPhoto {
   flex: 1;
   display: flex;
   justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
 .uploadContainer {
   margin-top: 30px;
   > div {
     width: 100%;
   }
-}
-.banner > div > img {
-  display: flex !important;
-  align-items: center;
 }
 .edit_settings {
   display: flex;
