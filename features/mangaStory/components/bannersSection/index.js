@@ -9,19 +9,18 @@ import SvgMone from 'components/icon/Mone';
 import SvgPencilColored from 'components/icon/PencilColored';
 import SvgTie from 'components/icon/Tie';
 import Imgix from 'components/imgix';
-import { ShareButtons } from 'components/share';
 import ButtonToggle from 'components/ui-elements/button-toggle';
 import PrimarySelect from 'components/ui-elements/select';
 import { OPTIONS } from 'features/createStory/lenguage/constant';
 import { userTypes } from 'helpers/constant';
 import PropTypes from 'prop-types';
 
-import styles from '../styles.module.scss';
+import styles from './styles.module.scss';
 
 const languages = OPTIONS.map((item) => ({ key: item, value: item }));
 
 const BannerSection = ({
-  originUrl,
+  // originUrl,
   baseData,
   canEdit,
   saveUserDataByKey,
@@ -144,7 +143,7 @@ const BannerSection = ({
           onChange={(e) => {
             changeCollaborationIsPaid(e.target.checked);
           }}
-          className={styles.togle}
+          className={styles.toggle}
           isChecked={baseData.compensationModel === 'paid'}
           offText="Free Collaboration"
           onText="Paid Collaboration"
@@ -167,52 +166,59 @@ const BannerSection = ({
       ))}
     </div>
   );
+
   return (
     <div className={styles.bannerWrap}>
-      <div className={cn(styles.bannerWrapContent, 'row')}>
-        {canEdit ? (
-          <Upload className={styles.upload} beforeUpload={beforeUpload} fileList={[]}>
-            <div className={styles.banner}>
+      {canEdit ? (
+        <Upload className={styles.uploadContainer} beforeUpload={beforeUpload} fileList={[]}>
+          <div className={!baseData.image ? styles.bannerDefault : styles.banner}>
+            <div className={styles.upload}>
+              <Imgix
+                width={335}
+                height={83}
+                layout="fixed"
+                src={'https://mangafy.club/img/upload.webp'}
+                alt=""
+              />
+            </div>
+
+            <div className={!baseData.image ? styles.bannerPhotoDefault : styles.bannerPhoto}>
               <Imgix
                 className={styles.bannerCover}
-                width={944}
-                height={150}
+                width={309}
+                height={164}
                 layout="fixed"
                 src={
                   !baseData.image
-                    ? 'https://mangafy.club/img/banner.webp'
+                    ? 'https://mangafy.club/img/collab_baner.webp'
                     : client.UPLOAD_URL + baseData.image
                 }
                 alt=""
               />
-              <div className={styles.upload}>
-                <Imgix
-                  width={335}
-                  height={83}
-                  layout="fixed"
-                  src={'https://mangafy.club/img/upload.webp'}
-                  alt=""
-                />
-              </div>
             </div>
-          </Upload>
-        ) : (
-          <div className={styles.banner}>
+          </div>
+        </Upload>
+      ) : (
+        <div className={!baseData.image ? styles.bannerDefault : styles.banner}>
+          <div className={!baseData.image ? styles.bannerPhotoDefault : styles.bannerPhoto}>
             <Imgix
-              width={944}
-              height={150}
+              className={styles.bannerCover}
+              width={309}
+              height={164}
               layout="fixed"
               src={
                 !baseData.image
-                  ? 'https://mangafy.club/img/banner.webp'
+                  ? 'https://mangafy.club/img/collab_baner.webp'
                   : client.UPLOAD_URL + baseData.image
               }
               alt=""
             />
           </div>
-        )}
+        </div>
+      )}
+      <div className={cn(styles.bannerWrapContent, 'row')}>
         <div className="row">
-          <div className={styles.edit_setings}>
+          <div className={styles.edit_settings}>
             <div className={`${styles.bannerGenres} d-flex `}>
               <div className={styles.bannerGenresItem}>
                 {baseData.genres?.slice(0, 1).map((g) => (
@@ -224,7 +230,6 @@ const BannerSection = ({
                   </Popover>
                 ))}
               </div>
-
               <div className={styles.bannerGenresItem}>
                 <Button id="preferredLanguageBtnId" data-id="preferredLanguage" type="text">
                   <SvgLang width="24px" height="24px" />
@@ -250,6 +255,38 @@ const BannerSection = ({
                 </Button>
               </div>
             </div>
+            <div className={styles.progress}>
+              <p>Your graphic novel in progress</p>
+              <div className={styles.lamp}>
+                <div>
+                  <Imgix
+                    width={20}
+                    height={29}
+                    layout="fixed"
+                    src={'https://mangafy.club/img/Group.webp'}
+                    alt=""
+                  />
+                </div>
+              </div>
+              <div className={styles.progressWrap}>
+                <Progress
+                  strokeColor={'#7B65F3'}
+                  percent={baseData.progressPercentage}
+                  size="small"
+                />
+              </div>
+              <div className={styles.lamp}>
+                <div>
+                  <Imgix
+                    width={30}
+                    height={30}
+                    layout="fixed"
+                    src={'https://mangafy.club/img/notebook1.webp'}
+                    alt=""
+                  />
+                </div>
+              </div>
+            </div>
             {canEdit && (
               <div className={styles.edit}>
                 <Popover
@@ -264,39 +301,6 @@ const BannerSection = ({
                 </Popover>
               </div>
             )}
-          </div>
-        </div>
-        <div className={styles.progressWrapper}>
-          <div className={styles.progress}>
-            <p>Your graphic novel in progress</p>
-            <div className={styles.Lamp}>
-              <div>
-                <Imgix
-                  width={20}
-                  height={29}
-                  layout="fixed"
-                  src={'https://mangafy.club/img/Group.webp'}
-                  alt=""
-                />
-              </div>
-            </div>
-            <div className={styles.progressWrap}>
-              <Progress percent={baseData.progressPercentage} size="small" />
-            </div>
-            <div className={styles.Lamp}>
-              <div>
-                <Imgix
-                  width={30}
-                  height={30}
-                  layout="fixed"
-                  src={'https://mangafy.club/img/notebook1.webp'}
-                  alt=""
-                />
-              </div>
-            </div>
-          </div>
-          <div className={styles.socials}>
-            <ShareButtons id="MangaStoryShareBtnId" text="Share collb!" shareUrl={originUrl} />
           </div>
         </div>
       </div>

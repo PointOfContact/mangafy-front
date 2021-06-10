@@ -26,7 +26,7 @@ import Router from 'next/router';
 import PropTypes from 'prop-types';
 import * as qs from 'query-string';
 
-import BannerSection from './components/bannersSection';
+import BannerSection from './components/bannersSection/index';
 import StoryBoardTabs from './components/storyBoardTabs';
 import StoryTab from './components/storyTab';
 import styles from './styles.module.scss';
@@ -364,7 +364,7 @@ const MangeStory = (props) => {
               </div>
             </div>
           </section>
-          <section className={`container mobile_full_content mobile_top_round`}>
+          <section className={cn(`container mobile_full_content mobile_top_round`, styles.section)}>
             <div className="row">
               <div className={cn('col-lg-7 mangaStoriTopPanel', styles.story_page)}>
                 <Tabs
