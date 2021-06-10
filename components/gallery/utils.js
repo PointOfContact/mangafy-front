@@ -78,10 +78,25 @@ const prepareDataImages = (gallery) => {
   return prepareData;
 };
 
-const adaptedDataImages = (images, res) => [
-  ...images.filter((item) => item._id && !item.renderItem),
-  res.id,
-];
+const adaptedDataImages = (images, res) => {
+  const imgs = images
+    .filter(
+      (item) =>
+        (item._id &&
+          item.renderItem &&
+          (item._id?.slice(-3) === 'pdf' || item._id?.slice(-3) === 'PDF')) ||
+        (item._id && !item.renderItem)
+    )
+    .map((item) => {
+      if (item.renderItem) {
+        delete item.k;
+        return item;
+      }
+      return item;
+    });
+
+  return [...imgs, res.id];
+};
 
 const beforeGalleryUpload = (
   file,

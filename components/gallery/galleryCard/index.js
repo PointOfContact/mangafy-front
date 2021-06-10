@@ -6,6 +6,7 @@ import cd from 'classnames';
 import SvgDustbin from 'components/icon/Dustbin';
 import SvgEdit from 'components/icon/Edit';
 import SvgHeart from 'components/icon/Heart';
+import Imgix from 'components/imgix';
 import PropTypes from 'prop-types';
 
 import { likeGallery, removeImg, prepareDataImages, removeShortStory } from '../utils';
@@ -147,10 +148,15 @@ const GalleryCard = ({
           // eslint-disable-next-line no-nested-ternary
           galleryItem.renderItem ? (
             type === 'pdf' || type === 'PDF' ? (
-              <img
-                src="https://icons.iconarchive.com/icons/graphicloads/filetype/256/pdf-icon.png"
-                alt=""
-              />
+              <span className={styles.pdf}>
+                <Imgix
+                  width={58}
+                  height={58}
+                  layout="fixed"
+                  src="https://mangafy.club/img/pdf.webp"
+                  alt="Manga story cover"
+                />
+              </span>
             ) : (
               <div className={styles.textContent}>
                 <h3>{galleryItem.title}</h3>

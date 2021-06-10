@@ -18,15 +18,17 @@ const MangeStoryCard = ({ mangaStories, client, user }) =>
           <div>
             <div className={styles.titleBlok}>
               <h3 className={styles.title}>{label.title}</h3>
-              <Link href="/contact-us">
-                <a>
-                  <span>
-                    <Popover placement="left" content={'delete project'} trigger="hover">
-                      <SvgDustbin width="14px" height="14px" />
-                    </Popover>
-                  </span>
-                </a>
-              </Link>
+              {label.author === user?._id && (
+                <Link href="/contact-us">
+                  <a>
+                    <span>
+                      <Popover placement="left" content={'delete project'} trigger="hover">
+                        <SvgDustbin width="14px" height="14px" />
+                      </Popover>
+                    </span>
+                  </a>
+                </Link>
+              )}
             </div>
             <div className={styles.description}>
               <p>{label.story}</p>
