@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-import { notification } from 'antd';
 import Modal from 'antd/lib/modal/Modal';
 import FooterPolicy from 'components/footer-policy';
 import Header from 'components/header';
@@ -13,12 +12,37 @@ import Link from 'next/link';
 
 import styles from './styles.module.scss';
 
+const ReachableContext = React.createContext();
+
 const ForgotPassword = () => {
+  const [modal, contextHolder] = Modal.useModal();
   const [email, setEmail] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  // const [errorMessage, setErrorMessage] = useState('');
 
   const handleOnChange = ({ target }) => {
     setEmail(target.value);
+  };
+
+  const countDown = () => {
+    let secondsToGo = 5;
+    const mod = modal.success({
+      okButtonProps: {
+        style: { background: '#7b65f3', borderRadius: '4px', borderColor: '#7b65f3' },
+      },
+      centered: true,
+      title: 'Success',
+      content: `Check the email address connected to your account and follow the steps to recover your account:)`,
+    });
+    const timer = setInterval(() => {
+      secondsToGo -= 1;
+      mod.update({
+        content: `Check the email address connected to your account and follow the steps to recover your account:)`,
+      });
+    }, 1000);
+    setTimeout(() => {
+      clearInterval(timer);
+      mod.destroy();
+    }, secondsToGo * 1000);
   };
 
   const reset = () => {
@@ -36,19 +60,20 @@ const ForgotPassword = () => {
           }
         )
         .then(() => {
-          Modal.success({
-            content: "Pls. check you mailbox. If you don't reactive pls. send again",
-            width: 500,
-          });
-          setErrorMessage('');
+          countDown();
+          // setErrorMessage('');
           setEmail('');
         })
         .catch((err) => {
-          notification.error({
-            message: 'Failed',
-            description: err.message,
+          modal.error({
+            okButtonProps: {
+              style: { background: '#7b65f3', borderRadius: '4px', borderColor: '#7b65f3' },
+            },
+            centered: true,
+            title: 'Failed',
+            content: err.message,
           });
-          setErrorMessage(err.message);
+          // setErrorMessage(err.message);
         });
     });
   };
@@ -77,14 +102,16 @@ const ForgotPassword = () => {
           isFullWidth={true}
           isLinear={true}
         />
-        {<p style={{ color: 'red' }}>{errorMessage}</p>}
-        <LargeButton
-          onClick={reset}
-          className={styles.button_submit}
-          htmlType="submit"
-          text={'RESTART YOUR PASSWORD'}
-          id="signInBtnId"
-        />
+        <ReachableContext.Provider value="Light">
+          <LargeButton
+            onClick={reset}
+            className={styles.button_submit}
+            htmlType="submit"
+            text={'RESTART YOUR PASSWORD'}
+            id="signInBtnId"
+          />
+          {contextHolder}
+        </ReachableContext.Provider>
         <Link href={'/sign-in'}>
           <a className={styles.back}>Back to Sign in</a>
         </Link>
