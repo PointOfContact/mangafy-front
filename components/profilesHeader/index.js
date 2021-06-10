@@ -44,6 +44,15 @@ const ProfilesHeader = ({ user }) => (
                 </span>
               </Link>
             )}
+            <span className={styles.img}>
+              <Imgix
+                layout="intrinsic"
+                width={233}
+                height={54}
+                src={`https://mangafy.club/img/persons.webp`}
+                alt=""
+              />
+            </span>
           </div>
         </div>
       </div>
