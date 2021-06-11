@@ -17,8 +17,6 @@ import PrimaryButton from 'components/ui-elements/button';
 import ButtonToggle from 'components/ui-elements/button-toggle';
 import ButtonToTop from 'components/ui-elements/button-toTop';
 import Input from 'components/ui-elements/input';
-import TextArea from 'components/ui-elements/text-area';
-// import dynamic from 'next/dynamic';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -27,6 +25,7 @@ import PropTypes from 'prop-types';
 import * as qs from 'query-string';
 
 import BannerSection from './components/bannersSection/index';
+import EditStoryTab from './components/editStoryTab';
 import StoryBoardTabs from './components/storyBoardTabs';
 import StoryTab from './components/storyTab';
 import styles from './styles.module.scss';
@@ -88,6 +87,7 @@ const MangeStory = (props) => {
     notification[type]({
       message,
       description,
+      placement: 'bottomLeft',
     });
   };
 
@@ -395,44 +395,12 @@ const MangeStory = (props) => {
                           </div>
                         ) : (
                           canEdit && (
-                            <>
-                              <TextArea
-                                isFullWidth={true}
-                                placeholder="Type here..."
-                                value={baseData.introduce}
-                                onChange={onChangeSingleField}
-                                type="text"
-                                className={styles.textarea_text}
-                                name="introduce"
-                              />
-                              <TextArea
-                                isFullWidth={true}
-                                placeholder="Type here..."
-                                value={baseData.story}
-                                onChange={onChangeSingleField}
-                                type="text"
-                                className={styles.textarea_text}
-                                name="story"
-                              />
-                              <div className={cn(styles.editProfile, 'buttonsProfile_styles')}>
-                                <PrimaryButton
-                                  className="buttonsProfile_cancel"
-                                  text="Cancel"
-                                  isDark
-                                  isRound
-                                  disabled={false}
-                                  onClick={cancelEditMode}
-                                />
-                                <PrimaryButton
-                                  className="buttonsProfile_save"
-                                  text="save"
-                                  isActive
-                                  isRound
-                                  disabled={false}
-                                  onClick={() => saveUserDataByKey(baseData, 'introduce', 'story')}
-                                />
-                              </div>
-                            </>
+                            <EditStoryTab
+                              baseData={baseData}
+                              onChangeSingleField={onChangeSingleField}
+                              cancelEditMode={cancelEditMode}
+                              saveUserDataByKey={saveUserDataByKey}
+                            />
                           )
                         )}
                         <p></p>
