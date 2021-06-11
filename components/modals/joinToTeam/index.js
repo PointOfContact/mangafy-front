@@ -117,10 +117,12 @@ const ModalStart = ({ changeShowModal, showModal, baseData, selectedTask, user }
       if (err.name === 'Conflict') {
         notification.error({
           message: `You have already sent a request with "${joinAs}"`,
+          placement: 'bottomLeft',
         });
       } else {
         notification.error({
           message: err.message,
+          placement: 'bottomLeft',
         });
       }
     }

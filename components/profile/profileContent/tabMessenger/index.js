@@ -22,6 +22,7 @@ const TabMessenger = (props) => {
   const openNotification = (type, message) => {
     notification[type]({
       message,
+      placement: 'bottomLeft',
     });
   };
 

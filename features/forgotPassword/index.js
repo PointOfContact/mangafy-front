@@ -38,6 +38,7 @@ const ForgotPassword = () => {
           notification.success({
             message: 'Success',
             description: "Pls. check you mailbox. If you don't reactive pls. send again",
+            placement: 'bottomLeft',
           });
           setErrorMessage('');
           setEmail('');
@@ -46,6 +47,7 @@ const ForgotPassword = () => {
           notification.error({
             message: 'Failed',
             description: err.message,
+            placement: 'bottomLeft',
           });
           setErrorMessage(err.message);
         });

@@ -69,6 +69,7 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
     notification[type]({
       message,
       description,
+      placement: 'bottomLeft',
     });
   };
 

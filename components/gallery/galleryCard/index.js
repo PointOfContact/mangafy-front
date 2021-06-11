@@ -59,6 +59,7 @@ const GalleryCard = ({
       .catch((err) => {
         notification.error({
           message: err.message,
+          placement: 'bottomLeft',
         });
       });
   };
@@ -74,6 +75,7 @@ const GalleryCard = ({
         .catch((err) => {
           notification.error({
             message: err.message,
+            placement: 'bottomLeft',
           });
         });
     } else {
@@ -86,6 +88,7 @@ const GalleryCard = ({
         (err) => {
           notification.error({
             message: err.message,
+            placement: 'bottomLeft',
           });
         }
       );
