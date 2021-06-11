@@ -53,7 +53,7 @@ export const Gallery = (props) => {
       if (fromPath === 'users') {
         userData &&
           (userData.gallery.forEach((item) => {
-            if (item.slice(-3) === 'pdf' || item.slice(-3) === 'PDF') {
+            if (item?.slice(-3) === 'pdf' || item?.slice(-3) === 'PDF') {
               data.push({
                 original: client.UPLOAD_URL + item,
                 _id: item,
@@ -88,7 +88,7 @@ export const Gallery = (props) => {
         mangaStories &&
           mangaStories.gallery &&
           mangaStories.gallery.forEach((item) => {
-            if (item.slice(-3) === 'pdf' || item.slice(-3) === 'PDF') {
+            if (item?.slice(-3) === 'pdf' || item?.slice(-3) === 'PDF') {
               data.push({
                 original: client.UPLOAD_URL + item,
                 _id: item,
@@ -106,7 +106,7 @@ export const Gallery = (props) => {
     } else {
       profile &&
         (profile.gallery.forEach((item) => {
-          if (item.slice(-3) === 'pdf' || item.slice(-3) === 'PDF') {
+          if (item?.slice(-3) === 'pdf' || item?.slice(-3) === 'PDF') {
             data.push({
               original: client.UPLOAD_URL + item,
               _id: item,
@@ -223,7 +223,10 @@ export const Gallery = (props) => {
             ) : (
               <div>
                 {canEditInit ? (
-                  <Upload beforeUpload={onBeforeGalleryUpload} showUploadList={showUploadList}>
+                  <Upload
+                    beforeUpload={onBeforeGalleryUpload}
+                    showUploadList={showUploadList}
+                    accept="image/jpg, image/png, application/pdf, image/jpeg">
                     <Card
                       description="Do you not want <br/> to add a gallery?"
                       btnText=""
@@ -285,7 +288,7 @@ export const Gallery = (props) => {
               <Upload
                 beforeUpload={onBeforeGalleryUpload}
                 showUploadList={false}
-                accept="image/jpg, image/png, image/jpeg, application/pdf ">
+                accept="image/jpg, image/png, application/pdf, image/jpeg ">
                 <AddButton width="25px" height="25px" text={'Upload'} />
               </Upload>
             </span>
