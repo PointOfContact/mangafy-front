@@ -172,7 +172,7 @@ const BannerSection = ({
       {canEdit ? (
         <Upload className={styles.uploadContainer} beforeUpload={beforeUpload} fileList={[]}>
           <div className={!baseData.image ? styles.bannerDefault : styles.banner}>
-            <div className={styles.upload}>
+            <div className={!baseData.image ? styles.uploadDefault : styles.upload}>
               <Imgix
                 width={335}
                 height={83}
