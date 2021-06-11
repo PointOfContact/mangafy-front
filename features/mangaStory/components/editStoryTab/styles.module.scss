@@ -1,0 +1,66 @@
+@import '../../../../styles/variables.scss';
+@mixin title {
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 35px;
+    color: $black;
+}
+.container {
+  max-width: 811px;
+  .descriptionTitle {
+    @include title;
+    margin-bottom: 15px;
+  }
+  .inspirationTitle{
+    @include title;
+    margin-bottom: 7px;
+  }
+  p {
+    font-size: 20px;
+    line-height: 30px;
+    color: $primaryDark;
+    margin-bottom: 15px;
+    margin-top: 3px;
+  }
+  .textarea_text {
+    min-height: 164px !important;
+    margin-bottom: 20px;
+    font-size: 20px;
+    line-height: 30px;
+    color: $black;
+    margin: 0;
+    font-weight: 400;
+    border-radius: 10px;
+    border: 1px solid $white;
+  }
+  .editProfile {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 30px;
+  }
+  .discard {
+    width: 118px;
+    height: 46px;
+    border: 1px solid $silver;
+    background-color: white;
+    border-radius: 5px;
+    color: #292726;
+    font-weight: 900;
+    font-size: 15px;
+    line-height: 22px;
+    margin-right: 10px;
+    margin-top: 49px;
+  }
+  .save {
+    width: 142px;
+    height: 46px;
+    background: #9A87FE;
+    color: white;
+    border-radius: 5px;
+    font-weight: 900;
+    font-size: 15px;
+    line-height: 22px;
+    margin-top: 49px;
+    border-color: $primaryDark;
+  }
+}
