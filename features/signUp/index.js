@@ -49,7 +49,7 @@ const Register = ({ user }) => {
 
   const history = useRouter();
   const routeChange = () => {
-    const path = `/create-a-story/start`;
+    const path = '/my-profile';
     history.push(path);
   };
 

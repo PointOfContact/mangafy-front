@@ -38,6 +38,19 @@
       justify-content: flex-end;
     }
   }
+  .buttonPortfolio {
+    span {
+      color: $grey;
+      &:hover {
+        color: rgb(179, 178, 178);
+      }
+    }
+    svg {
+      path {
+        fill: $primaryDark;
+      }
+    }
+  }
 }
 .uploadText {
   width: 100%;

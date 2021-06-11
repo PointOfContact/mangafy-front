@@ -277,7 +277,12 @@ export const Gallery = (props) => {
                 setCreateGalleryModal(true);
                 setIsModalVisible(true);
               }}>
-              <AddButton width="25px" height="25px" text={'Add text'} />
+              <AddButton
+                className={styles.buttonPortfolio}
+                width="25px"
+                height="25px"
+                text={'Add text'}
+              />
             </span>
             {/* )}
             <div onClick={() => setIsShowAdd(!isShowAdd)}>
@@ -289,7 +294,12 @@ export const Gallery = (props) => {
                 beforeUpload={onBeforeGalleryUpload}
                 showUploadList={false}
                 accept="image/jpg, image/png, application/pdf, image/jpeg ">
-                <AddButton width="25px" height="25px" text={'Upload'} />
+                <AddButton
+                  className={styles.buttonPortfolio}
+                  width="25px"
+                  height="25px"
+                  text={'Upload'}
+                />
               </Upload>
             </span>
             {/* )} */}
