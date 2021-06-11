@@ -974,7 +974,7 @@ img.rot4 {
         .ant-select-selection-overflow {
           width: auto;
           position: relative;
-          @include media-xs {
+          @include media-sm {
             width: 100%;
           }
           .ant-select-selection-item {
@@ -1033,7 +1033,7 @@ img.rot4 {
       background: transparent;
       padding: 0;
       z-index: 1;
-      @media #{$media-md} {
+      @media #{$media-lg} {
         padding: 0 20px;
         position: relative;
       }
@@ -1237,7 +1237,7 @@ img.rot4 {
         background: transparent;
         padding: 0;
         z-index: 1;
-        @media #{$media-md} {
+        @media #{$media-lg} {
           padding: 0 20px;
           position: relative;
         }
