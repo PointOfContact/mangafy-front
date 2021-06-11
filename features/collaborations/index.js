@@ -12,6 +12,7 @@ import Paginations from 'components/paginations';
 import SearchForCollaborations from 'components/searchForCollaborations';
 import PrimaryButton from 'components/ui-elements/button';
 import ButtonToTop from 'components/ui-elements/button-toTop';
+import { userTypes } from 'helpers/constant';
 import { NextSeo } from 'next-seo';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
@@ -33,6 +34,7 @@ const Collaborations = (props) => {
     selectedGenres,
     selectedCompensationModel,
     search,
+    selectedTypes,
   } = props;
 
   return (
@@ -71,6 +73,8 @@ const Collaborations = (props) => {
               genres={genres}
               selectedGenres={selectedGenres}
               selectedCompensationModel={selectedCompensationModel}
+              selectedTypes={selectedTypes}
+              userTypes={userTypes}
               search={search}
             />
             <div className="container mangafy_container">
@@ -134,12 +138,14 @@ Collaborations.propTypes = {
   selectedGenres: PropTypes.array,
   selectedCompensationModel: PropTypes.array,
   search: PropTypes.string,
+  selectedTypes: PropTypes.array,
 };
 
 Collaborations.defaultProps = {
   user: null,
   selectedGenres: [],
   selectedCompensationModel: [],
+  selectedTypes: [],
   search: '',
 };
 
