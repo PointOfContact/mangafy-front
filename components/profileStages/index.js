@@ -34,6 +34,7 @@ const ProfileStages = ({ userData }) => {
         .catch((err) => {
           notification.error({
             message: err.message,
+            placement: 'bottomLeft',
           });
         });
     });

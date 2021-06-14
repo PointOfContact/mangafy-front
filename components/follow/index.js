@@ -48,6 +48,7 @@ const Follow = ({ count, user, profile, likedUsers, setLikedUsers }) => {
         .catch((err) => {
           notification.error({
             message: err.message,
+            placement: 'bottomLeft',
           });
         });
     } else {
@@ -65,6 +66,7 @@ const Follow = ({ count, user, profile, likedUsers, setLikedUsers }) => {
         .catch((err) => {
           notification.error({
             message: err.message,
+            placement: 'bottomLeft',
           });
         });
     } else {

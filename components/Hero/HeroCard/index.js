@@ -64,6 +64,7 @@ const HeroCard = ({ hero, getStoryBoard, changeHero }) => {
     const openNotification = (type, message) => {
       notification[type]({
         message,
+        placement: 'bottomLeft',
       });
     };
 

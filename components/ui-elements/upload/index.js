@@ -93,6 +93,7 @@ const PrimaryUpload = ({ storyBoardId, onUploadSuccess, mangaUrl }) => {
   const openNotification = (type, mes) => {
     notification[type]({
       message: mes,
+      placement: 'bottomLeft',
     });
   };
 

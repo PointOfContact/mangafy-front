@@ -38,6 +38,7 @@ const StoryTab = ({ setBaseData, baseData, isOwn, user, isParticipent }) => {
         .catch((err) => {
           notification.error({
             message: err.message,
+            placement: 'bottomLeft',
           });
         })
     );

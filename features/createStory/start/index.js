@@ -20,6 +20,7 @@ const Start = ({ genres, jwt, user }) => {
   const openNotification = (type, message) => {
     notification[type]({
       message,
+      placement: 'bottomLeft',
     });
   };
 

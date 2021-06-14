@@ -88,6 +88,7 @@ const MangeStory = (props) => {
     notification[type]({
       message,
       description,
+      placement: 'bottomLeft',
     });
   };
 

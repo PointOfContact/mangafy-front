@@ -34,12 +34,14 @@ const ResetPassword = () => {
     if (password !== newPassword) {
       notification.error({
         message: 'Password and confirm password mismatch',
+        placement: 'bottomLeft',
       });
       return;
     }
     if (!password) {
       notification.error({
         message: 'Field is required',
+        placement: 'bottomLeft',
       });
       return;
     }
@@ -65,6 +67,7 @@ const ResetPassword = () => {
           notification.success({
             message: 'Success',
             description: 'Your password successfully changes. Pls. login',
+            placement: 'bottomLeft',
           });
           setTimeout(() => {
             Router.push({
@@ -77,6 +80,7 @@ const ResetPassword = () => {
           notification.error({
             message: 'Failed',
             description: err.message,
+            placement: 'bottomLeft',
           });
         });
     });

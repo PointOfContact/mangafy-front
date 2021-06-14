@@ -86,6 +86,7 @@ const ChatCard = ({
       .catch((err) => {
         notification.error({
           message: err.message,
+          placement: 'bottomLeft',
         });
       });
   };

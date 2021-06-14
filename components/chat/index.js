@@ -19,6 +19,7 @@ export const Chat = ({ mangaStory, user, isOwn, collabActiveTab }) => {
   const openNotification = (type, message) => {
     notification[type]({
       message,
+      placement: 'bottomLeft',
     });
   };
 
