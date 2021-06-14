@@ -1,17 +1,17 @@
 @import '../../styles/variables.scss';
 
 .box {
-  color: $white;
+  color: #fff;
   background-image: url('../../public/img/colabbg.png');
   margin-bottom: 50px;
   position: relative;
   @include media-sm {
     margin-bottom: 50px;
-    text-align: center;
+    // text-align: center;
   }
   &__container {
     position: relative;
-    padding: 34px 0 64px 0;
+    padding: 50px 0 44px 0;
   }
   &__content {
     position: relative;
@@ -21,7 +21,7 @@
     position: absolute;
     z-index: 1;
     right: 0;
-    bottom: -3px;
+    bottom: -5px;
     @include media-sm {
       right: 50%;
       transform: translate(50%, 0);
@@ -30,42 +30,44 @@
   }
 
   &__title {
-    font-family: Noto Sans;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 40px;
-    line-height: 60px;
-    margin-bottom: 0;
-    @include media-sm {
-      font-size: 30px;
-      line-height: 37px;
-    }
     p {
+      font-family: 'Noto Sans', sans-serif;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 40px;
+      line-height: 60px;
+      margin-bottom: 0;
+      @include media-sm {
+        font-size: 30px;
+        line-height: 37px;
+      }
       margin-bottom: 0;
     }
   }
   &__description {
-    font-family: Noto Sans JP;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 25px;
-    line-height: 50px;
-    margin-bottom: 0;
-    @include media-sm {
-      font-size: 20px;
-      line-height: 27px;
-    }
     p {
+      font-family: Noto Sans JP;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 25px;
+      line-height: 50px;
+      margin-bottom: 0;
+      margin-top: -8px;
       margin-bottom: 40px;
       @include media-sm {
         margin-bottom: 20px;
+        font-size: 20px;
+        line-height: 27px;
       }
     }
   }
   &__link {
     button {
+      margin-bottom: 20px;
+      color: $primaryLight;
       width: 319px;
       height: 54px;
+      font-weight: bold;
       font-size: 20px;
       box-shadow: none;
       border-radius: 5px;

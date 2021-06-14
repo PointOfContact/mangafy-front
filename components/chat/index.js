@@ -48,35 +48,6 @@ export const Chat = ({ mangaStory, user, isOwn, collabActiveTab }) => {
         });
     });
   };
-
-  const getRequest = () => {
-    const jwt = client.getCookie('feathers-jwt');
-    const options = {
-      query: {
-        mangaStoryId: mangaStory._id,
-        $limit: 100,
-        $sort: {
-          createdAt: -1,
-        },
-      },
-      headers: { Authorization: `Bearer ${jwt}` },
-    };
-    // if (user._id !== mangaStory.authorInfo._id) {
-    //   options.query.senderId = user._id;
-    // }
-    import('api/restClient').then((m) => {
-      m.default
-        .service('/api/v2/join-manga-story-requests')
-        .find(options)
-        .then((res) => {
-          setRequests(res.data);
-        })
-        .catch((err) => {
-          openNotification('error', err.message);
-        });
-    });
-  };
-
   useEffect(() => {
     if (collabActiveTab === '4') {
       // getRequest();

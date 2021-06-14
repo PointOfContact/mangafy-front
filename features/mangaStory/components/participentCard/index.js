@@ -63,7 +63,7 @@ const ParticipentCard = ({ isOwn, avatar, name, id, type, leaveManga, user, auth
                   style={{
                     width: '200px',
                   }}>
-                  Do you really want to get out of this Manga-Story
+                  Do you really want to leave this collaboration?
                 </div>
               }
               onConfirm={() => {

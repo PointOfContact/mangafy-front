@@ -273,6 +273,20 @@ body {
   }
 }
 
+.hero_upload.primary_upload {
+  .ant-upload-list-picture-card-container,
+  .ant-upload-list-item,
+  .ant-upload {
+    width: 100% !important;
+    height: 220px !important;
+    max-height: 220px !important;
+    max-width: 320px !important;
+    @include media-sm {
+      height: 331px !important;
+    }
+  }
+}
+
 .mailNotificationSelect {
   display: block;
   position: relative;
@@ -960,7 +974,7 @@ img.rot4 {
         .ant-select-selection-overflow {
           width: auto;
           position: relative;
-          @include media-xs {
+          @include media-sm {
             width: 100%;
           }
           .ant-select-selection-item {
@@ -1019,7 +1033,7 @@ img.rot4 {
       background: transparent;
       padding: 0;
       z-index: 1;
-      @media #{$media-md} {
+      @media #{$media-lg} {
         padding: 0 20px;
         position: relative;
       }
@@ -1223,7 +1237,7 @@ img.rot4 {
         background: transparent;
         padding: 0;
         z-index: 1;
-        @media #{$media-md} {
+        @media #{$media-lg} {
           padding: 0 20px;
           position: relative;
         }

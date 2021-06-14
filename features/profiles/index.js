@@ -91,7 +91,7 @@ Profiles.propTypes = {
 Profiles.defaultProps = {
   mangaStories: [],
   user: null,
-  selectedTypes: '',
+  selectedTypes: [],
   selectedGenres: [],
   search: '',
 };

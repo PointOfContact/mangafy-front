@@ -38,7 +38,7 @@ const ProfileContent = (props) => {
   const tabPanels = [
     {
       key: '1',
-      tab: 'STORY',
+      tab: 'PROFILE',
       component: (
         <TabStory
           {...{

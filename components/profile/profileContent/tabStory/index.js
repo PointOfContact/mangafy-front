@@ -94,7 +94,7 @@ const TabStory = (props) => {
       <div>
         {userData && (userData?.content || storyEditMode) && (
           <>
-            <h3 className={cn(styles.tab_title)}>About Me</h3>
+            <h3 className={cn(styles.tab_title)}>Bio</h3>
             {storyEditMode || (
               <SvgPurplePencil
                 className={styles.editAboutButton}
@@ -161,7 +161,7 @@ const TabStory = (props) => {
           <div className={styles.card_wrap} gutter={[16, 16]}>
             {!userData?.content && (
               <div className={styles.card}>
-                <h3 className={cn(styles.sub_title)}>About Me</h3>
+                <h3 className={cn(styles.sub_title)}>Bio</h3>
                 <Card
                   description="It's time to tell about yourself.</br>  Let's start!"
                   btnText="Tell us about yourself"
@@ -225,7 +225,7 @@ const TabStory = (props) => {
           <div className={styles.card_wrap} gutter={[16, 16]}>
             {!profile?.content && (
               <div className={styles.card}>
-                <h3 className={cn(styles.sub_title)}>About Me</h3>
+                <h3 className={cn(styles.sub_title)}>Bio</h3>
                 <Card
                   description="Sorry, but there is nothing <br/> here (("
                   btnText=""

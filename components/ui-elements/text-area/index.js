@@ -11,6 +11,7 @@ const { TextArea: AntTextArea } = Input;
 function TextArea({
   className,
   isFullWidth,
+  isLinear,
   value,
   placeholder,
   onChange,
@@ -20,7 +21,12 @@ function TextArea({
 }) {
   return (
     <AntTextArea
-      className={cn(styles.primary_textArea, className, isFullWidth && styles.full_width)}
+      className={cn(
+        styles.primary_textArea,
+        className,
+        isFullWidth && styles.full_width,
+        isLinear && styles.linear
+      )}
       value={value}
       onChange={onChange}
       placeholder={placeholder}

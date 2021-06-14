@@ -47,7 +47,8 @@ $repeat: 5;
   }
 }
 .contributeBtn {
-  max-width: 175px;
+  max-width: 155px;
+  min-width: 155px;
   height: 46px;
   display: flex;
   justify-content: center;
@@ -79,6 +80,7 @@ $repeat: 5;
 .contribiutContent {
   width: 100%;
   max-width: 155px;
+  min-width: 155px;
   margin-left: 15px;
   margin-right: 10px;
   button {
@@ -130,6 +132,9 @@ $repeat: 5;
   font-size: 15px;
   line-height: 22px;
   margin-bottom: 10px;
+  @include media-sm {
+   width: calc(100% - 170px);
+  }
 }
 
 .description {

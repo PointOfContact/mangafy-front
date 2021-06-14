@@ -137,9 +137,7 @@ const SocialLinks = (props) => {
               className={styles.social_inp}
               defaultValue={getSocialLink('dribbble')}
               onBlur={(e) => {
-                e.target.value.includes('https://dribbble.com') ||
-                e.target.value.includes('https://www.dribbble.com') ||
-                e.target.value === ''
+                e.target.value.includes('dribbble.com') || e.target.value === ''
                   ? (updateSocialLink(e.target.value, 'dribbble'), setDribbbleStatus('success'))
                   : (openNotification('error', 'invalid link'), setDribbbleStatus('error'));
               }}
@@ -156,9 +154,7 @@ const SocialLinks = (props) => {
               className={styles.social_inp}
               defaultValue={getSocialLink('behance')}
               onBlur={(e) => {
-                e.target.value.includes('https://behance.net') ||
-                e.target.value.includes('https://www.behance.net') ||
-                e.target.value === ''
+                e.target.value.includes('behance.net') || e.target.value === ''
                   ? (updateSocialLink(e.target.value, 'behance'), setBehanceStatus('success'))
                   : (openNotification('error', 'invalid link'), setBehanceStatus('error'));
               }}
@@ -175,9 +171,7 @@ const SocialLinks = (props) => {
               className={styles.social_inp}
               defaultValue={getSocialLink('deviantart')}
               onBlur={(e) => {
-                e.target.value.includes('https://deviantart.com') ||
-                e.target.value.includes('https://www.deviantart.com') ||
-                e.target.value === ''
+                e.target.value.includes('deviantart.com') || e.target.value === ''
                   ? (updateSocialLink(e.target.value, 'deviantart'), setDeviantartStatus('success'))
                   : (openNotification('error', 'invalid link'), setDeviantartStatus('error'));
               }}
@@ -194,9 +188,7 @@ const SocialLinks = (props) => {
               className={styles.social_inp}
               defaultValue={getSocialLink('facebook')}
               onBlur={(e) => {
-                e.target.value.includes('https://facebook.com') ||
-                e.target.value.includes('https://www.facebook.com') ||
-                e.target.value === ''
+                e.target.value.includes('facebook.com') || e.target.value === ''
                   ? (updateSocialLink(e.target.value, 'facebook'), setFacebookStatus('success'))
                   : (openNotification('error', 'invalid link'), setFacebookStatus('error'));
               }}
@@ -213,9 +205,7 @@ const SocialLinks = (props) => {
               className={styles.social_inp}
               defaultValue={getSocialLink('twitter')}
               onBlur={(e) => {
-                e.target.value.includes('https://twitter.com') ||
-                e.target.value.includes('https://www.twitter.com') ||
-                e.target.value === ''
+                e.target.value.includes('twitter.com') || e.target.value === ''
                   ? (updateSocialLink(e.target.value, 'twitter'), setTwitterStatus('success'))
                   : (openNotification('error', 'invalid link'), setTwitterStatus('error'));
               }}
@@ -232,9 +222,7 @@ const SocialLinks = (props) => {
               className={styles.social_inp}
               defaultValue={getSocialLink('instagram')}
               onBlur={(e) => {
-                e.target.value.includes('https://instagram.com') ||
-                e.target.value.includes('https://www.instagram.com') ||
-                e.target.value === ''
+                e.target.value.includes('instagram.com') || e.target.value === ''
                   ? (updateSocialLink(e.target.value, 'instagram'), setInstagramStatus('success'))
                   : (openNotification('error', 'invalid link'), setInstagramStatus('error'));
               }}
@@ -251,9 +239,7 @@ const SocialLinks = (props) => {
               className={styles.social_inp}
               defaultValue={getSocialLink('patreon')}
               onBlur={(e) => {
-                e.target.value.includes('https://patreon.com') ||
-                e.target.value.includes('https://www.patreon.com') ||
-                e.target.value === ''
+                e.target.value.includes('patreon.com') || e.target.value === ''
                   ? (updateSocialLink(e.target.value, 'patreon'), setPatreonStatus('success'))
                   : (openNotification('error', 'invalid link'), setPatreonStatus('error'));
               }}
@@ -270,9 +256,7 @@ const SocialLinks = (props) => {
               className={styles.social_inp}
               defaultValue={getSocialLink('webtoons')}
               onBlur={(e) => {
-                e.target.value.includes('https://webtoons.com') ||
-                e.target.value.includes('https://www.webtoons.com') ||
-                e.target.value === ''
+                e.target.value.includes('webtoons.com') || e.target.value === ''
                   ? (updateSocialLink(e.target.value, 'webtoons'), setWebtoonsStatus('success'))
                   : (openNotification('error', 'invalid link'), setWebtoonsStatus('error'));
               }}
@@ -289,9 +273,7 @@ const SocialLinks = (props) => {
               className={styles.social_inp}
               defaultValue={getSocialLink('tiktok')}
               onBlur={(e) => {
-                e.target.value.includes('https://tiktok.com') ||
-                e.target.value.includes('https://www.tiktok.com') ||
-                e.target.value === ''
+                e.target.value.includes('tiktok.com') || e.target.value === ''
                   ? (updateSocialLink(e.target.value, 'tiktok'), setTickTokStatus('success'))
                   : (openNotification('error', 'invalid link'), setTickTokStatus('error'));
               }}
@@ -308,9 +290,7 @@ const SocialLinks = (props) => {
               className={styles.social_inp}
               defaultValue={getSocialLink('tapas')}
               onBlur={(e) => {
-                e.target.value.includes('https://tapas.io') ||
-                e.target.value.includes('https://www.tapas.io') ||
-                e.target.value === ''
+                e.target.value.includes('tapas.io') || e.target.value === ''
                   ? (updateSocialLink(e.target.value, 'tapas'), setTapasStatus('success'))
                   : (openNotification('error', 'invalid link'), setTapasStatus('error'));
               }}
@@ -331,7 +311,10 @@ const SocialLinks = (props) => {
             <Col span={22}>
               {socialLinks?.map((social) => (
                 <span key={social.id} className={styles.social_icons}>
-                  <a href={`${social.link}`} rel="noreferrer" target="_blank">
+                  <a
+                    href={social.link.includes('http') ? social.link : `https://${social.link}`}
+                    rel="noreferrer"
+                    target="_blank">
                     <SocialButton name={social.platform} link={social.link} />
                   </a>
                 </span>
