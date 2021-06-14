@@ -117,6 +117,7 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
   const openNotification = (type, message) => {
     notification[type]({
       message,
+      placement: 'bottomLeft',
     });
   };
   const scrollToBottom = () => {

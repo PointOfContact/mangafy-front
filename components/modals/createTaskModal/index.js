@@ -116,6 +116,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
       .catch((err) =>
         notification.error({
           message: err.message,
+          placement: 'bottomLeft',
         })
       );
   };
@@ -157,6 +158,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
       .catch((err) =>
         notification.error({
           message: err.message,
+          placement: 'bottomLeft',
         })
       );
   };
