@@ -1,7 +1,6 @@
 @import '../../styles/variables.scss';
 
 @mixin buttonStyle {
-  background-color: #dcdcdc;
   color: $text_white;
   border-radius: 5px;
   line-height: 21.72px;
@@ -10,11 +9,6 @@
   justify-content: center;
   align-items: center;
   margin-top: 15px;
-  &:hover {
-    background-color: $primaryLight;
-    border: none;
-    color: $text_white !important;
-  }
 }
 .pricingBlock_wrap {
   margin-bottom: 50px;
@@ -66,7 +60,13 @@
       height: 43px;
       font-size: 15px;
       margin-right: 2px;
+      background-color: #dcdcdc;
       @include buttonStyle();
+      &:hover {
+        background-color: $primaryLight;
+        border: none;
+        color: $text_white !important;
+      }
     }
     .saveBtn {
       max-width: 89px;
@@ -76,7 +76,12 @@
       height: 42px;
       font-size: 14px;
       margin-left: 10px;
+      background-color: $primaryLight;
       @include buttonStyle();
+      &:hover {
+        border: none;
+        color: $text_white !important;
+      }
     }
   }
   input {
@@ -146,10 +151,10 @@
     }
   }
 }
-.close{
+.close {
   display: flex;
   align-items: flex-start !important;
-  @include media-sm{
+  @include media-sm {
     position: absolute;
     left: 76%;
     top: 36%;
