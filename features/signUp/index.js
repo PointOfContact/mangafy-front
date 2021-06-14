@@ -5,7 +5,6 @@ import cn from 'classnames';
 import AuthForm from 'components/authForm';
 import Header from 'components/header';
 import ButtonToTop from 'components/ui-elements/button-toTop';
-import LargeButton from 'components/ui-elements/large-button';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { userTypes } from 'helpers/constant';
 import Head from 'next/head';
@@ -82,26 +81,27 @@ const Register = ({ user }) => {
           },
         ];
         amplitude.track(data);
-        info({
-          className: 'MangaFY',
-          title: <h3 className={styles.modalTitle}>Welcome to MangaFY</h3>,
-          icon: '',
-          width: '100%',
-          maskClosable: true,
-          afterClose: history.push('/my-profile'),
-          okText: <LargeButton onClick={() => routeChange()} text="Create Your First Story" />,
-          style: { top: 120, maxWidth: '1000px' },
-          content: (
-            <div className={styles.publishedModal}>
-              <p>
-                Whether you have a story to tell or a cool illustration, our platform is here to
-                ensure you take your ideas forward. Share your stories and build the graphic novel
-                you always dreamt about (plus, our awesome community to interact with)
-              </p>
-            </div>
-          ),
-          onOk() {},
-        });
+        history.push('/my-profile');
+        // info({
+        //   className: 'MangaFY',
+        //   title: <h3 className={styles.modalTitle}>Welcome to MangaFY</h3>,
+        //   icon: '',
+        //   width: '100%',
+        //   maskClosable: true,
+        //   afterClose: history.push('/my-profile'),
+        //   okText: <LargeButton onClick={() => routeChange()} text="Create Your First Story" />,
+        //   style: { top: 120, maxWidth: '1000px' },
+        //   content: (
+        //     <div className={styles.publishedModal}>
+        //       <p>
+        //         Whether you have a story to tell or a cool illustration, our platform is here to
+        //         ensure you take your ideas forward. Share your stories and build the graphic novel
+        //         you always dreamt about (plus, our awesome community to interact with)
+        //       </p>
+        //     </div>
+        //   ),
+        //   onOk() {},
+        // });
       })
       .catch((error) => {
         setLoading(false);
