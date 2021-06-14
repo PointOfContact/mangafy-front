@@ -80,7 +80,8 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipent }) => {
       <span className={styles.mobile_add}>
         {isOwn && (
           <AddButton
-            text={'create a task'}
+            className={styles.createTaskMobileBut}
+            text={'Create a task'}
             onClick={() => {
               changeShowModal(true);
               setSelectedTask(null);
@@ -157,32 +158,34 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipent }) => {
         </div>
       )}
       <div className={styles.creatTask}>
-        <div className={styles.addBtn}>
-          <Imgix
-            width={264}
-            height={241}
-            layout="fixed"
-            src="https://mangafy.club/img/storyCardImg1.webp"
-            alt=""
-          />
+        <div className={isOwn ? styles.addButtonOwn : styles.addBtn}>
           {isOwn ? (
             <PrimaryButton
               onClick={() => {
                 changeShowModal(true);
                 setSelectedTask(null);
               }}
-              text="create a task"
+              className={styles.creatTaskButton}
+              text="Create a task"
             />
           ) : (
-            !tasks?.length &&
-            !isParticipent && (
-              <PrimaryButton
-                onClick={() => {
-                  toTeam(null);
-                }}
-                text="Contribute"
+            <>
+              <Imgix
+                width={264}
+                height={241}
+                layout="fixed"
+                src="https://mangafy.club/img/storyCardImg1.webp"
+                alt=""
               />
-            )
+              {!tasks?.length && !isParticipent && (
+                <PrimaryButton
+                  onClick={() => {
+                    toTeam(null);
+                  }}
+                  text="Contribute"
+                />
+              )}
+            </>
           )}
         </div>
       </div>

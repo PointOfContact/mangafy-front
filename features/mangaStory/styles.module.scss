@@ -1,5 +1,22 @@
 @import '../../styles/variables.scss';
 
+@mixin editAndDeleteBut {
+  max-width: 176px;
+  width: 176px;
+  height: 46px;
+  font-weight: 900;
+  font-size: 15px;
+  line-height: 22px;
+  border-color: $primaryLight;
+  background-color: white;
+  color: black;
+  cursor: pointer;
+  @include media-sm {
+    width: 136px;
+    height: 36px;
+    font-size: 12px;
+  }
+}
 .tabWrap {
   padding: 30px;
   p:last-child {
@@ -143,15 +160,21 @@
     left: 10px !important;
   }
 }
-.editTitleSvg {
+.editDeleteButtons{
   position: absolute;
   top: 120px;
   right: 40px;
-  cursor: pointer;
+  display: flex;
   @include media-sm {
-    top: 156px;
-    right: 56px;
+    right: 65px;
   }
+}
+.editTitleSvg {
+  @include editAndDeleteBut;
+  margin-right: 14px;
+}
+.deleteTitleSvg {
+  @include editAndDeleteBut;
 }
 .inputs {
   margin-top: 89px;

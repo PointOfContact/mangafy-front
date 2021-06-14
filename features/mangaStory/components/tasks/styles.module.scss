@@ -32,6 +32,9 @@ $repeat: 5;
       }
     }
   }
+  @media (max-width: 630px) {
+    margin-top: 65px;
+  }
 }
 .editBtns {
   @include media-sm {
@@ -133,7 +136,7 @@ $repeat: 5;
   line-height: 22px;
   margin-bottom: 10px;
   @include media-sm {
-   width: calc(100% - 170px);
+    width: calc(100% - 170px);
   }
 }
 
@@ -169,8 +172,28 @@ $repeat: 5;
   @include media-sm {
     position: absolute;
     display: block;
-    top: -50px;
+    top: -57px;
     right: 0;
+  }
+  @media (max-width: 630px) {
+    top: 0;
+  }
+  .createTaskMobileBut{
+    span {
+      color: $grey;
+    }
+    svg {
+      path {
+        fill: $primaryDark;
+      }
+    }
+    &:hover{
+      svg {
+        path {
+          fill: $primaryLight;
+        }
+      }
+    }
   }
 }
 
@@ -187,4 +210,29 @@ $repeat: 5;
   background: linear-gradient(90deg, rgba(33, 33, 33, 0.07) 0%, rgba(33, 33, 33, 0) 100%);
   position: absolute;
   left: -30px;
+}
+
+.addButtonOwn {
+  button {
+    width: 176px;
+    height: 46px;
+    background: $primaryDark;
+    border: 1px solid $primaryLight;
+    box-sizing: border-box;
+    font-weight: 900;
+    font-size: 15px;
+    line-height: 22px;
+    position: absolute;
+    top: -64px;
+    left: 700px;
+    @include media-md{
+      width: 156px;
+      height: 46px;
+      font-size: 13px;
+      left: 570px;
+    }
+    @include media-sm{
+      display: none;
+    }
+  }
 }
