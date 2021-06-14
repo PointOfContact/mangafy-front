@@ -29,7 +29,7 @@ const menuGenresOptions = (genres = [], handleMenuClick) => (
 
 const menuOptions = (userTypes, handleCompasitionClick) => {
   const userTupe = userTypes.map((type) => <Option key={type.key}>{type.value}</Option>);
-  const all = [<Option key="all">All User Types</Option>];
+  const all = [<Option key="all">All Artist Types</Option>];
   return all.concat(userTupe);
 };
 
@@ -126,7 +126,7 @@ const SearchForMembers = (props) => {
                 showArrow={true}
                 allowClear={true}
                 showSearch={false}
-                placeholder="User Type"
+                placeholder="Artist Type"
                 defaultValue={selectedTypes}
                 onChange={handleCompasitionClick}
                 dropdownClassName="select-filter"
