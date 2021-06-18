@@ -53,6 +53,7 @@ const ProfileTopBar = (props) => {
     notification[type]({
       message,
       description,
+      placement: 'bottomLeft',
     });
   };
   const history = useRouter();

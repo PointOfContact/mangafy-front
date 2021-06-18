@@ -77,6 +77,7 @@ const ModalDiscussion = ({
     notification[type]({
       message,
       description,
+      placement: 'bottomLeft',
     });
   };
 

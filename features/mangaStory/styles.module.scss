@@ -28,10 +28,16 @@
   font-size: 20px;
 }
 .storyTabContent {
+  height: 190px;
   display: flex;
   justify-content: space-between;
   svg {
     cursor: pointer;
+  }
+  @include media-sm{
+    padding-left: 30px;
+    padding-right: 30px;
+    box-sizing: border-box;
   }
 }
 .deleteManga {
@@ -130,6 +136,12 @@
   max-width: 1602px;
   margin-left: auto;
   margin-right: auto;
+  section > div {
+    max-width: 1600px;
+    padding-left: 0;
+    padding-right: 0;
+    box-sizing: border-box;
+  }
 }
 
 .header {
@@ -182,6 +194,11 @@
   input {
     font-size: 15px;
     margin-bottom: 10px;
+  }
+  @include media-sm{
+    padding-left: 30px;
+    padding-right: 30px;
+    box-sizing: border-box;
   }
 }
 .header h2 {
@@ -352,6 +369,11 @@
   justify-content: flex-end;
   position: relative;
   top: 70px !important;
+  @include media-sm{
+    padding-left: 30px;
+    padding-right: 30px;
+    box-sizing: border-box;
+  }
   .publishSwitch {
     display: inline-flex;
     padding: 20px 10px;
@@ -394,7 +416,14 @@
     margin: 48px auto 50px auto;
   }
 }
-
+.editProfile {
+  display: flex;
+  margin-bottom: 20px;
+  @include media-md{
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+}
 .error {
   border-color: red !important;
   color: red;

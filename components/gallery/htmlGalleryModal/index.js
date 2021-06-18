@@ -55,6 +55,7 @@ const HtmlGalleryModal = ({ gallery, setImages, images, handleCancel, isModalVis
       (err) => {
         notification.error({
           message: err.message,
+          placement: 'bottomLeft',
         });
       }
     );
@@ -86,6 +87,7 @@ const HtmlGalleryModal = ({ gallery, setImages, images, handleCancel, isModalVis
       (err) => {
         notification.error({
           message: err.message,
+          placement: 'bottomLeft',
         });
       }
     );

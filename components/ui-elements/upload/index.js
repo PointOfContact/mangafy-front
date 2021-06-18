@@ -75,7 +75,7 @@ const PrimaryUpload = ({ storyBoardId, onUploadSuccess, mangaUrl }) => {
               mangaUrl: res?.id,
             },
             (response) => {
-              onUploadSuccess(response);
+              // onUploadSuccess(response);
             },
             (err) => {
               openNotification('error', err.message);
@@ -93,6 +93,7 @@ const PrimaryUpload = ({ storyBoardId, onUploadSuccess, mangaUrl }) => {
   const openNotification = (type, mes) => {
     notification[type]({
       message: mes,
+      placement: 'bottomLeft',
     });
   };
 

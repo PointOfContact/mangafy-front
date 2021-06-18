@@ -73,6 +73,7 @@ export const CommissionPricing = ({ id, user }) => {
     } else {
       notification.error({
         message: 'invalid Form',
+        placement: 'bottomLeft',
       });
       setSubmitted(true);
     }

@@ -117,7 +117,7 @@ const AuthForm = ({ type, errorMessage, onChange, onSubmit, isLogin, loading }) 
                 className={styles.button_submit}
                 htmlType="submit"
                 loading={loading}
-                text={'Start your Jorney'}
+                text={'Start your Journey'}
                 id="signInBtnId"
               />
             </>
