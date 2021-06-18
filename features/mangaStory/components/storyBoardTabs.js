@@ -3,11 +3,9 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Tabs, Button } from 'antd';
 import client from 'api/client';
 import { findStoryBoard } from 'api/storyBoardClient';
-import { ChooseLayout } from 'components/chooseLayout';
 import FindPartner from 'components/findPartner';
 import Hero from 'components/Hero';
 import SvgAdd2 from 'components/icon/Add2';
-import ComicBookSvg from 'components/icon/ComicBook';
 import DocumentsSvg from 'components/icon/Documents';
 import GroupSvg from 'components/icon/Group';
 import PencilCaseSvg from 'components/icon/PencilCase';
@@ -239,9 +237,9 @@ const StoryBoardTabs = ({
       case 'project-scripts':
         setStoryBoardActiveTab('3');
         break;
-      case 'choose-layout':
-        setStoryBoardActiveTab('4');
-        break;
+      // case 'choose-layout':
+      //   setStoryBoardActiveTab('4');
+      //   break;
       case 'upload':
         setStoryBoardActiveTab('5');
         break;
@@ -348,7 +346,7 @@ const StoryBoardTabs = ({
             {renderNavigationButtons(!storyBoard?.pages?.length)}
           </div>
         </TabPane>
-        <TabPane
+        {/* <TabPane
           tab={
             <span>
               <ComicBookSvg width="25px" />
@@ -361,7 +359,7 @@ const StoryBoardTabs = ({
             <ChooseLayout storyBoard={storyBoard} setStoryBoard={setStoryBoard} />
             {renderNavigationButtons(!storyBoard?.layoutId)}
           </div>
-        </TabPane>
+        </TabPane> */}
         <TabPane
           disabled={!storyBoard?.layoutId}
           tab={
