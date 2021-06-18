@@ -186,7 +186,7 @@ const BannerSection = ({
               <Imgix
                 className={styles.bannerCover}
                 width={309}
-                height={164}
+                height={170}
                 layout="fixed"
                 src={
                   !baseData.image
@@ -204,7 +204,7 @@ const BannerSection = ({
             <Imgix
               className={styles.bannerCover}
               width={309}
-              height={164}
+              height={170}
               layout="fixed"
               src={
                 !baseData.image
