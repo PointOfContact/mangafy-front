@@ -286,15 +286,22 @@ const Header = ({ user, path }) => {
                   )}
                 </>
               ) : (
-                <Link href="/sign-in">
-                  <a
-                    className={cn(
-                      styles.header__menu,
-                      router.pathname === '/sign-in' && styles.header__menu_active
-                    )}>
-                    Log in
-                  </a>
-                </Link>
+                <>
+                  <Link href="/sign-in">
+                    <a
+                      className={cn(
+                        styles.header__menu,
+                        router.pathname === '/sign-in' && styles.header__menu_active
+                      )}>
+                      Log in
+                    </a>
+                  </Link>
+                  <Link href="/sign-in">
+                    <a className={styles.header__menu}>
+                      <PrimaryButton className={styles.join} text="Join"></PrimaryButton>
+                    </a>
+                  </Link>
+                </>
               )}
             </div>
             <span className={cn(styles.btn_submit)} onClick={addEvent}>

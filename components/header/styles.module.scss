@@ -10,6 +10,18 @@
   z-index: 1111;
 }
 
+.join {
+  height: 54px;
+  font-size: 20px;
+  border-radius: 5px;
+  border: 1px solid $primaryLight;
+  @media (max-width: 991px) {
+    margin-left: 10px;
+    height: 45px;
+    font-size: 14px;
+  }
+}
+
 .header_cont {
   height: 114px;
   background-color: $primaryBG;
