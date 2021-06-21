@@ -20,7 +20,7 @@ const PDFViewer = dynamic(() => import('components/pdfViewer'), {
   ssr: false,
 });
 
-const PrimaryUpload = ({ storyBoardId, onUploadSuccess, mangaUrl }) => {
+const PrimaryUpload = ({ storyBoardId, onUploadSuccess, mangaUrl, setUploadImages, showText }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalContent, setIsModalContent] = useState('');
   const [img, setImg] = useState(null);
@@ -45,6 +45,10 @@ const PrimaryUpload = ({ storyBoardId, onUploadSuccess, mangaUrl }) => {
   }, [mangaUrl]);
 
   const [fileList, setFileList] = useState(img || []);
+
+  useEffect(() => {
+    setUploadImages(fileList);
+  }, [fileList, setUploadImages]);
 
   const onChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);
@@ -123,34 +127,43 @@ const PrimaryUpload = ({ storyBoardId, onUploadSuccess, mangaUrl }) => {
         fileList={fileList}
         onChange={onChange}
         beforeUpload={beforeUpload}
-        onPreview={onPreview}>
-        {fileList.length < 1 && (
-          <div className={styles.content}>
-            <div className={styles.types}>
-              <SvgImage width="23px" height="23px" />
-              PDF, JPG, JPEG, PNG
-            </div>
-            <div className={styles.description}>
-              <span className="desc">
-                <SvgCloud width="153px" height="111px" />
-              </span>
-              <h4 className={styles.title}>Upload files</h4>
+        onPreview={onPreview}
+        showUploadList={false}>
+        {/* {fileList.length < 5 && ( */}
+        <div className={styles.content}>
+          <div className={styles.types}>
+            <SvgImage width="23px" height="23px" />
+            PDF, JPG, JPEG, PNG
+          </div>
+          <div
+            className={cn(
+              styles.descriptionDef,
+              !showText && fileList.length && styles.description
+            )}>
+            <span className="desc">
+              <SvgCloud width="153px" height="111px" />
+            </span>
+            <h4 className={showText ? styles.titleDef : styles.title}>
+              {showText ? 'Upload files' : 'Upload pages'}{' '}
+            </h4>
+            {showText && (
               <p className={styles.text}>
                 MangaFY can accept PDF Uploader files as big as 100MB, but no bigger. 100MB should
                 be enough space to handle even 220-page books that are rich with images. If your PDF
                 is larger than 100MB, it probably has far more image information in each digital
                 image than is necessary.
               </p>
-            </div>
+            )}
           </div>
-        )}
+        </div>
+        {/* )} */}
       </Upload>
       <Modal
         className={cn(styles.modal)}
         bodyStyle={{ height: 'calc(100vh - 30px)', overflow: 'auto' }}
         footer={null}
         width={'100%'}
-        zIndex={200000000}
+        zIndex={20000}
         onCancel={() => setIsModalVisible(false)}
         closeIcon={<SvgClose />}
         visible={isModalVisible}>
@@ -164,11 +177,15 @@ PrimaryUpload.propTypes = {
   storyBoardId: PropTypes.string.isRequired,
   onUploadSuccess: PropTypes.func,
   mangaUrl: PropTypes.string,
+  setUploadImages: PropTypes.func,
+  showText: PropTypes.bool,
 };
 
 PrimaryUpload.defaultProps = {
   onUploadSuccess: () => {},
   mangaUrl: null,
+  setUploadImages: () => {},
+  showText: true,
 };
 
 export default PrimaryUpload;

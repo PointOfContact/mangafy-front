@@ -6,6 +6,7 @@ import { findStoryBoard } from 'api/storyBoardClient';
 import FindPartner from 'components/findPartner';
 import Hero from 'components/Hero';
 import SvgAdd2 from 'components/icon/Add2';
+import SvgDelete from 'components/icon/Delete';
 import DocumentsSvg from 'components/icon/Documents';
 import GroupSvg from 'components/icon/Group';
 import PencilCaseSvg from 'components/icon/PencilCase';
@@ -13,6 +14,7 @@ import ShareSvg from 'components/icon/Share';
 import SuperHeroSvg from 'components/icon/Superhero';
 import Idea from 'components/Idea';
 import Modal from 'components/modals/createTaskModal';
+import ShowImgModal from 'components/modals/showImg';
 import { ModalSuccess } from 'components/modalSuccess';
 import ProjectScripts from 'components/projectScripts';
 import { ShareStoryBoard } from 'components/shareStoryBoard';
@@ -42,6 +44,8 @@ const StoryBoardTabs = ({
 }) => {
   const [storyBoardActiveTab, setStoryBoardActiveTabSeter] = useState(1);
   const [showTaskModal, changeShowTaskModal] = useState(false);
+  const [getUploadImages, setUploadImages] = useState([]);
+  const [zoomImageUrl, setZoomImageUrl] = useState('');
   const { width } = useWindowSize();
 
   const setStoryBoardActiveTab = (tab) => {
@@ -287,6 +291,28 @@ const StoryBoardTabs = ({
     </div>
   );
 
+  const listUploadPhoto = getUploadImages.map((value, index) => (
+    <div className={styles.uploadList} key={index}>
+      <div className={styles.uploadListTitle}>Page {index + 1}</div>
+      <div
+        className={styles.uploadPhoto}
+        onClick={() => {
+          setZoomImageUrl(value.url);
+          setIsModalVisible(!isModalVisible);
+        }}>
+        <img className={styles.photo} src={value.url} alt="" />
+      </div>
+      <span
+        className={styles.deleteCard}
+        onClick={() => {
+          getUploadImages.splice(index, 1);
+          setUploadImages([...getUploadImages]);
+        }}>
+        <SvgDelete width="12px" height="12px" />
+      </span>
+    </div>
+  ));
+
   return (
     <>
       <Tabs
@@ -371,12 +397,32 @@ const StoryBoardTabs = ({
           {isShowAnimation && <span className={styles.showAnimation}></span>}
           <div className={styles.tabContent}>
             {addNewbuttons}
-            <Upload
-              className={styles.upload}
-              storyBoardId={storyBoard?._id}
-              onUploadSuccess={onUploadSuccess}
-              mangaUrl={storyBoard?.mangaUrl}
-            />
+            <div className={styles.uploadPhotoContainer}>
+              <div className={styles.uploadListContainer}>
+                <div className={styles.card_wrap}>
+                  {!!getUploadImages.length && listUploadPhoto}
+                </div>
+              </div>
+              <div
+                className={
+                  !!getUploadImages.length ? styles.uploadContainerDef : styles.uploadContainer
+                }>
+                <div className={styles.headerUpload} />
+                <Upload
+                  className={styles.upload}
+                  storyBoardId={storyBoard?._id}
+                  onUploadSuccess={onUploadSuccess}
+                  mangaUrl={storyBoard?.mangaUrl}
+                  setUploadImages={setUploadImages}
+                  showText={false}
+                />
+                <ShowImgModal
+                  isModalVisible={isModalVisible}
+                  setIsModalVisible={setIsModalVisible}
+                  img={zoomImageUrl}
+                />
+              </div>
+            </div>
             {renderNavigationButtons(!storyBoard?.mangaUrl)}
           </div>
         </TabPane>

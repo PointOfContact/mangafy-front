@@ -18,7 +18,27 @@
       margin-right: 6px;
     }
   }
-  .description {
+  .description{
+    svg{
+      width: 124px;
+      height: 116px;
+      margin-bottom: 0px !important;
+      path{
+        margin-top: 10px;      
+        fill: #c4c4c4;
+        fill-opacity: 1;
+      }
+    }
+    &:hover{
+      svg{
+        opacity: 1;
+        path{
+          fill: #abaaaa;
+        }
+      }
+    } 
+  }
+  .descriptionDef {
     width: 100%;
     text-align: center;
     svg {
@@ -29,10 +49,16 @@
         height: 63px !important;
       }
     }
-    .title {
+    .titleDef {
       font-weight: bold;
       font-size: $text3;
       color: $grey;
+    }
+    .title {
+      font-weight: normal;
+      font-size: 20px;
+      line-height: 20px;
+      color: $gray85;
     }
     .text {
       font-size: $text5;
