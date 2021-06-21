@@ -1,17 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Modal, Form, notification } from 'antd';
 import client from 'api/client';
 import SvgClose from 'components/icon/Close';
 import PrimaryButton from 'components/ui-elements/button';
 import PrimaryInput from 'components/ui-elements/input';
+import copy from 'copy-to-clipboard';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
 const ModalInviteMembers = ({ showModal, setShowModal }) => {
   const [form] = Form.useForm();
-
+  const [copyUrl, setCopy] = useState('https://mangafy.com');
   useEffect(() => {
     form.resetFields();
   }, [showModal, form]);
@@ -44,7 +45,32 @@ const ModalInviteMembers = ({ showModal, setShowModal }) => {
       });
     }
   };
-
+  const copyLink = async () => {
+    if (copyUrl.includes('inviteId')) {
+      copy(copyUrl);
+    } else {
+      const data = { copy: true };
+      const jwt = client.getCookie('feathers-jwt');
+      const { default: api } = await import('api/restClient');
+      api
+        .service('/api/v2/invite-members')
+        .create(data, {
+          headers: { Authorization: `Bearer ${jwt}` },
+        })
+        .then((res) => {
+          setCopy(`https://mangafy.club/sign-up?inviteId=${res._id}`);
+          copy(`https://mangafy.club/sign-up?inviteId=${res._id}`);
+          notification.success({
+            message: 'Link copied',
+          });
+        })
+        .catch((err) =>
+          notification.error({
+            message: err.message,
+          })
+        );
+    }
+  };
   return (
     <Modal
       className={styles.modal}
@@ -105,13 +131,10 @@ const ModalInviteMembers = ({ showModal, setShowModal }) => {
               </>
             )}
           </Form.List>
-          {/* <Link href={''}>
-                  <span className={styles.addMany}>Add many at once</span>
-                </Link> */}
           <Form.Item>
             <PrimaryButton
               onClick={() => {
-                console.log(form.getFieldsValue('emails'));
+                form.getFieldsValue('emails');
               }}
               htmlType="submit"
               className={styles.send}
@@ -126,24 +149,17 @@ const ModalInviteMembers = ({ showModal, setShowModal }) => {
             placeholder={'https://mangafy.club/'}
             isFullWidth={true}
             isLinear={true}
+            value={copyUrl}
+            disabled={true}
           />
           <button
             className={styles.copyButton}
             onClick={() => {
-              const input = document.getElementById('path');
-              input.select();
-              document.execCommand('copy');
+              copyLink();
             }}>
             Copy
           </button>
         </div>
-        {/* <div className={styles.switchContainer}>
-          <label className={styles.switch}>
-            <input type="checkbox" defaultChecked />
-            <span className={cn(styles.slider, styles.round)}></span>
-          </label>
-          <span>Enable invite link and share with your teammates</span>
-        </div> */}
       </div>
     </Modal>
   );

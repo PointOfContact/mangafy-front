@@ -14,7 +14,13 @@
   height: 54px;
   font-size: 20px;
   border-radius: 5px;
-  border: 1px solid $primaryLight;
+  border: 1px solid $primaryDark;
+  background: #fff;
+  color: $primaryDark;
+  &:hover {
+    background: $primaryDark;
+    color: #fff;
+  }
   @media (max-width: 991px) {
     margin-left: 10px;
     height: 45px;
