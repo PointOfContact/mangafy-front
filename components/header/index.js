@@ -7,6 +7,7 @@ import SvgBell from 'components/icon/Bell';
 import Imgix from 'components/imgix';
 import MenuMobilePopover from 'components/menu-mobile-popover';
 import MenuNotificationsBox from 'components/menu-notifications-box';
+import AddButton from 'components/ui-elements/add-button';
 import Avatar from 'components/ui-elements/avatar';
 import PrimaryButton from 'components/ui-elements/button';
 import { EVENTS } from 'helpers/amplitudeEvents';
@@ -15,6 +16,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 
+import ModalInviteMembers from './modalInviteMembers/index';
 import styles from './styles.module.scss';
 
 const Amplitude = require('amplitude');
@@ -47,7 +49,9 @@ const findNotificationsCount = (onSuccess, onFailure) => {
 };
 
 const Header = ({ user, path }) => {
-  const [isOpen, handleManuOpen] = useState(false);
+  const [isOpen, handleMenuOpen] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [showNotification, setShowNotification] = useState(false);
   const [notificationsCount, setNotificationsCount] = useState(0);
   const [unreadNotificationsId, setUnreadNotificationsId] = useState([]);
   const router = useRouter();
@@ -80,7 +84,7 @@ const Header = ({ user, path }) => {
 
   const openMenu = (e) => {
     e.nativeEvent.stopImmediatePropagation();
-    handleManuOpen(!isOpen);
+    handleMenuOpen(!isOpen);
     const el = document.body;
     if (!isOpen) {
       el.classList.add(styles.body_scrool);
@@ -99,7 +103,7 @@ const Header = ({ user, path }) => {
   };
 
   const handleDocumentClick = () => {
-    handleManuOpen(false);
+    handleMenuOpen(false);
     const el = document.body;
     el.classList.remove(styles.body_scrool);
   };
@@ -120,7 +124,6 @@ const Header = ({ user, path }) => {
     ];
     amplitude.track(data);
   };
-
   return (
     <div className={styles.header_cont}>
       <header className={`${styles.header} navbar menubar`}>
@@ -157,8 +160,12 @@ const Header = ({ user, path }) => {
                       unreadNotificationsId={unreadNotificationsId}
                       notificationsCount={notificationsCount}
                       removeAllStorage={removeAllStorage}
+                      showNotification={showNotification}
+                      setShowNotification={setShowNotification}
                     />
                   }
+                  visible={showNotification}
+                  onVisibleChange={(visible) => setShowNotification(visible)}
                   trigger="click">
                   <div className={cn(styles.img, styles.imgOnline)}>
                     <div className={styles.avatar}>
@@ -279,21 +286,49 @@ const Header = ({ user, path }) => {
                   )}
                 </>
               ) : (
-                <Link href="/sign-in">
-                  <a
-                    className={cn(
-                      styles.header__menu,
-                      router.pathname === '/sign-in' && styles.header__menu_active
-                    )}>
-                    Log in
-                  </a>
-                </Link>
+                <>
+                  <Link href="/sign-in">
+                    <a
+                      className={cn(
+                        styles.header__menu,
+                        router.pathname === '/sign-in' && styles.header__menu_active
+                      )}>
+                      Log in
+                    </a>
+                  </Link>
+                  <Link href="/sign-in">
+                    <a className={styles.header__menu}>
+                      <PrimaryButton className={styles.join} text="Join"></PrimaryButton>
+                    </a>
+                  </Link>
+                </>
               )}
             </div>
             <span className={cn(styles.btn_submit)} onClick={addEvent}>
+              {user && (
+                <PrimaryButton
+                  className={styles.inviteMembers}
+                  text={
+                    <div className={styles.inviteMembersButton}>
+                      <AddButton
+                        className={styles.addButtonInvite}
+                        width="18x"
+                        height="18x"
+                        text={''}
+                      />
+                      <p className={styles.fullInviteName}>Invite members</p>
+                      <p className={styles.inviteName}>Invite</p>
+                    </div>
+                  }
+                  onClick={() => {
+                    setShowModal(!showModal);
+                  }}
+                />
+              )}
               <Link href="/create-a-story/start">
                 <a className={cn('btn_submit')}>
-                  <PrimaryButton text="Start a project" />
+                  <PrimaryButton text="Start a project" className={styles.fullStartProject} />
+                  <PrimaryButton text="Start" className={styles.startProject} />
                 </a>
               </Link>
             </span>
@@ -301,6 +336,7 @@ const Header = ({ user, path }) => {
         </div>
         {isOpen && <MenuLinks isOpen={isOpen} user={user} />}
       </header>
+      <ModalInviteMembers showModal={showModal} setShowModal={setShowModal} />
     </div>
   );
 };
