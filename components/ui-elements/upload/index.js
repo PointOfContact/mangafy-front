@@ -20,29 +20,31 @@ const PDFViewer = dynamic(() => import('components/pdfViewer'), {
   ssr: false,
 });
 
-const PrimaryUpload = ({ storyBoardId, onUploadSuccess, mangaUrl, setUploadImages, showText }) => {
+const PrimaryUpload = ({
+  setStoryBoard,
+  storyBoardId,
+  mangaUrl,
+  mangaUrls,
+  setUploadImages,
+  showText,
+}) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalContent, setIsModalContent] = useState('');
   const [img, setImg] = useState(null);
   const [uplType, setUplType] = useState(null);
 
   useEffect(() => {
-    setUplType(mangaUrl?.slice(-3));
-    const newImg = mangaUrl?.slice(-3)
-      ? [
-          {
-            uid: '-1',
-            url:
-              mangaUrl?.slice(-3) === 'pdf' || mangaUrl?.slice(-3) === 'PDF'
-                ? 'https://icons.iconarchive.com/icons/graphicloads/filetype/256/pdf-icon.png'
-                : client.UPLOAD_URL + mangaUrl,
-            status: 'done',
-          },
-        ]
-      : [];
-    setImg(newImg);
-    setFileList(newImg);
-  }, [mangaUrl]);
+    const list = mangaUrls.map((url) => ({
+      uid: client.UPLOAD_URL + url,
+      url:
+        url?.slice(-3) === 'pdf' || url?.slice(-3) === 'PDF'
+          ? 'https://icons.iconarchive.com/icons/graphicloads/filetype/256/pdf-icon.png'
+          : client.UPLOAD_URL + url,
+      status: 'done',
+    }));
+    setImg(list);
+    setFileList(list);
+  }, [mangaUrls]);
 
   const [fileList, setFileList] = useState(img || []);
 
@@ -66,31 +68,34 @@ const PrimaryUpload = ({ storyBoardId, onUploadSuccess, mangaUrl, setUploadImage
     if (!isLt2M) {
       message.error('Image must smaller than 100MB!');
     }
-    // eslint-disable-next-line no-undef
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.addEventListener('load', () => {
-      uploadFile(
-        reader.result,
-        (res) => {
-          patchStoryBoard(
-            storyBoardId,
-            {
-              mangaUrl: res?.id,
-            },
-            (response) => {
-              // onUploadSuccess(response);
-            },
-            (err) => {
-              openNotification('error', err.message);
-            }
-          );
-        },
-        (err) => {
-          openNotification('error', err.message);
-        }
-      );
-    });
+
+    if (isLt2M && isJpgOrPng) {
+      // eslint-disable-next-line no-undef
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.addEventListener('load', () => {
+        uploadFile(
+          reader.result,
+          (res) => {
+            patchStoryBoard(
+              storyBoardId,
+              {
+                mangaUrls: [...mangaUrls, res?.id],
+              },
+              (response) => {
+                setStoryBoard(response);
+              },
+              (err) => {
+                openNotification('error', err.message);
+              }
+            );
+          },
+          (err) => {
+            openNotification('error', err.message);
+          }
+        );
+      });
+    }
     return isJpgOrPng && isLt2M;
   }
 
@@ -175,17 +180,18 @@ const PrimaryUpload = ({ storyBoardId, onUploadSuccess, mangaUrl, setUploadImage
 
 PrimaryUpload.propTypes = {
   storyBoardId: PropTypes.string.isRequired,
-  onUploadSuccess: PropTypes.func,
   mangaUrl: PropTypes.string,
   setUploadImages: PropTypes.func,
   showText: PropTypes.bool,
+  mangaUrls: PropTypes.array,
+  setStoryBoard: PropTypes.func.isRequired,
 };
 
 PrimaryUpload.defaultProps = {
-  onUploadSuccess: () => {},
   mangaUrl: null,
   setUploadImages: () => {},
   showText: true,
+  mangaUrls: [],
 };
 
 export default PrimaryUpload;

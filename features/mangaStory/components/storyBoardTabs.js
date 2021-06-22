@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 
 import { Tabs, Button } from 'antd';
 import client from 'api/client';
-import { findStoryBoard } from 'api/storyBoardClient';
+import { findStoryBoard, patchStoryBoard } from 'api/storyBoardClient';
 import FindPartner from 'components/findPartner';
 import Hero from 'components/Hero';
 import SvgAdd2 from 'components/icon/Add2';
@@ -163,13 +163,13 @@ const StoryBoardTabs = ({
       case '3':
         myEvent = EVENTS.PAGES_COMPLETED;
         break;
+      // case '4':
+      //   myEvent = EVENTS.TEMPLATES_COMPLETED;
+      //   break;
       case '4':
-        myEvent = EVENTS.TEMPLATES_COMPLETED;
-        break;
-      case '5':
         myEvent = EVENTS.PROJECT_UPLOADED;
         break;
-      case '6':
+      case '5':
         myEvent = EVENTS.PROJECT_PUBLISHED;
         break;
       default:
@@ -245,10 +245,10 @@ const StoryBoardTabs = ({
       //   setStoryBoardActiveTab('4');
       //   break;
       case 'upload':
-        setStoryBoardActiveTab('5');
+        setStoryBoardActiveTab('4');
         break;
       case 'share-story-board':
-        setStoryBoardActiveTab('6');
+        setStoryBoardActiveTab('5');
         break;
       default:
         setStoryBoardActiveTab('1');
@@ -305,8 +305,19 @@ const StoryBoardTabs = ({
       <span
         className={styles.deleteCard}
         onClick={() => {
-          getUploadImages.splice(index, 1);
-          setUploadImages([...getUploadImages]);
+          storyBoard.mangaUrls.splice(index, 1);
+          patchStoryBoard(
+            storyBoard?._id,
+            {
+              mangaUrls: [...storyBoard.mangaUrls],
+            },
+            (response) => {
+              setStoryBoard(response);
+            },
+            (err) => {
+              openNotification('error', err.message);
+            }
+          );
         }}>
         <SvgDelete width="12px" height="12px" />
       </span>
@@ -387,13 +398,13 @@ const StoryBoardTabs = ({
           </div>
         </TabPane> */}
         <TabPane
-          disabled={!storyBoard?.layoutId}
+          // disabled={!storyBoard?.layoutId}
           tab={
             <span>
               <PencilCaseSvg width="25px" />
             </span>
           }
-          key={5}>
+          key={4}>
           {isShowAnimation && <span className={styles.showAnimation}></span>}
           <div className={styles.tabContent}>
             {addNewbuttons}
@@ -411,8 +422,9 @@ const StoryBoardTabs = ({
                 <Upload
                   className={styles.upload}
                   storyBoardId={storyBoard?._id}
-                  onUploadSuccess={onUploadSuccess}
                   mangaUrl={storyBoard?.mangaUrl}
+                  setStoryBoard={setStoryBoard}
+                  mangaUrls={storyBoard?.mangaUrls}
                   setUploadImages={setUploadImages}
                   showText={false}
                 />
@@ -445,7 +457,7 @@ const StoryBoardTabs = ({
             </span>
           }
           disabled={!storyBoard?.mangaUrl}
-          key={6}>
+          key={5}>
           {isShowAnimation && <span className={styles.showAnimation}></span>}
           <div className={styles.tabContent}>
             {addNewbuttons}
