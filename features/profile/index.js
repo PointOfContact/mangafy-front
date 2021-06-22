@@ -22,6 +22,7 @@ const Profile = (props) => {
     (item) => profile.genresIds && profile.genresIds.includes(item._id)
   );
   const genres = profileGenres.map((item) => item.name);
+
   return (
     <>
       <NextSeo
@@ -29,12 +30,13 @@ const Profile = (props) => {
         description="Check their work or cool projects at MangaFY. Welcome aboard."
         canonical=""
         openGraph={{
-          url: '',
-          title: '',
-          description: '',
+          url:
+            'https://mangafy.club/profile/5f0c9a88a0f7215f8e3d5c24?fbclid=IwAR1vjjoBYGbjyAnlQKXUP0h2OMCX5WMwETAi8P9ObngVKVfi7oITpfAO4rQ',
+          title: `Let's give a big hello to ${profile.name}!`,
+          description: 'Check their work or cool projects at MangaFY. Welcome aboard.',
           images: [
             {
-              url: '',
+              url: `https://mangafy.club/img/${user.avatar}`,
               width: 800,
               height: 600,
               alt: '',
