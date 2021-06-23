@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
-import { Upload, message, notification } from 'antd';
+import { Upload, notification } from 'antd';
 import Modal from 'antd/lib/modal/Modal';
 import client from 'api/client';
 // Api
+
 import { patchStoryBoard, uploadFile } from 'api/storyBoardClient';
-// Components
 import cn from 'classnames';
 import SvgClose from 'components/icon/Close';
 import SvgCloud from 'components/icon/Cloud';
@@ -55,18 +55,21 @@ const PrimaryUpload = ({
   const onChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);
   };
+
   function beforeUpload(file) {
     const isJpgOrPng =
       file.type === 'image/jpeg' ||
       file.type === 'image/png' ||
-      file.type === 'application/pdf' ||
-      file.type === 'image/jpg';
+      file.type === 'image/jpg' ||
+      file.type === 'application/pdf';
+
     if (!isJpgOrPng) {
-      message.error('You can only upload PDF, JPG, JPEG, PNG file!');
+      openNotification('error', 'You can only upload JPG, JPEG, PDF or PNG file!');
     }
-    const isLt2M = file.size / 1024 / 1024 < 100;
+
+    const isLt2M = file.size / 1024 / 1024 < 10;
     if (!isLt2M) {
-      message.error('Image must smaller than 100MB!');
+      openNotification('error', 'Image must be smaller than 10MB!');
     }
 
     if (isLt2M && isJpgOrPng) {
@@ -149,8 +152,19 @@ const PrimaryUpload = ({
               <SvgCloud width="153px" height="111px" />
             </span>
             <h4 className={showText ? styles.titleDef : styles.title}>
-              {showText ? 'Upload files' : 'Upload pages'}{' '}
+              {!!fileList.length ? 'Upload pages' : 'Upload your pages'}
             </h4>
+            {!fileList.length && (
+              <div>
+                <p className={styles.descriptionText}>Drag and drop an image, or Browse</p>
+                <p className={styles.descriptionText}>Max 10MB each</p>
+              </div>
+            )}
+            {!fileList.length && (
+              <p className={styles.descriptionText}>
+                You store the PDF, JPEG, JPG or PNG files. Only upload media your own the rights to
+              </p>
+            )}
             {showText && (
               <p className={styles.text}>
                 MangaFY can accept PDF Uploader files as big as 100MB, but no bigger. 100MB should

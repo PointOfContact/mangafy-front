@@ -35,7 +35,7 @@ $colorAllBorder: rgba(33, 33, 33, 0.07);
   svg {
     cursor: pointer;
   }
-  @include media-sm{
+  @include media-sm {
     padding-left: 30px;
     padding-right: 30px;
     box-sizing: border-box;
@@ -173,7 +173,7 @@ $colorAllBorder: rgba(33, 33, 33, 0.07);
     left: 10px !important;
   }
 }
-.editDeleteButtons{
+.editDeleteButtons {
   position: absolute;
   top: 120px;
   right: 40px;
@@ -196,7 +196,7 @@ $colorAllBorder: rgba(33, 33, 33, 0.07);
     font-size: 15px;
     margin-bottom: 10px;
   }
-  @include media-sm{
+  @include media-sm {
     padding-left: 30px;
     padding-right: 30px;
     box-sizing: border-box;
@@ -282,8 +282,8 @@ $colorAllBorder: rgba(33, 33, 33, 0.07);
     flex: 1;
     display: flex;
     justify-content: center;
-    & > div > span > div{
-      width: 605px !important;
+    & > div > span > div {
+      width: 602px !important;
       height: 411px !important;
       & > span {
         width: 100% !important;
@@ -301,37 +301,67 @@ $colorAllBorder: rgba(33, 33, 33, 0.07);
         height: 280px !important;
       }
     }
-    .headerUpload {
-      height: 56px;
-      border-bottom: 1px solid $colorAllBorder;
-    }
   }
   .uploadContainerDef {
     flex: 1;
     & > div > span {
-      &:hover{
+      &:hover {
         background-image: '';
       }
-      &> div{
-        max-width: 400px !important;
+      & > div {
+        max-width: 315px !important;
         height: 294px !important;
-        margin-top: 5px;
+        margin-bottom: 0;
         & > span {
           height: 100% !important;
+          &:hover {
+            background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='20' ry='20' stroke='%23333' stroke-width='1' stroke-dasharray='6%2c 14' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e")
+          }
         }
         @include media-md {
           max-width: 300px !important;
           margin-top: 10px;
         }
         @include media-sm {
-          margin-top: 25px;
+          margin-top: 11px;
           height: 210px !important;
         }
       }
-    } 
+    }
     .headerUpload {
       height: 56px;
       border-bottom: 1px solid $colorAllBorder;
+      & + div {
+        margin: 28px 0 0 18px;
+        @include media-xs {
+          margin: 28px 18px 0 18px;
+        }
+        & > span > div > span > div {
+          padding: 15px;
+          & > div {
+            height: 24px;
+            font-weight: normal;
+            font-size: 10px;
+            line-height: 14px;
+            color: $gray85;
+            h4 {
+              margin-top: 18px;
+              color: $gray85;
+              &:hover{
+                color: #575555;
+              }
+            }
+            span svg {
+              height: 84px;
+              margin-top: 51px;
+              filter: drop-shadow(0px 2px 1px rgba(0, 0, 0, 0.2));
+              @include media-sm{
+                margin-top: 26px;
+              }
+            }
+          }
+        }
+      }
     }
   }
   .uploadPhotoContainerDef {
@@ -383,7 +413,7 @@ $colorAllBorder: rgba(33, 33, 33, 0.07);
       height: 692px;
       display: flex;
       @include media-lg {
-        max-width: 605px;
+        max-width: 602px;
       }
       @include media-md {
         max-width: 482px;
@@ -402,15 +432,18 @@ $colorAllBorder: rgba(33, 33, 33, 0.07);
         display: flex;
         flex-direction: column;
         align-items: center;
-        border-right: 1px solid $colorAllBorder;
+        border-right: 2px solid $colorAllBorder;
         @include media-lg {
           min-width: 200px;
         }
         @include media-md {
           min-width: 160px;
         }
+        .popConfirm {
+          border: 1px solid black;
+        }
         .deleteCard {
-          margin-top: 50px;
+          margin-top: 48px;
           width: 31px;
           height: 31px;
           border: 0.5px solid $gray85;
@@ -420,10 +453,10 @@ $colorAllBorder: rgba(33, 33, 33, 0.07);
           justify-content: center;
           align-items: center;
           cursor: pointer;
-          &:hover{
+          &:hover {
             background-color: $primaryDark;
             svg {
-              path{
+              path {
                 fill: white;
               }
             }
@@ -445,15 +478,15 @@ $colorAllBorder: rgba(33, 33, 33, 0.07);
           color: $gray85;
         }
         .uploadPhoto {
-          margin-top: 30px;
+          margin-top: 28px;
           width: 206px;
           height: 294px;
           display: flex;
           align-items: center;
           justify-content: center;
           cursor: pointer;
-          border-radius: 4px;   
-          &:hover{
+          border-radius: 4px;
+          &:hover {
             box-shadow: 1px 1px 10px 1px $primaryLight;
           }
           @include media-lg {
@@ -466,7 +499,7 @@ $colorAllBorder: rgba(33, 33, 33, 0.07);
           }
           img {
             width: 100%;
-            border-radius: 4px;       
+            border-radius: 4px;
           }
         }
       }
@@ -613,7 +646,7 @@ $colorAllBorder: rgba(33, 33, 33, 0.07);
 .editProfile {
   display: flex;
   margin-bottom: 20px;
-  @include media-md{
+  @include media-md {
     padding-left: 30px;
     padding-right: 30px;
   }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
-import { Tabs, Button } from 'antd';
+import { Tabs, Button, Popconfirm } from 'antd';
 import client from 'api/client';
 import { findStoryBoard, patchStoryBoard } from 'api/storyBoardClient';
 import FindPartner from 'components/findPartner';
@@ -13,9 +13,11 @@ import PencilCaseSvg from 'components/icon/PencilCase';
 import ShareSvg from 'components/icon/Share';
 import SuperHeroSvg from 'components/icon/Superhero';
 import Idea from 'components/Idea';
+import Imgix from 'components/imgix';
 import Modal from 'components/modals/createTaskModal';
 import ShowImgModal from 'components/modals/showImg';
 import { ModalSuccess } from 'components/modalSuccess';
+import PDFViewer from 'components/pdfViewer';
 import ProjectScripts from 'components/projectScripts';
 import { ShareStoryBoard } from 'components/shareStoryBoard';
 import PrimaryButton from 'components/ui-elements/button';
@@ -45,7 +47,7 @@ const StoryBoardTabs = ({
   const [storyBoardActiveTab, setStoryBoardActiveTabSeter] = useState(1);
   const [showTaskModal, changeShowTaskModal] = useState(false);
   const [getUploadImages, setUploadImages] = useState([]);
-  const [zoomImageUrl, setZoomImageUrl] = useState('');
+  const [zoomImageUrl, setZoomImageUrl] = useState(null);
   const { width } = useWindowSize();
 
   const setStoryBoardActiveTab = (tab) => {
@@ -291,36 +293,64 @@ const StoryBoardTabs = ({
     </div>
   );
 
+  const ifPdf = (index) =>
+    storyBoard?.mangaUrls[index]?.slice(-3) === 'pdf' ||
+    storyBoard?.mangaUrls[index]?.slice(-3) === 'PDF';
+
+  const confirmDelete = (index) => {
+    storyBoard.mangaUrls.splice(index, 1);
+    patchStoryBoard(
+      storyBoard?._id,
+      {
+        mangaUrls: [...storyBoard.mangaUrls],
+      },
+      (response) => {
+        setStoryBoard(response);
+      },
+      (err) => {
+        openNotification('error', err.message);
+      }
+    );
+  };
   const listUploadPhoto = getUploadImages.map((value, index) => (
     <div className={styles.uploadList} key={index}>
       <div className={styles.uploadListTitle}>Page {index + 1}</div>
       <div
         className={styles.uploadPhoto}
         onClick={() => {
-          setZoomImageUrl(value.url);
-          setIsModalVisible(!isModalVisible);
+          if (ifPdf(index)) {
+            setZoomImageUrl(<PDFViewer url={client.UPLOAD_URL + storyBoard?.mangaUrls[index]} />);
+            setIsModalVisible(!isModalVisible);
+          } else {
+            setZoomImageUrl(value.url);
+            setIsModalVisible(!isModalVisible);
+          }
         }}>
-        <img className={styles.photo} src={value.url} alt="" />
+        {ifPdf(index) ? (
+          <Imgix
+            width={58}
+            height={58}
+            layout="fixed"
+            src="https://mangafy.club/img/pdf.webp"
+            alt="Manga story cover"
+          />
+        ) : (
+          <img className={styles.photo} src={value.url} alt="" />
+        )}
       </div>
-      <span
-        className={styles.deleteCard}
-        onClick={() => {
-          storyBoard.mangaUrls.splice(index, 1);
-          patchStoryBoard(
-            storyBoard?._id,
-            {
-              mangaUrls: [...storyBoard.mangaUrls],
-            },
-            (response) => {
-              setStoryBoard(response);
-            },
-            (err) => {
-              openNotification('error', err.message);
-            }
-          );
-        }}>
-        <SvgDelete width="12px" height="12px" />
-      </span>
+      <Popconfirm
+        overlayClassName={styles.popConfirm}
+        placement="topLeft"
+        title={'Are you sure to delete this page?'}
+        onConfirm={() => {
+          confirmDelete(index);
+        }}
+        okText="Yes"
+        cancelText="No">
+        <span className={styles.deleteCard}>
+          <SvgDelete width="12px" height="12px" />
+        </span>
+      </Popconfirm>
     </div>
   ));
 
@@ -435,7 +465,7 @@ const StoryBoardTabs = ({
                 />
               </div>
             </div>
-            {renderNavigationButtons(!storyBoard?.mangaUrl)}
+            {renderNavigationButtons(!getUploadImages.length)}
           </div>
         </TabPane>
         {/* <TabPane
