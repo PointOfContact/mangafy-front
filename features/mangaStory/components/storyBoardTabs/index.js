@@ -27,7 +27,7 @@ import PropTypes from 'prop-types';
 import * as qs from 'query-string';
 import useWindowSize from 'utils/useWindowSize';
 
-import styles from '../styles.module.scss';
+import styles from './styles.module.scss';
 
 const Amplitude = require('amplitude');
 

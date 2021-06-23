@@ -25,7 +25,7 @@ import * as qs from 'query-string';
 
 import BannerSection from './components/bannersSection/index';
 import EditStoryTab from './components/editStoryTab';
-import StoryBoardTabs from './components/storyBoardTabs';
+import StoryBoardTabs from './components/storyBoardTabs/index';
 import StoryTab from './components/storyTab/index';
 import styles from './styles.module.scss';
 
