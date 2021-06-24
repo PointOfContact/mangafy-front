@@ -12,7 +12,7 @@ const createButtons = (addHero, HeroTypes, getAllowCreate, validCards) => (
       addHero={addHero}
       heroTypes={HeroTypes.personage}
       getAllowCreate={getAllowCreate}
-      title={'Add a hero'}
+      title={'Add a character'}
       img="addHero.png"
       ifValidCards={validCards}
     />
@@ -23,7 +23,7 @@ const createButtons = (addHero, HeroTypes, getAllowCreate, validCards) => (
       addHero={addHero}
       heroTypes={HeroTypes.component}
       getAllowCreate={getAllowCreate}
-      title={'Add component'}
+      title={'Add character characteristics '}
       img="addComponent.png"
       ifValidCards={validCards}
     />
