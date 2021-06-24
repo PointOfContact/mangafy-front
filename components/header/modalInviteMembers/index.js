@@ -6,11 +6,16 @@ import SvgClose from 'components/icon/Close';
 import PrimaryButton from 'components/ui-elements/button';
 import PrimaryInput from 'components/ui-elements/input';
 import copy from 'copy-to-clipboard';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
-const ModalInviteMembers = ({ showModal, setShowModal }) => {
+const Amplitude = require('amplitude');
+
+const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
+
+const ModalInviteMembers = ({ showModal, setShowModal, user }) => {
   const [form] = Form.useForm();
   const [copyUrl, setCopy] = useState('https://mangafy.com');
   useEffect(() => {
@@ -28,10 +33,23 @@ const ModalInviteMembers = ({ showModal, setShowModal }) => {
         .create(data, {
           headers: { Authorization: `Bearer ${jwt}` },
         })
-        .then(() => {
+        .then((res) => {
           notification.success({
             message: 'All participants were notified by email.',
           });
+
+          const eventData = [
+            {
+              platform: 'WEB',
+              event_type: EVENTS.INVITE_MEMBER,
+              event_properties: { inviteId: res._id },
+              user_id: user._id,
+              user_properties: {
+                ...user,
+              },
+            },
+          ];
+          amplitude.track(eventData);
           setShowModal(false);
         })
         .catch((err) =>
@@ -168,6 +186,7 @@ const ModalInviteMembers = ({ showModal, setShowModal }) => {
 ModalInviteMembers.propTypes = {
   showModal: PropTypes.bool.isRequired,
   setShowModal: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
 };
 
 ModalInviteMembers.defaultProps = {
