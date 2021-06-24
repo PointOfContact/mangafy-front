@@ -1,33 +1,29 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
-import { Tabs, Button, Popconfirm } from 'antd';
+import { Tabs, Button } from 'antd';
 import client from 'api/client';
-import { findStoryBoard, patchStoryBoard } from 'api/storyBoardClient';
+import { findStoryBoard } from 'api/storyBoardClient';
 import FindPartner from 'components/findPartner';
 import Hero from 'components/Hero';
 import SvgAdd2 from 'components/icon/Add2';
-import SvgDelete from 'components/icon/Delete';
 import DocumentsSvg from 'components/icon/Documents';
 import GroupSvg from 'components/icon/Group';
 import PencilCaseSvg from 'components/icon/PencilCase';
 import ShareSvg from 'components/icon/Share';
 import SuperHeroSvg from 'components/icon/Superhero';
 import Idea from 'components/Idea';
-import Imgix from 'components/imgix';
 import Modal from 'components/modals/createTaskModal';
-import ShowImgModal from 'components/modals/showImg';
 import { ModalSuccess } from 'components/modalSuccess';
-import PDFViewer from 'components/pdfViewer';
 import ProjectScripts from 'components/projectScripts';
 import { ShareStoryBoard } from 'components/shareStoryBoard';
 import PrimaryButton from 'components/ui-elements/button';
-import Upload from 'components/ui-elements/upload';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import PropTypes from 'prop-types';
 import * as qs from 'query-string';
 import useWindowSize from 'utils/useWindowSize';
 
 import styles from './styles.module.scss';
+import UploadPage from './uploadPage';
 
 const Amplitude = require('amplitude');
 
@@ -278,8 +274,8 @@ const StoryBoardTabs = ({
       .catch((err) => err);
   };
 
-  const addNewbuttons = (
-    <div className={styles.addNewbuttons}>
+  const addNewButtons = (
+    <div className={styles.addNewButtons}>
       <FindPartner participentsInfo={participentsInfo} />
       <PrimaryButton
         onClick={() => changeShowTaskModal(true)}
@@ -292,68 +288,6 @@ const StoryBoardTabs = ({
       />
     </div>
   );
-
-  const ifPdf = (index) =>
-    storyBoard?.mangaUrls[index]?.slice(-3) === 'pdf' ||
-    storyBoard?.mangaUrls[index]?.slice(-3) === 'PDF';
-
-  const confirmDelete = (index) => {
-    storyBoard.mangaUrls.splice(index, 1);
-    patchStoryBoard(
-      storyBoard?._id,
-      {
-        mangaUrls: [...storyBoard.mangaUrls],
-      },
-      (response) => {
-        setStoryBoard(response);
-      },
-      (err) => {
-        openNotification('error', err.message);
-      }
-    );
-  };
-  const listUploadPhoto = getUploadImages.map((value, index) => (
-    <div className={styles.uploadList} key={index}>
-      <div className={styles.uploadListTitle}>Page {index + 1}</div>
-      <div
-        className={styles.uploadPhoto}
-        onClick={() => {
-          if (ifPdf(index)) {
-            setZoomImageUrl(<PDFViewer url={client.UPLOAD_URL + storyBoard?.mangaUrls[index]} />);
-            setIsModalVisible(!isModalVisible);
-          } else {
-            setZoomImageUrl(value.url);
-            setIsModalVisible(!isModalVisible);
-          }
-        }}>
-        {ifPdf(index) ? (
-          <Imgix
-            width={58}
-            height={58}
-            layout="fixed"
-            src="https://mangafy.club/img/pdf.webp"
-            alt="Manga story cover"
-          />
-        ) : (
-          <img className={styles.photo} src={value.url} alt="" />
-        )}
-      </div>
-      <Popconfirm
-        overlayClassName={styles.popConfirm}
-        placement="topLeft"
-        title={'Are you sure to delete this page?'}
-        onConfirm={() => {
-          confirmDelete(index);
-        }}
-        okText="Yes"
-        cancelText="No">
-        <span className={styles.deleteCard}>
-          <SvgDelete width="12px" height="12px" />
-        </span>
-      </Popconfirm>
-    </div>
-  ));
-
   return (
     <>
       <Tabs
@@ -371,7 +305,7 @@ const StoryBoardTabs = ({
           }
           key={1}>
           <div className={styles.tabContent}>
-            {addNewbuttons}
+            {addNewButtons}
             <Idea storyBoard={storyBoard} setStoryBoard={setStoryBoard} />
             {renderNavigationButtons(!(storyBoard?.idea?.title && storyBoard?.idea?.text))}
           </div>
@@ -385,7 +319,7 @@ const StoryBoardTabs = ({
           key={2}>
           {isShowAnimation && <span className={styles.showAnimation}></span>}
           <div className={styles.tabContent}>
-            {addNewbuttons}
+            {addNewButtons}
             <Hero
               storyBoard={storyBoard}
               setStoryBoard={setStoryBoard}
@@ -403,7 +337,7 @@ const StoryBoardTabs = ({
           key={3}>
           {isShowAnimation && <span className={styles.showAnimation}></span>}
           <div className={styles.tabContent}>
-            {addNewbuttons}
+            {addNewButtons}
             <ProjectScripts
               pages={storyBoard?.pages}
               storyBoardId={storyBoard?._id}
@@ -422,13 +356,13 @@ const StoryBoardTabs = ({
           key={4}>
           {isShowAnimation && <span className={styles.showAnimation}></span>}
           <div className={styles.tabContent}>
-            {addNewbuttons}
+            {addNewButtons}
             <ChooseLayout storyBoard={storyBoard} setStoryBoard={setStoryBoard} />
             {renderNavigationButtons(!storyBoard?.layoutId)}
           </div>
         </TabPane> */}
         <TabPane
-          // disabled={!storyBoard?.layoutId}
+          // disabled={!!getUploadImages.length}
           tab={
             <span>
               <PencilCaseSvg width="25px" />
@@ -436,37 +370,19 @@ const StoryBoardTabs = ({
           }
           key={4}>
           {isShowAnimation && <span className={styles.showAnimation}></span>}
-          <div className={styles.tabContent}>
-            {addNewbuttons}
-            <div className={styles.uploadPhotoContainer}>
-              <div className={styles.uploadListContainer}>
-                <div className={styles.card_wrap}>
-                  {!!getUploadImages.length && listUploadPhoto}
-                </div>
-              </div>
-              <div
-                className={
-                  !!getUploadImages.length ? styles.uploadContainerDef : styles.uploadContainer
-                }>
-                <div className={styles.headerUpload} />
-                <Upload
-                  className={styles.upload}
-                  storyBoardId={storyBoard?._id}
-                  mangaUrl={storyBoard?.mangaUrl}
-                  setStoryBoard={setStoryBoard}
-                  mangaUrls={storyBoard?.mangaUrls}
-                  setUploadImages={setUploadImages}
-                  showText={false}
-                />
-                <ShowImgModal
-                  isModalVisible={isModalVisible}
-                  setIsModalVisible={setIsModalVisible}
-                  img={zoomImageUrl}
-                />
-              </div>
-            </div>
-            {renderNavigationButtons(!getUploadImages.length)}
-          </div>
+          <UploadPage
+            storyBoard={storyBoard}
+            setStoryBoard={setStoryBoard}
+            openNotification={openNotification}
+            getUploadImages={getUploadImages}
+            isModalVisible={isModalVisible}
+            setZoomImageUrl={setZoomImageUrl}
+            setIsModalVisible={setIsModalVisible}
+            renderNavigationButtons={renderNavigationButtons}
+            addNewButtons={addNewButtons}
+            setUploadImages={setUploadImages}
+            zoomImageUrl={zoomImageUrl}
+          />
         </TabPane>
         {/* <TabPane
         tab={
@@ -490,7 +406,7 @@ const StoryBoardTabs = ({
           key={5}>
           {isShowAnimation && <span className={styles.showAnimation}></span>}
           <div className={styles.tabContent}>
-            {addNewbuttons}
+            {addNewButtons}
             {isModalVisible ? (
               <ModalSuccess isModalVisible={isModalVisible} handleCancelModal={handleCancelModal} />
             ) : (
