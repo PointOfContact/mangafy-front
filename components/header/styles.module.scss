@@ -18,8 +18,13 @@
   background: #fff;
   color: $primaryDark;
   &:hover {
-    background: $primaryDark;
-    color: #fff;
+    background: white !important;
+    color: $primaryDark !important;
+    box-shadow: 0 0 0  !important;
+  }
+  &:focus{
+    background: white !important;
+    color: $primaryDark !important;
   }
   @media (max-width: 991px) {
     margin-left: 10px;
