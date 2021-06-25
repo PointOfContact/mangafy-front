@@ -77,22 +77,23 @@ const StoryBoardTabs = ({
             'Add a full comic strip/5 pages/a volume/arc or full script of your comic book or novel',
         });
         break;
+      // case '4':
+      //   setStage({
+      //     tab,
+      //     title: 'DIGITAL ILLUSTRATION',
+      //     description:
+      //       'Got the story and plot down, now bring life to your characters and add visualization (characters, strips, pages, etc.)',
+      //   });
+      //   break;
       case '4':
         setStage({
           tab,
-          title: 'DIGITAL ILLUSTRATION',
+          title: 'UPLOAD YOUR DIGITAL WORK',
           description:
-            'Got the story and plot down, now bring life to your characters and add visualization (characters, strips, pages, etc.)',
+            'Upload illustration and exchange work files with your team - all in one hosting place.',
         });
         break;
       case '5':
-        setStage({
-          tab,
-          title: 'UPLOAD YOUR DIGITAL WORK',
-          description: 'Upload your volume, arc, or novel',
-        });
-        break;
-      case '6':
         setStage({
           tab,
           title: 'PUBLISH',

@@ -186,7 +186,7 @@ const MenuNotificationsBox = ({
         <div className={styles.box__more}>
           <MenuMailNotification user={user} />
         </div>
-        <ModalInviteMembers showModal={showModal} setShowModal={setShowModal} />
+        <ModalInviteMembers showModal={showModal} setShowModal={setShowModal} user={user} />
       </div>
     </>
   );
