@@ -64,7 +64,7 @@ const StoryTab = ({ setBaseData, baseData, isOwn, user, isParticipant }) => {
         </div>
       )}
       <div>
-        <h1 className={styles.storyTabTitle}>Description</h1>
+        <h1 className={styles.storyTabTitle}>Project Description</h1>
         <pre>{story}</pre>
       </div>
       <div>
