@@ -61,6 +61,39 @@
       }
     }
   }
+  .text {
+    display: flex !important;
+    justify-content: flex-start !important;
+    margin-top: 40px;
+    @include media-sm {
+      margin-top: 20px;
+    }
+    form {
+      margin: 15px;
+      textarea {
+        transition: 0.5s;
+        width: 100% !important;
+        font-size: $text3;
+        @include media-sm {
+          font-size: $text5;
+        }
+      }
+      input {
+        transition: 0.5s;
+        width: 100% !important;
+        @include media-sm {
+          font-size: $text4;
+        }
+      }
+    }
+  }
+  .delete {
+    top: 82%;
+    display: block;
+    @include media-sm {
+      top: 85%;
+    }
+  }
   .script {
     position: relative;
     box-sizing: border-box;
@@ -87,7 +120,6 @@
         }
       }
     }
-
     .content {
       display: table;
       width: 100%;
@@ -103,7 +135,7 @@
         line-height: 29px;
         color: $gray85;
         border-bottom: 0.5px solid rgba(33, 33, 33, 0.07);
-        @include media-sm{
+        @include media-sm {
           font-size: 15px;
         }
       }
@@ -113,13 +145,7 @@
         width: 100%;
         align-items: center;
         flex-direction: column;
-        // & > form{
-        //   margin: 15px;
-        //   & > div {
-
-        //   }
-        // }
-        @include media-sm{
+        @include media-sm {
           height: 84%;
           svg {
             width: 25px;
@@ -149,7 +175,7 @@
         align-items: center;
         max-height: 100px;
         margin-top: 176px;
-        @include media-sm{
+        @include media-sm {
           margin-top: 46px;
         }
       }
@@ -186,6 +212,9 @@
           fill: #e5e0fd !important;
         }
       }
+      div div div .title{
+        color: gray;
+      }
     }
     cursor: not-allowed;
   }
@@ -201,6 +230,306 @@
         path {
           fill: red;
         }
+      }
+    }
+  }
+}
+.addPageModal {
+  margin-top: 27px;
+  max-width: 1507px;
+  height: calc(100vh - 135px);
+  padding: 0;
+  width: 100% !important;
+  border-radius: 10px;
+  background-color: white;
+  @include media-lg{
+    width: 95% !important;
+  }
+  @include media-lg{
+    height: 800px;
+  }
+  @include media-sm{
+    height: calc(100vh - 135px);
+  }
+  @include media-xs{
+    margin-top: 0px;
+  }
+  & > div {
+    border-radius: 10px;
+    box-shadow: none;
+    & > div {
+      padding: 0;
+      form {
+        .titlePage {
+          margin: 0;
+          margin-bottom: 31.4px;
+          height: 191px;
+          position: relative;
+          display: flex;
+          flex-direction: column-reverse;
+          justify-content: space-between;
+          @include media-xs {
+            height: 120px;
+          }
+          div {
+            height: 100%;
+          }
+          input {
+            width: 400px;
+            height: 60px;
+            margin-top: 67.16px;
+            margin-left: 71px;
+            font-weight: normal;
+            font-size: 20px;
+            line-height: 29px;
+            color: $gray85;
+            border: 1px solid $primaryDark;
+            background: white;
+            border-radius: 10px;
+            @include media-lg {
+              margin-left: 53px;
+            }
+            @include media-md {
+              margin-left: 38px;
+            }
+            @include media-xs {
+              width: 266px;
+              height: 50px;
+              margin-left: 10px;
+              font-size: 16px;
+              margin-top: 34.16px;
+            }
+            &::placeholder {
+              font-weight: normal;
+              font-size: 20px;
+              line-height: 29px;
+              color: $gray85;
+              @include media-xs {
+                font-size: 16px;
+              }
+            }
+          }
+          .pageTitleContainer {
+            margin-top: 67.16px;
+            margin-left: 71px;
+            height: 49.25px;
+            display: flex;
+            align-items: center;
+            @include media-lg {
+              margin-left: 53px;
+            }
+            @include media-md {
+              margin-left: 38px;
+            }
+            @include media-xs {
+              width: 100%;
+              margin-left: 10px;
+              margin-top: 34.16px;
+            }
+            h3 {
+              height: 100%;
+              display: flex;
+              align-items: center;
+              margin: 0;
+              font-weight: bold;
+              font-size: 40px;
+              line-height: 20px;
+              color: $black;
+              @include media-sm {
+                font-size: 30px;
+              }
+            }
+            .editAboutButton {
+              margin-left: 65px;
+              @include media-sm {
+                width: 30px !important;
+                height: 30px !important;
+              }
+            }
+          }
+          .borderTitle {
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            height: 2.95px;
+            background: linear-gradient(
+              90deg,
+              rgba(33, 33, 33, 0.07) -0.96%,
+              rgba(33, 33, 33, 0) 100.58%
+            );
+          }
+        }
+      }
+      .descriptionPage {
+        div {
+          width: 100%;
+          margin: 0;
+          display: flex;
+          justify-content: center;
+        }
+        p {
+          width: 238.37px;
+          height: 37.01px;
+          margin: 0;
+          margin-left: 14px !important;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-weight: normal;
+          font-size: 24px;
+          line-height: 35px;
+          color: $gray85;
+          @include media-md {
+            width: 190px;
+          }
+          @include media-xs {
+            width: 60px;
+            font-size: 18px;
+            margin-left: 14px !important;
+          }
+        }
+        textarea {
+          max-width: 1374px;
+          min-width: 394px;
+          min-height: 200px !important;
+          width: 100%;
+          margin-top: 42.99px;
+          border: 1px solid $primaryDark;
+          background: white;
+          border-radius: 10px;
+          padding-left: 35px;
+          padding-right: 35px;
+          padding-top: 26px;
+          font-weight: normal;
+          font-size: 20px;
+          line-height: 29px;
+          color: $gray85;
+          @media (max-width: 1500px) {
+            width: 90%;
+          }
+          @include media-xs{
+            width: 94%;
+            min-width: 200px;
+          }
+          @include media-xs {
+            height: 200px !important;
+            margin-left: 10px;
+            margin-right: 10px;
+            font-size: 16px;
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-top: 45px;
+            font-size: 16px;
+          }
+          &::placeholder {
+            max-width: 1210px;
+            height: 87px;
+            font-weight: normal;
+            font-size: 20px;
+            line-height: 29px;
+            color: $gray85;
+            line-height: 40px;
+            position: relative;
+            top: -15px;
+            @include media-lg {
+              line-height: 30px;
+              font-size: 16px;
+              top: -10px;
+            }
+          }
+        }
+      }
+    }
+    & > button > span {
+      width: 43px;
+      height: 43px;
+      background-color: #aca0f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      margin-top: 29px;
+      margin-right: 40px;
+      @include media-xs {
+        margin-right: 10px;
+        margin-top: 15px;
+        width: 35px;
+        height: 35px;
+        svg {
+          width: 16px;
+          height: 16px;
+        }
+      }
+      &:hover {
+        background-color: $primaryDark;
+        svg path {
+          fill: white;
+        }
+      }
+      svg path {
+        fill: white;
+      }
+    }
+    .addPageButtonContainer {
+      margin-top: 151px;
+      height: 80px;
+      margin-right: 70.13px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      @include media-lg {
+        margin-left: 55px;
+      }
+      @include media-md {
+        margin-right: 34px;
+      }
+      @include media-xs {
+        margin-top: 100px;
+        margin-right: 10px;
+        margin-left: 10px;
+      }
+      .deletePage {
+        width: 60.7px;
+        height: 60.7px;
+        border: 1px solid #e5e5e5;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 34.3px;
+        @include media-xs {
+          width: 50px;
+          height: 50px;
+          svg{
+            width: 20px !important;
+            height: 20px !important;
+          }
+        }
+        &:hover {
+          background-color: $primaryDark;
+          svg path {
+            fill: white;
+          }
+        }
+        svg path {
+          fill: $gray85;
+        }
+      }
+      button {
+        width: 165.83px;
+        height: 68.11px;
+        font-weight: 900;
+        font-size: 15px;
+        line-height: 22px;
+        color: white;
+        @include media-xs {
+          width: 135.83px;
+          height: 58.11px;
+          font-size: 12px;
+        }
+      }
+      .saveChange {
+        margin-right: 22.21px;
       }
     }
   }

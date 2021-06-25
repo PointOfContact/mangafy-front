@@ -205,7 +205,6 @@ const StoryBoardTabs = ({
     author: [],
     layouts: [],
   });
-
   const getStoryBoard = useCallback(() => {
     if (!user) return;
     findStoryBoard(
