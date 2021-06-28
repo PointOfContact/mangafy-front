@@ -2,6 +2,7 @@
 
 .main
     padding-bottom: 80px
+    padding-bottom: 50px
     @media (max-width: 767px)
         padding-bottom: 70px
     &__container
@@ -15,31 +16,42 @@
     &__left
         display: flex
         flex-direction: column
-        align-items: flex-start
-        width: 44%
-        padding-top: 290px
-        @media (max-width: 1399px)
-            padding-top: 140px
+        align-items: center
+        width: 100%
+        padding-top: 219px
+        @include media-lg
+            padding-top: 50px
         @media (max-width: 991px)
             padding-top: 75px
         @media (max-width: 767px)
             width: 100%
-            padding: 0 30px
-            padding-top: 30px
+            padding: 0
+            padding-top: 90px
     &__title
         display: flex
         flex-direction: column
-        margin-bottom: 38px
-        @media (max-width: 767px)
-            margin-bottom: 20px
+        align-items: center
+        margin-bottom: 60px
+        @include media-sm
+            padding: 0 30px
+            margin-bottom: 40px
         p
             font-weight: 900
-            font-size: 50px
+            font-size: 60px
+            line-height: 75px
             margin-bottom: 0
+            text-align: center
             @media (max-width: 1399px)
                 font-size: 43px
-            @media (max-width: 767px)
-                font-size: 50px
+            @include media-lg
+                font-size: 40px
+                line-height: 50px
+            @include media-sm
+                font-size: 30px
+                line-height: 40px
+            br
+                @include media-sm
+                    display: none
         span
             font-family: "Permanent Marker"
             font-weight: 400
@@ -78,6 +90,43 @@
     .btn__signUp
         @media (max-width: 767px)
             margin: 0 auto
+    &__buttons
+        display: flex
+        align-items: center
+        margin-bottom: 38px
+        @include media-sm
+            padding: 0 30px
+            flex-direction: column
+
+.joinBtn
+    width: 250px
+    height: 54px
+    font-size: 20px
+    border-radius: 5px
+    border: 2px solid $primaryDark
+    background: #fff
+    color: $primaryDark
+    &:hover 
+        background: white !important
+        color: $primaryDark !important
+        box-shadow: 0 0 0  !important
+        border: 2px solid $primaryDark !important
+    &:focus
+        background: white !important
+        color: $primaryDark !important
+    @media (max-width: 991px)
+        width: 353px
+        margin: 0
+        font-size: 14px
+
+.signUpFree
+    width: 250px
+    height: 54px
+    margin-right: 34px
+    @include media-sm
+        width: 353px
+        margin-right: 0
+        margin-bottom: 15px
 
 .btn__signUp
     width: 300px
@@ -574,3 +623,373 @@
         display: block
     img
         margin: 0 auto
+
+
+.platformDescr
+    padding-top: 120px
+    @include media-lg
+        padding-top: 10px
+    &__title
+        font-weight: 700
+        font-size: 60px
+        color: $black
+        text-align: center
+        margin-bottom: 25px
+        @include media-lg
+            font-size: 40px
+        @include media-sm
+            font-size: 30px
+            line-height: 40px
+    &__subtitle
+        font-weight: 300
+        font-size: 25px
+        line-height: 35px
+        color: $grey
+        text-align: center
+        max-width: 959px
+        margin: 0 auto
+        margin-bottom: 90px
+        @include media-lg
+            font-size: 22px
+            line-height: 30px
+        @include media-sm
+            font-size: 20px
+            line-height: 25px
+            margin-bottom: 25px
+    &__wrap
+        display: flex
+        align-items: center
+        justify-content: center
+        @include media-lg
+            flex-direction: column
+    &__item
+        display: flex
+        flex-direction: column
+        align-items: center
+        background: $text_white
+        box-shadow: 25px 25px 80px rgba(14, 40, 57, 0.1)
+        border-radius: 5px
+        min-width: 400px
+        max-width: 400px
+        min-height: 270px
+        padding: 35px 25px 20px 25px
+        margin: 0 34px
+        flex-shrink: 0
+        @include media-lg
+            margin: 0
+            margin-bottom: 15px
+        @include media-xs
+            min-width: 100%
+            padding: 35px 15px 20px 15px
+        &Center
+            padding: 65px 25px 68px 25px
+        &Ico
+            min-height: 76px
+            display: flex
+            align-items: center
+            justify-content: center
+            margin-bottom: 11px
+        &Title
+            font-size: 25px
+            font-weight: 700
+            color: $black
+            margin-bottom: 12px
+            text-align: center
+            @include media-xs
+                font-size: 22px
+        &Descr
+            font-weight: 300
+            font-size: 18px
+            line-height: 20px
+            color: $gray85
+            text-align: center
+            @include media-xs
+                font-size: 16px
+
+.goinSection
+    padding-top: 270px
+    padding-bottom: 57px
+    margin-top: -170px
+    background-image: url(/img/goinSection-bg.png)
+    background-repeat: no-repeat
+    background-position: top
+    @include media-lg
+        padding-top: 220px
+    &__join
+        display: flex
+        align-items: center
+        justify-content: center
+        margin-bottom: 100px
+        @include media-xs
+            flex-direction: column
+        &Text
+            color: $black
+            font-size: 35px
+            font-weight: 700
+            margin-right: 80px
+            @include media-xs
+                margin-right: 0
+                margin-bottom: 40px
+    &__goinNow
+        width: 319px
+        @include media-xs
+            width: 353px
+    &__img
+        display: flex
+        align-items: center
+        justify-content: center
+        margin: 0 auto
+        position: relative
+        @include media-xs
+            margin: 0 -30px
+    &__imgLeft
+        width: 173px
+        height: 340px
+        position: absolute
+        top: calc(50% - 170px)
+        right: 130px
+        @include media-lg
+            display: none
+
+
+.titleBlock
+    padding-top: 95px
+    padding-bottom: 100px
+    @include media-lg
+        padding-top: 20px
+    @include media-sm
+        padding-bottom: 75px
+    &__title
+        font-size: 60px
+        line-height: 75px
+        font-weight: 700
+        text-align: center
+        margin-bottom: 27px
+        @include media-lg
+            font-size: 40px
+            line-height: 50px
+        @include media-sm
+            font-size: 30px
+            line-height: 40px
+        br
+            @include media-sm
+                display: none
+    &__subtitle
+        font-weight: 300
+        font-size: 25px
+        line-height: 35px
+        color: $grey
+        text-align: center
+        max-width: 1064px
+        margin: 0 auto
+        @include media-lg
+            font-size: 22px
+            line-height: 30px
+        @include media-sm
+            font-size: 20px
+            line-height: 25px
+
+.imgBlock
+    position: relative
+    &:after
+        content: ""
+        width: 100%
+        height: 640px
+        background-color: $greyWhite
+        position: absolute
+        left: 0
+        bottom: -67px
+        z-index: 1
+        @include media-lg
+            height: 400px
+        @include media-sm
+            height: 310px
+    &__wrap
+        display: flex
+        align-items: center
+        padding-left: 20px
+        @include media-sm
+            padding-left: 0
+            justify-content: center
+    &__img
+        filter: drop-shadow(0px 0px 150px rgba(0, 0, 0, 0.09))
+        flex-shrink: 0
+        position: relative
+        @include media-lg
+            flex-shrink: 1
+        &Ico1
+            z-index: 2
+            @include media-lg
+                display: none
+        &Ico2
+            z-index: 3
+            left: -88px
+            @include media-lg
+                left: 0
+            @include media-sm
+                width: 265px
+                height: 250px
+                flex-shrink: 0
+        &Ico3
+            z-index: 4
+            left: -303px
+            @include media-lg
+                left: 0
+            @include media-sm
+                left: -70px
+                width: 265px
+                height: 323px
+                flex-shrink: 0
+
+.privAndSecure
+    padding-top: 247px
+    padding-bottom: 85px
+    @include media-lg
+        padding-top: 130px
+    &__title
+        font-size: 60px
+        line-height: 75px
+        font-weight: 700
+        text-align: center
+        margin-bottom: 80px
+        @include media-lg
+            font-size: 40px
+            line-height: 50px
+            margin-bottom: 30px
+        @include media-sm
+            font-size: 30px
+            line-height: 40px
+        br
+            @include media-sm
+                display: none
+    &__wrap
+        display: flex
+        align-items: flex-start
+        justify-content: center
+        margin-bottom: 86px
+        @include media-lg
+            flex-wrap: wrap
+            margin-bottom: 30px
+    &__item
+        font-weight: 300
+        font-size: 25px
+        line-height: 35px
+        color: $grey
+        max-width: 446px
+        padding-right: 30px
+        @include media-lg
+            max-width: 100%
+            width: 100%
+            margin-bottom: 30px
+            text-align: center
+            font-size: 22px
+            line-height: 30px
+        @include media-sm
+            font-size: 20px
+            line-height: 25px
+        br
+            @include media-lg
+                display: none
+        &Bold
+            font-weight: 700
+    &__subtitle
+        font-weight: 300
+        font-size: 25px
+        line-height: 35px
+        color: $grey
+        text-align: center
+        margin-bottom: 30px
+        @include media-sm
+            font-size: 20px
+            line-height: 25px
+        br
+            @include media-lg
+                display: none
+    &__textBold
+        text-align: center
+        font-weight: 700
+        font-size: 25px
+        line-height: 35px
+        color: $grey
+        margin-bottom: 67px
+        @include media-sm
+            font-size: 20px
+            line-height: 25px
+    &__try
+        margin: 0 auto
+        width: 319px
+        @include media-sm
+            width: 353px
+
+.sliderWelcome
+    position: relative
+    &:before
+        content: ""
+        width: 17%
+        height: 100%
+        position: absolute
+        left: 0
+        top: 0
+        box-shadow: 33px 0px 21px -10px rgba(255, 255, 255, 1)
+        background-color: #fff
+        display: block
+        opacity: .5
+        z-index: 5
+        @include media-sm
+            display: none
+    &:after
+        content: ""
+        width: 12%
+        height: 100%
+        position: absolute
+        right: 0
+        top: 0
+        box-shadow: -33px 0px 21px -10px rgba(255, 255, 255, 1)
+        background-color: #fff
+        display: block
+        opacity: .5
+        z-index: 5
+        @include media-sm
+            display: none
+    &__signup
+        width: 319px
+        margin: 100px auto
+        @include media-lg
+            margin: 50px auto
+        @include media-sm
+            width: 353px
+
+.titleSlider
+    padding-top: 95px
+    padding-bottom: 69px
+    @include media-lg
+        padding-top: 0
+    &__title
+        font-size: 60px
+        line-height: 75px
+        font-weight: 700
+        text-align: center
+        margin-bottom: 27px
+        @include media-lg
+            font-size: 40px
+            line-height: 50px
+        @include media-sm
+            font-size: 30px
+            line-height: 40px
+    &__subtitle
+        font-weight: 300
+        font-size: 25px
+        line-height: 35px
+        color: $grey
+        text-align: center
+        max-width: 1064px
+        margin: 0 auto
+        @include media-lg
+            font-size: 22px
+            line-height: 30px
+        @include media-sm
+            font-size: 20px
+            line-height: 25px
+        br
+            @include media-sm
+                display: none
