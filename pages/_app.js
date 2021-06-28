@@ -23,7 +23,7 @@ export default function MyApp({ Component, pageProps, err }) {
       <DefaultSeo
         openGraph={{
           type: 'website',
-          locale: 'en_IE',
+          locale: 'en_US',
           url: 'https://mangafy.club/',
           site_name: 'MangaFY',
         }}
