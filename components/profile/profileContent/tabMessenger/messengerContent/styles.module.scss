@@ -70,11 +70,44 @@
   }
 }
 .messageList {
-  padding-top: 16px;
+  padding-top: 26px;
   background-image: url('../../../../../public/img/messbg.png');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: bottom right;
+  .message_list {
+    & > div > div > div {
+      max-width: 203px;
+      min-width: 203px;
+      font-weight: normal;
+      font-size: 10px;
+      line-height: 13px;
+      color: #949494;
+      margin-left: 40px;
+      padding-bottom: 18px !important;
+      box-sizing: border-box;
+      box-shadow: none;
+      margin-top: 0;
+      @include media-sm {
+        margin-left: 20px;
+      }
+      svg {
+        filter: none;
+      }
+      & > div > div::before {
+        font-weight: normal;
+        font-size: 10px;
+        line-height: 14px;
+        color: #8b78f4;
+      }
+      & > div > div {
+        margin-bottom: 0;
+        & > div {
+          left: -75px;
+        }
+      }
+    }
+  }
 }
 .userName {
   padding: 15px 20px 15px 20px;

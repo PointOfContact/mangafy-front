@@ -1,5 +1,18 @@
 @import '../../styles/variables.scss';
-
+@mixin hoverButton {
+  svg{
+    path{
+      fill: $primaryDark;
+    }
+  }
+  &:hover{
+    svg{
+      path{
+        fill: $primaryLight;
+      }
+    }
+  }
+}
 .title {
   color: $black;
   font-size: $text2;
@@ -43,6 +56,9 @@
   width: 100%;
   max-width: 95px;
   margin-bottom: 10px;
+  span {
+    color: $grey;
+  }
   @include media-sm {
     max-width: 110px;
     margin-bottom: 0px;
@@ -50,7 +66,7 @@
   text-align: center;
   &:hover {
     span {
-      color: $grey;
+      color: rgb(143, 141, 141);
     }
   }
   div {
@@ -63,6 +79,7 @@
       flex-direction: row;
       justify-content: center;
     }
+    @include hoverButton;
   }
   span {
     max-width: calc(100% - 35px);
@@ -84,13 +101,16 @@
   max-width: 95px;
   display: flex;
   justify-content: space-between;
+  span {
+    color: $grey;
+  }
   @include media-sm {
     width: unset;
     max-width: 110px;
   }
   &:hover {
     span {
-      color: $grey;
+      color: rgb(143, 141, 141);
     }
   }
   div {
@@ -98,6 +118,7 @@
     flex-direction: row-reverse;
     display: flex;
     justify-content: space-between;
+    @include hoverButton;
     @include media-sm {
       height: 0;
       margin-bottom: 0;

@@ -62,9 +62,9 @@
       margin-right: 2px;
       background-color: #dcdcdc;
       @include buttonStyle();
+      border: none;
       &:hover {
-        background-color: $primaryLight;
-        border: none;
+        background-color: #b9b8b8;
         color: $text_white !important;
       }
     }
@@ -72,8 +72,8 @@
       max-width: 89px;
       min-width: 80px;
       width: 89px;
-      max-height: 42px;
-      height: 42px;
+      max-height: 43px;
+      height: 43px;
       font-size: 14px;
       margin-left: 10px;
       background-color: $primaryLight;

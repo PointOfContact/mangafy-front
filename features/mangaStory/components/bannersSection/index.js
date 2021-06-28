@@ -186,7 +186,7 @@ const BannerSection = ({
               <Imgix
                 className={styles.bannerCover}
                 width={309}
-                height={164}
+                height={170}
                 layout="fixed"
                 src={
                   !baseData.image
@@ -203,9 +203,7 @@ const BannerSection = ({
           <div className={!baseData.image ? styles.bannerPhotoDefault : styles.bannerPhoto}>
             <Imgix
               className={styles.bannerCover}
-              width={309}
-              height={164}
-              layout="fixed"
+              layout="fill"
               src={
                 !baseData.image
                   ? 'https://mangafy.club/img/collab_baner.webp'

@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
 
 import client from 'api/client';
+import ModalInviteMembers from 'components/header/modalInviteMembers';
 import Imgix from 'components/imgix';
 import MenuMailNotification from 'components/menu-mail-notifications';
 import MenuNotificationsItem from 'components/menu-notifications-item/';
@@ -55,7 +56,13 @@ const findNotifications = (limit, onSuccess, onFailure) => {
   });
 };
 
-const MenuNotificationsBox = ({ user, unreadNotificationsId, notificationsCount }) => {
+const MenuNotificationsBox = ({
+  user,
+  unreadNotificationsId,
+  notificationsCount,
+  showModal,
+  setShowModal,
+}) => {
   const [notifications, setNotifications] = useState(unreadNotificationsId);
   const [allNot, setAllNot] = useState(false);
   const [moreUpdatesCount, setMoreUpdatesCount] = useState(0);
@@ -131,7 +138,6 @@ const MenuNotificationsBox = ({ user, unreadNotificationsId, notificationsCount 
             <span onClick={makeAllRead}>Mark all notifications as read</span>
           )}
         </p>
-
         <div className={styles.box__title}>
           <p className={styles.box__title_text}>Your notifications</p>
         </div>
@@ -180,6 +186,7 @@ const MenuNotificationsBox = ({ user, unreadNotificationsId, notificationsCount 
         <div className={styles.box__more}>
           <MenuMailNotification user={user} />
         </div>
+        <ModalInviteMembers showModal={showModal} setShowModal={setShowModal} user={user} />
       </div>
     </>
   );
@@ -189,9 +196,17 @@ MenuNotificationsBox.propTypes = {
   user: PropTypes.object.isRequired,
   unreadNotificationsId: PropTypes.array.isRequired,
   notificationsCount: PropTypes.number,
+  showNotification: PropTypes.bool,
+  setShowNotification: PropTypes.func,
+  setShowModal: PropTypes.func,
+  showModal: PropTypes.bool,
 };
 MenuNotificationsBox.defaultProps = {
   notificationsCount: null,
+  showNotification: false,
+  setShowNotification: () => {},
+  setShowModal: () => {},
+  showModal: false,
 };
 
 export default MenuNotificationsBox;

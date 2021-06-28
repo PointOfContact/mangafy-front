@@ -134,10 +134,10 @@ const ProjectScripts = ({ pages, storyBoardId, storyBoard, setStoryBoard }) => {
           )}
           onClick={() => cahangeSelectedScriot(index + 1, script._id)}>
           <div className={styles.content}>
+            <div className={styles.pageCount}>Page {index + 1}</div>
             <div className={styles.text}>
               {(selectedScript === script._id && (
                 <>
-                  <h4 className={styles.title}>{`page #${index + 1}`}</h4>
                   <Form name="basic" initialValues={{ title: script.title, text: script.text }}>
                     <Form.Item
                       name="title"
@@ -166,14 +166,15 @@ const ProjectScripts = ({ pages, storyBoardId, storyBoard, setStoryBoard }) => {
                 </>
               )) || (
                 <>
-                  {script.title && <h4 className={styles.title}>{`page #${index + 1}`}</h4>}
-                  {!script.title && (
-                    <h4 className={styles.title}>
-                      <AddButton />
-                    </h4>
-                  )}
-                  <h4 className={styles.title}>{script.title || `Add page #${index + 1}`}</h4>
-                  <p className={styles.description}>{script.text || ''}</p>
+                  <div className={styles.addButtonContainer}>
+                    {!script.title && (
+                      <h4 className={styles.title}>
+                        <AddButton text="" />
+                      </h4>
+                    )}
+                    <h4 className={styles.title}>{script.title || `Add page #${index + 1}`}</h4>
+                    <p className={styles.description}>{script.text || ''}</p>
+                  </div>
                 </>
               )}
             </div>

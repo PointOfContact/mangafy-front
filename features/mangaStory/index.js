@@ -10,7 +10,6 @@ import { Comments } from 'components/comments';
 import Footer from 'components/footer';
 import FooterPolicy from 'components/footer-policy';
 import Header from 'components/header';
-import SvgDustbin from 'components/icon/Dustbin';
 import SvgPencilColored from 'components/icon/PencilColored';
 import { ShareButtons } from 'components/share';
 import PrimaryButton from 'components/ui-elements/button';
@@ -27,7 +26,7 @@ import * as qs from 'query-string';
 import BannerSection from './components/bannersSection/index';
 import EditStoryTab from './components/editStoryTab';
 import StoryBoardTabs from './components/storyBoardTabs';
-import StoryTab from './components/storyTab';
+import StoryTab from './components/storyTab/index';
 import styles from './styles.module.scss';
 
 const Amplitude = require('amplitude');
@@ -275,16 +274,6 @@ const MangeStory = (props) => {
                           </div>
                         </Popover>
                       </div>
-                      <div className={styles.publishContent}>
-                        <Link href="/contact-us">
-                          <a>
-                            <div className={styles.deleteManga}>
-                              <SvgDustbin width="20px" height="20px" />
-                              <div>Delete Manga Story</div>
-                            </div>
-                          </a>
-                        </Link>
-                      </div>
                     </>
                   )}
 
@@ -372,7 +361,6 @@ const MangeStory = (props) => {
                   onChange={(activeKey) => setcollabActiveTab(activeKey)}>
                   <TabPane tab="STORY" key="1" className="story">
                     <div className={styles.tabWrap}>
-                      {/* <h3 className={styles.tabTitle}>Here is a my story!</h3> */}
                       {/* <StoryTab baseData={baseData} /> */}
                       <p>
                         {!editMode ? (
@@ -385,12 +373,19 @@ const MangeStory = (props) => {
                               isParticipent={isParticipent}
                             />
                             {canEdit && (
-                              <SvgPencilColored
-                                className={styles.editTitleSvg}
-                                onClick={() => setEditMode(true)}
-                                width="22px"
-                                height="22px"
-                              />
+                              <div className={styles.editDeleteButtons}>
+                                <PrimaryButton
+                                  className={styles.editTitleSvg}
+                                  text={'Edit Project'}
+                                  onClick={() => setEditMode(true)}
+                                />
+                                <Link href="/contact-us">
+                                  <PrimaryButton
+                                    className={styles.deleteTitleSvg}
+                                    text={'Delete Project'}
+                                  />
+                                </Link>
+                              </div>
                             )}
                           </div>
                         ) : (

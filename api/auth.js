@@ -28,13 +28,14 @@ const auth = {
     client.authenticated = false;
   },
 
-  register(email, password, name, type) {
+  register(email, password, name, type, inviteId) {
     return client.service('api/v2/users').create({
       email,
       password,
       name,
       type,
       fromWeb: true,
+      inviteId,
     });
   },
 

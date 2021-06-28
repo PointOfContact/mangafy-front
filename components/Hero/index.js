@@ -28,7 +28,7 @@ const Hero = ({ storyBoard, getStoryBoard }) => {
       allowComponentCreate: true,
       allowBackgroundCreate: true,
     };
-    storyBoard.heroes.forEach((hero) => {
+    storyBoard?.heroes?.forEach((hero) => {
       if (hero.name === '') {
         switch (hero.type) {
           case HeroTypes.personage:

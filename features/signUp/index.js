@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-import { Modal } from 'antd';
 import cn from 'classnames';
 import AuthForm from 'components/authForm';
 import Header from 'components/header';
@@ -10,11 +9,12 @@ import { userTypes } from 'helpers/constant';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
+import * as qs from 'query-string';
 import { register } from 'store';
 
 import styles from './styles.module.scss';
 
-const { info } = Modal;
+// const { info } = Modal;
 const Amplitude = require('amplitude');
 
 const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
@@ -47,10 +47,10 @@ const Register = ({ user }) => {
   };
 
   const history = useRouter();
-  const routeChange = () => {
-    const path = `/create-a-story/start`;
-    history.push(path);
-  };
+  // const routeChange = () => {
+  //   const path = `/create-a-story/start`;
+  //   history.push(path);
+  // };
 
   const handleRegisterSubmit = (e) => {
     setState({
@@ -59,12 +59,15 @@ const Register = ({ user }) => {
     });
     e.preventDefault();
 
+    const { inviteId } = qs.parse(location.search);
+
     setState({ disabled: true });
     const payload = {
       name,
       type,
       email,
       password,
+      inviteId,
     };
     register(payload)
       .then(({ user }) => {

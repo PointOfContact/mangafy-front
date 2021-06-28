@@ -28,6 +28,7 @@
     padding: 21px 21px 30px 21px;
     background-color: $primaryBG;
     border-radius: 10px;
+    margin-top: -6px;
   }
 }
 .banner {
@@ -39,6 +40,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-left: 15px;
   position: absolute;
 }
 .uploadDefault {
@@ -63,6 +65,15 @@
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  & > div {
+    width: 100% !important;
+    img{
+      width: unset !important;
+      height: unset !important;
+      min-width: 0 !important;
+      min-height: 0 !important;
+    }
+  }
 }
 .uploadContainer {
   margin-top: 30px;
@@ -127,9 +138,6 @@
   & > div {
     display: flex;
     align-items: center;
-    & > div {
-      margin-top: -3px;
-    }
     & > span {
       font-weight: bold;
       font-size: 20px;

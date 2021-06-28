@@ -1,0 +1,82 @@
+@import '../../../../styles/variables.scss';
+
+.storyTab {
+    font-family: Noto Sans JP;
+    max-width: 910px;
+    @include media-md{
+      margin-top: 80px;
+    }
+    .sub_info {
+        margin-top: -7px;
+        margin-bottom: 16px;
+        font-size: $text4;
+        color: $grey;
+        display: inherit;
+        @include media-sm {
+          font-size: $text5;
+        }
+    }
+    .storyTabTitle {
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 35px;
+      margin-bottom: 6px;
+      font-family: Noto Sans JP;
+      @include media-sm {
+        font-size: 15px;
+        line-height: 20px;
+      }
+    }
+    .participate {
+      margin-top: 40px;
+    }
+    pre {
+      white-space: pre-wrap;
+      color: #858585;
+      font-size: 20px;
+      font-family: Noto Sans JP;
+      margin-bottom: 45px;
+      @include media-sm {
+        font-size: 15px;
+        line-height: 20px;
+      }
+    }
+    .cardWrapper {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin-top: 48px;
+    }
+    .card {
+      display: inline-block;
+    }
+    .storyTabDescription {
+      font-family: Noto Sans JP;
+      font-style: normal;
+      font-size: 20px;
+      line-height: 35px;
+      .storyKey {
+        color: $primaryDark;
+        display: inline-block;
+      }
+    }
+    .authorBlock {
+      margin-top: 48px;
+      cursor: pointer;
+      display: inline-block;
+    }
+    .participants {
+      display: flex;
+      margin-top: 16px;
+      img {
+        min-width: 68.8px;
+        min-height: 68.8px;
+        max-width: 68.8px;
+        max-height: 68.8px;
+        border-radius: 50%;
+      }
+      .participantInfo {
+        margin-left: -20px !important;
+      }
+    }
+  }
