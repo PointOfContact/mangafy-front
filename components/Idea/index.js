@@ -71,7 +71,9 @@ const Idea = ({ storyBoard, setStoryBoard }) => {
       />
       <TextArea
         autoSize={{ minRows: 3, maxRows: 10 }}
-        placeholder="It's time to start typing your plot"
+        placeholder="Here you will cover things like characters’ names and backgrounds,
+         important worldbuilding, locations, languages, and technologies,
+         as well as small details you foreshadowed early in your novel."
         value={idea.text}
         onChange={handleTextChange}
         onBlur={onBlure}

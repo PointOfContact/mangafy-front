@@ -38,7 +38,7 @@ export function logout() {
 
 export function register(payload) {
   return auth
-    .register(payload.email, payload.password, payload.name, payload.type)
+    .register(payload.email, payload.password, payload.name, payload.type, payload.inviteId)
     .then((_) => auth.login(payload.email, payload.password))
     .then((_) => auth.authenticate(_.accessToken, true))
     .then(({ user, jwt }) => {

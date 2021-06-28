@@ -12,7 +12,7 @@
     }
     svg {
       path {
-        fill: #7b65f3;
+        fill: $primaryDark;
       }
     }
   }
@@ -24,7 +24,7 @@
   span {
     font-weight: 500;
     font-size: 16px;
-    color: #d3d3d3;
+    color: $silver;
     margin-right: 7px;
   }
   svg {
@@ -45,11 +45,11 @@
   svg {
     &:hover {
       path {
-        fill: #858585;
+        fill: $gray85;
       }
     }
     path {
-      fill: #f3f3f3;
+      fill: $grayBG;
     }
   }
 }
@@ -58,11 +58,11 @@
   svg {
     &:hover {
       path {
-        fill: #fec447;
+        fill: $orangeDark;
       }
     }
     path {
-      fill: #ffd67d;
+      fill: $orangeLight;
     }
   }
 }

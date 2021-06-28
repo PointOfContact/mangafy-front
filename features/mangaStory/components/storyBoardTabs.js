@@ -1,21 +1,23 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
-import { Tabs, Button } from 'antd';
+import { Tabs, Button, Popconfirm } from 'antd';
 import client from 'api/client';
-import { findStoryBoard } from 'api/storyBoardClient';
-import { ChooseLayout } from 'components/chooseLayout';
+import { findStoryBoard, patchStoryBoard } from 'api/storyBoardClient';
 import FindPartner from 'components/findPartner';
 import Hero from 'components/Hero';
 import SvgAdd2 from 'components/icon/Add2';
-import ComicBookSvg from 'components/icon/ComicBook';
+import SvgDelete from 'components/icon/Delete';
 import DocumentsSvg from 'components/icon/Documents';
 import GroupSvg from 'components/icon/Group';
 import PencilCaseSvg from 'components/icon/PencilCase';
 import ShareSvg from 'components/icon/Share';
 import SuperHeroSvg from 'components/icon/Superhero';
 import Idea from 'components/Idea';
+import Imgix from 'components/imgix';
 import Modal from 'components/modals/createTaskModal';
+import ShowImgModal from 'components/modals/showImg';
 import { ModalSuccess } from 'components/modalSuccess';
+import PDFViewer from 'components/pdfViewer';
 import ProjectScripts from 'components/projectScripts';
 import { ShareStoryBoard } from 'components/shareStoryBoard';
 import PrimaryButton from 'components/ui-elements/button';
@@ -44,6 +46,8 @@ const StoryBoardTabs = ({
 }) => {
   const [storyBoardActiveTab, setStoryBoardActiveTabSeter] = useState(1);
   const [showTaskModal, changeShowTaskModal] = useState(false);
+  const [getUploadImages, setUploadImages] = useState([]);
+  const [zoomImageUrl, setZoomImageUrl] = useState(null);
   const { width } = useWindowSize();
 
   const setStoryBoardActiveTab = (tab) => {
@@ -73,22 +77,23 @@ const StoryBoardTabs = ({
             'Add a full comic strip/5 pages/a volume/arc or full script of your comic book or novel',
         });
         break;
+      // case '4':
+      //   setStage({
+      //     tab,
+      //     title: 'DIGITAL ILLUSTRATION',
+      //     description:
+      //       'Got the story and plot down, now bring life to your characters and add visualization (characters, strips, pages, etc.)',
+      //   });
+      //   break;
       case '4':
         setStage({
           tab,
-          title: 'DIGITAL ILLUSTRATION',
+          title: 'UPLOAD YOUR DIGITAL WORK',
           description:
-            'Got the story and plot down, now bring life to your characters and add visualization (characters, strips, pages, etc.)',
+            'Upload illustration and exchange work files with your team - all in one hosting place.',
         });
         break;
       case '5':
-        setStage({
-          tab,
-          title: 'UPLOAD YOUR DIGITAL WORK',
-          description: 'Upload your volume, arc, or novel',
-        });
-        break;
-      case '6':
         setStage({
           tab,
           title: 'PUBLISH',
@@ -161,13 +166,13 @@ const StoryBoardTabs = ({
       case '3':
         myEvent = EVENTS.PAGES_COMPLETED;
         break;
+      // case '4':
+      //   myEvent = EVENTS.TEMPLATES_COMPLETED;
+      //   break;
       case '4':
-        myEvent = EVENTS.TEMPLATES_COMPLETED;
-        break;
-      case '5':
         myEvent = EVENTS.PROJECT_UPLOADED;
         break;
-      case '6':
+      case '5':
         myEvent = EVENTS.PROJECT_PUBLISHED;
         break;
       default:
@@ -239,14 +244,14 @@ const StoryBoardTabs = ({
       case 'project-scripts':
         setStoryBoardActiveTab('3');
         break;
-      case 'choose-layout':
+      // case 'choose-layout':
+      //   setStoryBoardActiveTab('4');
+      //   break;
+      case 'upload':
         setStoryBoardActiveTab('4');
         break;
-      case 'upload':
-        setStoryBoardActiveTab('5');
-        break;
       case 'share-story-board':
-        setStoryBoardActiveTab('6');
+        setStoryBoardActiveTab('5');
         break;
       default:
         setStoryBoardActiveTab('1');
@@ -288,6 +293,67 @@ const StoryBoardTabs = ({
       />
     </div>
   );
+
+  const ifPdf = (index) =>
+    storyBoard?.mangaUrls[index]?.slice(-3) === 'pdf' ||
+    storyBoard?.mangaUrls[index]?.slice(-3) === 'PDF';
+
+  const confirmDelete = (index) => {
+    storyBoard.mangaUrls.splice(index, 1);
+    patchStoryBoard(
+      storyBoard?._id,
+      {
+        mangaUrls: [...storyBoard.mangaUrls],
+      },
+      (response) => {
+        setStoryBoard(response);
+      },
+      (err) => {
+        openNotification('error', err.message);
+      }
+    );
+  };
+  const listUploadPhoto = getUploadImages.map((value, index) => (
+    <div className={styles.uploadList} key={index}>
+      <div className={styles.uploadListTitle}>Page {index + 1}</div>
+      <div
+        className={styles.uploadPhoto}
+        onClick={() => {
+          if (ifPdf(index)) {
+            setZoomImageUrl(<PDFViewer url={client.UPLOAD_URL + storyBoard?.mangaUrls[index]} />);
+            setIsModalVisible(!isModalVisible);
+          } else {
+            setZoomImageUrl(value.url);
+            setIsModalVisible(!isModalVisible);
+          }
+        }}>
+        {ifPdf(index) ? (
+          <Imgix
+            width={58}
+            height={58}
+            layout="fixed"
+            src="https://mangafy.club/img/pdf.webp"
+            alt="Manga story cover"
+          />
+        ) : (
+          <img className={styles.photo} src={value.url} alt="" />
+        )}
+      </div>
+      <Popconfirm
+        overlayClassName={styles.popConfirm}
+        placement="topLeft"
+        title={'Are you sure to delete this page?'}
+        onConfirm={() => {
+          confirmDelete(index);
+        }}
+        okText="Yes"
+        cancelText="No">
+        <span className={styles.deleteCard}>
+          <SvgDelete width="12px" height="12px" />
+        </span>
+      </Popconfirm>
+    </div>
+  ));
 
   return (
     <>
@@ -348,7 +414,7 @@ const StoryBoardTabs = ({
             {renderNavigationButtons(!storyBoard?.pages?.length)}
           </div>
         </TabPane>
-        <TabPane
+        {/* <TabPane
           tab={
             <span>
               <ComicBookSvg width="25px" />
@@ -361,25 +427,46 @@ const StoryBoardTabs = ({
             <ChooseLayout storyBoard={storyBoard} setStoryBoard={setStoryBoard} />
             {renderNavigationButtons(!storyBoard?.layoutId)}
           </div>
-        </TabPane>
+        </TabPane> */}
         <TabPane
-          disabled={!storyBoard?.layoutId}
+          // disabled={!storyBoard?.layoutId}
           tab={
             <span>
               <PencilCaseSvg width="25px" />
             </span>
           }
-          key={5}>
+          key={4}>
           {isShowAnimation && <span className={styles.showAnimation}></span>}
           <div className={styles.tabContent}>
             {addNewbuttons}
-            <Upload
-              className={styles.upload}
-              storyBoardId={storyBoard?._id}
-              onUploadSuccess={onUploadSuccess}
-              mangaUrl={storyBoard?.mangaUrl}
-            />
-            {renderNavigationButtons(!storyBoard?.mangaUrl)}
+            <div className={styles.uploadPhotoContainer}>
+              <div className={styles.uploadListContainer}>
+                <div className={styles.card_wrap}>
+                  {!!getUploadImages.length && listUploadPhoto}
+                </div>
+              </div>
+              <div
+                className={
+                  !!getUploadImages.length ? styles.uploadContainerDef : styles.uploadContainer
+                }>
+                <div className={styles.headerUpload} />
+                <Upload
+                  className={styles.upload}
+                  storyBoardId={storyBoard?._id}
+                  mangaUrl={storyBoard?.mangaUrl}
+                  setStoryBoard={setStoryBoard}
+                  mangaUrls={storyBoard?.mangaUrls}
+                  setUploadImages={setUploadImages}
+                  showText={false}
+                />
+                <ShowImgModal
+                  isModalVisible={isModalVisible}
+                  setIsModalVisible={setIsModalVisible}
+                  img={zoomImageUrl}
+                />
+              </div>
+            </div>
+            {renderNavigationButtons(!getUploadImages.length)}
           </div>
         </TabPane>
         {/* <TabPane
@@ -401,7 +488,7 @@ const StoryBoardTabs = ({
             </span>
           }
           disabled={!storyBoard?.mangaUrl}
-          key={6}>
+          key={5}>
           {isShowAnimation && <span className={styles.showAnimation}></span>}
           <div className={styles.tabContent}>
             {addNewbuttons}

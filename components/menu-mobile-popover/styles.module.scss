@@ -80,4 +80,19 @@
       padding: 12px;
     }
   }
+  .inviteContainer {
+    display: none;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 30px;
+    color: $grey;
+    text-transform: capitalize;
+    margin-left: 5px;
+    @include media-md {
+      display: flex;
+      align-items: center;
+      padding: 7px 10px 7px 5px;
+      border-bottom: 1px solid $grayBG;
+    }
+  }
 }
