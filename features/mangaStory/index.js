@@ -17,7 +17,7 @@ import ButtonToggle from 'components/ui-elements/button-toggle';
 import ButtonToTop from 'components/ui-elements/button-toTop';
 import Input from 'components/ui-elements/input';
 import { EVENTS } from 'helpers/amplitudeEvents';
-import Head from 'next/head';
+import { NextSeo } from 'next-seo';
 import Link from 'next/link';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
@@ -238,11 +238,33 @@ const MangeStory = (props) => {
 
   return (
     <div className="story_page">
-      <Head>
-        <title>MangaFY - All graphic novel enthusiast, all genres, one Place </title>
-        <meta name="description" content={mangaStory.story}></meta>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <NextSeo
+        title={mangaStory?.title}
+        description={mangaStory?.description}
+        canonical={`http://mangafy.club/manga-story/${mangaStory._id}`}
+        openGraph={{
+          url: `http://mangafy.club/manga-story/${mangaStory._id}`,
+          title: mangaStory?.title,
+          description: mangaStory?.description,
+          type: 'article',
+          images: [
+            {
+              url:
+                client.UPLOAD_URL + mangaStory?.image ||
+                'https://mangafy.club/img/collab_baner.webp',
+              width: 800,
+              height: 600,
+              alt: 'Manga Story Image',
+            },
+          ],
+          site_name: 'MangaFY',
+        }}
+        twitter={{
+          handle: '@handle',
+          site: '@site',
+          cardType: 'summary_large_image',
+        }}
+      />
       <ButtonToTop />
       <main className="main_back_2">
         <Header path="mangaStory" user={user} />

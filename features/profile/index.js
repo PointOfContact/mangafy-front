@@ -22,7 +22,22 @@ const Profile = (props) => {
     (item) => profile.genresIds && profile.genresIds.includes(item._id)
   );
   const genres = profileGenres.map((item) => item.name);
+  const gallerys = profile.gallery
+    .filter((item) => !(item?.slice(-3) === 'pdf' || item?.slice(-3) === 'PDF'))
+    .map((gallery) => ({
+      url: `https://mangafy.club/api/v2/uploads/${gallery}`,
+      width: 800,
+      height: 600,
+      alt: 'gallery',
+    }));
+  const userImg = {
+    url: `https://mangafy.club/api/v2/uploads/${profile.avatar}`,
+    width: 800,
+    height: 600,
+    alt: 'User avatar',
+  };
 
+  const images = [userImg, ...gallerys];
   return (
     <>
       <NextSeo
@@ -33,14 +48,7 @@ const Profile = (props) => {
           url: `https://mangafy.club/profile/${profile._id}`,
           title: `Let's give a big hello to ${profile.name}!`,
           description: 'Check their work or cool projects at MangaFY. Welcome aboard.',
-          images: [
-            {
-              url: `https://mangafy.club/api/v2/uploads/${profile.avatar}`,
-              width: 800,
-              height: 600,
-              alt: 'User avatar',
-            },
-          ],
+          images,
           site_name: 'MangaFY',
         }}
         twitter={{

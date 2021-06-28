@@ -192,7 +192,7 @@ const Header = ({ user, path }) => {
               )}
             </div>
             <div className={styles.header__leftNav}>
-              <Link href="/collaborations?compensationModel=paid">
+              {/* <Link href="/collaborations?compensationModel=paid">
                 <a
                   className={cn(
                     styles.header__menu,
@@ -202,14 +202,12 @@ const Header = ({ user, path }) => {
                   )}>
                   Paid projects
                 </a>
-              </Link>
-              <Link href="/collaborations?compensationModel=collaboration">
+              </Link> */}
+              <Link href="/collaborations">
                 <a
                   className={cn(
                     styles.header__menu,
-                    router.pathname === '/collaborations' &&
-                      router.query.compensationModel === 'collaboration' &&
-                      styles.header__menu_active
+                    router.pathname === '/collaborations' && styles.header__menu_active
                   )}>
                   Collabs
                 </a>
@@ -381,9 +379,9 @@ const MenuLinks = ({ isOpen, user }) => {
           {user ? (
             <>
               <ul className={styles.main_list}>
-                <li className={styles.menu_item}>
+                {/* <li className={styles.menu_item}>
                   <Link href="/collaborations?compensationModel=paid">Paid projects</Link>
-                </li>
+                </li> */}
                 <li className={styles.menu_item}>
                   <Link href="/collaborations">Collabs</Link>
                 </li>
@@ -420,9 +418,9 @@ const MenuLinks = ({ isOpen, user }) => {
               <li className={styles.menu_item}>
                 <Link href="/sign-in">Sign in</Link>
               </li>
-              <li className={styles.menu_item}>
+              {/* <li className={styles.menu_item}>
                 <Link href="/collaborations?compensationModel=paid">Paid projects</Link>
-              </li>
+              </li> */}
               <li className={styles.menu_item}>
                 <Link href="/collaborations">Collabs</Link>
               </li>
