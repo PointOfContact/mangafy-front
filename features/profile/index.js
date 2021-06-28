@@ -36,10 +36,10 @@ const Profile = (props) => {
           description: 'Check their work or cool projects at MangaFY. Welcome aboard.',
           images: [
             {
-              url: `https://mangafy.club/img/${profile.avatar}`,
+              url: `https://mangafy.club/api/v2/uploads/${profile.avatar}`,
               width: 800,
               height: 600,
-              alt: '',
+              alt: 'User avatar',
             },
           ],
           site_name: 'MangaFY',
