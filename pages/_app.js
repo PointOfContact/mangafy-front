@@ -27,6 +27,9 @@ export default function MyApp({ Component, pageProps, err }) {
           url: 'https://mangafy.club/',
           site_name: 'MangaFY',
         }}
+        facebook={{
+          appId: '444070883191700',
+        }}
         twitter={{
           handle: '@handle',
           site: '@site',
