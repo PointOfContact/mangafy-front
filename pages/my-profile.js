@@ -1,16 +1,15 @@
 import client from 'api/client';
 import { withAuthServerSideProps, withAuthComponent } from 'components/withAuth';
 import MyProfile from 'features/myProfile';
-import absoluteUrl from 'next-absolute-url';
 import { store } from 'store';
 
 export default withAuthComponent(MyProfile);
 export const getServerSideProps = withAuthServerSideProps(async (context, user = store.user) => {
-  const { origin } = absoluteUrl(context.req);
+  const resolvedUrl = encodeURIComponent(context.resolvedUrl?.slice(1));
   try {
     if (!user) {
       context.res.writeHead(302, {
-        Location: '/sign-in?page=my-profile',
+        Location: `/sign-in?page=${resolvedUrl}`,
       });
       context.res.end();
       return { props: {} };

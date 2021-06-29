@@ -109,7 +109,7 @@ const StoryTab = ({ setBaseData, baseData, isOwn, user, isParticipant }) => {
           </a>
         </Link>
         <div className={styles.participants}>
-          {[authorInfo].concat(participentsInfo).map(({ avatar, name, id, type }) => (
+          {[authorInfo].concat(participentsInfo).map(({ avatar, name, _id, type }) => (
             <Popover
               key={_id}
               placement="bottomLeft"

@@ -37,12 +37,15 @@ const ModalInviteMembers = ({ showModal, setShowModal, user }) => {
           notification.success({
             message: 'All participants were notified by email.',
           });
-
+          const event_type = res.emails ? EVENTS.INVITE_MEMBER : EVENTS.INVITE_MEMBER_LINK;
+          const event_properties = res.emails
+            ? { inviteId: res._id, emails: res.emails }
+            : { inviteId: res._id, link: true };
           const eventData = [
             {
               platform: 'WEB',
-              event_type: EVENTS.INVITE_MEMBER,
-              event_properties: { inviteId: res._id },
+              event_type,
+              event_properties,
               user_id: user._id,
               user_properties: {
                 ...user,

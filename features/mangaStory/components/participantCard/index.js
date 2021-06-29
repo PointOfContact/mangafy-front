@@ -55,7 +55,7 @@ const ParticipantCard = ({ isOwn, avatar, name, id, type, leaveManga, user, auth
               </Popconfirm>
             </div>
           )}
-          {id === user._id && (
+          {id === user?._id && (
             <Popconfirm
               placement="top"
               title={
@@ -67,7 +67,7 @@ const ParticipantCard = ({ isOwn, avatar, name, id, type, leaveManga, user, auth
                 </div>
               }
               onConfirm={() => {
-                leaveManga(user._id);
+                leaveManga(user?._id);
               }}
               onClick={(event) => event.stopPropagation()}
               okText="Yes"

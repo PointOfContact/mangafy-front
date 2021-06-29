@@ -22,26 +22,33 @@ const Profile = (props) => {
     (item) => profile.genresIds && profile.genresIds.includes(item._id)
   );
   const genres = profileGenres.map((item) => item.name);
+  const gallerys = profile.gallery
+    .filter((item) => !(item?.slice(-3) === 'pdf' || item?.slice(-3) === 'PDF'))
+    .map((gallery) => ({
+      url: `https://mangafy.club/api/v2/uploads/${gallery}`,
+      width: 800,
+      height: 600,
+      alt: 'gallery',
+    }));
+  const userImg = {
+    url: `https://mangafy.club/api/v2/uploads/${profile.avatar}`,
+    width: 800,
+    height: 600,
+    alt: 'User avatar',
+  };
 
+  const images = [userImg, ...gallerys];
   return (
     <>
       <NextSeo
         title={`Let's give a big hello to ${profile.name}!`}
         description="Check their work or cool projects at MangaFY. Welcome aboard."
-        canonical=""
+        canonical={`https://mangafy.club/profile/${profile._id}`}
         openGraph={{
-          url:
-            'https://mangafy.club/profile/5f0c9a88a0f7215f8e3d5c24?fbclid=IwAR1vjjoBYGbjyAnlQKXUP0h2OMCX5WMwETAi8P9ObngVKVfi7oITpfAO4rQ',
+          url: `https://mangafy.club/profile/${profile._id}`,
           title: `Let's give a big hello to ${profile.name}!`,
           description: 'Check their work or cool projects at MangaFY. Welcome aboard.',
-          images: [
-            {
-              url: `https://mangafy.club/img/${user.avatar}`,
-              width: 800,
-              height: 600,
-              alt: '',
-            },
-          ],
+          images,
           site_name: 'MangaFY',
         }}
         twitter={{

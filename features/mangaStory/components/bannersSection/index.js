@@ -200,18 +200,27 @@ const BannerSection = ({
         </Upload>
       ) : (
         <div className={!baseData.image ? styles.bannerDefault : styles.banner}>
-          <div className={!baseData.image ? styles.bannerPhotoDefault : styles.bannerPhoto}>
-            <Imgix
-              className={styles.bannerCover}
-              layout="fill"
-              src={
-                !baseData.image
-                  ? 'https://mangafy.club/img/collab_baner.webp'
-                  : client.UPLOAD_URL + baseData.image
-              }
-              alt=""
-            />
-          </div>
+          {baseData.image ? (
+            <div className={styles.bannerPhoto}>
+              <Imgix
+                className={styles.bannerCover}
+                layout="fill"
+                src={client.UPLOAD_URL + baseData.image}
+                alt=""
+              />
+            </div>
+          ) : (
+            <div className={styles.bannerPhotoDefault}>
+              <Imgix
+                className={styles.bannerCover}
+                width={309}
+                height={170}
+                layout="fixed"
+                src={'https://mangafy.club/img/collab_baner.webp'}
+                alt=""
+              />
+            </div>
+          )}
         </div>
       )}
       <div className={cn(styles.bannerWrapContent, 'row')}>
