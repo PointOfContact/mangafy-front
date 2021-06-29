@@ -39,7 +39,9 @@ const Login = ({ user }) => {
       errorMessage: '',
     });
     e.preventDefault();
-    const page = decodeURIComponent(qs.parse(location.search).page);
+    const page = qs.parse(location.search).page
+      ? decodeURIComponent(qs.parse(location.search).page)
+      : '';
     const payload = {
       email,
       password,
