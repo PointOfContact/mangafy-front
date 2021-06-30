@@ -11,6 +11,8 @@ import { Comments } from 'components/type-content/comments';
 import Link from 'next/link';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
+import * as qs from 'query-string';
+import { LinkCreator } from 'utils/linkCreator';
 
 import styles from './styles.module.scss';
 
@@ -82,6 +84,12 @@ const ModalDiscussion = ({
   };
 
   const handleCancel = () => {
+    changeShowModal;
+    const parsed = qs.parse(window.location.search);
+    delete parsed.postId;
+    Router.push(LinkCreator.toQuery({ ...parsed }, '/'), LinkCreator.toQuery({ ...parsed }, '/'), {
+      scroll: false,
+    });
     changeShowModal(false);
   };
 
@@ -90,7 +98,7 @@ const ModalDiscussion = ({
       className={styles.modal}
       title={''}
       footer={null}
-      style={{ minWidth: '95%', maxWidth: '1200px' }}
+      style={{ minWidth: '95%', maxWidth: '1200px', marginTop: '20px' }}
       visible={showModal}
       closeIcon={<SvgClose height="18px" width="18px" />}
       okText="Send"
