@@ -1,15 +1,13 @@
 import React from 'react';
 
-import { Spin } from 'antd';
 import cn from 'classnames';
-import Imgix from 'components/imgix';
-import LargeButton from 'components/ui-elements/large-button';
+import PrimaryButton from 'components/ui-elements/button';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 
 import styles from './styles.module.sass';
 
-const SimpleSlider = dynamic(() => import('components/slider'), { loading: () => <Spin /> });
+const WelcomeSlider = dynamic(() => import('components/welcomeSlider'), {});
 
 export default function Home() {
   return (
@@ -19,233 +17,186 @@ export default function Home() {
           <div className={styles.main__wrap}>
             <div className={styles.main__left}>
               <div className={styles.main__title}>
-                <p>WELCOME TO</p>
-                <span>MangaFY</span>
+                <p>
+                  The platform to create your <br />
+                  own manga or comic story <br />
+                  is now in your hands.
+                </p>
               </div>
-              <div className={styles.main__descr}>
-                The digital hub designed to help you produce your very owm comic or manga. From
-                story buidling to a full digital release.
+              <div className={styles.main__buttons}>
+                <Link href="sign-up">
+                  <a className={cn('btn_submit')}>
+                    <PrimaryButton text="Sign Up for free" className={styles.signUpFree} />
+                  </a>
+                </Link>
+                <Link href="/create-a-story/start">
+                  <a className={styles.header__menu}>
+                    <PrimaryButton
+                      className={styles.joinBtn}
+                      text="Start a Project"></PrimaryButton>
+                  </a>
+                </Link>
               </div>
-              <Link href="/sign-up">
-                <a>
-                  <LargeButton
-                    id="SignUpForFreeBtnId"
-                    className={styles.btn__signUp}
-                    text="SIGN UP for FREE"
-                  />
-                </a>
-              </Link>
-            </div>
-            <div className={styles.main__right}>
-              <div className={styles.main__img}>
-                <Imgix
-                  priority
-                  layout="intrinsic"
-                  width={774}
-                  height={863}
-                  quality={50}
-                  src="https://mangafy.club/img/main-img.webp"
-                  alt=""
-                />
+              <div className={styles.main__ico}>
+                <img src="img/land-new-img1.svg" />
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div className={styles.different}>
+      <div className={styles.platformDescr}>
         <div className={'container'}>
-          <div className={styles.it1}>
-            <Imgix
-              priority
-              layout="intrinsic"
-              width={300}
-              height={232}
-              quality={50}
-              src="https://mangafy.club/img/dif-pen.webp"
-              alt=""
-            />
+          <div className={styles.platformDescr__title}>One platform to call home.</div>
+          <div className={styles.platformDescr__subtitle}>
+            MangaFY was built to help artists focus all their work in one place: collaborate, manage
+            your manga or comic workflow, chat, set deadlines and tasks, and turn your story into a
+            ready-to-be-published graphic novel.
           </div>
-          <div className={styles.different__title}>What makes us different</div>
-          <div className={styles.different__wrap}>
-            <div className={styles.different__item}>
-              <div className={styles.different__itemTitle}>Grow as a graphic novelist</div>
-              <div className={styles.different__descr}>
-                Ensuring your graphic novels are seen by the community so you receive valuable
-                feedback on day one.
+          <div className={styles.platformDescr__wrap}>
+            <div className={styles.platformDescr__item}>
+              <div className={styles.platformDescr__itemIco}>
+                <img src="icons/platform-img1.svg" />
+              </div>
+              <div className={styles.platformDescr__itemTitle}>Grow as a graphic novelist</div>
+              <div className={styles.platformDescr__itemDescr}>
+                Join a vivid community of creators (writers, illustrators, editors, translators,{' '}
+                <br /> and inkers)
               </div>
             </div>
-
-            <div className={styles.different__item}>
-              <div className={styles.different__itemTitle}>Build your team</div>
-              <div className={styles.different__descr}>
-                Access and collaborate. Build your mini-production team (editors, illustrators,
-                translators) and easily work together in real-time across shared documents,
-                calendars, and files.
+            <div className={cn(styles.platformDescr__item, styles.platformDescr__itemCenter)}>
+              <div className={styles.platformDescr__itemIco}>
+                <img src="icons/platform-img2.svg" />
+              </div>
+              <div className={styles.platformDescr__itemTitle}>Build your team</div>
+              <div className={styles.platformDescr__itemDescr}>
+                Open a project and collaborate with the community and build your team
               </div>
             </div>
-
-            <div className={styles.different__item}>
-              <div className={styles.different__itemTitle}>Management Tools</div>
-              <div className={styles.different__descr}>
-                Big goals require a good plan, consisting of small, measurable and clear objectives.
+            <div className={styles.platformDescr__item}>
+              <div className={styles.platformDescr__itemIco}>
+                <img src="icons/platform-img3.svg" />
+              </div>
+              <div className={styles.platformDescr__itemTitle}>Management Tools</div>
+              <div className={styles.platformDescr__itemDescr}>
+                Manage the production process of your manga or comics and team workflow via
+                dedicated tools
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div className={styles.mainDescriprion}>
+
+      <div className={styles.goinSection}>
         <div className={'container'}>
-          <div className={styles.mainDescriprion__wrap}>
-            <div className={styles.it1}></div>
-            <div className={styles.it2}>
-              <Imgix
-                priority
-                layout="intrinsic"
-                width={300}
-                height={232}
-                quality={50}
-                src="https://mangafy.club/img/main-descr-ico2.webp"
-                alt=""
-              />
-            </div>
-            <div className={styles.mainDescriprion__text}>
-              <p>
-                <span>MangaFY</span> offers a unique social platform for aspiring and
-                <br /> freelance artists that feature collaboration hub to build your
-                <br /> mini-production team (illustrators, editors, translators) and
-                <br /> utilize management tools such as book-bible and script editing,
-                <br /> illustration, and editorial management to efficient the time and
-                <br /> work follow of the production process.
-                <br /> Once done, we help you take it forward and self-publish it.
-              </p>
-              <p>Ready?</p>
+          <div className={styles.goinSection__join}>
+            <div className={styles.goinSection__joinText}>Ready?</div>
+            <Link href="sign-in">
+              <a className={cn('btn_submit')}>
+                <PrimaryButton text="Login Now" className={styles.goinSection__goinNow} />
+              </a>
+            </Link>
+          </div>
+          <div className={styles.goinSection__img}>
+            <img src="img/joinSecion-img1.png" />
+            <div className={styles.goinSection__imgLeft}>
+              <img src="img/joinSecion-img2.png" />
             </div>
           </div>
-          <Link href="/sign-in">
-            <a>
-              <LargeButton id="LoginBtnId" className={styles.btn__login} text="LOG-IN Now" />
+        </div>
+      </div>
+
+      <div className={styles.titleBlock}>
+        <div className={'container'}>
+          <div className={styles.titleBlock__title}>
+            The future of graphic novel <br /> self-production.
+          </div>
+          <div className={styles.titleBlock__subtitle}>
+            We believe that in today's digital age, producing your own comic book or manga should
+            not be an obstacle. As such, we have designed simple tools for aspiring and freelance
+            artists to take their stories forward towards a visualized novel - in easy steps.
+          </div>
+        </div>
+      </div>
+
+      <div className={styles.imgBlock}>
+        <div className={cn('container', styles.main__container)}>
+          <div className={styles.imgBlock__wrap}>
+            <div className={cn(styles.imgBlock__img, styles.imgBlock__imgIco1)}>
+              <img src="img/imgBlock-img1.png" />
+            </div>
+            <div className={cn(styles.imgBlock__img, styles.imgBlock__imgIco2)}>
+              <img src="img/imgBlock-img2.png" />
+            </div>
+            <div className={cn(styles.imgBlock__img, styles.imgBlock__imgIco3)}>
+              <img src="img/imgBlock-img3.png" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className={styles.privAndSecure}>
+        <div className={'container'}>
+          <div className={styles.privAndSecure__title}>
+            Privately and securely work on <br /> your graphic novel idea.{' '}
+          </div>
+          <div className={styles.privAndSecure__wrap}>
+            <div className={styles.privAndSecure__item}>
+              Our tools allow you to <br />{' '}
+              <span className={styles.privAndSecure__itemBold}>manage your storyboard</span> and
+              page scripts, define your characters.
+            </div>
+            <div className={styles.privAndSecure__item}>
+              <span className={styles.privAndSecure__itemBold}>Grow with new teammates</span>,<br />{' '}
+              invite team members to your secure workspace and collaborate together by setting tasks
+              and ease of communication.
+            </div>
+            <div className={styles.privAndSecure__item}>
+              <span className={styles.privAndSecure__itemBold}>Seamlessly send files</span> between
+              the team and exchange ideas until you have a finalized graphic novel at hand.
+            </div>
+          </div>
+          <div className={styles.privAndSecure__subtitle}>
+            Once you are done working on your novel you can{' '}
+            <span className={styles.privAndSecure__itemBold}>easily publish</span> it through
+            MangaFY on any of the leading <br /> self-publishing platforms and begin getting
+            followers and monetize your work.
+          </div>
+          <div className={styles.privAndSecure__textBold}>Simple and stright-foward.</div>
+          <Link href="sign-up">
+            <a className={cn('btn_submit')}>
+              <PrimaryButton text="Try for free" className={styles.privAndSecure__try} />
             </a>
           </Link>
         </div>
       </div>
-      <div className={styles.howWorks}>
-        <div className={cn('container', styles.howWorks__container)}>
-          <div className={styles.howWorks__title}>
-            <div className={styles.it1}>
-              <Imgix
-                priority
-                layout="intrinsic"
-                width={337}
-                height={370}
-                quality={50}
-                src="https://mangafy.club/img/main-descr-ico3.webp"
-                alt=""
-              />
-            </div>
-            <p>How MangaFY works?</p>
-          </div>
-          <div className={styles.howWorks__img}>
-            <Imgix
-              layout="intrinsic"
-              width={1100}
-              height={554}
-              quality={50}
-              src="https://mangafy.club/img/how-img.webp"
-              alt=""
-            />
-          </div>
-          <div className={styles.howWorks__descr}>
-            <div className={styles.howWorks__item}>Submit your graphic novel idea</div>
-            <div className={styles.howWorks__item}>Manage the production circle</div>
-            <div className={`${styles.howWorks__item} ${styles.pr65}`}>
-              Collaborate with graphic novel enthusiasts
-            </div>
-          </div>
-          <div className={styles.howWorks__mobile}>
-            <div className={`${styles.howWorks__mobItem} ${styles.howWorks__mobItem_item1}`}>
-              <div className={styles.howWorks__mobText}>
-                Submit your graphic novel
-                <br /> idea
-              </div>
-              <div className={styles.howWorks__mobImg}>
-                <Imgix
-                  layout="responsive"
-                  width={720}
-                  height={600}
-                  quality={50}
-                  src="https://mangafy.club/img/g1.webp"
-                  alt=""
-                />
-              </div>
-            </div>
-            <div className={`${styles.howWorks__mobItem} ${styles.howWorks__mobItem_item2}`}>
-              <div className={styles.howWorks__mobText}>
-                Manage the production
-                <br /> circle
-              </div>
-              <div className={styles.howWorks__mobImg}>
-                <Imgix
-                  layout="responsive"
-                  width={720}
-                  height={600}
-                  quality={50}
-                  src="https://mangafy.club/img/g2.webp"
-                  alt=""
-                />
-              </div>
-            </div>
-            <div className={`${styles.howWorks__mobItem} ${styles.howWorks__mobItem_item3}`}>
-              <div className={`${styles.howWorks__mobText} ${styles.colorBlack}`}>
-                Collaborate with graphic
-                <br /> novel enthusiasts
-              </div>
-              <div className={styles.howWorks__mobImg}>
-                <Imgix
-                  layout="responsive"
-                  width={720}
-                  height={600}
-                  quality={50}
-                  src="https://mangafy.club/img/g3.webp"
-                  alt=""
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className={styles.gotIdea}>
+
+      <div className={styles.titleSlider}>
         <div className={'container'}>
-          <div className={styles.gotIdea__wrap}>
-            <div className={styles.it1}>
-              <Imgix
-                layout="intrinsic"
-                width={379}
-                height={331}
-                quality={10}
-                src="https://mangafy.club/img/idea-ico.svg"
-                alt=""
-              />
-            </div>
-            <div className={styles.gotIdea__title}>Got a great graphic novel idea?</div>
-            <div className={styles.gotIdea__descr}>
-              Fill out our idea submission form for a chance to turn your idea into
-              <br />a published bestseller
-            </div>
-            <Link href="/create-a-story/start">
-              <a>
-                <LargeButton
-                  id="CreateAStoryBtnId"
-                  className={styles.btn__submit}
-                  text="Start a project"
-                />
-              </a>
-            </Link>
+          <div className={styles.titleSlider__title}>
+            Join our
+            <br /> community today
+          </div>
+          <div className={styles.titleSlider__subtitle}>
+            Do you love graphic novels? Want to constantly stay inspired and be
+            <br />
+            surrounded by like-minded creators? Then sign-up today and get rewarded for your love{' '}
+            <br />
+            of comics and manga
           </div>
         </div>
       </div>
 
-      <div className={cn('sliderMobile', styles.sliderInMobile)}>
+      <div className={styles.sliderWelcome}>
+        <WelcomeSlider />
+        <Link href="sign-up">
+          <a className={cn('btn_submit')}>
+            <PrimaryButton text="Sign Up for free" className={styles.sliderWelcome__signup} />
+          </a>
+        </Link>
+      </div>
+
+      {/* <div className={cn('sliderMobile', styles.sliderInMobile)}>
         <div className={styles.useGoal__title}>
           <p>
             Use <span>MangaFY</span> <br /> Goal-oriented Planner
@@ -254,91 +205,7 @@ export default function Home() {
         <div className={'container'}>
           <SimpleSlider />
         </div>
-      </div>
-
-      <div className={styles.useGoal}>
-        <div className={'container'}>
-          <div className={styles.useGoal__title}>
-            <p>
-              Use <span>MangaFY</span> Goal-oriented Planner
-            </p>
-          </div>
-          <div className={styles.useGoal__images}>
-            <div className={styles.useGoal__img}>
-              <Imgix
-                layout="intrinsic"
-                width={373}
-                height={470}
-                quality={10}
-                src="https://mangafy.club/img/goal-ico1.webp"
-                alt=""
-              />
-            </div>
-            <div className={`${styles.useGoal__img} ${styles.useGoal__img_img2}`}>
-              <Imgix
-                layout="intrinsic"
-                width={373}
-                height={470}
-                quality={90}
-                src="https://mangafy.club/img/goal-ico2.webp"
-                alt=""
-              />
-            </div>
-            <div className={`${styles.useGoal__img} ${styles.useGoal__img_img3}`}>
-              <Imgix
-                layout="intrinsic"
-                width={373}
-                height={470}
-                quality={90}
-                src="https://mangafy.club/img/goal-ico3.webp"
-                alt=""
-              />
-            </div>
-          </div>
-          <div className={styles.useGoal__descr}>
-            <p>
-              Big goals require a good plan, consisting of small, measurable, and clear
-              <br /> objectives. Now MangaFY helps you attain your aspirations! And remain
-              <br /> concentrated while seeing the big picture 
-            </p>
-          </div>
-          <Link href="/sign-up">
-            <a>
-              <LargeButton
-                id="TryForFreeBtnId"
-                className={styles.btn__submit}
-                text="Try For Free"
-              />
-            </a>
-          </Link>
-        </div>
-      </div>
-      <div className={styles.join}>
-        <div className={'container'}>
-          <div className={styles.join__title}>Join our community today</div>
-          <div className={styles.join__descr}>
-            <p>
-              Do you love graphic novels? Want to constantly stay inspired and be
-              <br /> surrounded by like-minded creators? Then sign-up today and get rewarded for
-              <br /> your love of comics and manga
-            </p>
-          </div>
-          <div className={styles.join__img}>
-            <Imgix
-              layout="intrinsic"
-              width={720}
-              height={606}
-              src="https://mangafy.club/img/join-ico.webp"
-              alt=""
-            />
-          </div>
-          <Link href="/sign-up">
-            <a>
-              <LargeButton id="SignUpBtnId" className={styles.btn__submit} text="Sign UP" />
-            </a>
-          </Link>
-        </div>
-      </div>
+      </div> */}
     </>
   );
 }
