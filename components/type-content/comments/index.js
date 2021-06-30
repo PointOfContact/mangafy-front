@@ -5,6 +5,7 @@ import client from 'api/client';
 import Imgix from 'components/imgix';
 import Avatar from 'components/ui-elements/avatar';
 import LargeButton from 'components/ui-elements/large-button';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import moment from 'moment';
 import Link from 'next/link';
 import Router from 'next/router';
@@ -17,37 +18,41 @@ const Amplitude = require('amplitude');
 const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 const { TextArea } = Input;
 
-const CommentList = ({ comments }) => (
-  <List
-    className={styles.list}
-    dataSource={comments.reverse()}
-    itemLayout="horizontal"
-    renderItem={(commentItem) => (
-      <Comment
-        datetime={moment(commentItem.createdAt).format('lll')}
-        {...commentItem}
-        author={commentItem?.authorInfo?.name}
-        avatar={
-          commentItem.authorInfo && (
-            <Link href={`/profile/${commentItem.authorInfo?._id}`}>
-              <a>
-                {commentItem.authorInfo?.avatar ? (
-                  <Imgix
-                    width={40}
-                    height={40}
-                    src={client.UPLOAD_URL + commentItem.authorInfo?.avatar}
-                  />
-                ) : (
-                  <Avatar text={commentItem?.authorInfo?.name} size={40} />
-                )}
-              </a>
-            </Link>
-          )
-        }
-      />
-    )}
-  />
-);
+const CommentList = ({ comments }) => {
+  const com = [...comments];
+  // .reverse()
+  return (
+    <List
+      className={styles.list}
+      dataSource={com}
+      itemLayout="horizontal"
+      renderItem={(commentItem) => (
+        <Comment
+          datetime={moment(commentItem.createdAt).format('lll')}
+          {...commentItem}
+          author={commentItem?.authorInfo?.name}
+          avatar={
+            commentItem.authorInfo && (
+              <Link href={`/profile/${commentItem.authorInfo?._id}`}>
+                <a>
+                  {commentItem.authorInfo?.avatar ? (
+                    <Imgix
+                      width={40}
+                      height={40}
+                      src={client.UPLOAD_URL + commentItem.authorInfo?.avatar}
+                    />
+                  ) : (
+                    <Avatar text={commentItem?.authorInfo?.name} size={40} />
+                  )}
+                </a>
+              </Link>
+            )
+          }
+        />
+      )}
+    />
+  );
+};
 
 CommentList.propTypes = {
   comments: PropTypes.array.isRequired,
@@ -133,18 +138,18 @@ export const Comments = ({ commentsData, postId, user, setCommentsData }) => {
           setCommentsData(newCommentsData);
           setSubmitting(false);
           setValue('');
-          // const eventData = [
-          //   {
-          //     platform: 'WEB',
-          //     event_type: EVENTS.POST_COMMENT,
-          //     event_properties: { postId },
-          //     user_id: user._id,
-          //     user_properties: {
-          //       ...user,
-          //     },
-          //   },
-          // ];
-          // amplitude.track(eventData);
+          const eventData = [
+            {
+              platform: 'WEB',
+              event_type: EVENTS.POST_COMMENT,
+              event_properties: { postId },
+              user_id: user._id,
+              user_properties: {
+                ...user,
+              },
+            },
+          ];
+          amplitude.track(eventData);
         })
         .catch((err) => {
           setErrMessage(err.message);

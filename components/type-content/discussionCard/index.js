@@ -8,7 +8,10 @@ import Imgix from 'components/imgix';
 import ModalDiscussion from 'components/modals/discussion';
 import PrimaryButton from 'components/ui-elements/button';
 import Link from 'next/link';
+import Router from 'next/router';
 import PropTypes from 'prop-types';
+import * as qs from 'query-string';
+import { LinkCreator } from 'utils/linkCreator';
 
 import DiscussionType from '../discussionType';
 import styles from './styles.module.scss';
@@ -31,6 +34,18 @@ const DiscussionCard = (props) => {
     type,
   } = props;
   const [showModal, changeShowModal] = useState(false);
+
+  const openPost = (postId) => {
+    const parsed = qs.parse(window.location.search);
+    Router.push(
+      LinkCreator.toQuery({ ...parsed, postId }, '/'),
+      LinkCreator.toQuery({ ...parsed, postId }, '/'),
+      {
+        scroll: false,
+      }
+    );
+    changeShowModal(true);
+  };
 
   return (
     <>
@@ -67,7 +82,7 @@ const DiscussionCard = (props) => {
             </div>
           </div>
         </div>
-        <div onClick={() => changeShowModal(true)} className={styles.projectsForYou_MainImg}>
+        <div onClick={() => openPost(id)} className={styles.projectsForYou_MainImg}>
           <div className={styles.bgImg}>
             <Imgix
               className={(!img && styles.defaultBg) || ''}

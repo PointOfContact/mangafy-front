@@ -334,7 +334,7 @@ const Header = ({ user, path }) => {
         </div>
         {isOpen && <MenuLinks isOpen={isOpen} user={user} />}
       </header>
-      <ModalInviteMembers showModal={showModal} setShowModal={setShowModal} user={user} />
+      {user && <ModalInviteMembers showModal={showModal} setShowModal={setShowModal} user={user} />}
     </div>
   );
 };
