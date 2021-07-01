@@ -206,7 +206,6 @@ const StoryBoardTabs = ({
     author: [],
     layouts: [],
   });
-
   const getStoryBoard = useCallback(() => {
     if (!user) return;
     findStoryBoard(
@@ -451,13 +450,13 @@ const StoryBoardTabs = ({
                 }>
                 <div className={styles.headerUpload} />
                 <Upload
-                  className={styles.upload}
                   storyBoardId={storyBoard?._id}
                   mangaUrl={storyBoard?.mangaUrl}
                   setStoryBoard={setStoryBoard}
                   mangaUrls={storyBoard?.mangaUrls}
                   setUploadImages={setUploadImages}
                   showText={false}
+                  className={styles.upload}
                 />
                 <ShowImgModal
                   isModalVisible={isModalVisible}

@@ -193,7 +193,7 @@ const PrimaryUpload = ({
 };
 
 PrimaryUpload.propTypes = {
-  storyBoardId: PropTypes.string.isRequired,
+  storyBoardId: PropTypes.string,
   mangaUrl: PropTypes.string,
   setUploadImages: PropTypes.func,
   showText: PropTypes.bool,
@@ -202,6 +202,7 @@ PrimaryUpload.propTypes = {
 };
 
 PrimaryUpload.defaultProps = {
+  storyBoardId: '',
   mangaUrl: null,
   setUploadImages: () => {},
   showText: true,
