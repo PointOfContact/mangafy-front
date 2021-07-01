@@ -261,7 +261,8 @@
         width: 90px;
       }
       &:hover {
-        background: $primaryDark !important;
+        // background: $primaryDark !important;
+        box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.1);
       }
       .fullInviteName,
       .inviteName {
@@ -290,18 +291,18 @@
         display: flex;
         align-items: center;
       }
-      &:hover {
-        p {
-          color: white;
-        }
-        .addButtonInvite {
-          svg {
-            path {
-              fill: white;
-            }
-          }
-        }
-      }
+      // &:hover {
+      //   p {
+      //     color: white;
+      //   }
+      //   .addButtonInvite {
+      //     svg {
+      //       path {
+      //         fill: white;
+      //       }
+      //     }
+      //   }
+      // }
     }
     .fullStartProject,
     .startProject {

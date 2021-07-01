@@ -13,7 +13,7 @@ const WelcomeSlider = () => {
     centerMode: false,
     dots: false,
     arrows: false,
-    autoplaySpeed: 2000,
+    autoplaySpeed: 5000,
     variableWidth: true,
     slidesToShow: 1,
     slidesToScroll: 1,
