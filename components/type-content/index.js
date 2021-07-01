@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
+import { notification } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
 import SvgBulbColored from 'components/icon/BulbColored';
@@ -37,13 +38,20 @@ export default function TypePage({
         createdAt: -1,
       },
     };
-    const newPosts = await client.service('/api/v2/posts').find({
-      query,
-    });
-    const allPosts = discussions.concat(newPosts.data);
-    allPosts.length === newPosts.total && setMore(false);
-    setDiscussions(allPosts);
-    setIsLoading(false);
+    try {
+      const newPosts = await client.service('/api/v2/posts').find({
+        query,
+      });
+      const allPosts = discussions.concat(newPosts.data);
+      allPosts.length === newPosts.total && setMore(false);
+      setDiscussions(allPosts);
+      setIsLoading(false);
+    } catch (err) {
+      notification.error({
+        message: err.message,
+        placement: 'bottomLeft',
+      });
+    }
   };
 
   return (

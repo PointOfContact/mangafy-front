@@ -343,48 +343,50 @@ const ProfileTopBar = (props) => {
             </>
           ) : (
             <>
-              {profile &&
-                !!user?.mangaStories?.data?.length &&
-                !(
-                  user?.mangaStories?.participents?.include(profile._id) ||
-                  user?._id === profile?._id
-                ) && (
-                  <div className={styles.hotBtns}>
-                    <div className={styles.shere}>
-                      <Popover
-                        overlayClassName={styles.popover}
-                        placement={width < 768 ? 'bottom' : 'left'}
-                        content={'Share'}
-                        trigger="hover">
-                        <div className={styles.svgBg}>
-                          <Share shareUrl={originUrl} size={39} />
-                        </div>
-                      </Popover>
+              <div className={styles.hotBtns}>
+                <div className={styles.shere}>
+                  <Popover
+                    overlayClassName={styles.popover}
+                    placement={width < 768 ? 'bottom' : 'left'}
+                    content={'Share'}
+                    trigger="hover">
+                    <div className={styles.svgBg}>
+                      <Share shareUrl={originUrl} size={39} />
                     </div>
-                    <div className={styles.contacts}>
-                      <Popover
-                        overlayClassName={styles.popover}
-                        placement={width < 768 ? 'bottom' : 'left'}
-                        content={'Collab'}
-                        trigger="hover">
-                        <div onClick={sendInvites} className={styles.svgBg}>
-                          <SvgHand width="19px" height="19px" />
-                        </div>
-                      </Popover>
-                    </div>
-                    <div className={styles.contacts}>
-                      <Popover
-                        overlayClassName={styles.popover}
-                        placement={width < 768 ? 'bottom' : 'left'}
-                        content={'Messenger'}
-                        trigger="hover">
-                        <div onClick={sendMessage} className={styles.svgBg}>
-                          <SvgChat width="19px" height="19px" />
-                        </div>
-                      </Popover>
-                    </div>
-                  </div>
-                )}
+                  </Popover>
+                </div>
+                {profile &&
+                  !!user?.mangaStories?.data?.length &&
+                  !(
+                    user?.mangaStories?.participents?.include(profile._id) ||
+                    user?._id === profile?._id
+                  ) && (
+                    <>
+                      <div className={styles.contacts}>
+                        <Popover
+                          overlayClassName={styles.popover}
+                          placement={width < 768 ? 'bottom' : 'left'}
+                          content={'Collab'}
+                          trigger="hover">
+                          <div onClick={sendInvites} className={styles.svgBg}>
+                            <SvgHand width="19px" height="19px" />
+                          </div>
+                        </Popover>
+                      </div>
+                      <div className={styles.contacts}>
+                        <Popover
+                          overlayClassName={styles.popover}
+                          placement={width < 768 ? 'bottom' : 'left'}
+                          content={'Messenger'}
+                          trigger="hover">
+                          <div onClick={sendMessage} className={styles.svgBg}>
+                            <SvgChat width="19px" height="19px" />
+                          </div>
+                        </Popover>
+                      </div>
+                    </>
+                  )}
+              </div>
             </>
           )}
         </Col>

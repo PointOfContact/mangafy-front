@@ -1,5 +1,5 @@
 import { withAuthServerSideProps, withAuthComponent } from 'components/withAuth';
-import Landing from 'features/index/index';
+import Landing from 'features/index';
 import { store } from 'store';
 
 export default withAuthComponent(Landing);

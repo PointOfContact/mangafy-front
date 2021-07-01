@@ -1,13 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
+import { notification } from 'antd';
+import client from 'api/client';
 import AnimePlatform from 'components/anime-platform';
 import Footer from 'components/footer';
 import FooterPolicy from 'components/footer-policy';
 import Header from 'components/header';
+import ModalDiscussion from 'components/modals/discussion';
 import TypePage from 'components/type-content';
 import ButtonToTop from 'components/ui-elements/button-toTop';
 import { NextSeo } from 'next-seo';
+import Router from 'next/router';
 import PropTypes from 'prop-types';
+import * as qs from 'query-string';
 
 import styles from './styles.module.scss';
 
@@ -21,6 +26,34 @@ export default function LandingNew(props) {
     selectedCategories,
     selectedType,
   } = props;
+
+  const [selectedPost, setSelectedPost] = useState(false);
+
+  const [showModal, changeShowModal] = useState(false);
+
+  useEffect(() => {
+    const { postId } = qs.parse(window.location.search);
+    if (postId) {
+      getPost(postId);
+    }
+  }, []);
+
+  const getPost = async (postId) => {
+    try {
+      const newPosts = await client.service('/api/v2/posts').get(postId);
+      setSelectedPost(newPosts);
+      changeShowModal(true);
+    } catch (err) {
+      if (err.code === 400) {
+        Router.push('/');
+      } else {
+        notification.error({
+          message: err.message,
+          placement: 'bottomLeft',
+        });
+      }
+    }
+  };
   return (
     <>
       <NextSeo
@@ -65,6 +98,20 @@ export default function LandingNew(props) {
             />
           </main>
         </div>
+        {selectedPost && (
+          <ModalDiscussion
+            changeShowModal={changeShowModal}
+            showModal={showModal}
+            url={selectedPost.url}
+            img={selectedPost.img}
+            logo={selectedPost.logo}
+            title={selectedPost.title}
+            user={user}
+            postId={selectedPost._id}
+            likesCount={selectedPost.likesCount}
+            logoNavigate={selectedPost.logoNavigate}
+          />
+        )}
         <Footer />
         <FooterPolicy />
       </div>
