@@ -14,7 +14,7 @@ import styles from './styles.module.scss';
 const FindPartner = ({ participentsInfo }) => {
   const [items] = useState(
     participentsInfo?.map(({ avatar, name, _id }) => (
-      <Link className={styles.participentsCont} key={name} href={`/profile/${_id}`}>
+      <Link className={styles.participantsCount} key={name} href={`/profile/${_id}`}>
         <a>
           <Tooltip placement="topLeft" title={name} arrowPointAtCenter>
             {avatar ? (
@@ -39,18 +39,17 @@ const FindPartner = ({ participentsInfo }) => {
         <a>
           <PrimaryButton
             className={styles.findPartnerBtn}
-            text="Find a partner"
             isPlump={true}
             items={items}
             suffix={
-              <Link className={styles.participentsCont} href={`/profiles`}>
+              <Link className={styles.participantsCount} href={`/profiles`}>
                 <a>
                   <Tooltip
                     className={styles.text}
                     placement="topLeft"
                     title="Add new users"
                     arrowPointAtCenter>
-                    {!!items?.length && <span>Find a partner</span>}
+                    {!items?.length && <span>Find a partner</span>}
                     <SvgAdd2 width="25px" height="25px" />
                   </Tooltip>
                 </a>
