@@ -196,7 +196,7 @@ export const Gallery = (props) => {
       <h4 className={styles.title}>{title}</h4>
       {errMessage && <p>{errMessage}</p>}
       <Row>
-        <Col span={21}>
+        <Col span={19}>
           <div className={styles.imagesBlock}>
             {images?.length ? (
               images.map((galleryItem, index) => (
@@ -265,10 +265,10 @@ export const Gallery = (props) => {
         {canEditInit && (
           <Col
             xs={{ span: 23 }}
-            md={{ span: 3 }}
-            xl={{ span: 3 }}
-            xxl={{ span: 3 }}
-            span={3}
+            md={{ span: 5 }}
+            xl={{ span: 5 }}
+            xxl={{ span: 5 }}
+            span={5}
             className={styles.img_add_button}>
             {/* {isShowAdd && ( */}
             <span
@@ -277,7 +277,7 @@ export const Gallery = (props) => {
                 setCreateGalleryModal(true);
                 setIsModalVisible(true);
               }}>
-              <AddButton width="25px" height="25px" text={'Add text'} />
+              <AddButton width="25px" height="25px" text={'Share stories'} />
             </span>
             {/* )}
             <div onClick={() => setIsShowAdd(!isShowAdd)}>
@@ -289,7 +289,7 @@ export const Gallery = (props) => {
                 beforeUpload={onBeforeGalleryUpload}
                 showUploadList={false}
                 accept="image/jpg, image/png, application/pdf, image/jpeg ">
-                <AddButton width="25px" height="25px" text={'Upload'} />
+                <AddButton width="25px" height="25px" text={'Upload illustrations'} />
               </Upload>
             </span>
             {/* )} */}

@@ -16,7 +16,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 
-import ModalInviteMembers from './modalInviteMembers/index';
+import MenuLinks from './menuLinks';
+import ModalInviteMembers from './modalInviteMembers';
 import styles from './styles.module.scss';
 
 const Amplitude = require('amplitude');
@@ -87,9 +88,9 @@ const Header = ({ user, path }) => {
     handleMenuOpen(!isOpen);
     const el = document.body;
     if (!isOpen) {
-      el.classList.add(styles.body_scrool);
+      el.classList.add(styles.body_scroll);
     } else {
-      el.classList.remove(styles.body_scrool);
+      el.classList.remove(styles.body_scroll);
     }
   };
 
@@ -105,7 +106,7 @@ const Header = ({ user, path }) => {
   const handleDocumentClick = () => {
     handleMenuOpen(false);
     const el = document.body;
-    el.classList.remove(styles.body_scrool);
+    el.classList.remove(styles.body_scroll);
   };
 
   const addEvent = () => {
@@ -154,16 +155,7 @@ const Header = ({ user, path }) => {
                 <Popover
                   overlayClassName={styles.popover}
                   placement="bottomRight"
-                  content={
-                    <MenuMobilePopover
-                      user={user}
-                      unreadNotificationsId={unreadNotificationsId}
-                      notificationsCount={notificationsCount}
-                      removeAllStorage={removeAllStorage}
-                      showNotification={showNotification}
-                      setShowNotification={setShowNotification}
-                    />
-                  }
+                  content={<MenuMobilePopover removeAllStorage={removeAllStorage} />}
                   visible={showNotification}
                   onVisibleChange={(visible) => setShowNotification(visible)}
                   trigger="click">
@@ -319,7 +311,7 @@ const Header = ({ user, path }) => {
                     </div>
                   }
                   onClick={() => {
-                    setShowModal(!showModal);
+                    setShowModal(true);
                   }}
                 />
               )}
@@ -332,9 +324,16 @@ const Header = ({ user, path }) => {
             </span>
           </div>
         </div>
-        {isOpen && <MenuLinks isOpen={isOpen} user={user} />}
+        {isOpen && (
+          <MenuLinks
+            isOpen={isOpen}
+            user={user}
+            setShowModal={setShowModal}
+            handleMenuOpen={handleMenuOpen}
+          />
+        )}
       </header>
-      {user && <ModalInviteMembers showModal={showModal} setShowModal={setShowModal} user={user} />}
+      <ModalInviteMembers showModal={showModal} setShowModal={setShowModal} user={user} />
     </div>
   );
 };
@@ -347,124 +346,6 @@ Header.propTypes = {
 Header.defaultProps = {
   user: null,
   path: '',
-};
-
-const MenuLinks = ({ isOpen, user }) => {
-  const initialLinks = [
-    {
-      text: 'About Us',
-      link: 'about',
-    },
-    {
-      text: 'Terms',
-      link: 'terms',
-    },
-    {
-      text: 'Privacy Policy',
-      link: 'privacy-policy',
-    },
-  ];
-
-  const links = initialLinks.map((link, i) => (
-    <li className={styles.menu_item} key={i}>
-      <Link href={`/${link.link}`}>
-        <a>{link.text}</a>
-      </Link>
-    </li>
-  ));
-  return (
-    <div id="menu" className={`${styles.mobile_menu} ${isOpen && styles.isOpen}`}>
-      <div className={styles.menu_inner}>
-        <div className={styles.mobile_div_part1}>
-          {user ? (
-            <>
-              <ul className={styles.main_list}>
-                {/* <li className={styles.menu_item}>
-                  <Link href="/collaborations?compensationModel=paid">Paid projects</Link>
-                </li> */}
-                <li className={styles.menu_item}>
-                  <Link href="/collaborations">Collabs</Link>
-                </li>
-                <li className={styles.menu_item}>
-                  <Link href="/profiles">People</Link>
-                </li>
-                <li className={styles.menu_item}>
-                  <Link href="/create-a-story/start">Create a collab</Link>
-                </li>
-                {/* <li className={styles.menu_item}>
-                  <Link href="/pricing">Go Pro</Link>
-                </li> */}
-              </ul>
-              <ul className={cn(`${styles.main_list} ${styles.ul_login}`)}>
-                <li className={styles.menu_item}>
-                  <Link href="/my-profile">Profile</Link>
-                </li>
-                {/* <li className={styles.menu_item}>
-                  <Link href="/collaborations?compensationModel=paid">Work Availability</Link>
-                </li> */}
-                <li className={styles.menu_item}>
-                  <Link href="/my-profile">My Notifications</Link>
-                </li>
-                {/* <li className={styles.menu_item}>
-                  <Link href="/settings">Account settings</Link>
-                </li> */}
-                <li className={styles.menu_item} onClick={removeAllStorage}>
-                  <Link href="/sign-in">Sign out</Link>
-                </li>
-              </ul>
-            </>
-          ) : (
-            <ul className={styles.main_list}>
-              <li className={styles.menu_item}>
-                <Link href="/sign-in">Sign in</Link>
-              </li>
-              {/* <li className={styles.menu_item}>
-                <Link href="/collaborations?compensationModel=paid">Paid projects</Link>
-              </li> */}
-              <li className={styles.menu_item}>
-                <Link href="/collaborations">Collabs</Link>
-              </li>
-              <li className={styles.menu_item}>
-                <Link href="/create-a-story/start">Create a collab</Link>
-              </li>
-              <li className={styles.menu_item}>
-                <Link href="/profiles">People</Link>
-              </li>
-              {/* <li className={styles.menu_item}>
-                <Link href="/pricing">Go Pro</Link>
-              </li> */}
-            </ul>
-          )}
-        </div>
-        <div className={styles.mobile_div_part2}>
-          <ul className={styles.links}>{links}</ul>
-          <div className={styles.image_block}>
-            <Imgix
-              width={257}
-              height={236}
-              layout="fixed"
-              src={
-                user
-                  ? 'https://mangafy.club/img/Frame2.webp'
-                  : 'https://mangafy.club/img/Frame.webp'
-              }
-              alt=""
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-MenuLinks.propTypes = {
-  isOpen: PropTypes.bool,
-  user: PropTypes.object,
-};
-
-MenuLinks.defaultProps = {
-  isOpen: false,
-  user: null,
 };
 
 export default Header;

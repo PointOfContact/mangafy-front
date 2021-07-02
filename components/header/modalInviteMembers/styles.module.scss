@@ -161,6 +161,7 @@ $borderColor: #f0f0f0;
         font-weight: normal;
         font-size: 15px;
         line-height: 22px;
+        background-color: white;
         &::placeholder {
           position: absolute;
           color: $gray85;
