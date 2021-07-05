@@ -80,7 +80,7 @@ $repeat: 5;
   }
 }
 
-.contribiutContent {
+.contributeContent {
   width: 100%;
   max-width: 155px;
   min-width: 155px;
@@ -94,9 +94,7 @@ $repeat: 5;
     justify-content: center;
     align-items: center;
     font-size: $text4;
-    @include media-sm {
-      height: 28px;
-    }
+    margin-top: 10px;
   }
   @include media-sm {
     position: absolute;
@@ -117,7 +115,7 @@ $repeat: 5;
       .editBtns {
         top: 0px !important;
       }
-      .contribiutContent {
+      .contributeContent {
         top: 0px;
       }
     }
@@ -156,9 +154,6 @@ $repeat: 5;
 
 .addBtn {
   margin-left: 35px;
-  @include media-sm {
-    display: none;
-  }
   img {
     max-width: 200px;
   }

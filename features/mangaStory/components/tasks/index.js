@@ -140,7 +140,7 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipent }) => {
                     </Popconfirm>
                   </div>
                 ) : (
-                  <div className={styles.contribiutContent}>
+                  <div className={styles.contributeContent}>
                     {!isParticipent && (
                       <PrimaryButton
                         onClick={() => {

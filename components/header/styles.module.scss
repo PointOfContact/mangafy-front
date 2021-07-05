@@ -1,6 +1,6 @@
 @import '../../styles/variables.scss';
 
-.body_scrool {
+.body_scroll {
   overflow: hidden;
   height: 100vh !important;
 }
@@ -385,7 +385,7 @@
     padding-top: 10px !important;
     margin-top: 0px;
   }
-  .menu_item a {
+  .menu_item a, .menu_item div {
     color: #fff;
     font-weight: 700;
     margin-left: 0;
@@ -458,7 +458,7 @@
     }
     .menu_item {
       padding: 5px 0;
-      a {
+      a, div {
         color: $black;
         padding: 0;
         line-height: normal;
@@ -506,7 +506,7 @@
   .header {
     .menu_item {
       padding: 5px 0;
-      a {
+      a, div {
         font-size: 18px;
         line-height: 22px;
       }

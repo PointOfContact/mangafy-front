@@ -157,9 +157,9 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
   const isShowModal = () => {
     const el = document.body;
     if (showModal) {
-      el.classList.add(styles.body_scrool);
+      el.classList.add(styles.body_scroll);
     } else {
-      el.classList.remove(styles.body_scrool);
+      el.classList.remove(styles.body_scroll);
     }
   };
 
