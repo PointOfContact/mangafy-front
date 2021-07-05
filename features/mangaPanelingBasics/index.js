@@ -6,28 +6,39 @@ import Header from 'components/header';
 import Imgix from 'components/imgix';
 import { ShareButtons } from 'components/share';
 import ButtonToTop from 'components/ui-elements/button-toTop';
-import Head from 'next/head';
+import { NextSeo } from 'next-seo';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
 const MangaPanelingBasics = ({ user }) => (
   <>
-    <Head>
-      <title>Manga Paneling Basics</title>
-      <meta
-        name="description"
-        content="Hey All, in this first tutorial on MangaFY, we'd like to share with you the paneling basics for Manga, by our very own team member and consultant, Mina Petrovic."
-      />
-      <meta property="og:url" content="https://mangafy.club/resources/manga-paneling-basics" />
-      <meta property="og:type" content="article" />
-      <meta property="og:title" content="Manga Paneling Basics" />
-      <meta
-        property="og:description"
-        content="Hey All, in this first tutorial on MangaFY, we'd like to share with you the paneling basics for Manga, by our very own team member and consultant, Mina Petrovic."
-      />
-      <meta property="og:image" content="https://mangafy.club/img/setovi.jpg" />
-    </Head>
+    <NextSeo
+      title="Manga Paneling Basics"
+      description="Hey All, in this first tutorial on MangaFY, we'd like to share with you the paneling basics for Manga, by our very own team member and consultant, Mina Petrovic."
+      canonical="https://mangafy.club/resources/manga-paneling-basics"
+      openGraph={{
+        url: 'https://mangafy.club/resources/manga-paneling-basics',
+        title: 'Manga Paneling Basics',
+        description:
+          "Hey All, in this first tutorial on MangaFY, we'd like to share with you the paneling basics for Manga, by our very own team member and consultant, Mina Petrovic.",
+        type: 'article',
+        images: [
+          {
+            url: 'https://mangafy.club/img/setovi.jpg',
+            width: 800,
+            height: 600,
+            alt: 'Manga Story Image',
+          },
+        ],
+        site_name: 'MangaFY',
+      }}
+      twitter={{
+        handle: '@handle',
+        site: '@site',
+        cardType: 'summary_large_image',
+      }}
+    />
     <ButtonToTop />
     <div className={'wrapper'}>
       <div className={'content'}>
