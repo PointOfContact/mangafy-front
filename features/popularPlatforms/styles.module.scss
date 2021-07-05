@@ -50,11 +50,14 @@
     margin-bottom: 0;
   }
   h2 {
-    font-size: 1.5rem;
+    font-size: 1.9rem;
     margin-top: 1.5rem;
   }
+  h3{
+    font-size: 1.3rem;
+  }
   .pageTitle {
-    font-size: 2.5rem;
+    font-size: 3rem;
     font-weight: 700;
     margin-top: 0;
     @include media-sm {
@@ -62,9 +65,11 @@
       margin-bottom: 0.75rem;
     }
   }
-  img {
-    width: 100%;
-    margin: 15px auto;
+  .italic{
+    font-style: italic;
+  }
+  .href{
+    color: gray;
   }
 }
 
