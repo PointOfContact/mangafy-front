@@ -34,16 +34,12 @@
 .messageList,
 .messenger {
   padding-bottom: 15px;
-  max-height: 370px;
+  max-height: 504px;
   min-height: 370px;
   overflow-y: auto;
-  @include media-lg {
-    max-height: 360px;
-    min-height: 360px;
-  }
   @include media-sm {
-    max-height: 274px !important;
-    min-height: 274px !important;
+    max-height: 295px;
+    min-height: 295px;
   }
   &::-webkit-scrollbar {
     height: 3px;
@@ -75,20 +71,27 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: bottom right;
+  height: 504px;
+  @include media-sm {
+    height: 295px;
+  }
   .message_list {
     & > div > div > div {
-      max-width: 203px;
+      max-width: 283px;
       min-width: 203px;
       font-weight: normal;
       font-size: 10px;
       line-height: 13px;
       color: #949494;
       margin-left: 40px;
-      padding-bottom: 18px !important;
+      padding-bottom: 20px !important;
+      padding-top: 16px !important;
+      padding-left: 12px !important;
       box-sizing: border-box;
       box-shadow: none;
       margin-top: 0;
       @include media-sm {
+        max-width: 203px;
         margin-left: 20px;
       }
       svg {
@@ -104,25 +107,11 @@
         margin-bottom: 0;
         & > div {
           left: -75px;
+          width: 50px !important;
+          height: 50px !important;
         }
       }
     }
-  }
-}
-.userName {
-  padding: 15px 20px 15px 20px;
-  font-style: normal;
-  font-weight: 900;
-  font-size: $text3;
-  line-height: 30px;
-  color: $black;
-  display: flex;
-  justify-content: space-between;
-
-  @include media-sm {
-    padding: 10px 10px 10px 10px;
-    font-size: $text4;
-    line-height: 26px;
   }
 }
 .name {
@@ -219,13 +208,13 @@
     }
   }
   span {
-    font-size: $text6;
+    font-size: 12px;
   }
 }
 
 .message_community {
   position: relative;
-  border-top: 2px solid rgba(33, 33, 33, 0.07);
+  border-bottom: 1px solid rgba(33, 33, 33, 0.07);
   padding: 15px 20px 15px 20px;
   background-color: $primaryBG;
   width: 95%;
@@ -325,49 +314,101 @@
 .chatContainer {
   width: 100%;
   .chatBlock2 {
-    margin-top: 20px;
-    margin-bottom: 10px;
     border-top: 1px solid $white;
     position: relative;
     width: 100%;
-    input {
-      width: calc(100% - 310px);
-      padding-top: 20px;
-      border: none !important;
-      &:focus {
-        outline: none !important;
-        box-shadow: none !important;
+    display: flex;
+    @include media-sm {
+      position: absolute;
+      left: 0;
+      flex-direction: column;
+    }
+    .messageInput {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      @include media-sm {
+        border-bottom: 1px solid rgba(33, 33, 33, 0.07);
       }
-      @include media-lg() {
-        width: 100%;
+      input {
+        padding: 0;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        margin-left: 30px;
+        border: none !important;
+        &:focus {
+          outline: none !important;
+          box-shadow: none !important;
+        }
+        &::placeholder {
+          font-weight: normal;
+          font-size: 16px;
+          line-height: 20px;
+          color: $gray85;
+        }
+        @include media-lg() {
+          width: 100%;
+        }
+        @include media-sm {
+          margin-left: 28px;
+        }
       }
+      // img{
+      //   width: 21px;
+      //   height: 21px;
+      //   margin-right: 31px;
+      // }
     }
   }
   .sendMessage {
     cursor: pointer;
-    position: absolute;
-    top: 8px;
-    right: 10px;
+    margin-top: 13px;
+    margin-bottom: 13px;
+    margin-right: 10px;
     @include media-lg() {
       position: unset;
       display: flex;
       justify-content: flex-end;
-      padding-right: 15px;
-      padding-top: 15px;
-      border-top: 2px solid rgba(33, 33, 33, 0.07);
-      margin-top: 15px;
     }
     @include media-sm {
-      margin-bottom: 30px;
+      margin-bottom: 20px;
+      margin-top: 20px;
     }
     button {
       font-size: $text4;
       height: 46px;
       display: inline-flex;
       justify-content: center;
+      font-family: bold;
       align-items: center;
       margin-left: 10px;
       padding: 0 25px;
+      height: 46px;
+      @include media-md {
+        font-size: 12px;
+      }
+      @include media-sm {
+        font-size: 14px;
+      }
+    }
+    .inviteButton {
+      width: 125px;
+      @include media-md {
+        width: 75px;
+      }
+      @include media-sm {
+        width: 125px;
+      }
+    }
+    .sendButton {
+      width: 158px;
+      @include media-md {
+        width: 95px;
+      }
+      @include media-sm {
+        width: 158px;
+      }
     }
   }
 }
@@ -400,12 +441,15 @@
   margin-left: auto;
 }
 .messText {
-  font-family: Noto Sans JP;
-  font-style: normal;
+  width: 226px;
   font-weight: normal;
-  font-size: 10px;
-  line-height: 13px;
+  font-size: 16px;
+  line-height: 18px;
   margin-bottom: 15px;
+  color: #949494;
+  @include media-sm{
+    font-size: 14px;
+  }
 }
 
 .statusContainer {
@@ -423,20 +467,6 @@
   font-size: 15px;
   line-height: 13px;
   margin-bottom: 10px;
-}
-
-.members {
-  color: $grey;
-  margin-left: 20px;
-  position: absolute;
-  // text-decoration: underline;
-  cursor: pointer;
-  font-size: $text5;
-  top: 57px;
-  @include media-sm() {
-    margin-left: 12px;
-    top: 45px;
-  }
 }
 
 // .participentsContent {

@@ -1,0 +1,55 @@
+@import '../../../../../styles/variables.scss';
+
+@mixin container {
+  .userName {
+    height: 80px;
+    margin-left: 30px;
+    font-style: normal;
+    font-weight: 900;
+    font-size: $text3;
+    line-height: 15px;
+    color: $black;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    @include media-sm {
+      font-weight: bold;
+      font-size: 20px;
+      line-height: 15px;
+      height: 26px;
+      margin-left: 29px;
+    }
+  }
+  .members {
+    color: $grey;
+    margin-left: 30px;
+    position: absolute;
+    cursor: pointer;
+    font-size: $text5;
+    top: 57px;
+    @include media-sm{
+      margin-left: 29px;
+      top: 30px;
+    }
+  }
+}
+
+.container {
+  @include container;
+  @include media-sm {
+    display: none;
+  }
+}
+
+.containerMobile {
+  @include container;
+  display: none;
+  @include media-sm {
+    display: block;
+    height: 51px;
+    margin-top: 8px;
+    position: relative;
+    // border-top: 1px solid rgba(33, 33, 33, 0.07);
+    border-bottom: 1px solid rgba(33, 33, 33, 0.07);
+  }
+}

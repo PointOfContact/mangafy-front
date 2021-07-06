@@ -10,6 +10,7 @@ import * as qs from 'query-string';
 import MessengerContent from './messengerContent';
 import MessengerList from './messengerList';
 import styles from './styles.module.scss';
+import UserName from './userName';
 
 const TabMessenger = (props) => {
   const { user } = props;
@@ -161,7 +162,6 @@ const TabMessenger = (props) => {
         });
     });
   };
-
   return (
     <div>
       {/* <h2 className={cn(styles.title)}>Messenger</h2> */}
@@ -169,24 +169,29 @@ const TabMessenger = (props) => {
         <NoRequest />
       ) : (
         <div className={cn(styles.messenger_tab)}>
-          <div className={cn(styles.messenger_list)}>
-            <MessengerList
-              arcRequests={arcRequests}
-              getConversation={getConversation}
-              showArchive={showArchive}
-              requests={requests}
-              selectedRequest={selectedRequest}
-              setSelectedRequest={setSelectedRequest}
-            />
-          </div>
-          <div className={cn(styles.messenger_content)}>
-            <MessengerContent
-              user={user}
-              selectedRequest={selectedRequest}
-              requests={requests}
-              setRequests={setRequests}
-              setSelectedRequest={setSelectedRequest}
-            />
+          {/* <SearchInput mobile={true} /> */}
+          <UserName selectedRequest={selectedRequest} mobile={true} />
+          <div className={styles.content}>
+            <div className={cn(styles.messenger_list)}>
+              <MessengerList
+                user={user}
+                arcRequests={arcRequests}
+                getConversation={getConversation}
+                showArchive={showArchive}
+                requests={requests}
+                selectedRequest={selectedRequest}
+                setSelectedRequest={setSelectedRequest}
+              />
+            </div>
+            <div className={cn(styles.messenger_content)}>
+              <MessengerContent
+                user={user}
+                selectedRequest={selectedRequest}
+                requests={requests}
+                setRequests={setRequests}
+                setSelectedRequest={setSelectedRequest}
+              />
+            </div>
           </div>
         </div>
       )}
