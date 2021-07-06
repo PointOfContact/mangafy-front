@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import { Comment, List, Form, Input } from 'antd';
 import client from 'api/client';
+import cn from 'classnames';
 import Imgix from 'components/imgix';
 import Avatar from 'components/ui-elements/avatar';
 import LargeButton from 'components/ui-elements/large-button';
@@ -25,7 +26,7 @@ const CommentList = ({ comments }) => (
       itemLayout="horizontal"
       renderItem={(commentItem) => (
         <Comment
-          datetime={commentItem.createdAt}
+          datetime={moment(commentItem.createdAt)?.format('MMMM Do YYYY, h:mm:ss a')}
           {...commentItem}
           author={commentItem.senderInfo[0] && commentItem.senderInfo[0].name}
           avatar={
@@ -96,7 +97,7 @@ Editor.defaultProps = {
   user: null,
 };
 
-export const Comments = ({ commentsData, mangaStory, user, isOwn }) => {
+export const Comments = ({ commentsData, mangaStory, user }) => {
   const [comments, setComments] = useState(commentsData);
   const [submitting, setSubmitting] = useState(false);
   const [value, setValue] = useState('');
@@ -135,8 +136,8 @@ export const Comments = ({ commentsData, mangaStory, user, isOwn }) => {
           res.avatar = client.UPLOAD_URL + user.avatar;
           res.datetime = moment().format('MMMM Do YYYY, h:mm:ss a');
           res.author = user.name;
-          const commentsData = [{ ...res }, ...comments];
-          setComments(commentsData);
+          const newCommentsData = [{ ...res }, ...comments];
+          setComments(newCommentsData);
           setSubmitting(false);
           setValue('');
           const eventData = [
@@ -158,14 +159,11 @@ export const Comments = ({ commentsData, mangaStory, user, isOwn }) => {
         });
     });
   };
-  useEffect(() => {
-    const orderAs = '$sort[createdAt]';
-  }, [comments.length]);
   return (
     <>
       <h2 className={styles.subTitle}> {comments?.length} Comments</h2>
       {comments.length > 0 && (
-        <div className="commentsBlock">
+        <div className={cn(styles.comments, 'commentsBlock')}>
           <CommentList comments={comments} />
         </div>
       )}
