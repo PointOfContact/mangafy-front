@@ -85,6 +85,17 @@ const ProfileTopBar = (props) => {
             }
           )
           .then((res) => {
+            const data = [
+              {
+                platform: 'WEB',
+                event_type: EVENTS.START_CHAT,
+                user_id: user._id,
+                user_properties: {
+                  ...user,
+                },
+              },
+            ];
+            amplitude.track(data);
             history.push(`/my-profile?tab=messenger&conversation=${res._id}`);
           })
           .catch((err) => {

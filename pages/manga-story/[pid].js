@@ -1,13 +1,10 @@
 import client from 'api/client';
 import { withAuthComponent, withAuthServerSideProps } from 'components/withAuth';
 import MangeStory from 'features/mangaStory';
-import absoluteUrl from 'next-absolute-url';
 import { store } from 'store';
 
 export default withAuthComponent(MangeStory);
-export const getServerSideProps = withAuthServerSideProps(async (context, user = null, jwt) => {
-  const { origin } = absoluteUrl(context.req);
-
+export const getServerSideProps = withAuthServerSideProps(async (context, user = null) => {
   try {
     user = user || store.user;
     const genres = await client.service('/api/v2/genres').find({
@@ -25,6 +22,8 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
       comments = await client.service('/api/v2/comments').find({
         query: {
           mangaStoryId: context.params.pid,
+          $sort: { createdAt: -1 },
+          $limit: 1000,
         },
       });
       isParticipent = user && res.participents.includes(user._id);
@@ -67,15 +66,3 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
     }
   }
 });
-
-MangeStory.getInitialProps = async ({ req }) => {
-  let protocol = 'https:';
-  const host = req ? req.headers.host : window.location.hostname;
-  if (host.indexOf('localhost') > -1) {
-    protocol = 'http:';
-  }
-
-  return {
-    host,
-  };
-};
