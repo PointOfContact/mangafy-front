@@ -8,6 +8,7 @@ import SvgShareColored from 'components/icon/ShareColored';
 import Imgix from 'components/imgix';
 import { ShareButtons } from 'components/share';
 import { Comments } from 'components/type-content/comments';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import Link from 'next/link';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
@@ -31,6 +32,10 @@ const ModalDiscussion = ({
   const [commentsData, setCommentsData] = useState([]);
   const [likesData, setLikesData] = useState([]);
   const [isLiked, setIsLiked] = useState(false);
+
+  const Amplitude = require('amplitude');
+
+  const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 
   useEffect(() => {
     if (showModal) {
@@ -68,7 +73,22 @@ const ModalDiscussion = ({
             mode: 'no-cors',
           }
         )
-        .then((res) => setLikesData([...likesData, { ...res }]), setIsLiked(true))
+        .then((res) => {
+          const eventData = [
+            {
+              platform: 'WEB',
+              event_type: EVENTS.POST_LIKE,
+              event_properties: { postLike: res._id, postId: res.postId },
+              user_id: user._id,
+              user_properties: {
+                ...user,
+              },
+            },
+          ];
+          amplitude.track(eventData);
+          setLikesData([...likesData, { ...res }]);
+          setIsLiked(true);
+        })
         .catch((err) => {
           openNotification('error', err.message);
         });
