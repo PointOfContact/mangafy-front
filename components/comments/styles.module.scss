@@ -11,6 +11,12 @@
     }
   }
 }
+
 .subTitle {
   font-size: $text2;
+}
+
+.comments {
+  max-height: 300px;
+  overflow: auto;
 }
