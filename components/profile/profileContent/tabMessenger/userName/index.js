@@ -21,7 +21,7 @@ const UserName = ({ selectedRequest, mobile }) => {
   };
   return (
     <div className={mobile ? styles.containerMobile : styles.container}>
-      {Object.values(selectedRequest).length && (
+      {!!Object.values(selectedRequest).length && (
         <div className={styles.userName}>
           {getPath() ? (
             <Link href={getPath()}>
