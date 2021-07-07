@@ -11,10 +11,10 @@ import Router from 'next/router';
 import PropTypes from 'prop-types';
 import { MessageList } from 'react-chat-elements';
 
-import { patchRequest } from '../../../../../api/joinMangaStoryRequestClient';
-import styles from './styles.module.scss';
-
 import 'react-chat-elements/dist/main.css';
+import { patchRequest } from '../../../../../api/joinMangaStoryRequestClient';
+import UserName from '../userName';
+import styles from './styles.module.scss';
 
 const Amplitude = require('amplitude');
 
@@ -157,9 +157,9 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
   const isShowModal = () => {
     const el = document.body;
     if (showModal) {
-      el.classList.add(styles.body_scrool);
+      el.classList.add(styles.body_scroll);
     } else {
-      el.classList.remove(styles.body_scrool);
+      el.classList.remove(styles.body_scroll);
     }
   };
 
@@ -257,20 +257,9 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
   //     ))}
   //   </div>
   // );
-
   return (
     <div className={styles.chatContainer}>
-      <div className={styles.userName}>{name}</div>
-      {selectedRequest.isTeamChat && selectedRequest.rid && (
-        // <Popover
-        //   placement="bottomLeft"
-        //   title={'Members'}
-        //   content={members(selectedRequest.participentsInfo)}
-        //   trigger="click">
-        <p className={styles.members}>{selectedRequest?.participentsInfo?.length} members </p>
-        // </Popover>
-      )}
-
+      {selectedRequest.participentsInfo && <UserName selectedRequest={selectedRequest} />}
       <div className={styles.messageList} id="message-content">
         <MessageList
           ref={messanger}
@@ -291,17 +280,30 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
       </div>
       {!selectedRequest?.isArchive && (
         <div className={styles.chatBlock2}>
-          <Input
-            placeholder="Type here..."
-            value={value}
-            onChange={handleChange}
-            onKeyPress={handleKeyPressSend}
-          />
+          <div className={styles.messageInput}>
+            <Input
+              maxLength={490}
+              placeholder="Type your message..."
+              value={value}
+              onChange={handleChange}
+              onKeyPress={handleKeyPressSend}
+            />
+            {/* <img src={'/img/smileMessage.png'} alt="smile" /> */}
+          </div>
           <span className={styles.sendMessage}>
             {!selectedRequest.isTeamChat && (
-              <PrimaryButton isActive={true} text="Send Invite" onClick={() => sendMessage(true)} />
+              <PrimaryButton
+                isActive={true}
+                text="INVITE"
+                className={styles.inviteButton}
+                onClick={() => sendMessage(true)}
+              />
             )}
-            <PrimaryButton text="Send Message" onClick={() => sendMessage(false)} />
+            <PrimaryButton
+              className={styles.sendButton}
+              text="SEND"
+              onClick={() => sendMessage(false)}
+            />
           </span>
         </div>
       )}
@@ -321,13 +323,15 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
 MessengerContent.propTypes = {
   user: PropTypes.object.isRequired,
   selectedRequest: PropTypes.object.isRequired,
-  requests: PropTypes.object.isRequired,
-  setRequests: PropTypes.func.isRequired,
+  requests: PropTypes.object,
+  setRequests: PropTypes.func,
   setSelectedRequest: PropTypes.func.isRequired,
 };
 
 MessengerContent.defaultProps = {
   avatar: '',
+  requests: {},
+  setRequests: () => {},
 };
 
 export default MessengerContent;

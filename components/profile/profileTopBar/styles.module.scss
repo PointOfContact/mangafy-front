@@ -138,7 +138,14 @@
         margin-right: auto;
       }
     }
-
+    .followAndEditButton{
+      display: flex;
+      align-items: center;
+      & > div{
+        margin-top: 0;
+        margin-left: 10px;
+      }
+    }
     color: $black;
     h4 {
       font-weight: 900;

@@ -56,17 +56,12 @@ const findNotifications = (limit, onSuccess, onFailure) => {
   });
 };
 
-const MenuNotificationsBox = ({
-  user,
-  unreadNotificationsId,
-  notificationsCount,
-  showModal,
-  setShowModal,
-}) => {
+const MenuNotificationsBox = ({ user, unreadNotificationsId, notificationsCount }) => {
   const [notifications, setNotifications] = useState(unreadNotificationsId);
   const [allNot, setAllNot] = useState(false);
   const [moreUpdatesCount, setMoreUpdatesCount] = useState(0);
   const [isAllNot, setIsAllNot] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const getNotifications = useCallback(
     (limit = 10) => {
@@ -198,15 +193,11 @@ MenuNotificationsBox.propTypes = {
   notificationsCount: PropTypes.number,
   showNotification: PropTypes.bool,
   setShowNotification: PropTypes.func,
-  setShowModal: PropTypes.func,
-  showModal: PropTypes.bool,
 };
 MenuNotificationsBox.defaultProps = {
   notificationsCount: null,
   showNotification: false,
   setShowNotification: () => {},
-  setShowModal: () => {},
-  showModal: false,
 };
 
 export default MenuNotificationsBox;

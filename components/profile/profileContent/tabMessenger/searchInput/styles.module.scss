@@ -1,0 +1,57 @@
+@import '../../../../../styles/variables.scss';
+
+@mixin inputShare {
+  max-height: 50px;
+  margin-left: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 60px;
+  border: 1px solid $black;
+  &:hover {
+    border: 1px solid $primaryDark;
+  }
+  input {
+    height: 40px;
+    border: none;
+    border-radius: 20px;
+    padding-left: 21px;
+    box-sizing: border-box;
+    &::placeholder {
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 23px;
+      color: $black;
+    }
+  }
+  .searchIcon {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding-right: 14px;
+    box-sizing: border-box;
+  }
+}
+
+.container {
+  max-width: 260px;
+  margin-top: 29px;
+  @include inputShare;
+  @include media-md {
+    margin-left: 7px;
+  }
+  @include media-sm {
+    display: none;
+  }
+}
+
+.containerMobile {
+  @include inputShare;
+  display: none;
+  @include media-sm {
+    display: flex;
+    max-width: 375px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+}

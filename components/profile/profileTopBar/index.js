@@ -85,6 +85,17 @@ const ProfileTopBar = (props) => {
             }
           )
           .then((res) => {
+            const data = [
+              {
+                platform: 'WEB',
+                event_type: EVENTS.START_CHAT,
+                user_id: user._id,
+                user_properties: {
+                  ...user,
+                },
+              },
+            ];
+            amplitude.track(data);
             history.push(`/my-profile?tab=messenger&conversation=${res._id}`);
           })
           .catch((err) => {
@@ -169,9 +180,9 @@ const ProfileTopBar = (props) => {
   const isShowModal = () => {
     const el = document.body;
     if (showModal) {
-      el.classList.add(styles.body_scrool);
+      el.classList.add(styles.body_scroll);
     } else {
-      el.classList.remove(styles.body_scrool);
+      el.classList.remove(styles.body_scroll);
     }
   };
 
@@ -234,10 +245,10 @@ const ProfileTopBar = (props) => {
                 <p>{userTypesEnums[userData?.type || profile?.type]}</p>
 
                 {userData ? (
-                  <>
+                  <div className={styles.followAndEditButton}>
                     <PrimaryButton
                       text="Edit"
-                      splitterStyle={{ width: '120px', fontSize: '15px' }}
+                      splitterStyle={{ width: '116px', height: '46', fontSize: '15px' }}
                       onClick={() => setEditMode(true)}
                     />
                     <Follow
@@ -247,7 +258,7 @@ const ProfileTopBar = (props) => {
                       likedUsers={user?.likedUsers}
                       setLikedUsers={setLikedUsers}
                     />
-                  </>
+                  </div>
                 ) : (
                   <>
                     <Follow
