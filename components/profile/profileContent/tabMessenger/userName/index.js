@@ -12,8 +12,8 @@ const UserName = ({ selectedRequest, mobile }) => {
       : selectedRequest?.participentsInfo[1]._id;
 
     // TODO
-    const collabsId = selectedRequest.mangaCtorId
-      ? selectedRequest.mangaCtorId
+    const collabsId = selectedRequest.mangaStoryId
+      ? selectedRequest.mangaStoryId
       : '60dce360b5f1ef7d20948b40';
 
     const url = selectedRequest.isTeamChat ? `/manga-story/${collabsId}` : `/profile/${userId}`;

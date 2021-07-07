@@ -290,12 +290,14 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
             {/* <img src={'/img/smileMessage.png'} alt="smile" /> */}
           </div>
           <span className={styles.sendMessage}>
-            <PrimaryButton
-              isActive={true}
-              text="INVITE"
-              className={styles.inviteButton}
-              onClick={() => sendMessage(true)}
-            />
+            {!selectedRequest.isTeamChat && (
+              <PrimaryButton
+                isActive={true}
+                text="INVITE"
+                className={styles.inviteButton}
+                onClick={() => sendMessage(true)}
+              />
+            )}
             <PrimaryButton
               className={styles.sendButton}
               text="SEND"
