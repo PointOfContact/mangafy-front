@@ -33,11 +33,15 @@ const CommentList = ({ comments }) => (
             commentItem.senderInfo[0] && (
               <>
                 {commentItem.senderInfo[0].avatar ? (
-                  <Imgix
-                    width={40}
-                    height={40}
-                    src={client.UPLOAD_URL + commentItem.senderInfo[0].avatar}
-                  />
+                  <Link href={`/profile/${commentItem.senderId}`}>
+                    <a>
+                      <Imgix
+                        width={40}
+                        height={40}
+                        src={client.UPLOAD_URL + commentItem.senderInfo[0].avatar}
+                      />
+                    </a>
+                  </Link>
                 ) : (
                   <Avatar text={commentItem?.senderInfo[0]?.name} size={40} />
                 )}

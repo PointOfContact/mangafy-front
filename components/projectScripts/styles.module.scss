@@ -28,20 +28,14 @@
       width: 220px !important;
     }
   }
-  .delete {
-    top: 82%;
-    display: block;
-    @include media-sm {
-      top: 85%;
-    }
-  }
+  .scriptDef,
   .script {
+    width: 300px;
     position: relative;
     box-sizing: border-box;
     transition: width 0.5s;
     height: 687px;
     border-right: 0.5px solid rgba(33, 33, 33, 0.07);
-    width: 250px;
     display: inline-block;
     white-space: normal;
     cursor: pointer;
@@ -51,9 +45,11 @@
     }
     &:hover {
       .text {
-        svg {
-          path {
-            fill: $primaryDark;
+        .titleButton {
+          svg {
+            path {
+              fill: $primaryDark;
+            }
           }
         }
         h4 {
@@ -83,22 +79,6 @@
         align-items: center;
         flex-direction: column;
       }
-      // form {
-      //   textarea {
-      //     transition: 0.5s;
-      //     width: 170px;
-      //     @include media-sm {
-      //       width: 120px;
-      //     }
-      //   }
-      //   input {
-      //     transition: 0.5s;
-      //     width: 170px;
-      //     @include media-sm {
-      //       width: 120px;
-      //     }
-      //   }
-      // }
       .addButtonContainer {
         max-width: 267px;
         max-height: 251px;
@@ -147,6 +127,9 @@
         font-weight: normal;
         font-size: 25px;
         line-height: 36px;
+        svg path {
+          fill: #e5e0fd;
+        }
         color: #b6b2b2;
         margin: 0;
       }
@@ -193,12 +176,8 @@
       }
     }
   }
-  .script {
-    width: 300px;
-    @include media-sm {
-      width: 100%;
-      height: 417px;
-    }
+  .scriptDef{
+    width: 250px;
   }
   .disabled {
     &:hover {
@@ -216,6 +195,7 @@
     cursor: not-allowed;
   }
   .delete {
+    top: 82%;
     position: absolute;
     bottom: 20px;
     cursor: pointer;
@@ -228,6 +208,9 @@
           fill: red;
         }
       }
+    }
+    @include media-sm {
+      top: 85%;
     }
   }
 }
@@ -251,15 +234,15 @@
   @include media-xs {
     margin-top: 0px;
   }
-  .titleError{
+  .titleError {
     position: absolute;
     top: 130px;
     left: 76px;
     color: rgb(228, 74, 74);
-    @include media-md{
+    @include media-md {
       left: 50px;
     }
-    @include media-xs{
+    @include media-xs {
       top: 90px;
       left: 20px;
       font-size: 12px;
@@ -292,7 +275,7 @@
           @include media-xs {
             height: 120px;
           }
-          .titleInput{
+          .titleInput {
             border: 1px solid red;
           }
           div {
@@ -415,7 +398,7 @@
             width: 190px;
           }
           @include media-xs {
-            width: 60px;
+            width: 64px;
             font-size: 18px;
           }
         }
@@ -465,11 +448,11 @@
             color: $gray85;
             line-height: 40px;
             position: relative;
-            top: -15px;
+            top: -6px;
             @include media-lg {
               line-height: 30px;
               font-size: 16px;
-              top: -10px;
+              top: 0px;
             }
           }
         }

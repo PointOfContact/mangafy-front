@@ -4,18 +4,20 @@
   .userName {
     height: 80px;
     margin-left: 30px;
-    font-style: normal;
-    font-weight: 900;
-    font-size: $text3;
-    line-height: 15px;
-    color: $black;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    @include media-sm {
-      font-weight: bold;
-      font-size: 20px;
+    a {
+      font-style: normal;
+      font-weight: 900;
+      font-size: $text3;
       line-height: 15px;
+      color: $black;
+    }
+    @include media-sm {
+      a{
+        font-weight: bold;
+      }
       height: 26px;
       margin-left: 29px;
     }
@@ -27,7 +29,7 @@
     cursor: pointer;
     font-size: $text5;
     top: 57px;
-    @include media-sm{
+    @include media-sm {
       margin-left: 29px;
       top: 30px;
     }

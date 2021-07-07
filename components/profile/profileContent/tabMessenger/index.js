@@ -56,7 +56,7 @@ const TabMessenger = (props) => {
                 messages: item.lastMessage,
               }))
               ?.reverse();
-            if (newRequests.lengt === res.length && showArchive) setShowArchive(false);
+            if (newRequests.length === res.length && showArchive) setShowArchive(false);
           } else {
             newRequests = res
               .map((item) => ({

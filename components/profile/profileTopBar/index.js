@@ -245,10 +245,10 @@ const ProfileTopBar = (props) => {
                 <p>{userTypesEnums[userData?.type || profile?.type]}</p>
 
                 {userData ? (
-                  <>
+                  <div className={styles.followAndEditButton}>
                     <PrimaryButton
                       text="Edit"
-                      splitterStyle={{ width: '120px', fontSize: '15px' }}
+                      splitterStyle={{ width: '116px', height: '46', fontSize: '15px' }}
                       onClick={() => setEditMode(true)}
                     />
                     <Follow
@@ -258,7 +258,7 @@ const ProfileTopBar = (props) => {
                       likedUsers={user?.likedUsers}
                       setLikedUsers={setLikedUsers}
                     />
-                  </>
+                  </div>
                 ) : (
                   <>
                     <Follow
