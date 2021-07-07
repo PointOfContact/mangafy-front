@@ -10,23 +10,27 @@
   color: $black;
 }
 .messenger_tab {
-  display: flex;
-  justify-content: space-between;
   margin: 0 -25px;
-  height: 100%;
-
-  .messenger_list {
-    width: 30%;
-    height: 100%;
-    border-right: 2px solid rgba(33, 33, 33, 0.07);
-    @include media-sm {
-      width: 20%;
-    }
+  height: 655px;
+  @include media-sm {
+    height: 614px;
   }
-  .messenger_content {
-    width: 70%;
-    @include media-sm {
-      width: 80%;
+  .content {
+    display: flex;
+    .messenger_list {
+      width: 316px;
+      height: 100%;
+      border-right: 1px solid rgba(33, 33, 33, 0.07);
+      @include media-sm {
+        width: 111px;
+        height: 355px;
+      }
+    }
+    .messenger_content {
+      width: 70%;
+      @include media-sm {
+        width: 80%;
+      }
     }
   }
 }

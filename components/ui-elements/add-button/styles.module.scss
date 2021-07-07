@@ -12,7 +12,7 @@
     }
     svg {
       path {
-        fill: $primaryDark;
+        fill: $primaryLight;
       }
     }
   }
@@ -24,8 +24,11 @@
   span {
     font-weight: 500;
     font-size: 16px;
-    color: $silver;
+    color: #7b7b7b;
     margin-right: 7px;
+    &:hover {
+      color: #afabab;
+    }
   }
   svg {
     padding: 0;
@@ -33,7 +36,7 @@
     border-radius: 50%;
     fill: inherit;
     path {
-      fill: #e5e0fd;
+      fill: $primaryDark;
     }
     defs {
       display: none;

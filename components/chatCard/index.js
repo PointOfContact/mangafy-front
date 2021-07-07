@@ -107,16 +107,16 @@ const ChatCard = ({
               {senderInfo.avatar ? (
                 <Imgix
                   className="avatar"
-                  width={104}
-                  height={104}
+                  width={51}
+                  height={51}
                   src={client.UPLOAD_URL + senderInfo.avatar}
                 />
               ) : (
                 (isTeamChat && (
                   <Imgix
                     className="avatar"
-                    width={104}
-                    height={104}
+                    width={51}
+                    height={51}
                     src={'https://mangafy.club/img/mangastory.webp'}
                   />
                 )) || <Avatar text={senderInfo.name} className={styles.avatarName} fontSize={50} />

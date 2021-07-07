@@ -11,10 +11,10 @@ import Router from 'next/router';
 import PropTypes from 'prop-types';
 import { MessageList } from 'react-chat-elements';
 
-import { patchRequest } from '../../../../../api/joinMangaStoryRequestClient';
-import styles from './styles.module.scss';
-
 import 'react-chat-elements/dist/main.css';
+import { patchRequest } from '../../../../../api/joinMangaStoryRequestClient';
+import UserName from '../userName';
+import styles from './styles.module.scss';
 
 const Amplitude = require('amplitude');
 
@@ -257,20 +257,9 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
   //     ))}
   //   </div>
   // );
-
   return (
     <div className={styles.chatContainer}>
-      <div className={styles.userName}>{name}</div>
-      {selectedRequest.isTeamChat && selectedRequest.rid && (
-        // <Popover
-        //   placement="bottomLeft"
-        //   title={'Members'}
-        //   content={members(selectedRequest.participentsInfo)}
-        //   trigger="click">
-        <p className={styles.members}>{selectedRequest?.participentsInfo?.length} members </p>
-        // </Popover>
-      )}
-
+      <UserName selectedRequest={selectedRequest} />
       <div className={styles.messageList} id="message-content">
         <MessageList
           ref={messanger}
@@ -291,17 +280,29 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
       </div>
       {!selectedRequest?.isArchive && (
         <div className={styles.chatBlock2}>
-          <Input
-            placeholder="Type here..."
-            value={value}
-            onChange={handleChange}
-            onKeyPress={handleKeyPressSend}
-          />
+          <div className={styles.messageInput}>
+            <Input
+              placeholder="Type your message..."
+              value={value}
+              onChange={handleChange}
+              onKeyPress={handleKeyPressSend}
+            />
+            {/* <img src={'/img/smileMessage.png'} alt="smile" /> */}
+          </div>
           <span className={styles.sendMessage}>
             {!selectedRequest.isTeamChat && (
-              <PrimaryButton isActive={true} text="Send Invite" onClick={() => sendMessage(true)} />
+              <PrimaryButton
+                isActive={true}
+                text="INVITE"
+                className={styles.inviteButton}
+                onClick={() => sendMessage(true)}
+              />
             )}
-            <PrimaryButton text="Send Message" onClick={() => sendMessage(false)} />
+            <PrimaryButton
+              className={styles.sendButton}
+              text="SEND"
+              onClick={() => sendMessage(false)}
+            />
           </span>
         </div>
       )}
