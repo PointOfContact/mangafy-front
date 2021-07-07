@@ -78,7 +78,7 @@ const Footer = () => (
             <Link href="/contact-us">
               <a className={styles.footer__itemLink}>Help & Support</a>
             </Link>
-            <Link href="/resources/manga-paneling-basics">
+            <Link href="/resources">
               <a className={styles.footer__itemLink}>Guides and Tutorials</a>
             </Link>
           </div>
