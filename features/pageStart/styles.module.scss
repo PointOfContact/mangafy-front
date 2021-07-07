@@ -106,7 +106,7 @@
         }
     }
     &__title {
-        max-width: 235px;
+        max-width: 236px;
         color: $black;
         font-size: $text2;
         font-weight: 700;
@@ -118,12 +118,14 @@
         display: flex;
         flex-direction: column;
     }
-    &__listItem {
-        color: $gray85;
-        font-size: $text3;
+    &__listItem {   
         display: flex;
         align-items: flex-start;
         margin-bottom: 20px;
+        a{
+            color: $gray85;
+            font-size: $text3;
+        }
         &:before {
             content: "";
             width: 20px;

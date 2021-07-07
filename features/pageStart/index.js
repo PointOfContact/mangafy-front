@@ -3,6 +3,7 @@ import React from 'react';
 import cn from 'classnames';
 import FooterPolicy from 'components/footer-policy';
 import Header from 'components/header';
+import Link from 'next/link';
 
 import styles from './styles.module.scss';
 
@@ -29,41 +30,70 @@ const pageStart = ({ user }) => (
             <div className={cn('container')}>
               <div className={styles.lists__wrap}>
                 <div className={styles.lists__item}>
-                  <div className={styles.lists__title}>Processes</div>
+                  <div className={styles.lists__title}>Getting started</div>
                   <ul className={styles.lists__list}>
-                    <li className={styles.lists__listItem}>MangaFY 101</li>
-                    <li className={styles.lists__listItem}>Collaboration</li>
-                    <li className={styles.lists__listItem}>Create a team</li>
-                    <li className={styles.lists__listItem}>Team administration</li>
+                    <li className={styles.lists__listItem}>
+                      <Link href={'/resources/manga-speech-basic'}>
+                        <a>Manga speech baisc</a>
+                      </Link>
+                    </li>
+                    <li className={styles.lists__listItem}>
+                      <Link href={'/resources/manga-paneling-basics'}>
+                        <a>Manga paneling baiscs</a>
+                      </Link>
+                    </li>
+                    <li className={styles.lists__listItem}>
+                      <Link href={`/resources/include-your-portfolio`}>
+                        <a>Include your portfolio</a>
+                      </Link>
+                    </li>
+                    <li className={styles.lists__listItem}>
+                      <Link href={'/resources/creating-project-and-collaborating'}>
+                        <a>Creating project and collaboration</a>
+                      </Link>
+                    </li>
                   </ul>
                 </div>
                 <div className={styles.lists__item}>
-                  <div className={styles.lists__title}>Ongoing</div>
+                  <div className={styles.lists__title}>{'Guides & Processes'}</div>
                   <ul className={styles.lists__list}>
-                    <li className={styles.lists__listItem}>Okrs</li>
-                    <li className={styles.lists__listItem}>Product Directory</li>
-                    <li className={styles.lists__listItem}>Meta tags and Link names</li>
-                    <li className={styles.lists__listItem}>Timeline</li>
+                    <li className={styles.lists__listItem}>
+                      <Link href={'/resources/popular-platforms'}>
+                        <a>Popular platforms</a>
+                      </Link>
+                    </li>
+                    <li className={styles.lists__listItem}>
+                      <Link href={'/resources/showcase-your-work'}>
+                        <a>Showcase yoru works</a>
+                      </Link>
+                    </li>
                   </ul>
                 </div>
                 <div className={styles.lists__item}>
-                  <div className={styles.lists__title}>User Research</div>
+                  <div className={styles.lists__title}>Experts</div>
                   <ul className={styles.lists__list}>
-                    <li className={styles.lists__listItem}>JTBD</li>
-                    <li className={styles.lists__listItem}>Customer Journey Map</li>
-                    <li className={styles.lists__listItem}>Ideas</li>
-                    <li className={styles.lists__listItem}>Get more users</li>
+                    <li className={styles.lists__listItem}>
+                      <Link href={'/resources/production-management-tool'}>
+                        <a>Production management tool</a>
+                      </Link>
+                    </li>
+                    <li className={styles.lists__listItem}>
+                      <Link href={`/resources/how-to-get-started-with-MangaFY`}>
+                        <a>How to get started with MangaFY</a>
+                      </Link>
+                    </li>
                   </ul>
                 </div>
-                <div className={styles.lists__item}>
-                  <div className={styles.lists__title}>Analytics</div>
+                {/* <div className={styles.lists__item}>
+                  <div className={styles.lists__title}>Platform Updates</div>
                   <ul className={styles.lists__list}>
-                    <li className={styles.lists__listItem}>Snowflake</li>
-                    <li className={styles.lists__listItem}>Prototype</li>
-                    <li className={styles.lists__listItem}>Analytics</li>
-                    <li className={styles.lists__listItem}>Figma</li>
+                    <li className={styles.lists__listItem}>
+                      <Link href={`/resources/`}>
+                        <a></a>
+                      </Link>
+                    </li>
                   </ul>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

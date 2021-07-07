@@ -259,7 +259,7 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
   // );
   return (
     <div className={styles.chatContainer}>
-      <UserName selectedRequest={selectedRequest} />
+      {selectedRequest.participentsInfo && <UserName selectedRequest={selectedRequest} />}
       <div className={styles.messageList} id="message-content">
         <MessageList
           ref={messanger}
@@ -322,13 +322,15 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
 MessengerContent.propTypes = {
   user: PropTypes.object.isRequired,
   selectedRequest: PropTypes.object.isRequired,
-  requests: PropTypes.object.isRequired,
-  setRequests: PropTypes.func.isRequired,
+  requests: PropTypes.object,
+  setRequests: PropTypes.func,
   setSelectedRequest: PropTypes.func.isRequired,
 };
 
 MessengerContent.defaultProps = {
   avatar: '',
+  requests: {},
+  setRequests: () => {},
 };
 
 export default MessengerContent;
