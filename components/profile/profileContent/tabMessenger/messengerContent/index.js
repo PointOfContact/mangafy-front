@@ -282,6 +282,7 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
         <div className={styles.chatBlock2}>
           <div className={styles.messageInput}>
             <Input
+              maxLength={490}
               placeholder="Type your message..."
               value={value}
               onChange={handleChange}
