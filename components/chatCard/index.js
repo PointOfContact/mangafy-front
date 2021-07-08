@@ -36,6 +36,7 @@ const ChatCard = ({
   setSelectedRequest,
   selectedRequest,
   isTeamChat,
+  mangaStoryId,
   isArchive,
   participentsInfo,
 }) => {
@@ -46,6 +47,7 @@ const ChatCard = ({
       conversationId: e.currentTarget.dataset.id,
       name: sender.name,
       isTeamChat,
+      mangaStoryId,
       profileId,
       isArchive,
       participentsInfo,
@@ -180,6 +182,7 @@ ChatCard.propTypes = {
   profileId: PropTypes.string,
   isArchive: PropTypes.bool,
   participentsInfo: PropTypes.array,
+  mangaStoryId: PropTypes.string,
 };
 
 ChatCard.defaultProps = {
@@ -187,6 +190,7 @@ ChatCard.defaultProps = {
   profileId: null,
   isArchive: false,
   participentsInfo: [],
+  mangaStoryId: null,
 };
 
 export default ChatCard;

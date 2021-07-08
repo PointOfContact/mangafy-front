@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-import { Input, notification } from 'antd';
+import { notification } from 'antd';
+import TextArea from 'antd/lib/input/TextArea';
 import client from 'api/client';
 import cn from 'classnames';
 import ModalInvites from 'components/modals/sendInvites';
@@ -10,6 +11,7 @@ import moment from 'moment';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
 import { MessageList } from 'react-chat-elements';
+import useWindowSize from 'utils/useWindowSize';
 
 import 'react-chat-elements/dist/main.css';
 import { patchRequest } from '../../../../../api/joinMangaStoryRequestClient';
@@ -29,9 +31,9 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
   const [messageList, setMessageList] = useState([]);
   const [value, setValue] = useState('');
   const [showModal, changeShowModal] = useState(false);
-
+  const { width } = useWindowSize();
   const messanger = useRef(null);
-  const { conversationId, name, profileId } = selectedRequest;
+  const { conversationId, profileId } = selectedRequest;
   const adaptData = (data, participants) => {
     data.forEach((item) => {
       let avatar;
@@ -120,9 +122,9 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
       placement: 'bottomLeft',
     });
   };
-  const scrollToBottom = () => {
-    messanger.current.mlistRef.scrollIntoView(false);
-  };
+  // const scrollToBottom = () => {
+  //   messanger.current.mlistRef.scrollIntoView(false);
+  // };
 
   const getMessages = () => {
     if (!conversationId) {
@@ -197,7 +199,8 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
   };
 
   const handleKeyPressSend = (event) => {
-    if (event.key === 'Enter') {
+    if (event.key === 'Enter' && !event.shiftKey && width > 780) {
+      event.preventDefault();
       sendMessage();
     }
   };
@@ -281,12 +284,13 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
       {!selectedRequest?.isArchive && (
         <div className={styles.chatBlock2}>
           <div className={styles.messageInput}>
-            <Input
+            <TextArea
               maxLength={490}
               placeholder="Type your message..."
               value={value}
               onChange={handleChange}
               onKeyPress={handleKeyPressSend}
+              className={styles.textarea_text}
             />
             {/* <img src={'/img/smileMessage.png'} alt="smile" /> */}
           </div>
