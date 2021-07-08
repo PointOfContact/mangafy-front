@@ -25,7 +25,7 @@ export function login(payload) {
     if (payload.page) {
       Router.push(`/${payload.page}`);
     } else {
-      Router.push('/');
+      Router.push('/feed');
     }
     return _.user;
   });
