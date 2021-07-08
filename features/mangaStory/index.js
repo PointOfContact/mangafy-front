@@ -290,7 +290,7 @@ const MangeStory = (props) => {
                               isChecked={baseData.published}
                               size={50}
                               offText="Draft"
-                              onText="Published"
+                              onText="Make visible"
                               onChange={onPublish}
                             />
                           </div>
