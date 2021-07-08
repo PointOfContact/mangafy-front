@@ -45,7 +45,7 @@ export default function LandingNew(props) {
       changeShowModal(true);
     } catch (err) {
       if (err.code === 400) {
-        Router.push('/');
+        Router.push('/feed');
       } else {
         notification.error({
           message: err.message,
