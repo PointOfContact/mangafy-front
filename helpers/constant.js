@@ -103,6 +103,10 @@ export const userTypes = [
     key: 'mentorship',
     value: 'Mentorship',
   },
+  {
+    key: 'world_builder',
+    value: 'World builder',
+  },
 ];
 
 export const allCollaborations = [
@@ -151,6 +155,7 @@ export const userTypesEnums = {
   mentorship: 'Mentorship',
   illustrator: 'Illustrator',
   storyteller: 'Storyteller',
+  world_builder: 'World builder',
   new: 'New',
 };
 

@@ -25,14 +25,24 @@ const MessengerList = ({
       </div>
     );
   }
+
+  const newRes = requests?.sort(
+    (b, a) =>
+      (a?.messages?.createdAt
+        ? new Date(a?.messages?.createdAt)
+        : new Date(a.createdAt)
+      ).getTime() -
+      (b?.messages?.createdAt ? new Date(b?.messages?.createdAt) : new Date(b.createdAt)).getTime()
+  );
+
   return (
     <div className="row">
-      {/* <SearchInput /> */}
       <div className={styles.container}>
         <div className={styles.messenger}>
-          {requests.map((r) => (
+          {newRes?.map((r) => (
             <ChatCard
               isTeamChat={r.isTeamChat}
+              mangaStoryId={r.mangaStoryId}
               key={r._id}
               isSmall={true}
               isOwn={false}
