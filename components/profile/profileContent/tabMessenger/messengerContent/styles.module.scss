@@ -107,8 +107,6 @@
         margin-bottom: 0;
         & > div {
           left: -75px;
-          width: 50px !important;
-          height: 50px !important;
         }
       }
     }
@@ -449,11 +447,19 @@
   line-height: 18px;
   margin-bottom: 15px;
   color: #949494;
+  a {
+    cursor: pointer;
+    font-weight: lighter;
+    color: #0358a6;
+    font-weight: lighter;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
   @include media-sm {
     font-size: 14px;
   }
 }
-
 .statusContainer {
   display: flex;
   justify-content: space-between;

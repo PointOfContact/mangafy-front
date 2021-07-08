@@ -397,12 +397,14 @@ const MangeStory = (props) => {
                             {canEdit && (
                               <div className={styles.editDeleteButtons}>
                                 <PrimaryButton
+                                  isWhite={true}
                                   className={styles.editTitleSvg}
                                   text={'Edit Project'}
                                   onClick={() => setEditMode(true)}
                                 />
                                 <Link href="/contact-us">
                                   <PrimaryButton
+                                    isWhite={true}
                                     className={styles.deleteTitleSvg}
                                     text={'Delete Project'}
                                   />
