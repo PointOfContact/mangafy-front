@@ -46,9 +46,9 @@ const BannerSection = ({
       openNotification('error', 'You can only upload JPG, JPEG, PDF or PNG file!');
     }
 
-    const isLt2M = file.size / 1024 / 1024 < 10;
+    const isLt2M = file.size / 1024 / 1024 < 50;
     if (!isLt2M) {
-      openNotification('error', 'Image must be smaller than 10MB!');
+      openNotification('error', 'Image must be smaller than 50MB!');
     }
 
     if (isJpgOrPng && isLt2M) {
