@@ -58,31 +58,45 @@ CommentList.propTypes = {
   comments: PropTypes.array.isRequired,
 };
 
-const Editor = ({ onChange, onSubmit, submitting, value, user, mangaStory }) => (
-  <>
-    <Form.Item>
-      <TextArea rows={4} onChange={onChange} value={value} />
-    </Form.Item>
-    <Form.Item>
-      <>
-        {!user && (
-          <Link href={`/sign-in?page=manga-story/${mangaStory._id}?tab=comments`}>
-            <h2 className={styles.loginText}>
-              Please <span>login</span> to add comments
-            </h2>
-          </Link>
-        )}
-        <LargeButton
-          id="AddACommentBtnId"
-          htmlType="submit"
-          loading={submitting}
-          onClick={onSubmit}
-          text="Add Comment"
-        />
-      </>
-    </Form.Item>
-  </>
-);
+const Editor = ({ onChange, onSubmit, submitting, value, user, mangaStory }) => {
+  const [commentError, setCommentError] = useState('');
+
+  const commentChange = (e) => {
+    // eslint-disable-next-line no-shadow
+    const { maxLength, value } = e.target;
+    onChange(e);
+    value.length >= maxLength
+      ? setCommentError(`Comment max length ${maxLength} symbols`)
+      : setCommentError('');
+  };
+
+  return (
+    <>
+      <Form.Item>
+        <TextArea maxLength={490} rows={4} onChange={commentChange} value={value} />
+        <p className={commentError ? styles.commentError : styles.notError}>{commentError}</p>
+      </Form.Item>
+      <Form.Item>
+        <>
+          {!user && (
+            <Link href={`/sign-in?page=manga-story/${mangaStory._id}?tab=comments`}>
+              <h2 className={styles.loginText}>
+                Please <span>login</span> to add comments
+              </h2>
+            </Link>
+          )}
+          <LargeButton
+            id="AddACommentBtnId"
+            htmlType="submit"
+            loading={submitting}
+            onClick={onSubmit}
+            text="Add Comment"
+          />
+        </>
+      </Form.Item>
+    </>
+  );
+};
 
 Editor.propTypes = {
   user: PropTypes.object,
