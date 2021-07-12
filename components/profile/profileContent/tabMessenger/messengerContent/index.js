@@ -291,7 +291,6 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
   //     ))}
   //   </div>
   // );
-  console.log(messageList);
   return (
     <div className={styles.chatContainer}>
       {selectedRequest.participentsInfo && <UserName selectedRequest={selectedRequest} />}
