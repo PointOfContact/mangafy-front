@@ -18,7 +18,7 @@ $borderColor: #f0f0f0;
 }
 
 .modal {
-  margin-top: 215px;
+  margin-top: 180px;
   display: inline-table !important;
   padding: 0;
   vertical-align: top !important;
@@ -152,8 +152,12 @@ $borderColor: #f0f0f0;
       margin-top: 15px;
       border-radius: 5px;
       border: 1px solid $gray85;
+      background: $primaryDark;
       .copyInput {
         padding: 0;
+        height: 100%;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
         padding-left: 29px;
         box-sizing: border-box;
         border: none;
@@ -184,6 +188,8 @@ $borderColor: #f0f0f0;
       font-size: 15px;
       line-height: 30px;
       color: white;
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
       background-color: $primaryDark;
       &:hover {
         background-color: #5b48c9;

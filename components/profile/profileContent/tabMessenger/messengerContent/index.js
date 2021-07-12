@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-import { Input, notification } from 'antd';
+import { notification } from 'antd';
+import TextArea from 'antd/lib/input/TextArea';
 import client from 'api/client';
 import cn from 'classnames';
 import ModalInvites from 'components/modals/sendInvites';
@@ -10,6 +11,7 @@ import moment from 'moment';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
 import { MessageList } from 'react-chat-elements';
+import useWindowSize from 'utils/useWindowSize';
 
 import 'react-chat-elements/dist/main.css';
 import { patchRequest } from '../../../../../api/joinMangaStoryRequestClient';
@@ -30,8 +32,21 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
   const [value, setValue] = useState('');
   const [showModal, changeShowModal] = useState(false);
 
-  const messanger = useRef(null);
-  const { conversationId, name, profileId } = selectedRequest;
+  const { width } = useWindowSize();
+  const messenger = useRef(null);
+  const { conversationId, profileId } = selectedRequest;
+
+  // const wrapURLs = (text, new_window) => {
+  //   const url_pattern = /(?:(?:https?|ftp?|http):\/\/)?(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\x{00a1}\-\x{ffff}0-9]+-?)*[a-z\x{00a1}\-\x{ffff}0-9]+)(?:\.(?:[a-z\x{00a1}\-\x{ffff}0-9]+-?)*[a-z\x{00a1}\-\x{ffff}0-9]+)*(?:\.(?:[a-z\x{00a1}\-\x{ffff}]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?/gi;
+  //   const target = new_window === true || new_window == null ? '_blank' : '';
+
+  //   return text.replace(url_pattern, (url) => {
+  //     const protocol_pattern = /^(?:(?:https?|ftp):\/\/)/i;
+  //     const href = protocol_pattern.test(url) ? url : `http://${url}`;
+  //     return `<a href="${href}" target="${target}">${url}</a>`;
+  //   });
+  // };
+
   const adaptData = (data, participants) => {
     data.forEach((item) => {
       let avatar;
@@ -48,7 +63,15 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
           {item.joinMangaStoryRequest[0].mangaStory?.title && (
             <h2 className={styles.mangaTitle}>{item.joinMangaStoryRequest[0].mangaStory?.title}</h2>
           )}
-          <p className={styles.messText}>{item.content}</p>
+          {/* {false ? (
+            <div
+              className={styles.messText}
+              dangerouslySetInnerHTML={{
+                __html: wrapURLs(item.content, true),
+              }}></div>
+          ) : ( */}
+          <div className={styles.messText}>{item.content}</div>
+          {/* )} */}
           <div className={styles.statusContainer}>
             {item.joinMangaStoryRequest[0].status === 'new' && (
               <span className={styles.status}> Pending invite </span>
@@ -79,7 +102,7 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
                 <div className={cn(styles.div_button, 'buttonsProfile_styles')}>
                   <PrimaryButton
                     onClick={(event) => {
-                      setRecvestStatus(event, item.joinMangaStoryRequestId, 'rejected');
+                      setRequestStatus(event, item.joinMangaStoryRequestId, 'rejected');
                     }}
                     className={styles.buttonsProfile_cancel}
                     text="Cancel"
@@ -92,7 +115,7 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
                     isActive
                     isRound
                     onClick={(event) => {
-                      setRecvestStatus(event, item.joinMangaStoryRequestId, 'accepted');
+                      setRequestStatus(event, item.joinMangaStoryRequestId, 'accepted');
                     }}
                   />
                 </div>
@@ -100,9 +123,14 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
           </div>
         </div>
       ) : (
-        <p className={styles.messText} style={{ marginBottom: '-5px' }}>
-          {item.content}
-        </p>
+        // index > data.length - 3 ? (
+        //   <div
+        //     className={styles.messText}
+        //     dangerouslySetInnerHTML={{
+        //       __html: wrapURLs(item.content, true),
+        //     }}></div>
+        // ) : (
+        <div className={styles.messText}>{item.content}</div>
       );
       item.date = moment(item.createdAt).toDate();
       item.avatar = avatar;
@@ -120,9 +148,10 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
       placement: 'bottomLeft',
     });
   };
-  const scrollToBottom = () => {
-    messanger.current.mlistRef.scrollIntoView(false);
-  };
+
+  // const scrollToBottom = () => {
+  //   messenger.current.mlistRef.scrollIntoView(false);
+  // };
 
   const getMessages = () => {
     if (!conversationId) {
@@ -197,12 +226,13 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
   };
 
   const handleKeyPressSend = (event) => {
-    if (event.key === 'Enter') {
+    if (event.key === 'Enter' && !event.shiftKey && width > 780) {
+      event.preventDefault();
       sendMessage();
     }
   };
 
-  const setRecvestStatus = (event, id, status) => {
+  const setRequestStatus = (event, id, status) => {
     onAccept(event, id, status).then((res) => {
       const newRequest = [...requests];
       newRequest.map((item) => {
@@ -262,7 +292,7 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
       {selectedRequest.participentsInfo && <UserName selectedRequest={selectedRequest} />}
       <div className={styles.messageList} id="message-content">
         <MessageList
-          ref={messanger}
+          ref={messenger}
           className={styles.message_list}
           lockable={false}
           toBottomHeight={'100%'}
@@ -281,12 +311,13 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
       {!selectedRequest?.isArchive && (
         <div className={styles.chatBlock2}>
           <div className={styles.messageInput}>
-            <Input
+            <TextArea
               maxLength={490}
               placeholder="Type your message..."
               value={value}
               onChange={handleChange}
               onKeyPress={handleKeyPressSend}
+              className={styles.textarea_text}
             />
             {/* <img src={'/img/smileMessage.png'} alt="smile" /> */}
           </div>

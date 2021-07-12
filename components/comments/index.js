@@ -168,7 +168,9 @@ export const Comments = ({ commentsData, mangaStory, user }) => {
       <h2 className={styles.subTitle}> {comments?.length} Comments</h2>
       {comments.length > 0 && (
         <div className={cn(styles.comments, 'commentsBlock')}>
-          <CommentList comments={comments} />
+          <pre>
+            <CommentList comments={comments} />
+          </pre>
         </div>
       )}
       <Comment

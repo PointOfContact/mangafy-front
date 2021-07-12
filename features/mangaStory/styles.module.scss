@@ -8,9 +8,6 @@ $colorAllBorder: rgba(33, 33, 33, 0.07);
   font-weight: 900;
   font-size: 15px;
   line-height: 22px;
-  border-color: $primaryLight;
-  background-color: white;
-  color: black;
   cursor: pointer;
   @include media-sm {
     width: 136px;
@@ -34,11 +31,8 @@ $colorAllBorder: rgba(33, 33, 33, 0.07);
   svg {
     cursor: pointer;
   }
-  @include media-sm {
-    padding-left: 30px;
-    padding-right: 30px;
-    box-sizing: border-box;
-  }
+  padding-left: 30px;
+  padding-right: 30px;
 }
 .deleteManga {
   margin-top: 10px;
@@ -144,10 +138,10 @@ $colorAllBorder: rgba(33, 33, 33, 0.07);
     box-sizing: border-box;
   }
 }
-
 .header {
-  margin-top: 89px;
-  width: 100%;
+  margin: auto;
+  margin-top: 90px;
+  width: 1000px;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -156,6 +150,7 @@ $colorAllBorder: rgba(33, 33, 33, 0.07);
   max-height: 77px;
   @include media-sm {
     padding: 0px;
+    margin-top: 145px;
   }
   h2 {
     font-weight: bold;
@@ -169,7 +164,7 @@ $colorAllBorder: rgba(33, 33, 33, 0.07);
   p {
     margin: 0 auto;
     font-size: 20px;
-    color: #858585;
+    color: $gray85;
   }
 }
 .editSVG {

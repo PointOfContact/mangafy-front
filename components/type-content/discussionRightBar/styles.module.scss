@@ -1,9 +1,7 @@
 @import '../../../styles/variables.scss';
 
-.dailyWarmUps {
-  background-color: #f9f9f9;
+.container {
   width: 100%;
-  position: -webkit-sticky;
   position: sticky;
   top: 110px;
   align-self: start;
@@ -12,77 +10,132 @@
   display: flex;
   flex-direction: column;
   grid-area: daily-warm-ups;
-  padding: 24px;
   @media (max-width: 767px) {
     position: relative;
-    top: 0;
     overflow: hidden;
     padding: 20px 15px;
+    margin: auto;
   }
-  &_Top {
-    @media (max-width: 475px) {
-      display: flex;
-      flex-direction: row-reverse;
-      justify-content: space-between;
-      padding-right: 0;
+  .dailyWarmUps {
+    background-color: #f9f9f9;
+    width: 100%;
+    position: -webkit-sticky;
+    align-self: start;
+    will-change: transform;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    grid-area: daily-warm-ups;
+    padding: 24px;
+    @media (max-width: 767px) {
+      position: relative;
+      top: 0;
+      overflow: hidden;
+      padding: 20px 15px;
+    }
+    &_Top {
+      @media (max-width: 475px) {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+        padding-right: 0;
+      }
     }
   }
-}
-
-.warmsText {
-  text-align: left;
-  margin: 0;
-  color: #a5a5a5;
-  font-size: 13px;
-  padding: 0 5px;
-}
-
-.cards {
-  display: flex;
-  flex-direction: column;
-  padding-top: 24px;
-  @media (max-width: 767px) {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(268px, 1fr));
-    grid-gap: 16px;
-    padding: 16px;
-    overflow-x: scroll;
-    scroll-snap-type: x mandatory;
-    scroll-padding: 16px;
-  }
-}
-.date {
-  padding: 1px 8px;
-  border: 1px solid $grey;
-  border-radius: 30px;
-  display: inline-flex;
-  align-items: center;
-  background-color: white;
-  margin-bottom: 20px;
-}
-.dialyTitle {
-  display: flex;
-  h4 {
-    color: #1f2224;
-    font-size: 17px;
-    font-weight: 500;
-    letter-spacing: normal;
-    line-height: 22px;
-    margin-bottom: 0;
-    @media (max-width: 475px) {
+  .addfeed {
+    width: 100%;
+    max-height: 159px;
+    padding: 21px 4px 0 4px;
+    background-color: white;
+    border: 1px solid #EFEFEF;
+    border-radius: 9px;
+    margin: auto;
+    margin-top: 20px;
+    h3 {
+      height: 29px;
+      font-weight: 500;
       font-size: 20px;
-      line-height: 30px;
+      line-height: 29px;
+      color: $black;
+      margin: 0;
+      text-align: center;
     }
-  }
-  p {
-    color: #595959;
-    font-size: 13px;
-    margin-bottom: 0;
-    @media (max-width: 475px) {
+    p {
+      height: 28px;
+      font-weight: normal;
+      font-size: 10px;
+      text-align: center;
+      line-height: 14px;
+      margin: 0;
+      margin-top: 3px;
+      margin-bottom: 13px;
+      color: $gray85;
+    }
+    button {
+      width: 130px;
+      height: 34.94px;
+      margin: auto;
+      font-weight: bold;
       font-size: 15px;
+      line-height: 22px;
+      margin-bottom: 30px;
     }
   }
-  svg {
-    margin: 5px;
+  .warmsText {
+    text-align: left;
+    margin: 0;
+    color: #a5a5a5;
+    font-size: 13px;
+    padding: 0 5px;
+  }
+
+  .cards {
+    display: flex;
+    flex-direction: column;
+    padding-top: 24px;
+    @media (max-width: 767px) {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(268px, 1fr));
+      grid-gap: 16px;
+      padding: 16px;
+      overflow-x: scroll;
+      scroll-snap-type: x mandatory;
+      scroll-padding: 16px;
+    }
+  }
+  .date {
+    padding: 1px 8px;
+    border: 1px solid $grey;
+    border-radius: 30px;
+    display: inline-flex;
+    align-items: center;
+    background-color: white;
+    margin-bottom: 20px;
+  }
+  .dialyTitle {
+    display: flex;
+    h4 {
+      color: #1f2224;
+      font-size: 17px;
+      font-weight: 500;
+      letter-spacing: normal;
+      line-height: 22px;
+      margin-bottom: 0;
+      @media (max-width: 475px) {
+        font-size: 20px;
+        line-height: 30px;
+      }
+    }
+    p {
+      color: #595959;
+      font-size: 13px;
+      margin-bottom: 0;
+      @media (max-width: 475px) {
+        font-size: 15px;
+      }
+    }
+    svg {
+      margin: 5px;
+    }
   }
 }

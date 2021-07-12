@@ -297,6 +297,7 @@ const Header = ({ user, path }) => {
             <span className={cn(styles.btn_submit)} onClick={addEvent}>
               {user && (
                 <PrimaryButton
+                  isWhite={true}
                   className={styles.inviteMembers}
                   text={
                     <div className={styles.inviteMembersButton}>

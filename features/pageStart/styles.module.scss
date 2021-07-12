@@ -87,12 +87,8 @@
     &__wrap {
         display: flex;
         align-items: flex-start;
-        justify-content: space-between;
+        justify-content: space-around;
         flex-wrap: wrap;
-        @include media-lg {
-            justify-content: space-around;
-        }
-
     }
     &__item {
         display: flex;

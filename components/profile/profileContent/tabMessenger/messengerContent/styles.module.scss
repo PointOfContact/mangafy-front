@@ -331,12 +331,14 @@
       @include media-sm {
         border-bottom: 1px solid rgba(33, 33, 33, 0.07);
       }
-      input {
+      textarea {
         padding: 0;
         padding-top: 20px;
         padding-bottom: 20px;
         margin-left: 30px;
         border: none !important;
+        background-color: transparent !important;
+        box-shadow: none;
         &:focus {
           outline: none !important;
           box-shadow: none !important;
@@ -447,11 +449,19 @@
   line-height: 18px;
   margin-bottom: 15px;
   color: #949494;
-  @include media-sm{
+  a {
+    cursor: pointer;
+    font-weight: lighter;
+    color: #0358a6;
+    font-weight: lighter;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  @include media-sm {
     font-size: 14px;
   }
 }
-
 .statusContainer {
   display: flex;
   justify-content: space-between;

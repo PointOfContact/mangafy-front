@@ -104,7 +104,7 @@ const Footer = () => (
             {/* <Link href="/pricing">
               <a className={styles.footer__itemLink}>Pricing</a>
             </Link> */}
-            <Link href="/welcome">
+            <Link href="/">
               <a className={styles.footer__itemLink}>Welcome</a>
             </Link>
             <Link href="/contact-us">
