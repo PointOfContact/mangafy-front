@@ -4,6 +4,7 @@ import { Upload, Row, Col } from 'antd';
 import client from 'api/client';
 import Card from 'components/card';
 import Imgix from 'components/imgix';
+import Loading from 'components/loading';
 import AddButton from 'components/ui-elements/add-button';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import dynamic from 'next/dynamic';
@@ -45,6 +46,7 @@ export const Gallery = (props) => {
   const [canEdit] = useState(canEditInit);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedGallery, setSelectedGallery] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const data = [];
@@ -178,7 +180,8 @@ export const Gallery = (props) => {
       images,
       setImages,
       setUserData,
-      setErrMessage
+      setErrMessage,
+      setLoading
     );
   };
 
@@ -296,6 +299,7 @@ export const Gallery = (props) => {
           </Col>
         )}
       </Row>
+      <Loading loading={loading} />
     </div>
   );
 };

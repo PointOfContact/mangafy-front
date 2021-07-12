@@ -95,7 +95,7 @@ const adaptedDataImages = (images, res) => {
       return item;
     });
 
-  return [...imgs, res.id];
+  return [res.id, ...imgs];
 };
 
 const beforeGalleryUpload = (
@@ -107,8 +107,10 @@ const beforeGalleryUpload = (
   images,
   setImages,
   setUserData,
-  setErrMessage
+  setErrMessage,
+  setLoading
 ) => {
+  setLoading(true);
   const openNotification = (type, message) => {
     notification[type]({
       message,
@@ -171,11 +173,13 @@ const beforeGalleryUpload = (
                     setImages(prepareDataImages(res.gallery));
                     setUserData(res);
                     setShowUploadList(false);
+                    setLoading(false);
                   });
               })
               .catch((err) => {
                 setErrMessage(err.message);
                 setShowUploadList(false);
+                setLoading(false);
                 setTimeout(() => {
                   setErrMessage('');
                 }, 2000);
@@ -184,6 +188,7 @@ const beforeGalleryUpload = (
           .catch((err) => {
             setErrMessage(err.message);
             setShowUploadList(false);
+            setLoading(false);
             setTimeout(() => {
               setErrMessage('');
             }, 2000);

@@ -110,10 +110,15 @@ const GalleryCard = ({
         {canEditInit && (
           <>
             <Popconfirm
-              title="Are you sure to delete?"
+              title={
+                <div>
+                  <h2>Delete attachment?</h2>
+                  <span>Deleting an attachment is permanent. There is no undo.</span>
+                </div>
+              }
               onConfirm={(e) => onRemoveImg(e, galleryItem._id)}
               onCancel={() => {}}
-              okText="Yes"
+              okText="Delete"
               cancelText="No">
               <span className={styles.dustbin} data-id={galleryItem._id}>
                 <SvgDustbin width="18px" />

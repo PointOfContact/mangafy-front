@@ -107,6 +107,8 @@
         margin-bottom: 0;
         & > div {
           left: -75px;
+          width: 50px !important;
+          height: 50px !important;
         }
       }
     }
