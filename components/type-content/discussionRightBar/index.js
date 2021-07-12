@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
 import SvgBulbColored from 'components/icon/BulbColored';
+import PrimaryButton from 'components/ui-elements/button';
+import Link from 'next/link';
 import PropTypes from 'prop-types';
 
 import ExerciseCard from './exerciseCard';
@@ -14,7 +16,7 @@ const DiscussionRightBar = ({ dailyWarmUps }) => {
   }, [dailyWarmUps]);
 
   return (
-    <>
+    <div className={styles.container}>
       <div className={styles.dailyWarmUps}>
         <div className={styles.dailyWarmUps_Top}>
           <div className={styles.date}>
@@ -42,7 +44,16 @@ const DiscussionRightBar = ({ dailyWarmUps }) => {
         </div>
         <p className={styles.warmsText}>New warm-ups every morning</p>
       </div>
-    </>
+      <div className={styles.addfeed}>
+        <h3>Don’t Just dream do!</h3>
+        <p>Want to get early feedback on your graphic novel idea or manuscript?</p>
+        <Link href="/get-feedback">
+          <a>
+            <PrimaryButton text="Get Feebacks" />
+          </a>
+        </Link>
+      </div>
+    </div>
   );
 };
 

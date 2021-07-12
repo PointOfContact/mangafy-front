@@ -5,12 +5,6 @@
     padding: 0;
   }
 }
-.addfeed {
-  width: 120px;
-  span {
-    font-size: 12px;
-  }
-}
 .type_main {
   background-color: white;
   padding-top: 20px;
@@ -129,6 +123,7 @@
   grid-area: projects-for-you;
   @media (max-width: 767px) {
     padding: 0 20px;
+    margin-top: 100px;
   }
   &__MainTitle {
     display: flex;

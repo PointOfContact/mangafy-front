@@ -4,9 +4,7 @@ import { notification } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
 import SvgBulbColored from 'components/icon/BulbColored';
-import AddButton from 'components/ui-elements/add-button';
 import PrimaryButton from 'components/ui-elements/button';
-import Link from 'next/link';
 import PropTypes from 'prop-types';
 
 import DiscussionCard from './discussionCard';
@@ -80,11 +78,6 @@ export default function TypePage({
                     />
                   </div> */}
                 </h2>
-                <Link href="/get-feedback">
-                  <a className={styles.addfeed}>
-                    <AddButton height={19} width={19} text="Add Feed" />
-                  </a>
-                </Link>
               </div>
               {discussions.map((discussion) => (
                 <DiscussionCard
