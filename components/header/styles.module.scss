@@ -254,32 +254,23 @@
       align-items: center;
       padding: 0;
       @include media-lg {
-        width: 110px;
+        width: 170px;
+        margin-left: 40px;
       }
       @include media-md {
-        width: 90px;
+        width: 130px;
+        margin-left: 15px;
       }
-      .fullInviteName,
-      .inviteName {
+      .fullInviteName{
         font-weight: bold;
         line-height: 29px;
         color: $black;
         margin-bottom: 0;
-        margin-left: 17.85px;
-        margin-right: 13px;
+        margin-left: 13.85px;
+        margin-right: 6px;
         margin-top: -3px;
-      }
-      .fullInviteName {
         @include media-lg {
-          display: none;
-        }
-      }
-      .inviteName {
-        margin-left: 10px;
-        margin-right: 10px;
-        display: none;
-        @include media-lg {
-          display: block;
+          margin-top: -2px;
         }
       }
       .inviteMembersButton {

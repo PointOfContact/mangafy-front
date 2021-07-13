@@ -69,15 +69,12 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
           {item.joinMangaStoryRequest[0].mangaStory?.title && (
             <h2 className={styles.mangaTitle}>{item.joinMangaStoryRequest[0].mangaStory?.title}</h2>
           )}
-          {/* {false ? (
-            <div
-              className={styles.messText}
-              dangerouslySetInnerHTML={{
-                __html: wrapURLs(item.content, true),
-              }}></div>
-          ) : ( */}
+          {/* <div
+            className={styles.messText}
+            dangerouslySetInnerHTML={{
+              __html: wrapUrls(item.content, true),
+            }}></div> */}
           <div className={styles.messText}>{item.content}</div>
-          {/* )} */}
           <div className={styles.statusContainer}>
             {item.joinMangaStoryRequest[0].status === 'new' && (
               <span className={styles.status}> Pending invite </span>
@@ -129,13 +126,11 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
           </div>
         </div>
       ) : (
-        // index > data.length - 3 ? (
-        //   <div
-        //     className={styles.messText}
-        //     dangerouslySetInnerHTML={{
-        //       __html: wrapURLs(item.content, true),
-        //     }}></div>
-        // ) : (
+        // <div
+        //   className={styles.messText}
+        //   dangerouslySetInnerHTML={{
+        //     __html: wrapUrls(item.content, true),
+        //   }}></div>
         <div className={styles.messText}>{item.content}</div>
       );
       item.date = moment(item.createdAt).toDate();

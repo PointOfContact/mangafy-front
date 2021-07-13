@@ -307,8 +307,7 @@ const Header = ({ user, path }) => {
                         height="18x"
                         text={''}
                       />
-                      <p className={styles.fullInviteName}>Invite members</p>
-                      <p className={styles.inviteName}>Invite</p>
+                      <p className={styles.fullInviteName}>Add Friend</p>
                     </div>
                   }
                   onClick={() => {
