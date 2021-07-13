@@ -137,7 +137,7 @@ const Header = ({ user, path }) => {
                 <span></span>
               </div>
             </div>
-            <Link href="/">
+            <Link href={user ? '/feed' : '/'}>
               <a className={styles.header__logo}>
                 <Imgix
                   priority
