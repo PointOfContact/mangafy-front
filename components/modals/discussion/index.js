@@ -106,9 +106,13 @@ const ModalDiscussion = ({
   const handleCancel = () => {
     const parsed = qs.parse(window.location.search);
     delete parsed.postId;
-    Router.push(LinkCreator.toQuery({ ...parsed }, '/'), LinkCreator.toQuery({ ...parsed }, '/'), {
-      scroll: false,
-    });
+    Router.push(
+      LinkCreator.toQuery({ ...parsed }, '/feed'),
+      LinkCreator.toQuery({ ...parsed }, '/feed'),
+      {
+        scroll: false,
+      }
+    );
     changeShowModal(false);
   };
 

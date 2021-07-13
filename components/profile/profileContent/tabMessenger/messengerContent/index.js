@@ -11,7 +11,7 @@ import moment from 'moment';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
 import { MessageList } from 'react-chat-elements';
-import useWindowSize from 'utils/useWindowSize';
+// import useWindowSize from 'utils/useWindowSize';
 
 import 'react-chat-elements/dist/main.css';
 import { patchRequest } from '../../../../../api/joinMangaStoryRequestClient';
@@ -33,24 +33,24 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
   const [showModal, changeShowModal] = useState(false);
   const [messageError, setMessageError] = useState('');
 
-  const { width } = useWindowSize();
+  // const { width } = useWindowSize();
   const messenger = useRef(null);
   const { conversationId, profileId } = selectedRequest;
 
-  const wrapUrls = (text, new_window) => {
-    const url_pattern = /(?:(?:https?|ftp?|http):\/\/)?(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\x{00a1}\-\x{ffff}0-9]+-?)*[a-z\x{00a1}\-\x{ffff}0-9]+)(?:\.(?:[a-z\x{00a1}\-\x{ffff}0-9]+-?)*[a-z\x{00a1}\-\x{ffff}0-9]+)*(?:\.(?:[a-z\x{00a1}\-\x{ffff}]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?/gi;
-    const target = new_window === true || new_window == null ? '_blank' : '';
-    const ifNotValidUrl = url_pattern.test(text);
+  // const wrapUrls = (text, new_window) => {
+  //   const url_pattern = /(?:(?:https?|ftp?|http):\/\/)?(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\x{00a1}\-\x{ffff}0-9]+-?)*[a-z\x{00a1}\-\x{ffff}0-9]+)(?:\.(?:[a-z\x{00a1}\-\x{ffff}0-9]+-?)*[a-z\x{00a1}\-\x{ffff}0-9]+)*(?:\.(?:[a-z\x{00a1}\-\x{ffff}]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?/gi;
+  //   const target = new_window === true || new_window == null ? '_blank' : '';
+  //   const ifNotValidUrl = url_pattern.test(text);
 
-    if (!ifNotValidUrl) {
-      return text;
-    }
+  //   if (!ifNotValidUrl) {
+  //     return text;
+  //   }
 
-    return text.replace(url_pattern, (url) => {
-      const href = url_pattern.test(url) ? url : `http://${url}`;
-      return `<a href="${href}" target="${target}">${url}</a>`;
-    });
-  };
+  //   return text.replace(url_pattern, (url) => {
+  //     const href = url_pattern.test(url) ? url : `http://${url}`;
+  //     return `<a href="${href}" target="${target}">${url}</a>`;
+  //   });
+  // };
 
   const adaptData = (data, participants) => {
     data.forEach((item, index) => {
@@ -69,11 +69,15 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
           {item.joinMangaStoryRequest[0].mangaStory?.title && (
             <h2 className={styles.mangaTitle}>{item.joinMangaStoryRequest[0].mangaStory?.title}</h2>
           )}
-          <div
-            className={styles.messText}
-            dangerouslySetInnerHTML={{
-              __html: wrapUrls(item.content, true),
-            }}></div>
+          {/* {false ? (
+            <div
+              className={styles.messText}
+              dangerouslySetInnerHTML={{
+                __html: wrapURLs(item.content, true),
+              }}></div>
+          ) : ( */}
+          <div className={styles.messText}>{item.content}</div>
+          {/* )} */}
           <div className={styles.statusContainer}>
             {item.joinMangaStoryRequest[0].status === 'new' && (
               <span className={styles.status}> Pending invite </span>
@@ -125,11 +129,14 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
           </div>
         </div>
       ) : (
-        <div
-          className={styles.messText}
-          dangerouslySetInnerHTML={{
-            __html: wrapUrls(item.content, true),
-          }}></div>
+        // index > data.length - 3 ? (
+        //   <div
+        //     className={styles.messText}
+        //     dangerouslySetInnerHTML={{
+        //       __html: wrapURLs(item.content, true),
+        //     }}></div>
+        // ) : (
+        <div className={styles.messText}>{item.content}</div>
       );
       item.date = moment(item.createdAt).toDate();
       item.avatar = avatar;
@@ -319,9 +326,7 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
               maxLength={490}
               placeholder="Type your message..."
               value={value}
-              onChange={(e) => {
-                handleChange(e);
-              }}
+              onChange={handleChange}
               // onKeyPress={handleKeyPressSend}
               className={styles.textarea_text}
             />
