@@ -38,8 +38,8 @@ const DiscussionCard = (props) => {
   const openPost = (postId) => {
     const parsed = qs.parse(window.location.search);
     Router.push(
-      LinkCreator.toQuery({ ...parsed, postId }, '/'),
-      LinkCreator.toQuery({ ...parsed, postId }, '/'),
+      LinkCreator.toQuery({ ...parsed, postId }, '/feed'),
+      LinkCreator.toQuery({ ...parsed, postId }, '/feed'),
       {
         scroll: false,
       }
