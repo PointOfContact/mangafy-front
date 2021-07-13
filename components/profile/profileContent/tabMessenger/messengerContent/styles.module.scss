@@ -107,8 +107,6 @@
         margin-bottom: 0;
         & > div {
           left: -75px;
-          width: 50px !important;
-          height: 50px !important;
         }
       }
     }
@@ -339,6 +337,7 @@
         border: none !important;
         background-color: transparent !important;
         box-shadow: none;
+        resize: none;
         &:focus {
           outline: none !important;
           box-shadow: none !important;
