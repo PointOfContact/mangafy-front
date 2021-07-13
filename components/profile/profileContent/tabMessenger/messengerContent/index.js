@@ -26,7 +26,7 @@ const onAccept = (event, id, status) => {
   event.stopPropagation();
   return patchRequest(id, status);
 };
-let total = 0;
+
 let convId = '';
 
 const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests, setRequests }) => {
@@ -168,8 +168,7 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
           headers: { Authorization: `Bearer ${jwt}` },
         })
         .then((res) => {
-          if (res?.messages && (total !== res.messages.length || res._id !== convId)) {
-            total = res.messages.length;
+          if (res?.messages && (messageList.length !== res.messages.length || res._id !== convId)) {
             convId = res._id;
 
             const neMess = res.messages.map((item, index) => {
