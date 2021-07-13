@@ -79,6 +79,7 @@
     height: 295px;
   }
   .message_list {
+    min-height: 100%;
     & > div > div > div {
       max-width: 283px;
       min-width: 203px;

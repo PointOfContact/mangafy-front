@@ -26,6 +26,8 @@ const onAccept = (event, id, status) => {
   event.stopPropagation();
   return patchRequest(id, status);
 };
+let total = 0;
+let convId = '';
 
 const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests, setRequests }) => {
   const [messageList, setMessageList] = useState([]);
@@ -37,23 +39,17 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
   const messenger = useRef(null);
   const { conversationId, profileId } = selectedRequest;
 
-  // const wrapUrls = (text, new_window) => {
-  //   const url_pattern = /(?:(?:https?|ftp?|http):\/\/)?(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\x{00a1}\-\x{ffff}0-9]+-?)*[a-z\x{00a1}\-\x{ffff}0-9]+)(?:\.(?:[a-z\x{00a1}\-\x{ffff}0-9]+-?)*[a-z\x{00a1}\-\x{ffff}0-9]+)*(?:\.(?:[a-z\x{00a1}\-\x{ffff}]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?/gi;
-  //   const target = new_window === true || new_window == null ? '_blank' : '';
-  //   const ifNotValidUrl = url_pattern.test(text);
-
-  //   if (!ifNotValidUrl) {
-  //     return text;
-  //   }
-
-  //   return text.replace(url_pattern, (url) => {
-  //     const href = url_pattern.test(url) ? url : `http://${url}`;
-  //     return `<a href="${href}" target="${target}">${url}</a>`;
-  //   });
-  // };
+  const wrapUrls = (text) => {
+    // eslint-disable-next-line no-useless-escape
+    const url_pattern = /(http|ftp|https|www):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/gi;
+    return text.replace(url_pattern, (url) => {
+      const href = url_pattern.test(url) ? url : `http://${url}`;
+      return `<a href="${href}" target="_blank">${url}</a>`;
+    });
+  };
 
   const adaptData = (data, participants) => {
-    data.forEach((item, index) => {
+    data.forEach((item) => {
       let avatar;
       const part = participants.find((p) => p._id === item.senderId);
       if (part?.avatar) {
@@ -69,12 +65,11 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
           {item.joinMangaStoryRequest[0].mangaStory?.title && (
             <h2 className={styles.mangaTitle}>{item.joinMangaStoryRequest[0].mangaStory?.title}</h2>
           )}
-          {/* <div
+          <div
             className={styles.messText}
             dangerouslySetInnerHTML={{
-              __html: wrapUrls(item.content, true),
-            }}></div> */}
-          <div className={styles.messText}>{item.content}</div>
+              __html: item.content,
+            }}></div>
           <div className={styles.statusContainer}>
             {item.joinMangaStoryRequest[0].status === 'new' && (
               <span className={styles.status}> Pending invite </span>
@@ -126,12 +121,11 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
           </div>
         </div>
       ) : (
-        // <div
-        //   className={styles.messText}
-        //   dangerouslySetInnerHTML={{
-        //     __html: wrapUrls(item.content, true),
-        //   }}></div>
-        <div className={styles.messText}>{item.content}</div>
+        <div
+          className={styles.messText}
+          dangerouslySetInnerHTML={{
+            __html: item.content,
+          }}></div>
       );
       item.date = moment(item.createdAt).toDate();
       item.avatar = avatar;
@@ -155,9 +149,11 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
     });
   };
 
-  // const scrollToBottom = () => {
-  //   messenger.current.mlistRef.scrollIntoView(false);
-  // };
+  const scrollToBottom = () => {
+    messenger.current.mlistRef.scrollIntoView(false);
+    window.scrollTo(0, window.scrollY + 80);
+    // chatBlock.current.focus();
+  };
 
   const getMessages = () => {
     if (!conversationId) {
@@ -172,8 +168,18 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
           headers: { Authorization: `Bearer ${jwt}` },
         })
         .then((res) => {
-          setMessageList(adaptData(res.messages, res.participentsInfo));
-          // scrollToBottom();
+          if (res?.messages && (total !== res.messages.length || res._id !== convId)) {
+            total = res.messages.length;
+            convId = res._id;
+
+            const neMess = res.messages.map((item, index) => {
+              const content = wrapUrls(item.content, index);
+              return { ...item, content };
+            });
+
+            setMessageList(adaptData(neMess, res.participentsInfo));
+            scrollToBottom();
+          }
         })
         .catch((err) => openNotification('error', err.message));
     });
