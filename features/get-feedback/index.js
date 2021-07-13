@@ -28,7 +28,7 @@ const Start = ({ user }) => {
     ];
     amplitude.track(data);
     // eslint- disable-next-line no-underscore-dangle
-    Router.push(`/`);
+    Router.push(`/feed`);
   });
 
   useEffect(() => {
