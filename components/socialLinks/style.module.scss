@@ -34,6 +34,9 @@
 }
 
 .social {
+  @include media-sm {
+    position: relative;
+  }
   .social_icons {
     a {
       display: inline-block;
@@ -44,9 +47,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    @include media-md {
+      svg{
+        width: 25px;
+        height: 25px;
+      }
+    }
     @include media-sm {
       align-items: self-end;
-      position: relative;
+      position: absolute;
+      top: 0px;
+      left: 13px;
       width: 100%;
       justify-content: flex-end;
       svg {
