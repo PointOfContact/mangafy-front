@@ -178,7 +178,7 @@ const BannerSection = ({
                 height={83}
                 layout="fixed"
                 src={'https://mangafy.club/img/upload.webp'}
-                alt=""
+                alt="MangaFy upload"
               />
             </div>
 
@@ -193,7 +193,7 @@ const BannerSection = ({
                     ? 'https://mangafy.club/img/collab_baner.webp'
                     : client.UPLOAD_URL + baseData.image
                 }
-                alt=""
+                alt="MangaFy collab banner"
               />
             </div>
           </div>
@@ -206,7 +206,7 @@ const BannerSection = ({
                 className={styles.bannerCover}
                 layout="fill"
                 src={client.UPLOAD_URL + baseData.image}
-                alt=""
+                alt="MangaFy collab banner"
               />
             </div>
           ) : (
@@ -217,7 +217,7 @@ const BannerSection = ({
                 height={170}
                 layout="fixed"
                 src={'https://mangafy.club/img/collab_baner.webp'}
-                alt=""
+                alt="MangaFy collab banner"
               />
             </div>
           )}
@@ -271,7 +271,7 @@ const BannerSection = ({
                     height={29}
                     layout="fixed"
                     src={'https://mangafy.club/img/Group.webp'}
-                    alt=""
+                    alt="MangaFy Group"
                   />
                 </div>
               </div>
@@ -289,7 +289,7 @@ const BannerSection = ({
                     height={30}
                     layout="fixed"
                     src={'https://mangafy.club/img/notebook1.webp'}
-                    alt=""
+                    alt="MangaFy notebook"
                   />
                 </div>
               </div>

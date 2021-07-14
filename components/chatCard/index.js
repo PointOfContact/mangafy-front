@@ -112,6 +112,7 @@ const ChatCard = ({
                   width={51}
                   height={51}
                   src={client.UPLOAD_URL + senderInfo.avatar}
+                  alt="MangaFy avatar"
                 />
               ) : (
                 (isTeamChat && (
@@ -120,6 +121,7 @@ const ChatCard = ({
                     width={51}
                     height={51}
                     src={'https://mangafy.club/img/mangastory.webp'}
+                    alt="MangaFy avatar"
                   />
                 )) || <Avatar text={senderInfo.name} className={styles.avatarName} fontSize={50} />
               )}

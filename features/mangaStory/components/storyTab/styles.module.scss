@@ -1,11 +1,14 @@
 @import '../../../../styles/variables.scss';
 
-.storyTab {
-  font-family: Noto Sans JP;
-  max-width: 910px;
+.isOuner {
   @include media-md {
     margin-top: 80px;
   }
+}
+
+.storyTab {
+  font-family: Noto Sans JP;
+  max-width: 910px;
   .sub_info {
     margin-top: -7px;
     margin-bottom: 16px;

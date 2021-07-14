@@ -7,7 +7,7 @@
   margin-top: 25px;
   margin-bottom: 30px;
   @include media-sm {
-    font-size: $text4;
+    font-size: $text2;
   }
 }
 
@@ -34,6 +34,10 @@
 }
 
 .social {
+  @include media-sm {
+    position: relative;
+    margin-bottom: 30px;
+  }
   .social_icons {
     a {
       display: inline-block;
@@ -44,9 +48,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    @include media-md {
+      svg {
+        width: 25px;
+        height: 25px;
+      }
+    }
     @include media-sm {
       align-items: self-end;
-      position: relative;
+      position: absolute;
+      top: 0px;
+      left: 13px;
       width: 100%;
       justify-content: flex-end;
       svg {

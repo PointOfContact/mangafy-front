@@ -29,6 +29,7 @@ const CommunitySpotlightsCard = (props) => {
                     width={104}
                     height={104}
                     src={client.UPLOAD_URL + img}
+                    alt="MangaFy avatar"
                   />
                 ) : (
                   <Avatar text={title} size={40} />

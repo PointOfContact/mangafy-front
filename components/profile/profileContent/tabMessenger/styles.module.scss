@@ -13,7 +13,7 @@
   margin: 0 -25px;
   min-height: 655px;
   @include media-sm {
-    height: 614px;
+    min-height: 555px;
   }
   .content {
     display: flex;

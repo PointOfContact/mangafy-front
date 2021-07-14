@@ -36,7 +36,7 @@ const ChooseLayoutCard = ({
       onClick={onClick}>
       {isActive && <WhiteChecked className={styles.checked} width="31px" height="31px" />}
       <div className={styles.img}>
-        <img src={`${restClient.API_ENDPOINT}/api/v2/uploads/${src}`} />
+        <img src={`${restClient.API_ENDPOINT}/api/v2/uploads/${src}`} alt="MangaFy uploads" />
       </div>
       <h4 className={styles.title}>{title}</h4>
       <p className={styles.description}>{description}</p>

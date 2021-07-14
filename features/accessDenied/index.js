@@ -25,7 +25,7 @@ const AccessDenied = ({ user }) => (
             height={295}
             layout="fixed"
             src="https://mangafy.club/img/error.webp"
-            alt=""
+            alt="MangaFy error"
           />
           {/* <div className={styles.error_title}>404</div> */}
           <div className={styles.page_title}>Access Denied</div>

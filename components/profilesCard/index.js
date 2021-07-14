@@ -32,7 +32,7 @@ const ProfilesCard = ({ user, genres }) => {
                   height={104}
                   layout="fixed"
                   src={client.UPLOAD_URL + user.avatar}
-                  alt="User avatar"
+                  alt="MangaFy user avatar"
                 />
               ) : (
                 <Avatar text={user.name} size={104} />

@@ -21,7 +21,9 @@
   line-height: 36px;
   margin-bottom: 30px;
   @include media-sm {
-    font-size: $text4;
+    & + div > div {
+      max-width: 100%;
+    }
   }
 }
 
@@ -35,6 +37,7 @@
     justify-content: flex-end;
     width: 100%;
     flex-direction: row;
+    margin-bottom: 20px;
     svg {
       height: 18px;
       width: 18px;
@@ -43,7 +46,7 @@
   & > span {
     @include media-sm {
       display: flex;
-      padding: 5px;
+      padding: 5px 0px 5px 5px;
       justify-content: flex-end;
     }
   }
@@ -71,10 +74,10 @@
     display: flex;
     justify-content: space-between;
     @include media-sm {
-      margin-bottom: 20px;
       flex-direction: row;
       justify-content: center;
       margin-right: 10px;
+      margin: 0px;
     }
     @include hoverButton;
   }
@@ -134,7 +137,6 @@
     @include media-sm {
       display: inline;
       padding-left: 0px;
-      padding-right: 5px;
     }
   }
   svg {
@@ -143,6 +145,7 @@
     @include media-sm {
       min-width: 18px;
       min-height: 18px;
+      margin-left: 5px;
     }
   }
 }
@@ -150,7 +153,6 @@
 .imagesBlock {
   display: flex;
   flex-wrap: wrap;
-
   @include media-sm {
     flex-wrap: unset;
     margin-bottom: 15px;

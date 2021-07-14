@@ -68,7 +68,7 @@ export const ShareStoryBoard = ({ shareUrl, user }) => {
             href="https://mangacat.io?utm_source=mangafy.club"
             target="_blank"
             rel="noreferrer">
-            <img src="/img/MangaCatButton.png" alt="" />
+            <img src="/img/MangaCatButton.png" alt="MangaFy cat button" />
           </a>
           <p>
             <span>Terms : </span>
@@ -78,16 +78,16 @@ export const ShareStoryBoard = ({ shareUrl, user }) => {
           </p>
         </div>
         {/* Button link: https://mangacat.io
-Terms: https://mangacat.io/terms */}
+         Terms: https://mangacat.io/terms */}
         {/* 
       <a href="https://tapas.io/" target="_blank" rel="noreferrer">
-        <img src="/img/tapacs.svg" alt="" />
+        <img src="/img/tapacs.svg" alt="MangaFy tapacs" />
       </a>
       <a href="https://www.webtoons.com" target="_blank" rel="noreferrer">
-        <img className="webtoon" src="/img/webtoon.svg" alt="" />
+        <img className="webtoon" src="/img/webtoon.svg" alt="MangaFy webtoon" />
       </a>
       <a href="https://www.comico.jp/" target="_blank" rel="noreferrer">
-        <img src="/img/comico.svg" alt="" />
+        <img src="/img/comico.svg" alt="MangaFy comico" />
       </a> */}
       </div>
       <div className={styles.logos_mobile}>
@@ -97,7 +97,7 @@ Terms: https://mangacat.io/terms */}
             href="https://mangacat.io?utm_source=mangafy.club"
             target="_blank"
             rel="noreferrer">
-            <img src="/img/MangaCatButton.png" alt="" />
+            <img src="/img/MangaCatButton.png" alt="MangaFy cat button" />
           </a>
           <p>
             <span>Terms : </span>

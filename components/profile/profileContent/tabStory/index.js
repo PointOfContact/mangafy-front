@@ -172,7 +172,7 @@ const TabStory = (props) => {
                       height={140}
                       layout="fixed"
                       src="https://mangafy.club/img/aboutme.webp"
-                      alt=""
+                      alt="MangaFy about me"
                     />,
                   ]}
                   onClick={() => setStoryEditMode(true)}
@@ -192,7 +192,7 @@ const TabStory = (props) => {
                       height={140}
                       layout="fixed"
                       src="https://mangafy.club/img/NovelType.webp"
-                      alt=""
+                      alt="MangaFy novel"
                     />,
                   ]}
                   onClick={() => setStoryEditMode(true)}
@@ -212,7 +212,7 @@ const TabStory = (props) => {
                       height={140}
                       layout="fixed"
                       src="https://mangafy.club/img/Projects.webp"
-                      alt=""
+                      alt="MangaFy projects"
                     />,
                   ]}
                   onClick={() => routeChange()}
@@ -236,7 +236,7 @@ const TabStory = (props) => {
                       height={140}
                       layout="fixed"
                       src="https://mangafy.club/img/profile-apout-me.webp"
-                      alt=""
+                      alt="MangaFy about me"
                     />,
                   ]}
                   onClick={() => setStoryEditMode(true)}
@@ -257,7 +257,7 @@ const TabStory = (props) => {
                         height={140}
                         layout="fixed"
                         src="https://mangafy.club/img/ProfileNovelType.webp"
-                        alt=""
+                        alt="MangaFy novel"
                       />,
                     ]}
                     onClick={() => setStoryEditMode(true)}
@@ -277,7 +277,7 @@ const TabStory = (props) => {
                       height={140}
                       layout="fixed"
                       src="https://mangafy.club/img/ProfileProjects.webp"
-                      alt=""
+                      alt="MangaFy projects"
                     />,
                   ]}
                   onClick={() => routeChange()}

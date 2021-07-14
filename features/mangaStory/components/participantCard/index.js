@@ -19,7 +19,7 @@ const ParticipantCard = ({ isOwn, avatar, name, id, type, leaveManga, user, auth
             width={50}
             height={50}
             src={client.UPLOAD_URL + avatar}
-            alt="Picture of the user"
+            alt="MangaFy picture of the user"
           />
         ) : (
           <Avatar text={name} size={50} />

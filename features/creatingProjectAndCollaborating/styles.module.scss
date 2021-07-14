@@ -70,7 +70,9 @@
     margin: 15px auto;
   }
   .sendInvite{
-    width: 60%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
   }
   .notification{
     width: 40%;

@@ -66,16 +66,20 @@
   }
 }
 .messageList {
+  height: 504px;
   padding-top: 26px;
+  white-space: pre-wrap;
+  margin: 0;
   background-image: url('../../../../../public/img/messbg.png');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: bottom right;
-  height: 504px;
+  word-wrap: break-word;
   @include media-sm {
     height: 295px;
   }
   .message_list {
+    min-height: 100%;
     & > div > div > div {
       max-width: 283px;
       min-width: 203px;
@@ -104,7 +108,8 @@
         color: #8b78f4;
       }
       & > div > div {
-        margin-bottom: 0;
+        bottom: 0;
+        top: -22px;
         & > div {
           left: -75px;
         }
@@ -331,8 +336,6 @@
       }
       textarea {
         padding: 0;
-        padding-top: 20px;
-        padding-bottom: 20px;
         margin-left: 30px;
         border: none !important;
         background-color: transparent !important;
@@ -344,16 +347,32 @@
         }
         &::placeholder {
           font-weight: normal;
-          font-size: 16px;
+          font-size: 14px;
           line-height: 20px;
           color: $gray85;
         }
-        @include media-lg() {
+        @include media-lg {
           width: 100%;
         }
         @include media-sm {
-          margin-left: 28px;
+          margin: 20px 28px 17px 28px;
         }
+      }
+      .messageError{
+        color: rgb(228, 47, 47);
+        font-size: 11px;
+        font-family: monospace;
+        position: absolute;
+        bottom: -3px;
+        margin: 0;
+        left: 30px;
+        @include media-sm {
+          left: 28px;
+          bottom: 87px;
+        }
+      }
+      .notError{
+        display: none;
       }
       // img{
       //   width: 21px;
@@ -458,6 +477,7 @@
     }
   }
   @include media-sm {
+    width: 173px;
     font-size: 14px;
   }
 }

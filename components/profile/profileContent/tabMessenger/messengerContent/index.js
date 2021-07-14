@@ -27,25 +27,27 @@ const onAccept = (event, id, status) => {
   return patchRequest(id, status);
 };
 
+let convId = '';
+let totalMess = 0;
+
 const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests, setRequests }) => {
   const [messageList, setMessageList] = useState([]);
   const [value, setValue] = useState('');
   const [showModal, changeShowModal] = useState(false);
+  const [messageError, setMessageError] = useState('');
 
   const { width } = useWindowSize();
   const messenger = useRef(null);
   const { conversationId, profileId } = selectedRequest;
 
-  // const wrapURLs = (text, new_window) => {
-  //   const url_pattern = /(?:(?:https?|ftp?|http):\/\/)?(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\x{00a1}\-\x{ffff}0-9]+-?)*[a-z\x{00a1}\-\x{ffff}0-9]+)(?:\.(?:[a-z\x{00a1}\-\x{ffff}0-9]+-?)*[a-z\x{00a1}\-\x{ffff}0-9]+)*(?:\.(?:[a-z\x{00a1}\-\x{ffff}]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?/gi;
-  //   const target = new_window === true || new_window == null ? '_blank' : '';
-
-  //   return text.replace(url_pattern, (url) => {
-  //     const protocol_pattern = /^(?:(?:https?|ftp):\/\/)/i;
-  //     const href = protocol_pattern.test(url) ? url : `http://${url}`;
-  //     return `<a href="${href}" target="${target}">${url}</a>`;
-  //   });
-  // };
+  const wrapUrls = (text) => {
+    // eslint-disable-next-line no-useless-escape
+    const url_pattern = /(http|ftp|https|www):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/gi;
+    return text.replace(url_pattern, (url) => {
+      const href = url_pattern.test(url) ? url : `http://${url}`;
+      return `<a href="${href}" target="_blank">${url}</a>`;
+    });
+  };
 
   const adaptData = (data, participants) => {
     data.forEach((item) => {
@@ -58,20 +60,17 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
       }
       item.position = user._id === item.senderId ? 'left' : 'right';
       item.type = 'text';
+      // eslint-disable-next-line no-nested-ternary
       item.text = item.joinMangaStoryRequest?.length ? (
         <div className={styles.name}>
           {item.joinMangaStoryRequest[0].mangaStory?.title && (
             <h2 className={styles.mangaTitle}>{item.joinMangaStoryRequest[0].mangaStory?.title}</h2>
           )}
-          {/* {false ? (
-            <div
-              className={styles.messText}
-              dangerouslySetInnerHTML={{
-                __html: wrapURLs(item.content, true),
-              }}></div>
-          ) : ( */}
-          <div className={styles.messText}>{item.content}</div>
-          {/* )} */}
+          <div
+            className={styles.messText}
+            dangerouslySetInnerHTML={{
+              __html: item.content,
+            }}></div>
           <div className={styles.statusContainer}>
             {item.joinMangaStoryRequest[0].status === 'new' && (
               <span className={styles.status}> Pending invite </span>
@@ -123,14 +122,11 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
           </div>
         </div>
       ) : (
-        // index > data.length - 3 ? (
-        //   <div
-        //     className={styles.messText}
-        //     dangerouslySetInnerHTML={{
-        //       __html: wrapURLs(item.content, true),
-        //     }}></div>
-        // ) : (
-        <div className={styles.messText}>{item.content}</div>
+        <div
+          className={styles.messText}
+          dangerouslySetInnerHTML={{
+            __html: item.content,
+          }}></div>
       );
       item.date = moment(item.createdAt).toDate();
       item.avatar = avatar;
@@ -139,7 +135,12 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
   };
 
   const handleChange = (e) => {
-    setValue(e.target.value);
+    // eslint-disable-next-line no-shadow
+    const { maxLength, value } = e.target;
+    setValue(value);
+    value.length >= maxLength
+      ? setMessageError(`The character limit for a message is ${maxLength} characters.`)
+      : setMessageError('');
   };
 
   const openNotification = (type, message) => {
@@ -149,9 +150,14 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
     });
   };
 
-  // const scrollToBottom = () => {
-  //   messenger.current.mlistRef.scrollIntoView(false);
-  // };
+  const scrollToBottom = () => {
+    messenger.current.mlistRef.scrollIntoView(false);
+    const pl = selectedRequest.isTeamChat ? 16 : 0;
+    width > 767
+      ? window.scrollTo(0, window.scrollY + 80 + pl)
+      : window.scrollTo(0, window.scrollY + 160 + pl);
+    // chatBlock.current.focus();
+  };
 
   const getMessages = () => {
     if (!conversationId) {
@@ -166,8 +172,17 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
           headers: { Authorization: `Bearer ${jwt}` },
         })
         .then((res) => {
-          setMessageList(adaptData(res.messages, res.participentsInfo));
-          // scrollToBottom();
+          if (res?.messages && (totalMess !== res.messages.length || res._id !== convId)) {
+            convId = res._id;
+            totalMess = res.messages.length;
+            const neMess = res.messages.map((item, index) => {
+              const content = wrapUrls(item.content, index);
+              return { ...item, content };
+            });
+
+            setMessageList(adaptData(neMess, res.participentsInfo));
+            scrollToBottom();
+          }
         })
         .catch((err) => openNotification('error', err.message));
     });
@@ -225,12 +240,12 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
     }
   };
 
-  const handleKeyPressSend = (event) => {
-    if (event.key === 'Enter' && !event.shiftKey && width > 780) {
-      event.preventDefault();
-      sendMessage();
-    }
-  };
+  // const handleKeyPressSend = (event) => {
+  //   if (event.key === 'Enter' && !event.shiftKey && width > 780) {
+  //     event.preventDefault();
+  //     sendMessage();
+  //   }
+  // };
 
   const setRequestStatus = (event, id, status) => {
     onAccept(event, id, status).then((res) => {
@@ -290,7 +305,7 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
   return (
     <div className={styles.chatContainer}>
       {selectedRequest.participentsInfo && <UserName selectedRequest={selectedRequest} />}
-      <div className={styles.messageList} id="message-content">
+      <pre className={styles.messageList} id="message-content">
         <MessageList
           ref={messenger}
           className={styles.message_list}
@@ -307,7 +322,7 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
             }
           }}
         />
-      </div>
+      </pre>
       {!selectedRequest?.isArchive && (
         <div className={styles.chatBlock2}>
           <div className={styles.messageInput}>
@@ -316,9 +331,10 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
               placeholder="Type your message..."
               value={value}
               onChange={handleChange}
-              onKeyPress={handleKeyPressSend}
+              // onKeyPress={handleKeyPressSend}
               className={styles.textarea_text}
             />
+            <p className={messageError ? styles.messageError : styles.notError}>{messageError}</p>
             {/* <img src={'/img/smileMessage.png'} alt="smile" /> */}
           </div>
           <span className={styles.sendMessage}>
@@ -333,7 +349,10 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
             <PrimaryButton
               className={styles.sendButton}
               text="SEND"
-              onClick={() => sendMessage(false)}
+              onClick={() => {
+                sendMessage(false);
+                setMessageError('');
+              }}
             />
           </span>
         </div>

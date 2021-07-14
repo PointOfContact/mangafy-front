@@ -38,7 +38,7 @@ export default function Home() {
                 </Link>
               </div>
               <div className={styles.main__ico}>
-                <img src="img/land-new-img1.svg" />
+                <img src="img/land-new-img1.svg" alt="MangaFy land new" />
               </div>
             </div>
           </div>
@@ -56,7 +56,7 @@ export default function Home() {
           <div className={styles.platformDescr__wrap}>
             <div className={styles.platformDescr__item}>
               <div className={styles.platformDescr__itemIco}>
-                <img src="icons/platform-img1.svg" />
+                <img src="icons/platform-img1.svg" alt="MangaFy platform" />
               </div>
               <div className={styles.platformDescr__itemTitle}>Grow as a graphic novelist</div>
               <div className={styles.platformDescr__itemDescr}>
@@ -66,7 +66,7 @@ export default function Home() {
             </div>
             <div className={cn(styles.platformDescr__item, styles.platformDescr__itemCenter)}>
               <div className={styles.platformDescr__itemIco}>
-                <img src="icons/platform-img2.svg" />
+                <img src="icons/platform-img2.svg" alt="MangaFy platform" />
               </div>
               <div className={styles.platformDescr__itemTitle}>Build your team</div>
               <div className={styles.platformDescr__itemDescr}>
@@ -75,7 +75,7 @@ export default function Home() {
             </div>
             <div className={styles.platformDescr__item}>
               <div className={styles.platformDescr__itemIco}>
-                <img src="icons/platform-img3.svg" />
+                <img src="icons/platform-img3.svg" alt="MangaFy platform" />
               </div>
               <div className={styles.platformDescr__itemTitle}>Management Tools</div>
               <div className={styles.platformDescr__itemDescr}>
@@ -98,9 +98,9 @@ export default function Home() {
             </Link>
           </div>
           <div className={styles.goinSection__img}>
-            <img src="img/joinSecion-img1.png" />
+            <img src="img/joinSecion-img1.png" alt="MangaFy join section" />
             <div className={styles.goinSection__imgLeft}>
-              <img src="img/joinSecion-img2.png" />
+              <img src="img/joinSecion-img2.png" alt="MangaFy join section" />
             </div>
           </div>
         </div>
@@ -123,13 +123,13 @@ export default function Home() {
         <div className={cn('container', styles.main__container)}>
           <div className={styles.imgBlock__wrap}>
             <div className={cn(styles.imgBlock__img, styles.imgBlock__imgIco1)}>
-              <img src="img/imgBlock-img1.png" />
+              <img src="img/imgBlock-img1.png" alt="MangaFy block" />
             </div>
             <div className={cn(styles.imgBlock__img, styles.imgBlock__imgIco2)}>
-              <img src="img/imgBlock-img2.png" />
+              <img src="img/imgBlock-img2.png" alt="MangaFy block" />
             </div>
             <div className={cn(styles.imgBlock__img, styles.imgBlock__imgIco3)}>
-              <img src="img/imgBlock-img3.png" />
+              <img src="img/imgBlock-img3.png" alt="MangaFy block" />
             </div>
           </div>
         </div>

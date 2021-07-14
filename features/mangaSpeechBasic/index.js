@@ -67,6 +67,7 @@ const MangaSpeechBasic = ({ user }) => (
               width={879}
               height={879}
               src={'https://mangafy.club/img/manga-speech-basic/1.png'}
+              alt="MangaFy speech basic"
             />
           </div>
           <div>
@@ -87,11 +88,13 @@ const MangaSpeechBasic = ({ user }) => (
               width={621}
               height={879}
               src={'https://mangafy.club/img/manga-speech-basic/2.png'}
+              alt="MangaFy speech basic"
             />
             <Imgix
               width={621}
               height={879}
               src={'https://mangafy.club/img/manga-speech-basic/3.png'}
+              alt="MangaFy speech basic"
             />
             <br />
             <strong>So...what are the basics? how do we get started?</strong>
@@ -99,36 +102,43 @@ const MangaSpeechBasic = ({ user }) => (
               width={621}
               height={879}
               src={'https://mangafy.club/img/manga-speech-basic/4.png'}
+              alt="MangaFy speech basic"
             />
             <Imgix
               width={621}
               height={879}
               src={'https://mangafy.club/img/manga-speech-basic/5.png'}
+              alt="MangaFy speech basic"
             />
             <Imgix
               width={621}
               height={879}
               src={'https://mangafy.club/img/manga-speech-basic/6.png'}
+              alt="MangaFy speech basic"
             />
             <Imgix
               width={621}
               height={879}
               src={'https://mangafy.club/img/manga-speech-basic/7.png'}
+              alt="MangaFy speech basic"
             />
             <Imgix
               width={621}
               height={879}
               src={'https://mangafy.club/img/manga-speech-basic/8.png'}
+              alt="MangaFy speech basic"
             />
             <Imgix
               width={621}
               height={879}
               src={'https://mangafy.club/img/manga-speech-basic/9.png'}
+              alt="MangaFy speech basic"
             />
             <Imgix
               width={621}
               height={879}
               src={'https://mangafy.club/img/manga-speech-basic/10.png'}
+              alt="MangaFy speech basic"
             />
 
             <p>
