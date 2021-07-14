@@ -17,7 +17,7 @@ const Quest = ({ point, status, title, description, navUrl }) => (
           status === 'PROCESS' && styles.process
         )}>
         <div className={styles.point}>
-          <img src="/img/point.png" />
+          <img src="/img/point.png" alt="MangaFy point" />
           {point && <span>{point}</span>}
         </div>
         <div className={styles.indo}>

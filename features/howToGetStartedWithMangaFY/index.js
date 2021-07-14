@@ -106,7 +106,6 @@ const MangaPanelingBasics = ({ user }) => (
               />
             </b>
             <br />
-
             <p>
               You will be directed to create your story page -
               https://mangafy.club/create-a-story/start. Press start and start building your user

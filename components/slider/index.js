@@ -23,7 +23,7 @@ const SimpleSlider = ({}) => {
           height={350}
           quality={50}
           src="https://mangafy.club/img/goal-ico1.webp"
-          alt=""
+          alt="MangaFy goal icon"
         />
       </div>
       <div>
@@ -33,7 +33,7 @@ const SimpleSlider = ({}) => {
           height={350}
           quality={50}
           src="https://mangafy.club/img/goal-ico2.webp"
-          alt=""
+          alt="MangaFy goal icon"
         />
       </div>
       <div>
@@ -43,7 +43,7 @@ const SimpleSlider = ({}) => {
           height={350}
           quality={50}
           src="https://mangafy.club/img/goal-ico3.webp"
-          alt=""
+          alt="MangaFy goal icon"
         />
       </div>
     </Slider>

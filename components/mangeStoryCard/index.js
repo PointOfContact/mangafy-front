@@ -59,7 +59,7 @@ const MangeStoryCard = ({ mangaStories, client, user }) =>
                     ? client.UPLOAD_URL + label.image
                     : 'https://mangafy.club/img/collab_baner.webp'
                 }
-                alt="mangafy"
+                alt="MangaFy collab baner"
               />
               <div className={styles.team}>
                 <div className={styles.participents}>

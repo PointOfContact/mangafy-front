@@ -81,15 +81,15 @@ const MangaPanelingBasics = ({ user }) => (
             <br />
             <Imgix
               width={860}
-              height={900}
+              height={1000}
               src={'https://mangafy.club/img/setovi.jpg'}
-              alt="MangaFy iframe"
+              alt="MangaFy setovi"
             />
             <Imgix
               width={860}
               height={1000}
               src={'https://mangafy.club/img/lesson_1.jpg'}
-              alt="MangaFy iframe"
+              alt="MangaFy lesson"
             />
             <br />
             <strong>CHECK LISTS AND TEMPLATES</strong>
@@ -98,7 +98,7 @@ const MangaPanelingBasics = ({ user }) => (
               width={860}
               height={1000}
               src={'https://mangafy.club/img/Untitled.png'}
-              alt="MangaFy iframe"
+              alt="MangaFy untitled"
             />
             <p>But note:</p>
             <ul>
@@ -131,13 +131,13 @@ const MangaPanelingBasics = ({ user }) => (
               width={860}
               height={1000}
               src={'https://mangafy.club/img/3.jpg'}
-              alt="MangaFy iframe"
+              alt="MangaFy frames"
             />
             <Imgix
               width={860}
               height={1000}
               src={'https://mangafy.club/img/1.jpg'}
-              alt="MangaFy iframe"
+              alt="MangaFy frames"
             />
             <h2>Fast scene</h2>
             <p>

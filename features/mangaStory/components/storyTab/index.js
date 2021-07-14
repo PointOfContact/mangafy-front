@@ -134,7 +134,7 @@ const StoryTab = ({ setBaseData, baseData, isOwn, user, isParticipant }) => {
                       width={65}
                       height={65}
                       src={client.UPLOAD_URL + avatar}
-                      alt="Picture of the user"
+                      alt="MangaFy picture of the user"
                     />
                   ) : (
                     <Avatar text={name} size={69} />

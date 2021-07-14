@@ -12,7 +12,7 @@ const ButtonToTop = () => {
     <BackTop>
       <div className={styles.button} onClick={scrollTop}>
         <div className={styles.button__circle}>
-          <img className={styles.button__circle_img} src="/img/to-top.svg" alt="" />
+          <img className={styles.button__circle_img} src="/img/to-top.svg" alt="MangaFy to top" />
         </div>
       </div>
     </BackTop>

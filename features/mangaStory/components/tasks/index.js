@@ -157,7 +157,7 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipent }) => {
           ))}
         </div>
       )}
-      <div className={styles.creatTask}>
+      <div className={styles.createTask}>
         <div className={isOwn ? styles.addButtonOwn : styles.addBtn}>
           {isOwn ? (
             <PrimaryButton
@@ -165,17 +165,18 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipent }) => {
                 changeShowModal(true);
                 setSelectedTask(null);
               }}
-              className={styles.creatTaskButton}
+              className={styles.createTaskButton}
               text="Create a task"
             />
           ) : (
             <>
               <Imgix
+                className={styles.contributePhoto}
                 width={264}
                 height={241}
                 layout="fixed"
                 src="https://mangafy.club/img/storyCardImg1.webp"
-                alt=""
+                alt="MangaFy story card"
               />
               {!tasks?.length && !isParticipent && (
                 <PrimaryButton

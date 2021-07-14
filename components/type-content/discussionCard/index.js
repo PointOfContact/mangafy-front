@@ -88,7 +88,7 @@ const DiscussionCard = (props) => {
               className={(!img && styles.defaultBg) || ''}
               layout="fill"
               src={img ? `${client.UPLOAD_URL + img}` : `https://mangafy.club/img/mangastory.webp`}
-              alt=""
+              alt="MangaFy story"
             />
           </div>
           <div className={styles.comments}>

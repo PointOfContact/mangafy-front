@@ -18,7 +18,7 @@ const ProfilesHeader = ({ user }) => (
             width={428}
             height={294}
             src="https://mangafy.club/img/people.webp"
-            alt=""
+            alt="MangaFy people"
           />
         </div>
         <div className={styles.box__content}>
@@ -50,7 +50,7 @@ const ProfilesHeader = ({ user }) => (
                 width={233}
                 height={54}
                 src={`https://mangafy.club/img/persons.webp`}
-                alt=""
+                alt="MangaFy persons"
               />
             </span>
           </div>

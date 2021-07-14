@@ -63,7 +63,7 @@ const ProjectDescription = ({ user }) => {
             <Col className="col-lg-8">
               <div className="collab_div">
                 <div className="logo_img_comp">
-                  <img src="/img/logo.webp" width="250" alt="" />
+                  <img src="/img/logo.webp" width="250" alt="MangaFy logo" />
                 </div>
                 <h1 className="collab">Graphic novel srory</h1>
                 <p className="title_text">

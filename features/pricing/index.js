@@ -104,7 +104,7 @@ const Pricing = (props) => {
                     height={157}
                     layout="fixed"
                     src="https://mangafy.club/img/tools_image1.webp"
-                    alt=""
+                    alt="MangaFy tools"
                   />
                   <div className={styles.item_category}>Personal</div>
                   <div className={styles.item_price}>$0</div>
@@ -145,7 +145,7 @@ const Pricing = (props) => {
                     height={160}
                     layout="fixed"
                     src="https://mangafy.club/img/tools_image2.webp"
-                    alt=""
+                    alt="MangaFy tools"
                   />
                   <div className={styles.item_category}>Personal Pro</div>
                   <div className={styles.item_price}>
@@ -226,11 +226,11 @@ const Pricing = (props) => {
                       name="submit"
                     />
                     <img
-                      alt=""
                       border="0"
                       src="https://www.paypal.com/en_IL/i/scr/pixel.gif"
                       width="1"
                       height="1"
+                      alt="MangaFy pixel"
                     />
                   </form>
                   <div className={styles.item_title}>
@@ -279,7 +279,7 @@ const Pricing = (props) => {
                     height={160}
                     layout="fixed"
                     src="https://mangafy.club/img/tools_image3.webp"
-                    alt=""
+                    alt="MangaFy tools"
                   />
                   <div className={styles.item_category}>Plus Plus</div>
                   <div className={styles.item_price}>
@@ -362,11 +362,11 @@ const Pricing = (props) => {
                       name="submit"
                     />
                     <img
-                      alt=""
                       border="0"
                       src="https://www.paypal.com/en_IL/i/scr/pixel.gif"
                       width="1"
                       height="1"
+                      alt="MangaFy pixel"
                     />
                   </form>
                   <div className={styles.item_title}>
