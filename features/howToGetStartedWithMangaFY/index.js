@@ -59,8 +59,13 @@ const MangaPanelingBasics = ({ user }) => (
               B. Go to the "No Account yet? start your journey, and press it.
             </p>
             <br />
-            {/* <Imgix width={860} height={1000} src={'https://mangafy.club/img/login-ss.jpg'} /> */}
-            <Imgix width={860} height={1000} src={'https://mangafy.club/img/Untitled.png'} />
+            {/* <Imgix width={860} height={1000} src={'https://mangafy.club/img/login-ss.jpg'} alt="MangaFy login"/> */}
+            <Imgix
+              width={860}
+              height={1000}
+              src={'https://mangafy.club/img/Untitled.png'}
+              alt="MangaFy untitled"
+            />
             <p>
               C. It will lead you to the start of your profile screen where you feel your name, your
               artist role (are you an illustrator, writer, editor, inker, translator, etc.), your
@@ -68,8 +73,13 @@ const MangaPanelingBasics = ({ user }) => (
             </p>
             <br />
             <b>
-              {/* <Imgix width={860} height={1000} src={'https://mangafy.club/img/get-started.jpg'} />{' '} */}
-              <Imgix width={860} height={1000} src={'https://mangafy.club/img/Untitled.png'} />{' '}
+              {/* <Imgix width={860} height={1000} src={'https://mangafy.club/img/get-started.jpg'} alt="MangaFy get started"/>{' '} */}
+              <Imgix
+                width={860}
+                height={1000}
+                src={'https://mangafy.club/img/Untitled.png'}
+                alt="MangaFy untitled"
+              />{' '}
             </b>
             <p>
               D. Once done, you will get the following window - press the "Create Your First Story"
@@ -77,17 +87,26 @@ const MangaPanelingBasics = ({ user }) => (
             </p>
             <br />
             <b>
-              {/* <Imgix width={860} height={1000} src={'https://mangafy.club/img/welcome.jpg'} /> */}
-              <Imgix width={860} height={1000} src={'https://mangafy.club/img/Untitled.png'} />
+              {/* <Imgix width={860} height={1000} src={'https://mangafy.club/img/welcome.jpg'} alt="MangaFy welcome"/> */}
+              <Imgix
+                width={860}
+                height={1000}
+                src={'https://mangafy.club/img/Untitled.png'}
+                alt="MangaFy untitled"
+              />
             </b>
             <br />
-
             <p>
               You will be directed to create your story page -
               https://mangafy.club/create-a-story/start. Press start and start building your user
               profile on MangaFY.
             </p>
-            <Imgix width={860} height={1000} src={'https://mangafy.club/img/Untitled.png'} />
+            <Imgix
+              width={860}
+              height={1000}
+              src={'https://mangafy.club/img/Untitled.png'}
+              alt="MangaFy untitled"
+            />
             <p>Note:</p>
             <p>
               <strong>Note:</strong> building a detailed user profile is extremely important - it is
@@ -109,8 +128,13 @@ const MangaPanelingBasics = ({ user }) => (
               "Profile":
             </p>
             <p>
-              {/* <Imgix width={860} height={1000} src={'https://mangafy.club/img/profile.jpg'} /> */}
-              <Imgix width={860} height={1000} src={'https://mangafy.club/img/Untitled.png'} />
+              {/* <Imgix width={860} height={1000} src={'https://mangafy.club/img/profile.jpg'} alt="MangaFy profile"/> */}
+              <Imgix
+                width={860}
+                height={1000}
+                src={'https://mangafy.club/img/Untitled.png'}
+                alt="MangaFy untitled"
+              />
             </p>
             <p>Or going directly here - https://mangafy.club/my-profile</p>
             <p>

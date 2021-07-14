@@ -122,7 +122,7 @@ const MenuLinks = ({ isOpen, user, setShowModal, handleMenuOpen }) => {
                   ? 'https://mangafy.club/img/Frame2.webp'
                   : 'https://mangafy.club/img/Frame.webp'
               }
-              alt=""
+              alt="MangaFy frame"
             />
           </div>
         </div>

@@ -67,15 +67,15 @@ const CreatingProjectAndCollaborating = ({ user }) => (
           </div>
           <div>
             <br />
-            <img src="/img/articleProjects.png" alt="projects" />
-            <img src="/img/articleCardStory.png" alt="card story" />
+            <img src="/img/articleProjects.png" alt="MangaFy projects" />
+            <img src="/img/articleCardStory.png" alt="MangaFy card story" />
             <p>
               After that, go to the <strong>STORYBOARD</strong> slide and begin to work on your
               project (story, characters, etc.) and you are also able to invite people to
               collaborate by pressing the <strong>FIND A PARTNER</strong> tab:
             </p>
             <h3>How to invite collaborations to your project on MangaFY.</h3>
-            <img src="/img/articleCardStoryBoard.png" alt="card story board" />
+            <img src="/img/articleCardStoryBoard.png" alt="MangaFy card story board" />
             <br />
             <p>
               This will open up the <strong>FIND A MEMBER</strong> section of the MangaFY community,
@@ -83,21 +83,25 @@ const CreatingProjectAndCollaborating = ({ user }) => (
               writer, illustrator, editor, translator, inker, etc.):
             </p>
             <br />
-            <img src="/img/articleSearch.png" alt="search" />
+            <img src="/img/articleSearch.png" alt="MangaFy search" />
             <br />
             <p>
               Enter a members profile and invite them for a collaboration by pressing the
               <strong>INVITE TO COLLABORATE </strong> button:
             </p>
             <br />
-            <img src="/img/articlePortfolio.png" alt="portfolio" />
+            <img src="/img/articlePortfolio.png" alt="MangaFy portfolio" />
             <br />
             <p>
               Once pressed a window will open up so you can reach the member with what type of
               collaboration you are looking for. Once done - press <strong>SEND INVITE</strong>.
             </p>
             <br />
-            <img className={styles.sendInvite} src="/img/articleSendInvite.png" alt="send invite" />
+            <img
+              className={styles.sendInvite}
+              src="/img/articleSendInvite.png"
+              alt="MangaFy send invite"
+            />
             <br />
             <p>
               <b>Note:</b> it is important to fill out the "your message" section to keep it as
@@ -112,7 +116,7 @@ const CreatingProjectAndCollaborating = ({ user }) => (
             <img
               className={styles.notification}
               src="/img/articleNotification.png"
-              alt="notification"
+              alt="MangaFy notification"
             />
             <br />
             <p>

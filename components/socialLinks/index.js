@@ -338,7 +338,7 @@ const SocialLinks = (props) => {
                         height={140}
                         layout="fixed"
                         src="https://mangafy.club/img/noSocial.webp"
-                        alt=""
+                        alt="MangaFy no social"
                       />,
                     ]}
                   />
@@ -355,7 +355,7 @@ const SocialLinks = (props) => {
                         height={140}
                         layout="fixed"
                         src="https://mangafy.club/img/noSocial.webp"
-                        alt=""
+                        alt="MangaFy no social"
                       />,
                     ]}
                   />

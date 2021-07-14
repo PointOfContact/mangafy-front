@@ -142,6 +142,7 @@ const ModalDiscussion = ({
                               height={54}
                               src={client.UPLOAD_URL + logo}
                               layout="intrinsic"
+                              alt="MangaFy logo"
                             />
                           ) : (
                             <Imgix
@@ -149,6 +150,7 @@ const ModalDiscussion = ({
                               height={54}
                               layout="intrinsic"
                               src={'https://mangafy.club/img/mangastory.webp'}
+                              alt="MangaFy manga story"
                             />
                           )}
                         </span>
@@ -183,6 +185,7 @@ const ModalDiscussion = ({
                       width={800}
                       height={600}
                       src={'https://mangafy.club/img/mangastory.webp'}
+                      alt="MangaFy manga story"
                     />
                   )}
                 </div>

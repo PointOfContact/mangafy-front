@@ -15,14 +15,24 @@ const TeamAvatar = ({ users, className, onClick, size, fontSize, ...rest }) => {
     <div className={cn(styles.twoUser)}>
       <div>
         {users[0].avatar ? (
-          <Imgix width={size} height={size} src={client.UPLOAD_URL + users[0].avatar} />
+          <Imgix
+            width={size}
+            height={size}
+            src={client.UPLOAD_URL + users[0].avatar}
+            alt="MangaFy avatar"
+          />
         ) : (
           <Avatar text={users[0].name} className={styles.avatarName} fontSize={50} />
         )}
       </div>
       <div>
         {users[1].avatar ? (
-          <Imgix width={size} height={size} src={client.UPLOAD_URL + users[1].avatar} />
+          <Imgix
+            width={size}
+            height={size}
+            src={client.UPLOAD_URL + users[1].avatar}
+            alt="MangaFy avatar"
+          />
         ) : (
           <Avatar text={users[1].name} className={styles.avatarName} fontSize={50} />
         )}
@@ -38,6 +48,7 @@ const TeamAvatar = ({ users, className, onClick, size, fontSize, ...rest }) => {
           width={size}
           height={size}
           src={client.UPLOAD_URL + users[0].avatar}
+          alt="MangaFy avatar"
         />
       ) : (
         <Avatar text={users[0].name} className={styles.avatarName} fontSize={50} />

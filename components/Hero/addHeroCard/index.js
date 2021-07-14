@@ -29,7 +29,12 @@ const AddHeroCard = ({
 
     {img && (
       <div className={styles.showImage}>
-        <img width={`${imgWidth}px`} height={`${imgHeight}px`} src={`/img/${img}`} alt="icon" />
+        <img
+          width={`${imgWidth}px`}
+          height={`${imgHeight}px`}
+          src={`/img/${img}`}
+          alt="MangaFy icon"
+        />
       </div>
     )}
   </div>

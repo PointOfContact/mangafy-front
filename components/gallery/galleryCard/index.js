@@ -172,7 +172,7 @@ const GalleryCard = ({
               </div>
             )
           ) : (
-            <img src={client.UPLOAD_URL + galleryItem._id} alt="" />
+            <img src={client.UPLOAD_URL + galleryItem._id} alt="MangaFy galere" />
           )
         }
       </div>

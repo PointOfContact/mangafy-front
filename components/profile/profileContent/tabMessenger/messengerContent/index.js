@@ -138,7 +138,7 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
     const { maxLength, value } = e.target;
     setValue(value);
     value.length >= maxLength
-      ? setMessageError(`Message max length ${maxLength} symbols`)
+      ? setMessageError(`The character limit for a message is ${maxLength} characters.`)
       : setMessageError('');
   };
 
@@ -345,7 +345,10 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
             <PrimaryButton
               className={styles.sendButton}
               text="SEND"
-              onClick={() => sendMessage(false)}
+              onClick={() => {
+                sendMessage(false);
+                setMessageError('');
+              }}
             />
           </span>
         </div>

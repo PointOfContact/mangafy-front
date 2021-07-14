@@ -13,7 +13,7 @@ const NoRequest = () => (
       width={240}
       height={202}
       src="https://mangafy.club/img/join-ico.webp"
-      alt=""
+      alt="MangaFy join icon"
     />
     <h2>No Messages, yet.</h2>
     <p>No messages in your inbox, yet! Start collaborate with people around you.</p>

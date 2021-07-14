@@ -39,6 +39,7 @@ const CommentList = ({ comments }) => (
                         width={40}
                         height={40}
                         src={client.UPLOAD_URL + commentItem.senderInfo[0].avatar}
+                        alt={'MangaFy avatar'}
                       />
                     </a>
                   </Link>
@@ -194,7 +195,12 @@ export const Comments = ({ commentsData, mangaStory, user }) => {
           user && (
             <>
               {user.avatar ? (
-                <Imgix width={52} height={52} src={client.UPLOAD_URL + user.avatar} />
+                <Imgix
+                  width={52}
+                  height={52}
+                  src={client.UPLOAD_URL + user.avatar}
+                  alt={'MangaFy avatar'}
+                />
               ) : (
                 <Avatar text={user.name} size={52} />
               )}

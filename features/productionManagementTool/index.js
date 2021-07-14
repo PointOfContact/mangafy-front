@@ -72,12 +72,12 @@ const ProductionManagementTool = ({ user }) => (
             <p>Easily, go stright into your desired project and enter it:</p>
           </div>
           <div>
-            <img src="/img/articleProProject.png" alt="projects" />
+            <img src="/img/articleProProject.png" alt="mangaFy projects" />
             <p>
               Once you are inside your project go to upper bar and select
               <strong> STORY BOARD</strong> option:
             </p>
-            <img src="/img/articleProStoryBoard.png" alt="card story board" />
+            <img src="/img/articleProStoryBoard.png" alt="MangaFy card story board" />
             <p>
               From here, it's pretty straightforward as we kept it simple and organized to have a
               suitable follow to for you and your team to work on your project through 6 simple
@@ -86,7 +86,7 @@ const ProductionManagementTool = ({ user }) => (
             <img
               className={styles.smallPhoto}
               src="/img/articleProStoryBoardTwo.png"
-              alt="card story board"
+              alt="MangaFy card story board"
             />
             <p>
               The first section is the <strong>story bible and plot management</strong>. Here you
@@ -95,7 +95,7 @@ const ProductionManagementTool = ({ user }) => (
             <p>
               Second section of the story bible is to <strong>define your characters:</strong>
             </p>
-            <img src="/img/articleCreateCards.png" alt="create Cards" />
+            <img src="/img/articleCreateCards.png" alt="MangaFy create Cards" />
             <p>
               Enter characters of your tale, from main to secondary and background characters you
               wish to include into the production of your tale. Give them names and story
@@ -107,19 +107,19 @@ const ProductionManagementTool = ({ user }) => (
               pages your work will include, add the text and scene description for each page so your
               team can draw and illustrate it.
             </p>
-            <img src="/img/articleCreateScript.png" alt="create script" />
+            <img src="/img/articleCreateScript.png" alt="MangaFy create script" />
             <p>
               The fourth stage is the <strong>digital illustration</strong> section. You can use any
               of the sample templates provided and of course you and your team can upload and
               customize your own. Matching between the page and scene scripts and their panel
               illustrations smoothly and easily in one accessible place.
             </p>
-            <img src="/img/articleBackground.png" alt="background" />
+            <img src="/img/articleBackground.png" alt="MangaFy background" />
             <p>
               The next step is to <strong>upload and organize your team's digital work</strong>.
               Compiling it into one finalized and ready to be published manga or comic book.
             </p>
-            <img src="/img/articleUpload.png" alt="upload" />
+            <img src="/img/articleUpload.png" alt="MangaFy upload" />
             <p>
               At any moment you can timely manage your team by adding tasks on the{' '}
               <strong>"Add a Task"</strong>
@@ -131,20 +131,24 @@ const ProductionManagementTool = ({ user }) => (
               The <strong>comments section</strong>, the tabe right to the story board, team members
               can leave comments to one another.
             </p>
-            <img src="/img/articleComment.png" alt="comment" />
+            <img src="/img/articleComment.png" alt="MangaFy comment" />
             <p>
               In the <strong>team chat</strong> you can easily communicate with your fellow team
               members constantly, all is accessible to you in terms of talking with your time,
               adding tasks, getting key inputs, uploading panels, and more -{' '}
               <strong>to ensure YOUR COLLABORATION is a success.</strong>
             </p>
-            <img className={styles.smallPhoto} src="/img/articleMessage.png" alt="message" />
+            <img
+              className={styles.smallPhoto}
+              src="/img/articleMessage.png"
+              alt="MangaFy message"
+            />
             <p>
               Once done, the final stage is - <strong>PUBLISH</strong>, where you take your final
               work and upload it to any of the top self-publishing platforms to begin sharing your
               work with the world, gain followers and monetize.
             </p>
-            <img className={styles.middlePhoto} src="/img/articleShare.png" alt="share" />
+            <img className={styles.middlePhoto} src="/img/articleShare.png" alt="MangaFy share" />
             <br />
             <div className={styles.share}>
               <div className={styles.items}>

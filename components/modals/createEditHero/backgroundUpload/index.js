@@ -17,7 +17,7 @@ const EditBackground = ({ ifIsEdit, hero, imageUrl, setImgId }) => {
         }}
         className={styles.editImage}
         src={client.UPLOAD_URL + hero.imageUrl}
-        alt="hero card img"
+        alt="MangaFy hero card img"
       />
       {showUpload ? (
         <div className={styles.loadContainer}>

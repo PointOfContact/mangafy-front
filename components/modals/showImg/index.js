@@ -18,7 +18,7 @@ const ShowImgModal = ({ setIsModalVisible, isModalVisible, img }) => (
     closeIcon={<SvgClose />}
     visible={isModalVisible}>
     <div className={styles.modalContent}>
-      {typeof img === 'string' ? <Imgix layout="fill" src={img} alt="" /> : img}
+      {typeof img === 'string' ? <Imgix layout="fill" src={img} alt="MangaFy modal" /> : img}
     </div>
   </Modal>
 );
