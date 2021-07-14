@@ -70,10 +70,9 @@
     margin: 15px auto;
   }
   .smallPhoto{
-    width: 60%;
-  }
-  .middlePhoto{
-    width: 70%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
   }
 }
 

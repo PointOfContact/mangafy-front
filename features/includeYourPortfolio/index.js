@@ -3,6 +3,7 @@ import React from 'react';
 import Footer from 'components/footer';
 import FooterPolicy from 'components/footer-policy';
 import Header from 'components/header';
+import Imgix from 'components/imgix';
 import { ShareButtons } from 'components/share';
 import ButtonToTop from 'components/ui-elements/button-toTop';
 import { NextSeo } from 'next-seo';
@@ -24,7 +25,7 @@ const IncludeYourPortfolio = ({ user }) => (
         type: 'article',
         images: [
           {
-            url: 'https://mangafy.club/img/setovi.jpg',
+            url: 'https://mangafy.club/img/include.png',
             width: 800,
             height: 600,
             alt: 'Manga Story Image',
@@ -67,7 +68,12 @@ const IncludeYourPortfolio = ({ user }) => (
           </div>
           <div>
             <br />
-            <img src="/img/include.png" alt="include photo" />
+            <Imgix
+              width={860}
+              height={1300}
+              src={'https://mangafy.club/img/include.png'}
+              alt="MangaFy include"
+            />
             <br />
             <br />
             <p>

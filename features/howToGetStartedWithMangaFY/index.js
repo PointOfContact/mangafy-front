@@ -6,25 +6,38 @@ import Header from 'components/header';
 import Imgix from 'components/imgix';
 import { ShareButtons } from 'components/share';
 import ButtonToTop from 'components/ui-elements/button-toTop';
-import Head from 'next/head';
+import { NextSeo } from 'next-seo';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
 const MangaPanelingBasics = ({ user }) => (
   <>
-    <Head>
-      <title>Create your first projects</title>
-      <meta name="description" content="How to get started with MangaFY" />
-      <meta
-        property="og:url"
-        content="https://mangafy.club/resources/how-to-get-started-with-MangaFY"
-      />
-      <meta property="og:type" content="article" />
-      <meta property="og:title" content="Create your first project" />
-      <meta property="og:description" content="How to get started with MangaFY" />
-      <meta property="og:image" content="https://mangafy.club/img/setovi.jpg" />
-    </Head>
+    <NextSeo
+      title="Create your first projects"
+      description="How to get started with MangaFY"
+      canonical="https://mangafy.club/resources/how-to-get-started-with-MangaFY"
+      openGraph={{
+        url: 'https://mangafy.club/resources/how-to-get-started-with-MangaFY',
+        title: 'Create your first projects',
+        description: 'How to get started with MangaFY',
+        type: 'article',
+        images: [
+          {
+            url: 'https://mangafy.club/img/Untitled.png',
+            width: 800,
+            height: 600,
+            alt: 'Manga Story Image',
+          },
+        ],
+        site_name: 'MangaFY',
+      }}
+      twitter={{
+        handle: '@handle',
+        site: '@site',
+        cardType: 'summary_large_image',
+      }}
+    />
     <ButtonToTop />
     <div className={'wrapper'}>
       <div className={'content'}>
@@ -59,8 +72,12 @@ const MangaPanelingBasics = ({ user }) => (
               B. Go to the "No Account yet? start your journey, and press it.
             </p>
             <br />
-            {/* <Imgix width={860} height={1000} src={'https://mangafy.club/img/login-ss.jpg'} /> */}
-            <Imgix width={860} height={1000} src={'https://mangafy.club/img/Untitled.png'} />
+            <Imgix
+              width={860}
+              height={1000}
+              src={'https://mangafy.club/img/Untitled.png'}
+              alt="MangaFy untitled"
+            />
             <p>
               C. It will lead you to the start of your profile screen where you feel your name, your
               artist role (are you an illustrator, writer, editor, inker, translator, etc.), your
@@ -68,8 +85,12 @@ const MangaPanelingBasics = ({ user }) => (
             </p>
             <br />
             <b>
-              {/* <Imgix width={860} height={1000} src={'https://mangafy.club/img/get-started.jpg'} />{' '} */}
-              <Imgix width={860} height={1000} src={'https://mangafy.club/img/Untitled.png'} />{' '}
+              <Imgix
+                width={860}
+                height={1000}
+                src={'https://mangafy.club/img/Untitled.png'}
+                alt="MangaFy untitled"
+              />{' '}
             </b>
             <p>
               D. Once done, you will get the following window - press the "Create Your First Story"
@@ -77,8 +98,12 @@ const MangaPanelingBasics = ({ user }) => (
             </p>
             <br />
             <b>
-              {/* <Imgix width={860} height={1000} src={'https://mangafy.club/img/welcome.jpg'} /> */}
-              <Imgix width={860} height={1000} src={'https://mangafy.club/img/Untitled.png'} />
+              <Imgix
+                width={860}
+                height={1000}
+                src={'https://mangafy.club/img/Untitled.png'}
+                alt="MangaFy untitled"
+              />
             </b>
             <br />
 
@@ -87,7 +112,12 @@ const MangaPanelingBasics = ({ user }) => (
               https://mangafy.club/create-a-story/start. Press start and start building your user
               profile on MangaFY.
             </p>
-            <Imgix width={860} height={1000} src={'https://mangafy.club/img/Untitled.png'} />
+            <Imgix
+              width={860}
+              height={1000}
+              src={'https://mangafy.club/img/Untitled.png'}
+              alt="MangaFy untitled"
+            />
             <p>Note:</p>
             <p>
               <strong>Note:</strong> building a detailed user profile is extremely important - it is
@@ -109,8 +139,12 @@ const MangaPanelingBasics = ({ user }) => (
               "Profile":
             </p>
             <p>
-              {/* <Imgix width={860} height={1000} src={'https://mangafy.club/img/profile.jpg'} /> */}
-              <Imgix width={860} height={1000} src={'https://mangafy.club/img/Untitled.png'} />
+              <Imgix
+                width={860}
+                height={1000}
+                src={'https://mangafy.club/img/Untitled.png'}
+                alt="MangaFy untitled"
+              />
             </p>
             <p>Or going directly here - https://mangafy.club/my-profile</p>
             <p>
