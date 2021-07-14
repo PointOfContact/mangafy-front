@@ -53,7 +53,7 @@ const StoryTab = ({ setBaseData, baseData, isOwn, user, isParticipant }) => {
   };
 
   return (
-    <div className={styles.storyTab}>
+    <div className={cn(styles.storyTab, isOwn && styles.isOuner)}>
       {isOwn && (
         <div>
           <h1 className={styles.storyTabTitle}>My inspiration</h1>
