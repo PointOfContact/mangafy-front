@@ -11,6 +11,7 @@ import ProfilesHeader from 'components/profilesHeader';
 import SearchForMembers from 'components/searchForMembers';
 import PrimaryButton from 'components/ui-elements/button';
 import ButtonToTop from 'components/ui-elements/button-toTop';
+import FooterLogin from 'features/footerLogin';
 import { userTypes } from 'helpers/constant';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -72,6 +73,7 @@ const Profiles = (props) => {
       </div>
       <Footer />
       <FooterPolicy />
+      <FooterLogin user={user} />
     </>
   );
 };

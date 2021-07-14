@@ -12,6 +12,7 @@ import Paginations from 'components/paginations';
 import SearchForCollaborations from 'components/searchForCollaborations';
 import PrimaryButton from 'components/ui-elements/button';
 import ButtonToTop from 'components/ui-elements/button-toTop';
+import FooterLogin from 'features/footerLogin';
 import { userTypes } from 'helpers/constant';
 import { NextSeo } from 'next-seo';
 import dynamic from 'next/dynamic';
@@ -124,6 +125,7 @@ const Collaborations = (props) => {
           boxPosition="bottom-right"
           iconColor="#7b65f3"
         />
+        <FooterLogin user={user} />
       </div>
     </>
   );

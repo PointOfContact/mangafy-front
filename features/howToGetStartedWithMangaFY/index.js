@@ -6,6 +6,7 @@ import Header from 'components/header';
 import Imgix from 'components/imgix';
 import { ShareButtons } from 'components/share';
 import ButtonToTop from 'components/ui-elements/button-toTop';
+import FooterLogin from 'features/footerLogin';
 import Head from 'next/head';
 import PropTypes from 'prop-types';
 
@@ -141,6 +142,7 @@ const MangaPanelingBasics = ({ user }) => (
       </div>
       <Footer />
       <FooterPolicy />
+      <FooterLogin user={user} />
     </div>
   </>
 );

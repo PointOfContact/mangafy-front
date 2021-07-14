@@ -6,6 +6,7 @@ import Header from 'components/header';
 import ProfileContent from 'components/profile/profileContent';
 import ProfileOpenCollabs from 'components/profile/profileOpenCollabs';
 import ProfileTopBar from 'components/profile/profileTopBar';
+import FooterLogin from 'features/footerLogin';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { beforeUpload } from 'helpers/shared';
 import Head from 'next/head';
@@ -145,6 +146,7 @@ const MyProfile = (props) => {
         />
         {/* <ProfileStages total={total} user={user} userData={userData} /> */}
         <Footer />
+        <FooterLogin user={user} />
       </main>
     </div>
   );

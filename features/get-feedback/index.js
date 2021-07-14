@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef } from 'react';
 
 import Footer from 'components/footer';
 import Header from 'components/header';
+import FooterLogin from 'features/footerLogin';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { NextSeo } from 'next-seo';
 import Router from 'next/router';
@@ -76,6 +77,7 @@ const Start = ({ user }) => {
         <Header path="create-a-story/start" user={user} />
         <div ref={typeformRef} style={{ height: '100vh', width: '100%' }}></div>
         <Footer />
+        <FooterLogin user={user} />
       </div>
     </>
   );
