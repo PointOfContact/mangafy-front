@@ -163,7 +163,7 @@ const MangaPanelingBasics = ({ user }) => (
               width={860}
               height={860}
               src={'https://mangafy.club/img/2.jpg'}
-              alt="MangaFy frames"
+              alt="MangaFy iframe"
             />
             <p>
               We hope you enjoyed the tutorial and you can also visit Mina's website for more
