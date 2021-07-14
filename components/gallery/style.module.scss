@@ -21,7 +21,6 @@
   line-height: 36px;
   margin-bottom: 30px;
   @include media-sm {
-    font-size: $text4;
     & + div > div {
       max-width: 100%;
     }

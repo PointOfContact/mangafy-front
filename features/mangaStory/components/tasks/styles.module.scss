@@ -154,6 +154,11 @@ $repeat: 5;
 
 .addBtn {
   margin-left: 35px;
+  div{
+    @include media-sm{
+      display: none !important;
+    }
+  }
   img {
     max-width: 200px;
   }
@@ -193,7 +198,7 @@ $repeat: 5;
 }
 
 .noTasks {
-  .creatTask {
+  .createTask {
     width: 100%;
     text-align: center;
   }

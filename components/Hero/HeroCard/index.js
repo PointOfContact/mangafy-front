@@ -70,7 +70,7 @@ const HeroCard = ({ hero, changeHero, confirmDelete }) => {
             setIsModalVisible(!!hero.imageUrl.length);
           }}
           src={hero.imageUrl ? client.UPLOAD_URL + hero.imageUrl : defaultImage}
-          alt="hero card img"
+          alt="MangaFy hero card"
         />
       </div>
       <ShowImgModal

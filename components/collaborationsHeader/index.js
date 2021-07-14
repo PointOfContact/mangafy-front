@@ -17,7 +17,7 @@ const CollaborationsHeader = () => (
             width={378}
             height={284}
             src="https://mangafy.club/img/collab.webp"
-            alt=""
+            alt="MangaFy collab"
           />
         </div>
         <div className={styles.box__content}>

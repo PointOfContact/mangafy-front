@@ -46,7 +46,7 @@ const ProfileStages = ({ userData }) => {
         <div className={styles.content}>
           <h2 className={styles.title}>Fill out the form and get points</h2>
           <div className={styles.img}>
-            <img src="/img/quests.png" />
+            <img src="/img/quests.png" alt="MangaFy quests" />
           </div>
           <h2 className={styles.filter}>All Quests</h2>
           <div className={styles.quests}>

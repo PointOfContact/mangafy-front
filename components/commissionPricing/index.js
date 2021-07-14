@@ -142,7 +142,7 @@ export const CommissionPricing = ({ id, user }) => {
                         height={140}
                         layout="fixed"
                         src="https://mangafy.club/img/commisionList.webp"
-                        alt=""
+                        alt="MangaFy commission"
                       />,
                     ]}
                   />
@@ -161,7 +161,7 @@ export const CommissionPricing = ({ id, user }) => {
                         height={140}
                         layout="fixed"
                         src="https://mangafy.club/img/commisionList.webp"
-                        alt=""
+                        alt="MangaFy commission"
                       />,
                     ]}
                   />

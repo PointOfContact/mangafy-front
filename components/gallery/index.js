@@ -240,7 +240,7 @@ export const Gallery = (props) => {
                           height={140}
                           layout="fixed"
                           src="https://mangafy.club/img/noGalere.webp"
-                          alt=""
+                          alt="MangaFy no galere"
                         />,
                       ]}
                     />
@@ -256,7 +256,7 @@ export const Gallery = (props) => {
                         height={140}
                         layout="fixed"
                         src="https://mangafy.club/img/noGalere.webp"
-                        alt=""
+                        alt="MangaFy no galere"
                       />,
                     ]}
                   />

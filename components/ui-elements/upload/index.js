@@ -123,10 +123,11 @@ const PrimaryUpload = ({
       setIsModalContent(<PDFViewer url={client.UPLOAD_URL + mangaUrl} />);
       setIsModalVisible(true);
     } else {
-      setIsModalContent(<Imgix layout="fill" src={src} alt="" />);
+      setIsModalContent(<Imgix layout="fill" src={src} alt="MangaFy upload" />);
       setIsModalVisible(true);
     }
   };
+
   return (
     <div className="primary_upload">
       <Upload

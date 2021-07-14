@@ -145,6 +145,10 @@
         margin-top: 0;
         margin-left: 10px;
       }
+      @include media-sm{
+        width: 200px;
+        margin: auto;
+      }
     }
     color: $black;
     h4 {

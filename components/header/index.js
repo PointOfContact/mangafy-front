@@ -146,7 +146,7 @@ const Header = ({ user, path }) => {
                   height={30}
                   quality={50}
                   src="https://mangafy.club/img/logo-new.webp"
-                  alt=""
+                  alt="MangaFy logo"
                 />
               </a>
             </Link>
@@ -167,6 +167,7 @@ const Header = ({ user, path }) => {
                           height={52}
                           className="avatar"
                           src={client.UPLOAD_URL + user.avatar}
+                          alt="MangaFy avatar"
                         />
                       ) : (
                         <Avatar text={user.name} fontSize={20} />
@@ -177,7 +178,7 @@ const Header = ({ user, path }) => {
               ) : (
                 <Link href="/sign-in">
                   <a>
-                    <img src="/img/header-log-in.svg" alt="" />
+                    <img src="/img/header-log-in.svg" alt="MangaFy login" />
                     {/* TODO: chage to svg component */}
                   </a>
                 </Link>

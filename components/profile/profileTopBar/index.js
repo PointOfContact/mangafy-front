@@ -203,6 +203,7 @@ const ProfileTopBar = (props) => {
                     height={500}
                     className="avatar"
                     src={client.UPLOAD_URL + profile.avatar}
+                    alt="MangaFy avatar"
                   />
                 ) : (
                   <Avatar text={profile.name} fontSize={90} />
@@ -216,6 +217,7 @@ const ProfileTopBar = (props) => {
                     height={500}
                     className="avatar"
                     src={client.UPLOAD_URL + userData.avatar}
+                    alt="MangaFy avatar"
                   />
                 ) : (
                   <Avatar text={userData?.name} fontSize={90} />

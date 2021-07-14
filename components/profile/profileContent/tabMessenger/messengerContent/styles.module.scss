@@ -347,7 +347,7 @@
         }
         &::placeholder {
           font-weight: normal;
-          font-size: 12px;
+          font-size: 14px;
           line-height: 20px;
           color: $gray85;
         }
@@ -363,7 +363,7 @@
         font-size: 11px;
         font-family: monospace;
         position: absolute;
-        bottom: 2px;
+        bottom: -3px;
         margin: 0;
         left: 30px;
         @include media-sm {
@@ -477,6 +477,7 @@
     }
   }
   @include media-sm {
+    width: 173px;
     font-size: 14px;
   }
 }

@@ -67,7 +67,7 @@ const IncludeYourPortfolio = ({ user }) => (
           </div>
           <div>
             <br />
-            <img src="/img/include.png" alt="include photo" />
+            <img src="/img/include.png" alt="MangaFy include photo" />
             <br />
             <br />
             <p>

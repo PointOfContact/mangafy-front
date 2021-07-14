@@ -88,7 +88,7 @@ const ForgotPassword = () => {
           height={284}
           layout="fixed"
           src="https://mangafy.club/img/forgot-password.webp"
-          alt=""
+          alt="MangaFy forgot password"
         />
         <h2 className={styles.title}>Forgot your password? Don’t panic!</h2>
         <p className={styles.info}>Enter the email you&apos;re using for your account.</p>

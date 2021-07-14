@@ -28,7 +28,7 @@ const CommingSoon = (props) => {
               height={305}
               layout="fixed"
               src="https://mangafy.club/img/coming_soon.webp"
-              alt=""
+              alt="MangaFy coming soon"
             />
             <div className={styles.page_title}>Coming soon</div>
             <div className={styles.page_description}>
