@@ -22,6 +22,7 @@ export const getServerSideProps = withAuthServerSideProps(
       return {
         props: {
           user,
+          isPage: true,
           genres: genres.data.map((g) => ({ value: g.name, _id: g._id })),
           jwt,
         }, // will be passed to the page component as props
