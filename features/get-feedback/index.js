@@ -1,5 +1,7 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 
+import Footer from 'components/footer';
+import Header from 'components/header';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { NextSeo } from 'next-seo';
 import PropTypes from 'prop-types';
@@ -8,7 +10,7 @@ const Amplitude = require('amplitude');
 
 const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 
-const Start = ({ user, closeModal }) => {
+const Start = ({ user, closeModal, isPage }) => {
   const typeFormRef = useRef(null);
 
   const onSubmit = useCallback(async (event) => {
@@ -34,7 +36,7 @@ const Start = ({ user, closeModal }) => {
     import('@typeform/embed').then((typeFormEmbed) => {
       typeFormEmbed.makeWidget(
         typeFormRef.current,
-        `https://mangafy.typeform.com/to/V9Wd5WAY?userid=${user._id}`,
+        `https://mangafy.typeform.com/to/V9Wd5WAY#userid=${user._id}`,
         {
           hideFooter: true,
           hideHeaders: true,
@@ -72,15 +74,23 @@ const Start = ({ user, closeModal }) => {
         }}
       />
       <div>
+        {isPage && <Header path="create-a-story/start" user={user} />}
         <div ref={typeFormRef} style={{ height: '100vh', width: '100%' }}></div>
+        {isPage && <Footer />}
       </div>
     </>
   );
 };
 
 Start.propTypes = {
+  isPage: PropTypes.object,
   user: PropTypes.object.isRequired,
-  closeModal: PropTypes.func.isRequired,
+  closeModal: PropTypes.func,
+};
+
+Start.defaultProps = {
+  isPage: false,
+  closeModal: () => {},
 };
 
 export default Start;

@@ -5,6 +5,7 @@ import SvgBulbColored from 'components/icon/BulbColored';
 import SvgClose from 'components/icon/Close';
 import PrimaryButton from 'components/ui-elements/button';
 import GetFeedback from 'features/get-feedback';
+import Router from 'next/router';
 import PropTypes from 'prop-types';
 
 import ExerciseCard from './exerciseCard';
@@ -26,7 +27,11 @@ const DiscussionRightBar = ({ dailyWarmUps, user }) => {
         <PrimaryButton
           text="Get Feedbacks"
           onClick={() => {
-            setIsModalVisible(true);
+            if (user) {
+              setIsModalVisible(true);
+            } else {
+              Router.push('/sign-in?page=get-feedback');
+            }
           }}
         />
       </div>
@@ -60,6 +65,7 @@ const DiscussionRightBar = ({ dailyWarmUps, user }) => {
       <div>
         <Modal
           className={styles.modalFeedbacks}
+          zIndex={1000000}
           closeIcon={
             <span className={styles.closeIcon} onClick={() => setIsModalVisible(false)}>
               <SvgClose />
