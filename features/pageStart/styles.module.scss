@@ -118,6 +118,11 @@
         display: flex;
         align-items: flex-start;
         margin-bottom: 20px;
+        &:hover{
+            a{
+                color: $primaryLight;
+            }
+        }
         a{
             color: $gray85;
             font-size: $text3;
