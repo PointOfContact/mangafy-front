@@ -47,7 +47,7 @@
     max-height: 159px;
     padding: 21px 4px 0 4px;
     background-color: white;
-    border: 1px solid #EFEFEF;
+    border: 1px solid #efefef;
     border-radius: 9px;
     margin: auto;
     margin-bottom: 20px;
@@ -136,6 +136,47 @@
     }
     svg {
       margin: 5px;
+    }
+  }
+}
+.modalFeedbacks {
+  width: 1500px !important;
+  min-width: 390px !important;
+  margin-top: 50px !important;
+  @include media-lg {
+    margin-top: 20px !important;
+  }
+  @include media-sm {
+    margin-top: 0px !important;
+  }
+  & > div div div div {
+    height: 76vh !important;
+    margin-top: 30px;
+    @include media-sm {
+      height: 75vh !important;
+    }
+    @media (max-width: 400px) {
+      height: 82vh !important;
+    }
+  }
+  .closeIcon {
+    background-color: $primaryDark;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    margin-top: 15px;
+    &:hover {
+      background-color: $primaryLight;
+    }
+    svg {
+      width: 14px;
+      height: 14px;
+      path {
+        fill: white;
+      }
     }
   }
 }

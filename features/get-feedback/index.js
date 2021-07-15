@@ -1,18 +1,15 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 
-import Footer from 'components/footer';
-import Header from 'components/header';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { NextSeo } from 'next-seo';
-import Router from 'next/router';
 import PropTypes from 'prop-types';
 
 const Amplitude = require('amplitude');
 
 const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 
-const Start = ({ user }) => {
-  const typeformRef = useRef(null);
+const Start = ({ user, closeModal }) => {
+  const typeFormRef = useRef(null);
 
   const onSubmit = useCallback(async (event) => {
     const data = [
@@ -28,14 +25,16 @@ const Start = ({ user }) => {
     ];
     amplitude.track(data);
     // eslint- disable-next-line no-underscore-dangle
-    Router.push(`/feed`);
+    setTimeout(() => {
+      closeModal(false);
+    }, 4000);
   });
 
   useEffect(() => {
-    import('@typeform/embed').then((typeformEmbed) => {
-      typeformEmbed.makeWidget(
-        typeformRef.current,
-        `https://mangafy.typeform.com/to/V9Wd5WAY?userId=${user._id}`,
+    import('@typeform/embed').then((typeFormEmbed) => {
+      typeFormEmbed.makeWidget(
+        typeFormRef.current,
+        `https://mangafy.typeform.com/to/V9Wd5WAY?userid=${user._id}`,
         {
           hideFooter: true,
           hideHeaders: true,
@@ -44,7 +43,7 @@ const Start = ({ user }) => {
         }
       );
     });
-  }, [typeformRef, onSubmit]);
+  }, [typeFormRef, onSubmit]);
 
   return (
     <>
@@ -73,9 +72,7 @@ const Start = ({ user }) => {
         }}
       />
       <div>
-        <Header path="create-a-story/start" user={user} />
-        <div ref={typeformRef} style={{ height: '100vh', width: '100%' }}></div>
-        <Footer />
+        <div ref={typeFormRef} style={{ height: '100vh', width: '100%' }}></div>
       </div>
     </>
   );
@@ -83,6 +80,7 @@ const Start = ({ user }) => {
 
 Start.propTypes = {
   user: PropTypes.object.isRequired,
+  closeModal: PropTypes.func.isRequired,
 };
 
 export default Start;
