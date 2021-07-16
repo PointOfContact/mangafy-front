@@ -3,7 +3,7 @@
 .container {
   width: 100%;
   position: sticky;
-  top: 50px;
+  top: 110px;
   align-self: start;
   will-change: transform;
   border-radius: 8px;
@@ -53,23 +53,22 @@
     margin-bottom: 20px;
     h3 {
       height: 29px;
+      color: #1f2224;
+      font-size: 17px;
       font-weight: 500;
-      font-size: 20px;
-      line-height: 29px;
-      color: $black;
+      letter-spacing: normal;
+      line-height: 22px;
       margin: 0;
       text-align: center;
     }
     p {
       height: 28px;
-      font-weight: normal;
-      font-size: 10px;
       text-align: center;
-      line-height: 14px;
+      color: #595959;
+      font-size: 13px;
       margin: 0;
       margin-top: 3px;
       margin-bottom: 13px;
-      color: $gray85;
     }
     button {
       width: 130px;
@@ -88,7 +87,6 @@
     font-size: 13px;
     padding: 0 5px;
   }
-
   .cards {
     display: flex;
     flex-direction: column;
