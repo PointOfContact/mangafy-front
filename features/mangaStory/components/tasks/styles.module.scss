@@ -94,7 +94,12 @@ $repeat: 5;
     justify-content: center;
     align-items: center;
     font-size: $text4;
-    margin-top: 10px;
+    margin-top: 6px;
+    @include media-xs {
+      width: 80%;
+      height: 40px;
+      font-size: 14px;
+    }
   }
   @include media-sm {
     position: absolute;
