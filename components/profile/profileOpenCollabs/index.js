@@ -48,7 +48,7 @@ const ProfileOpenCollabs = (props) => {
           <h2 className={styles.title}>Projects</h2>
           <Row>
             <Col xs={{ span: 23 }} md={{ span: 22 }} xl={{ span: 22 }} xxl={{ span: 22 }}>
-              <div className={styles.card_wrap}>
+              <div className={profile ? styles.card_wrap : styles.card_wrap_def}>
                 <MangeStoryCard client={client} mangaStories={mangaStories} user={user} />
               </div>
             </Col>
