@@ -22,10 +22,10 @@ const DiscussionRightBar = ({ dailyWarmUps, user }) => {
   return (
     <div className={styles.container}>
       <div className={styles.addfeed}>
-        <h3>Don’t Just dream do!</h3>
-        <p>Want to get early feedback on your graphic novel idea or manuscript?</p>
+        <h3>Create Post</h3>
+        <p>Let the MangaFY community know what you think.</p>
         <PrimaryButton
-          text="Get Feedbacks"
+          text="POST"
           onClick={() => {
             if (user) {
               setIsModalVisible(true);
