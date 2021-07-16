@@ -100,7 +100,7 @@ const SearchForMembers = (props) => {
       <div className={styles.box}>
         <div className={'container'}>
           <div className={styles.box__wrapper}>
-            <form className={styles.box__search}>
+            <form className={styles.box__search} onSubmit={(e) => e.preventDefault()}>
               <i className={styles.box__search_icon}>
                 <SvgSearch width="30" height="30" />
               </i>
