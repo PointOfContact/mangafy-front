@@ -81,6 +81,9 @@
     .participentInfo {
       margin-left: -20px !important;
       position: relative;
+      img {
+        object-fit: cover;
+      }
       &:first-of-type {
         margin-left: 0px !important;
       }
