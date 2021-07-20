@@ -8,7 +8,7 @@ import ProfileOpenCollabs from 'components/profile/profileOpenCollabs';
 import ProfileTopBar from 'components/profile/profileTopBar';
 import FooterLogin from 'features/footerLogin';
 import { EVENTS } from 'helpers/amplitudeEvents';
-import { beforeUpload } from 'helpers/shared';
+import { beforeUploadBase64 } from 'helpers/shared';
 import Head from 'next/head';
 import PropTypes from 'prop-types';
 
@@ -105,7 +105,7 @@ const MyProfile = (props) => {
         <ProfileTopBar
           {...{
             user,
-            beforeUpload,
+            beforeUploadBase64,
             editMode,
             userData,
             setEditMode,
