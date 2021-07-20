@@ -4,6 +4,7 @@ import Footer from 'components/footer';
 import Header from 'components/header';
 import Imgix from 'components/imgix';
 import ButtonToTop from 'components/ui-elements/button-toTop';
+import FooterLogin from 'features/footerLogin';
 import Head from 'next/head';
 import PropTypes from 'prop-types';
 
@@ -372,6 +373,7 @@ const Privacy = (props) => {
             </main>
           </div>
           <Footer />
+          <FooterLogin user={user} />
         </div>
       </main>
     </>

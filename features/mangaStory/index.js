@@ -16,6 +16,7 @@ import PrimaryButton from 'components/ui-elements/button';
 import ButtonToggle from 'components/ui-elements/button-toggle';
 import ButtonToTop from 'components/ui-elements/button-toTop';
 import Input from 'components/ui-elements/input';
+import FooterLogin from 'features/footerLogin';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
@@ -483,6 +484,7 @@ const MangeStory = (props) => {
         </div>
         <Footer />
         <FooterPolicy />
+        <FooterLogin user={user} />
       </main>
     </div>
   );

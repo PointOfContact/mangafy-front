@@ -4,6 +4,7 @@ import cn from 'classnames';
 import AuthForm from 'components/authForm';
 import Header from 'components/header';
 import ButtonToTop from 'components/ui-elements/button-toTop';
+import FooterLogin from 'features/footerLogin';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { userTypes } from 'helpers/constant';
 import Head from 'next/head';
@@ -164,6 +165,7 @@ const Register = ({ user }) => {
             </div>
           </main>
         </div>
+        <FooterLogin user={user} />
         {/* <LoginFooter acaunt={true} />
         <FooterPolicy /> */}
       </div>

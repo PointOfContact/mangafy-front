@@ -9,6 +9,7 @@ import Header from 'components/header';
 import ModalDiscussion from 'components/modals/discussion';
 import TypePage from 'components/type-content';
 import ButtonToTop from 'components/ui-elements/button-toTop';
+import FooterLogin from 'features/footerLogin';
 import { NextSeo } from 'next-seo';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
@@ -135,6 +136,7 @@ export default function LandingNew(props) {
         )}
         <Footer />
         <FooterPolicy />
+        <FooterLogin user={user} />
       </div>
     </>
   );

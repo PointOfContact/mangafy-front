@@ -3,6 +3,7 @@ import React from 'react';
 import cn from 'classnames';
 import FooterPolicy from 'components/footer-policy';
 import Header from 'components/header';
+import FooterLogin from 'features/footerLogin';
 import Link from 'next/link';
 
 import styles from './styles.module.scss';
@@ -100,6 +101,7 @@ const pageStart = ({ user }) => (
         </div>
       </div>
       <FooterPolicy />
+      <FooterLogin user={user} />
     </div>
   </>
 );
