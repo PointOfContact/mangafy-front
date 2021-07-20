@@ -22,7 +22,7 @@ const Footer = () => (
               height={30}
               quality={50}
               src="https://mangafy.club/img/logo-new.webp"
-              alt=""
+              alt="MangaFy logo"
             />
           </a>
           <div className={styles.footerLeft__links}>

@@ -24,13 +24,15 @@ export default function LandingNew(props) {
     dailyWarmUps,
     members,
     collaborations,
+    getCurrentPostData,
     selectedCategories,
     selectedType,
   } = props;
 
   const [selectedPost, setSelectedPost] = useState(false);
 
-  const [showModal, changeShowModal] = useState(false);
+  const ifOpenNewTab = !!getCurrentPostData;
+  const [showModal, changeShowModal] = useState(ifOpenNewTab);
 
   useEffect(() => {
     const { postId } = qs.parse(window.location.search);
@@ -58,17 +60,36 @@ export default function LandingNew(props) {
   return (
     <>
       <NextSeo
-        title="MangaFY – From story buidling to a full digital release."
-        description="The digital hub designed to help you produce your very owm comic or manga. From story buidling to a full digital release."
-        canonical=""
+        title={
+          getCurrentPostData
+            ? getCurrentPostData.title
+            : 'MangaFY – From story buidling to a full digital release.'
+        }
+        description={
+          getCurrentPostData
+            ? getCurrentPostData.subTitle
+            : 'The digital hub designed to help you produce your very owm comic or manga. From story buidling to a full digital release.'
+        }
+        canonical={
+          getCurrentPostData
+            ? `https://mangafy.club/feed?postId=${getCurrentPostData._id}`
+            : 'https://www.mangafy.club'
+        }
         openGraph={{
-          url: 'https://www.mangafy.club',
-          title: 'Start your Graphic Novel Journey and Get Creative with MangaFY',
-          description:
-            'The digital hub designed to help you produce your very owm comic or manga. From story buidling to a full digital release.',
+          url: getCurrentPostData
+            ? `https://mangafy.club/feed?postId=${getCurrentPostData._id}`
+            : 'https://www.mangafy.club',
+          title: getCurrentPostData
+            ? getCurrentPostData.title
+            : 'Start your Graphic Novel Journey and Get Creative with MangaFY',
+          description: getCurrentPostData
+            ? getCurrentPostData.subTitle
+            : 'The digital hub designed to help you produce your very owm comic or manga. From story buidling to a full digital release.',
           images: [
             {
-              url: 'https://i.postimg.cc/cCy8qTg7/manga.jpg',
+              url: getCurrentPostData
+                ? client.UPLOAD_URL + getCurrentPostData.imageUrl
+                : `https://i.postimg.cc/cCy8qTg7/manga.jpg`,
               width: 800,
               height: 600,
               alt: 'manga',
@@ -127,6 +148,7 @@ LandingNew.propTypes = {
   dailyWarmUps: PropTypes.array,
   members: PropTypes.array,
   collaborations: PropTypes.array,
+  getCurrentPostData: PropTypes.object,
 };
 
 LandingNew.defaultProps = {
@@ -135,4 +157,5 @@ LandingNew.defaultProps = {
   dailyWarmUps: [],
   members: [],
   collaborations: [],
+  getCurrentPostData: {},
 };

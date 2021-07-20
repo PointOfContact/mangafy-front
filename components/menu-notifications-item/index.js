@@ -55,7 +55,7 @@ const MenuNotificationsItem = ({
                       width={52}
                       height={52}
                       src={`${client.UPLOAD_URL}${icon}`}
-                      alt="Notification icon img"
+                      alt="MangaFy notification icon"
                     />
                   ) : (
                     <Avatar text={title} size={52} />
@@ -79,7 +79,7 @@ const MenuNotificationsItem = ({
                       height={50}
                       className={styles.box__image}
                       src={client.UPLOAD_URL + image}
-                      alt=""
+                      alt="MangaFy notification"
                     />
                   </div>
                 )}

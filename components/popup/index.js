@@ -59,7 +59,7 @@ const EditPopup = ({ fieldName, onChange, closePopup, save, saveClose, baseData 
           {fieldName === 'preferredLanguage' && (
             <div className="languageEdit" id="preferredLanguage">
               <div className="logo_img_comp">
-                <img src="/img/logo.webp" width="250" alt="" />
+                <img src="/img/logo.webp" width="250" alt="MangaFy logo" />
               </div>
               <h1 className="collab">
                 Towards more effective communication. What language do you speak?
@@ -91,7 +91,7 @@ const EditPopup = ({ fieldName, onChange, closePopup, save, saveClose, baseData 
                 <div className="row">
                   <ul className="collaboratChooseEdit">
                     {userTypes.map((item, index) => (
-                      <li>
+                      <li key={index}>
                         <Checkbox
                           checked={baseData[fieldName].includes(item.key)}
                           onClick={onChange}
@@ -112,7 +112,7 @@ const EditPopup = ({ fieldName, onChange, closePopup, save, saveClose, baseData 
           {fieldName === 'compensationModel' && (
             <div className="compensation">
               <div className="logo_img_comp">
-                <img src="/img/logo.webp" width="250" alt="" />
+                <img src="/img/logo.webp" width="250" alt="MangaFy logo" />
               </div>
               <h1 className="collab">Сollab type</h1>
               <Radio.Group

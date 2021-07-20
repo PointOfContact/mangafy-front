@@ -58,7 +58,7 @@ const Terms = ({ user }) => (
                   height={310}
                   layout="fixed"
                   src="https://mangafy.club/img/about_image.webp"
-                  alt=""
+                  alt="mangaFy about"
                 />
               </div>
             </div>

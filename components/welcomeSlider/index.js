@@ -89,7 +89,7 @@ const WelcomeSlider = () => {
           <div className={cn(styles.sliderItem__info, styles.sliderItem__infoOrangeDark)}>
             Hey! I am a {user.type}
             <div className={styles.sliderItem__ico}>
-              <img src={user.icon} />
+              <img src={user.icon} alt="MangaFy user icon" />
             </div>
           </div>
         </div>

@@ -163,7 +163,7 @@ const MenuNotificationsBox = ({ user, unreadNotificationsId, notificationsCount 
                 height={125}
                 layout="fixed"
                 src={'https://mangafy.club/img/ProfileNovelType.webp'}
-                alt=""
+                alt="MangaFY novel"
               />
               <h4>No unread notifications</h4>
               <p>

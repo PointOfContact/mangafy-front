@@ -6,6 +6,7 @@ import SvgClose from 'components/icon/Close';
 import SvgHeart from 'components/icon/Heart';
 import SvgShareColored from 'components/icon/ShareColored';
 import Imgix from 'components/imgix';
+import Loading from 'components/loading';
 import { ShareButtons } from 'components/share';
 import { Comments } from 'components/type-content/comments';
 import { EVENTS } from 'helpers/amplitudeEvents';
@@ -32,11 +33,13 @@ const ModalDiscussion = ({
   const [commentsData, setCommentsData] = useState([]);
   const [likesData, setLikesData] = useState([]);
   const [isLiked, setIsLiked] = useState(false);
+  const [photoProject, setPhotoProject] = useState(client.UPLOAD_URL + img);
+  const [logoProject, setLogoProject] = useState(logo);
+  const [loading, setLoading] = useState('');
 
   const Amplitude = require('amplitude');
 
   const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
-
   useEffect(() => {
     if (showModal) {
       getPost();
@@ -44,7 +47,11 @@ const ModalDiscussion = ({
   }, [postId, showModal]);
 
   const getPost = async () => {
+    setLoading(true);
     const post = await client.service('api/v2/posts').get(postId);
+    setLogoProject(post.logoUrl);
+    setPhotoProject(client.UPLOAD_URL + post.imageUrl);
+    setLoading(false);
     setLikesData(post.likes.data);
     setCommentsData(post.comments.data);
     post.likes.data.find((item) => item.senderId === user?._id) && setIsLiked(true);
@@ -116,7 +123,40 @@ const ModalDiscussion = ({
     changeShowModal(false);
   };
 
-  return (
+  const setLogo = () =>
+    logoProject ? (
+      <Imgix
+        width={54}
+        height={54}
+        src={client.UPLOAD_URL + logoProject}
+        layout="intrinsic"
+        alt="MangaFy logo"
+      />
+    ) : (
+      <Imgix
+        width={54}
+        height={54}
+        layout="intrinsic"
+        src={'https://mangafy.club/img/mangastory.webp'}
+        alt="MangaFy manga story"
+      />
+    );
+
+  const setPhoto = () =>
+    photoProject ? (
+      <Imgix width={1000} height={1000} src={photoProject} alt="MangaFy manga story" />
+    ) : (
+      <Imgix
+        width={800}
+        height={600}
+        src={'https://mangafy.club/img/mangastory.webp'}
+        alt="MangaFy manga story default"
+      />
+    );
+
+  return loading ? (
+    <Loading />
+  ) : (
     <Modal
       className={styles.modal}
       title={''}
@@ -135,23 +175,7 @@ const ModalDiscussion = ({
                   <spam className={styles.logo}>
                     <Link href={logoNavigate}>
                       <a>
-                        <span>
-                          {logo ? (
-                            <Imgix
-                              width={54}
-                              height={54}
-                              src={client.UPLOAD_URL + logo}
-                              layout="intrinsic"
-                            />
-                          ) : (
-                            <Imgix
-                              width={54}
-                              height={54}
-                              layout="intrinsic"
-                              src={'https://mangafy.club/img/mangastory.webp'}
-                            />
-                          )}
-                        </span>
+                        <span>{setLogo()}</span>
                       </a>
                     </Link>
                     <h2 className={styles.subtitle}>{title}</h2>
@@ -175,17 +199,7 @@ const ModalDiscussion = ({
                     </Popover>
                   </div>
                 </div>
-                <div className={styles.img}>
-                  {img ? (
-                    <Imgix width={1000} height={1000} src={client.UPLOAD_URL + img} />
-                  ) : (
-                    <Imgix
-                      width={800}
-                      height={600}
-                      src={'https://mangafy.club/img/mangastory.webp'}
-                    />
-                  )}
-                </div>
+                <div className={styles.img}>{setPhoto()}</div>
               </div>
             </div>
             <div className="ant-col-md-8 ant-col-xs-24">

@@ -1,6 +1,7 @@
 @import '../../../../styles/variables.scss';
 
 .content_tab_profile_1 {
+  margin-top: 20px;
   .change_btn {
     position: absolute;
     margin-top: 5px;
@@ -19,7 +20,7 @@
     font-weight: 900;
     margin-bottom: 30px;
     @include media-sm {
-      font-size: $text4;
+      font-size: $text2;
     }
   }
 }

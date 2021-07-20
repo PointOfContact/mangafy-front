@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from 'react';
 
+import { Modal } from 'antd';
 import SvgBulbColored from 'components/icon/BulbColored';
+import SvgClose from 'components/icon/Close';
 import PrimaryButton from 'components/ui-elements/button';
-import Link from 'next/link';
+import GetFeedback from 'features/get-feedback';
+import Router from 'next/router';
 import PropTypes from 'prop-types';
 
 import ExerciseCard from './exerciseCard';
 import styles from './styles.module.scss';
 
-const DiscussionRightBar = ({ dailyWarmUps }) => {
+const DiscussionRightBar = ({ dailyWarmUps, user }) => {
   const [exercises, setExercises] = useState([]);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   useEffect(() => {
     setExercises(dailyWarmUps);
@@ -18,13 +22,18 @@ const DiscussionRightBar = ({ dailyWarmUps }) => {
   return (
     <div className={styles.container}>
       <div className={styles.addfeed}>
-        <h3>Don’t Just dream do!</h3>
-        <p>Want to get early feedback on your graphic novel idea or manuscript?</p>
-        <Link href="/get-feedback">
-          <a>
-            <PrimaryButton text="Get Feebacks" />
-          </a>
-        </Link>
+        <h3>Create Post</h3>
+        <p>Let the MangaFY community know what you think.</p>
+        <PrimaryButton
+          text="POST"
+          onClick={() => {
+            if (user) {
+              setIsModalVisible(true);
+            } else {
+              Router.push('/sign-in?page=get-feedback');
+            }
+          }}
+        />
       </div>
       <div className={styles.dailyWarmUps}>
         <div className={styles.dailyWarmUps_Top}>
@@ -53,12 +62,26 @@ const DiscussionRightBar = ({ dailyWarmUps }) => {
         </div>
         <p className={styles.warmsText}>New warm-ups every morning</p>
       </div>
+      <div>
+        <Modal
+          className={styles.modalFeedbacks}
+          zIndex={1000000}
+          closeIcon={
+            <span className={styles.closeIcon} onClick={() => setIsModalVisible(false)}>
+              <SvgClose />
+            </span>
+          }
+          visible={isModalVisible}
+          footer={null}>
+          <GetFeedback user={user} closeModal={setIsModalVisible} />
+        </Modal>
+      </div>
     </div>
   );
 };
 
-DiscussionRightBar.propTypes = { dailyWarmUps: PropTypes.array };
+DiscussionRightBar.propTypes = { dailyWarmUps: PropTypes.array, user: PropTypes.object };
 
-DiscussionRightBar.defaultProps = { dailyWarmUps: [] };
+DiscussionRightBar.defaultProps = { dailyWarmUps: [], user: {} };
 
 export default DiscussionRightBar;

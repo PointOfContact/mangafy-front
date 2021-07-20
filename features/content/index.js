@@ -41,7 +41,7 @@ const Content = (props) => {
                 width={301}
                 height={390}
                 src="https://mangafy.club/img/about_image.webp"
-                alt=""
+                alt="MangaFy about image"
               />
             </div>
           </div>

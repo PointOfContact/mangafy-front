@@ -80,12 +80,27 @@ const MangaPanelingBasics = ({ user }) => (
             </p>
             <p>But, paneling also has many layers to it, which we will address in this tutorial.</p>
             <br />
-            <Imgix width={860} height={1000} src={'https://mangafy.club/img/setovi.jpg'} />
-            <Imgix width={860} height={1000} src={'https://mangafy.club/img/lesson_1.jpg'} />
+            <Imgix
+              width={860}
+              height={1000}
+              src={'https://mangafy.club/img/setovi.jpg'}
+              alt="MangaFy setovi"
+            />
+            <Imgix
+              width={860}
+              height={1000}
+              src={'https://mangafy.club/img/lesson_1.jpg'}
+              alt="MangaFy lesson"
+            />
             <br />
             <strong>CHECK LISTS AND TEMPLATES</strong>
             <p>There are several panel templates you can utilize.</p>
-            <Imgix width={860} height={1000} src={'https://mangafy.club/img/Untitled.png'} />
+            <Imgix
+              width={860}
+              height={1000}
+              src={'https://mangafy.club/img/Untitled.png'}
+              alt="MangaFy untitled"
+            />
             <p>But note:</p>
             <ul>
               <li>
@@ -113,8 +128,18 @@ const MangaPanelingBasics = ({ user }) => (
               Elements of note here is that you are always allowed to play with characters popping
               outside the frames.
             </p>
-            <Imgix width={860} height={1000} src={'https://mangafy.club/img/3.jpg'} />
-            <Imgix width={860} height={1000} src={'https://mangafy.club/img/1.jpg'} />
+            <Imgix
+              width={860}
+              height={1000}
+              src={'https://mangafy.club/img/3.jpg'}
+              alt="MangaFy frames"
+            />
+            <Imgix
+              width={860}
+              height={1000}
+              src={'https://mangafy.club/img/1.jpg'}
+              alt="MangaFy frames"
+            />
             <h2>Fast scene</h2>
             <p>
               This is a paneling choice when we want to show a quick scene playing out, like this
@@ -135,7 +160,12 @@ const MangaPanelingBasics = ({ user }) => (
               Even thought the scene is fast, try to add as much of emotion as possible. Manga
               panels always need to evoke a feeling with the audience{' '}
             </p>
-            <Imgix width={860} height={860} src={'https://mangafy.club/img/2.jpg'} />
+            <Imgix
+              width={860}
+              height={860}
+              src={'https://mangafy.club/img/2.jpg'}
+              alt="MangaFy iframe"
+            />
             <p>
               We hope you enjoyed the tutorial and you can also visit Mina's website for more
               awesome content: <a href="https://mistiqarts.com/">https://mistiqarts.com/.</a>

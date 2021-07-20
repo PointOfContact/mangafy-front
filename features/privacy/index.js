@@ -42,7 +42,7 @@ const Privacy = (props) => {
                       height={302}
                       layout="fixed"
                       src="https://mangafy.club/img/privacy_image.webp"
-                      alt=""
+                      alt="MangaFy privacy"
                     />
                   </div>
                 </div>

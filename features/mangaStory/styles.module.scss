@@ -66,7 +66,6 @@ $colorAllBorder: rgba(33, 33, 33, 0.07);
     font-weight: 700;
     line-height: 35px;
     margin-bottom: 6px;
-    font-family: Noto Sans JP;
     @include media-sm {
       font-size: 15px;
       line-height: 20px;
@@ -77,9 +76,8 @@ $colorAllBorder: rgba(33, 33, 33, 0.07);
   }
   pre {
     white-space: pre-wrap;
-    color: #858585;
+    color: $gray85;
     font-size: 20px;
-    font-family: Noto Sans JP;
     margin-bottom: 45px;
     @include media-sm {
       font-size: 15px;
@@ -511,11 +509,14 @@ $colorAllBorder: rgba(33, 33, 33, 0.07);
 
     .addTask {
       margin-left: 10px;
+      font-weight: bold;
       font-size: 15px;
+      line-height: 20px;
       border-radius: 10px;
       @include media-xs {
         height: 41px;
         line-height: 15px;
+        font-size: 13px;
         span {
           width: 45px;
           text-align: left;
