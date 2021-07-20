@@ -1,10 +1,13 @@
+/* eslint-disable no-nested-ternary */
 import React, { useEffect, useState } from 'react';
 
-import { Upload, Input, Select, Layout, Row, Col, notification, Popover } from 'antd';
+import { Input, Select, Layout, Row, Col, notification, Popover, Spin } from 'antd';
+import Modal from 'antd/lib/modal/Modal';
 import client from 'api/client';
 import cn from 'classnames';
 import Follow from 'components/follow';
 import SvgChat from 'components/icon/Chat';
+import SvgClose from 'components/icon/Close';
 import SvgDustbin from 'components/icon/Dustbin';
 import SvgHand from 'components/icon/Hand';
 import SvgPrimaryAdd from 'components/icon/PrimaryAdd';
@@ -15,12 +18,17 @@ import PrimaryButton from 'components/ui-elements/button';
 import Share from 'components/ui-elements/share';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { userTypes, userTypesEnums } from 'helpers/constant';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import useWindowSize from 'utils/useWindowSize';
 
 import styles from './styles.module.scss';
+
+const ChangeAvatar = dynamic(() => import('react-avatar-edit'), {
+  ssr: false,
+});
 
 const Amplitude = require('amplitude');
 
@@ -32,7 +40,7 @@ const { Content } = Layout;
 const ProfileTopBar = (props) => {
   const {
     user,
-    beforeUpload,
+    beforeUploadBase64,
     editMode,
     userData,
     setEditMode,
@@ -48,6 +56,11 @@ const ProfileTopBar = (props) => {
   const [showModal, changeShowModal] = useState(false);
   const [likedUsers, setLikedUsers] = useState([]);
   const { width } = useWindowSize();
+  const [sizeImg, setSizeImg] = useState('');
+  const [currentImg, setCurrentImg] = useState('');
+  const [loadingImg, setLoadingImg] = useState(false);
+  const [disabledButton, setDisabledButton] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const openNotification = (type, message, description = '') => {
     notification[type]({
@@ -164,19 +177,6 @@ const ProfileTopBar = (props) => {
     }
   };
 
-  const handleBeforeUpload = (f) => {
-    handleEvent();
-    beforeUpload(f, props, updater);
-  };
-
-  const updater = (res) => {
-    setUserData(res);
-    setUserData({
-      ...userData,
-      avatar: res.avatar,
-    });
-  };
-
   const isShowModal = () => {
     const el = document.body;
     if (showModal) {
@@ -189,6 +189,42 @@ const ProfileTopBar = (props) => {
   useEffect(() => {
     setLikedUsers(profile?.likedUsers);
   }, [profile?.likedUsers]);
+
+  const onCrop = (currentPhoto) => {
+    setDisabledButton(false);
+    setCurrentImg(currentPhoto);
+  };
+
+  const onBeforeFileLoad = (elem) => {
+    setSizeImg(elem.target.files[0].size);
+  };
+
+  const updater = (res) => {
+    setUserData(res);
+    setUserData({
+      ...userData,
+      avatar: res.avatar,
+    });
+  };
+
+  const saveButton = () => {
+    setIsModalVisible(false);
+    const getLastIndexType = currentImg.indexOf(';');
+    const type = currentImg.slice(5, getLastIndexType);
+    const file = {
+      type,
+      size: sizeImg,
+      base64: currentImg,
+    };
+    setLoadingImg(true);
+    beforeUploadBase64(file, props, updater, () => {
+      setLoadingImg(false);
+    });
+  };
+
+  const cancelButton = () => {
+    setIsModalVisible(false);
+  };
 
   return (
     <Content className={cn(styles.content)}>
@@ -212,30 +248,57 @@ const ProfileTopBar = (props) => {
             ) : (
               <>
                 {userData?.avatar ? (
-                  <Imgix
-                    width={500}
-                    height={500}
-                    className="avatar"
-                    src={client.UPLOAD_URL + userData.avatar}
-                    alt="MangaFy avatar"
-                  />
+                  loadingImg ? (
+                    <Spin className={styles.spin} size="large" tip="Loading..."></Spin>
+                  ) : (
+                    <Imgix
+                      width={500}
+                      height={500}
+                      className="avatar"
+                      src={client.UPLOAD_URL + userData.avatar}
+                      alt="MangaFy avatar"
+                    />
+                  )
                 ) : (
                   <Avatar text={userData?.name} fontSize={90} />
                 )}
               </>
             )}
             {user && !profile && (
-              <Upload
-                fileList={[]}
-                accept="image/jpg, image/png, image/jpeg"
-                beforeUpload={handleBeforeUpload}>
-                <SvgPrimaryAdd
-                  className={styles.add}
-                  id="myProfileUploadBtnId"
-                  width="40"
-                  height="40px"
+              <SvgPrimaryAdd
+                className={styles.add}
+                id="myProfileUploadBtnId"
+                width="40"
+                height="40px"
+                onClick={() => {
+                  setDisabledButton(true);
+                  setIsModalVisible(true);
+                }}
+              />
+            )}
+            {isModalVisible && (
+              <Modal
+                className={styles.changePhoto}
+                title="Update profile photo"
+                visible={isModalVisible}
+                closeIcon={
+                  <span className={styles.close} onClick={() => setIsModalVisible(false)}>
+                    <SvgClose height="14px" width="14px" />
+                  </span>
+                }
+                footer={[
+                  <div key={1} className={styles.buttonModal}>
+                    <PrimaryButton onClick={cancelButton} isWhite={true} text={'Cancel'} />
+                    <PrimaryButton onClick={!disabledButton && saveButton} text={'Save'} />
+                  </div>,
+                ]}>
+                <ChangeAvatar
+                  imageWidth={250}
+                  imageHeight={250}
+                  onCrop={onCrop}
+                  onBeforeFileLoad={onBeforeFileLoad}
                 />
-              </Upload>
+              </Modal>
             )}
           </div>
         </Col>
@@ -419,7 +482,7 @@ const ProfileTopBar = (props) => {
 
 ProfileTopBar.propTypes = {
   user: PropTypes.object.isRequired,
-  beforeUpload: PropTypes.func,
+  beforeUploadBase64: PropTypes.func,
   editMode: PropTypes.bool,
   userData: PropTypes.object,
   setEditMode: PropTypes.func,
@@ -435,7 +498,7 @@ ProfileTopBar.propTypes = {
 ProfileTopBar.defaultProps = {
   cancelEditMode: () => {},
   saveUserDataByKey: () => {},
-  beforeUpload: () => {},
+  beforeUploadBase64: () => {},
   setEditMode: () => {},
   setUserData: () => {},
   editMode: null,

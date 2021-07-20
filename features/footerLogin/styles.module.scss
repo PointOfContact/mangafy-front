@@ -1,0 +1,81 @@
+@import '../../styles/variables.scss';
+
+.containerFooterLogin {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  bottom: 0%;
+  left: 0;
+  z-index: 1060;
+  .footerLogin {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0px 0px 9px 0px #e3dcdc;
+    background: #fff;
+    padding: 54px 30px 30px;
+    margin-bottom: 0;
+    max-width: 1485px;
+    box-sizing: border-box;
+    position: relative;
+    border-radius: 4px;
+    @include media-md {
+    }
+    @include media-sm {
+      justify-content: center;
+    }
+    .desc,
+    .fullDesc {
+      color: $black;
+      font-weight: normal;
+      font-size: 24px;
+      margin: 0;
+      margin-right: 40px;
+      @include media-lg {
+        font-size: 18px;
+      }
+      @include media-md {
+        display: none;
+      }
+    }
+    .desc {
+      display: none;
+      @include media-md {
+        display: block;
+      }
+      @include media-sm {
+        display: none;
+      }
+    }
+    .containerButton {
+      display: flex;
+      button {
+        width: 200px;
+        height: 60px;
+        margin-left: 20px;
+        @include media-sm {
+          width: 160px;
+          height: 50px;
+          font-size: 16px;
+        }
+      }
+    }
+    .closeContainer {
+      width: 30px;
+      height: 30px;
+      background-color: $primaryDark;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      &:hover {
+        background-color: $primaryLight;
+      }
+    }
+  }
+}

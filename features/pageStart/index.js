@@ -1,8 +1,10 @@
 import React from 'react';
 
 import cn from 'classnames';
+import Footer from 'components/footer';
 import FooterPolicy from 'components/footer-policy';
 import Header from 'components/header';
+import FooterLogin from 'features/footerLogin';
 import Link from 'next/link';
 
 import styles from './styles.module.scss';
@@ -99,7 +101,9 @@ const pageStart = ({ user }) => (
           </div>
         </div>
       </div>
+      <Footer />
       <FooterPolicy />
+      <FooterLogin user={user} />
     </div>
   </>
 );

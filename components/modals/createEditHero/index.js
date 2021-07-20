@@ -25,7 +25,7 @@ const ModalHero = ({ changeShowModal, showModal, hero, getStoryBoard }) => {
   const title = {
     modal: 'Character creation just got easier!',
     write: 'Create a hero, tell us about him:',
-    firstInput: 'NAME YOUR CHARACTER',
+    firstInput: 'name your character',
     button: 'Create',
   };
 
@@ -167,7 +167,7 @@ const ModalHero = ({ changeShowModal, showModal, hero, getStoryBoard }) => {
                   name="name"
                   rules={[
                     {
-                      required: false,
+                      required: true,
                       message: 'Name is required',
                     },
                   ]}>

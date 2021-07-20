@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useCallback } from 'react';
 
 import Footer from 'components/footer';
 import Header from 'components/header';
+import FooterLogin from 'features/footerLogin';
 import Head from 'next/head';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
@@ -34,6 +35,7 @@ const Start = ({ user }) => {
         <Header path="contact-us" user={user} />
         <div ref={typeformRef} style={{ height: '100vh', width: '100%' }}></div>
         <Footer />
+        <FooterLogin user={user} />
       </div>
     </>
   );

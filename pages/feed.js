@@ -47,6 +47,10 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
     const collaborations = await client.service('/api/v2/manga-stories').find({
       query: query1,
     });
+
+    const getCurrentPostData =
+      !!context.query.postId && (await client.service('api/v2/posts').get(context.query.postId));
+
     return {
       props: {
         posts: posts.data,
@@ -56,6 +60,7 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
         members: members.data,
         collaborations: collaborations.data,
         user: user || store.user,
+        getCurrentPostData,
       },
     };
   } catch (error) {

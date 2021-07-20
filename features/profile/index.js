@@ -8,6 +8,7 @@ import ProfileContent from 'components/profile/profileContent';
 import ProfileOpenCollabs from 'components/profile/profileOpenCollabs';
 import ProfileTopBar from 'components/profile/profileTopBar';
 import ButtonToTop from 'components/ui-elements/button-toTop';
+import FooterLogin from 'features/footerLogin';
 import { NextSeo } from 'next-seo';
 import PropTypes from 'prop-types';
 
@@ -104,6 +105,7 @@ const Profile = (props) => {
         </div>
         <Footer />
         <FooterPolicy />
+        <FooterLogin user={user} />
       </div>
     </>
   );
