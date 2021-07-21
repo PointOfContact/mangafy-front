@@ -25,6 +25,7 @@
     }
     @include media-sm {
       justify-content: center;
+      flex-direction: column;
     }
     .desc,
     .fullDesc {
@@ -37,7 +38,8 @@
         font-size: 18px;
       }
       @include media-md {
-        display: none;
+        text-align: center;
+        margin-bottom: 20px;
       }
     }
     .desc {
@@ -59,6 +61,8 @@
           width: 160px;
           height: 50px;
           font-size: 16px;
+          margin-left: 10px;
+          margin-right: 10px;
         }
       }
     }
