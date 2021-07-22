@@ -315,7 +315,7 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
           onClick={(messData, index, e) => {
             if (e.target.classList.contains('rce-avatar')) {
               if (messData.senderId === user._id) {
-                Router.push(`/my-profile`);
+                Router.push(`/profile/${user._id}`);
               } else {
                 Router.push(`/profile/${messData.senderId}`);
               }

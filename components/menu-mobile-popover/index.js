@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
-const MenuMobilePopover = ({ removeAllStorage }) => (
+const MenuMobilePopover = ({ removeAllStorage, user }) => (
   <>
     <div className={styles.box}>
       {/* <div className={styles.box__title}>
@@ -18,20 +18,20 @@ const MenuMobilePopover = ({ removeAllStorage }) => (
         </p>
       </div> */}
       <div className={styles.box__subtitle}>
-        <Link href="/my-profile">
+        <Link href={`/profile/${user._id}`}>
           <a className={styles.box__link}>Profile</a>
         </Link>
       </div>
       <div className={styles.box__subtitle}>
-        <Link href="/my-profile?tab=gallery">
+        <Link href={`/profile/${user._id}?tab=gallery`}>
           <a className={styles.box__link}>My programs</a>
         </Link>
       </div>
       <div className={styles.box__subtitle}>
-        {/* <Link href="/my-profile">
+        {/* <Link href={`/profile/${user._id}`}>
           <a className={styles.box__link}>Edit collaboration availability</a>
         </Link>
-        <Link href="/my-profile">
+        <Link href={`/profile/${user._id}`}>
           <a className={styles.box__link}>Account Settings</a>
         </Link> */}
         <span onClick={removeAllStorage}>
@@ -44,6 +44,7 @@ const MenuMobilePopover = ({ removeAllStorage }) => (
 
 MenuMobilePopover.propTypes = {
   removeAllStorage: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
 };
 
 export default MenuMobilePopover;

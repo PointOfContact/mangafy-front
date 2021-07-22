@@ -7,6 +7,7 @@ import Imgix from 'components/imgix';
 import Avatar from 'components/ui-elements/avatar';
 import PrimaryButton from 'components/ui-elements/button';
 import { EVENTS } from 'helpers/amplitudeEvents';
+import { userTypesEnums } from 'helpers/constant';
 import PropTypes from 'prop-types';
 
 import { patchRequest } from '../../api/joinMangaStoryRequestClient';
@@ -92,6 +93,9 @@ const ChatCard = ({
         });
       });
   };
+
+  const characterType = userTypesEnums[senderInfo?.type];
+
   return (
     <div
       key={rid}
@@ -129,7 +133,7 @@ const ChatCard = ({
             <div className={styles.name_special}>
               <div>
                 <h4>{senderInfo && senderInfo.name}</h4>
-                <p>{senderInfo && senderInfo.type}</p>
+                <p>{senderInfo && characterType}</p>
               </div>
               <p className={styles.messages}>{messages && messages.content}</p>
             </div>

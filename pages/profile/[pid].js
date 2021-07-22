@@ -20,7 +20,9 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
       props: {
         user: user || store.user,
         profile,
+        userProfile: user,
         genres,
+        genresUser: genres.data.map((g) => ({ value: g.name, _id: g._id })),
         originUrl: `https://mangafy.club/profile/${profile._id}`,
       }, // will be passed to the page component as props
     };

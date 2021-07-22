@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 
 import { notification, Popconfirm } from 'antd';
 import client from 'api/client';
@@ -28,7 +28,10 @@ const GalleryCard = ({
   setCreateGalleryModal,
   setIsModalVisible,
 }) => {
-  const [type] = useState(galleryItem?._id?.slice(-3));
+  const ifNotStories = galleryItem?.original;
+  const getTypeImg = ifNotStories && galleryItem?._id?.slice(-3);
+  const type = getTypeImg;
+
   const getLikesCount = useCallback(
     (galleryId) =>
       userData?.galleryLikedUsers?.filter((item) => galleryId === item.galleryId).length || 0,

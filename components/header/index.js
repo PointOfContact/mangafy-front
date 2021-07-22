@@ -56,6 +56,8 @@ const Header = ({ user, path }) => {
   const [notificationsCount, setNotificationsCount] = useState(0);
   const [unreadNotificationsId, setUnreadNotificationsId] = useState([]);
   const router = useRouter();
+  const ifMyProfile = router?.query?.pid === user?._id;
+
   const getNotificationsCount = useCallback(() => {
     if (!user) return;
     findNotificationsCount(
@@ -155,7 +157,7 @@ const Header = ({ user, path }) => {
                 <Popover
                   overlayClassName={styles.popover}
                   placement="bottomRight"
-                  content={<MenuMobilePopover removeAllStorage={removeAllStorage} />}
+                  content={<MenuMobilePopover removeAllStorage={removeAllStorage} user={user} />}
                   visible={showNotification}
                   onVisibleChange={(visible) => setShowNotification(visible)}
                   trigger="click">
@@ -242,8 +244,8 @@ const Header = ({ user, path }) => {
                       </Badge>
                     </Popover>
                   </span>
-                  {path !== 'myProfile' && (
-                    <Link href="/my-profile">
+                  {!ifMyProfile && (
+                    <Link href={`/profile/${user._id}`}>
                       <a className={styles.header__menu}>
                         <span className={styles.user_img}>
                           <span>Profile</span>
@@ -265,7 +267,7 @@ const Header = ({ user, path }) => {
                       </a>
                     </Link>
                   )}
-                  {path === 'myProfile' && (
+                  {ifMyProfile && (
                     <a
                       className={cn(
                         path === 'main' ? 'whiteButton' : 'exploreBtn',

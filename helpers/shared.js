@@ -3,7 +3,7 @@ import { logout } from 'store';
 
 import client from '../api/client';
 
-let isJpgOrPng;
+let toCheckType;
 let isLt2M;
 
 const openNotification = (type, message) => {
@@ -14,9 +14,10 @@ const openNotification = (type, message) => {
 };
 
 const assertImg = (file) => {
-  isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/jpg';
+  toCheckType =
+    file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/jpg';
 
-  if (!isJpgOrPng) {
+  if (!toCheckType) {
     openNotification('error', 'You can only upload JPG, JPEG, PNG, Gif file!');
   }
   isLt2M = file.size / 1024 / 1024 < 100;
@@ -71,7 +72,7 @@ export const beforeUpload = (file, props, updater = () => {}) => {
 
   assertImg(file);
 
-  if (isJpgOrPng && isLt2M) {
+  if (toCheckType && isLt2M) {
     const reader = new FileReader();
     // encode dataURI
     reader.readAsDataURL(file);
@@ -83,16 +84,16 @@ export const beforeUpload = (file, props, updater = () => {}) => {
       false
     );
   }
-  return isJpgOrPng && isLt2M;
+  return toCheckType && isLt2M;
 };
 
 export const beforeUploadBase64 = (file, props, updater = () => {}, loadingImg) => {
   assertImg(file);
 
-  if (isJpgOrPng && isLt2M) {
+  if (toCheckType && isLt2M) {
     queryImg(file.base64, props, updater, loadingImg);
   }
-  return isJpgOrPng && isLt2M;
+  return toCheckType && isLt2M;
 };
 
 const removeCookies = () => {
