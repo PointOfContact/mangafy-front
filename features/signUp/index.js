@@ -4,7 +4,6 @@ import cn from 'classnames';
 import AuthForm from 'components/authForm';
 import Header from 'components/header';
 import ButtonToTop from 'components/ui-elements/button-toTop';
-import FooterLogin from 'features/footerLogin';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { userTypes } from 'helpers/constant';
 import Head from 'next/head';
@@ -133,7 +132,7 @@ const Register = ({ user }) => {
             <div className={'container'}>
               <div className={styles.box__wrapper}>
                 {/* <div className={styles.box__img}>
-                  <img src="/img/sing-in.svg" alt="mangaFy sing in" />
+                  <Imgix layout="fill" src="/img/sing-in.svg" alt="mangaFy sing in" />
                 </div> */}
                 <div className={styles.box__title_wrap}>
                   <div className={styles.box__title}>
@@ -165,7 +164,6 @@ const Register = ({ user }) => {
             </div>
           </main>
         </div>
-        <FooterLogin user={user} />
         {/* <LoginFooter acaunt={true} />
         <FooterPolicy /> */}
       </div>

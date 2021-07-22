@@ -42,6 +42,13 @@
   justify-content: center;
   margin-left: 15px;
   position: absolute;
+  & > div > img {
+    @include media-md{
+      width: unset !important;
+      height: unset !important; 
+      min-height: 0px !important;
+    }
+  }
 }
 .uploadDefault {
   display: flex;
@@ -72,6 +79,12 @@
       height: unset !important;
       min-width: 0 !important;
       min-height: 0 !important;
+      @include media-lg{
+        width: 300px !important;
+      }
+      @include media-md{
+        width: 250px !important;
+      }
     }
   }
 }

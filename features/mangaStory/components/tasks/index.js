@@ -209,11 +209,12 @@ Tasks.propTypes = {
   isOwn: PropTypes.bool.isRequired,
   user: PropTypes.object,
   toTeam: PropTypes.func.isRequired,
-  isParticipent: PropTypes.bool.isRequired,
+  isParticipent: PropTypes.bool,
 };
 
 Tasks.defaultProps = {
   user: null,
+  isParticipent: false,
 };
 
 export default Tasks;

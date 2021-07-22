@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, Select } from 'antd';
 import SvgLeftArrow from 'components/icon/LeftArrow';
 import SvgRightArrow from 'components/icon/RightArrow';
+import Imgix from 'components/imgix';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { options } from 'helpers/constant';
 import Head from 'next/head';
@@ -73,7 +74,11 @@ const MangaGenres = (props) => {
             <div className="col-lg-8">
               <div className="collab_div">
                 <div className="logo_img_comp">
-                  <img src="/img/logo.webp" width="250" alt="MangaFy logo" />
+                  <Imgix
+                    layout="fill"
+                    src="https://mangafy.club/img/logo.webp"
+                    alt="MangaFy logo"
+                  />
                 </div>
 
                 <h1 className="collab">Which Graphic Novel genre you aim to work on</h1>

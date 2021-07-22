@@ -19,7 +19,7 @@ const FooterLogin = React.memo(({ user }) => {
 
   return (
     showDialog &&
-    !cookieBubble &&
+    cookieBubble &&
     !user && (
       <div className={styles.containerFooterLogin}>
         <div className={styles.footerLogin}>
@@ -33,7 +33,7 @@ const FooterLogin = React.memo(({ user }) => {
                 <PrimaryButton isWhite={true} text={'LOG IN'} />
               </a>
             </Link>
-            <Link href="/sign-in">
+            <Link href="/sign-up">
               <a>
                 <PrimaryButton text={'JOIN'} />
               </a>

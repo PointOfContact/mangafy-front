@@ -2,6 +2,7 @@ import React from 'react';
 
 import client from 'api/client';
 import cn from 'classnames';
+import Imgix from 'components/imgix';
 import Slider from 'react-slick';
 
 import styles from './styles.module.scss';
@@ -85,11 +86,15 @@ const WelcomeSlider = () => {
         // <Link key={user.id} href={user.navURL}>
         //   <a>
         <div key={user.id} className={styles.sliderItem}>
-          <img src={client.UPLOAD_URL + user.src} />
+          <Imgix layout="fill" src={client.UPLOAD_URL + user.src} alt="MangaFy user icon" />
           <div className={cn(styles.sliderItem__info, styles.sliderItem__infoOrangeDark)}>
             Hey! I am a {user.type}
             <div className={styles.sliderItem__ico}>
-              <img src={user.icon} alt="MangaFy user icon" />
+              <Imgix
+                layout="fill"
+                src={`https://mangafy.club/${user.icon}`}
+                alt="MangaFy user icon"
+              />
             </div>
           </div>
         </div>

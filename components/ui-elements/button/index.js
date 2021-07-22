@@ -76,7 +76,7 @@ PrimaryButton.propTypes = {
   splitterStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   items: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   disabled: PropTypes.bool,
-  text: PropTypes.string,
+  text: PropTypes.any,
   onClick: PropTypes.func,
   isFullWidth: PropTypes.bool,
   isRound: PropTypes.bool,
