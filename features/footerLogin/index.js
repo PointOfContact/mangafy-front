@@ -24,9 +24,8 @@ const FooterLogin = React.memo(({ user }) => {
       <div className={styles.containerFooterLogin}>
         <div className={styles.footerLogin}>
           <p className={styles.fullDesc}>
-            Join the worid`s largest art community and get personalized art recommendations.
+            Join our vivid creator community, Get Inspired, Produce your graphic novel
           </p>
-          <p className={styles.desc}>Join the worid`s largest art community</p>
           <div className={styles.containerButton}>
             <Link href="/sign-in">
               <a>

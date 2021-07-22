@@ -37,7 +37,7 @@ const Start = ({ user, closeModal, isPage }) => {
     import('@typeform/embed').then((typeFormEmbed) => {
       typeFormEmbed.makeWidget(
         typeFormRef.current,
-        `https://mangafy.typeform.com/to/V9Wd5WAY#userid=${user._id}`,
+        `https://form.typeform.com/to/V9Wd5WAY#userid=${user._id}`,
         {
           hideFooter: true,
           hideHeaders: true,
