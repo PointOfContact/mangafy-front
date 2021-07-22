@@ -85,14 +85,14 @@ const Register = ({ user }) => {
           },
         ];
         amplitude.track(data);
-        history.push('/my-profile');
+        history.push(`/profile/${user._id}`);
         // info({
         //   className: 'MangaFY',
         //   title: <h3 className={styles.modalTitle}>Welcome to MangaFY</h3>,
         //   icon: '',
         //   width: '100%',
         //   maskClosable: true,
-        //   afterClose: history.push('/my-profile'),
+        //   afterClose: history.push(`/profile/${user._id}`),
         //   okText: <LargeButton onClick={() => routeChange()} text="Create Your First Story" />,
         //   style: { top: 120, maxWidth: '1000px' },
         //   content: (

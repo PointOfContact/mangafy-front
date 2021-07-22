@@ -24,17 +24,18 @@ const ProfileContent = (props) => {
     user,
     userData,
     userGenres,
+    profileGenres,
     handleChangeGenres,
     profile,
     mangaStories,
-    genresEnums,
+    mangaStoriesMyProfile,
+    genresMyProfileEnums,
     genres,
     total,
-    profileGenres,
-    isMyProfile,
+    ifMyProfile,
   } = props;
 
-  const [selectedTab, setSelectidTab] = useState('1');
+  const [selectedTab, setSelectIdTab] = useState('1');
   const tabPanels = [
     {
       key: '1',
@@ -49,13 +50,13 @@ const ProfileContent = (props) => {
             setUserData,
             userData,
             userGenres,
+            profileGenres,
             handleChangeGenres,
-            genresEnums,
+            genresMyProfileEnums,
             genres,
             total,
             profile,
-            profileGenres,
-            isMyProfile,
+            ifMyProfile,
           }}
         />
       ),
@@ -69,6 +70,8 @@ const ProfileContent = (props) => {
             user,
             profile,
             mangaStories,
+            mangaStoriesMyProfile,
+            ifMyProfile,
           }}
         />
       ),
@@ -84,19 +87,19 @@ const ProfileContent = (props) => {
 
     switch (tab) {
       case 'story':
-        setSelectidTab('1');
+        setSelectIdTab('1');
         break;
       case 'gallery':
-        setSelectidTab('2');
+        setSelectIdTab('2');
         break;
       case 'services':
-        setSelectidTab('3');
+        setSelectIdTab('3');
         break;
       case 'messenger':
-        setSelectidTab('4');
+        setSelectIdTab('4');
         break;
       default:
-        setSelectidTab('1');
+        setSelectIdTab('1');
     }
   }, [user]);
 
@@ -109,13 +112,13 @@ const ProfileContent = (props) => {
         )}>
         <Row>
           <Col span={24}>
-            <Tabs activeKey={selectedTab} onTabClick={setSelectidTab}>
+            <Tabs activeKey={selectedTab} onTabClick={setSelectIdTab}>
               {tabPanels.map((tabPanel) => (
                 <TabPane tab={tabPanel.tab} key={tabPanel.key}>
                   {tabPanel.component}
                 </TabPane>
               ))}
-              {isMyProfile && (
+              {ifMyProfile && (
                 <TabPane tab="MESSENGER" key={'4'}>
                   <TabMessenger {...{ user }} />
                 </TabPane>
@@ -140,11 +143,12 @@ ProfileContent.propTypes = {
   handleChangeGenres: PropTypes.func,
   profile: PropTypes.object,
   mangaStories: PropTypes.array,
-  genresEnums: PropTypes.any,
+  mangaStoriesMyProfile: PropTypes.array,
+  genresMyProfileEnums: PropTypes.any,
   genres: PropTypes.array,
   total: PropTypes.number,
   profileGenres: PropTypes.array,
-  isMyProfile: PropTypes.bool,
+  ifMyProfile: PropTypes.bool,
 };
 
 ProfileContent.defaultProps = {
@@ -157,12 +161,13 @@ ProfileContent.defaultProps = {
   userData: null,
   userGenres: null,
   profile: null,
-  mangaStories: null,
-  genresEnums: null,
+  mangaStoriesMyProfile: null,
+  genresMyProfileEnums: null,
   genres: null,
   total: null,
   profileGenres: null,
-  isMyProfile: null,
+  ifMyProfile: null,
+  mangaStories: null,
 };
 
 export default ProfileContent;

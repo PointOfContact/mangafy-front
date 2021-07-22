@@ -251,6 +251,7 @@
       border-radius: 100px;
       width: 104px;
       height: 104px;
+      object-fit: cover;
       @include media-sm {
         width: 51px;
         height: 51px;

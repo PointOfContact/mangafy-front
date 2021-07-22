@@ -1,34 +1,23 @@
-/* eslint-disable no-nested-ternary */
 import React, { useEffect, useState } from 'react';
 
-import { Input, Select, Layout, Row, Col, notification, Popover, Spin } from 'antd';
-import Modal from 'antd/lib/modal/Modal';
+import { Input, Select, Layout, Row, Col, notification } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
 import Follow from 'components/follow';
-import SvgChat from 'components/icon/Chat';
-import SvgClose from 'components/icon/Close';
 import SvgDustbin from 'components/icon/Dustbin';
-import SvgHand from 'components/icon/Hand';
 import SvgPrimaryAdd from 'components/icon/PrimaryAdd';
-import Imgix from 'components/imgix';
 import ModalInvites from 'components/modals/sendInvites';
-import Avatar from 'components/ui-elements/avatar';
 import PrimaryButton from 'components/ui-elements/button';
-import Share from 'components/ui-elements/share';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { userTypes, userTypesEnums } from 'helpers/constant';
-import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
-import useWindowSize from 'utils/useWindowSize';
 
+import ChangeYourAvatar from './changeYourAvatar';
+import SetPhotoAvatar from './setPhotoAvatar';
+import ShareProfile from './shareProfile';
 import styles from './styles.module.scss';
-
-const ChangeAvatar = dynamic(() => import('react-avatar-edit'), {
-  ssr: false,
-});
 
 const Amplitude = require('amplitude');
 
@@ -40,7 +29,6 @@ const { Content } = Layout;
 const ProfileTopBar = (props) => {
   const {
     user,
-    beforeUploadBase64,
     editMode,
     userData,
     setEditMode,
@@ -51,14 +39,13 @@ const ProfileTopBar = (props) => {
     originUrl,
     profile,
     setErrMessage,
+    ifMyProfile,
+    loadingImg,
   } = props;
 
   const [showModal, changeShowModal] = useState(false);
   const [likedUsers, setLikedUsers] = useState([]);
-  const { width } = useWindowSize();
-  const [sizeImg, setSizeImg] = useState('');
-  const [currentImg, setCurrentImg] = useState('');
-  const [loadingImg, setLoadingImg] = useState(false);
+
   const [disabledButton, setDisabledButton] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -69,7 +56,9 @@ const ProfileTopBar = (props) => {
       placement: 'bottomLeft',
     });
   };
+
   const history = useRouter();
+
   const sendInvites = () => {
     if (user) {
       if (user.mangaStories?.data?.length && !(user?._id === profile?._id)) {
@@ -109,7 +98,7 @@ const ProfileTopBar = (props) => {
               },
             ];
             amplitude.track(data);
-            history.push(`/my-profile?tab=messenger&conversation=${res._id}`);
+            history.push(`/profile/${user._id}?tab=messenger&conversation=${res._id}`);
           })
           .catch((err) => {
             openNotification('error', err.message);
@@ -140,7 +129,7 @@ const ProfileTopBar = (props) => {
               (item) => !item.joinMangaStoryRequestId && !item.mangaStoryId
             );
             if (conv) {
-              history.push(`/my-profile?tab=messenger&conversation=${conv._id}`);
+              history.push(`/profile/${user._id}?tab=messenger&conversation=${conv._id}`);
             } else {
               createConversation();
             }
@@ -190,81 +179,18 @@ const ProfileTopBar = (props) => {
     setLikedUsers(profile?.likedUsers);
   }, [profile?.likedUsers]);
 
-  const onCrop = (currentPhoto) => {
-    setDisabledButton(false);
-    setCurrentImg(currentPhoto);
-  };
-
-  const onBeforeFileLoad = (elem) => {
-    setSizeImg(elem.target.files[0].size);
-  };
-
-  const updater = (res) => {
-    setUserData(res);
-    setUserData({
-      ...userData,
-      avatar: res.avatar,
-    });
-  };
-
-  const saveButton = () => {
-    setIsModalVisible(false);
-    const getLastIndexType = currentImg.indexOf(';');
-    const type = currentImg.slice(5, getLastIndexType);
-    const file = {
-      type,
-      size: sizeImg,
-      base64: currentImg,
-    };
-    setLoadingImg(true);
-    beforeUploadBase64(file, props, updater, () => {
-      setLoadingImg(false);
-    });
-  };
-
-  const cancelButton = () => {
-    setIsModalVisible(false);
-  };
-
   return (
     <Content className={cn(styles.content)}>
       <Row>
         <Col className="gutter-row" xs={{ span: 24 }} md={{ span: 6 }} xl={{ span: 5 }}>
           <div className={styles.img}>
-            {profile ? (
-              <>
-                {profile.avatar ? (
-                  <Imgix
-                    width={500}
-                    height={500}
-                    className="avatar"
-                    src={client.UPLOAD_URL + profile.avatar}
-                    alt="MangaFy avatar"
-                  />
-                ) : (
-                  <Avatar text={profile.name} fontSize={90} />
-                )}
-              </>
-            ) : (
-              <>
-                {userData?.avatar ? (
-                  loadingImg ? (
-                    <Spin className={styles.spin} size="large" tip="Loading..."></Spin>
-                  ) : (
-                    <Imgix
-                      width={500}
-                      height={500}
-                      className="avatar"
-                      src={client.UPLOAD_URL + userData.avatar}
-                      alt="MangaFy avatar"
-                    />
-                  )
-                ) : (
-                  <Avatar text={userData?.name} fontSize={90} />
-                )}
-              </>
-            )}
-            {user && !profile && (
+            <SetPhotoAvatar
+              ifMyProfile={ifMyProfile}
+              userData={userData}
+              loadingImg={loadingImg}
+              profile={profile}
+            />
+            {ifMyProfile && (
               <SvgPrimaryAdd
                 className={styles.add}
                 id="myProfileUploadBtnId"
@@ -276,40 +202,23 @@ const ProfileTopBar = (props) => {
                 }}
               />
             )}
-            {isModalVisible && (
-              <Modal
-                className={styles.changePhoto}
-                title="Update profile photo"
-                visible={isModalVisible}
-                closeIcon={
-                  <span className={styles.close} onClick={() => setIsModalVisible(false)}>
-                    <SvgClose height="14px" width="14px" />
-                  </span>
-                }
-                footer={[
-                  <div key={1} className={styles.buttonModal}>
-                    <PrimaryButton onClick={cancelButton} isWhite={true} text={'Cancel'} />
-                    <PrimaryButton onClick={!disabledButton && saveButton} text={'Save'} />
-                  </div>,
-                ]}>
-                <ChangeAvatar
-                  imageWidth={250}
-                  imageHeight={250}
-                  onCrop={onCrop}
-                  onBeforeFileLoad={onBeforeFileLoad}
-                />
-              </Modal>
-            )}
+            <ChangeYourAvatar
+              isModalVisible={isModalVisible}
+              setIsModalVisible={setIsModalVisible}
+              disabledButton={disabledButton}
+              setDisabledButton={setDisabledButton}
+              props={props}
+            />
           </div>
         </Col>
         <Col className="gutter-row" xs={{ span: 24 }} md={{ span: 8 }} xl={{ span: 9 }}>
           <div className={styles.info_profile}>
             {!editMode ? (
               <>
-                <h4>{userData?.name || profile?.name}</h4>
-                <p>{userTypesEnums[userData?.type || profile?.type]}</p>
+                <h4>{ifMyProfile ? userData?.name : profile?.name}</h4>
+                <p>{ifMyProfile && userTypesEnums[userData?.type || profile?.type]}</p>
 
-                {userData ? (
+                {ifMyProfile ? (
                   <div className={styles.followAndEditButton}>
                     <PrimaryButton
                       text="Edit"
@@ -401,70 +310,14 @@ const ProfileTopBar = (props) => {
               </div>
             )}
           </div>
-          {userData ? (
-            <>
-              <div className={styles.hotBtns}>
-                <div className={styles.shere}>
-                  <Popover
-                    overlayClassName={styles.popover}
-                    placement={width < 768 ? 'bottom' : 'left'}
-                    content={'Share'}
-                    trigger="hover">
-                    <div className={styles.svgBg}>
-                      <Share shareUrl={originUrl} size={39} />
-                    </div>
-                  </Popover>
-                </div>
-              </div>
-            </>
-          ) : (
-            <>
-              <div className={styles.hotBtns}>
-                <div className={styles.shere}>
-                  <Popover
-                    overlayClassName={styles.popover}
-                    placement={width < 768 ? 'bottom' : 'left'}
-                    content={'Share'}
-                    trigger="hover">
-                    <div className={styles.svgBg}>
-                      <Share shareUrl={originUrl} size={39} />
-                    </div>
-                  </Popover>
-                </div>
-                {profile &&
-                  !!user?.mangaStories?.data?.length &&
-                  !(
-                    user?.mangaStories?.participents?.include(profile._id) ||
-                    user?._id === profile?._id
-                  ) && (
-                    <>
-                      <div className={styles.contacts}>
-                        <Popover
-                          overlayClassName={styles.popover}
-                          placement={width < 768 ? 'bottom' : 'left'}
-                          content={'Collab'}
-                          trigger="hover">
-                          <div onClick={sendInvites} className={styles.svgBg}>
-                            <SvgHand width="19px" height="19px" />
-                          </div>
-                        </Popover>
-                      </div>
-                      <div className={styles.contacts}>
-                        <Popover
-                          overlayClassName={styles.popover}
-                          placement={width < 768 ? 'bottom' : 'left'}
-                          content={'Messenger'}
-                          trigger="hover">
-                          <div onClick={sendMessage} className={styles.svgBg}>
-                            <SvgChat width="19px" height="19px" />
-                          </div>
-                        </Popover>
-                      </div>
-                    </>
-                  )}
-              </div>
-            </>
-          )}
+          <ShareProfile
+            ifMyProfile={ifMyProfile}
+            originUrl={originUrl}
+            profile={profile}
+            user={user}
+            sendInvites={sendInvites}
+            sendMessage={sendMessage}
+          />
         </Col>
       </Row>
       <ModalInvites
@@ -493,6 +346,9 @@ ProfileTopBar.propTypes = {
   originUrl: PropTypes.string,
   profile: PropTypes.object,
   setErrMessage: PropTypes.func,
+  ifMyProfile: PropTypes.bool,
+  setLoadingImg: PropTypes.func,
+  loadingImg: PropTypes.bool,
 };
 
 ProfileTopBar.defaultProps = {
@@ -507,6 +363,9 @@ ProfileTopBar.defaultProps = {
   originUrl: '',
   profile: null,
   setErrMessage: () => {},
+  ifMyProfile: false,
+  setLoadingImg: () => {},
+  loadingImg: false,
 };
 
 export default ProfileTopBar;

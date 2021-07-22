@@ -146,7 +146,7 @@ const MangaPanelingBasics = ({ user }) => (
                 alt="MangaFy untitled"
               />
             </p>
-            <p>Or going directly here - https://mangafy.club/my-profile</p>
+            <p>Or going directly here - https://mangafy.club/profile/{user._id}</p>
             <p>
               <strong>Under Portfolio</strong> - you can hyperlink your works from various places
               like Webtoon, Tapas, Behance, DeviantArt, etc.

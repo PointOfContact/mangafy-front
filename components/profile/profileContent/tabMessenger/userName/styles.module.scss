@@ -14,6 +14,9 @@
       font-size: $text3;
       line-height: 15px;
       color: $black;
+      &:hover{
+        color: $primaryDark;
+      }
     }
     @include media-sm {
       a{

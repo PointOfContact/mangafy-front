@@ -81,7 +81,7 @@ const Introduce = ({ user }) => {
         })
         .catch((err) => {
           openNotification('error', err.message);
-          Router.push(`/my-profile`);
+          Router.push(`/profile/${user._id}`);
         });
     });
   };
