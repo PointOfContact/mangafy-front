@@ -4,7 +4,6 @@ import cn from 'classnames';
 import AuthForm from 'components/authForm';
 import Header from 'components/header';
 import ButtonToTop from 'components/ui-elements/button-toTop';
-import FooterLogin from 'features/footerLogin';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import Head from 'next/head';
 import PropTypes from 'prop-types';
@@ -120,7 +119,6 @@ const Login = ({ user }) => {
             </div>
           </main>
         </div>
-        <FooterLogin user={user} />
         {/* <LoginFooter acaunt={false} />
         <FooterPolicy /> */}
       </div>

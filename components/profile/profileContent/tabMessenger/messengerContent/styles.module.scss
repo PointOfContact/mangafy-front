@@ -348,7 +348,7 @@
         }
         &::placeholder {
           font-weight: normal;
-          font-size: 14px;
+          font-size: 16px;
           line-height: 20px;
           color: $gray85;
         }
@@ -359,7 +359,7 @@
           margin: 20px 28px 17px 28px;
         }
       }
-      .messageError{
+      .messageError {
         color: rgb(228, 47, 47);
         font-size: 11px;
         font-family: monospace;
@@ -372,7 +372,7 @@
           bottom: 87px;
         }
       }
-      .notError{
+      .notError {
         display: none;
       }
       // img{
@@ -397,15 +397,15 @@
       margin-top: 20px;
     }
     button {
-      font-size: $text4;
+      font-weight: bold;
+      font-size: 15px;
+      line-height: 22px;
       height: 46px;
       display: inline-flex;
       justify-content: center;
-      font-family: bold;
       align-items: center;
       margin-left: 10px;
       padding: 0 25px;
-      height: 46px;
       @include media-md {
         font-size: 12px;
       }

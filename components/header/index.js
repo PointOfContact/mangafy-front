@@ -289,7 +289,7 @@ const Header = ({ user, path }) => {
                       Log in
                     </a>
                   </Link>
-                  <Link href="/sign-in">
+                  <Link href="/sign-up">
                     <a className={styles.header__menu}>
                       <PrimaryButton className={styles.join} text="Join"></PrimaryButton>
                     </a>

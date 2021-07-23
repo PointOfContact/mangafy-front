@@ -117,8 +117,9 @@
       font-weight: 900;
     }
     p {
-      margin-bottom: 15px;
+      margin-bottom: 13px;
       font-size: $text4;
+      height: 14px;
     }
     @include media-sm {
       width: 100%;

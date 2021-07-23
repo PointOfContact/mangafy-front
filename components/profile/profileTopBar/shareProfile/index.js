@@ -23,7 +23,7 @@ const ShareProfile = ({ ifMyProfile, originUrl, profile, user, sendInvites, send
             content={'Share'}
             trigger="hover">
             <div className={styles.svgBg}>
-              <Share shareUrl={originUrl} size={39} />
+              <Share shareUrl={originUrl} />
             </div>
           </Popover>
         </div>
@@ -39,7 +39,7 @@ const ShareProfile = ({ ifMyProfile, originUrl, profile, user, sendInvites, send
             content={'Share'}
             trigger="hover">
             <div className={styles.svgBg}>
-              <Share shareUrl={originUrl} size={39} />
+              <Share shareUrl={originUrl} />
             </div>
           </Popover>
         </div>
