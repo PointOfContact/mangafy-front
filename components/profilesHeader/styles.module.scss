@@ -2,12 +2,17 @@
 
 .box {
   color: #fff;
-  background-image: url('../../public/img/colabbg.png');
   margin-bottom: 50px;
   position: relative;
   @include media-sm {
     margin-bottom: 50px;
     // text-align: center;
+  }
+  & > div > img {
+    height: 312px !important;
+    @include media-sm{
+    height: 329px !important;
+    }
   }
   &__container {
     position: relative;
