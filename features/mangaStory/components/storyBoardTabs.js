@@ -48,6 +48,7 @@ const StoryBoardTabs = ({
   const [showTaskModal, changeShowTaskModal] = useState(false);
   const [getUploadImages, setUploadImages] = useState([]);
   const [zoomImageUrl, setZoomImageUrl] = useState(null);
+  const [ifUploadImg, setIfUploadImg] = useState(false);
   const { width } = useWindowSize();
 
   const setStoryBoardActiveTab = (tab) => {
@@ -335,12 +336,21 @@ const StoryBoardTabs = ({
             alt="Manga story cover"
           />
         ) : (
-          <img className={styles.photo} src={value.url} alt="" />
+          value.url && (
+            <Imgix
+              width={209}
+              height={294}
+              className={styles.photo}
+              src={value.url}
+              alt="Manga story cover"
+            />
+          )
         )}
       </div>
       <Popconfirm
         overlayClassName={styles.popConfirm}
         placement="topLeft"
+        disabled={ifUploadImg}
         title={'Are you sure to delete this page?'}
         onConfirm={() => {
           confirmDelete(index);
@@ -457,6 +467,8 @@ const StoryBoardTabs = ({
                   setUploadImages={setUploadImages}
                   showText={false}
                   className={styles.upload}
+                  ifUploadImg={ifUploadImg}
+                  setIfUploadImg={setIfUploadImg}
                 />
                 <ShowImgModal
                   isModalVisible={isModalVisible}

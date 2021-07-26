@@ -498,11 +498,12 @@ MangeStory.propTypes = {
   originUrl: PropTypes.string.isRequired,
   comments: PropTypes.array.isRequired,
   hasStoryBoardPermision: PropTypes.bool.isRequired,
-  isParticipent: PropTypes.bool.isRequired,
+  isParticipent: PropTypes.bool,
 };
 
 MangeStory.defaultProps = {
   user: null,
+  isParticipent: false,
 };
 
 export default MangeStory;

@@ -44,6 +44,12 @@
   .descriptionDef {
     width: 100%;
     text-align: center;
+    .spin {
+      width: 153px;
+      height: 111px;
+      margin: auto;
+      margin-top: 51px;
+    }
     & div {
       display: flex;
       flex-direction: column;
@@ -51,13 +57,13 @@
       height: 24px;
       margin-top: 26px;
     }
-    .descriptionText{
+    .descriptionText {
       font-weight: normal;
       font-size: 10px;
       line-height: 12px;
       color: $gray85;
     }
-    & > p{
+    & > p {
       margin-top: 26px;
     }
     svg {

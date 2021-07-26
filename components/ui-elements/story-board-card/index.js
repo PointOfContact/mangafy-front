@@ -3,6 +3,7 @@ import * as React from 'react';
 import restClient from 'api/restClient';
 import cn from 'classnames';
 import { WhiteChecked } from 'components/icon';
+import Imgix from 'components/imgix';
 import PropTypes from 'prop-types';
 
 // Styles
@@ -36,7 +37,11 @@ const ChooseLayoutCard = ({
       onClick={onClick}>
       {isActive && <WhiteChecked className={styles.checked} width="31px" height="31px" />}
       <div className={styles.img}>
-        <img src={`${restClient.API_ENDPOINT}/api/v2/uploads/${src}`} alt="MangaFy uploads" />
+        <Imgix
+          layout="fill"
+          src={`${restClient.API_ENDPOINT}/api/v2/uploads/${src}`}
+          alt="MangaFy uploads"
+        />
       </div>
       <h4 className={styles.title}>{title}</h4>
       <p className={styles.description}>{description}</p>

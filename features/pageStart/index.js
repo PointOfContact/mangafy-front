@@ -4,6 +4,7 @@ import cn from 'classnames';
 import Footer from 'components/footer';
 import FooterPolicy from 'components/footer-policy';
 import Header from 'components/header';
+import Imgix from 'components/imgix';
 import FooterLogin from 'features/footerLogin';
 import Link from 'next/link';
 
@@ -15,10 +16,20 @@ const pageStart = ({ user }) => (
       <div className={'content'}>
         <Header path="" user={user} />
         <div className={styles.pageStarted}>
-          <div className={styles.itemBg}></div>
+          <Imgix
+            layout="fill"
+            src={'https://mangafy.club/img/comics-bg.png'}
+            alt="MangaFy background"
+          />
           <div className={styles.titleBlock}>
             <div className={cn('container')}>
-              <div className={styles.titleBlock__img}></div>
+              <Imgix
+                layout="intrinsic"
+                width={202}
+                height={239}
+                src={'https://mangafy.club/img/page-start-ico.svg'}
+                alt="MangaFy icon"
+              />
               <div className={styles.titleBlock__titleItem}>
                 <div className={styles.titleBlock__title}>Getting Started With MangaFY</div>
                 <div className={styles.titleBlock__subtitle}>

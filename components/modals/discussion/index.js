@@ -149,6 +149,7 @@ const ModalDiscussion = ({
       <Imgix
         width={800}
         height={600}
+        layout="intrinsic"
         src={'https://mangafy.club/img/mangastory.webp'}
         alt="MangaFy manga story default"
       />

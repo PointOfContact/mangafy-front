@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, Tooltip } from 'antd';
 import SvgLeftArrow from 'components/icon/LeftArrow';
 import SvgRightArrow from 'components/icon/RightArrow';
+import Imgix from 'components/imgix';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -64,7 +65,11 @@ const Introduce = ({ user }) => {
             <div className="col-lg-12">
               <div className="collab_div">
                 <div className="logo_img_comp">
-                  <img src="/img/logo.webp" width="250" alt="MangaFy logo" />
+                  <Imgix
+                    layout="fill"
+                    src="https://mangafy.club/img/logo.webp"
+                    alt="MangaFy logo"
+                  />
                 </div>
                 <h1 className="collab">Introduce your project*</h1>
                 <p className="title_text">

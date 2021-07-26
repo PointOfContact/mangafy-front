@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Radio, Slider } from 'antd';
 import SvgLeftArrow from 'components/icon/LeftArrow';
 import SvgRightArrow from 'components/icon/RightArrow';
+import Imgix from 'components/imgix';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -104,7 +105,11 @@ const Compensation = ({ user }) => {
             <div className="12 col-sm-12">
               <div className="collab_div">
                 <div className="logo_img_comp">
-                  <img src="/img/logo.webp" width="250" alt="MangaFy logo" />
+                  <Imgix
+                    layout="fill"
+                    src="https://mangafy.club/img/logo.webp"
+                    alt="MangaFy logo"
+                  />
                 </div>
                 <h1 className="collab">Choose your project type</h1>
                 <Radio.Group value={showField}>

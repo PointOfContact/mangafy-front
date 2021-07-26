@@ -132,7 +132,7 @@ const Register = ({ user }) => {
             <div className={'container'}>
               <div className={styles.box__wrapper}>
                 {/* <div className={styles.box__img}>
-                  <img src="/img/sing-in.svg" alt="mangaFy sing in" />
+                  <Imgix layout="fill" src="/img/sing-in.svg" alt="mangaFy sing in" />
                 </div> */}
                 <div className={styles.box__title_wrap}>
                   <div className={styles.box__title}>

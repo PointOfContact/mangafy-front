@@ -19,7 +19,7 @@ const FooterLogin = React.memo(({ user }) => {
 
   return (
     showDialog &&
-    !cookieBubble &&
+    cookieBubble &&
     !user && (
       <div className={styles.containerFooterLogin}>
         <div className={styles.footerLogin}>

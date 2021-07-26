@@ -189,12 +189,13 @@ const ModalInviteMembers = ({ showModal, setShowModal, user }) => {
 ModalInviteMembers.propTypes = {
   showModal: PropTypes.bool.isRequired,
   setShowModal: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
+  user: PropTypes.object,
 };
 
 ModalInviteMembers.defaultProps = {
   showModal: false,
   setShowModal: () => {},
+  user: {},
 };
 
 export default ModalInviteMembers;
