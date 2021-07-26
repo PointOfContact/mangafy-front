@@ -64,7 +64,12 @@ const Profiles = (props) => {
                 </div>
 
                 <div className={styles.pagination}>
-                  <Paginations total={total} current={current} prefix="profiles" />
+                  <Paginations
+                    pageSize={user ? 12 : 11}
+                    total={total}
+                    current={current}
+                    prefix="profiles"
+                  />
                 </div>
               </div>
             </Row>

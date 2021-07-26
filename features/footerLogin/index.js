@@ -32,7 +32,7 @@ const FooterLogin = React.memo(({ user }) => {
                 <PrimaryButton isWhite={true} text={'LOG IN'} />
               </a>
             </Link>
-            <Link href="/sign-in">
+            <Link href="/sign-up">
               <a>
                 <PrimaryButton text={'JOIN'} />
               </a>

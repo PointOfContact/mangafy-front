@@ -1,5 +1,6 @@
 @import '../../../styles/variables.scss';
 
+.socialSB,
 .social {
   position: relative;
   margin: auto;
@@ -23,11 +24,60 @@
   }
 }
 
+.socialSB{
+  position: relative;
+  margin: auto;
+  width: 117px;
+  height: 117px;
+  margin-bottom: 40px;
+  .share {
+    position: absolute;
+    bottom: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $primaryBG;
+    border-radius: 50%;
+    width: 67px;
+    height: 67px;
+    box-shadow: 0px 0px 5px rgba(123, 101, 243, 0.1);
+    &:hover {
+      box-shadow: 0px 0px 30px 0px rgba(123, 101, 243, 0.59);
+    }
+    svg {
+      width: 37px;
+      height: 37px;
+      path {
+        fill: rgb(123, 101, 243);
+      }
+    }
+  }
+}
+
 .share_btn {
   position: relative;
   z-index: 1;
   width: inherit;
   height: inherit;
+  .copySB,
+  .copy{
+    width: 24px !important;
+    height: 24px !important;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #405f8f;
+    svg{
+      margin-top: -1px;
+      margin-left: 1px;
+    }
+  }
+  .copySB{
+    width: 33px !important;
+    height: 33px !important;
+  }
 }
 .share_btn span {
   height: 67px;
@@ -76,8 +126,38 @@
   top: 2px !important;
   left: 45px !important;
 }
+.click:checked ~ .share_btn a:nth-child(5) span {
+  top: 35px !important;
+  left: 36px !important;
+}
 .share_btn a:nth-child(4) span {
   transition-delay: 0.4s;
+}
+
+.click:checked ~ .shareBnSB a span {
+  height: 32px;
+  width: 32px;
+  line-height: 32px;
+  font-size: 23px;
+  z-index: 1;
+  opacity: 1;
+  pointer-events: auto;
+}
+.click:checked ~ .shareBnSB a:nth-child(2) span {
+  top: 0px !important;
+  left: 15px !important;
+}
+.click:checked ~ .shareBnSB a:nth-child(3) span {
+  top: 17px !important;
+  left: 70px !important;
+}
+.click:checked ~ .shareBnSB a:nth-child(4) span {
+  top: 72px !important;
+  left: 87px !important;
+}
+.click:checked ~ .shareBnSB a:nth-child(5) span {
+  top: 120px !important;
+  left: 54px !important;
 }
 .click {
   display: none;

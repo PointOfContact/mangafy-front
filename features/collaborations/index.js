@@ -109,7 +109,12 @@ const Collaborations = (props) => {
               <div className="row">
                 <div className="col-lg-12">
                   <div className={styles.pagination_cards}>
-                    <Paginations total={total} current={current} prefix="collaborations" />
+                    <Paginations
+                      pageSize={11}
+                      total={total}
+                      current={current}
+                      prefix="collaborations"
+                    />
                   </div>
                 </div>
               </div>
