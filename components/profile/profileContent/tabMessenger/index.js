@@ -84,10 +84,10 @@ const TabMessenger = (props) => {
           if (newRequests.length) {
             setRequests(newRequests);
             const { conversation } = qs.parse(window.location.search);
+            const thisConv = newRequests.find((r) => r._id === conversation);
             let newSelectedRequest = {};
 
-            if (conversation) {
-              const thisConv = newRequests.find((r) => r._id === conversation);
+            if (thisConv) {
               newSelectedRequest = {
                 rid: thisConv?._id,
                 mangaStoryId: thisConv?.mangaStoryId,
