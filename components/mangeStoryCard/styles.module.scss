@@ -1,6 +1,6 @@
 @import '../../styles/variables.scss';
 
-.MangeStoryCard {
+.mangeStoryCard {
   display: inline-block;
   border: 1px solid $white;
   border-radius: 10px;
@@ -13,10 +13,13 @@
     transition: 0.5s;
     box-shadow: 0px 0px 12px $primaryLight;
     .titleBlok {
-      span {
+      .deleteCard {
         display: flex;
       }
     }
+  }
+  @include media-md{
+    pointer-events: none;
   }
   .titleBlok {
     display: flex;
@@ -24,7 +27,8 @@
     h3 {
       width: calc(100% - 50px);
     }
-    span {
+    .deleteCardMobile,
+    .deleteCard {
       max-width: 25px;
       min-width: 25px;
       max-height: 25px;
@@ -40,6 +44,11 @@
         path {
           fill: #fff;
         }
+      }
+    }
+    .deleteCardMobile{
+      @include media-md{
+        display: flex;
       }
     }
   }

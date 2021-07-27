@@ -86,54 +86,18 @@
   }
   .mess_content {
     width: 100%;
-  }
-  .title_block {
     display: flex;
-    .avatar {
-      @include media-sm {
-        width: 51px;
-        height: 51px;
-        min-width: 51px;
+    justify-content: space-between;
+    .dateBar{
+      font-size: 10px;
+      color: $primaryDark;
+      position: absolute;
+      left: 70%; 
+      @include media-sm{
+        left: 85%; 
       }
-    }
-    img {
-      border-radius: 100px;
-      width: 104px;
-      height: 104px;
-      object-fit: cover;
-      @include media-sm {
-        width: 51px;
-        height: 51px;
-      }
-    }
-  }
-  .name_special {
-    width: calc(100% - 200px);
-    margin-left: 14px;
-    h4 {
-      font-size: $text3;
-      line-height: 20px;
-      margin-bottom: 0px;
-      font-weight: 900;
-    }
-    p {
-      margin-bottom: 13px;
-      font-size: $text4;
-      height: 14px;
-    }
-    @include media-sm {
-      width: 100%;
-      div {
-        width: calc(100% - 70px);
-      }
-      h4 {
-        font-size: $text4;
-        line-height: 15px;
-      }
-      p {
-        font-size: $text5;
-        margin-top: 4px;
-        line-height: 1.2;
+      @include media-xs{
+        left: 80%; 
       }
     }
   }
@@ -232,53 +196,47 @@
       text-align: center;
     }
     .title_block {
+      width: 100%;
+      display: flex;
       .avatar {
-        width: 51px;
-        min-width: 51px;
-        max-width: 51px;
-        height: 51px;
         @include media-sm {
-          margin: 0 auto;
+          margin-left: 10px;
         }
       }
       .avatarName {
         font-size: initial !important;
         @include media-sm {
           font-size: 20px !important;
-          width: 51px !important;
-          min-width: 51px !important;
-          height: 51px !important;
         }
       }
       img {
-        width: 51px;
-        min-width: 51px;
-        height: 51.48px;
         border-radius: 50%;
         object-fit: cover;
-        @include media-sm {
-          width: 40px;
-          min-width: 40px;
-          height: 40px;
-        }
       }
     }
     .name_special {
-      width: calc(100% - 70px);
-      @include media-sm {
-        display: none;
-      }
+      width: 100%;
+      margin-left: 14px;
       div {
         width: 100%;
       }
       h4 {
+        max-width: 80%;
         font-size: $text4;
-        line-height: 15px;
+        line-height: $text4;
+        text-align: initial;
+        @include media-sm{
+          max-width: 100%;
+        }
       }
       p {
+        max-width: 85%;
         font-size: $text5;
-        margin-top: 4px;
         line-height: 1.2;
+        padding-bottom: 1px;
+        margin: 0;
+        margin-top: 4px;
+        text-align: initial;
       }
     }
     .div_button {
@@ -286,7 +244,9 @@
     }
   }
 }
-
+.showMessageMobile{
+  display: none;
+}
 .item {
   &:hover {
     .message_community {

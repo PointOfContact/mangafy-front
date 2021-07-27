@@ -1,11 +1,13 @@
 import React from 'react';
 
+import SvgLeftArrow from 'components/icon/LeftArrow';
+import Imgix from 'components/imgix';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
-const UserName = ({ selectedRequest, mobile }) => {
+const UserName = ({ selectedRequest, mobile, setShowMessageMobile }) => {
   const getPath = () => {
     if (selectedRequest?.participentsInfo) {
       const userId = selectedRequest?.participentsInfo[0]
@@ -21,14 +23,29 @@ const UserName = ({ selectedRequest, mobile }) => {
     }
     return '';
   };
+
   return (
     <div className={mobile ? styles.containerMobile : styles.container}>
+      <SvgLeftArrow width={24} height={24} onClick={() => setShowMessageMobile(false)} />
       {!!Object.values(selectedRequest).length && (
         <div className={styles.userName}>
           {getPath() ? (
-            <Link href={getPath()}>
-              <a>{selectedRequest.name}</a>
-            </Link>
+            <>
+              <Link href={getPath()}>
+                <div className={styles.avatarHiderMobile}>
+                  <Imgix
+                    layout="fixed"
+                    width={50}
+                    height={50}
+                    src={selectedRequest.av}
+                    alt="mangaFy avatar"
+                  />
+                </div>
+              </Link>
+              <Link href={getPath()}>
+                <a>{selectedRequest.name}</a>
+              </Link>
+            </>
           ) : (
             <a>{selectedRequest.name}</a>
           )}
@@ -49,6 +66,7 @@ const UserName = ({ selectedRequest, mobile }) => {
 UserName.propTypes = {
   selectedRequest: PropTypes.object.isRequired,
   mobile: PropTypes.bool,
+  setShowMessageMobile: PropTypes.func.isRequired,
 };
 UserName.defaultProps = {
   mobile: false,

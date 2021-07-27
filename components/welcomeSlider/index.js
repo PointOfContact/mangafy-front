@@ -80,6 +80,17 @@ const WelcomeSlider = () => {
     },
   ];
 
+  const setIconSize = (iconName) => {
+    switch (iconName) {
+      case 'icons/welcome-slider-ico1.svg':
+        return { width: 26, height: 16 };
+      case 'icons/welcome-slider-ico2.svg':
+        return { width: 18, height: 18 };
+      default:
+        return { width: 21, height: 21 };
+    }
+  };
+
   return (
     <Slider {...settings}>
       {users?.map((user) => (
@@ -91,7 +102,9 @@ const WelcomeSlider = () => {
             Hey! I am a {user.type}
             <div className={styles.sliderItem__ico}>
               <Imgix
-                layout="fill"
+                layout="fixed"
+                width={setIconSize(user.icon).width}
+                height={setIconSize(user.icon).height}
                 src={`https://mangafy.club/${user.icon}`}
                 alt="MangaFy user icon"
               />

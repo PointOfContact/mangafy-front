@@ -15,6 +15,7 @@ const MessengerList = ({
   arcRequests,
   getConversation,
   showArchive,
+  setShowMessageMobile,
 }) => {
   if (!requests?.length) {
     return (
@@ -58,6 +59,7 @@ const MessengerList = ({
               profileId={r.senderInfo?._id}
               isArchive={r.joinMangaStoryRequestId}
               participentsInfo={r.participentsInfo}
+              setShowMessageMobile={setShowMessageMobile}
             />
           ))}
         </div>
@@ -84,6 +86,7 @@ MessengerList.propTypes = {
   arcRequests: PropTypes.bool.isRequired,
   getConversation: PropTypes.func.isRequired,
   showArchive: PropTypes.bool.isRequired,
+  setShowMessageMobile: PropTypes.func.isRequired,
 };
 
 export default MessengerList;

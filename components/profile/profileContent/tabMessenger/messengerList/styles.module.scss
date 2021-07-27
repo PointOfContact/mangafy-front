@@ -38,7 +38,8 @@
   overflow-y: auto;
   margin-top: 1px;
   @include media-sm {
-    max-height: 280px;
+    max-height: 472px;
+    border-bottom: 0.5px solid #dfdddd;
   }
   &::-webkit-scrollbar {
     height: 3px;
@@ -89,64 +90,6 @@
   }
   .mess_content {
     width: 100%;
-  }
-  .title_block {
-    display: flex;
-    .avatar {
-      border-radius: 100px;
-      width: 104px;
-      height: 104px;
-      @include media-sm {
-        width: 51px;
-        height: 51px;
-      }
-    }
-    .avatarName {
-      @include media-sm {
-        font-size: 20px !important;
-        width: 51px !important;
-        height: 51px !important;
-      }
-    }
-    img {
-      border-radius: 100px;
-      width: 104px;
-      height: 104px;
-      object-fit: cover;
-      @include media-sm {
-        width: 51px;
-        height: 51px;
-      }
-    }
-  }
-  .name_special {
-    width: calc(100% - 200px);
-    margin-left: 14px;
-    h4 {
-      font-size: $text3;
-      line-height: 20px;
-      margin-bottom: 0px;
-      font-weight: 900;
-    }
-    p {
-      margin-bottom: 15px;
-      font-size: $text4;
-    }
-    @include media-sm {
-      width: 100%;
-      div {
-        width: calc(100% - 70px);
-      }
-      h4 {
-        font-size: $text4;
-        line-height: 15px;
-      }
-      p {
-        font-size: $text5;
-        margin-top: 4px;
-        line-height: 1.2;
-      }
-    }
   }
   .messages {
     font-size: $text4;
@@ -247,7 +190,7 @@
   line-height: 15px;
   color: $black;
   &:hover {
-    color: $black;
+    color: rgb(94, 92, 92);
   }
   .showAll {
     display: none;
@@ -264,7 +207,6 @@
     }
     .showAll {
       width: 100%;
-      top: -7px;
       position: absolute;
       display: block;
       border-bottom: 1.5px solid rgba(33, 33, 33, 0.07);
