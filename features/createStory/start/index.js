@@ -74,8 +74,8 @@ const Start = ({ genres, jwt, user }) => {
         canonical=""
         openGraph={{
           url: '',
-          title: '',
-          description: '',
+          title: 'Focus on things that are really important',
+          description: 'MangaFY Expand your planning horizons.',
           images: [
             {
               url: '',

@@ -1,14 +1,19 @@
 import React from 'react';
 
-import Head from 'next/head';
+import { NextSeo } from 'next-seo';
 
 const PasswordSuccessChanged = () => (
   <>
-    <Head>
-      <title>MangaFY Password Changed</title>
-      <meta name="description" content="MangaFY Password Changed"></meta>
-      <link rel="icon" href="/favicon.ico" />
-    </Head>
+    <NextSeo
+      title="MangaFY Password Changed"
+      description="MangaFY Password Changed"
+      additionalLinkTags={[
+        {
+          rel: 'icon',
+          href: '/favicon.ico',
+        },
+      ]}
+    />
     <h2>Password successfully changed</h2>
   </>
 );

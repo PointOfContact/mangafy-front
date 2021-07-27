@@ -33,6 +33,7 @@ const DiscussionCard = (props) => {
     likesCount,
     type,
   } = props;
+
   const [showModal, changeShowModal] = useState(false);
 
   const openPost = (postId) => {
@@ -46,7 +47,6 @@ const DiscussionCard = (props) => {
     );
     changeShowModal(true);
   };
-
   return (
     <>
       <div className={styles.projectsForYou_Card}>
@@ -93,9 +93,9 @@ const DiscussionCard = (props) => {
           </div>
           <div className={styles.comments}>
             <div>
-              <span>{likesCount}</span>
+              <span>{!!likesCount && likesCount}</span>
               <SvgHeart width="20px" height="17px" />
-              <span>{commentsCount}</span>
+              <span>{!!commentsCount && commentsCount}</span>
               <SvgComment width="17px" height="17px" />
             </div>
           </div>
@@ -125,6 +125,7 @@ const DiscussionCard = (props) => {
         postId={id}
         likesCount={likesCount}
         logoNavigate={logoNavigate}
+        subTitle={subTitle}
       />
     </>
   );

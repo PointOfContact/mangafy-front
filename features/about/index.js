@@ -4,7 +4,7 @@ import Footer from 'components/footer';
 import Header from 'components/header';
 import Imgix from 'components/imgix';
 import FooterLogin from 'features/footerLogin';
-import Head from 'next/head';
+import { NextSeo } from 'next-seo';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
@@ -14,16 +14,36 @@ const About = (props) => {
 
   return (
     <div className="">
-      <Head>
-        <title>MangaFY About Policy</title>
-        <meta name="description" content="MangaFY About Policy"></meta>
-        <meta property="og:url" content="http://mangafy.club" />
-        <meta property="og:type" content="article" />
-        <meta property="og:title" content="MangaFY About Policy" />
-        <meta property="og:description" content="MangaFY About Policy" />
-        <meta property="og:image" content="http://mangafy.club/img/indexMobSec3.webp" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <NextSeo
+        title="MangaFY About Policy"
+        description="MangaFY About Policy"
+        openGraph={{
+          url: 'http://mangafy.club',
+          title: 'MangaFY About Policy',
+          description: 'MangaFY About Policy',
+          type: 'article',
+          images: [
+            {
+              url: 'http://mangafy.club/img/indexMobSec3.webp',
+              width: 800,
+              height: 600,
+              alt: 'Manga Story Image',
+            },
+          ],
+          site_name: 'MangaFY',
+        }}
+        twitter={{
+          handle: '@handle',
+          site: '@site',
+          cardType: 'summary_large_image',
+        }}
+        additionalLinkTags={[
+          {
+            rel: 'icon',
+            href: '/favicon.ico',
+          },
+        ]}
+      />
       <main className="main_back_2">
         <Header path="myProfile" user={user} />
         <div className={styles.about_page}>

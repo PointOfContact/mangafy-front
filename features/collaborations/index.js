@@ -45,9 +45,10 @@ const Collaborations = (props) => {
         description="At the heart of our vision – collaborations – allowing visionary of various roles to engage in a team effort to bring a story from uncertainty to digital life, with you – the artists – taking control of the production."
         canonical="http://mangafy.club/collaborations"
         openGraph={{
-          url: '',
-          title: '',
-          description: '',
+          url: 'http://mangafy.club/collaborations',
+          title: 'MangaFY - platform for community collaboration.',
+          description:
+            'At the heart of our vision – collaborations – allowing visionary of various roles to engage in a team effort to bring a story from uncertainty to digital life, with you – the artists – taking control of the production.',
           images: [
             {
               url: '',
@@ -130,8 +131,8 @@ const Collaborations = (props) => {
           boxPosition="bottom-right"
           iconColor="#7b65f3"
         />
-        <FooterLogin user={user} />
       </div>
+      <FooterLogin user={user} />
     </>
   );
 };
