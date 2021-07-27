@@ -10,11 +10,13 @@ import styles from './styles.module.scss';
 
 // eslint-disable-next-line react/display-name
 const FooterLogin = React.memo(({ user }) => {
-  const [cookieBubble, setCookieBubble] = useState(true);
+  const [cookieBubble, setCookieBubble] = useState(false);
   const [showDialog, setShowDialog] = useState(true);
 
   useEffect(() => {
-    setCookieBubble(client.getCookie('CookieBubble'));
+    setCookieBubble(
+      client.getCookie('CookieBubble') === 'true' || client.getCookie('CookieBubble') === null
+    );
   }, []);
 
   return (

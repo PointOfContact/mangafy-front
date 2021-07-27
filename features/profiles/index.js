@@ -13,7 +13,7 @@ import PrimaryButton from 'components/ui-elements/button';
 import ButtonToTop from 'components/ui-elements/button-toTop';
 import FooterLogin from 'features/footerLogin';
 import { userTypes } from 'helpers/constant';
-import Head from 'next/head';
+import { NextSeo } from 'next-seo';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 
@@ -24,11 +24,16 @@ const Profiles = (props) => {
 
   return (
     <>
-      <Head>
-        <title>All manga enthusiast, all genres, one Place - MangaFY </title>
-        <meta name="description" content="All manga enthusiast, all genres, one Place - MangaFY" />
-        <link rel="canonical" href="http://mangafy.club/profiles" />
-      </Head>
+      <NextSeo
+        title="All manga enthusiast, all genres, one Place - MangaFY"
+        description="All manga enthusiast, all genres, one Place - MangaFY"
+        additionalLinkTags={[
+          {
+            rel: 'icon',
+            href: 'http://mangafy.club/profiles',
+          },
+        ]}
+      />
       <ButtonToTop />
       <div className={styles.hidden}>
         <main className="main_back_2">

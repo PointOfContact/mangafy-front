@@ -2,19 +2,22 @@ import '../styles/terms.module.scss';
 
 import React, { Component } from 'react';
 
-import Head from 'next/head';
+import { NextSeo } from 'next-seo';
 
 class Rules extends Component {
   render() {
     return (
       <>
-        <Head>
-          <title>MangaFY Community Rules.</title>
-          <meta
-            name="description"
-            content="Our Community Guidelines and policies apply to all MangaFY content and define what you can and cannot do on MangaFY."></meta>
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
+        <NextSeo
+          title="MangaFY Community Rules."
+          description="Our Community Guidelines and policies apply to all MangaFY content and define what you can and cannot do on MangaFY."
+          additionalLinkTags={[
+            {
+              rel: 'icon',
+              href: '/favicon.ico',
+            },
+          ]}
+        />
         <div className="terms">
           <header id="header" className="gnb" style={{ backgroundColor: 'rgb(123, 100, 242)' }}>
             <a className="MangaFY-logo" href="/">

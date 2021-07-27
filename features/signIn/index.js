@@ -5,7 +5,7 @@ import AuthForm from 'components/authForm';
 import Header from 'components/header';
 import ButtonToTop from 'components/ui-elements/button-toTop';
 import { EVENTS } from 'helpers/amplitudeEvents';
-import Head from 'next/head';
+import { NextSeo } from 'next-seo';
 import PropTypes from 'prop-types';
 import * as qs from 'query-string';
 import { login } from 'store';
@@ -73,13 +73,10 @@ const Login = ({ user }) => {
 
   return (
     <>
-      <Head>
-        <title>Make the most of your talant!</title>
-        <meta
-          name="description"
-          content="Sign in to get your personalized page and start connecting with graphic novel enthusiasts"
-        />
-      </Head>
+      <NextSeo
+        title="Make the most of your talant!"
+        description="Sign in to get your personalized page and start connecting with graphic novel enthusiasts"
+      />
       <ButtonToTop />
       <div className={'wrapper'}>
         <div className={'content'}>

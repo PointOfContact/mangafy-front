@@ -29,6 +29,7 @@ const ModalDiscussion = ({
   url,
   likesCount,
   logoNavigate,
+  subTitle,
 }) => {
   const [commentsData, setCommentsData] = useState([]);
   const [likesData, setLikesData] = useState([]);
@@ -123,32 +124,19 @@ const ModalDiscussion = ({
     changeShowModal(false);
   };
 
-  const setLogo = () =>
-    logoProject ? (
+  const setPhotoOrLogo = (ifValidPhoto, photo, sizeImg) =>
+    ifValidPhoto ? (
       <Imgix
-        width={54}
-        height={54}
-        src={client.UPLOAD_URL + logoProject}
         layout="intrinsic"
-        alt="MangaFy logo"
-      />
-    ) : (
-      <Imgix
-        width={54}
-        height={54}
-        layout="intrinsic"
-        src={'https://mangafy.club/img/mangastory.webp'}
+        width={sizeImg}
+        height={sizeImg}
+        src={photo}
         alt="MangaFy manga story"
       />
-    );
-
-  const setPhoto = () =>
-    photoProject ? (
-      <Imgix width={1000} height={1000} src={photoProject} alt="MangaFy manga story" />
     ) : (
       <Imgix
-        width={800}
-        height={600}
+        width={sizeImg}
+        height={sizeImg}
         layout="intrinsic"
         src={'https://mangafy.club/img/mangastory.webp'}
         alt="MangaFy manga story default"
@@ -176,14 +164,16 @@ const ModalDiscussion = ({
                   <spam className={styles.logo}>
                     <Link href={logoNavigate}>
                       <a>
-                        <span>{setLogo()}</span>
+                        <span>
+                          {setPhotoOrLogo(logoProject, client.UPLOAD_URL + logoProject, 54)}
+                        </span>
                       </a>
                     </Link>
                     <h2 className={styles.subtitle}>{title}</h2>
                   </spam>
                   <div className={styles.share}>
                     <span className={styles.like}>
-                      <span>{likesData.length || likesCount}</span>
+                      <span>{!!likesData.length && likesData.length}</span>
                       <SvgHeart
                         width="25px"
                         height="22px"
@@ -200,11 +190,14 @@ const ModalDiscussion = ({
                     </Popover>
                   </div>
                 </div>
-                <div className={styles.img}>{setPhoto()}</div>
+                <div className={styles.img}>{setPhotoOrLogo(img, photoProject, 1000)}</div>
+                <p className={styles.description}>{subTitle}</p>
               </div>
             </div>
             <div className="ant-col-md-8 ant-col-xs-24">
-              <h2 className={styles.subtitle}>{commentsData.length} Comments</h2>
+              <h2 className={styles.subtitle}>
+                {!!commentsData.length && commentsData.length} Comments
+              </h2>
               <Comments
                 user={user}
                 commentsData={commentsData}
@@ -232,6 +225,7 @@ ModalDiscussion.propTypes = {
   commentsData: PropTypes.array,
   user: PropTypes.object,
   logoNavigate: PropTypes.string,
+  subTitle: PropTypes.string,
 };
 
 ModalDiscussion.defaultProps = {
@@ -240,4 +234,5 @@ ModalDiscussion.defaultProps = {
   logoNavigate: '',
   commentsData: [],
   likesCount: 0,
+  subTitle: '',
 };
