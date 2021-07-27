@@ -19,6 +19,7 @@ const TabMessenger = (props) => {
   const [showArchive, setShowArchive] = useState(true);
   const [selectedRequest, setSelectedRequest] = useState({});
   const [noRequest, setNoRequest] = useState(false);
+  const [showMessageMobile, setShowMessageMobile] = useState(false);
 
   const openNotification = (type, message) => {
     notification[type]({
@@ -136,9 +137,19 @@ const TabMessenger = (props) => {
       ) : (
         <div className={cn(styles.messenger_tab)}>
           {/* <SearchInput mobile={true} /> */}
-          <UserName selectedRequest={selectedRequest} mobile={true} />
+          {showMessageMobile && (
+            <UserName
+              selectedRequest={selectedRequest}
+              mobile={true}
+              setShowMessageMobile={setShowMessageMobile}
+            />
+          )}
           <div className={styles.content}>
-            <div className={cn(styles.messenger_list)}>
+            <div
+              className={cn(
+                showMessageMobile && styles.messenger_list_mobile,
+                styles.messenger_list
+              )}>
               <MessengerList
                 user={user}
                 arcRequests={arcRequests}
@@ -147,9 +158,14 @@ const TabMessenger = (props) => {
                 requests={requests}
                 selectedRequest={selectedRequest}
                 setSelectedRequest={setSelectedRequest}
+                setShowMessageMobile={setShowMessageMobile}
               />
             </div>
-            <div className={cn(styles.messenger_content)}>
+            <div
+              className={cn(
+                showMessageMobile && styles.messenger_content_mobile,
+                styles.messenger_content
+              )}>
               <MessengerContent
                 user={user}
                 selectedRequest={selectedRequest}

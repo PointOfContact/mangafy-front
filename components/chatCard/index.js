@@ -3,14 +3,14 @@ import React, { useState } from 'react';
 import { notification, Popconfirm } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
-import Imgix from 'components/imgix';
-import Avatar from 'components/ui-elements/avatar';
 import PrimaryButton from 'components/ui-elements/button';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { userTypesEnums } from 'helpers/constant';
 import PropTypes from 'prop-types';
+import { format } from 'timeago.js';
 
 import { patchRequest } from '../../api/joinMangaStoryRequestClient';
+import MessageHeaderAvatar from './messageHeaderAvatar';
 import styles from './styles.module.scss';
 import 'react-chat-elements/dist/main.css';
 
@@ -40,6 +40,7 @@ const ChatCard = ({
   mangaStoryId,
   isArchive,
   participentsInfo,
+  setShowMessageMobile,
 }) => {
   const [requests, setRequests] = useState([]);
   const showMessages = (e, sender) => {
@@ -104,40 +105,26 @@ const ChatCard = ({
         isSmall && styles.isSmall,
         selectedRequest?.rid === rid && styles.selected
       )}
-      onClick={(e) => showMessages(e, senderInfo)}
+      onClick={(e) => {
+        showMessages(e, senderInfo);
+        setShowMessageMobile(true);
+      }}
       data-id={conversations[0] && conversations[0]._id}>
       <div className={cn(styles.message_community, 'row')}>
         <div className={styles.mess_content}>
           <div className={cn(styles.title_block)}>
-            <div className={styles.avatar}>
-              {senderInfo.avatar ? (
-                <Imgix
-                  className="avatar"
-                  width={51}
-                  height={51}
-                  src={client.UPLOAD_URL + senderInfo.avatar}
-                  alt="MangaFy avatar"
-                />
-              ) : (
-                (isTeamChat && (
-                  <Imgix
-                    className="avatar"
-                    width={51}
-                    height={51}
-                    src={'https://mangafy.club/img/mangastory.webp'}
-                    alt="MangaFy avatar"
-                  />
-                )) || <Avatar text={senderInfo.name} className={styles.avatarName} fontSize={50} />
-              )}
-            </div>
+            <MessageHeaderAvatar senderInfo={senderInfo} isTeamChat={isTeamChat} />
             <div className={styles.name_special}>
               <div>
                 <h4>{senderInfo && senderInfo.name}</h4>
                 <p>{senderInfo && characterType}</p>
+                <p className={styles.messages}>{messages && messages.content}</p>
               </div>
-              <p className={styles.messages}>{messages && messages.content}</p>
             </div>
           </div>
+          <span className={styles.dateBar}>
+            {messages?.createdAt && format(messages?.createdAt)}
+          </span>
         </div>
         {isOwn && !isInvite && !isInvite && status === 'new' && (
           <div className={cn(styles.div_button, 'buttonsProfile_styles')}>
@@ -189,6 +176,7 @@ ChatCard.propTypes = {
   isArchive: PropTypes.bool,
   participentsInfo: PropTypes.array,
   mangaStoryId: PropTypes.string,
+  setShowMessageMobile: PropTypes.func.isRequired,
 };
 
 ChatCard.defaultProps = {
