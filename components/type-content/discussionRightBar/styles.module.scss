@@ -55,18 +55,20 @@
     h3 {
       height: 29px;
       color: #1f2224;
-      font-size: 17px;
+      font-size: 20px;
       font-weight: 500;
       letter-spacing: normal;
-      line-height: 22px;
+      line-height: 29px;
       margin: 0;
       text-align: center;
     }
     p {
       height: 28px;
       text-align: center;
-      color: #595959;
-      font-size: 13px;
+      font-weight: normal;
+      font-size: 10px;
+      line-height: 14px;
+      color: $gray85;
       margin: 0;
       margin-top: 3px;
       margin-bottom: 13px;

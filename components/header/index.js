@@ -56,6 +56,8 @@ const Header = ({ user, path }) => {
   const [notificationsCount, setNotificationsCount] = useState(0);
   const [unreadNotificationsId, setUnreadNotificationsId] = useState([]);
   const router = useRouter();
+  const ifMyProfile = router?.query?.pid === user?._id;
+
   const getNotificationsCount = useCallback(() => {
     if (!user) return;
     findNotificationsCount(
@@ -155,7 +157,7 @@ const Header = ({ user, path }) => {
                 <Popover
                   overlayClassName={styles.popover}
                   placement="bottomRight"
-                  content={<MenuMobilePopover removeAllStorage={removeAllStorage} />}
+                  content={<MenuMobilePopover removeAllStorage={removeAllStorage} user={user} />}
                   visible={showNotification}
                   onVisibleChange={(visible) => setShowNotification(visible)}
                   trigger="click">
@@ -178,7 +180,11 @@ const Header = ({ user, path }) => {
               ) : (
                 <Link href="/sign-in">
                   <a>
-                    <img src="/img/header-log-in.svg" alt="MangaFy login" />
+                    <Imgix
+                      layout="fill"
+                      src="https://mangafy.club/img/header-log-in.svg"
+                      alt="MangaFy login"
+                    />
                     {/* TODO: chage to svg component */}
                   </a>
                 </Link>
@@ -242,8 +248,8 @@ const Header = ({ user, path }) => {
                       </Badge>
                     </Popover>
                   </span>
-                  {path !== 'myProfile' && (
-                    <Link href="/my-profile">
+                  {!ifMyProfile && (
+                    <Link href={`/profile/${user._id}`}>
                       <a className={styles.header__menu}>
                         <span className={styles.user_img}>
                           <span>Profile</span>
@@ -265,7 +271,7 @@ const Header = ({ user, path }) => {
                       </a>
                     </Link>
                   )}
-                  {path === 'myProfile' && (
+                  {ifMyProfile && (
                     <a
                       className={cn(
                         path === 'main' ? 'whiteButton' : 'exploreBtn',
@@ -287,7 +293,7 @@ const Header = ({ user, path }) => {
                       Log in
                     </a>
                   </Link>
-                  <Link href="/sign-in">
+                  <Link href="/sign-up">
                     <a className={styles.header__menu}>
                       <PrimaryButton className={styles.join} text="Join"></PrimaryButton>
                     </a>

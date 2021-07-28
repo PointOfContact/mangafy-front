@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 
 import { CloseOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Radio, Select, Slider } from 'antd';
+import Imgix from 'components/imgix';
 import { COUNTRIES, userTypes } from 'helpers/constant';
+import PropTypes from 'prop-types';
 
 const { Option } = Select;
 
@@ -59,7 +61,7 @@ const EditPopup = ({ fieldName, onChange, closePopup, save, saveClose, baseData 
           {fieldName === 'preferredLanguage' && (
             <div className="languageEdit" id="preferredLanguage">
               <div className="logo_img_comp">
-                <img src="/img/logo.webp" width="250" alt="MangaFy logo" />
+                <Imgix layout="fill" src="https://mangafy.club/img/logo.webp" alt="MangaFy logo" />
               </div>
               <h1 className="collab">
                 Towards more effective communication. What language do you speak?
@@ -112,7 +114,7 @@ const EditPopup = ({ fieldName, onChange, closePopup, save, saveClose, baseData 
           {fieldName === 'compensationModel' && (
             <div className="compensation">
               <div className="logo_img_comp">
-                <img src="/img/logo.webp" width="250" alt="MangaFy logo" />
+                <Imgix layout="fill" src="https://mangafy.club/img/logo.webp" alt="MangaFy logo" />
               </div>
               <h1 className="collab">Сollab type</h1>
               <Radio.Group
@@ -156,6 +158,15 @@ const EditPopup = ({ fieldName, onChange, closePopup, save, saveClose, baseData 
       </div>
     </div>
   );
+};
+
+EditPopup.propTypes = {
+  fieldName: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  closePopup: PropTypes.func.isRequired,
+  save: PropTypes.func.isRequired,
+  saveClose: PropTypes.func.isRequired,
+  baseData: PropTypes.object.isRequired,
 };
 
 export default EditPopup;

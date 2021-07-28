@@ -84,7 +84,7 @@
       margin: auto;
       text-align: center;
     }
-    .spin{
+    .spin {
       width: 100%;
       height: 100%;
       display: flex;
@@ -318,10 +318,14 @@
     background-color: #d3d3d3;
     border-radius: 50%;
     cursor: pointer;
+    margin-top: 12px;
     &:hover {
       background-color: $primaryLight;
     }
-    @include media-sm() {
+    svg{
+      margin-top: 2px;
+    }
+    @include media-sm {
       margin-bottom: 0px;
     }
   }
@@ -336,7 +340,8 @@
   }
 }
 
-.changePhoto {
+.changePhoto,
+.changePhotoDef {
   margin-top: 50px;
   @include media-xs {
     margin-top: 30px;
@@ -419,6 +424,14 @@
         width: 13.33px;
         height: 13.12px;
       }
+    }
+  }
+}
+
+.changePhoto {
+  & > div > div > div > div{
+    &:hover {
+      box-shadow: 1px 1px 18px -5px white;
     }
   }
 }

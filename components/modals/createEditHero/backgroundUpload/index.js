@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import client from 'api/client';
+import Imgix from 'components/imgix';
 import PropTypes from 'prop-types';
 
 import HeroUpload from '../heroUpload';
@@ -11,7 +12,8 @@ const EditBackground = ({ ifIsEdit, hero, imageUrl, setImgId }) => {
 
   return ifIsEdit && !!hero.imageUrl ? (
     <div className={styles.editImageContainer}>
-      <img
+      <Imgix
+        layout="fill"
         onMouseEnter={() => {
           setShowUpload(!showUpload);
         }}

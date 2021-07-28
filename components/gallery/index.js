@@ -2,19 +2,17 @@ import React, { useState, useEffect } from 'react';
 
 import { Upload, Row, Col } from 'antd';
 import client from 'api/client';
-import Card from 'components/card';
-import Imgix from 'components/imgix';
 import Loading from 'components/loading';
 import AddButton from 'components/ui-elements/add-button';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import dynamic from 'next/dynamic';
 import PropTypes from 'prop-types';
 
-import GalleryCard from './galleryCard';
+import CreatePreviousWorks from './createPreviousWorks';
 import HtmlGalleryModal from './htmlGalleryModal';
 import ShortStory from './shortStory';
 import { ShowGalleryModal } from './showGalleryModal';
-import styles from './style.module.scss';
+import styles from './styles.module.scss';
 import { beforeGalleryUpload, getShortStorys } from './utils';
 
 const PDFViewer = dynamic(() => import('components/pdfViewer'), {
@@ -26,7 +24,15 @@ const Amplitude = require('amplitude');
 const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 
 export const Gallery = (props) => {
-  const { user = false, profile, mangaStories, fromPath = 'users', title = '' } = props;
+  const {
+    user = false,
+    profile,
+    ifMyProfile,
+    mangaStories,
+    mangaStoriesMyProfile,
+    fromPath = 'users',
+    title = '',
+  } = props;
   let canEditInit;
   if (!user) {
     canEditInit = false;
@@ -87,9 +93,9 @@ export const Gallery = (props) => {
             }
           ));
       } else {
-        mangaStories &&
-          mangaStories.gallery &&
-          mangaStories.gallery.forEach((item) => {
+        mangaStoriesMyProfile &&
+          mangaStoriesMyProfile.gallery &&
+          mangaStoriesMyProfile.gallery.forEach((item) => {
             if (item?.slice(-3) === 'pdf' || item?.slice(-3) === 'PDF') {
               data.push({
                 original: client.UPLOAD_URL + item,
@@ -138,7 +144,7 @@ export const Gallery = (props) => {
           }
         ));
     }
-  }, [canEdit, fromPath, mangaStories, profile, userData]);
+  }, [canEdit, fromPath, mangaStoriesMyProfile, profile, userData]);
 
   const showModal = () => {
     document.body.classList.add('body_remove_scroll');
@@ -176,7 +182,7 @@ export const Gallery = (props) => {
       setShowUploadList,
       fromPath,
       userData,
-      mangaStories,
+      mangaStoriesMyProfile,
       images,
       setImages,
       setUserData,
@@ -184,7 +190,6 @@ export const Gallery = (props) => {
       setLoading
     );
   };
-
   return (
     <div>
       {showGallery && (
@@ -200,70 +205,22 @@ export const Gallery = (props) => {
       {errMessage && <p>{errMessage}</p>}
       <Row>
         <Col span={19}>
-          <div className={styles.imagesBlock}>
-            {images?.length ? (
-              images.map((galleryItem, index) => (
-                <GalleryCard
-                  key={galleryItem._id}
-                  {...{
-                    index,
-                    canEdit,
-                    canEditInit,
-                    user,
-                    userData,
-                    galleryItem,
-                    gallerySet,
-                    setUserData,
-                    fromPath,
-                    setImages,
-                    images,
-                    setSelectedGallery,
-                    setCreateGalleryModal,
-                    setIsModalVisible,
-                  }}
-                />
-              ))
-            ) : (
-              <div>
-                {canEditInit ? (
-                  <Upload
-                    beforeUpload={onBeforeGalleryUpload}
-                    showUploadList={showUploadList}
-                    accept="image/jpg, image/png, application/pdf, image/jpeg">
-                    <Card
-                      description="Do you not want <br/> to add a gallery?"
-                      btnText=""
-                      items={[
-                        <Imgix
-                          key="1"
-                          width={124}
-                          height={140}
-                          layout="fixed"
-                          src="https://mangafy.club/img/noGalere.webp"
-                          alt="MangaFy no galere"
-                        />,
-                      ]}
-                    />
-                  </Upload>
-                ) : (
-                  <Card
-                    description="Sorry, but there is nothing <br/> here (("
-                    btnText=""
-                    items={[
-                      <Imgix
-                        key="1"
-                        width={124}
-                        height={140}
-                        layout="fixed"
-                        src="https://mangafy.club/img/noGalere.webp"
-                        alt="MangaFy no galere"
-                      />,
-                    ]}
-                  />
-                )}
-              </div>
-            )}
-          </div>
+          <CreatePreviousWorks
+            images={images}
+            canEdit={canEdit}
+            canEditInit={canEditInit}
+            user={user}
+            userData={userData}
+            gallerySet={gallerySet}
+            setUserData={setUserData}
+            fromPath={fromPath}
+            setImages={setImages}
+            setSelectedGallery={setSelectedGallery}
+            setCreateGalleryModal={setCreateGalleryModal}
+            setIsModalVisible={setIsModalVisible}
+            onBeforeGalleryUpload={onBeforeGalleryUpload}
+            showUploadList={showUploadList}
+          />
         </Col>
         {canEditInit && (
           <Col
@@ -305,15 +262,19 @@ export const Gallery = (props) => {
 };
 
 Gallery.propTypes = {
-  user: PropTypes.object.isRequired,
+  user: PropTypes.object,
   profile: PropTypes.object,
+  mangaStoriesMyProfile: PropTypes.array.isRequired,
   mangaStories: PropTypes.array.isRequired,
   fromPath: PropTypes.string,
   title: PropTypes.string,
+  ifMyProfile: PropTypes.bool,
 };
 
 Gallery.defaultProps = {
+  user: {},
   profile: null,
   title: '',
   fromPath: 'users',
+  ifMyProfile: true,
 };

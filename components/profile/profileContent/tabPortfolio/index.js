@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import styles from './styles.module.scss';
 
 const TabStory = (props) => {
-  const { user, profile, mangaStories } = props;
+  const { user, profile, ifMyProfile, mangaStories, mangaStoriesMyProfile } = props;
   return (
     <div className={styles.content_tab_profile_2}>
       <Gallery
@@ -17,6 +17,8 @@ const TabStory = (props) => {
           user,
           profile,
           mangaStories,
+          ifMyProfile,
+          mangaStoriesMyProfile,
         }}
       />
       <SocialLinks
@@ -32,7 +34,9 @@ const TabStory = (props) => {
 TabStory.propTypes = {
   user: PropTypes.object.isRequired,
   profile: PropTypes.object,
+  mangaStoriesMyProfile: PropTypes.array.isRequired,
   mangaStories: PropTypes.array.isRequired,
+  ifMyProfile: PropTypes.bool.isRequired,
 };
 
 TabStory.defaultProps = {

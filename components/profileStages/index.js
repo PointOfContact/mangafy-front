@@ -4,6 +4,7 @@ import { useClickAway } from '@umijs/hooks';
 import { notification } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
+import Imgix from 'components/imgix';
 import PropTypes from 'prop-types';
 
 import Quest from './card';
@@ -46,7 +47,7 @@ const ProfileStages = ({ userData }) => {
         <div className={styles.content}>
           <h2 className={styles.title}>Fill out the form and get points</h2>
           <div className={styles.img}>
-            <img src="/img/quests.png" alt="MangaFy quests" />
+            <Imgix layout="fill" src="https://mangafy.club/img/quests.png" alt="MangaFy quests" />
           </div>
           <h2 className={styles.filter}>All Quests</h2>
           <div className={styles.quests}>

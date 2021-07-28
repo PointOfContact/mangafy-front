@@ -91,7 +91,9 @@ $repeat: 16;
       }
     }
   }
-  &_Card {
+  &_card{
+    width: 100%;
+    min-height: 275px;
     display: flex;
     flex-direction: column;
     box-shadow: 0px 4px 16px rgb(0 0 0 / 8%);
@@ -99,13 +101,11 @@ $repeat: 16;
     padding: 16px;
     margin: 0 0 32px 0;
     transition: all 0.2s;
-    min-height: 465px;
-    width: 100%;
     &:hover {
       box-shadow: 0px 4px 16px rgb(0 0 0 / 19%);
     }
   }
-  &_MainImg {
+  &_mainImgDef {
     cursor: pointer;
     width: 100%;
     height: 312px;
@@ -128,13 +128,17 @@ $repeat: 16;
         object-fit: contain;
       }
     }
-    .cat {
+    .catDef {
       position: absolute;
       bottom: -10px;
       left: 10px;
-      padding: 0px 15px;
+      font-size: 13px;
+      padding: 2px 20px;
       border-radius: 25px;
       color: $text_white;
+    }
+    .cat{
+      bottom: -92px;
     }
     .comments {
       border-top-left-radius: 5px;
@@ -168,7 +172,13 @@ $repeat: 16;
       }
     }
   }
-  &_BotDescr {
+  &_mainImg{
+    height: 0;
+    .bgImg {
+      height: 0;
+    }
+  }
+  &_botDescDef {
     font-size: 17px;
     font-weight: 500;
     display: flex;
@@ -178,9 +188,12 @@ $repeat: 16;
       padding: 3px 15px;
     }
   }
+  &_botDesc {
+    margin-top: 92px;
+  }
   @for $i from 1 through $repeat {
-    &_Card:nth-child(#{length($colors)}n + #{$i}) {
-      .cat {
+    &_card:nth-child(#{length($colors)}n + #{$i}) {
+      .catDef {
         background: nth($colors, random(length($colors)));
       }
     }

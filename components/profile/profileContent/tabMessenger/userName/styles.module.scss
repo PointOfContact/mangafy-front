@@ -4,19 +4,35 @@
   border-bottom: 0.5px solid #f1f1f1;
   .userName {
     height: 80px;
-    margin-left: 30px;
+    margin-left: 15px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    .avatarHiderMobile{
+      display: none;
+      @include media-sm {
+        display: block;
+        & div > img {
+          border-radius: 50%;
+          object-fit: cover;
+        }
+      }
+    }
     a {
       font-style: normal;
       font-weight: 900;
       font-size: $text3;
       line-height: 15px;
       color: $black;
+      &:hover {
+        color: $primaryDark;
+      }
+      @include media-sm {
+        margin-left: 20px;
+        margin-top: -6px;
+      }
     }
     @include media-sm {
-      a{
+      a {
         font-weight: bold;
       }
       height: 26px;
@@ -25,20 +41,23 @@
   }
   .members {
     color: $grey;
-    margin-left: 30px;
+    margin-left: 15px;
     position: absolute;
     cursor: pointer;
     font-size: $text5;
     top: 57px;
     @include media-sm {
-      margin-left: 29px;
-      top: 30px;
+      margin-left: 134px;
+      top: 40px;
     }
   }
 }
 
 .container {
   @include container;
+  svg{
+    display: none;
+  }
   @include media-sm {
     display: none;
   }
@@ -48,11 +67,16 @@
   @include container;
   display: none;
   @include media-sm {
-    display: block;
-    height: 51px;
+    display: flex;
+    align-items: center;
+    height: 64px;
     margin-top: 8px;
     position: relative;
     // border-top: 1px solid rgba(33, 33, 33, 0.07);
     border-bottom: 1px solid rgba(33, 33, 33, 0.07);
+    svg {
+      display: block;
+      margin-left: 10px;
+    } 
   }
 }

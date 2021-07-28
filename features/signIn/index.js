@@ -4,9 +4,8 @@ import cn from 'classnames';
 import AuthForm from 'components/authForm';
 import Header from 'components/header';
 import ButtonToTop from 'components/ui-elements/button-toTop';
-import FooterLogin from 'features/footerLogin';
 import { EVENTS } from 'helpers/amplitudeEvents';
-import Head from 'next/head';
+import { NextSeo } from 'next-seo';
 import PropTypes from 'prop-types';
 import * as qs from 'query-string';
 import { login } from 'store';
@@ -74,13 +73,10 @@ const Login = ({ user }) => {
 
   return (
     <>
-      <Head>
-        <title>Make the most of your talant!</title>
-        <meta
-          name="description"
-          content="Sign in to get your personalized page and start connecting with graphic novel enthusiasts"
-        />
-      </Head>
+      <NextSeo
+        title="Make the most of your talant!"
+        description="Sign in to get your personalized page and start connecting with graphic novel enthusiasts"
+      />
       <ButtonToTop />
       <div className={'wrapper'}>
         <div className={'content'}>
@@ -89,7 +85,7 @@ const Login = ({ user }) => {
             <div className={'container'}>
               <div className={styles.box__wrapper}>
                 {/* <div className={styles.box__img}>
-                  <img src="/img/sing-in.svg" alt="mangaFy sing in" />
+                  <Imgix layout="fill" src="/img/sing-in.svg" alt="mangaFy sing in" />
                 </div> */}
                 <div className={styles.box__title_wrap}>
                   <div className={styles.box__title}>
@@ -120,7 +116,6 @@ const Login = ({ user }) => {
             </div>
           </main>
         </div>
-        <FooterLogin user={user} />
         {/* <LoginFooter acaunt={false} />
         <FooterPolicy /> */}
       </div>

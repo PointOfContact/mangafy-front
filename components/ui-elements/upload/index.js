@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { Upload, notification } from 'antd';
+import { Upload, notification, Spin } from 'antd';
 import Modal from 'antd/lib/modal/Modal';
 import client from 'api/client';
 // Api
@@ -27,6 +27,8 @@ const PrimaryUpload = ({
   mangaUrls,
   setUploadImages,
   showText,
+  ifUploadImg,
+  setIfUploadImg,
 }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalContent, setIsModalContent] = useState('');
@@ -77,9 +79,11 @@ const PrimaryUpload = ({
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.addEventListener('load', () => {
+        setIfUploadImg(true);
         uploadFile(
           reader.result,
           (res) => {
+            setIfUploadImg(false);
             patchStoryBoard(
               storyBoardId,
               {
@@ -137,8 +141,8 @@ const PrimaryUpload = ({
         onChange={onChange}
         beforeUpload={beforeUpload}
         onPreview={onPreview}
+        disabled={ifUploadImg}
         showUploadList={false}>
-        {/* {fileList.length < 5 && ( */}
         <div className={styles.content}>
           <div className={styles.types}>
             <SvgImage width="23px" height="23px" />
@@ -150,7 +154,11 @@ const PrimaryUpload = ({
               !showText && fileList.length && styles.description
             )}>
             <span className="desc">
-              <SvgCloud width="153px" height="111px" />
+              {ifUploadImg ? (
+                <Spin className={styles.spin} size="large" tip="Loading..."></Spin>
+              ) : (
+                <SvgCloud width="153px" height="111px" />
+              )}
             </span>
             <h4 className={showText ? styles.titleDef : styles.title}>
               {!!fileList.length ? 'Upload pages' : 'Upload your pages'}
@@ -176,7 +184,6 @@ const PrimaryUpload = ({
             )}
           </div>
         </div>
-        {/* )} */}
       </Upload>
       <Modal
         className={cn(styles.modal)}
@@ -200,6 +207,8 @@ PrimaryUpload.propTypes = {
   showText: PropTypes.bool,
   mangaUrls: PropTypes.array,
   setStoryBoard: PropTypes.func.isRequired,
+  ifUploadImg: PropTypes.bool,
+  setIfUploadImg: PropTypes.func,
 };
 
 PrimaryUpload.defaultProps = {
@@ -208,6 +217,8 @@ PrimaryUpload.defaultProps = {
   setUploadImages: () => {},
   showText: true,
   mangaUrls: [],
+  ifUploadImg: false,
+  setIfUploadImg: () => {},
 };
 
 export default PrimaryUpload;

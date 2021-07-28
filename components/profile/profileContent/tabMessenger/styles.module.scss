@@ -13,24 +13,35 @@
   margin: 0 -25px;
   min-height: 655px;
   @include media-sm {
-    min-height: 555px;
+    min-height: 780px;
   }
   .content {
     display: flex;
+    .messenger_list_mobile,
     .messenger_list {
       width: 316px;
       height: 100%;
       border-right: 1px solid rgba(33, 33, 33, 0.07);
       @include media-sm {
-        width: 111px;
-        height: 355px;
-        border: none;
+        width: 100%;
       }
     }
+    .messenger_list_mobile{
+      @include media-sm {
+        display: none;
+      }
+    }
+    .messenger_content_mobile,
     .messenger_content {
       width: 70%;
       @include media-sm {
-        width: 80%;
+        width: 100%;
+        display: none;
+      }
+    }
+    .messenger_content_mobile{
+      @include media-sm {
+        display: block;
       }
     }
   }

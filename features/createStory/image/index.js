@@ -4,6 +4,7 @@ import { InboxOutlined } from '@ant-design/icons';
 import { Button, notification, Upload } from 'antd';
 import client from 'api/client';
 import SvgLeftArrow from 'components/icon/LeftArrow';
+import Imgix from 'components/imgix';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -81,7 +82,7 @@ const Introduce = ({ user }) => {
         })
         .catch((err) => {
           openNotification('error', err.message);
-          Router.push(`/my-profile`);
+          Router.push(`/profile/${user._id}`);
         });
     });
   };
@@ -133,7 +134,11 @@ const Introduce = ({ user }) => {
             <div className="col-lg-8">
               <div className="collab_div">
                 <div className="logo_img_comp">
-                  <img src="/img/logo.webp" width="250" alt="MangaFy logo" />
+                  <Imgix
+                    layout="fill"
+                    src="https://mangafy.club/img/logo.webp"
+                    alt="MangaFy logo"
+                  />
                 </div>
                 <h1 className="collab">Time to catch the eye!</h1>
                 <p className="title_text">Add an image that clearly represents your project.</p>

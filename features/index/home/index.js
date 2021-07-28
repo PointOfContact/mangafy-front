@@ -1,6 +1,7 @@
 import React from 'react';
 
 import cn from 'classnames';
+import Imgix from 'components/imgix';
 import PrimaryButton from 'components/ui-elements/button';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
@@ -38,7 +39,13 @@ export default function Home() {
                 </Link>
               </div>
               <div className={styles.main__ico}>
-                <img src="img/land-new-img1.svg" alt="MangaFy land new" />
+                <Imgix
+                  layout="intrinsic"
+                  width={646}
+                  height={388}
+                  src="https://mangafy.club/img/land-new-img1.svg"
+                  alt="MangaFy land new"
+                />
               </div>
             </div>
           </div>
@@ -98,9 +105,21 @@ export default function Home() {
             </Link>
           </div>
           <div className={styles.goinSection__img}>
-            <img src="img/joinSecion-img1.png" alt="MangaFy join section" />
+            <Imgix
+              layout="intrinsic"
+              width={926}
+              height={560}
+              src="https://mangafy.club/img/joinSecion-img1.png"
+              alt="MangaFy join section"
+            />
             <div className={styles.goinSection__imgLeft}>
-              <img src="img/joinSecion-img2.png" alt="MangaFy join section" />
+              <Imgix
+                layout="intrinsic"
+                width={173}
+                height={340}
+                src="https://mangafy.club/img/joinSecion-img2.png"
+                alt="MangaFy join section"
+              />
             </div>
           </div>
         </div>
@@ -123,13 +142,31 @@ export default function Home() {
         <div className={cn('container', styles.main__container)}>
           <div className={styles.imgBlock__wrap}>
             <div className={cn(styles.imgBlock__img, styles.imgBlock__imgIco1)}>
-              <img src="img/imgBlock-img1.png" alt="MangaFy block" />
+              <Imgix
+                layout="intrinsic"
+                width={376}
+                height={462}
+                src="https://mangafy.club/img/imgBlock-img1.png"
+                alt="MangaFy block"
+              />
             </div>
             <div className={cn(styles.imgBlock__img, styles.imgBlock__imgIco2)}>
-              <img src="img/imgBlock-img2.png" alt="MangaFy block" />
+              <Imgix
+                layout="intrinsic"
+                width={656}
+                height={621}
+                src="https://mangafy.club/img/imgBlock-img2.png"
+                alt="MangaFy block"
+              />
             </div>
             <div className={cn(styles.imgBlock__img, styles.imgBlock__imgIco3)}>
-              <img src="img/imgBlock-img3.png" alt="MangaFy block" />
+              <Imgix
+                layout="intrinsic"
+                width={654}
+                height={802}
+                src="https://mangafy.club/img/imgBlock-img3.png"
+                alt="MangaFy block"
+              />
             </div>
           </div>
         </div>

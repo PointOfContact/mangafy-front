@@ -2,6 +2,7 @@ import React from 'react';
 
 import client from 'api/client';
 import cn from 'classnames';
+import Imgix from 'components/imgix';
 import Slider from 'react-slick';
 
 import styles from './styles.module.scss';
@@ -79,17 +80,34 @@ const WelcomeSlider = () => {
     },
   ];
 
+  const setIconSize = (iconName) => {
+    switch (iconName) {
+      case 'icons/welcome-slider-ico1.svg':
+        return { width: 26, height: 16 };
+      case 'icons/welcome-slider-ico2.svg':
+        return { width: 18, height: 18 };
+      default:
+        return { width: 21, height: 21 };
+    }
+  };
+
   return (
     <Slider {...settings}>
       {users?.map((user) => (
         // <Link key={user.id} href={user.navURL}>
         //   <a>
         <div key={user.id} className={styles.sliderItem}>
-          <img src={client.UPLOAD_URL + user.src} />
+          <Imgix layout="fill" src={client.UPLOAD_URL + user.src} alt="MangaFy user icon" />
           <div className={cn(styles.sliderItem__info, styles.sliderItem__infoOrangeDark)}>
             Hey! I am a {user.type}
             <div className={styles.sliderItem__ico}>
-              <img src={user.icon} alt="MangaFy user icon" />
+              <Imgix
+                layout="fixed"
+                width={setIconSize(user.icon).width}
+                height={setIconSize(user.icon).height}
+                src={`https://mangafy.club/${user.icon}`}
+                alt="MangaFy user icon"
+              />
             </div>
           </div>
         </div>

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Checkbox } from 'antd';
 import SvgLeftArrow from 'components/icon/LeftArrow';
 import SvgRightArrow from 'components/icon/RightArrow';
+import Imgix from 'components/imgix';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -71,7 +72,11 @@ const LookingFor = ({ user }) => {
           <div className="nav1 nav1_logo">
             <div className="flex-center">
               <Link href="/">
-                <img src="/img/logoText.webp" width="70%" alt="MangaFy logo text" />
+                <Imgix
+                  layout="fill"
+                  src="https://mangafy.club/img/logoText.webp"
+                  alt="MangaFy logo text"
+                />
               </Link>
             </div>
           </div>

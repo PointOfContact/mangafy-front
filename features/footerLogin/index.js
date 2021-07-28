@@ -10,16 +10,18 @@ import styles from './styles.module.scss';
 
 // eslint-disable-next-line react/display-name
 const FooterLogin = React.memo(({ user }) => {
-  const [cookieBubble, setCookieBubble] = useState(true);
+  const [cookieBubble, setCookieBubble] = useState(false);
   const [showDialog, setShowDialog] = useState(true);
 
   useEffect(() => {
-    setCookieBubble(client.getCookie('CookieBubble'));
+    setCookieBubble(
+      client.getCookie('CookieBubble') === 'true' || client.getCookie('CookieBubble') === null
+    );
   }, []);
 
   return (
     showDialog &&
-    !cookieBubble &&
+    cookieBubble &&
     !user && (
       <div className={styles.containerFooterLogin}>
         <div className={styles.footerLogin}>
@@ -32,7 +34,7 @@ const FooterLogin = React.memo(({ user }) => {
                 <PrimaryButton isWhite={true} text={'LOG IN'} />
               </a>
             </Link>
-            <Link href="/sign-in">
+            <Link href="/sign-up">
               <a>
                 <PrimaryButton text={'JOIN'} />
               </a>

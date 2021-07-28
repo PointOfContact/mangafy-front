@@ -33,6 +33,7 @@ const DiscussionCard = (props) => {
     likesCount,
     type,
   } = props;
+
   const [showModal, changeShowModal] = useState(false);
 
   const openPost = (postId) => {
@@ -42,6 +43,7 @@ const DiscussionCard = (props) => {
       LinkCreator.toQuery({ ...parsed, postId }, '/feed'),
       {
         scroll: false,
+        shallow: true,
       }
     );
     changeShowModal(true);
@@ -49,7 +51,7 @@ const DiscussionCard = (props) => {
 
   return (
     <>
-      <div className={styles.projectsForYou_Card}>
+      <div className={styles.projectsForYou_card}>
         <div className={styles.projectsForYou_Top}>
           <Link href={logoNavigate}>
             <a>
@@ -82,27 +84,34 @@ const DiscussionCard = (props) => {
             </div>
           </div>
         </div>
-        <div onClick={() => openPost(id)} className={styles.projectsForYou_MainImg}>
+        <div
+          onClick={() => openPost(id)}
+          className={cn(!img && styles.projectsForYou_mainImg, styles.projectsForYou_mainImgDef)}>
           <div className={styles.bgImg}>
-            <Imgix
-              className={(!img && styles.defaultBg) || ''}
-              layout="fill"
-              src={img ? `${client.UPLOAD_URL + img}` : `https://mangafy.club/img/mangastory.webp`}
-              alt="MangaFy story"
-            />
+            {img && (
+              <Imgix
+                className={(!img && styles.defaultBg) || ''}
+                layout="fill"
+                src={`${client.UPLOAD_URL + img}`}
+                alt="MangaFy story"
+              />
+            )}
           </div>
           <div className={styles.comments}>
             <div>
-              <span>{likesCount}</span>
+              <span>{!!likesCount && likesCount}</span>
               <SvgHeart width="20px" height="17px" />
-              <span>{commentsCount}</span>
+              <span>{!!commentsCount && commentsCount}</span>
               <SvgComment width="17px" height="17px" />
             </div>
           </div>
-          <span className={styles.cat}>{categories && categories[0]}</span>
+          <span className={cn(!img && styles.cat, styles.catDef)}>
+            {categories && categories[0]}
+          </span>
         </div>
 
-        <div className={styles.projectsForYou_BotDescr}>
+        <div
+          className={cn(!img && styles.projectsForYou_botDesc, styles.projectsForYou_botDescDef)}>
           <span>{subTitle}</span>
           <Link href={url || '/'}>
             <a>
@@ -125,6 +134,7 @@ const DiscussionCard = (props) => {
         postId={id}
         likesCount={likesCount}
         logoNavigate={logoNavigate}
+        subTitle={subTitle}
       />
     </>
   );

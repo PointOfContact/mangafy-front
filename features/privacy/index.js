@@ -5,7 +5,7 @@ import Header from 'components/header';
 import Imgix from 'components/imgix';
 import ButtonToTop from 'components/ui-elements/button-toTop';
 import FooterLogin from 'features/footerLogin';
-import Head from 'next/head';
+import { NextSeo } from 'next-seo';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
@@ -15,16 +15,37 @@ const Privacy = (props) => {
 
   return (
     <>
-      <Head>
-        <title>MangaFY Privacy Policy</title>
-        <meta name="description" content="MangaFY Privacy Policy"></meta>
-        <meta property="og:url" content="http://mangafy.club" />
-        <meta property="og:type" content="article" />
-        <meta property="og:title" content="MangaFY Privacy Policy" />
-        <meta property="og:description" content="MangaFY Privacy Policy" />
-        <meta property="og:image" content="http://mangafy.club/img/indexMobSec3.webp" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <NextSeo
+        title="MangaFY Privacy Policy"
+        description="MangaFY Privacy Policy"
+        canonical="http://mangafy.club"
+        openGraph={{
+          url: 'http://mangafy.club',
+          title: 'MangaFY Privacy Policy',
+          description: 'MangaFY Privacy Policy',
+          type: 'article',
+          images: [
+            {
+              url: 'http://mangafy.club/img/indexMobSec3.webp',
+              width: 800,
+              height: 600,
+              alt: 'Manga Story Image',
+            },
+          ],
+          site_name: 'MangaFY',
+        }}
+        twitter={{
+          handle: '@handle',
+          site: '@site',
+          cardType: 'summary_large_image',
+        }}
+        additionalLinkTags={[
+          {
+            rel: 'icon',
+            href: '/favicon.ico',
+          },
+        ]}
+      />
       <ButtonToTop />
       <main className="main_back_2">
         <div className={'wrapper'}>

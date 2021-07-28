@@ -8,7 +8,7 @@ import WhiteVector from 'components/icon/WhiteVector';
 import Imgix from 'components/imgix';
 import LargeButton from 'components/ui-elements/large-button';
 import FooterLogin from 'features/footerLogin';
-import Head from 'next/head';
+import { NextSeo } from 'next-seo';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
@@ -52,13 +52,10 @@ const Pricing = (props) => {
 
   return (
     <div className="">
-      <Head>
-        <title>One tool for your whole team.</title>
-        <meta
-          name="description"
-          content="PRO account removes all restrictions and makes MangaFY an ultimate tool for dailiy conscious planning of your next great IP."
-        />
-      </Head>
+      <NextSeo
+        title="One tool for your whole team."
+        description="PRO account removes all restrictions and makes MangaFY an ultimate tool for dailiy conscious planning of your next great IP."
+      />
       <main className="main_back_2">
         <Header path="pricing" user={user} />
         <div className={styles.pricing_page}>

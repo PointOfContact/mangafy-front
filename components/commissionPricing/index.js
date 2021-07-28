@@ -21,7 +21,7 @@ export const CommissionPricing = ({ id, user }) => {
   const [errMessage, setErrMessage] = useState('');
   const [editMode, setEditMode] = useState(false);
   const [isSubmitted, setSubmitted] = useState(false);
-  const [inputValue, setInputValue] = useState(false);
+  const [inputValue, setInputValue] = useState(true);
   const [addMore, setAddMore] = useState(false);
   const canEdit = !user ? false : id === user._id;
 
@@ -89,7 +89,6 @@ export const CommissionPricing = ({ id, user }) => {
     const { value, name } = target;
     newList[newId][name] = value;
     setPricingList(newList);
-    // if input value is not a empty
     setInputValue(!!target.defaultValue.length + 1);
   };
 
@@ -212,6 +211,7 @@ export const CommissionPricing = ({ id, user }) => {
                       <MinusCircleOutlined
                         style={{ 'margin-left': '11px' }}
                         onClick={() => {
+                          setInputValue(true);
                           setSubmitted(false);
                           remove(index);
                         }}
@@ -237,7 +237,6 @@ export const CommissionPricing = ({ id, user }) => {
                     onClick={
                       inputValue
                         ? () => {
-                            // if input is not a empty
                             setPricing(pricingList);
                           }
                         : () => {
