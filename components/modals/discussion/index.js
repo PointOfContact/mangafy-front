@@ -34,13 +34,15 @@ const ModalDiscussion = ({
   const [commentsData, setCommentsData] = useState([]);
   const [likesData, setLikesData] = useState([]);
   const [isLiked, setIsLiked] = useState(false);
-  const [photoProject, setPhotoProject] = useState(client.UPLOAD_URL + img);
-  const [logoProject, setLogoProject] = useState(logo);
+  const [photoProject, setPhotoProject] = useState(img);
+  const [logoProject, setLogoProject] = useState(client.UPLOAD_URL + logo);
   const [loading, setLoading] = useState('');
+  const [subTitleData, setSubTitleData] = useState('');
 
   const Amplitude = require('amplitude');
 
   const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
+
   useEffect(() => {
     if (showModal) {
       getPost();
@@ -50,8 +52,9 @@ const ModalDiscussion = ({
   const getPost = async () => {
     setLoading(true);
     const post = await client.service('api/v2/posts').get(postId);
-    setLogoProject(post.logoUrl);
-    setPhotoProject(client.UPLOAD_URL + post.imageUrl);
+    setLogoProject(client.UPLOAD_URL + post.logoUrl);
+    setPhotoProject(post.imageUrl);
+    setSubTitleData(post.subTitle);
     setLoading(false);
     setLikesData(post.likes.data);
     setCommentsData(post.comments.data);
@@ -124,7 +127,7 @@ const ModalDiscussion = ({
     changeShowModal(false);
   };
 
-  const setPhotoOrLogo = (ifValidPhoto, photo, sizeImg) =>
+  const setPhotoOrLogo = (ifValidPhoto, photo, sizeImg, ifPhoto) =>
     ifValidPhoto ? (
       <Imgix
         layout="intrinsic"
@@ -134,13 +137,15 @@ const ModalDiscussion = ({
         alt="MangaFy manga story"
       />
     ) : (
-      <Imgix
-        width={sizeImg}
-        height={sizeImg}
-        layout="intrinsic"
-        src={'https://mangafy.club/img/mangastory.webp'}
-        alt="MangaFy manga story default"
-      />
+      ifPhoto && (
+        <Imgix
+          width={sizeImg}
+          height={sizeImg}
+          layout="intrinsic"
+          src={'https://mangafy.club/img/mangastory.webp'}
+          alt="MangaFy manga story default"
+        />
+      )
     );
 
   return loading ? (
@@ -152,7 +157,11 @@ const ModalDiscussion = ({
       footer={null}
       style={{ minWidth: '95%', maxWidth: '1200px', marginTop: '20px' }}
       visible={showModal}
-      closeIcon={<SvgClose height="18px" width="18px" />}
+      closeIcon={
+        <span className={styles.close}>
+          <SvgClose />
+        </span>
+      }
       okText="Send"
       onCancel={handleCancel}>
       <div className={styles.modalContent}>
@@ -164,16 +173,14 @@ const ModalDiscussion = ({
                   <spam className={styles.logo}>
                     <Link href={logoNavigate}>
                       <a>
-                        <span>
-                          {setPhotoOrLogo(logoProject, client.UPLOAD_URL + logoProject, 54)}
-                        </span>
+                        <span>{setPhotoOrLogo(logoProject, logoProject, 54, true)}</span>
                       </a>
                     </Link>
                     <h2 className={styles.subtitle}>{title}</h2>
                   </spam>
                   <div className={styles.share}>
                     <span className={styles.like}>
-                      <span>{!!likesData.length && likesData.length}</span>
+                      <span>{(!!likesData.length && likesData.length) || likesCount}</span>
                       <SvgHeart
                         width="25px"
                         height="22px"
@@ -190,8 +197,12 @@ const ModalDiscussion = ({
                     </Popover>
                   </div>
                 </div>
-                <div className={styles.img}>{setPhotoOrLogo(img, photoProject, 1000)}</div>
-                <p className={styles.description}>{subTitle}</p>
+                <div className={!photoProject && styles.containerPhoto}>
+                  <div className={styles.img}>
+                    {setPhotoOrLogo(photoProject, client.UPLOAD_URL + photoProject, 1000, false)}
+                  </div>
+                  <p className={styles.description}>{subTitle || subTitleData}</p>
+                </div>
               </div>
             </div>
             <div className="ant-col-md-8 ant-col-xs-24">
@@ -211,6 +222,7 @@ const ModalDiscussion = ({
     </Modal>
   );
 };
+
 export default ModalDiscussion;
 
 ModalDiscussion.propTypes = {
