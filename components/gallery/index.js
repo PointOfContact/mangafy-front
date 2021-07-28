@@ -190,7 +190,6 @@ export const Gallery = (props) => {
       setLoading
     );
   };
-
   return (
     <div>
       {showGallery && (
@@ -263,7 +262,7 @@ export const Gallery = (props) => {
 };
 
 Gallery.propTypes = {
-  user: PropTypes.object.isRequired,
+  user: PropTypes.object,
   profile: PropTypes.object,
   mangaStoriesMyProfile: PropTypes.array.isRequired,
   mangaStories: PropTypes.array.isRequired,
@@ -273,6 +272,7 @@ Gallery.propTypes = {
 };
 
 Gallery.defaultProps = {
+  user: {},
   profile: null,
   title: '',
   fromPath: 'users',
