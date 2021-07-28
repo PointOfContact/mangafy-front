@@ -180,11 +180,7 @@ const Header = ({ user, path }) => {
               ) : (
                 <Link href="/sign-in">
                   <a>
-                    <Imgix
-                      layout="fill"
-                      src="https://mangafy.club/img/header-log-in.svg"
-                      alt="MangaFy login"
-                    />
+                    <img src="/img/header-log-in.svg" alt="MangaFy login" />
                     {/* TODO: chage to svg component */}
                   </a>
                 </Link>
