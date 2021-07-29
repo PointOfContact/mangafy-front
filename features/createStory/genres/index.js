@@ -8,7 +8,7 @@ import { EVENTS } from 'helpers/amplitudeEvents';
 import { options } from 'helpers/constant';
 import Head from 'next/head';
 import Link from 'next/link';
-import PropTypes from 'prop-types';
+import PropTypes, { array } from 'prop-types';
 
 const Amplitude = require('amplitude');
 
@@ -132,5 +132,13 @@ MangaGenres.propTypes = {
   onClose: PropTypes.func,
   genres: PropTypes.array,
   user: PropTypes.object,
+};
+MangaGenres.defaultProps = {
+  label: '',
+  value: '',
+  closable: false,
+  onClose: () => {},
+  genres: array,
+  user: {},
 };
 export default MangaGenres;

@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import cn from 'classnames';
 import AuthForm from 'components/authForm';
 import Header from 'components/header';
+import Imgix from 'components/imgix';
 import ButtonToTop from 'components/ui-elements/button-toTop';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { NextSeo } from 'next-seo';
@@ -82,7 +83,8 @@ const Login = ({ user }) => {
         <div className={'content'}>
           <Header path="sign-in" user={user} />
           <main className={cn(styles.box, styles.boxBg)}>
-            <div className={'container'}>
+            <Imgix layout="fill" src={'https://mangafy.club/img/login-bg.png'} />
+            <div className={cn(styles.container, 'container')}>
               <div className={styles.box__wrapper}>
                 {/* <div className={styles.box__img}>
                   <Imgix layout="fill" src="/img/sing-in.svg" alt="mangaFy sing in" />

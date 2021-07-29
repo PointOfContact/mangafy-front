@@ -9,32 +9,25 @@ import SvgMone from 'components/icon/Mone';
 import SvgPencilColored from 'components/icon/PencilColored';
 import SvgTie from 'components/icon/Tie';
 import Imgix from 'components/imgix';
-import ButtonToggle from 'components/ui-elements/button-toggle';
-import PrimarySelect from 'components/ui-elements/select';
+import { ShareButtons } from 'components/share';
 import { OPTIONS } from 'features/createStory/lenguage/constant';
-import { userTypes } from 'helpers/constant';
 import PropTypes from 'prop-types';
 
+import EditContent from './editContent';
 import styles from './styles.module.scss';
 
 const languages = OPTIONS.map((item) => ({ key: item, value: item }));
 
 const BannerSection = ({
-  // originUrl,
+  originUrl,
   baseData,
   canEdit,
   saveUserDataByKey,
   setBaseData,
   openNotification,
   genres: genresEnums,
+  isOwn,
 }) => {
-  const genres = genresEnums.map(({ _id: key, value }) => ({ key, value }));
-  const defaultGenres = baseData.genres?.map(({ _id }) => _id);
-
-  const filteredOptions = baseData.preferredLanguage
-    ? languages.filter((o) => !baseData.preferredLanguage.includes(o.value))
-    : languages;
-
   const beforeUpload = (file) => {
     const isJpgOrPng =
       file.type === 'image/jpeg' ||
@@ -84,73 +77,6 @@ const BannerSection = ({
       );
     }
   };
-
-  const changeSelectedLenguage = (preferredLanguage) => {
-    const data = { ...baseData, preferredLanguage };
-    saveUserDataByKey(data, 'preferredLanguage');
-  };
-
-  const changeSelectedGenre = (genresIds) => {
-    const data = { ...baseData, genresIds };
-    saveUserDataByKey(data, 'genresIds');
-  };
-
-  const changeSelectedUserType = (searchingFor) => {
-    const data = { ...baseData, searchingFor };
-    saveUserDataByKey(data, 'searchingFor');
-  };
-
-  const changeCollaborationIsPaid = (checked) => {
-    const data = { ...baseData, compensationModel: checked ? 'paid' : 'collaboration' };
-    saveUserDataByKey(data, 'compensationModel');
-  };
-
-  const editContent = (
-    <div className={styles.editContent}>
-      <PrimarySelect
-        mode="multiple"
-        onChange={changeSelectedGenre}
-        isLinear={true}
-        isFullWidth={true}
-        placeholder="Ganrys"
-        defaultValue={defaultGenres}
-        options={genres}
-        className={styles.edit_select}
-      />
-      <PrimarySelect
-        showSearch
-        onChange={changeSelectedLenguage}
-        isLinear={true}
-        isFullWidth={true}
-        placeholder="Lenguage"
-        value={baseData.preferredLanguage || undefined}
-        options={filteredOptions}
-        className={styles.edit_select}
-      />
-      <PrimarySelect
-        mode="multiple"
-        onChange={changeSelectedUserType}
-        isLinear={true}
-        isFullWidth={true}
-        placeholder="Profession"
-        defaultValue={baseData.searchingFor || []}
-        options={userTypes}
-        className={styles.edit_select}
-      />
-      <div>
-        <ButtonToggle
-          id={'paidOrFree'}
-          onChange={(e) => {
-            changeCollaborationIsPaid(e.target.checked);
-          }}
-          className={styles.toggle}
-          isChecked={baseData.compensationModel === 'paid'}
-          offText="Free Collaboration"
-          onText="Paid Collaboration"
-        />
-      </div>
-    </div>
-  );
 
   const searchingForContent = () => (
     <div>
@@ -263,51 +189,67 @@ const BannerSection = ({
               </div>
             </div>
             <div className={styles.progress}>
-              <p>Your graphic novel in progress</p>
-              <div className={styles.lamp}>
-                <div>
-                  <Imgix
-                    width={20}
-                    height={29}
-                    layout="fixed"
-                    src={'https://mangafy.club/img/Group.webp'}
-                    alt="MangaFy Group"
+              <div>
+                {isOwn ? <p>Your graphic novel in progress</p> : <p>Graphic novel in progress</p>}
+                <div className={styles.lamp}>
+                  <div>
+                    <Imgix
+                      width={20}
+                      height={29}
+                      layout="fixed"
+                      src={'https://mangafy.club/img/Group.webp'}
+                      alt="MangaFy Group"
+                    />
+                  </div>
+                </div>
+                <div className={styles.progressWrap}>
+                  <Progress
+                    strokeColor={'#7B65F3'}
+                    percent={baseData.progressPercentage}
+                    size="small"
                   />
                 </div>
-              </div>
-              <div className={styles.progressWrap}>
-                <Progress
-                  strokeColor={'#7B65F3'}
-                  percent={baseData.progressPercentage}
-                  size="small"
-                />
-              </div>
-              <div className={styles.lamp}>
-                <div>
-                  <Imgix
-                    width={30}
-                    height={30}
-                    layout="fixed"
-                    src={'https://mangafy.club/img/notebook1.webp'}
-                    alt="MangaFy notebook"
-                  />
+                <div className={styles.lamp}>
+                  <div>
+                    <Imgix
+                      width={30}
+                      height={30}
+                      layout="fixed"
+                      src={'https://mangafy.club/img/notebook1.webp'}
+                      alt="MangaFy notebook"
+                    />
+                  </div>
                 </div>
               </div>
+              <div className={styles.socialContainer}>
+                <div className={styles.shareTitle}>
+                  <p>Love what I’m is doing?</p>
+                  <p>Share with your friends 🎉</p>
+                </div>
+                <ShareButtons shareUrl={originUrl} />
+              </div>
+              {canEdit && (
+                <div className={styles.edit}>
+                  <Popover
+                    id="EditMangaStoryBtnId"
+                    content={
+                      <EditContent
+                        saveUserDataByKey={saveUserDataByKey}
+                        baseData={baseData}
+                        languages={languages}
+                        genresEnums={genresEnums}
+                      />
+                    }
+                    trigger="click"
+                    placement="bottomRight">
+                    <span>Edit</span>
+                    <span>
+                      <SvgPencilColored width="22px" height="22px" />
+                    </span>
+                  </Popover>
+                </div>
+              )}
             </div>
-            {canEdit && (
-              <div className={styles.edit}>
-                <Popover
-                  id="EditMangaStoryBtnId"
-                  content={editContent}
-                  trigger="click"
-                  placement="bottomRight">
-                  <span>Edit</span>
-                  <span>
-                    <SvgPencilColored width="22px" height="22px" />
-                  </span>
-                </Popover>
-              </div>
-            )}
           </div>
         </div>
       </div>
@@ -323,6 +265,7 @@ BannerSection.propTypes = {
   saveUserDataByKey: PropTypes.func.isRequired,
   setBaseData: PropTypes.func.isRequired,
   openNotification: PropTypes.func.isRequired,
+  isOwn: PropTypes.bool.isRequired,
 };
 
 export default BannerSection;

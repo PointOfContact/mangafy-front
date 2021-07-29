@@ -2,6 +2,9 @@ import React from 'react';
 
 import client from 'api/client';
 import cn from 'classnames';
+import SvgWelcomeSliderIco1 from 'components/icon/WelcomeSliderIco1';
+import SvgWelcomeSliderIco2 from 'components/icon/WelcomeSliderIco2';
+import SvgWelcomeSliderIco3 from 'components/icon/WelcomeSliderIco3';
 import Imgix from 'components/imgix';
 import Slider from 'react-slick';
 
@@ -83,11 +86,11 @@ const WelcomeSlider = () => {
   const setIconSize = (iconName) => {
     switch (iconName) {
       case 'icons/welcome-slider-ico1.svg':
-        return { width: 26, height: 16 };
+        return <SvgWelcomeSliderIco1 width={26} height={16} />;
       case 'icons/welcome-slider-ico2.svg':
-        return { width: 18, height: 18 };
+        return <SvgWelcomeSliderIco2 width={18} height={18} />;
       default:
-        return { width: 21, height: 21 };
+        return <SvgWelcomeSliderIco3 width={21} height={21} />;
     }
   };
 
@@ -100,15 +103,7 @@ const WelcomeSlider = () => {
           <Imgix layout="fill" src={client.UPLOAD_URL + user.src} alt="MangaFy user icon" />
           <div className={cn(styles.sliderItem__info, styles.sliderItem__infoOrangeDark)}>
             Hey! I am a {user.type}
-            <div className={styles.sliderItem__ico}>
-              <Imgix
-                layout="fixed"
-                width={setIconSize(user.icon).width}
-                height={setIconSize(user.icon).height}
-                src={`https://mangafy.club/${user.icon}`}
-                alt="MangaFy user icon"
-              />
-            </div>
+            <div className={styles.sliderItem__ico}>{setIconSize(user.icon)}</div>
           </div>
         </div>
         //   </a>

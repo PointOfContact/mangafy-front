@@ -241,12 +241,12 @@ const MangeStory = (props) => {
     <div className="story_page">
       <NextSeo
         title={mangaStory?.title}
-        description={mangaStory?.description}
+        description={mangaStory?.description + baseData?.story}
         canonical={`http://mangafy.club/manga-story/${mangaStory._id}`}
         openGraph={{
           url: `http://mangafy.club/manga-story/${mangaStory._id}`,
           title: mangaStory?.title,
-          description: mangaStory?.description,
+          description: mangaStory?.description + baseData?.story,
           type: 'article',
           images: [
             {
@@ -479,6 +479,7 @@ const MangeStory = (props) => {
               saveUserDataByKey={saveUserDataByKey}
               setBaseData={setBaseData}
               openNotification={openNotification}
+              isOwn={isOwn}
             />
           </section>
         </div>

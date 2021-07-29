@@ -161,7 +161,7 @@ const Profile = (props) => {
         <div className={'content'}>
           <Header path="profile" user={user} />
           <main>
-            <section>
+            <section className={cn(styles.container)}>
               <div className="container">
                 <ProfileTopBar
                   {...{
@@ -212,7 +212,7 @@ const Profile = (props) => {
             </section>
 
             <section>
-              <div className="container">
+              <div className={cn(styles.container, 'container')}>
                 <ProfileOpenCollabs
                   {...{
                     user,

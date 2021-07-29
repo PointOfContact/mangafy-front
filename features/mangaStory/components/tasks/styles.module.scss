@@ -104,7 +104,8 @@ $repeat: 5;
   @include media-sm {
     position: absolute;
     top: 20px;
-    right: 0px;
+    right: -30px;
+    margin-right: 0;
   }
 }
 
