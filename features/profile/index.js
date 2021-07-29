@@ -27,7 +27,7 @@ const Profile = (props) => {
   const ifMyProfile = user?._id === profile?._id;
   const mangaStoriesMyProfile = userProfile?.mangaStories?.data;
   const mangaStories = profile?.mangaStories?.data;
-  const total = profile?.mangaStories?.data?.length;
+  const total = ifMyProfile ? userProfile?.mangaStories?.data : profile?.mangaStories?.data?.length;
   const { genres: genresEnums } = props;
   const { genresUser: genresMyProfileEnums } = props;
   const [editMode, setEditMode] = useState(false);

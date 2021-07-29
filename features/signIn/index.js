@@ -74,7 +74,7 @@ const Login = ({ user }) => {
   return (
     <>
       <NextSeo
-        title="Make the most of your talant!"
+        title="Make the most of your talent!"
         description="Sign in to get your personalized page and start connecting with graphic novel enthusiasts"
       />
       <ButtonToTop />

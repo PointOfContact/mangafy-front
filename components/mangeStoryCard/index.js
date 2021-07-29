@@ -18,8 +18,8 @@ const MangeStoryCard = ({ mangaStories, client, user }) =>
           <div>
             <div className={styles.titleBlok}>
               <h3 className={styles.title}>{label.title}</h3>
-              <div className={cn(styles.deleteCard, styles.deleteCardMobile)}>
-                {label.author === user?._id && (
+              {label.author === user?._id && (
+                <div className={cn(styles.deleteCard, styles.deleteCardMobile)}>
                   <Link href="/contact-us">
                     <a>
                       <span>
@@ -29,8 +29,8 @@ const MangeStoryCard = ({ mangaStories, client, user }) =>
                       </span>
                     </a>
                   </Link>
-                )}
-              </div>
+                </div>
+              )}
             </div>
             <div className={styles.description}>
               <p>{label.story}</p>
