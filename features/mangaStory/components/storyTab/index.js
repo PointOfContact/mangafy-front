@@ -6,12 +6,15 @@ import cn from 'classnames';
 import Imgix from 'components/imgix';
 import Modal from 'components/modals/joinToTeam';
 import Avatar from 'components/ui-elements/avatar';
+import PrimaryButton from 'components/ui-elements/button';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 
+import EditStoryTab from '../editStoryTab';
 import ParticipantCard from '../participantCard';
 import Tasks from '../tasks/index';
+import BuyBubbleTea from './buyBubbleTea';
 import styles from './styles.module.scss';
 
 const StoryTab = ({ setBaseData, baseData, isOwn, user, isParticipant }) => {
@@ -53,7 +56,7 @@ const StoryTab = ({ setBaseData, baseData, isOwn, user, isParticipant }) => {
   };
 
   return (
-    <div className={cn(styles.storyTab, isOwn && styles.isOuner)}>
+    <div className={cn(styles.storyTab, isOwn && styles.isOwner)}>
       {isOwn && (
         <div>
           <h1 className={styles.storyTabTitle}>My inspiration</h1>
@@ -101,6 +104,7 @@ const StoryTab = ({ setBaseData, baseData, isOwn, user, isParticipant }) => {
           </>
         )}
       </div>
+      <BuyBubbleTea />
       <div className={cn(styles.storyTabDescription, styles.authorBlock)}>
         <Link href={`/profile/${author}`}>
           <a>
@@ -168,4 +172,81 @@ StoryTab.defaultProps = {
   user: null,
 };
 
-export default StoryTab;
+const TabPaneStory = ({
+  setBaseData,
+  baseData,
+  isOwn,
+  user,
+  isParticipent,
+  editMode,
+  canEdit,
+  setEditMode,
+  onChangeSingleField,
+  cancelEditMode,
+  saveUserDataByKey,
+}) => (
+  <div className={styles.tabWrap}>
+    {/* <StoryTab baseData={baseData} /> */}
+    <p>
+      {!editMode ? (
+        <div>
+          <StoryTab
+            setBaseData={setBaseData}
+            baseData={baseData}
+            user={user}
+            isOwn={isOwn}
+            isParticipent={isParticipent}
+          />
+          {!isOwn && <BuyBubbleTea />}
+          {canEdit && (
+            <div className={styles.editDeleteButtons}>
+              <PrimaryButton
+                isWhite={true}
+                className={styles.editTitleSvg}
+                text={'Edit Project'}
+                onClick={() => setEditMode(true)}
+              />
+              <Link href="/contact-us">
+                <PrimaryButton
+                  isWhite={true}
+                  className={styles.deleteTitleSvg}
+                  text={'Delete Project'}
+                />
+              </Link>
+            </div>
+          )}
+        </div>
+      ) : (
+        canEdit && (
+          <EditStoryTab
+            baseData={baseData}
+            onChangeSingleField={onChangeSingleField}
+            cancelEditMode={cancelEditMode}
+            saveUserDataByKey={saveUserDataByKey}
+          />
+        )
+      )}
+      <p></p>
+    </p>
+  </div>
+);
+
+TabPaneStory.propTypes = {
+  setBaseData: PropTypes.func.isRequired,
+  baseData: PropTypes.object.isRequired,
+  isOwn: PropTypes.bool.isRequired,
+  user: PropTypes.object,
+  isParticipant: PropTypes.bool.isRequired,
+  editMode: PropTypes.bool.isRequired,
+  canEdit: PropTypes.bool.isRequired,
+  setEditMode: PropTypes.func.isRequired,
+  onChangeSingleField: PropTypes.func.isRequired,
+  cancelEditMode: PropTypes.func.isRequired,
+  saveUserDataByKey: PropTypes.func.isRequired,
+};
+
+TabPaneStory.defaultProps = {
+  user: null,
+};
+
+export default TabPaneStory;

@@ -1,14 +1,68 @@
 @import '../../../../styles/variables.scss';
 
-.isOuner {
+@mixin editAndDeleteBut {
+  max-width: 176px;
+  width: 176px;
+  height: 46px;
+  font-weight: 900;
+  font-size: 15px;
+  line-height: 22px;
+  cursor: pointer;
+  @include media-sm {
+    width: 136px;
+    height: 36px;
+    font-size: 12px;
+  }
+}
+
+.isOwner {
   @include media-md {
     margin-top: 80px;
   }
 }
 
+.tabWrap {
+  padding: 30px;
+  position: relative;
+  p:last-child {
+    margin-bottom: 0;
+    & > div {
+      display: flex;
+      justify-content: space-between;
+      @include media-sm{
+        & > div:last-child{
+          display: none;
+        }
+      }
+    }
+  }
+  .editDeleteButtons {
+    position: absolute;
+    top: 120px;
+    right: 40px;
+    display: flex;
+    @include media-sm {
+      right: 65px;
+    }
+  }
+  .editTitleSvg {
+    @include editAndDeleteBut;
+    margin-right: 14px;
+  }
+  .deleteTitleSvg {
+    @include editAndDeleteBut;
+  }
+}
+
 .storyTab {
   font-family: Noto Sans JP;
-  max-width: 910px;
+  flex: 4;
+  & > div:nth-child(3){
+    display: none;
+    @include media-sm{
+      display: flex;
+    }
+  }
   .sub_info {
     margin-top: -7px;
     margin-bottom: 16px;

@@ -19,15 +19,13 @@ import Input from 'components/ui-elements/input';
 import FooterLogin from 'features/footerLogin';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { NextSeo } from 'next-seo';
-import Link from 'next/link';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
 import * as qs from 'query-string';
 
 import BannerSection from './components/bannersSection/index';
-import EditStoryTab from './components/editStoryTab';
 import StoryBoardTabs from './components/storyBoardTabs';
-import StoryTab from './components/storyTab/index';
+import TabPaneStory from './components/storyTab/index';
 import styles from './styles.module.scss';
 
 const Amplitude = require('amplitude');
@@ -54,6 +52,7 @@ const MangeStory = (props) => {
     isParticipent,
     hasStoryBoardPermision,
   } = props;
+
   const [stage, setStage] = useState({});
   const [editMode, setEditMode] = useState(false);
   const [editTitle, setEditTitle] = useState(false);
@@ -241,12 +240,12 @@ const MangeStory = (props) => {
     <div className="story_page">
       <NextSeo
         title={mangaStory?.title}
-        description={mangaStory?.description}
+        description={`${mangaStory?.description} ${baseData.story}`}
         canonical={`http://mangafy.club/manga-story/${mangaStory._id}`}
         openGraph={{
           url: `http://mangafy.club/manga-story/${mangaStory._id}`,
           title: mangaStory?.title,
-          description: mangaStory?.description,
+          description: `${mangaStory?.description} ${baseData.story}`,
           type: 'article',
           images: [
             {
@@ -383,50 +382,21 @@ const MangeStory = (props) => {
                   activeKey={collabActiveTab}
                   onChange={(activeKey) => setcollabActiveTab(activeKey)}>
                   <TabPane tab="STORY" key="1" className="story">
-                    <div className={styles.tabWrap}>
-                      {/* <StoryTab baseData={baseData} /> */}
-                      <p>
-                        {!editMode ? (
-                          <div>
-                            <StoryTab
-                              setBaseData={setBaseData}
-                              baseData={baseData}
-                              user={user}
-                              isOwn={isOwn}
-                              isParticipent={isParticipent}
-                            />
-                            {canEdit && (
-                              <div className={styles.editDeleteButtons}>
-                                <PrimaryButton
-                                  isWhite={true}
-                                  className={styles.editTitleSvg}
-                                  text={'Edit Project'}
-                                  onClick={() => setEditMode(true)}
-                                />
-                                <Link href="/contact-us">
-                                  <PrimaryButton
-                                    isWhite={true}
-                                    className={styles.deleteTitleSvg}
-                                    text={'Delete Project'}
-                                  />
-                                </Link>
-                              </div>
-                            )}
-                          </div>
-                        ) : (
-                          canEdit && (
-                            <EditStoryTab
-                              baseData={baseData}
-                              onChangeSingleField={onChangeSingleField}
-                              cancelEditMode={cancelEditMode}
-                              saveUserDataByKey={saveUserDataByKey}
-                            />
-                          )
-                        )}
-                        <p></p>
-                      </p>
-                    </div>
+                    <TabPaneStory
+                      setBaseData={setBaseData}
+                      baseData={baseData}
+                      isOwn={isOwn}
+                      user={user}
+                      isParticipent={isParticipent}
+                      editMode={editMode}
+                      canEdit={canEdit}
+                      setEditMode={setEditMode}
+                      onChangeSingleField={onChangeSingleField}
+                      cancelEditMode={cancelEditMode}
+                      saveUserDataByKey={saveUserDataByKey}
+                    />
                   </TabPane>
+
                   {(isOwn || hasStoryBoardPermision) && (
                     <TabPane tab="STORY BOARD" key="2" className="story">
                       <StoryBoardTabs
