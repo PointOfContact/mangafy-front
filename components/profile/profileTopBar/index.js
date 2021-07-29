@@ -166,6 +166,10 @@ const ProfileTopBar = (props) => {
     }
   };
 
+  const changePayPalEmail = () => {
+    saveUserDataByKey('payPalEmail');
+  };
+
   const isShowModal = () => {
     const el = document.body;
     if (showModal) {
@@ -220,6 +224,11 @@ const ProfileTopBar = (props) => {
 
                 {ifMyProfile ? (
                   <div className={styles.followAndEditButton}>
+                    <PrimaryButton
+                      text="addPayPalEmeil"
+                      splitterStyle={{ width: '116px', height: '46', fontSize: '15px' }}
+                      onClick={changePayPalEmail}
+                    />
                     <PrimaryButton
                       text="Edit"
                       splitterStyle={{ width: '116px', height: '46', fontSize: '15px' }}

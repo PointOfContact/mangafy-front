@@ -104,7 +104,7 @@ const StoryTab = ({ setBaseData, baseData, isOwn, user, isParticipant }) => {
           </>
         )}
       </div>
-      <BuyBubbleTea />
+      <BuyBubbleTea profile={authorInfo} />
       <div className={cn(styles.storyTabDescription, styles.authorBlock)}>
         <Link href={`/profile/${author}`}>
           <a>

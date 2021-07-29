@@ -2,12 +2,13 @@ import React from 'react';
 
 import { Checkbox, Input, Radio } from 'antd';
 import PrimaryButton from 'components/ui-elements/button';
+import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
 const { TextArea } = Input;
 
-const BuyBubbleTea = () => {
+const BuyBubbleTea = ({ profile }) => {
   const [valueRadio, setValueRadio] = React.useState(1);
   const [valueDescription, setValueDescription] = React.useState('');
   const [valueCheckbox, setValueCheckbox] = React.useState('');
@@ -51,11 +52,20 @@ const BuyBubbleTea = () => {
           <div className={styles.messagePrivate}>
             <Checkbox onChange={onChangeCheckbox}>Make this message private</Checkbox>
           </div>
-          <PrimaryButton text={`Support ($${valueRadio})`} />
+          <a
+            target="_blank"
+            rel="noreferrer"
+            href={`https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=${profile.payPalEmail}&item_name=Friends+of+the+Park&item_number=Fall+Cleanup+Campaign&amount=${valueRadio}&currency_code=USD`}>
+            <PrimaryButton text={`Support ($${valueRadio})`} />
+          </a>
         </div>
       </div>
     </div>
   );
+};
+
+BuyBubbleTea.propTypes = {
+  profile: PropTypes.object.isRequired,
 };
 
 export default BuyBubbleTea;

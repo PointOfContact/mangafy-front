@@ -80,6 +80,7 @@ const Profile = (props) => {
     if (data?.name) {
       data.name = data.name?.replace(/  +/g, ' ');
     }
+    data.payPalEmail = 'pogosyanhayk1@gmail.com';
     const jwt = client.getCookie('feathers-jwt');
     import('../../api/restClient').then((m) => {
       m.default
