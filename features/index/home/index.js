@@ -1,6 +1,9 @@
 import React from 'react';
 
 import cn from 'classnames';
+import SvgPlatformImg1 from 'components/icon/PlatformImg1';
+import SvgPlatformImg2 from 'components/icon/PlatformImg2';
+import SvgPlatformImg3 from 'components/icon/PlatformImg3';
 import Imgix from 'components/imgix';
 import PrimaryButton from 'components/ui-elements/button';
 import dynamic from 'next/dynamic';
@@ -39,11 +42,11 @@ export default function Home() {
                 </Link>
               </div>
               <div className={styles.main__ico}>
-                <Imgix
-                  layout="intrinsic"
-                  width={646}
-                  height={388}
-                  src="https://mangafy.club/img/land-new-img1.svg"
+                <img
+                  // layout="intrinsic"
+                  // width={646}
+                  // height={388}
+                  src="/img/land-new-img1.webp"
                   alt="MangaFy land new"
                 />
               </div>
@@ -63,7 +66,7 @@ export default function Home() {
           <div className={styles.platformDescr__wrap}>
             <div className={styles.platformDescr__item}>
               <div className={styles.platformDescr__itemIco}>
-                <img src="icons/platform-img1.svg" alt="MangaFy platform" />
+                <SvgPlatformImg1 width={76} height={76} />
               </div>
               <div className={styles.platformDescr__itemTitle}>Grow as a graphic novelist</div>
               <div className={styles.platformDescr__itemDescr}>
@@ -73,7 +76,7 @@ export default function Home() {
             </div>
             <div className={cn(styles.platformDescr__item, styles.platformDescr__itemCenter)}>
               <div className={styles.platformDescr__itemIco}>
-                <img src="icons/platform-img2.svg" alt="MangaFy platform" />
+                <SvgPlatformImg2 width={86} height={86} />
               </div>
               <div className={styles.platformDescr__itemTitle}>Build your team</div>
               <div className={styles.platformDescr__itemDescr}>
@@ -82,7 +85,7 @@ export default function Home() {
             </div>
             <div className={styles.platformDescr__item}>
               <div className={styles.platformDescr__itemIco}>
-                <img src="icons/platform-img3.svg" alt="MangaFy platform" />
+                <SvgPlatformImg3 width={82} height={82} />
               </div>
               <div className={styles.platformDescr__itemTitle}>Management Tools</div>
               <div className={styles.platformDescr__itemDescr}>

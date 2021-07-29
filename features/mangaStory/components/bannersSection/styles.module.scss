@@ -34,7 +34,7 @@
 .banner {
   @include bannerMix(#d9edff);
 }
-.upload{
+.upload {
   width: 30%;
   height: 100%;
   display: flex;
@@ -43,9 +43,9 @@
   margin-left: 15px;
   position: absolute;
   & > div > img {
-    @include media-md{
+    @include media-md {
       width: unset !important;
-      height: unset !important; 
+      height: unset !important;
       min-height: 0px !important;
     }
   }
@@ -56,8 +56,8 @@
   align-items: center;
   flex: 1;
 }
-.bannerDefault{
-  @include bannerMix($primaryDark)
+.bannerDefault {
+  @include bannerMix($primaryDark);
 }
 .bannerPhotoDefault {
   flex: 1;
@@ -74,16 +74,13 @@
   overflow: hidden;
   & > div {
     width: 100% !important;
-    img{
+    img {
       width: unset !important;
       height: unset !important;
       min-width: 0 !important;
       min-height: 0 !important;
-      @include media-lg{
+      @include media-lg {
         width: 300px !important;
-      }
-      @include media-md{
-        width: 250px !important;
       }
     }
   }
@@ -95,14 +92,9 @@
   }
 }
 .edit_settings {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
   .edit {
     display: flex;
     align-items: center;
-    margin-top: 22px;
     cursor: pointer;
     span {
       margin-left: 10px;
@@ -129,6 +121,7 @@
   margin-left: 10px;
   font-weight: 500;
   font-size: 15px;
+  line-height: 22px;
 }
 .lamp {
   margin: 0 15px;
@@ -136,16 +129,52 @@
 .progress {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
   margin-top: 22px;
+  img {
+    margin: 0 15px;
+  }
+  p {
+    margin: 0;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 20px;
+  }
+  & > div{
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+  }
+  .edit{
+    @include media-lg {
+      margin-top: 20px;
+    }
+  }
+  .socialContainer {
+    @include media-lg {
+      margin-top: 20px;
+    }
+    .shareTitle {
+      width: 228px;
+      height: 38px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      @include media-lg {
+        width: auto;
+        margin-right: 20px;
+      }
+      p{
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 17px;
+        color: $black;
+      }
+    }
+  }
 }
-.progress img {
-  margin: 0 15px;
-}
-.progress p {
-  margin: 0;
-  font-weight: 500;
-  font-size: 15px;
-}
+
 .progressWrap {
   width: 308px;
   & > div {

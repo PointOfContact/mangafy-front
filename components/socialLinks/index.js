@@ -304,7 +304,7 @@ const SocialLinks = (props) => {
 
   return (
     <div>
-      <h4 className={styles.title}>Social</h4>
+      <h4 className={styles.title}>Connections to take it to the next level</h4>
       <div className={styles.social}>
         <Row>
           {socialLinks?.length ? (
