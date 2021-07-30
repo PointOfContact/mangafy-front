@@ -60,12 +60,16 @@ const EditContent = ({
         </div>
       </>
     )
-  ) : profile?.content ? (
+  ) : (
     <>
-      <h3 className={cn(styles.sub_title)}>Here is a my story!</h3>
-      {profile?.content && <pre className={styles.data_content}>{profile.content}</pre>}
+      <h3 className={cn(styles.sub_title)}>{profile?.content ? 'Here is a my story!' : 'Bio'}</h3>
+      {profile?.content ? (
+        <pre className={styles.data_content}>{profile?.content}</pre>
+      ) : (
+        <h4>Hey 👋 I just created a page here. You can now follow me or say hello!</h4>
+      )}
     </>
-  ) : null;
+  );
 
 EditContent.propTypes = {
   profile: PropTypes.object.isRequired,

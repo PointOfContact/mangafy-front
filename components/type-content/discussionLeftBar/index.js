@@ -50,7 +50,7 @@ const DiscussionLeftBar = (props) => {
           </div>
 
           <div className={styles.spotlight}>
-            <div className={styles.spotlightTitle}>Our members </div>
+            <div className={styles.spotlightTitle}>Explore creators</div>
             <ul className={styles.spotlightList}>
               {communitySpotlights.map((community) => (
                 <CommunitySpotlightsCard

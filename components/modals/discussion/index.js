@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { Modal, notification, Popover } from 'antd';
+import { Modal, notification, Popover, Spin } from 'antd';
 import client from 'api/client';
 import SvgClose from 'components/icon/Close';
 import SvgHeart from 'components/icon/Heart';
@@ -34,6 +34,7 @@ const ModalDiscussion = ({
   const [commentsData, setCommentsData] = useState([]);
   const [likesData, setLikesData] = useState([]);
   const [isLiked, setIsLiked] = useState(false);
+  const [isLikedLoading, setIsLikedLoading] = useState(false);
   const [photoProject, setPhotoProject] = useState(img);
   const [logoProject, setLogoProject] = useState(client.UPLOAD_URL + logo);
   const [loading, setLoading] = useState('');
@@ -72,6 +73,7 @@ const ModalDiscussion = ({
     }
 
     const jwt = client.getCookie('feathers-jwt');
+    setIsLikedLoading(true);
     import('api/restClient').then((m) => {
       m.default
         .service('/api/v2/post-likes')
@@ -99,9 +101,11 @@ const ModalDiscussion = ({
           amplitude.track(eventData);
           setLikesData([...likesData, { ...res }]);
           setIsLiked(true);
+          setIsLikedLoading(false);
         })
         .catch((err) => {
           openNotification('error', err.message);
+          setIsLikedLoading(false);
         });
     });
   };
@@ -179,15 +183,19 @@ const ModalDiscussion = ({
                     <h2 className={styles.subtitle}>{title}</h2>
                   </spam>
                   <div className={styles.share}>
-                    <span className={styles.like}>
-                      <span>{(!!likesData.length && likesData.length) || likesCount}</span>
-                      <SvgHeart
-                        width="25px"
-                        height="22px"
-                        onClick={handleLike}
-                        className={isLiked && styles.isLiked}
-                      />
-                    </span>
+                    {isLikedLoading ? (
+                      <Spin className={styles.spin} size="small"></Spin>
+                    ) : (
+                      <span className={styles.like}>
+                        <span>{(!!likesData.length && likesData.length) || likesCount}</span>
+                        <SvgHeart
+                          width="25px"
+                          height="22px"
+                          onClick={handleLike}
+                          className={isLiked && styles.isLiked}
+                        />
+                      </span>
+                    )}
                     <Popover
                       placement="bottomRight"
                       title={''}

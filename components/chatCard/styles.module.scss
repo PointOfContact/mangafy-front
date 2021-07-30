@@ -92,7 +92,7 @@
       font-size: 10px;
       color: $primaryDark;
       position: absolute;
-      left: 70%; 
+      left: 72%; 
       @include media-sm{
         left: 85%; 
       }
@@ -221,7 +221,7 @@
         width: 100%;
       }
       h4 {
-        max-width: 80%;
+        max-width: 64%;
         font-size: $text4;
         line-height: $text4;
         text-align: initial;

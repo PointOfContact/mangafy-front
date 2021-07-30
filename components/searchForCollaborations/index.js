@@ -181,21 +181,24 @@ const SearchForCollaborations = (props) => {
                 className={cn(styles.box__nav_select, 'select-filter')}>
                 {artistOptions(userTypes)}
               </Select>
-              <Select
-                bordered={false}
-                menuItemSelectedIcon={null}
-                showArrow={true}
-                showSearch={false}
-                allowClear={true}
-                mode="multiple"
-                placeholder="All Genres"
-                defaultValue={selectedGenres || []}
-                value={selectedGenres || []}
-                onChange={handleGenresClick}
-                dropdownClassName="select-filter"
-                className={cn(styles.box__nav_select, 'select-filter')}>
-                {menuGenresOptions(genres)}
-              </Select>
+              <div className={styles.allGenres} id="area">
+                <Select
+                  bordered={false}
+                  menuItemSelectedIcon={null}
+                  showArrow={true}
+                  showSearch={false}
+                  allowClear={true}
+                  mode="multiple"
+                  placeholder="All Genres"
+                  defaultValue={selectedGenres || []}
+                  value={selectedGenres || []}
+                  onChange={handleGenresClick}
+                  getPopupContainer={() => document.getElementById('area')}
+                  dropdownClassName="select-filter"
+                  className={cn(styles.box__nav_select, 'select-filter')}>
+                  {menuGenresOptions(genres)}
+                </Select>
+              </div>
             </div>
           </div>
         </div>

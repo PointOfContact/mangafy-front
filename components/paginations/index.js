@@ -36,7 +36,6 @@ const Paginations = ({
         pageSize={pageSize}
         defaultCurrent={defaultCurrent}
         total={total}
-        current={current}
         onChange={onChange}
         itemRender={(page, type, originalElement) => {
           if (is_server()) return originalElement;

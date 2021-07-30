@@ -23,7 +23,7 @@
     grid-template-rows: max-content;
     grid-gap: 1.5%;
     grid-template-areas: 'daily-warm-ups projects-for-you right-col';
-    @media (max-width: 900px) {
+    @media (max-width: 1050px) {
       grid-template-columns: 30% 67%;
       grid-template-areas:
         'daily-warm-ups projects-for-you'

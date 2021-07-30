@@ -119,7 +119,7 @@ const TabStory = (props) => {
         )}
         {!ifMyProfile && (
           <div className={styles.card_wrap} gutter={[16, 16]}>
-            {!profile?.content && (
+            {/* {!profile?.content && (
               <div className={styles.card}>
                 <h3 className={cn(styles.sub_title)}>Bio</h3>
                 <Card
@@ -138,7 +138,7 @@ const TabStory = (props) => {
                   onClick={() => setStoryEditMode(true)}
                 />
               </div>
-            )}
+            )} */}
             {profileGenres &&
               (!!profileGenres?.length || (
                 <div className={styles.card}>
