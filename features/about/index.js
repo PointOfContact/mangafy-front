@@ -138,4 +138,8 @@ About.propTypes = {
   user: PropTypes.object,
 };
 
+About.defaultProps = {
+  user: {},
+};
+
 export default About;

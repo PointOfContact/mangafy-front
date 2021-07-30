@@ -259,7 +259,6 @@
     width: 100%;
     display: flex;
     @include media-sm {
-      position: absolute;
       left: 0;
       flex-direction: column;
     }

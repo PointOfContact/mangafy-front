@@ -22,10 +22,10 @@ const DiscussionRightBar = ({ dailyWarmUps, user }) => {
   return (
     <div className={styles.container}>
       <div className={styles.addfeed}>
-        <h3>Create Post</h3>
-        <p>Let the MangaFY community know what you think.</p>
+        <h3>Write your first post</h3>
+        <p>Creators who post regularly tend to earn more support and collaborations</p>
         <PrimaryButton
-          text="POST"
+          text="Write a post"
           onClick={() => {
             if (user) {
               setIsModalVisible(true);

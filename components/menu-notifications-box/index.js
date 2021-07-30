@@ -154,6 +154,7 @@ const MenuNotificationsBox = ({ user, unreadNotificationsId, notificationsCount 
                 navigateTo={notification.meta.navigateTo}
                 requestId={notification?.meta?.params?.requestId}
                 user={user}
+                params={notification.meta.params}
               />
             ))
           ) : (

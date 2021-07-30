@@ -12,9 +12,6 @@
 .messenger_tab {
   margin: 0 -25px;
   min-height: 655px;
-  @include media-sm {
-    min-height: 780px;
-  }
   .content {
     display: flex;
     .messenger_list_mobile,

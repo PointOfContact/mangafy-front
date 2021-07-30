@@ -26,11 +26,12 @@ const MenuNotificationsItem = ({
   type,
   requestId,
   user,
+  params,
 }) => {
-  const [verify, setVerifai] = useState(null);
+  const [verify, setVerify] = useState(null);
   const addUnreadNotificationsId = () => {
     if (!verified && !verify) {
-      setVerifai(true);
+      setVerify(true);
       const newUnreadNotificationsId = [_id];
       patchNotification(newUnreadNotificationsId);
     }
@@ -58,7 +59,7 @@ const MenuNotificationsItem = ({
                       alt="MangaFy notification icon"
                     />
                   ) : (
-                    <Avatar text={title} size={52} />
+                    <Avatar text={type === 'NEW_POST_LIKE' ? params.userName : title} size={52} />
                   )}
                 </div>
               </Link>
@@ -118,6 +119,7 @@ MenuNotificationsItem.propTypes = {
   type: PropTypes.string,
   requestId: PropTypes.string,
   user: PropTypes.object.isRequired,
+  params: PropTypes.object,
 };
 
 MenuNotificationsItem.defaultProps = {
@@ -127,6 +129,7 @@ MenuNotificationsItem.defaultProps = {
   verified: false,
   navigateTo: '',
   type: null,
+  params: {},
 };
 
 export default MenuNotificationsItem;
