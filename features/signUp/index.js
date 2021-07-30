@@ -119,7 +119,7 @@ const Register = ({ user }) => {
   return (
     <>
       <NextSeo
-        title="Make the most of your talant!"
+        title="Make the most of your talent!"
         description="Sign in to get your personalized page and start connecting with graphic novel enthusiasts"
       />
       <ButtonToTop />
@@ -139,7 +139,7 @@ const Register = ({ user }) => {
                   </div>
                   <div className={styles.box__hr}></div>
                   <div className={styles.box__description}>
-                    <p className={styles.box__description_text}>Make most of your talant</p>
+                    <p className={styles.box__description_text}>Make most of your talent</p>
                   </div>
                   <div className={styles.box__hr}></div>
                 </div>

@@ -134,9 +134,10 @@ export default function Home() {
             The future of graphic novel <br /> self-production.
           </div>
           <div className={styles.titleBlock__subtitle}>
-            We believe that in today's digital age, producing your own comic book or manga should
-            not be an obstacle. As such, we have designed simple tools for aspiring and freelance
-            artists to take their stories forward towards a visualized novel - in easy steps.
+            We believe that in today&apos;s digital age, producing your own comic book or manga
+            should not be an obstacle. As such, we have designed simple tools for aspiring and
+            freelance artists to take their stories forward towards a visualized novel - in easy
+            steps.
           </div>
         </div>
       </div>
