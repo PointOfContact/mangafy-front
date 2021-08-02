@@ -18,7 +18,7 @@
       }
     }
   }
-  @include media-md{
+  @include media-md {
     pointer-events: none;
   }
   .titleBlok {
@@ -46,8 +46,8 @@
         }
       }
     }
-    .deleteCardMobile{
-      @include media-md{
+    .deleteCardMobile {
+      @include media-md {
         display: flex;
       }
     }
@@ -162,3 +162,4 @@
     }
   }
 }
+
