@@ -4,6 +4,7 @@ import { Badge, Popover } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
 import SvgBell from 'components/icon/Bell';
+import SvgLoginUser from 'components/icon/LoginUser';
 import Imgix from 'components/imgix';
 import MenuMobilePopover from 'components/menu-mobile-popover';
 import MenuNotificationsBox from 'components/menu-notifications-box';
@@ -180,12 +181,7 @@ const Header = ({ user, path }) => {
               ) : (
                 <Link href="/sign-in">
                   <a>
-                    <Imgix
-                      layout="fill"
-                      src="https://mangafy.club/img/header-log-in.svg"
-                      alt="MangaFy login"
-                    />
-                    {/* TODO: chage to svg component */}
+                    <SvgLoginUser width={22} height={22} />
                   </a>
                 </Link>
               )}

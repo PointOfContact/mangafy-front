@@ -7,6 +7,8 @@
 }
 .container {
   max-width: 811px;
+  display: flex;
+  flex-direction: column;
   .descriptionTitle {
     @include title;
     margin-bottom: 15px;

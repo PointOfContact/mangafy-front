@@ -149,14 +149,17 @@
   @include media-sm {
     margin-top: 0px !important;
   }
-  & > div div div div {
-    height: 76vh !important;
-    margin-top: 30px;
-    @include media-sm {
-      height: 75vh !important;
-    }
-    @media (max-width: 400px) {
-      height: 82vh !important;
+  & > div {
+    border-radius: 6px;
+    div div div {
+      height: 76vh !important;
+      margin-top: 30px;
+      @include media-sm {
+        height: 75vh !important;
+      }
+      @media (max-width: 400px) {
+        height: 82vh !important;
+      }
     }
   }
   .closeIcon {

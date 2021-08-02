@@ -7,6 +7,7 @@ import { findStoryBoard } from 'api/storyBoardClient';
 import cn from 'classnames';
 import { Chat } from 'components/chat';
 import { Comments } from 'components/comments';
+import DeleteProjectModal from 'components/deleteProjectModal';
 import Footer from 'components/footer';
 import FooterPolicy from 'components/footer-policy';
 import Header from 'components/header';
@@ -19,15 +20,13 @@ import Input from 'components/ui-elements/input';
 import FooterLogin from 'features/footerLogin';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { NextSeo } from 'next-seo';
-import Link from 'next/link';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
 import * as qs from 'query-string';
 
 import BannerSection from './components/bannersSection/index';
-import EditStoryTab from './components/editStoryTab';
+import EditMode from './components/editMode';
 import StoryBoardTabs from './components/storyBoardTabs';
-import StoryTab from './components/storyTab/index';
 import styles from './styles.module.scss';
 
 const Amplitude = require('amplitude');
@@ -58,6 +57,7 @@ const MangeStory = (props) => {
   const [editMode, setEditMode] = useState(false);
   const [editTitle, setEditTitle] = useState(false);
   const [baseData, setBaseData] = useState(mangaStory);
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const [canEdit] = useState(isOwn);
   const [collabActiveTab, setcollabActiveTab] = useState('1');
 
@@ -383,49 +383,20 @@ const MangeStory = (props) => {
                   activeKey={collabActiveTab}
                   onChange={(activeKey) => setcollabActiveTab(activeKey)}>
                   <TabPane tab="STORY" key="1" className="story">
-                    <div className={styles.tabWrap}>
-                      {/* <StoryTab baseData={baseData} /> */}
-                      <p>
-                        {!editMode ? (
-                          <div>
-                            <StoryTab
-                              setBaseData={setBaseData}
-                              baseData={baseData}
-                              user={user}
-                              isOwn={isOwn}
-                              isParticipent={isParticipent}
-                            />
-                            {canEdit && (
-                              <div className={styles.editDeleteButtons}>
-                                <PrimaryButton
-                                  isWhite={true}
-                                  className={styles.editTitleSvg}
-                                  text={'Edit Project'}
-                                  onClick={() => setEditMode(true)}
-                                />
-                                <Link href="/contact-us">
-                                  <PrimaryButton
-                                    isWhite={true}
-                                    className={styles.deleteTitleSvg}
-                                    text={'Delete Project'}
-                                  />
-                                </Link>
-                              </div>
-                            )}
-                          </div>
-                        ) : (
-                          canEdit && (
-                            <EditStoryTab
-                              baseData={baseData}
-                              onChangeSingleField={onChangeSingleField}
-                              cancelEditMode={cancelEditMode}
-                              saveUserDataByKey={saveUserDataByKey}
-                            />
-                          )
-                        )}
-                        <p></p>
-                      </p>
-                    </div>
+                    <EditMode
+                      user={user}
+                      mangaStory={mangaStory}
+                      editMode={editMode}
+                      baseData={baseData}
+                      isOwn={isOwn}
+                      setBaseData={setBaseData}
+                      setEditMode={setEditMode}
+                      canEdit={canEdit}
+                      isParticipent={isParticipent}
+                      onChangeSingleField={onChangeSingleField}
+                      cancelEditMode={cancelEditMode}
+                      saveUserDataByKey={saveUserDataByKey}
+                    />
                   </TabPane>
                   {(isOwn || hasStoryBoardPermision) && (
                     <TabPane tab="STORY BOARD" key="2" className="story">
@@ -487,6 +458,12 @@ const MangeStory = (props) => {
         <FooterPolicy />
         <FooterLogin user={user} />
       </main>
+      <DeleteProjectModal
+        user={user}
+        mangaStory={mangaStory}
+        isModalVisible={isModalVisible}
+        setIsModalVisible={setIsModalVisible}
+      />
     </div>
   );
 };
