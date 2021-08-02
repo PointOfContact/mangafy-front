@@ -22,7 +22,7 @@ const MenuLinks = ({ isOpen, user, setShowModal, handleMenuOpen }) => {
     //   text: 'Privacy Policy',
     //   link: 'privacy-policy',
     // },
-    { text: 'My Projects', link: `profile/${user._id}?tab=gallery` },
+    { text: 'My Projects', link: `profile/${user?._id}?tab=gallery` },
   ];
 
   const links = initialLinks.map((link, i) => (
@@ -58,13 +58,13 @@ const MenuLinks = ({ isOpen, user, setShowModal, handleMenuOpen }) => {
               </ul>
               <ul className={cn(`${styles.main_list} ${styles.ul_login}`)}>
                 <li className={styles.menu_item}>
-                  <Link href={`/profile/${user._id}`}>Profile</Link>
+                  <Link href={`/profile/${user?._id}`}>Profile</Link>
                 </li>
                 {/* <li className={styles.menu_item}>
                     <Link href="/collaborations?compensationModel=paid">Work Availability</Link>
                   </li> */}
                 <li className={styles.menu_item}>
-                  <Link href={`/profile/${user._id}`}>My Notifications</Link>
+                  <Link href={`/profile/${user?._id}`}>My Notifications</Link>
                 </li>
                 {/* <li className={styles.menu_item}>
                     <Link href="/settings">Account settings</Link>
