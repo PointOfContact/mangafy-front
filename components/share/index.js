@@ -18,7 +18,7 @@ import {
 import styles from './styles.module.scss';
 
 export const ShareButtons = ({ shareUrl, text }) => {
-  const [copyText, setCopyText] = useState('Copy to clipboard');
+  const [copyText, setCopyText] = useState('Love what I’m is doing? Share with your friends 🎉');
   return (
     <div className={styles.shareButtons}>
       <span className={styles.text}>{text}</span>
@@ -47,7 +47,7 @@ export const ShareButtons = ({ shareUrl, text }) => {
           <Tooltip placement="topLeft" title={copyText}>
             <span
               className={styles.copy}
-              onMouseOut={() => setCopyText('Copy to clipboard')}
+              onMouseOut={() => setCopyText('Love what I’m is doing? Share with your friends 🎉')}
               onClick={() => {
                 setCopyText('Copied');
                 copy(shareUrl);
