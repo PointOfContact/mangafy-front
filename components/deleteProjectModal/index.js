@@ -19,8 +19,8 @@ const DeleteProjectModal = ({ user, mangaStory, isModalVisible, setIsModalVisibl
     visible={isModalVisible}
     footer={null}>
     <DeleteProject
-      userId={user._id}
-      mangaStoryId={mangaStory._id}
+      userId={user?._id}
+      mangaStoryId={mangaStory?._id}
       setIsModalVisible={setIsModalVisible}
     />
   </Modal>

@@ -14,7 +14,7 @@ import { FacebookShareButton, InstapaperShareButton, WhatsappShareButton } from 
 import styles from './styles.module.scss';
 
 const Share = ({ shareUrl, storyBoard }) => {
-  const [copyText, setCopyText] = useState('Love what I’m is doing? Share with your friends 🎉');
+  const [copyText, setCopyText] = useState('Copy to clipboard');
   return (
     <div className={storyBoard ? styles.socialSB : styles.social}>
       <input type="checkbox" id="click" className={styles.click} />
@@ -56,7 +56,7 @@ const Share = ({ shareUrl, storyBoard }) => {
           <Tooltip placement="topLeft" title={copyText}>
             <span
               className={storyBoard ? styles.copySB : styles.copy}
-              onMouseOut={() => setCopyText('Love what I’m is doing? Share with your friends 🎉')}
+              onMouseOut={() => setCopyText('Copy to clipboard')}
               onClick={() => {
                 setCopyText('Copied');
                 copy(shareUrl);
