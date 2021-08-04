@@ -35,6 +35,7 @@ const Paginations = ({
         showSizeChanger={showSizeChanger}
         pageSize={pageSize}
         defaultCurrent={defaultCurrent}
+        current={current}
         total={total}
         onChange={onChange}
         itemRender={(page, type, originalElement) => {

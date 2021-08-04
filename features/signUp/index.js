@@ -60,7 +60,7 @@ const Register = ({ user }) => {
     });
     e.preventDefault();
 
-    const { inviteId } = qs.parse(location.search);
+    const { inviteId } = qs.parse(window.location.search);
 
     setState({ disabled: true });
     const payload = {
@@ -71,21 +71,21 @@ const Register = ({ user }) => {
       inviteId,
     };
     register(payload)
-      .then(({ user }) => {
+      .then(({ newUser }) => {
         setState({ disabled: false });
 
         const data = [
           {
             platform: 'WEB',
             event_type: EVENTS.SIGN_UP,
-            user_id: user._id,
+            user_id: newUser._id,
             user_properties: {
-              ...user,
+              ...newUser,
             },
           },
         ];
         amplitude.track(data);
-        history.push(`/profile/${user._id}`);
+        history.push(`/profile/${newUser._id}`);
         // info({
         //   className: 'MangaFY',
         //   title: <h3 className={styles.modalTitle}>Welcome to MangaFY</h3>,
@@ -123,41 +123,42 @@ const Register = ({ user }) => {
         description="Sign in to get your personalized page and start connecting with graphic novel enthusiasts"
       />
       <ButtonToTop />
+      <div className={styles.bg}>
+        <Imgix layout="fill" src={'https://mangafy.club/img/login-bg.webp'} />
+      </div>
       <div className={'wrapper'}>
         <div className={'content'}>
           <Header user={user} path="sign-up" />
           <main className={cn(styles.box, styles.boxBg)}>
-            <Imgix layout="fill" src={'https://mangafy.club/img/login-bg.png'} />
             <div className={cn(styles.container, 'container')}>
               <div className={styles.box__wrapper}>
-                {/* <div className={styles.box__img}>
-                  <Imgix layout="fill" src="/img/sing-in.svg" alt="mangaFy sing in" />
-                </div> */}
-                <div className={styles.box__title_wrap}>
-                  <div className={styles.box__title}>
-                    <h2 className={styles.box__title_text}>Get started today</h2>
+                <div className={styles.content}>
+                  <div className={styles.box__title_wrap}>
+                    <div className={styles.box__title}>
+                      <h2 className={styles.box__title_text}>Get started today</h2>
+                    </div>
+                    <div className={styles.box__hr}></div>
+                    <div className={styles.box__description}>
+                      <p className={styles.box__description_text}>Make most of your talent</p>
+                    </div>
+                    <div className={styles.box__hr}></div>
                   </div>
-                  <div className={styles.box__hr}></div>
-                  <div className={styles.box__description}>
-                    <p className={styles.box__description_text}>Make most of your talent</p>
+                  <div className={styles.box__form}>
+                    <AuthForm
+                      disabled={disabled}
+                      {...{
+                        type,
+                        name,
+                        email,
+                        password,
+                        errorMessage,
+                        loading,
+                        onChange: handleOnChange,
+                        onSubmit: handleRegisterSubmit,
+                      }}
+                    />
+                    {err && <p>{err}</p>}
                   </div>
-                  <div className={styles.box__hr}></div>
-                </div>
-                <div className={styles.box__form}>
-                  <AuthForm
-                    disabled={disabled}
-                    {...{
-                      type,
-                      name,
-                      email,
-                      password,
-                      errorMessage,
-                      loading,
-                      onChange: handleOnChange,
-                      onSubmit: handleRegisterSubmit,
-                    }}
-                  />
-                  {err && <p>{err}</p>}
                 </div>
               </div>
             </div>

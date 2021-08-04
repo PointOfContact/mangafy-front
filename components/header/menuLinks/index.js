@@ -22,7 +22,7 @@ const MenuLinks = ({ isOpen, user, setShowModal, handleMenuOpen }) => {
     //   text: 'Privacy Policy',
     //   link: 'privacy-policy',
     // },
-    { text: 'My Projects', link: `profile/${user?._id}?tab=gallery` },
+    // { text: 'My Projects', link: `profile/${user?._id}?tab=gallery` },
   ];
 
   const links = initialLinks.map((link, i) => (

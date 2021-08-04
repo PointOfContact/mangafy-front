@@ -40,8 +40,8 @@ const Login = ({ user }) => {
       errorMessage: '',
     });
     e.preventDefault();
-    const page = qs.parse(location.search).page
-      ? decodeURIComponent(qs.parse(location.search).page)
+    const page = qs.parse(window.location.search).page
+      ? decodeURIComponent(qs.parse(window.location.search).page)
       : '';
     const payload = {
       email,
@@ -50,14 +50,14 @@ const Login = ({ user }) => {
     };
     setLoading(true);
     login(payload)
-      .then((user) => {
+      .then((newUser) => {
         const data = [
           {
             platform: 'WEB',
             event_type: EVENTS.SIGN_IN,
-            user_id: user._id,
+            user_id: newUser._id,
             user_properties: {
-              ...user,
+              ...newUser,
             },
           },
         ];
@@ -79,40 +79,41 @@ const Login = ({ user }) => {
         description="Sign in to get your personalized page and start connecting with graphic novel enthusiasts"
       />
       <ButtonToTop />
+      <div className={styles.bg}>
+        <Imgix layout="fill" src={'https://mangafy.club/img/login-bg.webp'} />
+      </div>
       <div className={'wrapper'}>
         <div className={'content'}>
           <Header path="sign-in" user={user} />
           <main className={cn(styles.box, styles.boxBg)}>
-            <Imgix layout="fill" src={'https://mangafy.club/img/login-bg.png'} />
             <div className={cn(styles.container, 'container')}>
               <div className={styles.box__wrapper}>
-                {/* <div className={styles.box__img}>
-                  <Imgix layout="fill" src="/img/sing-in.svg" alt="mangaFy sing in" />
-                </div> */}
-                <div className={styles.box__title_wrap}>
-                  <div className={styles.box__title}>
-                    <h2 className={styles.box__title_text}>Log in to MangaFY</h2>
+                <div className={styles.content}>
+                  <div className={styles.box__title_wrap}>
+                    <div className={styles.box__title}>
+                      <h2 className={styles.box__title_text}>Log in to MangaFY</h2>
+                    </div>
+                    <div className={styles.box__hr}></div>
+                    <div className={styles.box__description}>
+                      <p className={styles.box__description_text}>
+                        We look forward seeing your artistic growth
+                      </p>
+                    </div>
+                    <div className={styles.box__hr}></div>
                   </div>
-                  <div className={styles.box__hr}></div>
-                  <div className={styles.box__description}>
-                    <p className={styles.box__description_text}>
-                      We look forward seeing your artistic growth
-                    </p>
+                  <div className={styles.box__form}>
+                    <AuthForm
+                      {...{
+                        email,
+                        password,
+                        errorMessage,
+                        onChange: handleOnChange,
+                        onSubmit: handleLoginSubmit,
+                        isLogin: true,
+                        loading,
+                      }}
+                    />
                   </div>
-                  <div className={styles.box__hr}></div>
-                </div>
-                <div className={styles.box__form}>
-                  <AuthForm
-                    {...{
-                      email,
-                      password,
-                      errorMessage,
-                      onChange: handleOnChange,
-                      onSubmit: handleLoginSubmit,
-                      isLogin: true,
-                      loading,
-                    }}
-                  />
                 </div>
               </div>
             </div>
