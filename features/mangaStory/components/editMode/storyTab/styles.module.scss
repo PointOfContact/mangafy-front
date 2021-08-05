@@ -1,6 +1,6 @@
-@import '../../../../styles/variables.scss';
+@import '../../../../../styles/variables.scss';
 
-.isOuner {
+.isOwner {
   @include media-md {
     margin-top: 80px;
   }
@@ -8,7 +8,13 @@
 
 .storyTab {
   font-family: Noto Sans JP;
-  max-width: 910px;
+  flex: 4;
+  .isOwnBubble {
+    display: none;
+    @include media-sm {
+      display: flex;
+    }
+  }
   .sub_info {
     margin-top: -7px;
     margin-bottom: 16px;

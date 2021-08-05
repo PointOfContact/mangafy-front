@@ -19,7 +19,7 @@ const Amplitude = require('amplitude');
 
 const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 
-const Tasks = ({ baseData, isOwn, user, toTeam, isParticipent }) => {
+const Tasks = ({ baseData, isOwn, user, toTeam, isParticipant, showPayPalToggle }) => {
   const { tasks } = baseData;
   const [taskList, setTasks] = useState(tasks);
   const [showModal, changeShowModal] = useState(false);
@@ -91,7 +91,7 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipent }) => {
       </span>
       {!!taskList.length && (
         <div className={styles.items}>
-          {!isParticipent && !taskList.length && !isOwn && (
+          {!isParticipant && !taskList.length && !isOwn && (
             <PrimaryButton
               className={styles.contributeBtn}
               onClick={() => {
@@ -141,7 +141,7 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipent }) => {
                   </div>
                 ) : (
                   <div className={styles.contributeContent}>
-                    {!isParticipent && (
+                    {!isParticipant && (
                       <PrimaryButton
                         onClick={() => {
                           toTeam(task);
@@ -165,7 +165,7 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipent }) => {
                 changeShowModal(true);
                 setSelectedTask(null);
               }}
-              className={styles.createTaskButton}
+              className={showPayPalToggle && styles.createTaskButton}
               text="Create a task"
             />
           ) : (
@@ -178,7 +178,7 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipent }) => {
                 src="https://mangafy.club/img/storyCardImg1.webp"
                 alt="MangaFy story card"
               />
-              {!tasks?.length && !isParticipent && (
+              {!tasks?.length && !isParticipant && (
                 <PrimaryButton
                   onClick={() => {
                     toTeam(null);
@@ -209,12 +209,13 @@ Tasks.propTypes = {
   isOwn: PropTypes.bool.isRequired,
   user: PropTypes.object,
   toTeam: PropTypes.func.isRequired,
-  isParticipent: PropTypes.bool,
+  isParticipant: PropTypes.bool,
+  showPayPalToggle: PropTypes.bool.isRequired,
 };
 
 Tasks.defaultProps = {
   user: null,
-  isParticipent: false,
+  isParticipant: false,
 };
 
 export default Tasks;

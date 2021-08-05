@@ -5,7 +5,6 @@ $repeat: 5;
 
 .tasks {
   position: relative;
-  margin-top: 18px;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -15,7 +14,12 @@ $repeat: 5;
   width: 100%;
   max-width: 480px;
   font-weight: bold;
-
+  & > div:last-child {
+    display: none;
+    @include media-sm {
+      display: block;
+    }
+  }
   @for $i from 1 through $repeat {
     .taskCont {
       &:nth-child(#{length($colors)}n + #{$i}) {
@@ -104,8 +108,7 @@ $repeat: 5;
   @include media-sm {
     position: absolute;
     top: 20px;
-    right: -30px;
-    margin-right: 0;
+    right: 0;
   }
 }
 
@@ -160,8 +163,8 @@ $repeat: 5;
 
 .addBtn {
   margin-left: 35px;
-  div{
-    @include media-sm{
+  div {
+    @include media-md {
       display: none !important;
     }
   }
@@ -184,7 +187,7 @@ $repeat: 5;
   @media (max-width: 630px) {
     top: 0;
   }
-  .createTaskMobileBut{
+  .createTaskMobileBut {
     span {
       color: $grey;
     }
@@ -193,7 +196,7 @@ $repeat: 5;
         fill: $primaryDark;
       }
     }
-    &:hover{
+    &:hover {
       svg {
         path {
           fill: $primaryLight;
@@ -230,15 +233,19 @@ $repeat: 5;
     line-height: 22px;
     position: absolute;
     top: -64px;
-    left: 700px;
-    @include media-md{
+    left: 535px;
+    @include media-md {
       width: 156px;
       height: 46px;
       font-size: 13px;
       left: 570px;
     }
-    @include media-sm{
+    @include media-sm {
       display: none;
     }
+  }
+  .createTaskButton {
+    top: -25px;
+    left: 481px;
   }
 }
