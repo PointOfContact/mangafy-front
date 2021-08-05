@@ -159,7 +159,7 @@ ProfileContent.defaultProps = {
   handleChangeGenres: () => {},
   storyEditMode: false,
   userData: null,
-  userGenres: null,
+  userGenres: [],
   profile: null,
   mangaStoriesMyProfile: null,
   genresMyProfileEnums: null,

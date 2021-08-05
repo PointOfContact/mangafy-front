@@ -29,7 +29,7 @@ const IfNotGeneres = ({ userGenres, setStoryEditMode }) =>
   );
 
 IfNotGeneres.propTypes = {
-  userGenres: PropTypes.object.isRequired,
+  userGenres: PropTypes.array.isRequired,
   setStoryEditMode: PropTypes.func.isRequired,
 };
 

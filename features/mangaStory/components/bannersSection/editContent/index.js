@@ -5,9 +5,9 @@ import PrimarySelect from 'components/ui-elements/select';
 import { userTypes } from 'helpers/constant';
 import PropTypes from 'prop-types';
 
-import styles from '../styles.module.scss';
+import styles from './styles.module.scss';
 
-const EditContent = ({ saveUserDataByKey, baseData, languages, genresEnums }) => {
+const EditContent = ({ saveUserDataByKey, genresEnums, baseData, languages }) => {
   const genres = genresEnums.map(({ _id: key, value }) => ({ key, value }));
   const defaultGenres = baseData.genres?.map(({ _id }) => _id);
 

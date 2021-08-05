@@ -67,7 +67,7 @@ const CreateGeneres = ({
 );
 
 CreateGeneres.propTypes = {
-  userGenres: PropTypes.object.isRequired,
+  userGenres: PropTypes.array.isRequired,
   ifMyProfile: PropTypes.bool.isRequired,
   storyEditMode: PropTypes.bool.isRequired,
   setStoryEditMode: PropTypes.func.isRequired,

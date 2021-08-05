@@ -23,7 +23,7 @@ const MangeStoryCard = ({ mangaStories, client, user }) =>
                   <Link href="/contact-us">
                     <a>
                       <span>
-                        <Popover placement="left" content={'delete project'} trigger="hover">
+                        <Popover placement="left" content={'Delete project'} trigger="hover">
                           <SvgDustbin width="14px" height="14px" />
                         </Popover>
                       </span>

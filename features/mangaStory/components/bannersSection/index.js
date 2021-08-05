@@ -9,12 +9,11 @@ import SvgMone from 'components/icon/Mone';
 import SvgPencilColored from 'components/icon/PencilColored';
 import SvgTie from 'components/icon/Tie';
 import Imgix from 'components/imgix';
-import ButtonToggle from 'components/ui-elements/button-toggle';
-import PrimarySelect from 'components/ui-elements/select';
 import { OPTIONS } from 'features/createStory/lenguage/constant';
-import { userTypes } from 'helpers/constant';
 import PropTypes from 'prop-types';
 
+import mangaStoryAPI from '../mangaStoryAPI';
+import EditContent from './editContent';
 import styles from './styles.module.scss';
 
 const languages = OPTIONS.map((item) => ({ key: item, value: item }));
@@ -28,13 +27,6 @@ const BannerSection = ({
   openNotification,
   genres: genresEnums,
 }) => {
-  const genres = genresEnums.map(({ _id: key, value }) => ({ key, value }));
-  const defaultGenres = baseData.genres?.map(({ _id }) => _id);
-
-  const filteredOptions = baseData.preferredLanguage
-    ? languages.filter((o) => !baseData.preferredLanguage.includes(o.value))
-    : languages;
-
   const beforeUpload = (file) => {
     const isJpgOrPng =
       file.type === 'image/jpeg' ||
@@ -57,100 +49,11 @@ const BannerSection = ({
       reader.readAsDataURL(file);
       reader.addEventListener(
         'load',
-        async () => {
-          try {
-            const jwt = client.getCookie('feathers-jwt');
-            const { default: api } = await import('api/restClient');
-            const options = {
-              headers: { Authorization: `Bearer ${jwt}` },
-              mode: 'no-cors',
-            };
-            const { id: image } = await api
-              .service('/api/v2/uploads')
-              .create({ uri: reader.result }, options);
-            const data = await api.service('/api/v2/manga-stories').patch(
-              baseData._id,
-              {
-                image,
-              },
-              options
-            );
-            setBaseData(data);
-          } catch (err) {
-            openNotification('error', err.message);
-          }
-        },
+        mangaStoryAPI.bannerSection.getBaseData(reader, setBaseData, baseData, openNotification),
         false
       );
     }
   };
-
-  const changeSelectedLenguage = (preferredLanguage) => {
-    const data = { ...baseData, preferredLanguage };
-    saveUserDataByKey(data, 'preferredLanguage');
-  };
-
-  const changeSelectedGenre = (genresIds) => {
-    const data = { ...baseData, genresIds };
-    saveUserDataByKey(data, 'genresIds');
-  };
-
-  const changeSelectedUserType = (searchingFor) => {
-    const data = { ...baseData, searchingFor };
-    saveUserDataByKey(data, 'searchingFor');
-  };
-
-  const changeCollaborationIsPaid = (checked) => {
-    const data = { ...baseData, compensationModel: checked ? 'paid' : 'collaboration' };
-    saveUserDataByKey(data, 'compensationModel');
-  };
-
-  const editContent = (
-    <div className={styles.editContent}>
-      <PrimarySelect
-        mode="multiple"
-        onChange={changeSelectedGenre}
-        isLinear={true}
-        isFullWidth={true}
-        placeholder="Ganrys"
-        defaultValue={defaultGenres}
-        options={genres}
-        className={styles.edit_select}
-      />
-      <PrimarySelect
-        showSearch
-        onChange={changeSelectedLenguage}
-        isLinear={true}
-        isFullWidth={true}
-        placeholder="Lenguage"
-        value={baseData.preferredLanguage || undefined}
-        options={filteredOptions}
-        className={styles.edit_select}
-      />
-      <PrimarySelect
-        mode="multiple"
-        onChange={changeSelectedUserType}
-        isLinear={true}
-        isFullWidth={true}
-        placeholder="Profession"
-        defaultValue={baseData.searchingFor || []}
-        options={userTypes}
-        className={styles.edit_select}
-      />
-      <div>
-        <ButtonToggle
-          id={'paidOrFree'}
-          onChange={(e) => {
-            changeCollaborationIsPaid(e.target.checked);
-          }}
-          className={styles.toggle}
-          isChecked={baseData.compensationModel === 'paid'}
-          offText="Free Collaboration"
-          onText="Paid Collaboration"
-        />
-      </div>
-    </div>
-  );
 
   const searchingForContent = () => (
     <div>
@@ -298,7 +201,14 @@ const BannerSection = ({
               <div className={styles.edit}>
                 <Popover
                   id="EditMangaStoryBtnId"
-                  content={editContent}
+                  content={
+                    <EditContent
+                      saveUserDataByKey={saveUserDataByKey}
+                      genresEnums={genresEnums}
+                      baseData={baseData}
+                      languages={languages}
+                    />
+                  }
                   trigger="click"
                   placement="bottomRight">
                   <span>Edit</span>
