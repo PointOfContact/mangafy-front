@@ -26,5 +26,4 @@ const ButtonToTop = () => {
     </BackTop>
   );
 };
-
 export default ButtonToTop;

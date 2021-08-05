@@ -222,7 +222,6 @@ const ModalDiscussion = ({
     </Modal>
   );
 };
-
 export default ModalDiscussion;
 
 ModalDiscussion.propTypes = {

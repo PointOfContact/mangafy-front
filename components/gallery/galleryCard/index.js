@@ -153,7 +153,6 @@ const GalleryCard = ({
             <span>{getLikesCount(galleryItem._id)}</span>
           </span>
         )}
-
         <div className={styles.filter} onClick={(e) => gallerySet(e, index)}></div>
         {
           // eslint-disable-next-line no-nested-ternary

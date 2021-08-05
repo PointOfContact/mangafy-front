@@ -8,7 +8,6 @@ import LoginFooter from 'components/loginFooter';
 import PrimaryInput from 'components/ui-elements/input';
 import LargeButton from 'components/ui-elements/large-button';
 import Head from 'next/head';
-import Link from 'next/link';
 
 import styles from './styles.module.scss';
 

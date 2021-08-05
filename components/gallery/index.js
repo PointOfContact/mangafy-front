@@ -190,6 +190,7 @@ export const Gallery = (props) => {
       setLoading
     );
   };
+
   return (
     <div>
       {showGallery && (

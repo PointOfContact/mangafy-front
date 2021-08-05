@@ -157,4 +157,11 @@ Collaborations.defaultProps = {
   search: '',
 };
 
+Collaborations.defaultProps = {
+  user: null,
+  selectedGenres: [],
+  selectedCompensationModel: [],
+  search: '',
+};
+
 export default Collaborations;

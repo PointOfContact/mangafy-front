@@ -166,3 +166,10 @@ Chat.propTypes = {
   isOwn: PropTypes.bool.isRequired,
   collabActiveTab: PropTypes.string.isRequired,
 };
+
+Chat.propTypes = {
+  mangaStory: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
+  isOwn: PropTypes.bool.isRequired,
+  collabActiveTab: PropTypes.number.isRequired,
+};

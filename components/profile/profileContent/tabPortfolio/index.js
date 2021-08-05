@@ -27,6 +27,12 @@ const TabStory = (props) => {
           profile,
         }}
       />
+      <SocialLinks
+        {...{
+          user,
+          profile,
+        }}
+      />
     </div>
   );
 };

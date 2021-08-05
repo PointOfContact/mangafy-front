@@ -240,7 +240,7 @@ Profile.propTypes = {
   mangaStoriesMyProfile: PropTypes.array,
   profile: PropTypes.object.isRequired,
   user: PropTypes.object,
-  total: PropTypes.number,
+  total: PropTypes.number.isRequired,
   limit: PropTypes.number,
   genres: PropTypes.object.isRequired,
   originUrl: PropTypes.string,
