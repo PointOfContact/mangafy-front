@@ -131,8 +131,16 @@ const ModalDiscussion = ({
     changeShowModal(false);
   };
 
-  const setPhotoOrLogo = (ifValidPhoto, photo, sizeImg, ifPhoto) =>
-    ifValidPhoto ? (
+  const setPhotoOrLogo = (ifValidPhoto, photo, sizeImg, ifPhoto) => {
+    const getFormat = ifValidPhoto?.split('.').pop();
+    const validPhoto =
+      getFormat === 'png' ||
+      getFormat === 'jpg' ||
+      getFormat === 'webp' ||
+      getFormat === 'pdf' ||
+      getFormat === 'jpeg';
+
+    return validPhoto ? (
       <Imgix
         layout="intrinsic"
         width={sizeImg}
@@ -151,6 +159,7 @@ const ModalDiscussion = ({
         />
       )
     );
+  };
 
   return loading ? (
     <Loading />
