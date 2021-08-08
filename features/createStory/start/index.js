@@ -57,7 +57,7 @@ const Start = ({ genres, jwt, user }) => {
 
   useEffect(() => {
     import('@typeform/embed').then((typeformEmbed) => {
-      typeformEmbed.makeWidget(typeformRef.current, 'https://form.typeform.com/to/Q2Kciuy6', {
+      typeformEmbed.makeWidget(typeformRef.current, 'https://form.typeform.com/to/Ijyxme1e', {
         hideFooter: true,
         hideHeaders: true,
         opacity: 50,
