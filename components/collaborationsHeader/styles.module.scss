@@ -8,9 +8,15 @@
     margin-bottom: 50px;
     // text-align: center;
   }
+  //TODO delete selector
+  & > img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
   & > div > img {
     height: 312px !important;
-    @include media-sm{
+    @include media-sm {
       height: 329px !important;
     }
   }
