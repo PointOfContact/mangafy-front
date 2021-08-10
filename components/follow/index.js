@@ -126,7 +126,7 @@ const Follow = ({ count, user, profile, likedUsers, setLikedUsers }) => {
           </svg>
           <span>Follow</span>
         </div>
-        <span>{count}</span>
+        {!!count && <span>{count}</span>}
         <div className={styles.paws}>
           <svg className={styles.paw}>
             <use xlinkHref="#paw" />
