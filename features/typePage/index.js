@@ -6,7 +6,6 @@ import AnimePlatform from 'components/anime-platform';
 import Footer from 'components/footer';
 import FooterPolicy from 'components/footer-policy';
 import Header from 'components/header';
-import Imgix from 'components/imgix';
 import ModalDiscussion from 'components/modals/discussion';
 import TypePage from 'components/type-content';
 import ButtonToTop from 'components/ui-elements/button-toTop';
@@ -16,6 +15,7 @@ import Router from 'next/router';
 import PropTypes from 'prop-types';
 import * as qs from 'query-string';
 
+import BestProfileImages from './bestProfileImages';
 import styles from './styles.module.scss';
 
 export default function LandingNew(props) {
@@ -111,15 +111,7 @@ export default function LandingNew(props) {
           <Header user={user} />
           <main className={styles.main}>
             {!user && <AnimePlatform />}
-            {gallery.map((item) => (
-              <Imgix
-                key={item._id}
-                width={65}
-                height={65}
-                src={client.UPLOAD_URL + item._id}
-                alt="galery"
-              />
-            ))}
+            <BestProfileImages gallery={gallery} user={user} />
             <TypePage
               user={user}
               posts={posts}
