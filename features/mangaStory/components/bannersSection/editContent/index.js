@@ -5,7 +5,7 @@ import PrimarySelect from 'components/ui-elements/select';
 import { userTypes } from 'helpers/constant';
 import PropTypes from 'prop-types';
 
-import styles from '../styles.module.scss';
+import styles from './styles.module.scss';
 
 const EditContent = ({ saveUserDataByKey, baseData, languages, genresEnums }) => {
   const genres = genresEnums.map(({ _id: key, value }) => ({ key, value }));
@@ -15,7 +15,7 @@ const EditContent = ({ saveUserDataByKey, baseData, languages, genresEnums }) =>
     ? languages.filter((o) => !baseData.preferredLanguage.includes(o.value))
     : languages;
 
-  const changeSelectedLenguage = (preferredLanguage) => {
+  const changeSelectedLanguage = (preferredLanguage) => {
     const data = { ...baseData, preferredLanguage };
     saveUserDataByKey(data, 'preferredLanguage');
   };
@@ -49,10 +49,10 @@ const EditContent = ({ saveUserDataByKey, baseData, languages, genresEnums }) =>
       />
       <PrimarySelect
         showSearch
-        onChange={changeSelectedLenguage}
+        onChange={changeSelectedLanguage}
         isLinear={true}
         isFullWidth={true}
-        placeholder="Lenguage"
+        placeholder="Language"
         value={baseData.preferredLanguage || undefined}
         options={filteredOptions}
         className={styles.edit_select}

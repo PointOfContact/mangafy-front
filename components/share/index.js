@@ -49,7 +49,7 @@ export const ShareButtons = ({ shareUrl, text }) => {
               className={styles.copy}
               onMouseOut={() => setCopyText('Copy to clipboard')}
               onClick={() => {
-                setCopyText('Copied');
+                setCopyText('Copy to clipboard');
                 copy(shareUrl);
               }}>
               <SvgCopy width="18px" height="18px" alt="mangaFy copy icon" />

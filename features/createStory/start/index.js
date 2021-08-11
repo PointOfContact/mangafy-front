@@ -30,10 +30,16 @@ const Start = ({ genres, jwt, user }) => {
         const { default: api } = await import('api/restClient');
         await timeout(2000);
         const { answers } = await api.service('/api/v2/typeform').get(event.response_id);
-        const mangaStory = adaptData(answers, genres);
+        const { user: newUser, mangaStory } = adaptData(answers, genres);
         const response = await api.service('/api/v2/manga-stories').create(mangaStory, {
           headers: { Authorization: `Bearer ${jwt}` },
         });
+        newUser &&
+          !!newUser.payPalEmail &&
+          (await api.service('/api/v2/users').patch(user._id, newUser, {
+            headers: { Authorization: `Bearer ${jwt}` },
+            mode: 'no-cors',
+          }));
         const data = [
           {
             platform: 'WEB',

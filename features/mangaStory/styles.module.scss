@@ -1,53 +1,19 @@
 @import '../../styles/variables.scss';
 $borderColor: #f0f0f0;
 $colorAllBorder: rgba(33, 33, 33, 0.07);
+
 .tabWrap {
   padding: 30px;
-  position: relative;
+  @include media-sm{
+    height: 582px;
+  }
   p:last-child {
     margin-bottom: 0;
-  }
-  & > p > div {
-    display: flex;
-    justify-content: space-between;
-  }
-  .editDeleteButtons {
-    display: flex;
-    height: fit-content;
-    right: 0px;
-    & > a > button,
-    & > button {
-      width: 175px;
-      height: 46px;
-      font-weight: 900;
-      font-size: 15px;
-      line-height: 22px;
-      margin-right: 14px;
-      @include media-sm {
-        width: 150px;
-        font-size: 14px;
-      }
-    }
-    @include media-md {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      position: absolute;
-    }
   }
 }
 .tabTitle {
   font-weight: 500;
   font-size: 20px;
-}
-.storyTabContent {
-  display: flex;
-  justify-content: space-between;
-  svg {
-    cursor: pointer;
-  }
-  padding-left: 30px;
-  padding-right: 30px;
 }
 .deleteManga {
   margin-top: 10px;
@@ -108,16 +74,6 @@ $colorAllBorder: rgba(33, 33, 33, 0.07);
   .card {
     display: inline-block;
   }
-  .storyTabDescription {
-    font-family: Noto Sans JP;
-    font-style: normal;
-    font-size: 20px;
-    line-height: 35px;
-    .storyKey {
-      color: $primaryDark;
-      display: inline-block;
-    }
-  }
   .autherBlock {
     margin-top: 48px;
     cursor: pointer;
@@ -151,61 +107,9 @@ $colorAllBorder: rgba(33, 33, 33, 0.07);
     box-sizing: border-box;
   }
 }
-.header {
-  margin: auto;
-  margin-top: 90px;
-  width: 1000px;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  min-height: 42px;
-  max-height: 77px;
-  @include media-sm {
-    padding: 0px;
-    margin-top: 145px;
-  }
-  h2 {
-    font-weight: bold;
-    font-size: 30px;
-    line-height: 43px;
-    color: #212121;
-  }
-  span {
-    color: $primaryDark;
-  }
-  p {
-    margin: 0 auto;
-    font-size: 20px;
-    color: $gray85;
-  }
-}
-.editSVG {
-  position: relative;
-  top: 100px !important;
-  left: -35px !important;
-  @include media-sm {
-    padding: 0px;
-    left: 10px !important;
-  }
-}
-.inputs {
-  margin-top: 89px;
-  margin-bottom: 20px;
-  input {
-    font-size: 15px;
-    margin-bottom: 10px;
-  }
-  @include media-sm {
-    padding-left: 30px;
-    padding-right: 30px;
-    box-sizing: border-box;
-  }
-}
 .active {
   fill: $primaryDark;
 }
-
 .actionButtons {
   div {
     display: flex;
@@ -543,21 +447,6 @@ $colorAllBorder: rgba(33, 33, 33, 0.07);
     }
   }
 
-  .addbutton {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 200px;
-    margin-bottom: 15px;
-    opacity: 0.5;
-  }
-
-  .addbutton:hover {
-    opacity: 1;
-    cursor: pointer;
-  }
-
   .addButtonText {
     margin: 0;
   }
@@ -599,111 +488,4 @@ $colorAllBorder: rgba(33, 33, 33, 0.07);
   max-width: 1600px;
   margin-top: 92px;
   padding: 0;
-}
-.publishContent {
-  display: flex;
-  justify-content: flex-end;
-  position: relative;
-  top: 70px !important;
-  @include media-sm {
-    padding-left: 30px;
-    padding-right: 30px;
-    box-sizing: border-box;
-  }
-  .publishSwitch {
-    display: inline-flex;
-    padding: 20px 10px;
-    background-color: $primaryBG;
-    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.07);
-    border-radius: 10px;
-    color: $grey;
-    font-family: Noto Sans JP;
-    .publishText {
-      margin-left: 10px;
-      margin-right: 10px;
-      margin-bottom: 0;
-      font-size: 16px;
-    }
-    .published {
-      color: $black;
-    }
-  }
-}
-.shareButtons {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 40px;
-}
-.modalTitle {
-  text-align: center;
-  font-weight: 900;
-  font-size: 20px;
-  line-height: 28px;
-  margin: 0 auto;
-}
-.publishedModal {
-  text-align: center;
-  p {
-    max-width: 580px;
-    padding: 0 15px;
-    font-weight: 500;
-    font-size: 25px;
-    line-height: 36px;
-    margin: 48px auto 50px auto;
-  }
-}
-.editProfile {
-  display: flex;
-  margin-bottom: 20px;
-  @include media-md {
-    padding-left: 30px;
-    padding-right: 30px;
-  }
-}
-.error {
-  border-color: red !important;
-  color: red;
-}
-.modalFeedbacks {
-  width: 1500px !important;
-  top: 30px;
-  max-height: 90vh;
-  min-width: 390px !important;
-  margin-top: 20px !important;
-  @include media-sm {
-    margin-top: 0px !important;
-  }
-  & > div {
-    border-radius: 6px;
-    div div div {
-      height: 76vh !important;
-      margin-top: 30px;
-      @include media-sm {
-        height: 75vh !important;
-      }
-      @media (max-width: 400px) {
-        height: 82vh !important;
-      }
-    }
-  }
-  .closeIcon {
-    background-color: $primaryDark;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    margin-top: 15px;
-    &:hover {
-      background-color: $primaryLight;
-    }
-    svg {
-      width: 14px;
-      height: 14px;
-      path {
-        fill: white;
-      }
-    }
-  }
 }

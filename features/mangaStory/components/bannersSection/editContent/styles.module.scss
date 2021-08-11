@@ -1,0 +1,12 @@
+@import '../../../../../styles/variables.scss';
+
+.editContent {
+  width: 328px;
+  min-height: 256px;
+  .edit_select {
+    font-size: 15px;
+    height: initial;
+    min-height: 37px;
+    margin-bottom: 22px;
+  }
+}
