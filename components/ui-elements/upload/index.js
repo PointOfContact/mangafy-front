@@ -54,10 +54,6 @@ const PrimaryUpload = ({
     setUploadImages(fileList);
   }, [fileList, setUploadImages]);
 
-  const onChange = ({ fileList: newFileList }) => {
-    setFileList(newFileList);
-  };
-
   function beforeUpload(file) {
     const isJpgOrPng =
       file.type === 'image/jpeg' ||
@@ -138,7 +134,6 @@ const PrimaryUpload = ({
         accept="image/jpg, image/png, application/pdf, image/jpeg "
         listType="picture-card"
         fileList={fileList}
-        onChange={onChange}
         beforeUpload={beforeUpload}
         onPreview={onPreview}
         disabled={ifUploadImg}

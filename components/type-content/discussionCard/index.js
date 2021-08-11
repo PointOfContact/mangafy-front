@@ -105,9 +105,9 @@ const DiscussionCard = (props) => {
               <SvgComment width="17px" height="17px" />
             </div>
           </div>
-          <span className={cn(!img && styles.cat, styles.catDef)}>
-            {categories && categories[0]}
-          </span>
+          {!!categories && !!categories[0] && (
+            <span className={cn(!img && styles.cat, styles.catDef)}>{categories[0]}</span>
+          )}
         </div>
 
         <div

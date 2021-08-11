@@ -131,14 +131,14 @@ const Profile = (props) => {
     <>
       <NextSeo
         title={`Let's give a big hello to ${profile.name}!`}
-        description={`Check their work or cool projects at MangaFY. Welcome aboard.${
+        description={`Check their work or cool projects at MangaFY. Welcome aboard. ${
           bioUser && bioUser
         }`}
         canonical={`https://mangafy.club/profile/${profile._id}`}
         openGraph={{
           url: `https://mangafy.club/profile/${profile._id}`,
           title: `Let's give a big hello to ${profile.name}!`,
-          description: `Check their work or cool projects at MangaFY. Welcome aboard.${
+          description: `Check their work or cool projects at MangaFY. Welcome aboard. ${
             bioUser && bioUser
           }`,
           images: [
