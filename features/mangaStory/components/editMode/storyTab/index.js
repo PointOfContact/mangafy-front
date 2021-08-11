@@ -96,9 +96,7 @@ const StoryTab = ({
         )}
       </div>
       <div className={styles.isOwnBubble}>
-        {!isOwn && showPayPalToggle && (
-          <BuyBubbleTea payPalEmail={mangaStoryNew?.authorInfo?.payPalEmail} />
-        )}
+        {showPayPalToggle && <BuyBubbleTea payPalEmail={mangaStoryNew?.authorInfo?.payPalEmail} />}
       </div>
       <div className={cn(styles.storyTabDescription, styles.authorBlock)}>
         <Link href={`/profile/${author}`}>

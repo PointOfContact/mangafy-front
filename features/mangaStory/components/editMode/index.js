@@ -42,26 +42,28 @@ const EditMode = ({
               showPayPalToggle={showPayPalToggle}
               mangaStoryNew={mangaStoryNew}
             />
-            {canEdit && (
-              <div className={styles.editDeleteButtons}>
-                <PrimaryButton
-                  isWhite={true}
-                  className={styles.editTitleSvg}
-                  text={'Edit Project'}
-                  onClick={() => setEditMode(true)}
-                />
-                <PrimaryButton
-                  isWhite={true}
-                  className={styles.deleteTitleSvg}
-                  text={'Delete Project'}
-                  onClick={() => setIsModalVisible(true)}
-                />
-              </div>
-            )}
-            <div className={styles.containerEdit}>
-              {showPayPalToggle && (
-                <BuyBubbleTea payPalEmail={mangaStoryNew?.authorInfo?.payPalEmail} />
+            <div>
+              {canEdit && (
+                <div className={styles.editDeleteButtons}>
+                  <PrimaryButton
+                    isWhite={true}
+                    className={styles.editTitleSvg}
+                    text={'Edit Project'}
+                    onClick={() => setEditMode(true)}
+                  />
+                  <PrimaryButton
+                    isWhite={true}
+                    className={styles.deleteTitleSvg}
+                    text={'Delete Project'}
+                    onClick={() => setIsModalVisible(true)}
+                  />
+                </div>
               )}
+              <div className={styles.containerEdit}>
+                {showPayPalToggle && (
+                  <BuyBubbleTea payPalEmail={mangaStoryNew?.authorInfo?.payPalEmail} />
+                )}
+              </div>
             </div>
           </div>
         ) : (
