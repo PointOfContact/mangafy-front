@@ -59,7 +59,7 @@ const EditMode = ({
               </div>
             )}
             <div className={styles.containerEdit}>
-              {!isOwn && showPayPalToggle && (
+              {showPayPalToggle && (
                 <BuyBubbleTea payPalEmail={mangaStoryNew?.authorInfo?.payPalEmail} />
               )}
             </div>

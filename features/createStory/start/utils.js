@@ -27,6 +27,8 @@ function getDataByFeildName(data, name, genres) {
       return text;
     case 'preferredLanguage':
       return choice?.label;
+    case 'payPalEmail':
+      return text;
     default:
       return null;
   }
@@ -34,17 +36,22 @@ function getDataByFeildName(data, name, genres) {
 
 function adaptData(data, genres) {
   return {
-    introduce: getDataByFeildName(data, 'introduce'),
-    description: getDataByFeildName(data, 'story'),
-    story: getDataByFeildName(data, 'story'),
-    title: getDataByFeildName(data, 'title'),
-    searchingFor: getDataByFeildName(data, 'searchingFor'),
-    compensationModel: getDataByFeildName(data, 'compensationModel'),
-    preferredLanguage: 'English',
-    genresIds: getDataByFeildName(data, 'genresIds', genres),
-    // preferredLanguage: getDataByFeildName(data, 'preferredLanguage'),
-    // image: getDataByFeildName(data, 'banner'),
-    projectType: getDataByFeildName(data, 'projectType'),
+    mangaStory: {
+      introduce: getDataByFeildName(data, 'introduce'),
+      description: getDataByFeildName(data, 'story'),
+      story: getDataByFeildName(data, 'story'),
+      title: getDataByFeildName(data, 'title'),
+      searchingFor: getDataByFeildName(data, 'searchingFor'),
+      compensationModel: getDataByFeildName(data, 'compensationModel'),
+      preferredLanguage: 'English',
+      genresIds: getDataByFeildName(data, 'genresIds', genres),
+      // preferredLanguage: getDataByFeildName(data, 'preferredLanguage'),
+      // image: getDataByFeildName(data, 'banner'),
+      projectType: getDataByFeildName(data, 'projectType'),
+    },
+    user: {
+      payPalEmail: getDataByFeildName(data, 'payPalEmail'),
+    },
   };
 }
 
