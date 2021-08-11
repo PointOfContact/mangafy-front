@@ -4,25 +4,31 @@ function getGenerIdByName(genres, name) {
 }
 
 function getDataByFeildName(data, name, genres) {
-  const { choice, text, choices } = data.find(({ field }) => field.ref === name);
+  const { choice, text, choices, file_url } = data.find(({ field }) => field?.ref === name);
   switch (name) {
     case 'searchingFor':
-      return choices.labels;
+      return choices?.labels;
+    case 'projectType':
+      return choice?.label;
     case 'compensationModel':
       // eslint-disable-next-line no-constant-condition
-      return [choice.label] === 'Freewill collaboration and ready to share'
+      return [choice?.label] === 'Freewill collaboration and ready to share'
         ? 'collaboration'
         : 'paid';
     case 'genresIds':
-      return choices.labels.map((label) => getGenerIdByName(genres, label));
+      return choices?.labels?.map((label) => getGenerIdByName(genres, label));
     case 'title':
       return text;
     case 'introduce':
       return text;
+    case 'banner':
+      return file_url;
     case 'story':
       return text;
     case 'preferredLanguage':
-      return choice.label;
+      return choice?.label;
+    case 'payPalEmail':
+      return text;
     default:
       return null;
   }
@@ -30,14 +36,22 @@ function getDataByFeildName(data, name, genres) {
 
 function adaptData(data, genres) {
   return {
-    introduce: getDataByFeildName(data, 'introduce'),
-    description: getDataByFeildName(data, 'introduce'),
-    story: getDataByFeildName(data, 'story'),
-    title: getDataByFeildName(data, 'title'),
-    searchingFor: getDataByFeildName(data, 'searchingFor'),
-    compensationModel: getDataByFeildName(data, 'compensationModel'),
-    preferredLanguage: getDataByFeildName(data, 'preferredLanguage'),
-    genresIds: getDataByFeildName(data, 'genresIds', genres),
+    mangaStory: {
+      introduce: getDataByFeildName(data, 'introduce'),
+      description: getDataByFeildName(data, 'story'),
+      story: getDataByFeildName(data, 'story'),
+      title: getDataByFeildName(data, 'title'),
+      searchingFor: getDataByFeildName(data, 'searchingFor'),
+      compensationModel: getDataByFeildName(data, 'compensationModel'),
+      preferredLanguage: 'English',
+      genresIds: getDataByFeildName(data, 'genresIds', genres),
+      // preferredLanguage: getDataByFeildName(data, 'preferredLanguage'),
+      // image: getDataByFeildName(data, 'banner'),
+      projectType: getDataByFeildName(data, 'projectType'),
+    },
+    user: {
+      payPalEmail: getDataByFeildName(data, 'payPalEmail'),
+    },
   };
 }
 

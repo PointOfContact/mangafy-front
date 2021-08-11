@@ -4,9 +4,10 @@ import DeleteProjectModal from 'components/deleteProjectModal';
 import PrimaryButton from 'components/ui-elements/button';
 import PropTypes from 'prop-types';
 
-import styles from '../../styles.module.scss';
 import EditStoryTab from '../editStoryTab';
-import StoryTab from '../storyTab';
+import BuyBubbleTea from './buyBubbleTea';
+import StoryTab from './storyTab';
+import styles from './styles.module.scss';
 
 const EditMode = ({
   user,
@@ -21,6 +22,8 @@ const EditMode = ({
   onChangeSingleField,
   cancelEditMode,
   saveUserDataByKey,
+  showPayPalToggle,
+  mangaStoryNew,
 }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -36,23 +39,32 @@ const EditMode = ({
               user={user}
               isOwn={isOwn}
               isParticipent={isParticipent}
+              showPayPalToggle={showPayPalToggle}
+              mangaStoryNew={mangaStoryNew}
             />
-            {canEdit && (
-              <div className={styles.editDeleteButtons}>
-                <PrimaryButton
-                  isWhite={true}
-                  className={styles.editTitleSvg}
-                  text={'Edit Project'}
-                  onClick={() => setEditMode(true)}
-                />
-                <PrimaryButton
-                  isWhite={true}
-                  className={styles.deleteTitleSvg}
-                  text={'Delete Project'}
-                  onClick={() => setIsModalVisible(true)}
-                />
+            <div>
+              {canEdit && (
+                <div className={styles.editDeleteButtons}>
+                  <PrimaryButton
+                    isWhite={true}
+                    className={styles.editTitleSvg}
+                    text={'Edit Project'}
+                    onClick={() => setEditMode(true)}
+                  />
+                  <PrimaryButton
+                    isWhite={true}
+                    className={styles.deleteTitleSvg}
+                    text={'Delete Project'}
+                    onClick={() => setIsModalVisible(true)}
+                  />
+                </div>
+              )}
+              <div className={styles.containerEdit}>
+                {showPayPalToggle && (
+                  <BuyBubbleTea payPalEmail={mangaStoryNew?.authorInfo?.payPalEmail} />
+                )}
               </div>
-            )}
+            </div>
           </div>
         ) : (
           canEdit && (
@@ -89,6 +101,8 @@ EditMode.propTypes = {
   onChangeSingleField: PropTypes.func.isRequired,
   cancelEditMode: PropTypes.func.isRequired,
   saveUserDataByKey: PropTypes.func.isRequired,
+  showPayPalToggle: PropTypes.bool.isRequired,
+  mangaStoryNew: PropTypes.object.isRequired,
 };
 
 export default EditMode;

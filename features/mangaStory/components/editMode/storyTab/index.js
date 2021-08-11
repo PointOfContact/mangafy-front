@@ -1,48 +1,39 @@
 import React, { useState } from 'react';
 
-import { notification, Popover, Tooltip } from 'antd';
+import { Popover, Tooltip } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
 import Imgix from 'components/imgix';
 import Modal from 'components/modals/joinToTeam';
 import Avatar from 'components/ui-elements/avatar';
+import mangaStoryAPI from 'features/mangaStory/mangaStoryAPI';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 
-import ParticipantCard from '../participantCard';
-import Tasks from '../tasks/index';
+import Tasks from '../../tasks/index';
+import BuyBubbleTea from '../buyBubbleTea';
+import ParticipantCard from './participantCard';
 import styles from './styles.module.scss';
 
-const StoryTab = ({ setBaseData, baseData, isOwn, user, isParticipant }) => {
+const StoryTab = ({
+  setBaseData,
+  baseData,
+  isOwn,
+  user,
+  isParticipant,
+  mangaStory,
+  showPayPalToggle,
+  mangaStoryNew,
+}) => {
   const [showModal, changeShowModal] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
   const { _id, author, introduce, story, authorInfo, participentsInfo } = baseData;
   const history = useRouter();
-  const leaveManga = (participantId) => {
-    const data = { participantId };
-    const jwt = client.getCookie('feathers-jwt');
-    return import('api/restClient').then((m) =>
-      m.default
-        .service('/api/v2/manga-stories')
-        .patch(_id, data, {
-          headers: { Authorization: `Bearer ${jwt}` },
-        })
-        .then((res) => {
-          if (participantId === user._id) {
-            history.push(`/collaborations`);
-          } else {
-            setBaseData(res);
-          }
-        })
-        .catch((err) => {
-          notification.error({
-            message: err.message,
-            placement: 'bottomLeft',
-          });
-        })
-    );
-  };
+
+  const leaveManga = (participantId) =>
+    mangaStoryAPI.storyTab.leaveManga(participantId, _id, setBaseData, history, user);
+
   const toTeam = (task) => {
     if (user) {
       changeShowModal(true);
@@ -53,7 +44,7 @@ const StoryTab = ({ setBaseData, baseData, isOwn, user, isParticipant }) => {
   };
 
   return (
-    <div className={cn(styles.storyTab, isOwn && styles.isOuner)}>
+    <div className={cn(styles.storyTab, isOwn && styles.isOwner)}>
       {isOwn && (
         <div>
           <h1 className={styles.storyTabTitle}>My inspiration</h1>
@@ -64,16 +55,16 @@ const StoryTab = ({ setBaseData, baseData, isOwn, user, isParticipant }) => {
         </div>
       )}
       <div>
-        <h1 className={styles.storyTabTitle}>Project Description</h1>
+        <h2 className={styles.storyTabTitle}>Project Description</h2>
         <pre>{story}</pre>
       </div>
       <div>
         {isOwn ? (
           <div className={styles.containerTasks}>
             <div>
-              <h1 className={cn(styles.storyTabTitle, styles.participate)}>
+              <h3 className={cn(styles.storyTabTitle, styles.participate)}>
                 On your way to producing your own story? Fantastic!
-              </h1>
+              </h3>
               <span className={styles.sub_info}>Add who you want to join your team and why</span>
               <Tasks
                 baseData={baseData}
@@ -82,24 +73,30 @@ const StoryTab = ({ setBaseData, baseData, isOwn, user, isParticipant }) => {
                 toTeam={toTeam}
                 isParticipant={isParticipant}
                 showImage={true}
+                showPayPalToggle={showPayPalToggle}
               />
             </div>
           </div>
         ) : (
           <>
-            <h1 className={cn(styles.storyTabTitle, styles.participate)}>How To Participate</h1>
+            <h4 className={cn(styles.storyTabTitle, styles.participate)}>How To Participate</h4>
             <span className={styles.sub_info}>
               Let&apos;s collaborate, here&apos;s what I look for
             </span>
             <Tasks
+              mangaStory={mangaStory}
               baseData={baseData}
               isOwn={isOwn}
               user={user}
               toTeam={toTeam}
               isParticipant={isParticipant}
+              showPayPalToggle={showPayPalToggle}
             />
           </>
         )}
+      </div>
+      <div className={styles.isOwnBubble}>
+        {showPayPalToggle && <BuyBubbleTea payPalEmail={mangaStoryNew?.authorInfo?.payPalEmail} />}
       </div>
       <div className={cn(styles.storyTabDescription, styles.authorBlock)}>
         <Link href={`/profile/${author}`}>
@@ -157,11 +154,14 @@ const StoryTab = ({ setBaseData, baseData, isOwn, user, isParticipant }) => {
 };
 
 StoryTab.propTypes = {
+  mangaStory: PropTypes.object.isRequired,
   setBaseData: PropTypes.func.isRequired,
   baseData: PropTypes.object.isRequired,
   isOwn: PropTypes.bool.isRequired,
   user: PropTypes.object,
   isParticipant: PropTypes.bool.isRequired,
+  showPayPalToggle: PropTypes.bool.isRequired,
+  mangaStoryNew: PropTypes.object.isRequired,
 };
 
 StoryTab.defaultProps = {

@@ -8,7 +8,8 @@ import styles from './styles.module.scss';
 
 const CollaborationsHeader = () => (
   <div className={styles.box}>
-    <Imgix layout="fill" src={'https://mangafy.club/img/colabbg.png'} alt="MangaFy background" />
+    {/* TODO convert Imgix */}
+    <img src={'img/colabbg.webp'} alt="MangaFy background" />
     <div className={'container'}>
       <div className={styles.box__container}>
         <div className={styles.box__bgImg}>

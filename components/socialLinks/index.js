@@ -50,6 +50,7 @@ const SocialLinks = (props) => {
   const [webtoonsStatus, setWebtoonsStatus] = useState('');
   const [tapasStatus, setTapasStatus] = useState('');
   const [visible, setVisible] = useState(false);
+  const ifNotMyAccount = user?._id === profile?._id;
 
   const getSocialLink = (platform) => socialLinks.find((item) => item.platform === platform)?.link;
 
@@ -304,7 +305,9 @@ const SocialLinks = (props) => {
 
   return (
     <div>
-      <h4 className={styles.title}>Connections to take it to the next level</h4>
+      <h4 className={styles.title}>
+        {ifNotMyAccount ? 'Connections to take it to the next level' : 'Social'}
+      </h4>
       <div className={styles.social}>
         <Row>
           {socialLinks?.length ? (

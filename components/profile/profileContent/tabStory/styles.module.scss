@@ -154,6 +154,11 @@
   @media (max-width: 767px) {
     margin-bottom: 15px;
   }
+  & + p {
+    margin-top: -20px;
+    color: $gray85;
+    font-size: 13px;
+  }
 }
 
 .tab_sub_title {

@@ -58,7 +58,7 @@ const Share = ({ shareUrl, storyBoard }) => {
               className={storyBoard ? styles.copySB : styles.copy}
               onMouseOut={() => setCopyText('Copy to clipboard')}
               onClick={() => {
-                setCopyText('Copied');
+                setCopyText('Copy to clipboard');
                 copy(shareUrl);
               }}>
               <SvgCopy

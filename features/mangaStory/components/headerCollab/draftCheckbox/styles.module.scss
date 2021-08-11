@@ -1,0 +1,42 @@
+@import '../../../../../styles/variables.scss';
+
+.publishedModal {
+  text-align: center;
+  h3 {
+    max-width: 580px;
+    padding: 0 15px;
+    font-weight: 500;
+    font-size: 25px;
+    line-height: 36px;
+    margin: 48px auto 50px auto;
+  }
+  .containerPayPalEmail {
+    max-width: 400px;
+    margin-bottom: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    h4 {
+      font-size: 20px;
+      font-weight: bold;
+      color: $black;
+    }
+    .email {
+      margin-bottom: 20px;
+      input {
+        height: 40px;
+        border-radius: 4px;
+        margin-top: 10px;
+      }
+    }
+    button {
+      width: 100%;
+      height: 50px;
+      margin: auto;
+    }
+  }
+}
+.shareButtons {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+}

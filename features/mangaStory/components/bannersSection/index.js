@@ -11,6 +11,7 @@ import SvgTie from 'components/icon/Tie';
 import Imgix from 'components/imgix';
 import { ShareButtons } from 'components/share';
 import { OPTIONS } from 'features/createStory/lenguage/constant';
+import mangaStoryAPI from 'features/mangaStory/mangaStoryAPI';
 import PropTypes from 'prop-types';
 
 import EditContent from './editContent';
@@ -50,29 +51,7 @@ const BannerSection = ({
       reader.readAsDataURL(file);
       reader.addEventListener(
         'load',
-        async () => {
-          try {
-            const jwt = client.getCookie('feathers-jwt');
-            const { default: api } = await import('api/restClient');
-            const options = {
-              headers: { Authorization: `Bearer ${jwt}` },
-              mode: 'no-cors',
-            };
-            const { id: image } = await api
-              .service('/api/v2/uploads')
-              .create({ uri: reader.result }, options);
-            const data = await api.service('/api/v2/manga-stories').patch(
-              baseData._id,
-              {
-                image,
-              },
-              options
-            );
-            setBaseData(data);
-          } catch (err) {
-            openNotification('error', err.message);
-          }
-        },
+        mangaStoryAPI.bannerSection.getBaseData(reader, setBaseData, baseData, openNotification),
         false
       );
     }
