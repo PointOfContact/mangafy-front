@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { LoadingOutlined } from '@ant-design/icons';
-import { Alert, Spin } from 'antd';
+import { Alert } from 'antd';
 import cn from 'classnames';
 import SvgGoogle from 'components/icon/Google';
 import SvgWhiteFacebook from 'components/icon/WhiteFacebook';
@@ -13,8 +12,6 @@ import Link from 'next/link';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
-
-const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
 const AuthForm = ({ type, errorMessage, onChange, onSubmit, isLogin, loading }) => (
   <>
@@ -98,16 +95,7 @@ const AuthForm = ({ type, errorMessage, onChange, onSubmit, isLogin, loading }) 
                 className={styles.button_submit}
                 loading={loading}
                 htmlType="submit"
-                text={
-                  <p style={{ margin: 0 }}>
-                    Let&apos;s rock!
-                    {loading && (
-                      <span className="ml-2">
-                        <Spin indicator={antIcon} />
-                      </span>
-                    )}
-                  </p>
-                }
+                text={<p style={{ margin: 0 }}>Let&apos;s rock!</p>}
                 id="signUpBtnId"
               />
             </>

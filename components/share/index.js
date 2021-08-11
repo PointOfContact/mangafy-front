@@ -47,7 +47,7 @@ export const ShareButtons = ({ shareUrl, text }) => {
           <Tooltip placement="topLeft" title={copyText}>
             <span
               className={styles.copy}
-              onMouseOut={() => setCopyText('Copied')}
+              onMouseOut={() => setCopyText('Copy to clipboard')}
               onClick={() => {
                 setCopyText('Copy to clipboard');
                 copy(shareUrl);

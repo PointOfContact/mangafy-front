@@ -61,8 +61,7 @@ const Register = ({ user }) => {
     e.preventDefault();
 
     const { inviteId } = qs.parse(window.location.search);
-
-    setState({ disabled: true });
+    setLoading(true);
     const payload = {
       name,
       type,
@@ -71,9 +70,8 @@ const Register = ({ user }) => {
       inviteId,
     };
     register(payload)
-      .then(({ newUser }) => {
-        setState({ disabled: false });
-
+      .then(({ user: newUser }) => {
+        setLoading(false);
         const data = [
           {
             platform: 'WEB',
