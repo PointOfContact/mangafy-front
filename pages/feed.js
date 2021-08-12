@@ -9,6 +9,7 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
   try {
     const selectedCategories = context.query.categories || null;
     const selectedType = context.query.compensationModel || null;
+    const gallery = await client.service('/api/v2/gallery').find({ query: { count: 8 } });
     const posts = await client.service('/api/v2/posts').find({
       query: {
         $limit: 5,
@@ -53,6 +54,7 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
 
     return {
       props: {
+        gallery,
         posts: posts.data,
         selectedCategories,
         selectedType,
