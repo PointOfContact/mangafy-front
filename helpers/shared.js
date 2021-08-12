@@ -42,7 +42,7 @@ const queryImg = (file, props, updater, loadingImg) => {
         .then((response) => response)
         .then((response) =>
           m.default.service('/api/v2/users').patch(
-            props.user._id,
+            props.user?._id,
             {
               avatar: response.id,
             },

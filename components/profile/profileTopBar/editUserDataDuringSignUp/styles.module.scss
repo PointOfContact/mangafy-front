@@ -1,0 +1,106 @@
+@import '../../../../styles/variables.scss';
+
+.modal {
+  width: 90% !important;
+  height: calc(100vh - 100px);
+  top: 210px;
+  // background-color: white;
+  & > div {
+    & > button {
+      svg path {
+        fill: white;
+      }
+    }
+    & > div {
+      padding: 0;
+    }
+  }
+  .containerAvatar {
+    width: 100%;
+    top: -90px;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    .img {
+      width: 18vw;
+      height: 18vw;
+      max-width: 175px;
+      max-height: 175px;
+      min-width: 140px;
+      min-height: 140px;
+      position: relative;
+      border-radius: 50%;
+      background: #f3f3f3;
+      &:before {
+        content: '';
+        width: 18vw;
+        height: 18vw;
+        max-width: 175px;
+        max-height: 175px;
+        min-width: 140px;
+        min-height: 140px;
+        background-image: url(../../../../public/img/green-eclips.svg);
+        background-size: cover;
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+      @include media-sm {
+        position: absolute;
+        transform: translate(50%, -50%);
+        top: -35px;
+        right: 50%;
+        margin: auto;
+        text-align: center;
+      }
+      img {
+        width: 18vw;
+        height: 18vw;
+        max-width: 175px;
+        max-height: 175px;
+        min-width: 140px;
+        min-height: 140px;
+        object-fit: cover;
+        border-radius: 50%;
+        padding: 5px !important;
+        // border: 3px solid $avatar_outline;
+        // border-bottom: white;
+      }
+      .add {
+        position: absolute;
+        bottom: 20px;
+        right: 0;
+        cursor: pointer;
+        background-color: white;
+        border-radius: 50%;
+      }
+    }
+  }
+
+  .containerHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid black;
+    margin: 0;
+    background: white;
+    padding: 45px 40px;
+    h2 {
+      font-weight: bold;
+      font-size: 32px;
+      line-height: 20px;
+      color: $black;
+    }
+    .containerButton {
+      display: flex;
+      align-items: center;
+      button {
+        width: 166px;
+        height: 51px;
+        &:last-child {
+          margin-left: 22px;
+        }
+      }
+    }
+  }
+}

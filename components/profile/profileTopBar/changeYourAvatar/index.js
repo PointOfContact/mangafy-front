@@ -35,7 +35,6 @@ const ChangeYourAvatar = ({
   };
 
   const updater = (res) => {
-    setUserData(res);
     setUserData({
       ...userData,
       avatar: res.avatar,

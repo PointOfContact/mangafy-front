@@ -15,6 +15,7 @@ import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 
 import ChangeYourAvatar from './changeYourAvatar';
+import EditUserDataDuringSignUp from './editUserDataDuringSignUp';
 import SetPhotoAvatar from './setPhotoAvatar';
 import ShareProfile from './shareProfile';
 import styles from './styles.module.scss';
@@ -48,6 +49,7 @@ const ProfileTopBar = (props) => {
 
   const [disabledButton, setDisabledButton] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [showModalEdit, setShowModalEdit] = useState(true);
 
   const openNotification = (type, message, description = '') => {
     notification[type]({
@@ -329,6 +331,15 @@ const ProfileTopBar = (props) => {
         }}
         showModal={showModal}
       />
+      <EditUserDataDuringSignUp
+        user={user}
+        loadingImg={loadingImg}
+        showModalEdit={showModalEdit}
+        setShowModalEdit={setShowModalEdit}
+        props={props}
+        userData={userData}
+        setUserData={setUserData}
+      />
     </Content>
   );
 };
@@ -347,7 +358,6 @@ ProfileTopBar.propTypes = {
   profile: PropTypes.object,
   setErrMessage: PropTypes.func,
   ifMyProfile: PropTypes.bool,
-  setLoadingImg: PropTypes.func,
   loadingImg: PropTypes.bool,
 };
 
