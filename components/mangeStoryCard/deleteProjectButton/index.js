@@ -19,7 +19,7 @@ const DeleteProjectButton = ({ label, user, mangaStory }) => {
     label.author === user?._id && (
       <div className={cn(styles.deleteCard, styles.deleteCardMobile)}>
         <span onClick={(e) => handleClick(e)}>
-          <Popover placement="left" content={'delete project'} trigger="hover">
+          <Popover placement="left" content={'Delete project'} trigger="hover">
             <SvgDustbin width="14px" height="14px" />
           </Popover>
         </span>

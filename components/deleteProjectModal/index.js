@@ -12,7 +12,12 @@ const DeleteProjectModal = ({ user, mangaStory, isModalVisible, setIsModalVisibl
     className={styles.modalFeedbacks}
     zIndex={1000000}
     closeIcon={
-      <span className={styles.closeIcon} onClick={() => setIsModalVisible(false)}>
+      <span
+        className={styles.closeIcon}
+        onClick={(e) => {
+          e.stopPropagation();
+          setIsModalVisible(false);
+        }}>
         <SvgClose />
       </span>
     }
