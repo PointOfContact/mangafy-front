@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react';
+/* eslint-disable react/display-name */
+import React from 'react';
 
 import Modal from 'antd/lib/modal/Modal';
 import SvgClose from 'components/icon/Close';
+import Imgix from 'components/imgix';
 import PropTypes from 'prop-types';
 import ImageGallery from 'react-image-gallery';
 
@@ -16,20 +18,25 @@ const ModalBestProfile = ({
   startIndex,
   user,
 }) => {
-  const [index, setIndex] = useState(startIndex);
-
-  useEffect(() => {
-    setIndex(startIndex);
-  }, [startIndex]);
-
   const images = topGallery.map((item) => ({
-    original: `https://mangafy.club/api/v2/uploads/${item?._id}`,
+    renderItem: () => (
+      <div className={styles.moduleGa}>
+        <DescriptionBestProfile
+          item={item}
+          user={user}
+          likeModalContainerStyle={true}
+          topGallery={topGallery}
+          setTopGallery={setTopGallery}
+        />
+        <Imgix
+          layout="fill"
+          src={`https://mangafy.club/api/v2/uploads/${item?._id}`}
+          alt="mangaFy top gallery"
+        />
+      </div>
+    ),
     _id: item?._id,
   }));
-
-  if (index === 10) {
-    setIndex(0);
-  }
 
   return (
     <Modal
@@ -44,17 +51,7 @@ const ModalBestProfile = ({
       }
       okText="Send">
       <div className={styles.container}>
-        <DescriptionBestProfile
-          item={topGallery[index]}
-          user={user}
-          likeModalContainerStyle={true}
-          topGallery={topGallery}
-          setTopGallery={setTopGallery}
-        />
         <ImageGallery
-          onSlide={() => {
-            setIndex(index + 1);
-          }}
           lazyLoad={false}
           useBrowserFullscreen={false}
           showIndex={false}
