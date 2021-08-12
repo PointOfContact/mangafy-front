@@ -1574,3 +1574,10 @@ img.rot4 {
     }
   }
 }
+
+.isMultiPlacholder {
+  .ant-select-selection-placeholder {
+    margin-left: -10px !important;
+    color: unset !important;
+  }
+}

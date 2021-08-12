@@ -160,7 +160,7 @@ const ProfileTopBar = (props) => {
   const changeBio = () => {
     if (userData.name?.replace(/\s/g, '')) {
       handleEvent();
-      saveUserDataByKey('name', 'type');
+      saveUserDataByKey('name', 'types');
     } else {
       setErrMessage('Name is required');
     }
@@ -264,10 +264,12 @@ const ProfileTopBar = (props) => {
                 </h2>
                 <div>
                   <Select
-                    className="changeSelect"
-                    defaultValue={userTypesEnums[userData.type]}
+                    mode="multiple"
+                    className={cn('changeSelect', styles.select)}
+                    defaultValue={userTypesEnums[userData.types]}
+                    value={userData.types}
                     style={{ width: '100%' }}
-                    onChange={(value) => setUserData({ ...userData, type: value })}>
+                    onChange={(value) => setUserData({ ...userData, types: value })}>
                     {userTypes.map((item) => (
                       <Option key={item.key} value={item.key}>
                         {item.value}

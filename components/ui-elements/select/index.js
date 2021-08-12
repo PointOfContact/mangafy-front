@@ -19,6 +19,7 @@ function PrimarySelect({
   onChange,
   id,
   label,
+  isMulti,
   ...rest
 }) {
   return (
@@ -33,6 +34,8 @@ function PrimarySelect({
           styles.select,
           className,
           isFullWidth && styles.full_width,
+          isMulti && styles.isMulti,
+          isMulti && 'isMultiPlacholder',
           isLinear && styles.linear
         )}
         value={value}
@@ -60,6 +63,7 @@ PrimarySelect.propTypes = {
   onChange: PropTypes.func,
   id: PropTypes.string,
   label: PropTypes.string,
+  isMulti: PropTypes.bool,
 };
 
 PrimarySelect.defaultProps = {
@@ -73,6 +77,7 @@ PrimarySelect.defaultProps = {
   id: null,
   label: null,
   options: [],
+  isMulti: false,
 };
 
 export default PrimarySelect;
