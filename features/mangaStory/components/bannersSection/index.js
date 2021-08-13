@@ -12,7 +12,9 @@ import Imgix from 'components/imgix';
 import { ShareButtons } from 'components/share';
 import { OPTIONS } from 'features/createStory/lenguage/constant';
 import mangaStoryAPI from 'features/mangaStory/mangaStoryAPI';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import PropTypes from 'prop-types';
+import myAmplitude from 'utils/amplitude';
 
 import EditContent from './editContent';
 import styles from './styles.module.scss';
@@ -28,7 +30,19 @@ const BannerSection = ({
   openNotification,
   genres: genresEnums,
   isOwn,
+  user,
 }) => {
+  const shareProjectEvent = () => {
+    const event = {
+      event_type: EVENTS.SHARED_PROJECT,
+      event_properties: { projectID: baseData._id },
+      user_id: user?._id,
+      user_properties: {
+        ...user,
+      },
+    };
+    myAmplitude(event);
+  };
   const beforeUpload = (file) => {
     const isJpgOrPng =
       file.type === 'image/jpeg' ||
@@ -205,7 +219,7 @@ const BannerSection = ({
                   <p>Love what I’m is doing?</p>
                   <p>Share with your friends 🎉</p>
                 </div>
-                <ShareButtons shareUrl={originUrl} />
+                <ShareButtons shareUrl={originUrl} onClick={shareProjectEvent} />
               </div>
               {canEdit && (
                 <div className={styles.edit}>
@@ -245,6 +259,11 @@ BannerSection.propTypes = {
   setBaseData: PropTypes.func.isRequired,
   openNotification: PropTypes.func.isRequired,
   isOwn: PropTypes.bool.isRequired,
+  user: PropTypes.object,
+};
+
+BannerSection.defaultProps = {
+  user: {},
 };
 
 export default BannerSection;

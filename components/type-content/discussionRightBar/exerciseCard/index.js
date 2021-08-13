@@ -18,6 +18,7 @@ const ExerciseCard = (props) => {
   };
 
   const showModal = () => {
+    // TODO warmaps event
     info({
       className: 'MangaFY',
       title: <h3 className={styles.modalTitle}>AMAZING!</h3>,

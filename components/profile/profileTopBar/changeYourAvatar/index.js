@@ -4,8 +4,10 @@ import React, { useState } from 'react';
 import Modal from 'antd/lib/modal/Modal';
 import SvgClose from 'components/icon/Close';
 import PrimaryButton from 'components/ui-elements/button';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import dynamic from 'next/dynamic';
 import PropTypes from 'prop-types';
+import myAmplitude from 'utils/amplitude';
 
 import styles from '../styles.module.scss';
 
@@ -19,6 +21,7 @@ const ChangeYourAvatar = ({
   disabledButton,
   setDisabledButton,
   props,
+  user,
 }) => {
   const { beforeUploadBase64, setUserData, userData, setLoadingImg } = props;
 
@@ -54,6 +57,14 @@ const ChangeYourAvatar = ({
     setLoadingImg(true);
     beforeUploadBase64(file, props, updater, () => {
       setLoadingImg(false);
+      const data = {
+        event_type: EVENTS.ADDED_PHOTO,
+        user_id: user._id,
+        user_properties: {
+          ...user,
+        },
+      };
+      myAmplitude(data);
     });
   };
 
@@ -99,6 +110,7 @@ ChangeYourAvatar.propTypes = {
   setIsModalVisible: PropTypes.func.isRequired,
   disabledButton: PropTypes.bool.isRequired,
   props: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
 };
 
 export default ChangeYourAvatar;
