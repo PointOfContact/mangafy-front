@@ -7,7 +7,7 @@ import Imgix from 'components/imgix';
 import Avatar from 'components/ui-elements/avatar';
 import PropTypes from 'prop-types';
 
-import styles from '../styles.module.scss';
+import styles from './styles.module.scss';
 
 const SetPhotoAvatar = ({ ifMyProfile, userData, loadingImg, profile }) =>
   ifMyProfile ? (
@@ -48,7 +48,11 @@ SetPhotoAvatar.propTypes = {
   ifMyProfile: PropTypes.bool.isRequired,
   userData: PropTypes.object.isRequired,
   loadingImg: PropTypes.bool.isRequired,
-  profile: PropTypes.object.isRequired,
+  profile: PropTypes.object,
+};
+
+SetPhotoAvatar.defaultProps = {
+  profile: {},
 };
 
 export default SetPhotoAvatar;

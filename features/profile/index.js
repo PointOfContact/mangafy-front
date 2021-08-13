@@ -193,6 +193,10 @@ const Profile = (props) => {
                     ifMyProfile,
                     setLoadingImg,
                     loadingImg,
+                    genresMyProfileEnums,
+                    userGenres,
+                    genres,
+                    handleChangeGenres,
                   }}
                 />
               </div>

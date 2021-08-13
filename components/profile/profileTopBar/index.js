@@ -16,6 +16,7 @@ import PropTypes from 'prop-types';
 import myAmplitude from 'utils/amplitude';
 
 import ChangeYourAvatar from './changeYourAvatar';
+import EditUserDataDuringSignUp from './editUserDataDuringSignUp';
 import SetPhotoAvatar from './setPhotoAvatar';
 import ShareProfile from './shareProfile';
 import styles from './styles.module.scss';
@@ -42,14 +43,19 @@ const ProfileTopBar = (props) => {
     setErrMessage,
     ifMyProfile,
     loadingImg,
+    genresMyProfileEnums,
+    userGenres,
+    genres,
+    handleChangeGenres,
   } = props;
 
   const [showModal, changeShowModal] = useState(false);
   const [likedUsers, setLikedUsers] = useState([]);
-
+  const router = useRouter();
+  const ifOwner = user?._id === router.query.pid;
   const [disabledButton, setDisabledButton] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
-
+  const [showModalEdit, setShowModalEdit] = useState(ifOwner && !!router.query.editModal);
   const openNotification = (type, message, description = '') => {
     notification[type]({
       message,
@@ -344,6 +350,20 @@ const ProfileTopBar = (props) => {
         }}
         showModal={showModal}
       />
+      <EditUserDataDuringSignUp
+        user={user}
+        loadingImg={loadingImg}
+        showModalEdit={showModalEdit}
+        setShowModalEdit={setShowModalEdit}
+        props={props}
+        userData={userData}
+        setUserData={setUserData}
+        genresMyProfileEnums={genresMyProfileEnums}
+        userGenres={userGenres}
+        genres={genres}
+        handleChangeGenres={handleChangeGenres}
+        saveUserDataByKey={saveUserDataByKey}
+      />
     </Content>
   );
 };
@@ -362,8 +382,11 @@ ProfileTopBar.propTypes = {
   profile: PropTypes.object,
   setErrMessage: PropTypes.func,
   ifMyProfile: PropTypes.bool,
-  setLoadingImg: PropTypes.func,
   loadingImg: PropTypes.bool,
+  genresMyProfileEnums: PropTypes.array,
+  userGenres: PropTypes.array,
+  genres: PropTypes.array,
+  handleChangeGenres: PropTypes.func,
 };
 
 ProfileTopBar.defaultProps = {
@@ -381,6 +404,10 @@ ProfileTopBar.defaultProps = {
   ifMyProfile: false,
   setLoadingImg: () => {},
   loadingImg: false,
+  genresMyProfileEnums: [],
+  userGenres: [],
+  genres: [],
+  handleChangeGenres: () => {},
 };
 
 export default ProfileTopBar;

@@ -1,0 +1,187 @@
+@import '../../../../../styles/variables.scss';
+$borderColor: rgb(233, 232, 232);
+
+.container {
+  background: white;
+  margin-top: 98px;
+  margin-left: 6%;
+  margin-right: 30px;
+  @media (max-width: 1100px) {
+    margin-top: 210px;
+  }
+  @include media-sm {
+    margin-top: 180px;
+    margin-left: 4%;
+    margin-right: 15px;
+  }
+  .card_wrap {
+    width: 100%;
+    height: 450px;
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 0px 7px 20px 7px;
+    @include media-sm {
+      padding: 5px 10px;
+    }
+    @include media-xs {
+      padding: 0;
+    }
+    &::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+
+    &::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 2px  #DBDBDB;
+      background-color: #DBDBDB;
+      border-radius: 0;
+      border-radius: 5px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: $primaryDark;
+      border-radius: 0px;
+      border-radius: 5px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background: $primaryDark;
+      border-radius: 5px;
+    }
+
+    .cont {
+      display: flex;
+      flex-direction: column;
+      @include media-xs {
+        padding-bottom: 10px;
+        box-sizing: border-box;
+      }
+    }
+  }
+  .containerContent {
+    width: 90%;
+    h3 {
+      font-weight: 900;
+      font-size: 25px;
+      line-height: 36px;
+      height: 67px;
+      margin-bottom: 7px;
+      display: flex;
+      align-items: center;
+      margin-top: 16px;
+      word-wrap: break-word;
+      white-space: normal;
+      @include media-sm {
+        font-size: 16px;
+        line-height: 23px;
+        margin: 0;
+      }
+    }
+    div {
+      margin: 0;
+      & > div > div{
+        
+      }
+    }
+    .fullNameInput {
+      width: 100%;
+      border: 1px solid $primaryDark;
+      color: $black;
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 29px;
+      @include media-sm {
+        font-size: 14px;
+        line-height: 20px;
+      }
+      &::placeholder {
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 29px;
+        color: $gray85;
+        @include media-sm {
+          font-size: 14px;
+          line-height: 20px;
+        }
+      }
+    }
+    & + h3 + div {
+      margin-top: 0px;
+      margin-bottom: 22px;
+    }
+    .graphicNovels {
+      margin-top: 12px;
+    }
+    .supporterButton {
+      margin-top: 30px;
+      margin-bottom: 0;
+      & + p {
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 29px;
+        color: $gray85;
+        margin-top: -14px;
+        @include media-sm {
+          font-size: 14px;
+          line-height: 20px;
+        }
+        & + label + h3 {
+          margin-top: 2px;
+        }
+      }
+    }
+  }
+  .aboutMe {
+    width: 100%;
+    min-height: 198px !important;
+    border-radius: 5px;
+    border: 1px solid $primaryDark;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 29px;
+    color: $black;
+    @include media-sm {
+      min-height: 100px !important;
+      font-size: 14px;
+      line-height: 20px;
+    }
+    &::placeholder {
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 29px;
+      color: $gray85;
+      @include media-sm {
+        font-size: 14px;
+        line-height: 20px;
+      }
+    }
+  }
+  .errorAboutMe{
+    color: red;
+    font-size: 14px;
+    font-weight: normal;
+    margin-top: 5px;
+    @include media-xs{
+      font-size: 12px;
+    }
+  }
+  .favoriteNovel {
+    width: 100%;
+    border: 1px solid $primaryDark;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 29px;
+    color: $black;
+    &::placeholder {
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 29px;
+      color: $gray85;
+      @include media-sm {
+        font-size: 14px;
+        line-height: 20px;
+      }
+    }
+  }
+}
