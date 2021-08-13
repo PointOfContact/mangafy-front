@@ -83,7 +83,7 @@ const Register = ({ user }) => {
           },
         ];
         amplitude.track(data);
-        history.push(`/profile/${newUser._id}`);
+        history.push(`/profile/${newUser._id}?editModal=true`);
         // info({
         //   className: 'MangaFY',
         //   title: <h3 className={styles.modalTitle}>Welcome to MangaFY</h3>,

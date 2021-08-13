@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 import styles from '../styles.module.scss';
 
-const renderStory = (userGenres, setStoryEditMode) =>
+const renderStory = (userGenres, setStoryEditMode, editModalSide) =>
   !!userGenres?.length && (
     <Row>
       <Col span={22}>
@@ -25,7 +25,9 @@ const renderStory = (userGenres, setStoryEditMode) =>
         xxl={{ span: 2 }}
         span={2}
         className={styles.add_button}>
-        <AddButton className={styles.btn_ganres} onClick={() => setStoryEditMode(true)} />
+        {editModalSide && (
+          <AddButton className={styles.btn_ganres} onClick={() => setStoryEditMode(true)} />
+        )}
       </Col>
     </Row>
   );
@@ -40,11 +42,13 @@ const CreateGeneres = ({
   genresMyProfileEnums,
   genres,
   handleChangeGenres,
+  editModalSide,
 }) => (
   <div className={cn('garners_buttons', styles.genres_wrap)}>
     {ifMyProfile ? (
       storyEditMode ? (
         <Select
+          bordered={false}
           mode="multiple"
           MangaGenres={userData.skills || []}
           placeholder="Type or select an option"
@@ -54,7 +58,7 @@ const CreateGeneres = ({
           onChange={handleChangeGenres}
         />
       ) : (
-        renderStory(userGenres, setStoryEditMode)
+        renderStory(userGenres, setStoryEditMode, editModalSide)
       )
     ) : (
       profileGenres?.map(({ name }, index) => (
@@ -69,13 +73,20 @@ const CreateGeneres = ({
 CreateGeneres.propTypes = {
   userGenres: PropTypes.object.isRequired,
   ifMyProfile: PropTypes.bool.isRequired,
-  storyEditMode: PropTypes.bool.isRequired,
-  setStoryEditMode: PropTypes.func.isRequired,
+  storyEditMode: PropTypes.bool,
+  setStoryEditMode: PropTypes.func,
   profileGenres: PropTypes.array.isRequired,
   userData: PropTypes.object.isRequired,
   genresMyProfileEnums: PropTypes.any.isRequired,
   genres: PropTypes.array.isRequired,
   handleChangeGenres: PropTypes.func.isRequired,
+  editModalSide: PropTypes.bool,
+};
+
+CreateGeneres.defaultProps = {
+  editModalSide: true,
+  storyEditMode: true,
+  setStoryEditMode: () => {},
 };
 
 export default CreateGeneres;

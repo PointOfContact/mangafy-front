@@ -85,6 +85,9 @@
 }
 .genres_wrap {
   margin: 30px 0;
+  & > div {
+    min-height: 62px;
+  }
   @include media-sm {
     margin-bottom: 0px;
   }

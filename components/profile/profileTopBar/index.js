@@ -42,15 +42,19 @@ const ProfileTopBar = (props) => {
     setErrMessage,
     ifMyProfile,
     loadingImg,
+    genresMyProfileEnums,
+    userGenres,
+    genres,
+    handleChangeGenres,
   } = props;
 
   const [showModal, changeShowModal] = useState(false);
   const [likedUsers, setLikedUsers] = useState([]);
-
+  const router = useRouter();
+  const ifOwner = user?._id === router.query.pid;
   const [disabledButton, setDisabledButton] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [showModalEdit, setShowModalEdit] = useState(true);
-
+  const [showModalEdit, setShowModalEdit] = useState(ifOwner && !!router.query.editModal);
   const openNotification = (type, message, description = '') => {
     notification[type]({
       message,
@@ -341,6 +345,11 @@ const ProfileTopBar = (props) => {
         props={props}
         userData={userData}
         setUserData={setUserData}
+        genresMyProfileEnums={genresMyProfileEnums}
+        userGenres={userGenres}
+        genres={genres}
+        handleChangeGenres={handleChangeGenres}
+        saveUserDataByKey={saveUserDataByKey}
       />
     </Content>
   );
@@ -361,6 +370,10 @@ ProfileTopBar.propTypes = {
   setErrMessage: PropTypes.func,
   ifMyProfile: PropTypes.bool,
   loadingImg: PropTypes.bool,
+  genresMyProfileEnums: PropTypes.array,
+  userGenres: PropTypes.array,
+  genres: PropTypes.array,
+  handleChangeGenres: PropTypes.func,
 };
 
 ProfileTopBar.defaultProps = {
@@ -378,6 +391,10 @@ ProfileTopBar.defaultProps = {
   ifMyProfile: false,
   setLoadingImg: () => {},
   loadingImg: false,
+  genresMyProfileEnums: [],
+  userGenres: [],
+  genres: [],
+  handleChangeGenres: () => {},
 };
 
 export default ProfileTopBar;

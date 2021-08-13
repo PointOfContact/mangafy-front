@@ -17,14 +17,37 @@ const EditUserDataDuringSignUp = ({
   props,
   userData,
   setUserData,
+  genresMyProfileEnums,
+  userGenres,
+  genres,
+  handleChangeGenres,
+  saveUserDataByKey,
 }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [disabledButton, setDisabledButton] = useState(false);
 
   return (
-    <Modal className={styles.modal} footer={null} visible={showModalEdit}>
-      <HeaderEditUser setShowModalEdit={setShowModalEdit} />
-      <ContentEditUser />
+    <Modal
+      onCancel={() => {
+        setShowModalEdit(false);
+      }}
+      closable={false}
+      className={styles.modal}
+      footer={null}
+      visible={showModalEdit}>
+      <HeaderEditUser
+        userData={userData}
+        setShowModalEdit={setShowModalEdit}
+        saveUserDataByKey={saveUserDataByKey}
+      />
+      <ContentEditUser
+        userData={userData}
+        userGenres={userGenres}
+        genres={genres}
+        genresMyProfileEnums={genresMyProfileEnums}
+        handleChangeGenres={handleChangeGenres}
+        setUserData={setUserData}
+      />
       <div className={styles.containerAvatar}>
         <div className={styles.img}>
           <SetPhotoAvatar ifMyProfile={true} userData={userData} loadingImg={loadingImg} />
@@ -65,12 +88,22 @@ EditUserDataDuringSignUp.propTypes = {
   profile: PropTypes.object,
   loadingImg: PropTypes.bool,
   props: object,
+  genresMyProfileEnums: PropTypes.array,
+  userGenres: PropTypes.array,
+  genres: PropTypes.array,
+  handleChangeGenres: PropTypes.func,
+  saveUserDataByKey: PropTypes.func,
 };
 
 EditUserDataDuringSignUp.defaultProps = {
   profile: {},
   loadingImg: '',
   props: {},
+  genresMyProfileEnums: [],
+  userGenres: [],
+  genres: [],
+  handleChangeGenres: () => {},
+  saveUserDataByKey: () => {},
 };
 
 export default EditUserDataDuringSignUp;
