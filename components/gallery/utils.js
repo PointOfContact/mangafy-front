@@ -36,7 +36,12 @@ const likeGallery = (galleryId, userId) => {
 };
 
 const removeImg = (images, _id, fromPath, userData) => {
-  const newImages = images.filter((item) => item._id !== _id && !item.renderItem);
+  const newImages = images.filter(
+    (item) =>
+      item._id !== _id &&
+      (!item.renderItem || item._id?.slice(-3) === 'PDF' || item?._id?.slice(-3) === 'pdf')
+  );
+  console.log(newImages);
   const data = { gallery: [...newImages.map((item) => item._id)] };
   const jwt = client.getCookie('feathers-jwt');
 
@@ -87,13 +92,7 @@ const adaptedDataImages = (images, res) => {
           (item._id?.slice(-3) === 'pdf' || item._id?.slice(-3) === 'PDF')) ||
         (item._id && !item.renderItem)
     )
-    .map((item) => {
-      if (item.renderItem) {
-        delete item.k;
-        return item;
-      }
-      return item;
-    });
+    .map((item) => item._id);
 
   return [res.id, ...imgs];
 };

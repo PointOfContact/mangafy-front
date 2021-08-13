@@ -17,33 +17,33 @@ import {
 
 import styles from './styles.module.scss';
 
-export const ShareButtons = ({ shareUrl, text }) => {
+export const ShareButtons = ({ shareUrl, text, onClick }) => {
   const [copyText, setCopyText] = useState('Copy to clipboard');
   return (
     <div className={styles.shareButtons}>
       <span className={styles.text}>{text}</span>
       <ul>
-        <li>
+        <li onClick={onClick}>
           <FacebookShareButton quote={'Mangafy-Club'} title="Mangafy-Club" url={shareUrl}>
             <SvgFacebook width="32px" height="32px" />
           </FacebookShareButton>
         </li>
-        <li>
+        <li onClick={onClick}>
           <TwitterShareButton quote={'Mangafy-Club'} title="Mangafy-Club" url={shareUrl}>
             <SvgTwitter width="32px" height="32px" />
           </TwitterShareButton>
         </li>
-        <li>
+        <li onClick={onClick}>
           <TelegramShareButton quote={'Mangafy-Club'} title="Mangafy-Club" url={shareUrl}>
             <TelegramIcon size={32} round={true} />
           </TelegramShareButton>
         </li>
-        <li>
+        <li onClick={onClick}>
           <WhatsappShareButton quote={'Mangafy-Club'} title="Mangafy-Club" url={shareUrl}>
             <SvgWhatsapp width="32px" height="32px" />
           </WhatsappShareButton>
         </li>
-        <li>
+        <li onClick={onClick}>
           <Tooltip placement="topLeft" title={copyText}>
             <span
               className={styles.copy}
@@ -63,9 +63,11 @@ export const ShareButtons = ({ shareUrl, text }) => {
 
 ShareButtons.propTypes = {
   shareUrl: PropTypes.string.isRequired,
+  onClick: PropTypes.func,
   text: PropTypes.string,
 };
 
 ShareButtons.defaultProps = {
   text: '',
+  onClick: () => {},
 };

@@ -41,7 +41,7 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipant, showPayPalToggle 
           {
             platform: 'WEB',
             event_type: EVENTS.MINI_JOB_REMOVED,
-            event_properties: { mangaStoryId: baseData._id, taskId },
+            event_properties: { mangaStoryId: baseData._id, taskId, tasks },
             user_id: user._id,
             user_properties: {
               ...user,

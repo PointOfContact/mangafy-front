@@ -13,6 +13,7 @@ import { userTypes, userTypesEnums } from 'helpers/constant';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
+import myAmplitude from 'utils/amplitude';
 
 import ChangeYourAvatar from './changeYourAvatar';
 import SetPhotoAvatar from './setPhotoAvatar';
@@ -208,6 +209,7 @@ const ProfileTopBar = (props) => {
               disabledButton={disabledButton}
               setDisabledButton={setDisabledButton}
               props={props}
+              user={user}
             />
           </div>
         </Col>
@@ -275,7 +277,18 @@ const ProfileTopBar = (props) => {
                     ))}
                   </Select>
                 </div>
-                <Link href="/contact-us">
+                <Link
+                  href="/contact-us"
+                  onClick={() => {
+                    const event = {
+                      event_type: EVENTS.DELETE_ACCOUNT,
+                      user_id: user._id,
+                      user_properties: {
+                        ...user,
+                      },
+                    };
+                    myAmplitude(event);
+                  }}>
                   <a>
                     <div className={styles.deleteAccount}>
                       <SvgDustbin width="20px" height="20px" />

@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 
 import DeleteProjectModal from 'components/deleteProjectModal';
 import PrimaryButton from 'components/ui-elements/button';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import PropTypes from 'prop-types';
+import myAmplitude from 'utils/amplitude';
 
 import EditStoryTab from '../editStoryTab';
 import BuyBubbleTea from './buyBubbleTea';
@@ -49,13 +51,37 @@ const EditMode = ({
                     isWhite={true}
                     className={styles.editTitleSvg}
                     text={'Edit Project'}
-                    onClick={() => setEditMode(true)}
+                    onClick={() => {
+                      const data = {
+                        platform: 'WEB',
+                        event_type: EVENTS.EDIT_PROJECT,
+                        event_properties: { mangaStoryId: mangaStory._id },
+                        user_id: user._id,
+                        user_properties: {
+                          ...user,
+                        },
+                      };
+                      myAmplitude(data);
+                      setEditMode(true);
+                    }}
                   />
                   <PrimaryButton
                     isWhite={true}
                     className={styles.deleteTitleSvg}
                     text={'Delete Project'}
-                    onClick={() => setIsModalVisible(true)}
+                    onClick={() => {
+                      const data = {
+                        platform: 'WEB',
+                        event_type: EVENTS.DELETE_PROJECT,
+                        event_properties: { mangaStoryId: mangaStory._id },
+                        user_id: user._id,
+                        user_properties: {
+                          ...user,
+                        },
+                      };
+                      myAmplitude(data);
+                      setIsModalVisible(true);
+                    }}
                   />
                 </div>
               )}
