@@ -15,6 +15,12 @@
     margin-top: 100px;
     padding-bottom: 27px;
   }
+  .select {
+    & > div {
+      padding-bottom: 10px !important;
+      height: auto !important;
+    }
+  }
   .contacts {
     display: flex;
     align-items: center;
@@ -305,7 +311,7 @@
     &:hover {
       background-color: $primaryLight;
     }
-    svg{
+    svg {
       margin-top: 2px;
     }
     @include media-sm {
@@ -412,7 +418,7 @@
 }
 
 .changePhoto {
-  & > div > div > div > div{
+  & > div > div > div > div {
     &:hover {
       box-shadow: 1px 1px 18px -5px white;
     }

@@ -56,8 +56,9 @@ const TabStory = (props) => {
           ? userGenres &&
             (!!userGenres?.length || storyEditMode) && (
               <>
-                <h3 className={cn(styles.tab_title)}>Genres</h3>
-                <p>{ifMyProfile && 'What kind of graphic novels are you interested in?'}</p>
+                <h3 className={cn(styles.tab_title)}>
+                  What kind of graphic novels are you interested in?
+                </h3>
               </>
             )
           : profileGenres &&
