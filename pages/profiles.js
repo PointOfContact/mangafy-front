@@ -23,7 +23,7 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
     }
     if (types) {
       types = Array.isArray(types) ? types : [types];
-      query.type = types;
+      query.types = { $in: types };
     }
     if (search) {
       query.$or = [

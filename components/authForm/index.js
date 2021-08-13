@@ -34,6 +34,8 @@ const AuthForm = ({ type, errorMessage, onChange, onSubmit, isLogin, loading }) 
             />
             <div className={styles.select}>
               <PrimarySelect
+                // mode="multiple"
+                // isMulti={true}
                 className={styles.select_login}
                 label="I'm a"
                 id="type"
@@ -41,7 +43,7 @@ const AuthForm = ({ type, errorMessage, onChange, onSubmit, isLogin, loading }) 
                 onChange={onChange}
                 isLinear={true}
                 isFullWidth={true}
-                placeholder="Your title"
+                placeholder="Your Profession"
                 value={type || undefined}
                 options={userTypes}
               />

@@ -15,6 +15,7 @@ import Router from 'next/router';
 import PropTypes from 'prop-types';
 import * as qs from 'query-string';
 
+import BestProfileImages from './bestProfileImages';
 import styles from './styles.module.scss';
 
 export default function LandingNew(props) {
@@ -25,6 +26,7 @@ export default function LandingNew(props) {
     members,
     collaborations,
     getCurrentPostData,
+    gallery,
     selectedCategories,
     selectedType,
   } = props;
@@ -109,6 +111,7 @@ export default function LandingNew(props) {
           <Header user={user} />
           <main className={styles.main}>
             {!user && <AnimePlatform />}
+            <BestProfileImages gallery={gallery} user={user} />
             <TypePage
               user={user}
               posts={posts}
@@ -149,6 +152,7 @@ LandingNew.propTypes = {
   members: PropTypes.array,
   collaborations: PropTypes.array,
   getCurrentPostData: PropTypes.object,
+  gallery: PropTypes.array,
 };
 
 LandingNew.defaultProps = {
@@ -158,4 +162,5 @@ LandingNew.defaultProps = {
   members: [],
   collaborations: [],
   getCurrentPostData: {},
+  gallery: [],
 };

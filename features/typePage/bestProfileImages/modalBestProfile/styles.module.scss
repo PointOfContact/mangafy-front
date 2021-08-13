@@ -1,0 +1,117 @@
+@import '../../../../styles/variables.scss';
+
+.modal {
+  max-width: 85% !important;
+  width: 100% !important;
+  height: calc(100vh - 150px);
+  margin-top: 20px;
+  padding: 0;
+  @include media-sm {
+    max-width: 95% !important;
+  }
+  @include media-xs {
+    height: 600px;
+  }
+  & > div:nth-child(2) {
+    height: 100%;
+    border-radius: 6px;
+  }
+  .close {
+    width: 35px;
+    height: 35px;
+    margin-top: 20px;
+    margin-right: 20px;
+    background-color: $primaryDark;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    svg {
+      width: 16px;
+      height: 16px;
+      path {
+        fill: white;
+      }
+    }
+    @include media-sm {
+      width: 30px;
+      height: 30px;
+      svg {
+        width: 14px;
+        height: 14px;
+      }
+    }
+    &:hover {
+      background-color: $primaryLight;
+    }
+  }
+  .container {
+    width: 100%;
+    & > div {
+      border-radius: 6px;
+      img {
+        margin-top: 60px !important;
+        max-height: calc(100vh - 277px) !important;
+        min-height: 558px;
+        border-radius: 6px;
+        object-fit: contain;
+        @include media-xs {
+          min-height: 458px !important;
+          height: 458px !important;
+          margin-top: 80px !important;
+        }
+      }
+    }
+  }
+}
+
+.moduleGa {
+  max-width: 1200px;
+  height: 680px;
+  position: relative;
+  margin: auto;
+  @include media-xs {
+    height: 470px;
+  }
+  & > span {
+    width: 95%;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    & > div {
+      height: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: end;
+    }
+    p {
+      font-weight: bold;
+      margin: 0;
+      &:last-child {
+        font-weight: normal;
+        font-size: 12px;
+        color: $gray85;
+      }
+    }
+    @include media-xs {
+      width: 90%;
+    }
+    & > span {
+      width: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      & > svg {
+        width: 24px;
+        height: 24px;
+        &:hover {
+          & > path {
+            fill: rgb(226, 186, 194);
+          }
+        }
+      }
+    }
+  }
+}

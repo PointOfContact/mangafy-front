@@ -266,8 +266,10 @@ const ProfileTopBar = (props) => {
                 </h2>
                 <div>
                   <Select
-                    className="changeSelect"
+                    // mode="multiple"
+                    className={cn('changeSelect', styles.select)}
                     defaultValue={userTypesEnums[userData.type]}
+                    // value={userData.type}
                     style={{ width: '100%' }}
                     onChange={(value) => setUserData({ ...userData, type: value })}>
                     {userTypes.map((item) => (

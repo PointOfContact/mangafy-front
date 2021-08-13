@@ -38,6 +38,7 @@ const Profile = (props) => {
   const [userData, setUserData] = useState({
     name: user?.name,
     type: user?.type,
+    types: user?.types,
     content: user?.content,
     genresIds: user?.genresIds,
     avatar: user?.avatar,
