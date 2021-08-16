@@ -3,7 +3,9 @@ import React from 'react';
 import { notification } from 'antd';
 import { likeGallery } from 'components/gallery/utils';
 import SvgHeart from 'components/icon/Heart';
+import Imgix from 'components/imgix';
 import { userTypesEnums } from 'helpers/constant';
+import Link from 'next/link';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
@@ -14,6 +16,7 @@ const DescriptionBestProfile = ({
   likeModalContainerStyle,
   topGallery,
   setTopGallery,
+  ifModal,
 }) => {
   const isLiked = (userId) => !!item?.galleryLikedUsers?.find((value) => value === userId);
 
@@ -42,13 +45,31 @@ const DescriptionBestProfile = ({
       });
   };
 
+  const handleEvent = (e) => {
+    e.stopPropagation();
+  };
+
   return (
     <>
-      <span className={styles.descriptionContMobile}>
-        <div className={styles.description}>
-          <p>{item?.name}</p>
-          <p className={styles.type}>{userTypesEnums[item?.type]}</p>
-        </div>
+      <span className={styles.descriptionContent} onClick={(e) => handleEvent(e)}>
+        <Link href={`/profile/${item.userId}`}>
+          <a className={styles.avatarData}>
+            {ifModal && (
+              <Imgix
+                layout="fixed"
+                className={styles.avatarImage}
+                width={55}
+                height={55}
+                src={`https://mangafy.club/api/v2/uploads/${item?.avatar}`}
+                alt="mangaFy top gallery"
+              />
+            )}
+            <div className={styles.description}>
+              <p>{item?.name}</p>
+              <p className={styles.type}>{userTypesEnums[item?.type]}</p>
+            </div>
+          </a>
+        </Link>
         <span
           className={
             likeModalContainerStyle ? styles.likeModalContainerStyle : styles.likeContainer
@@ -70,15 +91,16 @@ const DescriptionBestProfile = ({
 };
 
 DescriptionBestProfile.propTypes = {
-  item: PropTypes.object,
+  item: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
   likeModalContainerStyle: PropTypes.bool.isRequired,
   topGallery: PropTypes.array.isRequired,
   setTopGallery: PropTypes.func.isRequired,
+  ifModal: PropTypes.bool,
 };
 
 DescriptionBestProfile.defaultProps = {
-  item: {},
+  ifModal: false,
 };
 
 export default DescriptionBestProfile;
