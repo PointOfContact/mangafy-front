@@ -5,13 +5,27 @@ import { Popover } from 'antd';
 import SvgChat from 'components/icon/Chat';
 import SvgHand from 'components/icon/Hand';
 import Share from 'components/ui-elements/share';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import PropTypes from 'prop-types';
+import myAmplitude from 'utils/amplitude';
 import useWindowSize from 'utils/useWindowSize';
 
 import styles from '../styles.module.scss';
 
 const ShareProfile = ({ ifMyProfile, originUrl, profile, user, sendInvites, sendMessage }) => {
   const { width } = useWindowSize();
+
+  const sendEvent = (event) => {
+    const data = {
+      event_type: event,
+      event_properties: { profileId: profile?._id },
+      user_id: user?._id,
+      user_properties: {
+        ...user,
+      },
+    };
+    myAmplitude(data);
+  };
 
   return ifMyProfile ? (
     <>
@@ -22,7 +36,7 @@ const ShareProfile = ({ ifMyProfile, originUrl, profile, user, sendInvites, send
             placement={width < 768 ? 'bottom' : 'left'}
             content={'Share'}
             trigger="hover">
-            <div className={styles.svgBg}>
+            <div className={styles.svgBg} onClick={() => sendEvent(EVENTS.SHARED_MY_ACCOUNT)}>
               <Share shareUrl={originUrl} />
             </div>
           </Popover>
@@ -38,7 +52,7 @@ const ShareProfile = ({ ifMyProfile, originUrl, profile, user, sendInvites, send
             placement={width < 768 ? 'bottom' : 'left'}
             content={'Share'}
             trigger="hover">
-            <div className={styles.svgBg}>
+            <div className={styles.svgBg} onClick={() => sendEvent(EVENTS.SHARED_ANOTHER_ACCOUNT)}>
               <Share shareUrl={originUrl} />
             </div>
           </Popover>
@@ -67,7 +81,12 @@ const ShareProfile = ({ ifMyProfile, originUrl, profile, user, sendInvites, send
               placement={width < 768 ? 'bottom' : 'left'}
               content={'Messenger'}
               trigger="hover">
-              <div onClick={sendMessage} className={styles.svgBg}>
+              <div
+                onClick={(e) => {
+                  sendMessage(e);
+                  sendEvent(EVENTS.MESSAGED_ACCOUNT);
+                }}
+                className={styles.svgBg}>
                 <SvgChat width="19px" height="19px" />
               </div>
             </Popover>

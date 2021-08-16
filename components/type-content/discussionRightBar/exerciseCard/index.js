@@ -3,13 +3,15 @@ import React from 'react';
 import { Modal } from 'antd';
 import PrimaryButton from 'components/ui-elements/button';
 import LargeButton from 'components/ui-elements/large-button';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
+import myAmplitude from 'utils/amplitude';
 
 import styles from './styles.module.scss';
 
 const ExerciseCard = (props) => {
-  const { order, categories, title, url, btnText } = props;
+  const { order, categories, title, url, btnText, warmapId, user } = props;
 
   const { info } = Modal;
   const history = useRouter();
@@ -19,6 +21,16 @@ const ExerciseCard = (props) => {
 
   const showModal = () => {
     // TODO warmaps event
+    const data = {
+      event_type: EVENTS.OPENED_POST,
+      event_properties: { warmapId },
+      user_id: user?._id,
+      user_properties: {
+        ...user,
+      },
+    };
+    myAmplitude(data);
+
     info({
       className: 'MangaFY',
       title: <h3 className={styles.modalTitle}>AMAZING!</h3>,
@@ -70,8 +82,12 @@ ExerciseCard.propTypes = {
   title: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
   btnText: PropTypes.string.isRequired,
+  user: PropTypes.object,
+  warmapId: PropTypes.string.isRequired,
 };
 
-ExerciseCard.defaultProps = {};
+ExerciseCard.defaultProps = {
+  user: null,
+};
 
 export default ExerciseCard;

@@ -12,15 +12,26 @@ import SearchForMembers from 'components/searchForMembers';
 import PrimaryButton from 'components/ui-elements/button';
 import ButtonToTop from 'components/ui-elements/button-toTop';
 import FooterLogin from 'features/footerLogin';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import { userTypes } from 'helpers/constant';
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
+import myAmplitude from 'utils/amplitude';
 
 import styles from './styles.module.scss';
 
 const Profiles = (props) => {
   const { users, total, current, user, genres, search, selectedTypes, selectedGenres } = props;
+
+  const data = {
+    event_type: EVENTS.OPENED_ALL_COLLABORATION,
+    user_id: user?._id,
+    user_properties: {
+      ...user,
+    },
+  };
+  myAmplitude(data);
 
   return (
     <>

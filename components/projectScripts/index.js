@@ -6,13 +6,15 @@ import cn from 'classnames';
 import SvgDelete from 'components/icon/Delete';
 import Popconfirm from 'components/popconfirm';
 import AddButton from 'components/ui-elements/add-button';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import PropTypes from 'prop-types';
+import myAmplitude from 'utils/amplitude';
 
 import EditCard from './editCard';
 import ModalScript from './modalScript';
 import styles from './styles.module.scss';
 
-const ProjectScripts = ({ pages, storyBoardId, storyBoard, setStoryBoard }) => {
+const ProjectScripts = ({ pages, storyBoardId, storyBoard, setStoryBoard, user }) => {
   const [scripts, setScripts] = useState(pages);
   const [visiblePageModal, setVisiblePageModal] = useState(false);
   const [showTitleInput, setShowTitleInput] = useState(false);
@@ -92,6 +94,16 @@ const ProjectScripts = ({ pages, storyBoardId, storyBoard, setStoryBoard }) => {
         createPage(
           dataToSave,
           (res) => {
+            const data = {
+              event_type: EVENTS.ADDED_BOARD_PAGE,
+              event_properties: { storyBoardId, pageId: res?._id },
+              user_id: user._id,
+              user_properties: {
+                ...user,
+              },
+            };
+            myAmplitude(data);
+
             items[index]._id = res?._id;
             setScripts(items);
             setVisiblePageModal(false);
@@ -221,6 +233,7 @@ ProjectScripts.propTypes = {
   storyBoardId: PropTypes.string,
   storyBoard: PropTypes.object,
   setStoryBoard: PropTypes.func,
+  user: PropTypes.object,
 };
 
 ProjectScripts.defaultProps = {
@@ -228,6 +241,7 @@ ProjectScripts.defaultProps = {
   pages: [],
   storyBoard: {},
   setStoryBoard: () => {},
+  user: {},
 };
 
 export default ProjectScripts;

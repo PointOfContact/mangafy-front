@@ -17,7 +17,7 @@ export const HeroTypes = {
   background: 'background',
 };
 
-const Hero = ({ storyBoard, getStoryBoard }) => {
+const Hero = ({ storyBoard, getStoryBoard, user }) => {
   const [showModal, changeShowModal] = useState(false);
   const [selectedHero, setSelectedHero] = useState({});
   const [selectedType, setSelectedType] = useState('');
@@ -150,6 +150,7 @@ const Hero = ({ storyBoard, getStoryBoard }) => {
         getStoryBoard={getStoryBoard}
         hero={selectedHero}
         type={selectedType}
+        user={user}
       />
     </div>
   );
@@ -159,12 +160,14 @@ Hero.propTypes = {
   storyBoard: PropTypes.object,
   setStoryBoard: PropTypes.func,
   getStoryBoard: PropTypes.func,
+  user: PropTypes.object,
 };
 
 Hero.defaultProps = {
   storyBoard: {},
   setStoryBoard: () => {},
   getStoryBoard: () => {},
+  user: null,
 };
 
 export default Hero;
