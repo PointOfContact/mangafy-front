@@ -14,6 +14,7 @@ import FooterLogin from 'features/footerLogin';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { beforeUploadBase64 } from 'helpers/shared';
 import { NextSeo } from 'next-seo';
+import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import myAmplitude from 'utils/amplitude';
 
@@ -34,6 +35,9 @@ const Profile = (props) => {
   const [editMode, setEditMode] = useState(false);
   const [loadingImg, setLoadingImg] = useState(false);
   const [storyEditMode, setStoryEditMode] = useState(false);
+  const router = useRouter();
+  const ifOwner = user?._id === router.query.pid;
+  const [showModalEdit, setShowModalEdit] = useState(ifOwner && router.query.editModal === 'true');
   const [errMessage, setErrMessage] = useState('');
   const [userData, setUserData] = useState({
     name: user?.name,
@@ -172,7 +176,7 @@ const Profile = (props) => {
       <ButtonToTop />
       <div className={'wrapper'}>
         <div className={'content'}>
-          <Header path="profile" user={user} />
+          <Header path="profile" user={user} setShowModalEdit={setShowModalEdit} />
           <main>
             <section className={cn(styles.container)}>
               <div className="container">
@@ -197,6 +201,8 @@ const Profile = (props) => {
                     userGenres,
                     genres,
                     handleChangeGenres,
+                    showModalEdit,
+                    setShowModalEdit,
                   }}
                 />
               </div>

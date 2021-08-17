@@ -4,7 +4,8 @@ import Modal from 'antd/lib/modal/Modal';
 import SvgPrimaryAdd from 'components/icon/PrimaryAdd';
 import ChangeYourAvatar from 'components/profile/profileTopBar/changeYourAvatar';
 import SetPhotoAvatar from 'components/profile/profileTopBar/setPhotoAvatar';
-import PropTypes, { object } from 'prop-types';
+import { useRouter } from 'next/router';
+import PropTypes from 'prop-types';
 
 import ContentEditUser from './contentEditUser';
 import HeaderEditUser from './headerEditUser';
@@ -25,20 +26,25 @@ const EditUserDataDuringSignUp = ({
 }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [disabledButton, setDisabledButton] = useState(false);
+  const router = useRouter();
+  const errorAboutMe = userData?.content?.length < 3 || !userData?.content?.trim().length;
+  const nameRequired = userData?.name?.length < 3 || !userData?.name?.trim().length;
 
   return (
     <Modal
       onCancel={() => {
         setShowModalEdit(false);
+        router.push(`/profile/${router.query.pid}`, undefined, { shallow: true });
       }}
       closable={false}
       className={styles.modal}
       footer={null}
       visible={showModalEdit}>
       <HeaderEditUser
-        userData={userData}
         setShowModalEdit={setShowModalEdit}
         saveUserDataByKey={saveUserDataByKey}
+        errorAboutMe={errorAboutMe}
+        nameRequired={nameRequired}
       />
       <ContentEditUser
         userData={userData}
@@ -47,6 +53,8 @@ const EditUserDataDuringSignUp = ({
         genresMyProfileEnums={genresMyProfileEnums}
         handleChangeGenres={handleChangeGenres}
         setUserData={setUserData}
+        errorAboutMe={errorAboutMe}
+        nameRequired={nameRequired}
       />
       <div className={styles.containerAvatar}>
         <div className={styles.img}>
@@ -87,7 +95,7 @@ EditUserDataDuringSignUp.propTypes = {
   setUserData: PropTypes.func.isRequired,
   profile: PropTypes.object,
   loadingImg: PropTypes.bool,
-  props: object,
+  props: PropTypes.object,
   genresMyProfileEnums: PropTypes.array,
   userGenres: PropTypes.array,
   genres: PropTypes.array,
