@@ -14,28 +14,27 @@ const ContentEditUser = ({
   genres,
   genresMyProfileEnums,
   handleChangeGenres,
-}) => {
+  errorAboutMe,
+  nameRequired,
+}) => (
   // const [favoriteNovel, setFavoriteNovel] = useState('');
-  const errorAboutMe = userData?.content?.length < 3 || userData?.content === undefined;
-  const nameRequired = userData?.name?.length < 3 || userData?.name === undefined;
 
-  return (
-    <div className={styles.container}>
-      <div className={styles.card_wrap}>
-        <div className={styles.containerContent}>
-          <h3>Full Name</h3>
-          <PrimaryInput
-            value={userData.name}
-            onChange={(e) => setUserData({ ...userData, name: e.target.value })}
-            placeholder="Your name"
-            className={styles.fullNameInput}
-          />
-          {nameRequired && (
-            <p className={styles.errorAboutMe}> Name length should be minimum 3 characters </p>
-          )}
-          {/* <h3>Add an area of expertise</h3> */}
-          {/* //TODO replace component */}
-          {/* <CreateGeneres
+  <div className={styles.container}>
+    <div className={styles.card_wrap}>
+      <div className={styles.containerContent}>
+        <h3>Full Name</h3>
+        <PrimaryInput
+          value={userData.name}
+          onChange={(e) => setUserData({ ...userData, name: e.target.value })}
+          placeholder="Your name"
+          className={styles.fullNameInput}
+        />
+        {nameRequired && (
+          <p className={styles.errorAboutMe}> Name length should be minimum 3 characters </p>
+        )}
+        {/* <h3>Add an area of expertise</h3> */}
+        {/* //TODO replace component */}
+        {/* <CreateGeneres
             userGenres={userGenres}
             ifMyProfile={true}
             profileGenres={[]}
@@ -45,9 +44,9 @@ const ContentEditUser = ({
             handleChangeGenres={handleChangeGenres}
             editModalSide={false}
           /> */}
-          {/* <h3 className={styles.languagesSpeak}>What languages do you speak?</h3> */}
-          {/* //TODO replace component */}
-          {/* <CreateGeneres
+        {/* <h3 className={styles.languagesSpeak}>What languages do you speak?</h3> */}
+        {/* //TODO replace component */}
+        {/* <CreateGeneres
             userGenres={userGenres}
             ifMyProfile={true}
             profileGenres={[]}
@@ -57,33 +56,33 @@ const ContentEditUser = ({
             handleChangeGenres={handleChangeGenres}
             editModalSide={false}
           /> */}
-          <h3>About Me</h3>
-          <TextArea
-            className={styles.aboutMe}
-            value={userData.content}
-            onChange={(e) => {
-              setUserData({
-                ...userData,
-                content: e.target.value,
-              });
-            }}
-            placeholder="Tell your story, what are you creating? A comic book Manga or maybe a whole novella, we're very interested!"
-          />
-          {errorAboutMe && (
-            <p className={styles.errorAboutMe}> Text length should be minimum 3 characters </p>
-          )}
-          <h3 className={styles.graphicNovels}>What types of graphic novels do you enjoy?</h3>
-          <CreateGeneres
-            userGenres={userGenres}
-            ifMyProfile={true}
-            profileGenres={[]}
-            userData={userData}
-            genresMyProfileEnums={genresMyProfileEnums}
-            genres={genres}
-            handleChangeGenres={handleChangeGenres}
-            editModalSide={false}
-          />
-          {/* <h3 className={styles.supporterButton}>Allow supporter button</h3>
+        <h3>About Me</h3>
+        <TextArea
+          className={styles.aboutMe}
+          value={userData.content}
+          onChange={(e) => {
+            setUserData({
+              ...userData,
+              content: e.target.value,
+            });
+          }}
+          placeholder="Tell your story, what are you creating? A comic book Manga or maybe a whole novella, we're very interested!"
+        />
+        {errorAboutMe && (
+          <p className={styles.errorAboutMe}> Text length should be minimum 3 characters </p>
+        )}
+        <h3 className={styles.graphicNovels}>What types of graphic novels do you enjoy?</h3>
+        <CreateGeneres
+          userGenres={userGenres}
+          ifMyProfile={true}
+          profileGenres={[]}
+          userData={userData}
+          genresMyProfileEnums={genresMyProfileEnums}
+          genres={genres}
+          handleChangeGenres={handleChangeGenres}
+          editModalSide={false}
+        />
+        {/* <h3 className={styles.supporterButton}>Allow supporter button</h3>
           <p>Add the ability to accept support from your fans </p>
           <ToggleSwitch />
           <h3>What is your favorite novel or anime?</h3>
@@ -95,12 +94,10 @@ const ContentEditUser = ({
               setFavoriteNovel(e.target.value);
             }}
           /> */}
-        </div>
       </div>
     </div>
-  );
-};
-
+  </div>
+);
 ContentEditUser.propTypes = {
   userData: PropTypes.object.isRequired,
   userGenres: PropTypes.array.isRequired,
@@ -110,6 +107,8 @@ ContentEditUser.propTypes = {
   genresMyProfileEnums: PropTypes.object.isRequired,
   handleChangeGenres: PropTypes.func.isRequired,
   setUserData: PropTypes.func,
+  errorAboutMe: PropTypes.bool.isRequired,
+  nameRequired: PropTypes.bool.isRequired,
 };
 
 ContentEditUser.defaultProps = {

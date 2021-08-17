@@ -11,6 +11,7 @@ import MenuNotificationsBox from 'components/menu-notifications-box';
 import AddButton from 'components/ui-elements/add-button';
 import Avatar from 'components/ui-elements/avatar';
 import PrimaryButton from 'components/ui-elements/button';
+import WarningFillAllData from 'components/warningFillAllData';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { removeAllStorage } from 'helpers/shared';
 import Link from 'next/link';
@@ -50,7 +51,7 @@ const findNotificationsCount = (onSuccess, onFailure) => {
   });
 };
 
-const Header = ({ user, path }) => {
+const Header = ({ user, path, setShowModalEdit }) => {
   const [isOpen, handleMenuOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
@@ -58,6 +59,8 @@ const Header = ({ user, path }) => {
   const [unreadNotificationsId, setUnreadNotificationsId] = useState([]);
   const router = useRouter();
   const ifMyProfile = router?.query?.pid === user?._id;
+  const ifNotData = !user?.content || !user?.name || !user?.genresIds?.length;
+  const showWarning = !!user && router.query.editModal !== 'true' && ifNotData;
 
   const getNotificationsCount = useCallback(() => {
     if (!user) return;
@@ -129,7 +132,7 @@ const Header = ({ user, path }) => {
     amplitude.track(data);
   };
   return (
-    <div className={styles.header_cont}>
+    <div className={cn(styles.header_cont, showWarning && styles.isWarning)}>
       <header className={`${styles.header} navbar menubar`}>
         <div className={'container'}>
           <div className={styles.header__top}>
@@ -335,6 +338,7 @@ const Header = ({ user, path }) => {
             handleMenuOpen={handleMenuOpen}
           />
         )}
+        {showWarning && <WarningFillAllData user={user} setShowModalEdit={setShowModalEdit} />}
       </header>
       <ModalInviteMembers showModal={showModal} setShowModal={setShowModal} user={user} />
     </div>
@@ -344,11 +348,13 @@ const Header = ({ user, path }) => {
 Header.propTypes = {
   user: PropTypes.object,
   path: PropTypes.string,
+  setShowModalEdit: PropTypes.func,
 };
 
 Header.defaultProps = {
   user: null,
   path: '',
+  setShowModalEdit: () => {},
 };
 
 export default Header;

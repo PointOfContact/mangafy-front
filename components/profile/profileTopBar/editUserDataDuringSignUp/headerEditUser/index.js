@@ -6,10 +6,9 @@ import PropTypes from 'prop-types';
 
 import styles from '../styles.module.scss';
 
-const HeaderEditUser = ({ userData, setShowModalEdit, saveUserDataByKey }) => {
-  const history = useRouter();
-  const errorAboutMe = userData?.content?.length < 3 || userData?.content === undefined;
-  const nameRequired = userData?.name?.length < 3 || userData?.name === undefined;
+const HeaderEditUser = ({ setShowModalEdit, saveUserDataByKey, errorAboutMe, nameRequired }) => {
+  const router = useRouter();
+
   return (
     <div className={styles.containerHeader}>
       <h2>Edit Page</h2>
@@ -18,6 +17,7 @@ const HeaderEditUser = ({ userData, setShowModalEdit, saveUserDataByKey }) => {
           text="Cancel"
           onClick={() => {
             setShowModalEdit(false);
+            router.push(`/profile/${router.query.pid}`, undefined, { shallow: true });
           }}
         />
         <PrimaryButton
@@ -26,9 +26,8 @@ const HeaderEditUser = ({ userData, setShowModalEdit, saveUserDataByKey }) => {
           text="Save"
           onClick={() => {
             setShowModalEdit(false);
-            saveUserDataByKey('content', 'genresIds');
-            saveUserDataByKey('name', 'types');
-            history.push(`/profile/${history.query.pid}`);
+            saveUserDataByKey('content', 'genresIds', 'name', 'types');
+            router.push(`/profile/${router.query.pid}`, undefined, { shallow: true });
           }}
         />
       </div>
@@ -37,9 +36,10 @@ const HeaderEditUser = ({ userData, setShowModalEdit, saveUserDataByKey }) => {
 };
 
 HeaderEditUser.propTypes = {
-  userData: PropTypes.object.isRequired,
   setShowModalEdit: PropTypes.func.isRequired,
   saveUserDataByKey: PropTypes.func.isRequired,
+  errorAboutMe: PropTypes.bool.isRequired,
+  nameRequired: PropTypes.bool.isRequired,
 };
 
 export default HeaderEditUser;

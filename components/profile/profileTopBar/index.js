@@ -46,15 +46,14 @@ const ProfileTopBar = (props) => {
     userGenres,
     genres,
     handleChangeGenres,
+    showModalEdit,
+    setShowModalEdit,
   } = props;
 
   const [showModal, changeShowModal] = useState(false);
   const [likedUsers, setLikedUsers] = useState([]);
-  const router = useRouter();
-  const ifOwner = user?._id === router.query.pid;
   const [disabledButton, setDisabledButton] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [showModalEdit, setShowModalEdit] = useState(ifOwner && !!router.query.editModal);
   const openNotification = (type, message, description = '') => {
     notification[type]({
       message,
@@ -374,6 +373,8 @@ ProfileTopBar.propTypes = {
   userGenres: PropTypes.array,
   genres: PropTypes.array,
   handleChangeGenres: PropTypes.func,
+  showModalEdit: PropTypes.bool,
+  setShowModalEdit: PropTypes.func,
 };
 
 ProfileTopBar.defaultProps = {
@@ -395,6 +396,8 @@ ProfileTopBar.defaultProps = {
   userGenres: [],
   genres: [],
   handleChangeGenres: () => {},
+  showModalEdit: false,
+  setShowModalEdit: () => {},
 };
 
 export default ProfileTopBar;
