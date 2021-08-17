@@ -6,7 +6,7 @@ import SvgClose from 'components/icon/Close';
 import LargeButton from 'components/ui-elements/large-button';
 import PrimarySelect from 'components/ui-elements/select';
 import { EVENTS } from 'helpers/amplitudeEvents';
-import { USER_TYPES } from 'helpers/constant';
+import { userTypes } from 'helpers/constant';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
@@ -128,9 +128,9 @@ const ModalStart = ({ changeShowModal, showModal, baseData, selectedTask, user }
     }
   };
 
-  const MyCheckboxes = USER_TYPES.map((item) => ({
-    key: item.label,
-    value: item.label,
+  const MyCheckboxes = userTypes.map((item) => ({
+    key: item.value,
+    value: item.value,
   }));
 
   return (

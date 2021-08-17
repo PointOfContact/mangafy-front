@@ -7,7 +7,7 @@ import SvgClose from 'components/icon/Close';
 import PrimaryButton from 'components/ui-elements/button';
 import PrimarySelect from 'components/ui-elements/select';
 import { EVENTS } from 'helpers/amplitudeEvents';
-import { USER_TYPES } from 'helpers/constant';
+import { userTypes } from 'helpers/constant';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
@@ -110,9 +110,9 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
     changeShowModal(false);
   };
 
-  const MyCheckboxes = USER_TYPES.map((item) => ({
-    key: item.label,
-    value: item.label,
+  const MyCheckboxes = userTypes.map((item) => ({
+    key: item.value,
+    value: item.value,
   }));
 
   return (

@@ -9,7 +9,7 @@ import PrimaryButton from 'components/ui-elements/button';
 import PrimaryInput from 'components/ui-elements/input';
 import PrimarySelect from 'components/ui-elements/select';
 import { EVENTS } from 'helpers/amplitudeEvents';
-import { USER_TYPES } from 'helpers/constant';
+import { userTypes } from 'helpers/constant';
 import PropTypes from 'prop-types';
 import myAmplitude from 'utils/amplitude';
 
@@ -164,9 +164,9 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
       );
   };
 
-  const MyCheckboxes = USER_TYPES.map((item) => ({
-    key: item.label,
-    value: item.label,
+  const MyCheckboxes = userTypes.map((item) => ({
+    key: item.value,
+    value: item.value,
   }));
 
   const RewardTypes = [

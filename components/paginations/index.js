@@ -59,6 +59,21 @@ const Paginations = ({
                   <a>{originalElement}</a>
                 </Link>
               );
+            case 'jump-next':
+              return (
+                <Link
+                  href={getPageLink(
+                    current + 5 <= total / pageSize ? current + 5 : Math.ceil(total / pageSize)
+                  )}>
+                  <a>{originalElement}</a>
+                </Link>
+              );
+            case 'jump-prev':
+              return (
+                <Link href={getPageLink((current - 5 > 0 && current - 5) || 1)}>
+                  <a>{originalElement}</a>
+                </Link>
+              );
             default:
               return originalElement;
           }
