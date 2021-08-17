@@ -296,6 +296,21 @@
       box-sizing: border-box;
       color: #fff;
       font-weight: 700;
+      &::after{
+        content: " ";
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        position: absolute;
+        bottom: 95%;
+        left: 98%;
+        background-color: $primaryDark;
+        border-left: 1px solid #4332a4;;
+        border-bottom: 1px solid #4332a4;
+        @include media-lg{
+          left: 95%;
+        }
+      }
     }
     .fullStartProject {
       @include media-lg {

@@ -4,14 +4,14 @@
   max-width: 85% !important;
   width: 100% !important;
   height: calc(100vh - 150px);
-  margin-top: 20px;
+  margin-top: 44px;
   padding: 0;
   div {
     height: 100%;
   }
   @include media-sm {
     max-width: 95% !important;
-    margin-top: 0;
+    margin-top: 25px;
   }
   @include media-xs {
     height: 600px;

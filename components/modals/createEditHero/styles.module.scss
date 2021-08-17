@@ -18,7 +18,7 @@ $borderColor: #f0f0f0;
 }
 
 .modal {
-  margin-top: $text3 !important;
+  margin-top: 50px !important;
   @include media-sm {
     width: 95% !important;
     max-width: 95% !important;
@@ -116,6 +116,9 @@ $borderColor: #f0f0f0;
   padding-bottom: $text3;
   color: $black;
   border: 1px solid $borderColor;
+  @include media-xs{
+    font-size: 14px;
+  }
 }
 
 .inputContainer{

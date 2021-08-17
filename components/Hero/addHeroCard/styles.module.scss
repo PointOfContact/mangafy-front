@@ -23,8 +23,6 @@
         width: 280.9px;
         margin-top: 0;
         & .showImage{
-            display: flex;
-            justify-content: center;
             @include media-sm{
                 & > img {
                     width: unset;

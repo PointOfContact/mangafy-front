@@ -191,7 +191,7 @@ const MangeStory = (props) => {
                     />
                   </TabPane>
                   {(isOwn || hasStoryBoardPermision) && (
-                    <TabPane tab="STORY BOARD" key="2" className="story">
+                    <TabPane tab="CREATE" key="2" className="story">
                       <StoryBoardTabs
                         setStage={setStage}
                         mangaStory={mangaStory}

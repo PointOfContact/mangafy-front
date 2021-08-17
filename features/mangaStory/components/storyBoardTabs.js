@@ -59,15 +59,15 @@ const StoryBoardTabs = ({
           tab,
           title: 'THE SETTING',
           description:
-            'Every good story begins with an idea. This part should include the concept, location, and synopses',
+            "Every good story begins with an idea. This part should include your story's concept, genre, and synopsis.",
         });
         break;
       case '2':
         setStage({
           tab,
-          title: 'THE CHARACTERS',
+          title: 'BUILD YOUR CHARACTERS',
           description:
-            'To get the reader engaged, a good cast must be included. Add full bios of your characters',
+            'To get the reader engaged we need to build an awesome cast and world. Define your characters to kick off your tale.',
         });
         break;
       case '3':
@@ -75,7 +75,7 @@ const StoryBoardTabs = ({
           tab,
           title: 'SCRIPT',
           description:
-            'Add a full comic strip/5 pages/a volume/arc or full script of your comic book or novel',
+            'Add full comic and manga script pages for an Arc, volume, or a full graphic novel',
         });
         break;
       // case '4':
