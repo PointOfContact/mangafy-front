@@ -41,7 +41,9 @@ const ProfilesCard = ({ user, genres }) => {
           </div>
           <div className={styles.colabWrap__name}>
             <div className={styles.colabWrap__authorName}>{user.name}</div>
-            <div className={styles.colabWrap__authorDescr}>{userTypesEnums[user?.type]}</div>
+            <div className={styles.colabWrap__authorDescr}>
+              {userTypesEnums[!!user?.types.length && user?.types[0]]}
+            </div>
           </div>
         </div>
         <СardGenres genres={profileGenres} />

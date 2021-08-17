@@ -47,7 +47,7 @@ const DescriptionBestProfile = ({
       <span className={styles.descriptionContMobile}>
         <div className={styles.description}>
           <p>{item?.name}</p>
-          <p className={styles.type}>{userTypesEnums[item?.type]}</p>
+          <p className={styles.type}>{userTypesEnums[item?.types?.length && item?.types[0]]}</p>
         </div>
         <span
           className={
