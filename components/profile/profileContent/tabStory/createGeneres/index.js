@@ -84,8 +84,8 @@ CreateGeneres.propTypes = {
 };
 
 CreateGeneres.defaultProps = {
-  editModalSide: true,
-  storyEditMode: true,
+  editModalSide: false,
+  storyEditMode: false,
   setStoryEditMode: () => {},
 };
 

@@ -7,10 +7,12 @@ import SvgHeart from 'components/icon/Heart';
 import Imgix from 'components/imgix';
 import ModalDiscussion from 'components/modals/discussion';
 import PrimaryButton from 'components/ui-elements/button';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import Link from 'next/link';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
 import * as qs from 'query-string';
+import myAmplitude from 'utils/amplitude';
 import { LinkCreator } from 'utils/linkCreator';
 
 import DiscussionType from '../discussionType';
@@ -46,6 +48,16 @@ const DiscussionCard = (props) => {
         shallow: true,
       }
     );
+    const data = {
+      event_type: EVENTS.OPENED_POST,
+      event_properties: { postId },
+      user_id: user?._id,
+      user_properties: {
+        ...user,
+      },
+    };
+    myAmplitude(data);
+
     changeShowModal(true);
   };
 

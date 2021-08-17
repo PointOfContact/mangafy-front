@@ -382,7 +382,7 @@ const StoryBoardTabs = ({
           key={1}>
           <div className={styles.tabContent}>
             {addNewbuttons}
-            <Idea storyBoard={storyBoard} setStoryBoard={setStoryBoard} />
+            <Idea storyBoard={storyBoard} setStoryBoard={setStoryBoard} user={user} />
             {renderNavigationButtons(!(storyBoard?.idea?.title && storyBoard?.idea?.text))}
           </div>
         </TabPane>
@@ -400,6 +400,7 @@ const StoryBoardTabs = ({
               storyBoard={storyBoard}
               setStoryBoard={setStoryBoard}
               getStoryBoard={getStoryBoard}
+              user={user}
             />
             {renderNavigationButtons()}
           </div>
@@ -419,6 +420,7 @@ const StoryBoardTabs = ({
               storyBoardId={storyBoard?._id}
               storyBoard={storyBoard}
               setStoryBoard={setStoryBoard}
+              user={user}
             />
             {renderNavigationButtons(!storyBoard?.pages?.length)}
           </div>

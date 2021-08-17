@@ -6,8 +6,12 @@
   height: calc(100vh - 150px);
   margin-top: 20px;
   padding: 0;
+  div {
+    height: 100%;
+  }
   @include media-sm {
     max-width: 95% !important;
+    margin-top: 0;
   }
   @include media-xs {
     height: 600px;
@@ -47,44 +51,36 @@
   }
   .container {
     width: 100%;
-    & > div {
-      border-radius: 6px;
-      img {
-        margin-top: 60px !important;
-        max-height: calc(100vh - 277px) !important;
-        min-height: 558px;
-        border-radius: 6px;
-        object-fit: contain;
-        @include media-xs {
-          min-height: 458px !important;
-          height: 458px !important;
-          margin-top: 80px !important;
-        }
-      }
-    }
+    margin: auto;
   }
 }
 
 .moduleGa {
-  max-width: 1200px;
-  height: 680px;
   position: relative;
-  margin: auto;
-  @include media-xs {
-    height: 470px;
+  & > div {
+    width: 99%;
+    margin: auto;
+    margin-top: 65px !important;
+    @include media-xs {
+      border-radius: 0;
+    }
+    img {
+      max-height: calc(100vh - 277px) !important;
+      object-fit: contain;
+      margin: 2px !important;
+    }
   }
   & > span {
-    width: 95%;
-    height: 45px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    & > div {
-      height: 40px;
+    height: 60px;
+    & > a {
       display: flex;
-      flex-direction: column;
       justify-content: space-around;
       align-items: end;
+      p {
+        height: 20px;
+        display: flex !important;
+        align-items: center;
+      }
     }
     p {
       font-weight: bold;
@@ -96,7 +92,7 @@
       }
     }
     @include media-xs {
-      width: 90%;
+      width: 85%;
     }
     & > span {
       width: 40px;
@@ -106,9 +102,10 @@
       & > svg {
         width: 24px;
         height: 24px;
+        cursor: pointer;
         &:hover {
           & > path {
-            fill: rgb(226, 186, 194);
+            fill: #bbb7b8;
           }
         }
       }

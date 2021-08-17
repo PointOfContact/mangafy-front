@@ -21,15 +21,7 @@ const PDFViewer = dynamic(() => import('components/pdfViewer'), {
 });
 
 export const Gallery = (props) => {
-  const {
-    user = false,
-    profile,
-    ifMyProfile,
-    mangaStories,
-    mangaStoriesMyProfile,
-    fromPath = 'users',
-    title = '',
-  } = props;
+  const { user = false, profile, mangaStoriesMyProfile, fromPath = 'users', title = '' } = props;
   let canEditInit;
   if (!user) {
     canEditInit = false;
@@ -202,6 +194,7 @@ export const Gallery = (props) => {
       <Row>
         <Col span={19}>
           <CreatePreviousWorks
+            profile={profile}
             images={images}
             canEdit={canEdit}
             canEditInit={canEditInit}

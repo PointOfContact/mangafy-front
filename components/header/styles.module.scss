@@ -43,6 +43,13 @@
     height: 72px;
   }
 }
+.isWarning{
+  height: 142px;
+  background-color: $primaryBG;
+  @include media-sm {
+    height: 122px;
+  }
+}
 
 .header {
   width: 100%;
