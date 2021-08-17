@@ -17,6 +17,9 @@ $borderColor: rgb(233, 232, 232);
     margin-top: 30px;
     margin-bottom: 0px;
   }
+  @include media-sm {
+    margin-top: 0;
+  }
   .card_wrap {
     width: 100%;
     overflow-x: auto;
@@ -79,6 +82,7 @@ $borderColor: rgb(233, 232, 232);
     animation: shine-avatar 0.5s infinite ease-out;
     background-image: linear-gradient(90deg, #a5a3a3 0px, rgb(133 132 132 / 80%) 40%, #a5a3a3 60%);
     background-size: 900px;
+    cursor: pointer;
     & > span {
       &:nth-child(2) {
         display: none;
@@ -87,70 +91,100 @@ $borderColor: rgb(233, 232, 232);
         }
       }
     }
-
-    &:hover {
-      img {
-        filter: grayscale(0%);
-        transform: scale(1);
-      }
-      & > span {
-        svg {
-          width: 24px;
-          height: 24px;
-          &:hover {
-            & > path {
-              fill: rgb(226, 186, 194);
-            }
-          }
+    @media (min-width: 991px) {
+      &:hover {
+        img {
+          filter: grayscale(0%);
+          transform: scale(1);
         }
-        &:nth-child(2) {
-          width: 100%;
-          display: flex;
-          justify-content: space-between;
-          padding: 10px;
-          color: white;
-          position: absolute;
-          top: 0;
-          z-index: 20;
-          & > div > p {
-            margin: 0;
-            &:last-child {
-              font-size: 12px;
+        & > span {
+          svg {
+            width: 20px;
+            height: 20px;
+            margin-left: 5px;
+            cursor: pointer;
+            &:hover {
+              & > path {
+                fill: #bbb7b8;
+              }
             }
           }
-          & > span {
-            width: 40px;
+          @include media-md {
+            svg,
+            a {
+              display: none;
+            }
+          }
+          &:nth-child(2) {
+            width: 100%;
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            padding: 10px;
+            color: white;
+            position: absolute;
+            top: 0;
+            z-index: 20;
+            &:hover {
+              p:first-child{
+                border-bottom: 1px solid white;
+              }
+            }
+            & > a {
+              p {
+                height: auto;
+                margin: 0;
+                display: -webkit-box;
+                -webkit-line-clamp: 1;
+                overflow: hidden;
+                white-space: pre-wrap;
+                -webkit-box-orient: vertical;
+                color: white;
+                &:last-child {
+                  font-size: 12px;
+                }
+              }
+            }
+            & > span {
+              width: 40px;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              @include media-md {
+                display: none;
+              }
+            }
+          }
+        }
+        .opacity {
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          background-color: black;
+          opacity: 0.4;
+          z-index: 10;
+          left: 0;
+          top: 0;
+          border-radius: 4px;
+          @include media-md {
+            display: none;
           }
         }
       }
-      .opacity {
-        width: 100%;
+      & > div {
         height: 100%;
-        position: absolute;
-        background-color: black;
-        opacity: 0.4;
-        z-index: 10;
-        left: 0;
-        top: 0;
-        border-radius: 4px;
-      }
-    }
-    & > div {
-      height: 100%;
-      img {
-        transition: transform 1s ease-in-out;
-        transform: scale(1.1);
-        object-fit: cover;
-        filter: grayscale(90%);
-        border-radius: 4px;
+        img {
+          transition: transform 1s ease-in-out;
+          transform: scale(1.1);
+          object-fit: cover;
+          filter: grayscale(90%);
+          border-radius: 4px;
+        }
       }
     }
   }
+
   .description {
-    height: 40px;
+    height: 100%;
     border-radius: 0;
     display: flex;
     align-items: center;

@@ -243,6 +243,7 @@ const MangeStory = (props) => {
               setBaseData={setBaseData}
               openNotification={openNotification}
               isOwn={isOwn}
+              user={user}
             />
           </section>
         </div>

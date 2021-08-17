@@ -16,9 +16,15 @@
     padding-bottom: 27px;
   }
   .select {
+    margin-bottom: 10px !important;
     & > div {
       padding-bottom: 10px !important;
       height: auto !important;
+    }
+  }
+  .errSelect {
+    &>div {
+      border-bottom-color: red !important;
     }
   }
   .contacts {
@@ -165,7 +171,7 @@
     h2 {
       font-weight: 900;
       font-size: $h4;
-      margin-bottom: 0;
+      margin-bottom: 10px;
 
       .ant-input {
         font-size: $text3;

@@ -12,7 +12,6 @@ import AddButton from 'components/ui-elements/add-button';
 import Avatar from 'components/ui-elements/avatar';
 import PrimaryButton from 'components/ui-elements/button';
 import WarningFillAllData from 'components/warningFillAllData';
-import { EVENTS } from 'helpers/amplitudeEvents';
 import { removeAllStorage } from 'helpers/shared';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -21,10 +20,6 @@ import PropTypes from 'prop-types';
 import MenuLinks from './menuLinks';
 import ModalInviteMembers from './modalInviteMembers';
 import styles from './styles.module.scss';
-
-const Amplitude = require('amplitude');
-
-const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 
 const findNotificationsCount = (onSuccess, onFailure) => {
   const jwt = client.getCookie('feathers-jwt');
@@ -115,22 +110,6 @@ const Header = ({ user, path, setShowModalEdit }) => {
     el.classList.remove(styles.body_scroll);
   };
 
-  const addEvent = () => {
-    if (!user?._id) {
-      return;
-    }
-    const data = [
-      {
-        platform: 'WEB',
-        event_type: EVENTS.CREATE_PROJECT_START,
-        user_id: user._id,
-        user_properties: {
-          ...user,
-        },
-      },
-    ];
-    amplitude.track(data);
-  };
   return (
     <div className={cn(styles.header_cont, showWarning && styles.isWarning)}>
       <header className={`${styles.header} navbar menubar`}>
@@ -300,7 +279,7 @@ const Header = ({ user, path, setShowModalEdit }) => {
                 </>
               )}
             </div>
-            <span className={cn(styles.btn_submit)} onClick={addEvent}>
+            <span className={cn(styles.btn_submit)}>
               {user && (
                 <PrimaryButton
                   isWhite={true}

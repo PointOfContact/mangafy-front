@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 
 import { Tabs, Layout, Row, Col } from 'antd';
 import cn from 'classnames';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import PropTypes from 'prop-types';
 import * as qs from 'query-string';
+import myAmplitude from 'utils/amplitude';
 
 import styles from './styles.module.scss';
 import TabCommissionPricing from './tabCommissionPricing';
@@ -34,6 +36,32 @@ const ProfileContent = (props) => {
     total,
     ifMyProfile,
   } = props;
+
+  const sendEvent = (event) => {
+    let tab;
+    switch (event) {
+      case '1':
+        tab = 'story';
+        break;
+      case '2':
+        tab = 'gallery';
+        break;
+      case '3':
+        tab = 'services';
+        break;
+      default:
+        tab = 'messenger';
+    }
+    const data = {
+      event_type: EVENTS.CHECKED_ACCOUNT_TABS,
+      event_properties: { tab, profileId: profile?._id },
+      user_id: user._id,
+      user_properties: {
+        ...user,
+      },
+    };
+    myAmplitude(data);
+  };
 
   const [selectedTab, setSelectIdTab] = useState('1');
   const tabPanels = [
@@ -112,7 +140,12 @@ const ProfileContent = (props) => {
         )}>
         <Row>
           <Col span={24}>
-            <Tabs activeKey={selectedTab} onTabClick={setSelectIdTab}>
+            <Tabs
+              activeKey={selectedTab}
+              onTabClick={(e) => {
+                setSelectIdTab(e);
+                sendEvent(e);
+              }}>
               {tabPanels.map((tabPanel) => (
                 <TabPane tab={tabPanel.tab} key={tabPanel.key}>
                   {tabPanel.component}

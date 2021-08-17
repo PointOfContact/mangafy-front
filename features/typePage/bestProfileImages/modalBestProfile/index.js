@@ -27,6 +27,7 @@ const ModalBestProfile = ({
           likeModalContainerStyle={true}
           topGallery={topGallery}
           setTopGallery={setTopGallery}
+          ifModal={true}
         />
         <Imgix
           layout="fill"
@@ -69,6 +70,7 @@ const ModalBestProfile = ({
 };
 
 ModalBestProfile.propTypes = {
+  currentItem: PropTypes.object.isRequired,
   showModal: PropTypes.bool.isRequired,
   setShowModal: PropTypes.func.isRequired,
   gallery: PropTypes.array.isRequired,

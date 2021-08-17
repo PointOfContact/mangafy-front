@@ -4,13 +4,24 @@ import { Popover } from 'antd';
 import cn from 'classnames';
 import DeleteProjectModal from 'components/deleteProjectModal';
 import SvgDustbin from 'components/icon/Dustbin';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import PropTypes from 'prop-types';
+import myAmplitude from 'utils/amplitude';
 
 import styles from '../styles.module.scss';
 
 const DeleteProjectButton = ({ label, user, mangaStory }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const handleClick = (e) => {
+    const data = {
+      event_type: EVENTS.DELETE_PROJECT,
+      event_properties: { mangaStoryId: mangaStory._id },
+      user_id: user._id,
+      user_properties: {
+        ...user,
+      },
+    };
+    myAmplitude(data);
     e.stopPropagation();
     setIsModalVisible(true);
   };
@@ -19,7 +30,7 @@ const DeleteProjectButton = ({ label, user, mangaStory }) => {
     label.author === user?._id && (
       <div className={cn(styles.deleteCard, styles.deleteCardMobile)}>
         <span onClick={(e) => handleClick(e)}>
-          <Popover placement="left" content={'delete project'} trigger="hover">
+          <Popover placement="left" content={'Delete project'} trigger="hover">
             <SvgDustbin width="14px" height="14px" />
           </Popover>
         </span>

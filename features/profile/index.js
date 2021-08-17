@@ -16,6 +16,7 @@ import { beforeUploadBase64 } from 'helpers/shared';
 import { NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
+import myAmplitude from 'utils/amplitude';
 
 import styles from './styles.module.scss';
 
@@ -94,6 +95,17 @@ const Profile = (props) => {
           mode: 'no-cors',
         })
         .then((res) => {
+          if (data.type) {
+            const event = {
+              event_type: EVENTS.ADDED_USER_TYPES,
+              event_properties: { type: res.type },
+              user_id: user._id,
+              user_properties: {
+                ...user,
+              },
+            };
+            myAmplitude(event);
+          }
           setUserData(res);
           setEditMode(false);
           setStoryEditMode(false);

@@ -13,11 +13,13 @@ import SearchForCollaborations from 'components/searchForCollaborations';
 import PrimaryButton from 'components/ui-elements/button';
 import ButtonToTop from 'components/ui-elements/button-toTop';
 import FooterLogin from 'features/footerLogin';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import { userTypes } from 'helpers/constant';
 import { NextSeo } from 'next-seo';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
+import myAmplitude from 'utils/amplitude';
 
 import styles from './styles.module.scss';
 
@@ -37,6 +39,15 @@ const Collaborations = (props) => {
     search,
     selectedTypes,
   } = props;
+
+  const data = {
+    event_type: EVENTS.OPENED_ALL_PROFILES,
+    user_id: user?._id,
+    user_properties: {
+      ...user,
+    },
+  };
+  myAmplitude(data);
 
   return (
     <>

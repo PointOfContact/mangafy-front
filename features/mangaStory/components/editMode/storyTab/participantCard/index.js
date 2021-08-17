@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
-const ParticipantCard = ({ isOwn, avatar, name, id, type, leaveManga, user, author }) => (
+const ParticipantCard = ({ isOwn, avatar, name, id, type, types, leaveManga, user, author }) => (
   <div className={styles.participantsContent}>
     <Link key={id} href={`/profile/${id}`}>
       <a className={styles.participantName}>
@@ -26,7 +26,7 @@ const ParticipantCard = ({ isOwn, avatar, name, id, type, leaveManga, user, auth
         )}
         <div className={styles.info}>
           <h2>{name}</h2>
-          <p>{userTypesEnums[type]}</p>
+          <p>{userTypesEnums[types[0]]}</p>
         </div>
       </a>
     </Link>
@@ -90,11 +90,13 @@ ParticipantCard.propTypes = {
   type: PropTypes.string.isRequired,
   user: PropTypes.object,
   author: PropTypes.string.isRequired,
+  types: PropTypes.array,
 };
 
 ParticipantCard.defaultProps = {
   avatar: null,
   user: null,
+  types: [],
 };
 
 export default ParticipantCard;

@@ -95,7 +95,7 @@ const ChatCard = ({
       });
   };
 
-  const characterType = userTypesEnums[senderInfo?.type];
+  const characterType = userTypesEnums[senderInfo?.types?.length && senderInfo?.types[0]];
 
   return (
     <div

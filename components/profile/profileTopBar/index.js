@@ -13,6 +13,7 @@ import { userTypes, userTypesEnums } from 'helpers/constant';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
+import myAmplitude from 'utils/amplitude';
 
 import ChangeYourAvatar from './changeYourAvatar';
 import EditUserDataDuringSignUp from './editUserDataDuringSignUp';
@@ -95,7 +96,7 @@ const ProfileTopBar = (props) => {
             const data = [
               {
                 platform: 'WEB',
-                event_type: EVENTS.START_CHAT,
+                event_type: EVENTS.MESSAGED_ACCOUNT,
                 user_id: user._id,
                 user_properties: {
                   ...user,
@@ -163,12 +164,15 @@ const ProfileTopBar = (props) => {
   };
 
   const changeBio = () => {
-    if (userData.name?.replace(/\s/g, '')) {
-      handleEvent();
-      saveUserDataByKey('name', 'types');
-    } else {
+    if (!userData.name?.replace(/\s/g, '')) {
       setErrMessage('Name is required');
+      return;
     }
+    if (!(userData.types.length && userData.types[0])) {
+      return;
+    }
+    handleEvent();
+    saveUserDataByKey('name', 'types');
   };
 
   const isShowModal = () => {
@@ -213,6 +217,7 @@ const ProfileTopBar = (props) => {
               disabledButton={disabledButton}
               setDisabledButton={setDisabledButton}
               props={props}
+              user={user}
             />
           </div>
         </Col>
@@ -221,7 +226,14 @@ const ProfileTopBar = (props) => {
             {!editMode ? (
               <>
                 <h4>{ifMyProfile ? userData?.name : profile?.name}</h4>
-                <p>{ifMyProfile && userTypesEnums[userData?.type || profile?.type]}</p>
+                <p>
+                  {
+                    userTypesEnums[
+                      (!!userData?.types?.length && userData?.types[0]) ||
+                        (!!profile?.types?.length && profile?.types[0])
+                    ]
+                  }
+                </p>
 
                 {ifMyProfile ? (
                   <div className={styles.followAndEditButton}>
@@ -270,8 +282,12 @@ const ProfileTopBar = (props) => {
                 <div>
                   <Select
                     mode="multiple"
-                    className={cn('changeSelect', styles.select)}
-                    defaultValue={userTypesEnums[userData.types]}
+                    className={cn(
+                      'changeSelect',
+                      styles.select,
+                      !(userData.types.length && userData.types[0]) && styles.errSelect
+                    )}
+                    defaultValue={userTypesEnums[userData.types[0]]}
                     value={userData.types}
                     style={{ width: '100%' }}
                     onChange={(value) => setUserData({ ...userData, types: value })}>
@@ -281,8 +297,22 @@ const ProfileTopBar = (props) => {
                       </Option>
                     ))}
                   </Select>
+                  {!(userData.types.length && userData.types[0]) ? (
+                    <p className={styles.errMessage}>User type cannot be empty</p>
+                  ) : null}
                 </div>
-                <Link href="/contact-us">
+                <Link
+                  href="/contact-us"
+                  onClick={() => {
+                    const event = {
+                      event_type: EVENTS.DELETE_ACCOUNT,
+                      user_id: user._id,
+                      user_properties: {
+                        ...user,
+                      },
+                    };
+                    myAmplitude(event);
+                  }}>
                   <a>
                     <div className={styles.deleteAccount}>
                       <SvgDustbin width="20px" height="20px" />
