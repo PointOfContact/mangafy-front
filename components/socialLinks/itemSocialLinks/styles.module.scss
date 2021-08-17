@@ -1,0 +1,33 @@
+@import '../../../styles/variables.scss';
+
+.edit_social_content {
+  width: 350px;
+  padding: 10px 5px;
+  div {
+    margin-bottom: 0;
+  }
+  .social_inp {
+    position: relative;
+    svg {
+      position: absolute;
+      top: 8px;
+      z-index: 10;
+    }
+    input {
+      font-size: $text4;
+      padding-left: 35px !important;
+      padding-bottom: 5px;
+    }
+    p {
+      font-size: $text6;
+      color: $grey;
+      margin: 0;
+    }
+    .nameSocial {
+      &::first-letter {
+        text-transform: uppercase;
+      }
+    }
+  }
+}
+

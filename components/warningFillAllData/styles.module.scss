@@ -20,9 +20,11 @@
         border-bottom: 1px solid $primaryDark;
     }
     @include media-sm{
-        top: 86px;
-        padding: 15px 0;
+        padding: 8px 0;
         font-size: 12px;
+    }
+    @include media-md{
+        top: 86px;
     }
     @include media-xs{
         font-size: 10px;

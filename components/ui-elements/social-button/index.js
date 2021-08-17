@@ -11,6 +11,7 @@ import SvgBlackTapas from 'components/icon/BlackTapas';
 import SvgBlackTiktok from 'components/icon/BlackTiktok';
 import SvgBlackTwitter from 'components/icon/BlackTwitter';
 import SvgBlackWebtoon from 'components/icon/BlackWebtoon';
+import SvgYoutube from 'components/icon/Youtube';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
@@ -39,7 +40,7 @@ const AddButton = ({ className, onClick, name, height, width, ...rest }) => {
       case 'tapas':
         return <SvgBlackTapas width={width} height={height} />;
       default:
-        break;
+        return <SvgYoutube width={width} height={height} />;
     }
   };
   return (

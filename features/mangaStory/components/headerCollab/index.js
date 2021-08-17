@@ -170,7 +170,7 @@ const HeaderCollab = ({
                     <>
                       {stage?.tab !== '6' ? (
                         <h2>
-                          STORY BIBLE <span>STAGE {stage?.tab}</span> - {stage?.title}
+                          STORY PRODUCTION TOOLS - <span>STAGE {stage?.tab}</span> - {stage?.title}
                         </h2>
                       ) : (
                         <h2>{stage?.title}</h2>

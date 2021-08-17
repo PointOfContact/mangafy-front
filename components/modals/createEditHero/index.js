@@ -23,16 +23,18 @@ const ModalHero = ({ changeShowModal, showModal, hero, getStoryBoard, user }) =>
 
   // default value personage
   const title = {
-    modal: 'Character creation just got easier!',
-    write: 'Create a hero, tell us about him:',
-    firstInput: 'name your character',
+    modal: "Define your story's protagonists and villans, in an easier organized manner",
+    write: 'Tell your team about them',
+    firstInput: 'Name your character',
+    description: 'Add his role (main, secondary, villain)',
     button: 'Create',
   };
 
-  const setDialogTitles = (write, modal, firstInput, button) => {
+  const setDialogTitles = (write, modal, firstInput, desc, button) => {
     title.write = write;
     title.modal = modal;
     title.firstInput = firstInput;
+    title.description = desc;
     title.button = button;
   };
 
@@ -43,19 +45,21 @@ const ModalHero = ({ changeShowModal, showModal, hero, getStoryBoard, user }) =>
     if (type === 'component') {
       setDialogTitles(
         'Now add the components:',
-        'Add components even easier!',
-        'Components name',
+        "Now it's time to define your characters",
+        'Write your characters treats',
+        'Add a short bio synopsis to your character',
         'Add component'
       );
-      return 'Add new component';
+      return 'CREATE CHARACTER CHARACTERISTICS';
     }
     setDialogTitles(
       'Now add the background:',
       'Add background even easier!',
-      'Description name',
+      "Your character's setting",
+      'Define an overview narrative and vision',
       'Add background'
     );
-    return 'Add background';
+    return 'ADD CHARACTER SETTING';
   };
 
   const ModalTitle = (
@@ -210,9 +214,7 @@ const ModalHero = ({ changeShowModal, showModal, hero, getStoryBoard, user }) =>
                   ]}>
                   <TextArea
                     placeholder={
-                      ifIsEdit
-                        ? 'A short description of your component'
-                        : 'add a bio to your character'
+                      ifIsEdit ? 'Add a short bio synopsis to your character' : title.description
                     }
                     className={styles.modalTexarea}
                     isFullWidth={true}
