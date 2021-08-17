@@ -7,7 +7,9 @@ import SvgDustbin from 'components/icon/Dustbin';
 import SvgEdit from 'components/icon/Edit';
 import SvgHeart from 'components/icon/Heart';
 import Imgix from 'components/imgix';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import PropTypes from 'prop-types';
+import myAmplitude from 'utils/amplitude';
 
 import { likeGallery, removeImg, prepareDataImages, removeShortStory } from '../utils';
 import styles from './style.module.scss';
@@ -27,6 +29,7 @@ const GalleryCard = ({
   setSelectedGallery,
   setCreateGalleryModal,
   setIsModalVisible,
+  profileId,
 }) => {
   const ifNotStories = galleryItem?.original;
   const getTypeImg = ifNotStories && galleryItem?._id?.slice(-3);
@@ -49,6 +52,16 @@ const GalleryCard = ({
   const onLikeGallery = (galleryId, userId, likedUserId) => {
     likeGallery(galleryId, userId)
       .then(() => {
+        const data = {
+          event_type: EVENTS.LIKE_PORTFOLIO,
+          event_properties: { galleryId, profileId },
+          user_id: user?._id,
+          user_properties: {
+            ...user,
+          },
+        };
+        myAmplitude(data);
+
         setUserData({
           ...userData,
           galleryLikedUsers: [
@@ -198,12 +211,14 @@ GalleryCard.propTypes = {
   setCreateGalleryModal: PropTypes.func.isRequired,
   setIsModalVisible: PropTypes.func.isRequired,
   setSelectedGallery: PropTypes.func.isRequired,
+  profileId: PropTypes.string,
 };
 
 GalleryCard.defaultProps = {
   canEditInit: false,
   canEdit: false,
   fromPath: 'users',
+  profileId: '',
 };
 
 export default GalleryCard;

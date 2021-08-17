@@ -51,6 +51,8 @@ const DiscussionRightBar = ({ dailyWarmUps, user }) => {
         <div className={styles.cards}>
           {exercises.map((exercise, index) => (
             <ExerciseCard
+              user={user}
+              warmapId={exercise._id}
               key={exercise._id}
               order={index + 1}
               categories={exercise.categories}

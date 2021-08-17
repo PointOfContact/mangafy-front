@@ -11,6 +11,7 @@ import PrimarySelect from 'components/ui-elements/select';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { USER_TYPES } from 'helpers/constant';
 import PropTypes from 'prop-types';
+import myAmplitude from 'utils/amplitude';
 
 import styles from './styles.module.scss';
 
@@ -187,6 +188,18 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
     },
   ];
 
+  const sendEvent = (event) => {
+    const data = {
+      event_type: event,
+      event_properties: { mangaStoryId: baseData?._id },
+      user_id: user?._id,
+      user_properties: {
+        ...user,
+      },
+    };
+    myAmplitude(data);
+  };
+
   return (
     <Modal
       className={styles.modal}
@@ -223,7 +236,10 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
               <PrimarySelect
                 showSearch
                 className={styles.modalSelect}
-                onChange={changeLookingFor}
+                onChange={(e) => {
+                  changeLookingFor(e);
+                  sendEvent(EVENTS.CHOOSED_TASK_ROLL_TYPE);
+                }}
                 options={MyCheckboxes}
                 value={lookingFor}
               />
@@ -240,7 +256,10 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
               <PrimarySelect
                 showSearch
                 className={styles.modalSelect}
-                onChange={changeRewardType}
+                onChange={(e) => {
+                  changeRewardType(e);
+                  sendEvent(EVENTS.CHOOSED_TASK_COMMISSION_TYPE);
+                }}
                 options={RewardTypes}
                 value={rewardType}
               />
@@ -262,6 +281,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
                       isFullWidth={true}
                       className={styles.modalInput}
                       onChange={(e) => changeAmount(e.target.value)}
+                      onBlur={() => sendEvent(EVENTS.ADDED_TASK_PRICE)}
                       value={amount}
                       prefix="$"
                       suffix="USD"
@@ -291,6 +311,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
                 placeholder=""
                 value={text}
                 onChange={handleChangeText}
+                onBlur={() => sendEvent(EVENTS.ADDED_TASK_DESCRIPTION)}
                 className={styles.modalTexarea}
               />
             </Form.Item>

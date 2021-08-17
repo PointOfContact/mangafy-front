@@ -23,12 +23,14 @@ const CreatePreviousWorks = ({
   setIsModalVisible,
   onBeforeGalleryUpload,
   showUploadList,
+  profile,
 }) => (
   <div className={styles.imagesBlock}>
     {images?.length ? (
       images.map((galleryItem, index) => (
         <GalleryCard
           key={index}
+          profileId={profile?.Id}
           {...{
             index,
             canEdit,
@@ -105,6 +107,7 @@ CreatePreviousWorks.propTypes = {
   setIsModalVisible: PropTypes.func.isRequired,
   onBeforeGalleryUpload: PropTypes.func.isRequired,
   showUploadList: PropTypes.func.isRequired,
+  profile: PropTypes.object.isRequired,
 };
 
 export default CreatePreviousWorks;

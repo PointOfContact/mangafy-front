@@ -8,14 +8,14 @@ import SvgClose from 'components/icon/Close';
 import PrimaryButton from 'components/ui-elements/button';
 import PrimaryInput from 'components/ui-elements/input';
 import TextArea from 'components/ui-elements/text-area';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import PropTypes from 'prop-types';
-
-// eslint-disable-next-line import/order
+import myAmplitude from 'utils/amplitude';
 
 import EditBackground from './backgroundUpload';
 import styles from './styles.module.scss';
 
-const ModalHero = ({ changeShowModal, showModal, hero, getStoryBoard }) => {
+const ModalHero = ({ changeShowModal, showModal, hero, getStoryBoard, user }) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [imageUrl, setImgId] = useState('');
@@ -96,6 +96,28 @@ const ModalHero = ({ changeShowModal, showModal, hero, getStoryBoard }) => {
       createHero(
         newHero,
         () => {
+          let evnentType;
+          switch (hero.type) {
+            case 'personage':
+              evnentType = EVENTS.CREATE_BOARD_CHARACTER;
+              break;
+            case 'component':
+              evnentType = EVENTS.CREATE_BOARD_TOOL;
+              break;
+            default:
+              evnentType = EVENTS.CREATE_BOARD_BACKGROUND;
+              break;
+          }
+          const data = {
+            event_type: evnentType,
+            event_properties: { hero },
+            user_id: user._id,
+            user_properties: {
+              ...user,
+            },
+          };
+          myAmplitude(data);
+
           delete newHero.storyBoard;
           getStoryBoard();
           changeShowModal(false);
@@ -238,10 +260,12 @@ ModalHero.propTypes = {
   getStoryBoard: PropTypes.func.isRequired,
   hero: PropTypes.object,
   mangaUrl: PropTypes.string,
+  user: PropTypes.object,
 };
 
 ModalHero.defaultProps = {
   hero: {},
+  user: {},
   mangaUrl: null,
 };
 
