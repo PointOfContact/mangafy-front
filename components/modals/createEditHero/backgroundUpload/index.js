@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import HeroUpload from '../heroUpload';
 import styles from './styles.module.scss';
 
-const EditBackground = ({ ifIsEdit, hero, imageUrl, setImgId }) => {
+const EditBackground = ({ ifIsEdit, hero, imageUrl, setImgId, typeCard }) => {
   const [showUpload, setShowUpload] = useState(false);
 
   return ifIsEdit && !!hero.imageUrl ? (
@@ -29,7 +29,12 @@ const EditBackground = ({ ifIsEdit, hero, imageUrl, setImgId }) => {
             onMouseLeave={() => {
               setShowUpload(!showUpload);
             }}>
-            <HeroUpload setImgId={setImgId} imageUrl={imageUrl} titleLoad={ifIsEdit && ifIsEdit} />
+            <HeroUpload
+              setImgId={setImgId}
+              imageUrl={imageUrl}
+              titleLoad={ifIsEdit && ifIsEdit}
+              typeCard={typeCard}
+            />
           </div>
         </div>
       ) : (
@@ -37,7 +42,12 @@ const EditBackground = ({ ifIsEdit, hero, imageUrl, setImgId }) => {
       )}
     </div>
   ) : (
-    <HeroUpload setImgId={setImgId} imageUrl={imageUrl} titleLoad={ifIsEdit && ifIsEdit} />
+    <HeroUpload
+      setImgId={setImgId}
+      imageUrl={imageUrl}
+      titleLoad={ifIsEdit && ifIsEdit}
+      typeCard={typeCard}
+    />
   );
 };
 
@@ -46,6 +56,7 @@ EditBackground.propTypes = {
   imageUrl: PropTypes.string.isRequired,
   ifIsEdit: PropTypes.bool.isRequired,
   hero: PropTypes.object.isRequired,
+  typeCard: PropTypes.string,
 };
 
 EditBackground.defaultProps = {
@@ -53,6 +64,7 @@ EditBackground.defaultProps = {
   imageUrl: '',
   ifIsEdit: false,
   hero: {},
+  typeCard: '',
 };
 
 export default EditBackground;

@@ -46,7 +46,7 @@ const EditCard = ({ confirmDelete, editCard, hero }) => {
           onConfirm={confirmDelete}
           item={
             <span className={styles.deleteCard}>
-              <SvgDelete width="9px" height="9px" />
+              <SvgDelete width="10px" height="11px" />
             </span>
           }
         />

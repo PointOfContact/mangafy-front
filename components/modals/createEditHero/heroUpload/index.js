@@ -12,7 +12,7 @@ import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
-const HeroUpload = ({ mangaUrl, setImgId, titleLoad }) => {
+const HeroUpload = ({ mangaUrl, setImgId, titleLoad, typeCard }) => {
   const [img, setImg] = useState(null);
   useEffect(() => {
     const newImg = mangaUrl?.slice(-3)
@@ -89,6 +89,8 @@ const HeroUpload = ({ mangaUrl, setImgId, titleLoad }) => {
     }
   };
 
+  const ifPersonage = typeCard === 'personage';
+
   return (
     <div className={cn('primary_upload hero_upload', styles.primary_upload)}>
       <Upload
@@ -108,7 +110,11 @@ const HeroUpload = ({ mangaUrl, setImgId, titleLoad }) => {
               <span className="desc">
                 <SvgCloud width="106px" height="77.13px" />
               </span>
-              <h4 className={styles.title}>{`Upload ${titleLoad ? 'new' : ''} files`}</h4>
+              <h4 className={cn(styles.title, styles.titlePersonage)}>
+                {ifPersonage
+                  ? 'Upload your character profile pic'
+                  : `Upload ${titleLoad ? 'new' : ''} files`}
+              </h4>
             </div>
           </div>
         )}
@@ -123,6 +129,7 @@ HeroUpload.propTypes = {
   mangaUrl: PropTypes.string,
   setImgId: PropTypes.string.isRequired,
   titleLoad: PropTypes.bool,
+  typeCard: PropTypes.string,
 };
 
 HeroUpload.defaultProps = {
@@ -131,6 +138,7 @@ HeroUpload.defaultProps = {
   mangaUrl: null,
   setImgId: () => {},
   titleLoad: false,
+  typeCard: '',
 };
 
 export default HeroUpload;

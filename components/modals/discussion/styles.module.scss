@@ -1,12 +1,14 @@
 @import '../../../styles/variables.scss';
 
 .modal {
+  margin-top: 25px !important;
   & > div {
     border-radius: 10px;
   }
   @include media-sm {
     width: 95% !important;
     max-width: 95% !important;
+    margin-top: 36px !important;
     & > div > div {
       padding: 24px 0;
     }
@@ -126,7 +128,7 @@
       svg {
         cursor: pointer;
       }
-      .spin{
+      .spin {
         margin-right: 10px;
       }
     }

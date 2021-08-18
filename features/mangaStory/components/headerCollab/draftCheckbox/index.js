@@ -4,6 +4,8 @@ import { Input, notification } from 'antd';
 import Form from 'antd/lib/form/Form';
 import { ShareButtons } from 'components/share';
 import PrimaryButton from 'components/ui-elements/button';
+import CopyInput from 'components/ui-elements/copyInput';
+import copy from 'copy-to-clipboard';
 import PropTypes from 'prop-types';
 
 import mangaStoryAPI from '../../../mangaStoryAPI';
@@ -24,7 +26,10 @@ const DraftCheckbox = ({ originUrl, user, mangaStory, setMangaStoryNew, mangaSto
 
   return (
     <div className={styles.publishedModal}>
-      <h3>Congratulations , share with your network and build your collaboration to success!</h3>
+      <img width={113} height={113} src={'/img/ballons.webp'} alt={'mangafy ballons'} />
+      <h2 className={styles.modalTitle}>Your project is live!</h2>
+      <h3>Share it whenever your followers are. Posts are the best way to make new supporters.</h3>
+      <h4>Tell your followers everywhere 🎉</h4>
       {!user.payPalEmail && showInput && (
         <div className={styles.containerPayPalEmail}>
           <h4>Paypal email</h4>
@@ -48,6 +53,7 @@ const DraftCheckbox = ({ originUrl, user, mangaStory, setMangaStoryNew, mangaSto
       <div className={styles.shareButtons}>
         <ShareButtons shareUrl={originUrl} text="Share to the world!" />
       </div>
+      <CopyInput white={true} copyUrl={originUrl} copyLink={() => copy(originUrl)} />
     </div>
   );
 };

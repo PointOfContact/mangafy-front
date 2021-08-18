@@ -22,20 +22,22 @@ const ModalHero = ({ changeShowModal, showModal, hero, getStoryBoard, user }) =>
   const [form] = Form.useForm();
 
   // default value personage
-  const title = {
+  const titles = {
     modal: "Define your story's protagonists and villans, in an easier organized manner",
     write: 'Tell your team about them',
     firstInput: 'Name your character',
     description: 'Add his role (main, secondary, villain)',
     button: 'Create',
+    type: 'personage',
   };
 
-  const setDialogTitles = (write, modal, firstInput, desc, button) => {
-    title.write = write;
-    title.modal = modal;
-    title.firstInput = firstInput;
-    title.description = desc;
-    title.button = button;
+  const setDialogTitles = (write, modal, firstInput, desc, button, type) => {
+    titles.write = write;
+    titles.modal = modal;
+    titles.firstInput = firstInput;
+    titles.description = desc;
+    titles.button = button;
+    titles.type = type;
   };
 
   const setGlobalTitle = (type) => {
@@ -48,16 +50,18 @@ const ModalHero = ({ changeShowModal, showModal, hero, getStoryBoard, user }) =>
         "Now it's time to define your characters",
         'Write your characters treats',
         'Add a short bio synopsis to your character',
-        'Add component'
+        'Add component',
+        'component'
       );
       return 'CREATE CHARACTER CHARACTERISTICS';
     }
     setDialogTitles(
       'Now add the background:',
-      'Add background even easier!',
+      "Now it's time to place your character in its story setting",
       "Your character's setting",
       'Define an overview narrative and vision',
-      'Add background'
+      'Add background',
+      'background'
     );
     return 'ADD CHARACTER SETTING';
   };
@@ -172,7 +176,7 @@ const ModalHero = ({ changeShowModal, showModal, hero, getStoryBoard, user }) =>
           ''
         ) : (
           <div className={styles.description}>
-            <h2>{title.modal}</h2>
+            <h2>{titles.modal}</h2>
           </div>
         )}
         <div className={cn(ifIsEdit ? styles.editStyle : '', styles.inputContainer)}>
@@ -188,7 +192,7 @@ const ModalHero = ({ changeShowModal, showModal, hero, getStoryBoard, user }) =>
                   description,
                   imageUrl: '',
                 }}>
-                {ifIsEdit ? '' : <h3>{title.write}</h3>}
+                {ifIsEdit ? '' : <h3>{titles.write}</h3>}
                 <Form.Item
                   name="name"
                   rules={[
@@ -198,7 +202,7 @@ const ModalHero = ({ changeShowModal, showModal, hero, getStoryBoard, user }) =>
                     },
                   ]}>
                   <PrimaryInput
-                    placeholder={title.firstInput}
+                    placeholder={titles.firstInput}
                     isFullWidth={true}
                     isLinear={true}
                     onChange={(e) => setName(e.target.value)}
@@ -214,7 +218,7 @@ const ModalHero = ({ changeShowModal, showModal, hero, getStoryBoard, user }) =>
                   ]}>
                   <TextArea
                     placeholder={
-                      ifIsEdit ? 'Add a short bio synopsis to your character' : title.description
+                      ifIsEdit ? 'Add a short bio synopsis to your character' : titles.description
                     }
                     className={styles.modalTexarea}
                     isFullWidth={true}
@@ -230,12 +234,13 @@ const ModalHero = ({ changeShowModal, showModal, hero, getStoryBoard, user }) =>
                     hero={hero}
                     imageUrl={imageUrl}
                     setImgId={setImgId}
+                    typeCard={titles.type}
                   />
                   <Form.Item>
                     <PrimaryButton
                       htmlType="submit"
                       className={styles.send}
-                      text={hero?.newCreated ? title.button : 'Save changes'}
+                      text={hero?.newCreated ? titles.button : 'Save changes'}
                     />
                   </Form.Item>
                 </div>
@@ -248,6 +253,7 @@ const ModalHero = ({ changeShowModal, showModal, hero, getStoryBoard, user }) =>
               hero={hero}
               imageUrl={imageUrl}
               setImgId={setImgId}
+              typeCard={titles.type}
             />
           </div>
         </div>
