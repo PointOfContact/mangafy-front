@@ -44,10 +44,10 @@
   }
 }
 .isWarning{
-  height: 142px;
+  height: 122px;
   background-color: $primaryBG;
-  @include media-sm {
-    height: 122px;
+  @include media-md {
+    height: 112px;
   }
 }
 

@@ -205,7 +205,7 @@
     &:hover {
       svg {
         path {
-          fill: red;
+          fill: $red;
         }
       }
     }
@@ -276,7 +276,7 @@
             height: 120px;
           }
           .titleInput {
-            border: 1px solid red;
+            border: 1px solid $red;
           }
           div {
             height: 100%;

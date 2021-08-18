@@ -2,7 +2,7 @@
 
 $borderColor: rgb(233, 232, 232);
 
-.container{
+.container {
   width: 100%;
   height: 100%;
   display: flex;
@@ -14,8 +14,8 @@ $borderColor: rgb(233, 232, 232);
   float: left;
   overflow-x: auto;
   white-space: nowrap;
-  @include media-xs{
-    .buttonContainerListValid{
+  @include media-xs {
+    .buttonContainerListValid {
       display: none;
     }
   }
@@ -39,7 +39,7 @@ $borderColor: rgb(233, 232, 232);
     background: $primaryDark;
   }
 
-  .noHero{
+  .noHero {
     margin-top: 40px;
     height: 100%;
     width: 100%;
@@ -47,7 +47,7 @@ $borderColor: rgb(233, 232, 232);
     justify-content: center;
   }
 }
-.cardContainer{
+.cardContainer {
   display: flex;
   justify-content: center;
   overflow: hidden;
@@ -57,40 +57,25 @@ $borderColor: rgb(233, 232, 232);
   width: 100%;
   display: flex;
   justify-content: space-evenly;
-  & > div > div {
-    float: left;
+  & > div {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 100px;
   }
-
   @include media-sm {
     flex-direction: column;
     align-items: center;
     & > div {
-      display: flex;
       flex-direction: column;
       align-items: center;
-      & > div {
-        margin-bottom: 0;
-        flex-direction: row-reverse;
-        & > div {
-          width: 50%;
-         display: flex;
-         justify-content: start;
-       }
-      }
-    }    
+    }
   }
 }
 
 .buttonContainerListValid {
   flex: 1;
-  & > .border{
+  & > .border {
     height: 42px;
     border-bottom: 1px solid $borderColor;
-    & + div{
+    & + div {
       height: 100%;
       display: flex;
       flex-direction: column;

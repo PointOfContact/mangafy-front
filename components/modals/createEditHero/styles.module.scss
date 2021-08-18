@@ -5,12 +5,12 @@ $borderColor: #f0f0f0;
 @mixin input {
   font-size: $text4;
   border-color: $gray85;
-  &::placeholder{
+  &::placeholder {
     color: $gray85;
   }
 }
 
-@mixin font($size, $line, $style, $weight){
+@mixin font($size, $line, $style, $weight) {
   font-style: $style;
   font-weight: $weight;
   font-size: $size;
@@ -23,15 +23,19 @@ $borderColor: #f0f0f0;
     width: 95% !important;
     max-width: 95% !important;
   }
-  & > div > div{
-    padding: 0;
-    border: none;
+  & > div {
+    border-radius: 5px;
+    & > div {
+      padding: 0;
+      border-radius: 5px;
+      border-bottom: none;
+    }
   }
-  .container{
+  .container {
     min-height: 320px;
     padding: 0;
   }
-  .close{
+  .close {
     width: 39.71px;
     height: 39.26px;
     display: flex;
@@ -40,18 +44,18 @@ $borderColor: #f0f0f0;
     border-radius: 50%;
     margin-top: 22px;
     background-color: #aca0f0;
-    svg{
+    svg {
       width: 18.33px;
       height: 18.12px;
-      path{
+      path {
         fill: $text_white;
       }
     }
 
-    &:hover{
+    &:hover {
       background-color: $primaryDark;
     }
-    @include media-sm{
+    @include media-sm {
       width: 30px;
       height: 30px;
       margin-top: 8px;
@@ -77,18 +81,18 @@ $borderColor: #f0f0f0;
     padding: 0;
     width: 100%;
     margin-bottom: $text4;
-  } 
-  .send{
+  }
+  .send {
     width: 318.72px;
     height: 54.36px;
     margin: auto;
     margin-top: 24px;
     @include media-md {
-        width: 250px;
+      width: 250px;
     }
     @include media-sm {
       width: 315px;
-  }
+    }
   }
   .titleWrapper {
     display: flex;
@@ -108,7 +112,7 @@ $borderColor: #f0f0f0;
   }
 }
 
-.description{
+.description {
   @include font($text3, $text2, normal, normal);
   text-align: center;
   margin-top: $text3;
@@ -116,24 +120,24 @@ $borderColor: #f0f0f0;
   padding-bottom: $text3;
   color: $black;
   border: 1px solid $borderColor;
-  @include media-xs{
-    font-size: 14px;
+  @include media-xs {
+    font-size: 16px;
   }
 }
 
-.inputContainer{
+.inputContainer {
   display: flex;
   margin: 0%;
-  @include media-sm{
+  @include media-sm {
     flex-direction: column;
   }
   & > div {
     flex: 1;
     display: flex;
     justify-content: center;
-    align-items: center;   
+    align-items: center;
   }
-  & > .uploadFile{
+  & > .uploadFile {
     flex: 1;
     border-left: 1px solid $borderColor;
     & > div {
@@ -145,20 +149,20 @@ $borderColor: #f0f0f0;
         height: 220px;
         border-radius: 20px;
       }
-    } 
+    }
   }
 }
 
-.submitButton{
+.submitButton {
   display: flex;
   flex-direction: column;
   align-items: center;
   & > div:first-child {
     display: none;
-    @include media-xs {
-        width: 326px;
-        display: flex;
-        align-items: center;
+    @include media-sm {
+      width: 326px;
+      display: flex;
+      align-items: center;
     }
   }
 }
@@ -168,14 +172,10 @@ $borderColor: #f0f0f0;
   border-top: 1px solid $borderColor;
 }
 
-.selectModal{
+.selectModal {
   width: 356.4px;
   margin-top: 50px;
-  @include media-md{
-    width: 250px;
-  }
-
-  @include media-sm{
+  @include media-md {
     width: 315px;
   }
   & > form {
@@ -189,7 +189,7 @@ $borderColor: #f0f0f0;
       border-radius: 0;
       @include input();
     }
-    & textarea{
+    & textarea {
       @include input();
     }
   }

@@ -2,6 +2,7 @@ import React from 'react';
 
 import cn from 'classnames';
 import Card from 'components/card';
+import SvgPurplePencil from 'components/icon/PurplePencil';
 import Imgix from 'components/imgix';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
@@ -36,8 +37,18 @@ const TabStory = (props) => {
     history.push(path);
   };
 
+  const editIfNotData = !!userData?.content || !!userData?.genresIds?.length;
+
   return (
     <div className={cn(styles.content_tab_profile_1)}>
+      {!storyEditMode && editIfNotData && (
+        <SvgPurplePencil
+          className={styles.editAboutButton}
+          onClick={() => setStoryEditMode(true)}
+          width="30"
+        />
+      )}
+
       <EditButtons
         storyEditMode={storyEditMode}
         cancelStoryEditMode={cancelStoryEditMode}
@@ -47,7 +58,6 @@ const TabStory = (props) => {
         <EditContent
           profile={profile}
           storyEditMode={storyEditMode}
-          setStoryEditMode={setStoryEditMode}
           ifMyProfile={ifMyProfile}
           userData={userData}
           setUserData={setUserData}
