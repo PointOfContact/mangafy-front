@@ -4,6 +4,7 @@ import { Modal, Form, notification } from 'antd';
 import client from 'api/client';
 import SvgClose from 'components/icon/Close';
 import PrimaryButton from 'components/ui-elements/button';
+import CopyInput from 'components/ui-elements/copyInput';
 import PrimaryInput from 'components/ui-elements/input';
 import copy from 'copy-to-clipboard';
 import { EVENTS } from 'helpers/amplitudeEvents';
@@ -81,9 +82,6 @@ const ModalInviteMembers = ({ showModal, setShowModal, user }) => {
         .then((res) => {
           setCopy(`https://mangafy.club/sign-up?inviteId=${res._id}`);
           copy(`https://mangafy.club/sign-up?inviteId=${res._id}`);
-          notification.success({
-            message: 'Link copied',
-          });
         })
         .catch((err) =>
           notification.error({
@@ -163,24 +161,7 @@ const ModalInviteMembers = ({ showModal, setShowModal, user }) => {
             />
           </Form.Item>
         </Form>
-        <div className={styles.copyContainer}>
-          <PrimaryInput
-            id={'path'}
-            className={styles.copyInput}
-            placeholder={'https://mangafy.club/'}
-            isFullWidth={true}
-            isLinear={true}
-            value={copyUrl}
-            disabled={true}
-          />
-          <button
-            className={styles.copyButton}
-            onClick={() => {
-              copyLink();
-            }}>
-            Copy
-          </button>
-        </div>
+        <CopyInput copyUrl={copyUrl} copyLink={copyLink} />
       </div>
     </Modal>
   );

@@ -6,7 +6,6 @@ import cn from 'classnames';
 import ButtonColab from 'components/colaborationCard/buttonColab';
 import SvgDustbin from 'components/icon/Dustbin';
 import SvgPencilColored from 'components/icon/PencilColored';
-import Imgix from 'components/imgix';
 import Modal from 'components/modals/createTaskModal';
 import AddButton from 'components/ui-elements/add-button';
 import PrimaryButton from 'components/ui-elements/button';
@@ -170,14 +169,6 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipant, showPayPalToggle 
             />
           ) : (
             <>
-              <Imgix
-                className={styles.contributePhoto}
-                width={264}
-                height={241}
-                layout="fixed"
-                src="https://mangafy.club/img/storyCardImg1.webp"
-                alt="MangaFy story card"
-              />
               {!tasks?.length && !isParticipant && (
                 <PrimaryButton
                   onClick={() => {

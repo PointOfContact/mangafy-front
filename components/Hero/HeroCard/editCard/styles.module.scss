@@ -1,83 +1,68 @@
 @import '../../../../styles/variables.scss';
 
-.changeCard{
-    width: 70%;
+.changeCard {
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  @include media-xs {
+    width: 90%;
+  }
+
+  .editCard {
     display: flex;
-    justify-content: space-between;
-    margin-top: 8px;
-    @include media-xs {
-        width: 90%;
-    }
+    justify-content: center;
+    align-items: center;
+  }
 
-    .editCard{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        &:hover{
-            background-color: $primaryLight;
-            border: none;
-            & > svg {
-                & > path{
-                    fill: $primaryBG; 
-                }
-            }
-        }
+  .loadImage {
+    & > span {
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
+  }
 
-    .loadImage{
-        & > span {
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        &:hover{
-            background-color: $primaryLight;
-            border: none;
-            & > span {
-                & > svg {
-                    & > path{
-                        fill: $primaryBG; 
-                    }
-                }
-            }
-        }
-    }
+  .deleteCard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
 
-    .deleteCard{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100%;
+  & > div {
+    width: 23.4px;
+    height: 23.4px;
+    border-radius: 50%;
+    border: 1px solid $gray85;
+    &:hover {
+      background-color: $primaryDark;
+      svg path {
+        fill: white;
+      }
     }
-        
-    
-    & > div{
-        width: 23.4px;
-        height: 23.4px;
-        border-radius: 50%;
-        border: 1px solid $gray85;
-    }
+  }
 }
 
 .uploadSvg {
-    position: absolute;
-    bottom: 35px;
-    right: 5px;
-    z-index: 5;
-    width: 27px;
-    height: 27px;
-    display: flex;
-    border-radius: 30px;
-    background: white;
-    cursor: pointer;
-    justify-content: center;
-    align-items: center;
-    path {
-      fill: $black;
-    }
+  position: absolute;
+  bottom: 35px;
+  right: 5px;
+  z-index: 5;
+  width: 27px;
+  height: 27px;
+  display: flex;
+  border-radius: 30px;
+  background: white;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  path {
+    fill: $black;
+  }
 }
 
-.popConfirm{
-    min-width: 250px;
+.popConfirm {
+  min-width: 250px;
 }
