@@ -23,17 +23,21 @@ const EditUserDataDuringSignUp = ({
   genres,
   handleChangeGenres,
   saveUserDataByKey,
+  user,
 }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [disabledButton, setDisabledButton] = useState(false);
   const router = useRouter();
-  const errorAboutMe = userData?.content?.length < 3 || !userData?.content?.trim().length;
+  const errorAboutMe =
+    !userData?.content?.length == 0 &&
+    (userData?.content?.length < 3 || !userData?.content?.trim().length);
   const nameRequired = userData?.name?.length < 3 || !userData?.name?.trim().length;
 
   return (
     <Modal
       onCancel={() => {
         setShowModalEdit(false);
+        setUserData(user);
         router.push(`/profile/${router.query.pid}`, undefined, { shallow: true });
       }}
       closable={false}
@@ -43,6 +47,9 @@ const EditUserDataDuringSignUp = ({
       <HeaderEditUser
         setShowModalEdit={setShowModalEdit}
         saveUserDataByKey={saveUserDataByKey}
+        user={user}
+        setUserData={setUserData}
+        userData={userData}
         errorAboutMe={errorAboutMe}
         nameRequired={nameRequired}
       />
@@ -77,6 +84,7 @@ const EditUserDataDuringSignUp = ({
             disabledButton={disabledButton}
             setDisabledButton={setDisabledButton}
             userData={userData}
+            user={user}
             setUserData={setUserData}
             beforeUploadBase64={props.beforeUploadBase64}
             setLoadingImg={props.setLoadingImg}
@@ -101,6 +109,7 @@ EditUserDataDuringSignUp.propTypes = {
   genres: PropTypes.array,
   handleChangeGenres: PropTypes.func,
   saveUserDataByKey: PropTypes.func,
+  user: PropTypes.object.isRequired,
 };
 
 EditUserDataDuringSignUp.defaultProps = {

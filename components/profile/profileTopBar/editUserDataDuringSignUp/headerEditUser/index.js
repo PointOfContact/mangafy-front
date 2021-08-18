@@ -6,7 +6,15 @@ import PropTypes from 'prop-types';
 
 import styles from '../styles.module.scss';
 
-const HeaderEditUser = ({ setShowModalEdit, saveUserDataByKey, errorAboutMe, nameRequired }) => {
+const HeaderEditUser = ({
+  setShowModalEdit,
+  saveUserDataByKey,
+  errorAboutMe,
+  nameRequired,
+  user,
+  userData,
+  setUserData,
+}) => {
   const router = useRouter();
 
   return (
@@ -17,6 +25,7 @@ const HeaderEditUser = ({ setShowModalEdit, saveUserDataByKey, errorAboutMe, nam
           text="Cancel"
           onClick={() => {
             setShowModalEdit(false);
+            setUserData(user);
             router.push(`/profile/${router.query.pid}`, undefined, { shallow: true });
           }}
         />
@@ -26,7 +35,12 @@ const HeaderEditUser = ({ setShowModalEdit, saveUserDataByKey, errorAboutMe, nam
           text="Save"
           onClick={() => {
             setShowModalEdit(false);
-            saveUserDataByKey('content', 'genresIds', 'name', 'types');
+            if (errorAboutMe || !userData.content.lenngth) {
+              setUserData({ ...userData, content: user.content });
+              saveUserDataByKey('genresIds', 'name', 'types');
+            } else {
+              saveUserDataByKey('content', 'genresIds', 'name', 'types');
+            }
             router.push(`/profile/${router.query.pid}`, undefined, { shallow: true });
           }}
         />
@@ -40,6 +54,9 @@ HeaderEditUser.propTypes = {
   saveUserDataByKey: PropTypes.func.isRequired,
   errorAboutMe: PropTypes.bool.isRequired,
   nameRequired: PropTypes.bool.isRequired,
+  user: PropTypes.object.isRequired,
+  userData: PropTypes.object.isRequired,
+  setUserData: PropTypes.func.isRequired,
 };
 
 export default HeaderEditUser;
