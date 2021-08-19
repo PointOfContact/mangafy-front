@@ -126,6 +126,7 @@ const ModalDiscussion = ({
       LinkCreator.toQuery({ ...parsed }, '/feed'),
       {
         scroll: false,
+        shallow: true,
       }
     );
     changeShowModal(false);
