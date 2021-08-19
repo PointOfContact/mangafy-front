@@ -39,7 +39,9 @@
   overflow-y: auto;
   @include media-sm {
     max-height: 490px;
+    min-height: 370px;
   }
+
   &::-webkit-scrollbar {
     height: 3px;
     width: 5px;
@@ -329,7 +331,7 @@
     }
     @include media-sm {
       margin-bottom: 20px;
-      margin-top: 20px;
+      margin-top: 10px;
     }
     button {
       font-weight: bold;
