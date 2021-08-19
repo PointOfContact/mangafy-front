@@ -65,7 +65,9 @@ const BannerSection = ({
       reader.readAsDataURL(file);
       reader.addEventListener(
         'load',
-        mangaStoryAPI.bannerSection.getBaseData(reader, setBaseData, baseData, openNotification),
+        () => {
+          mangaStoryAPI.bannerSection.getBaseData(reader, setBaseData, baseData, openNotification);
+        },
         false
       );
     }
