@@ -42,11 +42,11 @@ export default function Home() {
                 </Link>
               </div>
               <div className={styles.main__ico}>
-                <img
-                  // layout="intrinsic"
-                  // width={646}
-                  // height={388}
-                  src="/img/land-new-img1.webp"
+                <Imgix
+                  layout="intrinsic"
+                  width={646}
+                  height={388}
+                  src="https://mangafy.club/img/land-new-img1.webp"
                   alt="MangaFy land new"
                 />
               </div>
