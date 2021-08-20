@@ -2,12 +2,15 @@ import React from 'react';
 
 import SvgLeftArrow from 'components/icon/LeftArrow';
 import Imgix from 'components/imgix';
+import Avatar from 'components/ui-elements/avatar';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
 const UserName = ({ selectedRequest, mobile, setShowMessageMobile }) => {
+  const ifNotImage = selectedRequest?.av?.slice(-9) === 'undefined';
+
   const getPath = () => {
     if (selectedRequest?.participentsInfo) {
       const userId = selectedRequest?.participentsInfo[0]
@@ -33,13 +36,22 @@ const UserName = ({ selectedRequest, mobile, setShowMessageMobile }) => {
             <>
               <Link href={getPath()}>
                 <div className={styles.avatarHiderMobile}>
-                  <Imgix
-                    layout="fixed"
-                    width={50}
-                    height={50}
-                    src={selectedRequest.av}
-                    alt="mangaFy avatar"
-                  />
+                  {ifNotImage ? (
+                    <Avatar
+                      text={selectedRequest.name}
+                      className={styles.avatarName}
+                      fontSize={50}
+                      size={'51px'}
+                    />
+                  ) : (
+                    <Imgix
+                      layout="fixed"
+                      width={50}
+                      height={50}
+                      src={selectedRequest.av}
+                      alt="mangaFy avatar"
+                    />
+                  )}
                 </div>
               </Link>
               <Link href={getPath()}>
@@ -66,10 +78,11 @@ const UserName = ({ selectedRequest, mobile, setShowMessageMobile }) => {
 UserName.propTypes = {
   selectedRequest: PropTypes.object.isRequired,
   mobile: PropTypes.bool,
-  setShowMessageMobile: PropTypes.func.isRequired,
+  setShowMessageMobile: PropTypes.func,
 };
 UserName.defaultProps = {
   mobile: false,
+  setShowMessageMobile: () => {},
 };
 
 export default UserName;

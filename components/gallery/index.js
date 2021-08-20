@@ -189,36 +189,10 @@ export const Gallery = (props) => {
           {...{ setImages, images, user, handleCancel, isModalVisible }}
         />
       )}
-      <h4 className={styles.title}>{title}</h4>
-      {errMessage && <p>{errMessage}</p>}
-      <Row>
-        <Col span={19}>
-          <CreatePreviousWorks
-            profile={profile}
-            images={images}
-            canEdit={canEdit}
-            canEditInit={canEditInit}
-            user={user}
-            userData={userData}
-            gallerySet={gallerySet}
-            setUserData={setUserData}
-            fromPath={fromPath}
-            setImages={setImages}
-            setSelectedGallery={setSelectedGallery}
-            setCreateGalleryModal={setCreateGalleryModal}
-            setIsModalVisible={setIsModalVisible}
-            onBeforeGalleryUpload={onBeforeGalleryUpload}
-            showUploadList={showUploadList}
-          />
-        </Col>
+      <div className={styles.headerPortfolio}>
+        <h4 className={styles.title}>{title}</h4>
         {canEditInit && (
-          <Col
-            xs={{ span: 23 }}
-            md={{ span: 5 }}
-            xl={{ span: 5 }}
-            xxl={{ span: 5 }}
-            span={5}
-            className={styles.img_add_button}>
+          <Col className={styles.img_add_button}>
             {/* {isShowAdd && ( */}
             <span
               className={styles.uploadText}
@@ -244,6 +218,28 @@ export const Gallery = (props) => {
             {/* )} */}
           </Col>
         )}
+      </div>
+      {errMessage && <p>{errMessage}</p>}
+      <Row>
+        <Col>
+          <CreatePreviousWorks
+            profile={profile}
+            images={images}
+            canEdit={canEdit}
+            canEditInit={canEditInit}
+            user={user}
+            userData={userData}
+            gallerySet={gallerySet}
+            setUserData={setUserData}
+            fromPath={fromPath}
+            setImages={setImages}
+            setSelectedGallery={setSelectedGallery}
+            setCreateGalleryModal={setCreateGalleryModal}
+            setIsModalVisible={setIsModalVisible}
+            onBeforeGalleryUpload={onBeforeGalleryUpload}
+            showUploadList={showUploadList}
+          />
+        </Col>
       </Row>
       <Loading loading={loading} />
     </div>
