@@ -117,22 +117,26 @@ const DiscussionCard = (props) => {
               <SvgComment width="17px" height="17px" />
             </div>
           </div>
-          {!!categories && !!categories[0] && (
+          {!!categories && !!categories[0] && img && (
             <span className={cn(!img && styles.cat, styles.catDef)}>{categories[0]}</span>
           )}
         </div>
 
         <div
-          className={cn(!img && styles.projectsForYou_botDesc, styles.projectsForYou_botDescDef)}>
+          className={cn(!img && styles.projectsForYou_botDesc, styles.projectsForYou_botDescDef)}
+          onClick={() => openPost(id)}>
           <span>{subTitle}</span>
-          <Link href={url || '/'}>
-            <a>
-              <PrimaryButton
-                text={btnText}
-                suffix={<span style={{ marginLeft: '15px' }}>❯</span>}
-              />
-            </a>
-          </Link>
+          <div className={styles.containerButton}>
+            <Link href={url || '/'}>
+              <a>
+                <PrimaryButton
+                  text={btnText}
+                  suffix={<span style={{ marginLeft: '15px' }}>❯</span>}
+                />
+              </a>
+            </Link>
+            {!img && <span className={cn(!img && styles.cat, styles.catDef)}>{categories[0]}</span>}
+          </div>
         </div>
       </div>
       <ModalDiscussion
