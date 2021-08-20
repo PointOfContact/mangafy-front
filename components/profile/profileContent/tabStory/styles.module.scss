@@ -28,7 +28,7 @@
 .editAboutButton {
   position: absolute;
   cursor: pointer;
-  margin-top: -35px;
+  margin-top: 5px;
   right: 25px;
   width: 22px;
   height: 22px;
@@ -81,6 +81,12 @@
   color: $grey;
   @include media-sm {
     font-size: $text4;
+  }
+  .errorBio{
+    color: $red;
+    font-size: 14px;
+    line-height: 15px;
+    margin-top: 5px;
   }
 }
 .genres_wrap {

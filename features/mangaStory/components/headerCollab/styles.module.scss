@@ -48,18 +48,26 @@
 }
 .header {
   margin: auto;
-  width: auto;
+  margin-top: 90px;
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
   min-height: 42px;
   max-height: 77px;
+  @include media-md {
+    padding: 0px;
+    margin-top: 145px;
+  }
+
   h2 {
     font-weight: bold;
     font-size: 30px;
     line-height: 43px;
     color: #212121;
+    @include media-xs {
+      font-size: 25px;
+    }
   }
   span {
     color: $primaryDark;
@@ -68,6 +76,9 @@
     margin: 0 auto;
     font-size: 20px;
     color: $gray85;
+    @include media-xs {
+      font-size: 15px;
+    }
   }
 }
 .editSVG {
@@ -104,3 +115,10 @@
     }
   }
 }
+.error {
+  border-color: $red !important;
+  color: $red;
+}
+.modalTitle{
+  text-align: center;
+} 

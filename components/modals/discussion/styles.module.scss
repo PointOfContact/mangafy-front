@@ -49,10 +49,10 @@
     font-size: 20px;
   }
   .isLiked {
-    fill: red !important;
-    stroke: red !important;
+    fill: $red !important;
+    stroke: $red !important;
     path {
-      fill: red !important;
+      fill: $red !important;
     }
   }
   .modalSelect {

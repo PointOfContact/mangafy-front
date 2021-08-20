@@ -23,8 +23,8 @@
     }
   }
   .errSelect {
-    &>div {
-      border-bottom-color: red !important;
+    & > div {
+      border-bottom-color: $red !important;
     }
   }
   .contacts {
@@ -232,14 +232,14 @@
     }
   }
   .errMessage {
-    color: red;
+    color: $red;
     font-size: 10px !important;
     line-height: inherit;
     position: absolute;
     margin-top: -10px;
   }
   .errImp {
-    border-color: red !important;
+    border-color: $red !important;
   }
 
   .buttonsProfile {
