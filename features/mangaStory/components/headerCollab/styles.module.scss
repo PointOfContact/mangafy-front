@@ -6,8 +6,8 @@
   position: relative;
   top: 70px !important;
   @include media-sm {
-    padding-left: 30px;
-    padding-right: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
     box-sizing: border-box;
   }
   .publishSwitch {
@@ -33,24 +33,18 @@
 .storyTabContent {
   display: flex;
   justify-content: space-between;
+  margin-top: 90px;
+  height: 150px;
   svg {
     cursor: pointer;
   }
-  padding-left: 30px;
-  padding-right: 30px;
+  @media (max-width: 1600px){
+     padding-left: 30px;
+     padding-right: 30px;
+  }
 }
-.inputs {
-  margin-top: 89px;
-  margin-bottom: 20px;
-  input {
-    font-size: 15px;
-    margin-bottom: 10px;
-  }
-  @include media-sm {
-    padding-left: 30px;
-    padding-right: 30px;
-    box-sizing: border-box;
-  }
+.containerInput{
+  flex-direction: column;
 }
 .header {
   margin: auto;
@@ -89,19 +83,36 @@
 }
 .editSVG {
   position: relative;
-  top: 100px !important;
+  top: 60px !important;
   left: -35px !important;
-  @include media-sm {
-    padding: 0px;
-    left: 10px !important;
-  }
 }
-.editProfile {
-  display: flex;
-  margin-bottom: 20px;
+.modal {
+  top: 125px !important;
+  width: 100% !important;
+  max-width: 1000px !important;
   @include media-md {
-    padding-left: 30px;
-    padding-right: 30px;
+    padding: 0 10px;
+  }
+  & > div > button {
+    width: 31px !important;
+    height: 31px !important;
+    background: $primaryDark !important;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 31px;
+    margin-top: 20px;
+    svg {
+      width: 17px;
+      height: 17px;
+      path {
+        fill: white !important;
+      }
+    }
+    &:hover {
+      background: $primaryLight !important;
+    }
   }
 }
 .error {

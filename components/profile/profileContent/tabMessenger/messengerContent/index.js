@@ -11,7 +11,6 @@ import moment from 'moment';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
 import { MessageList } from 'react-chat-elements';
-import useWindowSize from 'utils/useWindowSize';
 
 import 'react-chat-elements/dist/main.css';
 import { patchRequest } from '../../../../../api/joinMangaStoryRequestClient';
@@ -35,8 +34,8 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
   const [value, setValue] = useState('');
   const [showModal, changeShowModal] = useState(false);
   const [messageError, setMessageError] = useState('');
+  const messageListElement = useRef(null);
 
-  const { width } = useWindowSize();
   const messenger = useRef(null);
   const { conversationId, profileId } = selectedRequest;
 
@@ -151,12 +150,7 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
   };
 
   const scrollToBottom = () => {
-    messenger.current.mlistRef.scrollIntoView(false);
-    const pl = selectedRequest.isTeamChat ? 16 : 0;
-    width > 767
-      ? window.scrollTo(0, window.scrollY + 80 + pl)
-      : window.scrollTo(0, window.scrollY + 160 + pl);
-    // chatBlock.current.focus();
+    messageListElement.current.scrollTop = messageListElement.current.scrollHeight;
   };
 
   const getMessages = () => {
@@ -302,10 +296,11 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
   //     ))}
   //   </div>
   // );
+
   return (
     <div className={styles.chatContainer}>
       {selectedRequest.participentsInfo && <UserName selectedRequest={selectedRequest} />}
-      <pre className={styles.messageList} id="message-content">
+      <pre ref={messageListElement} className={styles.messageList} id="message-content">
         <MessageList
           ref={messenger}
           className={styles.message_list}

@@ -1,18 +1,19 @@
 import React from 'react';
 
 import { ExclamationCircleOutlined } from '@ant-design/icons';
-import { Input, Popover } from 'antd';
+import { Popover } from 'antd';
 import Modal from 'antd/lib/modal/Modal';
 import { findStoryBoard } from 'api/storyBoardClient';
 import cn from 'classnames';
+import SvgClose from 'components/icon/Close';
 import SvgPencilColored from 'components/icon/PencilColored';
-import PrimaryButton from 'components/ui-elements/button';
 import ButtonToggle from 'components/ui-elements/button-toggle';
 import PropTypes from 'prop-types';
 
 import mangaStoryAPI from '../../mangaStoryAPI';
 import DraftCheckbox from './draftCheckbox';
 import styles from './styles.module.scss';
+import WriteCollabName from './writeCollabName';
 
 const { confirm } = Modal;
 const { info } = Modal;
@@ -40,13 +41,11 @@ const HeaderCollab = ({
   setMangaStoryNew,
   mangaStoryNew,
 }) => {
-  const cancelEditTitle = () => {
-    setEditTitle(false);
-  };
-
   const onPublish = () => {
     if (baseData.published) {
-      onGoToPrivate();
+      patchStory({
+        published: false,
+      });
       mangaStoryAPI.draft.leaveManga(mangaStory, false);
     } else {
       onGoToPublic();
@@ -75,14 +74,10 @@ const HeaderCollab = ({
             published: true,
           }).then(() =>
             info({
-              title: (
-                <h3 className={styles.modalTitle}>
-                  AWESOME! You opened your graphic novel project!
-                </h3>
-              ),
-              icon: '',
-              width: '100%',
-              style: { top: 120, maxWidth: '1000px' },
+              className: styles.modal,
+              closable: true,
+              icon: <SvgClose width={10} height={10} />,
+              okText: <></>,
               content: (
                 <DraftCheckbox
                   originUrl={originUrl}
@@ -113,23 +108,6 @@ const HeaderCollab = ({
         openNotification('error', err.message);
       }
     );
-  };
-
-  const onGoToPrivate = () => {
-    confirm({
-      confirmLoading: true,
-      title: 'Oh, going private? No problem',
-      style: { top: 120 },
-      icon: <ExclamationCircleOutlined />,
-      content:
-        'Your project is moving to private mode. But no worries, if you want to collaborate or add members in various roles, you can always switch up to public. Good Luck!',
-      onOk() {
-        patchStory({
-          published: false,
-        });
-      },
-      onCancel() {},
-    });
   };
 
   return (
@@ -163,77 +141,46 @@ const HeaderCollab = ({
               </>
             )}
 
-            {!editTitle ? (
-              <div className={styles.storyTabContent}>
-                <div className={styles.header}>
-                  {collabActiveTab === '2' ? (
-                    <>
-                      {stage?.tab !== '6' ? (
-                        <h2>
-                          STORY PRODUCTION TOOLS - <span>STAGE {stage?.tab}</span> - {stage?.title}
-                        </h2>
-                      ) : (
-                        <h2>{stage?.title}</h2>
-                      )}
-                      <p>{stage?.description}</p>
-                    </>
-                  ) : (
-                    <h2>{baseData.title}</h2>
-                  )}
-                </div>
-                {canEdit && collabActiveTab !== '2' && (
-                  <SvgPencilColored
-                    className={styles.editSVG}
-                    onClick={() => setEditTitle(true)}
-                    width="22px"
-                    height="22px"
-                  />
-                )}
-              </div>
-            ) : (
-              canEdit && (
+            <div className={cn(styles.storyTabContent, editTitle && styles.containerInput)}>
+              {!editTitle ? (
                 <>
-                  <div className={styles.inputs}>
-                    <h2>
-                      <Input
-                        className={!baseData.title.replace(/\s+/g, '') && styles.error}
-                        isLinear={true}
-                        isFullWidth={true}
-                        name="title"
-                        onChange={onChangeSingleField}
-                        placeholder=""
-                        type="text"
-                        value={baseData.title}
-                        required
-                      />
-                      {!baseData.title.replace(/\s+/g, '') && (
-                        <p className={styles.error}>Title is required</p>
-                      )}
-                    </h2>
+                  <div className={styles.header}>
+                    {collabActiveTab === '2' ? (
+                      <>
+                        {stage?.tab !== '6' ? (
+                          <h2>
+                            STORY PRODUCTION TOOLS - <span>STAGE {stage?.tab}</span> -{' '}
+                            {stage?.title}
+                          </h2>
+                        ) : (
+                          <h2>{stage?.title}</h2>
+                        )}
+                        <p>{stage?.description}</p>
+                      </>
+                    ) : (
+                      <h2>{baseData.title}</h2>
+                    )}
                   </div>
-                  <div className={cn(styles.editProfile, 'buttonsProfile_styles')}>
-                    <PrimaryButton
-                      className="buttonsProfile_cancel"
-                      text="Cancel"
-                      isDark
-                      isRound
-                      disabled={false}
-                      onClick={cancelEditTitle}
+                  {canEdit && collabActiveTab !== '2' && (
+                    <SvgPencilColored
+                      className={styles.editSVG}
+                      onClick={() => setEditTitle(true)}
+                      width="22px"
+                      height="22px"
                     />
-                    <PrimaryButton
-                      className="buttonsProfile_save"
-                      text="save"
-                      isActive
-                      isRound
-                      disabled={false}
-                      onClick={() => {
-                        baseData.title.replace(/\s+/g, '') && saveUserDataByKey(baseData, 'title');
-                      }}
-                    />
-                  </div>
+                  )}
                 </>
-              )
-            )}
+              ) : (
+                canEdit && (
+                  <WriteCollabName
+                    baseData={baseData}
+                    onChangeSingleField={onChangeSingleField}
+                    setEditTitle={setEditTitle}
+                    saveUserDataByKey={saveUserDataByKey}
+                  />
+                )
+              )}
+            </div>
           </div>
         </div>
       </div>

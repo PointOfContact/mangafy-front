@@ -25,127 +25,116 @@
       max-width: 100%;
     }
   }
+  @include media-xs {
+    margin-bottom: 10px;
+  }
 }
 
 .img_add_button {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end;
+  flex: 1;
   @include media-sm {
-    align-items: center;
-    position: relative;
-    justify-content: flex-end;
-    width: 100%;
-    flex-direction: row;
-    margin-bottom: 20px;
     svg {
       height: 18px;
       width: 18px;
     }
   }
-  & > span {
-    @include media-sm {
-      display: flex;
-      padding: 5px 0px 5px 5px;
-      justify-content: flex-end;
-    }
-  }
-}
-.uploadText {
-  width: 100%;
-  max-width: 130px;
-  margin-bottom: 10px;
-  span {
-    color: $grey;
-  }
-  @include media-sm {
-    max-width: 165px;
-    margin-bottom: 0px;
-  }
-  text-align: center;
-  &:hover {
-    span {
-      color: rgb(143, 141, 141);
-    }
-  }
-  div {
-    width: 100%;
-    flex-direction: row-reverse;
-    display: flex;
-    justify-content: space-between;
-    @include media-sm {
-      flex-direction: row;
-      justify-content: center;
-      margin-right: 10px;
-      margin: 0px;
-    }
-    @include hoverButton;
-  }
-  span {
-    max-width: calc(100% - 35px);
-    font-size: 15px;
-    font-weight: normal;
-    display: block;
-    margin-left: 0;
-    margin-right: 0;
-    text-align: center;
-    @include media-sm {
-      display: inline;
-      padding-right: 5px;
-    }
-  }
 }
 
-.uploadFile {
-  width: 100%;
-  max-width: 193px;
+.headerPortfolio {
   display: flex;
   justify-content: space-between;
-  span {
-    color: $grey;
+  @include media-xs {
+    flex-direction: column;
   }
-  @include media-sm {
-    width: unset;
-    max-width: 178px;
-  }
-  &:hover {
-    span {
-      color: rgb(143, 141, 141);
-    }
-  }
-  div {
+  .uploadText {
     width: 100%;
-    flex-direction: row-reverse;
-    display: flex;
-    justify-content: space-between;
-    @include hoverButton;
-    @include media-sm {
-      height: 0;
-      margin-bottom: 0;
-      flex-direction: row;
-      justify-content: center;
-    }
-  }
-  span {
+    max-width: 128px;
+    margin-bottom: 10px;
+    margin-left: 20px;
+    margin-top: 10px;
     text-align: center;
-    width: 100%;
-    font-size: 15px;
-    font-weight: normal;
-    display: block;
-    margin-left: 0;
-    margin-right: 0;
     @include media-sm {
-      display: inline;
-      padding-left: 0px;
+      max-width: 140px;
+    }
+    span {
+      color: $grey;
+    }
+    &:hover {
+      span {
+        color: rgb(143, 141, 141);
+      }
+    }
+    div {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      @include media-sm {
+        justify-content: center;
+        margin-right: 10px;
+        margin: 0px;
+      }
+      @include hoverButton;
+    }
+    span {
+      max-width: calc(100% - 35px);
+      font-size: 15px;
+      font-weight: normal;
+      display: block;
+      margin-left: 0;
+      margin-right: 0;
+      text-align: center;
+      @include media-sm {
+        display: inline;
+        padding-right: 5px;
+      }
     }
   }
-  svg {
-    min-width: 25px;
-    min-height: 25px;
+  .uploadFile {
+    width: 100%;
+    max-width: 186px;
+    display: flex;
+    margin-top: 10px;
+    justify-content: space-between;
     @include media-sm {
-      min-width: 18px;
-      min-height: 18px;
-      margin-left: 5px;
+      max-width: 166px;
+    }
+    span {
+      color: $grey;
+    }
+    &:hover {
+      span {
+        color: rgb(143, 141, 141);
+      }
+    }
+    div {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      @include hoverButton;
+    }
+    span {
+      text-align: center;
+      width: 100%;
+      font-size: 15px;
+      font-weight: normal;
+      display: block;
+      margin-left: 0;
+      margin-right: 0;
+      @include media-sm {
+        display: inline;
+        padding-left: 0px;
+      }
+    }
+    svg {
+      min-width: 25px;
+      min-height: 25px;
+      @include media-sm {
+        min-width: 18px;
+        min-height: 18px;
+        margin-left: 5px;
+      }
     }
   }
 }

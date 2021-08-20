@@ -1,6 +1,7 @@
 @import '../../../styles/variables.scss';
 
 .modal {
+  margin-top: 30px;
   @include media-sm {
     width: 95% !important;
     max-width: 95% !important;

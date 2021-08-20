@@ -15,9 +15,11 @@ const WarningFillAllData = ({ user, setShowModalEdit }) => {
         setShowModalEdit(true);
         router.push(`/profile/${user?._id}?editModal=true`, undefined, { shallow: true });
       }}>
-      <span className={styles.warning}>Warning</span>: Please complete your account setup to
-      participate in the community
-      <span className={styles.outLine}> here.</span>
+      <p className={styles.text}>
+        <span className={styles.warning}>Warning</span>: Please complete your account setup to
+        participate in the community
+        <span className={styles.outLine}> here.</span>
+      </p>
     </div>
   );
 };

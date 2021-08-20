@@ -22,6 +22,7 @@ $borderColor: #f0f0f0;
   @include media-sm {
     width: 95% !important;
     max-width: 95% !important;
+    margin-top: 37px !important;
   }
   & > div {
     border-radius: 5px;

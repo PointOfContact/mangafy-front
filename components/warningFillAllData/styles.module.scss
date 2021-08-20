@@ -13,6 +13,9 @@
   top: 92px;
   background-color: $orangeDark;
   cursor: pointer;
+  .text{
+    margin: 0;
+  }
   .warning {
       font-weight: bold;
   }
@@ -24,14 +27,11 @@
       border-bottom: 1px solid $black;
     }
   }
-  @include media-sm {
-    padding: 8px 0;
-    font-size: 12px;
-  }
   @include media-md {
     top: 86px;
   }
-  @include media-xs {
-    font-size: 10px;
+  @include media-sm {
+    padding: 24px 8px;
+    font-size: 14px;
   }
 }

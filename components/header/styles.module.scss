@@ -302,11 +302,10 @@
         height: 10px;
         border-radius: 50%;
         position: absolute;
-        bottom: 95%;
-        left: 98%;
-        background-color: $primaryDark;
-        border-left: 1px solid #4332a4;;
-        border-bottom: 1px solid #4332a4;
+        bottom: 90%;
+        left: 97%;
+        background-color: #917eff;
+        border: 1px solid #4332a4;
         @include media-lg{
           left: 95%;
         }
