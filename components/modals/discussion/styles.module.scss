@@ -26,9 +26,16 @@
       padding-right: 0px;
       margin-right: 0px;
     }
-    .description {
+    .descriptionDef {
       font-family: sans-serif;
       color: $black;
+    }
+    .description {
+      min-height: 580px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
     }
   }
   .modalTitle {
@@ -175,7 +182,7 @@
       background-color: $primaryLight;
     }
   }
-  .img {
+  .imgDef {
     & > div {
       border-radius: 6px;
     }
@@ -191,11 +198,14 @@
   .containerPhoto {
     display: flex;
     flex-direction: column-reverse;
-    .img {
+    .imgDef {
       min-height: 580px;
       @include media-sm {
         min-height: 100px;
       }
+    }
+    .img{
+      min-height: 0;
     }
   }
 }
