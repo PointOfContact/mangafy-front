@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { Modal, notification, Popover, Spin } from 'antd';
 import client from 'api/client';
+import cn from 'classnames';
 import SvgClose from 'components/icon/Close';
 import SvgHeart from 'components/icon/Heart';
 import SvgShareColored from 'components/icon/ShareColored';
@@ -216,10 +217,12 @@ const ModalDiscussion = ({
                   </div>
                 </div>
                 <div className={!photoProject && styles.containerPhoto}>
-                  <div className={styles.img}>
+                  <div className={cn(!photoProject && styles.img, styles.imgDef)}>
                     {setPhotoOrLogo(photoProject, client.UPLOAD_URL + photoProject, 1000, false)}
                   </div>
-                  <p className={styles.description}>{subTitle || subTitleData}</p>
+                  <p className={cn(!photoProject && styles.description, styles.descriptionDef)}>
+                    {subTitle || subTitleData}
+                  </p>
                 </div>
               </div>
             </div>

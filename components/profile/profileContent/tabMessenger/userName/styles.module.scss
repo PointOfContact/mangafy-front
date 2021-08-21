@@ -80,3 +80,9 @@
     } 
   }
 }
+.avatarName {
+  font-size: initial !important;
+  @include media-sm {
+    font-size: 20px !important;
+  }
+}

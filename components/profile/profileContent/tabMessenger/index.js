@@ -4,6 +4,7 @@ import { notification } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
 import NoRequest from 'components/noRequest';
+import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import * as qs from 'query-string';
 
@@ -19,7 +20,8 @@ const TabMessenger = (props) => {
   const [showArchive, setShowArchive] = useState(true);
   const [selectedRequest, setSelectedRequest] = useState({});
   const [noRequest, setNoRequest] = useState(false);
-  const [showMessageMobile, setShowMessageMobile] = useState(false);
+  const router = useRouter();
+  const [showMessageMobile, setShowMessageMobile] = useState(!!router.query.conversation);
 
   const openNotification = (type, message) => {
     notification[type]({

@@ -1,0 +1,21 @@
+@import '../../../../../styles/variables.scss';
+
+.inputs {
+  margin-top: 60px;
+  input {
+    font-size: 15px;
+    margin-bottom: 10px;
+    height: 40px;
+    border-radius: 5px;
+    border: 1px solid $primaryDark;
+  }
+}
+
+.editProfile {
+  display: flex;
+  margin-bottom: 20px;
+}
+.error {
+  border-color: red !important;
+  color: red;
+}

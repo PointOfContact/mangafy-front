@@ -22,11 +22,11 @@
   }
   .errMessage {
     font-size: 10px;
-    color: red;
+    color: $red;
     margin-left: 8px;
   }
   .errInp {
-    border-color: red !important;
+    border-color: $red !important;
   }
   .grupe {
     display: flex;
