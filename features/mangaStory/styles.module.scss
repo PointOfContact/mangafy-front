@@ -4,7 +4,7 @@ $colorAllBorder: rgba(33, 33, 33, 0.07);
 
 .tabWrap {
   padding: 30px;
-  @include media-sm{
+  @include media-sm {
     height: 582px;
   }
   p:last-child {
@@ -226,41 +226,6 @@ $colorAllBorder: rgba(33, 33, 33, 0.07);
         }
       }
     }
-    .headerUpload {
-      height: 56px;
-      border-bottom: 1px solid $colorAllBorder;
-      & + div {
-        margin: 28px 0 0 18px;
-        @include media-xs {
-          margin: 28px 18px 0 18px;
-        }
-        & > span > div > span > div {
-          padding: 15px;
-          & > div {
-            height: 24px;
-            font-weight: normal;
-            font-size: 10px;
-            line-height: 14px;
-            color: $gray85;
-            h4 {
-              margin-top: 18px;
-              color: $gray85;
-              &:hover {
-                color: #575555;
-              }
-            }
-            span svg {
-              height: 84px;
-              margin-top: 51px;
-              filter: drop-shadow(0px 2px 1px rgba(0, 0, 0, 0.2));
-              @include media-sm {
-                margin-top: 26px;
-              }
-            }
-          }
-        }
-      }
-    }
   }
   .uploadPhotoContainerDef {
     display: flex;
@@ -322,86 +287,6 @@ $colorAllBorder: rgba(33, 33, 33, 0.07);
       }
       @include media-xs {
         max-width: 162px;
-      }
-      .uploadList {
-        max-width: 247px;
-        min-width: 247px;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        border-right: 2px solid $colorAllBorder;
-        @include media-lg {
-          min-width: 200px;
-        }
-        @include media-md {
-          min-width: 160px;
-        }
-        .popConfirm {
-          border: 1px solid black;
-        }
-        .deleteCard {
-          margin-top: 48px;
-          width: 31px;
-          height: 31px;
-          border: 0.5px solid $gray85;
-          box-sizing: border-box;
-          border-radius: 60px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          cursor: pointer;
-          &:hover {
-            background-color: $primaryDark;
-            svg {
-              path {
-                fill: white;
-              }
-            }
-          }
-          svg {
-            margin-right: 1px;
-          }
-        }
-        .uploadListTitle {
-          width: 100%;
-          height: 55px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          border-bottom: 1px solid $colorAllBorder;
-          font-weight: normal;
-          font-size: 20px;
-          line-height: 29px;
-          color: $gray85;
-        }
-        .uploadPhoto {
-          margin-top: 28px;
-          width: 206px;
-          height: 294px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          cursor: pointer;
-          border-radius: 4px;
-          &:hover {
-            box-shadow: 1px 1px 10px 1px $primaryLight;
-          }
-          @include media-lg {
-            max-width: 140px;
-            height: 210px;
-          }
-          @include media-md {
-            max-width: 120px;
-            height: 190px;
-          }
-          img {
-            height: unset !important;
-            min-height: 0 !important;
-            border-radius: 4px;
-            object-fit: cover;
-          }
-        }
       }
     }
   }
