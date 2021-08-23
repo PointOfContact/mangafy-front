@@ -69,9 +69,6 @@
       height: unset !important;
       min-width: 0 !important;
       min-height: 0 !important;
-      @include media-lg {
-        width: 300px !important;
-      }
     }
   }
 }
