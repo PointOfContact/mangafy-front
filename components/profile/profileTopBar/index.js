@@ -229,8 +229,9 @@ const ProfileTopBar = (props) => {
                 <p>
                   {
                     userTypesEnums[
-                      (!!userData?.types?.length && userData?.types[0]) ||
-                        (!!profile?.types?.length && profile?.types[0])
+                      ifMyProfile
+                        ? !!userData?.types?.length && userData?.types[0]
+                        : !!profile?.types?.length && profile?.types[0]
                     ]
                   }
                 </p>
