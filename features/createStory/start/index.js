@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useCallback } from 'react';
+import React, { useEffect, useRef, useCallback, useState } from 'react';
 
 import { notification } from 'antd';
 import Footer from 'components/footer';
@@ -13,6 +13,7 @@ import { adaptData, timeout } from './utils';
 
 const Start = ({ genres, jwt, user }) => {
   const typeformRef = useRef(null);
+  const [closeTypeForm, setCloseTypeForm] = useState(true);
 
   const openNotification = (type, message) => {
     notification[type]({
@@ -47,6 +48,10 @@ const Start = ({ genres, jwt, user }) => {
         amplitude(data);
         // eslint- disable-next-line no-underscore-dangle
         Router.push(`/manga-story/${response._id}`);
+
+        setTimeout(() => {
+          setCloseTypeForm(false);
+        }, 5000);
       } catch (error) {
         // eslint-disable-next-line no-console
         openNotification('error', error?.message || error);
@@ -105,7 +110,7 @@ const Start = ({ genres, jwt, user }) => {
       />
       <div>
         <Header path="create-a-story/start" user={user} />
-        <div ref={typeformRef} style={{ height: '100vh', width: '100%' }}></div>
+        {closeTypeForm && <div ref={typeformRef} style={{ height: '100vh', width: '100%' }}></div>}
         <Footer />
       </div>
     </>
