@@ -1,0 +1,25 @@
+@import '../..//styles/variables.scss';
+
+.containerPreview {
+  max-width: 860px;
+  width: 100%;
+  padding: 30px;
+  margin: 50px auto;
+  .shareButPreview{
+    margin-bottom: 20px;
+    justify-content: start;
+    @include media-sm{
+      flex-direction: initial;
+    }
+  }
+  .containerImages {
+    position: relative;
+    div {
+      position: relative !important;
+      img {
+        height: auto !important;
+        position: inherit !important;
+      }
+    }
+  }
+}

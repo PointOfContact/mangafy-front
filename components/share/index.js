@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import { Tooltip } from 'antd';
+import cn from 'classnames';
 import SvgCopy from 'components/icon/Copy';
 import SvgFacebook from 'components/icon/Facebook';
 import SvgTwitter from 'components/icon/Twitter';
@@ -17,10 +18,10 @@ import {
 
 import styles from './styles.module.scss';
 
-export const ShareButtons = ({ shareUrl, text, onClick }) => {
+export const ShareButtons = ({ className, shareUrl, text, onClick }) => {
   const [copyText, setCopyText] = useState('Copy to clipboard');
   return (
-    <div className={styles.shareButtons}>
+    <div className={cn(styles.shareButtons, className)}>
       <span className={styles.text}>{text}</span>
       <ul>
         <li onClick={onClick}>
@@ -49,7 +50,7 @@ export const ShareButtons = ({ shareUrl, text, onClick }) => {
               className={styles.copy}
               onMouseOut={() => setCopyText('Copy to clipboard')}
               onClick={() => {
-                setCopyText('Copy to clipboard');
+                setCopyText('Copied');
                 copy(shareUrl);
               }}>
               <SvgCopy width="18px" height="18px" alt="mangaFy copy icon" />
@@ -65,9 +66,11 @@ ShareButtons.propTypes = {
   shareUrl: PropTypes.string.isRequired,
   onClick: PropTypes.func,
   text: PropTypes.string,
+  className: PropTypes.string,
 };
 
 ShareButtons.defaultProps = {
   text: '',
   onClick: () => {},
+  className: '',
 };
