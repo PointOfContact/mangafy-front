@@ -90,6 +90,11 @@ const pageStart = ({ user }) => (
                         <a>Production management tool</a>
                       </Link>
                     </li>
+                    <li className={styles.lists__listItem}>
+                      <Link href={'/resources/build-webcomic-fanbase'}>
+                        <a>Build Webcomicw Fanbase</a>
+                      </Link>
+                    </li>
                     {/* <li className={styles.lists__listItem}>
                       <Link href={`/resources/how-to-get-started-with-MangaFY`}>
                         <a>How to get started with MangaFY</a>
