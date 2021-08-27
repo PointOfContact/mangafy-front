@@ -400,7 +400,9 @@ const StoryBoardTabs = ({
                 className={
                   !!uploadImages.length ? styles.uploadContainerDef : styles.uploadContainer
                 }>
-                {!!uploadImages.length && <Preview uploadImages={uploadImages} />}
+                {!!uploadImages.length && (
+                  <Preview uploadImages={uploadImages} storyBoardId={storyBoard?._id} />
+                )}
                 <Upload
                   storyBoardId={storyBoard?._id}
                   mangaUrl={storyBoard?.mangaUrl}
