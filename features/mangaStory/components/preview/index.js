@@ -4,23 +4,29 @@ import Modal from 'antd/lib/modal/Modal';
 import SvgClose from 'components/icon/Close';
 import Imgix from 'components/imgix';
 import PrimaryButton from 'components/ui-elements/button';
+import Router from 'next/router';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
-const Preview = ({ uploadImages }) => {
+const Preview = ({ uploadImages, storyBoardId }) => {
   const [showPreviewModal, setShowPreviewModal] = useState(false);
 
   const clearPdf = uploadImages?.filter((value) => value.uid?.slice(-3) !== 'pdf');
 
-  const previewPhotos = clearPdf?.map((value, index) => (
-    <div key={index} className={styles.images}>
+  const previewPhotos = clearPdf?.map((value) => (
+    <div key={value} className={styles.images}>
       <Imgix layout="fill" src={value.url} alt="mangaFy preview photos" />
     </div>
   ));
 
+  const redirectMangaFyPage = () => {
+    Router.push(`/manga-view/${storyBoardId}`);
+  };
+
   return (
     <div className={styles.headerUpload}>
+      <PrimaryButton className={styles.previewButton} text="View" onClick={redirectMangaFyPage} />
       <PrimaryButton
         className={styles.previewButton}
         text="Preview"
@@ -44,6 +50,7 @@ const Preview = ({ uploadImages }) => {
 
 Preview.propTypes = {
   uploadImages: PropTypes.array.isRequired,
+  storyBoardId: PropTypes.string.isRequired,
 };
 
 export default Preview;
