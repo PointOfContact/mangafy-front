@@ -16,7 +16,7 @@ const MangaView = ({ user, storyBoardId, mangaUrls }) => {
   const clearPdfFromMangaUrls = mangaUrls.filter((value) => value.slice(-3) !== 'pdf');
 
   const images = clearPdfFromMangaUrls.map((value, index) => (
-    <div className={styles.containerImages} key={index}>
+    <div className={styles.containerImages} key={value}>
       <Imgix
         layout="fill"
         src={`${client.API_ENDPOINT}/api/v2/uploads/${value}`}
