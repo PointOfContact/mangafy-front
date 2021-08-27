@@ -15,7 +15,7 @@ import styles from './styles.module.scss';
 const MangaView = ({ user, storyBoardId, mangaUrls }) => {
   const clearPdfFromMangaUrls = mangaUrls.filter((value) => value.slice(-3) !== 'pdf');
 
-  const images = clearPdfFromMangaUrls.map((value, index) => (
+  const images = clearPdfFromMangaUrls.map((value) => (
     <div className={styles.containerImages} key={value}>
       <Imgix
         layout="fill"
