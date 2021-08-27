@@ -12,7 +12,11 @@ import styles from '../styles.module.scss';
 
 const DeleteProjectButton = ({ label, user, mangaStory }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
+
   const handleClick = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+
     const data = {
       event_type: EVENTS.DELETE_PROJECT,
       event_properties: { mangaStoryId: mangaStory._id },
@@ -21,15 +25,17 @@ const DeleteProjectButton = ({ label, user, mangaStory }) => {
         ...user,
       },
     };
+
     myAmplitude(data);
-    e.stopPropagation();
     setIsModalVisible(true);
   };
 
   return (
     label.author === user?._id && (
-      <div className={cn(styles.deleteCard, styles.deleteCardMobile)}>
-        <span onClick={(e) => handleClick(e)}>
+      <div
+        onClick={(e) => handleClick(e)}
+        className={cn(styles.deleteCard, styles.deleteCardMobile)}>
+        <span>
           <Popover placement="left" content={'Delete project'} trigger="hover">
             <SvgDustbin width="14px" height="14px" />
           </Popover>
