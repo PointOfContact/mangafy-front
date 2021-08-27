@@ -1,14 +1,11 @@
 import client from 'api/client';
 import { withAuthComponent, withAuthServerSideProps } from 'components/withAuth';
 import Profile from 'features/profile';
-import absoluteUrl from 'next-absolute-url';
 import { store } from 'store';
 
 export default withAuthComponent(Profile);
 
 export const getServerSideProps = withAuthServerSideProps(async (context, user = null) => {
-  const { origin } = absoluteUrl(context.req);
-
   try {
     const profile = await client.service('/api/v2/users').get(context.params.pid);
     const genres = await client.service('/api/v2/genres').find({

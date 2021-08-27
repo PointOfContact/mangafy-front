@@ -87,7 +87,7 @@ $borderColor: #f0f0f0;
     margin-bottom: 60px;
     display: flex;
     justify-content: start;
-    align-items: start;
+    align-items: flex-start;
     flex-direction: column;
     position: relative;
     @include media-sm {
