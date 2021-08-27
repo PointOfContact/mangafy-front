@@ -31,24 +31,24 @@
   }
 }
 .storyTabContent {
+  height: 80px;
   display: flex;
   justify-content: space-between;
-  margin-top: 90px;
-  height: 150px;
+  margin-top: 120px;
+  margin-bottom: 60px;
   svg {
     cursor: pointer;
   }
-  @media (max-width: 1600px){
-     padding-left: 30px;
-     padding-right: 30px;
+  @media (max-width: 1600px) {
+    padding-left: 30px;
+    padding-right: 30px;
   }
 }
-.containerInput{
+.containerInput {
   flex-direction: column;
 }
 .header {
   margin: auto;
-  margin-top: 90px;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -57,7 +57,6 @@
   max-height: 77px;
   @include media-md {
     padding: 0px;
-    margin-top: 145px;
   }
 
   h2 {
@@ -82,9 +81,7 @@
   }
 }
 .editSVG {
-  position: relative;
-  top: 60px !important;
-  left: -35px !important;
+  height: 70px;
 }
 .modal {
   top: 125px !important;
@@ -119,6 +116,6 @@
   border-color: $red !important;
   color: $red;
 }
-.modalTitle{
+.modalTitle {
   text-align: center;
-} 
+}
