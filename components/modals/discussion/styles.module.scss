@@ -8,7 +8,7 @@
   @include media-sm {
     width: 95% !important;
     max-width: 95% !important;
-    margin-top: 36px !important;
+    margin-top: 0px !important;
     & > div > div {
       padding: 24px 0;
     }
@@ -183,6 +183,17 @@
     }
   }
   .imgDef {
+    .postVideo {
+      width: 100%;
+      height: 650px;
+      border-radius: 5px;
+      @include media-lg{
+        height: 550px;
+      }
+      @include media-sm{
+        height: 400px;
+      }
+    }
     & > div {
       border-radius: 6px;
     }

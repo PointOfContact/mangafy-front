@@ -61,9 +61,11 @@ const DiscussionCard = (props) => {
     changeShowModal(true);
   };
 
+  const ifVideo = img?.includes('youtube');
+
   return (
     <>
-      <div className={styles.projectsForYou_card}>
+      <div className={styles.projectsForYou_card} onClick={() => openPost(id)}>
         <div className={styles.projectsForYou_Top}>
           <Link href={logoNavigate}>
             <a>
@@ -97,19 +99,28 @@ const DiscussionCard = (props) => {
           </div>
         </div>
         <div
-          onClick={() => openPost(id)}
           className={cn(!img && styles.projectsForYou_mainImg, styles.projectsForYou_mainImgDef)}>
           <div className={styles.bgImg}>
-            {img && (
-              <Imgix
-                className={(!img && styles.defaultBg) || ''}
-                layout="fill"
-                src={`${client.UPLOAD_URL + img}`}
-                alt="MangaFy story"
-              />
-            )}
+            {img &&
+              (ifVideo ? (
+                <iframe
+                  loading="lazy"
+                  className={styles.postVideo}
+                  src={`${img}?autoplay=1&mute=1&controls=0&playlist=RBolDaIdg5M&loop=1&autopause=0`}
+                  title="YouTube video player"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen></iframe>
+              ) : (
+                <Imgix
+                  className={(!img && styles.defaultBg) || ''}
+                  layout="fill"
+                  src={`${client.UPLOAD_URL + img}`}
+                  alt="MangaFy story"
+                />
+              ))}
           </div>
-          <div className={styles.comments}>
+          <div className={cn(styles.comments, ifVideo && styles.comments_video)}>
             <div>
               <span>{!!likesCount && likesCount}</span>
               <SvgHeart width="20px" height="17px" />
