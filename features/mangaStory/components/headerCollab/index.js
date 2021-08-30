@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { Popover } from 'antd';
 import Modal from 'antd/lib/modal/Modal';
 import { findStoryBoard } from 'api/storyBoardClient';
@@ -69,46 +68,34 @@ const HeaderCollab = ({
       mangaStory._id,
       (res) => {
         const boad = res.data[0];
-        if (boad?.idea?.title && boad?.idea?.text) {
-          patchStory({
-            published: true,
-          }).then(() =>
-            info({
-              className: styles.modal,
-              closable: true,
-              icon: <SvgClose width={10} height={10} />,
-              okText: <></>,
-              content: (
-                <DraftCheckbox
-                  originUrl={originUrl}
-                  user={user}
-                  mangaStory={mangaStory}
-                  setMangaStoryNew={setMangaStoryNew}
-                  mangaStoryNew={mangaStoryNew}
-                />
-              ),
-              onOk() {},
-            })
-          );
-        } else {
-          confirm({
-            title: 'Update story board',
-            icon: <ExclamationCircleOutlined />,
-            style: { top: 120 },
-            content:
-              'Before switching to live mode, you must complete at last one step. Update this information in stroy board tab',
-            onOk() {
-              setCollabActiveTab('2');
-            },
-            onCancel() {},
-          });
-        }
+        patchStory({
+          published: true,
+        }).then(() =>
+          info({
+            className: styles.modal,
+            closable: true,
+            icon: <SvgClose width={10} height={10} />,
+            okText: <></>,
+            content: (
+              <DraftCheckbox
+                originUrl={originUrl}
+                user={user}
+                mangaStory={mangaStory}
+                setMangaStoryNew={setMangaStoryNew}
+                mangaStoryNew={mangaStoryNew}
+              />
+            ),
+            onOk() {},
+          })
+        );
       },
       (err) => {
         openNotification('error', err.message);
       }
     );
   };
+
+  const ifCreatePage = collabActiveTab === '2';
 
   return (
     <section className="section_landing_for">
@@ -141,11 +128,16 @@ const HeaderCollab = ({
               </>
             )}
 
-            <div className={cn(styles.storyTabContent, editTitle && styles.containerInput)}>
+            <div
+              className={cn(
+                styles.storyTabContent,
+                editTitle && styles.containerInput,
+                ifCreatePage && styles.storyTabCreate
+              )}>
               {!editTitle ? (
                 <>
                   <div className={styles.header}>
-                    {collabActiveTab === '2' ? (
+                    {ifCreatePage ? (
                       <>
                         {stage?.tab !== '6' ? (
                           <h2>

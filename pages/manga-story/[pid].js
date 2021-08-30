@@ -5,8 +5,6 @@ import { store } from 'store';
 
 export default withAuthComponent(MangaStory);
 export const getServerSideProps = withAuthServerSideProps(async (context, user = null, jwt) => {
-  // const { origin } = absoluteUrl(context.req);
-
   try {
     user = user || store.user;
     const genres = await client.service('/api/v2/genres').find({

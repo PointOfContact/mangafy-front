@@ -34,54 +34,90 @@
   height: 80px;
   display: flex;
   justify-content: space-between;
-  margin-top: 120px;
-  margin-bottom: 60px;
-  svg {
+  margin-top: 90px;
+  margin-bottom: 50px;
+  .editSVG {
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    height: 40px;
   }
   @media (max-width: 1600px) {
     padding-left: 30px;
     padding-right: 30px;
   }
+  .containerInput {
+    flex-direction: column;
+  }
+  // .header {
+  //   margin: auto;
+  //   display: flex;
+  //   justify-content: center;
+  //   flex-direction: column;
+  //   align-items: center;
+  //   min-height: 42px;
+  //   max-height: 77px;
+  //   @include media-md {
+  //     padding: 0px;
+  //   }
+
+  //   h2 {
+  //     font-weight: bold;
+  //     font-size: 30px;
+  //     line-height: 43px;
+  //     color: #212121;
+  //     @include media-xs {
+  //       font-size: 25px;
+  //     }
+  //   }
+  //   span {
+  //     color: $primaryDark;
+  //   }
+  //   p {
+  //     margin: 0 auto;
+  //     font-size: 20px;
+  //     color: $gray85;
+  //     @include media-xs {
+  //       font-size: 15px;
+  //     }
+  //   }
+  // }
+  .header {
+    margin: 0 auto;
+    text-align: center;
+    @include media-md {
+      padding: 0px;
+    }
+    h2 {
+      font-weight: bold;
+      font-size: 30px;
+      line-height: 43px;
+      color: #212121;
+      @include media-xs {
+        font-size: 20px;
+      }
+    }
+    span {
+      color: $primaryDark;
+    }
+    p {
+      margin: 0 auto;
+      font-size: 20px;
+      color: $gray85;
+      @include media-xs {
+        font-size: 15px;
+      }
+    }
+  }
 }
 .containerInput {
   flex-direction: column;
+  align-items: initial;
 }
-.header {
-  margin: auto;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  min-height: 42px;
-  max-height: 77px;
-  @include media-md {
-    padding: 0px;
+.storyTabCreate {
+  @include media-sm {
+    height: 110px;
   }
-
-  h2 {
-    font-weight: bold;
-    font-size: 30px;
-    line-height: 43px;
-    color: #212121;
-    @include media-xs {
-      font-size: 25px;
-    }
-  }
-  span {
-    color: $primaryDark;
-  }
-  p {
-    margin: 0 auto;
-    font-size: 20px;
-    color: $gray85;
-    @include media-xs {
-      font-size: 15px;
-    }
-  }
-}
-.editSVG {
-  height: 70px;
 }
 .modal {
   top: 125px !important;

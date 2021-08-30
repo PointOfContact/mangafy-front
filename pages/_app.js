@@ -7,7 +7,7 @@ import { notification } from 'antd';
 import { DefaultSeo } from 'next-seo';
 
 Sentry.init({
-  enabled: process.env.SENTRY_ENABLED,
+  enabled: true,
   dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
 });
 

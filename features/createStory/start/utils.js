@@ -4,7 +4,7 @@ function getGenerIdByName(genres, name) {
 }
 
 function getDataByFeildName(data, name, genres) {
-  const { choice, text, choices, file_url } = data.find(({ field }) => field?.ref === name);
+  const { choice, text, choices, file_url } = data.find(({ field }) => field?.ref === name) || {};
   switch (name) {
     case 'searchingFor':
       return choices?.labels;

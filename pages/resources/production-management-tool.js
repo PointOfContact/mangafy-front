@@ -1,11 +1,9 @@
 import { withAuthServerSideProps, withAuthComponent } from 'components/withAuth';
 import ProductionManagementTool from 'features/productionManagementTool';
-import absoluteUrl from 'next-absolute-url';
 import { store } from 'store';
 
 export default withAuthComponent(ProductionManagementTool);
 export const getServerSideProps = withAuthServerSideProps(async (context, user = store.user) => {
-  const { origin } = absoluteUrl(context.req);
   try {
     return {
       props: {
