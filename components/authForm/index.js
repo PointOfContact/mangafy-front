@@ -12,26 +12,50 @@ import Link from 'next/link';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
+import { Form } from 'antd';
+import Password from 'antd/lib/input/Password';
 
-const AuthForm = ({ type, errorMessage, onChange, onSubmit, isLogin, loading }) => (
+const AuthForm = ({
+  type,
+  errorMessage,
+  onChange,
+  onSubmit,
+  isLogin,
+  loading,
+  setState,
+  state,
+}) => (
   <>
-    <form className={styles.auth_form} onSubmit={onSubmit}>
+    <Form className={styles.auth_form} name="nest-messages" onFinish={onSubmit}>
       <div className={styles.login_form}>
         {!isLogin ? (
           <div className="input_login">
-            <PrimaryInput
-              className={styles.input_login}
-              id="name"
-              type="name"
-              isLinear={true}
-              isFullWidth={true}
-              placeholder={'Your name'}
-              name="name"
-              required
-              pattern=".*\S+.*"
-              title="This field is required"
-              onChange={onChange}
-            />
+            <Form.Item
+              className={styles.name}
+              name={['user', 'name']}
+              rules={[
+                {
+                  required: true,
+                  validator: async (_, names) => {
+                    if (names === undefined) {
+                      return Promise.reject(
+                        new Error('Hey, bud. You forgot to add your name in the field above...')
+                      );
+                    } else if (names.trim().length < 3) {
+                      return Promise.reject(new Error('Length must be at least 3 characters long'));
+                    }
+                  },
+                },
+              ]}>
+              <PrimaryInput
+                className={styles.input_login}
+                id="name"
+                isLinear={true}
+                isFullWidth={true}
+                placeholder={'Your name'}
+                name="name"
+              />
+            </Form.Item>
             <div className={styles.select}>
               <PrimarySelect
                 // mode="multiple"
@@ -50,27 +74,74 @@ const AuthForm = ({ type, errorMessage, onChange, onSubmit, isLogin, loading }) 
             </div>
           </div>
         ) : null}
-        <PrimaryInput
+
+        <Form.Item
           className={styles.email}
-          id="email"
-          type="email"
-          isLinear={true}
-          isFullWidth={true}
-          placeholder={'Email'}
-          name="email"
-          required
-          onChange={onChange}
-        />
-        <PrimaryInput
-          id="password"
-          type="password"
-          isLinear={true}
-          isFullWidth={true}
-          placeholder={'Password'}
-          name="password"
-          required
-          onChange={onChange}
-        />
+          name={['user', 'email']}
+          rules={[
+            {
+              required: true,
+              message: "Don't forget to enter your email! We'll be waiting.",
+            },
+            {
+              type: 'email',
+              message: 'Invalid email address.',
+            },
+          ]}>
+          <PrimaryInput
+            id="email"
+            isLinear={true}
+            isFullWidth={true}
+            onChange={() => {
+              setState({
+                ...state,
+                errorMessage: '',
+              });
+            }}
+            placeholder={'Email'}
+            name="email"
+            onChange={() => {
+              setState({
+                ...state,
+                errorMessage: '',
+              });
+            }}
+          />
+        </Form.Item>
+
+        <Form.Item
+          className={styles.password}
+          name={['user', 'password']}
+          rules={[
+            {
+              required: true,
+              validator: async (_, names) => {
+                if (names === undefined) {
+                  return Promise.reject(
+                    new Error("If you're a human, add a password to continue.")
+                  );
+                } else if (names.trim().length < 2) {
+                  return Promise.reject(new Error('Length must be at least 2 characters long'));
+                }
+              },
+            },
+          ]}>
+          <PrimaryInput
+            id="password"
+            type="password"
+            isLinear={true}
+            isFullWidth={true}
+            placeholder={'Password'}
+            name="password"
+            onChange={() => {
+              setState({
+                ...state,
+                errorMessage: '',
+              });
+            }}
+          />
+        </Form.Item>
+
         {isLogin && (
           <div className={styles.forgot_password}>
             <Link href="/forgot-password">
@@ -92,15 +163,14 @@ const AuthForm = ({ type, errorMessage, onChange, onSubmit, isLogin, loading }) 
         </small>
         <div className={styles.login_button}>
           {!isLogin ? (
-            <>
-              <LargeButton
-                className={styles.button_submit}
-                loading={loading}
-                htmlType="submit"
-                text={<p style={{ margin: 0 }}>Let&apos;s rock!</p>}
-                id="signUpBtnId"
-              />
-            </>
+            <LargeButton
+              className={cn(styles.button_submit, loading && styles.buttonDisabled)}
+              loading={loading}
+              disabled={loading}
+              htmlType="submit"
+              text={<p style={{ margin: 0 }}>Let&apos;s rock!</p>}
+              id="signUpBtnId"
+            />
           ) : (
             <>
               <LargeButton
@@ -150,22 +220,25 @@ const AuthForm = ({ type, errorMessage, onChange, onSubmit, isLogin, loading }) 
         </div>
       </>
       {/* ) : null} */}
-    </form>
+    </Form>
   </>
 );
 
 AuthForm.propTypes = {
   type: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   errorMessage: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func,
   onSubmit: PropTypes.func.isRequired,
   isLogin: PropTypes.bool.isRequired,
   loading: PropTypes.bool,
+  setState: PropTypes.func.isRequired,
+  state: PropTypes.object.isRequired,
 };
 
 AuthForm.defaultProps = {
   type: null,
   loading: false,
+  onChange: () => {},
 };
 
 export default AuthForm;

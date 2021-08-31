@@ -26,28 +26,23 @@ const Login = ({ user }) => {
   const [state, setState] = useState(defaultState);
   const [loading, setLoading] = useState(false);
   const { email, password, errorMessage } = state;
-  const handleOnChange = ({ target }) => {
-    const { name, value } = target;
-    setState({
-      ...state,
-      [name]: value,
-    });
-  };
 
   const handleLoginSubmit = (e) => {
     setState({
       ...state,
       errorMessage: '',
     });
-    e.preventDefault();
+
     const page = qs.parse(window.location.search).page
       ? decodeURIComponent(qs.parse(window.location.search).page)
       : '';
+
     const payload = {
-      email,
-      password,
+      email: e.user.email,
+      password: e.user.password,
       page,
     };
+
     setLoading(true);
     login(payload)
       .then((newUser) => {
@@ -107,10 +102,11 @@ const Login = ({ user }) => {
                         email,
                         password,
                         errorMessage,
-                        onChange: handleOnChange,
                         onSubmit: handleLoginSubmit,
                         isLogin: true,
                         loading,
+                        setState,
+                        state,
                       }}
                     />
                   </div>
