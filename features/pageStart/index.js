@@ -80,6 +80,11 @@ const pageStart = ({ user }) => (
                         <a>Showcase yoru works</a>
                       </Link>
                     </li>
+                    <li className={styles.lists__listItem}>
+                      <Link href={'/resources/what-is-manga'}>
+                        <a>What is manga</a>
+                      </Link>
+                    </li>
                   </ul>
                 </div>
                 <div className={styles.lists__item}>
