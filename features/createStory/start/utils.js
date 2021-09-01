@@ -3,8 +3,10 @@ function getGenerIdByName(genres, name) {
   return genres.find(({ value }) => value === name.toLocaleUpperCase())?._id;
 }
 
-function getDataByFeildName(data, name, genres) {
-  const { choice, text, choices, file_url } = data.find(({ field }) => field?.ref === name) || {};
+function getDataByFieldName(data, name, genres) {
+  const { choice, text, choices, file_url, email } =
+    data.find(({ field }) => field?.ref === name) || {};
+
   switch (name) {
     case 'searchingFor':
       return choices?.labels;
@@ -28,7 +30,7 @@ function getDataByFeildName(data, name, genres) {
     case 'preferredLanguage':
       return choice?.label;
     case 'payPalEmail':
-      return text;
+      return email;
     default:
       return null;
   }
@@ -37,20 +39,20 @@ function getDataByFeildName(data, name, genres) {
 function adaptData(data, genres) {
   return {
     mangaStory: {
-      introduce: getDataByFeildName(data, 'introduce'),
-      description: getDataByFeildName(data, 'story'),
-      story: getDataByFeildName(data, 'story'),
-      title: getDataByFeildName(data, 'title'),
-      searchingFor: getDataByFeildName(data, 'searchingFor'),
-      compensationModel: getDataByFeildName(data, 'compensationModel'),
+      introduce: getDataByFieldName(data, 'introduce'),
+      description: getDataByFieldName(data, 'story'),
+      story: getDataByFieldName(data, 'story'),
+      title: getDataByFieldName(data, 'title'),
+      searchingFor: getDataByFieldName(data, 'searchingFor'),
+      compensationModel: getDataByFieldName(data, 'compensationModel'),
       preferredLanguage: 'English',
-      genresIds: getDataByFeildName(data, 'genresIds', genres),
-      // preferredLanguage: getDataByFeildName(data, 'preferredLanguage'),
-      // image: getDataByFeildName(data, 'banner'),
-      projectType: getDataByFeildName(data, 'projectType'),
+      genresIds: getDataByFieldName(data, 'genresIds', genres),
+      // preferredLanguage: getDataByFieldName(data, 'preferredLanguage'),
+      // image: getDataByFieldName(data, 'banner'),
+      projectType: getDataByFieldName(data, 'projectType'),
     },
     user: {
-      payPalEmail: getDataByFeildName(data, 'payPalEmail'),
+      payPalEmail: getDataByFieldName(data, 'payPalEmail'),
     },
   };
 }
