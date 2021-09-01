@@ -13,6 +13,10 @@
   border: 1px solid #f4f4f4;
   box-sizing: border-box;
   border-radius: 5px;
+  box-shadow: none !important;
+  &::placeholder{
+    color: rgb(170, 166, 166) !important;
+  }
   @include media-sm {
     font-size: 20px;
   }
