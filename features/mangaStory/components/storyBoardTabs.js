@@ -123,7 +123,6 @@ const StoryBoardTabs = ({
     document.body.classList.remove('body_remove_scroll');
     setIsModalVisible(false);
   };
-
   const renderNavigationButtons = (disableNextBtn = false) => (
     <div className={styles.actionButtons}>
       <div>
@@ -136,7 +135,7 @@ const StoryBoardTabs = ({
             Back
           </Button>
         )}
-        {+storyBoardActiveTab < 6 && (
+        {+storyBoardActiveTab < 5 && (
           <Button
             id="StoryBoardNextBtnId"
             disabled={disableNextBtn}
@@ -206,6 +205,7 @@ const StoryBoardTabs = ({
     author: [],
     layouts: [],
   });
+
   const getStoryBoard = useCallback(() => {
     if (!user) return;
     findStoryBoard(
@@ -442,7 +442,7 @@ const StoryBoardTabs = ({
               <ShareSvg height="25px" />
             </span>
           }
-          disabled={!storyBoard?.mangaUrl}
+          // disabled={!storyBoard?.mangaUrl}
           key={5}>
           {isShowAnimation && <span className={styles.showAnimation}></span>}
           <div className={styles.tabContent}>

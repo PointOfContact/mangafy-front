@@ -25,6 +25,7 @@
     margin-top: 3px;
   }
   .textarea_text {
+    overflow-y: auto !important;
     min-height: 164px !important;
     margin-bottom: 20px;
     font-size: 20px;
