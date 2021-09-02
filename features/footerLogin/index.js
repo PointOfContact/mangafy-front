@@ -8,15 +8,16 @@ import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
-// eslint-disable-next-line react/display-name
-const FooterLogin = React.memo(({ user }) => {
+const FooterLogin = React.memo(({ user, cookieVisibility }) => {
   const [cookieBubble, setCookieBubble] = useState(false);
   const [showDialog, setShowDialog] = useState(true);
 
   useEffect(() => {
-    setCookieBubble(
-      client.getCookie('CookieBubble') === 'true' || client.getCookie('CookieBubble') === null
-    );
+    client.getCookie('CookieBubble') === 'true'
+      ? //in-browser there is cooke
+        setCookieBubble(true)
+      : //the in-browser cookie does not exist and this collab page
+        setCookieBubble(!client.getCookie('CookieBubble') && cookieVisibility);
   }, []);
 
   return (
@@ -51,6 +52,11 @@ const FooterLogin = React.memo(({ user }) => {
 
 FooterLogin.propTypes = {
   user: PropTypes.object.isRequired,
+  cookieVisibility: PropTypes.bool,
+};
+
+FooterLogin.defaultProps = {
+  cookieVisibility: true,
 };
 
 export default FooterLogin;
