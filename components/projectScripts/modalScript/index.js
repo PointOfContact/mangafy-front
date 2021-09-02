@@ -104,8 +104,9 @@ const ModalScript = ({
           <p>Panel {modalIndex + 1}</p>
           <Form.Item name="text">
             <TextArea
+              className={styles.textareaPage}
               autoSize={true}
-              maxLength="5000"
+              maxLength="100000"
               maxrows={5000}
               onBlur={(e) => setText({ value: e.target.value, type: 'text' })}
               placeholder="Add a panel: Exact panel layout usually left to artist,
