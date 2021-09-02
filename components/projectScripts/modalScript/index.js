@@ -77,7 +77,7 @@ const ModalScript = ({
         <Form.Item className={styles.titlePage} name="title">
           {!showTitleInput ? (
             <PrimaryInput
-              maxLength="200"
+              maxLength={200}
               className={titleError && styles.titleInput}
               onBlur={(e) => {
                 setTitle({ value: e.target.value, type: 'title' });
@@ -106,7 +106,7 @@ const ModalScript = ({
             <TextArea
               className={styles.textareaPage}
               autoSize={true}
-              maxLength="100000"
+              maxLength={100000}
               maxrows={5000}
               onBlur={(e) => setText({ value: e.target.value, type: 'text' })}
               placeholder="Add a panel: Exact panel layout usually left to artist,
