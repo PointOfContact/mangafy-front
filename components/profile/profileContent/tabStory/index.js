@@ -41,7 +41,7 @@ const TabStory = (props) => {
 
   return (
     <div className={cn(styles.content_tab_profile_1)}>
-      {!storyEditMode && editIfNotData && (
+      {ifMyProfile && !storyEditMode && editIfNotData && (
         <SvgPurplePencil
           className={styles.editAboutButton}
           onClick={() => setStoryEditMode(true)}
@@ -54,6 +54,7 @@ const TabStory = (props) => {
         cancelStoryEditMode={cancelStoryEditMode}
         saveUserDataByKey={saveUserDataByKey}
       />
+
       <div>
         <EditContent
           profile={profile}
