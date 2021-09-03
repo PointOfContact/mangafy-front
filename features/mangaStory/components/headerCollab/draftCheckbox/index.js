@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 
-import { Input, notification } from 'antd';
-import Form from 'antd/lib/form/Form';
+import { notification } from 'antd';
 import { ShareButtons } from 'components/share';
-import PrimaryButton from 'components/ui-elements/button';
 import CopyInput from 'components/ui-elements/copyInput';
 import copy from 'copy-to-clipboard';
 import PropTypes from 'prop-types';

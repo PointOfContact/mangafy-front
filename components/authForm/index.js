@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Alert } from 'antd';
+import { Alert, Form } from 'antd';
 import cn from 'classnames';
 import SvgGoogle from 'components/icon/Google';
 import SvgWhiteFacebook from 'components/icon/WhiteFacebook';
@@ -12,8 +12,6 @@ import Link from 'next/link';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
-import { Form } from 'antd';
-import Password from 'antd/lib/input/Password';
 
 const AuthForm = ({
   type,
@@ -41,7 +39,8 @@ const AuthForm = ({
                       return Promise.reject(
                         new Error('Hey, bud. You forgot to add your name in the field above...')
                       );
-                    } else if (names.trim().length < 3) {
+                    }
+                    if (names.trim().length < 3) {
                       return Promise.reject(new Error('Length must be at least 3 characters long'));
                     }
                   },
@@ -100,12 +99,6 @@ const AuthForm = ({
             }}
             placeholder={'Email'}
             name="email"
-            onChange={() => {
-              setState({
-                ...state,
-                errorMessage: '',
-              });
-            }}
           />
         </Form.Item>
 
@@ -120,7 +113,8 @@ const AuthForm = ({
                   return Promise.reject(
                     new Error("If you're a human, add a password to continue.")
                   );
-                } else if (names.trim().length < 2) {
+                }
+                if (names.trim().length < 2) {
                   return Promise.reject(new Error('Length must be at least 2 characters long'));
                 }
               },

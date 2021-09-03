@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { Modal, notification } from 'antd';
-import Form from 'antd/lib/form/Form';
+import { Modal, notification, Form } from 'antd';
 import { createHero, patchHero } from 'api/storyBoardClient';
 import cn from 'classnames';
 import SvgClose from 'components/icon/Close';

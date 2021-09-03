@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import Form from 'antd/lib/form/Form';
+import { Form } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 import Modal from 'antd/lib/modal/Modal';
 import SvgClose from 'components/icon/Close';

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { Modal, Input, notification } from 'antd';
-import Form from 'antd/lib/form/Form';
+import { Modal, Input, notification, Form } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
 import SvgClose from 'components/icon/Close';
