@@ -30,9 +30,9 @@ const MangaView = ({ user, storyBoardId, mangaUrls }) => {
       <NextSeo
         title="Manga View"
         description="View all images of storyboard"
-        canonical={`http://mangafy.club/manga-view/${storyBoardId}`}
+        canonical={`${client.API_ENDPOINT}/manga-view/${storyBoardId}`}
         openGraph={{
-          url: `http://mangafy.club/manga-view/${storyBoardId}`,
+          url: `${client.API_ENDPOINT}/manga-view/${storyBoardId}`,
           title: 'Manga View',
           description: 'View all images of storyboard',
           images: [
@@ -55,7 +55,7 @@ const MangaView = ({ user, storyBoardId, mangaUrls }) => {
       <div className={styles.containerPreview}>
         <ShareButtons
           className={styles.shareButPreview}
-          shareUrl={`http://mangafy.club/manga-view/${storyBoardId}`}
+          shareUrl={`${client.API_ENDPOINT}/manga-view/${storyBoardId}`}
         />
         {images}
       </div>
