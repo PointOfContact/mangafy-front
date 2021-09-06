@@ -14,7 +14,7 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 const path = require('path');
 
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 const packageJson = require('./version.json');
 
@@ -119,7 +119,7 @@ const nextConfigs = {
 
     if (Array.isArray(webpackConfig.optimization.minimizer)) {
       webpackConfig.optimization.minimizer.push(new CssMinimizerPlugin());
-      webpackConfig.optimization.minimizer.push(new UglifyJsPlugin());
+      webpackConfig.optimization.minimizer.push(new TerserPlugin());
     }
 
     webpackConfig.module.rules.unshift({
