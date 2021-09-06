@@ -20,7 +20,7 @@ const EditMode = ({
   setBaseData,
   setEditMode,
   canEdit,
-  isParticipent,
+  isParticipant,
   onChangeSingleField,
   cancelEditMode,
   saveUserDataByKey,
@@ -40,7 +40,7 @@ const EditMode = ({
               baseData={baseData}
               user={user}
               isOwn={isOwn}
-              isParticipent={isParticipent}
+              isParticipant={isParticipant}
               showPayPalToggle={showPayPalToggle}
               mangaStoryNew={mangaStoryNew}
             />
@@ -118,7 +118,7 @@ EditMode.propTypes = {
   mangaStory: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
   isOwn: PropTypes.bool.isRequired,
-  isParticipent: PropTypes.bool.isRequired,
+  isParticipant: PropTypes.bool.isRequired,
   editMode: PropTypes.bool.isRequired,
   baseData: PropTypes.object.isRequired,
   setBaseData: PropTypes.func.isRequired,

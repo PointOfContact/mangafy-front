@@ -137,7 +137,7 @@ const WhatIsManga = ({ user }) => (
             <div className={styles.share}>
               <div className={styles.items}>
                 <ShareButtons
-                  shareUrl="https://mangafy.club/resources/manga-paneling-basics"
+                  shareUrl="https://mangafy.club/resources/what-is-manga"
                   text="Liked? Share"
                 />
               </div>
