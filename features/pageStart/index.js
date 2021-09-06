@@ -97,7 +97,7 @@ const pageStart = ({ user }) => (
                     </li>
                     <li className={styles.lists__listItem}>
                       <Link href={'/resources/build-webcomic-fanbase'}>
-                        <a>Build Webcomicw Fanbase</a>
+                        <a>Build Webcomic Fanbase</a>
                       </Link>
                     </li>
                     {/* <li className={styles.lists__listItem}>
