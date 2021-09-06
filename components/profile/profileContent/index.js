@@ -179,7 +179,7 @@ ProfileContent.propTypes = {
   mangaStoriesMyProfile: PropTypes.array,
   genresMyProfileEnums: PropTypes.any,
   genres: PropTypes.array,
-  total: PropTypes.number,
+  total: PropTypes.array,
   profileGenres: PropTypes.array,
   ifMyProfile: PropTypes.bool,
 };
@@ -197,7 +197,7 @@ ProfileContent.defaultProps = {
   mangaStoriesMyProfile: null,
   genresMyProfileEnums: null,
   genres: null,
-  total: null,
+  total: [],
   profileGenres: null,
   ifMyProfile: null,
   mangaStories: null,

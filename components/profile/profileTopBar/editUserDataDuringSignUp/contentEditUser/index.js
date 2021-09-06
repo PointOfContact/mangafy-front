@@ -125,9 +125,9 @@ ContentEditUser.propTypes = {
   userData: PropTypes.object.isRequired,
   userGenres: PropTypes.array.isRequired,
   genres: PropTypes.array.isRequired,
-  showModalEdit: PropTypes.bool.isRequired,
-  setStoryEditMode: PropTypes.func.isRequired,
-  genresMyProfileEnums: PropTypes.object.isRequired,
+  showModalEdit: PropTypes.bool,
+  setStoryEditMode: PropTypes.func,
+  genresMyProfileEnums: PropTypes.array.isRequired,
   handleChangeGenres: PropTypes.func.isRequired,
   setUserData: PropTypes.func,
   errorAboutMe: PropTypes.bool.isRequired,
@@ -137,6 +137,8 @@ ContentEditUser.propTypes = {
 ContentEditUser.defaultProps = {
   setUserData: () => {},
   errorAboutMe: false,
+  setStoryEditMode: () => {},
+  showModalEdit: false,
 };
 
 export default ContentEditUser;

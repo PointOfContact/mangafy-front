@@ -26,7 +26,7 @@ const WarningFillAllData = ({ user, setShowModalEdit }) => {
 
 WarningFillAllData.propTypes = {
   user: PropTypes.object.isRequired,
-  setShowModalEdit: PropTypes.object.isRequired,
+  setShowModalEdit: PropTypes.func.isRequired,
 };
 
 export default WarningFillAllData;

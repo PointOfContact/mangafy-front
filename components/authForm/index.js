@@ -191,24 +191,32 @@ const AuthForm = ({
         </div>
         <div className={styles.social_login}>
           <Link href="/api/v2/auth/google">
-            <span className={cn(styles.google_btn, styles.btn)}>
-              <SvgGoogle width="26px" height="26px" /> Sign in with Google
-            </span>
+            <a>
+              <span className={cn(styles.google_btn, styles.btn)}>
+                <SvgGoogle width="26px" height="26px" /> Sign in with Google
+              </span>
+            </a>
           </Link>
           <Link href="/api/v2/auth/facebook">
-            <span className={cn(styles.google_btn, styles.btn)}>
-              <SvgWhiteFacebook width="26px" height="26px" /> Sign in with Facebook
-            </span>
+            <a>
+              <span className={cn(styles.google_btn, styles.btn)}>
+                <SvgWhiteFacebook width="26px" height="26px" /> Sign in with Facebook
+              </span>
+            </a>
           </Link>
           <div className={styles.policy}>
             <Link href="/terms">
-              <span>By continuing, you agree to the MangaFY site T&C and Privacy Policy.</span>
+              <a>
+                <span>By continuing, you agree to the MangaFY site T&C and Privacy Policy.</span>
+              </a>
             </Link>
           </div>
           {isLogin && (
             <div className={styles.new_account}>
               <span>No account yet ?</span>
-              <Link href="/sign-up">Start your journey</Link>
+              <Link href="/sign-up">
+                <a>Start your journey</a>
+              </Link>
             </div>
           )}
         </div>

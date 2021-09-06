@@ -63,6 +63,7 @@ const ModalScript = ({
 
   return (
     <Modal
+      forceRender
       className={styles.addPageModal}
       onCancel={() => {
         setVisiblePageModal(!visibleModal);

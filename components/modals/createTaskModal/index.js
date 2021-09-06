@@ -201,6 +201,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
 
   return (
     <Modal
+      forceRender
       className={styles.modal}
       title={ModalTitle}
       footer={null}
