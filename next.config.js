@@ -10,9 +10,11 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const withBabelMinify = require('next-babel-minify')({});
+// const withBabelMinify = require('next-babel-minify')({});
 
 const path = require('path');
+
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const packageJson = require('./version.json');
 
@@ -29,7 +31,7 @@ const packageJson = require('./version.json');
 //   VERCEL_GITHUB_COMMIT_SHA || VERCEL_GITLAB_COMMIT_SHA || VERCEL_BITBUCKET_COMMIT_SHA;
 
 const aliases = {
-  '@babel/runtime': path.resolve(__dirname, 'node_modules/@babel/runtime'),
+  // '@babel/runtime': path.resolve(__dirname, 'node_modules/@babel/runtime'),
   lodash: path.resolve(__dirname, 'node_modules/lodash'),
   debug: path.resolve(__dirname, 'node_modules/debug'),
   ms: path.resolve(__dirname, 'node_modules/ms'),
@@ -66,6 +68,7 @@ const nextConfigs = {
     if (options.defaultLoaders.babel.options.plugins === undefined) {
       options.defaultLoaders.babel.options.plugins = [];
     }
+    options.defaultLoaders.babel.options.exclude = 'node_modules/**';
     options.defaultLoaders.babel.options.plugins.push([
       'import',
       {
@@ -93,6 +96,9 @@ const nextConfigs = {
     });
 
     webpackConfig.optimization.minimize = true;
+    webpackConfig.optimization.concatenateModules = false;
+    webpackConfig.optimization.providedExports = false;
+    webpackConfig.optimization.usedExports = false;
     webpackConfig.optimization.minimizer = [];
     // webpackConfig.optimization.moduleIds = 'deterministic';
     // webpackConfig.optimization.splitChunks = {
@@ -113,6 +119,7 @@ const nextConfigs = {
 
     if (Array.isArray(webpackConfig.optimization.minimizer)) {
       webpackConfig.optimization.minimizer.push(new CssMinimizerPlugin());
+      webpackConfig.optimization.minimizer.push(new UglifyJsPlugin());
     }
 
     webpackConfig.module.rules.unshift({
@@ -176,7 +183,7 @@ const nextConfigs = {
     if (options.isServer) {
       // add antd to https://github.com/zeit/next.js/blob/canary/build/webpack.js#L34-L59
       // This makes sure paths are relative when pushing build to other systems
-      webpackConfig.externals.push((context, request, callback) => {
+      webpackConfig.externals.push(({ request }, callback) => {
         resolve(request, { basedir: options.dir, preserveSymlinks: true }, (err, res) => {
           if (err) {
             return callback();
@@ -216,4 +223,4 @@ const nextConfigs = {
   },
 };
 
-module.exports = withPlugins([[withBundleAnalyzer], [withBabelMinify]], nextConfigs);
+module.exports = withPlugins([[withBundleAnalyzer]], nextConfigs);
