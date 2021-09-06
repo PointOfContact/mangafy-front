@@ -54,7 +54,7 @@ const DeleteProjectButton = ({ label, user, mangaStory }) => {
 DeleteProjectButton.propTypes = {
   label: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
-  mangaStory: PropTypes.array.isRequired,
+  mangaStory: PropTypes.object.isRequired,
 };
 
 export default DeleteProjectButton;

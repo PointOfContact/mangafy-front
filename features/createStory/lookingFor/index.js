@@ -72,11 +72,13 @@ const LookingFor = ({ user }) => {
           <div className="nav1 nav1_logo">
             <div className="flex-center">
               <Link href="/">
-                <Imgix
-                  layout="fill"
-                  src="https://mangafy.club/img/logoText.webp"
-                  alt="MangaFy logo text"
-                />
+                <a>
+                  <Imgix
+                    layout="fill"
+                    src="https://mangafy.club/img/logoText.webp"
+                    alt="MangaFy logo text"
+                  />
+                </a>
               </Link>
             </div>
           </div>
@@ -126,22 +128,26 @@ const LookingFor = ({ user }) => {
                 <hr />
                 <div className="next_prev">
                   <Link href="/create-a-story/start">
-                    <Button id="lookingForPrevBtnId" className="title_but_prev ">
-                      <SvgLeftArrow width="13.503px" height="23.619px" />
-                      <span> Previous</span>
-                    </Button>
+                    <a>
+                      <Button id="lookingForPrevBtnId" className="title_but_prev ">
+                        <SvgLeftArrow width="13.503px" height="23.619px" />
+                        <span> Previous</span>
+                      </Button>
+                    </a>
                   </Link>
                   <Link href="/create-a-story/model">
-                    <Button
-                      id="lookingForNextBtnId"
-                      disabled={!checked}
-                      type="primary"
-                      className="title_but btn_next"
-                      loading={loadings[0]}
-                      onClick={() => enterLoading(0)}>
-                      <span>Next</span>
-                      <SvgRightArrow width="13.503px" height="23.619px" />
-                    </Button>
+                    <a>
+                      <Button
+                        id="lookingForNextBtnId"
+                        disabled={!checked}
+                        type="primary"
+                        className="title_but btn_next"
+                        loading={loadings[0]}
+                        onClick={() => enterLoading(0)}>
+                        <span>Next</span>
+                        <SvgRightArrow width="13.503px" height="23.619px" />
+                      </Button>
+                    </a>
                   </Link>
                 </div>
               </div>

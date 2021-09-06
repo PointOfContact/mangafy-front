@@ -91,28 +91,32 @@ const ProjectStory = ({ user }) => {
 
               <div className="next_prev">
                 <Link href="/create-a-story/project-description">
-                  <Button id="storyPrevBtnId" className="title_but_prev">
-                    <SvgLeftArrow width="13.503px" height="23.619px" />
-                    <span> Previous</span>
-                  </Button>
+                  <a>
+                    <Button id="storyPrevBtnId" className="title_but_prev">
+                      <SvgLeftArrow width="13.503px" height="23.619px" />
+                      <span> Previous</span>
+                    </Button>
+                  </a>
                 </Link>
                 <Link href="/create-a-story/your-country">
-                  {/* <Button type="primary" className="title_but" loading={loadings[0]} onClick={() => this.enterLoading(0)}>
+                  <a>
+                    {/* <Button type="primary" className="title_but" loading={loadings[0]} onClick={() => this.enterLoading(0)}>
                                         <span>Next</span>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10.503" height="15.619" viewBox="0 0 13.503 23.619">
                                             <path id="Icon_ionic-ios-arrow-back" data-name="Icon ionic-ios-arrow-back" d="M15.321,18l8.937-8.93a1.688,1.688,0,0,0-2.391-2.384L11.742,16.8a1.685,1.685,0,0,0-.049,2.327L21.86,29.32a1.688,1.688,0,0,0,2.391-2.384Z" transform="translate(24.754 29.813) rotate(-180)" fill="#fff" />
                                         </svg>
                                     </Button> */}
-                  <Button
-                    id="stroyNextBtnId"
-                    type="primary"
-                    className="title_but"
-                    disabled={!enabled}
-                    loading={loadings[0]}
-                    onClick={() => enterLoading(0)}>
-                    <span>Next</span>
-                    <SvgRightArrow width="13.503px" height="23.619px" />
-                  </Button>
+                    <Button
+                      id="stroyNextBtnId"
+                      type="primary"
+                      className="title_but"
+                      disabled={!enabled}
+                      loading={loadings[0]}
+                      onClick={() => enterLoading(0)}>
+                      <span>Next</span>
+                      <SvgRightArrow width="13.503px" height="23.619px" />
+                    </Button>
+                  </a>
                 </Link>
               </div>
             </div>

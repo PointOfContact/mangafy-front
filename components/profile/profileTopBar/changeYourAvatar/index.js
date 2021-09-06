@@ -100,16 +100,23 @@ const ChangeYourAvatar = ({
 };
 
 ChangeYourAvatar.propTypes = {
-  beforeUploadBase64: PropTypes.func.isRequired,
-  setUserData: PropTypes.func.isRequired,
+  beforeUploadBase64: PropTypes.func,
+  setUserData: PropTypes.func,
   setDisabledButton: PropTypes.func.isRequired,
-  userData: PropTypes.object.isRequired,
-  setLoadingImg: PropTypes.func.isRequired,
+  userData: PropTypes.object,
+  setLoadingImg: PropTypes.func,
   isModalVisible: PropTypes.bool.isRequired,
   setIsModalVisible: PropTypes.func.isRequired,
   disabledButton: PropTypes.bool.isRequired,
   props: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
+};
+
+ChangeYourAvatar.defaultProps = {
+  setLoadingImg: () => {},
+  userData: {},
+  setUserData: () => {},
+  beforeUploadBase64: () => {},
 };
 
 export default ChangeYourAvatar;

@@ -117,6 +117,7 @@ const HtmlGalleryModal = ({ gallery, setImages, images, handleCancel, isModalVis
   return (
     <div>
       <Modal
+        forceRender
         title={ModalTitle}
         className={styles.modal}
         bodyStyle={{ height: 'calc(100vh- 60px)', overflow: 'auto' }}

@@ -212,7 +212,7 @@ TabStory.propTypes = {
   handleChangeGenres: PropTypes.func,
   genresMyProfileEnums: PropTypes.any,
   genres: PropTypes.array,
-  total: PropTypes.number,
+  total: PropTypes.array,
   profile: PropTypes.object,
   profileGenres: PropTypes.array,
   ifMyProfile: PropTypes.bool,
@@ -230,7 +230,7 @@ TabStory.defaultProps = {
   profile: null,
   genresMyProfileEnums: null,
   genres: null,
-  total: null,
+  total: [],
   profileGenres: null,
   ifMyProfile: null,
 };

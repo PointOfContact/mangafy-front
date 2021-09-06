@@ -157,6 +157,7 @@ const ModalHero = ({ changeShowModal, showModal, hero, getStoryBoard, user }) =>
 
   return (
     <Modal
+      forceRender
       className={styles.modal}
       title={ModalTitle}
       footer={null}

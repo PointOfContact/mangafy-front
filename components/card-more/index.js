@@ -12,13 +12,15 @@ const СardMore = ({ text }) => (
     <div className={cn(styles.PostColab__item)}>
       <div className={cn(styles.PostColab__descr)}>{text}</div>
       <Link href="/create-a-story/start">
-        <PrimaryButton
-          text="Post Collab"
-          splitterStyle={{
-            padding: '10px 14px 12px 14px',
-            fontSize: '15px',
-          }}
-        />
+        <a>
+          <PrimaryButton
+            text="Post Collab"
+            splitterStyle={{
+              padding: '10px 14px 12px 14px',
+              fontSize: '15px',
+            }}
+          />
+        </a>
       </Link>
     </div>
   </div>

@@ -67,9 +67,11 @@ const Editor = ({ onChange, onSubmit, submitting, value, user }) => (
     <Form.Item>
       {!user && (
         <Link href={`/sign-in?page=`}>
-          <h2 className={styles.loginOnText}>
-            Please <span>login</span> to add comments
-          </h2>
+          <a>
+            <h2 className={styles.loginOnText}>
+              Please <span>login</span> to add comments
+            </h2>
+          </a>
         </Link>
       )}
       <LargeButton
