@@ -99,6 +99,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, selectedTask, user }
           }
         )
         .then(() => {
+          changeText('');
           changeShowModal(false);
           const eventData = [
             {

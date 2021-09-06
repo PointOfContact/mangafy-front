@@ -5,6 +5,7 @@ $borderColor: #f0f0f0;
 @mixin input {
   font-size: $text4;
   border-color: $gray85;
+  overflow-y: auto !important;
   &::placeholder {
     color: $gray85;
   }
