@@ -16,16 +16,16 @@ import FooterLogin from 'features/footerLogin';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { userTypes } from 'helpers/constant';
 import { NextSeo } from 'next-seo';
-import dynamic from 'next/dynamic';
+// import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import myAmplitude from 'utils/amplitude';
 
 import styles from './styles.module.scss';
 
-const Cookiebubble = dynamic(() => import('react-cookie-bubble'), {
-  ssr: false,
-});
+// const Cookiebubble = dynamic(() => import('react-cookie-bubble'), {
+//   ssr: false,
+// });
 
 const Collaborations = (props) => {
   const {
@@ -135,13 +135,13 @@ const Collaborations = (props) => {
         </div>
         <Footer />
         <FooterPolicy />
-        <Cookiebubble
+        {/* <Cookiebubble
           messageTextColor="#212121"
           buttonColor="#7b65f3"
           iconVisibility={true}
           boxPosition="bottom-right"
           iconColor="#7b65f3"
-        />
+        /> */}
       </div>
       <FooterLogin user={user} cookieVisibility={false} />
     </>
