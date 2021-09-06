@@ -96,9 +96,9 @@ const nextConfigs = {
     });
 
     webpackConfig.optimization.minimize = true;
-    webpackConfig.optimization.concatenateModules = false;
-    webpackConfig.optimization.providedExports = false;
-    webpackConfig.optimization.usedExports = false;
+    // webpackConfig.optimization.concatenateModules = false;
+    // webpackConfig.optimization.providedExports = false;
+    // webpackConfig.optimization.usedExports = false;
     webpackConfig.optimization.minimizer = [];
     // webpackConfig.optimization.moduleIds = 'deterministic';
     // webpackConfig.optimization.splitChunks = {
