@@ -40,61 +40,6 @@ $colorAllBorder: rgba(33, 33, 33, 0.07);
     font-size: $text5;
   }
 }
-.storyTab {
-  font-family: Noto Sans JP;
-  .storyTabTitle {
-    font-size: 20px;
-    font-weight: 700;
-    line-height: 35px;
-    margin-bottom: 6px;
-    @include media-sm {
-      font-size: 15px;
-      line-height: 20px;
-    }
-  }
-  .participate {
-    margin-top: 40px;
-  }
-  pre {
-    white-space: pre-wrap;
-    color: $gray85;
-    font-size: 20px;
-    margin-bottom: 45px;
-    @include media-sm {
-      font-size: 15px;
-      line-height: 20px;
-    }
-  }
-  .cardWrapper {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin-top: 48px;
-  }
-  .card {
-    display: inline-block;
-  }
-  .autherBlock {
-    margin-top: 48px;
-    cursor: pointer;
-    display: inline-block;
-  }
-  .participents {
-    padding-left: 20px;
-    display: flex;
-    margin-top: 16px;
-    img {
-      min-width: 68.8px;
-      min-height: 68.8px;
-      max-width: 68.8px;
-      max-height: 68.8px;
-      border-radius: 50%;
-    }
-    .participentInfo {
-      margin-left: -20px !important;
-    }
-  }
-}
 .pageWrap {
   max-width: 1602px;
   margin-left: auto;
