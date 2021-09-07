@@ -28,7 +28,7 @@
         width: 87px !important;
         height: 63px !important;
       }
-      path{
+      path {
         fill: gray;
       }
     }
@@ -37,7 +37,7 @@
       font-size: $text3;
       color: $gray85;
     }
-    .titlePersonage{
+    .titlePersonage {
       font-size: 16px;
     }
   }
@@ -47,18 +47,46 @@
   top: 20px;
   height: calc(100% - 30px);
   margin: auto;
-  border: 1px solid black;
+  & > div {
+    border-radius: 10px;
+  }
+  span:hover {
+    path {
+      fill: white;
+    }
+  }
   @include media-sm {
     max-width: calc(100% - 16px);
     height: 100vh;
   }
-}
 
-.modalContent {
-  height: calc(100vh - 100px);
-  width: 100%;
-  margin-top: 20px;
   img {
     object-fit: contain;
+  }
+
+  .closeIcon {
+    background-color: $primaryDark;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    margin-top: 15px;
+    &:hover {
+      background-color: $primaryLight;
+      svg {
+        path {
+          fill: white;
+        }
+      }
+    }
+    svg {
+      width: 14px;
+      height: 14px;
+      path {
+        fill: white;
+      }
+    }
   }
 }

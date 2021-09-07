@@ -1,10 +1,10 @@
 @import '../../../../styles/variables.scss';
 
 @mixin upload {
-  max-width: 320px;
-  min-width: 180px;
-  max-height: 220px;
-  height: 220px;
+  max-width: 320px !important;
+  min-width: 320px !important;
+  width: 100% !important;
+  min-height: 220px !important;
   border-radius: 20px;
 }
 
@@ -22,7 +22,6 @@
     position: absolute;
     .backgroundColor {
       @include upload;
-      width: 320px;
       opacity: 0.8;
       background-color: $primaryLight;
       @include media-xs {

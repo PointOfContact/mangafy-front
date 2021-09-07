@@ -6,6 +6,7 @@ $borderColor: #f0f0f0;
   font-size: $text4;
   border-color: $gray85;
   overflow-y: auto !important;
+  height: 42px !important;
   &::placeholder {
     color: $gray85;
   }
@@ -162,7 +163,8 @@ $borderColor: #f0f0f0;
   & > div:first-child {
     display: none;
     @include media-sm {
-      width: 326px;
+      width: 320px;
+      height: 220px;
       display: flex;
       align-items: center;
     }
@@ -191,7 +193,7 @@ $borderColor: #f0f0f0;
       border-radius: 0;
       @include input();
     }
-    & textarea {
+    .modalTextarea {
       @include input();
     }
   }
