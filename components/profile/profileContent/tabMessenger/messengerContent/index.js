@@ -153,8 +153,6 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
             openNotification('error', err.message);
           });
       });
-    } else {
-      setMessageError('This field not should contain only empty data');
     }
   };
 

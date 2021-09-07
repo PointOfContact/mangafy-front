@@ -260,6 +260,7 @@
     position: relative;
     width: 100%;
     display: flex;
+    margin-bottom: 10px;
     @include media-sm {
       left: 0;
       flex-direction: column;
@@ -297,13 +298,12 @@
         }
       }
       .messageError {
-        color: rgb(228, 47, 47);
+        color: $red;
         font-size: 11px;
         font-family: monospace;
         position: absolute;
         bottom: -3px;
         margin: 0;
-        left: 30px;
         @include media-sm {
           left: 28px;
           bottom: 87px;
@@ -394,8 +394,8 @@
   margin-top: 0px;
   padding: 0px 5px;
   border-radius: 50px;
-  border: 1px solid #dc3545;
-  color: #dc3545;
+  border: 1px solid $red;
+  color: $red;
   margin-left: auto;
 }
 .messText {
