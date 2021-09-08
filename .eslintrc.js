@@ -8,7 +8,6 @@ module.exports = {
     'react-hooks',
     'eslint-plugin-no-inline-styles',
     'unused-imports',
-    '@next/eslint-plugin-next',
   ],
   parserOptions: {
     ecmaFeatures: {
