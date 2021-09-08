@@ -5,6 +5,9 @@
   height: 88vh;
   overflow: auto;
   margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   div {
     width: 100% !important;
     canvas {

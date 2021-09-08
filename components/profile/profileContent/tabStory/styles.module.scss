@@ -38,6 +38,7 @@
 }
 
 .textarea_text {
+  overflow-y: scroll;
   outline: 0;
   border-width: 1px 1px 1px;
   border-color: $primaryDark;

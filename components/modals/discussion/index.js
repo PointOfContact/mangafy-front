@@ -40,6 +40,7 @@ const ModalDiscussion = ({
   const [logoProject, setLogoProject] = useState(client.UPLOAD_URL + logo);
   const [loading, setLoading] = useState('');
   const [subTitleData, setSubTitleData] = useState('');
+  const ifVideo = photoProject?.includes('youtube');
 
   const Amplitude = require('amplitude');
 
@@ -218,7 +219,18 @@ const ModalDiscussion = ({
                 </div>
                 <div className={!photoProject && styles.containerPhoto}>
                   <div className={cn(!photoProject && styles.img, styles.imgDef)}>
-                    {setPhotoOrLogo(photoProject, client.UPLOAD_URL + photoProject, 1000, false)}
+                    {ifVideo ? (
+                      <iframe
+                        loading="lazy"
+                        className={styles.postVideo}
+                        src={`${photoProject}?autoplay=1&mute=1&controls=0&playlist=RBolDaIdg5M&loop=1&autopause=0&`}
+                        title="YouTube video player"
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen></iframe>
+                    ) : (
+                      setPhotoOrLogo(photoProject, client.UPLOAD_URL + photoProject, 1000, false)
+                    )}
                   </div>
                   <p className={cn(!photoProject && styles.description, styles.descriptionDef)}>
                     {subTitle || subTitleData}

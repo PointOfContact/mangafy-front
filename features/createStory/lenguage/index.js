@@ -87,22 +87,26 @@ const Lenguage = ({ user }) => {
               </div>
               <div className="next_prev">
                 <Link href="/create-a-story/project-description">
-                  <Button id="countryPrevBtnId" className="title_but_prev">
-                    <SvgLeftArrow width="13.503px" height="23.619px" />
-                    <span> Previous</span>
-                  </Button>
+                  <a>
+                    <Button id="countryPrevBtnId" className="title_but_prev">
+                      <SvgLeftArrow width="13.503px" height="23.619px" />
+                      <span> Previous</span>
+                    </Button>
+                  </a>
                 </Link>
                 <Link href="/create-a-story/language">
-                  <Button
-                    id="countryNextBtnId"
-                    type="primary"
-                    className="title_but"
-                    loading={loadings[0]}
-                    disabled={!selectedItems}
-                    onClick={() => enterLoading(0)}>
-                    <span>Next</span>
-                    <SvgRightArrow width="13.503px" height="23.619px" />
-                  </Button>
+                  <a>
+                    <Button
+                      id="countryNextBtnId"
+                      type="primary"
+                      className="title_but"
+                      loading={loadings[0]}
+                      disabled={!selectedItems}
+                      onClick={() => enterLoading(0)}>
+                      <span>Next</span>
+                      <SvgRightArrow width="13.503px" height="23.619px" />
+                    </Button>
+                  </a>
                 </Link>
               </div>
             </div>

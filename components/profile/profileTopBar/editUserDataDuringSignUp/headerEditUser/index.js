@@ -35,7 +35,7 @@ const HeaderEditUser = ({
           text="Save"
           onClick={() => {
             setShowModalEdit(false);
-            if (errorAboutMe || !userData.content.length) {
+            if (errorAboutMe || !userData?.content?.length) {
               setUserData({ ...userData, content: user.content });
               saveUserDataByKey('genresIds', 'name', 'types');
             } else {

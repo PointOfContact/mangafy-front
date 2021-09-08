@@ -91,7 +91,7 @@ Start.propTypes = {
 };
 
 Start.defaultProps = {
-  isPage: false,
+  isPage: {},
   closeModal: () => {},
 };
 

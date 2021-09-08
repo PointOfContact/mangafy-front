@@ -30,8 +30,8 @@ const DeleteProject = ({ userId, mangaStoryId, setIsModalVisible }) => {
 };
 
 DeleteProject.propTypes = {
-  userId: PropTypes.number.isRequired,
-  mangaStoryId: PropTypes.number.isRequired,
+  userId: PropTypes.string.isRequired,
+  mangaStoryId: PropTypes.string.isRequired,
   setIsModalVisible: PropTypes.func.isRequired,
 };
 

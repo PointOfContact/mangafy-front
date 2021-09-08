@@ -1,35 +1,37 @@
 // Use the hidden-source-map option when you don't want the source maps to be
 // publicly available on the servers, only to the error reporting
-const withSourceMaps = require('@zeit/next-source-maps')();
-const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
+// const withSourceMaps = require('@zeit/next-source-maps')();
+// const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const withPlugins = require('next-compose-plugins');
-const SentryWebpackPlugin = require('@sentry/webpack-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+// const SentryWebpackPlugin = require('@sentry/webpack-plugin');
 const resolve = require('resolve');
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
-const withBabelMinify = require('next-babel-minify')({});
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+// const withBabelMinify = require('next-babel-minify')({});
 
 const path = require('path');
 
+const TerserPlugin = require('terser-webpack-plugin');
+
 const packageJson = require('./version.json');
 
-const SENTRY_DSN = 'https://b3e803fd922a41958f07d5aee50b8bc8@o359272.ingest.sentry.io/5509366';
-const SENTRY_ORG = 'mangafy';
-const SENTRY_PROJECT = 'mangafy-next';
-const SENTRY_AUTH_TOKEN = 'f5ce7c24228611eb947b4201c0a8d030';
-const NODE_ENV = 'dev';
-const VERCEL_GITHUB_COMMIT_SHA = 'VERCEL_GITHUB_COMMIT_SHA';
-const VERCEL_GITLAB_COMMIT_SHA = 'VERCEL_GITLAB_COMMIT_SHA';
-const VERCEL_BITBUCKET_COMMIT_SHA = 'VERCEL_BITBUCKET_COMMIT_SHA';
+// const SENTRY_DSN = 'https://b3e803fd922a41958f07d5aee50b8bc8@o359272.ingest.sentry.io/5509366';
+// const SENTRY_ORG = 'mangafy';
+// const SENTRY_PROJECT = 'mangafy-next';
+// const SENTRY_AUTH_TOKEN = 'f5ce7c24228611eb947b4201c0a8d030';
+// const NODE_ENV = 'dev';
+// const VERCEL_GITHUB_COMMIT_SHA = 'VERCEL_GITHUB_COMMIT_SHA';
+// const VERCEL_GITLAB_COMMIT_SHA = 'VERCEL_GITLAB_COMMIT_SHA';
+// const VERCEL_BITBUCKET_COMMIT_SHA = 'VERCEL_BITBUCKET_COMMIT_SHA';
 
-const COMMIT_SHA =
-  VERCEL_GITHUB_COMMIT_SHA || VERCEL_GITLAB_COMMIT_SHA || VERCEL_BITBUCKET_COMMIT_SHA;
+// const COMMIT_SHA =
+//   VERCEL_GITHUB_COMMIT_SHA || VERCEL_GITLAB_COMMIT_SHA || VERCEL_BITBUCKET_COMMIT_SHA;
 
 const aliases = {
-  '@babel/runtime': path.resolve(__dirname, 'node_modules/@babel/runtime'),
+  // '@babel/runtime': path.resolve(__dirname, 'node_modules/@babel/runtime'),
   lodash: path.resolve(__dirname, 'node_modules/lodash'),
   debug: path.resolve(__dirname, 'node_modules/debug'),
   ms: path.resolve(__dirname, 'node_modules/ms'),
@@ -43,9 +45,9 @@ if (typeof require !== 'undefined') {
 }
 
 const nextConfigs = {
-  experimental: {
-    scss: true,
-  },
+  // experimental: {
+  //   scss: true,
+  // },
   images: {
     domains: ['mangafy.club', 'ui-avatars.com', 'mangafy.imgix.net'],
     loader: 'imgix',
@@ -61,11 +63,12 @@ const nextConfigs = {
         localesToKeep: ['es-us'],
       })
     );
-    webpackConfig.plugins.push(new DuplicatePackageCheckerPlugin());
+    // webpackConfig.plugins.push(new DuplicatePackageCheckerPlugin());
 
     if (options.defaultLoaders.babel.options.plugins === undefined) {
       options.defaultLoaders.babel.options.plugins = [];
     }
+    options.defaultLoaders.babel.options.exclude = 'node_modules/**';
     options.defaultLoaders.babel.options.plugins.push([
       'import',
       {
@@ -93,6 +96,9 @@ const nextConfigs = {
     });
 
     webpackConfig.optimization.minimize = true;
+    // webpackConfig.optimization.concatenateModules = false;
+    // webpackConfig.optimization.providedExports = false;
+    // webpackConfig.optimization.usedExports = false;
     webpackConfig.optimization.minimizer = [];
     // webpackConfig.optimization.moduleIds = 'deterministic';
     // webpackConfig.optimization.splitChunks = {
@@ -112,7 +118,8 @@ const nextConfigs = {
     // };
 
     if (Array.isArray(webpackConfig.optimization.minimizer)) {
-      webpackConfig.optimization.minimizer.push(new OptimizeCSSAssetsPlugin({}));
+      webpackConfig.optimization.minimizer.push(new CssMinimizerPlugin());
+      webpackConfig.optimization.minimizer.push(new TerserPlugin());
     }
 
     webpackConfig.module.rules.unshift({
@@ -176,7 +183,7 @@ const nextConfigs = {
     if (options.isServer) {
       // add antd to https://github.com/zeit/next.js/blob/canary/build/webpack.js#L34-L59
       // This makes sure paths are relative when pushing build to other systems
-      webpackConfig.externals.push((context, request, callback) => {
+      webpackConfig.externals.push(({ request }, callback) => {
         resolve(request, { basedir: options.dir, preserveSymlinks: true }, (err, res) => {
           if (err) {
             return callback();
@@ -216,4 +223,4 @@ const nextConfigs = {
   },
 };
 
-module.exports = withPlugins([[withBundleAnalyzer], [withBabelMinify]], nextConfigs);
+module.exports = withPlugins([[withBundleAnalyzer]], nextConfigs);

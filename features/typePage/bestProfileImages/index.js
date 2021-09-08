@@ -24,12 +24,7 @@ const BestProfile = ({ gallery, user }) => {
             setShowModal(true);
             setStartIndex(index);
           }}>
-          <Imgix
-            width="auto"
-            height="auto"
-            src={client.UPLOAD_URL + item?._id}
-            alt="mangaFy gallery"
-          />
+          <Imgix layout="fill" src={client.UPLOAD_URL + item?._id} alt="mangaFy gallery" />
           <DescriptionBestProfile
             item={item}
             user={user}

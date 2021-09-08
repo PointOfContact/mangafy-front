@@ -11,7 +11,7 @@ import DeleteProjectButton from './deleteProjectButton';
 import styles from './styles.module.scss';
 
 const MangeStoryCard = ({ mangaStories, client, user }) =>
-  mangaStories?.map((label) => (
+  mangaStories?.map((label, index) => (
     <>
       <Link key={label._id} href={`/manga-story/${label._id}`}>
         <a>
@@ -19,7 +19,7 @@ const MangeStoryCard = ({ mangaStories, client, user }) =>
             <div>
               <div className={styles.titleBlok}>
                 <h3 className={styles.title}>{label.title}</h3>
-                <DeleteProjectButton label={label} user={user} mangaStory={mangaStories} />
+                <DeleteProjectButton label={label} user={user} mangaStory={mangaStories[index]} />
               </div>
               <div className={styles.description}>
                 <p>{label.story}</p>

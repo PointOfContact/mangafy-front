@@ -15,11 +15,13 @@ const ShowImgModal = ({ setIsModalVisible, isModalVisible, img }) => (
     width={'100%'}
     zIndex={200000000}
     onCancel={() => setIsModalVisible(false)}
-    closeIcon={<SvgClose />}
+    closeIcon={
+      <span className={styles.closeIcon}>
+        <SvgClose />
+      </span>
+    }
     visible={isModalVisible}>
-    <div className={styles.modalContent}>
-      {typeof img === 'string' ? <Imgix layout="fill" src={img} alt="MangaFy modal" /> : img}
-    </div>
+    {typeof img === 'string' ? <Imgix layout="fill" src={img} alt="MangaFy modal" /> : img}
   </Modal>
 );
 
