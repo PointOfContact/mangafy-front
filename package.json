@@ -89,6 +89,7 @@
     "react": "^16.14.0",
     "react-amplitude": "^0.1.7",
     "react-avatar-edit": "^1.0.0",
+    "react-beautiful-dnd": "^13.1.0",
     "react-chat-elements": "^10.13.0",
     "react-cookie-bubble": "^1.0.3",
     "react-dom": "^16.14.0",
