@@ -105,8 +105,16 @@ export default {
     },
   },
   storyTab: {
-    leaveManga: (participantId, _id, setBaseData, history, user) => {
-      const data = { participantId };
+    leaveManga: (
+      newParticipantsData,
+      participantId,
+      _id,
+      setBaseData,
+      history,
+      user,
+      setParticipantsData
+    ) => {
+      const data = { participents: newParticipantsData };
       const jwt = client.getCookie('feathers-jwt');
       return import('api/restClient').then((m) =>
         m.default
@@ -115,6 +123,7 @@ export default {
             headers: { Authorization: `Bearer ${jwt}` },
           })
           .then((res) => {
+            setParticipantsData(res.participentsInfo);
             if (participantId === user._id) {
               history.push(`/collaborations`);
             } else {

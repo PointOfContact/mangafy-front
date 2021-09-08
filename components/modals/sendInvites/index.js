@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { Modal, Input, notification } from 'antd';
-import Form from 'antd/lib/form/Form';
+import { Modal, Input, notification, Form } from 'antd';
 import { createRequest } from 'api/joinMangaStoryRequestClient';
 import SvgClose from 'components/icon/Close';
 import PrimaryButton from 'components/ui-elements/button';
@@ -117,6 +116,7 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
 
   return (
     <Modal
+      forceRender
       className={styles.modal}
       title={ModalTitle}
       footer={null}

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { notification } from 'antd';
-import Form from 'antd/lib/form/Form';
+import { notification, Form } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 import Modal from 'antd/lib/modal/Modal';
 import SvgClose from 'components/icon/Close';
@@ -118,6 +117,7 @@ const HtmlGalleryModal = ({ gallery, setImages, images, handleCancel, isModalVis
   return (
     <div>
       <Modal
+        forceRender
         title={ModalTitle}
         className={styles.modal}
         bodyStyle={{ height: 'calc(100vh- 60px)', overflow: 'auto' }}

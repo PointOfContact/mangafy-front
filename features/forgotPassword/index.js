@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import Modal from 'antd/lib/modal/Modal';
+import { Modal } from 'antd';
 import FooterPolicy from 'components/footer-policy';
 import Header from 'components/header';
 import Imgix from 'components/imgix';
@@ -16,6 +16,7 @@ const ReachableContext = React.createContext();
 
 const ForgotPassword = () => {
   const [modal, contextHolder] = Modal.useModal();
+  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
   // const [errorMessage, setErrorMessage] = useState('');
 
@@ -46,6 +47,7 @@ const ForgotPassword = () => {
   };
 
   const reset = () => {
+    setLoading(true);
     import('api/restClient').then((m) => {
       m.default
         .service('/api/v2/authManagement')
@@ -60,6 +62,7 @@ const ForgotPassword = () => {
           }
         )
         .then(() => {
+          setLoading(false);
           countDown();
           // setErrorMessage('');
           setEmail('');
@@ -104,6 +107,7 @@ const ForgotPassword = () => {
         />
         <ReachableContext.Provider value="Light">
           <LargeButton
+            loading={loading}
             onClick={reset}
             className={styles.button_submit}
             htmlType="submit"

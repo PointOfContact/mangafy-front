@@ -29,8 +29,9 @@ const Register = ({ user }) => {
     disabled: false,
     err: '',
   };
+
   const [loading, setLoading] = useState(false);
-  const [state, setState] = React.useState(defaultState);
+  const [state, setState] = useState(defaultState);
   const { name, email, password, errorMessage, type, err, disabled } = state;
 
   const handleOnChange = (e) => {
@@ -38,11 +39,13 @@ const Register = ({ user }) => {
       setState({
         ...state,
         type: e,
+        errorMessage: '',
       });
     } else {
       setState({
         ...state,
         [e.target.name]: e.target.value,
+        errorMessage: '',
       });
     }
   };
@@ -58,32 +61,33 @@ const Register = ({ user }) => {
       ...state,
       errorMessage: '',
     });
-    e.preventDefault();
 
     const { inviteId } = qs.parse(window.location.search);
     setLoading(true);
     const payload = {
-      name,
+      name: e.user.name,
       type,
-      email,
-      password,
+      email: e.user.email,
+      password: e.user.password,
       inviteId,
     };
+
     register(payload)
       .then(({ user: newUser }) => {
+        history.push(`/profile/${newUser?._id}?editModal=true`);
+
         setLoading(false);
         const data = [
           {
             platform: 'WEB',
             event_type: EVENTS.SIGN_UP,
-            user_id: newUser._id,
+            user_id: newUser?._id,
             user_properties: {
               ...newUser,
             },
           },
         ];
         amplitude.track(data);
-        history.push(`/profile/${newUser._id}?editModal=true`);
         // info({
         //   className: 'MangaFY',
         //   title: <h3 className={styles.modalTitle}>Welcome to MangaFY</h3>,
@@ -153,6 +157,8 @@ const Register = ({ user }) => {
                         loading,
                         onChange: handleOnChange,
                         onSubmit: handleRegisterSubmit,
+                        setState,
+                        state,
                       }}
                     />
                     {err && <p>{err}</p>}

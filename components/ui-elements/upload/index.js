@@ -37,10 +37,10 @@ const PrimaryUpload = ({
 
   useEffect(() => {
     const list = mangaUrls.map((url) => ({
-      uid: client.UPLOAD_URL + url,
+      uid: url,
       url:
         url?.slice(-3) === 'pdf' || url?.slice(-3) === 'PDF'
-          ? 'https://icons.iconarchive.com/icons/graphicloads/filetype/256/pdf-icon.png'
+          ? 'https://mangafy.imgix.net/https%3A%2F%2Fmangafy.club%2Fimg%2Fpdf.webp?ixlib=js-v3.1.3&w=64&q=undefined&auto=format&fit=max&s=4c59b00291e2b5fdb5d8781c65cef412'
           : client.UPLOAD_URL + url,
       status: 'done',
     }));

@@ -100,22 +100,26 @@ const MangaGenres = (props) => {
               </div>
               <div className="next_prev">
                 <Link href="/create-a-story/model">
-                  <Button id="genresPrevBtnId" className="title_but_prev">
-                    <SvgLeftArrow width="13.503px" height="23.619px" />
-                    <span>Previous</span>
-                  </Button>
+                  <a>
+                    <Button id="genresPrevBtnId" className="title_but_prev">
+                      <SvgLeftArrow width="13.503px" height="23.619px" />
+                      <span>Previous</span>
+                    </Button>
+                  </a>
                 </Link>
                 <Link href="/create-a-story/project-title">
-                  <Button
-                    type="primary"
-                    id="genresNextBtnId"
-                    className="title_but"
-                    loading={loadings[0]}
-                    disabled={!enabled}
-                    onClick={() => enterLoading(0)}>
-                    <span>Next</span>
-                    <SvgRightArrow width="13.503px" height="23.619px" />
-                  </Button>
+                  <a>
+                    <Button
+                      type="primary"
+                      id="genresNextBtnId"
+                      className="title_but"
+                      loading={loadings[0]}
+                      disabled={!enabled}
+                      onClick={() => enterLoading(0)}>
+                      <span>Next</span>
+                      <SvgRightArrow width="13.503px" height="23.619px" />
+                    </Button>
+                  </a>
                 </Link>
               </div>
             </div>

@@ -70,7 +70,7 @@ const ModalBestProfile = ({
 };
 
 ModalBestProfile.propTypes = {
-  currentItem: PropTypes.object.isRequired,
+  currentItem: PropTypes.object,
   showModal: PropTypes.bool.isRequired,
   setShowModal: PropTypes.func.isRequired,
   gallery: PropTypes.array.isRequired,
@@ -78,6 +78,10 @@ ModalBestProfile.propTypes = {
   user: PropTypes.object.isRequired,
   topGallery: PropTypes.array.isRequired,
   setTopGallery: PropTypes.func.isRequired,
+};
+
+ModalBestProfile.defaultProps = {
+  currentItem: {},
 };
 
 export default ModalBestProfile;

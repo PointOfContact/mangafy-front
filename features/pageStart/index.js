@@ -80,6 +80,11 @@ const pageStart = ({ user }) => (
                         <a>Showcase yoru works</a>
                       </Link>
                     </li>
+                    <li className={styles.lists__listItem}>
+                      <Link href={'/resources/what-is-manga'}>
+                        <a>What is manga</a>
+                      </Link>
+                    </li>
                   </ul>
                 </div>
                 <div className={styles.lists__item}>
@@ -88,6 +93,11 @@ const pageStart = ({ user }) => (
                     <li className={styles.lists__listItem}>
                       <Link href={'/resources/production-management-tool'}>
                         <a>Production management tool</a>
+                      </Link>
+                    </li>
+                    <li className={styles.lists__listItem}>
+                      <Link href={'/resources/build-webcomic-fanbase'}>
+                        <a>Build Webcomic Fanbase</a>
                       </Link>
                     </li>
                     {/* <li className={styles.lists__listItem}>

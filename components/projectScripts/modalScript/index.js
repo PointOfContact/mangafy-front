@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import Form from 'antd/lib/form/Form';
+import { Form } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 import Modal from 'antd/lib/modal/Modal';
 import SvgClose from 'components/icon/Close';
@@ -73,6 +73,7 @@ const ModalScript = ({
 
   return (
     <Modal
+      forceRender
       className={styles.addPageModal}
       onCancel={() => {
         setVisiblePageModal(!visibleModal);
@@ -87,7 +88,7 @@ const ModalScript = ({
         <Form.Item className={styles.titlePage} name="title">
           {!showTitleInput ? (
             <PrimaryInput
-              maxLength="200"
+              maxLength={200}
               className={titleError && styles.titleInput}
               onBlur={(e) => {
                 setTitle({ value: e.target.value, type: 'title' });
@@ -114,14 +115,14 @@ const ModalScript = ({
           <p>Panel {modalIndex + 1}</p>
           <Form.Item name="text">
             <TextArea
+              className={styles.textareaPage}
               autoSize={true}
-              maxLength="5000"
+              maxLength={100000}
               maxrows={5000}
               onBlur={(e) => setText({ value: e.target.value, type: 'text' })}
-              placeholder="Add a panel: Exact panel layout usually left to artist,
-                but if you want you have something specific in mind, put it in your
-                description.Dialoges: Charackets speaking form off-panel
-                are omdocated this way"
+              placeholder="Add a panel: Exact panel layout Is usually left to the artist,
+               but if you want to have something specific in mind, put it in your description.
+               Dialogues: Charackets speaking from off-panel are indicated this way"
             />
           </Form.Item>
         </div>

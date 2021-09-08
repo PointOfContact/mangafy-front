@@ -151,7 +151,7 @@ LandingNew.propTypes = {
   dailyWarmUps: PropTypes.array,
   members: PropTypes.array,
   collaborations: PropTypes.array,
-  getCurrentPostData: PropTypes.object,
+  getCurrentPostData: PropTypes.any,
   gallery: PropTypes.array,
 };
 

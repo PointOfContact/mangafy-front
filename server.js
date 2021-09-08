@@ -6,7 +6,7 @@ const next = require('next');
 const sitemap = require('nextjs-sitemap-generator'); // Import the package
 
 const dev = process.env.NODE_ENV !== 'production';
-const app = next({ dev });
+const app = next({ dev, dir: process.cwd() });
 const handle = app.getRequestHandler();
 
 const extraPaths = [];
@@ -38,10 +38,10 @@ axios
         'password-success-changed',
       ],
       extraPaths: ['/', ...extraPaths],
-      pagesDirectory: `${__dirname}\\pages`,
+      pagesDirectory: `${__dirname}//pages`,
       targetDirectory: 'public/',
       sitemapFilename: 'sitemap.xml',
-      nextConfigPath: `${__dirname}\\next.config.js`,
+      nextConfigPath: `${__dirname}//next.config.js`,
     });
   })
   .catch(console.log);

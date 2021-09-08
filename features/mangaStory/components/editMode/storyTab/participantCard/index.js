@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { Popconfirm } from 'antd';
 import client from 'api/client';
 import Imgix from 'components/imgix';
 import Avatar from 'components/ui-elements/avatar';
@@ -37,43 +36,22 @@ const ParticipantCard = ({ isOwn, avatar, name, id, type, types, leaveManga, use
         <>
           {isOwn && (
             <div>
-              <Popconfirm
-                placement="top"
-                title={
-                  <div
-                    style={{
-                      width: '200px',
-                    }}>{`Do you really want ${name} to be excluded from this manga-story?`}</div>
-                }
-                onConfirm={() => {
+              <p
+                onClick={() => {
                   leaveManga(id);
-                }}
-                onClick={(event) => event.stopPropagation()}
-                okText="Yes"
-                cancelText="No">
-                <p>Remove participant</p>
-              </Popconfirm>
+                }}>
+                Remove participant
+              </p>
             </div>
           )}
           {id === user?._id && (
-            <Popconfirm
-              placement="top"
-              title={
-                <div
-                  style={{
-                    width: '200px',
-                  }}>
-                  Do you really want to leave this collaboration?
-                </div>
-              }
-              onConfirm={() => {
+            <p
+              className={styles.out}
+              onClick={() => {
                 leaveManga(user?._id);
-              }}
-              onClick={(event) => event.stopPropagation()}
-              okText="Yes"
-              cancelText="No">
-              <p className={styles.out}> Leave Manga-Story</p>
-            </Popconfirm>
+              }}>
+              Leave Manga-Story
+            </p>
           )}
         </>
       )}

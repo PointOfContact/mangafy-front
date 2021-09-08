@@ -1,19 +1,23 @@
 import React, { useEffect, useState } from 'react';
 
-import { Upload, message, notification } from 'antd';
+import { Upload, message, notification, Modal } from 'antd';
 import client from 'api/client';
 // Api
 import { uploadFile } from 'api/storyBoardClient';
 // Components
 import cn from 'classnames';
+import SvgClose from 'components/icon/Close';
 import SvgCloud from 'components/icon/Cloud';
 import SvgImage from 'components/icon/Image';
+import Imgix from 'components/imgix';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
 const HeroUpload = ({ mangaUrl, setImgId, titleLoad, typeCard }) => {
   const [img, setImg] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+
   useEffect(() => {
     const newImg = mangaUrl?.slice(-3)
       ? [
@@ -78,6 +82,8 @@ const HeroUpload = ({ mangaUrl, setImgId, titleLoad, typeCard }) => {
   };
 
   const onPreview = async (file) => {
+    setShowModal(true);
+    setImg(file.thumbUrl);
     let src = file.url;
     if (!src) {
       src = await new Promise((resolve) => {
@@ -119,6 +125,21 @@ const HeroUpload = ({ mangaUrl, setImgId, titleLoad, typeCard }) => {
           </div>
         )}
       </Upload>
+      <Modal
+        className={styles.modal}
+        bodyStyle={{ height: 'calc(100vh - 30px)', overflow: 'auto' }}
+        footer={null}
+        width={'100%'}
+        zIndex={200000000}
+        onCancel={() => setShowModal(false)}
+        closeIcon={
+          <span className={styles.closeIcon}>
+            <SvgClose />
+          </span>
+        }
+        visible={showModal}>
+        <Imgix layout="fill" src={img} alt="MangaFy modal" />
+      </Modal>
     </div>
   );
 };

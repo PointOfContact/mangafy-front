@@ -92,6 +92,7 @@ const ModalInviteMembers = ({ showModal, setShowModal, user }) => {
   };
   return (
     <Modal
+      forceRender
       className={styles.modal}
       title="Invite to MangaFy"
       centered

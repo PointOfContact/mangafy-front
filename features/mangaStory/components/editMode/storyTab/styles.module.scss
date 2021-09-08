@@ -2,13 +2,26 @@
 
 .isOwner {
   @include media-md {
-    margin-top: 80px;
+    margin-top: 60px;
   }
 }
 
 .storyTab {
   font-family: Noto Sans JP;
-  flex: 4;
+  width: 70%;
+  @include media-md{
+    width: 60%;
+  }
+  @include media-sm{
+    width: 100%;
+  }
+  word-wrap: break-word;
+  & + div {
+    width: 30%;
+    @include media-md{
+      width: 40%;
+    }
+  }
   .isOwnBubble {
     display: none;
     @include media-sm {
@@ -45,6 +58,7 @@
     font-size: 20px;
     font-family: Noto Sans JP;
     margin-bottom: 45px;
+    overflow: hidden;
     @include media-sm {
       font-size: 15px;
       line-height: 20px;

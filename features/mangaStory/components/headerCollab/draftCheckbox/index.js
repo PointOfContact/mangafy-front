@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 
-import { Input, notification } from 'antd';
-import Form from 'antd/lib/form/Form';
+import { notification } from 'antd';
 import { ShareButtons } from 'components/share';
-import PrimaryButton from 'components/ui-elements/button';
 import CopyInput from 'components/ui-elements/copyInput';
 import copy from 'copy-to-clipboard';
 import PropTypes from 'prop-types';
@@ -30,7 +28,7 @@ const DraftCheckbox = ({ originUrl, user, mangaStory, setMangaStoryNew, mangaSto
       <h2 className={styles.modalTitle}>Your project is live!</h2>
       <h3>Share it whenever your followers are. Posts are the best way to make new supporters.</h3>
       <h4>Tell your followers everywhere 🎉</h4>
-      {!user.payPalEmail && showInput && (
+      {/* {!user.payPalEmail && showInput && (
         <div className={styles.containerPayPalEmail}>
           <h4>Paypal email</h4>
           <Form onFinish={(value) => onFinish(value.email)}>
@@ -49,7 +47,7 @@ const DraftCheckbox = ({ originUrl, user, mangaStory, setMangaStoryNew, mangaSto
             <PrimaryButton htmlType="submit" text="Submit" />
           </Form>
         </div>
-      )}
+      )} */}
       <div className={styles.shareButtons}>
         <ShareButtons shareUrl={originUrl} text="Share to the world!" />
       </div>
