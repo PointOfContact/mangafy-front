@@ -188,6 +188,19 @@ const ProfileTopBar = (props) => {
     setLikedUsers(profile?.likedUsers);
   }, [profile?.likedUsers]);
 
+  const colorTypes = ['#2f2ea6', '#20c000', '#fac448', '#2f2ea6'];
+
+  const getTypes = (array) =>
+    array?.types.slice(0, 4).map((value, i) => (
+      <div className={styles.userTypes} key={value} style={{ backgroundColor: colorTypes[i] }}>
+        {userTypesEnums[value]}
+      </div>
+    ));
+
+  const types = ifMyProfile
+    ? !!userData?.types?.length && getTypes(userData)
+    : !!profile?.types?.length && getTypes(profile);
+
   return (
     <Content className={cn(styles.content)}>
       <Row>
@@ -226,15 +239,7 @@ const ProfileTopBar = (props) => {
             {!editMode ? (
               <>
                 <h4>{ifMyProfile ? userData?.name : profile?.name}</h4>
-                <p>
-                  {
-                    userTypesEnums[
-                      ifMyProfile
-                        ? !!userData?.types?.length && userData?.types[0]
-                        : !!profile?.types?.length && profile?.types[0]
-                    ]
-                  }
-                </p>
+                <div className={styles.typesContainer}>{types}</div>
 
                 {ifMyProfile ? (
                   <div className={styles.followAndEditButton}>
