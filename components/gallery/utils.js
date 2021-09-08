@@ -41,7 +41,6 @@ const removeImg = (images, _id, fromPath, userData) => {
       item._id !== _id &&
       (!item.renderItem || item._id?.slice(-3) === 'PDF' || item?._id?.slice(-3) === 'pdf')
   );
-  console.log(newImages);
   const data = { gallery: [...newImages.map((item) => item._id)] };
   const jwt = client.getCookie('feathers-jwt');
 
