@@ -44,19 +44,13 @@ const MenuLinks = ({ isOpen, user, setShowModal, handleMenuOpen }) => {
                     <Link href="/collaborations?compensationModel=paid">Paid projects</Link>
                   </li> */}
                 <li className={styles.menu_item}>
-                  <Link href="/collaborations">
-                    <a>Collabs</a>
-                  </Link>
+                  <Link href="/collaborations">Collabs </Link>
                 </li>
                 <li className={styles.menu_item}>
-                  <Link href="/profiles">
-                    <a>People</a>
-                  </Link>
+                  <Link href="/profiles">People </Link>
                 </li>
                 <li className={styles.menu_item}>
-                  <Link href="/create-a-story/start">
-                    <a>Create a collab</a>
-                  </Link>
+                  <Link href="/create-a-story/start">Create a collab </Link>
                 </li>
                 {/* <li className={styles.menu_item}>
                     <Link href="/pricing">Go Pro</Link>
@@ -64,52 +58,38 @@ const MenuLinks = ({ isOpen, user, setShowModal, handleMenuOpen }) => {
               </ul>
               <ul className={cn(`${styles.main_list} ${styles.ul_login}`)}>
                 <li className={styles.menu_item}>
-                  <Link href={`/profile/${user?._id}`}>
-                    <a>Profile</a>
-                  </Link>
+                  <Link href={`/profile/${user?._id}`}>Profile </Link>
                 </li>
                 {/* <li className={styles.menu_item}>
                     <Link href="/collaborations?compensationModel=paid">Work Availability</Link>
                   </li> */}
                 <li className={styles.menu_item}>
-                  <Link href={`/profile/${user?._id}`}>
-                    <a>My Notifications</a>
-                  </Link>
+                  <Link href={`/profile/${user?._id}`}>My Notifications </Link>
                 </li>
                 {/* <li className={styles.menu_item}>
                     <Link href="/settings">Account settings</Link>
                   </li> */}
                 <li className={styles.menu_item} onClick={removeAllStorage}>
-                  <Link href="/sign-in">
-                    <a>Sign out</a>
-                  </Link>
+                  <Link href="/sign-in">Sign out </Link>
                 </li>
               </ul>
             </>
           ) : (
             <ul className={styles.main_list}>
               <li className={styles.menu_item}>
-                <Link href="/sign-in">
-                  <a>Sign in</a>
-                </Link>
+                <Link href="/sign-in">Sign in </Link>
               </li>
               {/* <li className={styles.menu_item}>
                   <Link href="/collaborations?compensationModel=paid">Paid projects</Link>
                 </li> */}
               <li className={styles.menu_item}>
-                <Link href="/collaborations">
-                  <a>Collabs</a>
-                </Link>
+                <Link href="/collaborations">Collabs </Link>
               </li>
               <li className={styles.menu_item}>
-                <Link href="/create-a-story/start">
-                  <a>Create a collab</a>
-                </Link>
+                <Link href="/create-a-story/start">Create a collab </Link>
               </li>
               <li className={styles.menu_item}>
-                <Link href="/profiles">
-                  <a>People</a>
-                </Link>
+                <Link href="/profiles">People </Link>
               </li>
               {/* <li className={styles.menu_item}>
                   <Link href="/pricing">Go Pro</Link>
