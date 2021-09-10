@@ -160,7 +160,7 @@ const nextConfigs = {
     if (options.isServer) {
       // add antd to https://github.com/zeit/next.js/blob/canary/build/webpack.js#L34-L59
       // This makes sure paths are relative when pushing build to other systems
-      webpackConfig.externals.push((context, request, callback) => {
+      webpackConfig.externals.push(({ request }, callback) => {
         resolve(request, { basedir: options.dir, preserveSymlinks: true }, (err, res) => {
           if (err) {
             return callback();
