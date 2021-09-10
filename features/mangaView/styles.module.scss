@@ -1,9 +1,12 @@
-@import '../..//styles/variables.scss';
+@import '../../styles/variables.scss';
 
 .containerPreview {
   max-width: 860px;
   width: 100%;
   padding: 30px;
+  @include media-sm{
+    padding: 0;
+  }
   margin: 50px auto;
   .shareButPreview{
     margin-bottom: 20px;
@@ -12,8 +15,71 @@
       flex-direction: initial;
     }
   }
+  .containerTitle {
+    h1 {
+      text-align: center;
+      font-size: 30px;
+      color: $primaryDark;
+      font-weight: bold;
+      margin: 0;
+      @include media-sm {
+        font-size: 20px;
+      }
+    }
+    p {
+      text-align: center;
+      color: $gray85;
+      font-size: 18px;
+      @include media-sm {
+        display: none;
+      }
+    }
+    @include media-sm {
+      & + div {
+        display: none;
+      }
+    }
+  }
+  .shareButPreview {
+    justify-content: start;
+    padding-bottom: 10px;
+    box-sizing: border-box;
+    @include media-sm {
+      margin-left: 10px;
+      flex-direction: initial !important;
+    }
+  }
+  .shareTitle {
+    font-size: 20px;
+    font-weight: bold;
+    color: $black;
+    @include media-sm {
+      font-size: 16px;
+      margin-left: 10px;
+    }
+  }
+  .projectName {
+    border-top: 2px solid $grayBG;
+    font-size: 35px;
+    color: $black;
+    font-weight: bold;
+    margin: 0;
+    padding: 20px 0;
+    box-sizing: border-box;
+    @include media-sm {
+      padding-left: 10px;
+      font-size: 30px;
+      border-top: none;
+      border-bottom: 2px solid $grayBG;
+    }
+  }
   .containerImages {
     position: relative;
+    margin-bottom: 60px;
+    @include media-sm {
+      margin-bottom: 40px;
+      margin-top: 30px;
+    }
     div {
       position: relative !important;
       img {

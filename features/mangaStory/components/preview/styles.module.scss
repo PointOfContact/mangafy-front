@@ -1,5 +1,4 @@
 @import '../../../../styles/variables.scss';
-@import '../../styles.module.scss';
 
 $colorAllBorder: rgba(33, 33, 33, 0.07);
 
@@ -65,13 +64,73 @@ $colorAllBorder: rgba(33, 33, 33, 0.07);
   @media (max-width: 320px) {
     height: calc(100vh - 0px) !important;
   }
+  .containerTitle {
+    h1 {
+      text-align: center;
+      font-size: 30px;
+      color: $primaryDark;
+      font-weight: bold;
+      margin: 0;
+      @include media-sm {
+        font-size: 20px;
+      }
+    }
+    p {
+      text-align: center;
+      color: $gray85;
+      font-size: 18px;
+      @include media-sm {
+        display: none;
+      }
+    }
+    @include media-sm {
+      & + div {
+        display: none;
+      }
+    }
+  }
+  .shareTitle {
+    font-size: 20px;
+    font-weight: bold;
+    color: $black;
+    @include media-sm {
+      font-size: 16px;
+      margin-left: 10px;
+    }
+  }
+  .shareButPreview {
+    justify-content: start;
+    padding-bottom: 25px;
+    box-sizing: border-box;
+    @include media-sm {
+      margin-left: 10px;
+      flex-direction: initial !important;
+    }
+  }
+  .projectName {
+    border-top: 2px solid $grayBG;
+    font-size: 35px;
+    font-weight: bold;
+    color: $black;
+    margin: 0;
+    padding: 20px 0;
+    box-sizing: border-box;
+    @include media-sm {
+      padding: 10px 0 20px 10px;
+      font-size: 30px;
+      border-top: none;
+      border-bottom: 2px solid $grayBG;
+    }
+  }
   & > div {
     border-radius: 10px !important;
-    height: 100%;
     & > div {
       border: none;
       @include media-md {
         padding: 12px;
+      }
+      @include media-sm {
+        padding: 12px 0;
       }
     }
   }
@@ -104,28 +163,11 @@ $colorAllBorder: rgba(33, 33, 33, 0.07);
       }
     }
   }
-  .images {
-    max-width: 800px;
-    width: 100%;
-    margin: auto;
-    position: relative;
-    div {
-      position: initial !important;
-    }
-    img {
-      position: initial !important;
-      height: auto !important;
-    }
-  }
+
   .card_wrap {
     width: 100%;
     height: calc(100vh - 280px);
-    @media (max-width: 360px) {
-      height: calc(100vh - 190px);
-    }
-    @media (max-width: 320px) {
-      height: calc(100vh - 140px);
-    }
+    padding-right: 10px;
     overflow-x: auto;
     white-space: nowrap;
     margin-top: 50px;
@@ -135,6 +177,12 @@ $colorAllBorder: rgba(33, 33, 33, 0.07);
     @include media-xs {
       padding: 0;
     }
+    @media (max-width: 360px) {
+      height: calc(100vh - 190px);
+    }
+    @media (max-width: 320px) {
+      height: calc(100vh - 140px);
+    }
     &::-webkit-scrollbar {
       width: 5px;
     }
@@ -142,12 +190,12 @@ $colorAllBorder: rgba(33, 33, 33, 0.07);
     &::-webkit-scrollbar-track {
       box-shadow: inset 0 0 2px $black;
       background-color: $black;
-      border-radius: 0;
+      border-radius: 20px;
     }
 
     &::-webkit-scrollbar-thumb {
       background: $primaryDark;
-      border-radius: 0px;
+      border-radius: 20px;
     }
 
     &::-webkit-scrollbar-thumb:hover {
@@ -160,6 +208,26 @@ $colorAllBorder: rgba(33, 33, 33, 0.07);
       @include media-xs {
         padding-bottom: 10px;
         box-sizing: border-box;
+      }
+    }
+  }
+
+  .imagesContainer {
+    margin-bottom: 60px;
+    @include media-sm {
+      margin-bottom: 40px;
+      margin-top: 30px;
+    }
+    .images {
+      width: 100%;
+      margin: auto;
+      position: relative;
+      div {
+        position: initial !important;
+      }
+      img {
+        position: initial !important;
+        height: auto !important;
       }
     }
   }

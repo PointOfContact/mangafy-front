@@ -6,12 +6,15 @@ import { store } from 'store';
 export default withAuthComponent(MangaView);
 export const getServerSideProps = withAuthServerSideProps(async (context, user = store.user) => {
   const res = await client.service('/api/v2/story-boards').get(context.params.pid);
+  const resMangaStory = await client.service('/api/v2/manga-stories').get(res.mangaStoryId);
+
   try {
     return {
       props: {
         user,
         storyBoardId: context.params.pid,
         mangaUrls: res.mangaUrls,
+        mangaStoryTitle: resMangaStory.title,
       },
     };
   } catch (error) {
