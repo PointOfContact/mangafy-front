@@ -15,6 +15,8 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
       },
     };
   } catch (error) {
+    console.log('Error: manga-view.js', error);
+
     return { props: {} };
   }
 });

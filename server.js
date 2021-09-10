@@ -67,7 +67,10 @@ app.prepare().then(() => {
       handle(req, res, parsedUrl);
     }
   }).listen(3000, (err) => {
-    if (err) throw err;
+    if (err) {
+      console.log('Err in server.js:', err);
+      throw err;
+    }
     console.log('> Ready on http://localhost:3000');
   });
 });

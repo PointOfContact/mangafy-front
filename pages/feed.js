@@ -66,6 +66,7 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
       },
     };
   } catch (error) {
+    console.log('Error: feed.js', error);
     return { props: {} };
   }
 });

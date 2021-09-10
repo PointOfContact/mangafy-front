@@ -54,6 +54,8 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
       }, // will be passed to the page component as props
     };
   } catch (error) {
+    console.log('Error: profiles.js', error);
+
     return {
       props: {},
     };
