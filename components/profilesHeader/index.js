@@ -35,15 +35,19 @@ const ProfilesHeader = ({ user }) => (
           <div className={styles.box__link}>
             {user ? (
               <Link href="/create-a-story/start">
-                <span>
-                  <HugeButton text="Post Collaborations" disabled={false} />
-                </span>
+                <a>
+                  <span>
+                    <HugeButton text="Post Collaborations" disabled={false} />
+                  </span>
+                </a>
               </Link>
             ) : (
               <Link href="/sign-in">
-                <span>
-                  <HugeButton text="Join MangaFy" disabled={false} />
-                </span>
+                <a>
+                  <span>
+                    <HugeButton text="Join MangaFy" disabled={false} />
+                  </span>
+                </a>
               </Link>
             )}
             <span className={styles.img}>
