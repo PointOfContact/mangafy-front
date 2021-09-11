@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 
 import PropTypes from 'prop-types';
-// import { Document, Page, pdfjs } from 'react-pdf';
+import { Document, Page, pdfjs } from 'react-pdf';
 import useWindowSize from 'utils/useWindowSize';
 
 import styles from './styles.module.scss';
 
-// pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
 const PDFViewer = ({ url }) => {
   const [numPages, setNumPages] = useState(null);
@@ -30,7 +30,7 @@ const PDFViewer = ({ url }) => {
 
   return (
     <div className={styles.pdf}>
-      {/* <Document file={url} onLoadSuccess={onDocumentLoadSuccess}>
+      <Document file={url} onLoadSuccess={onDocumentLoadSuccess}>
         {Array.from({ length: numPages }, (_, index) => (
           <Page
             width={size}
@@ -40,7 +40,7 @@ const PDFViewer = ({ url }) => {
             renderTextLayer={false}
           />
         ))}
-      </Document> */}
+      </Document>
     </div>
   );
 };
