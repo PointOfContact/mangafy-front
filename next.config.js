@@ -29,7 +29,7 @@ const COMMIT_SHA =
   VERCEL_GITHUB_COMMIT_SHA || VERCEL_GITLAB_COMMIT_SHA || VERCEL_BITBUCKET_COMMIT_SHA;
 
 const aliases = {
-  '@babel/runtime': path.resolve(__dirname, 'node_modules/@babel/runtime'),
+  // '@babel/runtime': path.resolve(__dirname, 'node_modules/@babel/runtime'),
   lodash: path.resolve(__dirname, 'node_modules/lodash'),
   debug: path.resolve(__dirname, 'node_modules/debug'),
   ms: path.resolve(__dirname, 'node_modules/ms'),
