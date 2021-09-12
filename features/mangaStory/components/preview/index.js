@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 
 import Modal from 'antd/lib/modal/Modal';
+import client from 'api/client';
 import SvgClose from 'components/icon/Close';
 import Imgix from 'components/imgix';
+import { ShareButtons } from 'components/share';
 import PrimaryButton from 'components/ui-elements/button';
+import { NextSeo } from 'next-seo';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
-const Preview = ({ uploadImages, storyBoardId }) => {
+const Preview = ({ uploadImages, storyBoardId, mangaStoryTitle }) => {
   const [showPreviewModal, setShowPreviewModal] = useState(false);
 
   const clearPdf = uploadImages?.filter((value) => value.uid?.slice(-3) !== 'pdf');
@@ -23,6 +26,16 @@ const Preview = ({ uploadImages, storyBoardId }) => {
   const redirectMangaFyPage = () => {
     Router.push(`/manga-view/${storyBoardId}`);
   };
+
+  const shareContent = (
+    <div>
+      <p className={styles.shareTitle}>Share</p>
+      <ShareButtons
+        className={styles.shareButPreview}
+        shareUrl={`${client.API_ENDPOINT}/manga-view/${storyBoardId}`}
+      />
+    </div>
+  );
 
   return (
     <div className={styles.headerUpload}>
@@ -42,7 +55,43 @@ const Preview = ({ uploadImages, storyBoardId }) => {
         visible={showPreviewModal}
         onCancel={() => setShowPreviewModal(false)}
         footer={[]}>
-        <div className={styles.card_wrap}>{previewPhotos}</div>
+        <NextSeo
+          title={`MangaFY is happy to introduce my latest graphic novel project, entitled manga view.`}
+          description="MangaFY is an easy to use application that features tools for
+                   authors who wish to create manga and comics for digital publication"
+          canonical={`${client.API_ENDPOINT}/manga-view/${storyBoardId}`}
+          openGraph={{
+            url: `${client.API_ENDPOINT}/manga-view/${storyBoardId}`,
+            title: `MangaFY is happy to introduce my latest graphic novel project, entitled manga view.`,
+            description:
+              'MangaFY is an easy to use application that features tools for ' +
+              'authors who wish to create manga and comics for digital publication',
+            images: [
+              {
+                url: `${client.API_ENDPOINT}/api/v2/uploads/${clearPdf[0].url}`,
+                width: 800,
+                height: 600,
+                alt: 'Manga Story Image',
+              },
+            ],
+            site_name: 'MangaFY',
+          }}
+          twitter={{
+            handle: '@handle',
+            site: '@site',
+            cardType: 'summary_large_image',
+          }}
+        />
+        <div className={styles.card_wrap}>
+          <div className={styles.containerTitle}>
+            <h1>PREVIEW</h1>
+            <p>Time to see what you already have</p>
+          </div>
+          {shareContent}
+          <p className={styles.projectName}>{mangaStoryTitle}</p>
+          <div className={styles.imagesContainer}>{previewPhotos}</div>
+          {shareContent}
+        </div>
       </Modal>
     </div>
   );
@@ -51,6 +100,7 @@ const Preview = ({ uploadImages, storyBoardId }) => {
 Preview.propTypes = {
   uploadImages: PropTypes.array.isRequired,
   storyBoardId: PropTypes.string.isRequired,
+  mangaStoryTitle: PropTypes.string.isRequired,
 };
 
 export default Preview;
