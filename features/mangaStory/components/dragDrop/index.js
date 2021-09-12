@@ -5,11 +5,15 @@ import client from 'api/client';
 import { patchStoryBoard } from 'api/storyBoardClient';
 import SvgDelete from 'components/icon/Delete';
 import Imgix from 'components/imgix';
-import PDFViewer from 'components/pdfViewer';
+import dynamic from 'next/dynamic';
 import PropTypes from 'prop-types';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 import styles from './styles.module.scss';
+
+const PDFViewer = dynamic(() => import('components/pdfViewer'), {
+  ssr: false,
+});
 
 const DragDrop = ({
   uploadImages,

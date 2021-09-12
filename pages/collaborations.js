@@ -62,7 +62,7 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
       }, // will be passed to the page component as props
     };
   } catch (error) {
-    console.log('error', error);
+    console.log('Error: collaboration.js', error);
     return { props: {} };
   }
 });

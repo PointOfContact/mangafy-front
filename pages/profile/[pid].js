@@ -24,6 +24,8 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
       }, // will be passed to the page component as props
     };
   } catch (error) {
+    console.log('Error: profile.js', error);
+
     if (context.res) {
       context.res.writeHead(302, {
         Location: '/404',

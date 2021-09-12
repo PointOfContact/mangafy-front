@@ -12,6 +12,8 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
       },
     };
   } catch (error) {
+    console.log('Error: index.js', error);
+
     return { props: {} };
   }
 });

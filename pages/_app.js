@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import '../styles/styles.sass';
 import 'antd/dist/antd.min.css';
 import * as Sentry from '@sentry/node';
 import { notification } from 'antd';
 import { DefaultSeo } from 'next-seo';
+import { useRouter } from 'next/router';
 
 Sentry.init({
   enabled: true,
@@ -18,6 +19,41 @@ export default function MyApp({ Component, pageProps, err }) {
     top: 120,
     duration: 3,
   });
+  const router = useRouter();
+
+  useEffect(() => {
+    const handleRouteChange = (url, { shallow }) => {
+      console.log(`App is changing to ${url} ${shallow ? 'with' : 'without'} shallow routing`);
+    };
+
+    router.events.on('routeChangeStart', handleRouteChange);
+
+    const handleRouteChangeError = (err, url) => {
+      console.log('Errrorrr-------', err);
+      if (err.cancelled) {
+        console.log(`Route to ${url} was cancelled!`);
+      }
+    };
+
+    router.events.on('routeChangeError', handleRouteChangeError);
+
+    const handleRouteChangeComplete = (url, { shallow }) => {
+      console.log(
+        `App is changed complete to ${url} ${shallow ? 'with' : 'without'} shallow routing`
+      );
+    };
+
+    router.events.on('routeChangeComplete', handleRouteChangeComplete);
+
+    // If the component is unmounted, unsubscribe
+    // from the event with the `off` method:
+    return () => {
+      router.events.off('routeChangeError', handleRouteChangeError);
+      router.events.off('routeChangeStart', handleRouteChange);
+      router.events.off('routeChangeComplete', handleRouteChangeComplete);
+    };
+  }, []);
+
   return (
     <>
       <DefaultSeo

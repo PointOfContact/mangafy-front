@@ -53,8 +53,9 @@ const nextConfigs = {
     loader: 'imgix',
     path: 'https://mangafy.imgix.net',
   },
-  webpack5: true,
-
+  future: {
+    webpack5: true,
+  },
   webpack(webpackConfig, options) {
     Object.assign(webpackConfig.resolve.alias, aliases);
 
@@ -100,23 +101,6 @@ const nextConfigs = {
     // webpackConfig.optimization.providedExports = false;
     // webpackConfig.optimization.usedExports = false;
     webpackConfig.optimization.minimizer = [];
-    // webpackConfig.optimization.moduleIds = 'deterministic';
-    // webpackConfig.optimization.splitChunks = {
-    //   cacheGroups: {
-    //     default: false,
-    //     vendors: false,
-    //     // vendor chunk
-    //     vendor: {
-    //       name: 'vendor',
-    //       // async + async chunks
-    //       chunks: 'all',
-    //       // import file path containing node_modules
-    //       test: /node_modules/,
-    //       priority: 20,
-    //     },
-    //   },
-    // };
-
     if (Array.isArray(webpackConfig.optimization.minimizer)) {
       webpackConfig.optimization.minimizer.push(new CssMinimizerPlugin());
       webpackConfig.optimization.minimizer.push(new TerserPlugin());
