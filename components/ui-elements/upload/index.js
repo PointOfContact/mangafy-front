@@ -13,11 +13,17 @@ import SvgImage from 'components/icon/Image';
 import Imgix from 'components/imgix';
 import dynamic from 'next/dynamic';
 import PropTypes from 'prop-types';
+import Queue from 'queue-promise';
 
 import styles from './styles.module.scss';
 
 const PDFViewer = dynamic(() => import('components/pdfViewer'), {
   ssr: false,
+});
+
+const queue = new Queue({
+  concurrent: 1,
+  interval: 1,
 });
 
 const PrimaryUpload = ({
@@ -32,8 +38,8 @@ const PrimaryUpload = ({
 }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalContent, setIsModalContent] = useState('');
-  const [img, setImg] = useState(null);
   const [uplType, setUplType] = useState(null);
+  const [fileList, setFileList] = useState([]);
 
   useEffect(() => {
     const list = mangaUrls.map((url) => ({
@@ -44,63 +50,74 @@ const PrimaryUpload = ({
           : client.UPLOAD_URL + url,
       status: 'done',
     }));
-    setImg(list);
     setFileList(list);
   }, [mangaUrls]);
-
-  const [fileList, setFileList] = useState(img || []);
 
   useEffect(() => {
     setUploadImages(fileList);
   }, [fileList, setUploadImages]);
 
   function beforeUpload(file) {
-    const isJpgOrPng =
-      file.type === 'image/jpeg' ||
-      file.type === 'image/png' ||
-      file.type === 'image/jpg' ||
-      file.type === 'application/pdf';
+    return new Promise((resolve) => {
+      const isJpgOrPng =
+        file.type === 'image/jpeg' ||
+        file.type === 'image/png' ||
+        file.type === 'image/jpg' ||
+        file.type === 'application/pdf';
 
-    if (!isJpgOrPng) {
-      openNotification('error', 'You can only upload JPG, JPEG, PDF or PNG file!');
-    }
+      if (!isJpgOrPng) {
+        openNotification('error', 'You can only upload JPG, JPEG, PDF or PNG file!');
+      }
 
-    const isLt2M = file.size / 1024 / 1024 < 50;
-    if (!isLt2M) {
-      openNotification('error', 'Image must be smaller than 50MB!');
-    }
+      const isLt2M = file.size / 1024 / 1024 < 50;
+      if (!isLt2M) {
+        openNotification('error', 'Image must be smaller than 50MB!');
+      }
 
-    if (isLt2M && isJpgOrPng) {
-      // eslint-disable-next-line no-undef
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.addEventListener('load', () => {
-        setIfUploadImg(true);
-        uploadFile(
-          reader.result,
-          (res) => {
-            setIfUploadImg(false);
-            patchStoryBoard(
-              storyBoardId,
-              {
-                mangaUrls: [...mangaUrls, res?.id],
-              },
-              (response) => {
-                setStoryBoard(response);
-              },
-              (err) => {
-                openNotification('error', err.message);
-              }
-            );
-          },
-          (err) => {
-            openNotification('error', err.message);
-          }
-        );
-      });
-    }
-    return isJpgOrPng && isLt2M;
+      if (isLt2M && isJpgOrPng) {
+        // eslint-disable-next-line no-undef
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.addEventListener('load', () => {
+          setIfUploadImg(true);
+          uploadFile(
+            reader.result,
+            (res) => {
+              setStoryBoard((sb) => {
+                setIfUploadImg(false);
+                patchStoryBoard(
+                  storyBoardId,
+                  {
+                    mangaUrls: [...sb.mangaUrls, res?.id],
+                  },
+                  (response) => {
+                    setStoryBoard(response);
+                    resolve(response);
+                  },
+                  (err) => {
+                    openNotification('error', err.message);
+                  }
+                );
+                return sb;
+              });
+            },
+            (err) => {
+              openNotification('error', err.message);
+            }
+          );
+        });
+      }
+      return isJpgOrPng && isLt2M;
+    });
   }
+
+  const onBeforeGalleryUpload = (file) => {
+    queue.enqueue([
+      async () => {
+        await beforeUpload(file);
+      },
+    ]);
+  };
 
   const openNotification = (type, mes) => {
     notification[type]({
@@ -134,10 +151,11 @@ const PrimaryUpload = ({
         accept="image/jpg, image/png, application/pdf, image/jpeg "
         listType="picture-card"
         fileList={fileList}
-        beforeUpload={beforeUpload}
+        beforeUpload={onBeforeGalleryUpload}
         onPreview={onPreview}
         disabled={ifUploadImg}
-        showUploadList={false}>
+        showUploadList={false}
+        multiple={true}>
         <div className={styles.content}>
           <div className={styles.types}>
             <SvgImage width="23px" height="23px" />

@@ -48,6 +48,19 @@ const StoryBoardTabs = ({
   const [uploadImages, setUploadImages] = useState([]);
   const [zoomImageUrl, setZoomImageUrl] = useState(null);
   const [ifUploadImg, setIfUploadImg] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isShowAnimation, setIsShowAnimation] = useState(false);
+  const [storyBoard, setStoryBoard] = useState({
+    idea: {
+      title: '',
+      text: '',
+    },
+    pages: [],
+    heroes: [],
+    author: [],
+    layouts: [],
+  });
+
   const { width } = useWindowSize();
 
   const setStoryBoardActiveTab = (tab) => {
@@ -110,9 +123,6 @@ const StoryBoardTabs = ({
         });
     }
   };
-
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [isShowAnimation, setIsShowAnimation] = useState(false);
 
   const showModal = () => {
     document.body.classList.add('body_remove_scroll');
@@ -195,16 +205,6 @@ const StoryBoardTabs = ({
     const nextTab = +storyBoardActiveTab + 1;
     setStoryBoardActiveTab(nextTab);
   };
-  const [storyBoard, setStoryBoard] = useState({
-    idea: {
-      title: '',
-      text: '',
-    },
-    pages: [],
-    heroes: [],
-    author: [],
-    layouts: [],
-  });
 
   const getStoryBoard = useCallback(() => {
     if (!user) return;

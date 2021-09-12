@@ -81,6 +81,7 @@
     "prop-types": "^15.7.2",
     "query-string": "^6.13.8",
     "react": "^16.14.0",
+    "queue-promise": "^2.2.1",
     "react-amplitude": "^0.1.7",
     "react-avatar-edit": "^1.0.0",
     "react-beautiful-dnd": "^13.1.0",
