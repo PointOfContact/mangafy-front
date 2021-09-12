@@ -81,11 +81,11 @@
       }
       .addButtonContainer {
         max-width: 267px;
-        max-height: 251px;
+        min-height: 251px;
         width: 267px;
-        height: 251px;
         overflow: hidden;
         margin-top: 126px;
+        margin-bottom: 20px;
         @include media-sm {
           width: 228px;
           height: 261px;
@@ -134,22 +134,25 @@
         margin: 0;
       }
       .title {
-        font-weight: normal;
         font-weight: bold;
+        max-height: 53px;
+        overflow: hidden;
         font-size: 25px;
-        line-height: 20px;
         color: $black;
-        height: 43px;
-        margin-bottom: 0;
-        display: flex;
-        align-items: center;
-        margin-top: 8px;
+        line-height: 28px;
+        margin-bottom: 20px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        white-space: pre-wrap;
+        -webkit-box-orient: vertical;
+        overflow-wrap: break-word;
+
         @include media-sm {
-          font-weight: bold;
-          font-size: $text3;
+          font-size: $text4;
           line-height: $text3;
           margin-left: 19px;
           margin-top: 15px;
+          max-width: 80%;
         }
       }
       .description {
@@ -161,6 +164,7 @@
         text-overflow: ellipsis;
         font-weight: normal;
         font-size: $text4;
+        word-wrap: break-word;
         line-height: $text3;
         margin-bottom: 0px;
         color: #949494;
@@ -176,7 +180,7 @@
       }
     }
   }
-  .scriptDef{
+  .scriptDef {
     width: 250px;
   }
   .disabled {
@@ -300,7 +304,7 @@
             font-weight: normal;
             font-size: 20px;
             line-height: 29px;
-            padding-left: 35px;
+            padding-left: 20px;
             color: $gray85;
             border: 1px solid $primaryDark;
             background: white;
@@ -351,14 +355,18 @@
             h3 {
               max-width: 70%;
               overflow: hidden;
-              height: 100%;
+              height: 45px;
               display: flex;
               align-items: center;
               margin: 0;
               font-weight: bold;
               font-size: 40px;
-              line-height: 20px;
+              line-height: 35px;
               color: $black;
+              display: -webkit-box;
+              -webkit-line-clamp: 1;
+              white-space: pre-wrap;
+              -webkit-box-orient: vertical;
               @include media-sm {
                 font-size: 30px;
               }
@@ -374,7 +382,7 @@
         }
       }
       .descriptionPage {
-        .textareaPage{
+        .textareaPage {
           overflow-y: auto;
         }
         div {
@@ -414,9 +422,9 @@
           border: 1px solid $primaryDark;
           background: white;
           border-radius: 10px;
-          padding-left: 35px;
+          padding-left: 20px;
           margin-left: 72px;
-          padding-right: 35px;
+          padding-right: 20px;
           padding-top: 26px;
           font-weight: normal;
           font-size: 20px;
