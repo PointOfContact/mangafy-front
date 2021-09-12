@@ -1,10 +1,10 @@
 // Use the hidden-source-map option when you don't want the source maps to be
 // publicly available on the servers, only to the error reporting
-const withSourceMaps = require('@zeit/next-source-maps')();
-const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
+// const withSourceMaps = require('@zeit/next-source-maps')();
+// const SentryWebpackPlugin = require('@sentry/webpack-plugin');
+// const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const withPlugins = require('next-compose-plugins');
-const SentryWebpackPlugin = require('@sentry/webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const resolve = require('resolve');
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
@@ -16,17 +16,17 @@ const path = require('path');
 
 const packageJson = require('./version.json');
 
-const SENTRY_DSN = 'https://b3e803fd922a41958f07d5aee50b8bc8@o359272.ingest.sentry.io/5509366';
-const SENTRY_ORG = 'mangafy';
-const SENTRY_PROJECT = 'mangafy-next';
-const SENTRY_AUTH_TOKEN = 'f5ce7c24228611eb947b4201c0a8d030';
-const NODE_ENV = 'dev';
-const VERCEL_GITHUB_COMMIT_SHA = 'VERCEL_GITHUB_COMMIT_SHA';
-const VERCEL_GITLAB_COMMIT_SHA = 'VERCEL_GITLAB_COMMIT_SHA';
-const VERCEL_BITBUCKET_COMMIT_SHA = 'VERCEL_BITBUCKET_COMMIT_SHA';
+// const SENTRY_DSN = 'https://b3e803fd922a41958f07d5aee50b8bc8@o359272.ingest.sentry.io/5509366';
+// const SENTRY_ORG = 'mangafy';
+// const SENTRY_PROJECT = 'mangafy-next';
+// const SENTRY_AUTH_TOKEN = 'f5ce7c24228611eb947b4201c0a8d030';
+// const NODE_ENV = 'dev';
+// const VERCEL_GITHUB_COMMIT_SHA = 'VERCEL_GITHUB_COMMIT_SHA';
+// const VERCEL_GITLAB_COMMIT_SHA = 'VERCEL_GITLAB_COMMIT_SHA';
+// const VERCEL_BITBUCKET_COMMIT_SHA = 'VERCEL_BITBUCKET_COMMIT_SHA';
 
-const COMMIT_SHA =
-  VERCEL_GITHUB_COMMIT_SHA || VERCEL_GITLAB_COMMIT_SHA || VERCEL_BITBUCKET_COMMIT_SHA;
+// const COMMIT_SHA =
+//   VERCEL_GITHUB_COMMIT_SHA || VERCEL_GITLAB_COMMIT_SHA || VERCEL_BITBUCKET_COMMIT_SHA;
 
 const aliases = {
   // '@babel/runtime': path.resolve(__dirname, 'node_modules/@babel/runtime'),
