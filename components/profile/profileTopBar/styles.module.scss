@@ -134,6 +134,36 @@
     }
   }
   .info_profile {
+    @include media-sm{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .typesContainer {
+      display: flex;
+      margin: 5px 0 10px 0;
+      @include media-sm{
+        justify-content: center;
+        flex-wrap: wrap;
+        max-width: 300px;
+      }
+      .userTypes {
+        width: auto;
+        margin-right: 10px;
+        font-size: 18px;
+        padding: 6px 16px;
+        border-radius: 14px;
+        color: white;
+        @include media-md{
+          font-size: 16px;
+        }
+        @include media-md{
+          margin-right: 0;
+          margin: 4px;
+        }
+      }
+    }
     @include media-sm {
       margin-top: 45px;
       text-align: center;

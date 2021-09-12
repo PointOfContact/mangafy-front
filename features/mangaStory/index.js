@@ -246,8 +246,8 @@ const MangeStory = (props) => {
             />
           </section>
         </div>
-        <Footer />
-        <FooterPolicy />
+        {!user && <Footer />}
+        {!user && <FooterPolicy />}
         <FooterLogin user={user} />
       </main>
       <DeleteProjectModal

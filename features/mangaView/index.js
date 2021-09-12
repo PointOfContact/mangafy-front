@@ -6,7 +6,6 @@ import FooterPolicy from 'components/footer-policy';
 import Header from 'components/header';
 import Imgix from 'components/imgix';
 import { ShareButtons } from 'components/share';
-import FooterLogin from 'features/footerLogin';
 import { NextSeo } from 'next-seo';
 import PropTypes from 'prop-types';
 
@@ -28,13 +27,16 @@ const MangaView = ({ user, storyBoardId, mangaUrls }) => {
   return (
     <>
       <NextSeo
-        title="Manga View"
-        description="View all images of storyboard"
+        title={`MangaFY is happy to introduce my latest graphic novel project, entitled manga view.`}
+        description="MangaFY is an easy to use application that features tools for
+                   authors who wish to create manga and comics for digital publication"
         canonical={`${client.API_ENDPOINT}/manga-view/${storyBoardId}`}
         openGraph={{
           url: `${client.API_ENDPOINT}/manga-view/${storyBoardId}`,
-          title: 'Manga View',
-          description: 'View all images of storyboard',
+          title: `MangaFY is happy to introduce my latest graphic novel project, entitled manga view.`,
+          description:
+            'MangaFY is an easy to use application that features tools for ' +
+            'authors who wish to create manga and comics for digital publication',
           images: [
             {
               url: `${client.API_ENDPOINT}/api/v2/uploads/${clearPdfFromMangaUrls[0]}`,
@@ -61,7 +63,6 @@ const MangaView = ({ user, storyBoardId, mangaUrls }) => {
       </div>
       <Footer user={user} />
       <FooterPolicy />
-      <FooterLogin />
     </>
   );
 };
