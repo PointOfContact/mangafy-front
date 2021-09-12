@@ -10,11 +10,9 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-// const withBabelMinify = require('next-babel-minify')({});
+const withBabelMinify = require('next-babel-minify')({});
 
 const path = require('path');
-
-const TerserPlugin = require('terser-webpack-plugin');
 
 const packageJson = require('./version.json');
 
@@ -45,9 +43,9 @@ if (typeof require !== 'undefined') {
 }
 
 const nextConfigs = {
-  // experimental: {
-  //   scss: true,
-  // },
+  experimental: {
+    scss: true,
+  },
   images: {
     domains: ['mangafy.club', 'ui-avatars.com', 'mangafy.imgix.net'],
     loader: 'imgix',
@@ -69,7 +67,6 @@ const nextConfigs = {
     if (options.defaultLoaders.babel.options.plugins === undefined) {
       options.defaultLoaders.babel.options.plugins = [];
     }
-    options.defaultLoaders.babel.options.exclude = 'node_modules/**';
     options.defaultLoaders.babel.options.plugins.push([
       'import',
       {
@@ -97,13 +94,9 @@ const nextConfigs = {
     });
 
     webpackConfig.optimization.minimize = true;
-    // webpackConfig.optimization.concatenateModules = false;
-    // webpackConfig.optimization.providedExports = false;
-    // webpackConfig.optimization.usedExports = false;
     webpackConfig.optimization.minimizer = [];
     if (Array.isArray(webpackConfig.optimization.minimizer)) {
       webpackConfig.optimization.minimizer.push(new CssMinimizerPlugin());
-      webpackConfig.optimization.minimizer.push(new TerserPlugin());
     }
 
     webpackConfig.module.rules.unshift({
@@ -207,4 +200,4 @@ const nextConfigs = {
   },
 };
 
-module.exports = withPlugins([[withBundleAnalyzer]], nextConfigs);
+module.exports = withPlugins([[withBundleAnalyzer], [withBabelMinify]], nextConfigs);

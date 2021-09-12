@@ -6,7 +6,7 @@ const next = require('next');
 const sitemap = require('nextjs-sitemap-generator'); // Import the package
 
 const dev = process.env.NODE_ENV !== 'production';
-const app = next({ dev, dir: process.cwd() });
+const app = next({ dev });
 const handle = app.getRequestHandler();
 
 const extraPaths = [];
