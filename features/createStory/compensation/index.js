@@ -131,21 +131,25 @@ const Compensation = ({ user }) => {
 
                   <div className="next_prev">
                     <Link href="/create-a-story/looking-for">
-                      <Button id="modelPrevBtnId" className="title_but_prev">
-                        <SvgLeftArrow width="13.503px" height="23.619px" />
-                        <span> Previous</span>
-                      </Button>
+                      <a>
+                        <Button id="modelPrevBtnId" className="title_but_prev">
+                          <SvgLeftArrow width="13.503px" height="23.619px" />
+                          <span> Previous</span>
+                        </Button>
+                      </a>
                     </Link>
                     <Link href="/create-a-story/genres">
-                      <Button
-                        id="modelNextBtnId"
-                        type="primary"
-                        className="title_but"
-                        loading={loadings[0]}
-                        onClick={() => enterLoading(0)}>
-                        <span>Next</span>
-                        <SvgRightArrow width="13.503px" height="23.619px" />
-                      </Button>
+                      <a>
+                        <Button
+                          id="modelNextBtnId"
+                          type="primary"
+                          className="title_but"
+                          loading={loadings[0]}
+                          onClick={() => enterLoading(0)}>
+                          <span>Next</span>
+                          <SvgRightArrow width="13.503px" height="23.619px" />
+                        </Button>
+                      </a>
                     </Link>
                   </div>
                 </Radio.Group>

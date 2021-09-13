@@ -27,6 +27,8 @@ export const getServerSideProps = withAuthServerSideProps(
         }, // will be passed to the page component as props
       };
     } catch (error) {
+      console.log('Error: start.js', error);
+
       return { props: {} };
     }
   }

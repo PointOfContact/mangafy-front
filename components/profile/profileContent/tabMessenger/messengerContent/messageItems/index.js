@@ -1,3 +1,4 @@
+/* eslint-disable no-return-assign */
 import React from 'react';
 
 import client from 'api/client';
@@ -15,6 +16,20 @@ const messageItems = (data, participants, setRequestStatus, user, setMessageItem
         className={cn(styles.status, item.joinMangaStoryRequest[0].status === type && className)}>
         {text}
       </span>
+    );
+
+  const newArrayMessage = (currentValue, choose) =>
+    data.map((value) =>
+      currentValue?.joinMangaStoryRequest[0]?.status === value.joinMangaStoryRequest[0]?.status
+        ? {
+            ...value,
+            joinMangaStoryRequest: value.joinMangaStoryRequest.map((val) =>
+              val.status === currentValue?.joinMangaStoryRequest[0]?.status
+                ? { ...val, status: (val.status = choose) }
+                : val
+            ),
+          }
+        : value
     );
 
   data.forEach((item) => {
@@ -52,6 +67,7 @@ const messageItems = (data, participants, setRequestStatus, user, setMessageItem
               <div className={cn(styles.div_button, 'buttonsProfile_styles')}>
                 <PrimaryButton
                   onClick={(event) => {
+                    setMessageItem(newArrayMessage(item, 'rejected'));
                     setRequestStatus(event, item.joinMangaStoryRequestId, 'rejected');
                   }}
                   className={styles.buttonsProfile_cancel}
@@ -65,6 +81,7 @@ const messageItems = (data, participants, setRequestStatus, user, setMessageItem
                   isActive
                   isRound
                   onClick={(event) => {
+                    setMessageItem(newArrayMessage(item, 'accepted'));
                     setRequestStatus(event, item.joinMangaStoryRequestId, 'accepted');
                   }}
                 />

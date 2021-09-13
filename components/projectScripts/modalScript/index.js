@@ -25,10 +25,9 @@ const ModalScript = ({
   loading,
   setLoading,
 }) => {
-  const [title, setTitle] = useState('');
-  const [text, setText] = useState('');
+  const [title, setTitle] = useState({});
+  const [text, setText] = useState({});
   const [titleError, setTitleError] = useState('');
-  const [notChangeInput, setNotChangeInput] = useState(false);
   const [form] = Form.useForm();
 
   useEffect(() => {
@@ -46,7 +45,7 @@ const ModalScript = ({
   }, [valuesField, form]);
 
   const createScript = (titleObj, textObj, addNew = false) => {
-    if (titleObj?.value?.trim()) {
+    if (!!titleObj?.value?.trim()) {
       setLoading(true);
       setTitleError('');
       saveScript(titleObj, textObj, modalIndex, addNew);
@@ -57,12 +56,24 @@ const ModalScript = ({
     }
   };
 
-  useEffect(() => {
-    createScript(title, text);
-  }, [notChangeInput]);
+  const saveButtonFun = () => {
+    if (
+      (title.value === undefined && text.value === undefined) ||
+      (title.value === valuesField.title && text.value === valuesField.text) ||
+      (title.value === undefined && text.value === valuesField.text) ||
+      (title.value === valuesField.title && text.value === undefined)
+    ) {
+      setVisiblePageModal(false);
+    } else if (title.value === undefined) {
+      createScript({ value: valuesField.title, type: 'title' }, text);
+    } else {
+      createScript(title, text);
+    }
+  };
 
   return (
     <Modal
+      forceRender
       className={styles.addPageModal}
       onCancel={() => {
         setVisiblePageModal(!visibleModal);
@@ -109,10 +120,9 @@ const ModalScript = ({
               maxLength={100000}
               maxrows={5000}
               onBlur={(e) => setText({ value: e.target.value, type: 'text' })}
-              placeholder="Add a panel: Exact panel layout usually left to artist,
-                but if you want you have something specific in mind, put it in your
-                description.Dialoges: Charackets speaking form off-panel
-                are omdocated this way"
+              placeholder="Add a panel: Exact panel layout Is usually left to the artist,
+               but if you want to have something specific in mind, put it in your description.
+               Dialogues: Charackets speaking from off-panel are indicated this way"
             />
           </Form.Item>
         </div>
@@ -138,15 +148,7 @@ const ModalScript = ({
         <PrimaryButton
           loading={loading}
           className={valuesField.newCreated ? styles.saveChange : ''}
-          onClick={() => {
-            if (title.value === undefined) {
-              setTitle({ value: valuesField.title, type: 'title' });
-              setText({ value: valuesField.text, type: 'text' });
-              setNotChangeInput(true);
-            } else {
-              createScript(title, text);
-            }
-          }}
+          onClick={saveButtonFun}
           text={'Save'}
         />
 

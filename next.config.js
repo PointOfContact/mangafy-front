@@ -1,10 +1,11 @@
 // Use the hidden-source-map option when you don't want the source maps to be
 // publicly available on the servers, only to the error reporting
 // const withSourceMaps = require('@zeit/next-source-maps')();
+// const SentryWebpackPlugin = require('@sentry/webpack-plugin');
 // const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const withPlugins = require('next-compose-plugins');
-// const SentryWebpackPlugin = require('@sentry/webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const resolve = require('resolve');
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
@@ -29,7 +30,7 @@ const packageJson = require('./version.json');
 //   VERCEL_GITHUB_COMMIT_SHA || VERCEL_GITLAB_COMMIT_SHA || VERCEL_BITBUCKET_COMMIT_SHA;
 
 const aliases = {
-  '@babel/runtime': path.resolve(__dirname, 'node_modules/@babel/runtime'),
+  // '@babel/runtime': path.resolve(__dirname, 'node_modules/@babel/runtime'),
   lodash: path.resolve(__dirname, 'node_modules/lodash'),
   debug: path.resolve(__dirname, 'node_modules/debug'),
   ms: path.resolve(__dirname, 'node_modules/ms'),
@@ -51,8 +52,9 @@ const nextConfigs = {
     loader: 'imgix',
     path: 'https://mangafy.imgix.net',
   },
-  webpack5: true,
-
+  future: {
+    webpack5: true,
+  },
   webpack(webpackConfig, options) {
     Object.assign(webpackConfig.resolve.alias, aliases);
 
@@ -94,23 +96,6 @@ const nextConfigs = {
 
     webpackConfig.optimization.minimize = true;
     webpackConfig.optimization.minimizer = [];
-    // webpackConfig.optimization.moduleIds = 'deterministic';
-    // webpackConfig.optimization.splitChunks = {
-    //   cacheGroups: {
-    //     default: false,
-    //     vendors: false,
-    //     // vendor chunk
-    //     vendor: {
-    //       name: 'vendor',
-    //       // async + async chunks
-    //       chunks: 'all',
-    //       // import file path containing node_modules
-    //       test: /node_modules/,
-    //       priority: 20,
-    //     },
-    //   },
-    // };
-
     if (Array.isArray(webpackConfig.optimization.minimizer)) {
       webpackConfig.optimization.minimizer.push(new CssMinimizerPlugin());
     }
@@ -176,7 +161,7 @@ const nextConfigs = {
     if (options.isServer) {
       // add antd to https://github.com/zeit/next.js/blob/canary/build/webpack.js#L34-L59
       // This makes sure paths are relative when pushing build to other systems
-      webpackConfig.externals.push((context, request, callback) => {
+      webpackConfig.externals.push(({ request }, callback) => {
         resolve(request, { basedir: options.dir, preserveSymlinks: true }, (err, res) => {
           if (err) {
             return callback();

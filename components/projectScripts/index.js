@@ -71,6 +71,7 @@ const ProjectScripts = ({ pages, storyBoardId, storyBoard, setStoryBoard, user }
     index + 1 !== scripts.length && setVisiblePageModal(true);
     ifCreateScript(script) ? setShowTitleInput(true) : setShowTitleInput(false);
   };
+
   const saveScript = (title, text, index, addNew = false) => {
     const items = [...scripts];
 
@@ -121,6 +122,7 @@ const ProjectScripts = ({ pages, storyBoardId, storyBoard, setStoryBoard, user }
             });
           },
           (err) => {
+            setLoading(false);
             notification.error({ message: err.message, placement: 'bottomLeft' });
           }
         );
@@ -138,6 +140,7 @@ const ProjectScripts = ({ pages, storyBoardId, storyBoard, setStoryBoard, user }
             });
           },
           (err) => {
+            setLoading(false);
             notification.error({ message: err.message, placement: 'bottomLeft' });
           }
         );

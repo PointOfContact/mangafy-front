@@ -52,7 +52,6 @@ axios
   only once, just when the server starts.
 */
 
-console.log(`${__dirname}\\pages`);
 app.prepare().then(() => {
   createServer((req, res) => {
     // Be sure to pass `true` as the second argument to `url.parse`.
@@ -68,7 +67,10 @@ app.prepare().then(() => {
       handle(req, res, parsedUrl);
     }
   }).listen(3000, (err) => {
-    if (err) throw err;
+    if (err) {
+      console.log('Err in server.js:', err);
+      throw err;
+    }
     console.log('> Ready on http://localhost:3000');
   });
 });

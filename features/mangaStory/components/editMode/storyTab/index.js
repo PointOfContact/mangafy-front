@@ -28,11 +28,22 @@ const StoryTab = ({
 }) => {
   const [showModal, changeShowModal] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
-  const { _id, author, introduce, story, authorInfo, participentsInfo } = baseData;
+  const { _id, author, introduce, story, authorInfo, participentsInfo, participents } = baseData;
+  const [participantsData, setParticipantsData] = useState(participentsInfo);
   const history = useRouter();
 
-  const leaveManga = (participantId) =>
-    mangaStoryAPI.storyTab.leaveManga(participantId, _id, setBaseData, history, user);
+  const leaveManga = (participantId) => {
+    const newParticipantsData = participents.filter((value) => value !== participantId);
+    return mangaStoryAPI.storyTab.leaveManga(
+      newParticipantsData,
+      participantId,
+      _id,
+      setBaseData,
+      history,
+      user,
+      setParticipantsData
+    );
+  };
 
   const toTeam = (task) => {
     if (user) {
@@ -106,7 +117,7 @@ const StoryTab = ({
           </a>
         </Link>
         <div className={styles.participants}>
-          {[authorInfo].concat(participentsInfo).map(({ avatar, name, _id, type, types }) => (
+          {[authorInfo].concat(participantsData).map(({ avatar, name, _id, type, types }) => (
             <Popover
               key={_id}
               placement="bottomLeft"

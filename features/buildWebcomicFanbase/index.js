@@ -99,6 +99,14 @@ const BuildWebcomicFanbase = ({ user }) => (
               standing out takes time. Develop your craft.
             </p>
           </div>
+          <div className={styles.share}>
+            <div className={styles.items}>
+              <ShareButtons
+                shareUrl="https://mangafy.club/resources/build-webcomicw-fanbase"
+                text="Liked? Share"
+              />
+            </div>
+          </div>
         </div>
       </div>
       <Footer />

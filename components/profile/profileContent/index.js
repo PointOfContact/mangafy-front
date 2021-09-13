@@ -55,7 +55,7 @@ const ProfileContent = (props) => {
     const data = {
       event_type: EVENTS.CHECKED_ACCOUNT_TABS,
       event_properties: { tab, profileId: profile?._id },
-      user_id: user._id,
+      user_id: user?._id,
       user_properties: {
         ...user,
       },
@@ -179,7 +179,7 @@ ProfileContent.propTypes = {
   mangaStoriesMyProfile: PropTypes.array,
   genresMyProfileEnums: PropTypes.any,
   genres: PropTypes.array,
-  total: PropTypes.number,
+  total: PropTypes.array,
   profileGenres: PropTypes.array,
   ifMyProfile: PropTypes.bool,
 };
@@ -197,7 +197,7 @@ ProfileContent.defaultProps = {
   mangaStoriesMyProfile: null,
   genresMyProfileEnums: null,
   genres: null,
-  total: null,
+  total: [],
   profileGenres: null,
   ifMyProfile: null,
   mangaStories: null,

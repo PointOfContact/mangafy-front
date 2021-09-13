@@ -8,6 +8,7 @@ import SvgEdit from 'components/icon/Edit';
 import SvgHeart from 'components/icon/Heart';
 import Imgix from 'components/imgix';
 import { EVENTS } from 'helpers/amplitudeEvents';
+import router from 'next/router';
 import PropTypes from 'prop-types';
 import myAmplitude from 'utils/amplitude';
 
@@ -50,35 +51,37 @@ const GalleryCard = ({
   );
 
   const onLikeGallery = (galleryId, userId, likedUserId) => {
-    likeGallery(galleryId, userId)
-      .then(() => {
-        const data = {
-          event_type: EVENTS.LIKE_PORTFOLIO,
-          event_properties: { galleryId, profileId },
-          user_id: user?._id,
-          user_properties: {
-            ...user,
-          },
-        };
-        myAmplitude(data);
+    user
+      ? likeGallery(galleryId, userId)
+          .then(() => {
+            const data = {
+              event_type: EVENTS.LIKE_PORTFOLIO,
+              event_properties: { galleryId, profileId },
+              user_id: user?._id,
+              user_properties: {
+                ...user,
+              },
+            };
+            myAmplitude(data);
 
-        setUserData({
-          ...userData,
-          galleryLikedUsers: [
-            ...(userData?.galleryLikedUsers || []),
-            {
-              galleryId,
-              likedUserId,
-            },
-          ],
-        });
-      })
-      .catch((err) => {
-        notification.error({
-          message: err.message,
-          placement: 'bottomLeft',
-        });
-      });
+            setUserData({
+              ...userData,
+              galleryLikedUsers: [
+                ...(userData?.galleryLikedUsers || []),
+                {
+                  galleryId,
+                  likedUserId,
+                },
+              ],
+            });
+          })
+          .catch((err) => {
+            notification.error({
+              message: err.message,
+              placement: 'bottomLeft',
+            });
+          })
+      : router.push('/sign-in');
   };
 
   const onRemoveImg = (e, _id) => {
@@ -156,12 +159,11 @@ const GalleryCard = ({
               width="18px"
               height="16px"
               onClick={() =>
-                user &&
-                !isLiked(galleryItem._id, user._id) &&
+                !isLiked(galleryItem._id, user?._id) &&
                 !canEdit &&
-                onLikeGallery(galleryItem._id, userData._id, user._id)
+                onLikeGallery(galleryItem._id, userData._id, user?._id)
               }
-              className={(user && isLiked(galleryItem._id, user._id) && styles.liked) || ''}
+              className={(user && isLiked(galleryItem._id, user?._id) && styles.liked) || ''}
             />
             <span>{getLikesCount(galleryItem._id)}</span>
           </span>

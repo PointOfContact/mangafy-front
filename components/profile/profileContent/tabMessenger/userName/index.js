@@ -35,24 +35,26 @@ const UserName = ({ selectedRequest, mobile, setShowMessageMobile }) => {
           {getPath() ? (
             <>
               <Link href={getPath()}>
-                <div className={styles.avatarHiderMobile}>
-                  {ifNotImage ? (
-                    <Avatar
-                      text={selectedRequest.name}
-                      className={styles.avatarName}
-                      fontSize={50}
-                      size={'51px'}
-                    />
-                  ) : (
-                    <Imgix
-                      layout="fixed"
-                      width={50}
-                      height={50}
-                      src={selectedRequest.av}
-                      alt="mangaFy avatar"
-                    />
-                  )}
-                </div>
+                <a>
+                  <div className={styles.avatarHiderMobile}>
+                    {ifNotImage ? (
+                      <Avatar
+                        text={selectedRequest.name}
+                        className={styles.avatarName}
+                        fontSize={50}
+                        size={'51px'}
+                      />
+                    ) : (
+                      <Imgix
+                        layout="fixed"
+                        width={50}
+                        height={50}
+                        src={selectedRequest.av}
+                        alt="mangaFy avatar"
+                      />
+                    )}
+                  </div>
+                </a>
               </Link>
               <Link href={getPath()}>
                 <a>{selectedRequest.name}</a>

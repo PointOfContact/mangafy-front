@@ -37,7 +37,7 @@ const MangeStory = (props) => {
     originUrl,
     comments,
     genres,
-    isParticipent,
+    isParticipant,
     hasStoryBoardPermision,
   } = props;
   const [stage, setStage] = useState({});
@@ -49,7 +49,6 @@ const MangeStory = (props) => {
   const [canEdit] = useState(isOwn);
   const [collabActiveTab, setCollabActiveTab] = useState('1');
   const showPayPalToggle = baseData?.payPalPublished;
-
   useEffect(() => {
     const { tab } = qs.parse(location.search);
     switch (tab) {
@@ -182,7 +181,7 @@ const MangeStory = (props) => {
                       setBaseData={setBaseData}
                       setEditMode={setEditMode}
                       canEdit={canEdit}
-                      isParticipent={isParticipent}
+                      isParticipant={isParticipant}
                       onChangeSingleField={onChangeSingleField}
                       cancelEditMode={cancelEditMode}
                       saveUserDataByKey={saveUserDataByKey}
@@ -247,8 +246,8 @@ const MangeStory = (props) => {
             />
           </section>
         </div>
-        <Footer />
-        <FooterPolicy />
+        {!user && <Footer />}
+        {!user && <FooterPolicy />}
         <FooterLogin user={user} />
       </main>
       <DeleteProjectModal
@@ -269,12 +268,12 @@ MangeStory.propTypes = {
   originUrl: PropTypes.string.isRequired,
   comments: PropTypes.array.isRequired,
   hasStoryBoardPermision: PropTypes.bool.isRequired,
-  isParticipent: PropTypes.bool,
+  isParticipant: PropTypes.bool,
 };
 
 MangeStory.defaultProps = {
   user: null,
-  isParticipent: false,
+  isParticipant: false,
 };
 
 export default MangeStory;
