@@ -530,15 +530,3 @@ export const COUNTRIES = [
 
   'Zulu',
 ];
-
-export const heroTypes = [
-  'Protagonist',
-  'Antagonist',
-  'Deuteragonist',
-  'Tertiary',
-  'Confidante',
-  'Love interest',
-  'Foil',
-];
-
-export const heroQuality = ['Dynamic/changing', 'Static/unchanging', 'Stock', 'Symbolic', 'Round'];
