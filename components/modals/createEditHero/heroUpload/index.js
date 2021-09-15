@@ -14,9 +14,10 @@ import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
-const HeroUpload = ({ mangaUrl, setImgId, titleLoad, typeCard }) => {
+const HeroUpload = ({ mangaUrl, setImgId, titleLoad, typeCard, onChangeHero, disabled }) => {
   const [img, setImg] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [fileList, setFileList] = useState(img || []);
 
   useEffect(() => {
     const newImg = mangaUrl?.slice(-3)
@@ -35,13 +36,11 @@ const HeroUpload = ({ mangaUrl, setImgId, titleLoad, typeCard }) => {
     setFileList(newImg);
   }, [mangaUrl]);
 
-  const [fileList, setFileList] = useState(img || []);
-
   const onChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);
   };
 
-  function beforeUpload(file) {
+  const beforeUpload = (file) => {
     const isJpgOrPng =
       file.type === 'image/jpeg' ||
       file.type === 'image/png' ||
@@ -65,6 +64,7 @@ const HeroUpload = ({ mangaUrl, setImgId, titleLoad, typeCard }) => {
           reader.result,
           (res) => {
             setImgId(res?.id);
+            onChangeHero(res?.id);
           },
           (err) => {
             openNotification('error', err.message);
@@ -73,7 +73,7 @@ const HeroUpload = ({ mangaUrl, setImgId, titleLoad, typeCard }) => {
       });
     }
     return isJpgOrPng && isLt2M;
-  }
+  };
 
   const openNotification = (type, mes) => {
     notification[type]({
@@ -83,7 +83,7 @@ const HeroUpload = ({ mangaUrl, setImgId, titleLoad, typeCard }) => {
 
   const onPreview = async (file) => {
     setShowModal(true);
-    setImg(file.thumbUrl);
+    setImg(file?.url);
     let src = file.url;
     if (!src) {
       src = await new Promise((resolve) => {
@@ -100,6 +100,7 @@ const HeroUpload = ({ mangaUrl, setImgId, titleLoad, typeCard }) => {
   return (
     <div className={cn('primary_upload hero_upload', styles.primary_upload)}>
       <Upload
+        disabled={disabled}
         accept="image/jpg, image/png, application/pdf, image/jpeg "
         listType="picture-card"
         fileList={fileList}
@@ -151,6 +152,8 @@ HeroUpload.propTypes = {
   setImgId: PropTypes.string.isRequired,
   titleLoad: PropTypes.bool,
   typeCard: PropTypes.string,
+  onChangeHero: PropTypes.func.isRequired,
+  disabled: PropTypes.bool,
 };
 
 HeroUpload.defaultProps = {
@@ -160,6 +163,8 @@ HeroUpload.defaultProps = {
   setImgId: () => {},
   titleLoad: false,
   typeCard: '',
+  onChangeHero: () => {},
+  disabled: false,
 };
 
 export default HeroUpload;

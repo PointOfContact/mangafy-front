@@ -17,7 +17,6 @@ const HeroCard = ({ hero, changeHero, confirmDelete }) => {
   let defaultColor;
   let titleButton;
   let buttonColor;
-
   switch (hero.type) {
     case 'personage':
       defaultImage = '/img/heroCard.png';
@@ -40,7 +39,7 @@ const HeroCard = ({ hero, changeHero, confirmDelete }) => {
 
   return (
     <div className={styles.hero__container}>
-      <div className={styles.hero__top__section} onClick={() => changeHero(hero)}>
+      <div className={styles.hero__top__section} onClick={() => changeHero(hero, hero.type)}>
         <div className={styles.hero__text__row}>
           <h3>{hero?.name}</h3>
         </div>
@@ -52,7 +51,7 @@ const HeroCard = ({ hero, changeHero, confirmDelete }) => {
         </button>
         <EditCard
           editCard={() => {
-            changeHero(hero);
+            changeHero(hero, hero.type);
           }}
           confirmDelete={() => {
             confirmDelete(hero);
