@@ -8,11 +8,8 @@ import { EVENTS } from 'helpers/amplitudeEvents';
 import Head from 'next/head';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
+import myAmplitude from 'utils/amplitude';
 import { v4 as uuidv4 } from 'uuid';
-
-const Amplitude = require('amplitude');
-
-const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 
 const Introduce = ({ user }) => {
   const [loadings, changeLoading] = useState([]);
@@ -22,7 +19,6 @@ const Introduce = ({ user }) => {
     newLoadings[index] = true;
     changeLoading(newLoadings);
     const data = {
-      platform: 'WEB',
       event_type: EVENTS.CREATE_MANGA_STORY_TITLE_NEXT,
       user_id: user?._id,
       user_properties: {
@@ -36,7 +32,7 @@ const Introduce = ({ user }) => {
     } else {
       data.device_id = uuidv4();
     }
-    amplitude.track([data]);
+    myAmplitude([data]);
   };
   const handleInput = (evt) => {
     changeInput(evt.target.value);

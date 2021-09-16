@@ -5,7 +5,7 @@ const axios = require('axios');
 const next = require('next');
 const sitemap = require('nextjs-sitemap-generator'); // Import the package
 
-const dev = process.env.NODE_ENV !== 'production';
+const dev = process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'staging';
 const app = next({ dev });
 const handle = app.getRequestHandler();
 

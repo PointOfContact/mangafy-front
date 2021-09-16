@@ -8,12 +8,9 @@ import { EVENTS } from 'helpers/amplitudeEvents';
 import Head from 'next/head';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
+import myAmplitude from 'utils/amplitude';
 
 const { TextArea } = Input;
-
-const Amplitude = require('amplitude');
-
-const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 
 const ProjectDescription = ({ user }) => {
   const [loadings, changeLoadings] = useState([]);
@@ -38,7 +35,6 @@ const ProjectDescription = ({ user }) => {
     changeLoadings(newLoadings);
     const data = [
       {
-        platform: 'WEB',
         event_type: EVENTS.CREATE_MANGA_STORY_DESCRIPTION_NEXT,
         user_id: user?._id,
         user_properties: {
@@ -47,7 +43,7 @@ const ProjectDescription = ({ user }) => {
         event_properties: input,
       },
     ];
-    amplitude.track(data);
+    myAmplitude(data);
   };
   const handleInput = (evt) => {
     changeInput(evt.target.value);

@@ -14,12 +14,7 @@ import DraftCheckbox from './draftCheckbox';
 import styles from './styles.module.scss';
 import WriteCollabName from './writeCollabName';
 
-const { confirm } = Modal;
 const { info } = Modal;
-
-const Amplitude = require('amplitude');
-
-const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 
 const HeaderCollab = ({
   isOwn,
@@ -53,14 +48,7 @@ const HeaderCollab = ({
   };
 
   const patchStory = (data) =>
-    mangaStoryAPI.hiderCollab.patchStory(
-      data,
-      setBaseData,
-      user,
-      amplitude,
-      baseData,
-      openNotification
-    );
+    mangaStoryAPI.hiderCollab.patchStory(data, setBaseData, user, baseData, openNotification);
 
   const onGoToPublic = () => {
     findStoryBoard(

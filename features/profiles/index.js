@@ -25,7 +25,7 @@ const Profiles = (props) => {
   const { users, total, current, user, genres, search, selectedTypes, selectedGenres } = props;
 
   const data = {
-    event_type: EVENTS.OPENED_ALL_COLLABORATION,
+    event_type: EVENTS.OPENED_ALL_PROFILES,
     user_id: user?._id,
     user_properties: {
       ...user,

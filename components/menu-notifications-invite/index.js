@@ -5,13 +5,10 @@ import PrimaryButton from 'components/ui-elements/button';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
+import myAmplitude from 'utils/amplitude';
 
 import { patchRequest, getRequest } from '../../api/joinMangaStoryRequestClient';
 import styles from './styles.module.scss';
-
-const Amplitude = require('amplitude');
-
-const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 
 const MenuNotificationsInvite = ({
   navigateTo,
@@ -38,7 +35,6 @@ const MenuNotificationsInvite = ({
       }
       const eventData = [
         {
-          platform: 'WEB',
           event_type,
           event_properties: { inviteRequestId: id },
           user_id: user._id,
@@ -47,7 +43,7 @@ const MenuNotificationsInvite = ({
           },
         },
       ];
-      amplitude.track(eventData);
+      myAmplitude(eventData);
       status === 'accepted' && Router.push(`${navigateTo}`);
     });
   };

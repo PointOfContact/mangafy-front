@@ -21,10 +21,6 @@ import SetPhotoAvatar from './setPhotoAvatar';
 import ShareProfile from './shareProfile';
 import styles from './styles.module.scss';
 
-const Amplitude = require('amplitude');
-
-const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
-
 const { Option } = Select;
 const { Content } = Layout;
 
@@ -95,7 +91,6 @@ const ProfileTopBar = (props) => {
           .then((res) => {
             const data = [
               {
-                platform: 'WEB',
                 event_type: EVENTS.MESSAGED_ACCOUNT,
                 user_id: user._id,
                 user_properties: {
@@ -103,7 +98,7 @@ const ProfileTopBar = (props) => {
                 },
               },
             ];
-            amplitude.track(data);
+            myAmplitude(data);
             history.push(`/profile/${user._id}?tab=messenger&conversation=${res._id}`);
           })
           .catch((err) => {
@@ -152,7 +147,6 @@ const ProfileTopBar = (props) => {
   const handleEvent = () => {
     const data = [
       {
-        platform: 'WEB',
         event_type: EVENTS.ADDED_BIO,
         user_id: user._id,
         user_properties: {
@@ -160,7 +154,7 @@ const ProfileTopBar = (props) => {
         },
       },
     ];
-    amplitude.track(data);
+    myAmplitude(data);
   };
 
   const changeBio = () => {

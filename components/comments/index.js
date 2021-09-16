@@ -11,12 +11,10 @@ import moment from 'moment';
 import Link from 'next/link';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
+import myAmplitude from 'utils/amplitude';
 
 import styles from './styles.module.scss';
 
-const Amplitude = require('amplitude');
-
-const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 const { TextArea } = Input;
 
 const CommentList = ({ comments }) => (
@@ -161,7 +159,6 @@ export const Comments = ({ commentsData, mangaStory, user }) => {
           setValue('');
           const eventData = [
             {
-              platform: 'WEB',
               event_type: EVENTS.ADDED_COMMENT,
               event_properties: { mangaStoryId: mangaStory._id },
               user_id: user._id,
@@ -170,7 +167,7 @@ export const Comments = ({ commentsData, mangaStory, user }) => {
               },
             },
           ];
-          amplitude.track(eventData);
+          myAmplitude(eventData);
         })
         .catch((err) => {
           setErrMessage(err.message);

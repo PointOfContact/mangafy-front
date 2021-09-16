@@ -14,10 +14,6 @@ import myAmplitude from 'utils/amplitude';
 
 import styles from './styles.module.scss';
 
-const Amplitude = require('amplitude');
-
-const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
-
 const { TextArea } = Input;
 
 const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, user }) => {
@@ -102,7 +98,6 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
         changeShowModal(false);
         const eventData = [
           {
-            platform: 'WEB',
             event_type: EVENTS.MINI_JOB_CREATED,
             event_properties: { mangaStoryId: baseData._id, taskId: res._id, task },
             user_id: user._id,
@@ -111,7 +106,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
             },
           },
         ];
-        amplitude.track(eventData);
+        myAmplitude(eventData);
       })
       .catch((err) =>
         notification.error({
@@ -144,7 +139,6 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
 
         const eventData = [
           {
-            platform: 'WEB',
             event_type: EVENTS.MINI_JOB_EDITED,
             event_properties: { mangaStoryId: baseData._id, taskId: task._id, task },
             user_id: user._id,
@@ -153,7 +147,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
             },
           },
         ];
-        amplitude.track(eventData);
+        myAmplitude(eventData);
       })
       .catch((err) =>
         notification.error({

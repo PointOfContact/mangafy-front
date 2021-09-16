@@ -1,6 +1,7 @@
 import { notification } from 'antd';
 import client from 'api/client';
 import { EVENTS } from 'helpers/amplitudeEvents';
+import myAmplitude from 'utils/amplitude';
 
 export default {
   draft: {
@@ -73,7 +74,7 @@ export default {
     },
   },
   hiderCollab: {
-    patchStory: (data, setBaseData, user, amplitude, baseData, openNotification) => {
+    patchStory: (data, setBaseData, user, baseData, openNotification) => {
       const jwt = client.getCookie('feathers-jwt');
       return import('api/restClient').then((m) =>
         m.default
@@ -87,7 +88,6 @@ export default {
 
             const eventData = [
               {
-                platform: 'WEB',
                 event_type,
                 event_properties: { mangaStoryId: baseData._id },
                 user_id: user._id,
@@ -96,7 +96,7 @@ export default {
                 },
               },
             ];
-            amplitude.track(eventData);
+            myAmplitude(eventData);
           })
           .catch((err) => {
             openNotification('error', err.message);
