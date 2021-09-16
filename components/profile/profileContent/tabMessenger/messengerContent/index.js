@@ -11,14 +11,13 @@ import PropTypes from 'prop-types';
 import { MessageList } from 'react-chat-elements';
 
 import 'react-chat-elements/dist/main.css';
+import myAmplitude from 'utils/amplitude';
+
 import { patchRequest } from '../../../../../api/joinMangaStoryRequestClient';
 import UserName from '../userName';
 import messageItems from './messageItems';
 import styles from './styles.module.scss';
 
-const Amplitude = require('amplitude');
-
-const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 let interval;
 const onAccept = (event, id, status) => {
   event.stopPropagation();
@@ -42,7 +41,8 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
 
   const wrapUrls = (text) => {
     // eslint-disable-next-line no-useless-escape
-    const url_pattern = /(http|ftp|https|www):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/gi;
+    const url_pattern =
+      /(http|ftp|https|www):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/gi;
     return text.replace(url_pattern, (url) => {
       const href = url_pattern.test(url) ? url : `http://${url}`;
       return `<a href="${href}" target="_blank">${url}</a>`;
@@ -180,7 +180,6 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
 
       const eventData = [
         {
-          platform: 'WEB',
           event_type,
           event_properties: { inviteRequestId: id },
           user_id: user._id,
@@ -189,7 +188,7 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
           },
         },
       ];
-      amplitude.track(eventData);
+      myAmplitude(eventData);
     });
   };
 

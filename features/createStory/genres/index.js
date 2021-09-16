@@ -9,10 +9,7 @@ import { options } from 'helpers/constant';
 import Head from 'next/head';
 import Link from 'next/link';
 import PropTypes, { array } from 'prop-types';
-
-const Amplitude = require('amplitude');
-
-const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
+import myAmplitude from 'utils/amplitude';
 
 const MangaGenres = (props) => {
   const [loadings, changeLoading] = useState([]);
@@ -27,7 +24,6 @@ const MangaGenres = (props) => {
     changeLoading(newLoadings);
     const data = [
       {
-        platform: 'WEB',
         event_type: EVENTS.CREATE_MANGA_STORY_GENRES_NEXT,
         user_id: user?._id,
         user_properties: {
@@ -36,7 +32,7 @@ const MangaGenres = (props) => {
         event_properties: selectedValues,
       },
     ];
-    amplitude.track(data);
+    myAmplitude(data);
   };
 
   const a = () => {

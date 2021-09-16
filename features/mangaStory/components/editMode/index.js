@@ -53,7 +53,6 @@ const EditMode = ({
                     text={'Edit Project'}
                     onClick={() => {
                       const data = {
-                        platform: 'WEB',
                         event_type: EVENTS.EDIT_PROJECT,
                         event_properties: { mangaStoryId: mangaStory._id },
                         user_id: user._id,
@@ -71,7 +70,6 @@ const EditMode = ({
                     text={'Delete Project'}
                     onClick={() => {
                       const data = {
-                        platform: 'WEB',
                         event_type: EVENTS.DELETE_PROJECT,
                         event_properties: { mangaStoryId: mangaStory._id },
                         user_id: user._id,

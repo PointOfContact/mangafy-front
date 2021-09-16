@@ -8,15 +8,12 @@ import { EVENTS } from 'helpers/amplitudeEvents';
 import { userTypesEnums } from 'helpers/constant';
 import PropTypes from 'prop-types';
 import { format } from 'timeago.js';
+import myAmplitude from 'utils/amplitude';
 
 import { patchRequest } from '../../api/joinMangaStoryRequestClient';
 import MessageHeaderAvatar from './messageHeaderAvatar';
 import styles from './styles.module.scss';
 import 'react-chat-elements/dist/main.css';
-
-const Amplitude = require('amplitude');
-
-const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 
 const onAccept = (event, id, status) => {
   event.stopPropagation();
@@ -76,7 +73,6 @@ const ChatCard = ({
 
         const eventData = [
           {
-            platform: 'WEB',
             event_type,
             event_properties: { inviteRequestId: id },
             user_id: user._id,
@@ -85,7 +81,7 @@ const ChatCard = ({
             },
           },
         ];
-        amplitude.track(eventData);
+        myAmplitude(eventData);
       })
       .catch((err) => {
         notification.error({

@@ -12,13 +12,9 @@ import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import * as qs from 'query-string';
 import { register } from 'store';
+import myAmplitude from 'utils/amplitude';
 
 import styles from './styles.module.scss';
-
-// const { info } = Modal;
-const Amplitude = require('amplitude');
-
-const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 
 const Register = ({ user }) => {
   const defaultState = {
@@ -87,7 +83,7 @@ const Register = ({ user }) => {
             },
           },
         ];
-        amplitude.track(data);
+        myAmplitude(data);
         // info({
         //   className: 'MangaFY',
         //   title: <h3 className={styles.modalTitle}>Welcome to MangaFY</h3>,

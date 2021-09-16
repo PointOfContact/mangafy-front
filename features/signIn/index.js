@@ -10,12 +10,9 @@ import { NextSeo } from 'next-seo';
 import PropTypes from 'prop-types';
 import * as qs from 'query-string';
 import { login } from 'store';
+import myAmplitude from 'utils/amplitude';
 
 import styles from './styles.module.scss';
-
-const Amplitude = require('amplitude');
-
-const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 
 const Login = ({ user }) => {
   const defaultState = {
@@ -48,7 +45,6 @@ const Login = ({ user }) => {
       .then((newUser) => {
         const data = [
           {
-            platform: 'WEB',
             event_type: EVENTS.SIGN_IN,
             user_id: newUser._id,
             user_properties: {
@@ -56,7 +52,7 @@ const Login = ({ user }) => {
             },
           },
         ];
-        amplitude.track(data);
+        myAmplitude(data);
       })
       .catch((err) => {
         setLoading(false);

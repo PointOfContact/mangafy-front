@@ -8,12 +8,9 @@ import PrimarySelect from 'components/ui-elements/select';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { userTypes } from 'helpers/constant';
 import PropTypes from 'prop-types';
+import myAmplitude from 'utils/amplitude';
 
 import styles from './styles.module.scss';
-
-const Amplitude = require('amplitude');
-
-const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 
 const { TextArea } = Input;
 
@@ -85,7 +82,6 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
       });
       const eventData = [
         {
-          platform: 'WEB',
           event_type: EVENTS.INVITE_SOMEONE,
           event_properties: { mangaStoryId: story, taskId: task },
           user_id: user._id,
@@ -94,7 +90,7 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
           },
         },
       ];
-      amplitude.track(eventData);
+      myAmplitude(eventData);
       changeShowModal(false);
     } catch (error) {
       openNotification('error', 'Failed to invite');

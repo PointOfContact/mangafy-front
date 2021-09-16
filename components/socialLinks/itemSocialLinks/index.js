@@ -16,6 +16,7 @@ import SvgYoutube from 'components/icon/Youtube';
 import PrimaryInput from 'components/ui-elements/input';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import PropTypes from 'prop-types';
+import myAmplitude from 'utils/amplitude';
 
 import styles from './styles.module.scss';
 
@@ -61,10 +62,6 @@ ItemSocialLinks.propTypes = {
   updateSocialLink: PropTypes.func.isRequired,
 };
 
-const Amplitude = require('amplitude');
-
-const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
-
 const EditSocial = ({ user, socialLinks, setSocialLinks, setUserData }) => {
   const [dribbbleStatus, setDribbbleStatus] = useState('');
   const [behanceStatus, setBehanceStatus] = useState('');
@@ -107,7 +104,6 @@ const EditSocial = ({ user, socialLinks, setSocialLinks, setUserData }) => {
     const newUserData = { ...user, socialLinks: filteredItems };
     const data = [
       {
-        platform: 'WEB',
         event_type: EVENTS.SOCIAL_ACCOUNT,
         user_id: user._id,
         user_properties: {
@@ -115,7 +111,7 @@ const EditSocial = ({ user, socialLinks, setSocialLinks, setUserData }) => {
         },
       },
     ];
-    amplitude.track(data);
+    myAmplitude(data);
     setUserData(newUserData);
     saveUserDataByKey({ socialLinks: filteredItems });
   };

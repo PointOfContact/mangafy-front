@@ -22,15 +22,13 @@ import Upload from 'components/ui-elements/upload';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import PropTypes from 'prop-types';
 import * as qs from 'query-string';
+import myAmplitude from 'utils/amplitude';
 import useWindowSize from 'utils/useWindowSize';
 
 import styles from '../styles.module.scss';
 import DragDrop from './dragDrop';
 import Preview from './preview';
 
-const Amplitude = require('amplitude');
-
-const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 const { TabPane } = Tabs;
 
 const StoryBoardTabs = ({
@@ -189,7 +187,6 @@ const StoryBoardTabs = ({
 
     const data = [
       {
-        platform: 'WEB',
         event_type: myEvent,
         user_id: user._id,
         user_properties: {
@@ -197,7 +194,7 @@ const StoryBoardTabs = ({
         },
       },
     ];
-    amplitude.track(data);
+    myAmplitude(data);
     setIsShowAnimation(true);
     setTimeout(() => {
       setIsShowAnimation(false);

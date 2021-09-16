@@ -15,6 +15,7 @@ import Link from 'next/link';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
 import * as qs from 'query-string';
+import myAmplitude from 'utils/amplitude';
 import { LinkCreator } from 'utils/linkCreator';
 
 import styles from './styles.module.scss';
@@ -41,10 +42,6 @@ const ModalDiscussion = ({
   const [loading, setLoading] = useState('');
   const [subTitleData, setSubTitleData] = useState('');
   const ifVideo = photoProject?.includes('youtube');
-
-  const Amplitude = require('amplitude');
-
-  const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 
   useEffect(() => {
     if (showModal) {
@@ -91,7 +88,6 @@ const ModalDiscussion = ({
         .then((res) => {
           const eventData = [
             {
-              platform: 'WEB',
               event_type: EVENTS.POST_LIKE,
               event_properties: { postLike: res._id, postId: res.postId },
               user_id: user._id,
@@ -100,7 +96,7 @@ const ModalDiscussion = ({
               },
             },
           ];
-          amplitude.track(eventData);
+          myAmplitude(eventData);
           setLikesData([...likesData, { ...res }]);
           setIsLiked(true);
           setIsLikedLoading(false);

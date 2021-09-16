@@ -8,12 +8,9 @@ import PrimarySelect from 'components/ui-elements/select';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { userTypes } from 'helpers/constant';
 import PropTypes from 'prop-types';
+import myAmplitude from 'utils/amplitude';
 
 import styles from './styles.module.scss';
-
-const Amplitude = require('amplitude');
-
-const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 
 const { TextArea } = Input;
 
@@ -103,7 +100,6 @@ const ModalStart = ({ changeShowModal, showModal, baseData, selectedTask, user }
           changeShowModal(false);
           const eventData = [
             {
-              platform: 'WEB',
               event_type: EVENTS.REQUEST_TO_JOIN,
               event_properties: { mangaStoryId: baseData._id, taskId: selectedTask?._id },
               user_id: user._id,
@@ -112,7 +108,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, selectedTask, user }
               },
             },
           ];
-          amplitude.track(eventData);
+          myAmplitude(eventData);
         });
     } catch (err) {
       if (err.name === 'Conflict') {
