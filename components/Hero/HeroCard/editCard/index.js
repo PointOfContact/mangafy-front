@@ -24,13 +24,13 @@ const EditCard = ({ confirmDelete, editCard, hero }) => {
       <div
         onClick={handleClick}
         className={styles.loadImage}
-        title={!!hero.imageUrl.length ? '' : 'image not available'}
-        style={{ cursor: !!hero.imageUrl.length ? 'pointer' : 'not-allowed' }}>
+        title={!!hero?.imageUrl?.length ? '' : 'image not available'}
+        style={{ cursor: !!hero?.imageUrl?.length ? 'pointer' : 'not-allowed' }}>
         <span
           onClick={
-            !!hero.imageUrl.length
+            !!hero?.imageUrl?.length
               ? () => {
-                  download(client.UPLOAD_URL + hero.imageUrl, hero.name);
+                  download(client.UPLOAD_URL + hero?.imageUrl, hero?.name);
                 }
               : ''
           }>
@@ -41,7 +41,7 @@ const EditCard = ({ confirmDelete, editCard, hero }) => {
       <div onClick={handleClick}>
         <Popconfirm
           overlayClassName={styles.popConfirm}
-          position={hero.type === 'background' ? 'right' : 'bottom'}
+          position={hero?.type === 'background' ? 'right' : 'bottom'}
           title="Are you sure to delete this hero."
           onConfirm={confirmDelete}
           item={

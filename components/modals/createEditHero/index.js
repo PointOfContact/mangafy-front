@@ -14,7 +14,7 @@ import myAmplitude from 'utils/amplitude';
 import EditBackground from './backgroundUpload';
 import styles from './styles.module.scss';
 
-const ModalHero = ({ changeShowModal, showModal, hero, getStoryBoard, user }) => {
+const ModalComponent = ({ changeShowModal, showModal, hero, getStoryBoard, user }) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [imageUrl, setImgId] = useState('');
@@ -22,12 +22,12 @@ const ModalHero = ({ changeShowModal, showModal, hero, getStoryBoard, user }) =>
 
   // default value personage
   const titles = {
-    modal: "Define your story's protagonists and villans, in an easier organized manner",
-    write: 'Tell your team about them',
-    firstInput: 'Name your character',
-    description: 'Add his role (main, secondary, villain)',
-    button: 'Create',
-    type: 'personage',
+    modal: '',
+    write: '',
+    firstInput: '',
+    description: '',
+    button: '',
+    type: '',
   };
 
   const setDialogTitles = (write, modal, firstInput, desc, button, type) => {
@@ -40,9 +40,6 @@ const ModalHero = ({ changeShowModal, showModal, hero, getStoryBoard, user }) =>
   };
 
   const setGlobalTitle = (type) => {
-    if (type === 'personage') {
-      return 'CREATE YOUR CHARACTERS';
-    }
     if (type === 'component') {
       setDialogTitles(
         'Now add the components:',
@@ -262,7 +259,7 @@ const ModalHero = ({ changeShowModal, showModal, hero, getStoryBoard, user }) =>
   );
 };
 
-ModalHero.propTypes = {
+ModalComponent.propTypes = {
   changeShowModal: PropTypes.func.isRequired,
   showModal: PropTypes.bool.isRequired,
   getStoryBoard: PropTypes.func.isRequired,
@@ -271,10 +268,10 @@ ModalHero.propTypes = {
   user: PropTypes.object,
 };
 
-ModalHero.defaultProps = {
+ModalComponent.defaultProps = {
   hero: {},
   user: {},
   mangaUrl: null,
 };
 
-export default ModalHero;
+export default ModalComponent;
