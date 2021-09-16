@@ -62,10 +62,9 @@ const Editor = ({ onChange, onSubmit, submitting, value, user, mangaStory }) => 
 
   const commentChange = (e) => {
     // eslint-disable-next-line no-shadow
-    const { maxLength, value } = e.target;
     onChange(e);
-    value.length >= maxLength
-      ? setCommentError(`Comment max length ${maxLength} symbols`)
+    e.target.value.length >= 490
+      ? setCommentError(`Comment max length 490 symbols`)
       : setCommentError('');
   };
 

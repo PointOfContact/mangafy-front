@@ -126,6 +126,9 @@
   @include media-md {
     padding: 0 10px;
   }
+  & > div > div > div > div:last-child{
+    display: none;
+  }
   & > div > button {
     width: 31px !important;
     height: 31px !important;
