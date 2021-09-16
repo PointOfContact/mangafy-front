@@ -143,14 +143,15 @@
     .typesContainer {
       display: flex;
       margin: 5px 0 10px 0;
+      flex-wrap: wrap;
       @include media-sm{
         justify-content: center;
-        flex-wrap: wrap;
         max-width: 300px;
       }
       .userTypes {
         width: auto;
         margin-right: 10px;
+        margin-bottom: 10px;
         font-size: 18px;
         padding: 6px 16px;
         border-radius: 14px;
@@ -357,12 +358,12 @@
   @include media-sm() {
     margin-top: 30px;
     flex-direction: row;
-    justify-content: space-between;
-    margin-bottom: 25px;
+    justify-content: center;
+    margin-bottom: 30px;
     width: 205px;
     margin-left: auto;
     margin-right: auto;
-    > div {
+    & > div {
       margin: 0 8px;
     }
   }

@@ -52,7 +52,7 @@ const BuildWebcomicFanbase = ({ user }) => (
           <div className={styles.share}>
             <div className={styles.items}>
               <ShareButtons
-                shareUrl="https://mangafy.club/resources/build-webcomicw-fanbase"
+                shareUrl="https://mangafy.club/resources/build-webcomic-fanbase"
                 text=""
               />
             </div>
@@ -102,7 +102,7 @@ const BuildWebcomicFanbase = ({ user }) => (
           <div className={styles.share}>
             <div className={styles.items}>
               <ShareButtons
-                shareUrl="https://mangafy.club/resources/build-webcomicw-fanbase"
+                shareUrl="https://mangafy.club/resources/build-webcomic-fanbase"
                 text="Liked? Share"
               />
             </div>
