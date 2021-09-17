@@ -1,3 +1,3 @@
-import Error from 'features/error';
+import AppError from 'features/error';
 
-export default Error;
+export default AppError;

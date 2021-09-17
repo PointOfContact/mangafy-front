@@ -66,5 +66,6 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
       });
       context.res.end();
     }
+    return {};
   }
 });

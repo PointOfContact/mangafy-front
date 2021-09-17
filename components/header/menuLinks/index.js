@@ -1,8 +1,9 @@
 import React from 'react';
 
 import cn from 'classnames';
-import Imgix from 'components/imgix';
+import PrimaryButton from 'components/ui-elements/button';
 import { removeAllStorage } from 'helpers/shared';
+import Router from 'next/dist/next-server/server/router';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 
@@ -36,26 +37,33 @@ const MenuLinks = ({ isOpen, user, setShowModal, handleMenuOpen }) => {
   return (
     <div id="menu" className={`${styles.mobile_menu} ${isOpen && styles.isOpen}`}>
       <div className={styles.menu_inner}>
-        <div className={styles.mobile_div_part1}>
+        <div className={cn(styles.mobile_div_part1, !user && styles.mobile_div_part1_def)}>
           {user ? (
             <>
               <ul className={styles.main_list}>
                 {/* <li className={styles.menu_item}>
                     <Link href="/collaborations?compensationModel=paid">Paid projects</Link>
                   </li> */}
+                <h1>MangaFY Community</h1>
                 <li className={styles.menu_item}>
                   <Link href="/collaborations">
-                    <a>Collabs</a>
+                    <a>
+                      <span className={styles.iconText}>📚</span>Collabs
+                    </a>
                   </Link>
                 </li>
                 <li className={styles.menu_item}>
                   <Link href="/profiles">
-                    <a>People</a>
+                    <a>
+                      <span className={styles.iconText}>👐</span>People
+                    </a>
                   </Link>
                 </li>
                 <li className={styles.menu_item}>
                   <Link href="/create-a-story/start">
-                    <a>Create a collab</a>
+                    <a>
+                      <span className={styles.iconText}>✏️</span>Create a collab
+                    </a>
                   </Link>
                 </li>
                 {/* <li className={styles.menu_item}>
@@ -63,9 +71,12 @@ const MenuLinks = ({ isOpen, user, setShowModal, handleMenuOpen }) => {
                   </li> */}
               </ul>
               <ul className={cn(`${styles.main_list} ${styles.ul_login}`)}>
+                <h2>Project</h2>
                 <li className={styles.menu_item}>
                   <Link href={`/profile/${user?._id}`}>
-                    <a>Profile</a>
+                    <a>
+                      <span className={styles.iconText}>🏠</span>Profile
+                    </a>
                   </Link>
                 </li>
                 {/* <li className={styles.menu_item}>
@@ -73,7 +84,9 @@ const MenuLinks = ({ isOpen, user, setShowModal, handleMenuOpen }) => {
                   </li> */}
                 <li className={styles.menu_item}>
                   <Link href={`/profile/${user?._id}`}>
-                    <a>My Notifications</a>
+                    <a>
+                      <span className={styles.iconText}>💡</span>My Notifications
+                    </a>
                   </Link>
                 </li>
                 {/* <li className={styles.menu_item}>
@@ -81,40 +94,66 @@ const MenuLinks = ({ isOpen, user, setShowModal, handleMenuOpen }) => {
                   </li> */}
                 <li className={styles.menu_item} onClick={removeAllStorage}>
                   <Link href="/sign-in">
-                    <a>Sign out</a>
+                    <a>
+                      <span className={styles.iconText}>🔥</span>Sign out
+                    </a>
                   </Link>
                 </li>
               </ul>
             </>
           ) : (
-            <ul className={styles.main_list}>
-              <li className={styles.menu_item}>
-                <Link href="/sign-in">
-                  <a>Sign in</a>
+            <>
+              <div className={styles.containerDesc}>
+                <h2>
+                  <span>MangaFY</span> Community of amazing webcomics creators
+                </h2>
+                <p>
+                  We&apos;re a place where all webcomics creators share, stay up-to-date and grow
+                  their careers.
+                </p>
+                <PrimaryButton text="Create new account" onClick={() => Router.push('/sign-up')} />
+                <Link href={'/sign-in'}>
+                  <a>Log in</a>
                 </Link>
-              </li>
-              {/* <li className={styles.menu_item}>
+              </div>
+              <ul className={styles.main_list}>
+                <h3>MangaFY Community</h3>
+                <li className={styles.menu_item}>
+                  <Link href="/sign-in">
+                    <a>
+                      <span className={styles.iconText}>🔥</span>Sign in
+                    </a>
+                  </Link>
+                </li>
+                {/* <li className={styles.menu_item}>
                   <Link href="/collaborations?compensationModel=paid">Paid projects</Link>
                 </li> */}
-              <li className={styles.menu_item}>
-                <Link href="/collaborations">
-                  <a>Collabs</a>
-                </Link>
-              </li>
-              <li className={styles.menu_item}>
-                <Link href="/create-a-story/start">
-                  <a>Create a collab</a>
-                </Link>
-              </li>
-              <li className={styles.menu_item}>
-                <Link href="/profiles">
-                  <a>People</a>
-                </Link>
-              </li>
-              {/* <li className={styles.menu_item}>
+                <li className={styles.menu_item}>
+                  <Link href="/collaborations">
+                    <a>
+                      <span className={styles.iconText}>📚</span>Collabs
+                    </a>
+                  </Link>
+                </li>
+                <li className={styles.menu_item}>
+                  <Link href="/create-a-story/start">
+                    <a>
+                      <span className={styles.iconText}>✏️</span>Create a collab
+                    </a>
+                  </Link>
+                </li>
+                <li className={styles.menu_item}>
+                  <Link href="/profiles">
+                    <a>
+                      <span className={styles.iconText}>👐</span>People
+                    </a>
+                  </Link>
+                </li>
+                {/* <li className={styles.menu_item}>
                   <Link href="/pricing">Go Pro</Link>
                 </li> */}
-            </ul>
+              </ul>
+            </>
           )}
         </div>
         <div className={styles.mobile_div_part2}>
@@ -127,12 +166,12 @@ const MenuLinks = ({ isOpen, user, setShowModal, handleMenuOpen }) => {
                     handleMenuOpen(false);
                     setShowModal(true);
                   }}>
-                  Invite friends
+                  <span className={styles.iconText}>👐</span>Invite friends
                 </div>
               </li>
             )}
           </ul>
-          <div className={styles.image_block}>
+          {/* <div className={styles.image_block}>
             <Imgix
               width={257}
               height={236}
@@ -144,7 +183,7 @@ const MenuLinks = ({ isOpen, user, setShowModal, handleMenuOpen }) => {
               }
               alt="MangaFy frame"
             />
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

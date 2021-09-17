@@ -5,6 +5,7 @@
   align-items: center;
   justify-content: center;
   .page_inner {
+    margin-top: 50px;
     padding: 40px 20px 100px;
     display: flex;
     flex-direction: column;
@@ -33,6 +34,7 @@
     padding-top: 25px;
   }
   .page_description {
+    max-width: 550px;
     font-size: 20px;
     line-height: 30px;
     font-family: Noto Sans JP;
