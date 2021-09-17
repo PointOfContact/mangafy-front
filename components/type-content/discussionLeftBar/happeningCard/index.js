@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
-const HeppeningCard = (props) => {
+const HappeningCard = (props) => {
   const { id, img, title } = props;
 
   return (
@@ -32,14 +32,14 @@ const HeppeningCard = (props) => {
   );
 };
 
-HeppeningCard.propTypes = {
+HappeningCard.propTypes = {
   id: PropTypes.string.isRequired,
   img: PropTypes.string,
   title: PropTypes.string.isRequired,
 };
 
-HeppeningCard.defaultProps = {
+HappeningCard.defaultProps = {
   img: null,
 };
 
-export default HeppeningCard;
+export default HappeningCard;

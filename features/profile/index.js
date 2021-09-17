@@ -157,7 +157,9 @@ const Profile = (props) => {
           }`,
           images: [
             {
-              url: images[0].url,
+              url: !images[0].url.includes('undefined')
+                ? images[0].url
+                : 'https://mangafy.club/img/collab_baner.webp',
               height: 600,
               alt: 'manga',
             },

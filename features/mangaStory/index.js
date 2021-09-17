@@ -126,9 +126,9 @@ const MangeStory = (props) => {
           type: 'article',
           images: [
             {
-              url:
-                client.UPLOAD_URL + mangaStory?.image ||
-                'https://mangafy.club/img/collab_baner.webp',
+              url: !!mangaStory?.image
+                ? client.UPLOAD_URL + mangaStory?.image
+                : 'https://mangafy.club/img/collab_baner.webp',
               width: 800,
               height: 600,
               alt: 'Manga Story Image',
