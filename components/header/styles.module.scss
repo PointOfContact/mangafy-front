@@ -459,7 +459,6 @@
       margin: 0;
       padding: 30px 30px 10px 30px;
       & > h3 {
-        font-size: 20px;
         color: $black;
       }
     }
@@ -472,7 +471,6 @@
       margin-bottom: 20px;
       @include media-sm {
         color: $black;
-        font-size: 20px;
       }
     }
   }
@@ -487,7 +485,6 @@
       line-height: 17px;
       margin-bottom: 20px;
       @include media-sm {
-        font-size: 20px;
         color: $black;
       }
     }
@@ -523,7 +520,6 @@
         font-style: normal;
         font-weight: 500;
         line-height: 14px;
-        font-size: 14px;
       }
       @media (max-width: 399px) {
         font-size: 18px;
