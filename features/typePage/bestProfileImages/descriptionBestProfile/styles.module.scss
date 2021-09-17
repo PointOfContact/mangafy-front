@@ -1,9 +1,9 @@
 @import '../../../../styles/variables.scss';
 
 .isLiked {
-  fill: #f54d4f !important;
+  fill: $red !important;
   path {
-    fill: #f54d4f !important;
+    fill: $red !important;
   }
 }
 .descriptionContent {
@@ -11,6 +11,14 @@
   height: 60px;
   display: flex;
   justify-content: space-between;
+  @include media-md {
+    border-radius: 0;
+    height: 40px;
+    margin-top: 102%;
+  }
+  @include media-sm {
+    width: 90%;
+  }
   img {
     min-width: 90% !important;
     min-height: 90% !important;
@@ -24,11 +32,28 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    @include media-md {
+      font-weight: bold;
+      color: $black;
+      .type {
+        font-weight: normal;
+        font-size: 12px;
+        color: $gray85;
+      }
+    }
     p {
       height: 22px;
       display: flex;
       align-items: center;
       color: $black;
+      @include media-md {
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        overflow: hidden;
+        white-space: pre-wrap;
+        -webkit-box-orient: vertical;
+        margin: 0;
+      }
     }
   }
   .avatarData {
@@ -40,46 +65,23 @@
   }
 }
 
-@include media-md {
-  .descriptionContent {
-    border-radius: 0;
-    height: 40px;
-    margin-bottom: 20px;
-    @include media-sm {
-      width: 90%;
-    }
-    .description {
-      font-weight: bold;
-      color: $black;
-      & > p {
-        display: -webkit-box;
-        -webkit-line-clamp: 1;
-        overflow: hidden;
-        white-space: pre-wrap;
-        -webkit-box-orient: vertical;
-        margin: 0;
-      }
-      .type {
-        font-weight: normal;
-        font-size: 12px;
-        color: $gray85;
-      }
-    }
-    .likeModalContainerStyle,
-    .likeContainer {
-      width: 38px;
-      height: 30px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-weight: bold;
-      color: $black;
-    }
-    .likeModalContainerStyle {
-      margin-right: 30px;
-      @include media-sm {
-        margin-right: 0px;
-      }
-    }
+.likeModalContainerStyle,
+.likeContainer {
+  @include media-md {
+    width: 38px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: bold;
+    color: $black;
+  }
+}
+.likeModalContainerStyle {
+  @include media-md {
+    margin-right: 30px;
+  }
+  @include media-sm {
+    margin-right: 0px;
   }
 }

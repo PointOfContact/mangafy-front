@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import client from 'api/client';
+import cn from 'classnames';
 import Imgix from 'components/imgix';
 import PropTypes from 'prop-types';
 
@@ -19,7 +20,7 @@ const BestProfile = ({ gallery, user }) => {
       topGallery.map((item, index) => (
         <div
           key={item._id}
-          className={styles.item}
+          className={cn(styles.item, item?._id.slice(-3) === 'png' && styles.itemForPNG)}
           onClick={() => {
             setShowModal(true);
             setStartIndex(index);
