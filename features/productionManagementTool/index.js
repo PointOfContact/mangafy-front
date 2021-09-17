@@ -50,7 +50,7 @@ const ProductionManagementTool = ({ user }) => (
           <div className={styles.share}>
             <div className={styles.items}>
               <ShareButtons
-                shareUrl="https://mangafy.club/resources/production_management_tool"
+                shareUrl="https://mangafy.club/resources/production-management-tool"
                 text=""
               />
             </div>

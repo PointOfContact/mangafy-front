@@ -7,9 +7,16 @@ import PropTypes from 'prop-types';
 import HeroUpload from '../heroUpload';
 import styles from './styles.module.scss';
 
-const EditBackground = ({ ifIsEdit, hero, imageUrl, setImgId, typeCard }) => {
+const EditBackground = ({
+  disabled,
+  ifIsEdit,
+  hero,
+  imageUrl,
+  setImgId,
+  typeCard,
+  onChangeHero,
+}) => {
   const [showUpload, setShowUpload] = useState(false);
-
   return ifIsEdit && !!hero.imageUrl ? (
     <div className={styles.editImageContainer}>
       <Imgix
@@ -30,10 +37,12 @@ const EditBackground = ({ ifIsEdit, hero, imageUrl, setImgId, typeCard }) => {
               setShowUpload(!showUpload);
             }}>
             <HeroUpload
+              disabled={disabled}
+              mangaUrl={imageUrl}
               setImgId={setImgId}
-              imageUrl={imageUrl}
               titleLoad={ifIsEdit && ifIsEdit}
               typeCard={typeCard}
+              onChangeHero={onChangeHero}
             />
           </div>
         </div>
@@ -43,10 +52,12 @@ const EditBackground = ({ ifIsEdit, hero, imageUrl, setImgId, typeCard }) => {
     </div>
   ) : (
     <HeroUpload
+      disabled={disabled}
+      mangaUrl={imageUrl}
       setImgId={setImgId}
-      imageUrl={imageUrl}
       titleLoad={ifIsEdit && ifIsEdit}
       typeCard={typeCard}
+      onChangeHero={onChangeHero}
     />
   );
 };
@@ -57,6 +68,8 @@ EditBackground.propTypes = {
   ifIsEdit: PropTypes.bool.isRequired,
   hero: PropTypes.object.isRequired,
   typeCard: PropTypes.string,
+  onChangeHero: PropTypes.func,
+  disabled: PropTypes.bool,
 };
 
 EditBackground.defaultProps = {
@@ -65,6 +78,8 @@ EditBackground.defaultProps = {
   ifIsEdit: false,
   hero: {},
   typeCard: '',
+  onChangeHero: () => {},
+  disabled: false,
 };
 
 export default EditBackground;

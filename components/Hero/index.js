@@ -2,7 +2,8 @@ import React, { useMemo, useState } from 'react';
 
 // import { createHero, patchHero, deleteHero, uploadFile } from 'api/storyBoardClient';
 import { deleteHero } from 'api/storyBoardClient';
-import ModalHero from 'components/modals/createEditHero';
+import ModalComponent from 'components/modals/createEditHero';
+import ModalHeroes from 'components/modals/modalHeroes';
 import PropTypes from 'prop-types';
 
 // Styles
@@ -19,6 +20,7 @@ export const HeroTypes = {
 
 const Hero = ({ storyBoard, getStoryBoard, user }) => {
   const [showModal, changeShowModal] = useState(false);
+  const [showModalHeroes, changeShowModalHeroes] = useState(false);
   const [selectedHero, setSelectedHero] = useState({});
   const [selectedType, setSelectedType] = useState('');
 
@@ -56,19 +58,19 @@ const Hero = ({ storyBoard, getStoryBoard, user }) => {
     }
   };
 
-  const changeHero = (newhero, type) => {
-    setSelectedHero(newhero);
+  const changeHero = (newHero, type) => {
+    setSelectedHero(newHero);
     setSelectedType(type);
-    changeShowModal(true);
+    type === 'personage' ? changeShowModalHeroes(true) : changeShowModal(true);
   };
 
   const confirmDelete = (hero) => {
     deleteHero(hero._id, getStoryBoard, getStoryBoard);
+    changeShowModalHeroes(false);
   };
 
   const getLists = (type) => {
     const heroes = [];
-
     storyBoard?.heroes?.map((hero, index) => {
       if (hero?.type === type) {
         heroes.push(
@@ -92,12 +94,15 @@ const Hero = ({ storyBoard, getStoryBoard, user }) => {
     const newHero = {
       newCreated: true,
       name: '',
+      heroType: [],
+      quality: [],
       description: '',
+      appearance: '',
       imageUrl: '',
       storyBoard: storyBoard?._id,
       type,
     };
-    changeHero(newHero);
+    changeHero(newHero, type);
   };
 
   return (
@@ -144,13 +149,23 @@ const Hero = ({ storyBoard, getStoryBoard, user }) => {
         )}
       </div>
 
-      <ModalHero
+      <ModalComponent
         changeShowModal={changeShowModal}
         showModal={showModal}
         getStoryBoard={getStoryBoard}
         hero={selectedHero}
         type={selectedType}
         user={user}
+      />
+      <ModalHeroes
+        changeShowModalHeroes={changeShowModalHeroes}
+        showModal={showModalHeroes}
+        getStoryBoard={getStoryBoard}
+        hero={selectedHero}
+        type={selectedType}
+        user={user}
+        confirmDelete={confirmDelete}
+        storyBoard={storyBoard}
       />
     </div>
   );

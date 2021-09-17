@@ -185,7 +185,7 @@ const ProfileTopBar = (props) => {
   const colorTypes = ['#2f2ea6', '#20c000', '#fac448', '#2f2ea6'];
 
   const getTypes = (array) =>
-    array?.types.slice(0, 4).map((value, i) => (
+    array?.types?.slice(0, 4).map((value, i) => (
       <div className={styles.userTypes} key={value} style={{ backgroundColor: colorTypes[i] }}>
         {userTypesEnums[value]}
       </div>
@@ -228,7 +228,7 @@ const ProfileTopBar = (props) => {
             />
           </div>
         </Col>
-        <Col className="gutter-row" xs={{ span: 24 }} md={{ span: 8 }} xl={{ span: 9 }}>
+        <Col className="gutter-row" xs={{ span: 24 }} md={{ span: 12 }} xl={{ span: 12 }}>
           <div className={styles.info_profile}>
             {!editMode ? (
               <>
@@ -285,19 +285,19 @@ const ProfileTopBar = (props) => {
                     className={cn(
                       'changeSelect',
                       styles.select,
-                      !(userData.types.length && userData.types[0]) && styles.errSelect
+                      !(userData?.types?.length && userData?.types[0]) && styles.errSelect
                     )}
-                    defaultValue={userTypesEnums[userData.types[0]]}
+                    defaultValue={userTypesEnums[userData?.types[0]]}
                     value={userData.types}
                     style={{ width: '100%' }}
                     onChange={(value) => setUserData({ ...userData, types: value })}>
-                    {userTypes.map((item) => (
+                    {userTypes?.map((item) => (
                       <Option key={item.key} value={item.key}>
                         {item.value}
                       </Option>
                     ))}
                   </Select>
-                  {!(userData.types.length && userData.types[0]) ? (
+                  {!(userData?.types?.length && userData?.types[0]) ? (
                     <p className={styles.errMessage}>User type cannot be empty</p>
                   ) : null}
                 </div>
@@ -324,7 +324,7 @@ const ProfileTopBar = (props) => {
             )}
           </div>
         </Col>
-        <Col className="gutter-row" xs={{ span: 24 }} md={{ span: 9 }}>
+        <Col className="gutter-row" xs={{ span: 24 }} md={{ span: 4 }} xl={{ span: 6 }}>
           <div className={styles.languages_btn}>
             {editMode && (
               <div className={cn(styles.buttonsProfile, 'buttonsProfile_styles')}>
@@ -347,14 +347,16 @@ const ProfileTopBar = (props) => {
               </div>
             )}
           </div>
-          <ShareProfile
-            ifMyProfile={ifMyProfile}
-            originUrl={originUrl}
-            profile={profile}
-            user={user}
-            sendInvites={sendInvites}
-            sendMessage={sendMessage}
-          />
+          {!editMode && (
+            <ShareProfile
+              ifMyProfile={ifMyProfile}
+              originUrl={originUrl}
+              profile={profile}
+              user={user}
+              sendInvites={sendInvites}
+              sendMessage={sendMessage}
+            />
+          )}
         </Col>
       </Row>
       <ModalInvites
