@@ -12,13 +12,9 @@ $borderColor: rgb(233, 232, 232);
   display: flex;
   overflow-x: auto;
   padding: 0 15px;
-
   @include media-md {
     margin-top: 30px;
     margin-bottom: 0px;
-  }
-  @include media-sm {
-    margin-top: 0;
   }
   .card_wrap {
     width: 100%;
@@ -183,7 +179,11 @@ $borderColor: rgb(233, 232, 232);
       }
     }
   }
-
+  .itemForPNG {
+    & > div img{
+      background-color: $black;
+    }
+  }
   .description {
     height: 100%;
     border-radius: 0;
