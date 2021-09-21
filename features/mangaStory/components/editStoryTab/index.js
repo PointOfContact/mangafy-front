@@ -7,7 +7,7 @@ import ProsTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
-const EditStoryTab = ({ baseData, onChangeSingleField, cancelEditMode, saveUserDataByKey }) => (
+const EditStoryTab = ({ baseData, onChangeSingleField, cancelEditMode, saveMangaStoryData }) => (
   <div className={styles.container}>
     <h2 className={styles.inspirationTitle}>My inspiration</h2>
     <TextArea
@@ -35,7 +35,7 @@ const EditStoryTab = ({ baseData, onChangeSingleField, cancelEditMode, saveUserD
       <PrimaryButton
         text="Save"
         className={styles.save}
-        onClick={() => saveUserDataByKey(baseData, 'introduce', 'story')}
+        onClick={() => saveMangaStoryData(baseData, 'introduce', 'story')}
       />
     </div>
   </div>
@@ -45,14 +45,14 @@ EditStoryTab.propTypes = {
   baseData: ProsTypes.object.isRequired,
   onChangeSingleField: ProsTypes.func.isRequired,
   cancelEditMode: ProsTypes.func.isRequired,
-  saveUserDataByKey: ProsTypes.func.isRequired,
+  saveMangaStoryData: ProsTypes.func.isRequired,
 };
 
 EditStoryTab.defaultProps = {
   baseData: {},
   onChangeSingleField: () => {},
   cancelEditMode: () => {},
-  saveUserDataByKey: () => {},
+  saveMangaStoryData: () => {},
 };
 
 export default EditStoryTab;

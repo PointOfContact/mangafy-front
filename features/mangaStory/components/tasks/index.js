@@ -15,7 +15,7 @@ import myAmplitude from 'utils/amplitude';
 
 import styles from './styles.module.scss';
 
-const Tasks = ({ baseData, isOwn, user, toTeam, isParticipant, showPayPalToggle }) => {
+const Tasks = ({ baseData, isOwn, user, toTeam, isParticipant, showPayPalContent }) => {
   const { tasks } = baseData;
   const [taskList, setTasks] = useState(tasks);
   const [showModal, changeShowModal] = useState(false);
@@ -160,7 +160,7 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipant, showPayPalToggle 
                 changeShowModal(true);
                 setSelectedTask(null);
               }}
-              className={showPayPalToggle && styles.createTaskButton}
+              className={showPayPalContent && styles.createTaskButton}
               text="Create a task"
             />
           ) : (
@@ -197,7 +197,7 @@ Tasks.propTypes = {
   user: PropTypes.object,
   toTeam: PropTypes.func.isRequired,
   isParticipant: PropTypes.bool,
-  showPayPalToggle: PropTypes.bool.isRequired,
+  showPayPalContent: PropTypes.bool.isRequired,
 };
 
 Tasks.defaultProps = {

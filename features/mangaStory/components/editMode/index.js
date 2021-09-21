@@ -13,7 +13,6 @@ import styles from './styles.module.scss';
 
 const EditMode = ({
   user,
-  mangaStory,
   editMode,
   baseData,
   isOwn,
@@ -23,9 +22,9 @@ const EditMode = ({
   isParticipant,
   onChangeSingleField,
   cancelEditMode,
-  saveUserDataByKey,
-  showPayPalToggle,
-  mangaStoryNew,
+  saveMangaStoryData,
+  showPayPalContent,
+  userData,
 }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -41,8 +40,8 @@ const EditMode = ({
               user={user}
               isOwn={isOwn}
               isParticipant={isParticipant}
-              showPayPalToggle={showPayPalToggle}
-              mangaStoryNew={mangaStoryNew}
+              showPayPalContent={showPayPalContent}
+              userData={userData}
             />
             <div>
               {canEdit && (
@@ -54,7 +53,7 @@ const EditMode = ({
                     onClick={() => {
                       const data = {
                         event_type: EVENTS.EDIT_PROJECT,
-                        event_properties: { mangaStoryId: mangaStory._id },
+                        event_properties: { mangaStoryId: baseData?._id },
                         user_id: user._id,
                         user_properties: {
                           ...user,
@@ -71,7 +70,7 @@ const EditMode = ({
                     onClick={() => {
                       const data = {
                         event_type: EVENTS.DELETE_PROJECT,
-                        event_properties: { mangaStoryId: mangaStory._id },
+                        event_properties: { mangaStoryId: baseData?._id },
                         user_id: user._id,
                         user_properties: {
                           ...user,
@@ -84,8 +83,8 @@ const EditMode = ({
                 </div>
               )}
               <div className={styles.containerEdit}>
-                {showPayPalToggle && (
-                  <BuyBubbleTea payPalEmail={mangaStoryNew?.authorInfo?.payPalEmail} />
+                {showPayPalContent && (
+                  <BuyBubbleTea payPalEmail={userData?.authorInfo?.payPalEmail} />
                 )}
               </div>
             </div>
@@ -96,14 +95,14 @@ const EditMode = ({
               baseData={baseData}
               onChangeSingleField={onChangeSingleField}
               cancelEditMode={cancelEditMode}
-              saveUserDataByKey={saveUserDataByKey}
+              saveMangaStoryData={saveMangaStoryData}
             />
           )
         )}
         <p></p>
         <DeleteProjectModal
           user={user}
-          mangaStory={mangaStory}
+          mangaStory={baseData}
           isModalVisible={isModalVisible}
           setIsModalVisible={setIsModalVisible}
         />
@@ -113,7 +112,6 @@ const EditMode = ({
 };
 
 EditMode.propTypes = {
-  mangaStory: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
   isOwn: PropTypes.bool.isRequired,
   isParticipant: PropTypes.bool.isRequired,
@@ -124,9 +122,10 @@ EditMode.propTypes = {
   canEdit: PropTypes.bool.isRequired,
   onChangeSingleField: PropTypes.func.isRequired,
   cancelEditMode: PropTypes.func.isRequired,
-  saveUserDataByKey: PropTypes.func.isRequired,
+  saveMangaStoryData: PropTypes.func.isRequired,
   showPayPalToggle: PropTypes.bool.isRequired,
-  mangaStoryNew: PropTypes.object.isRequired,
+  showPayPalContent: PropTypes.bool.isRequired,
+  userData: PropTypes.object.isRequired,
 };
 
 export default EditMode;

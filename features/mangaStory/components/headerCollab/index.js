@@ -22,7 +22,6 @@ const HeaderCollab = ({
   mangaStory,
   openNotification,
   originUrl,
-  setCollabActiveTab,
   baseData,
   setBaseData,
   onChangeSingleField,
@@ -31,7 +30,7 @@ const HeaderCollab = ({
   stage,
   canEdit,
   setEditTitle,
-  saveUserDataByKey,
+  saveMangaStoryData,
   setMangaStoryNew,
   mangaStoryNew,
 }) => {
@@ -42,7 +41,7 @@ const HeaderCollab = ({
       });
       mangaStoryAPI.draft.leaveManga(mangaStory, false);
     } else {
-      onGoToPublic();
+      onGoToPublic(user?._id, mangaStory?._id);
       user?.payPalEmail && mangaStoryAPI.draft.leaveManga(mangaStory, true);
     }
   };
@@ -54,8 +53,7 @@ const HeaderCollab = ({
     findStoryBoard(
       user._id,
       mangaStory._id,
-      (res) => {
-        const boad = res.data[0];
+      () => {
         patchStory({
           published: true,
         }).then(() =>
@@ -155,7 +153,7 @@ const HeaderCollab = ({
                     baseData={baseData}
                     onChangeSingleField={onChangeSingleField}
                     setEditTitle={setEditTitle}
-                    saveUserDataByKey={saveUserDataByKey}
+                    saveMangaStoryData={saveMangaStoryData}
                   />
                 )
               )}
@@ -183,7 +181,7 @@ HeaderCollab.propTypes = {
   stage: PropTypes.object.isRequired,
   canEdit: PropTypes.bool.isRequired,
   setEditTitle: PropTypes.func.isRequired,
-  saveUserDataByKey: PropTypes.func.isRequired,
+  saveMangaStoryData: PropTypes.func.isRequired,
   setMangaStoryNew: PropTypes.func.isRequired,
   mangaStoryNew: PropTypes.object.isRequired,
 };

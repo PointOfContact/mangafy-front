@@ -23,8 +23,8 @@ const StoryTab = ({
   user,
   isParticipant,
   mangaStory,
-  showPayPalToggle,
-  mangaStoryNew,
+  showPayPalContent,
+  userData,
 }) => {
   const [showModal, changeShowModal] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
@@ -84,7 +84,7 @@ const StoryTab = ({
                 toTeam={toTeam}
                 isParticipant={isParticipant}
                 showImage={true}
-                showPayPalToggle={showPayPalToggle}
+                showPayPalContent={showPayPalContent}
               />
             </div>
           </div>
@@ -101,13 +101,13 @@ const StoryTab = ({
               user={user}
               toTeam={toTeam}
               isParticipant={isParticipant}
-              showPayPalToggle={showPayPalToggle}
+              showPayPalContent={showPayPalContent}
             />
           </>
         )}
       </div>
       <div className={styles.isOwnBubble}>
-        {showPayPalToggle && <BuyBubbleTea payPalEmail={mangaStoryNew?.authorInfo?.payPalEmail} />}
+        {showPayPalContent && <BuyBubbleTea payPalEmail={userData?.authorInfo?.payPalEmail} />}
       </div>
       <div className={cn(styles.storyTabDescription, styles.authorBlock)}>
         <Link href={`/profile/${author}`}>
@@ -173,7 +173,8 @@ StoryTab.propTypes = {
   user: PropTypes.object,
   isParticipant: PropTypes.bool.isRequired,
   showPayPalToggle: PropTypes.bool.isRequired,
-  mangaStoryNew: PropTypes.object.isRequired,
+  showPayPalContent: PropTypes.bool.isRequired,
+  userData: PropTypes.object.isRequired,
 };
 
 StoryTab.defaultProps = {
