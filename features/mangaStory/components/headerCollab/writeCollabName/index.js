@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
-const WriteCollabName = ({ baseData, onChangeSingleField, setEditTitle, saveUserDataByKey }) => {
+const WriteCollabName = ({ baseData, onChangeSingleField, setEditTitle, saveMangaStoryData }) => {
   const cancelEditTitle = () => {
     setEditTitle(false);
   };
@@ -45,7 +45,7 @@ const WriteCollabName = ({ baseData, onChangeSingleField, setEditTitle, saveUser
           isRound
           disabled={false}
           onClick={() => {
-            baseData.title.replace(/\s+/g, '') && saveUserDataByKey(baseData, 'title');
+            baseData.title.replace(/\s+/g, '') && saveMangaStoryData(baseData, 'title');
           }}
         />
       </div>
@@ -57,7 +57,7 @@ WriteCollabName.propTypes = {
   baseData: PropTypes.object.isRequired,
   onChangeSingleField: PropTypes.func.isRequired,
   setEditTitle: PropTypes.string.isRequired,
-  saveUserDataByKey: PropTypes.func.isRequired,
+  saveMangaStoryData: PropTypes.func.isRequired,
 };
 
 export default WriteCollabName;

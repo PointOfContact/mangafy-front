@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Tabs, Button } from 'antd';
 import client from 'api/client';
-import { findStoryBoard } from 'api/storyBoardClient';
 import FindPartner from 'components/findPartner';
 import Hero from 'components/Hero';
 import SvgAdd2 from 'components/icon/Add2';
@@ -33,13 +32,15 @@ const { TabPane } = Tabs;
 
 const StoryBoardTabs = ({
   user,
-  mangaStory,
   openNotification,
   originUrl,
   setStage,
   participentsInfo,
   baseData,
   setBaseData,
+  storyBoard,
+  getStoryBoard,
+  setStoryBoard,
 }) => {
   const [storyBoardActiveTab, setStoryBoardActiveTabSeter] = useState(1);
   const [showTaskModal, changeShowTaskModal] = useState(false);
@@ -48,16 +49,16 @@ const StoryBoardTabs = ({
   const [ifUploadImg, setIfUploadImg] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isShowAnimation, setIsShowAnimation] = useState(false);
-  const [storyBoard, setStoryBoard] = useState({
-    idea: {
-      title: '',
-      text: '',
-    },
-    pages: [],
-    heroes: [],
-    author: [],
-    layouts: [],
-  });
+  // const [storyBoard, setStoryBoard] = useState({
+  //   idea: {
+  //     title: '',
+  //     text: '',
+  //   },
+  //   pages: [],
+  //   heroes: [],
+  //   author: [],
+  //   layouts: [],
+  // });
 
   const { width } = useWindowSize();
 
@@ -203,20 +204,6 @@ const StoryBoardTabs = ({
     setStoryBoardActiveTab(nextTab);
   };
 
-  const getStoryBoard = useCallback(() => {
-    if (!user) return;
-    findStoryBoard(
-      user._id,
-      mangaStory._id,
-      (res) => {
-        setStoryBoard(res?.data[0]);
-      },
-      (err) => {
-        openNotification('error', err.message);
-      }
-    );
-  }, [user, mangaStory?._id, openNotification]);
-
   useEffect(() => {
     getStoryBoard();
   }, [user, getStoryBoard]);
@@ -261,7 +248,7 @@ const StoryBoardTabs = ({
       .service('/api/v2/tasks')
       .find({
         query: {
-          mangaStoryId: baseData._id,
+          mangaStoryId: baseData?._id,
         },
         headers: { Authorization: `Bearer ${jwt}` },
       })
@@ -401,7 +388,7 @@ const StoryBoardTabs = ({
                   <Preview
                     uploadImages={uploadImages}
                     storyBoardId={storyBoard?._id}
-                    mangaStoryTitle={mangaStory?.title}
+                    mangaStoryTitle={baseData?.title}
                   />
                 )}
                 <Upload
@@ -471,18 +458,23 @@ const StoryBoardTabs = ({
 
 StoryBoardTabs.propTypes = {
   user: PropTypes.object.isRequired,
-  mangaStory: PropTypes.object.isRequired,
   openNotification: PropTypes.func.isRequired,
   setStage: PropTypes.func.isRequired,
   baseData: PropTypes.object.isRequired,
   setBaseData: PropTypes.func,
   originUrl: PropTypes.string,
   participentsInfo: PropTypes.array,
+  getStoryBoard: PropTypes.func,
+  setStoryBoard: PropTypes.func,
+  storyBoard: PropTypes.object,
 };
 
 StoryBoardTabs.defaultProps = {
   originUrl: '',
   setBaseData: () => {},
+  storyBoard: {},
+  getStoryBoard: () => {},
+  setStoryBoard: () => {},
   participentsInfo: [],
 };
 

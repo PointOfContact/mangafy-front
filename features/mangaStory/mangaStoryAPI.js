@@ -5,19 +5,20 @@ import myAmplitude from 'utils/amplitude';
 
 export default {
   draft: {
-    saveUserDataByKey: (email, user, setMangaStoryNew, mangaStoryNew) => {
+    saveUserDataByKey: (email, user, setUserData) => {
       const data = {};
       data.payPalEmail = email;
       const jwt = client.getCookie('feathers-jwt');
       import('api/restClient').then((m) => {
         m.default
           .service('/api/v2/users')
-          .patch(user._id, data, {
+          .patch(user?._id, data, {
             headers: { Authorization: `Bearer ${jwt}` },
             mode: 'no-cors',
           })
           .then((res) => {
-            setMangaStoryNew({ ...mangaStoryNew, authorInfo: res });
+            setUserData(res);
+            return res;
           })
           .catch((err) => {
             console.log(err.message);
@@ -79,13 +80,12 @@ export default {
       return import('api/restClient').then((m) =>
         m.default
           .service('/api/v2/manga-stories')
-          .patch(baseData._id, data, {
+          .patch(baseData?._id, data, {
             headers: { Authorization: `Bearer ${jwt}` },
           })
           .then((res) => {
             setBaseData(res);
             const event_type = data.published ? EVENTS.GO_TO_PUBLIC : EVENTS.GO_TO_PRIVATE;
-
             const eventData = [
               {
                 event_type,
