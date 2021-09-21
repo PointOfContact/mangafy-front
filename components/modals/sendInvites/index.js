@@ -35,7 +35,7 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
   }, [user]);
 
   useEffect(() => {
-    setStory(optionsMangaStories[0] && optionsMangaStories[0]?.key);
+    setStory(optionsMangaStories[0] && optionsMangaStories[0].key);
   }, [optionsMangaStories]);
 
   useEffect(() => {

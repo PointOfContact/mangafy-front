@@ -3,8 +3,8 @@ import React from 'react';
 import cn from 'classnames';
 import PrimaryButton from 'components/ui-elements/button';
 import { removeAllStorage } from 'helpers/shared';
-import Router from 'next/dist/next-server/server/router';
 import Link from 'next/link';
+import Router from 'next/router';
 import PropTypes from 'prop-types';
 
 import styles from '../styles.module.scss';

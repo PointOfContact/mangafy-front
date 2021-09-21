@@ -8,10 +8,10 @@ import { ShareButtons } from 'components/share';
 import ButtonToTop from 'components/ui-elements/button-toTop';
 import FooterLogin from 'features/footerLogin';
 import { NextSeo } from 'next-seo';
+import Router from 'next/router';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
-import Router from 'next/router';
 
 const HowToGetStartedWithMangaFY = ({ user }) => {
   useEffect(() => {

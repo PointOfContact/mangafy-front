@@ -21,12 +21,12 @@ function SelectFilter({
   return (
     <>
       <Select
-        className={cn(styles.box, className, "select-filter")}
+        className={cn(styles.box, className, 'select-filter')}
         value={value}
         name={name}
         onChange={onChange}
         id={id}
-        dropdownClassName={"select-filter"}
+        dropdownClassName={'select-filter'}
         {...rest}>
         {options.map((item) => (
           <Option key={item.key} value={item.key}>

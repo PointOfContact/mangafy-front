@@ -9,11 +9,11 @@ import PropTypes from 'prop-types';
 const { Option } = Select;
 
 const EditPopup = ({ fieldName, onChange, closePopup, save, saveClose, baseData }) => {
+  const [showField, setShowField] = useState(true);
+
   if (!baseData) {
     return null;
   }
-
-  const [showField, setShowField] = useState(true);
   const value = baseData[fieldName];
   const filteredOptions =
     fieldName === 'preferredLanguage' ? COUNTRIES.filter((o) => !value.includes(o)) : [];
