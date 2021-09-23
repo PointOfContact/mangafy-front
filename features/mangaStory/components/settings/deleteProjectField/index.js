@@ -22,11 +22,10 @@ const DeleteProjectField = ({ userData, baseData }) => {
         <PrimaryButton
           className={styles.deleteProjectButton}
           text="Delete project"
-          isRed={true}
           onClick={() => setIsModalVisible(true)}
         />
         <a href="mailto:yo@mangafy.club">
-          Feel free to contact <span> yo@mangafy </span>. club with any questions.
+          Feel free to contact <span> yo@mangafy.</span> club with any questions.
         </a>
       </div>
       <DeleteProjectModal

@@ -42,7 +42,7 @@ const EditContent = ({ saveMangaStoryData, baseData, languages, genresEnums }) =
         onChange={changeSelectedGenre}
         isLinear={true}
         isFullWidth={true}
-        placeholder="Ganrys"
+        placeholder="Genres"
         defaultValue={defaultGenres}
         options={genres}
         className={styles.edit_select}
@@ -89,6 +89,10 @@ EditContent.propTypes = {
   baseData: PropTypes.object.isRequired,
   languages: PropTypes.array.isRequired,
   genresEnums: PropTypes.array.isRequired,
+};
+
+EditContent.defaultProps = {
+  defaultGenres: () => {},
 };
 
 export default EditContent;

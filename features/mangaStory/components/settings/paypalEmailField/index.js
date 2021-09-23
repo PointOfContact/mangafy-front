@@ -36,7 +36,7 @@ const PaypalEmailField = ({
         <div className={styles.betaButton}>Beta</div>
       </div>
       <p>Receive micropayments from your fans</p>
-      <h3>Paypal Payment Pointer</h3>
+      <h3 className={styles.paypalInputTitle}>Paypal Payment Pointer</h3>
       <PrimaryInput
         placeholder="@paypal.contact"
         value={payPalEmail}
@@ -46,11 +46,12 @@ const PaypalEmailField = ({
       {!payPalEmailValidate && (
         <p className={styles.error}>Yo! Please use valid email connected to your PayPal account</p>
       )}
-      <div className={styles.toggleStyles}>
-        Draft
+      <div className={styles.toggleStylesBubble}>
+        <span className={styles.toggleTitle}>Draft</span>
         <ToggleSwitch
           inputRef={bubbleChecked}
           name="payPalPublished"
+          className={styles.toggle}
           onChange={(e) => {
             const data = {
               target: {
@@ -62,7 +63,7 @@ const PaypalEmailField = ({
             setShowPayPalContent(!showPayPalContent);
           }}
         />
-        Visible
+        <span className={styles.toggleTitle}>Visible</span>
       </div>
     </div>
   );
@@ -74,7 +75,11 @@ PaypalEmailField.propTypes = {
   setUserData: PropTypes.func.isRequired,
   onChangeSingleField: PropTypes.func.isRequired,
   setShowPayPalContent: PropTypes.func.isRequired,
-  showPayPalContent: PropTypes.bool.isRequired,
+  showPayPalContent: PropTypes.bool,
 };
 
+PaypalEmailField.defaultProps = {
+  baseData: {},
+  showPayPalContent: false,
+};
 export default PaypalEmailField;

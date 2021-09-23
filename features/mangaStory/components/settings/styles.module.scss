@@ -1,29 +1,36 @@
 @import '../../../../styles/variables.scss';
 
+$redColor: #ff4564;
+$colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
+
 .container {
   width: 100%;
-  border: 1px solid $primaryDark;
-  border-radius: 10px;
-  padding: 30px;
+  padding: 20px 30px 0 30px;
   margin-bottom: 20px;
+  border: 1px solid $gray85;
+  box-sizing: border-box;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.04);
+  border-radius: 10px;
   .titleView {
     display: flex;
     justify-content: space-between;
   }
   h2 {
+    display: flex;
+    align-items: center;
     color: $black;
     font-style: normal;
     font-weight: 900;
-    font-size: 32px;
-    line-height: 46px;
+    font-size: 28px;
+    line-height: 41px;
     margin: 0;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     @include media-md {
       font-size: 26px;
       line-height: 38px;
     }
     @include media-sm {
-      font-size: 22px;
+      font-size: 25px;
       line-height: 30px;
     }
   }
@@ -39,39 +46,156 @@
       line-height: 20px;
     }
   }
-  h3 {
+  h3,
+  .paypalInputTitle {
     font-style: normal;
-    font-weight: 500;
-    font-size: 25px;
-    line-height: 36px;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 29px;
+    height: 67px;
+    display: flex;
+    align-items: center;
+    margin: 0;
     @include media-sm {
-      font-size: 16px;
+      height: 50px;
+      font-size: 18px;
       line-height: 20px;
     }
+  }
+  .paypalInputTitle {
+    font-size: 25px;
+    line-height: 36px;
+    margin-top: 29px;
+    @include media-sm {
+      font-size: 18px;
+      line-height: 20px;
+      margin-top: 20px;
+    }
+  }
+  .standardDomain {
+    margin-top: 11px;
+    display: flex;
+    align-items: baseline;
+    & > span {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 26px;
+      color: $gray85;
+      margin-left: 10px;
+    }
+    svg {
+      margin-left: 10px;
+      path {
+        fill: $black;
+      }
+    }
+  }
+  .genresTitle {
+    margin-bottom: 0;
+  }
+  .radioButton {
+    display: flex;
+    flex-direction: column;
+    margin-top: 14px;
+    label {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      input {
+        margin-bottom: 10px;
+      }
+      span {
+        font-style: normal;
+        font-weight: normal;
+        font-size: 20px;
+        line-height: 29px;
+        span {
+          border-color: $black !important;
+          box-shadow: 0 0 0 3px white !important;
+          &::after {
+            width: 14px !important;
+            height: 14px !important;
+            top: 0 !important;
+            left: 0 !important;
+            background-color: white !important;
+            border: 2.5px solid black !important;
+          }
+        }
+      }
+    }
+  }
+  .getLink {
+    margin-top: 20px;
   }
   .dangerZone {
     font-style: normal;
     font-weight: 900;
     font-size: 32px;
     line-height: 46px;
-    color: #ff4564;
+    color: $redColor;
+  }
+  .viewUrlName {
+    max-width: 300px;
   }
   input,
   textarea {
-    max-width: 600px;
+    max-width: 960px;
     width: 100%;
-    height: 40px;
+    height: 50px;
     font-size: 16px;
     border: 1px solid $primaryDark;
     background-color: white;
-    margin-bottom: 10px;
     &::placeholder {
-      font-size: 16px;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 26px;
       color: $gray85;
+      @include media-sm {
+        font-size: 16px;
+        line-height: 20px;
+      }
+    }
+  }
+  .option {
+    max-width: 960px;
+    min-height: 50px;
+    border: 1px solid $primaryDark;
+    border-radius: 10px;
+    margin-bottom: 45px;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    & > div {
+      width: 100% !important;
+      margin-top: 1px;
+      div {
+        @for $i from 1 through 7 {
+          &:nth-child(#{length($colors)}n + #{$i}) {
+            & > span {
+              background-color: nth($colors, random(length($colors)));
+              height: 42px;
+              display: flex;
+              align-items: center;
+              color: white;
+              font-style: normal;
+              font-weight: 900;
+              font-size: 15px;
+              line-height: 25px;
+              border-radius: 15px;
+              padding-left: 15px;
+              padding-right: 15px;
+              span {
+                color: white;
+              }
+            }
+          }
+        }
+      }
     }
   }
   textarea {
-    height: auto !important;
     border-radius: 5px;
     &:hover {
       border-color: $primaryDark;
@@ -88,7 +212,7 @@
       height: 40px !important;
       border-radius: 5px !important;
       border: 1px solid $primaryDark !important;
-      span{
+      span {
         line-height: 35px !important;
       }
     }
@@ -96,63 +220,114 @@
   .copyView {
     display: flex;
     align-items: center;
+    margin-bottom: 45px;
     input {
-      max-width: 560px;
+      max-width: 920px;
       border-right: none;
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
+      background-color: white !important;
+      border-color: $primaryDark !important;
+      color: $black !important;
+      &:hover {
+        color: $gray85;
+      }
     }
   }
   .copy {
     width: 40px;
+    height: 50px;
     border: 1px solid $primaryDark;
     border-left: none;
     border-radius: 5px;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
-    height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 10px;
     path {
       fill: $gray85;
     }
   }
   .error {
     color: $red;
+    font-size: 16px;
     @include media-sm {
       font-size: 14px;
     }
   }
-  .toggleStyles {
-    width: 150px;
+  .toggleStylesMakeVisible,
+  .toggleStylesBubble {
+    width: 195px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    color: $primaryDark;
-    margin: 10px 0;
+    color: $black;
+    margin-top: 45px;
+    margin-bottom: 32px;
+    .toggleTitle {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 32px;
+      @include media-sm {
+        font-size: 16px;
+        line-height: 25px;
+      }
+    }
+    .toggle {
+      margin: 0 20px;
+      @include media-sm {
+        margin: 0 10px;
+      }
+    }
+  }
+  .toggleStylesBubble {
+    margin-top: 20px;
   }
   .deleteProject {
     .deleteProjectTitle {
+      height: 67px;
+      margin: 0;
+      margin-top: 23px;
       font-style: normal;
-      font-weight: 900;
+      font-weight: bold;
       font-size: 25px;
       line-height: 36px;
+      display: flex;
+      align-items: center;
       @include media-sm {
         font-size: 20px;
         line-height: 20px;
       }
     }
     .deleteProjectButton {
-      width: 150px;
-      height: 45px;
+      width: 204px;
+      height: 50px;
       font-size: 18px;
-      margin: 10px 0;
+      margin-top: 39px;
+      background-color: $redColor;
+      border: 1px solid $redColor;
     }
     a {
+      height: 83px;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 20px;
+      line-height: 32px;
       color: $black;
+      @include media-sm {
+        margin-top: 20px;
+        height: 50px;
+        font-size: 16px;
+        line-height: 20px;
+      }
       span {
+        margin-left: 5px;
+        margin-right: 5px;
         color: #1890ff;
       }
     }
@@ -160,17 +335,21 @@
   .titleContainer {
     display: flex;
     .betaButton {
-      width: 35px;
-      height: 23px;
+      width: 68px;
+      height: 30px;
       padding: 10px;
-      font-size: 11px;
       margin-left: 20px;
+      margin-top: 7px;
       background-color: $primaryDark;
       display: flex;
       justify-content: center;
       align-items: center;
       border-radius: 8px;
       color: white;
+      font-style: normal;
+      font-weight: 900;
+      font-size: 15px;
+      line-height: 25px;
     }
   }
 }
