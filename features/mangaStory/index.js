@@ -256,6 +256,7 @@ const MangeStory = (props) => {
                         <div className={styles.tabWrap}>
                           <Settings
                             baseData={baseData}
+                            genres={genres}
                             onChangeSingleField={onChangeSingleField}
                             saveMangaStoryData={saveMangaStoryData}
                             getStoryBoard={getStoryBoard}

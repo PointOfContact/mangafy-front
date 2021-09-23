@@ -1,13 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 
-import { Modal, Tooltip } from 'antd';
-import client from 'api/client';
+import { Modal } from 'antd';
 import { findStoryBoard } from 'api/storyBoardClient';
 import SvgClose from 'components/icon/Close';
-import SvgCopy from 'components/icon/Copy';
-import PrimaryInput from 'components/ui-elements/input';
 import ToggleSwitch from 'components/ui-elements/toggleSwitch';
-import copy from 'copy-to-clipboard';
 import mangaStoryAPI from 'features/mangaStory/mangaStoryAPI';
 import PropTypes from 'prop-types';
 
@@ -16,11 +12,13 @@ import DeleteProjectField from './deleteProjectField';
 import EditGenresField from './editGenresField';
 import PaypalEmailField from './paypalEmailField';
 import styles from './styles.module.scss';
+import ViewUrlName from './viewUrlName';
 
 const { info } = Modal;
 
 const Settings = ({
   baseData,
+  genres,
   onChangeSingleField,
   saveMangaStoryData,
   getStoryBoard,
@@ -33,7 +31,6 @@ const Settings = ({
   showPayPalContent,
   setShowPayPalContent,
 }) => {
-  const [copyText, setCopyText] = useState('Copy to clipboard');
   const collabRef = useRef();
 
   useEffect(() => {
@@ -87,52 +84,37 @@ const Settings = ({
       <div className={styles.container}>
         <EditGenresField
           baseData={baseData}
+          genresEnums={genres}
           onChangeSingleField={onChangeSingleField}
           saveMangaStoryData={saveMangaStoryData}
         />
       </div>
       <div className={styles.container}>
         <div className={styles.publicProject}>
-          <h2>Public Project</h2>
+          <h2>Make visible</h2>
           <p>
             Visible projects will only show general information about your project (inc. what you
             look for, and what you aim to work on without disclosing anything else). In draft mode,
             you go off-grid and need to invite collaborations manually, while the member you invite
             sees nothing.
           </p>
-          <div className={styles.toggleStyles}>
-            Draft
-            <ToggleSwitch onChange={() => onPublish()} inputRef={collabRef} />
-            Visible
+          <div className={styles.toggleStylesMakeVisible}>
+            <span className={styles.toggleTitle}>Draft</span>
+            <ToggleSwitch
+              className={styles.toggle}
+              onChange={() => onPublish()}
+              inputRef={collabRef}
+            />
+            <span className={styles.toggleTitle}>Visible</span>
           </div>
         </div>
       </div>
       <div className={styles.container}>
-        <div className={styles.viewLink}>
-          <div className={styles.titleContainer}>
-            <h2>Generate a personal page for your project</h2>
-            <div className={styles.betaButton}>Beta</div>
-          </div>
-          <p>
-            Claim project name and give fans an easy-to remember web adres for your Webcomics
-            project
-          </p>
-          <h3>Custom URL</h3>
-          <div className={styles.copyView}>
-            <PrimaryInput value={`${client.API_ENDPOINT}/manga-view/${storyBoard?._id}`} />
-            <Tooltip placement="topLeft" title={copyText}>
-              <div
-                className={styles.copy}
-                onClick={() => {
-                  setCopyText('Copied');
-                  copy(`${client.API_ENDPOINT}/manga-view/${storyBoard?._id}`);
-                }}
-                onMouseOut={() => setCopyText('Copy to clipboard')}>
-                <SvgCopy width="18px" height="18px" alt="mangaFy copy icon" />
-              </div>
-            </Tooltip>
-          </div>
-        </div>
+        <ViewUrlName
+          storyBoard={storyBoard}
+          baseData={baseData}
+          onChangeSingleField={onChangeSingleField}
+        />
       </div>
       <div className={styles.container}>
         <PaypalEmailField
@@ -152,6 +134,7 @@ const Settings = ({
 
 Settings.propTypes = {
   userData: PropTypes.object.isRequired,
+  genres: PropTypes.array.isRequired,
   setUserData: PropTypes.func.isRequired,
   baseData: PropTypes.object.isRequired,
   onChangeSingleField: PropTypes.func.isRequired,
