@@ -46,15 +46,11 @@
     padding-right: 15px;
   }
   &Images {
-    width: 32px;
-    height: 43px;
-    background-size: cover;
-    background-position: center;
-    flex-shrink: 0;
     border-radius: 4px;
-    margin-right: 8px;
+    object-fit: cover;
   }
   &DescrText {
+    width: 110px;
     line-height: 20px;
     color: #1f2224;
     font-weight: 500;
@@ -64,6 +60,7 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+    margin-left: 10px;
   }
   &Count {
     display: flex;
