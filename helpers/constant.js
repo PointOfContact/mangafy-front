@@ -531,6 +531,8 @@ export const COUNTRIES = [
   'Zulu',
 ];
 
+export const projectTypes = ['Webtoon', 'Comics', 'Manhua', 'Manga', 'Anime', 'Stories'];
+
 export const heroTypes = [
   'Protagonist',
   'Antagonist',

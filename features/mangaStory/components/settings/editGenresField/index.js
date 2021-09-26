@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Input, Select } from 'antd';
 import PrimaryInput from 'components/ui-elements/input';
 import PrimarySelect from 'components/ui-elements/select';
-import { COUNTRIES } from 'helpers/constant';
+import { COUNTRIES, projectTypes } from 'helpers/constant';
 import PropTypes from 'prop-types';
 
 import styles from '../styles.module.scss';
@@ -13,6 +13,7 @@ const { TextArea } = Input;
 
 const EditGenresField = ({ baseData, onChangeSingleField, saveMangaStoryData, genresEnums }) => {
   const [countries, setCountries] = useState([]);
+  const [projectType, setProjectType] = useState(baseData?.projectType);
 
   const genres = genresEnums.map(({ _id: key, value }) => ({ key, value }));
   const defaultGenres = baseData.genres?.map(({ _id }) => _id);
@@ -27,8 +28,19 @@ const EditGenresField = ({ baseData, onChangeSingleField, saveMangaStoryData, ge
     onChangeSingleField(data, true);
   };
 
+  const chooseTypes = (value) => {
+    const data = {
+      target: {
+        name: 'projectType',
+        value,
+      },
+    };
+    onChangeSingleField(data, true);
+  };
+
   useEffect(() => {
     setCountries(COUNTRIES.map((value) => <Option key={value}>{value}</Option>));
+    setProjectType(projectTypes.map((value) => <Option key={value}>{value}</Option>));
   }, []);
 
   const changeSelectedGenre = (genresIds) => {
@@ -55,7 +67,7 @@ const EditGenresField = ({ baseData, onChangeSingleField, saveMangaStoryData, ge
       <h3>Project description</h3>
       <TextArea
         autoSize={true}
-        maxLength={100000}
+        maxLength={5000}
         maxrows={5000}
         rows={4}
         placeholder="Describe the project in detail below, including its goal,
@@ -78,6 +90,15 @@ const EditGenresField = ({ baseData, onChangeSingleField, saveMangaStoryData, ge
         className={styles.language}
         style={{ width: 200 }}>
         {countries}
+      </Select>
+      <h3>Project Types</h3>
+      <Select
+        defaultValue={baseData?.projectType}
+        placeholder={'Project types'}
+        onChange={chooseTypes}
+        className={styles.language}
+        style={{ width: 200 }}>
+        {projectType}
       </Select>
       <h3>Tags</h3>
       <PrimarySelect
