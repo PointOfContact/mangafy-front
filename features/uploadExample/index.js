@@ -12,6 +12,7 @@ const UploadExample = () => {
 
   async function getSignedUrlPromise(fileName, fileType) {
     console.log('Fetching signed URL');
+    const jwt = client.getCookie('feathers-jwt');
     const { default: restClient } = await import('api/restClient');
     return restClient
       .service('/api/v2/aws-upload')
@@ -20,6 +21,7 @@ const UploadExample = () => {
           name: fileName,
           type: fileType,
         },
+        headers: { Authorization: `Bearer ${jwt}` },
       })
       .then((data) => {
         console.log(`Received signed url:\n${data.url}`);
