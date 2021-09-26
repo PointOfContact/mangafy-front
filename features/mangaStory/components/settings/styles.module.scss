@@ -115,13 +115,21 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
           box-shadow: 0 0 0 3px white !important;
           &::after {
             width: 14px !important;
-            height: 14px !important;
+            height: 14.5px !important;
             top: 0 !important;
             left: 0 !important;
             background-color: white !important;
             border: 2.5px solid black !important;
           }
         }
+      }
+    }
+    .error{
+      margin-top: -12px;
+      color: $red;
+      font-size: 16px;
+      @include media-sm{
+        font-size: 14px;
       }
     }
   }

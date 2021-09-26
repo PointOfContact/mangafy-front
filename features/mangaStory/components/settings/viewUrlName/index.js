@@ -12,6 +12,7 @@ import styles from '../styles.module.scss';
 const ViewUrlName = ({ storyBoard, baseData, onChangeSingleField }) => {
   const [value, setValue] = useState(baseData?.typeUrlView);
   const [copyText, setCopyText] = useState('Copy to clipboard');
+  const [isTouched, setIsTouched] = useState(false);
   const [viewUrlName, setViewUrlName] = useState(baseData?.viewUrlName);
 
   const onChange = (e) => {
@@ -20,6 +21,8 @@ const ViewUrlName = ({ storyBoard, baseData, onChangeSingleField }) => {
   };
 
   const ifCustomSubdomain = value === 'Custom subdomain';
+
+  const validViewUrlName = viewUrlName?.length < 2 || !viewUrlName?.match(/^[a-z]+$/);
 
   return (
     <div className={styles.viewLink}>
@@ -34,34 +37,46 @@ const ViewUrlName = ({ storyBoard, baseData, onChangeSingleField }) => {
       <Radio.Group
         name={'typeUrlView'}
         onChange={onChange}
-        value={value}
+        value={value || 'Standard domain'}
         className={styles.radioButton}>
         <Radio value={'Custom subdomain'}>
           Custom subdomain
           {ifCustomSubdomain && (
-            <div className={styles.standardDomain}>
-              <PrimaryInput
-                className={styles.viewUrlName}
-                value={viewUrlName}
-                onChange={(e) => {
-                  setViewUrlName(e.target.value);
-                }}
-                onBlur={() => {
-                  const data = {
-                    target: {
-                      name: 'viewUrlName',
-                      value: viewUrlName,
-                    },
-                  };
-                  onChangeSingleField(data, true);
-                }}
-              />
-              <span>.mangafy.club</span>
-            </div>
+            <>
+              <div className={styles.standardDomain}>
+                <PrimaryInput
+                  className={styles.viewUrlName}
+                  value={viewUrlName}
+                  onChange={(e) => {
+                    setIsTouched(true);
+                    setViewUrlName(e.target.value);
+                  }}
+                  onBlur={() => {
+                    const data = {
+                      target: {
+                        name: 'viewUrlName',
+                        value: viewUrlName,
+                      },
+                    };
+                    !validViewUrlName && onChangeSingleField(data, true);
+                  }}
+                />
+                <span>.mangafy.club</span>
+              </div>
+              {validViewUrlName && isTouched && (
+                <p className={styles.error}>
+                  {viewUrlName.length < 2
+                    ? 'This field min length should be min 2 character'
+                    : 'This field value should be only lowercase'}
+                </p>
+              )}
+            </>
           )}
         </Radio>
 
-        <Radio value={'Standard domain'}>Standard domain</Radio>
+        <Radio value={'Standard domain'} onChange={() => setIsTouched(false)}>
+          Standard domain
+        </Radio>
       </Radio.Group>
 
       <h3 className={styles.getLink}>Get the link or share on social</h3>
