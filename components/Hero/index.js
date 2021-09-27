@@ -65,7 +65,9 @@ const Hero = ({ storyBoard, getStoryBoard, user }) => {
   };
 
   const confirmDelete = (hero) => {
-    deleteHero(hero._id, getStoryBoard, getStoryBoard);
+    const getLastCreateHeroId = storyBoard?.heroes[storyBoard?.heroes?.length - 1]?._id;
+    const heroId = !!hero?._id ? hero?._id : getLastCreateHeroId;
+    deleteHero(heroId, getStoryBoard, getStoryBoard);
     changeShowModalHeroes(false);
   };
 
