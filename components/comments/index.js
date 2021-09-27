@@ -128,7 +128,7 @@ export const Comments = ({ commentsData, mangaStory, user }) => {
       Router.push(`/sign-in?page=manga-story/${mangaStory._id}?tab=comments`);
     }
 
-    if (!value || !user) {
+    if (!value.trim() || !user) {
       return;
     }
 
@@ -174,6 +174,7 @@ export const Comments = ({ commentsData, mangaStory, user }) => {
         });
     });
   };
+
   return (
     <>
       <h2 className={styles.subTitle}> {!!comments?.length && comments?.length} Comments</h2>

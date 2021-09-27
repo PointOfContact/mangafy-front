@@ -66,8 +66,8 @@ const ViewUrlName = ({ storyBoard, baseData, onChangeSingleField }) => {
               {validViewUrlName && isTouched && (
                 <p className={styles.error}>
                   {viewUrlName.length < 2
-                    ? 'This field min length should be min 2 character'
-                    : 'This field value should be only lowercase'}
+                    ? 'This field minimum length should be min 2 character'
+                    : 'Subdomain is invalid. Only characters are allowed.'}
                 </p>
               )}
             </>
