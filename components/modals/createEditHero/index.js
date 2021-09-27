@@ -217,10 +217,10 @@ const ModalComponent = ({ changeShowModal, showModal, hero, getStoryBoard, user 
                     placeholder={
                       ifIsEdit ? 'Add a short bio synopsis to your character' : titles.description
                     }
-                    className={styles.modalTexarea}
+                    className={styles.modalTexArea}
                     isFullWidth={true}
                     isLinear={true}
-                    autoSize={{ minRows: 1, maxRows: 4 }}
+                    autoSize={{ minRows: 1, maxRows: 8 }}
                     onChange={(e) => setDescription(e.target.value)}
                   />
                 </Form.Item>

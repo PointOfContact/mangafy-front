@@ -201,7 +201,7 @@ const ModalHeroes = ({
                     isFullWidth={true}
                     isLinear={true}
                     onChange={(e) => setName(e.target.value)}
-                    onBlur={() => {
+                    onMouseOut={() => {
                       setNameValue();
                       onChangeHero();
                     }}

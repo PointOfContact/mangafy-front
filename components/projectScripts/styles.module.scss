@@ -136,6 +136,7 @@
       .title {
         font-weight: bold;
         max-height: 53px;
+        min-height: 40px;
         overflow: hidden;
         font-size: 25px;
         color: $black;
@@ -168,6 +169,7 @@
         line-height: $text3;
         margin-bottom: 0px;
         color: #949494;
+        min-height: 40px;
         @include media-sm {
           margin-left: 19px;
           width: 189px;
