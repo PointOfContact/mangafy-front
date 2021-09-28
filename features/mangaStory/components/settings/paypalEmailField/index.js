@@ -14,20 +14,22 @@ const PaypalEmailField = ({
   setShowPayPalContent,
   showPayPalContent,
 }) => {
+  const [bubbleVisible, setBubbleVisible] = useState(false);
+  const [touchedPaypal, setTouchedPaypal] = useState(false);
+  const [payPalEmail, setPayPalEmail] = useState(userData?.payPalEmail);
   const bubbleChecked = useRef();
 
   useEffect(() => {
     bubbleChecked.current.checked = showPayPalContent;
   }, []);
 
-  const [payPalEmail, setPayPalEmail] = useState(userData?.payPalEmail);
-
   const savePayPalEmail = (email) => {
     mangaStoryAPI.draft.saveUserDataByKey(email, userData, setUserData);
   };
 
   const regEmail = /\S+@\S+\.\S+/;
-  const payPalEmailValidate = payPalEmail?.length > 6 && regEmail.test(payPalEmail);
+  const payPalEmailValidate =
+    payPalEmail?.length > 6 && regEmail.test(payPalEmail) && touchedPaypal;
 
   return (
     <div className={styles.paypalEmail}>
@@ -36,18 +38,21 @@ const PaypalEmailField = ({
         <div className={styles.betaButton}>Beta</div>
       </div>
       <p>Receive micropayments from your fans</p>
-      <h3 className={styles.paypalInputTitle}>Paypal Payment Pointer</h3>
+      <h3>Paypal Payment Pointer</h3>
       <PrimaryInput
         placeholder="@paypal.contact"
         value={payPalEmail}
-        onChange={(e) => setPayPalEmail(e.target.value)}
+        onChange={(e) => {
+          setTouchedPaypal(true);
+          setPayPalEmail(e.target.value);
+        }}
         onBlur={() => payPalEmailValidate && savePayPalEmail(payPalEmail)}
       />
-      {!payPalEmailValidate && (
+      {!payPalEmailValidate && bubbleVisible && (
         <p className={styles.error}>Yo! Please use valid email connected to your PayPal account</p>
       )}
       <div className={styles.toggleStylesBubble}>
-        <span className={styles.toggleTitle}>Draft</span>
+        <span className={styles.toggleTitle}>Invisible</span>
         <ToggleSwitch
           inputRef={bubbleChecked}
           name="payPalPublished"
@@ -59,6 +64,7 @@ const PaypalEmailField = ({
                 value: e.target.checked,
               },
             };
+            setBubbleVisible(e.target.checked);
             onChangeSingleField(data, true);
             setShowPayPalContent(!showPayPalContent);
           }}

@@ -16,7 +16,7 @@ const DeleteProjectField = ({ userData, baseData }) => {
         <p>Deleting your project will:</p>
         <p>Delete your project, along with your authentication associations.</p>
         <p>
-          Delete any and all content you have, such as articles, comments, yourreading list or chat
+          Delete any and all content you have, such as articles, comments, your reading list or chat
           messages.
         </p>
         <PrimaryButton

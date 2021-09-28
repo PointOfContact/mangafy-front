@@ -25,22 +25,22 @@ export const ShareButtons = ({ className, shareUrl, text, onClick }) => {
       <span className={styles.text}>{text}</span>
       <ul>
         <li onClick={onClick}>
-          <FacebookShareButton quote={'Mangafy-Club'} title="Mangafy-Club" url={shareUrl}>
+          <FacebookShareButton title="Mangafy-Club" url={shareUrl}>
             <SvgFacebook width="32px" height="32px" />
           </FacebookShareButton>
         </li>
         <li onClick={onClick}>
-          <TwitterShareButton quote={'Mangafy-Club'} title="Mangafy-Club" url={shareUrl}>
+          <TwitterShareButton title="Mangafy-Club" url={shareUrl}>
             <SvgTwitter width="32px" height="32px" />
           </TwitterShareButton>
         </li>
         <li onClick={onClick}>
-          <TelegramShareButton quote={'Mangafy-Club'} title="Mangafy-Club" url={shareUrl}>
+          <TelegramShareButton title="Mangafy-Club" url={shareUrl}>
             <TelegramIcon size={32} round={true} />
           </TelegramShareButton>
         </li>
         <li onClick={onClick}>
-          <WhatsappShareButton quote={'Mangafy-Club'} title="Mangafy-Club" url={shareUrl}>
+          <WhatsappShareButton title="Mangafy-Club" url={shareUrl}>
             <SvgWhatsapp width="32px" height="32px" />
           </WhatsappShareButton>
         </li>

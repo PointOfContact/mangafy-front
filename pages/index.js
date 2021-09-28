@@ -44,6 +44,7 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
         user: user || store.user,
         storyBoardId: storyBoard?.data[0]?._id,
         mangaUrls: storyBoard?.data[0]?.mangaUrls,
+        mangaStoryId: mangaStory?.data[0]?._id,
         mangaStoryTitle: mangaStory?.data[0]?.title,
       },
     };

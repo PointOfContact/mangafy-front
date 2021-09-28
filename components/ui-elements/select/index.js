@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Select } from 'antd';
 import cn from 'classnames';
@@ -7,7 +7,6 @@ import PropTypes from 'prop-types';
 import styles from './styles.module.scss';
 
 const { Option } = Select;
-
 function PrimarySelect({
   className,
   isFullWidth,
@@ -22,6 +21,27 @@ function PrimarySelect({
   isMulti,
   ...rest
 }) {
+  const [optionsSelected, setOptionsSelected] = useState([]);
+  const [itemOptions, setItemOptions] = useState([]);
+
+  useEffect(() => {
+    setItemOptions(
+      options?.map((item) => (
+        <Option
+          value={item.key}
+          key={item.key}
+          label={item.value}
+          disabled={optionsSelected.length > 9 && !optionsSelected.includes(item.key)}>
+          {item.value}
+        </Option>
+      ))
+    );
+  }, [optionsSelected]);
+
+  const handleChange = (arrayValues) => {
+    setOptionsSelected(arrayValues);
+  };
+
   return (
     <>
       {label && (
@@ -41,12 +61,13 @@ function PrimarySelect({
         value={value}
         bordered={bordered}
         name={name}
-        onChange={onChange}
+        onChange={(e) => {
+          handleChange(e);
+          onChange();
+        }}
         id={id}
         {...rest}>
-        {options?.map((item) => (
-          <Option key={item.key}>{item.value}</Option>
-        ))}
+        {itemOptions}
       </Select>
     </>
   );

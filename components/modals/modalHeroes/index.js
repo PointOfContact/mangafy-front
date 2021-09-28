@@ -74,7 +74,7 @@ const ModalHeroes = ({
       imageUrl: imgId,
     };
 
-    if (!newHero?.name) {
+    if (!newHero?.name || newHero?.name.length < 2) {
       return;
     }
 
@@ -201,7 +201,7 @@ const ModalHeroes = ({
                     isFullWidth={true}
                     isLinear={true}
                     onChange={(e) => setName(e.target.value)}
-                    onBlur={() => {
+                    onMouseOut={() => {
                       setNameValue();
                       onChangeHero();
                     }}
@@ -301,7 +301,7 @@ const ModalHeroes = ({
                   />
                 </Form.Item>
               </Form>
-              <h4 className={styles.title}>ACTIONS</h4>
+              <h4 className={styles.title}>Actions</h4>
               <div className={styles.containerButton}>
                 <PrimaryButton onClick={() => onChangeHero(imageUrl, true)} text="Duplicate" />
                 <PrimaryButton isActive={true} onClick={() => confirmDelete(hero)} text="Archive" />

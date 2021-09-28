@@ -142,9 +142,9 @@ const MangeStory = (props) => {
       <NextSeo
         title={baseData?.title}
         description={baseData?.description + baseData?.story}
-        canonical={`http://mangafy.club/manga-story/${baseData?._id}`}
+        canonical={`https://mangafy.club/manga-story/${baseData?._id}`}
         openGraph={{
-          url: `http://mangafy.club/manga-story/${baseData?._id}`,
+          url: `https://mangafy.club/manga-story/${baseData?._id}`,
           title: baseData?.title,
           description: baseData?.description + baseData?.story,
           type: 'article',

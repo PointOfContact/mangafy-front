@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import Modal from 'antd/lib/modal/Modal';
 import client from 'api/client';
+import cn from 'classnames';
 import SvgClose from 'components/icon/Close';
 import Imgix from 'components/imgix';
 import { ShareButtons } from 'components/share';
@@ -27,8 +28,8 @@ const Preview = ({ uploadImages, storyBoardId, mangaStoryTitle }) => {
     Router.push(`/manga-view/${storyBoardId}`);
   };
 
-  const shareContent = (
-    <div>
+  const shareContent = (className) => (
+    <div className={cn(styles.shareContainer, className)}>
       <p className={styles.shareTitle}>Share</p>
       <ShareButtons
         className={styles.shareButPreview}
@@ -89,10 +90,10 @@ const Preview = ({ uploadImages, storyBoardId, mangaStoryTitle }) => {
             <h1>PREVIEW</h1>
             <p>Time to see what you already have</p>
           </div>
-          {shareContent}
+          {shareContent()}
           <p className={styles.projectName}>{mangaStoryTitle}</p>
           <div className={styles.imagesContainer}>{previewPhotos}</div>
-          {shareContent}
+          {shareContent(!previewPhotos?.length && styles.bottomShare)}
         </div>
       </Modal>
     </div>
