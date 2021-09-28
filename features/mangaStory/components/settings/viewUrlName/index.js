@@ -31,7 +31,7 @@ const ViewUrlName = ({ storyBoard, baseData, onChangeSingleField }) => {
         <div className={styles.betaButton}>Beta</div>
       </div>
       <p>
-        Claim project name and give fans an easy-to remember web adres for your Webcomics project
+        Claim project name and give fans an easy-to remember web address for your Webcomics project
       </p>
 
       <Radio.Group
