@@ -301,7 +301,7 @@ const ModalHeroes = ({
                   />
                 </Form.Item>
               </Form>
-              <h4 className={styles.title}>ACTIONS</h4>
+              <h4 className={styles.title}>Actions</h4>
               <div className={styles.containerButton}>
                 <PrimaryButton onClick={() => onChangeHero(imageUrl, true)} text="Duplicate" />
                 <PrimaryButton isActive={true} onClick={() => confirmDelete(hero)} text="Archive" />

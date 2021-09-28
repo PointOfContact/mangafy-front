@@ -39,8 +39,20 @@ const EditGenresField = ({ baseData, onChangeSingleField, saveMangaStoryData, ge
   };
 
   useEffect(() => {
-    setCountries(COUNTRIES.map((value) => <Option key={value}>{value}</Option>));
-    setProjectType(projectTypes.map((value) => <Option key={value}>{value}</Option>));
+    setCountries(
+      COUNTRIES.map((value) => (
+        <Option value={value} key={value}>
+          {value}
+        </Option>
+      ))
+    );
+    setProjectType(
+      projectTypes.map((value) => (
+        <Option value={value} key={value}>
+          {value}
+        </Option>
+      ))
+    );
   }, []);
 
   const changeSelectedGenre = (genresIds) => {
@@ -50,10 +62,10 @@ const EditGenresField = ({ baseData, onChangeSingleField, saveMangaStoryData, ge
 
   return (
     <div className={styles.editTitle}>
-      <h2 className={styles.genresTitle}>Genres</h2>
-      <h3>Project Name</h3>
+      <h2 className={styles.genresTitle}>General</h2>
+      <h3>Project name</h3>
       <PrimaryInput
-        placeholder="Project Name"
+        placeholder="Project name"
         name="title"
         value={baseData?.title}
         onChange={(e) => {
@@ -85,6 +97,7 @@ const EditGenresField = ({ baseData, onChangeSingleField, saveMangaStoryData, ge
       )}
       <h3>Project language</h3>
       <Select
+        showSearch
         defaultValue={baseData?.preferredLanguage}
         onChange={chooseLanguage}
         className={styles.language}
@@ -93,6 +106,7 @@ const EditGenresField = ({ baseData, onChangeSingleField, saveMangaStoryData, ge
       </Select>
       <h3>Project Types</h3>
       <Select
+        showSearch
         defaultValue={baseData?.projectType}
         placeholder={'Project types'}
         onChange={chooseTypes}

@@ -46,6 +46,7 @@ const ViewUrlName = ({ storyBoard, baseData, onChangeSingleField }) => {
               <div className={styles.standardDomain}>
                 <PrimaryInput
                   className={styles.viewUrlName}
+                  placeholder="subdomain"
                   value={viewUrlName}
                   onChange={(e) => {
                     setIsTouched(true);

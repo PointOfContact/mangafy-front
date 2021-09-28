@@ -5,10 +5,9 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
 
 @mixin input {
   font-size: $text4;
-  border-radius: 10px;
+  border-radius: 6px;
   border: 1px solid $primaryDark;
   overflow-y: auto !important;
-  height: 50px !important;
   color: $black;
   padding: 10px;
   &::placeholder {
@@ -73,16 +72,25 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
     }
   }
   .title {
-    font-weight: bold;
-    font-size: 18px;
-    color: $black;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 29px;
+    height: 67px;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    @include media-sm {
+      height: 50px;
+      font-size: 18px;
+      line-height: 20px;
+    }
   }
-  // .attachmentTitle {
-  //   display: none;
-  //   @include media-sm {
-  //     display: block;
-  //   }
-  // }
+  .attachmentTitle {
+    @include media-md {
+      height: 60px;
+    }
+  }
   .border {
     width: 100%;
     left: 0;
@@ -133,9 +141,6 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
     width: 100%;
     margin-bottom: $text4;
   }
-  .nameInput {
-    min-height: 59px;
-  }
   // .send {
   //   width: 318.72px;
   //   height: 54.36px;
@@ -166,6 +171,7 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
   .attachmentContainer {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     span {
       color: $gray85;
       height: 24px;
@@ -173,15 +179,6 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
       cursor: pointer;
       &:hover {
         color: $primaryDark;
-      }
-    }
-  }
-  .uploadMobile {
-    // display: none;
-    @include media-sm {
-      // display: block;
-      div {
-        margin: 0;
       }
     }
   }
@@ -250,47 +247,55 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
   width: 356.4px;
   margin-top: 100px;
   @include media-md {
-    width: 315px;
+    width: 350px;
     margin-top: 70px;
   }
   & > form {
+    & > div {
+      margin: 0;
+    }
+    .uploadMobile{
+      margin: 5px auto;
+    }
     & input {
       margin-top: $text6;
       background-color: $text_white;
       border-radius: 0;
       @include input();
-      height: 59px;
+      height: 40px;
     }
     .modalTexArea {
       @include input();
       min-height: 100px !important;
+      background-color: white;
     }
   }
   .option {
     border: 1px solid $primaryDark;
-    border-radius: 10px;
-    div > div {
-      @for $i from 1 through 7 {
-        &:nth-child(#{length($colors)}n + #{$i}) {
-          & > span {
-            background-color: nth($colors, random(length($colors)));
-            height: 36px;
-            display: flex;
-            align-items: center;
-            color: white;
-            font-size: 14px;
-            font-weight: bold;
-            border-radius: 15px;
-            span {
+    border-radius: 6px;
+    min-height: 40px;
+    div {
+      & > div {
+        @for $i from 1 through 7 {
+          &:nth-child(#{length($colors)}n + #{$i}) {
+            & > span {
+              background-color: nth($colors, random(length($colors)));
+              height: 34px;
+              display: flex;
+              align-items: center;
               color: white;
+              font-size: 14px;
+              font-weight: bold;
+              border-radius: 15px;
+              margin: 0;
+              span {
+                color: white;
+              }
             }
           }
         }
       }
     }
-  }
-  .childLength {
-    padding-top: 6px;
   }
 }
 

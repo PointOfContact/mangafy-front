@@ -49,6 +49,7 @@ const ProfileTopBar = (props) => {
 
   const [showModal, changeShowModal] = useState(false);
   const [likedUsers, setLikedUsers] = useState([]);
+  const [userTypesOptions, setUserTypes] = useState([]);
   const [disabledButton, setDisabledButton] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const openNotification = (type, message, description = '') => {
@@ -60,6 +61,16 @@ const ProfileTopBar = (props) => {
   };
 
   const history = useRouter();
+
+  useEffect(() => {
+    setUserTypes(
+      userTypes?.map((item) => (
+        <Option key={item.key} value={item.key}>
+          {item.value}
+        </Option>
+      ))
+    );
+  }, []);
 
   const sendInvites = () => {
     if (user) {
@@ -291,11 +302,7 @@ const ProfileTopBar = (props) => {
                     value={userData.types}
                     style={{ width: '100%' }}
                     onChange={(value) => setUserData({ ...userData, types: value })}>
-                    {userTypes?.map((item) => (
-                      <Option key={item.key} value={item.key}>
-                        {item.value}
-                      </Option>
-                    ))}
+                    {userTypesOptions}
                   </Select>
                   {!(userData?.types?.length && userData?.types[0]) ? (
                     <p className={styles.errMessage}>User type cannot be empty</p>
