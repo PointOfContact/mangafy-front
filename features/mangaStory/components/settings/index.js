@@ -99,7 +99,7 @@ const Settings = ({
             sees nothing.
           </p>
           <div className={styles.toggleStylesMakeVisible}>
-            <span className={styles.toggleTitle}>Draft</span>
+            <span className={styles.toggleTitle}>Invisible</span>
             <ToggleSwitch
               className={styles.toggle}
               onChange={() => onPublish()}

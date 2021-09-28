@@ -67,9 +67,11 @@ $colorAllBorder: rgba(33, 33, 33, 0.07);
   .containerTitle {
     h1 {
       text-align: center;
-      font-size: 30px;
-      color: $primaryDark;
+      font-style: normal;
       font-weight: bold;
+      font-size: 30px;
+      line-height: 43px;
+      color: $primaryDark;
       margin: 0;
       @include media-sm {
         font-size: 20px;
@@ -78,33 +80,14 @@ $colorAllBorder: rgba(33, 33, 33, 0.07);
     p {
       text-align: center;
       color: $gray85;
-      font-size: 18px;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 20px;
+      line-height: 30px;
+      margin-bottom: 37px;
       @include media-sm {
         display: none;
       }
-    }
-    @include media-sm {
-      & + div {
-        display: none;
-      }
-    }
-  }
-  .shareTitle {
-    font-size: 20px;
-    font-weight: bold;
-    color: $black;
-    @include media-sm {
-      font-size: 16px;
-      margin-left: 10px;
-    }
-  }
-  .shareButPreview {
-    justify-content: start;
-    padding-bottom: 25px;
-    box-sizing: border-box;
-    @include media-sm {
-      margin-left: 10px;
-      flex-direction: initial !important;
     }
   }
   .projectName {
@@ -112,10 +95,11 @@ $colorAllBorder: rgba(33, 33, 33, 0.07);
     font-size: 35px;
     font-weight: bold;
     color: $black;
-    margin: 0;
-    padding: 20px 0;
+    padding-top: 20px;
     box-sizing: border-box;
+    margin-bottom: 69px;
     @include media-sm {
+      margin-bottom: 20px;
       padding: 10px 0 20px 10px;
       font-size: 30px;
       border-top: none;
@@ -212,10 +196,39 @@ $colorAllBorder: rgba(33, 33, 33, 0.07);
     }
   }
 
+  .shareContainer {
+    height: 137px;
+    margin-bottom: 22px;
+    @include media-sm {
+      height: 90px;
+    }
+    .shareTitle {
+      height: 53px;
+      margin-bottom: 16px;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 25px;
+      line-height: 55px;
+      color: $black;
+      @include media-sm {
+        margin-left: 20px;
+      }
+    }
+    .shareButPreview {
+      justify-content: start;
+      padding-bottom: 20px;
+      box-sizing: border-box;
+      @include media-sm {
+        margin-left: 10px;
+        flex-direction: initial !important;
+      }
+    }
+  }
+
   .imagesContainer {
     margin-bottom: 60px;
     @include media-sm {
-      margin-bottom: 40px;
+      margin-bottom: 0px;
       margin-top: 30px;
     }
     .images {
@@ -230,5 +243,10 @@ $colorAllBorder: rgba(33, 33, 33, 0.07);
         height: auto !important;
       }
     }
+  }
+
+  .bottomShare {
+    position: absolute;
+    bottom: 0%;
   }
 }

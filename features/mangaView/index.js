@@ -6,14 +6,15 @@ import Header from 'components/header';
 import Imgix from 'components/imgix';
 import { ShareButtons } from 'components/share';
 import { NextSeo } from 'next-seo';
+import Link from 'next/link';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
-const MangaView = ({ user, storyBoardId, mangaUrls, mangaStoryTitle }) => {
+const MangaView = ({ user, storyBoardId, mangaUrls, mangaStoryId, mangaStoryTitle }) => {
   const clearPdfFromMangaUrls = mangaUrls?.filter((value) => value.slice(-3) !== 'pdf');
 
-  const images = clearPdfFromMangaUrls.map((value) => (
+  const images = clearPdfFromMangaUrls?.map((value) => (
     <div className={styles.containerImages} key={value}>
       <Imgix
         layout="fill"
@@ -65,6 +66,9 @@ const MangaView = ({ user, storyBoardId, mangaUrls, mangaStoryTitle }) => {
       <Header user={user} />
       <div className={styles.containerPreview}>
         <div className={styles.containerTitle}>
+          <Link href={`${client.API_ENDPOINT}/manga-story/${mangaStoryId}`}>
+            <a className={styles.prev}>&#8249;</a>
+          </Link>
           <h1>VIEW</h1>
           <p>Time to see what you already have</p>
         </div>
@@ -82,6 +86,7 @@ MangaView.propTypes = {
   user: PropTypes.object,
   storyBoardId: PropTypes.string.isRequired,
   mangaUrls: PropTypes.array.isRequired,
+  mangaStoryId: PropTypes.string.isRequired,
   mangaStoryTitle: PropTypes.string.isRequired,
 };
 
