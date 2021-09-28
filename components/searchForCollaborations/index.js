@@ -178,7 +178,12 @@ const SearchForCollaborations = (props) => {
                 value={selectedTypes || []}
                 onChange={handleArtistClick}
                 dropdownClassName="select-filter"
-                className={cn(styles.box__nav_select, 'select-filter')}>
+                className={cn(
+                  styles.box__nav_select,
+                  styles.box__nav_artistType,
+                  !selectedTypes?.length && styles.box__nav_disabled_scroll,
+                  'select-filter'
+                )}>
                 {artistOptions(userTypes)}
               </Select>
               <div className={styles.allGenres} id="area">

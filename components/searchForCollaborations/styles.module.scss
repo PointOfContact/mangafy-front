@@ -245,5 +245,31 @@
         }
       }
     }
+    &_artistType{
+       max-width: 470px;
+       @include media-md{
+         max-width: 400px;
+       }
+       @include media-sm{
+        max-width: 100%;
+      }
+       & > div {
+         & > div {
+           flex-wrap: initial !important;
+           overflow-y: auto;
+           & > div {
+             margin-bottom: 10px;
+           }
+         }
+       }
+    }
+    &_disabled_scroll{
+      & > div {
+        margin-bottom: 5px;
+        & > div {
+          overflow-y: initial;
+        }
+      }
+    }
   }
 }
