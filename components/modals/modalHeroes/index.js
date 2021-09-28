@@ -74,7 +74,7 @@ const ModalHeroes = ({
       imageUrl: imgId,
     };
 
-    if (!newHero?.name) {
+    if (!newHero?.name || newHero?.name.length < 2) {
       return;
     }
 
