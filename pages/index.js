@@ -29,7 +29,7 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
       },
     });
 
-    if (!mangaStory?.data?.length) {
+    if (!mangaStory?.data?.length && process.env.NEXT_REDIRECT_ENABLED) {
       context.res.writeHead(301, {
         Location: 'https://mangafy.club',
       });

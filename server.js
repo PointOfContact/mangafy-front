@@ -4,6 +4,7 @@ const { parse } = require('url');
 const axios = require('axios');
 const next = require('next');
 const sitemap = require('nextjs-sitemap-generator'); // Import the package
+require('dotenv').config({ path: `${process.env.ENVIRONMENT}` });
 
 const dev = process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'staging';
 const app = next({ dev });

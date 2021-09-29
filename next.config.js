@@ -15,6 +15,7 @@ const withBabelMinify = require('next-babel-minify')({});
 const path = require('path');
 
 const packageJson = require('./version.json');
+require('dotenv').config({ path: `${process.env.ENVIRONMENT}` });
 
 // const SENTRY_DSN = 'https://b3e803fd922a41958f07d5aee50b8bc8@o359272.ingest.sentry.io/5509366';
 // const SENTRY_ORG = 'mangafy';
