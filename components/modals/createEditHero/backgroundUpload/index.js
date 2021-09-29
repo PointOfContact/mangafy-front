@@ -8,6 +8,7 @@ import HeroUpload from '../heroUpload';
 import styles from './styles.module.scss';
 
 const EditBackground = ({
+  text,
   disabled,
   ifIsEdit,
   hero,
@@ -15,6 +16,7 @@ const EditBackground = ({
   setImgId,
   typeCard,
   onChangeHero,
+  className,
 }) => {
   const [showUpload, setShowUpload] = useState(false);
   return ifIsEdit && !!hero.imageUrl ? (
@@ -37,12 +39,14 @@ const EditBackground = ({
               setShowUpload(!showUpload);
             }}>
             <HeroUpload
+              text={text}
               disabled={disabled}
               mangaUrl={imageUrl}
               setImgId={setImgId}
               titleLoad={ifIsEdit && ifIsEdit}
               typeCard={typeCard}
               onChangeHero={onChangeHero}
+              className={className}
             />
           </div>
         </div>
@@ -52,12 +56,14 @@ const EditBackground = ({
     </div>
   ) : (
     <HeroUpload
+      text={text}
       disabled={disabled}
       mangaUrl={imageUrl}
       setImgId={setImgId}
       titleLoad={ifIsEdit && ifIsEdit}
       typeCard={typeCard}
       onChangeHero={onChangeHero}
+      className={className}
     />
   );
 };
@@ -70,6 +76,8 @@ EditBackground.propTypes = {
   typeCard: PropTypes.string,
   onChangeHero: PropTypes.func,
   disabled: PropTypes.bool,
+  text: PropTypes.string,
+  className: PropTypes.string,
 };
 
 EditBackground.defaultProps = {
@@ -80,6 +88,8 @@ EditBackground.defaultProps = {
   typeCard: '',
   onChangeHero: () => {},
   disabled: false,
+  text: '',
+  className: '',
 };
 
 export default EditBackground;

@@ -10,8 +10,16 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
   overflow-y: auto !important;
   color: $black;
   padding: 10px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 23px;
   &::placeholder {
-    color: rgb(170, 168, 168);
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 23px;
+    color: $gray85;
   }
   &:hover {
     border: 1px solid $primaryDark;
@@ -75,13 +83,13 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
     font-style: normal;
     font-weight: normal;
     font-size: 20px;
-    line-height: 29px;
-    height: 67px;
+    line-height: 35px;
     display: flex;
     align-items: center;
     margin: 0;
+    margin-top: 14px;
+    margin-bottom: 10px;
     @include media-sm {
-      height: 50px;
       font-size: 18px;
       line-height: 20px;
     }
@@ -117,9 +125,13 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
     justify-content: space-between;
     button {
       font-size: 18px;
-      width: 150px;
-      height: 40px;
+      width: 176px;
+      height: 46px;
       border-radius: 4px;
+      font-style: normal;
+      font-weight: 900;
+      font-size: 15px;
+      line-height: 22px;
     }
   }
   .modalTitle {
@@ -243,44 +255,77 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
   border-top: 1px solid $borderColor;
 }
 
+.upload{
+   width: 100%;
+}
+
 .selectModal {
-  width: 356.4px;
+  width: 440px;
   margin-top: 100px;
   @include media-md {
-    width: 350px;
+    width: calc(100% - 47px);
     margin-top: 70px;
   }
   & > form {
     & > div {
       margin: 0;
-    }
-    .uploadMobile{
-      margin: 5px auto;
+      div {
+        margin: 0 !important;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 23px;
+        color: $gray85;
+      }
     }
     & input {
-      margin-top: $text6;
       background-color: $text_white;
       border-radius: 0;
       @include input();
-      height: 40px;
+      height: 44px;
     }
     .modalTexArea {
       @include input();
-      min-height: 100px !important;
+      min-height: 99px !important;
       background-color: white;
     }
   }
+  .chooseTypes {
+    display: flex;
+    & > span {
+      width: 40px;
+      border: 1px solid $primaryDark;
+      border-bottom-right-radius: 6px;
+      border-top-right-radius: 6px;
+      border-left: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #b7b7b7;
+      margin-left: -1px;
+      .arrowIcon {
+        transform: rotate(90deg);
+      }
+      .searchIcon {
+        font-size: 20px;
+        transform: rotate(-45deg);
+      }
+    }
+  }
   .option {
+    border-bottom-left-radius: 6px;
+    border-top-left-radius: 6px;
     border: 1px solid $primaryDark;
-    border-radius: 6px;
-    min-height: 40px;
+    border-right: none;
+    min-height: 44px;
+    padding-top: 4px;
     div {
       & > div {
         @for $i from 1 through 7 {
           &:nth-child(#{length($colors)}n + #{$i}) {
             & > span {
               background-color: nth($colors, random(length($colors)));
-              height: 34px;
+              height: 38px;
               display: flex;
               align-items: center;
               color: white;

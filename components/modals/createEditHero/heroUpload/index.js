@@ -14,7 +14,16 @@ import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
-const HeroUpload = ({ mangaUrl, setImgId, titleLoad, typeCard, onChangeHero, disabled }) => {
+const HeroUpload = ({
+  text,
+  mangaUrl,
+  setImgId,
+  titleLoad,
+  typeCard,
+  onChangeHero,
+  disabled,
+  className,
+}) => {
   const [img, setImg] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [fileList, setFileList] = useState(img || []);
@@ -108,7 +117,7 @@ const HeroUpload = ({ mangaUrl, setImgId, titleLoad, typeCard, onChangeHero, dis
         beforeUpload={beforeUpload}
         onPreview={onPreview}>
         {fileList.length < 1 && (
-          <div className={styles.content}>
+          <div className={cn(styles.content, className)}>
             <div className={styles.types}>
               <SvgImage width="23px" height="23px" />
               PDF, JPG, JPEG, PNG
@@ -118,9 +127,10 @@ const HeroUpload = ({ mangaUrl, setImgId, titleLoad, typeCard, onChangeHero, dis
                 <SvgCloud width="106px" height="77.13px" />
               </span>
               <h4 className={cn(styles.title, styles.titlePersonage)}>
-                {ifPersonage
-                  ? 'Upload your character profile pic'
-                  : `Upload ${titleLoad ? 'new' : ''} files`}
+                {text ||
+                  (ifPersonage
+                    ? 'Upload your character profile pic'
+                    : `Upload ${titleLoad ? 'new' : ''} files`)}
               </h4>
             </div>
           </div>
@@ -154,6 +164,8 @@ HeroUpload.propTypes = {
   typeCard: PropTypes.string,
   onChangeHero: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
+  text: PropTypes.string,
+  className: PropTypes.string,
 };
 
 HeroUpload.defaultProps = {
@@ -165,6 +177,8 @@ HeroUpload.defaultProps = {
   typeCard: '',
   onChangeHero: () => {},
   disabled: false,
+  text: '',
+  className: '',
 };
 
 export default HeroUpload;
