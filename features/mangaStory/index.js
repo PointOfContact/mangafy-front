@@ -142,9 +142,9 @@ const MangeStory = (props) => {
       <NextSeo
         title={baseData?.title}
         description={baseData?.description + baseData?.story}
-        canonical={`https://mangafy.club/manga-story/${baseData?._id}`}
+        canonical={`${client.API_ENDPOINT}/manga-story/${baseData?._id}`}
         openGraph={{
-          url: `https://mangafy.club/manga-story/${baseData?._id}`,
+          url: `${client.API_ENDPOINT}/manga-story/${baseData?._id}`,
           title: baseData?.title,
           description: baseData?.description + baseData?.story,
           type: 'article',
@@ -152,7 +152,7 @@ const MangeStory = (props) => {
             {
               url: !!mangaStory?.image
                 ? client.UPLOAD_URL + mangaStory?.image
-                : 'https://mangafy.club/img/collab_baner.webp',
+                : `${client.API_ENDPOINT}/img/collab_baner.webp`,
               width: 800,
               height: 600,
               alt: 'Manga Story Image',

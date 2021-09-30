@@ -222,18 +222,29 @@
       }
     }
     &_select {
-      width: auto;
+      max-width: 340px;
       height: 100%;
       font-weight: bold;
       font-size: 20px;
       line-height: 1.45;
       color: $black;
       margin-right: 95px;
+      & > div {
+        & > div {
+          flex-wrap: initial !important;
+          overflow-y: auto;
+          & > div {
+            margin-bottom: 10px;
+          }
+        }
+      }
       @include media-md {
+        max-width: 400px;
         margin-right: 60px;
         font-size: 17px;
       }
       @include media-sm {
+        max-width: 100%;
         width: 100%;
         padding: 0 10px;
         margin-right: 0;
@@ -242,32 +253,6 @@
       &:last-child {
         @media #{$media-sm} {
           margin-bottom: 0;
-        }
-      }
-    }
-    &_artistType{
-       max-width: 470px;
-       @include media-md{
-         max-width: 400px;
-       }
-       @include media-sm{
-        max-width: 100%;
-      }
-       & > div {
-         & > div {
-           flex-wrap: initial !important;
-           overflow-y: auto;
-           & > div {
-             margin-bottom: 10px;
-           }
-         }
-       }
-    }
-    &_disabled_scroll{
-      & > div {
-        margin-bottom: 5px;
-        & > div {
-          overflow-y: initial;
         }
       }
     }

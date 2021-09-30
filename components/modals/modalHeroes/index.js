@@ -203,7 +203,7 @@ const ModalHeroes = ({
                     onChange={(e) => setName(e.target.value)}
                     onMouseOut={() => {
                       setNameValue();
-                      onChangeHero();
+                      name?.trim()?.length > 0 && onChangeHero();
                     }}
                   />
                 </Form.Item>
