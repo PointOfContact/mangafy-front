@@ -7,8 +7,7 @@ export default withAuthComponent(MiddlewareIndexPage);
 
 export const getServerSideProps = withAuthServerSideProps(async (context, user = null, jwt) => {
   const viewUrlName = context?.req?.headers?.host;
-  const getNameViewUrl =
-    !!viewUrlName && viewUrlName.slice(0, viewUrlName.lastIndexOf('mangafy') - 1);
+  const getNameViewUrl = !!viewUrlName && viewUrlName.split('.').reverse()[2];
 
   if (!getNameViewUrl) {
     return {
