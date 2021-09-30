@@ -116,6 +116,7 @@ const EditGenresField = ({ baseData, onChangeSingleField, saveMangaStoryData, ge
       </Select>
       <h3>Tags</h3>
       <PrimarySelect
+        countLimit={true}
         mode="multiple"
         onChange={changeSelectedGenre}
         isLinear={true}

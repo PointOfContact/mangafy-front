@@ -8,6 +8,7 @@ import styles from './styles.module.scss';
 
 const { Option } = Select;
 function PrimarySelect({
+  countLimit,
   className,
   isFullWidth,
   isLinear,
@@ -31,7 +32,9 @@ function PrimarySelect({
           value={item.key}
           key={item.key}
           label={item.value}
-          disabled={optionsSelected.length > 9 && !optionsSelected.includes(item.key)}>
+          disabled={
+            countLimit ? optionsSelected.length > 9 && !optionsSelected.includes(item.key) : false
+          }>
           {item.value}
         </Option>
       ))
@@ -63,9 +66,12 @@ function PrimarySelect({
         name={name}
         onChange={(e) => {
           handleChange(e);
-          onChange();
+          onChange(e);
         }}
         id={id}
+        filterOption={(inputValue, option) =>
+          inputValue ? option.label.toLowerCase().includes(inputValue.toLowerCase()) : true
+        }
         {...rest}>
         {itemOptions}
       </Select>
@@ -85,6 +91,7 @@ PrimarySelect.propTypes = {
   id: PropTypes.string,
   label: PropTypes.string,
   isMulti: PropTypes.bool,
+  countLimit: PropTypes.bool,
 };
 
 PrimarySelect.defaultProps = {
@@ -99,6 +106,7 @@ PrimarySelect.defaultProps = {
   label: null,
   options: [],
   isMulti: false,
+  countLimit: false,
 };
 
 export default PrimarySelect;
