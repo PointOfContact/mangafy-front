@@ -11,12 +11,10 @@ import moment from 'moment';
 import Link from 'next/link';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
+import myAmplitude from 'utils/amplitude';
 
 import styles from './styles.module.scss';
 
-const Amplitude = require('amplitude');
-
-const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 const { TextArea } = Input;
 
 const CommentList = ({ comments }) => (
@@ -64,10 +62,9 @@ const Editor = ({ onChange, onSubmit, submitting, value, user, mangaStory }) => 
 
   const commentChange = (e) => {
     // eslint-disable-next-line no-shadow
-    const { maxLength, value } = e.target;
     onChange(e);
-    value.length >= maxLength
-      ? setCommentError(`Comment max length ${maxLength} symbols`)
+    e.target.value.length >= 490
+      ? setCommentError(`Comment max length 490 symbols`)
       : setCommentError('');
   };
 
@@ -131,7 +128,7 @@ export const Comments = ({ commentsData, mangaStory, user }) => {
       Router.push(`/sign-in?page=manga-story/${mangaStory._id}?tab=comments`);
     }
 
-    if (!value || !user) {
+    if (!value.trim() || !user) {
       return;
     }
 
@@ -161,7 +158,6 @@ export const Comments = ({ commentsData, mangaStory, user }) => {
           setValue('');
           const eventData = [
             {
-              platform: 'WEB',
               event_type: EVENTS.ADDED_COMMENT,
               event_properties: { mangaStoryId: mangaStory._id },
               user_id: user._id,
@@ -170,7 +166,7 @@ export const Comments = ({ commentsData, mangaStory, user }) => {
               },
             },
           ];
-          amplitude.track(eventData);
+          myAmplitude(eventData);
         })
         .catch((err) => {
           setErrMessage(err.message);
@@ -178,6 +174,7 @@ export const Comments = ({ commentsData, mangaStory, user }) => {
         });
     });
   };
+
   return (
     <>
       <h2 className={styles.subTitle}> {!!comments?.length && comments?.length} Comments</h2>

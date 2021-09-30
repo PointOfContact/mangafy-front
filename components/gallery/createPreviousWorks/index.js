@@ -55,6 +55,7 @@ const CreatePreviousWorks = ({
           <Upload
             beforeUpload={onBeforeGalleryUpload}
             showUploadList={showUploadList}
+            multiple={true}
             accept="image/jpg, image/png, application/pdf, image/jpeg">
             <Card
               description="Do you not want <br/> to add a gallery?"

@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Tabs, Button } from 'antd';
 import client from 'api/client';
-import { findStoryBoard } from 'api/storyBoardClient';
 import FindPartner from 'components/findPartner';
 import Hero from 'components/Hero';
 import SvgAdd2 from 'components/icon/Add2';
@@ -22,32 +21,45 @@ import Upload from 'components/ui-elements/upload';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import PropTypes from 'prop-types';
 import * as qs from 'query-string';
+import myAmplitude from 'utils/amplitude';
 import useWindowSize from 'utils/useWindowSize';
 
 import styles from '../styles.module.scss';
 import DragDrop from './dragDrop';
 import Preview from './preview';
 
-const Amplitude = require('amplitude');
-
-const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 const { TabPane } = Tabs;
 
 const StoryBoardTabs = ({
   user,
-  mangaStory,
   openNotification,
   originUrl,
   setStage,
   participentsInfo,
   baseData,
   setBaseData,
+  storyBoard,
+  getStoryBoard,
+  setStoryBoard,
 }) => {
   const [storyBoardActiveTab, setStoryBoardActiveTabSeter] = useState(1);
   const [showTaskModal, changeShowTaskModal] = useState(false);
   const [uploadImages, setUploadImages] = useState([]);
   const [zoomImageUrl, setZoomImageUrl] = useState(null);
   const [ifUploadImg, setIfUploadImg] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isShowAnimation, setIsShowAnimation] = useState(false);
+  // const [storyBoard, setStoryBoard] = useState({
+  //   idea: {
+  //     title: '',
+  //     text: '',
+  //   },
+  //   pages: [],
+  //   heroes: [],
+  //   author: [],
+  //   layouts: [],
+  // });
+
   const { width } = useWindowSize();
 
   const setStoryBoardActiveTab = (tab) => {
@@ -110,9 +122,6 @@ const StoryBoardTabs = ({
         });
     }
   };
-
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [isShowAnimation, setIsShowAnimation] = useState(false);
 
   const showModal = () => {
     document.body.classList.add('body_remove_scroll');
@@ -179,7 +188,6 @@ const StoryBoardTabs = ({
 
     const data = [
       {
-        platform: 'WEB',
         event_type: myEvent,
         user_id: user._id,
         user_properties: {
@@ -187,7 +195,7 @@ const StoryBoardTabs = ({
         },
       },
     ];
-    amplitude.track(data);
+    myAmplitude(data);
     setIsShowAnimation(true);
     setTimeout(() => {
       setIsShowAnimation(false);
@@ -195,30 +203,6 @@ const StoryBoardTabs = ({
     const nextTab = +storyBoardActiveTab + 1;
     setStoryBoardActiveTab(nextTab);
   };
-  const [storyBoard, setStoryBoard] = useState({
-    idea: {
-      title: '',
-      text: '',
-    },
-    pages: [],
-    heroes: [],
-    author: [],
-    layouts: [],
-  });
-
-  const getStoryBoard = useCallback(() => {
-    if (!user) return;
-    findStoryBoard(
-      user._id,
-      mangaStory._id,
-      (res) => {
-        setStoryBoard(res?.data[0]);
-      },
-      (err) => {
-        openNotification('error', err.message);
-      }
-    );
-  }, [user, mangaStory?._id, openNotification]);
 
   useEffect(() => {
     getStoryBoard();
@@ -264,7 +248,7 @@ const StoryBoardTabs = ({
       .service('/api/v2/tasks')
       .find({
         query: {
-          mangaStoryId: baseData._id,
+          mangaStoryId: baseData?._id,
         },
         headers: { Authorization: `Bearer ${jwt}` },
       })
@@ -401,7 +385,11 @@ const StoryBoardTabs = ({
                   !!uploadImages.length ? styles.uploadContainerDef : styles.uploadContainer
                 }>
                 {!!uploadImages.length && (
-                  <Preview uploadImages={uploadImages} storyBoardId={storyBoard?._id} />
+                  <Preview
+                    uploadImages={uploadImages}
+                    storyBoardId={storyBoard?._id}
+                    mangaStoryTitle={baseData?.title}
+                  />
                 )}
                 <Upload
                   storyBoardId={storyBoard?._id}
@@ -470,18 +458,23 @@ const StoryBoardTabs = ({
 
 StoryBoardTabs.propTypes = {
   user: PropTypes.object.isRequired,
-  mangaStory: PropTypes.object.isRequired,
   openNotification: PropTypes.func.isRequired,
   setStage: PropTypes.func.isRequired,
   baseData: PropTypes.object.isRequired,
   setBaseData: PropTypes.func,
   originUrl: PropTypes.string,
   participentsInfo: PropTypes.array,
+  getStoryBoard: PropTypes.func,
+  setStoryBoard: PropTypes.func,
+  storyBoard: PropTypes.object,
 };
 
 StoryBoardTabs.defaultProps = {
   originUrl: '',
   setBaseData: () => {},
+  storyBoard: {},
+  getStoryBoard: () => {},
+  setStoryBoard: () => {},
   participentsInfo: [],
 };
 

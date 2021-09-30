@@ -183,6 +183,9 @@ $backgroundColor: '';
     font-weight: 500;
     display: flex;
     justify-content: space-between;
+    span{
+      word-wrap: break-word;
+    }
     button {
       font-size: 13px;
       padding: 3px 15px;
@@ -198,6 +201,7 @@ $backgroundColor: '';
     & > span {
       margin: 50px;
       text-align: center;
+      word-wrap: break-word;
     }
     .containerButton {
       position: relative;

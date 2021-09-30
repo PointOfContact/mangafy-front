@@ -1,20 +1,20 @@
 import React from 'react';
 
 import client from 'api/client';
-import Footer from 'components/footer';
 import FooterPolicy from 'components/footer-policy';
 import Header from 'components/header';
 import Imgix from 'components/imgix';
 import { ShareButtons } from 'components/share';
 import { NextSeo } from 'next-seo';
+import Link from 'next/link';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
-const MangaView = ({ user, storyBoardId, mangaUrls }) => {
-  const clearPdfFromMangaUrls = mangaUrls.filter((value) => value.slice(-3) !== 'pdf');
+const MangaView = ({ user, storyBoardId, mangaUrls, mangaStoryId, mangaStoryTitle }) => {
+  const clearPdfFromMangaUrls = mangaUrls?.filter((value) => value.slice(-3) !== 'pdf');
 
-  const images = clearPdfFromMangaUrls.map((value) => (
+  const images = clearPdfFromMangaUrls?.map((value) => (
     <div className={styles.containerImages} key={value}>
       <Imgix
         layout="fill"
@@ -24,16 +24,26 @@ const MangaView = ({ user, storyBoardId, mangaUrls }) => {
     </div>
   ));
 
+  const shareContent = (
+    <div>
+      <p className={styles.shareTitle}>Share</p>
+      <ShareButtons
+        className={styles.shareButPreview}
+        shareUrl={`${client.API_ENDPOINT}/manga-view/${storyBoardId}`}
+      />
+    </div>
+  );
+
   return (
     <>
       <NextSeo
-        title={`MangaFY is happy to introduce my latest graphic novel project, entitled manga view.`}
+        title={`MangaFY is happy to introduce my latest graphic novel project, entitled ${mangaStoryTitle}.`}
         description="MangaFY is an easy to use application that features tools for
                    authors who wish to create manga and comics for digital publication"
         canonical={`${client.API_ENDPOINT}/manga-view/${storyBoardId}`}
         openGraph={{
           url: `${client.API_ENDPOINT}/manga-view/${storyBoardId}`,
-          title: `MangaFY is happy to introduce my latest graphic novel project, entitled manga view.`,
+          title: `MangaFY is happy to introduce my latest graphic novel project, entitled ${mangaStoryTitle}.`,
           description:
             'MangaFY is an easy to use application that features tools for ' +
             'authors who wish to create manga and comics for digital publication',
@@ -55,13 +65,18 @@ const MangaView = ({ user, storyBoardId, mangaUrls }) => {
       />
       <Header user={user} />
       <div className={styles.containerPreview}>
-        <ShareButtons
-          className={styles.shareButPreview}
-          shareUrl={`${client.API_ENDPOINT}/manga-view/${storyBoardId}`}
-        />
-        {images}
+        <div className={styles.containerTitle}>
+          <Link href={`${client.API_ENDPOINT}/manga-story/${mangaStoryId}`}>
+            <a className={styles.prev}>&#8249;</a>
+          </Link>
+          <h1>VIEW</h1>
+          <p>Time to see what you already have</p>
+        </div>
+        {shareContent}
+        <p className={styles.projectName}>{mangaStoryTitle}</p>
+        <div className={styles.imagesContainer}>{images}</div>
+        {shareContent}
       </div>
-      <Footer user={user} />
       <FooterPolicy />
     </>
   );
@@ -71,6 +86,8 @@ MangaView.propTypes = {
   user: PropTypes.object,
   storyBoardId: PropTypes.string.isRequired,
   mangaUrls: PropTypes.array.isRequired,
+  mangaStoryId: PropTypes.string.isRequired,
+  mangaStoryTitle: PropTypes.string.isRequired,
 };
 
 MangaView.defaultProps = {

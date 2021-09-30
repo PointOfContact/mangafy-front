@@ -21,10 +21,6 @@ import SetPhotoAvatar from './setPhotoAvatar';
 import ShareProfile from './shareProfile';
 import styles from './styles.module.scss';
 
-const Amplitude = require('amplitude');
-
-const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
-
 const { Option } = Select;
 const { Content } = Layout;
 
@@ -53,6 +49,7 @@ const ProfileTopBar = (props) => {
 
   const [showModal, changeShowModal] = useState(false);
   const [likedUsers, setLikedUsers] = useState([]);
+  const [userTypesOptions, setUserTypes] = useState([]);
   const [disabledButton, setDisabledButton] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const openNotification = (type, message, description = '') => {
@@ -64,6 +61,16 @@ const ProfileTopBar = (props) => {
   };
 
   const history = useRouter();
+
+  useEffect(() => {
+    setUserTypes(
+      userTypes?.map((item) => (
+        <Option key={item.key} value={item.key}>
+          {item.value}
+        </Option>
+      ))
+    );
+  }, []);
 
   const sendInvites = () => {
     if (user) {
@@ -95,7 +102,6 @@ const ProfileTopBar = (props) => {
           .then((res) => {
             const data = [
               {
-                platform: 'WEB',
                 event_type: EVENTS.MESSAGED_ACCOUNT,
                 user_id: user._id,
                 user_properties: {
@@ -103,7 +109,7 @@ const ProfileTopBar = (props) => {
                 },
               },
             ];
-            amplitude.track(data);
+            myAmplitude(data);
             history.push(`/profile/${user._id}?tab=messenger&conversation=${res._id}`);
           })
           .catch((err) => {
@@ -152,7 +158,6 @@ const ProfileTopBar = (props) => {
   const handleEvent = () => {
     const data = [
       {
-        platform: 'WEB',
         event_type: EVENTS.ADDED_BIO,
         user_id: user._id,
         user_properties: {
@@ -160,7 +165,7 @@ const ProfileTopBar = (props) => {
         },
       },
     ];
-    amplitude.track(data);
+    myAmplitude(data);
   };
 
   const changeBio = () => {
@@ -191,7 +196,7 @@ const ProfileTopBar = (props) => {
   const colorTypes = ['#2f2ea6', '#20c000', '#fac448', '#2f2ea6'];
 
   const getTypes = (array) =>
-    array?.types.slice(0, 4).map((value, i) => (
+    array?.types?.slice(0, 4).map((value, i) => (
       <div className={styles.userTypes} key={value} style={{ backgroundColor: colorTypes[i] }}>
         {userTypesEnums[value]}
       </div>
@@ -234,7 +239,7 @@ const ProfileTopBar = (props) => {
             />
           </div>
         </Col>
-        <Col className="gutter-row" xs={{ span: 24 }} md={{ span: 8 }} xl={{ span: 9 }}>
+        <Col className="gutter-row" xs={{ span: 24 }} md={{ span: 12 }} xl={{ span: 12 }}>
           <div className={styles.info_profile}>
             {!editMode ? (
               <>
@@ -291,19 +296,15 @@ const ProfileTopBar = (props) => {
                     className={cn(
                       'changeSelect',
                       styles.select,
-                      !(userData.types.length && userData.types[0]) && styles.errSelect
+                      !(userData?.types?.length && userData?.types[0]) && styles.errSelect
                     )}
-                    defaultValue={userTypesEnums[userData.types[0]]}
+                    defaultValue={userTypesEnums[userData?.types[0]]}
                     value={userData.types}
                     style={{ width: '100%' }}
                     onChange={(value) => setUserData({ ...userData, types: value })}>
-                    {userTypes.map((item) => (
-                      <Option key={item.key} value={item.key}>
-                        {item.value}
-                      </Option>
-                    ))}
+                    {userTypesOptions}
                   </Select>
-                  {!(userData.types.length && userData.types[0]) ? (
+                  {!(userData?.types?.length && userData?.types[0]) ? (
                     <p className={styles.errMessage}>User type cannot be empty</p>
                   ) : null}
                 </div>
@@ -330,7 +331,7 @@ const ProfileTopBar = (props) => {
             )}
           </div>
         </Col>
-        <Col className="gutter-row" xs={{ span: 24 }} md={{ span: 9 }}>
+        <Col className="gutter-row" xs={{ span: 24 }} md={{ span: 4 }} xl={{ span: 6 }}>
           <div className={styles.languages_btn}>
             {editMode && (
               <div className={cn(styles.buttonsProfile, 'buttonsProfile_styles')}>
@@ -353,14 +354,16 @@ const ProfileTopBar = (props) => {
               </div>
             )}
           </div>
-          <ShareProfile
-            ifMyProfile={ifMyProfile}
-            originUrl={originUrl}
-            profile={profile}
-            user={user}
-            sendInvites={sendInvites}
-            sendMessage={sendMessage}
-          />
+          {!editMode && (
+            <ShareProfile
+              ifMyProfile={ifMyProfile}
+              originUrl={originUrl}
+              profile={profile}
+              user={user}
+              sendInvites={sendInvites}
+              sendMessage={sendMessage}
+            />
+          )}
         </Col>
       </Row>
       <ModalInvites

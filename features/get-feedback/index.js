@@ -3,10 +3,7 @@ import React, { useCallback, useEffect, useRef } from 'react';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { NextSeo } from 'next-seo';
 import PropTypes from 'prop-types';
-
-const Amplitude = require('amplitude');
-
-const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
+import myAmplitude from 'utils/amplitude';
 
 const Start = ({ user, closeModal, isPage }) => {
   const typeFormRef = useRef(null);
@@ -14,7 +11,6 @@ const Start = ({ user, closeModal, isPage }) => {
   const onSubmit = useCallback(async (event) => {
     const data = [
       {
-        platform: 'WEB',
         event_type: EVENTS.ADD_FEEDBACK,
         event_properties: { response_id: event.response_id },
         user_id: user._id,
@@ -23,7 +19,7 @@ const Start = ({ user, closeModal, isPage }) => {
         },
       },
     ];
-    amplitude.track(data);
+    myAmplitude(data);
     // eslint- disable-next-line no-underscore-dangle
     setTimeout(() => {
       closeModal(false);

@@ -25,7 +25,7 @@ const BannerSection = ({
   originUrl,
   baseData,
   canEdit,
-  saveUserDataByKey,
+  saveMangaStoryData,
   setBaseData,
   openNotification,
   genres: genresEnums,
@@ -229,7 +229,7 @@ const BannerSection = ({
                     id="EditMangaStoryBtnId"
                     content={
                       <EditContent
-                        saveUserDataByKey={saveUserDataByKey}
+                        saveMangaStoryData={saveMangaStoryData}
                         baseData={baseData}
                         languages={languages}
                         genresEnums={genresEnums}
@@ -257,7 +257,7 @@ BannerSection.propTypes = {
   baseData: PropTypes.object.isRequired,
   canEdit: PropTypes.bool.isRequired,
   genres: PropTypes.array.isRequired,
-  saveUserDataByKey: PropTypes.func.isRequired,
+  saveMangaStoryData: PropTypes.func.isRequired,
   setBaseData: PropTypes.func.isRequired,
   openNotification: PropTypes.func.isRequired,
   isOwn: PropTypes.bool.isRequired,

@@ -14,12 +14,7 @@ import DraftCheckbox from './draftCheckbox';
 import styles from './styles.module.scss';
 import WriteCollabName from './writeCollabName';
 
-const { confirm } = Modal;
 const { info } = Modal;
-
-const Amplitude = require('amplitude');
-
-const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 
 const HeaderCollab = ({
   isOwn,
@@ -27,7 +22,6 @@ const HeaderCollab = ({
   mangaStory,
   openNotification,
   originUrl,
-  setCollabActiveTab,
   baseData,
   setBaseData,
   onChangeSingleField,
@@ -36,7 +30,7 @@ const HeaderCollab = ({
   stage,
   canEdit,
   setEditTitle,
-  saveUserDataByKey,
+  saveMangaStoryData,
   setMangaStoryNew,
   mangaStoryNew,
 }) => {
@@ -47,27 +41,19 @@ const HeaderCollab = ({
       });
       mangaStoryAPI.draft.leaveManga(mangaStory, false);
     } else {
-      onGoToPublic();
+      onGoToPublic(user?._id, mangaStory?._id);
       user?.payPalEmail && mangaStoryAPI.draft.leaveManga(mangaStory, true);
     }
   };
 
   const patchStory = (data) =>
-    mangaStoryAPI.hiderCollab.patchStory(
-      data,
-      setBaseData,
-      user,
-      amplitude,
-      baseData,
-      openNotification
-    );
+    mangaStoryAPI.hiderCollab.patchStory(data, setBaseData, user, baseData, openNotification);
 
   const onGoToPublic = () => {
     findStoryBoard(
       user._id,
       mangaStory._id,
-      (res) => {
-        const boad = res.data[0];
+      () => {
         patchStory({
           published: true,
         }).then(() =>
@@ -167,7 +153,7 @@ const HeaderCollab = ({
                     baseData={baseData}
                     onChangeSingleField={onChangeSingleField}
                     setEditTitle={setEditTitle}
-                    saveUserDataByKey={saveUserDataByKey}
+                    saveMangaStoryData={saveMangaStoryData}
                   />
                 )
               )}
@@ -195,7 +181,7 @@ HeaderCollab.propTypes = {
   stage: PropTypes.object.isRequired,
   canEdit: PropTypes.bool.isRequired,
   setEditTitle: PropTypes.func.isRequired,
-  saveUserDataByKey: PropTypes.func.isRequired,
+  saveMangaStoryData: PropTypes.func.isRequired,
   setMangaStoryNew: PropTypes.func.isRequired,
   mangaStoryNew: PropTypes.object.isRequired,
 };

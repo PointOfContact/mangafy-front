@@ -14,6 +14,7 @@ const PrimaryButton = ({
   isFullWidth,
   isRound,
   splitterStyle,
+  isRed,
   isDark,
   isWhite,
   isActive,
@@ -33,7 +34,8 @@ const PrimaryButton = ({
       isDark && styles.dark,
       isWhite && styles.white,
       isActive && styles.active_primary,
-      isPlump && styles.plump
+      isPlump && styles.plump,
+      isRed && styles.red
     )}
     onClick={onClick}
     style={splitterStyle || {}}
@@ -86,6 +88,7 @@ PrimaryButton.propTypes = {
   isActive: PropTypes.bool,
   suffix: PropTypes.node,
   limit: PropTypes.number,
+  isRed: PropTypes.bool,
 };
 
 PrimaryButton.defaultProps = {
@@ -103,6 +106,7 @@ PrimaryButton.defaultProps = {
   onClick: () => {},
   suffix: '',
   limit: 3,
+  isRed: false,
 };
 
 export default PrimaryButton;

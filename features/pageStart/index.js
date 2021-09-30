@@ -77,7 +77,7 @@ const pageStart = ({ user }) => (
                     </li>
                     <li className={styles.lists__listItem}>
                       <Link href={'/resources/showcase-your-work'}>
-                        <a>Showcase yoru works</a>
+                        <a>Showcase your works</a>
                       </Link>
                     </li>
                     <li className={styles.lists__listItem}>

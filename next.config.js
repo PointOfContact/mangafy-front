@@ -1,11 +1,10 @@
 // Use the hidden-source-map option when you don't want the source maps to be
 // publicly available on the servers, only to the error reporting
 // const withSourceMaps = require('@zeit/next-source-maps')();
-// const SentryWebpackPlugin = require('@sentry/webpack-plugin');
 // const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const withPlugins = require('next-compose-plugins');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+// const SentryWebpackPlugin = require('@sentry/webpack-plugin');
 const resolve = require('resolve');
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
@@ -16,6 +15,7 @@ const withBabelMinify = require('next-babel-minify')({});
 const path = require('path');
 
 const packageJson = require('./version.json');
+require('dotenv').config({ path: `${process.env.ENVIRONMENT}` });
 
 // const SENTRY_DSN = 'https://b3e803fd922a41958f07d5aee50b8bc8@o359272.ingest.sentry.io/5509366';
 // const SENTRY_ORG = 'mangafy';
@@ -44,9 +44,9 @@ if (typeof require !== 'undefined') {
 }
 
 const nextConfigs = {
-  // experimental: {
-  //   scss: true,
-  // },
+  experimental: {
+    scss: true,
+  },
   images: {
     domains: ['mangafy.club', 'ui-avatars.com', 'mangafy.imgix.net'],
     loader: 'imgix',

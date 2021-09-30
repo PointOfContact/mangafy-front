@@ -9,12 +9,9 @@ import PrimaryInput from 'components/ui-elements/input';
 import copy from 'copy-to-clipboard';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import PropTypes from 'prop-types';
+import myAmplitude from 'utils/amplitude';
 
 import styles from './styles.module.scss';
-
-const Amplitude = require('amplitude');
-
-const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 
 const ModalInviteMembers = ({ showModal, setShowModal, user }) => {
   const [form] = Form.useForm();
@@ -44,7 +41,6 @@ const ModalInviteMembers = ({ showModal, setShowModal, user }) => {
             : { inviteId: res._id, link: true };
           const eventData = [
             {
-              platform: 'WEB',
               event_type,
               event_properties,
               user_id: user._id,
@@ -53,7 +49,7 @@ const ModalInviteMembers = ({ showModal, setShowModal, user }) => {
               },
             },
           ];
-          amplitude.track(eventData);
+          myAmplitude(eventData);
           setShowModal(false);
         })
         .catch((err) =>

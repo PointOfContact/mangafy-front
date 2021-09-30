@@ -14,8 +14,8 @@ const UserName = ({ selectedRequest, mobile, setShowMessageMobile }) => {
   const getPath = () => {
     if (selectedRequest?.participentsInfo) {
       const userId = selectedRequest?.participentsInfo[0]
-        ? selectedRequest?.participentsInfo[0]._id
-        : selectedRequest?.participentsInfo[1]._id;
+        ? selectedRequest?.participentsInfo[0]?._id
+        : selectedRequest?.participentsInfo[1]?._id;
 
       const collabsId = selectedRequest.mangaStoryId;
 

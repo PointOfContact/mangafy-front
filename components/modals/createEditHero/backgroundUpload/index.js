@@ -7,9 +7,19 @@ import PropTypes from 'prop-types';
 import HeroUpload from '../heroUpload';
 import styles from './styles.module.scss';
 
-const EditBackground = ({ ifIsEdit, hero, imageUrl, setImgId, typeCard }) => {
+const EditBackground = ({
+  text,
+  disabled,
+  ifIsEdit,
+  hero,
+  imageUrl,
+  setImgId,
+  typeCard,
+  onChangeHero,
+  className,
+  setSubmitButton,
+}) => {
   const [showUpload, setShowUpload] = useState(false);
-
   return ifIsEdit && !!hero.imageUrl ? (
     <div className={styles.editImageContainer}>
       <Imgix
@@ -30,10 +40,15 @@ const EditBackground = ({ ifIsEdit, hero, imageUrl, setImgId, typeCard }) => {
               setShowUpload(!showUpload);
             }}>
             <HeroUpload
+              text={text}
+              disabled={disabled}
+              mangaUrl={imageUrl}
               setImgId={setImgId}
-              imageUrl={imageUrl}
               titleLoad={ifIsEdit && ifIsEdit}
               typeCard={typeCard}
+              onChangeHero={onChangeHero}
+              className={className}
+              setSubmitButton={setSubmitButton}
             />
           </div>
         </div>
@@ -43,10 +58,15 @@ const EditBackground = ({ ifIsEdit, hero, imageUrl, setImgId, typeCard }) => {
     </div>
   ) : (
     <HeroUpload
+      text={text}
+      disabled={disabled}
+      mangaUrl={imageUrl}
       setImgId={setImgId}
-      imageUrl={imageUrl}
       titleLoad={ifIsEdit && ifIsEdit}
       typeCard={typeCard}
+      onChangeHero={onChangeHero}
+      className={className}
+      setSubmitButton={setSubmitButton}
     />
   );
 };
@@ -57,6 +77,11 @@ EditBackground.propTypes = {
   ifIsEdit: PropTypes.bool.isRequired,
   hero: PropTypes.object.isRequired,
   typeCard: PropTypes.string,
+  onChangeHero: PropTypes.func,
+  disabled: PropTypes.bool,
+  text: PropTypes.string,
+  className: PropTypes.string,
+  setSubmitButton: PropTypes.func,
 };
 
 EditBackground.defaultProps = {
@@ -65,6 +90,11 @@ EditBackground.defaultProps = {
   ifIsEdit: false,
   hero: {},
   typeCard: '',
+  onChangeHero: () => {},
+  disabled: false,
+  text: '',
+  className: '',
+  setSubmitButton: () => {},
 };
 
 export default EditBackground;

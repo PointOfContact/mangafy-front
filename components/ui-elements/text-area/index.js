@@ -23,9 +23,9 @@ function TextArea({
     <AntTextArea
       className={cn(
         styles.primary_textArea,
-        className,
         isFullWidth && styles.full_width,
-        isLinear && styles.linear
+        isLinear && styles.linear,
+        className
       )}
       value={value}
       onChange={onChange}
@@ -40,6 +40,7 @@ TextArea.propTypes = {
   className: PropTypes.string,
   isFullWidth: PropTypes.bool,
   onChange: PropTypes.func,
+  isLinear: PropTypes.bool,
   value: PropTypes.string,
   placeholder: PropTypes.string,
   minRows: PropTypes.number,
@@ -54,6 +55,7 @@ TextArea.defaultProps = {
   placeholder: '',
   minRows: 5,
   maxRows: 7,
+  isLinear: false,
 };
 
 export default TextArea;

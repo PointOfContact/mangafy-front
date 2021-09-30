@@ -4,10 +4,7 @@ import auth from 'api/auth';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import Router from 'next/router';
 import { FEATHERS_COOKIE, setClientCookie, store } from 'store';
-
-const Amplitude = require('amplitude');
-
-const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
+import myAmplitude from 'utils/amplitude';
 
 const OAuth = () => {
   useEffect(() => {
@@ -26,7 +23,6 @@ const OAuth = () => {
 
       const data = [
         {
-          platform: 'WEB',
           event_type,
           user_id: user._id,
           user_properties: {
@@ -34,7 +30,7 @@ const OAuth = () => {
           },
         },
       ];
-      amplitude.track(data);
+      myAmplitude(data);
       Router.push('/feed');
       return user;
     });

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Upload, Row, Col } from 'antd';
 import client from 'api/client';
@@ -7,6 +7,7 @@ import AddButton from 'components/ui-elements/add-button';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import dynamic from 'next/dynamic';
 import PropTypes from 'prop-types';
+import Queue from 'queue-promise';
 import myAmplitude from 'utils/amplitude';
 
 import CreatePreviousWorks from './createPreviousWorks';
@@ -14,7 +15,12 @@ import HtmlGalleryModal from './htmlGalleryModal';
 import ShortStory from './shortStory';
 import { ShowGalleryModal } from './showGalleryModal';
 import styles from './styles.module.scss';
-import { beforeGalleryUpload, getShortStorys } from './utils';
+import { getShortStorys, beforeGalleryUpload } from './utils';
+
+const queue = new Queue({
+  concurrent: 1,
+  interval: 1,
+});
 
 const PDFViewer = dynamic(() => import('components/pdfViewer'), {
   ssr: false,
@@ -30,7 +36,6 @@ export const Gallery = (props) => {
   } else if (profile._id === user._id) {
     canEditInit = true;
   }
-
   const [images, setImages] = useState([]);
   const [startIndex, setStartIndex] = useState(0);
   const [userData, setUserData] = useState(profile || user);
@@ -164,20 +169,24 @@ export const Gallery = (props) => {
       },
     };
     myAmplitude(data);
-
-    beforeGalleryUpload(
-      file,
-      setShowUploadList,
-      fromPath,
-      userData,
-      mangaStoriesMyProfile,
-      images,
-      setImages,
-      setUserData,
-      setErrMessage,
-      setLoading
-    );
+    queue.enqueue([
+      async () => {
+        await beforeGalleryUpload(
+          file,
+          setShowUploadList,
+          fromPath,
+          userData,
+          mangaStoriesMyProfile,
+          [],
+          setImages,
+          setUserData,
+          setErrMessage,
+          setLoading
+        );
+      },
+    ]);
   };
+
   return (
     <div>
       {showGallery && (
@@ -211,6 +220,7 @@ export const Gallery = (props) => {
               <Upload
                 beforeUpload={onBeforeGalleryUpload}
                 showUploadList={false}
+                multiple={true}
                 accept="image/jpg, image/png, application/pdf, image/jpeg ">
                 <AddButton width="25px" height="25px" text={'Upload illustrations'} />
               </Upload>

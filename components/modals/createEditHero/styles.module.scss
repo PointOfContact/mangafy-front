@@ -6,9 +6,8 @@ $borderColor: #f0f0f0;
   font-size: $text4;
   border-color: $gray85;
   overflow-y: auto !important;
-  height: 42px !important;
   &::placeholder {
-    color: $gray85;
+    color: rgb(163, 162, 162);
   }
 }
 
@@ -191,9 +190,10 @@ $borderColor: #f0f0f0;
       margin-top: $text6;
       background-color: $text_white;
       border-radius: 0;
+      height: 42px !important;
       @include input();
     }
-    .modalTextarea {
+    .modalTexArea {
       @include input();
     }
   }

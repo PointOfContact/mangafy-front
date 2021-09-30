@@ -14,20 +14,21 @@ import myAmplitude from 'utils/amplitude';
 import EditBackground from './backgroundUpload';
 import styles from './styles.module.scss';
 
-const ModalHero = ({ changeShowModal, showModal, hero, getStoryBoard, user }) => {
+const ModalComponent = ({ changeShowModal, showModal, hero, getStoryBoard, user }) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [imageUrl, setImgId] = useState('');
+  const [submitButton, setSubmitButton] = useState(false);
   const [form] = Form.useForm();
 
   // default value personage
   const titles = {
-    modal: "Define your story's protagonists and villans, in an easier organized manner",
-    write: 'Tell your team about them',
-    firstInput: 'Name your character',
-    description: 'Add his role (main, secondary, villain)',
-    button: 'Create',
-    type: 'personage',
+    modal: '',
+    write: '',
+    firstInput: '',
+    description: '',
+    button: '',
+    type: '',
   };
 
   const setDialogTitles = (write, modal, firstInput, desc, button, type) => {
@@ -40,9 +41,6 @@ const ModalHero = ({ changeShowModal, showModal, hero, getStoryBoard, user }) =>
   };
 
   const setGlobalTitle = (type) => {
-    if (type === 'personage') {
-      return 'CREATE YOUR CHARACTERS';
-    }
     if (type === 'component') {
       setDialogTitles(
         'Now add the components:',
@@ -88,16 +86,18 @@ const ModalHero = ({ changeShowModal, showModal, hero, getStoryBoard, user }) =>
     changeShowModal(false);
   };
 
-  const onChangeHero = () => {
+  const onChangeHero = (e, imgId = '') => {
     const newHero = {
       ...hero,
       name,
       description,
-      imageUrl,
+      imageUrl: imgId,
     };
+
     if (!newHero?.name) {
       return;
     }
+
     if (newHero.newCreated) {
       delete newHero.newCreated;
       createHero(
@@ -170,7 +170,10 @@ const ModalHero = ({ changeShowModal, showModal, hero, getStoryBoard, user }) =>
       }
       okText="Send"
       destroyOnClose
-      onCancel={handleCancel}>
+      onCancel={() => {
+        setSubmitButton(false);
+        handleCancel();
+      }}>
       <div className={cn('container', styles.container)}>
         {ifIsEdit ? (
           ''
@@ -186,7 +189,6 @@ const ModalHero = ({ changeShowModal, showModal, hero, getStoryBoard, user }) =>
                 name="tasks"
                 form={form}
                 preserve={false}
-                onFinish={onChangeHero}
                 initialValues={{
                   name,
                   description,
@@ -220,10 +222,10 @@ const ModalHero = ({ changeShowModal, showModal, hero, getStoryBoard, user }) =>
                     placeholder={
                       ifIsEdit ? 'Add a short bio synopsis to your character' : titles.description
                     }
-                    className={styles.modalTexarea}
+                    className={styles.modalTexArea}
                     isFullWidth={true}
                     isLinear={true}
-                    autoSize={{ minRows: 1, maxRows: 4 }}
+                    autoSize={{ minRows: 1, maxRows: 8 }}
                     onChange={(e) => setDescription(e.target.value)}
                   />
                 </Form.Item>
@@ -233,13 +235,17 @@ const ModalHero = ({ changeShowModal, showModal, hero, getStoryBoard, user }) =>
                     ifIsEdit={ifIsEdit}
                     hero={hero}
                     imageUrl={imageUrl}
+                    onChangeHero={onChangeHero}
+                    setSubmitButton={setSubmitButton}
                     setImgId={setImgId}
                     typeCard={titles.type}
                   />
                   <Form.Item>
                     <PrimaryButton
+                      loading={submitButton}
                       htmlType="submit"
                       className={styles.send}
+                      onClick={() => onChangeHero()}
                       text={hero?.newCreated ? titles.button : 'Save changes'}
                     />
                   </Form.Item>
@@ -251,7 +257,9 @@ const ModalHero = ({ changeShowModal, showModal, hero, getStoryBoard, user }) =>
             <EditBackground
               ifIsEdit={ifIsEdit}
               hero={hero}
+              onChangeHero={onChangeHero}
               imageUrl={imageUrl}
+              setSubmitButton={setSubmitButton}
               setImgId={setImgId}
               typeCard={titles.type}
             />
@@ -262,7 +270,7 @@ const ModalHero = ({ changeShowModal, showModal, hero, getStoryBoard, user }) =>
   );
 };
 
-ModalHero.propTypes = {
+ModalComponent.propTypes = {
   changeShowModal: PropTypes.func.isRequired,
   showModal: PropTypes.bool.isRequired,
   getStoryBoard: PropTypes.func.isRequired,
@@ -271,10 +279,10 @@ ModalHero.propTypes = {
   user: PropTypes.object,
 };
 
-ModalHero.defaultProps = {
+ModalComponent.defaultProps = {
   hero: {},
   user: {},
   mangaUrl: null,
 };
 
-export default ModalHero;
+export default ModalComponent;

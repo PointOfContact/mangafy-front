@@ -6,9 +6,10 @@ import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
-function PrimaryInput({ className, isFullWidth, isLinear, isSmall, onChange, ...rest }) {
+function PrimaryInput({ inputRef, className, isFullWidth, isLinear, isSmall, onChange, ...rest }) {
   return (
     <Input
+      ref={inputRef}
       className={cn(
         styles.primary_input,
         className,
@@ -28,6 +29,7 @@ PrimaryInput.propTypes = {
   isLinear: PropTypes.bool,
   isSmall: PropTypes.bool,
   onChange: PropTypes.func,
+  inputRef: PropTypes.object,
 };
 
 PrimaryInput.defaultProps = {
@@ -36,6 +38,7 @@ PrimaryInput.defaultProps = {
   isLinear: false,
   isSmall: false,
   onChange: () => {},
+  inputRef: {},
 };
 
 export default PrimaryInput;

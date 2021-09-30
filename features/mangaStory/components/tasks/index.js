@@ -11,14 +11,11 @@ import AddButton from 'components/ui-elements/add-button';
 import PrimaryButton from 'components/ui-elements/button';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import PropTypes from 'prop-types';
+import myAmplitude from 'utils/amplitude';
 
 import styles from './styles.module.scss';
 
-const Amplitude = require('amplitude');
-
-const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
-
-const Tasks = ({ baseData, isOwn, user, toTeam, isParticipant, showPayPalToggle }) => {
+const Tasks = ({ baseData, isOwn, user, toTeam, isParticipant, showPayPalContent }) => {
   const { tasks } = baseData;
   const [taskList, setTasks] = useState(tasks);
   const [showModal, changeShowModal] = useState(false);
@@ -38,7 +35,6 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipant, showPayPalToggle 
 
         const eventData = [
           {
-            platform: 'WEB',
             event_type: EVENTS.MINI_JOB_REMOVED,
             event_properties: { mangaStoryId: baseData._id, taskId, tasks },
             user_id: user._id,
@@ -47,7 +43,7 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipant, showPayPalToggle 
             },
           },
         ];
-        amplitude.track(eventData);
+        myAmplitude(eventData);
       })
       .catch(() => updateTasks());
     // To do 404
@@ -164,7 +160,7 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipant, showPayPalToggle 
                 changeShowModal(true);
                 setSelectedTask(null);
               }}
-              className={showPayPalToggle && styles.createTaskButton}
+              className={showPayPalContent && styles.createTaskButton}
               text="Create a task"
             />
           ) : (
@@ -201,7 +197,7 @@ Tasks.propTypes = {
   user: PropTypes.object,
   toTeam: PropTypes.func.isRequired,
   isParticipant: PropTypes.bool,
-  showPayPalToggle: PropTypes.bool.isRequired,
+  showPayPalContent: PropTypes.bool.isRequired,
 };
 
 Tasks.defaultProps = {

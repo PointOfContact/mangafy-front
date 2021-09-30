@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
-const EditContent = ({ saveUserDataByKey, baseData, languages, genresEnums }) => {
+const EditContent = ({ saveMangaStoryData, baseData, languages, genresEnums }) => {
   const genres = genresEnums.map(({ _id: key, value }) => ({ key, value }));
   const defaultGenres = baseData.genres?.map(({ _id }) => _id);
 
@@ -17,22 +17,22 @@ const EditContent = ({ saveUserDataByKey, baseData, languages, genresEnums }) =>
 
   const changeSelectedLanguage = (preferredLanguage) => {
     const data = { ...baseData, preferredLanguage };
-    saveUserDataByKey(data, 'preferredLanguage');
+    saveMangaStoryData(data, 'preferredLanguage');
   };
 
   const changeSelectedGenre = (genresIds) => {
     const data = { ...baseData, genresIds };
-    saveUserDataByKey(data, 'genresIds');
+    saveMangaStoryData(data, 'genresIds');
   };
 
   const changeSelectedUserType = (searchingFor) => {
     const data = { ...baseData, searchingFor };
-    saveUserDataByKey(data, 'searchingFor');
+    saveMangaStoryData(data, 'searchingFor');
   };
 
   const changeCollaborationIsPaid = (checked) => {
     const data = { ...baseData, compensationModel: checked ? 'paid' : 'collaboration' };
-    saveUserDataByKey(data, 'compensationModel');
+    saveMangaStoryData(data, 'compensationModel');
   };
 
   return (
@@ -42,7 +42,7 @@ const EditContent = ({ saveUserDataByKey, baseData, languages, genresEnums }) =>
         onChange={changeSelectedGenre}
         isLinear={true}
         isFullWidth={true}
-        placeholder="Ganrys"
+        placeholder="Genres"
         defaultValue={defaultGenres}
         options={genres}
         className={styles.edit_select}
@@ -84,11 +84,15 @@ const EditContent = ({ saveUserDataByKey, baseData, languages, genresEnums }) =>
 };
 
 EditContent.propTypes = {
-  saveUserDataByKey: PropTypes.func.isRequired,
+  saveMangaStoryData: PropTypes.func.isRequired,
   defaultGenres: PropTypes.func.isRequired,
   baseData: PropTypes.object.isRequired,
   languages: PropTypes.array.isRequired,
   genresEnums: PropTypes.array.isRequired,
+};
+
+EditContent.defaultProps = {
+  defaultGenres: () => {},
 };
 
 export default EditContent;

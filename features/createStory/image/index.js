@@ -9,10 +9,7 @@ import { EVENTS } from 'helpers/amplitudeEvents';
 import Head from 'next/head';
 import Link from 'next/link';
 import Router from 'next/router';
-
-const Amplitude = require('amplitude');
-
-const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
+import myAmplitude from 'utils/amplitude';
 
 const { Dragger } = Upload;
 
@@ -65,7 +62,6 @@ const Introduce = ({ user }) => {
         .then((res) => {
           const data = [
             {
-              platform: 'WEB',
               event_type: EVENTS.CREATE_MANGA_STORY,
               user_id: user._id,
               user_properties: {
@@ -76,7 +72,7 @@ const Introduce = ({ user }) => {
               },
             },
           ];
-          amplitude.track(data);
+          myAmplitude(data);
           localStorage.removeItem('mangaStory');
           Router.push(`/manga-story/${res._id}`);
         })

@@ -49,15 +49,7 @@
     font-size: 20px;
     line-height: auto;
   }
-  @media (max-width: 991px) {
-    img {
-      max-width: 320px;
-    }
-  }
-  @media (max-width: 767px) {
-    img {
-      max-width: 300px;
-    }
+  @include media-sm {
     .error_title {
       font-size: 70px;
     }
@@ -68,10 +60,7 @@
       font-size: 18px;
     }
   }
-  @media (max-width: 575px) {
-    img {
-      max-width: 280px;
-    }
+  @include media-xs {
     .error_title {
       font-size: 60px;
     }

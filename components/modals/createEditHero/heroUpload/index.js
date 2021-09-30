@@ -14,9 +14,20 @@ import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
-const HeroUpload = ({ mangaUrl, setImgId, titleLoad, typeCard }) => {
+const HeroUpload = ({
+  text,
+  mangaUrl,
+  setImgId,
+  titleLoad,
+  typeCard,
+  onChangeHero,
+  disabled,
+  className,
+  setSubmitButton,
+}) => {
   const [img, setImg] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [fileList, setFileList] = useState(img || []);
 
   useEffect(() => {
     const newImg = mangaUrl?.slice(-3)
@@ -35,13 +46,11 @@ const HeroUpload = ({ mangaUrl, setImgId, titleLoad, typeCard }) => {
     setFileList(newImg);
   }, [mangaUrl]);
 
-  const [fileList, setFileList] = useState(img || []);
-
   const onChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);
   };
 
-  function beforeUpload(file) {
+  const beforeUpload = (file) => {
     const isJpgOrPng =
       file.type === 'image/jpeg' ||
       file.type === 'image/png' ||
@@ -61,10 +70,13 @@ const HeroUpload = ({ mangaUrl, setImgId, titleLoad, typeCard }) => {
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.addEventListener('load', () => {
+        setSubmitButton(true);
         uploadFile(
           reader.result,
           (res) => {
             setImgId(res?.id);
+            onChangeHero({}, res?.id);
+            setSubmitButton(false);
           },
           (err) => {
             openNotification('error', err.message);
@@ -73,7 +85,7 @@ const HeroUpload = ({ mangaUrl, setImgId, titleLoad, typeCard }) => {
       });
     }
     return isJpgOrPng && isLt2M;
-  }
+  };
 
   const openNotification = (type, mes) => {
     notification[type]({
@@ -83,7 +95,7 @@ const HeroUpload = ({ mangaUrl, setImgId, titleLoad, typeCard }) => {
 
   const onPreview = async (file) => {
     setShowModal(true);
-    setImg(file.thumbUrl);
+    setImg(file?.url);
     let src = file.url;
     if (!src) {
       src = await new Promise((resolve) => {
@@ -100,6 +112,7 @@ const HeroUpload = ({ mangaUrl, setImgId, titleLoad, typeCard }) => {
   return (
     <div className={cn('primary_upload hero_upload', styles.primary_upload)}>
       <Upload
+        disabled={disabled}
         accept="image/jpg, image/png, application/pdf, image/jpeg "
         listType="picture-card"
         fileList={fileList}
@@ -107,7 +120,7 @@ const HeroUpload = ({ mangaUrl, setImgId, titleLoad, typeCard }) => {
         beforeUpload={beforeUpload}
         onPreview={onPreview}>
         {fileList.length < 1 && (
-          <div className={styles.content}>
+          <div className={cn(styles.content, className)}>
             <div className={styles.types}>
               <SvgImage width="23px" height="23px" />
               PDF, JPG, JPEG, PNG
@@ -117,9 +130,10 @@ const HeroUpload = ({ mangaUrl, setImgId, titleLoad, typeCard }) => {
                 <SvgCloud width="106px" height="77.13px" />
               </span>
               <h4 className={cn(styles.title, styles.titlePersonage)}>
-                {ifPersonage
-                  ? 'Upload your character profile pic'
-                  : `Upload ${titleLoad ? 'new' : ''} files`}
+                {text ||
+                  (ifPersonage
+                    ? 'Upload your character profile pic'
+                    : `Upload ${titleLoad ? 'new' : ''} files`)}
               </h4>
             </div>
           </div>
@@ -151,6 +165,11 @@ HeroUpload.propTypes = {
   setImgId: PropTypes.string.isRequired,
   titleLoad: PropTypes.bool,
   typeCard: PropTypes.string,
+  onChangeHero: PropTypes.func.isRequired,
+  disabled: PropTypes.bool,
+  text: PropTypes.string,
+  className: PropTypes.string,
+  setSubmitButton: PropTypes.func,
 };
 
 HeroUpload.defaultProps = {
@@ -160,6 +179,11 @@ HeroUpload.defaultProps = {
   setImgId: () => {},
   titleLoad: false,
   typeCard: '',
+  onChangeHero: () => {},
+  disabled: false,
+  text: '',
+  className: '',
+  setSubmitButton: () => {},
 };
 
 export default HeroUpload;

@@ -14,9 +14,9 @@ const FooterLogin = React.memo(({ user, cookieVisibility }) => {
 
   useEffect(() => {
     client.getCookie('CookieBubble') === 'true'
-      ? //in-browser there is cooke
+      ? // in-browser there is cooke
         setCookieBubble(true)
-      : //the in-browser cookie does not exist and this collab page
+      : // the in-browser cookie does not exist and this collab page
         setCookieBubble(!client.getCookie('CookieBubble') && cookieVisibility);
   }, []);
 

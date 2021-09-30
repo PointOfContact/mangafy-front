@@ -20,10 +20,6 @@ import myAmplitude from 'utils/amplitude';
 
 import styles from './styles.module.scss';
 
-const Amplitude = require('amplitude');
-
-const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
-
 const Profile = (props) => {
   const { user, profile, userProfile, originUrl } = props;
   const ifMyProfile = user?._id === profile?._id;
@@ -137,13 +133,14 @@ const Profile = (props) => {
         },
       },
     ];
-    amplitude.track(data);
+    myAmplitude(data);
     const genresIds = selectedObj.map((item) => item._id);
     return setUserData({ ...userData, genresIds });
   };
 
   const images = [userImg, ...gallerys];
   const bioUser = props?.profile?.content;
+
   return (
     <>
       <NextSeo
@@ -160,7 +157,9 @@ const Profile = (props) => {
           }`,
           images: [
             {
-              url: images[0].url,
+              url: !images[0].url.includes('undefined')
+                ? images[0].url
+                : 'https://mangafy.club/img/collab_baner.webp',
               height: 600,
               alt: 'manga',
             },
@@ -233,7 +232,6 @@ const Profile = (props) => {
                 />
               </div>
             </section>
-
             <section>
               <div className={cn(styles.container, 'container')}>
                 <ProfileOpenCollabs

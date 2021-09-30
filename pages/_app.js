@@ -8,7 +8,8 @@ import { DefaultSeo } from 'next-seo';
 import { useRouter } from 'next/router';
 
 Sentry.init({
-  enabled: true,
+  enabled: process.env.NEXT_PUBLIC_SENTRY_ENABLED === 'true',
+  environment: process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT,
   dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
 });
 

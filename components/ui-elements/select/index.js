@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Select } from 'antd';
 import cn from 'classnames';
@@ -7,8 +7,8 @@ import PropTypes from 'prop-types';
 import styles from './styles.module.scss';
 
 const { Option } = Select;
-
 function PrimarySelect({
+  countLimit,
   className,
   isFullWidth,
   isLinear,
@@ -22,6 +22,29 @@ function PrimarySelect({
   isMulti,
   ...rest
 }) {
+  const [optionsSelected, setOptionsSelected] = useState([]);
+  const [itemOptions, setItemOptions] = useState([]);
+
+  useEffect(() => {
+    setItemOptions(
+      options?.map((item) => (
+        <Option
+          value={item.key}
+          key={item.key}
+          label={item.value}
+          disabled={
+            countLimit ? optionsSelected.length > 9 && !optionsSelected.includes(item.key) : false
+          }>
+          {item.value}
+        </Option>
+      ))
+    );
+  }, [optionsSelected]);
+
+  const handleChange = (arrayValues) => {
+    setOptionsSelected(arrayValues);
+  };
+
   return (
     <>
       {label && (
@@ -41,12 +64,16 @@ function PrimarySelect({
         value={value}
         bordered={bordered}
         name={name}
-        onChange={onChange}
+        onChange={(e) => {
+          handleChange(e);
+          onChange(e);
+        }}
         id={id}
+        filterOption={(inputValue, option) =>
+          inputValue ? option.label.toLowerCase().includes(inputValue.toLowerCase()) : true
+        }
         {...rest}>
-        {options?.map((item) => (
-          <Option key={item.key}>{item.value}</Option>
-        ))}
+        {itemOptions}
       </Select>
     </>
   );
@@ -64,6 +91,7 @@ PrimarySelect.propTypes = {
   id: PropTypes.string,
   label: PropTypes.string,
   isMulti: PropTypes.bool,
+  countLimit: PropTypes.bool,
 };
 
 PrimarySelect.defaultProps = {
@@ -78,6 +106,7 @@ PrimarySelect.defaultProps = {
   label: null,
   options: [],
   isMulti: false,
+  countLimit: false,
 };
 
 export default PrimarySelect;

@@ -3,18 +3,14 @@ import React from 'react';
 import Share from 'components/ui-elements/share';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import PropTypes from 'prop-types';
+import myAmplitude from 'utils/amplitude';
 
 import styles from './styles.module.scss';
-
-const Amplitude = require('amplitude');
-
-const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 
 export const ShareStoryBoard = ({ shareUrl, user }) => {
   const setAmplitude = () => {
     const data = [
       {
-        platform: 'WEB',
         event_type: EVENTS.PUBLISH_MANGA_CAT,
         user_id: user._id,
         user_properties: {
@@ -22,7 +18,7 @@ export const ShareStoryBoard = ({ shareUrl, user }) => {
         },
       },
     ];
-    amplitude.track(data);
+    myAmplitude(data);
   };
 
   return (

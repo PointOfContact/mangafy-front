@@ -113,6 +113,23 @@
   }
 }
 
+.red{
+  background: $red;
+  color: white;
+  border: 1px solid $red;
+  &:hover{
+    background: $red ;
+    color: white;
+    border-color: $red;
+    box-shadow: 0px 0px 20px $red;
+  }
+  &:focus {
+    background: $red;
+    border-color: $red;
+    color: white;
+  }
+}
+
 .active_primary {
   background: $orangeDark;
   border: 1px solid #ffd67d;

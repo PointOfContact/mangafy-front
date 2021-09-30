@@ -12,13 +12,9 @@ import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import * as qs from 'query-string';
 import { register } from 'store';
+import myAmplitude from 'utils/amplitude';
 
 import styles from './styles.module.scss';
-
-// const { info } = Modal;
-const Amplitude = require('amplitude');
-
-const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 
 const Register = ({ user }) => {
   const defaultState = {
@@ -87,7 +83,7 @@ const Register = ({ user }) => {
             },
           },
         ];
-        amplitude.track(data);
+        myAmplitude(data);
         // info({
         //   className: 'MangaFY',
         //   title: <h3 className={styles.modalTitle}>Welcome to MangaFY</h3>,
@@ -121,8 +117,8 @@ const Register = ({ user }) => {
   return (
     <>
       <NextSeo
-        title="Make the most of your talent!"
-        description="Sign in to get your personalized page and start connecting with graphic novel enthusiasts"
+        title="Welcome! - MangaFY Community"
+        description="MangaFY is a community of amazing webcomics and webtoon creators"
       />
       <ButtonToTop />
       <div className={styles.bg}>
@@ -137,11 +133,13 @@ const Register = ({ user }) => {
                 <div className={styles.content}>
                   <div className={styles.box__title_wrap}>
                     <div className={styles.box__title}>
-                      <h2 className={styles.box__title_text}>Get started today</h2>
+                      <h2 className={styles.box__title_text}>Welcome! - MangaFY Community</h2>
                     </div>
                     <div className={styles.box__hr}></div>
                     <div className={styles.box__description}>
-                      <p className={styles.box__description_text}>Make most of your talent</p>
+                      <p className={styles.box__description_text}>
+                        MangaFY is a community of amazing webcomics and webtoon creators
+                      </p>
                     </div>
                     <div className={styles.box__hr}></div>
                   </div>
