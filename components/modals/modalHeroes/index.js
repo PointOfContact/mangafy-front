@@ -339,7 +339,7 @@ const ModalHeroes = ({
                 <PrimaryButton
                   isWhite={true}
                   onClick={() => confirmDelete(hero)}
-                  text="Delete Project"
+                  text="Delete Character"
                 />
               </div>
             </div>
