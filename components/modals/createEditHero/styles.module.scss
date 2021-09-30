@@ -194,7 +194,6 @@ $borderColor: #f0f0f0;
       @include input();
     }
     .modalTexArea {
-      height: auto !important;
       @include input();
     }
   }
