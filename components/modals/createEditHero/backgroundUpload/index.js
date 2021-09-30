@@ -17,6 +17,7 @@ const EditBackground = ({
   typeCard,
   onChangeHero,
   className,
+  setSubmitButton,
 }) => {
   const [showUpload, setShowUpload] = useState(false);
   return ifIsEdit && !!hero.imageUrl ? (
@@ -47,6 +48,7 @@ const EditBackground = ({
               typeCard={typeCard}
               onChangeHero={onChangeHero}
               className={className}
+              setSubmitButton={setSubmitButton}
             />
           </div>
         </div>
@@ -64,6 +66,7 @@ const EditBackground = ({
       typeCard={typeCard}
       onChangeHero={onChangeHero}
       className={className}
+      setSubmitButton={setSubmitButton}
     />
   );
 };
@@ -78,6 +81,7 @@ EditBackground.propTypes = {
   disabled: PropTypes.bool,
   text: PropTypes.string,
   className: PropTypes.string,
+  setSubmitButton: PropTypes.func,
 };
 
 EditBackground.defaultProps = {
@@ -90,6 +94,7 @@ EditBackground.defaultProps = {
   disabled: false,
   text: '',
   className: '',
+  setSubmitButton: () => {},
 };
 
 export default EditBackground;

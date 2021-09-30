@@ -23,6 +23,7 @@ const HeroUpload = ({
   onChangeHero,
   disabled,
   className,
+  setSubmitButton,
 }) => {
   const [img, setImg] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -69,11 +70,13 @@ const HeroUpload = ({
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.addEventListener('load', () => {
+        setSubmitButton(true);
         uploadFile(
           reader.result,
           (res) => {
             setImgId(res?.id);
-            onChangeHero(res?.id);
+            onChangeHero({}, res?.id);
+            setSubmitButton(false);
           },
           (err) => {
             openNotification('error', err.message);
@@ -166,6 +169,7 @@ HeroUpload.propTypes = {
   disabled: PropTypes.bool,
   text: PropTypes.string,
   className: PropTypes.string,
+  setSubmitButton: PropTypes.func,
 };
 
 HeroUpload.defaultProps = {
@@ -179,6 +183,7 @@ HeroUpload.defaultProps = {
   disabled: false,
   text: '',
   className: '',
+  setSubmitButton: () => {},
 };
 
 export default HeroUpload;
