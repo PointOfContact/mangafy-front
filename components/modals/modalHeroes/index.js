@@ -29,6 +29,8 @@ const ModalHeroes = ({
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [appearance, setAppearance] = useState('');
+  const [searchQualityIcon, setSearchQualityIcon] = useState(false);
+  const [searchTypesIcon, setSearchTypesIcon] = useState(false);
   const [heroType, setHeroType] = useState([]);
   const [quality, setQuality] = useState([]);
   const [imageUrl, setImgId] = useState('');
@@ -197,7 +199,7 @@ const ModalHeroes = ({
                   <PrimaryInput
                     className={styles.nameInput}
                     inputRef={inputRef}
-                    placeholder={'Add your character name'}
+                    placeholder={'Start with your character name...'}
                     isFullWidth={true}
                     isLinear={true}
                     onChange={(e) => setName(e.target.value)}
@@ -207,33 +209,59 @@ const ModalHeroes = ({
                     }}
                   />
                 </Form.Item>
-                <h3 className={styles.title}>Types</h3>
-                <Form.Item name="heroType">
-                  <Select
-                    disabled={!idCardHero}
-                    className={cn(styles.option, heroType?.length > 2 && styles.childLength)}
-                    bordered={false}
-                    mode="multiple"
-                    placeholder="Types"
-                    style={{ width: '100%' }}
-                    onChange={handleChangeTypes}
-                    onBlur={() => onChangeHero()}>
-                    {heroTypesArray}
-                  </Select>
-                </Form.Item>
-                <h3 className={styles.title}>Quality</h3>
+                <h3 className={styles.title}>Character development</h3>
                 <Form.Item name="quality">
-                  <Select
-                    disabled={!idCardHero}
-                    className={cn(styles.option, quality?.length > 1 && styles.childLength)}
-                    bordered={false}
-                    mode="multiple"
-                    placeholder="Quality"
-                    style={{ width: '100%' }}
-                    onChange={handleChangeQuality}
-                    onBlur={() => onChangeHero()}>
-                    {heroQualityArray}
-                  </Select>
+                  <div className={styles.chooseTypes}>
+                    <Select
+                      disabled={!idCardHero}
+                      className={cn(styles.option, quality?.length > 1 && styles.childLength)}
+                      bordered={false}
+                      mode="multiple"
+                      placeholder="By the role they play in a narrative"
+                      style={{ width: '100%' }}
+                      onChange={handleChangeQuality}
+                      onFocus={() => setSearchQualityIcon(true)}
+                      onBlur={() => {
+                        setSearchQualityIcon(false);
+                        onChangeHero();
+                      }}>
+                      {heroQualityArray}
+                    </Select>
+                    <span>
+                      {searchQualityIcon ? (
+                        <span className={styles.searchIcon}>&#9906;</span>
+                      ) : (
+                        <span className={styles.arrowIcon}>&#10095;</span>
+                      )}
+                    </span>
+                  </div>
+                </Form.Item>
+                <h3 className={styles.title}>Character types</h3>
+                <Form.Item name="heroType">
+                  <div className={styles.chooseTypes}>
+                    <Select
+                      disabled={!idCardHero}
+                      className={cn(styles.option, heroType?.length > 2 && styles.childLength)}
+                      bordered={false}
+                      mode="multiple"
+                      placeholder="By examining how they change  over the course"
+                      style={{ width: '100%' }}
+                      onFocus={() => setSearchTypesIcon(true)}
+                      onChange={handleChangeTypes}
+                      onBlur={() => {
+                        setSearchTypesIcon(false);
+                        onChangeHero();
+                      }}>
+                      {heroTypesArray}
+                    </Select>
+                    <span>
+                      {searchTypesIcon ? (
+                        <span className={styles.searchIcon}>&#9906;</span>
+                      ) : (
+                        <span className={styles.arrowIcon}>&#10095;</span>
+                      )}
+                    </span>
+                  </div>
                 </Form.Item>
                 <h3 className={styles.title}>Personality and Backstory</h3>
                 <Form.Item
@@ -247,7 +275,7 @@ const ModalHeroes = ({
                   <TextArea
                     disabled={!idCardHero}
                     placeholder={
-                      "Tell your story, what are you creating? A comic book Manga or maybe a whole novella, wh're very interested!"
+                      'Personality is a description of how character acts, behaves, or reacts.'
                     }
                     className={styles.modalTexArea}
                     isFullWidth={true}
@@ -269,7 +297,7 @@ const ModalHeroes = ({
                   <TextArea
                     disabled={!idCardHero}
                     placeholder={
-                      "Tell your story, what are you creating? A comic book Manga or maybe a whole novella, wh're very interested!"
+                      'Another thing to take notice of is the type of person they are,  their appearance and powers.'
                     }
                     className={styles.modalTexArea}
                     isFullWidth={true}
@@ -280,7 +308,9 @@ const ModalHeroes = ({
                   />
                 </Form.Item>
                 <div className={styles.attachmentContainer}>
-                  <h3 className={cn(styles.title, styles.attachmentTitle)}>Attachments</h3>
+                  <h3 className={cn(styles.title, styles.attachmentTitle)}>
+                    Upload your character
+                  </h3>
                   {imageUrl && (
                     <span
                       onClick={() => {
@@ -293,18 +323,24 @@ const ModalHeroes = ({
                 </div>
                 <Form.Item name="imageUrl" className={styles.uploadMobile}>
                   <EditBackground
+                    text="Drag or browse your art to start uploading"
                     disabled={!idCardHero}
                     hero={hero}
                     imageUrl={imageUrl}
                     setImgId={setImgId}
                     onChangeHero={onChangeHero}
+                    className={styles.upload}
                   />
                 </Form.Item>
               </Form>
               <h4 className={styles.title}>Actions</h4>
               <div className={styles.containerButton}>
                 <PrimaryButton onClick={() => onChangeHero(imageUrl, true)} text="Duplicate" />
-                <PrimaryButton isActive={true} onClick={() => confirmDelete(hero)} text="Archive" />
+                <PrimaryButton
+                  isWhite={true}
+                  onClick={() => confirmDelete(hero)}
+                  text="Delete Project"
+                />
               </div>
             </div>
           </div>
