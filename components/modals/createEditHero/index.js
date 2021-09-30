@@ -18,6 +18,7 @@ const ModalComponent = ({ changeShowModal, showModal, hero, getStoryBoard, user 
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [imageUrl, setImgId] = useState('');
+  const [submitButton, setSubmitButton] = useState(false);
   const [form] = Form.useForm();
 
   // default value personage
@@ -85,16 +86,18 @@ const ModalComponent = ({ changeShowModal, showModal, hero, getStoryBoard, user 
     changeShowModal(false);
   };
 
-  const onChangeHero = () => {
+  const onChangeHero = (e, imgId = '') => {
     const newHero = {
       ...hero,
       name,
       description,
-      imageUrl,
+      imageUrl: imgId,
     };
+
     if (!newHero?.name) {
       return;
     }
+
     if (newHero.newCreated) {
       delete newHero.newCreated;
       createHero(
@@ -167,7 +170,10 @@ const ModalComponent = ({ changeShowModal, showModal, hero, getStoryBoard, user 
       }
       okText="Send"
       destroyOnClose
-      onCancel={handleCancel}>
+      onCancel={() => {
+        setSubmitButton(false);
+        handleCancel();
+      }}>
       <div className={cn('container', styles.container)}>
         {ifIsEdit ? (
           ''
@@ -183,7 +189,6 @@ const ModalComponent = ({ changeShowModal, showModal, hero, getStoryBoard, user 
                 name="tasks"
                 form={form}
                 preserve={false}
-                onFinish={onChangeHero}
                 initialValues={{
                   name,
                   description,
@@ -230,13 +235,17 @@ const ModalComponent = ({ changeShowModal, showModal, hero, getStoryBoard, user 
                     ifIsEdit={ifIsEdit}
                     hero={hero}
                     imageUrl={imageUrl}
+                    onChangeHero={onChangeHero}
+                    setSubmitButton={setSubmitButton}
                     setImgId={setImgId}
                     typeCard={titles.type}
                   />
                   <Form.Item>
                     <PrimaryButton
+                      loading={submitButton}
                       htmlType="submit"
                       className={styles.send}
+                      onClick={() => onChangeHero()}
                       text={hero?.newCreated ? titles.button : 'Save changes'}
                     />
                   </Form.Item>
@@ -248,7 +257,9 @@ const ModalComponent = ({ changeShowModal, showModal, hero, getStoryBoard, user 
             <EditBackground
               ifIsEdit={ifIsEdit}
               hero={hero}
+              onChangeHero={onChangeHero}
               imageUrl={imageUrl}
+              setSubmitButton={setSubmitButton}
               setImgId={setImgId}
               typeCard={titles.type}
             />
