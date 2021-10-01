@@ -102,6 +102,7 @@ $backgroundColor: '';
     padding: 16px;
     margin: 0 0 32px 0;
     transition: all 0.2s;
+    overflow: hidden;
     &:hover {
       box-shadow: 0px 4px 16px rgb(0 0 0 / 19%);
     }
@@ -166,7 +167,7 @@ $backgroundColor: '';
         }
       }
     }
-    .comments_video{
+    .comments_video {
       height: 100%;
       background: linear-gradient(#9198e5, rgba(255, 255, 255, 0) 170px);
     }
@@ -179,16 +180,24 @@ $backgroundColor: '';
     }
   }
   &_botDescDef {
-    font-size: 17px;
+    font-size: $text4;
     font-weight: 500;
     display: flex;
     justify-content: space-between;
-    span{
+    overflow: hidden;
+    span {
+      max-width: calc(100% - 90px);
+      display: block;
       word-wrap: break-word;
     }
     button {
-      font-size: 13px;
+      display: flex;
+      justify-content: space-around;
+      font-size: 14px;
       padding: 3px 15px;
+      @include media-sm {
+        padding: 3px 10px;
+      }
     }
   }
   &_botDesc {
