@@ -227,6 +227,7 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
           src={
             'https://mangafy.club/_next/static/media/messbg.6e79d81f36ecc2ef18c683959f346f66.png'
           }
+          alt="MangaFy message background"
         />
         <MessageList
           ref={messenger}
