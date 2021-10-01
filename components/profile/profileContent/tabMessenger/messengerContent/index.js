@@ -3,13 +3,13 @@ import React, { useState, useEffect, useRef } from 'react';
 import { notification } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 import client from 'api/client';
+import Imgix from 'components/imgix';
 import ModalInvites from 'components/modals/sendInvites';
 import PrimaryButton from 'components/ui-elements/button';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
 import { MessageList } from 'react-chat-elements';
-
 import 'react-chat-elements/dist/main.css';
 import myAmplitude from 'utils/amplitude';
 
@@ -222,6 +222,12 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
     <div className={styles.chatContainer}>
       {selectedRequest.participentsInfo && <UserName selectedRequest={selectedRequest} />}
       <pre ref={messageListElement} className={styles.messageList} id="message-content">
+        <Imgix
+          layout="fill"
+          src={
+            'https://mangafy.club/_next/static/media/messbg.6e79d81f36ecc2ef18c683959f346f66.png'
+          }
+        />
         <MessageList
           ref={messenger}
           className={styles.message_list}
