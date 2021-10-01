@@ -39,7 +39,7 @@ const HeroCard = ({ hero, changeHero, confirmDelete }) => {
 
   return (
     <div className={styles.hero__container}>
-      <div className={styles.hero__top__section} onClick={() => changeHero(hero, hero.type)}>
+      <div className={styles.hero__top__section} onClick={() => changeHero(hero, hero?.type)}>
         <div className={styles.hero__text__row}>
           <h3>{hero?.name}</h3>
         </div>
@@ -51,7 +51,7 @@ const HeroCard = ({ hero, changeHero, confirmDelete }) => {
         </button>
         <EditCard
           editCard={() => {
-            changeHero(hero, hero.type);
+            changeHero(hero, hero?.type);
           }}
           confirmDelete={() => {
             confirmDelete(hero);
@@ -65,10 +65,10 @@ const HeroCard = ({ hero, changeHero, confirmDelete }) => {
       <div className={styles.hero__img} style={{ backgroundColor: defaultColor }}>
         <img
           onClick={() => {
-            setShowImg(client.UPLOAD_URL + hero.imageUrl);
-            setIsModalVisible(!!hero.imageUrl.length);
+            setShowImg(client.UPLOAD_URL + hero?.imageUrl);
+            setIsModalVisible(!!hero?.imageUrl?.length);
           }}
-          src={hero.imageUrl ? client.UPLOAD_URL + hero.imageUrl : defaultImage}
+          src={hero?.imageUrl ? client.UPLOAD_URL + hero?.imageUrl : defaultImage}
           alt="MangaFy hero card"
         />
       </div>

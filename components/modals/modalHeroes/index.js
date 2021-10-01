@@ -65,7 +65,7 @@ const ModalHeroes = ({
     }
   }, [showModal]);
 
-  const onChangeHero = (imgId, newCreated = false) => {
+  const onChangeHero = (e, imgId, newCreated = false) => {
     const newHero = {
       ...hero,
       name,
@@ -210,8 +210,8 @@ const ModalHeroes = ({
                   />
                 </Form.Item>
                 <h3 className={styles.title}>Character development</h3>
-                <Form.Item name="quality">
-                  <div className={styles.chooseTypes}>
+                <div className={styles.chooseTypes}>
+                  <Form.Item name="quality">
                     <Select
                       disabled={!idCardHero}
                       className={cn(styles.option, quality?.length > 1 && styles.childLength)}
@@ -220,6 +220,7 @@ const ModalHeroes = ({
                       placeholder="By the role they play in a narrative"
                       style={{ width: '100%' }}
                       onChange={handleChangeQuality}
+                      defaultValue={quality}
                       onFocus={() => setSearchQualityIcon(true)}
                       onBlur={() => {
                         setSearchQualityIcon(false);
@@ -227,18 +228,18 @@ const ModalHeroes = ({
                       }}>
                       {heroQualityArray}
                     </Select>
-                    <span>
-                      {searchQualityIcon ? (
-                        <span className={styles.searchIcon}>&#9906;</span>
-                      ) : (
-                        <span className={styles.arrowIcon}>&#10095;</span>
-                      )}
-                    </span>
-                  </div>
-                </Form.Item>
+                  </Form.Item>
+                  <span>
+                    {searchQualityIcon ? (
+                      <span className={styles.searchIcon}>&#9906;</span>
+                    ) : (
+                      <span className={styles.arrowIcon}>&#10095;</span>
+                    )}
+                  </span>
+                </div>
                 <h3 className={styles.title}>Character types</h3>
-                <Form.Item name="heroType">
-                  <div className={styles.chooseTypes}>
+                <div className={styles.chooseTypes}>
+                  <Form.Item name="heroType">
                     <Select
                       disabled={!idCardHero}
                       className={cn(styles.option, heroType?.length > 2 && styles.childLength)}
@@ -248,21 +249,22 @@ const ModalHeroes = ({
                       style={{ width: '100%' }}
                       onFocus={() => setSearchTypesIcon(true)}
                       onChange={handleChangeTypes}
+                      defaultValue={heroType}
                       onBlur={() => {
                         setSearchTypesIcon(false);
                         onChangeHero();
                       }}>
                       {heroTypesArray}
                     </Select>
-                    <span>
-                      {searchTypesIcon ? (
-                        <span className={styles.searchIcon}>&#9906;</span>
-                      ) : (
-                        <span className={styles.arrowIcon}>&#10095;</span>
-                      )}
-                    </span>
-                  </div>
-                </Form.Item>
+                  </Form.Item>
+                  <span>
+                    {searchTypesIcon ? (
+                      <span className={styles.searchIcon}>&#9906;</span>
+                    ) : (
+                      <span className={styles.arrowIcon}>&#10095;</span>
+                    )}
+                  </span>
+                </div>
                 <h3 className={styles.title}>Personality and Backstory</h3>
                 <Form.Item
                   name="description"
@@ -335,7 +337,7 @@ const ModalHeroes = ({
               </Form>
               <h4 className={styles.title}>Actions</h4>
               <div className={styles.containerButton}>
-                <PrimaryButton onClick={() => onChangeHero(imageUrl, true)} text="Duplicate" />
+                <PrimaryButton onClick={() => onChangeHero({}, imageUrl, true)} text="Duplicate" />
                 <PrimaryButton
                   isWhite={true}
                   onClick={() => confirmDelete(hero)}
