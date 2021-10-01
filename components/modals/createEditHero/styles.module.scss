@@ -195,6 +195,9 @@ $borderColor: #f0f0f0;
     }
     .modalTexArea {
       @include input();
+      @include media-md{
+        min-height: 60px !important;
+      }
     }
   }
 }

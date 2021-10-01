@@ -42,7 +42,7 @@ const EditCard = ({ confirmDelete, editCard, hero }) => {
         <Popconfirm
           overlayClassName={styles.popConfirm}
           position={hero?.type === 'background' ? 'right' : 'bottom'}
-          title="Are you sure to delete this hero."
+          title={`Are you sure to delete this ${hero?.type}.`}
           onConfirm={confirmDelete}
           item={
             <span className={styles.deleteCard}>
