@@ -292,6 +292,9 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
   }
   .chooseTypes {
     display: flex;
+    & > div{
+      width: 100%;
+    }
     & > span {
       width: 40px;
       border: 1px solid $primaryDark;
