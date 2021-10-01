@@ -127,7 +127,6 @@ const ModalComponent = ({ changeShowModal, showModal, hero, getStoryBoard, user 
 
           delete newHero.storyBoard;
           getStoryBoard();
-          changeShowModal(false);
         },
         (err) => {
           notification.error({
@@ -210,14 +209,7 @@ const ModalComponent = ({ changeShowModal, showModal, hero, getStoryBoard, user 
                     onChange={(e) => setName(e.target.value)}
                   />
                 </Form.Item>
-                <Form.Item
-                  name="description"
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Description is required',
-                    },
-                  ]}>
+                <Form.Item name="description">
                   <TextArea
                     placeholder={
                       ifIsEdit ? 'Add a short bio synopsis to your character' : titles.description
@@ -235,7 +227,6 @@ const ModalComponent = ({ changeShowModal, showModal, hero, getStoryBoard, user 
                     ifIsEdit={ifIsEdit}
                     hero={hero}
                     imageUrl={imageUrl}
-                    onChangeHero={onChangeHero}
                     setSubmitButton={setSubmitButton}
                     setImgId={setImgId}
                     typeCard={titles.type}
@@ -245,7 +236,10 @@ const ModalComponent = ({ changeShowModal, showModal, hero, getStoryBoard, user 
                       loading={submitButton}
                       htmlType="submit"
                       className={styles.send}
-                      onClick={() => onChangeHero()}
+                      onClick={() => {
+                        changeShowModal(false);
+                        onChangeHero({}, imageUrl);
+                      }}
                       text={hero?.newCreated ? titles.button : 'Save changes'}
                     />
                   </Form.Item>
@@ -257,7 +251,6 @@ const ModalComponent = ({ changeShowModal, showModal, hero, getStoryBoard, user 
             <EditBackground
               ifIsEdit={ifIsEdit}
               hero={hero}
-              onChangeHero={onChangeHero}
               imageUrl={imageUrl}
               setSubmitButton={setSubmitButton}
               setImgId={setImgId}

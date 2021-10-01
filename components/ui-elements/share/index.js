@@ -4,12 +4,11 @@ import { Tooltip } from 'antd';
 import cn from 'classnames';
 import SvgCopy from 'components/icon/Copy';
 import SvgFacebook from 'components/icon/Facebook';
-import SvgInstagramColored from 'components/icon/InstagramColored';
 import SvgShareFull from 'components/icon/ShareFull';
 import SvgWhatsapp from 'components/icon/Whatsapp';
 import copy from 'copy-to-clipboard';
 import PropTypes from 'prop-types';
-import { FacebookShareButton, InstapaperShareButton, WhatsappShareButton } from 'react-share';
+import { FacebookShareButton, WhatsappShareButton } from 'react-share';
 
 import styles from './styles.module.scss';
 
@@ -30,16 +29,6 @@ const Share = ({ shareUrl, storyBoard }) => {
                 height={storyBoard ? '33px' : '24px'}
               />
             </FacebookShareButton>
-          </span>
-        </a>
-        <a href="#">
-          <span>
-            <InstapaperShareButton quote={'Mangafy-Club'} title="Mangafy-Club" url={shareUrl}>
-              <SvgInstagramColored
-                width={storyBoard ? '33px' : '24px'}
-                height={storyBoard ? '33px' : '24px'}
-              />
-            </InstapaperShareButton>
           </span>
         </a>
         <a href="#">
