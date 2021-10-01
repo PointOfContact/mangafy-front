@@ -1,16 +1,10 @@
 import React from 'react';
 
 import SvgFacebook from 'components/icon/Facebook';
-import SvgInstagramColored from 'components/icon/InstagramColored';
 import SvgShareColored from 'components/icon/ShareColored';
 import SvgTwitter from 'components/icon/Twitter';
 import PropTypes from 'prop-types';
-import {
-  FacebookShareButton,
-  TwitterShareButton,
-  InstapaperShareButton,
-  WhatsappShareButton,
-} from 'react-share';
+import { FacebookShareButton, TwitterShareButton, WhatsappShareButton } from 'react-share';
 
 import styles from './styles.module.scss';
 
@@ -35,15 +29,6 @@ export const ShareButtonsColored = ({ shareUrl, text }) => (
           className={styles.box__list_button}>
           <SvgTwitter width="34" height="33" />
         </TwitterShareButton>
-      </li>
-      <li className={styles.box__list_item}>
-        <InstapaperShareButton
-          quote={'Mangafy-Club'}
-          title="Mangafy-Club"
-          url={shareUrl}
-          className={styles.box__list_button}>
-          <SvgInstagramColored width="34" height="33" />
-        </InstapaperShareButton>
       </li>
       <li className={styles.box__list_item}>
         <WhatsappShareButton
