@@ -117,7 +117,7 @@ const ModalComponent = ({ changeShowModal, showModal, hero, getStoryBoard, user 
           }
           const data = {
             event_type: evnentType,
-            event_properties: { hero },
+            event_properties: { newHero },
             user_id: user._id,
             user_properties: {
               ...user,
