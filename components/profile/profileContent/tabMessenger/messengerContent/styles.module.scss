@@ -70,11 +70,8 @@
   padding-top: 26px;
   white-space: pre-wrap;
   margin: 0;
-  background-image: url('../../../../../public/img/messbg.png');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: bottom right;
   word-wrap: break-word;
+  position: relative;
   .message_list {
     min-height: 100%;
     & > div > div > div {

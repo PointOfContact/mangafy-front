@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { notification } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 import client from 'api/client';
+import Imgix from 'components/imgix';
 import ModalInvites from 'components/modals/sendInvites';
 import PrimaryButton from 'components/ui-elements/button';
 import { EVENTS } from 'helpers/amplitudeEvents';
@@ -222,6 +223,11 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
     <div className={styles.chatContainer}>
       {selectedRequest.participentsInfo && <UserName selectedRequest={selectedRequest} />}
       <pre ref={messageListElement} className={styles.messageList} id="message-content">
+        <Imgix
+          layout="fill"
+          src={'https://mangafy.club/img/messbg.png'}
+          alt="MangaFy message background"
+        />
         <MessageList
           ref={messenger}
           className={styles.message_list}
