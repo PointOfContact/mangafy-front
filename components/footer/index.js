@@ -40,7 +40,7 @@ const Footer = () => (
                 <SvgFbNew width="25px" height="25px" />
               </a>
               <a
-                href="https://twitter.com/FyManga"
+                href="https://twitter.com/be_mangafy"
                 target="_blank"
                 rel="noreferrer"
                 className={styles.footer__socBtn}>
