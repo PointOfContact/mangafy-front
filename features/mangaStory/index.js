@@ -250,6 +250,7 @@ const MangeStory = (props) => {
                       </TabPane>
                     )}
                   {userData &&
+                    isOwn &&
                     (baseData?.participentsInfo?.find((item) => item._id === userData?._id) ||
                       baseData?.author === userData?._id) && (
                       <TabPane tab="SETTINGS" key="5">
