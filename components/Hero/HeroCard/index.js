@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 // Antd design
 
 import client from 'api/client';
+import Imgix from 'components/imgix';
 import ShowImgModal from 'components/modals/showImg';
 import PropTypes from 'prop-types';
 
@@ -63,12 +64,15 @@ const HeroCard = ({ hero, changeHero, confirmDelete }) => {
       </div>
 
       <div className={styles.hero__img} style={{ backgroundColor: defaultColor }}>
-        <img
+        <Imgix
+          layout="fill"
           onClick={() => {
             setShowImg(client.UPLOAD_URL + hero?.imageUrl);
             setIsModalVisible(!!hero?.imageUrl?.length);
           }}
-          src={hero?.imageUrl ? client.UPLOAD_URL + hero?.imageUrl : defaultImage}
+          src={
+            hero?.imageUrl ? client.UPLOAD_URL + hero?.imageUrl : client.API_ENDPOINT + defaultImage
+          }
           alt="MangaFy hero card"
         />
       </div>

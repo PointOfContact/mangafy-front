@@ -224,6 +224,7 @@ const ModalComponent = ({ changeShowModal, showModal, hero, getStoryBoard, user 
 
                 <div className={cn('modal_select_btn', styles.submitButton)}>
                   <EditBackground
+                    disabled={!!name.trim()}
                     ifIsEdit={ifIsEdit}
                     hero={hero}
                     imageUrl={imageUrl}
@@ -249,6 +250,7 @@ const ModalComponent = ({ changeShowModal, showModal, hero, getStoryBoard, user 
           </div>
           <div className={styles.uploadFile}>
             <EditBackground
+              disabled={!name}
               ifIsEdit={ifIsEdit}
               hero={hero}
               imageUrl={imageUrl}
