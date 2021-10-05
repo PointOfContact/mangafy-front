@@ -316,7 +316,7 @@ const ModalHeroes = ({
                   {imageUrl && (
                     <span
                       onClick={() => {
-                        onChangeHero('');
+                        onChangeHero({}, '');
                         setImgId('');
                       }}>
                       Delete
@@ -340,7 +340,7 @@ const ModalHeroes = ({
                 <PrimaryButton
                   onClick={() => {
                     changeShowModalHeroes(false);
-                    onChangeHero(imageUrl, true);
+                    onChangeHero({}, imageUrl, true);
                   }}
                   text="Duplicate"
                 />
