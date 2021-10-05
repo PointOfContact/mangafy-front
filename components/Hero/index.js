@@ -114,7 +114,7 @@ const Hero = ({ storyBoard, getStoryBoard, user }) => {
           <div className={styles.cardContainer}>
             {
               <CreateBoard
-                title="Heroes"
+                title="Characters"
                 list={() => getLists(HeroTypes.personage)}
                 addHero={addHero}
                 heroTypes={HeroTypes.personage}
