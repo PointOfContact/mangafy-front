@@ -218,6 +218,17 @@
       line-height: 1.45;
       color: $black;
       margin-right: 95px;
+      & > div > div {
+        max-width: 360px;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        @include media-sm{
+          max-width: 100%;
+        }
+        & > div{
+          margin-bottom: 5px;
+        }
+      }
       @media #{$media-sm} {
         width: 100%;
         padding: 0 10px;

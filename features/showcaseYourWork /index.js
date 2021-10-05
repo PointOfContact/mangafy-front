@@ -124,7 +124,7 @@ const ShowcaseYourWork = ({ user }) => (
             <div className={styles.share}>
               <div className={styles.items}>
                 <ShareButtons
-                  shareUrl="https://mangafy.club/resources/manga-paneling-basics"
+                  shareUrl="https://mangafy.club/resources/showcase-your-work"
                   text="Liked? Share"
                 />
               </div>

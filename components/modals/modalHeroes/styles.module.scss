@@ -22,6 +22,7 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
     color: $gray85;
   }
   &:hover {
+    color: $black;
     border: 1px solid $primaryDark;
   }
   &:focus {
@@ -132,6 +133,9 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
       font-weight: 900;
       font-size: 15px;
       line-height: 22px;
+      @include media-sm{
+        width: 170px;
+      }
     }
   }
   .modalTitle {
@@ -234,7 +238,15 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
   //   }
   // }
 }
-
+.nameInput {
+  &::placeholder {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 23px;
+    color: $gray85 !important;
+  }
+}
 .submitButton {
   display: flex;
   flex-direction: column;
@@ -278,16 +290,15 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
         color: $gray85;
       }
     }
-    & input {
-      background-color: $text_white;
-      border-radius: 0;
-      @include input();
+    input {
       height: 44px;
+      background-color: $text_white;
+      @include input();
     }
     .modalTexArea {
-      @include input();
       min-height: 99px !important;
       background-color: white;
+      @include input();
     }
   }
   .chooseTypes {
@@ -322,6 +333,9 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
     border-right: none;
     min-height: 44px;
     padding-top: 4px;
+    span{
+      color: $gray85;
+    }
     div {
       & > div {
         @for $i from 1 through 7 {

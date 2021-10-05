@@ -12,7 +12,7 @@ import { ShareButtons } from 'components/share';
 import { Comments } from 'components/type-content/comments';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import Link from 'next/link';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import * as qs from 'query-string';
 import myAmplitude from 'utils/amplitude';
@@ -42,6 +42,8 @@ const ModalDiscussion = ({
   const [loading, setLoading] = useState('');
   const [subTitleData, setSubTitleData] = useState('');
   const ifVideo = photoProject?.includes('youtube');
+
+  const router = useRouter();
 
   useEffect(() => {
     if (showModal) {
@@ -207,7 +209,9 @@ const ModalDiscussion = ({
                     <Popover
                       placement="bottomRight"
                       title={''}
-                      content={<ShareButtons shareUrl={`https://mangafy.club${url}`} text="" />}
+                      content={
+                        <ShareButtons shareUrl={`${client.API_ENDPOINT}${router.asPath}`} text="" />
+                      }
                       trigger="click">
                       <SvgShareColored width="25px" height="25px" />
                     </Popover>
