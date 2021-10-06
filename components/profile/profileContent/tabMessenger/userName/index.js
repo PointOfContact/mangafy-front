@@ -56,23 +56,26 @@ const UserName = ({ selectedRequest, mobile, setShowMessageMobile }) => {
                   </div>
                 </a>
               </Link>
-              <Link href={getPath()}>
-                <a>{selectedRequest.name}</a>
-              </Link>
             </>
           ) : (
             <a>{selectedRequest.name}</a>
           )}
+          <div className={styles.description}>
+            <Link href={getPath()}>
+              <a>{selectedRequest.name}</a>
+            </Link>
+            {selectedRequest.isTeamChat && selectedRequest.rid && (
+              // <Popover
+              //   placement="bottomLeft"
+              //   title={'Members'}
+              //   content={members(selectedRequest.participentsInfo)}
+              //   trigger="click">
+
+              <p className={styles.members}>{selectedRequest?.participentsInfo?.length} members </p>
+              // </Popover>
+            )}
+          </div>
         </div>
-      )}
-      {selectedRequest.isTeamChat && selectedRequest.rid && (
-        // <Popover
-        //   placement="bottomLeft"
-        //   title={'Members'}
-        //   content={members(selectedRequest.participentsInfo)}
-        //   trigger="click">
-        <p className={styles.members}>{selectedRequest?.participentsInfo?.length} members </p>
-        // </Popover>
       )}
     </div>
   );
