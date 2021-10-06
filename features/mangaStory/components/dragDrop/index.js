@@ -31,10 +31,6 @@ const DragDrop = ({
     updateCharacters(uploadImages);
   }, [uploadImages]);
 
-  const ifPdf = (index) =>
-    storyBoard?.mangaUrls[index]?.slice(-3) === 'pdf' ||
-    storyBoard?.mangaUrls[index]?.slice(-3) === 'PDF';
-
   const confirmDelete = (index) => {
     storyBoard.mangaUrls.splice(index, 1);
     patchStoryBoard(
@@ -51,12 +47,12 @@ const DragDrop = ({
     );
   };
 
-  const setImage = (index, value) => (
+  const setImage = (index, img) => (
     <Imgix
       width={209}
       height={294}
       className={styles.photo}
-      src={value.url}
+      src={`${client.API_ENDPOINT}/api/v2/uploads/${img}`}
       alt="Manga story cover"
     />
   );
@@ -73,17 +69,10 @@ const DragDrop = ({
           <div
             className={styles.uploadPhoto}
             onClick={() => {
-              if (ifPdf(index)) {
-                setZoomImageUrl(
-                  <PDFViewer url={client.UPLOAD_URL + storyBoard?.mangaUrls[index]} />
-                );
-                setIsModalVisible(!isModalVisible);
-              } else {
-                setZoomImageUrl(value.url);
-                setIsModalVisible(!isModalVisible);
-              }
+              setZoomImageUrl(value.uid);
+              setIsModalVisible(!isModalVisible);
             }}>
-            {setImage(index, value)}
+            {setImage(index, value.uid)}
           </div>
           <Popconfirm
             overlayClassName={styles.popConfirm}

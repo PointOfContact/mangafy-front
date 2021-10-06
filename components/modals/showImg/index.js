@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Modal } from 'antd';
+import client from 'api/client';
 import SvgClose from 'components/icon/Close';
 import Imgix from 'components/imgix';
 import PropTypes from 'prop-types';
@@ -21,7 +22,15 @@ const ShowImgModal = ({ setIsModalVisible, isModalVisible, img }) => (
       </span>
     }
     visible={isModalVisible}>
-    {typeof img === 'string' ? <Imgix layout="fill" src={img} alt="MangaFy modal" /> : img}
+    {typeof img === 'string' ? (
+      <Imgix
+        layout="fill"
+        src={`${client.API_ENDPOINT}/api/v2/uploads/${img}`}
+        alt="MangaFy modal"
+      />
+    ) : (
+      img
+    )}
   </Modal>
 );
 
