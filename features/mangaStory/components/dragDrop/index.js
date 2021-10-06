@@ -69,7 +69,7 @@ const DragDrop = ({
           <div
             className={styles.uploadPhoto}
             onClick={() => {
-              setZoomImageUrl(value.uid);
+              setZoomImageUrl(`${client.API_ENDPOINT}/api/v2/uploads/${value.uid}`);
               setIsModalVisible(!isModalVisible);
             }}>
             {setImage(index, value.uid)}
