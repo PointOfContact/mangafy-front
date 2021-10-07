@@ -71,7 +71,6 @@
   white-space: pre-wrap;
   margin: 0;
   word-wrap: break-word;
-  position: relative;
   .message_list {
     min-height: 100%;
     & > div > div > div {
@@ -252,12 +251,14 @@
 
 .chatContainer {
   width: 100%;
+  position: relative;
   .chatBlock2 {
     border-top: 1px solid $white;
     position: relative;
     width: 100%;
     display: flex;
     margin-bottom: 10px;
+    background-color: white;
     @include media-sm {
       left: 0;
       flex-direction: column;
