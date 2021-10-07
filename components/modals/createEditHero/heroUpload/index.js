@@ -118,6 +118,7 @@ const HeroUpload = ({
         fileList={fileList}
         onChange={onChange}
         beforeUpload={beforeUpload}
+        onRemove={() => onChangeHero({}, '')}
         onPreview={onPreview}>
         {fileList.length < 1 && (
           <div className={cn(styles.content, className)}>
