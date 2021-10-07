@@ -114,6 +114,7 @@ const GalleryCard = ({
       );
     }
   };
+
   const onEditImg = (e) => {
     e.stopPropagation();
     setSelectedGallery(galleryItem);
@@ -125,7 +126,10 @@ const GalleryCard = ({
     <div>
       <div
         key={index}
-        className={cd(styles.galleryImg, galleryItem.renderItem && styles.typeRender)}>
+        className={cd(
+          styles.galleryImg,
+          galleryItem.renderItem && type !== 'pdf' && type !== 'PDF' && styles.typeRender
+        )}>
         {canEditInit && (
           <>
             <Popconfirm
@@ -176,11 +180,9 @@ const GalleryCard = ({
             type === 'pdf' || type === 'PDF' ? (
               <span className={styles.pdf}>
                 <Imgix
-                  width={58}
-                  height={58}
-                  layout="fixed"
-                  src="https://mangafy.club/img/pdf.webp"
-                  alt="Manga story cover"
+                  layout="fill"
+                  src={client.UPLOAD_URL + galleryItem._id}
+                  alt="MangaFy galere"
                 />
               </span>
             ) : (
