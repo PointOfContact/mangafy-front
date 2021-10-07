@@ -165,7 +165,7 @@ const GalleryCard = ({
               }
               className={(user && isLiked(galleryItem._id, user?._id) && styles.liked) || ''}
             />
-            <span>{getLikesCount(galleryItem._id)}</span>
+            <span>{!!getLikesCount(galleryItem._id) && getLikesCount(galleryItem._id)}</span>
           </span>
         )}
 

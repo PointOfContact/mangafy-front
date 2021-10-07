@@ -192,7 +192,7 @@ $backgroundColor: '';
     }
     button {
       display: flex;
-      justify-content: space-around;
+      justify-content: space-between;
       font-size: 14px;
       padding: 3px 15px;
       @include media-sm {
