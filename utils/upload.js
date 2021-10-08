@@ -22,7 +22,7 @@ async function getSignedUrlPromise(fileName, fileType, setLoading = () => {}) {
     });
 }
 
-function uploadFilePromise(url, file, fileName, callback, resolve) {
+function uploadFilePromise(url, file, fileName, callback, setLoading, resolve) {
   const options = {
     headers: {
       'Content-Type': file.type,
@@ -36,6 +36,7 @@ function uploadFilePromise(url, file, fileName, callback, resolve) {
       .then((response) => {
         console.log('Done', response);
         callback(fileName, resolve);
+        setLoading(false);
         res(fileName);
       })
       .catch((error) => {
@@ -50,7 +51,7 @@ function uploadFilePromise(url, file, fileName, callback, resolve) {
 
 const beforeUploadFromAMZ = (file, callback, setLoading, resolve) =>
   getSignedUrlPromise(file.name, file.type, setLoading).then(({ url, fileName }) =>
-    uploadFilePromise(url, file, fileName, callback, resolve)
+    uploadFilePromise(url, file, fileName, callback, setLoading, resolve)
   );
 
 export default beforeUploadFromAMZ;
