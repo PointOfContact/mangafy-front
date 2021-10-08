@@ -67,7 +67,7 @@ const DiscussionCard = (props) => {
     <>
       <div className={styles.projectsForYou_card} onClick={() => openPost(id)}>
         <div className={styles.projectsForYou_Top}>
-          <Link href={logoNavigate}>
+          <Link href={logoNavigate || ''}>
             <a>
               <div
                 className={styles.projectsForYou_Logo}
