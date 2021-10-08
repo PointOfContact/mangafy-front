@@ -11,10 +11,10 @@ import SvgTie from 'components/icon/Tie';
 import Imgix from 'components/imgix';
 import { ShareButtons } from 'components/share';
 import { OPTIONS } from 'features/createStory/lenguage/constant';
-import mangaStoryAPI from 'features/mangaStory/mangaStoryAPI';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import PropTypes from 'prop-types';
 import myAmplitude from 'utils/amplitude';
+import beforeUploadFromAMZ from 'utils/upload';
 
 import EditContent from './editContent';
 import styles from './styles.module.scss';
@@ -43,6 +43,27 @@ const BannerSection = ({
     };
     myAmplitude(event);
   };
+
+  const setImageMangaStor = async (image) => {
+    const jwt = client.getCookie('feathers-jwt');
+    const { default: api } = await import('api/restClient');
+
+    const options = {
+      headers: { Authorization: `Bearer ${jwt}` },
+      mode: 'no-cors',
+    };
+
+    const data = await api.service('/api/v2/manga-stories').patch(
+      baseData._id,
+      {
+        image,
+      },
+      options
+    );
+
+    setBaseData(data);
+  };
+
   const beforeUpload = (file) => {
     const isJpgOrPng =
       file.type === 'image/jpeg' ||
@@ -59,18 +80,7 @@ const BannerSection = ({
       openNotification('error', 'Image must be smaller than 50MB!');
     }
 
-    if (isJpgOrPng && isLt2M) {
-      // eslint-disable-next-line no-undef
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.addEventListener(
-        'load',
-        () => {
-          mangaStoryAPI.bannerSection.getBaseData(reader, setBaseData, baseData, openNotification);
-        },
-        false
-      );
-    }
+    if (isJpgOrPng && isLt2M) beforeUploadFromAMZ(file, setImageMangaStor);
   };
 
   const searchingForContent = () => (

@@ -1,5 +1,6 @@
 import { notification } from 'antd';
 import client from 'api/client';
+import beforeUploadFromAMZ from 'utils/upload';
 
 const getShortStorys = (authorId, onSuccess, onFailure) => {
   const jwt = client.getCookie('feathers-jwt');
@@ -93,7 +94,7 @@ const adaptedDataImages = (images, res) => {
     )
     .map((item) => item._id);
 
-  return [res.id, ...imgs];
+  return [res, ...imgs];
 };
 
 const beforeGalleryUpload = (
@@ -133,72 +134,44 @@ const beforeGalleryUpload = (
     }
 
     if (isJpgOrPng && isLt2M) {
-      // eslint-disable-next-line no-undef
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.addEventListener(
-        'load',
-        () => {
+      beforeUploadFromAMZ(file, () => {
+        setShowUploadList(false);
+      })
+        .then((response) => {
           const jwt = client.getCookie('feathers-jwt');
-          import('api/restClient')
-            .then((m) => {
+          import('api/restClient').then((m) => {
+            setImages((imgs) => {
               m.default
-                .service('/api/v2/uploads')
-                .create(
-                  { uri: reader.result },
+                .service(`/api/v2/${fromPath}`)
+                .patch(
+                  fromPath === 'users' ? userData._id : mangaStories._id,
+                  {
+                    gallery: adaptedDataImages(imgs, response),
+                  },
                   {
                     headers: { Authorization: `Bearer ${jwt}` },
                     mode: 'no-cors',
                   }
                 )
-                .then((response) => {
-                  setShowUploadList(false);
-                  return response;
-                })
-                .then((response) => {
-                  setImages((imgs) => {
-                    m.default
-                      .service(`/api/v2/${fromPath}`)
-                      .patch(
-                        fromPath === 'users' ? userData._id : mangaStories._id,
-                        {
-                          gallery: adaptedDataImages(imgs, response),
-                        },
-                        {
-                          headers: { Authorization: `Bearer ${jwt}` },
-                          mode: 'no-cors',
-                        }
-                      )
-                      .then((res) => {
-                        setUserData(res);
-                        setShowUploadList(false);
-                        setLoading(false);
-                        setImages(prepareDataImages(res.gallery));
-                        resolve(res);
-                      });
-                    return imgs;
-                  });
-                })
-                .catch((err) => {
-                  setErrMessage(err.message);
+                .then((res) => {
+                  setUserData(res);
                   setShowUploadList(false);
                   setLoading(false);
-                  setTimeout(() => {
-                    setErrMessage('');
-                  }, 2000);
+                  setImages(prepareDataImages(res.gallery));
+                  resolve(res);
                 });
-            })
-            .catch((err) => {
-              setErrMessage(err.message);
-              setShowUploadList(false);
-              setLoading(false);
-              setTimeout(() => {
-                setErrMessage('');
-              }, 2000);
+              return imgs;
             });
-        },
-        false
-      );
+          });
+        })
+        .catch((err) => {
+          setErrMessage(err.message);
+          setShowUploadList(false);
+          setLoading(false);
+          setTimeout(() => {
+            setErrMessage('');
+          }, 2000);
+        });
     }
   });
 
