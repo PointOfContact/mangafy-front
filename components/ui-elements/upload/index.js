@@ -3,9 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Upload, notification, Spin } from 'antd';
 import Modal from 'antd/lib/modal/Modal';
 import client from 'api/client';
-// Api
-
-import { patchStoryBoard, uploadFile } from 'api/storyBoardClient';
+import { patchStoryBoard } from 'api/storyBoardClient';
 import cn from 'classnames';
 import SvgClose from 'components/icon/Close';
 import SvgCloud from 'components/icon/Cloud';
@@ -14,6 +12,7 @@ import Imgix from 'components/imgix';
 import dynamic from 'next/dynamic';
 import PropTypes from 'prop-types';
 import Queue from 'queue-promise';
+import beforeUploadFromAMZ from 'utils/upload';
 
 import styles from './styles.module.scss';
 
@@ -57,6 +56,26 @@ const PrimaryUpload = ({
     setUploadImages(fileList);
   }, [fileList, setUploadImages]);
 
+  const setStoryBoardCallback = (fileName, resolve) => {
+    setStoryBoard((sb) => {
+      setIfUploadImg(false);
+      patchStoryBoard(
+        storyBoardId,
+        {
+          mangaUrls: [...sb.mangaUrls, fileName],
+        },
+        (response) => {
+          setStoryBoard(response);
+          resolve(response);
+        },
+        (err) => {
+          openNotification('error', err.message);
+        }
+      );
+      return sb;
+    });
+  };
+
   function beforeUpload(file) {
     return new Promise((resolve) => {
       const isJpgOrPng =
@@ -74,39 +93,9 @@ const PrimaryUpload = ({
         openNotification('error', 'Image must be smaller than 50MB!');
       }
 
-      if (isLt2M && isJpgOrPng) {
-        // eslint-disable-next-line no-undef
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.addEventListener('load', () => {
-          setIfUploadImg(true);
-          uploadFile(
-            reader.result,
-            (res) => {
-              setStoryBoard((sb) => {
-                setIfUploadImg(false);
-                patchStoryBoard(
-                  storyBoardId,
-                  {
-                    mangaUrls: [...sb.mangaUrls, res?.id],
-                  },
-                  (response) => {
-                    setStoryBoard(response);
-                    resolve(response);
-                  },
-                  (err) => {
-                    openNotification('error', err.message);
-                  }
-                );
-                return sb;
-              });
-            },
-            (err) => {
-              openNotification('error', err.message);
-            }
-          );
-        });
-      }
+      if (isLt2M && isJpgOrPng)
+        beforeUploadFromAMZ(file, setStoryBoardCallback, setIfUploadImg, resolve);
+
       return isJpgOrPng && isLt2M;
     });
   }

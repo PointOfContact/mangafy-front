@@ -40,6 +40,24 @@
     }
   }
 }
+.spin{
+  width: 30%;
+  height: 100%;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: flex;
+  -webkit-align-items: center;
+  -moz-box-align: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  -moz-box-pack: center;
+  justify-content: center;
+  margin-left: 15px;
+  position: absolute;
+  span{
+    margin-right: 8px;
+  }
+}
 .uploadDefault {
   display: flex;
   justify-content: center;

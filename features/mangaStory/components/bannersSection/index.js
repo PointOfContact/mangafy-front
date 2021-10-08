@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import { Popover, Button, Progress, Upload } from 'antd';
+import { Popover, Button, Progress, Upload, Spin } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
 import SvgCat from 'components/icon/Cat';
@@ -11,10 +11,10 @@ import SvgTie from 'components/icon/Tie';
 import Imgix from 'components/imgix';
 import { ShareButtons } from 'components/share';
 import { OPTIONS } from 'features/createStory/lenguage/constant';
-import mangaStoryAPI from 'features/mangaStory/mangaStoryAPI';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import PropTypes from 'prop-types';
 import myAmplitude from 'utils/amplitude';
+import beforeUploadFromAMZ from 'utils/upload';
 
 import EditContent from './editContent';
 import styles from './styles.module.scss';
@@ -32,6 +32,8 @@ const BannerSection = ({
   isOwn,
   user,
 }) => {
+  const [loading, setLoading] = useState(false);
+
   const shareProjectEvent = () => {
     const event = {
       event_type: EVENTS.SHARED_PROJECT,
@@ -43,6 +45,27 @@ const BannerSection = ({
     };
     myAmplitude(event);
   };
+
+  const setImageMangaStor = async (image) => {
+    const jwt = client.getCookie('feathers-jwt');
+    const { default: api } = await import('api/restClient');
+
+    const options = {
+      headers: { Authorization: `Bearer ${jwt}` },
+      mode: 'no-cors',
+    };
+
+    const data = await api.service('/api/v2/manga-stories').patch(
+      baseData._id,
+      {
+        image,
+      },
+      options
+    );
+
+    setBaseData(data);
+  };
+
   const beforeUpload = (file) => {
     const isJpgOrPng =
       file.type === 'image/jpeg' ||
@@ -59,18 +82,7 @@ const BannerSection = ({
       openNotification('error', 'Image must be smaller than 50MB!');
     }
 
-    if (isJpgOrPng && isLt2M) {
-      // eslint-disable-next-line no-undef
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.addEventListener(
-        'load',
-        () => {
-          mangaStoryAPI.bannerSection.getBaseData(reader, setBaseData, baseData, openNotification);
-        },
-        false
-      );
-    }
+    if (isJpgOrPng && isLt2M) beforeUploadFromAMZ(file, setImageMangaStor, setLoading);
   };
 
   const searchingForContent = () => (
@@ -91,17 +103,25 @@ const BannerSection = ({
   return (
     <div className={styles.bannerWrap}>
       {canEdit ? (
-        <Upload className={styles.uploadContainer} beforeUpload={beforeUpload} fileList={[]}>
+        <Upload
+          className={styles.uploadContainer}
+          disabled={loading}
+          beforeUpload={beforeUpload}
+          fileList={[]}>
           <div className={!baseData.image ? styles.bannerDefault : styles.banner}>
-            <div className={!baseData.image ? styles.uploadDefault : styles.upload}>
-              <Imgix
-                width={335}
-                height={83}
-                layout="fixed"
-                src={'https://mangafy.club/img/upload.webp'}
-                alt="MangaFy upload"
-              />
-            </div>
+            {loading ? (
+              <Spin className={styles.spin} size="large" tip="Loading..."></Spin>
+            ) : (
+              <div className={!baseData.image ? styles.uploadDefault : styles.upload}>
+                <Imgix
+                  width={335}
+                  height={83}
+                  layout="fixed"
+                  src={'https://mangafy.club/img/upload.webp'}
+                  alt="MangaFy upload"
+                />
+              </div>
+            )}
 
             <div className={!baseData.image ? styles.bannerPhotoDefault : styles.bannerPhoto}>
               <Imgix

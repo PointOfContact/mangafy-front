@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { Upload, message, notification, Modal } from 'antd';
 import client from 'api/client';
 // Api
-import { uploadFile } from 'api/storyBoardClient';
 // Components
 import cn from 'classnames';
 import SvgClose from 'components/icon/Close';
@@ -11,6 +10,7 @@ import SvgCloud from 'components/icon/Cloud';
 import SvgImage from 'components/icon/Image';
 import Imgix from 'components/imgix';
 import PropTypes from 'prop-types';
+import beforeUploadFromAMZ from 'utils/upload';
 
 import styles from './styles.module.scss';
 
@@ -50,6 +50,12 @@ const HeroUpload = ({
     setFileList(newFileList);
   };
 
+  const setUploadCallback = (fileName) => {
+    setImgId(fileName);
+    onChangeHero({}, fileName);
+    setSubmitButton(false);
+  };
+
   const beforeUpload = (file) => {
     const isJpgOrPng =
       file.type === 'image/jpeg' ||
@@ -65,25 +71,8 @@ const HeroUpload = ({
       openNotification('error', 'Image must smaller than 10MB!');
     }
 
-    if (isJpgOrPng && isLt2M) {
-      // eslint-disable-next-line no-undef
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.addEventListener('load', () => {
-        setSubmitButton(true);
-        uploadFile(
-          reader.result,
-          (res) => {
-            setImgId(res?.id);
-            onChangeHero({}, res?.id);
-            setSubmitButton(false);
-          },
-          (err) => {
-            openNotification('error', err.message);
-          }
-        );
-      });
-    }
+    if (isJpgOrPng && isLt2M) beforeUploadFromAMZ(file, setUploadCallback, setSubmitButton);
+
     return isJpgOrPng && isLt2M;
   };
 

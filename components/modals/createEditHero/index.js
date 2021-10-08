@@ -198,8 +198,11 @@ const ModalComponent = ({ changeShowModal, showModal, hero, getStoryBoard, user 
                   name="name"
                   rules={[
                     {
-                      required: true,
-                      message: 'Name is required',
+                      validator: async (_, names) => {
+                        if (!names || names.length < 2) {
+                          return Promise.reject(new Error('At least 2 letter'));
+                        }
+                      },
                     },
                   ]}>
                   <PrimaryInput
@@ -240,7 +243,7 @@ const ModalComponent = ({ changeShowModal, showModal, hero, getStoryBoard, user 
                       className={styles.send}
                       onClick={() => {
                         changeShowModal(false);
-                        onChangeHero({}, imageUrl);
+                        name?.length > 1 && onChangeHero({}, imageUrl);
                       }}
                       text={hero?.newCreated ? titles.button : 'Save changes'}
                     />
