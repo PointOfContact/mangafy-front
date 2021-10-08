@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import { Popover, Button, Progress, Upload } from 'antd';
+import { Popover, Button, Progress, Upload, Spin } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
 import SvgCat from 'components/icon/Cat';
@@ -32,6 +32,8 @@ const BannerSection = ({
   isOwn,
   user,
 }) => {
+  const [loading, setLoading] = useState(false);
+
   const shareProjectEvent = () => {
     const event = {
       event_type: EVENTS.SHARED_PROJECT,
@@ -80,7 +82,7 @@ const BannerSection = ({
       openNotification('error', 'Image must be smaller than 50MB!');
     }
 
-    if (isJpgOrPng && isLt2M) beforeUploadFromAMZ(file, setImageMangaStor);
+    if (isJpgOrPng && isLt2M) beforeUploadFromAMZ(file, setImageMangaStor, setLoading);
   };
 
   const searchingForContent = () => (
@@ -101,17 +103,25 @@ const BannerSection = ({
   return (
     <div className={styles.bannerWrap}>
       {canEdit ? (
-        <Upload className={styles.uploadContainer} beforeUpload={beforeUpload} fileList={[]}>
+        <Upload
+          className={styles.uploadContainer}
+          disabled={loading}
+          beforeUpload={beforeUpload}
+          fileList={[]}>
           <div className={!baseData.image ? styles.bannerDefault : styles.banner}>
-            <div className={!baseData.image ? styles.uploadDefault : styles.upload}>
-              <Imgix
-                width={335}
-                height={83}
-                layout="fixed"
-                src={'https://mangafy.club/img/upload.webp'}
-                alt="MangaFy upload"
-              />
-            </div>
+            {loading ? (
+              <Spin className={styles.spin} size="large" tip="Loading..."></Spin>
+            ) : (
+              <div className={!baseData.image ? styles.uploadDefault : styles.upload}>
+                <Imgix
+                  width={335}
+                  height={83}
+                  layout="fixed"
+                  src={'https://mangafy.club/img/upload.webp'}
+                  alt="MangaFy upload"
+                />
+              </div>
+            )}
 
             <div className={!baseData.image ? styles.bannerPhotoDefault : styles.bannerPhoto}>
               <Imgix
