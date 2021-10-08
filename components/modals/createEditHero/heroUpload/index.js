@@ -24,6 +24,8 @@ const HeroUpload = ({
   disabled,
   className,
   setSubmitButton,
+  requestAuto,
+  setDeleteUploadImage,
 }) => {
   const [img, setImg] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -52,7 +54,7 @@ const HeroUpload = ({
 
   const setUploadCallback = (fileName) => {
     setImgId(fileName);
-    onChangeHero({}, fileName);
+    requestAuto && onChangeHero({}, fileName);
     setSubmitButton(false);
   };
 
@@ -107,7 +109,10 @@ const HeroUpload = ({
         fileList={fileList}
         onChange={onChange}
         beforeUpload={beforeUpload}
-        onRemove={() => onChangeHero({}, '')}
+        onRemove={() => {
+          onChangeHero({}, '');
+          setDeleteUploadImage(false);
+        }}
         onPreview={onPreview}>
         {fileList.length < 1 && (
           <div className={cn(styles.content, className)}>
@@ -160,6 +165,8 @@ HeroUpload.propTypes = {
   text: PropTypes.string,
   className: PropTypes.string,
   setSubmitButton: PropTypes.func,
+  requestAuto: PropTypes.bool,
+  setDeleteUploadImage: PropTypes.func,
 };
 
 HeroUpload.defaultProps = {
@@ -174,6 +181,8 @@ HeroUpload.defaultProps = {
   text: '',
   className: '',
   setSubmitButton: () => {},
+  requestAuto: true,
+  setDeleteUploadImage: () => {},
 };
 
 export default HeroUpload;
