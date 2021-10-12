@@ -278,6 +278,10 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
     width: calc(100% - 47px);
     margin-top: 70px;
   }
+  .error{
+    color: $red;
+    font-size: 14px;
+  }
   & > form {
     & > div {
       margin: 0;
