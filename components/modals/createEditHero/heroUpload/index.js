@@ -25,7 +25,8 @@ const HeroUpload = ({
   className,
   setSubmitButton,
   requestAuto,
-  setDeleteUploadImage,
+  uploadVideo,
+  setUploadLoading,
 }) => {
   const [img, setImg] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -110,8 +111,7 @@ const HeroUpload = ({
         onChange={onChange}
         beforeUpload={beforeUpload}
         onRemove={() => {
-          onChangeHero({}, '');
-          setDeleteUploadImage(false);
+          setImgId('');
         }}
         onPreview={onPreview}>
         {fileList.length < 1 && (
@@ -166,7 +166,8 @@ HeroUpload.propTypes = {
   className: PropTypes.string,
   setSubmitButton: PropTypes.func,
   requestAuto: PropTypes.bool,
-  setDeleteUploadImage: PropTypes.func,
+  uploadVideo: PropTypes.bool,
+  setUploadLoading: PropTypes.func,
 };
 
 HeroUpload.defaultProps = {
@@ -182,7 +183,8 @@ HeroUpload.defaultProps = {
   className: '',
   setSubmitButton: () => {},
   requestAuto: true,
-  setDeleteUploadImage: () => {},
+  uploadVideo: false,
+  setUploadLoading: () => {},
 };
 
 export default HeroUpload;
