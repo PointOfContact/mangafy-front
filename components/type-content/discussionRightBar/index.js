@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { Modal } from 'antd';
 import SvgBulbColored from 'components/icon/BulbColored';
-import SvgClose from 'components/icon/Close';
 import PrimaryButton from 'components/ui-elements/button';
 import GetFeedback from 'features/get-feedback';
 import Router from 'next/router';
@@ -65,18 +63,11 @@ const DiscussionRightBar = ({ dailyWarmUps, user }) => {
         <p className={styles.warmsText}>New warm-ups every morning</p>
       </div>
       <div>
-        <Modal
-          className={styles.modalFeedbacks}
-          zIndex={1000000}
-          closeIcon={
-            <span className={styles.closeIcon} onClick={() => setIsModalVisible(false)}>
-              <SvgClose />
-            </span>
-          }
-          visible={isModalVisible}
-          footer={null}>
-          <GetFeedback user={user} closeModal={setIsModalVisible} />
-        </Modal>
+        <GetFeedback
+          user={user}
+          isModalVisible={isModalVisible}
+          setIsModalVisible={setIsModalVisible}
+        />
       </div>
     </div>
   );

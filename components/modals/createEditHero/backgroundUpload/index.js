@@ -20,6 +20,8 @@ const EditBackground = ({
   setSubmitButton,
   requestAuto,
   setDeleteUploadImage,
+  uploadVideo,
+  setUploadLoading,
 }) => {
   const [showUpload, setShowUpload] = useState(false);
   return ifIsEdit && !!hero.imageUrl ? (
@@ -53,6 +55,8 @@ const EditBackground = ({
               setSubmitButton={setSubmitButton}
               requestAuto={requestAuto}
               setDeleteUploadImage={setDeleteUploadImage}
+              uploadVideo={uploadVideo}
+              setUploadLoading={setUploadLoading}
             />
           </div>
         </div>
@@ -73,6 +77,8 @@ const EditBackground = ({
       setSubmitButton={setSubmitButton}
       requestAuto={requestAuto}
       setDeleteUploadImage={setDeleteUploadImage}
+      uploadVideo={uploadVideo}
+      setUploadLoading={setUploadLoading}
     />
   );
 };
@@ -90,6 +96,8 @@ EditBackground.propTypes = {
   setSubmitButton: PropTypes.func,
   requestAuto: PropTypes.bool,
   setDeleteUploadImage: PropTypes.func,
+  uploadVideo: PropTypes.bool,
+  setUploadLoading: PropTypes.func,
 };
 
 EditBackground.defaultProps = {
@@ -105,6 +113,8 @@ EditBackground.defaultProps = {
   setSubmitButton: () => {},
   requestAuto: true,
   setDeleteUploadImage: () => {},
+  uploadVideo: false,
+  setUploadLoading: () => {},
 };
 
 export default EditBackground;
