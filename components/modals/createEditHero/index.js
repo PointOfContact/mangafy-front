@@ -252,19 +252,6 @@ const ModalComponent = ({ changeShowModal, showModal, hero, getStoryBoard, user 
               </Form>
             </div>
           </div>
-          <div className={styles.uploadFile}>
-            <EditBackground
-              disabled={!name}
-              ifIsEdit={ifIsEdit}
-              hero={hero}
-              onChangeHero={onChangeHero}
-              imageUrl={imageUrl}
-              setSubmitButton={setSubmitButton}
-              setImgId={setImgId}
-              typeCard={titles.type}
-              requestAuto={false}
-            />
-          </div>
         </div>
       </div>
     </Modal>
