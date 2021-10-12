@@ -49,7 +49,7 @@ function uploadFilePromise(url, file, fileName, callback, setLoading, resolve) {
   });
 }
 
-const beforeUploadFromAMZ = (file, callback, setLoading, resolve) =>
+const beforeUploadFromAMZ = (file, callback, setLoading = () => {}, resolve) =>
   getSignedUrlPromise(file.name, file.type, setLoading).then(({ url, fileName }) =>
     uploadFilePromise(url, file, fileName, callback, setLoading, resolve)
   );
