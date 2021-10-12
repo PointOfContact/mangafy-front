@@ -212,6 +212,10 @@ $borderColor: #f0f0f0;
         border: none;
         border: 1px solid $primaryDark;
       }
+      &:focus {
+        border: none;
+        border: 1px solid $primaryDark;
+      }
     }
     .modalTexArea {
       @include input();
