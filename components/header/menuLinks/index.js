@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import cn from 'classnames';
-import ModalCreateProject from 'components/modalCreateProject/modalCreateProject';
+import ModalCreateProject from 'components/modalCreateProject';
 import PrimaryButton from 'components/ui-elements/button';
 import { removeAllStorage } from 'helpers/shared';
 import Link from 'next/link';

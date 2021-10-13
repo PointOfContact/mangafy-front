@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import Imgix from 'components/imgix';
-import ModalCreateProject from 'components/modalCreateProject/modalCreateProject';
+import ModalCreateProject from 'components/modalCreateProject';
 import HugeButton from 'components/ui-elements/huge-button';
 import Link from 'next/link';
 import PropTypes from 'prop-types';

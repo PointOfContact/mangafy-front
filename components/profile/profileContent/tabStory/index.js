@@ -4,7 +4,7 @@ import cn from 'classnames';
 import Card from 'components/card';
 import SvgPurplePencil from 'components/icon/PurplePencil';
 import Imgix from 'components/imgix';
-import ModalCreateProject from 'components/modalCreateProject/modalCreateProject';
+import ModalCreateProject from 'components/modalCreateProject';
 import PropTypes from 'prop-types';
 
 import CreateGeneres from './createGeneres';

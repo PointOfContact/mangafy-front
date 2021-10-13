@@ -8,7 +8,7 @@ import SvgLoginUser from 'components/icon/LoginUser';
 import Imgix from 'components/imgix';
 import MenuMobilePopover from 'components/menu-mobile-popover';
 import MenuNotificationsBox from 'components/menu-notifications-box';
-import ModalCreateProject from 'components/modalCreateProject/modalCreateProject';
+import ModalCreateProject from 'components/modalCreateProject';
 import AddButton from 'components/ui-elements/add-button';
 import Avatar from 'components/ui-elements/avatar';
 import PrimaryButton from 'components/ui-elements/button';

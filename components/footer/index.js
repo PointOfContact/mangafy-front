@@ -5,7 +5,7 @@ import SvgFbNew from 'components/icon/FbNew';
 import SvgInstNew from 'components/icon/InstNew';
 import SvgTwNew from 'components/icon/TwNew';
 import Imgix from 'components/imgix';
-import ModalCreateProject from 'components/modalCreateProject/modalCreateProject';
+import ModalCreateProject from 'components/modalCreateProject';
 import Link from 'next/link';
 
 import styles from './styles.module.scss';

@@ -4,7 +4,7 @@ import { Layout, Row, Col } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
 import MangeStoryCard from 'components/mangeStoryCard';
-import ModalCreateProject from 'components/modalCreateProject/modalCreateProject';
+import ModalCreateProject from 'components/modalCreateProject';
 import AddButton from 'components/ui-elements/add-button';
 import PropTypes from 'prop-types';
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { Row } from 'antd';
-import ModalCreateProject from 'components/modalCreateProject/modalCreateProject';
+import ModalCreateProject from 'components/modalCreateProject';
 import PrimaryButton from 'components/ui-elements/button';
 
 import AnimePlatformCard from './anime-platform copy';

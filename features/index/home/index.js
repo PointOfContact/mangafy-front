@@ -5,7 +5,7 @@ import SvgPlatformImg1 from 'components/icon/PlatformImg1';
 import SvgPlatformImg2 from 'components/icon/PlatformImg2';
 import SvgPlatformImg3 from 'components/icon/PlatformImg3';
 import Imgix from 'components/imgix';
-import ModalCreateProject from 'components/modalCreateProject/modalCreateProject';
+import ModalCreateProject from 'components/modalCreateProject';
 import PrimaryButton from 'components/ui-elements/button';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';

@@ -4,7 +4,7 @@ import { Button, Checkbox } from 'antd';
 import SvgLeftArrow from 'components/icon/LeftArrow';
 import SvgRightArrow from 'components/icon/RightArrow';
 import Imgix from 'components/imgix';
-import ModalCreateProject from 'components/modalCreateProject/modalCreateProject';
+import ModalCreateProject from 'components/modalCreateProject';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import Head from 'next/head';
 import Link from 'next/link';

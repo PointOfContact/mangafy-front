@@ -8,7 +8,7 @@ import CollaborationsHeader from 'components/collaborationsHeader';
 import Footer from 'components/footer';
 import FooterPolicy from 'components/footer-policy';
 import Header from 'components/header';
-import ModalCreateProject from 'components/modalCreateProject/modalCreateProject';
+import ModalCreateProject from 'components/modalCreateProject';
 import Paginations from 'components/paginations';
 import SearchForCollaborations from 'components/searchForCollaborations';
 import PrimaryButton from 'components/ui-elements/button';

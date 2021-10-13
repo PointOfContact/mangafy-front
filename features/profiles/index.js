@@ -5,7 +5,7 @@ import cn from 'classnames';
 import Footer from 'components/footer';
 import FooterPolicy from 'components/footer-policy';
 import Header from 'components/header';
-import ModalCreateProject from 'components/modalCreateProject/modalCreateProject';
+import ModalCreateProject from 'components/modalCreateProject';
 import Paginations from 'components/paginations';
 import ProfilesCard from 'components/profilesCard';
 import ProfilesHeader from 'components/profilesHeader';
