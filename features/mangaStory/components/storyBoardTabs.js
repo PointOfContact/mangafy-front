@@ -49,6 +49,7 @@ const StoryBoardTabs = ({
   const [ifUploadImg, setIfUploadImg] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isShowAnimation, setIsShowAnimation] = useState(false);
+  const imageType = zoomImageUrl?.slice(-3) === 'pdf' || zoomImageUrl?.slice(-3) === 'PDF';
   // const [storyBoard, setStoryBoard] = useState({
   //   idea: {
   //     title: '',
@@ -253,17 +254,17 @@ const StoryBoardTabs = ({
         headers: { Authorization: `Bearer ${jwt}` },
       })
       .then((response) => {
-        const newBaisData = {
+        const newBaseData = {
           ...baseData,
           tasks: response.data,
         };
-        setBaseData(newBaisData);
+        setBaseData(newBaseData);
       })
       .catch((err) => err);
   };
 
-  const addNewbuttons = (
-    <div className={styles.addNewbuttons}>
+  const addNewButtons = (
+    <div className={styles.addNewButtons}>
       <FindPartner participentsInfo={participentsInfo} />
       <PrimaryButton
         onClick={() => changeShowTaskModal(true)}
@@ -294,7 +295,7 @@ const StoryBoardTabs = ({
           }
           key={1}>
           <div className={styles.tabContent}>
-            {addNewbuttons}
+            {addNewButtons}
             <Idea storyBoard={storyBoard} setStoryBoard={setStoryBoard} user={user} />
             {renderNavigationButtons(!(storyBoard?.idea?.title && storyBoard?.idea?.text))}
           </div>
@@ -308,7 +309,7 @@ const StoryBoardTabs = ({
           key={2}>
           {isShowAnimation && <span className={styles.showAnimation}></span>}
           <div className={styles.tabContent}>
-            {addNewbuttons}
+            {addNewButtons}
             <Hero
               storyBoard={storyBoard}
               setStoryBoard={setStoryBoard}
@@ -327,7 +328,7 @@ const StoryBoardTabs = ({
           key={3}>
           {isShowAnimation && <span className={styles.showAnimation}></span>}
           <div className={styles.tabContent}>
-            {addNewbuttons}
+            {addNewButtons}
             <ProjectScripts
               pages={storyBoard?.pages}
               storyBoardId={storyBoard?._id}
@@ -347,7 +348,7 @@ const StoryBoardTabs = ({
           key={4}>
           {isShowAnimation && <span className={styles.showAnimation}></span>}
           <div className={styles.tabContent}>
-            {addNewbuttons}
+            {addNewButtons}
             <ChooseLayout storyBoard={storyBoard} setStoryBoard={setStoryBoard} />
             {renderNavigationButtons(!storyBoard?.layoutId)}
           </div>
@@ -362,7 +363,7 @@ const StoryBoardTabs = ({
           key={4}>
           {isShowAnimation && <span className={styles.showAnimation}></span>}
           <div className={styles.tabContent}>
-            {addNewbuttons}
+            {addNewButtons}
             <div className={styles.uploadPhotoContainer}>
               <div className={styles.uploadListContainer}>
                 <div className={styles.card_wrap}>
@@ -406,6 +407,7 @@ const StoryBoardTabs = ({
                   isModalVisible={isModalVisible}
                   setIsModalVisible={setIsModalVisible}
                   img={zoomImageUrl}
+                  imageType={imageType}
                 />
               </div>
             </div>
@@ -434,7 +436,7 @@ const StoryBoardTabs = ({
           key={5}>
           {isShowAnimation && <span className={styles.showAnimation}></span>}
           <div className={styles.tabContent}>
-            {addNewbuttons}
+            {addNewButtons}
             {isModalVisible ? (
               <ModalSuccess isModalVisible={isModalVisible} handleCancelModal={handleCancelModal} />
             ) : (
