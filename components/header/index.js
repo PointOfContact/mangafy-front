@@ -8,6 +8,7 @@ import SvgLoginUser from 'components/icon/LoginUser';
 import Imgix from 'components/imgix';
 import MenuMobilePopover from 'components/menu-mobile-popover';
 import MenuNotificationsBox from 'components/menu-notifications-box';
+import ModalCreateProject from 'components/modalCreateProject/modalCreateProject';
 import AddButton from 'components/ui-elements/add-button';
 import Avatar from 'components/ui-elements/avatar';
 import PrimaryButton from 'components/ui-elements/button';
@@ -50,6 +51,7 @@ const Header = ({ user, path, setShowModalEdit }) => {
   const [isOpen, handleMenuOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
+  const [createProjectModal, showCreateProjectModal] = useState(false);
   const [notificationsCount, setNotificationsCount] = useState(0);
   const [unreadNotificationsId, setUnreadNotificationsId] = useState([]);
   const router = useRouter();
@@ -300,12 +302,16 @@ const Header = ({ user, path, setShowModalEdit }) => {
                   }}
                 />
               )}
-              <Link href="/create-a-story/start">
-                <a className={cn('btn_submit')}>
-                  <PrimaryButton text="Start a project" className={styles.fullStartProject} />
-                  <PrimaryButton text="Start" className={styles.startProject} />
-                </a>
-              </Link>
+              <PrimaryButton
+                text="Start a project"
+                className={styles.fullStartProject}
+                onClick={() => showCreateProjectModal(true)}
+              />
+              <PrimaryButton
+                text="Start"
+                className={styles.startProject}
+                onClick={() => showCreateProjectModal(true)}
+              />
             </span>
           </div>
         </div>
@@ -320,6 +326,10 @@ const Header = ({ user, path, setShowModalEdit }) => {
         {showWarning && <WarningFillAllData user={user} setShowModalEdit={setShowModalEdit} />}
       </header>
       <ModalInviteMembers showModal={showModal} setShowModal={setShowModal} user={user} />
+      <ModalCreateProject
+        createProjectModal={createProjectModal}
+        showCreateProjectModal={showCreateProjectModal}
+      />
     </div>
   );
 };

@@ -1,0 +1,136 @@
+@import '../../styles/variables.scss';
+
+.modalCreateProject {
+  max-width: calc(100vw - -81px);
+  width: 651px !important;
+  height: 197px;
+  box-sizing: border-box;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.04);
+  @include media-sm {
+    width: 97% !important;
+  }
+  & > div {
+    border-radius: 10px;
+    & > div {
+      padding-top: 21px;
+      padding-bottom: 32px;
+      border-radius: 10px;
+    }
+  }
+  h1 {
+    margin-top: 21px;
+    height: 28px;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 28px;
+    line-height: 41px;
+    color: $black;
+    display: flex;
+    align-items: center;
+    @include media-sm {
+      font-size: 25px;
+      line-height: 25px;
+    }
+  }
+  p {
+    margin-top: 16px;
+    margin-bottom: 12px;
+    height: 44px;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 22px;
+    color: $black;
+  }
+  .containerCreateProject {
+    display: flex;
+    flex-wrap: wrap;
+    @include media-sm {
+      flex-direction: column;
+    }
+    input {
+      width: 378px;
+      height: 44px;
+      border: 1px solid $primaryDark;
+      border-radius: 10px;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 29px;
+      color: $black;
+      background-color: white;
+      @include media-sm {
+        width: 100%;
+      }
+      &::placeholder {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 29px;
+        color: $gray85;
+      }
+    }
+    button {
+      width: 213px;
+      height: 44px;
+      margin-left: 10px;
+      background: $orangeDark;
+      border: 1px solid $orangeLight;
+      box-sizing: border-box;
+      border-radius: 5px;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 15px;
+      line-height: 22px;
+      color: white;
+      display: flex;
+      padding: 9px;
+      @include media-sm {
+        width: 100%;
+        margin-left: 0px;
+        margin-top: 10px;
+        display: flex;
+        justify-content: center;
+      }
+      svg {
+        width: 30px;
+        height: 24px;
+        margin-left: 14px;
+      }
+    }
+  }
+  .close {
+    width: 39px;
+    height: 39px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    margin-top: 22px;
+    background: rgba(123, 101, 243, 0.21);
+    svg {
+      path {
+        fill: $text_white;
+      }
+    }
+
+    &:hover {
+      background-color: $primaryDark;
+      svg {
+        path {
+          fill: white;
+        }
+      }
+    }
+    @include media-sm {
+      width: 30px;
+      height: 30px;
+      margin-top: 8px;
+      margin-left: 18px;
+      svg {
+        width: 13.33px;
+        height: 13.12px;
+      }
+    }
+  }
+}

@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Layout, Row, Col } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
 import MangeStoryCard from 'components/mangeStoryCard';
+import ModalCreateProject from 'components/modalCreateProject/modalCreateProject';
 import AddButton from 'components/ui-elements/add-button';
-import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
@@ -14,11 +14,7 @@ const { Content } = Layout;
 
 const ProfileOpenCollabs = (props) => {
   const { total, mangaStories, mangaStoriesMyProfile, profile, user, ifMyProfile } = props;
-  const history = useRouter();
-  const routeChange = () => {
-    const path = `/create-a-story/start`;
-    history.push(path);
-  };
+  const [createProjectModal, showCreateProjectModal] = useState(false);
 
   return (
     <section>
@@ -47,12 +43,16 @@ const ProfileOpenCollabs = (props) => {
                 xl={{ span: 2 }}
                 xxl={{ span: 2 }}
                 className={styles.add_button}>
-                <AddButton onClick={() => routeChange()} />
+                <AddButton onClick={() => showCreateProjectModal(true)} />
               </Col>
             )}
           </Row>
         </Content>
       )}
+      <ModalCreateProject
+        createProjectModal={createProjectModal}
+        showCreateProjectModal={showCreateProjectModal}
+      />
     </section>
   );
 };

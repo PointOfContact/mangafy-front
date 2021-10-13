@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import cn from 'classnames';
 import Card from 'components/card';
 import SvgPurplePencil from 'components/icon/PurplePencil';
 import Imgix from 'components/imgix';
-import { useRouter } from 'next/router';
+import ModalCreateProject from 'components/modalCreateProject/modalCreateProject';
 import PropTypes from 'prop-types';
 
 import CreateGeneres from './createGeneres';
@@ -31,11 +31,7 @@ const TabStory = (props) => {
     ifMyProfile,
   } = props;
 
-  const history = useRouter();
-  const routeChange = () => {
-    const path = `/create-a-story/start`;
-    history.push(path);
-  };
+  const [createProjectModal, showCreateProjectModal] = useState(false);
 
   const editIfNotData = !!userData?.content || !!userData?.genresIds?.length;
 
@@ -126,7 +122,7 @@ const TabStory = (props) => {
                       alt="MangaFy projects"
                     />,
                   ]}
-                  onClick={() => routeChange()}
+                  onClick={() => showCreateProjectModal(true)}
                 />
               </div>
             )}
@@ -191,13 +187,17 @@ const TabStory = (props) => {
                       alt="MangaFy projects"
                     />,
                   ]}
-                  onClick={() => routeChange()}
+                  onClick={() => showCreateProjectModal(true)}
                 />
               </div>
             )}
           </div>
         )}
       </div>
+      <ModalCreateProject
+        createProjectModal={createProjectModal}
+        showCreateProjectModal={showCreateProjectModal}
+      />
     </div>
   );
 };
