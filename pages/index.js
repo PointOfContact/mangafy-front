@@ -10,11 +10,10 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
   const getNameViewUrl = !!viewUrlName && viewUrlName.split('.').reverse()[2];
 
   if (!getNameViewUrl) {
-    return {
-      props: {
-        user: user || store.user,
-      },
-    };
+    context.res.writeHead(301, {
+      Location: `https://mangafy.club/feed`,
+    });
+    context.res.end();
   }
 
   try {
@@ -30,7 +29,7 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
 
     if (!mangaStory?.data?.length && process.env.NEXT_REDIRECT_ENABLED) {
       context.res.writeHead(301, {
-        Location: 'https://mangafy.club',
+        Location: `https://mangafy.club/feed`,
       });
       context.res.end();
       return {
