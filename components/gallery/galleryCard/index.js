@@ -8,12 +8,17 @@ import SvgEdit from 'components/icon/Edit';
 import SvgHeart from 'components/icon/Heart';
 import Imgix from 'components/imgix';
 import { EVENTS } from 'helpers/amplitudeEvents';
+import dynamic from 'next/dynamic';
 import router from 'next/router';
 import PropTypes from 'prop-types';
 import myAmplitude from 'utils/amplitude';
 
 import { likeGallery, removeImg, prepareDataImages, removeShortStory } from '../utils';
 import styles from './style.module.scss';
+
+const PDFViewer = dynamic(() => import('components/pdfViewer'), {
+  ssr: false,
+});
 
 const GalleryCard = ({
   index,
@@ -139,19 +144,19 @@ const GalleryCard = ({
                   <span>Deleting an attachment is permanent. There is no undo.</span>
                 </div>
               }
-              onConfirm={(e) => onRemoveImg(e, galleryItem._id)}
+              onConfirm={(e) => onRemoveImg(e, galleryItem?._id)}
               onCancel={() => {}}
               okText="Delete"
               cancelText="No">
-              <span className={styles.dustbin} data-id={galleryItem._id}>
+              <span className={styles.dustbin} data-id={galleryItem?._id}>
                 <SvgDustbin width="18px" />
               </span>
             </Popconfirm>
             {galleryItem.renderItem && type !== 'pdf' && type !== 'PDF' && (
               <span
-                onClick={(e) => onEditImg(e, galleryItem._id)}
+                onClick={(e) => onEditImg(e, galleryItem?._id)}
                 className={styles.edit}
-                data-id={galleryItem._id}>
+                data-id={galleryItem?._id}>
                 <SvgEdit width="18px" />
               </span>
             )}
@@ -163,36 +168,32 @@ const GalleryCard = ({
               width="18px"
               height="16px"
               onClick={() =>
-                !isLiked(galleryItem._id, user?._id) &&
+                !isLiked(galleryItem?._id, user?._id) &&
                 !canEdit &&
-                onLikeGallery(galleryItem._id, userData._id, user?._id)
+                onLikeGallery(galleryItem?._id, userData?._id, user?._id)
               }
-              className={(user && isLiked(galleryItem._id, user?._id) && styles.liked) || ''}
+              className={(user && isLiked(galleryItem?._id, user?._id) && styles.liked) || ''}
             />
-            <span>{!!getLikesCount(galleryItem._id) && getLikesCount(galleryItem._id)}</span>
+            <span>{!!getLikesCount(galleryItem?._id) && getLikesCount(galleryItem?._id)}</span>
           </span>
         )}
 
         <div className={styles.filter} onClick={(e) => gallerySet(e, index)}></div>
         {
           // eslint-disable-next-line no-nested-ternary
-          galleryItem.renderItem ? (
+          galleryItem?.renderItem ? (
             type === 'pdf' || type === 'PDF' ? (
               <span className={styles.pdf}>
-                <Imgix
-                  layout="fill"
-                  src={client.UPLOAD_URL + galleryItem._id}
-                  alt="MangaFy galere"
-                />
+                <PDFViewer url={client.UPLOAD_URL + galleryItem?._id} />
               </span>
             ) : (
               <div className={styles.textContent}>
-                <h3>{galleryItem.title}</h3>
-                <p>{galleryItem.description}</p>
+                <h3>{galleryItem?.title}</h3>
+                <p>{galleryItem?.description}</p>
               </div>
             )
           ) : (
-            <Imgix layout="fill" src={client.UPLOAD_URL + galleryItem._id} alt="MangaFy galere" />
+            <Imgix layout="fill" src={client.UPLOAD_URL + galleryItem?._id} alt="MangaFy galere" />
           )
         }
       </div>

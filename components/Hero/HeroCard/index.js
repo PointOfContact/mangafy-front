@@ -5,19 +5,27 @@ import React, { useState } from 'react';
 import client from 'api/client';
 import Imgix from 'components/imgix';
 import ShowImgModal from 'components/modals/showImg';
+import dynamic from 'next/dynamic';
 import PropTypes from 'prop-types';
 
 // Styles
 import EditCard from './editCard';
 import styles from './styles.module.scss';
 
+const PDFViewer = dynamic(() => import('components/pdfViewer'), {
+  ssr: false,
+});
+
 const HeroCard = ({ hero, changeHero, confirmDelete }) => {
   const [showImg, setShowImg] = useState('');
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const imageType = hero?.imageUrl?.slice(-3) === 'pdf' || hero?.imageUrl?.slice(-3) === 'PDF';
+
   let defaultImage;
   let defaultColor;
   let titleButton;
   let buttonColor;
+
   switch (hero.type) {
     case 'personage':
       defaultImage = '/img/heroCard.png';
@@ -64,22 +72,35 @@ const HeroCard = ({ hero, changeHero, confirmDelete }) => {
       </div>
 
       <div className={styles.hero__img} style={{ backgroundColor: defaultColor }}>
-        <Imgix
-          layout="fill"
-          onClick={() => {
-            setShowImg(client.UPLOAD_URL + hero?.imageUrl);
-            setIsModalVisible(!!hero?.imageUrl?.length);
-          }}
-          src={
-            hero?.imageUrl ? client.UPLOAD_URL + hero?.imageUrl : client.API_ENDPOINT + defaultImage
-          }
-          alt="MangaFy hero card"
-        />
+        {imageType ? (
+          <PDFViewer
+            url={client.UPLOAD_URL + hero?.imageUrl}
+            onClick={() => {
+              setShowImg(client.UPLOAD_URL + hero?.imageUrl);
+              setIsModalVisible(!!hero?.imageUrl?.length);
+            }}
+          />
+        ) : (
+          <Imgix
+            layout="fill"
+            onClick={() => {
+              setShowImg(client.UPLOAD_URL + hero?.imageUrl);
+              setIsModalVisible(!!hero?.imageUrl?.length);
+            }}
+            src={
+              hero?.imageUrl
+                ? client.UPLOAD_URL + hero?.imageUrl
+                : client.API_ENDPOINT + defaultImage
+            }
+            alt="MangaFy hero card"
+          />
+        )}
       </div>
       <ShowImgModal
         isModalVisible={isModalVisible}
         setIsModalVisible={setIsModalVisible}
         img={showImg}
+        imageType={imageType}
       />
     </div>
   );
