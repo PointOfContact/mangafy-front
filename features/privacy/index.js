@@ -358,7 +358,11 @@ const Privacy = (props) => {
                     <div className={styles.info_description}>
                       Your information is controlled by MangaFY, Inc.  If you have questions or
                       concerns about how your information is handled, please direct your inquiry to
-                      MangaFY email or phone.
+                      MangaFY
+                      <Link href={'mailto:yo@mangafy.club'}>
+                        <a className={styles.openMail}>info@mangafy.club</a>
+                      </Link>
+                      .
                     </div>
                   </div>
                 </div>
