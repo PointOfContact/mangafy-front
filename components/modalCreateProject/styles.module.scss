@@ -5,6 +5,7 @@
   width: 651px !important;
   height: 197px;
   box-sizing: border-box;
+  margin-top: 40px;
   box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.04);
   @include media-sm {
     width: 97% !important;
@@ -17,7 +18,7 @@
       border-radius: 10px;
     }
   }
-  h1 {
+  .title {
     margin-top: 21px;
     height: 28px;
     font-style: normal;
@@ -32,15 +33,30 @@
       line-height: 25px;
     }
   }
-  p {
-    margin-top: 16px;
-    margin-bottom: 12px;
-    height: 44px;
+  .description {
+    margin-top: 10px;
+    margin-bottom: 20px;
     font-style: normal;
-    font-weight: bold;
-    font-size: 15px;
+    font-weight: normal;
+    font-size: $text4;
     line-height: 22px;
     color: $black;
+  }
+  .error{
+    color: $red;
+    font-size: 14px;
+    margin: 0;
+    margin-top: 5px;
+    line-height: 20px;
+    @include media-sm{
+      display: none;
+    }
+  }
+  .errorMobile{
+    display: none;
+    @include media-sm{
+      display: block;
+    }
   }
   .containerCreateProject {
     display: flex;
@@ -51,23 +67,25 @@
     input {
       width: 378px;
       height: 44px;
+      background-color: #ffffff;
+      font-size: 16px;
+      border-radius: 6px;
       border: 1px solid $primaryDark;
-      border-radius: 10px;
-      font-style: normal;
-      font-weight: 500;
-      font-size: 20px;
-      line-height: 29px;
       color: $black;
-      background-color: white;
+      padding: 10px;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 23px;
       @include media-sm {
         width: 100%;
       }
       &::placeholder {
         font-style: normal;
-        font-weight: 500;
-        font-size: 20px;
-        line-height: 29px;
-        color: $gray85;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 23px;
+        color: $gray85 !important;
       }
     }
     button {
@@ -80,7 +98,7 @@
       border-radius: 5px;
       font-style: normal;
       font-weight: bold;
-      font-size: 15px;
+      font-size: $text4;
       line-height: 22px;
       color: white;
       display: flex;
@@ -91,6 +109,12 @@
         margin-top: 10px;
         display: flex;
         justify-content: center;
+      }
+      span{
+        svg {
+          width: 20px;
+          height: 20px;
+        }
       }
       svg {
         width: 30px;
