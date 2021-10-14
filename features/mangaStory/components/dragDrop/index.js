@@ -26,14 +26,11 @@ const DragDrop = ({
   isModalVisible,
 }) => {
   const [characters, updateCharacters] = useState(uploadImages);
+  const imageType = (img) => img?.slice(-3) === 'pdf' || img?.slice(-3) === 'PDF';
 
   useEffect(() => {
     updateCharacters(uploadImages);
   }, [uploadImages]);
-
-  const ifPdf = (index) =>
-    storyBoard?.mangaUrls[index]?.slice(-3) === 'pdf' ||
-    storyBoard?.mangaUrls[index]?.slice(-3) === 'PDF';
 
   const confirmDelete = (index) => {
     storyBoard.mangaUrls.splice(index, 1);
@@ -51,15 +48,18 @@ const DragDrop = ({
     );
   };
 
-  const setImage = (index, value) => (
-    <Imgix
-      width={209}
-      height={294}
-      className={styles.photo}
-      src={value.url}
-      alt="Manga story cover"
-    />
-  );
+  const setImage = (index, img) =>
+    imageType(img) ? (
+      <PDFViewer url={client.UPLOAD_URL + img} />
+    ) : (
+      <Imgix
+        width={209}
+        height={294}
+        className={styles.photo}
+        src={client.UPLOAD_URL + img}
+        alt="Manga story cover"
+      />
+    );
 
   const getItem = characters.map((value, index) => (
     <Draggable key={value.status + index} draggableId={value.status + index} index={index}>
@@ -73,17 +73,10 @@ const DragDrop = ({
           <div
             className={styles.uploadPhoto}
             onClick={() => {
-              if (ifPdf(index)) {
-                setZoomImageUrl(
-                  <PDFViewer url={client.UPLOAD_URL + storyBoard?.mangaUrls[index]} />
-                );
-                setIsModalVisible(!isModalVisible);
-              } else {
-                setZoomImageUrl(value.url);
-                setIsModalVisible(!isModalVisible);
-              }
+              setZoomImageUrl(client.UPLOAD_URL + value.uid);
+              setIsModalVisible(!isModalVisible);
             }}>
-            {setImage(index, value)}
+            {setImage(index, value.uid)}
           </div>
           <Popconfirm
             overlayClassName={styles.popConfirm}

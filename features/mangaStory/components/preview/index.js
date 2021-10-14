@@ -40,12 +40,16 @@ const Preview = ({ uploadImages, storyBoardId, mangaStoryTitle }) => {
 
   return (
     <div className={styles.headerUpload}>
-      <PrimaryButton className={styles.previewButton} text="View" onClick={redirectMangaFyPage} />
       <PrimaryButton
         className={styles.previewButton}
         text="Preview"
-        onClick={() => setShowPreviewModal(true)}
+        onClick={redirectMangaFyPage}
       />
+      {/* <PrimaryButton
+        className={styles.previewButton}
+        text="Preview"
+        onClick={() => setShowPreviewModal(true)}
+      /> */}
       <Modal
         className={styles.modal}
         closeIcon={

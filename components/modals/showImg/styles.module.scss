@@ -6,6 +6,8 @@
   margin: auto;
   & > div {
     border-radius: 10px;
+    display: flex;
+    justify-content: center;
   }
   span:hover {
     path {

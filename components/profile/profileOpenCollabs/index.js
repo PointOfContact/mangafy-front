@@ -58,7 +58,7 @@ const ProfileOpenCollabs = (props) => {
 };
 
 ProfileOpenCollabs.propTypes = {
-  total: PropTypes.array.isRequired,
+  total: PropTypes.number.isRequired,
   mangaStoriesMyProfile: PropTypes.array.isRequired,
   mangaStories: PropTypes.array.isRequired,
   profile: PropTypes.object,

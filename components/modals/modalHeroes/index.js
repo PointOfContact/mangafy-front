@@ -34,6 +34,7 @@ const ModalHeroes = ({
   const [heroType, setHeroType] = useState([]);
   const [quality, setQuality] = useState([]);
   const [imageUrl, setImgId] = useState('');
+  const [validation, setValidation] = useState('');
   const [idCardHero, setIdCardHero] = useState('');
   const [form] = Form.useForm();
   const inputRef = useRef(null);
@@ -50,6 +51,7 @@ const ModalHeroes = ({
     setHeroType(hero?.heroType || []);
     setQuality(hero?.quality || []);
     setIdCardHero(hero?._id);
+    setValidation('');
     form.setFieldsValue({
       name: hero?.name,
       heroType: hero?.heroType,
@@ -164,6 +166,11 @@ const ModalHeroes = ({
       name: hero?.name,
     });
 
+  const onMouseOut = () => {
+    onChangeHero();
+    setValidation('');
+  };
+
   return (
     <Modal
       forceRender
@@ -205,10 +212,13 @@ const ModalHeroes = ({
                     onChange={(e) => setName(e.target.value)}
                     onMouseOut={() => {
                       setNameValue();
-                      name?.trim()?.length > 0 && onChangeHero();
+                      name?.trim()?.length === 1
+                        ? setValidation('This field max length 2 letter')
+                        : onMouseOut();
                     }}
                   />
                 </Form.Item>
+                {validation && <p className={styles.error}>{validation}</p>}
                 <h3 className={styles.title}>Character development</h3>
                 <div className={styles.chooseTypes}>
                   <Form.Item name="quality">
@@ -316,7 +326,7 @@ const ModalHeroes = ({
                   {imageUrl && (
                     <span
                       onClick={() => {
-                        onChangeHero('');
+                        onChangeHero({}, '');
                         setImgId('');
                       }}>
                       Delete
@@ -340,7 +350,7 @@ const ModalHeroes = ({
                 <PrimaryButton
                   onClick={() => {
                     changeShowModalHeroes(false);
-                    onChangeHero(imageUrl, true);
+                    onChangeHero({}, imageUrl, true);
                   }}
                   text="Duplicate"
                 />

@@ -222,12 +222,12 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
   return (
     <div className={styles.chatContainer}>
       {selectedRequest.participentsInfo && <UserName selectedRequest={selectedRequest} />}
+      <Imgix
+        layout="fill"
+        src={'https://mangafy.club/img/messbg.png'}
+        alt="MangaFy message background"
+      />
       <pre ref={messageListElement} className={styles.messageList} id="message-content">
-        <Imgix
-          layout="fill"
-          src={'https://mangafy.club/img/messbg.png'}
-          alt="MangaFy message background"
-        />
         <MessageList
           ref={messenger}
           className={styles.message_list}

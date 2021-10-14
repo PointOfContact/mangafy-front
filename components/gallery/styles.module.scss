@@ -146,6 +146,7 @@
     flex-wrap: unset;
     margin-bottom: 15px;
     overflow-x: auto;
+    overflow-y: hidden;
     white-space: nowrap;
     &::-webkit-scrollbar {
       height: 3px;
@@ -164,6 +165,9 @@
 
     &::-webkit-scrollbar-thumb:hover {
       background: $primaryDark;
+    }
+    & > div{
+      height: 250px;
     }
   }
 }
