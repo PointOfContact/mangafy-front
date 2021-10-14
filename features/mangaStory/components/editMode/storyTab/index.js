@@ -166,19 +166,21 @@ const StoryTab = ({
 };
 
 StoryTab.propTypes = {
-  mangaStory: PropTypes.object.isRequired,
+  mangaStory: PropTypes.object,
   setBaseData: PropTypes.func.isRequired,
   baseData: PropTypes.object.isRequired,
   isOwn: PropTypes.bool.isRequired,
   user: PropTypes.object,
   isParticipant: PropTypes.bool.isRequired,
-  showPayPalToggle: PropTypes.bool.isRequired,
+  showPayPalToggle: PropTypes.bool,
   showPayPalContent: PropTypes.bool.isRequired,
   userData: PropTypes.object.isRequired,
 };
 
 StoryTab.defaultProps = {
   user: null,
+  showPayPalToggle: false,
+  mangaStory: {},
 };
 
 export default StoryTab;

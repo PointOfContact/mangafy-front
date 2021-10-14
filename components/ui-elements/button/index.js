@@ -74,7 +74,7 @@ const PrimaryButton = ({
 );
 
 PrimaryButton.propTypes = {
-  className: PropTypes.string,
+  className: PropTypes.any,
   splitterStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   items: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   disabled: PropTypes.bool,
