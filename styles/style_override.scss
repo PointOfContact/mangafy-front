@@ -37,7 +37,7 @@ body {
 }
 .ant-tabs-nav {
   .ant-tabs-tab {
-    padding: 35px 0;
+    padding: 36px 0;
     font-style: normal;
     font-weight: 500;
     font-size: $text3;
@@ -270,6 +270,20 @@ body {
   }
   @include media-sm {
     margin: 15px 30px;
+  }
+}
+
+.hero_upload.primary_upload {
+  .ant-upload-list-picture-card-container,
+  .ant-upload-list-item,
+  .ant-upload {
+    width: 100% !important;
+    height: 220px !important;
+    max-height: 220px !important;
+    max-width: 520px !important;
+    @include media-sm {
+      height: 331px !important;
+    }
   }
 }
 
@@ -960,7 +974,7 @@ img.rot4 {
         .ant-select-selection-overflow {
           width: auto;
           position: relative;
-          @include media-xs {
+          @include media-sm {
             width: 100%;
           }
           .ant-select-selection-item {
@@ -1019,7 +1033,7 @@ img.rot4 {
       background: transparent;
       padding: 0;
       z-index: 1;
-      @media #{$media-md} {
+      @media #{$media-lg} {
         padding: 0 20px;
         position: relative;
       }
@@ -1223,7 +1237,7 @@ img.rot4 {
         background: transparent;
         padding: 0;
         z-index: 1;
-        @media #{$media-md} {
+        @media #{$media-lg} {
           padding: 0 20px;
           position: relative;
         }
@@ -1395,7 +1409,6 @@ img.rot4 {
     padding: 0 !important;
   }
 }
-
 .rce-mbox {
   max-width: calc(100% - 90px);
   background: $primaryBG !important;
@@ -1403,12 +1416,9 @@ img.rot4 {
   padding: 15px !important;
   margin-bottom: 20px !important;
   left: 50px !important;
-  border-top-left-radius: 5px !important;
-  border-top-right-radius: 5px !important;
-  border-bottom-left-radius: 0px !important;
-  border-bottom-right-radius: 5px !important;
-
+  border-radius: 23px 23px 23px 0 !important;
   svg {
+    left: -14px;
     path {
       fill: $primaryBG !important;
     }
@@ -1423,12 +1433,20 @@ img.rot4 {
   }
 }
 
-.rce-mbox-right {
+.rce-mbox.rce-mbox-right {
   background: $primaryBG !important;
   color: $black;
-  padding: 15px 10px !important;
+  padding: 15px !important;
   margin-bottom: 20px !important;
+  margin-right: 80px !important;
+  max-width: calc(100% - 150px);
+  border-radius: 23px 23px 0 23px !important;
   svg {
+    bottom: 0;
+    top: unset;
+    left: unset !important;
+    right: -14px !important;
+    transform: rotateZ(270deg);
     path {
       fill: $primaryBG !important;
     }
@@ -1447,8 +1465,8 @@ img.rot4 {
   top: -8px;
   overflow: hidden;
   border-radius: 40px;
-  width: 45px !important;
-  height: 45px !important;
+  width: 49px !important;
+  height: 49px !important;
 }
 
 .rce-mbox-left-notch {
@@ -1554,5 +1572,12 @@ img.rot4 {
       content: '';
       position: absolute;
     }
+  }
+}
+
+.isMultiPlacholder {
+  .ant-select-selection-placeholder {
+    margin-left: -10px !important;
+    color: unset !important;
   }
 }

@@ -4,7 +4,8 @@ import Footer from 'components/footer';
 import Header from 'components/header';
 import Imgix from 'components/imgix';
 import LargeButton from 'components/ui-elements/large-button';
-import Head from 'next/head';
+import FooterLogin from 'features/footerLogin';
+import { NextSeo } from 'next-seo';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
@@ -14,11 +15,17 @@ const CommingSoon = (props) => {
 
   return (
     <div className="">
-      <Head>
-        <title>MangaFY Pricing</title>
-        <meta name="MangaFY Pricing"></meta>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <NextSeo
+        title=">MangaFY Pricing"
+        description=">MangaFY Pricing"
+        additionalLinkTags={[
+          {
+            rel: 'icon',
+            href: '/favicon.ico',
+          },
+        ]}
+      />
+
       <main>
         <Header path="error" user={user} />
         <div className={styles.comming_page}>
@@ -28,7 +35,7 @@ const CommingSoon = (props) => {
               height={305}
               layout="fixed"
               src="https://mangafy.club/img/coming_soon.webp"
-              alt=""
+              alt="MangaFy coming soon"
             />
             <div className={styles.page_title}>Coming soon</div>
             <div className={styles.page_description}>
@@ -38,6 +45,7 @@ const CommingSoon = (props) => {
           </div>
         </div>
         <Footer />
+        <FooterLogin user={user} />
       </main>
     </div>
   );

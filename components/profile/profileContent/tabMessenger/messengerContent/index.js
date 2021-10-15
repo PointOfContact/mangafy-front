@@ -1,126 +1,79 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-import { Input, notification } from 'antd';
+import { notification } from 'antd';
+import TextArea from 'antd/lib/input/TextArea';
 import client from 'api/client';
-import cn from 'classnames';
+import Imgix from 'components/imgix';
 import ModalInvites from 'components/modals/sendInvites';
 import PrimaryButton from 'components/ui-elements/button';
 import { EVENTS } from 'helpers/amplitudeEvents';
-import moment from 'moment';
+import Router from 'next/router';
 import PropTypes from 'prop-types';
 import { MessageList } from 'react-chat-elements';
 
+import 'react-chat-elements/dist/main.css';
+import myAmplitude from 'utils/amplitude';
+
 import { patchRequest } from '../../../../../api/joinMangaStoryRequestClient';
+import UserName from '../userName';
+import messageItems from './messageItems';
 import styles from './styles.module.scss';
 
-import 'react-chat-elements/dist/main.css';
-
-const Amplitude = require('amplitude');
-
-const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 let interval;
 const onAccept = (event, id, status) => {
   event.stopPropagation();
   return patchRequest(id, status);
 };
 
+let convId = '';
+let totalMess = 0;
+const maxLength = 490;
+
 const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests, setRequests }) => {
   const [messageList, setMessageList] = useState([]);
   const [value, setValue] = useState('');
   const [showModal, changeShowModal] = useState(false);
+  const [messageError, setMessageError] = useState('');
+  const [messageItem, setMessageItem] = useState([]);
+  const [participantsInfo, setParticipantsInfo] = useState([]);
+  const messageListElement = useRef(null);
+  const messenger = useRef(null);
+  const { conversationId, profileId } = selectedRequest;
 
-  const messanger = useRef(null);
-  const { conversationId, name, profileId } = selectedRequest;
-  const adaptData = (data, participants) => {
-    data.forEach((item) => {
-      let avatar;
-      const part = participants.find((p) => p._id === item.senderId);
-      if (part?.avatar) {
-        avatar = client.UPLOAD_URL + part.avatar;
-      } else {
-        avatar = `https://ui-avatars.com/api/?background=9A87FE&name=${part?.name}&rounded=true&color=ffffff`;
-      }
-      // item.position = user._id === item.senderId ? 'left' : 'right';
-      item.position = 'left';
-      item.type = 'text';
-      item.text = item.joinMangaStoryRequest?.length ? (
-        <div className={styles.name}>
-          {item.joinMangaStoryRequest[0].mangaStory?.title && (
-            <h2 className={styles.mangaTitle}>{item.joinMangaStoryRequest[0].mangaStory?.title}</h2>
-          )}
-          <p className={styles.messText}>{item.content}</p>
-          <div className={styles.statusContainer}>
-            {item.joinMangaStoryRequest[0].status === 'new' && (
-              <span className={styles.status}> Pending invite </span>
-            )}
-            {item.joinMangaStoryRequest[0].status === 'accepted' && (
-              <span
-                className={cn(
-                  styles.status,
-                  item.joinMangaStoryRequest[0].status === 'accepted' && styles.request_status_acp
-                )}>
-                Accepted
-              </span>
-            )}
-            {item.joinMangaStoryRequest[0].status === 'rejected' && (
-              <span
-                className={cn(
-                  styles.status,
-                  item.joinMangaStoryRequest[0].status === 'rejected' && styles.request_status_rej
-                )}>
-                Rejected
-              </span>
-            )}
-            {item.joinMangaStoryRequest[0].status === 'new' &&
-              ((user._id === item.joinMangaStoryRequest[0].mangaStory?.author &&
-                !item.joinMangaStoryRequest[0].isInvite) ||
-                (user._id === item.joinMangaStoryRequest[0].senderId &&
-                  item.joinMangaStoryRequest[0].isInvite)) && (
-                <div className={cn(styles.div_button, 'buttonsProfile_styles')}>
-                  <PrimaryButton
-                    onClick={(event) => {
-                      setRecvestStatus(event, item.joinMangaStoryRequestId, 'rejected');
-                    }}
-                    className={styles.buttonsProfile_cancel}
-                    text="Cancel"
-                    isDark
-                    isRound
-                  />
-                  <PrimaryButton
-                    className={styles.buttonsProfile_save}
-                    text="save"
-                    isActive
-                    isRound
-                    onClick={(event) => {
-                      setRecvestStatus(event, item.joinMangaStoryRequestId, 'accepted');
-                    }}
-                  />
-                </div>
-              )}
-          </div>
-        </div>
-      ) : (
-        <p className={styles.messText} style={{ marginBottom: '-5px' }}>
-          {item.content}
-        </p>
-      );
-      item.date = moment(item.createdAt).toDate();
-      item.avatar = avatar;
+  const wrapUrls = (text) => {
+    // eslint-disable-next-line no-useless-escape
+    const url_pattern =
+      /(http|ftp|https|www):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/gi;
+    return text.replace(url_pattern, (url) => {
+      const href = url_pattern.test(url) ? url : `http://${url}`;
+      return `<a href="${href}" target="_blank">${url}</a>`;
     });
-    return data.reverse();
   };
 
+  useEffect(() => {
+    setMessageList(
+      messageItems(messageItem, participantsInfo, setRequestStatus, user, setMessageItem)
+    );
+  }, [messageItem]);
+
   const handleChange = (e) => {
-    setValue(e.target.value);
+    // eslint-disable-next-line no-shadow
+    const { value } = e.target;
+    setValue(value);
+    value.length >= maxLength
+      ? setMessageError(`The character limit for a message is ${maxLength} characters.`)
+      : setMessageError('');
   };
 
   const openNotification = (type, message) => {
     notification[type]({
       message,
+      placement: 'bottomLeft',
     });
   };
+
   const scrollToBottom = () => {
-    messanger.current.mlistRef.scrollIntoView(false);
+    messageListElement.current.scrollTop = messageListElement.current.scrollHeight;
   };
 
   const getMessages = () => {
@@ -136,8 +89,17 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
           headers: { Authorization: `Bearer ${jwt}` },
         })
         .then((res) => {
-          setMessageList(adaptData(res.messages, res.participentsInfo));
-          // scrollToBottom();
+          if (res?.messages && (totalMess !== res.messages.length || res._id !== convId)) {
+            convId = res._id;
+            totalMess = res.messages.length;
+            const neMess = res.messages.map((item, index) => {
+              const content = wrapUrls(item.content, index);
+              return { ...item, content };
+            });
+            setMessageItem(neMess);
+            setParticipantsInfo(res.participentsInfo);
+            scrollToBottom();
+          }
         })
         .catch((err) => openNotification('error', err.message));
     });
@@ -156,9 +118,9 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
   const isShowModal = () => {
     const el = document.body;
     if (showModal) {
-      el.classList.add(styles.body_scrool);
+      el.classList.add(styles.body_scroll);
     } else {
-      el.classList.remove(styles.body_scrool);
+      el.classList.remove(styles.body_scroll);
     }
   };
 
@@ -170,7 +132,7 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
       } else {
         openNotification('error', "You don't have manga story");
       }
-    } else if (value) {
+    } else if (!!value.trim()) {
       const jwt = client.getCookie('feathers-jwt');
       import('api/restClient').then((m) => {
         setValue('');
@@ -195,13 +157,14 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
     }
   };
 
-  const handleKeyPressSend = (event) => {
-    if (event.key === 'Enter') {
-      sendMessage();
-    }
-  };
+  // const handleKeyPressSend = (event) => {
+  //   if (event.key === 'Enter' && !event.shiftKey && width > 780) {
+  //     event.preventDefault();
+  //     sendMessage();
+  //   }
+  // };
 
-  const setRecvestStatus = (event, id, status) => {
+  const setRequestStatus = (event, id, status) => {
     onAccept(event, id, status).then((res) => {
       const newRequest = [...requests];
       newRequest.map((item) => {
@@ -218,7 +181,6 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
 
       const eventData = [
         {
-          platform: 'WEB',
           event_type,
           event_properties: { inviteRequestId: id },
           user_id: user._id,
@@ -227,7 +189,7 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
           },
         },
       ];
-      amplitude.track(eventData);
+      myAmplitude(eventData);
     });
   };
 
@@ -259,39 +221,60 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
 
   return (
     <div className={styles.chatContainer}>
-      <div className={styles.userName}>{name}</div>
-      {selectedRequest.isTeamChat && selectedRequest.rid && (
-        // <Popover
-        //   placement="bottomLeft"
-        //   title={'Members'}
-        //   content={members(selectedRequest.participentsInfo)}
-        //   trigger="click">
-        <p className={styles.members}>{selectedRequest?.participentsInfo?.length} members </p>
-        // </Popover>
-      )}
-
-      <div className={styles.messageList} id="message-content">
+      {selectedRequest.participentsInfo && <UserName selectedRequest={selectedRequest} />}
+      <Imgix
+        layout="fill"
+        src={'https://mangafy.club/img/messbg.png'}
+        alt="MangaFy message background"
+      />
+      <pre ref={messageListElement} className={styles.messageList} id="message-content">
         <MessageList
-          ref={messanger}
+          ref={messenger}
           className={styles.message_list}
           lockable={false}
           toBottomHeight={'100%'}
           dataSource={messageList}
+          onClick={(messData, index, e) => {
+            if (e.target.classList.contains('rce-avatar')) {
+              if (messData.senderId === user._id) {
+                Router.push(`/profile/${user._id}`);
+              } else {
+                Router.push(`/profile/${messData.senderId}`);
+              }
+            }
+          }}
         />
-      </div>
+      </pre>
       {!selectedRequest?.isArchive && (
         <div className={styles.chatBlock2}>
-          <Input
-            placeholder="Type here..."
-            value={value}
-            onChange={handleChange}
-            onKeyPress={handleKeyPressSend}
-          />
+          <div className={styles.messageInput}>
+            <TextArea
+              maxLength={490}
+              placeholder="Type your message..."
+              value={value}
+              onChange={handleChange}
+              // onKeyPress={handleKeyPressSend}
+              className={styles.textarea_text}
+            />
+            <p className={messageError ? styles.messageError : styles.notError}>{messageError}</p>
+            {/* <img src={'/img/smileMessage.png'} alt="smile" /> */}
+          </div>
           <span className={styles.sendMessage}>
-            {!selectedRequest.isTeamChat && (
-              <PrimaryButton isActive={true} text="Send Invite" onClick={() => sendMessage(true)} />
+            {!!user?.mangaStories?.data?.length && !selectedRequest.isTeamChat && (
+              <PrimaryButton
+                isActive={true}
+                text="INVITE"
+                className={styles.inviteButton}
+                onClick={() => sendMessage(true)}
+              />
             )}
-            <PrimaryButton text="Send Message" onClick={() => sendMessage(false)} />
+            <PrimaryButton
+              className={styles.sendButton}
+              text="SEND"
+              onClick={() => {
+                sendMessage(false);
+              }}
+            />
           </span>
         </div>
       )}
@@ -311,13 +294,15 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
 MessengerContent.propTypes = {
   user: PropTypes.object.isRequired,
   selectedRequest: PropTypes.object.isRequired,
-  requests: PropTypes.object.isRequired,
-  setRequests: PropTypes.func.isRequired,
+  requests: PropTypes.object,
+  setRequests: PropTypes.func,
   setSelectedRequest: PropTypes.func.isRequired,
 };
 
 MessengerContent.defaultProps = {
   avatar: '',
+  requests: {},
+  setRequests: () => {},
 };
 
 export default MessengerContent;

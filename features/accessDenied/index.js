@@ -4,7 +4,8 @@ import Footer from 'components/footer';
 import Header from 'components/header';
 import Imgix from 'components/imgix';
 import LargeButton from 'components/ui-elements/large-button';
-import Head from 'next/head';
+import FooterLogin from 'features/footerLogin';
+import { NextSeo } from 'next-seo';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 
@@ -12,10 +13,7 @@ import styles from './styles.module.scss';
 
 const AccessDenied = ({ user }) => (
   <div className="">
-    <Head>
-      <title>Access Denied</title>
-      <meta name="description" content="Sorry, this confidential information is private" />
-    </Head>
+    <NextSeo title="Access Denied" description="Sorry, this confidential information is private" />
     <main>
       <Header user={user} path="comming-soon" />
       <div className={styles.error_page}>
@@ -25,7 +23,7 @@ const AccessDenied = ({ user }) => (
             height={295}
             layout="fixed"
             src="https://mangafy.club/img/error.webp"
-            alt=""
+            alt="MangaFy error"
           />
           {/* <div className={styles.error_title}>404</div> */}
           <div className={styles.page_title}>Access Denied</div>
@@ -41,6 +39,7 @@ const AccessDenied = ({ user }) => (
         </div>
       </div>
       <Footer />
+      <FooterLogin user={user} />
     </main>
   </div>
 );

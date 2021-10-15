@@ -1,31 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Upload, Row, Col } from 'antd';
 import client from 'api/client';
-import Card from 'components/card';
-import Imgix from 'components/imgix';
+import Loading from 'components/loading';
 import AddButton from 'components/ui-elements/add-button';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import dynamic from 'next/dynamic';
 import PropTypes from 'prop-types';
+import Queue from 'queue-promise';
+import myAmplitude from 'utils/amplitude';
 
-import GalleryCard from './galleryCard';
+import CreatePreviousWorks from './createPreviousWorks';
 import HtmlGalleryModal from './htmlGalleryModal';
 import ShortStory from './shortStory';
 import { ShowGalleryModal } from './showGalleryModal';
-import styles from './style.module.scss';
-import { beforeGalleryUpload, getShortStorys } from './utils';
+import styles from './styles.module.scss';
+import { getShortStorys, beforeGalleryUpload } from './utils';
+
+const queue = new Queue({
+  concurrent: 1,
+  interval: 1,
+});
 
 const PDFViewer = dynamic(() => import('components/pdfViewer'), {
   ssr: false,
 });
 
-const Amplitude = require('amplitude');
-
-const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
-
 export const Gallery = (props) => {
-  const { user = false, profile, mangaStories, fromPath = 'users', title = '' } = props;
+  const { user = false, profile, mangaStoriesMyProfile, fromPath = 'users', title = '' } = props;
   let canEditInit;
   if (!user) {
     canEditInit = false;
@@ -34,7 +36,6 @@ export const Gallery = (props) => {
   } else if (profile._id === user._id) {
     canEditInit = true;
   }
-
   const [images, setImages] = useState([]);
   const [startIndex, setStartIndex] = useState(0);
   const [userData, setUserData] = useState(profile || user);
@@ -45,6 +46,7 @@ export const Gallery = (props) => {
   const [canEdit] = useState(canEditInit);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedGallery, setSelectedGallery] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const data = [];
@@ -53,7 +55,7 @@ export const Gallery = (props) => {
       if (fromPath === 'users') {
         userData &&
           (userData.gallery.forEach((item) => {
-            if (item.slice(-3) === 'pdf' || item.slice(-3) === 'PDF') {
+            if (item?.slice(-3) === 'pdf' || item?.slice(-3) === 'PDF') {
               data.push({
                 original: client.UPLOAD_URL + item,
                 _id: item,
@@ -85,10 +87,10 @@ export const Gallery = (props) => {
             }
           ));
       } else {
-        mangaStories &&
-          mangaStories.gallery &&
-          mangaStories.gallery.forEach((item) => {
-            if (item.slice(-3) === 'pdf' || item.slice(-3) === 'PDF') {
+        mangaStoriesMyProfile &&
+          mangaStoriesMyProfile.gallery &&
+          mangaStoriesMyProfile.gallery.forEach((item) => {
+            if (item?.slice(-3) === 'pdf' || item?.slice(-3) === 'PDF') {
               data.push({
                 original: client.UPLOAD_URL + item,
                 _id: item,
@@ -106,7 +108,7 @@ export const Gallery = (props) => {
     } else {
       profile &&
         (profile.gallery.forEach((item) => {
-          if (item.slice(-3) === 'pdf' || item.slice(-3) === 'PDF') {
+          if (item?.slice(-3) === 'pdf' || item?.slice(-3) === 'PDF') {
             data.push({
               original: client.UPLOAD_URL + item,
               _id: item,
@@ -136,7 +138,7 @@ export const Gallery = (props) => {
           }
         ));
     }
-  }, [canEdit, fromPath, mangaStories, profile, userData]);
+  }, [canEdit, fromPath, mangaStoriesMyProfile, profile, userData]);
 
   const showModal = () => {
     document.body.classList.add('body_remove_scroll');
@@ -158,28 +160,31 @@ export const Gallery = (props) => {
   };
 
   const onBeforeGalleryUpload = (file) => {
-    const data = [
-      {
-        platform: 'WEB',
-        event_type: EVENTS.ADDED_PORTFOLIO,
-        user_id: user._id,
-        user_properties: {
-          ...user,
-        },
+    const data = {
+      event_type:
+        file?.type === 'application/pdf' ? EVENTS.ADDED_PORTFOLIO_PDF : EVENTS.ADDED_PORTFOLIO,
+      user_id: user._id,
+      user_properties: {
+        ...user,
       },
-    ];
-    amplitude.track(data);
-    beforeGalleryUpload(
-      file,
-      setShowUploadList,
-      fromPath,
-      userData,
-      mangaStories,
-      images,
-      setImages,
-      setUserData,
-      setErrMessage
-    );
+    };
+    myAmplitude(data);
+    queue.enqueue([
+      async () => {
+        await beforeGalleryUpload(
+          file,
+          setShowUploadList,
+          fromPath,
+          userData,
+          mangaStoriesMyProfile,
+          [],
+          setImages,
+          setUserData,
+          setErrMessage,
+          setLoading
+        );
+      },
+    ]);
   };
 
   return (
@@ -193,80 +198,10 @@ export const Gallery = (props) => {
           {...{ setImages, images, user, handleCancel, isModalVisible }}
         />
       )}
-      <h4 className={styles.title}>{title}</h4>
-      {errMessage && <p>{errMessage}</p>}
-      <Row>
-        <Col span={21}>
-          <div className={styles.imagesBlock}>
-            {images?.length ? (
-              images.map((galleryItem, index) => (
-                <GalleryCard
-                  key={galleryItem._id}
-                  {...{
-                    index,
-                    canEdit,
-                    canEditInit,
-                    user,
-                    userData,
-                    galleryItem,
-                    gallerySet,
-                    setUserData,
-                    fromPath,
-                    setImages,
-                    images,
-                    setSelectedGallery,
-                    setCreateGalleryModal,
-                    setIsModalVisible,
-                  }}
-                />
-              ))
-            ) : (
-              <div>
-                {canEditInit ? (
-                  <Upload beforeUpload={onBeforeGalleryUpload} showUploadList={showUploadList}>
-                    <Card
-                      description="Do you not want <br/> to add a gallery?"
-                      btnText=""
-                      items={[
-                        <Imgix
-                          key="1"
-                          width={124}
-                          height={140}
-                          layout="fixed"
-                          src="https://mangafy.club/img/noGalere.webp"
-                          alt=""
-                        />,
-                      ]}
-                    />
-                  </Upload>
-                ) : (
-                  <Card
-                    description="Sorry, but there is nothing <br/> here (("
-                    btnText=""
-                    items={[
-                      <Imgix
-                        key="1"
-                        width={124}
-                        height={140}
-                        layout="fixed"
-                        src="https://mangafy.club/img/noGalere.webp"
-                        alt=""
-                      />,
-                    ]}
-                  />
-                )}
-              </div>
-            )}
-          </div>
-        </Col>
+      <div className={styles.headerPortfolio}>
+        <h4 className={styles.title}>{title}</h4>
         {canEditInit && (
-          <Col
-            xs={{ span: 23 }}
-            md={{ span: 3 }}
-            xl={{ span: 3 }}
-            xxl={{ span: 3 }}
-            span={3}
-            className={styles.img_add_button}>
+          <Col className={styles.img_add_button}>
             {/* {isShowAdd && ( */}
             <span
               className={styles.uploadText}
@@ -274,7 +209,7 @@ export const Gallery = (props) => {
                 setCreateGalleryModal(true);
                 setIsModalVisible(true);
               }}>
-              <AddButton width="25px" height="25px" text={'Add text'} />
+              <AddButton width="25px" height="25px" text={'Share stories'} />
             </span>
             {/* )}
             <div onClick={() => setIsShowAdd(!isShowAdd)}>
@@ -285,28 +220,56 @@ export const Gallery = (props) => {
               <Upload
                 beforeUpload={onBeforeGalleryUpload}
                 showUploadList={false}
-                accept="image/jpg, image/png, image/jpeg, application/pdf ">
-                <AddButton width="25px" height="25px" text={'Upload'} />
+                multiple={true}
+                accept="image/jpg, image/png, application/pdf, image/jpeg ">
+                <AddButton width="25px" height="25px" text={'Upload illustrations'} />
               </Upload>
             </span>
             {/* )} */}
           </Col>
         )}
+      </div>
+      {errMessage && <p>{errMessage}</p>}
+      <Row>
+        <Col>
+          <CreatePreviousWorks
+            profile={profile}
+            images={images}
+            canEdit={canEdit}
+            canEditInit={canEditInit}
+            user={user}
+            userData={userData}
+            gallerySet={gallerySet}
+            setUserData={setUserData}
+            fromPath={fromPath}
+            setImages={setImages}
+            setSelectedGallery={setSelectedGallery}
+            setCreateGalleryModal={setCreateGalleryModal}
+            setIsModalVisible={setIsModalVisible}
+            onBeforeGalleryUpload={onBeforeGalleryUpload}
+            showUploadList={showUploadList}
+          />
+        </Col>
       </Row>
+      <Loading loading={loading} />
     </div>
   );
 };
 
 Gallery.propTypes = {
-  user: PropTypes.object.isRequired,
+  user: PropTypes.object,
   profile: PropTypes.object,
+  mangaStoriesMyProfile: PropTypes.array.isRequired,
   mangaStories: PropTypes.array.isRequired,
   fromPath: PropTypes.string,
   title: PropTypes.string,
+  ifMyProfile: PropTypes.bool,
 };
 
 Gallery.defaultProps = {
+  user: {},
   profile: null,
   title: '',
   fromPath: 'users',
+  ifMyProfile: true,
 };

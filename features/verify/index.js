@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Head from 'next/head';
+import { NextSeo } from 'next-seo';
 import Router from 'next/router';
 
 class Verify extends Component {
@@ -42,11 +42,16 @@ class Verify extends Component {
   render() {
     return (
       <>
-        <Head>
-          <title>MangaFY Verify</title>
-          <meta name="description" content="MangaFY Verify"></meta>
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
+        <NextSeo
+          title="MangaFY Verify"
+          description="MangaFY Verify"
+          additionalLinkTags={[
+            {
+              rel: 'icon',
+              href: '/favicon.ico',
+            },
+          ]}
+        />
         <h1 id="info" style={{ color: 'green' }}>
           {/* {message} */}
         </h1>

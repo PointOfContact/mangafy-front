@@ -1,0 +1,114 @@
+@import '../../../../styles/variables.scss';
+
+.modal {
+  max-width: 85% !important;
+  width: 100% !important;
+  height: calc(100vh - 150px);
+  margin-top: 23px;
+  padding: 0;
+  div {
+    height: 100%;
+  }
+  @include media-sm {
+    max-width: 95% !important;
+    margin-top: 36px;
+  }
+  @include media-xs {
+    height: 600px;
+  }
+  & > div:nth-child(2) {
+    height: 100%;
+    border-radius: 6px;
+  }
+  .close {
+    width: 35px;
+    height: 35px;
+    margin-top: 20px;
+    margin-right: 20px;
+    background-color: $primaryDark;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    svg {
+      width: 16px;
+      height: 16px;
+      path {
+        fill: white;
+      }
+    }
+    @include media-sm {
+      width: 30px;
+      height: 30px;
+      svg {
+        width: 14px;
+        height: 14px;
+      }
+    }
+    &:hover {
+      background-color: $primaryLight;
+    }
+  }
+  .container {
+    width: 100%;
+    margin: auto;
+  }
+}
+
+.moduleGa {
+  position: relative;
+  & > div {
+    width: 99%;
+    margin: auto;
+    margin-top: 65px !important;
+    @include media-xs {
+      border-radius: 0;
+    }
+    img {
+      max-height: calc(100vh - 277px) !important;
+      object-fit: contain;
+      margin: 2px !important;
+    }
+  }
+  & > span {
+    height: 60px;
+    & > a {
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-end;
+      p {
+        height: 20px;
+        display: flex !important;
+        align-items: center;
+      }
+    }
+    p {
+      font-weight: bold;
+      margin: 0;
+      &:last-child {
+        font-weight: normal;
+        font-size: 12px;
+        color: $gray85;
+      }
+    }
+    @include media-xs {
+      width: 85%;
+    }
+    & > span {
+      width: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      & > svg {
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+        &:hover {
+          & > path {
+            fill: #bbb7b8;
+          }
+        }
+      }
+    }
+  }
+}

@@ -5,15 +5,18 @@
     display: flex;
     align-items: center;
     border-radius: 10px;
-    font-size: $text4;
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 20px;
     a {
       display: inline-flex;
       height: inherit;
       align-items: center;
     }
-    @include media-sm {
-      font-size: 12px;
+    @include media-xs {
+      font-size: 13px;
       padding: 5px 10px;
+      height: 41px;
     }
   }
   .text {

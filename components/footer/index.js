@@ -22,7 +22,7 @@ const Footer = () => (
               height={30}
               quality={50}
               src="https://mangafy.club/img/logo-new.webp"
-              alt=""
+              alt="MangaFy logo"
             />
           </a>
           <div className={styles.footerLeft__links}>
@@ -40,7 +40,7 @@ const Footer = () => (
                 <SvgFbNew width="25px" height="25px" />
               </a>
               <a
-                href="https://twitter.com/FyManga"
+                href="https://twitter.com/be_mangafy"
                 target="_blank"
                 rel="noreferrer"
                 className={styles.footer__socBtn}>
@@ -58,7 +58,7 @@ const Footer = () => (
         </div>
         <div className={styles.footer__nav}>
           <div className={styles.footer__item1}>
-            <div className={styles.footer__itemTitle}>For dreames</div>
+            <div className={styles.footer__itemTitle}>For Dreamers</div>
             {/* <Link href="/pricing">
               <a className={styles.footer__itemLink}>Go PRO</a>
             </Link> */}
@@ -78,8 +78,8 @@ const Footer = () => (
             <Link href="/contact-us">
               <a className={styles.footer__itemLink}>Help & Support</a>
             </Link>
-            <Link href="/resources/manga-paneling-basics">
-              <a className={styles.footer__itemLink}>Guides & tutorials</a>
+            <Link href="/resources">
+              <a className={styles.footer__itemLink}>Guides and Tutorials</a>
             </Link>
           </div>
 
@@ -104,11 +104,11 @@ const Footer = () => (
             {/* <Link href="/pricing">
               <a className={styles.footer__itemLink}>Pricing</a>
             </Link> */}
-            <Link href="/welcome">
+            <Link href="/">
               <a className={styles.footer__itemLink}>Welcome</a>
             </Link>
             <Link href="/contact-us">
-              <a className={styles.footer__itemLink}>We open for collaborations</a>
+              <a className={styles.footer__itemLink}>We Are Open For Collaboration</a>
             </Link>
             <Link href="/terms">
               <a className={styles.footer__itemLink}>Terms of service</a>

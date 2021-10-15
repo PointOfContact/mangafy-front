@@ -3,17 +3,15 @@ import React, { useEffect, useState } from 'react';
 import { Button, Checkbox } from 'antd';
 import SvgLeftArrow from 'components/icon/LeftArrow';
 import SvgRightArrow from 'components/icon/RightArrow';
+import Imgix from 'components/imgix';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import Head from 'next/head';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
+import myAmplitude from 'utils/amplitude';
 import { v4 as uuidv4 } from 'uuid';
 
 import { USER_TYPES } from './constant';
-
-const Amplitude = require('amplitude');
-
-const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 
 const LookingFor = ({ user }) => {
   const [loadings, changeLoading] = useState([]);
@@ -40,7 +38,6 @@ const LookingFor = ({ user }) => {
     newLoadings[index] = true;
     changeLoading(newLoadings);
     const data = {
-      platform: 'WEB',
       event_type: EVENTS.CREATE_MANGA_STORY_LOOKING_FOR_NEXT,
       event_properties: {
         data: checkboxes,
@@ -52,7 +49,7 @@ const LookingFor = ({ user }) => {
     } else {
       data.device_id = uuidv4();
     }
-    amplitude.track([data]);
+    myAmplitude([data]);
   };
 
   const onChangeCheckBox = (index) => {
@@ -71,7 +68,13 @@ const LookingFor = ({ user }) => {
           <div className="nav1 nav1_logo">
             <div className="flex-center">
               <Link href="/">
-                <img src="/img/logoText.webp" width="70%" alt="" />
+                <a>
+                  <Imgix
+                    layout="fill"
+                    src="https://mangafy.club/img/logoText.webp"
+                    alt="MangaFy logo text"
+                  />
+                </a>
               </Link>
             </div>
           </div>
@@ -121,22 +124,26 @@ const LookingFor = ({ user }) => {
                 <hr />
                 <div className="next_prev">
                   <Link href="/create-a-story/start">
-                    <Button id="lookingForPrevBtnId" className="title_but_prev ">
-                      <SvgLeftArrow width="13.503px" height="23.619px" />
-                      <span> Previous</span>
-                    </Button>
+                    <a>
+                      <Button id="lookingForPrevBtnId" className="title_but_prev ">
+                        <SvgLeftArrow width="13.503px" height="23.619px" />
+                        <span> Previous</span>
+                      </Button>
+                    </a>
                   </Link>
                   <Link href="/create-a-story/model">
-                    <Button
-                      id="lookingForNextBtnId"
-                      disabled={!checked}
-                      type="primary"
-                      className="title_but btn_next"
-                      loading={loadings[0]}
-                      onClick={() => enterLoading(0)}>
-                      <span>Next</span>
-                      <SvgRightArrow width="13.503px" height="23.619px" />
-                    </Button>
+                    <a>
+                      <Button
+                        id="lookingForNextBtnId"
+                        disabled={!checked}
+                        type="primary"
+                        className="title_but btn_next"
+                        loading={loadings[0]}
+                        onClick={() => enterLoading(0)}>
+                        <span>Next</span>
+                        <SvgRightArrow width="13.503px" height="23.619px" />
+                      </Button>
+                    </a>
                   </Link>
                 </div>
               </div>

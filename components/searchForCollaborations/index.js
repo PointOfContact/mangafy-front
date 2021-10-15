@@ -32,8 +32,21 @@ const menuGenresOptions = (genres = [], handleMenuClick) => (
   </>
 );
 
+const artistOptions = (userTypes) => {
+  const userTupe = userTypes.map((type) => <Option key={type.key}>{type.value}</Option>);
+  const all = [<Option key="all">All Artist Types</Option>];
+  return all.concat(userTupe);
+};
+
 const SearchForCollaborations = (props) => {
-  const { genres, search, selectedCompensationModel = [], selectedGenres = [] } = props;
+  const {
+    genres,
+    search,
+    selectedCompensationModel = [],
+    selectedGenres = [],
+    selectedTypes = [],
+    userTypes = [],
+  } = props;
   const searchAPI = (search) => {
     const parsed = qs.parse(location.search);
     Router.push(
@@ -48,6 +61,28 @@ const SearchForCollaborations = (props) => {
   const onInputChange = async (e) => {
     const { value } = e.target;
     await AwesomeDebouncePromise(searchAPI, 500)(value);
+  };
+
+  const handleArtistClick = (keys) => {
+    const parsed = qs.parse(location.search);
+    if (keys && keys.includes('all')) {
+      delete parsed.types;
+      Router.push(
+        LinkCreator.toQuery({ ...parsed }, '/collaborations'),
+        LinkCreator.toQuery({ ...parsed }, '/collaborations'),
+        {
+          scroll: false,
+        }
+      );
+      return;
+    }
+    Router.push(
+      LinkCreator.toQuery({ ...parsed, types: keys }, '/collaborations'),
+      LinkCreator.toQuery({ ...parsed, types: keys }, '/collaborations'),
+      {
+        scroll: false,
+      }
+    );
   };
 
   const handleCompasitionClick = (keys) => {
@@ -98,7 +133,7 @@ const SearchForCollaborations = (props) => {
       <div className={styles.box}>
         <div className={'container'}>
           <div className={styles.box__wrapper}>
-            <form className={styles.box__search}>
+            <form className={styles.box__search} onSubmit={(e) => e.preventDefault()}>
               <i className={styles.box__search_icon}>
                 <SvgSearch width="30" height="30" />
               </i>
@@ -133,19 +168,37 @@ const SearchForCollaborations = (props) => {
               </Select>
               <Select
                 bordered={false}
+                mode="multiple"
                 menuItemSelectedIcon={null}
                 showArrow={true}
                 showSearch={false}
                 allowClear={true}
-                mode="multiple"
-                placeholder="All Genres"
-                defaultValue={selectedGenres || []}
-                value={selectedGenres || []}
-                onChange={handleGenresClick}
+                placeholder="Artist Type"
+                defaultValue={selectedTypes || []}
+                value={selectedTypes || []}
+                onChange={handleArtistClick}
                 dropdownClassName="select-filter"
                 className={cn(styles.box__nav_select, 'select-filter')}>
-                {menuGenresOptions(genres)}
+                {artistOptions(userTypes)}
               </Select>
+              <div className={styles.allGenres} id="area">
+                <Select
+                  bordered={false}
+                  menuItemSelectedIcon={null}
+                  showArrow={true}
+                  showSearch={false}
+                  allowClear={true}
+                  mode="multiple"
+                  placeholder="All Genres"
+                  defaultValue={selectedGenres || []}
+                  value={selectedGenres || []}
+                  onChange={handleGenresClick}
+                  getPopupContainer={() => document.getElementById('area')}
+                  dropdownClassName="select-filter"
+                  className={cn(styles.box__nav_select, 'select-filter')}>
+                  {menuGenresOptions(genres)}
+                </Select>
+              </div>
             </div>
           </div>
         </div>
@@ -159,12 +212,16 @@ SearchForCollaborations.propTypes = {
   selectedGenres: PropTypes.array,
   genres: PropTypes.array.isRequired,
   search: PropTypes.string,
+  selectedTypes: PropTypes.array,
+  userTypes: PropTypes.array,
 };
 
 SearchForCollaborations.defaultProps = {
   selectedCompensationModel: null,
   selectedGenres: [],
   search: '',
+  selectedTypes: [],
+  userTypes: [],
 };
 
 export default SearchForCollaborations;

@@ -66,9 +66,12 @@ const MenuMailNotification = ({ user }) => {
     <div>
       {mailOptions.map((item) => (
         <div
-          className={cn(styles.dropItem, selectedItem === item.key && styles.selectid)}
-          key={item.key}>
-          <p onClick={() => changeMailNotification(item.key)}>{item.value}</p>
+          key={item.key}
+          className={cn(styles.dropItem, selectedItem === item.key && styles.selectId)}
+          onClick={() => {
+            changeMailNotification(item.key);
+          }}>
+          <p>{item.value}</p>
           <span>
             <SvgWhiteChecked width="25px" height="25px" />
           </span>

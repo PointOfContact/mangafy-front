@@ -6,28 +6,40 @@ import Header from 'components/header';
 import Imgix from 'components/imgix';
 import { ShareButtons } from 'components/share';
 import ButtonToTop from 'components/ui-elements/button-toTop';
-import Head from 'next/head';
+import FooterLogin from 'features/footerLogin';
+import { NextSeo } from 'next-seo';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
 const MangaPanelingBasics = ({ user }) => (
   <>
-    <Head>
-      <title>Manga Paneling Basics</title>
-      <meta
-        name="description"
-        content="Hey All, in this first tutorial on MangaFY, we'd like to share with you the paneling basics for Manga, by our very own team member and consultant, Mina Petrovic."
-      />
-      <meta property="og:url" content="https://mangafy.club/resources/manga-paneling-basics" />
-      <meta property="og:type" content="article" />
-      <meta property="og:title" content="Manga Paneling Basics" />
-      <meta
-        property="og:description"
-        content="Hey All, in this first tutorial on MangaFY, we'd like to share with you the paneling basics for Manga, by our very own team member and consultant, Mina Petrovic."
-      />
-      <meta property="og:image" content="https://mangafy.club/img/setovi.jpg" />
-    </Head>
+    <NextSeo
+      title="Manga Paneling Basics"
+      description="Hey All, in this first tutorial on MangaFY, we'd like to share with you the paneling basics for Manga, by our very own team member and consultant, Mina Petrovic."
+      canonical="https://mangafy.club/resources/manga-paneling-basics"
+      openGraph={{
+        url: 'https://mangafy.club/resources/manga-paneling-basics',
+        title: 'Manga Paneling Basics',
+        description:
+          "Hey All, in this first tutorial on MangaFY, we'd like to share with you the paneling basics for Manga, by our very own team member and consultant, Mina Petrovic.",
+        type: 'article',
+        images: [
+          {
+            url: 'https://mangafy.club/img/setovi.jpg',
+            width: 800,
+            height: 600,
+            alt: 'Manga Story Image',
+          },
+        ],
+        site_name: 'MangaFY',
+      }}
+      twitter={{
+        handle: '@handle',
+        site: '@site',
+        cardType: 'summary_large_image',
+      }}
+    />
     <ButtonToTop />
     <div className={'wrapper'}>
       <div className={'content'}>
@@ -68,12 +80,27 @@ const MangaPanelingBasics = ({ user }) => (
             </p>
             <p>But, paneling also has many layers to it, which we will address in this tutorial.</p>
             <br />
-            <Imgix width={860} height={1000} src={'https://mangafy.club/img/setovi.jpg'} />
-            <Imgix width={860} height={1000} src={'https://mangafy.club/img/lesson_1.jpg'} />
+            <Imgix
+              width={860}
+              height={1000}
+              src={'https://mangafy.club/img/setovi.jpg'}
+              alt="MangaFy setovi"
+            />
+            <Imgix
+              width={860}
+              height={1000}
+              src={'https://mangafy.club/img/lesson_1.jpg'}
+              alt="MangaFy lesson"
+            />
             <br />
             <strong>CHECK LISTS AND TEMPLATES</strong>
             <p>There are several panel templates you can utilize.</p>
-            <Imgix width={860} height={1000} src={'https://mangafy.club/img/Untitled.png'} />
+            <Imgix
+              width={860}
+              height={1000}
+              src={'https://mangafy.club/img/Untitled.png'}
+              alt="MangaFy untitled"
+            />
             <p>But note:</p>
             <ul>
               <li>
@@ -101,8 +128,18 @@ const MangaPanelingBasics = ({ user }) => (
               Elements of note here is that you are always allowed to play with characters popping
               outside the frames.
             </p>
-            <Imgix width={860} height={1000} src={'https://mangafy.club/img/3.jpg'} />
-            <Imgix width={860} height={1000} src={'https://mangafy.club/img/1.jpg'} />
+            <Imgix
+              width={860}
+              height={1000}
+              src={'https://mangafy.club/img/3.jpg'}
+              alt="MangaFy frames"
+            />
+            <Imgix
+              width={860}
+              height={1000}
+              src={'https://mangafy.club/img/1.jpg'}
+              alt="MangaFy frames"
+            />
             <h2>Fast scene</h2>
             <p>
               This is a paneling choice when we want to show a quick scene playing out, like this
@@ -123,7 +160,12 @@ const MangaPanelingBasics = ({ user }) => (
               Even thought the scene is fast, try to add as much of emotion as possible. Manga
               panels always need to evoke a feeling with the audience{' '}
             </p>
-            <Imgix width={860} height={860} src={'https://mangafy.club/img/2.jpg'} />
+            <Imgix
+              width={860}
+              height={860}
+              src={'https://mangafy.club/img/2.jpg'}
+              alt="MangaFy iframe"
+            />
             <p>
               We hope you enjoyed the tutorial and you can also visit Mina's website for more
               awesome content: <a href="https://mistiqarts.com/">https://mistiqarts.com/.</a>
@@ -147,6 +189,7 @@ const MangaPanelingBasics = ({ user }) => (
       </div>
       <Footer />
       <FooterPolicy />
+      <FooterLogin user={user} />
     </div>
   </>
 );

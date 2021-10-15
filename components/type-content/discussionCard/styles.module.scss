@@ -1,13 +1,14 @@
 @import '../../../styles/variables.scss';
 $colors: $primaryLight, $orangeLight, #6fd257, $secondaryDark;
 $repeat: 16;
+$backgroundColor: '';
 
 .projectsForYou {
   width: 100%;
   display: flex;
   flex-direction: column;
   grid-area: projects-for-you;
-  @media (max-width: 767px) {
+  @include media-sm {
     padding: 0 20px;
   }
   &__MainTitle {
@@ -91,7 +92,9 @@ $repeat: 16;
       }
     }
   }
-  &_Card {
+  &_card {
+    width: 100%;
+    min-height: 275px;
     display: flex;
     flex-direction: column;
     box-shadow: 0px 4px 16px rgb(0 0 0 / 8%);
@@ -99,16 +102,14 @@ $repeat: 16;
     padding: 16px;
     margin: 0 0 32px 0;
     transition: all 0.2s;
-    min-height: 465px;
-    width: 100%;
+    overflow: hidden;
     &:hover {
       box-shadow: 0px 4px 16px rgb(0 0 0 / 19%);
     }
   }
-  &_MainImg {
+  &_mainImgDef {
     cursor: pointer;
     width: 100%;
-    height: 312px;
     background-repeat: no-repeat;
     background-size: contain;
     background-position: 50%;
@@ -118,35 +119,34 @@ $repeat: 16;
     position: relative;
     .bgImg {
       width: 100%;
-      height: 312px;
-      position: absolute;
-      z-index: 0;
       .defaultBg {
         object-fit: cover !important;
       }
-      img {
-        object-fit: contain;
+      div {
+        position: initial !important;
+        img {
+          object-fit: contain;
+          position: initial !important;
+          height: auto !important;
+          border-top-left-radius: 5px;
+          border-top-right-radius: 5px;
+        }
       }
     }
-    .cat {
-      position: absolute;
-      bottom: -10px;
-      left: 10px;
-      padding: 0px 15px;
-      border-radius: 25px;
-      color: $text_white;
-    }
+
     .comments {
+      width: 100%;
+      height: 70px;
+      top: 0;
+      position: absolute;
+      z-index: 7;
       border-top-left-radius: 5px;
       border-top-right-radius: 5px;
       padding: 8px;
       display: flex;
-      height: 70px;
       background: linear-gradient(#9198e5, rgba(255, 255, 255, 0));
       justify-content: flex-end;
       color: white;
-      position: relative;
-      z-index: 10;
       div {
         display: flex;
         align-items: center;
@@ -167,22 +167,88 @@ $repeat: 16;
         }
       }
     }
+    .comments_video {
+      height: 100%;
+      background: linear-gradient(#9198e5, rgba(255, 255, 255, 0) 170px);
+    }
   }
-  &_BotDescr {
-    font-size: 17px;
+
+  &_mainImg {
+    height: 0;
+    .bgImg {
+      height: 0;
+    }
+  }
+  &_botDescDef {
+    font-size: $text4;
     font-weight: 500;
     display: flex;
     justify-content: space-between;
-    button {
-      font-size: 13px;
-      padding: 3px 15px;
+    overflow: hidden;
+    span {
+      max-width: calc(100% - 90px);
+      display: block;
+      word-wrap: break-word;
     }
-  }
-  @for $i from 1 through $repeat {
-    &_Card:nth-child(#{length($colors)}n + #{$i}) {
-      .cat {
-        background: nth($colors, random(length($colors)));
+    button {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      padding: 3px 15px;
+      @include media-sm {
+        padding: 3px 10px;
       }
     }
   }
+  &_botDesc {
+    color: white;
+    flex-direction: column;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    margin-top: -15px;
+    cursor: pointer;
+    & > span {
+      margin: 50px;
+      text-align: center;
+      word-wrap: break-word;
+    }
+    .containerButton {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row-reverse;
+      margin-top: 10px;
+      background-color: white;
+      padding: 10px;
+      .cat {
+        bottom: 12px;
+      }
+    }
+  }
+
+  @for $i from 1 through $repeat {
+    &_card:nth-child(#{length($colors)}n + #{$i}) {
+      $backgroundColor: random(length($colors));
+      .catDef {
+        background: nth($colors, $backgroundColor);
+      }
+      & .projectsForYou_botDesc {
+        background: nth($colors, $backgroundColor);
+      }
+    }
+  }
+}
+.catDef {
+  position: absolute;
+  bottom: -10px;
+  left: 10px;
+  font-size: 13px;
+  padding: 2px 20px;
+  border-radius: 25px;
+  color: $text_white;
+}
+.postVideo {
+  width: 100%;
+  height: 500px;
+  border-radius: 5px;
 }

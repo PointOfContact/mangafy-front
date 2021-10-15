@@ -6,20 +6,16 @@ import cn from 'classnames';
 import ButtonColab from 'components/colaborationCard/buttonColab';
 import SvgDustbin from 'components/icon/Dustbin';
 import SvgPencilColored from 'components/icon/PencilColored';
-import Imgix from 'components/imgix';
 import Modal from 'components/modals/createTaskModal';
 import AddButton from 'components/ui-elements/add-button';
 import PrimaryButton from 'components/ui-elements/button';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import PropTypes from 'prop-types';
+import myAmplitude from 'utils/amplitude';
 
 import styles from './styles.module.scss';
 
-const Amplitude = require('amplitude');
-
-const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
-
-const Tasks = ({ baseData, isOwn, user, toTeam, isParticipent }) => {
+const Tasks = ({ baseData, isOwn, user, toTeam, isParticipant, showPayPalContent }) => {
   const { tasks } = baseData;
   const [taskList, setTasks] = useState(tasks);
   const [showModal, changeShowModal] = useState(false);
@@ -39,16 +35,15 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipent }) => {
 
         const eventData = [
           {
-            platform: 'WEB',
             event_type: EVENTS.MINI_JOB_REMOVED,
-            event_properties: { mangaStoryId: baseData._id, taskId },
+            event_properties: { mangaStoryId: baseData._id, taskId, tasks },
             user_id: user._id,
             user_properties: {
               ...user,
             },
           },
         ];
-        amplitude.track(eventData);
+        myAmplitude(eventData);
       })
       .catch(() => updateTasks());
     // To do 404
@@ -80,7 +75,8 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipent }) => {
       <span className={styles.mobile_add}>
         {isOwn && (
           <AddButton
-            text={'create a task'}
+            className={styles.createTaskMobileBut}
+            text={'Create a task'}
             onClick={() => {
               changeShowModal(true);
               setSelectedTask(null);
@@ -90,7 +86,7 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipent }) => {
       </span>
       {!!taskList.length && (
         <div className={styles.items}>
-          {!isParticipent && !taskList.length && !isOwn && (
+          {!isParticipant && !taskList.length && !isOwn && (
             <PrimaryButton
               className={styles.contributeBtn}
               onClick={() => {
@@ -139,8 +135,8 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipent }) => {
                     </Popconfirm>
                   </div>
                 ) : (
-                  <div className={styles.contribiutContent}>
-                    {!isParticipent && (
+                  <div className={styles.contributeContent}>
+                    {!isParticipant && (
                       <PrimaryButton
                         onClick={() => {
                           toTeam(task);
@@ -156,33 +152,28 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipent }) => {
           ))}
         </div>
       )}
-      <div className={styles.creatTask}>
-        <div className={styles.addBtn}>
-          <Imgix
-            width={264}
-            height={241}
-            layout="fixed"
-            src="https://mangafy.club/img/storyCardImg1.webp"
-            alt=""
-          />
+      <div className={styles.createTask}>
+        <div className={isOwn ? styles.addButtonOwn : styles.addBtn}>
           {isOwn ? (
             <PrimaryButton
               onClick={() => {
                 changeShowModal(true);
                 setSelectedTask(null);
               }}
-              text="create a task"
+              className={showPayPalContent && styles.createTaskButton}
+              text="Create a task"
             />
           ) : (
-            !tasks?.length &&
-            !isParticipent && (
-              <PrimaryButton
-                onClick={() => {
-                  toTeam(null);
-                }}
-                text="Contribute"
-              />
-            )
+            <>
+              {!tasks?.length && !isParticipant && (
+                <PrimaryButton
+                  onClick={() => {
+                    toTeam(null);
+                  }}
+                  text="Contribute"
+                />
+              )}
+            </>
           )}
         </div>
       </div>
@@ -205,11 +196,13 @@ Tasks.propTypes = {
   isOwn: PropTypes.bool.isRequired,
   user: PropTypes.object,
   toTeam: PropTypes.func.isRequired,
-  isParticipent: PropTypes.bool.isRequired,
+  isParticipant: PropTypes.bool,
+  showPayPalContent: PropTypes.bool.isRequired,
 };
 
 Tasks.defaultProps = {
   user: null,
+  isParticipant: false,
 };
 
 export default Tasks;

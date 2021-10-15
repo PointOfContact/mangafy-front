@@ -3,15 +3,13 @@ import React, { useState, useEffect } from 'react';
 import { Button, Tooltip } from 'antd';
 import SvgLeftArrow from 'components/icon/LeftArrow';
 import SvgRightArrow from 'components/icon/RightArrow';
+import Imgix from 'components/imgix';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import Head from 'next/head';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
+import myAmplitude from 'utils/amplitude';
 import { v4 as uuidv4 } from 'uuid';
-
-const Amplitude = require('amplitude');
-
-const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 
 const Introduce = ({ user }) => {
   const [loadings, changeLoading] = useState([]);
@@ -21,7 +19,6 @@ const Introduce = ({ user }) => {
     newLoadings[index] = true;
     changeLoading(newLoadings);
     const data = {
-      platform: 'WEB',
       event_type: EVENTS.CREATE_MANGA_STORY_TITLE_NEXT,
       user_id: user?._id,
       user_properties: {
@@ -35,7 +32,7 @@ const Introduce = ({ user }) => {
     } else {
       data.device_id = uuidv4();
     }
-    amplitude.track([data]);
+    myAmplitude([data]);
   };
   const handleInput = (evt) => {
     changeInput(evt.target.value);
@@ -64,7 +61,11 @@ const Introduce = ({ user }) => {
             <div className="col-lg-12">
               <div className="collab_div">
                 <div className="logo_img_comp">
-                  <img src="/img/logo.webp" width="250" alt="" />
+                  <Imgix
+                    layout="fill"
+                    src="https://mangafy.club/img/logo.webp"
+                    alt="MangaFy logo"
+                  />
                 </div>
                 <h1 className="collab">Introduce your project*</h1>
                 <p className="title_text">
@@ -86,22 +87,26 @@ const Introduce = ({ user }) => {
 
               <div className="next_prev">
                 <Link href="/create-a-story/genres">
-                  <Button id="projTiltePrevBtnId" className="title_but_prev">
-                    <SvgLeftArrow width="13.503px" height="23.619px" />
-                    <span> Previous</span>
-                  </Button>
+                  <a>
+                    <Button id="projTiltePrevBtnId" className="title_but_prev">
+                      <SvgLeftArrow width="13.503px" height="23.619px" />
+                      <span> Previous</span>
+                    </Button>
+                  </a>
                 </Link>
                 <Link href="/create-a-story/project-description">
-                  <Button
-                    id="projTilteNextBtnId"
-                    type="primary"
-                    className="title_but"
-                    disabled={!enabled}
-                    loading={loadings[0]}
-                    onClick={() => enterLoading(0)}>
-                    <span>Next</span>
-                    <SvgRightArrow width="13.503px" height="23.619px" />
-                  </Button>
+                  <a>
+                    <Button
+                      id="projTilteNextBtnId"
+                      type="primary"
+                      className="title_but"
+                      disabled={!enabled}
+                      loading={loadings[0]}
+                      onClick={() => enterLoading(0)}>
+                      <span>Next</span>
+                      <SvgRightArrow width="13.503px" height="23.619px" />
+                    </Button>
+                  </a>
                 </Link>
               </div>
             </div>

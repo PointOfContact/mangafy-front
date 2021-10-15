@@ -1,71 +1,77 @@
 import React from 'react';
 
-import cn from 'classnames';
 import Imgix from 'components/imgix';
 import HugeButton from 'components/ui-elements/huge-button';
 import Link from 'next/link';
+import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
-const ProfilesHeader = () => (
+const ProfilesHeader = ({ user }) => (
   <div className={styles.box}>
+    {/* TODO convert Imgix */}
+    <img src={'img/colabbg.webp'} alt="MangaFy background" />
     <div className={'container'}>
-      <div className={styles.box__wrapper}>
-        <div className={styles.box__bgImgCloud}>
+      <div className={styles.box__container}>
+        <div className={styles.box__bgImg}>
           <Imgix
             priority
-            width={1190}
-            height={608}
-            src="https://mangafy.club/img/CollaborationMainScreen__cloud.webp"
-            alt=""
+            layout="intrinsic"
+            width={428}
+            height={294}
+            src="https://mangafy.club/img/people.webp"
+            alt="MangaFy people"
           />
-        </div>
-        <div className={cn(styles.box__bgImgs, styles.box__bgImgs_style1)}>
-          <div className={styles.box__bgImgs_style1__img1}>
-            <Imgix
-              priority
-              layout="intrinsic"
-              width={542}
-              height={537}
-              src="https://mangafy.club/img/CollaborationMainScreen__bgImgs_style1__img1.webp"
-              alt=""
-            />
-          </div>
-          <div className={styles.box__bgImgs_style1__img2}>
-            <Imgix
-              priority
-              layout="intrinsic"
-              width={629}
-              height={644}
-              src="https://mangafy.club/img/CollaborationMainScreen__bgImgs_style1__img2.webp"
-              alt=""
-            />
-          </div>
         </div>
         <div className={styles.box__content}>
           <div className={styles.box__title_wrap}>
             <div className={styles.box__title}>
-              <p className={cn(styles.box__title_text, styles.box__title_text__mobile_resize)}>
-                Collect them All!
-              </p>
+              <p>Collect them All!</p>
             </div>
             <div className={styles.box__description}>
-              <p className={styles.box__description_text}>
-                All manga enthusiast, all genres, one Place - MangaFY
-              </p>
+              <p>All manga enthusiast, all genres, one Place - MangaFY</p>
             </div>
           </div>
           <div className={styles.box__link}>
-            <Link href="/sign-in">
-              <a>
-                <HugeButton text="Join MangaFY" disabled={false} />
-              </a>
-            </Link>
+            {user ? (
+              <Link href="/create-a-story/start">
+                <a>
+                  <span>
+                    <HugeButton text="Post Collaborations" disabled={false} />
+                  </span>
+                </a>
+              </Link>
+            ) : (
+              <Link href="/sign-in">
+                <a>
+                  <span>
+                    <HugeButton text="Join MangaFy" disabled={false} />
+                  </span>
+                </a>
+              </Link>
+            )}
+            <span className={styles.img}>
+              <Imgix
+                layout="intrinsic"
+                width={233}
+                height={54}
+                src={`https://mangafy.club/img/persons.webp`}
+                alt="MangaFy persons"
+              />
+            </span>
           </div>
         </div>
       </div>
     </div>
   </div>
 );
+
+ProfilesHeader.propTypes = {
+  user: PropTypes.object,
+};
+
+ProfilesHeader.defaultProps = {
+  user: null,
+};
 
 export default ProfilesHeader;

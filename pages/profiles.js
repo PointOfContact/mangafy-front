@@ -23,7 +23,7 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
     }
     if (types) {
       types = Array.isArray(types) ? types : [types];
-      query.type = types;
+      query.types = { $in: types };
     }
     if (search) {
       query.$or = [
@@ -54,6 +54,8 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
       }, // will be passed to the page component as props
     };
   } catch (error) {
+    console.log('Error: profiles.js', error);
+
     return {
       props: {},
     };

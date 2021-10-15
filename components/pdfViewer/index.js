@@ -8,7 +8,7 @@ import styles from './styles.module.scss';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
-const PDFViewer = ({ url }) => {
+const PDFViewer = ({ url, onClick }) => {
   const [numPages, setNumPages] = useState(null);
   const { width } = useWindowSize();
   const [size, setSize] = useState(width);
@@ -29,7 +29,7 @@ const PDFViewer = ({ url }) => {
   }, [width]);
 
   return (
-    <div className={styles.pdf}>
+    <div className={styles.pdf} onClick={onClick}>
       <Document file={url} onLoadSuccess={onDocumentLoadSuccess}>
         {Array.from({ length: numPages }, (_, index) => (
           <Page
@@ -47,10 +47,12 @@ const PDFViewer = ({ url }) => {
 
 PDFViewer.propTypes = {
   url: PropTypes.string,
+  onClick: PropTypes.func,
 };
 
 PDFViewer.defaultProps = {
   url: '',
+  onClick: () => {},
 };
 
 export default PDFViewer;

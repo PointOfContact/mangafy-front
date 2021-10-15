@@ -1,76 +1,87 @@
 import React, { useMemo, useState } from 'react';
 
-import cn from 'classnames';
-import Card from 'components/card';
-import Imgix from 'components/imgix';
-import ModalHero from 'components/modals/createEditHero';
+// import { createHero, patchHero, deleteHero, uploadFile } from 'api/storyBoardClient';
+import { deleteHero } from 'api/storyBoardClient';
+import ModalComponent from 'components/modals/createEditHero';
+import ModalHeroes from 'components/modals/modalHeroes';
 import PropTypes from 'prop-types';
 
 // Styles
+import CreateBoard from './createBoard';
+import createButtons from './createButtons/createButtons';
 import HeroCard from './HeroCard';
 import styles from './styles.module.scss';
 
 export const HeroTypes = {
   personage: 'personage',
   component: 'component',
+  background: 'background',
 };
 
-const Hero = ({ storyBoard, getStoryBoard }) => {
+const Hero = ({ storyBoard, getStoryBoard, user }) => {
   const [showModal, changeShowModal] = useState(false);
+  const [showModalHeroes, changeShowModalHeroes] = useState(false);
   const [selectedHero, setSelectedHero] = useState({});
   const [selectedType, setSelectedType] = useState('');
-  const { allowPersonageCreate, allowComponentCreate } = useMemo(() => {
+
+  const { allowPersonageCreate, allowComponentCreate, allowBackgroundCreate } = useMemo(() => {
     const allow = {
       allowPersonageCreate: true,
       allowComponentCreate: true,
+      allowBackgroundCreate: true,
     };
-    storyBoard.heroes.forEach((hero) => {
+    storyBoard?.heroes?.forEach((hero) => {
       if (hero.name === '') {
-        if (hero.type === HeroTypes.personage) {
-          allow.allowPersonageCreate = false;
-        } else {
-          allow.allowComponentCreate = false;
+        switch (hero.type) {
+          case HeroTypes.personage:
+            allow.allowPersonageCreate = false;
+            break;
+          case HeroTypes.component:
+            allow.allowComponentCreate = false;
+            break;
+          default:
+            allow.allowBackgroundCreate = false;
         }
       }
     });
     return allow;
   }, [storyBoard]);
 
-  const getAllowCreate = (type) =>
-    type === HeroTypes.personage ? allowPersonageCreate : allowComponentCreate;
+  const getAllowCreate = (type) => {
+    switch (type) {
+      case HeroTypes.personage:
+        return allowPersonageCreate;
+      case HeroTypes.component:
+        return allowComponentCreate;
+      default:
+        return allowBackgroundCreate;
+    }
+  };
 
-  const changeHero = (newhero, type) => {
-    setSelectedHero(newhero);
+  const changeHero = (newHero, type) => {
+    setSelectedHero(newHero);
     setSelectedType(type);
-    changeShowModal(true);
-  };
-  const getHeroesList = () => {
-    const heroes = [];
-    storyBoard?.heroes?.map((hero, index) => {
-      if (hero?.type === HeroTypes.personage) {
-        heroes.push(
-          <HeroCard
-            changeHero={changeHero}
-            hero={hero}
-            key={hero?._id || index}
-            getStoryBoard={getStoryBoard}
-          />
-        );
-      }
-    });
-    return heroes;
+    type === 'personage' ? changeShowModalHeroes(true) : changeShowModal(true);
   };
 
-  const getComponentsList = () => {
+  const confirmDelete = (hero) => {
+    const getLastCreateHeroId = storyBoard?.heroes[storyBoard?.heroes?.length - 1]?._id;
+    const heroId = !!hero?._id ? hero?._id : getLastCreateHeroId;
+    deleteHero(heroId, getStoryBoard, getStoryBoard);
+    changeShowModalHeroes(false);
+  };
+
+  const getLists = (type) => {
     const heroes = [];
     storyBoard?.heroes?.map((hero, index) => {
-      if (hero?.type === HeroTypes.component) {
+      if (hero?.type === type) {
         heroes.push(
           <HeroCard
             changeHero={changeHero}
             hero={hero}
             key={hero?._id || index}
             getStoryBoard={getStoryBoard}
+            confirmDelete={confirmDelete}
           />
         );
       }
@@ -85,73 +96,78 @@ const Hero = ({ storyBoard, getStoryBoard }) => {
     const newHero = {
       newCreated: true,
       name: '',
+      heroType: [],
+      quality: [],
       description: '',
+      appearance: '',
       imageUrl: '',
       storyBoard: storyBoard?._id,
       type,
     };
-    changeHero(newHero);
-    // setStoryBoard({
-    //   ...storyBoard,
-    //   heroes: [...storyBoard?.heroes, newHero],
-    // });
+    changeHero(newHero, type);
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       <div className={styles.heroContainer}>
-        {storyBoard?.heroes?.length ? (
-          <>
-            <div className={styles.heroesRow}>{getHeroesList()}</div>
-            <div className={styles.heroesRow}>{getComponentsList()}</div>
-          </>
+        {!!storyBoard?.heroes?.length ? (
+          <div className={styles.cardContainer}>
+            {
+              <CreateBoard
+                title="Characters"
+                list={() => getLists(HeroTypes.personage)}
+                addHero={addHero}
+                heroTypes={HeroTypes.personage}
+                getAllowCreate={getAllowCreate}
+              />
+            }
+            {
+              <CreateBoard
+                title="Component"
+                list={() => getLists(HeroTypes.component)}
+                addHero={addHero}
+                heroTypes={HeroTypes.component}
+                getAllowCreate={getAllowCreate}
+              />
+            }
+            {
+              <CreateBoard
+                title="Background"
+                list={() => getLists(HeroTypes.background)}
+                addHero={addHero}
+                heroTypes={HeroTypes.background}
+                getAllowCreate={getAllowCreate}
+              />
+            }
+            <div className={styles.buttonContainerListValid}>
+              <div className={styles.border}></div>
+              {createButtons(addHero, HeroTypes, getAllowCreate, false)}
+            </div>
+          </div>
         ) : (
-          <div className={styles.noHero}>
-            <Card
-              className={styles.card}
-              description="Sorry, but there is nothing <br/> here (("
-              btnText="Start now"
-              onClick={() => addHero(HeroTypes.personage)}
-              items={[
-                <Imgix
-                  key="1"
-                  width={185}
-                  height={140}
-                  layout="fixed"
-                  src="https://mangafy.club/img/noHero.webp"
-                  alt=""
-                />,
-              ]}
-            />
+          <div className={styles.buttonContainer}>
+            {createButtons(addHero, HeroTypes, getAllowCreate, true)}
           </div>
         )}
       </div>
-      <div className={styles.addButtonContainer}>
-        <div
-          className={cn(
-            styles.addbutton,
-            !getAllowCreate(HeroTypes.personage) ? styles.disabled : ''
-          )}
-          onClick={() => addHero(HeroTypes.personage)}>
-          <img className={styles.addIcon} src={`/icons/add.svg`} />
-          <p className={styles.addButtonText}>Add a hero</p>
-        </div>
-        <div
-          className={cn(
-            styles.addbutton,
-            !getAllowCreate(HeroTypes.component) ? styles.disabled : ''
-          )}
-          onClick={() => addHero(HeroTypes.component)}>
-          <img className={styles.addIcon} src={`/icons/add.svg`} />
-          <p className={styles.addButtonText}>Add components</p>
-        </div>
-      </div>
-      <ModalHero
+
+      <ModalComponent
         changeShowModal={changeShowModal}
         showModal={showModal}
         getStoryBoard={getStoryBoard}
         hero={selectedHero}
         type={selectedType}
+        user={user}
+      />
+      <ModalHeroes
+        changeShowModalHeroes={changeShowModalHeroes}
+        showModal={showModalHeroes}
+        getStoryBoard={getStoryBoard}
+        hero={selectedHero}
+        type={selectedType}
+        user={user}
+        confirmDelete={confirmDelete}
+        storyBoard={storyBoard}
       />
     </div>
   );
@@ -161,12 +177,14 @@ Hero.propTypes = {
   storyBoard: PropTypes.object,
   setStoryBoard: PropTypes.func,
   getStoryBoard: PropTypes.func,
+  user: PropTypes.object,
 };
 
 Hero.defaultProps = {
   storyBoard: {},
   setStoryBoard: () => {},
   getStoryBoard: () => {},
+  user: null,
 };
 
 export default Hero;

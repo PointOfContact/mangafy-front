@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { Modal, Input, notification } from 'antd';
-import Form from 'antd/lib/form/Form';
+import { Modal, Input, notification, Form } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
 import SvgClose from 'components/icon/Close';
@@ -9,14 +8,11 @@ import PrimaryButton from 'components/ui-elements/button';
 import PrimaryInput from 'components/ui-elements/input';
 import PrimarySelect from 'components/ui-elements/select';
 import { EVENTS } from 'helpers/amplitudeEvents';
-import { USER_TYPES } from 'helpers/constant';
+import { userTypes } from 'helpers/constant';
 import PropTypes from 'prop-types';
+import myAmplitude from 'utils/amplitude';
 
 import styles from './styles.module.scss';
-
-const Amplitude = require('amplitude');
-
-const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 
 const { TextArea } = Input;
 
@@ -102,20 +98,20 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
         changeShowModal(false);
         const eventData = [
           {
-            platform: 'WEB',
             event_type: EVENTS.MINI_JOB_CREATED,
-            event_properties: { mangaStoryId: baseData._id, taskId: res._id },
+            event_properties: { mangaStoryId: baseData._id, taskId: res._id, task },
             user_id: user._id,
             user_properties: {
               ...user,
             },
           },
         ];
-        amplitude.track(eventData);
+        myAmplitude(eventData);
       })
       .catch((err) =>
         notification.error({
           message: err.message,
+          placement: 'bottomLeft',
         })
       );
   };
@@ -143,27 +139,27 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
 
         const eventData = [
           {
-            platform: 'WEB',
             event_type: EVENTS.MINI_JOB_EDITED,
-            event_properties: { mangaStoryId: baseData._id, taskId: task._id },
+            event_properties: { mangaStoryId: baseData._id, taskId: task._id, task },
             user_id: user._id,
             user_properties: {
               ...user,
             },
           },
         ];
-        amplitude.track(eventData);
+        myAmplitude(eventData);
       })
       .catch((err) =>
         notification.error({
           message: err.message,
+          placement: 'bottomLeft',
         })
       );
   };
 
-  const MyCheckboxes = USER_TYPES.map((item) => ({
-    key: item.label,
-    value: item.label,
+  const MyCheckboxes = userTypes.map((item) => ({
+    key: item.value,
+    value: item.value,
   }));
 
   const RewardTypes = [
@@ -185,8 +181,21 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
     },
   ];
 
+  const sendEvent = (event) => {
+    const data = {
+      event_type: event,
+      event_properties: { mangaStoryId: baseData?._id },
+      user_id: user?._id,
+      user_properties: {
+        ...user,
+      },
+    };
+    myAmplitude(data);
+  };
+
   return (
     <Modal
+      forceRender
       className={styles.modal}
       title={ModalTitle}
       footer={null}
@@ -221,7 +230,10 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
               <PrimarySelect
                 showSearch
                 className={styles.modalSelect}
-                onChange={changeLookingFor}
+                onChange={(e) => {
+                  changeLookingFor(e);
+                  sendEvent(EVENTS.CHOOSED_TASK_ROLL_TYPE);
+                }}
                 options={MyCheckboxes}
                 value={lookingFor}
               />
@@ -238,7 +250,10 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
               <PrimarySelect
                 showSearch
                 className={styles.modalSelect}
-                onChange={changeRewardType}
+                onChange={(e) => {
+                  changeRewardType(e);
+                  sendEvent(EVENTS.CHOOSED_TASK_COMMISSION_TYPE);
+                }}
                 options={RewardTypes}
                 value={rewardType}
               />
@@ -260,6 +275,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
                       isFullWidth={true}
                       className={styles.modalInput}
                       onChange={(e) => changeAmount(e.target.value)}
+                      onBlur={() => sendEvent(EVENTS.ADDED_TASK_PRICE)}
                       value={amount}
                       prefix="$"
                       suffix="USD"
@@ -289,6 +305,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
                 placeholder=""
                 value={text}
                 onChange={handleChangeText}
+                onBlur={() => sendEvent(EVENTS.ADDED_TASK_DESCRIPTION)}
                 className={styles.modalTexarea}
               />
             </Form.Item>

@@ -3,15 +3,13 @@ import React, { useState, useEffect } from 'react';
 import { Button, Select } from 'antd';
 import SvgLeftArrow from 'components/icon/LeftArrow';
 import SvgRightArrow from 'components/icon/RightArrow';
+import Imgix from 'components/imgix';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { options } from 'helpers/constant';
 import Head from 'next/head';
 import Link from 'next/link';
-import PropTypes from 'prop-types';
-
-const Amplitude = require('amplitude');
-
-const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
+import PropTypes, { array } from 'prop-types';
+import myAmplitude from 'utils/amplitude';
 
 const MangaGenres = (props) => {
   const [loadings, changeLoading] = useState([]);
@@ -26,7 +24,6 @@ const MangaGenres = (props) => {
     changeLoading(newLoadings);
     const data = [
       {
-        platform: 'WEB',
         event_type: EVENTS.CREATE_MANGA_STORY_GENRES_NEXT,
         user_id: user?._id,
         user_properties: {
@@ -35,7 +32,7 @@ const MangaGenres = (props) => {
         event_properties: selectedValues,
       },
     ];
-    amplitude.track(data);
+    myAmplitude(data);
   };
 
   const a = () => {
@@ -73,7 +70,11 @@ const MangaGenres = (props) => {
             <div className="col-lg-8">
               <div className="collab_div">
                 <div className="logo_img_comp">
-                  <img src="/img/logo.webp" width="250" alt="" />
+                  <Imgix
+                    layout="fill"
+                    src="https://mangafy.club/img/logo.webp"
+                    alt="MangaFy logo"
+                  />
                 </div>
 
                 <h1 className="collab">Which Graphic Novel genre you aim to work on</h1>
@@ -95,22 +96,26 @@ const MangaGenres = (props) => {
               </div>
               <div className="next_prev">
                 <Link href="/create-a-story/model">
-                  <Button id="genresPrevBtnId" className="title_but_prev">
-                    <SvgLeftArrow width="13.503px" height="23.619px" />
-                    <span>Previous</span>
-                  </Button>
+                  <a>
+                    <Button id="genresPrevBtnId" className="title_but_prev">
+                      <SvgLeftArrow width="13.503px" height="23.619px" />
+                      <span>Previous</span>
+                    </Button>
+                  </a>
                 </Link>
                 <Link href="/create-a-story/project-title">
-                  <Button
-                    type="primary"
-                    id="genresNextBtnId"
-                    className="title_but"
-                    loading={loadings[0]}
-                    disabled={!enabled}
-                    onClick={() => enterLoading(0)}>
-                    <span>Next</span>
-                    <SvgRightArrow width="13.503px" height="23.619px" />
-                  </Button>
+                  <a>
+                    <Button
+                      type="primary"
+                      id="genresNextBtnId"
+                      className="title_but"
+                      loading={loadings[0]}
+                      disabled={!enabled}
+                      onClick={() => enterLoading(0)}>
+                      <span>Next</span>
+                      <SvgRightArrow width="13.503px" height="23.619px" />
+                    </Button>
+                  </a>
                 </Link>
               </div>
             </div>
@@ -127,5 +132,13 @@ MangaGenres.propTypes = {
   onClose: PropTypes.func,
   genres: PropTypes.array,
   user: PropTypes.object,
+};
+MangaGenres.defaultProps = {
+  label: '',
+  value: '',
+  closable: false,
+  onClose: () => {},
+  genres: array,
+  user: {},
 };
 export default MangaGenres;

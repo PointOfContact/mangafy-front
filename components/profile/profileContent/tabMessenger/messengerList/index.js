@@ -1,12 +1,11 @@
 import React from 'react';
 
+import 'react-chat-elements/dist/main.css';
 import { Skeleton } from 'antd';
 import ChatCard from 'components/chatCard';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
-
-import 'react-chat-elements/dist/main.css';
 
 const MessengerList = ({
   user,
@@ -16,10 +15,11 @@ const MessengerList = ({
   arcRequests,
   getConversation,
   showArchive,
+  setShowMessageMobile,
 }) => {
   if (!requests?.length) {
     return (
-      <div className={styles.loding}>
+      <div className={styles.loading}>
         <Skeleton loading={true} active avatar></Skeleton>
         <Skeleton loading={true} active avatar></Skeleton>
         <Skeleton loading={true} active avatar></Skeleton>
@@ -27,29 +27,42 @@ const MessengerList = ({
     );
   }
 
+  const newRes = requests?.sort(
+    (b, a) =>
+      (a?.messages?.createdAt
+        ? new Date(a?.messages?.createdAt)
+        : new Date(a.createdAt)
+      ).getTime() -
+      (b?.messages?.createdAt ? new Date(b?.messages?.createdAt) : new Date(b.createdAt)).getTime()
+  );
+
   return (
     <div className="row">
-      <div className={styles.messenger}>
-        {requests.map((r) => (
-          <ChatCard
-            isTeamChat={r.isTeamChat}
-            key={r._id}
-            isSmall={true}
-            isOwn={false}
-            user={user}
-            rid={r._id}
-            status={r.status}
-            isInvite={r.isInvite}
-            messages={r.messages}
-            senderInfo={r.senderInfo || {}}
-            conversations={r.conversations}
-            selectedRequest={selectedRequest}
-            setSelectedRequest={setSelectedRequest}
-            profileId={r.senderInfo?._id}
-            isArchive={r.joinMangaStoryRequestId}
-            participentsInfo={r.participentsInfo}
-          />
-        ))}
+      <div className={styles.container}>
+        <div className={styles.messenger}>
+          {newRes?.map((r) => (
+            <ChatCard
+              isTeamChat={r.isTeamChat}
+              mangaStoryId={r.mangaStoryId}
+              key={r._id}
+              isSmall={true}
+              isOwn={false}
+              user={user}
+              rid={r._id}
+              status={r.status}
+              isInvite={r.isInvite}
+              messages={r.messages}
+              senderInfo={r.senderInfo || {}}
+              conversations={r.conversations}
+              selectedRequest={selectedRequest}
+              setSelectedRequest={setSelectedRequest}
+              profileId={r.senderInfo?._id}
+              isArchive={r.joinMangaStoryRequestId}
+              participentsInfo={r.participentsInfo}
+              setShowMessageMobile={setShowMessageMobile}
+            />
+          ))}
+        </div>
       </div>
       {arcRequests && showArchive && (
         <div
@@ -57,7 +70,8 @@ const MessengerList = ({
           onClick={() => {
             getConversation(false);
           }}>
-          Select Archive Messages
+          <span className={styles.showAllMessages}>Show all messages</span>
+          <span className={styles.showAll}>Show all</span>
         </div>
       )}
     </div>
@@ -72,6 +86,7 @@ MessengerList.propTypes = {
   arcRequests: PropTypes.bool.isRequired,
   getConversation: PropTypes.func.isRequired,
   showArchive: PropTypes.bool.isRequired,
+  setShowMessageMobile: PropTypes.func.isRequired,
 };
 
 export default MessengerList;

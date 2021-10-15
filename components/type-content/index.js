@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
+import { notification } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
 import SvgBulbColored from 'components/icon/BulbColored';
@@ -37,13 +38,20 @@ export default function TypePage({
         createdAt: -1,
       },
     };
-    const newPosts = await client.service('/api/v2/posts').find({
-      query,
-    });
-    const allPosts = discussions.concat(newPosts.data);
-    allPosts.length === newPosts.total && setMore(false);
-    setDiscussions(allPosts);
-    setIsLoading(false);
+    try {
+      const newPosts = await client.service('/api/v2/posts').find({
+        query,
+      });
+      const allPosts = discussions.concat(newPosts.data);
+      allPosts.length === newPosts.total && setMore(false);
+      setDiscussions(allPosts);
+      setIsLoading(false);
+    } catch (err) {
+      notification.error({
+        message: err.message,
+        placement: 'bottomLeft',
+      });
+    }
   };
 
   return (
@@ -51,7 +59,7 @@ export default function TypePage({
       <div className={styles.type_main}>
         <div className={cn('container', styles.main__container)}>
           <div className={styles.type_main__wrap}>
-            <DiscussionRightBar dailyWarmUps={dailyWarmUps} />
+            <DiscussionRightBar dailyWarmUps={dailyWarmUps} user={user} />
             <div className={styles.projectsForYou}>
               <div className={styles.projectsForYou__MainTitle}>
                 <h2 className={styles.projectsForYou__MainTitle_Title}>

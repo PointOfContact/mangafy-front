@@ -3,15 +3,13 @@ import React, { useEffect, useState } from 'react';
 import { Button, Radio, Slider } from 'antd';
 import SvgLeftArrow from 'components/icon/LeftArrow';
 import SvgRightArrow from 'components/icon/RightArrow';
+import Imgix from 'components/imgix';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import Head from 'next/head';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
+import myAmplitude from 'utils/amplitude';
 import { v4 as uuidv4 } from 'uuid';
-
-const Amplitude = require('amplitude');
-
-const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 
 const Compensation = ({ user }) => {
   const [loadings, changeLoading] = useState([]);
@@ -44,7 +42,6 @@ const Compensation = ({ user }) => {
     newLoadings[index] = true;
     changeLoading(newLoadings);
     const data = {
-      platform: 'WEB',
       event_type: EVENTS.CREATE_MANGA_STORY_MODEL_NEXT,
       event_properties: {
         data: value,
@@ -56,7 +53,7 @@ const Compensation = ({ user }) => {
     } else {
       data.device_id = uuidv4();
     }
-    amplitude.track([data]);
+    myAmplitude([data]);
   };
 
   const toggleFieldRange = (isVisible) => {
@@ -104,7 +101,11 @@ const Compensation = ({ user }) => {
             <div className="12 col-sm-12">
               <div className="collab_div">
                 <div className="logo_img_comp">
-                  <img src="/img/logo.webp" width="250" alt="" />
+                  <Imgix
+                    layout="fill"
+                    src="https://mangafy.club/img/logo.webp"
+                    alt="MangaFy logo"
+                  />
                 </div>
                 <h1 className="collab">Choose your project type</h1>
                 <Radio.Group value={showField}>
@@ -126,21 +127,25 @@ const Compensation = ({ user }) => {
 
                   <div className="next_prev">
                     <Link href="/create-a-story/looking-for">
-                      <Button id="modelPrevBtnId" className="title_but_prev">
-                        <SvgLeftArrow width="13.503px" height="23.619px" />
-                        <span> Previous</span>
-                      </Button>
+                      <a>
+                        <Button id="modelPrevBtnId" className="title_but_prev">
+                          <SvgLeftArrow width="13.503px" height="23.619px" />
+                          <span> Previous</span>
+                        </Button>
+                      </a>
                     </Link>
                     <Link href="/create-a-story/genres">
-                      <Button
-                        id="modelNextBtnId"
-                        type="primary"
-                        className="title_but"
-                        loading={loadings[0]}
-                        onClick={() => enterLoading(0)}>
-                        <span>Next</span>
-                        <SvgRightArrow width="13.503px" height="23.619px" />
-                      </Button>
+                      <a>
+                        <Button
+                          id="modelNextBtnId"
+                          type="primary"
+                          className="title_but"
+                          loading={loadings[0]}
+                          onClick={() => enterLoading(0)}>
+                          <span>Next</span>
+                          <SvgRightArrow width="13.503px" height="23.619px" />
+                        </Button>
+                      </a>
                     </Link>
                   </div>
                 </Radio.Group>

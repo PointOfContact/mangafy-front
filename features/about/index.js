@@ -3,7 +3,8 @@ import React from 'react';
 import Footer from 'components/footer';
 import Header from 'components/header';
 import Imgix from 'components/imgix';
-import Head from 'next/head';
+import FooterLogin from 'features/footerLogin';
+import { NextSeo } from 'next-seo';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
@@ -13,16 +14,36 @@ const About = (props) => {
 
   return (
     <div className="">
-      <Head>
-        <title>MangaFY About Policy</title>
-        <meta name="description" content="MangaFY About Policy"></meta>
-        <meta property="og:url" content="http://mangafy.club" />
-        <meta property="og:type" content="article" />
-        <meta property="og:title" content="MangaFY About Policy" />
-        <meta property="og:description" content="MangaFY About Policy" />
-        <meta property="og:image" content="http://mangafy.club/img/indexMobSec3.webp" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <NextSeo
+        title="MangaFY About Policy"
+        description="MangaFY About Policy"
+        openGraph={{
+          url: 'http://mangafy.club',
+          title: 'MangaFY About Policy',
+          description: 'MangaFY About Policy',
+          type: 'article',
+          images: [
+            {
+              url: 'http://mangafy.club/img/indexMobSec3.webp',
+              width: 800,
+              height: 600,
+              alt: 'Manga Story Image',
+            },
+          ],
+          site_name: 'MangaFY',
+        }}
+        twitter={{
+          handle: '@handle',
+          site: '@site',
+          cardType: 'summary_large_image',
+        }}
+        additionalLinkTags={[
+          {
+            rel: 'icon',
+            href: '/favicon.ico',
+          },
+        ]}
+      />
       <main className="main_back_2">
         <Header path="myProfile" user={user} />
         <div className={styles.about_page}>
@@ -41,12 +62,12 @@ const About = (props) => {
                 height={390}
                 layout="fixed"
                 src="https://mangafy.club/img/about_image.webp"
-                alt=""
+                alt="MangaFy about image"
               />
             </div>
           </div>
           <div className={styles.info_section}>
-            <div className={styles.update_block}>Updated Februar 14, 2021</div>
+            <div className={styles.update_block}>Update May 12, 2021</div>
             <div className={styles.info_block}>
               <div className={styles.info_title}>A story of tools and the future of work</div>
               <div className={styles.info_description}>
@@ -72,6 +93,12 @@ const About = (props) => {
                 remove the skill gap, and deliver in-platform production tools that will ease the
                 production process. Thus, nurturing the artist community, making new authors, and
                 generating new, original content.
+              </div>
+              <div className={styles.info_description}>
+                MangaFY is currently at the beta and experimental stage. The user acknowledges there
+                might be upgrades or added features to the website, as well as maintenance. The user
+                owns all content and is able to remove or add his work or projects. MangaFY has no
+                claim on the user's work.
               </div>
             </div>
             <div className={styles.info_block}>
@@ -101,6 +128,7 @@ const About = (props) => {
           </div>
         </div>
         <Footer />
+        <FooterLogin user={user} />
       </main>
     </div>
   );
@@ -108,6 +136,10 @@ const About = (props) => {
 
 About.propTypes = {
   user: PropTypes.object,
+};
+
+About.defaultProps = {
+  user: {},
 };
 
 export default About;

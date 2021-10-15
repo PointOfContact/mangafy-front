@@ -1,7 +1,9 @@
+@import "../../../styles/variables.scss";
+
 .primary_button {
   transition: 0.5s;
-  background: #7b65f3;
-  border: 1px solid #9a87fe;
+  background: $primaryDark;
+  border: 1px solid $primaryLight;
   box-sizing: border-box;
   border-radius: 5px;
   font-family: Noto Sans JP;
@@ -12,7 +14,7 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  color: #ffffff;
+  color: white;
   height: initial;
   padding: 10px 21px 12px 21px;
 
@@ -24,24 +26,24 @@
 
   &:hover {
     transition: 0.5s;
-    box-shadow: 0px 0px 20px #7b65f3;
-    border: 1px solid #9a87fe !important;
-    background: #7b65f3 !important;
-    color: #ffffff !important;
+    box-shadow: 0px 0px 20px $primaryDark;
+    border: 1px solid $primaryLight;
+    background: $primaryDark ;
+    color: white;
   }
 
   &:focus {
     outline: none;
-    background: #7b65f3 !important;
-    color: #ffffff !important;
-    border: 1px solid #9a87fe !important;
+    background: $primaryDark ;
+    color: white ;
+    border: 1px solid $primaryLight ;
   }
 
   svg {
     margin-left: 10px;
     fill: inherit;
     path {
-      fill: #fff;
+      fill: white;
     }
     defs {
       display: none;
@@ -56,10 +58,10 @@
     height: 35px;
     overflow: hidden;
     &:nth-child(2n + 1) {
-      background: #fff;
+      background: white;
     }
     &:nth-child(2n) {
-      background: #000;
+      background: $black;
     }
   }
   .users_img_count {
@@ -69,68 +71,98 @@
     width: 35px;
     height: 35px;
     overflow: hidden;
-    background: #fff;
-    color: black;
+    background: white;
+    color: $black;
     display: flex;
     justify-content: center;
     align-items: center;
-    div{
-
-    }
   }
 }
 
 .dark {
   background: #d3d3d3;
-  border: 1px solid #f3f3f3;
+  border: 1px solid $white;
   padding: 12px 21px;
 
   &:hover {
-    background: #858585 !important;
-    border: 1px solid #f3f3f3 !important;
+    background: $gray85;
+    border: 1px solid $white;
     box-sizing: border-box;
     box-shadow: 0px 0px 20px rgba(133, 133, 133, 0.5);
   }
 
   &:focus {
-    background: #858585 !important;
-    border: 1px solid #f3f3f3 !important;
+    background: $gray85;
+    border: 1px solid $white;
+  }
+}
+
+.white{
+  background: white;
+  color: $black;
+  &:hover{
+    background: white ;
+    color: #302f2f;
+    border-color: #735eda;
+    box-shadow: 0px 0px 20px white;
+  }
+  &:focus {
+    background: white;
+    border-color: #735eda;
+    color: $black;
+  }
+}
+
+.red{
+  background: $red;
+  color: white;
+  border: 1px solid $red;
+  &:hover{
+    background: $red ;
+    color: white;
+    border-color: $red;
+    box-shadow: 0px 0px 20px $red;
+  }
+  &:focus {
+    background: $red;
+    border-color: $red;
+    color: white;
   }
 }
 
 .active_primary {
-  background: #fec447;
+  background: $orangeDark;
   border: 1px solid #ffd67d;
   padding: 12px 21px;
 
   &:hover {
-    background: #fec447 !important;
-    border: 1px solid #ffd67d !important;
+    background: $orangeDark;
+    border: 1px solid #ffd67d;
     box-sizing: border-box;
-    box-shadow: 0px 0px 20px #fec447;
+    box-shadow: 0px 0px 20px $orangeDark;
   }
 
   &:focus {
-    background: #fec447 !important;
-    border: 1px solid #ffd67d !important;
+    background: $orangeDark;
+    border: 1px solid #ffd67d;
   }
 }
 
 .primary {
-  background: #7b65f3;
-  border: 1px solid #9a87fe;
+  background: $primaryDark;
+  border: 1px solid $primaryLight;
   padding: 10px 21px;
 
   &:hover {
-    background: #7b65f3 !important;
-    border: 1px solid #9a87fe !important;
+    background: $primaryDark;
+    border: 1px solid $primaryLight;
     box-sizing: border-box;
-    box-shadow: 0px 0px 20px #9a87fe;
+    box-shadow: 0px 0px 20px $primaryLight;
   }
 
   &:focus {
-    background: #7b65f3 !important;
-    border: 1px solid #9a87fe !important;
+    background: $primaryDark;
+    border: 1px solid $primaryLight;
   }
 }
 
@@ -140,11 +172,11 @@
 }
 
 .full_width {
-  width: 100% !important;
+  width: 100%;
 }
 
 .round {
-  border-radius: 250px !important;
+  border-radius: 250px;
   max-height: 41px;
   min-width: 100px;
   font-size: 15px;

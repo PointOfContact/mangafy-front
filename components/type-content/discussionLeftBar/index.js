@@ -5,16 +5,16 @@ import Link from 'next/link';
 import PropTypes from 'prop-types';
 
 import CommunitySpotlightsCard from './communitySpotlightsCard';
-import HeppeningCard from './heppeningCard';
+import HappeningCard from './happeningCard';
 import styles from './styles.module.scss';
 
 const DiscussionLeftBar = (props) => {
   const { members, collaborations } = props;
-  const [heppenings, setHeppenings] = useState(collaborations);
+  const [happenings, setHappenings] = useState(collaborations);
   const [communitySpotlights, setCommunitySpotlights] = useState(members);
 
   useEffect(() => {
-    setHeppenings(collaborations);
+    setHappenings(collaborations);
   }, [collaborations]);
 
   useEffect(() => {
@@ -30,13 +30,13 @@ const DiscussionLeftBar = (props) => {
               <h4>Latest collaboration requests</h4>
             </div>
             <ul className={styles.tagsList}>
-              {heppenings.map((heppening) => (
-                <HeppeningCard
-                  key={heppening._id}
-                  id={heppening._id}
-                  img={heppening.image}
-                  title={heppening.title}
-                  like={heppening.like}
+              {happenings.map((happening) => (
+                <HappeningCard
+                  key={happening._id}
+                  id={happening._id}
+                  img={happening.image}
+                  title={happening.title}
+                  like={happening.like}
                 />
               ))}
             </ul>
@@ -50,7 +50,7 @@ const DiscussionLeftBar = (props) => {
           </div>
 
           <div className={styles.spotlight}>
-            <div className={styles.spotlightTitle}>Our members </div>
+            <div className={styles.spotlightTitle}>Explore creators</div>
             <ul className={styles.spotlightList}>
               {communitySpotlights.map((community) => (
                 <CommunitySpotlightsCard

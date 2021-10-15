@@ -15,6 +15,18 @@
     margin-top: 100px;
     padding-bottom: 27px;
   }
+  .select {
+    margin-bottom: 10px !important;
+    & > div {
+      padding-bottom: 10px !important;
+      height: auto !important;
+    }
+  }
+  .errSelect {
+    & > div {
+      border-bottom-color: $red !important;
+    }
+  }
   .contacts {
     display: flex;
     align-items: center;
@@ -84,14 +96,6 @@
       margin: auto;
       text-align: center;
     }
-    span {
-      width: 18vw;
-      height: 18vw;
-      max-width: 175px;
-      max-height: 175px;
-      min-width: 140px;
-      min-height: 140px;
-    }
     img {
       width: 18vw;
       height: 18vw;
@@ -130,6 +134,37 @@
     }
   }
   .info_profile {
+    @include media-sm{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .typesContainer {
+      display: flex;
+      margin: 5px 0 10px 0;
+      flex-wrap: wrap;
+      @include media-sm{
+        justify-content: center;
+        max-width: 300px;
+      }
+      .userTypes {
+        width: auto;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        font-size: 18px;
+        padding: 6px 16px;
+        border-radius: 14px;
+        color: white;
+        @include media-md{
+          font-size: 16px;
+        }
+        @include media-md{
+          margin-right: 0;
+          margin: 4px;
+        }
+      }
+    }
     @include media-sm {
       margin-top: 45px;
       text-align: center;
@@ -138,7 +173,18 @@
         margin-right: auto;
       }
     }
-
+    .followAndEditButton {
+      display: flex;
+      align-items: center;
+      & > div {
+        margin-top: 0;
+        margin-left: 10px;
+      }
+      @include media-sm {
+        width: 200px;
+        margin: auto;
+      }
+    }
     color: $black;
     h4 {
       font-weight: 900;
@@ -156,7 +202,7 @@
     h2 {
       font-weight: 900;
       font-size: $h4;
-      margin-bottom: 0;
+      margin-bottom: 10px;
 
       .ant-input {
         font-size: $text3;
@@ -216,16 +262,15 @@
       }
     }
   }
-
   .errMessage {
-    color: red;
+    color: $red;
     font-size: 10px !important;
     line-height: inherit;
     position: absolute;
     margin-top: -10px;
   }
   .errImp {
-    border-color: red !important;
+    border-color: $red !important;
   }
 
   .buttonsProfile {
@@ -299,10 +344,14 @@
     background-color: #d3d3d3;
     border-radius: 50%;
     cursor: pointer;
+    margin-top: 12px;
     &:hover {
       background-color: $primaryLight;
     }
-    @include media-sm() {
+    svg {
+      margin-top: 2px;
+    }
+    @include media-sm {
       margin-bottom: 0px;
     }
   }
@@ -310,9 +359,108 @@
     margin-top: 30px;
     flex-direction: row;
     justify-content: center;
-    margin-bottom: 25px;
-    > div {
+    margin-bottom: 30px;
+    width: 205px;
+    margin-left: auto;
+    margin-right: auto;
+    & > div {
       margin: 0 8px;
+    }
+  }
+}
+
+.changePhoto,
+.changePhotoDef {
+  margin-top: 50px;
+  @include media-xs {
+    margin-top: 30px;
+    max-width: 395px;
+  }
+  & > div {
+    border-radius: 10px;
+    & > div {
+      border-radius: 10px 10px 0 0;
+      min-height: 80px;
+      display: flex;
+      justify-content: center;
+      & > div {
+        display: flex;
+        align-items: center;
+        font-size: 22px;
+        & > div {
+          width: 400px !important;
+          height: 400px !important;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 15px;
+          position: inherit !important;
+          background-color: white !important;
+          border-radius: 10px;
+          @include media-xs {
+            width: 345px !important;
+            height: 345px !important;
+          }
+          &:hover {
+            box-shadow: 1px 1px 18px -5px $primaryDark;
+          }
+          label {
+            color: $black !important;
+            &:hover {
+              color: rgb(65, 64, 64) !important;
+            }
+          }
+        }
+      }
+      .buttonModal {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        & > button {
+          width: 100px;
+          height: 50px;
+          font-size: 16px;
+        }
+      }
+    }
+  }
+  .close {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    margin-top: 22px;
+    background: rgba(123, 101, 243, 0.21);
+    svg {
+      width: 14px;
+      height: 14px;
+      path {
+        fill: $text_white;
+      }
+    }
+
+    &:hover {
+      background-color: $primaryDark;
+    }
+    @include media-sm {
+      width: 30px;
+      height: 30px;
+      margin-top: 8px;
+      margin-left: 18px;
+      svg {
+        width: 13.33px;
+        height: 13.12px;
+      }
+    }
+  }
+}
+
+.changePhoto {
+  & > div > div > div > div {
+    &:hover {
+      box-shadow: 1px 1px 18px -5px white;
     }
   }
 }

@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react';
 
-import { notification } from 'antd';
-import Form from 'antd/lib/form/Form';
+import { notification, Form } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 import Modal from 'antd/lib/modal/Modal';
 import SvgClose from 'components/icon/Close';
 import PrimaryInput from 'components/ui-elements/input';
 import LargeButton from 'components/ui-elements/large-button';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import PropTypes from 'prop-types';
+import myAmplitude from 'utils/amplitude';
 
 import ShortStory from '../shortStory';
 import { editGallery, createGallery } from '../utils';
 import styles from './style.module.scss';
 
-const HtmlGalleryModal = ({ gallery, setImages, images, handleCancel, isModalVisible }) => {
+const HtmlGalleryModal = ({ gallery, setImages, images, handleCancel, isModalVisible, user }) => {
   const [text, changeText] = useState('');
   const [title, changeTitle] = useState('');
   const [form] = Form.useForm();
@@ -39,6 +40,15 @@ const HtmlGalleryModal = ({ gallery, setImages, images, handleCancel, isModalVis
     createGallery(
       data,
       (res) => {
+        const event = {
+          event_type: EVENTS.ADDED_PORTFOLIO_TEXT,
+          user_id: user._id,
+          user_properties: {
+            ...user,
+          },
+        };
+        myAmplitude(event);
+
         changeTitle('');
         changeText('');
         const newImages = [
@@ -55,6 +65,7 @@ const HtmlGalleryModal = ({ gallery, setImages, images, handleCancel, isModalVis
       (err) => {
         notification.error({
           message: err.message,
+          placement: 'bottomLeft',
         });
       }
     );
@@ -86,6 +97,7 @@ const HtmlGalleryModal = ({ gallery, setImages, images, handleCancel, isModalVis
       (err) => {
         notification.error({
           message: err.message,
+          placement: 'bottomLeft',
         });
       }
     );
@@ -105,6 +117,7 @@ const HtmlGalleryModal = ({ gallery, setImages, images, handleCancel, isModalVis
   return (
     <div>
       <Modal
+        forceRender
         title={ModalTitle}
         className={styles.modal}
         bodyStyle={{ height: 'calc(100vh- 60px)', overflow: 'auto' }}
@@ -190,6 +203,7 @@ HtmlGalleryModal.propTypes = {
   setImages: PropTypes.func.isRequired,
   images: PropTypes.array,
   gallery: PropTypes.object,
+  user: PropTypes.object.isRequired,
 };
 
 HtmlGalleryModal.defaultProps = {

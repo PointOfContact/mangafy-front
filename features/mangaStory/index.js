@@ -1,45 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
-import { ExclamationCircleOutlined } from '@ant-design/icons';
-import { Tabs, notification, Modal, Popover } from 'antd';
+import { Tabs, notification } from 'antd';
 import client from 'api/client';
 import { findStoryBoard } from 'api/storyBoardClient';
 import cn from 'classnames';
 import { Chat } from 'components/chat';
 import { Comments } from 'components/comments';
+import DeleteProjectModal from 'components/deleteProjectModal';
 import Footer from 'components/footer';
 import FooterPolicy from 'components/footer-policy';
 import Header from 'components/header';
-import SvgPencilColored from 'components/icon/PencilColored';
-import { ShareButtons } from 'components/share';
-import PrimaryButton from 'components/ui-elements/button';
-import ButtonToggle from 'components/ui-elements/button-toggle';
 import ButtonToTop from 'components/ui-elements/button-toTop';
-import Input from 'components/ui-elements/input';
-import TextArea from 'components/ui-elements/text-area';
-// import dynamic from 'next/dynamic';
-import { EVENTS } from 'helpers/amplitudeEvents';
-import Head from 'next/head';
+import FooterLogin from 'features/footerLogin';
+import { NextSeo } from 'next-seo';
+import Router from 'next/router';
 import PropTypes from 'prop-types';
 import * as qs from 'query-string';
 
-import BannerSection from './components/bannersSection';
+import BannerSection from './components/bannersSection/index';
+import EditMode from './components/editMode';
+import HeaderCollab from './components/headerCollab';
+import Settings from './components/settings';
 import StoryBoardTabs from './components/storyBoardTabs';
-import StoryTab from './components/storyTab';
 import styles from './styles.module.scss';
 
-const Amplitude = require('amplitude');
-
-const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
-
-// const StoryBoardTabs = dynamic(() => import('./components/storyBoardTabs'), {
-//   loading: () => <Spin />,
-// });
-const { confirm } = Modal;
-const { info } = Modal;
-
 const { TabPane } = Tabs;
-// const { TextArea } = Input;
 
 const MangeStory = (props) => {
   const {
@@ -49,33 +34,48 @@ const MangeStory = (props) => {
     originUrl,
     comments,
     genres,
-    isParticipent,
+    isParticipant,
     hasStoryBoardPermision,
   } = props;
   const [stage, setStage] = useState({});
   const [editMode, setEditMode] = useState(false);
   const [editTitle, setEditTitle] = useState(false);
   const [baseData, setBaseData] = useState(mangaStory);
+  const [userData, setUserData] = useState(user);
+  const [showPayPalContent, setShowPayPalContent] = useState(baseData?.payPalPublished);
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const [canEdit] = useState(isOwn);
-  const [collabActiveTab, setcollabActiveTab] = useState('1');
+  const [collabActiveTab, setCollabActiveTab] = useState('1');
+  const [storyBoard, setStoryBoard] = useState({
+    idea: {
+      title: '',
+      text: '',
+    },
+    pages: [],
+    heroes: [],
+    author: [],
+    layouts: [],
+  });
 
   useEffect(() => {
     const { tab } = qs.parse(location.search);
     switch (tab) {
-      case 'story':
-        setcollabActiveTab('1');
-        break;
       case 'story-board':
-        setcollabActiveTab('2');
+        setCollabActiveTab('2');
         break;
       case 'comments':
-        setcollabActiveTab('3');
+        setCollabActiveTab('3');
         break;
       case 'invites':
-        setcollabActiveTab('4');
+        user
+          ? setCollabActiveTab('4')
+          : Router.push(`/sign-in?page=manga-story/${mangaStory._id}?tab=invites`);
+        break;
+      case 'settings':
+        setCollabActiveTab('5');
         break;
       default:
-        setcollabActiveTab('1');
+        setCollabActiveTab('1');
     }
   }, []);
 
@@ -83,14 +83,30 @@ const MangeStory = (props) => {
     notification[type]({
       message,
       description,
+      placement: 'bottomLeft',
     });
   };
 
-  const saveUserDataByKey = (newBaseData, ...keys) => {
+  const getStoryBoard = useCallback(() => {
+    if (!userData) return;
+    findStoryBoard(
+      userData._id,
+      mangaStory._id,
+      (res) => {
+        setStoryBoard(res?.data[0]);
+      },
+      (err) => {
+        openNotification('error', err.message);
+      }
+    );
+  }, [userData, mangaStory?._id]);
+
+  const saveMangaStoryData = (newBaseData, ...keys) => {
     const data = {};
     keys.forEach((item) => {
       data[item] = newBaseData[item];
     });
+
     const jwt = client.getCookie('feathers-jwt');
     import('api/restClient').then((m) => {
       m.default
@@ -109,330 +125,103 @@ const MangeStory = (props) => {
     });
   };
 
-  const onChangeSingleField = ({ target }) => {
+  const onChangeSingleField = ({ target }, changeCollabData = false) => {
     const { name, value } = target;
     const data = { ...baseData, [name]: value };
     setBaseData(data);
     setEditMode(true);
+    changeCollabData && saveMangaStoryData(data, name);
   };
 
   const cancelEditMode = () => {
     setEditMode(false);
   };
-  const cancelEditTitle = () => {
-    setEditTitle(false);
-  };
-
-  const onPublish = () => {
-    if (baseData.published) {
-      onGoToPrivate();
-    } else {
-      onGoToPublic();
-    }
-  };
-
-  const onGoToPublic = () => {
-    findStoryBoard(
-      user._id,
-      mangaStory._id,
-      (res) => {
-        const boad = res.data[0];
-        if (boad?.idea?.title && boad?.idea?.text) {
-          patchStory({
-            published: true,
-          }).then(() =>
-            info({
-              title: (
-                <h3 className={styles.modalTitle}>
-                  AWESOME! You opened your graphic novel project!
-                </h3>
-              ),
-              icon: '',
-              width: '100%',
-              style: { top: 120, maxWidth: '1000px' },
-              content: (
-                <div className={styles.publishedModal}>
-                  <p>
-                    Congratulations , share with your network and build your collaboration to
-                    success!
-                  </p>
-                  <div className={styles.shareButtons}>
-                    <ShareButtons shareUrl={originUrl} text="Share to the world!" />
-                  </div>
-                </div>
-              ),
-              onOk() {},
-            })
-          );
-        } else {
-          confirm({
-            title: 'Update story board',
-            icon: <ExclamationCircleOutlined />,
-            style: { top: 120 },
-            content:
-              'Before switching to live mode, you must complete at last one step. Update this information in stroy board tab',
-            onOk() {
-              setcollabActiveTab('2');
-            },
-            onCancel() {},
-          });
-        }
-      },
-      (err) => {
-        openNotification('error', err.message);
-      }
-    );
-  };
-
-  const patchStory = (data) => {
-    const jwt = client.getCookie('feathers-jwt');
-    return import('api/restClient').then((m) =>
-      m.default
-        .service('/api/v2/manga-stories')
-        .patch(baseData._id, data, {
-          headers: { Authorization: `Bearer ${jwt}` },
-        })
-        .then((res) => {
-          setBaseData(res);
-          const event_type = data.published ? EVENTS.GO_TO_PUBLIC : EVENTS.GO_TO_PRIVATE;
-
-          const eventData = [
-            {
-              platform: 'WEB',
-              event_type,
-              event_properties: { mangaStoryId: baseData._id },
-              user_id: user._id,
-              user_properties: {
-                ...user,
-              },
-            },
-          ];
-          amplitude.track(eventData);
-        })
-        .catch((err) => {
-          openNotification('error', err.message);
-        })
-    );
-  };
-
-  const onGoToPrivate = () => {
-    confirm({
-      confirmLoading: true,
-      title: 'Oh, going private? No problem',
-      style: { top: 120 },
-      icon: <ExclamationCircleOutlined />,
-      content:
-        'Your project is moving to private mode. But no worries, if you want to collaborate or add members in various roles, you can always switch up to public. Good Luck!',
-      onOk() {
-        patchStory({
-          published: false,
-        });
-      },
-      onCancel() {},
-    });
-  };
 
   return (
     <div className="story_page">
-      <Head>
-        <title>MangaFY - All graphic novel enthusiast, all genres, one Place </title>
-        <meta name="description" content={mangaStory.story}></meta>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <NextSeo
+        title={baseData?.title}
+        description={baseData?.description + baseData?.story}
+        canonical={`${client.API_ENDPOINT}/manga-story/${baseData?._id}`}
+        openGraph={{
+          url: `${client.API_ENDPOINT}/manga-story/${baseData?._id}`,
+          title: baseData?.title,
+          description: baseData?.description + baseData?.story,
+          type: 'article',
+          images: [
+            {
+              url: !!mangaStory?.image
+                ? client.UPLOAD_URL + mangaStory?.image
+                : `${client.API_ENDPOINT}/img/collab_baner.webp`,
+              width: 800,
+              height: 600,
+              alt: 'Manga Story Image',
+            },
+          ],
+          site_name: 'MangaFY',
+        }}
+        twitter={{
+          handle: '@handle',
+          site: '@site',
+          cardType: 'summary_large_image',
+        }}
+      />
       <ButtonToTop />
       <main className="main_back_2">
-        <Header path="mangaStory" user={user} />
+        <Header path="mangaStory" user={userData} />
         <div className={cn(styles.pageWrap, 'manga-story-page')}>
-          <section className="section_landing_for">
-            <div className="mangafy_vontainer  container">
-              <div className="row">
-                <div className="col-sm-12 manga-story manga-story-m">
-                  {isOwn && (
-                    <div className={styles.publishContent}>
-                      <Popover
-                        placement="bottomRight"
-                        overlayStyle={{ maxWidth: '400px', zIndex: '100' }}
-                        title={''}
-                        content={
-                          'Note: published projects will only show general information about your project (inc. what you look for, and what you aim to work on without disclosing anything else). In draft mode, you go off-grid and need to invite collaborations manually, while the member you invite sees nothing.'
-                        }
-                        trigger="hover">
-                        <div className={styles.publishSwitch}>
-                          <ButtonToggle
-                            id={'Draft'}
-                            isChecked={baseData.published}
-                            size={50}
-                            offText="Draft"
-                            onText="Published"
-                            onChange={onPublish}
-                          />
-                        </div>
-                      </Popover>
-                    </div>
-                  )}
-
-                  {!editTitle ? (
-                    <div className={styles.storyTabContent}>
-                      <div className={styles.header}>
-                        {collabActiveTab === '2' ? (
-                          <>
-                            {stage?.tab !== '6' ? (
-                              <h2>
-                                STORY BIBLE <span>STAGE {stage?.tab}</span> - {stage?.title}
-                              </h2>
-                            ) : (
-                              <h2>{stage?.title}</h2>
-                            )}
-                            <p>{stage?.description}</p>
-                          </>
-                        ) : (
-                          <h2>{baseData.title}</h2>
-                        )}
-                      </div>
-                      {canEdit && collabActiveTab !== '2' && (
-                        <SvgPencilColored
-                          className={styles.editSVG}
-                          onClick={() => setEditTitle(true)}
-                          width="22px"
-                          height="22px"
-                        />
-                      )}
-                    </div>
-                  ) : (
-                    canEdit && (
-                      <>
-                        <div className={styles.inputs}>
-                          <h2>
-                            <Input
-                              className={!baseData.title.replace(/\s+/g, '') && styles.error}
-                              isLinear={true}
-                              isFullWidth={true}
-                              name="title"
-                              onChange={onChangeSingleField}
-                              placeholder=""
-                              type="text"
-                              value={baseData.title}
-                              required
-                            />
-                            {!baseData.title.replace(/\s+/g, '') && (
-                              <p className={styles.error}>Title is required</p>
-                            )}
-                          </h2>
-                        </div>
-                        <div className={cn(styles.editProfile, 'buttonsProfile_styles')}>
-                          <PrimaryButton
-                            className="buttonsProfile_cancel"
-                            text="Cancel"
-                            isDark
-                            isRound
-                            disabled={false}
-                            onClick={cancelEditTitle}
-                          />
-                          <PrimaryButton
-                            className="buttonsProfile_save"
-                            text="save"
-                            isActive
-                            isRound
-                            disabled={false}
-                            onClick={() => {
-                              baseData.title.replace(/\s+/g, '') &&
-                                saveUserDataByKey(baseData, 'title');
-                            }}
-                          />
-                        </div>
-                      </>
-                    )
-                  )}
-                </div>
-              </div>
-            </div>
-          </section>
-          <section className={`container mobile_full_content mobile_top_round`}>
+          <HeaderCollab
+            isOwn={isOwn}
+            user={user}
+            mangaStory={mangaStory}
+            openNotification={openNotification}
+            originUrl={originUrl}
+            baseData={baseData}
+            setBaseData={setBaseData}
+            onChangeSingleField={onChangeSingleField}
+            editTitle={editTitle}
+            collabActiveTab={collabActiveTab}
+            stage={stage}
+            canEdit={canEdit}
+            setEditTitle={setEditTitle}
+            saveMangaStoryData={saveMangaStoryData}
+          />
+          <section className={cn(`container mobile_full_content mobile_top_round`, styles.section)}>
             <div className="row">
-              <div className="col-lg-7 mangaStoriTopPanel">
+              <div className={cn('col-lg-7 mangaStoriTopPanel', styles.story_page)}>
                 <Tabs
                   activeKey={collabActiveTab}
-                  onChange={(activeKey) => setcollabActiveTab(activeKey)}>
+                  onChange={(activeKey) => setCollabActiveTab(activeKey)}>
                   <TabPane tab="STORY" key="1" className="story">
-                    <div className={styles.tabWrap}>
-                      {/* <h3 className={styles.tabTitle}>Here is a my story!</h3> */}
-                      {/* <StoryTab baseData={baseData} /> */}
-                      <p>
-                        {!editMode ? (
-                          <div>
-                            <StoryTab
-                              setBaseData={setBaseData}
-                              baseData={baseData}
-                              user={user}
-                              isOwn={isOwn}
-                              isParticipent={isParticipent}
-                            />
-                            {canEdit && (
-                              <SvgPencilColored
-                                className={styles.editTitleSvg}
-                                onClick={() => setEditMode(true)}
-                                width="22px"
-                                height="22px"
-                              />
-                            )}
-                          </div>
-                        ) : (
-                          canEdit && (
-                            <>
-                              <TextArea
-                                isFullWidth={true}
-                                placeholder="Type here..."
-                                value={baseData.introduce}
-                                onChange={onChangeSingleField}
-                                type="text"
-                                className={styles.textarea_text}
-                                name="introduce"
-                              />
-                              <TextArea
-                                isFullWidth={true}
-                                placeholder="Type here..."
-                                value={baseData.story}
-                                onChange={onChangeSingleField}
-                                type="text"
-                                className={styles.textarea_text}
-                                name="story"
-                              />
-                              <div className={cn(styles.editProfile, 'buttonsProfile_styles')}>
-                                <PrimaryButton
-                                  className="buttonsProfile_cancel"
-                                  text="Cancel"
-                                  isDark
-                                  isRound
-                                  disabled={false}
-                                  onClick={cancelEditMode}
-                                />
-                                <PrimaryButton
-                                  className="buttonsProfile_save"
-                                  text="save"
-                                  isActive
-                                  isRound
-                                  disabled={false}
-                                  onClick={() => saveUserDataByKey(baseData, 'introduce', 'story')}
-                                />
-                              </div>
-                            </>
-                          )
-                        )}
-                        <p></p>
-                      </p>
-                    </div>
+                    <EditMode
+                      user={userData}
+                      editMode={editMode}
+                      baseData={baseData}
+                      isOwn={isOwn}
+                      setBaseData={setBaseData}
+                      setEditMode={setEditMode}
+                      canEdit={canEdit}
+                      isParticipant={isParticipant}
+                      onChangeSingleField={onChangeSingleField}
+                      cancelEditMode={cancelEditMode}
+                      saveMangaStoryData={saveMangaStoryData}
+                      userData={userData}
+                      showPayPalContent={showPayPalContent}
+                    />
                   </TabPane>
                   {(isOwn || hasStoryBoardPermision) && (
-                    <TabPane tab="STORY BOARD" key="2" className="story">
+                    <TabPane tab="CREATE" key="2" className="story">
                       <StoryBoardTabs
                         setStage={setStage}
-                        mangaStory={mangaStory}
-                        user={user}
+                        user={userData}
                         openNotification={openNotification}
                         originUrl={originUrl}
                         participentsInfo={baseData.participentsInfo}
                         baseData={baseData}
                         setBaseData={setBaseData}
+                        storyBoard={storyBoard}
+                        getStoryBoard={getStoryBoard}
+                        setStoryBoard={setStoryBoard}
                       />
                     </TabPane>
                   )}
@@ -442,20 +231,44 @@ const MangeStory = (props) => {
                         commentsData={comments}
                         isOwn={isOwn}
                         mangaStory={baseData}
-                        user={user}
+                        user={userData}
                       />
                     </div>
                   </TabPane>
-                  {user &&
-                    (baseData?.participentsInfo?.find((item) => item._id === user._id) ||
-                      baseData?.author === user._id) && (
+                  {userData &&
+                    (baseData?.participentsInfo?.find((item) => item._id === userData?._id) ||
+                      baseData?.author === userData?._id) && (
                       <TabPane tab="TEAM CHAT" key="4">
                         <div className={styles.tabWrap}>
                           <Chat
                             mangaStory={baseData}
-                            user={user}
+                            user={userData}
                             isOwn={isOwn}
                             collabActiveTab={collabActiveTab}
+                          />
+                        </div>
+                      </TabPane>
+                    )}
+                  {userData &&
+                    isOwn &&
+                    (baseData?.participentsInfo?.find((item) => item._id === userData?._id) ||
+                      baseData?.author === userData?._id) && (
+                      <TabPane tab="SETTINGS" key="5">
+                        <div className={styles.tabWrap}>
+                          <Settings
+                            baseData={baseData}
+                            genres={genres}
+                            onChangeSingleField={onChangeSingleField}
+                            saveMangaStoryData={saveMangaStoryData}
+                            getStoryBoard={getStoryBoard}
+                            storyBoard={storyBoard}
+                            setBaseData={setBaseData}
+                            openNotification={openNotification}
+                            originUrl={originUrl}
+                            userData={userData}
+                            setUserData={setUserData}
+                            showPayPalContent={showPayPalContent}
+                            setShowPayPalContent={setShowPayPalContent}
                           />
                         </div>
                       </TabPane>
@@ -471,15 +284,24 @@ const MangeStory = (props) => {
               baseData={baseData}
               editMode={editMode}
               genres={genres}
-              saveUserDataByKey={saveUserDataByKey}
+              saveMangaStoryData={saveMangaStoryData}
               setBaseData={setBaseData}
               openNotification={openNotification}
+              isOwn={isOwn}
+              user={userData}
             />
           </section>
         </div>
-        <Footer />
-        <FooterPolicy />
+        {!userData && <Footer />}
+        {!userData && <FooterPolicy />}
+        <FooterLogin user={userData} />
       </main>
+      <DeleteProjectModal
+        user={userData}
+        mangaStory={baseData}
+        isModalVisible={isModalVisible}
+        setIsModalVisible={setIsModalVisible}
+      />
     </div>
   );
 };
@@ -492,11 +314,12 @@ MangeStory.propTypes = {
   originUrl: PropTypes.string.isRequired,
   comments: PropTypes.array.isRequired,
   hasStoryBoardPermision: PropTypes.bool.isRequired,
-  isParticipent: PropTypes.bool.isRequired,
+  isParticipant: PropTypes.bool,
 };
 
 MangeStory.defaultProps = {
   user: null,
+  isParticipant: false,
 };
 
 export default MangeStory;

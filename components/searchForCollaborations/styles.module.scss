@@ -3,6 +3,17 @@
 .box {
   width: 100%;
   margin-bottom: 20px;
+  .allGenres {
+    height: 100%;
+    @include media-lg {
+      & > div {
+        margin-right: 15px;
+      }
+    }
+    @include media-sm {
+      width: 100%;
+    }
+  }
   ul {
     margin: 0;
   }
@@ -24,7 +35,7 @@
     @media #{$media-lg} {
       padding: 0 30px;
     }
-    @media #{$media-md} {
+    @media #{$media-lg} {
       flex-wrap: wrap;
       flex-direction: column;
       align-items: center;
@@ -43,7 +54,7 @@
     width: 100%;
     height: 100%;
     position: relative;
-    @media #{$media-md} {
+    @media #{$media-lg} {
       justify-content: flex-end;
       height: 50px;
       border: 1px solid #000;
@@ -60,7 +71,7 @@
       width: 30px;
       height: 30px;
       margin-right: 20px;
-      @media #{$media-md} {
+      @media #{$media-lg} {
         display: none;
       }
     }
@@ -70,7 +81,7 @@
       justify-content: center;
       width: 52px;
       height: 100%;
-      @media #{$media-md} {
+      @media #{$media-lg} {
         display: flex;
       }
     }
@@ -88,12 +99,12 @@
     flex-shrink: 0;
     height: 100%;
     margin-left: 95px;
-    @media #{$media-md} {
+    @media #{$media-lg} {
       justify-content: center;
       width: 100%;
       margin-left: 0;
     }
-    @media #{$media-xs} {
+    @media #{$media-sm} {
       flex-direction: column;
       align-items: flex-start;
     }
@@ -211,22 +222,36 @@
       }
     }
     &_select {
-      width: auto;
+      max-width: 340px;
       height: 100%;
       font-weight: bold;
       font-size: 20px;
       line-height: 1.45;
       color: $black;
       margin-right: 95px;
-      @media #{$media-xs} {
+      & > div {
+        & > div {
+          flex-wrap: initial !important;
+          overflow-y: auto;
+          & > div {
+            margin-bottom: 10px;
+          }
+        }
+      }
+      @include media-md {
+        max-width: 400px;
+        margin-right: 60px;
+        font-size: 17px;
+      }
+      @include media-sm {
+        max-width: 100%;
         width: 100%;
         padding: 0 10px;
         margin-right: 0;
         margin-bottom: 20px;
       }
       &:last-child {
-        margin-right: 0;
-        @media #{$media-xs} {
+        @media #{$media-sm} {
           margin-bottom: 0;
         }
       }

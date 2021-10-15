@@ -1,0 +1,22 @@
+@import '../../styles/variables.scss';
+
+.loading {
+  div {
+    background-color: transparent;
+    box-shadow: none;
+  }
+  > div {
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+  }
+}
+
+.spin {
+  color: white;
+  font-size: 30px;
+  i {
+    background-color: white;
+  }
+}

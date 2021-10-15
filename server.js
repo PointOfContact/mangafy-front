@@ -4,8 +4,9 @@ const { parse } = require('url');
 const axios = require('axios');
 const next = require('next');
 const sitemap = require('nextjs-sitemap-generator'); // Import the package
+require('dotenv').config({ path: `${process.env.ENVIRONMENT}` });
 
-const dev = process.env.NODE_ENV !== 'production';
+const dev = process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'staging';
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
@@ -38,10 +39,10 @@ axios
         'password-success-changed',
       ],
       extraPaths: ['/', ...extraPaths],
-      pagesDirectory: `${__dirname}\\pages`,
+      pagesDirectory: `${__dirname}//pages`,
       targetDirectory: 'public/',
       sitemapFilename: 'sitemap.xml',
-      nextConfigPath: `${__dirname}\\next.config.js`,
+      nextConfigPath: `${__dirname}//next.config.js`,
     });
   })
   .catch(console.log);
@@ -52,7 +53,6 @@ axios
   only once, just when the server starts.
 */
 
-console.log(`${__dirname}\\pages`);
 app.prepare().then(() => {
   createServer((req, res) => {
     // Be sure to pass `true` as the second argument to `url.parse`.
@@ -68,7 +68,10 @@ app.prepare().then(() => {
       handle(req, res, parsedUrl);
     }
   }).listen(3000, (err) => {
-    if (err) throw err;
+    if (err) {
+      console.log('Err in server.js:', err);
+      throw err;
+    }
     console.log('> Ready on http://localhost:3000');
   });
 });

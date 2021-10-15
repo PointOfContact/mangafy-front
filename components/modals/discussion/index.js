@@ -1,16 +1,22 @@
 import React, { useEffect, useState } from 'react';
 
-import { Modal, notification, Popover } from 'antd';
+import { Modal, notification, Popover, Spin } from 'antd';
 import client from 'api/client';
+import cn from 'classnames';
 import SvgClose from 'components/icon/Close';
 import SvgHeart from 'components/icon/Heart';
 import SvgShareColored from 'components/icon/ShareColored';
 import Imgix from 'components/imgix';
+import Loading from 'components/loading';
 import { ShareButtons } from 'components/share';
 import { Comments } from 'components/type-content/comments';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import Link from 'next/link';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
+import * as qs from 'query-string';
+import myAmplitude from 'utils/amplitude';
+import { LinkCreator } from 'utils/linkCreator';
 
 import styles from './styles.module.scss';
 
@@ -25,10 +31,19 @@ const ModalDiscussion = ({
   url,
   likesCount,
   logoNavigate,
+  subTitle,
 }) => {
   const [commentsData, setCommentsData] = useState([]);
   const [likesData, setLikesData] = useState([]);
   const [isLiked, setIsLiked] = useState(false);
+  const [isLikedLoading, setIsLikedLoading] = useState(false);
+  const [photoProject, setPhotoProject] = useState(img);
+  const [logoProject, setLogoProject] = useState(client.UPLOAD_URL + logo);
+  const [loading, setLoading] = useState('');
+  const [subTitleData, setSubTitleData] = useState('');
+  const ifVideo = photoProject?.includes('youtube');
+
+  const router = useRouter();
 
   useEffect(() => {
     if (showModal) {
@@ -37,7 +52,12 @@ const ModalDiscussion = ({
   }, [postId, showModal]);
 
   const getPost = async () => {
+    setLoading(true);
     const post = await client.service('api/v2/posts').get(postId);
+    setLogoProject(client.UPLOAD_URL + post.logoUrl);
+    setPhotoProject(post.imageUrl);
+    setSubTitleData(post.subTitle);
+    setLoading(false);
     setLikesData(post.likes.data);
     setCommentsData(post.comments.data);
     post.likes.data.find((item) => item.senderId === user?._id) && setIsLiked(true);
@@ -54,6 +74,7 @@ const ModalDiscussion = ({
     }
 
     const jwt = client.getCookie('feathers-jwt');
+    setIsLikedLoading(true);
     import('api/restClient').then((m) => {
       m.default
         .service('/api/v2/post-likes')
@@ -66,9 +87,25 @@ const ModalDiscussion = ({
             mode: 'no-cors',
           }
         )
-        .then((res) => setLikesData([...likesData, { ...res }]), setIsLiked(true))
+        .then((res) => {
+          const eventData = [
+            {
+              event_type: EVENTS.POST_LIKE,
+              event_properties: { postLike: res._id, postId: res.postId },
+              user_id: user._id,
+              user_properties: {
+                ...user,
+              },
+            },
+          ];
+          myAmplitude(eventData);
+          setLikesData([...likesData, { ...res }]);
+          setIsLiked(true);
+          setIsLikedLoading(false);
+        })
         .catch((err) => {
           openNotification('error', err.message);
+          setIsLikedLoading(false);
         });
     });
   };
@@ -77,21 +114,68 @@ const ModalDiscussion = ({
     notification[type]({
       message,
       description,
+      placement: 'bottomLeft',
     });
   };
 
   const handleCancel = () => {
+    const parsed = qs.parse(window.location.search);
+    delete parsed.postId;
+    Router.push(
+      LinkCreator.toQuery({ ...parsed }, '/feed'),
+      LinkCreator.toQuery({ ...parsed }, '/feed'),
+      {
+        scroll: false,
+        shallow: true,
+      }
+    );
     changeShowModal(false);
   };
 
-  return (
+  const setPhotoOrLogo = (ifValidPhoto, photo, sizeImg, ifPhoto) => {
+    const getFormat = ifValidPhoto?.split('.').pop();
+    const validPhoto =
+      getFormat === 'png' ||
+      getFormat === 'jpg' ||
+      getFormat === 'webp' ||
+      getFormat === 'pdf' ||
+      getFormat === 'jpeg';
+
+    return validPhoto ? (
+      <Imgix
+        layout="intrinsic"
+        width={sizeImg}
+        height={sizeImg}
+        src={photo}
+        alt="MangaFy manga story"
+      />
+    ) : (
+      ifPhoto && (
+        <Imgix
+          width={sizeImg}
+          height={sizeImg}
+          layout="intrinsic"
+          src={'https://mangafy.club/img/mangastory.webp'}
+          alt="MangaFy manga story default"
+        />
+      )
+    );
+  };
+
+  return loading ? (
+    <Loading />
+  ) : (
     <Modal
       className={styles.modal}
       title={''}
       footer={null}
-      style={{ minWidth: '95%', maxWidth: '1200px' }}
+      style={{ minWidth: '95%', maxWidth: '1200px', marginTop: '20px' }}
       visible={showModal}
-      closeIcon={<SvgClose height="18px" width="18px" />}
+      closeIcon={
+        <span className={styles.close}>
+          <SvgClose />
+        </span>
+      }
       okText="Send"
       onCancel={handleCancel}>
       <div className={styles.modalContent}>
@@ -103,61 +187,63 @@ const ModalDiscussion = ({
                   <spam className={styles.logo}>
                     <Link href={logoNavigate}>
                       <a>
-                        <span>
-                          {logo ? (
-                            <Imgix
-                              width={54}
-                              height={54}
-                              src={client.UPLOAD_URL + logo}
-                              layout="intrinsic"
-                            />
-                          ) : (
-                            <Imgix
-                              width={54}
-                              height={54}
-                              layout="intrinsic"
-                              src={'https://mangafy.club/img/mangastory.webp'}
-                            />
-                          )}
-                        </span>
+                        <span>{setPhotoOrLogo(logoProject, logoProject, 54, true)}</span>
                       </a>
                     </Link>
                     <h2 className={styles.subtitle}>{title}</h2>
                   </spam>
                   <div className={styles.share}>
-                    <span className={styles.like}>
-                      <span>{likesData.length || likesCount}</span>
-                      <SvgHeart
-                        width="25px"
-                        height="22px"
-                        onClick={handleLike}
-                        className={isLiked && styles.isLiked}
-                      />
-                    </span>
+                    {isLikedLoading ? (
+                      <Spin className={styles.spin} size="small"></Spin>
+                    ) : (
+                      <span className={styles.like}>
+                        <span>
+                          {(!!likesData.length && likesData.length) || (!!likesCount && likesCount)}
+                        </span>
+                        <SvgHeart
+                          width="25px"
+                          height="22px"
+                          onClick={handleLike}
+                          className={isLiked && styles.isLiked}
+                        />
+                      </span>
+                    )}
                     <Popover
                       placement="bottomRight"
                       title={''}
-                      content={<ShareButtons shareUrl={`https://mangafy.club${url}`} text="" />}
+                      content={
+                        <ShareButtons shareUrl={`${client.API_ENDPOINT}${router.asPath}`} text="" />
+                      }
                       trigger="click">
                       <SvgShareColored width="25px" height="25px" />
                     </Popover>
                   </div>
                 </div>
-                <div className={styles.img}>
-                  {img ? (
-                    <Imgix width={1000} height={1000} src={client.UPLOAD_URL + img} />
-                  ) : (
-                    <Imgix
-                      width={800}
-                      height={600}
-                      src={'https://mangafy.club/img/mangastory.webp'}
-                    />
-                  )}
+                <div className={!photoProject && styles.containerPhoto}>
+                  <div className={cn(!photoProject && styles.img, styles.imgDef)}>
+                    {ifVideo ? (
+                      <iframe
+                        loading="lazy"
+                        className={styles.postVideo}
+                        src={`${photoProject}?autoplay=1&mute=1&controls=0&playlist=RBolDaIdg5M&loop=1&autopause=0&`}
+                        title="YouTube video player"
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen></iframe>
+                    ) : (
+                      setPhotoOrLogo(photoProject, client.UPLOAD_URL + photoProject, 1000, false)
+                    )}
+                  </div>
+                  <p className={cn(!photoProject && styles.description, styles.descriptionDef)}>
+                    {subTitle || subTitleData}
+                  </p>
                 </div>
               </div>
             </div>
             <div className="ant-col-md-8 ant-col-xs-24">
-              <h2 className={styles.subtitle}>{commentsData.length} Comments</h2>
+              <h2 className={styles.subtitle}>
+                {!!commentsData.length && commentsData.length} Comments
+              </h2>
               <Comments
                 user={user}
                 commentsData={commentsData}
@@ -171,6 +257,7 @@ const ModalDiscussion = ({
     </Modal>
   );
 };
+
 export default ModalDiscussion;
 
 ModalDiscussion.propTypes = {
@@ -185,6 +272,7 @@ ModalDiscussion.propTypes = {
   commentsData: PropTypes.array,
   user: PropTypes.object,
   logoNavigate: PropTypes.string,
+  subTitle: PropTypes.string,
 };
 
 ModalDiscussion.defaultProps = {
@@ -193,4 +281,5 @@ ModalDiscussion.defaultProps = {
   logoNavigate: '',
   commentsData: [],
   likesCount: 0,
+  subTitle: '',
 };

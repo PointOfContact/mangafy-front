@@ -10,23 +10,36 @@
   color: $black;
 }
 .messenger_tab {
-  display: flex;
-  justify-content: space-between;
   margin: 0 -25px;
-  height: 100%;
-
-  .messenger_list {
-    width: 30%;
-    height: 100%;
-    border-right: 2px solid rgba(33, 33, 33, 0.07);
-    @include media-sm {
-      width: 20%;
+  min-height: 655px;
+  .content {
+    display: flex;
+    .messenger_list_mobile,
+    .messenger_list {
+      width: 316px;
+      height: 100%;
+      border-right: 1px solid rgba(33, 33, 33, 0.07);
+      @include media-sm {
+        width: 100%;
+      }
     }
-  }
-  .messenger_content {
-    width: 70%;
-    @include media-sm {
-      width: 80%;
+    .messenger_list_mobile{
+      @include media-sm {
+        display: none;
+      }
+    }
+    .messenger_content_mobile,
+    .messenger_content {
+      width: 70%;
+      @include media-sm {
+        width: 100%;
+        display: none;
+      }
+    }
+    .messenger_content_mobile{
+      @include media-sm {
+        display: block;
+      }
     }
   }
 }

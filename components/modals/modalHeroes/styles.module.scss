@@ -1,0 +1,398 @@
+@import '../../../styles/variables.scss';
+
+$borderColor: #f0f0f0;
+$colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
+
+@mixin input {
+  font-size: $text4;
+  border-radius: 6px;
+  border: 1px solid $primaryDark;
+  overflow-y: auto !important;
+  color: $black;
+  padding: 10px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 23px;
+  &::placeholder {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 23px;
+    color: $gray85;
+  }
+  &:hover {
+    color: $black;
+    border: 1px solid $primaryDark;
+  }
+  &:focus {
+    border: 1px solid $primaryDark;
+  }
+}
+
+.modal {
+  max-width: 500px !important;
+  margin-top: 50px !important;
+  @include media-xs {
+    width: 95% !important;
+    max-width: 95% !important;
+    margin-top: 0 !important;
+  }
+  & > div {
+    border-radius: 5px;
+    & > div {
+      padding: 0;
+      border-radius: 5px;
+      border-bottom: none;
+    }
+  }
+  .container {
+    min-height: 320px;
+    padding: 0;
+  }
+  .close {
+    width: 39.71px;
+    height: 39.26px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    margin-top: 22px;
+    background-color: #aca0f0;
+    svg {
+      width: 18.33px;
+      height: 18.12px;
+      path {
+        fill: $text_white;
+      }
+    }
+    &:hover {
+      background-color: $primaryDark;
+    }
+    @include media-sm {
+      width: 30px;
+      height: 30px;
+      margin-top: 8px;
+      margin-left: 18px;
+      svg {
+        width: 13.33px;
+        height: 13.12px;
+      }
+    }
+  }
+  .title {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 35px;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    margin-top: 14px;
+    margin-bottom: 10px;
+    @include media-sm {
+      font-size: 18px;
+      line-height: 20px;
+    }
+  }
+  .attachmentTitle {
+    @include media-md {
+      height: 60px;
+    }
+  }
+  .border {
+    width: 100%;
+    left: 0;
+    top: 75px;
+    position: absolute;
+    height: 2.95px;
+    background: -webkit-linear-gradient(
+      left,
+      rgba(33, 33, 33, 0.07) -0.96%,
+      rgba(33, 33, 33, 0) 100.58%
+    );
+    background: -moz-linear-gradient(
+      left,
+      rgba(33, 33, 33, 0.07) -0.96%,
+      rgba(33, 33, 33, 0) 100.58%
+    );
+    background: linear-gradient(90deg, rgba(33, 33, 33, 0.07) -0.96%, rgba(33, 33, 33, 0) 100.58%);
+    @include media-sm {
+      top: 50px;
+    }
+  }
+  .containerButton {
+    display: flex;
+    justify-content: space-between;
+    button {
+      font-size: 18px;
+      width: 176px;
+      height: 46px;
+      border-radius: 4px;
+      font-style: normal;
+      font-weight: 900;
+      font-size: 15px;
+      line-height: 22px;
+      @include media-sm{
+        width: 170px;
+      }
+    }
+  }
+  .modalTitle {
+    color: $black;
+    margin-top: 24px;
+    text-align: center;
+    padding: 14px;
+    box-sizing: border-box;
+  }
+  .actions {
+    font-size: 20px;
+    color: #aaa9a9;
+  }
+  .modalSelect {
+    box-sizing: border-box;
+    border-radius: 5px;
+    font-size: $text4;
+    padding: 0;
+    width: 100%;
+    margin-bottom: $text4;
+  }
+  // .send {
+  //   width: 318.72px;
+  //   height: 54.36px;
+  //   margin: auto;
+  //   margin-top: 24px;
+  //   @include media-md {
+  //     width: 250px;
+  //   }
+  //   @include media-sm {
+  //     width: 315px;
+  //   }
+  // }
+  .titleWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .desc {
+    margin-top: 24px;
+  }
+  .anticon {
+    padding: 4px;
+    background: $primaryDark;
+    border-radius: 50%;
+    color: $text_white;
+  }
+  .attachmentContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    span {
+      color: $gray85;
+      height: 24px;
+      border-bottom: 1px solid $gray85;
+      cursor: pointer;
+      &:hover {
+        color: $primaryDark;
+      }
+    }
+  }
+}
+.description {
+  text-align: center;
+  margin-top: $text3;
+  padding-top: $text3;
+  padding-bottom: $text3;
+  color: $black;
+  border: 1px solid $borderColor;
+  @include media-xs {
+    font-size: 16px;
+  }
+}
+.inputContainer {
+  display: flex;
+  margin: 0%;
+  padding-bottom: 30px;
+  @include media-sm {
+    flex-direction: column;
+  }
+  & > div {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  // .uploadFile {
+  //   flex: 1;
+  //   border-left: 1px solid $borderColor;
+  //   & > div {
+  //     @include media-sm {
+  //       display: none;
+  //     }
+  //     & > span {
+  //       width: 320px;
+  //       height: 220px;
+  //       border-radius: 20px;
+  //     }
+  //   }
+  // }
+}
+.nameInput {
+  &::placeholder {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 23px;
+    color: $gray85 !important;
+  }
+}
+.submitButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  & > div:first-child {
+    display: none;
+    @include media-sm {
+      width: 320px;
+      height: 220px;
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+
+.editStyle {
+  margin-top: 16px;
+  border-top: 1px solid $borderColor;
+}
+
+.upload{
+   width: 100%;
+}
+
+.selectModal {
+  width: 440px;
+  margin-top: 100px;
+  @include media-md {
+    width: calc(100% - 47px);
+    margin-top: 70px;
+  }
+  .error{
+    color: $red;
+    font-size: 14px;
+  }
+  & > form {
+    & > div {
+      margin: 0;
+      div {
+        margin: 0 !important;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 23px;
+        color: $gray85;
+      }
+    }
+    input {
+      height: 44px;
+      background-color: $text_white;
+      @include input();
+    }
+    .modalTexArea {
+      min-height: 99px !important;
+      background-color: white;
+      @include input();
+    }
+  }
+  .chooseTypes {
+    display: flex;
+    & > div{
+      width: 100%;
+    }
+    & > span {
+      width: 40px;
+      border: 1px solid $primaryDark;
+      border-bottom-right-radius: 6px;
+      border-top-right-radius: 6px;
+      border-left: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #b7b7b7;
+      margin-left: -1px;
+      .arrowIcon {
+        transform: rotate(90deg);
+      }
+      .searchIcon {
+        font-size: 20px;
+        transform: rotate(-45deg);
+      }
+    }
+  }
+  .option {
+    border-bottom-left-radius: 6px;
+    border-top-left-radius: 6px;
+    border: 1px solid $primaryDark;
+    border-right: none;
+    min-height: 44px;
+    padding-top: 4px;
+    span{
+      color: $gray85;
+    }
+    div {
+      & > div {
+        @for $i from 1 through 7 {
+          &:nth-child(#{length($colors)}n + #{$i}) {
+            & > span {
+              background-color: nth($colors, random(length($colors)));
+              height: 38px;
+              display: flex;
+              align-items: center;
+              color: white;
+              font-size: 14px;
+              font-weight: bold;
+              border-radius: 15px;
+              margin: 0;
+              span {
+                color: white;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.content {
+  width: 100%;
+  height: 100%;
+  text-align: left;
+  color: $grey;
+  padding: 30px;
+  @include media-sm {
+    padding: 21px;
+  }
+  .types {
+    display: flex;
+    align-items: center;
+    font-size: $text5;
+    color: $grey;
+    svg {
+      margin-right: 6px;
+    }
+  }
+  .description {
+    width: 100%;
+    text-align: center;
+    svg {
+      margin-top: 40px;
+      margin-bottom: 15px;
+      @include media-sm {
+        width: 87px !important;
+        height: 63px !important;
+      }
+    }
+  }
+}

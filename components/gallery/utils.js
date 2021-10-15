@@ -1,5 +1,6 @@
 import { notification } from 'antd';
 import client from 'api/client';
+import beforeUploadFromAMZ from 'utils/upload';
 
 const getShortStorys = (authorId, onSuccess, onFailure) => {
   const jwt = client.getCookie('feathers-jwt');
@@ -36,7 +37,11 @@ const likeGallery = (galleryId, userId) => {
 };
 
 const removeImg = (images, _id, fromPath, userData) => {
-  const newImages = images.filter((item) => item._id !== _id && !item.renderItem);
+  const newImages = images.filter(
+    (item) =>
+      item._id !== _id &&
+      (!item.renderItem || item._id?.slice(-3) === 'PDF' || item?._id?.slice(-3) === 'pdf')
+  );
   const data = { gallery: [...newImages.map((item) => item._id)] };
   const jwt = client.getCookie('feathers-jwt');
 
@@ -78,10 +83,19 @@ const prepareDataImages = (gallery) => {
   return prepareData;
 };
 
-const adaptedDataImages = (images, res) => [
-  ...images.filter((item) => item._id && !item.renderItem),
-  res.id,
-];
+const adaptedDataImages = (images, res) => {
+  const imgs = images
+    .filter(
+      (item) =>
+        (item._id &&
+          item.renderItem &&
+          (item._id?.slice(-3) === 'pdf' || item._id?.slice(-3) === 'PDF')) ||
+        (item._id && !item.renderItem)
+    )
+    .map((item) => item._id);
+
+  return [res, ...imgs];
+};
 
 const beforeGalleryUpload = (
   file,
@@ -92,91 +106,74 @@ const beforeGalleryUpload = (
   images,
   setImages,
   setUserData,
-  setErrMessage
-) => {
-  const openNotification = (type, message) => {
-    notification[type]({
-      message,
-    });
-  };
+  setErrMessage,
+  setLoading
+) =>
+  new Promise((resolve) => {
+    setLoading(true);
+    const openNotification = (type, message) => {
+      notification[type]({
+        message,
+        placement: 'bottomLeft',
+      });
+    };
 
-  const isJpgOrPng =
-    file.type === 'image/jpeg' ||
-    file.type === 'image/png' ||
-    file.type === 'image/jpg' ||
-    file.type === 'application/pdf';
+    const isJpgOrPng =
+      file.type === 'image/jpeg' ||
+      file.type === 'image/png' ||
+      file.type === 'image/jpg' ||
+      file.type === 'application/pdf';
 
-  if (!isJpgOrPng) {
-    openNotification('error', 'You can only upload JPG, JPEG, PDF or PNG file!');
-  }
+    if (!isJpgOrPng) {
+      openNotification('error', 'You can only upload JPG, JPEG, PDF or PNG file!');
+    }
 
-  const isLt2M = file.size / 1024 / 1024 < 5;
-  if (!isLt2M) {
-    openNotification('error', 'Image must be smaller than 5MB!');
-  }
+    const isLt2M = file.size / 1024 / 1024 < 50;
+    if (!isLt2M) {
+      openNotification('error', 'Image must be smaller than 50MB!');
+    }
 
-  if (isJpgOrPng && isLt2M) {
-    // eslint-disable-next-line no-undef
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.addEventListener(
-      'load',
-      () => {
-        const jwt = client.getCookie('feathers-jwt');
-        import('api/restClient')
-          .then((m) => {
-            m.default
-              .service('/api/v2/uploads')
-              .create(
-                { uri: reader.result },
-                {
-                  headers: { Authorization: `Bearer ${jwt}` },
-                  mode: 'no-cors',
-                }
-              )
-              .then((response) => {
-                setShowUploadList(false);
-                return response;
-              })
-              .then((response) => {
-                m.default
-                  .service(`/api/v2/${fromPath}`)
-                  .patch(
-                    fromPath === 'users' ? userData._id : mangaStories._id,
-                    {
-                      gallery: adaptedDataImages(images, response),
-                    },
-                    {
-                      headers: { Authorization: `Bearer ${jwt}` },
-                      mode: 'no-cors',
-                    }
-                  )
-                  .then((res) => {
-                    setImages(prepareDataImages(res.gallery));
-                    setUserData(res);
-                    setShowUploadList(false);
-                  });
-              })
-              .catch((err) => {
-                setErrMessage(err.message);
-                setShowUploadList(false);
-                setTimeout(() => {
-                  setErrMessage('');
-                }, 2000);
-              });
-          })
-          .catch((err) => {
-            setErrMessage(err.message);
-            setShowUploadList(false);
-            setTimeout(() => {
-              setErrMessage('');
-            }, 2000);
+    if (isJpgOrPng && isLt2M) {
+      beforeUploadFromAMZ(file, () => {
+        setShowUploadList(false);
+      })
+        .then((response) => {
+          const jwt = client.getCookie('feathers-jwt');
+          import('api/restClient').then((m) => {
+            setImages((imgs) => {
+              m.default
+                .service(`/api/v2/${fromPath}`)
+                .patch(
+                  fromPath === 'users' ? userData._id : mangaStories._id,
+                  {
+                    gallery: adaptedDataImages(imgs, response),
+                  },
+                  {
+                    headers: { Authorization: `Bearer ${jwt}` },
+                    mode: 'no-cors',
+                  }
+                )
+                .then((res) => {
+                  setUserData(res);
+                  setShowUploadList(false);
+                  setLoading(false);
+                  setImages(prepareDataImages(res.gallery));
+                  resolve(res);
+                });
+              return imgs;
+            });
           });
-      },
-      false
-    );
-  }
-};
+        })
+        .catch((err) => {
+          setErrMessage(err.message);
+          setShowUploadList(false);
+          setLoading(false);
+          setTimeout(() => {
+            setErrMessage('');
+          }, 2000);
+        });
+    }
+  });
 
 const createGallery = async (data, onSuccess, onFailure) => {
   const jwt = client.getCookie('feathers-jwt');

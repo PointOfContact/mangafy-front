@@ -1,0 +1,37 @@
+@import '../../styles/variables.scss';
+
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  line-height: 20px;
+  color: $black;
+  height: 30px;
+  position: fixed;
+  top: 92px;
+  background-color: $orangeDark;
+  cursor: pointer;
+  .text{
+    margin: 0;
+  }
+  .warning {
+      font-weight: bold;
+  }
+  .outLine{
+    margin-left: 4px;
+  }
+  &:hover {
+    .outLine{
+      border-bottom: 1px solid $black;
+    }
+  }
+  @include media-md {
+    top: 86px;
+  }
+  @include media-sm {
+    padding: 24px 8px;
+    font-size: 14px;
+  }
+}

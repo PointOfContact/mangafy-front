@@ -127,7 +127,7 @@
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
-    height: 70px;
+    height: auto;
     padding-top: 15px;
   }
   &__bot {
@@ -159,7 +159,7 @@
   }
   &__buttons {
     display: flex;
-    align-items: start;
+    align-items: flex-start;
     flex-wrap: wrap;
     margin-bottom: 5px;
   }

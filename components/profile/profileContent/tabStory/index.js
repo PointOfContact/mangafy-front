@@ -1,18 +1,17 @@
 import React from 'react';
 
-import { Select, Input, Row, Col } from 'antd';
 import cn from 'classnames';
 import Card from 'components/card';
 import SvgPurplePencil from 'components/icon/PurplePencil';
 import Imgix from 'components/imgix';
-import AddButton from 'components/ui-elements/add-button';
-import PrimaryButton from 'components/ui-elements/button';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 
+import CreateGeneres from './createGeneres';
+import EditButtons from './editButtons';
+import EditContent from './editContent';
+import IfNotGeneres from './ifNotGeneres';
 import styles from './styles.module.scss';
-
-const { TextArea } = Input;
 
 const TabStory = (props) => {
   const {
@@ -23,37 +22,14 @@ const TabStory = (props) => {
     setUserData,
     userData,
     userGenres,
+    profileGenres,
     handleChangeGenres,
-    genresEnums,
+    genresMyProfileEnums,
     genres,
     total,
     profile,
-    profileGenres,
-    isMyProfile,
+    ifMyProfile,
   } = props;
-
-  const renderStory = () =>
-    userGenres &&
-    !!userGenres?.length && (
-      <Row>
-        <Col span={22}>
-          {userGenres.map(({ value }, index) => (
-            <button key={index} type="button" id={`myProfileGenresTag${index}Id`}>
-              {value}
-            </button>
-          ))}
-        </Col>
-        <Col
-          xs={{ span: 24 }}
-          md={{ span: 2 }}
-          xl={{ span: 2 }}
-          xxl={{ span: 2 }}
-          span={2}
-          className={styles.add_button}>
-          <AddButton className={styles.btn_ganres} onClick={() => setStoryEditMode(true)} />
-        </Col>
-      </Row>
-    );
 
   const history = useRouter();
   const routeChange = () => {
@@ -61,107 +37,61 @@ const TabStory = (props) => {
     history.push(path);
   };
 
+  const editIfNotData = !!userData?.content || !!userData?.genresIds?.length;
+
   return (
     <div className={cn(styles.content_tab_profile_1)}>
-      <div className={cn(styles.change_btn)}>
-        {storyEditMode && (
-          <div className={cn(styles.buttonsProfile, 'buttonsProfile_styles')}>
-            <PrimaryButton
-              className="buttonsProfile_cancel"
-              text="Cancel"
-              isDark
-              isRound
-              disabled={false}
-              onClick={cancelStoryEditMode}
-            />
-            <PrimaryButton
-              className="buttonsProfile_save"
-              text="save"
-              isActive
-              isRound
-              disabled={false}
-              onClick={() => saveUserDataByKey('content', 'genresIds')}
-            />
-          </div>
-        )}
-      </div>
-      {!userData && profile?.content && (
-        <>
-          <h3 className={cn(styles.sub_title)}>Here is a my story!</h3>
-          {profile?.content && <pre className={styles.data_content}>{profile.content}</pre>}
-        </>
+      {ifMyProfile && !storyEditMode && editIfNotData && (
+        <SvgPurplePencil
+          className={styles.editAboutButton}
+          onClick={() => setStoryEditMode(true)}
+          width="30"
+        />
       )}
+
+      <EditButtons
+        storyEditMode={storyEditMode}
+        cancelStoryEditMode={cancelStoryEditMode}
+        saveUserDataByKey={saveUserDataByKey}
+      />
+
       <div>
-        {userData && (userData?.content || storyEditMode) && (
-          <>
-            <h3 className={cn(styles.tab_title)}>About Me</h3>
-            {storyEditMode || (
-              <SvgPurplePencil
-                className={styles.editAboutButton}
-                onClick={() => setStoryEditMode(true)}
-                width="30"
-              />
-            )}
-          </>
-        )}
-        <div className={styles.text}>
-          {storyEditMode ? (
-            <TextArea
-              autoSize={{ minRows: 3, maxRows: 10 }}
-              placeholder="Type here..."
-              value={userData.content}
-              onChange={(e) =>
-                setUserData({
-                  ...userData,
-                  content: e.target.value,
-                })
-              }
-              required
-              type="text"
-              minLength={10}
-              maxLength={1000}
-              className={styles.textarea_text}
-            />
-          ) : (
-            userData?.content && (
-              <p className={cn(styles.data_content, styles.tab_sub_title)}>{userData?.content}</p>
+        <EditContent
+          profile={profile}
+          storyEditMode={storyEditMode}
+          ifMyProfile={ifMyProfile}
+          userData={userData}
+          setUserData={setUserData}
+        />
+        {ifMyProfile
+          ? userGenres &&
+            (!!userGenres?.length || storyEditMode) && (
+              <>
+                <h3 className={cn(styles.tab_title)}>
+                  What kind of graphic novels are you interested in?
+                </h3>
+              </>
             )
-          )}
-        </div>
+          : profileGenres &&
+            !!profileGenres?.length && <h3 className={cn(styles.sub_title)}>Genres</h3>}
 
-        {userGenres && (!!userGenres?.length || storyEditMode) && (
-          <h3 className={cn(styles.tab_title)}>Genres</h3>
-        )}
-        {profileGenres && !!profileGenres?.length && (
-          <h3 className={cn(styles.sub_title)}>Genres</h3>
-        )}
-        <div className={cn('garners_buttons', styles.genres_wrap)}>
-          {profileGenres &&
-            profileGenres.map(({ name }, index) => (
-              <button key={index} type="button" id={`myProfileGenresTag${index}Id`}>
-                {name}
-              </button>
-            ))}
-          {storyEditMode ? (
-            <Select
-              mode="multiple"
-              MangaGenres={userData.skills || []}
-              placeholder="Type or select an option"
-              style={{ width: '100%' }}
-              options={genresEnums}
-              value={genres}
-              onChange={handleChangeGenres}
-            />
-          ) : (
-            renderStory()
-          )}
-        </div>
+        <CreateGeneres
+          userGenres={userGenres}
+          ifMyProfile={ifMyProfile}
+          storyEditMode={storyEditMode}
+          setStoryEditMode={setStoryEditMode}
+          profileGenres={profileGenres}
+          userData={userData}
+          genresMyProfileEnums={genresMyProfileEnums}
+          genres={genres}
+          handleChangeGenres={handleChangeGenres}
+        />
 
-        {isMyProfile && !storyEditMode && (
+        {ifMyProfile && !storyEditMode && (
           <div className={styles.card_wrap} gutter={[16, 16]}>
             {!userData?.content && (
               <div className={styles.card}>
-                <h3 className={cn(styles.sub_title)}>About Me</h3>
+                <h3 className={cn(styles.sub_title)}>Bio</h3>
                 <Card
                   description="It's time to tell about yourself.</br>  Let's start!"
                   btnText="Tell us about yourself"
@@ -172,33 +102,14 @@ const TabStory = (props) => {
                       height={140}
                       layout="fixed"
                       src="https://mangafy.club/img/aboutme.webp"
-                      alt=""
+                      alt="MangaFy about me"
                     />,
                   ]}
                   onClick={() => setStoryEditMode(true)}
                 />
               </div>
             )}
-            {!!userGenres?.length || (
-              <div className={styles.card}>
-                <h3 className={cn(styles.sub_title)}>Genres</h3>
-                <Card
-                  description="Select 3 categories that best </br> describe your art"
-                  btnText="Choose 3 categories"
-                  items={[
-                    <Imgix
-                      key="1"
-                      width={187}
-                      height={140}
-                      layout="fixed"
-                      src="https://mangafy.club/img/NovelType.webp"
-                      alt=""
-                    />,
-                  ]}
-                  onClick={() => setStoryEditMode(true)}
-                />
-              </div>
-            )}
+            <IfNotGeneres userGenres={userGenres} setStoryEditMode={setStoryEditMode} />
             {total === 0 && (
               <div className={styles.card}>
                 <h3 className={cn(styles.sub_title)}>Projects</h3>
@@ -212,7 +123,7 @@ const TabStory = (props) => {
                       height={140}
                       layout="fixed"
                       src="https://mangafy.club/img/Projects.webp"
-                      alt=""
+                      alt="MangaFy projects"
                     />,
                   ]}
                   onClick={() => routeChange()}
@@ -221,11 +132,11 @@ const TabStory = (props) => {
             )}
           </div>
         )}
-        {!isMyProfile && (
+        {!ifMyProfile && (
           <div className={styles.card_wrap} gutter={[16, 16]}>
-            {!profile?.content && (
+            {/* {!profile?.content && (
               <div className={styles.card}>
-                <h3 className={cn(styles.sub_title)}>About Me</h3>
+                <h3 className={cn(styles.sub_title)}>Bio</h3>
                 <Card
                   description="Sorry, but there is nothing <br/> here (("
                   btnText=""
@@ -236,13 +147,13 @@ const TabStory = (props) => {
                       height={140}
                       layout="fixed"
                       src="https://mangafy.club/img/profile-apout-me.webp"
-                      alt=""
+                      alt="MangaFy about me"
                     />,
                   ]}
                   onClick={() => setStoryEditMode(true)}
                 />
               </div>
-            )}
+            )} */}
             {profileGenres &&
               (!!profileGenres?.length || (
                 <div className={styles.card}>
@@ -257,7 +168,7 @@ const TabStory = (props) => {
                         height={140}
                         layout="fixed"
                         src="https://mangafy.club/img/ProfileNovelType.webp"
-                        alt=""
+                        alt="MangaFy novel"
                       />,
                     ]}
                     onClick={() => setStoryEditMode(true)}
@@ -277,7 +188,7 @@ const TabStory = (props) => {
                       height={140}
                       layout="fixed"
                       src="https://mangafy.club/img/ProfileProjects.webp"
-                      alt=""
+                      alt="MangaFy projects"
                     />,
                   ]}
                   onClick={() => routeChange()}
@@ -300,12 +211,12 @@ TabStory.propTypes = {
   userData: PropTypes.object,
   userGenres: PropTypes.array,
   handleChangeGenres: PropTypes.func,
-  genresEnums: PropTypes.any,
+  genresMyProfileEnums: PropTypes.any,
   genres: PropTypes.array,
-  total: PropTypes.number,
+  total: PropTypes.array,
   profile: PropTypes.object,
   profileGenres: PropTypes.array,
-  isMyProfile: PropTypes.bool,
+  ifMyProfile: PropTypes.bool,
 };
 
 TabStory.defaultProps = {
@@ -316,13 +227,13 @@ TabStory.defaultProps = {
   handleChangeGenres: () => {},
   storyEditMode: false,
   userData: null,
-  userGenres: null,
+  userGenres: [],
   profile: null,
-  genresEnums: null,
+  genresMyProfileEnums: null,
   genres: null,
-  total: null,
+  total: [],
   profileGenres: null,
-  isMyProfile: null,
+  ifMyProfile: null,
 };
 
 export default TabStory;

@@ -5,49 +5,53 @@ import client from 'api/client';
 import Imgix from 'components/imgix';
 import Avatar from 'components/ui-elements/avatar';
 import LargeButton from 'components/ui-elements/large-button';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import moment from 'moment';
 import Link from 'next/link';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
+import myAmplitude from 'utils/amplitude';
 
 import styles from './styles.module.scss';
 
-const Amplitude = require('amplitude');
-
-const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 const { TextArea } = Input;
 
-const CommentList = ({ comments }) => (
-  <List
-    className={styles.list}
-    dataSource={comments.reverse()}
-    itemLayout="horizontal"
-    renderItem={(commentItem) => (
-      <Comment
-        datetime={moment(commentItem.createdAt).format('lll')}
-        {...commentItem}
-        author={commentItem?.authorInfo?.name}
-        avatar={
-          commentItem.authorInfo && (
-            <Link href={`/profile/${commentItem.authorInfo?._id}`}>
-              <a>
-                {commentItem.authorInfo?.avatar ? (
-                  <Imgix
-                    width={40}
-                    height={40}
-                    src={client.UPLOAD_URL + commentItem.authorInfo?.avatar}
-                  />
-                ) : (
-                  <Avatar text={commentItem?.authorInfo?.name} size={40} />
-                )}
-              </a>
-            </Link>
-          )
-        }
-      />
-    )}
-  />
-);
+const CommentList = ({ comments }) => {
+  const com = [...comments];
+  // .reverse()
+  return (
+    <List
+      className={styles.list}
+      dataSource={com}
+      itemLayout="horizontal"
+      renderItem={(commentItem) => (
+        <Comment
+          datetime={moment(commentItem.createdAt).format('lll')}
+          {...commentItem}
+          author={commentItem?.authorInfo?.name}
+          avatar={
+            commentItem.authorInfo && (
+              <Link href={`/profile/${commentItem.authorInfo?._id}`}>
+                <a>
+                  {commentItem.authorInfo?.avatar ? (
+                    <Imgix
+                      width={40}
+                      height={40}
+                      src={client.UPLOAD_URL + commentItem.authorInfo?.avatar}
+                      alt="MangaFy avatar"
+                    />
+                  ) : (
+                    <Avatar text={commentItem?.authorInfo?.name} size={40} />
+                  )}
+                </a>
+              </Link>
+            )
+          }
+        />
+      )}
+    />
+  );
+};
 
 CommentList.propTypes = {
   comments: PropTypes.array.isRequired,
@@ -61,9 +65,11 @@ const Editor = ({ onChange, onSubmit, submitting, value, user }) => (
     <Form.Item>
       {!user && (
         <Link href={`/sign-in?page=`}>
-          <h2 className={styles.loginOnText}>
-            Please <span>login</span> to add comments
-          </h2>
+          <a>
+            <h2 className={styles.loginOnText}>
+              Please <span>login</span> to add comments
+            </h2>
+          </a>
         </Link>
       )}
       <LargeButton
@@ -133,18 +139,17 @@ export const Comments = ({ commentsData, postId, user, setCommentsData }) => {
           setCommentsData(newCommentsData);
           setSubmitting(false);
           setValue('');
-          // const eventData = [
-          //   {
-          //     platform: 'WEB',
-          //     event_type: EVENTS.POST_COMMENT,
-          //     event_properties: { postId },
-          //     user_id: user._id,
-          //     user_properties: {
-          //       ...user,
-          //     },
-          //   },
-          // ];
-          // amplitude.track(eventData);
+          const eventData = [
+            {
+              event_type: EVENTS.POST_COMMENT,
+              event_properties: { postId },
+              user_id: user._id,
+              user_properties: {
+                ...user,
+              },
+            },
+          ];
+          myAmplitude(eventData);
         })
         .catch((err) => {
           setErrMessage(err.message);
@@ -171,7 +176,12 @@ export const Comments = ({ commentsData, postId, user, setCommentsData }) => {
           user && (
             <>
               {user.avatar ? (
-                <Imgix width={52} height={52} src={client.UPLOAD_URL + user.avatar} />
+                <Imgix
+                  width={52}
+                  height={52}
+                  src={client.UPLOAD_URL + user.avatar}
+                  alt="MangaFy avatar"
+                />
               ) : (
                 <Avatar text={user.name} size={52} />
               )}

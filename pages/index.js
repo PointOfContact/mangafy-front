@@ -1,64 +1,56 @@
 import client from 'api/client';
 import { withAuthServerSideProps, withAuthComponent } from 'components/withAuth';
-import LandingNew from 'features/typePage';
-import moment from 'moment';
+import MiddlewareIndexPage from 'features/middlewareIndexPage';
 import { store } from 'store';
 
-export default withAuthComponent(LandingNew);
-export const getServerSideProps = withAuthServerSideProps(async (context, user = null) => {
-  try {
-    const selectedCategories = context.query.categories || null;
-    const selectedType = context.query.compensationModel || null;
-    const posts = await client.service('/api/v2/posts').find({
-      query: {
-        $limit: 5,
-        $sort: {
-          createdAt: -1,
-        },
-      },
-    });
-    const dailyWarmUps = await client.service('/api/v2/daily-warm-ups').find({
-      query: {
-        $limit: 100,
-        visibleDate: {
-          $gte: moment().format('YYYY-MM-DD'),
-          $lt: moment().add(1, 'day').format('YYYY-MM-DD'),
-        },
-      },
-    });
-    const query = {
-      $limit: 5,
-      $sort: {
-        internalOrder: -1,
-        createdAt: -1,
-      },
-    };
-    const members = await client.service('/api/v2/users').find({
-      query,
-    });
-    const query1 = {
-      $limit: 6,
-      $sort: {
-        internalOrder: -1,
-        createdAt: -1,
-      },
-      published: true,
-    };
-    const collaborations = await client.service('/api/v2/manga-stories').find({
-      query: query1,
-    });
+export default withAuthComponent(MiddlewareIndexPage);
+
+export const getServerSideProps = withAuthServerSideProps(async (context, user = null, jwt) => {
+  const viewUrlName = context?.req?.headers?.host;
+  const getNameViewUrl = !!viewUrlName && viewUrlName.split('.').reverse()[2];
+
+  if (!getNameViewUrl) {
     return {
       props: {
-        posts: posts.data,
-        selectedCategories,
-        selectedType,
-        dailyWarmUps: dailyWarmUps.data,
-        members: members.data,
-        collaborations: collaborations.data,
         user: user || store.user,
       },
     };
+  }
+
+  try {
+    const mangaStory = await client.service('/api/v2/manga-stories').find({
+      query: { viewUrlName: getNameViewUrl },
+    });
+
+    const storyBoard = await client.service('/api/v2/story-boards').find({
+      query: {
+        mangaStoryId: mangaStory?.data[0]?._id,
+      },
+    });
+
+    if (!mangaStory?.data?.length && process.env.NEXT_REDIRECT_ENABLED) {
+      context.res.writeHead(301, {
+        Location: 'https://mangafy.club',
+      });
+      context.res.end();
+      return {
+        props: {},
+      };
+    }
+
+    return {
+      props: {
+        user: user || store.user,
+        storyBoardId: storyBoard?.data[0]?._id,
+        mangaUrls: storyBoard?.data[0]?.mangaUrls,
+        mangaStoryId: mangaStory?.data[0]?._id,
+        mangaStoryTitle: mangaStory?.data[0]?.title,
+      },
+    };
   } catch (error) {
-    return { props: {} };
+    console.log('Error: index.js', error);
+    return {
+      props: {},
+    };
   }
 });

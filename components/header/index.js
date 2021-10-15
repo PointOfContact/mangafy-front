@@ -4,22 +4,22 @@ import { Badge, Popover } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
 import SvgBell from 'components/icon/Bell';
+import SvgLoginUser from 'components/icon/LoginUser';
 import Imgix from 'components/imgix';
 import MenuMobilePopover from 'components/menu-mobile-popover';
 import MenuNotificationsBox from 'components/menu-notifications-box';
+import AddButton from 'components/ui-elements/add-button';
 import Avatar from 'components/ui-elements/avatar';
 import PrimaryButton from 'components/ui-elements/button';
-import { EVENTS } from 'helpers/amplitudeEvents';
+import WarningFillAllData from 'components/warningFillAllData';
 import { removeAllStorage } from 'helpers/shared';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 
+import MenuLinks from './menuLinks';
+import ModalInviteMembers from './modalInviteMembers';
 import styles from './styles.module.scss';
-
-const Amplitude = require('amplitude');
-
-const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 
 const findNotificationsCount = (onSuccess, onFailure) => {
   const jwt = client.getCookie('feathers-jwt');
@@ -46,11 +46,17 @@ const findNotificationsCount = (onSuccess, onFailure) => {
   });
 };
 
-const Header = ({ user, path }) => {
-  const [isOpen, handleManuOpen] = useState(false);
+const Header = ({ user, path, setShowModalEdit }) => {
+  const [isOpen, handleMenuOpen] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [showNotification, setShowNotification] = useState(false);
   const [notificationsCount, setNotificationsCount] = useState(0);
   const [unreadNotificationsId, setUnreadNotificationsId] = useState([]);
   const router = useRouter();
+  const ifMyProfile = router?.query?.pid === user?._id;
+  const ifNotData = !user?.content || !user?.name || !user?.genresIds?.length;
+  const showWarning = !!user && router.query.editModal !== 'true' && ifNotData;
+
   const getNotificationsCount = useCallback(() => {
     if (!user) return;
     findNotificationsCount(
@@ -80,12 +86,12 @@ const Header = ({ user, path }) => {
 
   const openMenu = (e) => {
     e.nativeEvent.stopImmediatePropagation();
-    handleManuOpen(!isOpen);
+    handleMenuOpen(!isOpen);
     const el = document.body;
     if (!isOpen) {
-      el.classList.add(styles.body_scrool);
+      el.classList.add(styles.body_scroll);
     } else {
-      el.classList.remove(styles.body_scrool);
+      el.classList.remove(styles.body_scroll);
     }
   };
 
@@ -99,30 +105,13 @@ const Header = ({ user, path }) => {
   };
 
   const handleDocumentClick = () => {
-    handleManuOpen(false);
+    handleMenuOpen(false);
     const el = document.body;
-    el.classList.remove(styles.body_scrool);
-  };
-
-  const addEvent = () => {
-    if (!user?._id) {
-      return;
-    }
-    const data = [
-      {
-        platform: 'WEB',
-        event_type: EVENTS.CREATE_PROJECT_START,
-        user_id: user._id,
-        user_properties: {
-          ...user,
-        },
-      },
-    ];
-    amplitude.track(data);
+    el.classList.remove(styles.body_scroll);
   };
 
   return (
-    <div className={styles.header_cont}>
+    <div className={cn(styles.header_cont, showWarning && styles.isWarning)}>
       <header className={`${styles.header} navbar menubar`}>
         <div className={'container'}>
           <div className={styles.header__top}>
@@ -133,7 +122,7 @@ const Header = ({ user, path }) => {
                 <span></span>
               </div>
             </div>
-            <Link href="/">
+            <Link href={user ? '/feed' : '/'}>
               <a className={styles.header__logo}>
                 <Imgix
                   priority
@@ -142,7 +131,7 @@ const Header = ({ user, path }) => {
                   height={30}
                   quality={50}
                   src="https://mangafy.club/img/logo-new.webp"
-                  alt=""
+                  alt="MangaFy logo"
                 />
               </a>
             </Link>
@@ -151,14 +140,9 @@ const Header = ({ user, path }) => {
                 <Popover
                   overlayClassName={styles.popover}
                   placement="bottomRight"
-                  content={
-                    <MenuMobilePopover
-                      user={user}
-                      unreadNotificationsId={unreadNotificationsId}
-                      notificationsCount={notificationsCount}
-                      removeAllStorage={removeAllStorage}
-                    />
-                  }
+                  content={<MenuMobilePopover removeAllStorage={removeAllStorage} user={user} />}
+                  visible={showNotification}
+                  onVisibleChange={(visible) => setShowNotification(visible)}
                   trigger="click">
                   <div className={cn(styles.img, styles.imgOnline)}>
                     <div className={styles.avatar}>
@@ -168,6 +152,7 @@ const Header = ({ user, path }) => {
                           height={52}
                           className="avatar"
                           src={client.UPLOAD_URL + user.avatar}
+                          alt="MangaFy avatar"
                         />
                       ) : (
                         <Avatar text={user.name} fontSize={20} />
@@ -178,14 +163,13 @@ const Header = ({ user, path }) => {
               ) : (
                 <Link href="/sign-in">
                   <a>
-                    <img src="/img/header-log-in.svg" alt="" />
-                    {/* TODO: chage to svg component */}
+                    <SvgLoginUser width={22} height={22} />
                   </a>
                 </Link>
               )}
             </div>
             <div className={styles.header__leftNav}>
-              <Link href="/collaborations?compensationModel=paid">
+              {/* <Link href="/collaborations?compensationModel=paid">
                 <a
                   className={cn(
                     styles.header__menu,
@@ -195,14 +179,12 @@ const Header = ({ user, path }) => {
                   )}>
                   Paid projects
                 </a>
-              </Link>
-              <Link href="/collaborations?compensationModel=collaboration">
+              </Link> */}
+              <Link href="/collaborations">
                 <a
                   className={cn(
                     styles.header__menu,
-                    router.pathname === '/collaborations' &&
-                      router.query.compensationModel === 'collaboration' &&
-                      styles.header__menu_active
+                    router.pathname === '/collaborations' && styles.header__menu_active
                   )}>
                   Collabs
                 </a>
@@ -244,8 +226,8 @@ const Header = ({ user, path }) => {
                       </Badge>
                     </Popover>
                   </span>
-                  {path !== 'myProfile' && (
-                    <Link href="/my-profile">
+                  {!ifMyProfile && (
+                    <Link href={`/profile/${user._id}`}>
                       <a className={styles.header__menu}>
                         <span className={styles.user_img}>
                           <span>Profile</span>
@@ -267,7 +249,7 @@ const Header = ({ user, path }) => {
                       </a>
                     </Link>
                   )}
-                  {path === 'myProfile' && (
+                  {ifMyProfile && (
                     <a
                       className={cn(
                         path === 'main' ? 'whiteButton' : 'exploreBtn',
@@ -279,28 +261,65 @@ const Header = ({ user, path }) => {
                   )}
                 </>
               ) : (
-                <Link href="/sign-in">
-                  <a
-                    className={cn(
-                      styles.header__menu,
-                      router.pathname === '/sign-in' && styles.header__menu_active
-                    )}>
-                    Log in
-                  </a>
-                </Link>
+                <>
+                  <Link href="/sign-in">
+                    <a
+                      className={cn(
+                        styles.header__menu,
+                        router.pathname === '/sign-in' && styles.header__menu_active
+                      )}>
+                      Log in
+                    </a>
+                  </Link>
+                  <Link href="/sign-up">
+                    <a className={styles.header__menu}>
+                      <PrimaryButton className={styles.join} text="Join"></PrimaryButton>
+                    </a>
+                  </Link>
+                </>
               )}
             </div>
-            <span className={cn(styles.btn_submit)} onClick={addEvent}>
+            <span className={cn(styles.btn_submit)}>
+              {user && (
+                <PrimaryButton
+                  isWhite={true}
+                  className={styles.inviteMembers}
+                  text={
+                    <div className={styles.inviteMembersButton}>
+                      <AddButton
+                        className={styles.addButtonInvite}
+                        width="18x"
+                        height="18x"
+                        text={''}
+                      />
+                      <p className={styles.fullInviteName}>Add Friend</p>
+                    </div>
+                  }
+                  onClick={() => {
+                    setShowModal(true);
+                  }}
+                />
+              )}
               <Link href="/create-a-story/start">
                 <a className={cn('btn_submit')}>
-                  <PrimaryButton text="Start a project" />
+                  <PrimaryButton text="Start a project" className={styles.fullStartProject} />
+                  <PrimaryButton text="Start" className={styles.startProject} />
                 </a>
               </Link>
             </span>
           </div>
         </div>
-        {isOpen && <MenuLinks isOpen={isOpen} user={user} />}
+        {isOpen && (
+          <MenuLinks
+            isOpen={isOpen}
+            user={user}
+            setShowModal={setShowModal}
+            handleMenuOpen={handleMenuOpen}
+          />
+        )}
+        {showWarning && <WarningFillAllData user={user} setShowModalEdit={setShowModalEdit} />}
       </header>
+      <ModalInviteMembers showModal={showModal} setShowModal={setShowModal} user={user} />
     </div>
   );
 };
@@ -308,129 +327,13 @@ const Header = ({ user, path }) => {
 Header.propTypes = {
   user: PropTypes.object,
   path: PropTypes.string,
+  setShowModalEdit: PropTypes.func,
 };
 
 Header.defaultProps = {
   user: null,
   path: '',
-};
-
-const MenuLinks = ({ isOpen, user }) => {
-  const initialLinks = [
-    {
-      text: 'About Us',
-      link: 'about',
-    },
-    {
-      text: 'Terms',
-      link: 'terms',
-    },
-    {
-      text: 'Privacy Policy',
-      link: 'privacy-policy',
-    },
-  ];
-
-  const links = initialLinks.map((link, i) => (
-    <li className={styles.menu_item} key={i}>
-      <Link href={`/${link.link}`}>
-        <a>{link.text}</a>
-      </Link>
-    </li>
-  ));
-  return (
-    <div id="menu" className={`${styles.mobile_menu} ${isOpen && styles.isOpen}`}>
-      <div className={styles.menu_inner}>
-        <div className={styles.mobile_div_part1}>
-          {user ? (
-            <>
-              <ul className={styles.main_list}>
-                <li className={styles.menu_item}>
-                  <Link href="/collaborations?compensationModel=paid">Paid projects</Link>
-                </li>
-                <li className={styles.menu_item}>
-                  <Link href="/collaborations">Collabs</Link>
-                </li>
-                <li className={styles.menu_item}>
-                  <Link href="/profiles">People</Link>
-                </li>
-                <li className={styles.menu_item}>
-                  <Link href="/create-a-story/start">Create a collab</Link>
-                </li>
-                {/* <li className={styles.menu_item}>
-                  <Link href="/pricing">Go Pro</Link>
-                </li> */}
-              </ul>
-              <ul className={cn(`${styles.main_list} ${styles.ul_login}`)}>
-                <li className={styles.menu_item}>
-                  <Link href="/my-profile">Profile</Link>
-                </li>
-                {/* <li className={styles.menu_item}>
-                  <Link href="/collaborations?compensationModel=paid">Work Availability</Link>
-                </li> */}
-                <li className={styles.menu_item}>
-                  <Link href="/my-profile">My Notifications</Link>
-                </li>
-                {/* <li className={styles.menu_item}>
-                  <Link href="/settings">Account settings</Link>
-                </li> */}
-                <li className={styles.menu_item} onClick={removeAllStorage}>
-                  <Link href="/sign-in">Sign out</Link>
-                </li>
-              </ul>
-            </>
-          ) : (
-            <ul className={styles.main_list}>
-              <li className={styles.menu_item}>
-                <Link href="/sign-in">Sign in</Link>
-              </li>
-              <li className={styles.menu_item}>
-                <Link href="/collaborations?compensationModel=paid">Paid projects</Link>
-              </li>
-              <li className={styles.menu_item}>
-                <Link href="/collaborations">Collabs</Link>
-              </li>
-              <li className={styles.menu_item}>
-                <Link href="/create-a-story/start">Create a collab</Link>
-              </li>
-              <li className={styles.menu_item}>
-                <Link href="/profiles">People</Link>
-              </li>
-              {/* <li className={styles.menu_item}>
-                <Link href="/pricing">Go Pro</Link>
-              </li> */}
-            </ul>
-          )}
-        </div>
-        <div className={styles.mobile_div_part2}>
-          <ul className={styles.links}>{links}</ul>
-          <div className={styles.image_block}>
-            <Imgix
-              width={257}
-              height={236}
-              layout="fixed"
-              src={
-                user
-                  ? 'https://mangafy.club/img/Frame2.webp'
-                  : 'https://mangafy.club/img/Frame.webp'
-              }
-              alt=""
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-MenuLinks.propTypes = {
-  isOpen: PropTypes.bool,
-  user: PropTypes.object,
-};
-
-MenuLinks.defaultProps = {
-  isOpen: false,
-  user: null,
+  setShowModalEdit: () => {},
 };
 
 export default Header;

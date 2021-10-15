@@ -1,0 +1,95 @@
+@import '../../../../../styles/variables.scss';
+
+@mixin container {
+  border-bottom: 0.5px solid #f1f1f1;
+  .description{
+    padding-right: 10px;
+    margin-left: 20px;
+    margin-top: 10px;
+  }
+  .userName {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    .avatarHiderMobile{
+      display: none;
+      @include media-sm {
+        display: block;
+        & div > img {
+          border-radius: 50%;
+          object-fit: cover;
+        }
+      }
+    }
+    a {
+      font-style: normal;
+      font-weight: 900;
+      font-size: $text3;
+      line-height: 20px;
+      color: $black;
+      margin-bottom: 5px;
+      &:hover {
+        color: $primaryDark;
+      }
+      @include media-sm {
+        font-size: $text4;
+      }
+    }
+    @include media-sm {
+      a {
+        font-weight: bold;
+      }
+      height: 26px;
+      margin-left: 29px;
+    }
+  }
+  .members {
+    color: $grey;
+    cursor: pointer;
+    font-size: $text5;
+  }
+}
+
+.container {
+  @include container;
+  svg{
+    display: none;
+  }
+  @include media-sm {
+    display: none;
+  }
+  & + div {
+    max-height: 505px;
+    min-height: 505px;
+    top: 80px !important;
+    @include media-sm {
+      max-height: 490px;
+      min-height: 370px;
+      top: 0px !important;
+    }
+  }
+}
+
+.containerMobile {
+  @include container;
+  display: none;
+  @include media-sm {
+    display: flex;
+    align-items: center;
+    height: 64px;
+    margin-top: 8px;
+    position: relative;
+    // border-top: 1px solid rgba(33, 33, 33, 0.07);
+    border-bottom: 1px solid rgba(33, 33, 33, 0.07);
+    svg {
+      display: block;
+      margin-left: 10px;
+    } 
+  }
+}
+.avatarName {
+  font-size: initial !important;
+  @include media-sm {
+    font-size: 20px !important;
+  }
+}

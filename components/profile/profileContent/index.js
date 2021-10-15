@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 
 import { Tabs, Layout, Row, Col } from 'antd';
 import cn from 'classnames';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import PropTypes from 'prop-types';
 import * as qs from 'query-string';
+import myAmplitude from 'utils/amplitude';
 
 import styles from './styles.module.scss';
 import TabCommissionPricing from './tabCommissionPricing';
@@ -24,21 +26,48 @@ const ProfileContent = (props) => {
     user,
     userData,
     userGenres,
+    profileGenres,
     handleChangeGenres,
     profile,
     mangaStories,
-    genresEnums,
+    mangaStoriesMyProfile,
+    genresMyProfileEnums,
     genres,
     total,
-    profileGenres,
-    isMyProfile,
+    ifMyProfile,
   } = props;
 
-  const [selectedTab, setSelectidTab] = useState('1');
+  const sendEvent = (event) => {
+    let tab;
+    switch (event) {
+      case '1':
+        tab = 'story';
+        break;
+      case '2':
+        tab = 'gallery';
+        break;
+      case '3':
+        tab = 'services';
+        break;
+      default:
+        tab = 'messenger';
+    }
+    const data = {
+      event_type: EVENTS.CHECKED_ACCOUNT_TABS,
+      event_properties: { tab, profileId: profile?._id },
+      user_id: user?._id,
+      user_properties: {
+        ...user,
+      },
+    };
+    myAmplitude(data);
+  };
+
+  const [selectedTab, setSelectIdTab] = useState('1');
   const tabPanels = [
     {
       key: '1',
-      tab: 'STORY',
+      tab: 'PROFILE',
       component: (
         <TabStory
           {...{
@@ -49,26 +78,28 @@ const ProfileContent = (props) => {
             setUserData,
             userData,
             userGenres,
+            profileGenres,
             handleChangeGenres,
-            genresEnums,
+            genresMyProfileEnums,
             genres,
             total,
             profile,
-            profileGenres,
-            isMyProfile,
+            ifMyProfile,
           }}
         />
       ),
     },
     {
       key: '2',
-      tab: 'GALLERY AND SOCIAL',
+      tab: 'PORTFOLIO',
       component: (
         <TabPortfolio
           {...{
             user,
             profile,
             mangaStories,
+            mangaStoriesMyProfile,
+            ifMyProfile,
           }}
         />
       ),
@@ -84,19 +115,19 @@ const ProfileContent = (props) => {
 
     switch (tab) {
       case 'story':
-        setSelectidTab('1');
+        setSelectIdTab('1');
         break;
       case 'gallery':
-        setSelectidTab('2');
+        setSelectIdTab('2');
         break;
       case 'services':
-        setSelectidTab('3');
+        setSelectIdTab('3');
         break;
       case 'messenger':
-        setSelectidTab('4');
+        setSelectIdTab('4');
         break;
       default:
-        setSelectidTab('1');
+        setSelectIdTab('1');
     }
   }, [user]);
 
@@ -109,13 +140,18 @@ const ProfileContent = (props) => {
         )}>
         <Row>
           <Col span={24}>
-            <Tabs activeKey={selectedTab} onTabClick={setSelectidTab}>
+            <Tabs
+              activeKey={selectedTab}
+              onTabClick={(e) => {
+                setSelectIdTab(e);
+                sendEvent(e);
+              }}>
               {tabPanels.map((tabPanel) => (
                 <TabPane tab={tabPanel.tab} key={tabPanel.key}>
                   {tabPanel.component}
                 </TabPane>
               ))}
-              {isMyProfile && (
+              {ifMyProfile && (
                 <TabPane tab="MESSENGER" key={'4'}>
                   <TabMessenger {...{ user }} />
                 </TabPane>
@@ -140,11 +176,12 @@ ProfileContent.propTypes = {
   handleChangeGenres: PropTypes.func,
   profile: PropTypes.object,
   mangaStories: PropTypes.array,
-  genresEnums: PropTypes.any,
+  mangaStoriesMyProfile: PropTypes.array,
+  genresMyProfileEnums: PropTypes.any,
   genres: PropTypes.array,
-  total: PropTypes.number,
+  total: PropTypes.array,
   profileGenres: PropTypes.array,
-  isMyProfile: PropTypes.bool,
+  ifMyProfile: PropTypes.bool,
 };
 
 ProfileContent.defaultProps = {
@@ -157,12 +194,13 @@ ProfileContent.defaultProps = {
   userData: null,
   userGenres: null,
   profile: null,
-  mangaStories: null,
-  genresEnums: null,
+  mangaStoriesMyProfile: null,
+  genresMyProfileEnums: null,
   genres: null,
-  total: null,
+  total: [],
   profileGenres: null,
-  isMyProfile: null,
+  ifMyProfile: null,
+  mangaStories: null,
 };
 
 export default ProfileContent;

@@ -1,11 +1,10 @@
 @import '../../styles/variables.scss';
 
 .projectScripts {
-  margin-top: 10px;
   overflow-x: auto;
   white-space: nowrap;
   &::-webkit-scrollbar {
-    height: 3px;
+    height: 5px;
   }
 
   &::-webkit-scrollbar-track {
@@ -28,108 +27,163 @@
     @include media-sm {
       width: 220px !important;
     }
-    .text {
-      display: flex !important;
-      justify-content: flex-start !important;
-      margin-top: 40px;
-      @include media-sm {
-        margin-top: 20px;
-      }
-      form {
-        textarea {
-          transition: 0.5s;
-          width: 100% !important;
-          font-size: $text3;
-          @include media-sm {
-            font-size: $text5;
-          }
-        }
-        input {
-          transition: 0.5s;
-          width: 100% !important;
-          @include media-sm {
-            font-size: $text4;
-          }
-        }
-      }
-    }
-    .delete {
-      display: block;
-    }
   }
+  .scriptDef,
   .script {
+    width: 300px;
     position: relative;
     box-sizing: border-box;
     transition: width 0.5s;
-    height: 640px;
-    border-top: 2px solid rgba(33, 33, 33, 0.07);
-    border-right: 2px solid rgba(33, 33, 33, 0.07);
-    width: 178px;
+    height: 687px;
+    border-right: 0.5px solid rgba(33, 33, 33, 0.07);
     display: inline-block;
     white-space: normal;
     cursor: pointer;
     @include media-sm {
-      height: 302px;
-      width: 138px;
+      width: 100%;
+      height: 417px;
     }
     &:hover {
       .text {
-        svg {
-          path {
-            fill: $primaryDark;
+        .titleButton {
+          svg {
+            path {
+              fill: $primaryDark;
+            }
           }
+        }
+        h4 {
+          color: $black;
         }
       }
     }
-
     .content {
       display: table;
-      padding: 10px;
       width: 100%;
-      height: 99%;
+      height: 90%;
+      .pageCount {
+        width: 100%;
+        height: 55px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: normal;
+        font-size: 20px;
+        line-height: 29px;
+        color: $gray85;
+        border-bottom: 0.5px solid rgba(33, 33, 33, 0.07);
+      }
       .text {
         display: flex;
-        height: 95%;
         width: 100%;
         align-items: center;
-        justify-content: center;
         flex-direction: column;
       }
-      form {
-        textarea {
-          transition: 0.5s;
-          width: 170px;
-          @include media-sm {
-            width: 120px;
-          }
-        }
-        input {
-          transition: 0.5s;
-          width: 170px;
-          @include media-sm {
-            width: 120px;
-          }
+      .addButtonContainer {
+        max-width: 267px;
+        min-height: 251px;
+        width: 267px;
+        overflow: hidden;
+        margin-top: 126px;
+        margin-bottom: 20px;
+        @include media-sm {
+          width: 228px;
+          height: 261px;
+          margin-top: 48px;
+          background: #fbfbfb;
+          border-radius: 10px;
         }
       }
+      .addButtonContainerDef {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 170px;
+        @include media-sm {
+          margin-top: 106px;
+        }
+      }
+      .deletePage {
+        width: 31px;
+        height: 31px;
+        border: 0.5px solid #858585;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: auto;
+        &:hover {
+          background-color: $primaryDark;
+          svg path {
+            fill: white;
+          }
+        }
+        @include media-sm {
+          display: none;
+        }
+      }
+      .titleButton {
+        font-weight: normal;
+        font-size: 25px;
+        line-height: 36px;
+        svg path {
+          fill: #e5e0fd;
+        }
+        color: #b6b2b2;
+        margin: 0;
+      }
       .title {
-        font-size: $text3;
-        color: $grey;
+        font-weight: bold;
+        max-height: 53px;
+        min-height: 40px;
+        overflow: hidden;
+        font-size: 25px;
+        color: $black;
+        line-height: 28px;
+        margin-bottom: 20px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        white-space: pre-wrap;
+        -webkit-box-orient: vertical;
+        overflow-wrap: break-word;
+
         @include media-sm {
           font-size: $text4;
+          line-height: $text3;
+          margin-left: 19px;
+          margin-top: 15px;
+          max-width: 80%;
         }
       }
       .description {
-        height: 108px;
         display: -webkit-box;
         -webkit-line-clamp: 7;
         white-space: pre-wrap;
         -webkit-box-orient: vertical;
         overflow: hidden;
         text-overflow: ellipsis;
-        font-size: $text5;
-        color: #cfcfcf;
+        font-weight: normal;
+        font-size: $text4;
+        word-wrap: break-word;
+        line-height: $text3;
+        margin-bottom: 0px;
+        color: #949494;
+        min-height: 40px;
+        @include media-sm {
+          margin-left: 19px;
+          width: 189px;
+          height: 120px;
+          margin-bottom: 24px;
+          font-weight: normal;
+          font-size: $text5;
+          line-height: $text4;
+        }
       }
     }
+  }
+  .scriptDef {
+    width: 250px;
   }
   .disabled {
     &:hover {
@@ -138,10 +192,16 @@
           fill: #e5e0fd !important;
         }
       }
+      .text {
+        h4 {
+          color: #b6b2b2;
+        }
+      }
     }
     cursor: not-allowed;
   }
   .delete {
+    top: 82%;
     position: absolute;
     bottom: 20px;
     cursor: pointer;
@@ -151,8 +211,368 @@
     &:hover {
       svg {
         path {
-          fill: red;
+          fill: $red;
         }
+      }
+    }
+    @include media-sm {
+      top: 85%;
+    }
+  }
+}
+.addPageModal {
+  margin-top: 44px;
+  max-width: 1507px;
+  height: calc(100vh - 160px);
+  padding: 0;
+  width: 100% !important;
+  border-radius: 10px;
+  background-color: white;
+  @include media-lg {
+    width: 95% !important;
+  }
+  @include media-lg {
+    height: 800px;
+  }
+  @include media-sm {
+    height: calc(100vh - 135px);
+  }
+  @include media-xs {
+    margin-top: 0px;
+  }
+  .titleError {
+    position: absolute;
+    top: 130px;
+    left: 76px;
+    color: rgb(228, 74, 74);
+    @include media-md {
+      left: 50px;
+    }
+    @include media-xs {
+      top: 90px;
+      left: 20px;
+      font-size: 12px;
+    }
+  }
+  .borderTitle {
+    width: 100%;
+    position: absolute;
+    top: 183px;
+    height: 2.95px;
+    background: linear-gradient(90deg, rgba(33, 33, 33, 0.07) -0.96%, rgba(33, 33, 33, 0) 100.58%);
+    @include media-xs {
+      top: 120px;
+    }
+  }
+  & > div {
+    border-radius: 10px;
+    box-shadow: none;
+    & > div {
+      padding: 0;
+      form {
+        .titlePage {
+          margin: 0;
+          margin-bottom: 31.4px;
+          height: 191px;
+          position: relative;
+          display: flex;
+          flex-direction: column-reverse;
+          justify-content: space-between;
+          @include media-xs {
+            height: 120px;
+          }
+          .titleInput {
+            border: 1px solid $red;
+          }
+          div {
+            height: 100%;
+            div[role='alert'] {
+              margin-top: 26px;
+              margin-left: 78px;
+              height: $text1;
+              @include media-xs {
+                margin-left: 64px;
+              }
+              @include media-xs {
+                margin-left: 16px;
+              }
+            }
+          }
+          input {
+            width: 400px;
+            height: 60px;
+            margin-top: 60.16px;
+            margin-left: 69px;
+            font-weight: normal;
+            font-size: 20px;
+            line-height: 29px;
+            padding-left: 20px;
+            color: $gray85;
+            border: 1px solid $primaryDark;
+            background: white;
+            border-radius: 10px;
+            @include media-lg {
+              margin-left: 53px;
+            }
+            @include media-md {
+              margin-left: 38px;
+            }
+            @include media-xs {
+              width: 266px;
+              height: 50px;
+              margin-left: 10px;
+              font-size: 16px;
+              margin-top: 34.16px;
+            }
+            @include media-sm {
+              padding-left: 15px;
+            }
+            &::placeholder {
+              font-weight: normal;
+              font-size: 20px;
+              line-height: 29px;
+              color: $gray85;
+              @include media-xs {
+                font-size: 16px;
+              }
+            }
+          }
+          .pageTitleContainer {
+            margin-top: 60.16px;
+            margin-left: 69px;
+            height: 49.25px;
+            display: flex;
+            align-items: center;
+            @include media-lg {
+              margin-left: 53px;
+            }
+            @include media-md {
+              margin-left: 38px;
+            }
+            @include media-xs {
+              width: 100%;
+              margin-left: 10px;
+              margin-top: 34.16px;
+            }
+            h3 {
+              max-width: 70%;
+              overflow: hidden;
+              height: 45px;
+              display: flex;
+              align-items: center;
+              margin: 0;
+              font-weight: bold;
+              font-size: 40px;
+              line-height: 35px;
+              color: $black;
+              display: -webkit-box;
+              -webkit-line-clamp: 1;
+              white-space: pre-wrap;
+              -webkit-box-orient: vertical;
+              @include media-sm {
+                font-size: 30px;
+              }
+            }
+            .editAboutButton {
+              margin-left: 65px;
+              @include media-sm {
+                width: 30px !important;
+                height: 30px !important;
+              }
+            }
+          }
+        }
+      }
+      .descriptionPage {
+        .textareaPage {
+          overflow-y: auto;
+        }
+        div {
+          width: 100%;
+          margin: 0;
+          @media (max-width: 1500px) {
+            display: flex;
+            justify-content: center;
+          }
+        }
+        p {
+          width: 238.37px;
+          height: 37.01px;
+          margin: 0;
+          margin-left: 12px !important;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-weight: normal;
+          font-size: 24px;
+          line-height: 35px;
+          color: $gray85;
+          @include media-md {
+            width: 190px;
+          }
+          @include media-xs {
+            width: 64px;
+            font-size: 18px;
+          }
+        }
+        textarea {
+          max-width: 1374px;
+          min-width: 394px;
+          min-height: 200px !important;
+          width: 100%;
+          margin-top: 42.99px;
+          border: 1px solid $primaryDark;
+          background: white;
+          border-radius: 10px;
+          padding-left: 20px;
+          margin-left: 72px;
+          padding-right: 20px;
+          padding-top: 26px;
+          font-weight: normal;
+          font-size: 20px;
+          line-height: 29px !important;
+          color: $gray85;
+          resize: none;
+          overflow: hidden;
+          @media (max-width: 1500px) {
+            width: 90%;
+            margin-left: 0;
+          }
+          @include media-xs {
+            width: 94%;
+            min-width: 200px;
+            margin-left: 10px;
+            margin-right: 10px;
+            font-size: 16px;
+            padding-right: 20px;
+            padding-top: 45px;
+            font-size: 16px;
+          }
+          @include media-sm {
+            padding-top: 22px;
+            padding-left: 15px;
+          }
+          &::placeholder {
+            max-width: 1210px;
+            height: 87px;
+            font-weight: normal;
+            font-size: 20px;
+            line-height: 29px;
+            color: $gray85;
+            line-height: 40px;
+            position: relative;
+            top: -6px;
+            @include media-lg {
+              line-height: 30px;
+              font-size: 16px;
+              top: 0px;
+            }
+          }
+        }
+      }
+    }
+    & > button {
+      &:hover {
+        svg {
+          path {
+            fill: white;
+          }
+        }
+      }
+      & > span {
+        width: 43px;
+        height: 43px;
+        background-color: #aca0f0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        margin-top: 29px;
+        margin-right: 40px;
+        @include media-xs {
+          margin-right: 10px;
+          margin-top: 15px;
+          width: 35px;
+          height: 35px;
+          svg {
+            width: 16px;
+            height: 16px;
+          }
+        }
+        &:hover {
+          background-color: $primaryDark;
+          svg {
+            path {
+              fill: white;
+            }
+          }
+        }
+        svg path {
+          fill: white;
+        }
+      }
+    }
+    .addPageButtonContainer {
+      margin-top: 151px;
+      height: 80px;
+      margin-right: 60px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      @include media-lg {
+        margin-left: 55px;
+      }
+      @include media-md {
+        margin-right: 34px;
+      }
+      @include media-xs {
+        margin-top: 100px;
+        margin-right: 15px;
+        margin-left: 10px;
+      }
+      .deletePageFromModal {
+        width: 60.7px;
+        height: 60.7px;
+        border: 1px solid #e5e5e5;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 34.3px;
+        @include media-xs {
+          width: 50px;
+          height: 50px;
+          svg {
+            width: 20px !important;
+            height: 20px !important;
+          }
+        }
+        &:hover {
+          background-color: $primaryDark;
+          svg path {
+            fill: white;
+          }
+        }
+
+        svg path {
+          fill: $gray85;
+        }
+      }
+      button {
+        width: 165.83px;
+        height: 68.11px;
+        font-weight: 900;
+        font-size: 15px;
+        line-height: 22px;
+        color: white;
+        @include media-xs {
+          width: 135.83px;
+          height: 58.11px;
+          font-size: 12px;
+        }
+      }
+      .saveChange {
+        margin-right: 22.21px;
       }
     }
   }

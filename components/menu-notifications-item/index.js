@@ -26,15 +26,67 @@ const MenuNotificationsItem = ({
   type,
   requestId,
   user,
+  params,
 }) => {
-  const [verify, setVerifai] = useState(null);
+  const [verify, setVerify] = useState(null);
   const addUnreadNotificationsId = () => {
     if (!verified && !verify) {
-      setVerifai(true);
+      setVerify(true);
       const newUnreadNotificationsId = [_id];
       patchNotification(newUnreadNotificationsId);
     }
   };
+
+  const AvatarNotifications = () => (
+    <div className={styles.box__img}>
+      {icon ? (
+        <Imgix
+          width={52}
+          height={52}
+          src={`${client.UPLOAD_URL}${icon}`}
+          alt="MangaFy notification icon"
+        />
+      ) : (
+        <Avatar text={type === 'NEW_POST_LIKE' ? params.userName : title} size={52} />
+      )}
+    </div>
+  );
+
+  const NotificationsItem = () => (
+    <div onClick={addUnreadNotificationsId} className={styles.flex}>
+      {profileId ? (
+        <Link href={`/profile/${profileId}`}>
+          <a>
+            <AvatarNotifications />
+          </a>
+        </Link>
+      ) : (
+        <AvatarNotifications />
+      )}
+      <div className={styles.box__content}>
+        <div className={styles.box__title_wrap}>
+          <div className={styles.box__title}>
+            <p className={styles.box__title_text}>{title}</p>
+          </div>
+          <div className={styles.box__description}>
+            <p className={styles.box__description_text}>{description}</p>
+          </div>
+        </div>
+        {image && (
+          <div className={styles.box__post}>
+            <Imgix
+              layout="fixed"
+              width={100}
+              height={50}
+              className={styles.box__image}
+              src={client.UPLOAD_URL + image}
+              alt="MangaFy notification"
+            />
+          </div>
+        )}
+      </div>
+    </div>
+  );
 
   return (
     <>
@@ -46,46 +98,15 @@ const MenuNotificationsItem = ({
           <button className={styles.isVerifiedBtn} onClick={addUnreadNotificationsId}></button>
         </Tooltip>
         <div>
-          <Link href={navigateTo || '#'}>
-            <div onClick={addUnreadNotificationsId} className={styles.flex}>
-              <Link href={`/profile/${profileId}`}>
-                <div className={styles.box__img}>
-                  {icon ? (
-                    <Imgix
-                      width={52}
-                      height={52}
-                      src={`${client.UPLOAD_URL}${icon}`}
-                      alt="Notification icon img"
-                    />
-                  ) : (
-                    <Avatar text={title} size={52} />
-                  )}
-                </div>
-              </Link>
-              <div className={styles.box__content}>
-                <div className={styles.box__title_wrap}>
-                  <div className={styles.box__title}>
-                    <p className={styles.box__title_text}>{title}</p>
-                  </div>
-                  <div className={styles.box__description}>
-                    <p className={styles.box__description_text}>{description}</p>
-                  </div>
-                </div>
-                {image && (
-                  <div className={styles.box__post}>
-                    <Imgix
-                      layout="fixed"
-                      width={100}
-                      height={50}
-                      className={styles.box__image}
-                      src={client.UPLOAD_URL + image}
-                      alt=""
-                    />
-                  </div>
-                )}
-              </div>
-            </div>
-          </Link>
+          {navigateTo ? (
+            <Link href={navigateTo || '#'}>
+              <a>
+                <NotificationsItem />
+              </a>
+            </Link>
+          ) : (
+            <NotificationsItem />
+          )}
           {(type === 'GET_INVITE_FOR_COLLABORATION' ||
             type === 'SOMEONE_REQUEST_FOR_COLLABORATION') && (
             <MenuNotificationsInvite
@@ -104,6 +125,7 @@ const MenuNotificationsItem = ({
     </>
   );
 };
+
 MenuNotificationsItem.propTypes = {
   _id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
@@ -118,6 +140,7 @@ MenuNotificationsItem.propTypes = {
   type: PropTypes.string,
   requestId: PropTypes.string,
   user: PropTypes.object.isRequired,
+  params: PropTypes.object,
 };
 
 MenuNotificationsItem.defaultProps = {
@@ -127,6 +150,7 @@ MenuNotificationsItem.defaultProps = {
   verified: false,
   navigateTo: '',
   type: null,
+  params: {},
 };
 
 export default MenuNotificationsItem;

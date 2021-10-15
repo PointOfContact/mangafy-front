@@ -6,32 +6,42 @@ import Header from 'components/header';
 import Imgix from 'components/imgix';
 import { ShareButtons } from 'components/share';
 import ButtonToTop from 'components/ui-elements/button-toTop';
-import Head from 'next/head';
+import FooterLogin from 'features/footerLogin';
+import { NextSeo } from 'next-seo';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
 const MangaSpeechBasic = ({ user }) => (
   <>
-    <Head>
-      <title>Manga Speech Basic</title>
-      <meta
-        name="Manga Speech and SFX basics"
-        content="Hey All, and welcome to yet another Manga basics tutorial thanks to our in-house resident advisor and staff member, 
-        Mina Petrovic (aka Mistiqarts) 😊 This time, we will cover the basics of doing Speech and SFX basics when writting/illustrating a Manga.
-        Ready to start reading? we hope you enjoy."
-      />
-      <meta property="og:url" content="https://mangafy.club/resources/manga-speech-basic" />
-      <meta property="og:type" content="article" />
-      <meta property="og:title" content="Manga Speech and SFX basics" />
-      <meta
-        property="og:description"
-        content="Hey All, and welcome to yet another Manga basics tutorial thanks to our in-house resident advisor and staff member, 
-        Mina Petrovic (aka Mistiqarts) 😊 This time, we will cover the basics of doing Speech and SFX basics when writting/illustrating a Manga.
-        Ready to start reading? we hope you enjoy."
-      />
-      <meta property="og:image" content="https://mangafy.club/img/manga-speech-basic/1.png" />
-    </Head>
+    <NextSeo
+      title="Manga Speech Basic"
+      description="Hey All, and welcome to yet another Manga basics tutorial thanks to our in-house resident advisor and staff member, 
+      Mina Petrovic (aka Mistiqarts) 😊 This time, we will cover the basics of doing Speech and SFX basics when writting/illustrating a Manga.
+      Ready to start reading? we hope you enjoy."
+      canonical="https://mangafy.club/resources/manga-speech-basic"
+      openGraph={{
+        url: 'https://mangafy.club/resources/manga-speech-basic',
+        title: 'Manga Speech Basic',
+        description:
+          'Hey All, and welcome to yet another Manga basics tutorial thanks to our in-house resident advisor and staff member, Mina Petrovic (aka Mistiqarts) 😊 This time, we will cover the basics of doing Speech and SFX basics when writting/illustrating a Manga. Ready to start reading? we hope you enjoy.',
+        type: 'article',
+        images: [
+          {
+            url: 'https://mangafy.club/img/manga-speech-basic/1.png',
+            width: 800,
+            height: 600,
+            alt: 'Manga Story Image',
+          },
+        ],
+        site_name: 'MangaFY',
+      }}
+      twitter={{
+        handle: '@handle',
+        site: '@site',
+        cardType: 'summary_large_image',
+      }}
+    />
     <ButtonToTop />
     <div className={'wrapper'}>
       <div className={'content'}>
@@ -58,6 +68,7 @@ const MangaSpeechBasic = ({ user }) => (
               width={879}
               height={879}
               src={'https://mangafy.club/img/manga-speech-basic/1.png'}
+              alt="MangaFy speech basic"
             />
           </div>
           <div>
@@ -78,11 +89,13 @@ const MangaSpeechBasic = ({ user }) => (
               width={621}
               height={879}
               src={'https://mangafy.club/img/manga-speech-basic/2.png'}
+              alt="MangaFy speech basic"
             />
             <Imgix
               width={621}
               height={879}
               src={'https://mangafy.club/img/manga-speech-basic/3.png'}
+              alt="MangaFy speech basic"
             />
             <br />
             <strong>So...what are the basics? how do we get started?</strong>
@@ -90,36 +103,43 @@ const MangaSpeechBasic = ({ user }) => (
               width={621}
               height={879}
               src={'https://mangafy.club/img/manga-speech-basic/4.png'}
+              alt="MangaFy speech basic"
             />
             <Imgix
               width={621}
               height={879}
               src={'https://mangafy.club/img/manga-speech-basic/5.png'}
+              alt="MangaFy speech basic"
             />
             <Imgix
               width={621}
               height={879}
               src={'https://mangafy.club/img/manga-speech-basic/6.png'}
+              alt="MangaFy speech basic"
             />
             <Imgix
               width={621}
               height={879}
               src={'https://mangafy.club/img/manga-speech-basic/7.png'}
+              alt="MangaFy speech basic"
             />
             <Imgix
               width={621}
               height={879}
               src={'https://mangafy.club/img/manga-speech-basic/8.png'}
+              alt="MangaFy speech basic"
             />
             <Imgix
               width={621}
               height={879}
               src={'https://mangafy.club/img/manga-speech-basic/9.png'}
+              alt="MangaFy speech basic"
             />
             <Imgix
               width={621}
               height={879}
               src={'https://mangafy.club/img/manga-speech-basic/10.png'}
+              alt="MangaFy speech basic"
             />
 
             <p>
@@ -148,6 +168,7 @@ const MangaSpeechBasic = ({ user }) => (
       </div>
       <Footer />
       <FooterPolicy />
+      <FooterLogin user={user} />
     </div>
   </>
 );

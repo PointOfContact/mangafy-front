@@ -13,6 +13,7 @@ export const getServerSideProps = withAuthServerSideProps(
         }, // will be passed to the page component as props
       };
     } catch (error) {
+      console.log('Error: contact-us.js', error);
       return { props: {} };
     }
   }

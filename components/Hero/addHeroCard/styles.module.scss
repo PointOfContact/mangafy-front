@@ -1,0 +1,99 @@
+@import '../../../styles/variables.scss';
+
+.container {
+  margin-top: 70px;
+  width: 280.9px;
+  height: 179px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 100px;
+  &:hover {
+    & .showImage {
+      display: flex;
+      justify-content: center;
+      @include media-md {
+        img {
+          width: 106px !important;
+          height: auto !important;
+        }
+      }
+    }
+  }
+  @include media-sm {
+    width: 100%;
+    margin-top: 0;
+    margin-bottom: 0;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    & .showImage {
+      width: 140px;
+      display: flex;
+      justify-content: center;
+      img {
+        width: 106px !important;
+        height: auto !important;
+        min-height: 0 !important;
+      }
+    }
+  }
+}
+
+.containerTwo {
+  width: 280.9px;
+  height: 45px;
+  margin: 5px;
+  @include media-md {
+    width: 220px;
+  }
+}
+
+.addButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+  opacity: 0.5;
+  @include media-sm {
+    height: 160px;
+  }
+  &:hover {
+    opacity: 1;
+    cursor: pointer;
+  }
+}
+
+.addButtonTwo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 15px;
+  opacity: 0.5;
+  margin-left: 50px;
+  @include media-md {
+    margin-left: 0px;
+  }
+  @include media-xs {
+    font-size: 10px;
+  }
+  &:hover {
+    opacity: 1;
+    cursor: pointer;
+  }
+}
+
+.showImage {
+  display: none;
+}
+
+.addIcon {
+  width: 40px;
+}
+
+.addButtonText {
+  margin: 0;
+}
+
+.disabled {
+  cursor: not-allowed !important;
+}

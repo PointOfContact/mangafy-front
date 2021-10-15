@@ -4,14 +4,12 @@ import { InboxOutlined } from '@ant-design/icons';
 import { Button, notification, Upload } from 'antd';
 import client from 'api/client';
 import SvgLeftArrow from 'components/icon/LeftArrow';
+import Imgix from 'components/imgix';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import Head from 'next/head';
 import Link from 'next/link';
 import Router from 'next/router';
-
-const Amplitude = require('amplitude');
-
-const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
+import myAmplitude from 'utils/amplitude';
 
 const { Dragger } = Upload;
 
@@ -23,6 +21,7 @@ const Introduce = ({ user }) => {
   const openNotification = (type, message) => {
     notification[type]({
       message,
+      placement: 'bottomLeft',
     });
   };
 
@@ -63,7 +62,6 @@ const Introduce = ({ user }) => {
         .then((res) => {
           const data = [
             {
-              platform: 'WEB',
               event_type: EVENTS.CREATE_MANGA_STORY,
               user_id: user._id,
               user_properties: {
@@ -74,13 +72,13 @@ const Introduce = ({ user }) => {
               },
             },
           ];
-          amplitude.track(data);
+          myAmplitude(data);
           localStorage.removeItem('mangaStory');
           Router.push(`/manga-story/${res._id}`);
         })
         .catch((err) => {
           openNotification('error', err.message);
-          Router.push(`/my-profile`);
+          Router.push(`/profile/${user._id}`);
         });
     });
   };
@@ -132,7 +130,11 @@ const Introduce = ({ user }) => {
             <div className="col-lg-8">
               <div className="collab_div">
                 <div className="logo_img_comp">
-                  <img src="/img/logo.webp" width="250" alt="" />
+                  <Imgix
+                    layout="fill"
+                    src="https://mangafy.club/img/logo.webp"
+                    alt="MangaFy logo"
+                  />
                 </div>
                 <h1 className="collab">Time to catch the eye!</h1>
                 <p className="title_text">Add an image that clearly represents your project.</p>
@@ -162,9 +164,11 @@ const Introduce = ({ user }) => {
                     </Button>
                   ) : (
                     <Link href={'/sign-up'}>
-                      <button id="createAccountBtnId" type="primary" className="title_but">
-                        Create account!
-                      </button>
+                      <a>
+                        <button id="createAccountBtnId" type="primary" className="title_but">
+                          Create account!
+                        </button>
+                      </a>
                     </Link>
                   )}
                 </div>

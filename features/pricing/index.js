@@ -7,7 +7,8 @@ import BlackVector from 'components/icon/BlackVector';
 import WhiteVector from 'components/icon/WhiteVector';
 import Imgix from 'components/imgix';
 import LargeButton from 'components/ui-elements/large-button';
-import Head from 'next/head';
+import FooterLogin from 'features/footerLogin';
+import { NextSeo } from 'next-seo';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
@@ -51,13 +52,10 @@ const Pricing = (props) => {
 
   return (
     <div className="">
-      <Head>
-        <title>One tool for your whole team.</title>
-        <meta
-          name="description"
-          content="PRO account removes all restrictions and makes MangaFY an ultimate tool for dailiy conscious planning of your next great IP."
-        />
-      </Head>
+      <NextSeo
+        title="One tool for your whole team."
+        description="PRO account removes all restrictions and makes MangaFY an ultimate tool for dailiy conscious planning of your next great IP."
+      />
       <main className="main_back_2">
         <Header path="pricing" user={user} />
         <div className={styles.pricing_page}>
@@ -104,7 +102,7 @@ const Pricing = (props) => {
                     height={157}
                     layout="fixed"
                     src="https://mangafy.club/img/tools_image1.webp"
-                    alt=""
+                    alt="MangaFy tools"
                   />
                   <div className={styles.item_category}>Personal</div>
                   <div className={styles.item_price}>$0</div>
@@ -145,7 +143,7 @@ const Pricing = (props) => {
                     height={160}
                     layout="fixed"
                     src="https://mangafy.club/img/tools_image2.webp"
-                    alt=""
+                    alt="MangaFy tools"
                   />
                   <div className={styles.item_category}>Personal Pro</div>
                   <div className={styles.item_price}>
@@ -226,11 +224,11 @@ const Pricing = (props) => {
                       name="submit"
                     />
                     <img
-                      alt=""
                       border="0"
                       src="https://www.paypal.com/en_IL/i/scr/pixel.gif"
                       width="1"
                       height="1"
+                      alt="MangaFy pixel"
                     />
                   </form>
                   <div className={styles.item_title}>
@@ -279,7 +277,7 @@ const Pricing = (props) => {
                     height={160}
                     layout="fixed"
                     src="https://mangafy.club/img/tools_image3.webp"
-                    alt=""
+                    alt="MangaFy tools"
                   />
                   <div className={styles.item_category}>Plus Plus</div>
                   <div className={styles.item_price}>
@@ -362,11 +360,11 @@ const Pricing = (props) => {
                       name="submit"
                     />
                     <img
-                      alt=""
                       border="0"
                       src="https://www.paypal.com/en_IL/i/scr/pixel.gif"
                       width="1"
                       height="1"
+                      alt="MangaFy pixel"
                     />
                   </form>
                   <div className={styles.item_title}>
@@ -426,6 +424,7 @@ const Pricing = (props) => {
           </div>
         </div>
         <Footer />
+        <FooterLogin user={user} />
       </main>
     </div>
   );

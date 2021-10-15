@@ -1,6 +1,7 @@
 import React from 'react';
 
 import cn from 'classnames';
+import Imgix from 'components/imgix';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 
@@ -17,7 +18,7 @@ const Quest = ({ point, status, title, description, navUrl }) => (
           status === 'PROCESS' && styles.process
         )}>
         <div className={styles.point}>
-          <img src="/img/point.png" />
+          <Imgix layout="fill" src="https://mangafy.club/img/point.png" alt="MangaFy point" />
           {point && <span>{point}</span>}
         </div>
         <div className={styles.indo}>

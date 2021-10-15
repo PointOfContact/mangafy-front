@@ -7,8 +7,13 @@ import SvgHeart from 'components/icon/Heart';
 import Imgix from 'components/imgix';
 import ModalDiscussion from 'components/modals/discussion';
 import PrimaryButton from 'components/ui-elements/button';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import Link from 'next/link';
+import Router from 'next/router';
 import PropTypes from 'prop-types';
+import * as qs from 'query-string';
+import myAmplitude from 'utils/amplitude';
+import { LinkCreator } from 'utils/linkCreator';
 
 import DiscussionType from '../discussionType';
 import styles from './styles.module.scss';
@@ -30,13 +35,39 @@ const DiscussionCard = (props) => {
     likesCount,
     type,
   } = props;
+
   const [showModal, changeShowModal] = useState(false);
+
+  const openPost = (postId) => {
+    const parsed = qs.parse(window.location.search);
+    Router.push(
+      LinkCreator.toQuery({ ...parsed, postId }, '/feed'),
+      LinkCreator.toQuery({ ...parsed, postId }, '/feed'),
+      {
+        scroll: false,
+        shallow: true,
+      }
+    );
+    const data = {
+      event_type: EVENTS.OPENED_POST,
+      event_properties: { postId },
+      user_id: user?._id,
+      user_properties: {
+        ...user,
+      },
+    };
+    myAmplitude(data);
+
+    changeShowModal(true);
+  };
+
+  const ifVideo = img?.includes('youtube');
 
   return (
     <>
-      <div className={styles.projectsForYou_Card}>
+      <div className={styles.projectsForYou_card} onClick={() => openPost(id)}>
         <div className={styles.projectsForYou_Top}>
-          <Link href={logoNavigate}>
+          <Link href={logoNavigate || ''}>
             <a>
               <div
                 className={styles.projectsForYou_Logo}
@@ -67,36 +98,56 @@ const DiscussionCard = (props) => {
             </div>
           </div>
         </div>
-        <div onClick={() => changeShowModal(true)} className={styles.projectsForYou_MainImg}>
+        <div
+          className={cn(!img && styles.projectsForYou_mainImg, styles.projectsForYou_mainImgDef)}>
           <div className={styles.bgImg}>
-            <Imgix
-              className={(!img && styles.defaultBg) || ''}
-              layout="fill"
-              src={img ? `${client.UPLOAD_URL + img}` : `https://mangafy.club/img/mangastory.webp`}
-              alt=""
-            />
+            {img &&
+              (ifVideo ? (
+                <iframe
+                  loading="lazy"
+                  className={styles.postVideo}
+                  src={`${img}?autoplay=1&mute=1&controls=0&playlist=RBolDaIdg5M&loop=1&autopause=0`}
+                  title="YouTube video player"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen></iframe>
+              ) : (
+                <Imgix
+                  className={(!img && styles.defaultBg) || ''}
+                  layout="fill"
+                  src={`${client.UPLOAD_URL + img}`}
+                  alt="MangaFy story"
+                />
+              ))}
           </div>
-          <div className={styles.comments}>
+          <div className={cn(styles.comments, ifVideo && styles.comments_video)}>
             <div>
-              <span>{likesCount}</span>
+              <span>{!!likesCount && likesCount}</span>
               <SvgHeart width="20px" height="17px" />
-              <span>{commentsCount}</span>
+              <span>{!!commentsCount && commentsCount}</span>
               <SvgComment width="17px" height="17px" />
             </div>
           </div>
-          <span className={styles.cat}>{categories && categories[0]}</span>
+          {!!categories && !!categories[0] && img && (
+            <span className={cn(!img && styles.cat, styles.catDef)}>{categories[0]}</span>
+          )}
         </div>
 
-        <div className={styles.projectsForYou_BotDescr}>
+        <div
+          className={cn(!img && styles.projectsForYou_botDesc, styles.projectsForYou_botDescDef)}
+          onClick={() => openPost(id)}>
           <span>{subTitle}</span>
-          <Link href={url || '/'}>
-            <a>
-              <PrimaryButton
-                text={btnText}
-                suffix={<span style={{ marginLeft: '15px' }}>❯</span>}
-              />
-            </a>
-          </Link>
+          <div className={styles.containerButton}>
+            <Link href={url || '/'}>
+              <a>
+                <PrimaryButton
+                  text={btnText}
+                  suffix={<span style={{ marginLeft: '15px' }}>❯</span>}
+                />
+              </a>
+            </Link>
+            {!img && <span className={cn(!img && styles.cat, styles.catDef)}>{categories[0]}</span>}
+          </div>
         </div>
       </div>
       <ModalDiscussion
@@ -110,6 +161,7 @@ const DiscussionCard = (props) => {
         postId={id}
         likesCount={likesCount}
         logoNavigate={logoNavigate}
+        subTitle={subTitle}
       />
     </>
   );

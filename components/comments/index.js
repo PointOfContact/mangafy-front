@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import { Comment, List, Form, Input } from 'antd';
 import client from 'api/client';
+import cn from 'classnames';
 import Imgix from 'components/imgix';
 import Avatar from 'components/ui-elements/avatar';
 import LargeButton from 'components/ui-elements/large-button';
@@ -10,12 +11,10 @@ import moment from 'moment';
 import Link from 'next/link';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
+import myAmplitude from 'utils/amplitude';
 
 import styles from './styles.module.scss';
 
-const Amplitude = require('amplitude');
-
-const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 const { TextArea } = Input;
 
 const CommentList = ({ comments }) => (
@@ -25,18 +24,23 @@ const CommentList = ({ comments }) => (
       itemLayout="horizontal"
       renderItem={(commentItem) => (
         <Comment
-          datetime={commentItem.createdAt}
+          datetime={moment(commentItem.createdAt)?.format('MMMM Do YYYY, h:mm:ss a')}
           {...commentItem}
           author={commentItem.senderInfo[0] && commentItem.senderInfo[0].name}
           avatar={
             commentItem.senderInfo[0] && (
               <>
                 {commentItem.senderInfo[0].avatar ? (
-                  <Imgix
-                    width={40}
-                    height={40}
-                    src={client.UPLOAD_URL + commentItem.senderInfo[0].avatar}
-                  />
+                  <Link href={`/profile/${commentItem.senderId}`}>
+                    <a>
+                      <Imgix
+                        width={40}
+                        height={40}
+                        src={client.UPLOAD_URL + commentItem.senderInfo[0].avatar}
+                        alt={'MangaFy avatar'}
+                      />
+                    </a>
+                  </Link>
                 ) : (
                   <Avatar text={commentItem?.senderInfo[0]?.name} size={40} />
                 )}
@@ -53,31 +57,44 @@ CommentList.propTypes = {
   comments: PropTypes.array.isRequired,
 };
 
-const Editor = ({ onChange, onSubmit, submitting, value, user, mangaStory }) => (
-  <>
-    <Form.Item>
-      <TextArea rows={4} onChange={onChange} value={value} />
-    </Form.Item>
-    <Form.Item>
-      <>
-        {!user && (
-          <Link href={`/sign-in?page=manga-story/${mangaStory._id}?tab=comments`}>
-            <h2 className={styles.loginText}>
-              Please <span>login</span> to add comments
-            </h2>
-          </Link>
-        )}
-        <LargeButton
-          id="AddACommentBtnId"
-          htmlType="submit"
-          loading={submitting}
-          onClick={onSubmit}
-          text="Add Comment"
-        />
-      </>
-    </Form.Item>
-  </>
-);
+const Editor = ({ onChange, onSubmit, submitting, value, user, mangaStory }) => {
+  const [commentError, setCommentError] = useState('');
+
+  const commentChange = (e) => {
+    // eslint-disable-next-line no-shadow
+    onChange(e);
+    e.target.value.length >= 490
+      ? setCommentError(`Comment max length 490 symbols`)
+      : setCommentError('');
+  };
+
+  return (
+    <>
+      <Form.Item>
+        <TextArea maxLength={490} rows={4} onChange={commentChange} value={value} />
+        <p className={commentError ? styles.commentError : styles.notError}>{commentError}</p>
+      </Form.Item>
+      <Form.Item>
+        <>
+          {!user && (
+            <Link href={`/sign-in?page=manga-story/${mangaStory._id}?tab=comments`}>
+              <h2 className={styles.loginText}>
+                Please <span>login</span> to add comments
+              </h2>
+            </Link>
+          )}
+          <LargeButton
+            id="AddACommentBtnId"
+            htmlType="submit"
+            loading={submitting}
+            onClick={onSubmit}
+            text="Add Comment"
+          />
+        </>
+      </Form.Item>
+    </>
+  );
+};
 
 Editor.propTypes = {
   user: PropTypes.object,
@@ -96,7 +113,7 @@ Editor.defaultProps = {
   user: null,
 };
 
-export const Comments = ({ commentsData, mangaStory, user, isOwn }) => {
+export const Comments = ({ commentsData, mangaStory, user }) => {
   const [comments, setComments] = useState(commentsData);
   const [submitting, setSubmitting] = useState(false);
   const [value, setValue] = useState('');
@@ -111,7 +128,7 @@ export const Comments = ({ commentsData, mangaStory, user, isOwn }) => {
       Router.push(`/sign-in?page=manga-story/${mangaStory._id}?tab=comments`);
     }
 
-    if (!value || !user) {
+    if (!value.trim() || !user) {
       return;
     }
 
@@ -135,13 +152,12 @@ export const Comments = ({ commentsData, mangaStory, user, isOwn }) => {
           res.avatar = client.UPLOAD_URL + user.avatar;
           res.datetime = moment().format('MMMM Do YYYY, h:mm:ss a');
           res.author = user.name;
-          const commentsData = [{ ...res }, ...comments];
-          setComments(commentsData);
+          const newCommentsData = [{ ...res }, ...comments];
+          setComments(newCommentsData);
           setSubmitting(false);
           setValue('');
           const eventData = [
             {
-              platform: 'WEB',
               event_type: EVENTS.ADDED_COMMENT,
               event_properties: { mangaStoryId: mangaStory._id },
               user_id: user._id,
@@ -150,7 +166,7 @@ export const Comments = ({ commentsData, mangaStory, user, isOwn }) => {
               },
             },
           ];
-          amplitude.track(eventData);
+          myAmplitude(eventData);
         })
         .catch((err) => {
           setErrMessage(err.message);
@@ -158,15 +174,15 @@ export const Comments = ({ commentsData, mangaStory, user, isOwn }) => {
         });
     });
   };
-  useEffect(() => {
-    const orderAs = '$sort[createdAt]';
-  }, [comments.length]);
+
   return (
     <>
-      <h2 className={styles.subTitle}> {comments?.length} Comments</h2>
+      <h2 className={styles.subTitle}> {!!comments?.length && comments?.length} Comments</h2>
       {comments.length > 0 && (
-        <div className="commentsBlock">
-          <CommentList comments={comments} />
+        <div className={cn(styles.comments, 'commentsBlock')}>
+          <pre>
+            <CommentList comments={comments} />
+          </pre>
         </div>
       )}
       <Comment
@@ -176,7 +192,12 @@ export const Comments = ({ commentsData, mangaStory, user, isOwn }) => {
           user && (
             <>
               {user.avatar ? (
-                <Imgix width={52} height={52} src={client.UPLOAD_URL + user.avatar} />
+                <Imgix
+                  width={52}
+                  height={52}
+                  src={client.UPLOAD_URL + user.avatar}
+                  alt={'MangaFy avatar'}
+                />
               ) : (
                 <Avatar text={user.name} size={52} />
               )}

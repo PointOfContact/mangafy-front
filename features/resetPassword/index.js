@@ -12,10 +12,6 @@ import Router from 'next/router';
 
 import styles from './styles.module.scss';
 
-const Amplitude = require('amplitude');
-
-const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
-
 const ResetPassword = () => {
   const [password, setPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
@@ -34,12 +30,14 @@ const ResetPassword = () => {
     if (password !== newPassword) {
       notification.error({
         message: 'Password and confirm password mismatch',
+        placement: 'bottomLeft',
       });
       return;
     }
     if (!password) {
       notification.error({
         message: 'Field is required',
+        placement: 'bottomLeft',
       });
       return;
     }
@@ -61,10 +59,11 @@ const ResetPassword = () => {
             mode: 'no-cors',
           }
         )
-        .then((res) => {
+        .then(() => {
           notification.success({
             message: 'Success',
             description: 'Your password successfully changes. Pls. login',
+            placement: 'bottomLeft',
           });
           setTimeout(() => {
             Router.push({
@@ -77,6 +76,7 @@ const ResetPassword = () => {
           notification.error({
             message: 'Failed',
             description: err.message,
+            placement: 'bottomLeft',
           });
         });
     });
@@ -92,7 +92,7 @@ const ResetPassword = () => {
           height={284}
           layout="fixed"
           src="https://mangafy.club/img/forgot-password.webp"
-          alt=""
+          alt="MangaFy forgot password"
         />
         <h2 className={styles.title}>Create new awesome password</h2>
         <p className={styles.info}>Imagine about new, different and cool password.</p>

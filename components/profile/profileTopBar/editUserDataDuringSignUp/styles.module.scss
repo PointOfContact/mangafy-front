@@ -1,0 +1,157 @@
+@import '../../../../styles/variables.scss';
+
+.modal {
+  width: 90% !important;
+  top: 210px;
+  border-radius: 10px;
+  padding: 0;
+  padding-bottom: 50px;
+  @media (max-width: 1100px) {
+    top: 130px;
+  }
+  @include media-sm {
+    top: 90px;
+  }
+  @include media-xs{
+    max-width: 94% !important;
+  }
+  & > div {
+    border-radius: 10px;
+    & > div {
+      padding: 0 0 35px 0;
+    }
+  }
+  .containerAvatar {
+    width: 100%;
+    height: 0;
+    top: -90px;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    @media (max-width: 1100px) {
+      top: 170px;
+    }
+    @include media-sm {
+      top: 240px;
+    }
+    .img {
+      width: 18vw;
+      height: 18vw;
+      max-width: 181px;
+      max-height: 182px;
+      min-width: 140px;
+      min-height: 140px;
+      position: relative;
+      border-radius: 50%;
+      background: #f3f3f3;
+      @include media-sm {
+        max-width: 79px;
+        max-height: 79px;
+      }
+      &:before {
+        content: '';
+        width: 18vw;
+        height: 18vw;
+        max-width: 181px;
+        max-height: 182px;
+        min-width: 140px;
+        min-height: 140px;
+        background-image: url(../../../../public/img/green-eclips.svg);
+        background-size: cover;
+        position: absolute;
+        left: 0;
+        top: 0;
+        @include media-sm {
+          max-width: 79px;
+          max-height: 79px;
+        }
+      }
+      @include media-sm {
+        position: absolute;
+        transform: translate(50%, -50%);
+        top: -35px;
+        right: 50%;
+        margin: auto;
+        text-align: center;
+      }
+      img {
+        width: 18vw;
+        height: 18vw;
+        max-width: 181px;
+        max-height: 182px;
+        min-width: 140px;
+        min-height: 140px;
+        object-fit: cover;
+        border-radius: 50%;
+        padding: 5px !important;
+        // border: 3px solid $avatar_outline;
+        // border-bottom: white;
+        @include media-sm {
+          max-width: 79px;
+          max-height: 79px;
+        }
+      }
+      .add {
+        position: absolute;
+        bottom: 20px;
+        right: 0;
+        cursor: pointer;
+        background-color: white;
+        border-radius: 50%;
+      }
+      svg{
+        @include media-sm{
+          width: 30px;
+          height: 30px;
+        }
+      }
+    }
+  }
+
+  .containerHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid $grayBG;
+    margin: 0;
+    background: white;
+    padding: 45px 40px;
+    border-radius: 10px 10px 0 0;
+    @include media-sm {
+      padding: 33px 18px;
+    }
+    h2 {
+      font-weight: bold;
+      font-size: 32px;
+      line-height: 20px;
+      color: $black;
+      @include media-sm {
+        font-size: 20px;
+        line-height: 35px;
+      }
+    }
+    .containerButton {
+      display: flex;
+      align-items: center;
+      button {
+        width: 166px;
+        height: 51px;
+        &:last-child {
+          margin-left: 22px;
+          @include media-sm {
+            margin-left: 10px;
+          }
+        }
+        @include media-sm {
+          width: 140px;
+          height: 45px;
+        }
+        @include media-xs {
+          width: 79px;
+          height: 30px;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}

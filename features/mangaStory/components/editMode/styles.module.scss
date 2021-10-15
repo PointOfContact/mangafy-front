@@ -1,0 +1,48 @@
+@import '../../../../styles/variables.scss';
+
+@mixin editAndDeleteBut {
+  max-width: 176px;
+  width: 176px;
+  height: 46px;
+  font-weight: 900;
+  font-size: 15px;
+  line-height: 22px;
+  cursor: pointer;
+  @include media-sm {
+    width: 136px;
+    height: 36px;
+    font-size: 12px;
+  }
+}
+.tabWrap {
+  padding: 30px;
+  position: relative;
+  .containerEdit{
+    @include media-sm{
+      display: none;
+    };
+  }
+  & > p > div {
+    display: flex;
+    justify-content: space-between;
+  }
+  .editDeleteButtons {
+    display: flex;
+    flex: 2;
+    justify-content: flex-end;
+    margin-bottom: 50px;
+    @include media-sm {
+      position: absolute;
+      top: 30px;
+      width: 100%;
+      right: 30px;
+    }
+  }
+  .editTitleSvg {
+    @include editAndDeleteBut;
+    margin-right: 14px;
+  }
+  .deleteTitleSvg {
+    @include editAndDeleteBut;
+  }
+}

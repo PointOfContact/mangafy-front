@@ -24,17 +24,17 @@ export const ModalSuccess = ({ isModalVisible, handleCancelModal }) => (
       onCancel={handleCancelModal}>
       <div className="content">
         <div className="anima">
-          <img src="/img/anima.gif" alt="" />
-          <img src="/img/anima.gif" alt="" />
-          <img src="/img/anima.gif" alt="" />
-          <img src="/img/anima.gif" alt="" />
+          <img src="/img/anima.gif" alt="MangaFy anima" />
+          <img src="/img/anima.gif" alt="MangaFy anima" />
+          <img src="/img/anima.gif" alt="MangaFy anima" />
+          <img src="/img/anima.gif" alt="MangaFy anima" />
         </div>
         <Imgix
           width={492}
           height={380}
           layout="fixed"
           src="https://mangafy.club/img/succsessModal.webp"
-          alt=""
+          alt="MangaFy success"
         />
         <h2 className={styles.title}>THAT&apos;S COOL</h2>
         <p className={styles.desc}>WE DID IT</p>

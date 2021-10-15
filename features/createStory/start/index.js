@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useCallback } from 'react';
+import React, { useEffect, useRef, useCallback, useState } from 'react';
 
 import { notification } from 'antd';
 import Footer from 'components/footer';
@@ -7,19 +7,18 @@ import { EVENTS } from 'helpers/amplitudeEvents';
 import { NextSeo } from 'next-seo';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
+import amplitude from 'utils/amplitude';
 
 import { adaptData, timeout } from './utils';
 
-const Amplitude = require('amplitude');
-
-const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
-
 const Start = ({ genres, jwt, user }) => {
   const typeformRef = useRef(null);
+  const [closeTypeForm, setCloseTypeForm] = useState(true);
 
   const openNotification = (type, message) => {
     notification[type]({
       message,
+      placement: 'bottomLeft',
     });
   };
 
@@ -29,23 +28,32 @@ const Start = ({ genres, jwt, user }) => {
         const { default: api } = await import('api/restClient');
         await timeout(2000);
         const { answers } = await api.service('/api/v2/typeform').get(event.response_id);
-        const mangaStory = adaptData(answers, genres);
+        const { mangaStory, user: newUser } = adaptData(answers, genres);
         const response = await api.service('/api/v2/manga-stories').create(mangaStory, {
           headers: { Authorization: `Bearer ${jwt}` },
         });
-        const data = [
-          {
-            platform: 'WEB',
-            event_type: EVENTS.CREATE_PROJECT_COMPLETE,
-            user_id: user._id,
-            user_properties: {
-              ...user,
-            },
+
+        newUser &&
+          !!newUser.payPalEmail &&
+          (await api.service('/api/v2/users').patch(user?._id, newUser, {
+            headers: { Authorization: `Bearer ${jwt}` },
+            mode: 'no-cors',
+          }));
+
+        const data = {
+          event_type: EVENTS.CREATE_PROJECT_COMPLETE,
+          user_id: user._id,
+          user_properties: {
+            ...user,
           },
-        ];
-        amplitude.track(data);
+        };
+        amplitude(data);
         // eslint- disable-next-line no-underscore-dangle
         Router.push(`/manga-story/${response._id}`);
+
+        setTimeout(() => {
+          setCloseTypeForm(false);
+        }, 5000);
       } catch (error) {
         // eslint-disable-next-line no-console
         openNotification('error', error?.message || error);
@@ -56,7 +64,7 @@ const Start = ({ genres, jwt, user }) => {
 
   useEffect(() => {
     import('@typeform/embed').then((typeformEmbed) => {
-      typeformEmbed.makeWidget(typeformRef.current, 'https://form.typeform.com/to/Q2Kciuy6', {
+      typeformEmbed.makeWidget(typeformRef.current, 'https://form.typeform.com/to/Ijyxme1e', {
         hideFooter: true,
         hideHeaders: true,
         opacity: 50,
@@ -64,6 +72,17 @@ const Start = ({ genres, jwt, user }) => {
       });
     });
   }, [typeformRef, onSubmit]);
+
+  useEffect(() => {
+    const data = {
+      event_type: EVENTS.CREATE_PROJECT_START,
+      user_id: user?._id,
+      user_properties: {
+        ...user,
+      },
+    };
+    amplitude(data);
+  }, []);
 
   return (
     <>
@@ -73,8 +92,8 @@ const Start = ({ genres, jwt, user }) => {
         canonical=""
         openGraph={{
           url: '',
-          title: '',
-          description: '',
+          title: 'Focus on things that are really important',
+          description: 'MangaFY Expand your planning horizons.',
           images: [
             {
               url: '',
@@ -93,7 +112,7 @@ const Start = ({ genres, jwt, user }) => {
       />
       <div>
         <Header path="create-a-story/start" user={user} />
-        <div ref={typeformRef} style={{ height: '100vh', width: '100%' }}></div>
+        {closeTypeForm && <div ref={typeformRef} style={{ height: '100vh', width: '100%' }}></div>}
         <Footer />
       </div>
     </>

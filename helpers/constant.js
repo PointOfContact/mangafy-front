@@ -103,6 +103,10 @@ export const userTypes = [
     key: 'mentorship',
     value: 'Mentorship',
   },
+  {
+    key: 'world_builder',
+    value: 'World builder',
+  },
 ];
 
 export const allCollaborations = [
@@ -151,6 +155,7 @@ export const userTypesEnums = {
   mentorship: 'Mentorship',
   illustrator: 'Illustrator',
   storyteller: 'Storyteller',
+  world_builder: 'World builder',
   new: 'New',
 };
 
@@ -526,65 +531,16 @@ export const COUNTRIES = [
   'Zulu',
 ];
 
-export const USER_TYPES = [
-  {
-    label: 'Writer',
-    description: 'lorem  lorem   lorem',
-    checked: false,
-  },
-  {
-    label: 'Penciler',
-    description: 'lorem  lorem   lorem',
-    checked: false,
-  },
-  {
-    label: 'Inker',
-    description: 'lorem  lorem   lorem',
-    checked: false,
-  },
-  {
-    label: 'Colorist',
-    description: 'lorem  lorem   lorem',
-    checked: false,
-  },
-  {
-    label: 'Letterer',
-    description: 'lorem  lorem   lorem',
-    checked: false,
-  },
-  {
-    label: 'Сover artist',
-    description: 'lorem  lorem   lorem',
-    checked: false,
-  },
-  {
-    label: 'Character Designer',
-    description: 'lorem  lorem   lorem',
-    checked: false,
-  },
-  {
-    label: 'Key Translator',
-    description: 'lorem  lorem   lorem',
-    checked: false,
-  },
-  {
-    label: 'Publisher',
-    description: 'lorem  lorem   lorem',
-    checked: false,
-  },
-  {
-    label: 'Editor',
-    description: 'lorem  lorem   lorem',
-    checked: false,
-  },
-  {
-    label: 'Backers',
-    description: 'lorem  lorem   lorem',
-    checked: false,
-  },
-  {
-    label: 'Mentorship',
-    description: 'lorem  lorem   lorem',
-    checked: false,
-  },
+export const projectTypes = ['Webtoon', 'Comics', 'Manhua', 'Manga', 'Anime', 'Stories'];
+
+export const heroTypes = [
+  'Protagonist',
+  'Antagonist',
+  'Deuteragonist',
+  'Tertiary',
+  'Confidante',
+  'Love interest',
+  'Foil',
 ];
+
+export const heroQuality = ['Dynamic/changing', 'Static/unchanging', 'Stock', 'Symbolic', 'Round'];

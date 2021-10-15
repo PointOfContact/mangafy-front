@@ -75,7 +75,7 @@
 
 .message_community {
   position: relative;
-  border-top: 2px solid rgba(33, 33, 33, 0.07);
+  border-bottom: 1px solid rgba(33, 33, 33, 0.07);
   padding: 15px 20px 15px 20px;
   background-color: $primaryBG;
   width: 95%;
@@ -86,63 +86,18 @@
   }
   .mess_content {
     width: 100%;
-  }
-  .title_block {
     display: flex;
-    .avatar {
-      border-radius: 100px;
-      width: 104px;
-      min-width: 104px;
-      height: 104px;
-      @include media-sm {
-        width: 51px;
-        height: 51px;
-        min-width: 51px;
+    justify-content: space-between;
+    .dateBar{
+      font-size: 10px;
+      color: $primaryDark;
+      position: absolute;
+      left: 72%; 
+      @include media-sm{
+        left: 85%; 
       }
-    }
-    .avatarName {
-      @include media-sm {
-        font-size: 20px !important;
-        width: 51px !important;
-        height: 51px !important;
-      }
-    }
-    img {
-      border-radius: 100px;
-      width: 104px;
-      height: 104px;
-      @include media-sm {
-        width: 51px;
-        height: 51px;
-      }
-    }
-  }
-  .name_special {
-    width: calc(100% - 200px);
-    margin-left: 14px;
-    h4 {
-      font-size: $text3;
-      line-height: 20px;
-      margin-bottom: 0px;
-      font-weight: 900;
-    }
-    p {
-      margin-bottom: 15px;
-      font-size: $text4;
-    }
-    @include media-sm {
-      width: 100%;
-      div {
-        width: calc(100% - 70px);
-      }
-      h4 {
-        font-size: $text4;
-        line-height: 15px;
-      }
-      p {
-        font-size: $text5;
-        margin-top: 4px;
-        line-height: 1.2;
+      @include media-xs{
+        left: 80%; 
       }
     }
   }
@@ -229,63 +184,59 @@
 }
 
 .isSmall {
+  height: 107px;
+  @include media-sm{
+    height: 95px;
+  }
   .message_community {
-    padding: 10px 5px 0px 10px;
     width: 100%;
+    height: 100%;
     @include media-sm {
       padding: 10px;
       text-align: center;
     }
     .title_block {
+      width: 100%;
+      display: flex;
       .avatar {
-        width: 54px;
-        min-width: 54px;
-        max-width: 54px;
-        height: 54px;
         @include media-sm {
-          width: 40px;
-          height: 40px;
-          min-width: 40px;
-          max-width: 40px;
-          margin: 0 auto;
+          margin-left: 10px;
         }
       }
       .avatarName {
+        font-size: initial !important;
         @include media-sm {
           font-size: 20px !important;
-          width: 40px !important;
-          min-width: 40px !important;
-          height: 40px !important;
         }
       }
       img {
-        border-radius: 100px;
-        width: 54px;
-        min-width: 54px;
-        height: 54px;
-        @include media-sm {
-          width: 40px;
-          min-width: 40px;
-          height: 40px;
-        }
+        border-radius: 50%;
+        object-fit: cover;
       }
     }
     .name_special {
-      width: calc(100% - 70px);
-      @include media-sm {
-        display: none;
-      }
+      width: 100%;
+      margin-left: 14px;
       div {
         width: 100%;
       }
       h4 {
+        max-width: 64%;
         font-size: $text4;
-        line-height: 15px;
+        line-height: $text4;
+        text-align: initial;
+        @include media-sm{
+          max-width: 100%;
+        }
       }
       p {
+        max-width: 85%;
         font-size: $text5;
-        margin-top: 4px;
         line-height: 1.2;
+        padding-bottom: 1px;
+        margin: 0;
+        margin-top: 4px;
+        text-align: initial;
       }
     }
     .div_button {
@@ -293,7 +244,9 @@
     }
   }
 }
-
+.showMessageMobile{
+  display: none;
+}
 .item {
   &:hover {
     .message_community {

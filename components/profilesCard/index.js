@@ -32,7 +32,7 @@ const ProfilesCard = ({ user, genres }) => {
                   height={104}
                   layout="fixed"
                   src={client.UPLOAD_URL + user.avatar}
-                  alt="User avatar"
+                  alt="MangaFy user avatar"
                 />
               ) : (
                 <Avatar text={user.name} size={104} />
@@ -41,7 +41,9 @@ const ProfilesCard = ({ user, genres }) => {
           </div>
           <div className={styles.colabWrap__name}>
             <div className={styles.colabWrap__authorName}>{user.name}</div>
-            <div className={styles.colabWrap__authorDescr}>{userTypesEnums[user?.type]}</div>
+            <div className={styles.colabWrap__authorDescr}>
+              {userTypesEnums[!!user?.types.length && user?.types[0]]}
+            </div>
           </div>
         </div>
         <СardGenres genres={profileGenres} />

@@ -29,7 +29,7 @@ const menuGenresOptions = (genres = [], handleMenuClick) => (
 
 const menuOptions = (userTypes, handleCompasitionClick) => {
   const userTupe = userTypes.map((type) => <Option key={type.key}>{type.value}</Option>);
-  const all = [<Option key="all">All User Types</Option>];
+  const all = [<Option key="all">All Artist Types</Option>];
   return all.concat(userTupe);
 };
 
@@ -100,7 +100,7 @@ const SearchForMembers = (props) => {
       <div className={styles.box}>
         <div className={'container'}>
           <div className={styles.box__wrapper}>
-            <form className={styles.box__search}>
+            <form className={styles.box__search} onSubmit={(e) => e.preventDefault()}>
               <i className={styles.box__search_icon}>
                 <SvgSearch width="30" height="30" />
               </i>
@@ -126,7 +126,7 @@ const SearchForMembers = (props) => {
                 showArrow={true}
                 allowClear={true}
                 showSearch={false}
-                placeholder="User Type"
+                placeholder="Artist Type"
                 defaultValue={selectedTypes}
                 onChange={handleCompasitionClick}
                 dropdownClassName="select-filter"

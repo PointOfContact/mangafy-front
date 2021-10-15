@@ -38,7 +38,7 @@ export const ChooseLayout = ({ storyBoard, setStoryBoard }) => {
         setLayouts(newItems);
         setStoryBoard({
           ...storyBoard,
-          layoutId: newItems[id]._id
+          layoutId: newItems[id]._id,
         });
       },
       (err) => {}

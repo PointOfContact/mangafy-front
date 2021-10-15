@@ -35,8 +35,8 @@ const Paginations = ({
         showSizeChanger={showSizeChanger}
         pageSize={pageSize}
         defaultCurrent={defaultCurrent}
-        total={total}
         current={current}
+        total={total}
         onChange={onChange}
         itemRender={(page, type, originalElement) => {
           if (is_server()) return originalElement;
@@ -56,6 +56,21 @@ const Paginations = ({
             case 'prev':
               return (
                 <Link href={getPageLink(current - 1 || 1)}>
+                  <a>{originalElement}</a>
+                </Link>
+              );
+            case 'jump-next':
+              return (
+                <Link
+                  href={getPageLink(
+                    current + 5 <= total / pageSize ? current + 5 : Math.ceil(total / pageSize)
+                  )}>
+                  <a>{originalElement}</a>
+                </Link>
+              );
+            case 'jump-prev':
+              return (
+                <Link href={getPageLink((current - 5 > 0 && current - 5) || 1)}>
                   <a>{originalElement}</a>
                 </Link>
               );

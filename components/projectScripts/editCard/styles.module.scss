@@ -1,0 +1,39 @@
+@import '../../../styles/variables.scss';
+.editScriptContainer {
+  display: none;
+  @include media-sm {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 52.2px;
+    height: 23.4px;
+    margin-left: 19px;
+    margin-bottom: 22.6px;
+  }
+  .deletePageMobile,
+  .editScript {
+    width: 23.4px;
+    height: 23.4px;
+    border: 0.5px solid #858585;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    svg {
+      width: 9px !important;
+      height: 9px !important;
+    }
+    &:hover {
+      background-color: $primaryDark;
+      svg path {
+        fill: white !important;
+      }
+    }
+  }
+  .editScript {
+    svg {
+      width: 9.31px !important;
+      height: 11px !important;
+    }
+  }
+}

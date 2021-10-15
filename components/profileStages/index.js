@@ -4,13 +4,14 @@ import { useClickAway } from '@umijs/hooks';
 import { notification } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
+import Imgix from 'components/imgix';
 import PropTypes from 'prop-types';
 
 import Quest from './card';
 import styles from './styles.module.scss';
 
 const ProfileStages = ({ userData }) => {
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(true);
   const [quests, setQuests] = useState([]);
   const ref = useClickAway(() => {
     setVisible(false);
@@ -34,6 +35,7 @@ const ProfileStages = ({ userData }) => {
         .catch((err) => {
           notification.error({
             message: err.message,
+            placement: 'bottomLeft',
           });
         });
     });
@@ -41,22 +43,18 @@ const ProfileStages = ({ userData }) => {
 
   return (
     <div ref={ref} className={cn(styles.profileStages)}>
-      <div
-        onMouseEnter={() => setVisible(true)}
-        onMouseLeave={() => setVisible(false)}
-        onClick={() => setVisible(true)}
-        className={cn(styles.bar, visible && styles.visible)}>
+      <div onClick={() => setVisible(true)} className={cn(styles.bar, visible && styles.visible)}>
         <div className={styles.content}>
           <h2 className={styles.title}>Fill out the form and get points</h2>
           <div className={styles.img}>
-            <img src="/img/quests.png" />
+            <Imgix layout="fill" src="https://mangafy.club/img/quests.png" alt="MangaFy quests" />
           </div>
           <h2 className={styles.filter}>All Quests</h2>
           <div className={styles.quests}>
             {quests.map((quest, index) => (
               <Quest
                 key={index}
-                point={quest.point}
+                point={quest.points}
                 status={quest.status}
                 title={quest.title}
                 description={quest.description}

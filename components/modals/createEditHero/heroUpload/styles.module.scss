@@ -1,0 +1,92 @@
+@import '../../../../styles/variables.scss';
+
+.content {
+  width: 100%;
+  height: 220px;
+  text-align: left;
+  color: $grey;
+  padding: 16px 30px 30px 30px;
+  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='20' ry='20' stroke='%23333' stroke-width='1' stroke-dasharray='6%2c 14' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+  @include media-sm {
+    padding: 21px;
+  }
+  .types {
+    display: flex;
+    align-items: center;
+    font-size: $text5;
+    color: $gray85;
+    svg {
+      margin-right: 6px;
+    }
+  }
+  .description {
+    width: 100%;
+    text-align: center;
+    svg {
+      margin-top: 14px;
+      margin-bottom: 15px;
+      @include media-sm {
+        width: 87px !important;
+        height: 63px !important;
+      }
+      path {
+        fill: gray;
+      }
+    }
+    .title {
+      font-size: $text3;
+      color: $gray85;
+    }
+    .titlePersonage {
+      font-size: 16px;
+    }
+  }
+}
+
+.modal {
+  top: 20px;
+  height: calc(100% - 30px);
+  margin: auto;
+  & > div {
+    border-radius: 10px;
+  }
+  span:hover {
+    path {
+      fill: white;
+    }
+  }
+  @include media-sm {
+    max-width: calc(100% - 16px);
+    height: 100vh;
+  }
+
+  img {
+    object-fit: contain;
+  }
+
+  .closeIcon {
+    background-color: $primaryDark;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    margin-top: 15px;
+    &:hover {
+      background-color: $primaryLight;
+      svg {
+        path {
+          fill: white;
+        }
+      }
+    }
+    svg {
+      width: 14px;
+      height: 14px;
+      path {
+        fill: white;
+      }
+    }
+  }
+}

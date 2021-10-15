@@ -3,8 +3,10 @@ import React, { useState } from 'react';
 import { notification } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
+import myAmplitude from 'utils/amplitude';
 
 import styles from './styles.module.scss';
 
@@ -43,11 +45,21 @@ const Follow = ({ count, user, profile, likedUsers, setLikedUsers }) => {
     if (user) {
       followUser(profile._id)
         .then(() => {
+          const data = {
+            event_type: EVENTS.FOLLOW_ACCOUNT,
+            event_properties: { profileId: profile._id },
+            user_id: user._id,
+            user_properties: {
+              ...user,
+            },
+          };
+          myAmplitude(data);
           setLikedUsers([...likedUsers, user._id]);
         })
         .catch((err) => {
           notification.error({
             message: err.message,
+            placement: 'bottomLeft',
           });
         });
     } else {
@@ -65,6 +77,7 @@ const Follow = ({ count, user, profile, likedUsers, setLikedUsers }) => {
         .catch((err) => {
           notification.error({
             message: err.message,
+            placement: 'bottomLeft',
           });
         });
     } else {
@@ -124,7 +137,7 @@ const Follow = ({ count, user, profile, likedUsers, setLikedUsers }) => {
           </svg>
           <span>Follow</span>
         </div>
-        <span>{count}</span>
+        {!!count && <span>{count}</span>}
         <div className={styles.paws}>
           <svg className={styles.paw}>
             <use xlinkHref="#paw" />

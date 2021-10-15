@@ -1,30 +1,25 @@
 import React, { useEffect, useState } from 'react';
 
-import { Upload, Input, Select, Layout, Row, Col, notification, Popover } from 'antd';
+import { Input, Select, Layout, Row, Col, notification } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
 import Follow from 'components/follow';
-import SvgChat from 'components/icon/Chat';
 import SvgDustbin from 'components/icon/Dustbin';
-import SvgHand from 'components/icon/Hand';
 import SvgPrimaryAdd from 'components/icon/PrimaryAdd';
-import Imgix from 'components/imgix';
 import ModalInvites from 'components/modals/sendInvites';
-import Avatar from 'components/ui-elements/avatar';
 import PrimaryButton from 'components/ui-elements/button';
-import Share from 'components/ui-elements/share';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { userTypes, userTypesEnums } from 'helpers/constant';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
-import useWindowSize from 'utils/useWindowSize';
+import myAmplitude from 'utils/amplitude';
 
+import ChangeYourAvatar from './changeYourAvatar';
+import EditUserDataDuringSignUp from './editUserDataDuringSignUp';
+import SetPhotoAvatar from './setPhotoAvatar';
+import ShareProfile from './shareProfile';
 import styles from './styles.module.scss';
-
-const Amplitude = require('amplitude');
-
-const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 
 const { Option } = Select;
 const { Content } = Layout;
@@ -32,7 +27,6 @@ const { Content } = Layout;
 const ProfileTopBar = (props) => {
   const {
     user,
-    beforeUpload,
     editMode,
     userData,
     setEditMode,
@@ -43,19 +37,41 @@ const ProfileTopBar = (props) => {
     originUrl,
     profile,
     setErrMessage,
+    ifMyProfile,
+    loadingImg,
+    genresMyProfileEnums,
+    userGenres,
+    genres,
+    handleChangeGenres,
+    showModalEdit,
+    setShowModalEdit,
   } = props;
 
   const [showModal, changeShowModal] = useState(false);
   const [likedUsers, setLikedUsers] = useState([]);
-  const { width } = useWindowSize();
-
+  const [userTypesOptions, setUserTypes] = useState([]);
+  const [disabledButton, setDisabledButton] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const openNotification = (type, message, description = '') => {
     notification[type]({
       message,
       description,
+      placement: 'bottomLeft',
     });
   };
+
   const history = useRouter();
+
+  useEffect(() => {
+    setUserTypes(
+      userTypes?.map((item) => (
+        <Option key={item.key} value={item.key}>
+          {item.value}
+        </Option>
+      ))
+    );
+  }, []);
+
   const sendInvites = () => {
     if (user) {
       if (user.mangaStories?.data?.length && !(user?._id === profile?._id)) {
@@ -84,7 +100,17 @@ const ProfileTopBar = (props) => {
             }
           )
           .then((res) => {
-            history.push(`/my-profile?tab=messenger&conversation=${res._id}`);
+            const data = [
+              {
+                event_type: EVENTS.MESSAGED_ACCOUNT,
+                user_id: user._id,
+                user_properties: {
+                  ...user,
+                },
+              },
+            ];
+            myAmplitude(data);
+            history.push(`/profile/${user._id}?tab=messenger&conversation=${res._id}`);
           })
           .catch((err) => {
             openNotification('error', err.message);
@@ -115,7 +141,7 @@ const ProfileTopBar = (props) => {
               (item) => !item.joinMangaStoryRequestId && !item.mangaStoryId
             );
             if (conv) {
-              history.push(`/my-profile?tab=messenger&conversation=${conv._id}`);
+              history.push(`/profile/${user._id}?tab=messenger&conversation=${conv._id}`);
             } else {
               createConversation();
             }
@@ -132,7 +158,6 @@ const ProfileTopBar = (props) => {
   const handleEvent = () => {
     const data = [
       {
-        platform: 'WEB',
         event_type: EVENTS.ADDED_BIO,
         user_id: user._id,
         user_properties: {
@@ -140,37 +165,27 @@ const ProfileTopBar = (props) => {
         },
       },
     ];
-    amplitude.track(data);
+    myAmplitude(data);
   };
 
   const changeBio = () => {
-    if (userData.name?.replace(/\s/g, '')) {
-      handleEvent();
-      saveUserDataByKey('name', 'type');
-    } else {
+    if (!userData.name?.replace(/\s/g, '')) {
       setErrMessage('Name is required');
+      return;
     }
-  };
-
-  const handleBeforeUpload = (f) => {
+    if (!(userData.types.length && userData.types[0])) {
+      return;
+    }
     handleEvent();
-    beforeUpload(f, props, updater);
-  };
-
-  const updater = (res) => {
-    setUserData(res);
-    setUserData({
-      ...userData,
-      avatar: res.avatar,
-    });
+    saveUserDataByKey('name', 'types');
   };
 
   const isShowModal = () => {
     const el = document.body;
     if (showModal) {
-      el.classList.add(styles.body_scrool);
+      el.classList.add(styles.body_scroll);
     } else {
-      el.classList.remove(styles.body_scrool);
+      el.classList.remove(styles.body_scroll);
     }
   };
 
@@ -178,65 +193,64 @@ const ProfileTopBar = (props) => {
     setLikedUsers(profile?.likedUsers);
   }, [profile?.likedUsers]);
 
+  const colorTypes = ['#2f2ea6', '#20c000', '#fac448', '#2f2ea6'];
+
+  const getTypes = (array) =>
+    array?.types?.slice(0, 4).map((value, i) => (
+      <div className={styles.userTypes} key={value} style={{ backgroundColor: colorTypes[i] }}>
+        {userTypesEnums[value]}
+      </div>
+    ));
+
+  const types = ifMyProfile
+    ? !!userData?.types?.length && getTypes(userData)
+    : !!profile?.types?.length && getTypes(profile);
+
   return (
     <Content className={cn(styles.content)}>
       <Row>
         <Col className="gutter-row" xs={{ span: 24 }} md={{ span: 6 }} xl={{ span: 5 }}>
           <div className={styles.img}>
-            {profile ? (
-              <>
-                {profile.avatar ? (
-                  <Imgix
-                    width={500}
-                    height={500}
-                    className="avatar"
-                    src={client.UPLOAD_URL + profile.avatar}
-                  />
-                ) : (
-                  <Avatar text={profile.name} fontSize={90} />
-                )}
-              </>
-            ) : (
-              <>
-                {userData?.avatar ? (
-                  <Imgix
-                    width={500}
-                    height={500}
-                    className="avatar"
-                    src={client.UPLOAD_URL + userData.avatar}
-                  />
-                ) : (
-                  <Avatar text={userData?.name} fontSize={90} />
-                )}
-              </>
+            <SetPhotoAvatar
+              ifMyProfile={ifMyProfile}
+              userData={userData}
+              loadingImg={loadingImg}
+              profile={profile}
+            />
+            {ifMyProfile && (
+              <SvgPrimaryAdd
+                className={styles.add}
+                id="myProfileUploadBtnId"
+                width="40"
+                height="40px"
+                onClick={() => {
+                  setDisabledButton(true);
+                  setIsModalVisible(true);
+                }}
+              />
             )}
-            {user && !profile && (
-              <Upload
-                fileList={[]}
-                accept="image/jpg, image/png, image/jpeg"
-                beforeUpload={handleBeforeUpload}>
-                <SvgPrimaryAdd
-                  className={styles.add}
-                  id="myProfileUploadBtnId"
-                  width="40"
-                  height="40px"
-                />
-              </Upload>
-            )}
+            <ChangeYourAvatar
+              isModalVisible={isModalVisible}
+              setIsModalVisible={setIsModalVisible}
+              disabledButton={disabledButton}
+              setDisabledButton={setDisabledButton}
+              props={props}
+              user={user}
+            />
           </div>
         </Col>
-        <Col className="gutter-row" xs={{ span: 24 }} md={{ span: 8 }} xl={{ span: 9 }}>
+        <Col className="gutter-row" xs={{ span: 24 }} md={{ span: 12 }} xl={{ span: 12 }}>
           <div className={styles.info_profile}>
             {!editMode ? (
               <>
-                <h4>{userData?.name || profile?.name}</h4>
-                <p>{userTypesEnums[userData?.type || profile?.type]}</p>
+                <h4>{ifMyProfile ? userData?.name : profile?.name}</h4>
+                <div className={styles.typesContainer}>{types}</div>
 
-                {userData ? (
-                  <>
+                {ifMyProfile ? (
+                  <div className={styles.followAndEditButton}>
                     <PrimaryButton
                       text="Edit"
-                      splitterStyle={{ width: '120px', fontSize: '15px' }}
+                      splitterStyle={{ width: '116px', height: '46', fontSize: '15px' }}
                       onClick={() => setEditMode(true)}
                     />
                     <Follow
@@ -246,15 +260,7 @@ const ProfileTopBar = (props) => {
                       likedUsers={user?.likedUsers}
                       setLikedUsers={setLikedUsers}
                     />
-                    <Link href="/contact-us">
-                      <a>
-                        <div className={styles.deleteAccount}>
-                          <SvgDustbin width="20px" height="20px" />
-                          <div>Delete account</div>
-                        </div>
-                      </a>
-                    </Link>
-                  </>
+                  </div>
                 ) : (
                   <>
                     <Follow
@@ -286,18 +292,34 @@ const ProfileTopBar = (props) => {
                 </h2>
                 <div>
                   <Select
-                    className="changeSelect"
-                    defaultValue={userTypesEnums[userData.type]}
+                    mode="multiple"
+                    className={cn(
+                      'changeSelect',
+                      styles.select,
+                      !(userData?.types?.length && userData?.types[0]) && styles.errSelect
+                    )}
+                    defaultValue={userTypesEnums[userData?.types[0]]}
+                    value={userData.types}
                     style={{ width: '100%' }}
-                    onChange={(value) => setUserData({ ...userData, type: value })}>
-                    {userTypes.map((item) => (
-                      <Option key={item.key} value={item.key}>
-                        {item.value}
-                      </Option>
-                    ))}
+                    onChange={(value) => setUserData({ ...userData, types: value })}>
+                    {userTypesOptions}
                   </Select>
+                  {!(userData?.types?.length && userData?.types[0]) ? (
+                    <p className={styles.errMessage}>User type cannot be empty</p>
+                  ) : null}
                 </div>
-                <Link href="/contact-us">
+                <Link
+                  href="/contact-us"
+                  onClick={() => {
+                    const event = {
+                      event_type: EVENTS.DELETE_ACCOUNT,
+                      user_id: user._id,
+                      user_properties: {
+                        ...user,
+                      },
+                    };
+                    myAmplitude(event);
+                  }}>
                   <a>
                     <div className={styles.deleteAccount}>
                       <SvgDustbin width="20px" height="20px" />
@@ -309,7 +331,7 @@ const ProfileTopBar = (props) => {
             )}
           </div>
         </Col>
-        <Col className="gutter-row" xs={{ span: 24 }} md={{ span: 9 }}>
+        <Col className="gutter-row" xs={{ span: 24 }} md={{ span: 4 }} xl={{ span: 6 }}>
           <div className={styles.languages_btn}>
             {editMode && (
               <div className={cn(styles.buttonsProfile, 'buttonsProfile_styles')}>
@@ -332,67 +354,15 @@ const ProfileTopBar = (props) => {
               </div>
             )}
           </div>
-          {userData ? (
-            <>
-              <div className={styles.hotBtns}>
-                <div className={styles.shere}>
-                  <Popover
-                    overlayClassName={styles.popover}
-                    placement={width < 768 ? 'bottom' : 'left'}
-                    content={'Share'}
-                    trigger="hover">
-                    <div className={styles.svgBg}>
-                      <Share shareUrl={originUrl} size={39} />
-                    </div>
-                  </Popover>
-                </div>
-              </div>
-            </>
-          ) : (
-            <>
-              {profile &&
-                !!user?.mangaStories?.data?.length &&
-                !(
-                  user?.mangaStories?.participents?.include(profile._id) ||
-                  user?._id === profile?._id
-                ) && (
-                  <div className={styles.hotBtns}>
-                    <div className={styles.shere}>
-                      <Popover
-                        overlayClassName={styles.popover}
-                        placement={width < 768 ? 'bottom' : 'left'}
-                        content={'Share'}
-                        trigger="hover">
-                        <div className={styles.svgBg}>
-                          <Share shareUrl={originUrl} size={39} />
-                        </div>
-                      </Popover>
-                    </div>
-                    <div className={styles.contacts}>
-                      <Popover
-                        overlayClassName={styles.popover}
-                        placement={width < 768 ? 'bottom' : 'left'}
-                        content={'Collab'}
-                        trigger="hover">
-                        <div onClick={sendInvites} className={styles.svgBg}>
-                          <SvgHand width="19px" height="19px" />
-                        </div>
-                      </Popover>
-                    </div>
-                    <div className={styles.contacts}>
-                      <Popover
-                        overlayClassName={styles.popover}
-                        placement={width < 768 ? 'bottom' : 'left'}
-                        content={'Messenger'}
-                        trigger="hover">
-                        <div onClick={sendMessage} className={styles.svgBg}>
-                          <SvgChat width="19px" height="19px" />
-                        </div>
-                      </Popover>
-                    </div>
-                  </div>
-                )}
-            </>
+          {!editMode && (
+            <ShareProfile
+              ifMyProfile={ifMyProfile}
+              originUrl={originUrl}
+              profile={profile}
+              user={user}
+              sendInvites={sendInvites}
+              sendMessage={sendMessage}
+            />
           )}
         </Col>
       </Row>
@@ -405,13 +375,27 @@ const ProfileTopBar = (props) => {
         }}
         showModal={showModal}
       />
+      <EditUserDataDuringSignUp
+        user={user}
+        loadingImg={loadingImg}
+        showModalEdit={showModalEdit}
+        setShowModalEdit={setShowModalEdit}
+        props={props}
+        userData={userData}
+        setUserData={setUserData}
+        genresMyProfileEnums={genresMyProfileEnums}
+        userGenres={userGenres}
+        genres={genres}
+        handleChangeGenres={handleChangeGenres}
+        saveUserDataByKey={saveUserDataByKey}
+      />
     </Content>
   );
 };
 
 ProfileTopBar.propTypes = {
   user: PropTypes.object.isRequired,
-  beforeUpload: PropTypes.func,
+  beforeUploadBase64: PropTypes.func,
   editMode: PropTypes.bool,
   userData: PropTypes.object,
   setEditMode: PropTypes.func,
@@ -422,20 +406,37 @@ ProfileTopBar.propTypes = {
   originUrl: PropTypes.string,
   profile: PropTypes.object,
   setErrMessage: PropTypes.func,
+  ifMyProfile: PropTypes.bool,
+  loadingImg: PropTypes.bool,
+  genresMyProfileEnums: PropTypes.array,
+  userGenres: PropTypes.array,
+  genres: PropTypes.array,
+  handleChangeGenres: PropTypes.func,
+  showModalEdit: PropTypes.bool,
+  setShowModalEdit: PropTypes.func,
 };
 
 ProfileTopBar.defaultProps = {
   cancelEditMode: () => {},
   saveUserDataByKey: () => {},
-  beforeUpload: () => {},
+  beforeUploadBase64: () => {},
   setEditMode: () => {},
   setUserData: () => {},
-  editMode: null,
-  userData: null,
+  editMode: false,
+  userData: {},
   errMessage: '',
   originUrl: '',
-  profile: null,
+  profile: {},
   setErrMessage: () => {},
+  ifMyProfile: false,
+  setLoadingImg: () => {},
+  loadingImg: false,
+  genresMyProfileEnums: [],
+  userGenres: [],
+  genres: [],
+  handleChangeGenres: () => {},
+  showModalEdit: false,
+  setShowModalEdit: () => {},
 };
 
 export default ProfileTopBar;

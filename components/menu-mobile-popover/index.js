@@ -1,17 +1,11 @@
 import React from 'react';
 
-import MenuNotificationsBox from 'components/menu-notifications-box';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
-const MenuMobilePopover = ({
-  removeAllStorage,
-  user,
-  unreadNotificationsId,
-  notificationsCount,
-}) => (
+const MenuMobilePopover = ({ removeAllStorage, user }) => (
   <>
     <div className={styles.box}>
       {/* <div className={styles.box__title}>
@@ -24,26 +18,26 @@ const MenuMobilePopover = ({
         </p>
       </div> */}
       <div className={styles.box__subtitle}>
-        <Link href="/my-profile">
-          <a className={styles.box__libk}>Profile</a>
+        <Link href={`/profile/${user._id}`}>
+          <a className={styles.box__link}>Profile</a>
         </Link>
       </div>
       <div className={styles.box__subtitle}>
-        {/* <Link href="/my-profile">
-          <a className={styles.box__libk}>Edit collaboration availability</a>
+        <Link href={`/profile/${user._id}?tab=gallery`}>
+          <a className={styles.box__link}>My programs</a>
         </Link>
-        <Link href="/my-profile">
-          <a className={styles.box__libk}>Account Settings</a>
+      </div>
+      <div className={styles.box__subtitle}>
+        {/* <Link href={`/profile/${user._id}`}>
+          <a className={styles.box__link}>Edit collaboration availability</a>
+        </Link>
+        <Link href={`/profile/${user._id}`}>
+          <a className={styles.box__link}>Account Settings</a>
         </Link> */}
         <span onClick={removeAllStorage}>
-          <a className={styles.box__libk}>Sign out</a>
+          <a className={styles.box__link}>Sign out</a>
         </span>
       </div>
-      <MenuNotificationsBox
-        user={user}
-        unreadNotificationsId={unreadNotificationsId}
-        notificationsCount={notificationsCount}
-      />
     </div>
   </>
 );
@@ -51,8 +45,6 @@ const MenuMobilePopover = ({
 MenuMobilePopover.propTypes = {
   removeAllStorage: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
-  unreadNotificationsId: PropTypes.array.isRequired,
-  notificationsCount: PropTypes.number.isRequired,
 };
 
 export default MenuMobilePopover;

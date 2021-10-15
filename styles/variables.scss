@@ -2,18 +2,20 @@ $primaryDark: #7b65f3;
 $primaryLight: #9a87fe;
 $secondaryDark: #2f2ea6;
 $secondaryLight: #403fc6;
-$orangeDark: #fec447;
+$orangeDark: #fac448;
 $orangeLight: #ffd67d;
 $black: #212121;
 $silver: #d3d3d3;
 $white: #f3f3f3;
 $grey: #7b7b7b;
+$greyWhite: #EDEDED;
 $primaryBG: #ffffff;
 $grayBG: #f3f3f3;
 $avatar_outline: #20c000;
 $switchBg: #9381f3;
 $text_white: #ffffff;
 $gray85: #858585;
+$red: #f54d4f;
 $primaryShadow: 0px 0px 20px rgba(123, 101, 243, 0.27);
 
 $h1: 55px;
@@ -24,7 +26,7 @@ $h4: 35px;
 $text1: 30px;
 $text2: 25px;
 $text3: 20px;
-$text4: 15px;
+$text4: 16px;
 $text5: 10px;
 $text6: 8px;
 
@@ -66,7 +68,3 @@ $media-xl: 'screen and (min-width: 1200px)';
   }
 }
 
-//example
-// @include media-xs {
-//    display: none;
-// }

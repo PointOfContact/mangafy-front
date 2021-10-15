@@ -3,19 +3,17 @@ import React, { useState } from 'react';
 import { notification, Popconfirm } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
-import Imgix from 'components/imgix';
-import Avatar from 'components/ui-elements/avatar';
 import PrimaryButton from 'components/ui-elements/button';
 import { EVENTS } from 'helpers/amplitudeEvents';
+import { userTypesEnums } from 'helpers/constant';
 import PropTypes from 'prop-types';
+import { format } from 'timeago.js';
+import myAmplitude from 'utils/amplitude';
 
 import { patchRequest } from '../../api/joinMangaStoryRequestClient';
+import MessageHeaderAvatar from './messageHeaderAvatar';
 import styles from './styles.module.scss';
 import 'react-chat-elements/dist/main.css';
-
-const Amplitude = require('amplitude');
-
-const amplitude = new Amplitude('3403aeb56e840aee5ae422a61c1f3044');
 
 const onAccept = (event, id, status) => {
   event.stopPropagation();
@@ -36,8 +34,10 @@ const ChatCard = ({
   setSelectedRequest,
   selectedRequest,
   isTeamChat,
+  mangaStoryId,
   isArchive,
   participentsInfo,
+  setShowMessageMobile,
 }) => {
   const [requests, setRequests] = useState([]);
   const showMessages = (e, sender) => {
@@ -46,6 +46,7 @@ const ChatCard = ({
       conversationId: e.currentTarget.dataset.id,
       name: sender.name,
       isTeamChat,
+      mangaStoryId,
       profileId,
       isArchive,
       participentsInfo,
@@ -72,7 +73,6 @@ const ChatCard = ({
 
         const eventData = [
           {
-            platform: 'WEB',
             event_type,
             event_properties: { inviteRequestId: id },
             user_id: user._id,
@@ -81,14 +81,18 @@ const ChatCard = ({
             },
           },
         ];
-        amplitude.track(eventData);
+        myAmplitude(eventData);
       })
       .catch((err) => {
         notification.error({
           message: err.message,
+          placement: 'bottomLeft',
         });
       });
   };
+
+  const characterType = userTypesEnums[senderInfo?.types?.length && senderInfo?.types[0]];
+
   return (
     <div
       key={rid}
@@ -97,38 +101,26 @@ const ChatCard = ({
         isSmall && styles.isSmall,
         selectedRequest?.rid === rid && styles.selected
       )}
-      onClick={(e) => showMessages(e, senderInfo)}
+      onClick={(e) => {
+        showMessages(e, senderInfo);
+        setShowMessageMobile(true);
+      }}
       data-id={conversations[0] && conversations[0]._id}>
       <div className={cn(styles.message_community, 'row')}>
         <div className={styles.mess_content}>
           <div className={cn(styles.title_block)}>
-            <div className={styles.avatar}>
-              {senderInfo.avatar ? (
-                <Imgix
-                  className="avatar"
-                  width={104}
-                  height={104}
-                  src={client.UPLOAD_URL + senderInfo.avatar}
-                />
-              ) : (
-                (isTeamChat && (
-                  <Imgix
-                    className="avatar"
-                    width={104}
-                    height={104}
-                    src={'https://mangafy.club/img/mangastory.webp'}
-                  />
-                )) || <Avatar text={senderInfo.name} className={styles.avatarName} fontSize={50} />
-              )}
-            </div>
+            <MessageHeaderAvatar senderInfo={senderInfo} isTeamChat={isTeamChat} />
             <div className={styles.name_special}>
               <div>
                 <h4>{senderInfo && senderInfo.name}</h4>
-                <p>{senderInfo && senderInfo.type}</p>
+                <p>{senderInfo && characterType}</p>
+                <p className={styles.messages}>{messages && messages.content}</p>
               </div>
-              <p className={styles.messages}>{messages && messages.content}</p>
             </div>
           </div>
+          <span className={styles.dateBar}>
+            {messages?.createdAt && format(messages?.createdAt)}
+          </span>
         </div>
         {isOwn && !isInvite && !isInvite && status === 'new' && (
           <div className={cn(styles.div_button, 'buttonsProfile_styles')}>
@@ -179,6 +171,8 @@ ChatCard.propTypes = {
   profileId: PropTypes.string,
   isArchive: PropTypes.bool,
   participentsInfo: PropTypes.array,
+  mangaStoryId: PropTypes.string,
+  setShowMessageMobile: PropTypes.func.isRequired,
 };
 
 ChatCard.defaultProps = {
@@ -186,6 +180,7 @@ ChatCard.defaultProps = {
   profileId: null,
   isArchive: false,
   participentsInfo: [],
+  mangaStoryId: null,
 };
 
 export default ChatCard;

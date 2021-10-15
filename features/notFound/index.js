@@ -4,17 +4,17 @@ import Footer from 'components/footer';
 import Header from 'components/header';
 import Imgix from 'components/imgix';
 import LargeButton from 'components/ui-elements/large-button';
-import Head from 'next/head';
+import { NextSeo } from 'next-seo';
 import Link from 'next/link';
 
 import styles from './styles.module.scss';
 
 const Error = () => (
   <div className="">
-    <Head>
-      <title>Oooops...</title>
-      <meta name="description" content="Not to worry! Let's find a better place for you to go" />
-    </Head>
+    <NextSeo
+      title="Oooops..."
+      description="Not to worry! Let's find a better place for you to go"
+    />
     <main>
       <Header path="comming-soon" />
       <div className={styles.error_page}>
@@ -24,7 +24,7 @@ const Error = () => (
             height={295}
             layout="fixed"
             src="https://mangafy.club/img/error.webp"
-            alt=""
+            alt="MangaFy error"
           />
           <div className={styles.error_title}>404</div>
           <div className={styles.page_title}>Ooops, we lost this page</div>
