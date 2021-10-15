@@ -62,9 +62,6 @@ const Footer = () => (
             {/* <Link href="/pricing">
               <a className={styles.footer__itemLink}>Go PRO</a>
             </Link> */}
-            <Link href="/collaborations">
-              <a className={styles.footer__itemLink}>Find Collaboration</a>
-            </Link>
             <Link href="/create-a-story/start">
               <a className={styles.footer__itemLink}>Post Collaboration</a>
             </Link>
