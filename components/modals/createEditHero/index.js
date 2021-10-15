@@ -11,7 +11,7 @@ import { EVENTS } from 'helpers/amplitudeEvents';
 import PropTypes from 'prop-types';
 import myAmplitude from 'utils/amplitude';
 
-import EditBackground from './backgroundUpload';
+import HeroUpload from './heroUpload';
 import styles from './styles.module.scss';
 
 const ModalComponent = ({ changeShowModal, showModal, hero, getStoryBoard, user, ifIsEdit }) => {
@@ -188,12 +188,11 @@ const ModalComponent = ({ changeShowModal, showModal, hero, getStoryBoard, user,
                 </Form.Item>
 
                 <div className={cn('modal_select_btn', styles.submitButton)}>
-                  <EditBackground
+                  <HeroUpload
                     disabled={!name.trim()}
                     ifIsEdit={ifIsEdit}
-                    hero={hero}
                     onChangeHero={onChangeHero}
-                    imageUrl={imageUrl}
+                    mangaUrl={imageUrl}
                     setSubmitButton={setSubmitButton}
                     setImgId={setImgId}
                     typeCard={hero?.type}

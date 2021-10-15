@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
 
-import { Upload, message, notification, Modal } from 'antd';
+import { Upload, message, notification } from 'antd';
 import client from 'api/client';
 // Api
 // Components
 import cn from 'classnames';
-import SvgClose from 'components/icon/Close';
 import SvgCloud from 'components/icon/Cloud';
 import SvgImage from 'components/icon/Image';
-import Imgix from 'components/imgix';
+import ShowImgModal from 'components/modals/showImg';
 import PropTypes from 'prop-types';
 import beforeUploadFromAMZ from 'utils/upload';
 
@@ -25,22 +24,21 @@ const HeroUpload = ({
   className,
   setSubmitButton,
   requestAuto,
-  uploadVideo,
-  setUploadLoading,
 }) => {
   const [img, setImg] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [fileList, setFileList] = useState(img || []);
+  const typePdf = mangaUrl?.slice(-3);
+  const ifPdf = typePdf === 'pdf' || typePdf === 'PDF';
 
   useEffect(() => {
-    const newImg = mangaUrl?.slice(-3)
+    const newImg = typePdf
       ? [
           {
             uid: '-1',
-            url:
-              mangaUrl?.slice(-3) === 'pdf' || mangaUrl?.slice(-3) === 'PDF'
-                ? 'https://icons.iconarchive.com/icons/graphicloads/filetype/256/pdf-icon.png'
-                : client.UPLOAD_URL + mangaUrl,
+            url: ifPdf
+              ? 'https://icons.iconarchive.com/icons/graphicloads/filetype/256/pdf-icon.png'
+              : client.UPLOAD_URL + mangaUrl,
             status: 'done',
           },
         ]
@@ -134,21 +132,12 @@ const HeroUpload = ({
           </div>
         )}
       </Upload>
-      <Modal
-        className={styles.modal}
-        bodyStyle={{ height: 'calc(100vh - 30px)', overflow: 'auto' }}
-        footer={null}
-        width={'100%'}
-        zIndex={200000000}
-        onCancel={() => setShowModal(false)}
-        closeIcon={
-          <span className={styles.closeIcon}>
-            <SvgClose />
-          </span>
-        }
-        visible={showModal}>
-        <Imgix layout="fill" src={img} alt="MangaFy modal" />
-      </Modal>
+      <ShowImgModal
+        setIsModalVisible={setShowModal}
+        isModalVisible={showModal}
+        img={client.UPLOAD_URL + mangaUrl}
+        imageType={ifPdf}
+      />
     </div>
   );
 };
@@ -166,8 +155,7 @@ HeroUpload.propTypes = {
   className: PropTypes.string,
   setSubmitButton: PropTypes.func,
   requestAuto: PropTypes.bool,
-  uploadVideo: PropTypes.bool,
-  setUploadLoading: PropTypes.func,
+  ifPdf: PropTypes.bool.isRequired,
 };
 
 HeroUpload.defaultProps = {
@@ -183,8 +171,6 @@ HeroUpload.defaultProps = {
   className: '',
   setSubmitButton: () => {},
   requestAuto: true,
-  uploadVideo: false,
-  setUploadLoading: () => {},
 };
 
 export default HeroUpload;
