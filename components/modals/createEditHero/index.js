@@ -14,62 +14,31 @@ import myAmplitude from 'utils/amplitude';
 import EditBackground from './backgroundUpload';
 import styles from './styles.module.scss';
 
-const ModalComponent = ({ changeShowModal, showModal, hero, getStoryBoard, user }) => {
+const ModalComponent = ({ changeShowModal, showModal, hero, getStoryBoard, user, ifIsEdit }) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [imageUrl, setImgId] = useState('');
   const [submitButton, setSubmitButton] = useState(false);
+  const [titles, setTitles] = useState({});
   const [form] = Form.useForm();
-
-  // default value personage
-  const titles = {
-    modal: '',
-    write: '',
-    firstInput: '',
-    description: '',
-    button: '',
-    type: '',
-  };
-
-  const setDialogTitles = (write, modal, firstInput, desc, button, type) => {
-    titles.write = write;
-    titles.modal = modal;
-    titles.firstInput = firstInput;
-    titles.description = desc;
-    titles.button = button;
-    titles.type = type;
-  };
 
   const setGlobalTitle = (type) => {
     if (type === 'component') {
-      setDialogTitles(
-        'Now add the components:',
-        "Now it's time to define your characters",
-        'Write your characters treats',
-        'Add a short bio synopsis to your character',
-        'Add component',
-        'component'
-      );
-      return 'CREATE CHARACTER CHARACTERISTICS';
+      setTitles({
+        write: 'Now add the components:',
+        firstInput: 'Write your characters treats',
+        description: 'Add a short bio synopsis to your character',
+        button: 'Add component',
+      });
+    } else {
+      setTitles({
+        write: 'Now add the background:',
+        firstInput: "Your character's setting",
+        description: 'Define an overview narrative and vision',
+        button: 'Add background',
+      });
     }
-    setDialogTitles(
-      'Now add the background:',
-      "Now it's time to place your character in its story setting",
-      "Your character's setting",
-      'Define an overview narrative and vision',
-      'Add background',
-      'background'
-    );
-    return 'ADD CHARACTER SETTING';
   };
-
-  const ModalTitle = (
-    <div className={styles.titleWrapper}>
-      <div className={styles.modalTitle}>
-        {hero?.newCreated ? setGlobalTitle(hero.type) : `Components name`}
-      </div>
-    </div>
-  );
 
   useEffect(() => {
     setName(hero?.name || '');
@@ -81,6 +50,10 @@ const ModalComponent = ({ changeShowModal, showModal, hero, getStoryBoard, user 
       imageUrl: hero?.imageUrl,
     });
   }, [hero, form]);
+
+  useEffect(() => {
+    setGlobalTitle(hero?.type);
+  }, [showModal]);
 
   const handleCancel = () => {
     changeShowModal(false);
@@ -103,20 +76,17 @@ const ModalComponent = ({ changeShowModal, showModal, hero, getStoryBoard, user 
       createHero(
         newHero,
         () => {
-          let evnentType;
+          let eventType;
           switch (hero.type) {
-            case 'personage':
-              evnentType = EVENTS.CREATE_BOARD_CHARACTER;
-              break;
             case 'component':
-              evnentType = EVENTS.CREATE_BOARD_TOOL;
+              eventType = EVENTS.CREATE_BOARD_TOOL;
               break;
             default:
-              evnentType = EVENTS.CREATE_BOARD_BACKGROUND;
+              eventType = EVENTS.CREATE_BOARD_BACKGROUND;
               break;
           }
           const data = {
-            event_type: evnentType,
+            event_type: eventType,
             event_properties: { newHero },
             user_id: user._id,
             user_properties: {
@@ -151,13 +121,10 @@ const ModalComponent = ({ changeShowModal, showModal, hero, getStoryBoard, user 
     }
   };
 
-  const ifIsEdit = ModalTitle.props?.children?.props?.children === 'Components name';
-
   return (
     <Modal
       forceRender
       className={styles.modal}
-      title={ModalTitle}
       footer={null}
       width={854.34}
       visible={showModal}
@@ -173,14 +140,8 @@ const ModalComponent = ({ changeShowModal, showModal, hero, getStoryBoard, user 
         handleCancel();
       }}>
       <div className={cn('container', styles.container)}>
-        {ifIsEdit ? (
-          ''
-        ) : (
-          <div className={styles.description}>
-            <h2>{titles.modal}</h2>
-          </div>
-        )}
-        <div className={cn(ifIsEdit ? styles.editStyle : '', styles.inputContainer)}>
+        <div className={styles.board} />
+        <div className={styles.inputContainer}>
           <div className="row">
             <div className={cn('col-lg-12', 'select_modal', styles.selectModal)}>
               <Form
@@ -196,7 +157,7 @@ const ModalComponent = ({ changeShowModal, showModal, hero, getStoryBoard, user 
                   name.trim().length > 0 && onChangeHero({}, imageUrl);
                   changeShowModal(false);
                 }}>
-                {ifIsEdit ? '' : <h3>{titles.write}</h3>}
+                <h3>{titles.write}</h3>
                 <Form.Item
                   name="name"
                   rules={[
@@ -217,9 +178,7 @@ const ModalComponent = ({ changeShowModal, showModal, hero, getStoryBoard, user 
                 </Form.Item>
                 <Form.Item name="description">
                   <TextArea
-                    placeholder={
-                      ifIsEdit ? 'Add a short bio synopsis to your character' : titles.description
-                    }
+                    placeholder={titles.description}
                     className={styles.modalTexArea}
                     isFullWidth={true}
                     isLinear={true}
@@ -230,14 +189,14 @@ const ModalComponent = ({ changeShowModal, showModal, hero, getStoryBoard, user 
 
                 <div className={cn('modal_select_btn', styles.submitButton)}>
                   <EditBackground
-                    disabled={!!name.trim()}
+                    disabled={!name.trim()}
                     ifIsEdit={ifIsEdit}
                     hero={hero}
                     onChangeHero={onChangeHero}
                     imageUrl={imageUrl}
                     setSubmitButton={setSubmitButton}
                     setImgId={setImgId}
-                    typeCard={titles.type}
+                    typeCard={hero?.type}
                     requestAuto={false}
                   />
                   <Form.Item>
@@ -265,12 +224,14 @@ ModalComponent.propTypes = {
   hero: PropTypes.object,
   mangaUrl: PropTypes.string,
   user: PropTypes.object,
+  ifIsEdit: PropTypes.bool,
 };
 
 ModalComponent.defaultProps = {
   hero: {},
   user: {},
   mangaUrl: null,
+  ifIsEdit: () => {},
 };
 
 export default ModalComponent;

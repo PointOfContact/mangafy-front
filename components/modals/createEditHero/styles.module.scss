@@ -50,6 +50,19 @@ $borderColor: #f0f0f0;
   .container {
     min-height: 320px;
     padding: 0;
+    margin-top: 100px;
+    .board {
+      width: 100%;
+      left: 0;
+      top: 75px;
+      position: absolute;
+      height: 2.95px;
+      background: linear-gradient(
+        90deg,
+        rgba(33, 33, 33, 0.07) -0.96%,
+        rgba(33, 33, 33, 0) 100.58%
+      );
+    }
   }
   .close {
     width: 39.71px;
@@ -81,14 +94,6 @@ $borderColor: #f0f0f0;
         height: 13.12px;
       }
     }
-  }
-  .modalTitle {
-    color: $black;
-    margin-top: 24px;
-    text-align: center;
-    @include font($text1, 35px, normal, bold);
-    padding: 14px;
-    box-sizing: border-box;
   }
   .modalSelect {
     box-sizing: border-box;
@@ -181,11 +186,6 @@ $borderColor: #f0f0f0;
   }
 }
 
-.editStyle {
-  margin-top: 16px;
-  border-top: 1px solid $borderColor;
-}
-
 .selectModal {
   width: calc(100% - 47px);
   margin-top: 10px;
@@ -195,16 +195,9 @@ $borderColor: #f0f0f0;
       font-weight: normal;
       font-size: 20px;
       line-height: 35px;
-      display: -webkit-flex;
-      display: -moz-box;
       display: flex;
-      -webkit-align-items: center;
-      -moz-box-align: center;
       align-items: center;
-      margin: 0;
-      margin-top: 14px;
-      margin-bottom: 10px;
-      @include font($text4, $text2, normal, normal);
+      margin: 14px 0 10px 0;
     }
     & input {
       @include input();
