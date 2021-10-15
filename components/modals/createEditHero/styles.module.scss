@@ -196,6 +196,9 @@ $borderColor: #f0f0f0;
       display: flex;
       align-items: center;
       margin: 14px 0 10px 0;
+      & + div + div {
+        margin: 0;
+      }
     }
     & input {
       min-height: 44px;
