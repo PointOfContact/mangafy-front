@@ -16,7 +16,14 @@
   justify-content: center;
   align-items: center;
   position: relative;
+  & > div > div > div {
+    display: flex;
+    justify-content: center;
+  }
   .editImage {
+    @include upload;
+  }
+  canvas{
     @include upload;
   }
   .loadContainer {

@@ -2,10 +2,15 @@ import React, { useState } from 'react';
 
 import client from 'api/client';
 import Imgix from 'components/imgix';
+import dynamic from 'next/dynamic';
 import PropTypes from 'prop-types';
 
 import HeroUpload from '../heroUpload';
 import styles from './styles.module.scss';
+
+const PDFViewer = dynamic(() => import('components/pdfViewer'), {
+  ssr: false,
+});
 
 const EditBackground = ({
   text,
@@ -23,17 +28,24 @@ const EditBackground = ({
   setUploadLoading,
 }) => {
   const [showUpload, setShowUpload] = useState(false);
-  return ifIsEdit && !!hero.imageUrl ? (
+  const typePdf = hero?.imageUrl?.slice(-3);
+  const ifPdf = typePdf === 'pdf' || typePdf === 'PDF';
+
+  return ifIsEdit && !!hero?.imageUrl ? (
     <div className={styles.editImageContainer}>
-      <Imgix
-        layout="fill"
-        onMouseEnter={() => {
-          setShowUpload(!showUpload);
-        }}
-        className={styles.editImage}
-        src={client.UPLOAD_URL + hero.imageUrl}
-        alt="MangaFy hero card img"
-      />
+      {ifPdf ? (
+        <PDFViewer url={client.UPLOAD_URL + hero?.imageUrl} />
+      ) : (
+        <Imgix
+          layout="fill"
+          onMouseEnter={() => {
+            setShowUpload(!showUpload);
+          }}
+          className={styles.editImage}
+          src={client.UPLOAD_URL + hero?.imageUrl}
+          alt="MangaFy hero card img"
+        />
+      )}
       {showUpload ? (
         <div className={styles.loadContainer}>
           <div className={styles.backgroundColor}></div>
