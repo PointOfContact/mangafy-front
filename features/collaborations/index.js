@@ -143,7 +143,7 @@ const Collaborations = (props) => {
           iconColor="#7b65f3"
         /> */}
       </div>
-      <FooterLogin user={user} cookieVisibility={false} />
+      {/* <FooterLogin user={user} cookieVisibility={false} /> */}
     </>
   );
 };
