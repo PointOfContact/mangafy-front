@@ -16,7 +16,7 @@ const PDFViewer = dynamic(() => import('components/pdfViewer'), {
   ssr: false,
 });
 
-const HeroCard = ({ hero, changeHero, confirmDelete }) => {
+const HeroCard = ({ hero, changeHero, confirmDelete, setEdit }) => {
   const [showImg, setShowImg] = useState('');
   const [isModalVisible, setIsModalVisible] = useState(false);
   const imageType = hero?.imageUrl?.slice(-3) === 'pdf' || hero?.imageUrl?.slice(-3) === 'PDF';
@@ -48,7 +48,12 @@ const HeroCard = ({ hero, changeHero, confirmDelete }) => {
 
   return (
     <div className={styles.hero__container}>
-      <div className={styles.hero__top__section} onClick={() => changeHero(hero, hero?.type)}>
+      <div
+        className={styles.hero__top__section}
+        onClick={() => {
+          setEdit(true);
+          changeHero(hero, hero?.type);
+        }}>
         <div className={styles.hero__text__row}>
           <h3>{hero?.name}</h3>
         </div>
@@ -110,12 +115,14 @@ HeroCard.propTypes = {
   hero: PropTypes.object,
   changeHero: PropTypes.func.isRequired,
   confirmDelete: PropTypes.func.isRequired,
+  setEdit: PropTypes.func,
 };
 
 HeroCard.defaultProps = {
   hero: {},
   changeHero: () => {},
   confirmDelete: () => {},
+  setEdit: () => {},
 };
 
 export default HeroCard;

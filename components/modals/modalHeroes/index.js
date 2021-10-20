@@ -1,16 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-import { Modal, Form, notification, Select } from 'antd';
-import { createHero, patchHero } from 'api/storyBoardClient';
+import { Modal, Form, Select } from 'antd';
 import cn from 'classnames';
 import SvgClose from 'components/icon/Close';
 import PrimaryButton from 'components/ui-elements/button';
 import PrimaryInput from 'components/ui-elements/input';
 import TextArea from 'components/ui-elements/text-area';
-import { EVENTS } from 'helpers/amplitudeEvents';
 import { heroQuality, heroTypes } from 'helpers/constant';
 import PropTypes from 'prop-types';
-import myAmplitude from 'utils/amplitude';
 
 import EditBackground from '../createEditHero/backgroundUpload';
 import styles from './styles.module.scss';
@@ -21,10 +18,11 @@ const ModalHeroes = ({
   changeShowModalHeroes,
   showModal,
   hero,
-  getStoryBoard,
   user,
   confirmDelete,
-  storyBoard,
+  onChangeHeroLogic,
+  ifIsEdit,
+  setEdit,
 }) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
@@ -78,67 +76,7 @@ const ModalHeroes = ({
       imageUrl: imgId,
     };
 
-    if (!newHero?.name || newHero?.name.length < 2) {
-      return;
-    }
-
-    if (newHero?.newCreated || newCreated) {
-      delete newHero?.newCreated;
-      delete hero?.newCreated;
-      if (newCreated) {
-        delete newHero?._id;
-        newHero.storyBoard = storyBoard?._id;
-      }
-      createHero(
-        newHero,
-        (res) => {
-          let eventType;
-          switch (hero.type) {
-            case 'personage':
-              eventType = EVENTS.CREATE_BOARD_CHARACTER;
-              break;
-            case 'component':
-              eventType = EVENTS.CREATE_BOARD_TOOL;
-              break;
-            default:
-              eventType = EVENTS.CREATE_BOARD_BACKGROUND;
-              break;
-          }
-          const data = {
-            event_type: eventType,
-            event_properties: { hero },
-            user_id: user._id,
-            user_properties: {
-              ...user,
-            },
-          };
-          myAmplitude(data);
-          setIdCardHero(res?._id);
-          delete newHero.storyBoard;
-          getStoryBoard();
-        },
-        (err) => {
-          notification.error({
-            message: err.message,
-          });
-        }
-      );
-    } else {
-      delete newHero?._id;
-      delete newHero?.storyBoard;
-      patchHero(
-        idCardHero,
-        newHero,
-        () => {
-          getStoryBoard();
-        },
-        (err) => {
-          notification.error({
-            message: err.message,
-          });
-        }
-      );
-    }
+    onChangeHeroLogic(newHero, hero, newCreated, setIdCardHero, idCardHero);
   };
 
   const createOptions = (array) =>
@@ -178,7 +116,9 @@ const ModalHeroes = ({
       className={styles.modal}
       footer={null}
       form={form}
-      width={854.34}
+      title={
+        <h1 className={styles.modalTitle}>{ifIsEdit ? 'Edit Character' : 'Create Character'}</h1>
+      }
       visible={showModal}
       closeIcon={
         <span className={styles.close}>
@@ -187,7 +127,10 @@ const ModalHeroes = ({
       }
       okText="Send"
       destroyOnClose
-      onCancel={() => changeShowModalHeroes(false)}>
+      onCancel={() => {
+        setEdit(false);
+        changeShowModalHeroes(false);
+      }}>
       <div className={cn('container', styles.container)}>
         <div className={cn(styles.inputContainer)}>
           <div className="row">
@@ -356,21 +299,14 @@ const ModalHeroes = ({
                 />
                 <PrimaryButton
                   isWhite={true}
-                  onClick={() => confirmDelete(hero)}
+                  onClick={() => {
+                    confirmDelete(hero);
+                  }}
                   text="Delete Character"
                 />
               </div>
             </div>
           </div>
-          {/* <div className={styles.uploadFile}>
-            <EditBackground
-              disabled={!idCardHero}
-              hero={hero}
-              imageUrl={imageUrl}
-              setImgId={setImgId}
-              onChangeHero={onChangeHero}
-            />
-          </div> */}
         </div>
       </div>
     </Modal>
@@ -380,19 +316,19 @@ const ModalHeroes = ({
 ModalHeroes.propTypes = {
   changeShowModalHeroes: PropTypes.func.isRequired,
   showModal: PropTypes.bool.isRequired,
-  getStoryBoard: PropTypes.func.isRequired,
   hero: PropTypes.object,
   mangaUrl: PropTypes.string,
   user: PropTypes.object,
   confirmDelete: PropTypes.func.isRequired,
-  storyBoard: PropTypes.object,
+  onChangeHeroLogic: PropTypes.func.isRequired,
+  ifIsEdit: PropTypes.bool,
 };
 
 ModalHeroes.defaultProps = {
   hero: {},
   user: {},
   mangaUrl: null,
-  storyBoard: {},
+  ifIsEdit: false,
 };
 
 export default ModalHeroes;

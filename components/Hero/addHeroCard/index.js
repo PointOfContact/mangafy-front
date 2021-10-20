@@ -16,6 +16,7 @@ const AddHeroCard = ({
   title,
   img,
   ifValidCards,
+  setEdit,
 }) => (
   <div className={ifValidCards ? styles.container : styles.containerTwo}>
     <div
@@ -23,7 +24,10 @@ const AddHeroCard = ({
         ifValidCards ? styles.addButton : styles.addButtonTwo,
         !getAllowCreate(heroTypes) ? styles.disabled : ''
       )}
-      onClick={() => addHero(heroTypes)}>
+      onClick={() => {
+        setEdit(false);
+        addHero(heroTypes);
+      }}>
       <SvgAdd2 width="31px" height="31px" />
       <p className={styles.addButtonText}>{title}</p>
     </div>
@@ -50,6 +54,7 @@ AddHeroCard.propTypes = {
   title: PropTypes.string,
   img: PropTypes.string,
   ifValidCards: PropTypes.bool,
+  setEdit: PropTypes.func,
 };
 
 AddHeroCard.defaultProps = {
@@ -61,6 +66,7 @@ AddHeroCard.defaultProps = {
   title: '',
   img: null,
   ifValidCards: false,
+  setEdit: () => {},
 };
 
 export default AddHeroCard;
