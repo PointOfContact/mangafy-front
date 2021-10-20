@@ -177,6 +177,11 @@ const ModalComponent = ({
                         placeholder={titles.inputLinkDesc}
                         defaultValue={chooseCharacter}
                         onBlur={() => onChangeHero({})}
+                        filterOption={(inputValue, option) =>
+                          inputValue
+                            ? option.label.toLowerCase().includes(inputValue.toLowerCase())
+                            : true
+                        }
                         className={styles.option}>
                         {options}
                       </Select>
