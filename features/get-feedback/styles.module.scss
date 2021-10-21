@@ -1,0 +1,174 @@
+@import '../../styles/variables.scss';
+$colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
+
+.modalFeedbacks {
+  width: 500px !important;
+  min-width: 390px !important;
+  margin-top: 20px !important;
+  @include media-sm {
+    margin-top: 0px !important;
+  }
+  & > div {
+    border-radius: 6px;
+    & > div {
+      padding: 0px;
+      padding-bottom: 29px;
+    }
+  }
+  .closeIcon {
+    background-color: $primaryDark;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    margin-top: 15px;
+    &:hover {
+      background-color: $primaryLight;
+    }
+    svg {
+      width: 14px;
+      height: 14px;
+      path {
+        fill: white;
+      }
+    }
+  }
+  .titleContainer {
+    position: relative;
+    .titleNewPost {
+      height: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 30px;
+      line-height: 35px;
+      color: $black;
+      margin: auto;
+    }
+    .border {
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+      height: 2.95px;
+      background: -webkit-linear-gradient(
+        left,
+        rgba(33, 33, 33, 0.07) -0.96%,
+        rgba(33, 33, 33, 0) 100.58%
+      );
+      background: -moz-linear-gradient(
+        left,
+        rgba(33, 33, 33, 0.07) -0.96%,
+        rgba(33, 33, 33, 0) 100.58%
+      );
+      background: linear-gradient(
+        90deg,
+        rgba(33, 33, 33, 0.07) -0.96%,
+        rgba(33, 33, 33, 0) 100.58%
+      );
+    }
+  }
+  .error{
+    color: $red;
+    font-size: 14px;
+  }
+  .container {
+    margin: 10px 30px;
+    @include media-sm{
+      margin: 10px 25px;
+    }
+    & > div > span > div > div > div > span{
+      width: 10px;
+    }
+    & > div {
+      margin: 0;
+      & > span > div > div {
+        height: 232px !important;
+        max-height: 232px !important;
+        margin-bottom: 0px;
+        & > span {
+          height: 232px !important;
+          max-height: 232px !important;
+        }
+      }
+    }
+    h2 {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 29px;
+      color: $black;
+      margin-top: 14px;
+      margin-bottom: 10px;
+    }
+    button{
+      width: 255px;
+      height: 55px;
+      margin: auto;
+      margin-top: 33px;
+    }
+    .feedbackUpload {
+      width: 100%;
+      height: 100%;
+      h4 {
+        font-style: normal;
+        font-weight: normal;
+        line-height: 20px;
+      }
+    }
+    .modalTextarea {
+      width: 100%;
+      min-height: 110px;
+      border-radius: 5px;
+      resize: none;
+      border: 1px solid $primaryDark;
+      &::placeholder {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 23px;
+        color: $gray85;
+      }
+    }
+  }
+  .option {
+    max-width: 960px;
+    min-height: 44px;
+    border: 1px solid $primaryDark;
+    border-radius: 5px;
+    margin-bottom: 45px;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    & > div {
+      width: 100% !important;
+      div {
+        @for $i from 1 through 7 {
+          &:nth-child(#{length($colors)}n + #{$i}) {
+            & > span {
+              background-color: nth($colors, random(length($colors)));
+              height: 36px;
+              display: flex;
+              align-items: center;
+              color: white;
+              font-style: normal;
+              font-weight: 900;
+              font-size: 14px;
+              line-height: 25px;
+              border-radius: 10px;
+              padding-left: 15px;
+              padding-right: 15px;
+              margin: 0 2px;
+              span {
+                color: white;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

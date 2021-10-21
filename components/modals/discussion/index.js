@@ -32,6 +32,7 @@ const ModalDiscussion = ({
   likesCount,
   logoNavigate,
   subTitle,
+  ifVideo,
 }) => {
   const [commentsData, setCommentsData] = useState([]);
   const [likesData, setLikesData] = useState([]);
@@ -41,7 +42,6 @@ const ModalDiscussion = ({
   const [logoProject, setLogoProject] = useState(client.UPLOAD_URL + logo);
   const [loading, setLoading] = useState('');
   const [subTitleData, setSubTitleData] = useState('');
-  const ifVideo = photoProject?.includes('youtube');
 
   const router = useRouter();
 
@@ -221,14 +221,9 @@ const ModalDiscussion = ({
                 <div className={!photoProject && styles.containerPhoto}>
                   <div className={cn(!photoProject && styles.img, styles.imgDef)}>
                     {ifVideo ? (
-                      <iframe
-                        loading="lazy"
-                        className={styles.postVideo}
-                        src={`${photoProject}?autoplay=1&mute=1&controls=0&playlist=RBolDaIdg5M&loop=1&autopause=0&`}
-                        title="YouTube video player"
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen></iframe>
+                      <video controls autoPlay muted loop>
+                        <source src={`${client.UPLOAD_URL + img}`} type="video/mp4" />
+                      </video>
                     ) : (
                       setPhotoOrLogo(photoProject, client.UPLOAD_URL + photoProject, 1000, false)
                     )}
@@ -272,6 +267,7 @@ ModalDiscussion.propTypes = {
   user: PropTypes.object,
   logoNavigate: PropTypes.string,
   subTitle: PropTypes.string,
+  ifVideo: PropTypes.bool,
 };
 
 ModalDiscussion.defaultProps = {
@@ -281,4 +277,5 @@ ModalDiscussion.defaultProps = {
   commentsData: [],
   likesCount: 0,
   subTitle: '',
+  ifVideo: true,
 };
