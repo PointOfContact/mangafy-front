@@ -18,6 +18,9 @@ const EditBackground = ({
   onChangeHero,
   className,
   setSubmitButton,
+  requestAuto,
+  uploadVideo,
+  setUploadLoading,
 }) => {
   const [showUpload, setShowUpload] = useState(false);
   return ifIsEdit && !!hero.imageUrl ? (
@@ -49,6 +52,9 @@ const EditBackground = ({
               onChangeHero={onChangeHero}
               className={className}
               setSubmitButton={setSubmitButton}
+              requestAuto={requestAuto}
+              uploadVideo={uploadVideo}
+              setUploadLoading={setUploadLoading}
             />
           </div>
         </div>
@@ -67,6 +73,9 @@ const EditBackground = ({
       onChangeHero={onChangeHero}
       className={className}
       setSubmitButton={setSubmitButton}
+      requestAuto={requestAuto}
+      uploadVideo={uploadVideo}
+      setUploadLoading={setUploadLoading}
     />
   );
 };
@@ -82,6 +91,9 @@ EditBackground.propTypes = {
   text: PropTypes.string,
   className: PropTypes.string,
   setSubmitButton: PropTypes.func,
+  requestAuto: PropTypes.bool,
+  uploadVideo: PropTypes.bool,
+  setUploadLoading: PropTypes.func,
 };
 
 EditBackground.defaultProps = {
@@ -95,6 +107,9 @@ EditBackground.defaultProps = {
   text: '',
   className: '',
   setSubmitButton: () => {},
+  requestAuto: true,
+  uploadVideo: false,
+  setUploadLoading: () => {},
 };
 
 export default EditBackground;

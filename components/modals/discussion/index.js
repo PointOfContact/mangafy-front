@@ -197,7 +197,9 @@ const ModalDiscussion = ({
                       <Spin className={styles.spin} size="small"></Spin>
                     ) : (
                       <span className={styles.like}>
-                        <span>{(!!likesData.length && likesData.length) || likesCount}</span>
+                        <span>
+                          {(!!likesData.length && likesData.length) || (!!likesCount && likesCount)}
+                        </span>
                         <SvgHeart
                           width="25px"
                           height="22px"

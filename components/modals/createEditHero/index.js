@@ -124,7 +124,6 @@ const ModalComponent = ({ changeShowModal, showModal, hero, getStoryBoard, user 
             },
           };
           myAmplitude(data);
-
           delete newHero.storyBoard;
           getStoryBoard();
         },
@@ -192,14 +191,21 @@ const ModalComponent = ({ changeShowModal, showModal, hero, getStoryBoard, user 
                   name,
                   description,
                   imageUrl: '',
+                }}
+                onFinish={() => {
+                  name.trim().length > 0 && onChangeHero({}, imageUrl);
+                  changeShowModal(false);
                 }}>
                 {ifIsEdit ? '' : <h3>{titles.write}</h3>}
                 <Form.Item
                   name="name"
                   rules={[
                     {
-                      required: true,
-                      message: 'Name is required',
+                      validator: async (_, names) => {
+                        if (!names || names.trim().length < 2) {
+                          return Promise.reject(new Error('This field max length 2 letter'));
+                        }
+                      },
                     },
                   ]}>
                   <PrimaryInput
@@ -227,37 +233,24 @@ const ModalComponent = ({ changeShowModal, showModal, hero, getStoryBoard, user 
                     disabled={!!name.trim()}
                     ifIsEdit={ifIsEdit}
                     hero={hero}
+                    onChangeHero={onChangeHero}
                     imageUrl={imageUrl}
                     setSubmitButton={setSubmitButton}
                     setImgId={setImgId}
                     typeCard={titles.type}
+                    requestAuto={false}
                   />
                   <Form.Item>
                     <PrimaryButton
                       loading={submitButton}
                       htmlType="submit"
                       className={styles.send}
-                      onClick={() => {
-                        changeShowModal(false);
-                        onChangeHero({}, imageUrl);
-                      }}
                       text={hero?.newCreated ? titles.button : 'Save changes'}
                     />
                   </Form.Item>
                 </div>
               </Form>
             </div>
-          </div>
-          <div className={styles.uploadFile}>
-            <EditBackground
-              disabled={!name}
-              ifIsEdit={ifIsEdit}
-              hero={hero}
-              imageUrl={imageUrl}
-              setSubmitButton={setSubmitButton}
-              setImgId={setImgId}
-              typeCard={titles.type}
-            />
           </div>
         </div>
       </div>

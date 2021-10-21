@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { Upload, message, notification, Modal } from 'antd';
 import client from 'api/client';
 // Api
-import { uploadFile } from 'api/storyBoardClient';
 // Components
 import cn from 'classnames';
 import SvgClose from 'components/icon/Close';
@@ -11,6 +10,7 @@ import SvgCloud from 'components/icon/Cloud';
 import SvgImage from 'components/icon/Image';
 import Imgix from 'components/imgix';
 import PropTypes from 'prop-types';
+import beforeUploadFromAMZ from 'utils/upload';
 
 import styles from './styles.module.scss';
 
@@ -24,6 +24,9 @@ const HeroUpload = ({
   disabled,
   className,
   setSubmitButton,
+  requestAuto,
+  uploadVideo,
+  setUploadLoading,
 }) => {
   const [img, setImg] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -50,6 +53,12 @@ const HeroUpload = ({
     setFileList(newFileList);
   };
 
+  const setUploadCallback = (fileName) => {
+    setImgId(fileName);
+    requestAuto && onChangeHero({}, fileName);
+    setSubmitButton(false);
+  };
+
   const beforeUpload = (file) => {
     const isJpgOrPng =
       file.type === 'image/jpeg' ||
@@ -65,25 +74,8 @@ const HeroUpload = ({
       openNotification('error', 'Image must smaller than 10MB!');
     }
 
-    if (isJpgOrPng && isLt2M) {
-      // eslint-disable-next-line no-undef
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.addEventListener('load', () => {
-        setSubmitButton(true);
-        uploadFile(
-          reader.result,
-          (res) => {
-            setImgId(res?.id);
-            onChangeHero({}, res?.id);
-            setSubmitButton(false);
-          },
-          (err) => {
-            openNotification('error', err.message);
-          }
-        );
-      });
-    }
+    if (isJpgOrPng && isLt2M) beforeUploadFromAMZ(file, setUploadCallback, setSubmitButton);
+
     return isJpgOrPng && isLt2M;
   };
 
@@ -118,6 +110,9 @@ const HeroUpload = ({
         fileList={fileList}
         onChange={onChange}
         beforeUpload={beforeUpload}
+        onRemove={() => {
+          setImgId('');
+        }}
         onPreview={onPreview}>
         {fileList.length < 1 && (
           <div className={cn(styles.content, className)}>
@@ -170,6 +165,9 @@ HeroUpload.propTypes = {
   text: PropTypes.string,
   className: PropTypes.string,
   setSubmitButton: PropTypes.func,
+  requestAuto: PropTypes.bool,
+  uploadVideo: PropTypes.bool,
+  setUploadLoading: PropTypes.func,
 };
 
 HeroUpload.defaultProps = {
@@ -184,6 +182,9 @@ HeroUpload.defaultProps = {
   text: '',
   className: '',
   setSubmitButton: () => {},
+  requestAuto: true,
+  uploadVideo: false,
+  setUploadLoading: () => {},
 };
 
 export default HeroUpload;

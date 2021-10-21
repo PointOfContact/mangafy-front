@@ -12,9 +12,7 @@ import PropTypes from 'prop-types';
 import styles from './styles.module.scss';
 
 const MangaView = ({ user, storyBoardId, mangaUrls, mangaStoryId, mangaStoryTitle }) => {
-  const clearPdfFromMangaUrls = mangaUrls?.filter((value) => value.slice(-3) !== 'pdf');
-
-  const images = clearPdfFromMangaUrls?.map((value) => (
+  const images = mangaUrls?.map((value) => (
     <div className={styles.containerImages} key={value}>
       <Imgix
         layout="fill"
@@ -49,7 +47,7 @@ const MangaView = ({ user, storyBoardId, mangaUrls, mangaStoryId, mangaStoryTitl
             'authors who wish to create manga and comics for digital publication',
           images: [
             {
-              url: `${client.API_ENDPOINT}/api/v2/uploads/${clearPdfFromMangaUrls[0]}`,
+              url: `${client.API_ENDPOINT}/api/v2/uploads/${images[0]}`,
               width: 800,
               height: 600,
               alt: 'Manga Story Image',

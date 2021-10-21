@@ -2,9 +2,13 @@
 
 @mixin container {
   border-bottom: 0.5px solid #f1f1f1;
+  .description{
+    padding-right: 10px;
+    margin-left: 20px;
+    margin-top: 10px;
+  }
   .userName {
     height: 80px;
-    margin-left: 15px;
     display: flex;
     align-items: center;
     .avatarHiderMobile{
@@ -21,14 +25,14 @@
       font-style: normal;
       font-weight: 900;
       font-size: $text3;
-      line-height: 15px;
+      line-height: 20px;
       color: $black;
+      margin-bottom: 5px;
       &:hover {
         color: $primaryDark;
       }
       @include media-sm {
-        margin-left: 20px;
-        margin-top: -6px;
+        font-size: $text4;
       }
     }
     @include media-sm {
@@ -41,15 +45,8 @@
   }
   .members {
     color: $grey;
-    margin-left: 15px;
-    position: absolute;
     cursor: pointer;
     font-size: $text5;
-    top: 57px;
-    @include media-sm {
-      margin-left: 134px;
-      top: 40px;
-    }
   }
 }
 
@@ -60,6 +57,16 @@
   }
   @include media-sm {
     display: none;
+  }
+  & + div {
+    max-height: 505px;
+    min-height: 505px;
+    top: 80px !important;
+    @include media-sm {
+      max-height: 490px;
+      min-height: 370px;
+      top: 0px !important;
+    }
   }
 }
 

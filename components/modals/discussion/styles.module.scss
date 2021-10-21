@@ -197,11 +197,7 @@
     & > div {
       border-radius: 6px;
       & > img {
-        height: unset !important;
-        max-width: unset !important;
-        min-height: unset !important;
-        max-height: unset !important;
-        margin: 0 !important;
+        object-fit: contain;
       }
     }
   }

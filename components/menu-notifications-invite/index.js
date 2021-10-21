@@ -23,9 +23,9 @@ const MenuNotificationsInvite = ({
     return patchRequest(id, newStatus);
   };
 
-  const setRecvestStatus = (event, id, newStatus) => {
+  const setRequestStatus = (event, id, newStatus) => {
     onAccept(event, id, newStatus).then((res) => {
-      setStatus(res.status);
+      setStatus(res?.status);
       addUnreadNotificationsId();
       let event_type = '';
       if (type === 'GET_INVITE_FOR_COLLABORATION') {
@@ -61,7 +61,7 @@ const MenuNotificationsInvite = ({
           <div className={cn(styles.div_button, 'buttonsProfile_styles')}>
             <PrimaryButton
               onClick={(event) => {
-                setRecvestStatus(event, requestId, 'rejected');
+                setRequestStatus(event, requestId, 'rejected');
               }}
               className="buttonsProfile_cancel"
               text="Cancel"
@@ -70,7 +70,7 @@ const MenuNotificationsInvite = ({
             />
             <PrimaryButton
               onClick={(event) => {
-                setRecvestStatus(event, requestId, 'accepted');
+                setRequestStatus(event, requestId, 'accepted');
               }}
               className="buttonsProfile_save"
               text="save"
