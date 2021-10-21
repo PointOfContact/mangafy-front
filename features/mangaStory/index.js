@@ -11,7 +11,6 @@ import Footer from 'components/footer';
 import FooterPolicy from 'components/footer-policy';
 import Header from 'components/header';
 import ButtonToTop from 'components/ui-elements/button-toTop';
-import FooterLogin from 'features/footerLogin';
 import { NextSeo } from 'next-seo';
 import Router, { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
@@ -294,7 +293,7 @@ const MangeStory = (props) => {
         </div>
         {!userData && <Footer />}
         {!userData && <FooterPolicy />}
-        <FooterLogin user={userData} />
+        {/* <FooterLogin user={userData} /> */}
       </main>
       <DeleteProjectModal
         user={userData}
