@@ -16,16 +16,9 @@
   .text{
     margin: 0;
   }
-  .warning {
-      font-weight: bold;
-  }
   .outLine{
     margin-left: 4px;
-  }
-  &:hover {
-    .outLine{
-      border-bottom: 1px solid $black;
-    }
+    border-bottom: 1px solid $black;
   }
   @include media-md {
     top: 86px;

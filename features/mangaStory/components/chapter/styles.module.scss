@@ -1,0 +1,77 @@
+@import '../../../../styles/variables.scss';
+
+.container {
+  padding-left: 85px;
+  padding-right: 85px;
+  box-sizing: border-box;
+  .selectContainer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 57px;
+    .published {
+      margin-right: 10px;
+    }
+  }
+  .addChapter {
+    margin-top: 80px;
+    margin-bottom: 120px;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    span {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 29px;
+      color: $black;
+      margin-left: 10px;
+    }
+  }
+  .chapterContainer {
+    display: flex;
+    margin-top: 37px;
+    border: 1px solid black;
+    .addPageContainer {
+      .chapterTitle {
+        font-style: normal;
+        font-weight: bold;
+        font-size: 25px;
+        line-height: 36px;
+        color: $black;
+        margin-bottom: 63px;
+      }
+      .addPage {
+        width: 273.61px;
+        height: 320px;
+        background: $primaryDark;
+        border-radius: 10px;
+        box-sizing: border-box;
+        border: 1px solid $primaryDark;
+        margin-right: 28px;
+        h3 {
+          width: 168.53px;
+          height: 59px;
+          display: flex;
+          align-items: center;
+          font-style: normal;
+          font-weight: bold;
+          font-size: 28px;
+          line-height: 41px;
+          color: white;
+          margin-top: 25px;
+          margin-left: 20px;
+        }
+        svg {
+          width: 100%;
+          margin-top: 70px;
+          path {
+            fill: $primaryLight;
+          }
+          circle {
+            fill: $primaryDark;
+          }
+        }
+      }
+    }
+  }
+}

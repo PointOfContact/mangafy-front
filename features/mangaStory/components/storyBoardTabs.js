@@ -5,6 +5,7 @@ import client from 'api/client';
 import FindPartner from 'components/findPartner';
 import Hero from 'components/Hero';
 import SvgAdd2 from 'components/icon/Add2';
+import SvgChapter from 'components/icon/Chapter';
 import DocumentsSvg from 'components/icon/Documents';
 import GroupSvg from 'components/icon/Group';
 import PencilCaseSvg from 'components/icon/PencilCase';
@@ -25,6 +26,7 @@ import myAmplitude from 'utils/amplitude';
 import useWindowSize from 'utils/useWindowSize';
 
 import styles from '../styles.module.scss';
+import Chapter from './chapter';
 import DragDrop from './dragDrop';
 import Preview from './preview';
 
@@ -109,6 +111,14 @@ const StoryBoardTabs = ({
       case '5':
         setStage({
           tab,
+          title: 'CREATE_SCRIPT',
+          description:
+            'Add full comic and manga script pages for an Arc, volume, or a full graphic novel',
+        });
+        break;
+      case '6':
+        setStage({
+          tab,
           title: 'PUBLISH',
           description:
             "Congratulations! you finalized your volume, arc or novel and now it's time to publish. Select one of MangaFY's self-publishing partners and start monetizing",
@@ -145,7 +155,7 @@ const StoryBoardTabs = ({
             Back
           </Button>
         )}
-        {+storyBoardActiveTab < 5 && (
+        {+storyBoardActiveTab < 6 && (
           <Button
             id="StoryBoardNextBtnId"
             disabled={disableNextBtn}
@@ -182,6 +192,9 @@ const StoryBoardTabs = ({
         myEvent = EVENTS.PROJECT_UPLOADED;
         break;
       case '5':
+        myEvent = EVENTS.PROJECT_CHAPTER;
+        break;
+      case '6':
         myEvent = EVENTS.PROJECT_PUBLISHED;
         break;
       default:
@@ -234,8 +247,11 @@ const StoryBoardTabs = ({
       case 'upload':
         setStoryBoardActiveTab('4');
         break;
-      case 'share-story-board':
+      case 'project-chapters':
         setStoryBoardActiveTab('5');
+        break;
+      case 'share-story-board':
+        setStoryBoardActiveTab('6');
         break;
       default:
         setStoryBoardActiveTab('1');
@@ -426,6 +442,17 @@ const StoryBoardTabs = ({
           {renderNavigationButtons()}
         </div>
       </TabPane> */}
+
+        <TabPane
+          tab={
+            <span>
+              <SvgChapter height="25px" />
+            </span>
+          }
+          key={5}>
+          <Chapter pages={storyBoard?.pages} />
+        </TabPane>
+
         <TabPane
           tab={
             <span>
@@ -433,7 +460,7 @@ const StoryBoardTabs = ({
             </span>
           }
           // disabled={!storyBoard?.mangaUrl}
-          key={5}>
+          key={6}>
           {isShowAnimation && <span className={styles.showAnimation}></span>}
           <div className={styles.tabContent}>
             {addNewButtons}
