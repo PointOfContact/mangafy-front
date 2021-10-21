@@ -25,12 +25,16 @@ const HeroUpload = ({
   className,
   setSubmitButton,
   requestAuto,
+  setDeleteUploadImage,
   uploadVideo,
   setUploadLoading,
 }) => {
   const [img, setImg] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [fileList, setFileList] = useState(img || []);
+  const ifUploadVideo = uploadVideo
+    ? 'You can only upload PDF, JPG, JPEG, PNG, MP4 file!'
+    : 'You can only upload PDF, JPG, JPEG, PNG file!';
 
   useEffect(() => {
     const newImg = mangaUrl?.slice(-3)
@@ -64,9 +68,10 @@ const HeroUpload = ({
       file.type === 'image/jpeg' ||
       file.type === 'image/png' ||
       file.type === 'application/pdf' ||
-      file.type === 'image/jpg';
+      file.type === 'image/jpg' ||
+      file.type === 'video/mp4';
     if (!isJpgOrPng) {
-      openNotification('error', 'You can only upload PDF, JPG, JPEG, PNG file!');
+      openNotification('error', ifUploadVideo);
     }
     const isLt2M = file.size / 1024 / 1024 < 10;
     if (!isLt2M) {
@@ -74,7 +79,11 @@ const HeroUpload = ({
       openNotification('error', 'Image must smaller than 10MB!');
     }
 
-    if (isJpgOrPng && isLt2M) beforeUploadFromAMZ(file, setUploadCallback, setSubmitButton);
+    if (isJpgOrPng && isLt2M)
+      beforeUploadFromAMZ(file, setUploadCallback, (value) => {
+        setSubmitButton(value);
+        setUploadLoading(value);
+      });
 
     return isJpgOrPng && isLt2M;
   };
@@ -105,7 +114,7 @@ const HeroUpload = ({
     <div className={cn('primary_upload hero_upload', styles.primary_upload)}>
       <Upload
         disabled={disabled}
-        accept="image/jpg, image/png, application/pdf, image/jpeg "
+        accept="image/jpg, image/png, application/pdf, image/jpeg, video/mp4"
         listType="picture-card"
         fileList={fileList}
         onChange={onChange}
@@ -118,7 +127,7 @@ const HeroUpload = ({
           <div className={cn(styles.content, className)}>
             <div className={styles.types}>
               <SvgImage width="23px" height="23px" />
-              PDF, JPG, JPEG, PNG
+              PDF, JPG, JPEG, PNG, {uploadVideo && 'MP4'}
             </div>
             <div className={styles.description}>
               <span className="desc">
@@ -166,6 +175,7 @@ HeroUpload.propTypes = {
   className: PropTypes.string,
   setSubmitButton: PropTypes.func,
   requestAuto: PropTypes.bool,
+  setDeleteUploadImage: PropTypes.func,
   uploadVideo: PropTypes.bool,
   setUploadLoading: PropTypes.func,
 };
@@ -183,6 +193,7 @@ HeroUpload.defaultProps = {
   className: '',
   setSubmitButton: () => {},
   requestAuto: true,
+  setDeleteUploadImage: () => {},
   uploadVideo: false,
   setUploadLoading: () => {},
 };

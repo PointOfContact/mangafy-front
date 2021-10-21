@@ -19,6 +19,7 @@ const EditBackground = ({
   className,
   setSubmitButton,
   requestAuto,
+  setDeleteUploadImage,
   uploadVideo,
   setUploadLoading,
 }) => {
@@ -53,6 +54,7 @@ const EditBackground = ({
               className={className}
               setSubmitButton={setSubmitButton}
               requestAuto={requestAuto}
+              setDeleteUploadImage={setDeleteUploadImage}
               uploadVideo={uploadVideo}
               setUploadLoading={setUploadLoading}
             />
@@ -74,6 +76,7 @@ const EditBackground = ({
       className={className}
       setSubmitButton={setSubmitButton}
       requestAuto={requestAuto}
+      setDeleteUploadImage={setDeleteUploadImage}
       uploadVideo={uploadVideo}
       setUploadLoading={setUploadLoading}
     />
@@ -92,6 +95,7 @@ EditBackground.propTypes = {
   className: PropTypes.string,
   setSubmitButton: PropTypes.func,
   requestAuto: PropTypes.bool,
+  setDeleteUploadImage: PropTypes.func,
   uploadVideo: PropTypes.bool,
   setUploadLoading: PropTypes.func,
 };
@@ -108,6 +112,7 @@ EditBackground.defaultProps = {
   className: '',
   setSubmitButton: () => {},
   requestAuto: true,
+  setDeleteUploadImage: () => {},
   uploadVideo: false,
   setUploadLoading: () => {},
 };
