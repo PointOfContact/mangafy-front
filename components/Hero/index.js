@@ -22,6 +22,7 @@ const Hero = ({ storyBoard, getStoryBoard, user }) => {
   const [showModal, changeShowModal] = useState(false);
   const [showModalHeroes, changeShowModalHeroes] = useState(false);
   const [selectedHero, setSelectedHero] = useState({});
+  const [ifIsEdit, setEdit] = useState(false);
   const [selectedType, setSelectedType] = useState('');
 
   const { allowPersonageCreate, allowComponentCreate, allowBackgroundCreate } = useMemo(() => {
@@ -82,6 +83,7 @@ const Hero = ({ storyBoard, getStoryBoard, user }) => {
             key={hero?._id || index}
             getStoryBoard={getStoryBoard}
             confirmDelete={confirmDelete}
+            setEdit={setEdit}
           />
         );
       }
@@ -158,6 +160,7 @@ const Hero = ({ storyBoard, getStoryBoard, user }) => {
         hero={selectedHero}
         type={selectedType}
         user={user}
+        ifIsEdit={ifIsEdit}
       />
       <ModalHeroes
         changeShowModalHeroes={changeShowModalHeroes}
