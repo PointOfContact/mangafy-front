@@ -156,9 +156,9 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
     background-color: white;
     &::placeholder {
       font-style: normal;
-      font-weight: 500;
-      font-size: 18px;
-      line-height: 26px;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 23px;
       color: $gray85;
       @include media-sm {
         font-size: 16px;

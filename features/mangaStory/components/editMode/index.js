@@ -123,9 +123,13 @@ EditMode.propTypes = {
   onChangeSingleField: PropTypes.func.isRequired,
   cancelEditMode: PropTypes.func.isRequired,
   saveMangaStoryData: PropTypes.func.isRequired,
-  showPayPalToggle: PropTypes.bool.isRequired,
+  showPayPalToggle: PropTypes.bool,
   showPayPalContent: PropTypes.bool.isRequired,
   userData: PropTypes.object.isRequired,
+};
+
+EditMode.defaultProps = {
+  showPayPalToggle: false,
 };
 
 export default EditMode;

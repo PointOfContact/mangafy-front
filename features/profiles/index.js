@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Row } from 'antd';
 import cn from 'classnames';
 import Footer from 'components/footer';
 import FooterPolicy from 'components/footer-policy';
 import Header from 'components/header';
+import ModalCreateProject from 'components/modalCreateProject';
 import Paginations from 'components/paginations';
 import ProfilesCard from 'components/profilesCard';
 import ProfilesHeader from 'components/profilesHeader';
@@ -14,13 +15,13 @@ import ButtonToTop from 'components/ui-elements/button-toTop';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { userTypes } from 'helpers/constant';
 import { NextSeo } from 'next-seo';
-import Link from 'next/link';
 import PropTypes from 'prop-types';
 import myAmplitude from 'utils/amplitude';
 
 import styles from './styles.module.scss';
 
 const Profiles = (props) => {
+  const [createProjectModal, showCreateProjectModal] = useState(false);
   const { users, total, current, user, genres, search, selectedTypes, selectedGenres } = props;
 
   const data = {
@@ -65,11 +66,11 @@ const Profiles = (props) => {
                       <div className={cn(styles.PostColab)}>
                         <div className={cn(styles.PostColab__item)}>
                           <div className={cn(styles.PostColab__descr)}>Welcome to MangaFY club</div>
-                          <Link href="/create-a-story/start">
-                            <a>
-                              <PrimaryButton text="Join" className={cn(styles.PostColab__btn)} />
-                            </a>
-                          </Link>
+                          <PrimaryButton
+                            onClick={() => showCreateProjectModal(true)}
+                            text="Join"
+                            className={cn(styles.PostColab__btn)}
+                          />
                         </div>
                       </div>
                     )}
@@ -94,6 +95,10 @@ const Profiles = (props) => {
       <Footer />
       <FooterPolicy />
       {/* <FooterLogin user={user} /> */}
+      <ModalCreateProject
+        createProjectModal={createProjectModal}
+        showCreateProjectModal={showCreateProjectModal}
+      />
     </>
   );
 };

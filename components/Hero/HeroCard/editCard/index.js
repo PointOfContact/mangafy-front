@@ -10,14 +10,14 @@ import download from 'utils/downloadImages';
 
 import styles from './styles.module.scss';
 
-const EditCard = ({ confirmDelete, editCard, hero }) => {
+const EditCard = ({ confirmDelete, editCard, hero, setEdit }) => {
   const handleClick = (e) => {
     e.stopPropagation();
   };
 
   return (
     <div className={styles.changeCard}>
-      <div onClick={(handleClick, editCard)} className={styles.editCard}>
+      <div onClick={(handleClick, editCard, setEdit(true))} className={styles.editCard}>
         <SvgChange width="9px" height="11px" />
       </div>
 
@@ -58,15 +58,17 @@ const EditCard = ({ confirmDelete, editCard, hero }) => {
 };
 
 EditCard.propTypes = {
-  confirmDelete: PropTypes.func.isRequired,
-  editCard: PropTypes.func.isRequired,
-  hero: PropTypes.object.isRequired,
+  confirmDelete: PropTypes.func,
+  editCard: PropTypes.func,
+  hero: PropTypes.object,
+  setEdit: PropTypes.func,
 };
 
-EditCard.defaultProp = {
+EditCard.defaultProps = {
   confirmDelete: () => {},
   editCard: () => {},
   hero: {},
+  setEdit: () => {},
 };
 
 export default EditCard;

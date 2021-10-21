@@ -111,11 +111,11 @@ const HowToGetStartedWithMangaFY = ({ user }) => {
                 />
               </b>
               <br />
-              <p>
+              {/* <p>
                 You will be directed to create your story page -
                 https://mangafy.club/create-a-story/start. Press start and start building your user
                 profile on MangaFY.
-              </p>
+              </p> */}
               <Imgix
                 width={860}
                 height={1000}
