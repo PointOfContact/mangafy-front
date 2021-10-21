@@ -22,11 +22,7 @@ const HeroUpload = ({
   onChangeHero,
   disabled,
   className,
-  setSubmitButton,
-  requestAuto,
-  setDeleteUploadImage,
   uploadVideo,
-  setUploadLoading,
 }) => {
   const [img, setImg] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -59,8 +55,7 @@ const HeroUpload = ({
 
   const setUploadCallback = (fileName) => {
     setImgId(fileName);
-    requestAuto && onChangeHero({}, fileName);
-    setSubmitButton(false);
+    onChangeHero({}, fileName);
   };
 
   const beforeUpload = (file) => {
@@ -79,11 +74,7 @@ const HeroUpload = ({
       openNotification('error', 'Image must smaller than 10MB!');
     }
 
-    if (isJpgOrPng && isLt2M)
-      beforeUploadFromAMZ(file, setUploadCallback, (value) => {
-        setSubmitButton(value);
-        setUploadLoading(value);
-      });
+    if (isJpgOrPng && isLt2M) beforeUploadFromAMZ(file, setUploadCallback);
 
     return isJpgOrPng && isLt2M;
   };
@@ -164,12 +155,8 @@ HeroUpload.propTypes = {
   disabled: PropTypes.bool,
   text: PropTypes.string,
   className: PropTypes.string,
-  setSubmitButton: PropTypes.func,
-  requestAuto: PropTypes.bool,
   ifPdf: PropTypes.bool.isRequired,
-  setDeleteUploadImage: PropTypes.func,
   uploadVideo: PropTypes.bool,
-  setUploadLoading: PropTypes.func,
 };
 
 HeroUpload.defaultProps = {
@@ -183,11 +170,7 @@ HeroUpload.defaultProps = {
   disabled: false,
   text: '',
   className: '',
-  setSubmitButton: () => {},
-  requestAuto: true,
-  setDeleteUploadImage: () => {},
   uploadVideo: false,
-  setUploadLoading: () => {},
 };
 
 export default HeroUpload;

@@ -32,7 +32,7 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
 
 .modal {
   max-width: 500px !important;
-  margin-top: 50px !important;
+  margin-top: 30px !important;
   @include media-xs {
     width: 95% !important;
     max-width: 95% !important;
@@ -42,6 +42,7 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
     border-radius: 5px;
     & > div {
       padding: 0;
+      padding-top: 22px;
       border-radius: 5px;
       border-bottom: none;
     }
@@ -117,9 +118,15 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
       rgba(33, 33, 33, 0) 100.58%
     );
     background: linear-gradient(90deg, rgba(33, 33, 33, 0.07) -0.96%, rgba(33, 33, 33, 0) 100.58%);
-    @include media-sm {
-      top: 50px;
-    }
+  }
+  .modalTitle {
+    width: calc(100% - 47px);
+    margin: auto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 35px;
+    color: $black;
   }
   .containerButton {
     display: flex;
@@ -137,13 +144,6 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
         width: 170px;
       }
     }
-  }
-  .modalTitle {
-    color: $black;
-    margin-top: 24px;
-    text-align: center;
-    padding: 14px;
-    box-sizing: border-box;
   }
   .actions {
     font-size: 20px;
@@ -272,12 +272,7 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
 }
 
 .selectModal {
-  width: 440px;
-  margin-top: 100px;
-  @include media-md {
-    width: calc(100% - 47px);
-    margin-top: 70px;
-  }
+  width: calc(100% - 47px);
   .error{
     color: $red;
     font-size: 14px;

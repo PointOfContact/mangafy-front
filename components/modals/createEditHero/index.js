@@ -1,53 +1,98 @@
 import React, { useEffect, useState } from 'react';
 
-import { Modal, notification, Form } from 'antd';
-import { createHero, patchHero } from 'api/storyBoardClient';
+import { Modal, Form, Select } from 'antd';
 import cn from 'classnames';
 import SvgClose from 'components/icon/Close';
 import PrimaryButton from 'components/ui-elements/button';
 import PrimaryInput from 'components/ui-elements/input';
 import TextArea from 'components/ui-elements/text-area';
-import { EVENTS } from 'helpers/amplitudeEvents';
 import PropTypes from 'prop-types';
-import myAmplitude from 'utils/amplitude';
 
 import HeroUpload from './heroUpload';
 import styles from './styles.module.scss';
 
-const ModalComponent = ({ changeShowModal, showModal, hero, getStoryBoard, user, ifIsEdit }) => {
+const { Option } = Select;
+
+const ModalComponent = ({
+  changeShowModal,
+  showModal,
+  hero,
+  user,
+  ifIsEdit,
+  setEdit,
+  heroItems,
+  confirmDelete,
+  onChangeHeroLogic,
+}) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [imageUrl, setImgId] = useState('');
-  const [submitButton, setSubmitButton] = useState(false);
   const [titles, setTitles] = useState({});
+  const [chooseCharacter, setChooseCharacter] = useState(hero?.characterArray);
+  const [idCardHero, setIdCardHero] = useState('');
+  const [options, setOptions] = useState([]);
   const [form] = Form.useForm();
+
+  useEffect(() => {
+    setOptions(
+      heroItems?.map(({ props }) => (
+        <Option key={props.hero._id} value={props.hero._id} label={props.hero.name}>
+          {props.hero.name}
+        </Option>
+      ))
+    );
+  }, [chooseCharacter]);
+
+  const changeSelectedHero = (value) => {
+    setChooseCharacter(value);
+  };
 
   const setGlobalTitle = (type) => {
     if (type === 'component') {
       setTitles({
-        write: 'Now add the components:',
-        firstInput: 'Write your characters treats',
-        description: 'Add a short bio synopsis to your character',
+        title: ifIsEdit ? 'Edit item' : 'Create item',
+        inputTitle: 'Item definition',
+        inputDesc: 'Item description',
+        firstInput: 'Start with your character name...',
+        uploadTitle: 'Upload your item',
+        inputLink: 'Link to character',
+        inputLinkDesc: ifIsEdit
+          ? 'Each accessories has their owner or two'
+          : 'Each accessories has their owner',
+        description: "It's where you're supposed to describe your item in greater detail.",
         button: 'Add component',
       });
     } else {
       setTitles({
-        write: 'Now add the background:',
-        firstInput: "Your character's setting",
-        description: 'Define an overview narrative and vision',
+        title: ifIsEdit ? 'Edit background' : 'Create background',
+        inputTitle: 'Background definition',
+        inputDesc: 'Background description',
+        firstInput: 'Start with your character name...',
+        uploadTitle: 'Upload background',
+        inputLink: '',
+        inputLinkDesc: '',
+        description:
+          'The area or scenery behind the main object of contemplation, especially when perceived as a framework for it.',
         button: 'Add background',
       });
     }
   };
 
   useEffect(() => {
+    setGlobalTitle(hero?.type);
+  }, [showModal]);
+
+  useEffect(() => {
     setName(hero?.name || '');
     setDescription(hero?.description || '');
     setImgId(hero?.imageUrl || '');
+    setChooseCharacter(hero?.characterArray || []);
+    setIdCardHero(hero?._id);
     form.setFieldsValue({
       name: hero?.name,
       description: hero?.description,
       imageUrl: hero?.imageUrl,
+      chooseCharacter: hero?.characterArray,
     });
   }, [hero, form]);
 
@@ -57,68 +102,19 @@ const ModalComponent = ({ changeShowModal, showModal, hero, getStoryBoard, user,
 
   const handleCancel = () => {
     changeShowModal(false);
+    setEdit(false);
+    form.resetFields();
   };
 
-  const onChangeHero = (e, imgId = '') => {
+  const onChangeHero = (e, imgId = '', newCreated = false) => {
     const newHero = {
       ...hero,
       name,
       description,
       imageUrl: imgId,
+      characterArray: chooseCharacter,
     };
-
-    if (!newHero?.name) {
-      return;
-    }
-
-    if (newHero.newCreated) {
-      delete newHero.newCreated;
-      createHero(
-        newHero,
-        () => {
-          let eventType;
-          switch (hero.type) {
-            case 'component':
-              eventType = EVENTS.CREATE_BOARD_TOOL;
-              break;
-            default:
-              eventType = EVENTS.CREATE_BOARD_BACKGROUND;
-              break;
-          }
-          const data = {
-            event_type: eventType,
-            event_properties: { newHero },
-            user_id: user._id,
-            user_properties: {
-              ...user,
-            },
-          };
-          myAmplitude(data);
-          delete newHero.storyBoard;
-          getStoryBoard();
-        },
-        (err) => {
-          notification.error({
-            message: err.message,
-          });
-        }
-      );
-    } else {
-      delete newHero?._id;
-      patchHero(
-        hero?._id,
-        newHero,
-        () => {
-          getStoryBoard();
-          changeShowModal(false);
-        },
-        (err) => {
-          notification.error({
-            message: err.message,
-          });
-        }
-      );
-    }
+    onChangeHeroLogic(newHero, hero, newCreated, setIdCardHero, idCardHero);
   };
 
   return (
@@ -126,7 +122,7 @@ const ModalComponent = ({ changeShowModal, showModal, hero, getStoryBoard, user,
       forceRender
       className={styles.modal}
       footer={null}
-      width={854.34}
+      title={<h1 className={styles.title}>{titles.title}</h1>}
       visible={showModal}
       closeIcon={
         <span className={styles.close}>
@@ -135,10 +131,8 @@ const ModalComponent = ({ changeShowModal, showModal, hero, getStoryBoard, user,
       }
       okText="Send"
       destroyOnClose
-      onCancel={() => {
-        setSubmitButton(false);
-        handleCancel();
-      }}>
+      onCancel={handleCancel}>
+      <div className={styles.border} />
       <div className={cn('container', styles.container)}>
         <div className={styles.board} />
         <div className={styles.inputContainer}>
@@ -152,12 +146,9 @@ const ModalComponent = ({ changeShowModal, showModal, hero, getStoryBoard, user,
                   name,
                   description,
                   imageUrl: '',
-                }}
-                onFinish={() => {
-                  name.trim().length > 0 && onChangeHero({}, imageUrl);
-                  changeShowModal(false);
+                  chooseCharacter,
                 }}>
-                <h3>{titles.write}</h3>
+                <h3>{titles.inputTitle}</h3>
                 <Form.Item
                   name="name"
                   rules={[
@@ -174,8 +165,35 @@ const ModalComponent = ({ changeShowModal, showModal, hero, getStoryBoard, user,
                     isFullWidth={true}
                     isLinear={true}
                     onChange={(e) => setName(e.target.value)}
+                    onMouseOut={() => name.trim().length > 0 && onChangeHero({})}
                   />
                 </Form.Item>
+                {hero?.type === 'component' && (
+                  <>
+                    <h3>{titles.inputLink}</h3>
+                    <Form.Item name="chooseCharacter">
+                      <Select
+                        countLimit={true}
+                        mode="multiple"
+                        onChange={changeSelectedHero}
+                        isLinear={true}
+                        showSearch
+                        isFullWidth={true}
+                        placeholder={titles.inputLinkDesc}
+                        defaultValue={chooseCharacter}
+                        onBlur={() => onChangeHero({})}
+                        filterOption={(inputValue, option) =>
+                          inputValue
+                            ? option.label.toLowerCase().includes(inputValue.toLowerCase())
+                            : true
+                        }
+                        className={styles.option}>
+                        {options}
+                      </Select>
+                    </Form.Item>
+                  </>
+                )}
+                <h3>{titles.inputDesc}</h3>
                 <Form.Item name="description">
                   <TextArea
                     placeholder={titles.description}
@@ -184,28 +202,31 @@ const ModalComponent = ({ changeShowModal, showModal, hero, getStoryBoard, user,
                     isLinear={true}
                     autoSize={{ minRows: 1, maxRows: 8 }}
                     onChange={(e) => setDescription(e.target.value)}
+                    onBlur={() => onChangeHero({})}
                   />
                 </Form.Item>
-
+                <h3>{titles.uploadTitle}</h3>
                 <div className={cn('modal_select_btn', styles.submitButton)}>
                   <HeroUpload
+                    text={'Drag or browse your art to start uploading'}
                     disabled={!name.trim()}
                     ifIsEdit={ifIsEdit}
                     onChangeHero={onChangeHero}
                     mangaUrl={imageUrl}
-                    setSubmitButton={setSubmitButton}
                     setImgId={setImgId}
                     typeCard={hero?.type}
-                    requestAuto={false}
                   />
-                  <Form.Item>
-                    <PrimaryButton
-                      loading={submitButton}
-                      htmlType="submit"
-                      className={styles.send}
-                      text={hero?.newCreated ? titles.button : 'Save changes'}
-                    />
-                  </Form.Item>
+                </div>
+                <h3>Action</h3>
+                <div className={styles.containerButton}>
+                  <PrimaryButton
+                    onClick={() => {
+                      changeShowModal(false);
+                      onChangeHero({}, imageUrl, true);
+                    }}
+                    text="Duplicate"
+                  />
+                  <PrimaryButton isWhite={true} onClick={() => confirmDelete(hero)} text="Delete" />
                 </div>
               </Form>
             </div>
@@ -219,18 +240,24 @@ const ModalComponent = ({ changeShowModal, showModal, hero, getStoryBoard, user,
 ModalComponent.propTypes = {
   changeShowModal: PropTypes.func.isRequired,
   showModal: PropTypes.bool.isRequired,
-  getStoryBoard: PropTypes.func.isRequired,
   hero: PropTypes.object,
   mangaUrl: PropTypes.string,
   user: PropTypes.object,
   ifIsEdit: PropTypes.bool,
+  setEdit: PropTypes.func,
+  heroItems: PropTypes.array,
+  confirmDelete: PropTypes.func,
+  onChangeHeroLogic: PropTypes.func.isRequired,
 };
 
 ModalComponent.defaultProps = {
   hero: {},
   user: {},
   mangaUrl: null,
-  ifIsEdit: () => {},
+  ifIsEdit: false,
+  setEdit: () => {},
+  heroItems: [],
+  confirmDelete: () => {},
 };
 
 export default ModalComponent;

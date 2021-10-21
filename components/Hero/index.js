@@ -1,12 +1,16 @@
+/* eslint-disable no-param-reassign */
 import React, { useMemo, useState } from 'react';
 
 // import { createHero, patchHero, deleteHero, uploadFile } from 'api/storyBoardClient';
-import { deleteHero } from 'api/storyBoardClient';
+import { notification } from 'antd';
+import { createHero, deleteHero, patchHero } from 'api/storyBoardClient';
 import ModalComponent from 'components/modals/createEditHero';
 import ModalHeroes from 'components/modals/modalHeroes';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import PropTypes from 'prop-types';
-
 // Styles
+import myAmplitude from 'utils/amplitude';
+
 import CreateBoard from './createBoard';
 import createButtons from './createButtons/createButtons';
 import HeroCard from './HeroCard';
@@ -24,6 +28,7 @@ const Hero = ({ storyBoard, getStoryBoard, user }) => {
   const [selectedHero, setSelectedHero] = useState({});
   const [ifIsEdit, setEdit] = useState(false);
   const [selectedType, setSelectedType] = useState('');
+  const [ifIsEdit, setEdit] = useState(false);
 
   const { allowPersonageCreate, allowComponentCreate, allowBackgroundCreate } = useMemo(() => {
     const allow = {
@@ -70,6 +75,7 @@ const Hero = ({ storyBoard, getStoryBoard, user }) => {
     const heroId = !!hero?._id ? hero?._id : getLastCreateHeroId;
     deleteHero(heroId, getStoryBoard, getStoryBoard);
     changeShowModalHeroes(false);
+    changeShowModal(false);
   };
 
   const getLists = (type) => {
@@ -109,6 +115,70 @@ const Hero = ({ storyBoard, getStoryBoard, user }) => {
     changeHero(newHero, type);
   };
 
+  const onChangeHeroLogic = (newHero, hero, newCreated, setIdCardHero, idCardHero) => {
+    if (!newHero?.name || newHero?.name.length < 2) {
+      return;
+    }
+
+    if (newHero.newCreated || newCreated) {
+      delete newHero?.newCreated;
+      delete hero?.newCreated;
+      if (newCreated) {
+        delete newHero?._id;
+        newHero.storyBoard = storyBoard?._id;
+      }
+      createHero(
+        newHero,
+        (res) => {
+          let eventType;
+          switch (hero.type) {
+            case 'personage':
+              eventType = EVENTS.CREATE_BOARD_CHARACTER;
+              break;
+            case 'component':
+              eventType = EVENTS.CREATE_BOARD_TOOL;
+              break;
+            default:
+              eventType = EVENTS.CREATE_BOARD_BACKGROUND;
+              break;
+          }
+          const data = {
+            event_type: eventType,
+            event_properties: { newHero },
+            user_id: user._id,
+            user_properties: {
+              ...user,
+            },
+          };
+          myAmplitude(data);
+          delete newHero.storyBoard;
+          setIdCardHero(res?._id);
+          getStoryBoard();
+        },
+        (err) => {
+          notification.error({
+            message: err.message,
+          });
+        }
+      );
+    } else {
+      delete newHero?._id;
+      delete newHero?.storyBoard;
+      patchHero(
+        idCardHero,
+        newHero,
+        () => {
+          getStoryBoard();
+        },
+        (err) => {
+          notification.error({
+            message: err.message,
+          });
+        }
+      );
+    }
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.heroContainer}>
@@ -117,7 +187,7 @@ const Hero = ({ storyBoard, getStoryBoard, user }) => {
             {
               <CreateBoard
                 title="Characters"
-                list={() => getLists(HeroTypes.personage)}
+                list={getLists(HeroTypes.personage)}
                 addHero={addHero}
                 heroTypes={HeroTypes.personage}
                 getAllowCreate={getAllowCreate}
@@ -126,7 +196,7 @@ const Hero = ({ storyBoard, getStoryBoard, user }) => {
             {
               <CreateBoard
                 title="Component"
-                list={() => getLists(HeroTypes.component)}
+                list={getLists(HeroTypes.component)}
                 addHero={addHero}
                 heroTypes={HeroTypes.component}
                 getAllowCreate={getAllowCreate}
@@ -135,7 +205,7 @@ const Hero = ({ storyBoard, getStoryBoard, user }) => {
             {
               <CreateBoard
                 title="Background"
-                list={() => getLists(HeroTypes.background)}
+                list={getLists(HeroTypes.background)}
                 addHero={addHero}
                 heroTypes={HeroTypes.background}
                 getAllowCreate={getAllowCreate}
@@ -143,12 +213,12 @@ const Hero = ({ storyBoard, getStoryBoard, user }) => {
             }
             <div className={styles.buttonContainerListValid}>
               <div className={styles.border}></div>
-              {createButtons(addHero, HeroTypes, getAllowCreate, false)}
+              {createButtons(addHero, HeroTypes, getAllowCreate, false, setEdit)}
             </div>
           </div>
         ) : (
           <div className={styles.buttonContainer}>
-            {createButtons(addHero, HeroTypes, getAllowCreate, true)}
+            {createButtons(addHero, HeroTypes, getAllowCreate, true, setEdit)}
           </div>
         )}
       </div>
@@ -156,21 +226,25 @@ const Hero = ({ storyBoard, getStoryBoard, user }) => {
       <ModalComponent
         changeShowModal={changeShowModal}
         showModal={showModal}
-        getStoryBoard={getStoryBoard}
         hero={selectedHero}
         type={selectedType}
         user={user}
         ifIsEdit={ifIsEdit}
+        setEdit={setEdit}
+        confirmDelete={confirmDelete}
+        heroItems={getLists(HeroTypes.personage)}
+        onChangeHeroLogic={onChangeHeroLogic}
       />
       <ModalHeroes
         changeShowModalHeroes={changeShowModalHeroes}
         showModal={showModalHeroes}
-        getStoryBoard={getStoryBoard}
         hero={selectedHero}
         type={selectedType}
         user={user}
+        ifIsEdit={ifIsEdit}
+        setEdit={setEdit}
         confirmDelete={confirmDelete}
-        storyBoard={storyBoard}
+        onChangeHeroLogic={onChangeHeroLogic}
       />
     </div>
   );

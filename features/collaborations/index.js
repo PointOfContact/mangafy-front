@@ -41,12 +41,13 @@ const Collaborations = (props) => {
   const [createProjectModal, showCreateProjectModal] = useState(false);
 
   const data = {
-    event_type: EVENTS.OPENED_ALL_PROFILES,
+    event_type: EVENTS.OPENED_ALL_COLLABORATION,
     user_id: user?._id,
     user_properties: {
       ...user,
     },
   };
+
   myAmplitude(data);
 
   return (

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import AddHeroCard from '../addHeroCard';
 
-const createButtons = (addHero, HeroTypes, getAllowCreate, validCards) => (
+const createButtons = (addHero, HeroTypes, getAllowCreate, validCards, setEdit) => (
   <div>
     <AddHeroCard
       imgWidth={151}
@@ -15,6 +15,7 @@ const createButtons = (addHero, HeroTypes, getAllowCreate, validCards) => (
       title={'Add a character'}
       img="addHero.png"
       ifValidCards={validCards}
+      setEdit={setEdit}
     />
 
     <AddHeroCard
@@ -26,6 +27,7 @@ const createButtons = (addHero, HeroTypes, getAllowCreate, validCards) => (
       title={'Add character characteristics '}
       img="addComponent.png"
       ifValidCards={validCards}
+      setEdit={setEdit}
     />
 
     <AddHeroCard
@@ -37,6 +39,7 @@ const createButtons = (addHero, HeroTypes, getAllowCreate, validCards) => (
       title={'Add background'}
       img="addDescription.png"
       ifValidCards={validCards}
+      setEdit={setEdit}
     />
   </div>
 );
@@ -46,6 +49,7 @@ createButtons.propTypes = {
   HeroTypes: PropTypes.object.isRequired,
   getAllowCreate: PropTypes.func.isRequired,
   isValidCards: PropTypes.bool.isRequired,
+  setEdit: PropTypes.func,
 };
 
 createButtons.defaultProps = {
@@ -53,5 +57,6 @@ createButtons.defaultProps = {
   HeroTypes: {},
   getAllowCreate: () => {},
   isValidCards: false,
+  setEdit: () => {},
 };
 export default createButtons;
