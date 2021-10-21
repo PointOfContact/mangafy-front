@@ -47,10 +47,6 @@ const Register = ({ user }) => {
   };
 
   const history = useRouter();
-  // const routeChange = () => {
-  //   const path = `/create-a-story/start`;
-  //   history.push(path);
-  // };
 
   const handleRegisterSubmit = (e) => {
     setState({

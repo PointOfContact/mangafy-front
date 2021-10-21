@@ -4,6 +4,7 @@ import { Button, Checkbox } from 'antd';
 import SvgLeftArrow from 'components/icon/LeftArrow';
 import SvgRightArrow from 'components/icon/RightArrow';
 import Imgix from 'components/imgix';
+import ModalCreateProject from 'components/modalCreateProject';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -16,6 +17,7 @@ import { USER_TYPES } from './constant';
 const LookingFor = ({ user }) => {
   const [loadings, changeLoading] = useState([]);
   const [checked, changeChecked] = useState(false);
+  const [createProjectModal, showCreateProjectModal] = useState(false);
   const [checkboxes, changeCheckboxes] = useState(USER_TYPES);
 
   useEffect(() => {
@@ -123,14 +125,13 @@ const LookingFor = ({ user }) => {
                 </p>
                 <hr />
                 <div className="next_prev">
-                  <Link href="/create-a-story/start">
-                    <a>
-                      <Button id="lookingForPrevBtnId" className="title_but_prev ">
-                        <SvgLeftArrow width="13.503px" height="23.619px" />
-                        <span> Previous</span>
-                      </Button>
-                    </a>
-                  </Link>
+                  <Button
+                    id="lookingForPrevBtnId"
+                    className="title_but_prev "
+                    onClick={() => showCreateProjectModal(true)}>
+                    <SvgLeftArrow width="13.503px" height="23.619px" />
+                    <span> Previous</span>
+                  </Button>
                   <Link href="/create-a-story/model">
                     <a>
                       <Button
@@ -151,11 +152,18 @@ const LookingFor = ({ user }) => {
           </div>
         </div>
       </div>
+      <ModalCreateProject
+        createProjectModal={createProjectModal}
+        showCreateProjectModal={showCreateProjectModal}
+      />
     </>
   );
 };
 LookingFor.propTypes = {
-  user: PropTypes.objec,
+  user: PropTypes.object,
+};
+LookingFor.defaultProps = {
+  user: {},
 };
 
 export default LookingFor;

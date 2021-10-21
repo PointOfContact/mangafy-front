@@ -26,6 +26,7 @@ const Hero = ({ storyBoard, getStoryBoard, user }) => {
   const [showModal, changeShowModal] = useState(false);
   const [showModalHeroes, changeShowModalHeroes] = useState(false);
   const [selectedHero, setSelectedHero] = useState({});
+  const [ifIsEdit, setEdit] = useState(false);
   const [selectedType, setSelectedType] = useState('');
   const [ifIsEdit, setEdit] = useState(false);
 

@@ -73,6 +73,7 @@ const HeroCard = ({ hero, changeHero, confirmDelete, setEdit }) => {
           client={client}
           hero={hero}
           url={showImg}
+          setEdit={setEdit}
         />
       </div>
 

@@ -96,6 +96,10 @@ const ModalComponent = ({
     });
   }, [hero, form]);
 
+  useEffect(() => {
+    setGlobalTitle(hero?.type);
+  }, [showModal]);
+
   const handleCancel = () => {
     changeShowModal(false);
     setEdit(false);
@@ -130,6 +134,7 @@ const ModalComponent = ({
       onCancel={handleCancel}>
       <div className={styles.border} />
       <div className={cn('container', styles.container)}>
+        <div className={styles.board} />
         <div className={styles.inputContainer}>
           <div className="row">
             <div className={cn('col-lg-12', 'select_modal', styles.selectModal)}>
@@ -206,7 +211,6 @@ const ModalComponent = ({
                     text={'Drag or browse your art to start uploading'}
                     disabled={!name.trim()}
                     ifIsEdit={ifIsEdit}
-                    hero={hero}
                     onChangeHero={onChangeHero}
                     mangaUrl={imageUrl}
                     setImgId={setImgId}
