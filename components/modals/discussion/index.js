@@ -133,13 +133,12 @@ const ModalDiscussion = ({
   };
 
   const setPhotoOrLogo = (ifValidPhoto, photo, sizeImg, ifPhoto) => {
-    const getFormat = ifValidPhoto?.split('.').pop();
+    // TODO
     const validPhoto =
-      getFormat === 'png' ||
-      getFormat === 'jpg' ||
-      getFormat === 'webp' ||
-      getFormat === 'pdf' ||
-      getFormat === 'jpeg';
+      photo.includes('png') ||
+      photo.includes('jpg') ||
+      photo.includes('webp') ||
+      photo.includes('jpeg');
 
     return validPhoto ? (
       <Imgix
