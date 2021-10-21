@@ -26,6 +26,7 @@ const DragDrop = ({
   isModalVisible,
 }) => {
   const [characters, updateCharacters] = useState(uploadImages);
+  const imageType = (img) => img?.slice(-3) === 'pdf' || img?.slice(-3) === 'PDF';
 
   useEffect(() => {
     updateCharacters(uploadImages);
@@ -47,15 +48,18 @@ const DragDrop = ({
     );
   };
 
-  const setImage = (index, img) => (
-    <Imgix
-      width={209}
-      height={294}
-      className={styles.photo}
-      src={`${client.API_ENDPOINT}/api/v2/uploads/${img}`}
-      alt="Manga story cover"
-    />
-  );
+  const setImage = (index, img) =>
+    imageType(img) ? (
+      <PDFViewer url={client.UPLOAD_URL + img} />
+    ) : (
+      <Imgix
+        width={209}
+        height={294}
+        className={styles.photo}
+        src={client.UPLOAD_URL + img}
+        alt="Manga story cover"
+      />
+    );
 
   const getItem = characters.map((value, index) => (
     <Draggable key={value.status + index} draggableId={value.status + index} index={index}>
@@ -69,7 +73,7 @@ const DragDrop = ({
           <div
             className={styles.uploadPhoto}
             onClick={() => {
-              setZoomImageUrl(`${client.API_ENDPOINT}/api/v2/uploads/${value.uid}`);
+              setZoomImageUrl(client.UPLOAD_URL + value.uid);
               setIsModalVisible(!isModalVisible);
             }}>
             {setImage(index, value.uid)}

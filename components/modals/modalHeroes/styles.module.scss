@@ -33,7 +33,7 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
 .modal {
   max-width: 500px !important;
   margin-top: 50px !important;
-  @include media-sm {
+  @include media-xs {
     width: 95% !important;
     max-width: 95% !important;
     margin-top: 0 !important;
@@ -277,6 +277,10 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
   @include media-md {
     width: calc(100% - 47px);
     margin-top: 70px;
+  }
+  .error{
+    color: $red;
+    font-size: 14px;
   }
   & > form {
     & > div {

@@ -18,7 +18,6 @@ const ModalComponent = ({ changeShowModal, showModal, hero, getStoryBoard, user 
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [imageUrl, setImgId] = useState('');
-  const [deleteUploadImage, setDeleteUploadImage] = useState(true);
   const [submitButton, setSubmitButton] = useState(false);
   const [form] = Form.useForm();
 
@@ -125,7 +124,6 @@ const ModalComponent = ({ changeShowModal, showModal, hero, getStoryBoard, user 
             },
           };
           myAmplitude(data);
-          setDeleteUploadImage(true);
           delete newHero.storyBoard;
           getStoryBoard();
         },
@@ -133,7 +131,6 @@ const ModalComponent = ({ changeShowModal, showModal, hero, getStoryBoard, user 
           notification.error({
             message: err.message,
           });
-          setDeleteUploadImage(true);
         }
       );
     } else {
@@ -196,8 +193,8 @@ const ModalComponent = ({ changeShowModal, showModal, hero, getStoryBoard, user 
                   imageUrl: '',
                 }}
                 onFinish={() => {
+                  name.trim().length > 0 && onChangeHero({}, imageUrl);
                   changeShowModal(false);
-                  deleteUploadImage && onChangeHero({}, imageUrl);
                 }}>
                 {ifIsEdit ? '' : <h3>{titles.write}</h3>}
                 <Form.Item
@@ -205,8 +202,8 @@ const ModalComponent = ({ changeShowModal, showModal, hero, getStoryBoard, user 
                   rules={[
                     {
                       validator: async (_, names) => {
-                        if (!names || names.length < 2) {
-                          return Promise.reject(new Error('At least 2 letter'));
+                        if (!names || names.trim().length < 2) {
+                          return Promise.reject(new Error('This field max length 2 letter'));
                         }
                       },
                     },
@@ -242,7 +239,6 @@ const ModalComponent = ({ changeShowModal, showModal, hero, getStoryBoard, user 
                     setImgId={setImgId}
                     typeCard={titles.type}
                     requestAuto={false}
-                    setDeleteUploadImage={setDeleteUploadImage}
                   />
                   <Form.Item>
                     <PrimaryButton
@@ -255,20 +251,6 @@ const ModalComponent = ({ changeShowModal, showModal, hero, getStoryBoard, user 
                 </div>
               </Form>
             </div>
-          </div>
-          <div className={styles.uploadFile}>
-            <EditBackground
-              disabled={!name}
-              ifIsEdit={ifIsEdit}
-              hero={hero}
-              onChangeHero={onChangeHero}
-              imageUrl={imageUrl}
-              setSubmitButton={setSubmitButton}
-              setImgId={setImgId}
-              typeCard={titles.type}
-              requestAuto={false}
-              setDeleteUploadImage={setDeleteUploadImage}
-            />
           </div>
         </div>
       </div>

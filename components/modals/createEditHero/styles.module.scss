@@ -3,11 +3,24 @@
 $borderColor: #f0f0f0;
 
 @mixin input {
-  font-size: $text4;
-  border-color: $gray85;
+  min-height: 44px !important;
+  background-color: white;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1px solid $primaryDark;
   overflow-y: auto !important;
+  color: $black;
+  padding: 10px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 23px;
   &::placeholder {
-    color: rgb(163, 162, 162);
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 23px;
+    color: $gray85 !important;
   }
 }
 
@@ -19,8 +32,9 @@ $borderColor: #f0f0f0;
 }
 
 .modal {
+  width: 500px !important;
   margin-top: 50px !important;
-  @include media-sm {
+  @include media-xs {
     width: 95% !important;
     max-width: 95% !important;
     margin-top: 37px !important;
@@ -160,13 +174,10 @@ $borderColor: #f0f0f0;
   flex-direction: column;
   align-items: center;
   & > div:first-child {
-    display: none;
-    @include media-sm {
-      width: 320px;
-      height: 220px;
-      display: flex;
-      align-items: center;
-    }
+    width: 100%;
+    height: 220px;
+    display: flex;
+    align-items: center;
   }
 }
 
@@ -176,27 +187,39 @@ $borderColor: #f0f0f0;
 }
 
 .selectModal {
-  width: 356.4px;
-  margin-top: 50px;
-  @include media-md {
-    width: 315px;
-  }
+  width: calc(100% - 47px);
+  margin-top: 10px;
   & > form {
     & > h3 {
-      color: $gray85;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 20px;
+      line-height: 35px;
+      display: -webkit-flex;
+      display: -moz-box;
+      display: flex;
+      -webkit-align-items: center;
+      -moz-box-align: center;
+      align-items: center;
+      margin: 0;
+      margin-top: 14px;
+      margin-bottom: 10px;
       @include font($text4, $text2, normal, normal);
     }
     & input {
-      margin-top: $text6;
-      background-color: $text_white;
-      border-radius: 0;
-      height: 42px !important;
       @include input();
+      &:hover {
+        border: none;
+        border: 1px solid $primaryDark;
+      }
+      &:focus {
+        border: none;
+        border: 1px solid $primaryDark;
+      }
     }
     .modalTexArea {
-      min-height: 44px !important;
       @include input();
-      @include media-md{
+      @include media-md {
         min-height: 60px !important;
       }
     }

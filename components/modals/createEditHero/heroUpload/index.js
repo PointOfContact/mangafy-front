@@ -120,8 +120,7 @@ const HeroUpload = ({
         onChange={onChange}
         beforeUpload={beforeUpload}
         onRemove={() => {
-          onChangeHero({}, '');
-          setDeleteUploadImage(false);
+          setImgId('');
         }}
         onPreview={onPreview}>
         {fileList.length < 1 && (
