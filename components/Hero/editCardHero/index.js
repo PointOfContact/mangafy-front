@@ -10,7 +10,7 @@ import download from 'utils/downloadImages';
 
 import styles from './styles.module.scss';
 
-const EditCard = ({ confirmDelete, editCard, hero }) => {
+const EditCardHero = ({ confirmDelete, editCard, hero }) => {
   const handleClick = (e) => {
     e.stopPropagation();
   };
@@ -57,16 +57,16 @@ const EditCard = ({ confirmDelete, editCard, hero }) => {
   );
 };
 
-EditCard.propTypes = {
+EditCardHero.propTypes = {
   confirmDelete: PropTypes.func.isRequired,
   editCard: PropTypes.func.isRequired,
   hero: PropTypes.object.isRequired,
 };
 
-EditCard.defaultProp = {
+EditCardHero.defaultProp = {
   confirmDelete: () => {},
   editCard: () => {},
   hero: {},
 };
 
-export default EditCard;
+export default EditCardHero;

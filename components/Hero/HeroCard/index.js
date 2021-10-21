@@ -9,7 +9,7 @@ import dynamic from 'next/dynamic';
 import PropTypes from 'prop-types';
 
 // Styles
-import EditCard from './editCard';
+import EditCardHero from '../editCardHero';
 import styles from './styles.module.scss';
 
 const PDFViewer = dynamic(() => import('components/pdfViewer'), {
@@ -58,7 +58,7 @@ const HeroCard = ({ hero, changeHero, confirmDelete }) => {
         <button isRound={true} style={{ backgroundColor: buttonColor }}>
           {titleButton}
         </button>
-        <EditCard
+        <EditCardHero
           editCard={() => {
             changeHero(hero, hero?.type);
           }}
