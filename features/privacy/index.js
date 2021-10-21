@@ -6,6 +6,7 @@ import Imgix from 'components/imgix';
 import ButtonToTop from 'components/ui-elements/button-toTop';
 import FooterLogin from 'features/footerLogin';
 import { NextSeo } from 'next-seo';
+import Link from 'next/link';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
@@ -68,325 +69,300 @@ const Privacy = (props) => {
                   </div>
                 </div>
                 <div className={styles.info_section}>
-                  <div className={styles.update_block}>Effective Date: 04-03-2021</div>
+                  <div className={styles.update_block}>Effective Date: 14-10-2021</div>
                   <div className={styles.info_block}>
                     <div className={styles.info_title}>Your privacy is important to us</div>
                     <div className={styles.info_description}>
-                      Mangafy Lab is located at:
-                      <br />
-                      Mangafy Lab
-                      <br />
-                      Fikus 28/9 Tel Aviv Yaffo, Tel Aviv Yaffo <br />
-                      6820256 Tel Aviv District , Israel
-                      <br />
                       It is Mangafy Lab's policy to respect your privacy regarding any information
-                      we may collect while operating our website. This Privacy Policy applies to{' '}
-                      <a href="https://mangafy.club"> mangafy.club</a> (hereinafter, "us", "we", or
-                      "mangafy.club"). We respect your privacy and are committed to protecting
-                      personally identifiable information you may provide us through the Website. We
-                      have adopted this privacy policy ("Privacy Policy") to explain what
-                      information may be collected on our Website, how we use this information, and
-                      under what circumstances we may disclose the information to third parties.
-                      This Privacy Policy applies only to information we collect through the Website
-                      and does not apply to our collection of information from other sources.
+                      we may collect while operating our website. This Privacy Policy applies to
                       <br />
-                      This Privacy Policy, together with the Terms of service posted on our Website,
-                      set forth the general rules and policies governing your use of our Website.
-                      Depending on your activities when visiting our Website, you may be required to
-                      agree to additional terms of service.
-                    </div>
-                  </div>
-                  <div className={styles.info_block}>
-                    <div className={styles.info_title} id="tableofcontents">
-                      Contents
-                    </div>
-                    <div className={styles.info_description}>
-                      <ol>
-                        <li>
-                          <a href="#websitevisitors">
-                            <strong>Website Visitors</strong>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#PII">
-                            <strong>Personally-Identifying Information</strong>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#Security">
-                            <strong>Security</strong>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#Ads">
-                            <strong>Advertisements</strong>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#ExternalLinks">
-                            <strong>Links To External Sites</strong>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#Remarketing">
-                            <strong>Mangafy Lab uses Google AdWords for remarketing</strong>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#PIIProtection">
-                            <strong>
-                              Protection of Certain Personally-Identifying Information
-                            </strong>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#Stats">
-                            <strong>Aggregated Statistics</strong>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#Cookies">
-                            <strong>Cookies</strong>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#Ecommerce">
-                            <strong>E-commerce</strong>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#Changes">
-                            <strong>Privacy Policy Changes</strong>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#Credit">
-                            <strong>Contact Information &amp; Credit</strong>
-                          </a>
-                        </li>
-                      </ol>
-                    </div>
-                  </div>
-                  <div className={styles.info_block}>
-                    <div className={styles.info_title} id="websitevisitors">
-                      1. Website Visitors
-                    </div>
-                    <div className={styles.info_description}>
-                      Like most website operators, Mangafy Lab collects non-personally-identifying
-                      information of the sort that web browsers and servers typically make
-                      available, such as the browser type, language preference, referring site, and
-                      the date and time of each visitor request. Mangafy Lab's purpose in collecting
-                      non-personally identifying information is to better understand how Mangafy
-                      Lab's visitors use its website. From time to time, Mangafy Lab may release
-                      non-personally-identifying information in the aggregate, e.g., by publishing a
-                      report on trends in the usage of its website.
                       <br />
-                      Mangafy Lab also collects potentially personally-identifying information like
-                      Internet Protocol (IP) addresses for logged in users and for users leaving
-                      comments on https://mangafy.club blog posts. Mangafy Lab only discloses logged
-                      in user and commenter IP addresses under the same circumstances that it uses
-                      and discloses personally-identifying information as described below.
+                      <Link href={`https://mangafy.club/`}>
+                        <a>mangafy.club</a>
+                      </Link>
                       <br />
-                      <a href="#tableofcontents">Back to table of contents</a>
-                    </div>
-                  </div>
-                  <div className={styles.info_block}>
-                    <div className={styles.info_title} id="PII">
-                      2. Personally-Identifying Information
-                    </div>
-                    <div className={styles.info_description}>
-                      Certain visitors to Mangafy Lab's websites choose to interact with Mangafy Lab
-                      in ways that require Mangafy Lab to gather personally-identifying information.
-                      The amount and type of information that Mangafy Lab gathers depends on the
-                      nature of the interaction. For example, we ask visitors who leave a comment at
-                      https://mangafy.club to provide a username and email address.
-                      <a href="#tableofcontents">Back to table of contents</a>
-                    </div>
-                  </div>
-                  <div className={styles.info_block}>
-                    <div className={styles.info_title} id="Security">
-                      3. Security
-                    </div>
-                    <div className={styles.info_description}>
-                      The security of your Personal Information is important to us, but remember
-                      that no method of transmission over the Internet, or method of electronic
-                      storage is 100% secure. While we strive to use commercially acceptable means
-                      to protect your Personal Information, we cannot guarantee its absolute
-                      security.
                       <br />
-                      <a href="#tableofcontents">Back to table of contents</a>
-                    </div>
-                  </div>
-                  <div className={styles.info_block}>
-                    <div className={styles.info_title} id="Ads">
-                      4. Advertisements
-                    </div>
-                    <div className={styles.info_description}>
-                      Ads appearing on our website may be delivered to users by advertising
-                      partners, who may set cookies. These cookies allow the ad server to recognize
-                      your computer each time they send you an online advertisement to compile
-                      information about you or others who use your computer. This information allows
-                      ad networks to, among other things, deliver targeted advertisements that they
-                      believe will be of most interest to you. This Privacy Policy covers the use of
-                      cookies by Mangafy Lab and does not cover the use of cookies by any
-                      advertisers.
-                      <br />
-                      <a href="#tableofcontents">Back to table of contents</a>
+                      (hereinafter, "us", "we", or "mangafy.club"). We respect your privacy and are
+                      committed to protecting personally identifiable information you may provide us
+                      through the Website. We have adopted this privacy policy ("Privacy Policy") to
+                      explain what information may be collected on our Website, how we use this
+                      information, and under what circumstances we may disclose the information to
+                      third parties. This Privacy Policy applies only to information we collect
+                      through the Website and does not apply to our collection of information from
+                      other sources. This Privacy Policy, together with the Terms of service posted
+                      on our Website, set forth the general rules and policies governing your use of
+                      our Website. Depending on your activities when visiting our Website, you may
+                      be required to agree to additional terms of service.
                     </div>
                   </div>
 
                   <div className={styles.info_block}>
-                    <div className={styles.info_title} id="ExternalLinks">
-                      5. Links To External Sites
-                    </div>
+                    <div className={styles.info_title}>What this policy covers</div>
                     <div className={styles.info_description}>
-                      Our Service may contain links to external sites that are not operated by us.
-                      If you click on a third party link, you will be directed to that third party's
-                      site. We strongly advise you to review the Privacy Policy and terms of service
-                      of every site you visit.
+                      Your privacy is important to us, and so is being transparent about how we
+                      collect, use, and share information about you. This policy is intended to help
+                      you understand:
                       <br />
-                      We have no control over, and assume no responsibility for the content, privacy
-                      policies or practices of any third party sites, products or services.
                       <br />
-                      <a href="#tableofcontents">Back to table of contents</a>
+                      <ul>
+                        <li>What information do we collect about you</li>
+                        <li>How we use the information we collect</li>
+                        <li>How we share information we collect</li>
+                        <li>How we store and secure the information we collect</li>
+                        <li>How to access and control your information</li>
+                        <li>How to delete your profile and projects</li>
+                        <li>Other important privacy information and how to contact us</li>
+                      </ul>
                     </div>
                   </div>
+
                   <div className={styles.info_block}>
-                    <div className={styles.info_title} id="Remarketing">
-                      6. Mangafy Lab uses Google AdWords for remarketing
-                    </div>
+                    <div className={styles.info_title}>Information We Collect</div>
                     <div className={styles.info_description}>
-                      Mangafy Lab uses the remarketing services to advertise on third party websites
-                      (including Google) to previous visitors to our site. It could mean that we
-                      advertise to previous visitors who haven't completed a task on our site, for
-                      example using the contact form to make an enquiry. This could be in the form
-                      of an advertisement on the Google search results page, or a site in the Google
-                      Display Network. Third-party vendors, including Google, use cookies to serve
-                      ads based on someone's past visits. Of course, any data collected will be used
-                      in accordance with our own privacy policy and Google's privacy policy.
-                      <br />
-                      You can set preferences for how Google advertises to you using the Google Ad
-                      Preferences page, and if you want to you can opt out of interest-based
-                      advertising entirely by cookie settings or permanently using a browser plugin.
-                      <br />
-                      <a href="#tableofcontents">Back to table of contents</a>
+                      We collect information about you when you provide it to us, when you use our
+                      Services, and when other sources provide it to us, as further described below.
                     </div>
                   </div>
+
                   <div className={styles.info_block}>
-                    <div className={styles.info_title} id="PIIProtection">
-                      7. Protection of Certain Personally-Identifying Information
+                    <div className={styles.info_title}>
+                      Information we collect automatically when you use the Services
                     </div>
                     <div className={styles.info_description}>
-                      Mangafy Lab discloses potentially personally-identifying and
-                      personally-identifying information only to those of its employees, contractors
-                      and affiliated organizations that (i) need to know that information in order
-                      to process it on Mangafy Lab's behalf or to provide services available at
-                      Mangafy Lab's website, and (ii) that have agreed not to disclose it to others.
-                      Some of those employees, contractors and affiliated organizations may be
-                      located outside of your home country; by using Mangafy Lab's website, you
-                      consent to the transfer of such information to them. Mangafy Lab will not rent
-                      or sell potentially personally-identifying and personally-identifying
-                      information to anyone. Other than to its employees, contractors and affiliated
-                      organizations, as described above, Mangafy Lab discloses potentially
-                      personally-identifying and personally-identifying information only in response
-                      to a subpoena, court order or other governmental request, or when Mangafy Lab
-                      believes in good faith that disclosure is reasonably necessary to protect the
-                      property or rights of Mangafy Lab, third parties or the public at large.
-                      <br />
-                      If you are a registered user of https://mangafy.club and have supplied your
-                      email address, Mangafy Lab may occasionally send you an email to tell you
-                      about new features, solicit your feedback, or just keep you up to date with
-                      what's going on with Mangafy Lab and our products. We primarily use our blog
-                      to communicate this type of information, so we expect to keep this type of
-                      email to a minimum. If you send us a request (for example via a support email
-                      or via one of our feedback mechanisms), we reserve the right to publish it in
-                      order to help us clarify or respond to your request or to help us support
-                      other users. Mangafy Lab takes all measures reasonably necessary to protect
-                      against the unauthorized access, use, alteration or destruction of potentially
-                      personally-identifying and personally-identifying information.
-                      <br />
-                      <a href="#tableofcontents">Back to table of contents</a>
+                      We keep track of certain information about you when you visit and interact
+                      with our Services, including the type of browser you use, access times, pages
+                      viewed, entities clicked, your IP address and the page you visited before
+                      navigating to the Services.
+                    </div>
+                    <div className={styles.info_description}>
+                      How much of this information we collect depends on the type and settings of
+                      the device you use to access the Services.
                     </div>
                   </div>
+
                   <div className={styles.info_block}>
-                    <div className={styles.info_title} id="Stats">
-                      8. Aggregated Statistics
+                    <div className={styles.info_title}>Public Data vs Private Data in MangaFY</div>
+                    <div className={styles.info_description}>
+                      We don't want you to get a surprise that you've shared something you intended
+                      to keep private. You have full control over the visibility of your data, and
+                      all defaults favor privacy.
                     </div>
                     <div className={styles.info_description}>
-                      Mangafy Lab may collect statistics about the behavior of visitors to its
-                      website. Mangafy Lab may display this information publicly or provide it to
-                      others. However, Mangafy Lab does not disclose your personally-identifying
-                      information.
-                      <br />
-                      <a href="#tableofcontents">Back to table of contents</a>
+                      You have the ability to make projects private, in which case only added
+                      members will be able to view the projects. Actions on private projects will
+                      not show up in profiles. Private projects are not visible in search.
+                    </div>
+                    <div className={styles.info_description}>
+                      Your member profile is public. That includes your name, username, and bio, not
+                      your email. (If you set your full name to be your email, people will see
+                      that.) Your Profile page indicates each item's visibility status, as either
+                      Always Public or Always Hidden. Your avatar will be public to the internet,
+                      but you always have the option to remove the photo in favor of initials only.
+                    </div>
+                    <div className={styles.info_description}>
+                      Other users will only see actions on your public projects (unless they are
+                      part of one of your private projects). Collab pages will list only public
+                      projects.
                     </div>
                   </div>
+
                   <div className={styles.info_block}>
-                    <div className={styles.info_title} d="Cookies">
-                      9. Cookies
-                    </div>
+                    <div className={styles.info_title}>Purposes</div>
                     <div className={styles.info_description}>
-                      To enrich and perfect your online experience, Mangafy Lab uses "Cookies",
-                      similar technologies and services provided by others to display personalized
-                      content, appropriate advertising and store your preferences on your computer.
+                      When we collect personal information, we shall indicate the purpose of the
+                      collection and, upon request, offer more information about the collection.
                       <br />
-                      A cookie is a string of information that a website stores on a visitor's
-                      computer, and that the visitor's browser provides to the website each time the
-                      visitor returns. Mangafy Lab uses cookies to help Mangafy Lab identify and
-                      track visitors, their usage of https://mangafy.club, and their website access
-                      preferences. Mangafy Lab visitors who do not wish to have cookies placed on
-                      their computers should set their browsers to refuse cookies before using
-                      Mangafy Lab's websites, with the drawback that certain features of Mangafy
-                      Lab's websites may not function properly without the aid of cookies.
                       <br />
-                      By continuing to navigate our website without changing your cookie settings,
-                      you hereby acknowledge and agree to Mangafy Lab's use of cookies.
+                      We may collect information from you such as your name, e-mail address, avatar
+                      photo, preferred method of communication, interaction with our website, social
+                      media sites, and mobile applications (including IP addresses, browser type,
+                      language, access times, referring website, and so on), and other information
+                      you provide to us.
                       <br />
-                      <a href="#tableofcontents">Back to table of contents</a>
+                      <br />
+                      We collect, use and disclose your personal information for the following
+                      purposes:
+                      <br />
+                      <br />
+                      <ul>
+                        <li>
+                          to allow us to communicate with you (including through the use of
+                          commercial electronic messages),
+                        </li>
+                        <li>
+                          to customize the advertising and content that is presented to you on our
+                          website,
+                        </li>
+                        <li>to verify your personal information</li>
+                        <li>
+                          to operate, customize and improve our website, social media sites, mobile
+                          applications, advertisements, products, and services;
+                        </li>
+                        <li>to allow you to use portions of our website such as our forums;</li>
+                        <li>
+                          to allow you to participate in our contests, and to administer those
+                          contests;
+                        </li>
+                        <li>to monitor your compliance with any of your agreements with us;</li>
+                        <li>
+                          to administer our provision of, and your payment for, products or services
+                          you request from us;
+                        </li>
+                        <li>
+                          to provide newsletters, electronic messages and information you request
+                          from us;
+                        </li>
+                        <li>
+                          to provide other information to you regarding our products and services;
+                        </li>
+                        <li>
+                          to protect us, yourself and others from fraud and error and to safeguard
+                          our business interests;
+                        </li>
+                        <li>to comply with legal and regulatory requirements; and</li>
+                        <li>for other purposes, we may inform you about from time-to-time.</li>
+                      </ul>
+                      When your personal information is to be used for a purpose not previously
+                      identified, the new purpose will be disclosed to you prior to such use, and
+                      your consent will be sought unless the use is authorized or required by law.
+                      <br />
+                      <br />
+                      We may work with other companies to provide services on our behalfs, such as
+                      website hosting services, payment processing services, and product delivery
+                      services. Those service providers will be permitted to obtain only the
+                      personal information they need to deliver the service in question, and they
+                      will be required to maintain the confidentiality of that information.
                     </div>
                   </div>
+
                   <div className={styles.info_block}>
-                    <div className={styles.info_title} id="Ecommerce">
-                      10. E-commerce
-                    </div>
+                    <div className={styles.info_title}>Links to other Websites</div>
                     <div className={styles.info_description}>
-                      Those who engage in transactions with Mangafy Lab – by purchasing Mangafy
-                      Lab's services or products, are asked to provide additional information,
-                      including as necessary the personal and financial information required to
-                      process those transactions. In each case, Mangafy Lab collects such
-                      information only insofar as is necessary or appropriate to fulfill the purpose
-                      of the visitor's interaction with Mangafy Lab. Mangafy Lab does not disclose
-                      personally-identifying information other than as described below. And visitors
-                      can always refuse to supply personally-identifying information, with the
-                      caveat that it may prevent them from engaging in certain website-related
-                      activities.
-                      <br />
-                      <a href="#tableofcontents">Back to table of contents</a>
+                      Our website, social media sites, and mobile applications may contain links to
+                      websites of third parties. We are not responsible for the privacy practices or
+                      the content of those other websites.
                     </div>
                   </div>
+
                   <div className={styles.info_block}>
-                    <div className={styles.info_title} id="Changes">
-                      11. Privacy Policy Changes
-                    </div>
+                    <div className={styles.info_title}>Cookies and Log Files</div>
                     <div className={styles.info_description}>
-                      Although most changes are likely to be minor, Mangafy Lab may change its
-                      Privacy Policy from time to time, and in Mangafy Lab's sole discretion.
-                      Mangafy Lab encourages visitors to frequently check this page for any changes
-                      to its Privacy Policy. Your continued use of this site after any change in
-                      this Privacy Policy will constitute your acceptance of such change.
-                      <br />
-                      <a href="#tableofcontents">Back to table of contents</a>
+                      To track user information, we utilize cookies and log files. Cookies are tiny
+                      bits of data that a web server sends to your web browser and stores on your
+                      computer's hard drive. Cookies are used to track which page variants a visitor
+                      has viewed, if a visitor has clicked on a page variant, to analyze traffic
+                      patterns, and to evaluate the popularity of service alternatives. We will use
+                      your information to provide you with relevant content and services.
                     </div>
                   </div>
+
                   <div className={styles.info_block}>
-                    <div className={styles.info_title} id="Credit">
-                      12. Contact Information &amp; Credit
+                    <div className={styles.info_title}>Your Choices</div>
+                    <div className={styles.info_description}>
+                      You have the right to request a copy of your information, to object to our use
+                      of your information (including for marketing purposes), to request the
+                      deletion or restriction of your information, or to request your information in
+                      a structured, electronic format. Below, we describe the tools and processes
+                      for making these requests. You can exercise some of the choices by logging
+                      into the Services and using settings available within the Services or your
+                      account. Where the Services are administered for you by an administrator (see
+                      “Notice to End Users” below), you may need to contact your administrator to
+                      assist with your requests first. For all other requests, you may contact us as
+                      provided in the Contact Us section below to request assistance.
+                      <br />
+                      <br />
+                      Your request and choices may be limited in certain cases: for example, if
+                      fulfilling your request would reveal information about another person, or if
+                      you ask to delete information which we or your administrator are permitted by
+                      law or have compelling legitimate interests to keep. Where you have asked us
+                      to share data with third parties, for example, by installing third-party apps,
+                      you will need to contact those third-party service providers directly to have
+                      your information deleted or otherwise restricted. If you have unresolved
+                      concerns, you may have the right to complain to a data protection authority in
+                      the country where you live, where you work or where you feel your rights were
+                      infringed.
+                    </div>
+                  </div>
+
+                  <div className={styles.info_block}>
+                    <div className={styles.info_title}>
+                      Deleting your account (It's easier than you think )
                     </div>
                     <div className={styles.info_description}>
-                      This privacy policy was created at . If you have any questions about our
-                      Privacy Policy, please contact us via{' '}
-                      <a href="mailto:max@mangafy.club">email</a> or <a href="tel:">phone</a>.
+                      If you no longer wish to use our Services, you or your administrator may be
+                      able to deactivate your Services account. If you can deactivate your own
+                      account, that setting is available to you in your profile settings under
+                      editing mode and by "Delete account".
+                    </div>
+                  </div>
+
+                  <div className={styles.info_block}>
+                    <div className={styles.info_title}>Deleting your projects</div>
+                    <div className={styles.info_description}>
+                      If you would like to delete an entire project, which is a collection of
+                      multiple shots, log in to your account and scroll to the bottom of the
+                      left-hand sidebar. Any projects you have will be listed; click on the project
+                      you would like to delete. Once the new page loads scroll to the bottom of the
+                      left-hand sidebar and click “delete project”.
                       <br />
+                      <br />
+                      Please be aware that deleting your account does not delete your information;
+                      your information remains visible to other Service users based on your past
+                      participation within the Services. For more information on how to delete your
+                      information, see below.
+                    </div>
+                  </div>
+
+                  <div className={styles.info_block}>
+                    <div className={styles.info_title}>
+                      Request that we stop using your information
+                    </div>
+                    <div className={styles.info_description}>
+                      In some cases, you may ask us to stop accessing, storing, using and otherwise
+                      processing your information where you believe we don’t have the appropriate
+                      rights to do so. For example, if you believe a Services account was created
+                      for you without your permission or you are no longer an active user, you can
+                      request that we delete your account as provided in this policy. Where you gave
+                      us consent to use your information for a limited purpose, you can contact us
+                      to withdraw that consent, but this will not affect any processing that has
+                      already taken place at the time. You can also opt-out of our use of your
+                      information for marketing purposes by contacting us, as provided below. When
+                      you make such requests, we may need time to investigate and facilitate your
+                      request. If there is delay or dispute as to whether we have the right to
+                      continue using your information, we will restrict any further use of your
+                      information until the request is honored or the dispute is resolved, provided
+                      your administrator does not object (where applicable). If you object to
+                      information about you being shared with a third-party app, please disable the
+                      app or contact your administrator to do so.
+                    </div>
+                  </div>
+
+                  <div className={styles.info_block}>
+                    <div className={styles.info_title}>Changes to this Policy</div>
+                    <div className={styles.info_description}>
+                      We may update this Privacy Policy from time to time. If we do so, we will send
+                      an email to users subscribed to our newsletter. We will also add a site banner
+                      alerting users who may not be subscribed. If the change materially affects the
+                      treatment of your personal data, and we have your email but you are not
+                      subscribed to the Company News list, we will send you an email. (You are
+                      responsible for ensuring that we have an up-to-date email for this purpose.)
+                      <br />
+                      <br />
+                      If you disagree with any changes to this privacy policy, you will need to stop
+                      using the Services and deactivate your account(s), as outlined above.
+                    </div>
+                  </div>
+
+                  <div className={styles.info_block}>
+                    <div className={styles.info_title}>Contact Us</div>
+                    <div className={styles.info_description}>
+                      Your information is controlled by MangaFY, Inc.  If you have questions or
+                      concerns about how your information is handled, please direct your inquiry to
+                      MangaFY
+                      <Link href={'mailto:yo@mangafy.club'}>
+                        <a className={styles.openMail}>info@mangafy.club</a>
+                      </Link>
+                      .
                     </div>
                   </div>
                 </div>

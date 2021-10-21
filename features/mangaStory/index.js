@@ -13,9 +13,8 @@ import Header from 'components/header';
 import ButtonToTop from 'components/ui-elements/button-toTop';
 import FooterLogin from 'features/footerLogin';
 import { NextSeo } from 'next-seo';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
-import * as qs from 'query-string';
 
 import BannerSection from './components/bannersSection/index';
 import EditMode from './components/editMode';
@@ -46,6 +45,7 @@ const MangeStory = (props) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [canEdit] = useState(isOwn);
   const [collabActiveTab, setCollabActiveTab] = useState('1');
+  const router = useRouter();
   const [storyBoard, setStoryBoard] = useState({
     idea: {
       title: '',
@@ -58,7 +58,7 @@ const MangeStory = (props) => {
   });
 
   useEffect(() => {
-    const { tab } = qs.parse(location.search);
+    const tab = router.query.create === 'true' ? 'settings' : 'story';
     switch (tab) {
       case 'story-board':
         setCollabActiveTab('2');
