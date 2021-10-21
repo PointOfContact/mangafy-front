@@ -171,19 +171,25 @@ HeaderCollab.propTypes = {
   mangaStory: PropTypes.object.isRequired,
   openNotification: PropTypes.func.isRequired,
   originUrl: PropTypes.string.isRequired,
-  setCollabActiveTab: PropTypes.func.isRequired,
+  setCollabActiveTab: PropTypes.func,
   baseData: PropTypes.object.isRequired,
   setBaseData: PropTypes.func.isRequired,
   onChangeSingleField: PropTypes.func.isRequired,
-  paypalToggle: PropTypes.object.isRequired,
-  editTitle: PropTypes.string.isRequired,
-  collabActiveTab: PropTypes.bool.isRequired,
+  paypalToggle: PropTypes.object,
+  editTitle: PropTypes.bool.isRequired,
+  collabActiveTab: PropTypes.string.isRequired,
   stage: PropTypes.object.isRequired,
   canEdit: PropTypes.bool.isRequired,
   setEditTitle: PropTypes.func.isRequired,
   saveMangaStoryData: PropTypes.func.isRequired,
-  setMangaStoryNew: PropTypes.func.isRequired,
-  mangaStoryNew: PropTypes.object.isRequired,
+  setMangaStoryNew: PropTypes.func,
+  mangaStoryNew: PropTypes.object,
+};
+HeaderCollab.defaultProps = {
+  mangaStoryNew: {},
+  setMangaStoryNew: () => {},
+  paypalToggle: {},
+  setCollabActiveTab: () => {},
 };
 
 export default HeaderCollab;
