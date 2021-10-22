@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Row } from 'antd';
+import ModalCreateProject from 'components/modalCreateProject';
 import PrimaryButton from 'components/ui-elements/button';
-import Link from 'next/link';
 
 import AnimePlatformCard from './anime-platform copy';
 import styles from './styles.module.scss';
 
 const AnimePlatform = () => {
+  const [createProjectModal, showCreateProjectModal] = useState(false);
+
   const platforms = [
     {
       key: '1',
@@ -64,12 +66,17 @@ const AnimePlatform = () => {
             />
           ))}
         </Row>
-        <Link href="/create-a-story/start">
-          <a>
-            <PrimaryButton className={styles.joinBtn} text="Create a profile" isRound={true} />
-          </a>
-        </Link>
+        <PrimaryButton
+          className={styles.joinBtn}
+          text="Create a profile"
+          isRound={true}
+          onClick={() => showCreateProjectModal(true)}
+        />
       </div>
+      <ModalCreateProject
+        createProjectModal={createProjectModal}
+        showCreateProjectModal={showCreateProjectModal}
+      />
     </div>
   );
 };

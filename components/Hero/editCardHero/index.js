@@ -17,7 +17,7 @@ const EditCardHero = ({ confirmDelete, editCard, hero }) => {
 
   return (
     <div className={styles.changeCard}>
-      <div onClick={(handleClick, editCard)} className={styles.editCard}>
+      <div onClick={(handleClick, editCard, setEdit(true))} className={styles.editCard}>
         <SvgChange width="9px" height="11px" />
       </div>
 
@@ -67,6 +67,7 @@ EditCardHero.defaultProp = {
   confirmDelete: () => {},
   editCard: () => {},
   hero: {},
+  setEdit: () => {},
 };
 
 export default EditCardHero;

@@ -7,15 +7,15 @@ import AddHeroCard from '../addHeroCard';
 import styles from './styles.module.scss';
 
 const CreateBoard = ({ title, list, addHero, heroTypes, getAllowCreate }) => {
-  const ifNotCards = list().length > 2;
+  const ifNotCards = list.length > 2;
 
   const getList = () =>
-    list().map((value, index) => {
+    list?.map((value, index) => {
       if (!(index % 2)) {
         return (
           <div className={styles.cont} key={index}>
-            {list()[index]}
-            {index + 1 < list().length && list()[index + 1]}
+            {list[index]}
+            {index + 1 < list.length && list[index + 1]}
           </div>
         );
       }
@@ -46,7 +46,7 @@ const CreateBoard = ({ title, list, addHero, heroTypes, getAllowCreate }) => {
 
 CreateBoard.propTypes = {
   title: PropTypes.string.isRequired,
-  list: PropTypes.func.isRequired,
+  list: PropTypes.array.isRequired,
   addHero: PropTypes.func,
   heroTypes: PropTypes.object,
   getAllowCreate: PropTypes.func,
@@ -54,7 +54,7 @@ CreateBoard.propTypes = {
 
 CreateBoard.defaultProps = {
   title: '',
-  list: () => {},
+  list: [],
   addHero: () => {},
   heroTypes: {},
   getAllowCreate: () => {},

@@ -61,7 +61,7 @@ const DiscussionCard = (props) => {
     changeShowModal(true);
   };
 
-  const ifVideo = img?.includes('youtube');
+  const ifVideo = img?.includes('.mp4');
 
   return (
     <>
@@ -103,14 +103,9 @@ const DiscussionCard = (props) => {
           <div className={styles.bgImg}>
             {img &&
               (ifVideo ? (
-                <iframe
-                  loading="lazy"
-                  className={styles.postVideo}
-                  src={`${img}?autoplay=1&mute=1&controls=0&playlist=RBolDaIdg5M&loop=1&autopause=0`}
-                  title="YouTube video player"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen></iframe>
+                <video controls autoPlay muted loop>
+                  <source src={`${client.UPLOAD_URL + img}`} type="video/mp4" />
+                </video>
               ) : (
                 <Imgix
                   className={(!img && styles.defaultBg) || ''}
@@ -146,7 +141,9 @@ const DiscussionCard = (props) => {
                 />
               </a>
             </Link>
-            {!img && <span className={cn(!img && styles.cat, styles.catDef)}>{categories[0]}</span>}
+            {!img && !!categories[0] && (
+              <span className={cn(!img && styles.cat, styles.catDef)}>{categories[0]}</span>
+            )}
           </div>
         </div>
       </div>
@@ -162,6 +159,7 @@ const DiscussionCard = (props) => {
         likesCount={likesCount}
         logoNavigate={logoNavigate}
         subTitle={subTitle}
+        ifVideo={ifVideo}
       />
     </>
   );

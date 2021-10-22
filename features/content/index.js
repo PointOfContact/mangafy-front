@@ -3,7 +3,6 @@ import React from 'react';
 import Footer from 'components/footer';
 import Header from 'components/header';
 import Imgix from 'components/imgix';
-import FooterLogin from 'features/footerLogin';
 import { NextSeo } from 'next-seo';
 import PropTypes from 'prop-types';
 
@@ -123,7 +122,7 @@ const Content = (props) => {
           </div>
         </div>
         <Footer />
-        <FooterLogin user={user} />
+        {/* <FooterLogin user={user} /> */}
       </main>
     </div>
   );

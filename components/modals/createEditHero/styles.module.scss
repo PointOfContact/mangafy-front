@@ -1,9 +1,9 @@
 @import '../../../styles/variables.scss';
 
 $borderColor: #f0f0f0;
+$colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
 
 @mixin input {
-  min-height: 44px !important;
   background-color: white;
   font-size: 16px;
   border-radius: 6px;
@@ -33,23 +33,48 @@ $borderColor: #f0f0f0;
 
 .modal {
   width: 500px !important;
-  margin-top: 50px !important;
+  margin-top: -30px !important;
   @include media-xs {
     width: 95% !important;
     max-width: 95% !important;
-    margin-top: 37px !important;
+    margin-top: -40px !important;
   }
   & > div {
     border-radius: 5px;
+    padding-top: 22px;
+    padding-bottom: 36px !important;
+    box-sizing: border-box;
+    box-sizing: border-box;
     & > div {
       padding: 0;
       border-radius: 5px;
       border-bottom: none;
     }
   }
+  .title {
+    width: calc(100% - 47px);
+    margin: auto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 35px;
+    color: $black;
+  }
   .container {
     min-height: 320px;
     padding: 0;
+    .board {
+      width: 100%;
+      left: 0;
+      top: 75px;
+      position: absolute;
+      height: 2.95px;
+      background: linear-gradient(
+        90deg,
+        rgba(33, 33, 33, 0.07) -0.96%,
+        rgba(33, 33, 33, 0) 100.58%
+      );
+    }
   }
   .close {
     width: 39.71px;
@@ -81,14 +106,6 @@ $borderColor: #f0f0f0;
         height: 13.12px;
       }
     }
-  }
-  .modalTitle {
-    color: $black;
-    margin-top: 24px;
-    text-align: center;
-    @include font($text1, 35px, normal, bold);
-    padding: 14px;
-    box-sizing: border-box;
   }
   .modalSelect {
     box-sizing: border-box;
@@ -173,40 +190,38 @@ $borderColor: #f0f0f0;
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 220px;
   & > div:first-child {
     width: 100%;
     height: 220px;
     display: flex;
     align-items: center;
+    margin: 0;
+    margin-top: 3px;
   }
-}
-
-.editStyle {
-  margin-top: 16px;
-  border-top: 1px solid $borderColor;
 }
 
 .selectModal {
   width: calc(100% - 47px);
-  margin-top: 10px;
+  margin-top: 20px;
   & > form {
     & > h3 {
       font-style: normal;
       font-weight: normal;
       font-size: 20px;
       line-height: 35px;
-      display: -webkit-flex;
-      display: -moz-box;
       display: flex;
-      -webkit-align-items: center;
-      -moz-box-align: center;
       align-items: center;
-      margin: 0;
-      margin-top: 14px;
-      margin-bottom: 10px;
-      @include font($text4, $text2, normal, normal);
+      margin: 14px 0 10px 0;
+      & + div {
+        margin: 0;
+        & + div {
+          margin: 0;
+        }
+      }
     }
     & input {
+      min-height: 44px;
       @include input();
       &:hover {
         border: none;
@@ -218,9 +233,91 @@ $borderColor: #f0f0f0;
       }
     }
     .modalTexArea {
+      min-height: 99px !important;
       @include input();
-      @include media-md {
-        min-height: 60px !important;
+    }
+  }
+}
+.border {
+  width: 100%;
+  left: 0;
+  top: 75px;
+  position: absolute;
+  height: 2.95px;
+  background: -webkit-linear-gradient(
+    left,
+    rgba(33, 33, 33, 0.07) -0.96%,
+    rgba(33, 33, 33, 0) 100.58%
+  );
+  background: -moz-linear-gradient(
+    left,
+    rgba(33, 33, 33, 0.07) -0.96%,
+    rgba(33, 33, 33, 0) 100.58%
+  );
+  background: linear-gradient(90deg, rgba(33, 33, 33, 0.07) -0.96%, rgba(33, 33, 33, 0) 100.58%);
+}
+.containerButton {
+  display: flex;
+  justify-content: space-between;
+  button {
+    font-size: 18px;
+    width: 176px;
+    height: 46px;
+    border-radius: 4px;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 15px;
+    line-height: 22px;
+    @include media-sm {
+      width: 170px;
+    }
+  }
+}
+.option {
+  max-width: 960px;
+  min-height: 44px;
+  border: 1px solid $primaryDark;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  & > div {
+    width: 100% !important;
+    border-color: $primaryDark !important;
+    border: none !important;
+    border-radius: 5px !important;
+    & > div > div:last-child {
+      height: 44px;
+    }
+    & > span {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 23px;
+      color: $gray85 !important;
+    }
+    div {
+      @for $i from 1 through 7 {
+        &:nth-child(#{length($colors)}n + #{$i}) {
+          & > span {
+            background-color: nth($colors, random(length($colors)));
+            height: 36px;
+            display: flex;
+            align-items: center;
+            color: white;
+            font-style: normal;
+            font-weight: 900;
+            font-size: 14px;
+            line-height: 25px;
+            border-radius: 10px;
+            padding-left: 15px;
+            padding-right: 15px;
+            margin: 0 2px;
+            span {
+              color: white;
+            }
+          }
+        }
       }
     }
   }

@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import cn from 'classnames';
 import SvgPlatformImg1 from 'components/icon/PlatformImg1';
 import SvgPlatformImg2 from 'components/icon/PlatformImg2';
 import SvgPlatformImg3 from 'components/icon/PlatformImg3';
 import Imgix from 'components/imgix';
+import ModalCreateProject from 'components/modalCreateProject';
 import PrimaryButton from 'components/ui-elements/button';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
@@ -14,6 +15,7 @@ import styles from './styles.module.sass';
 const WelcomeSlider = dynamic(() => import('components/welcomeSlider'), {});
 
 export default function Home() {
+  const [createProjectModal, showCreateProjectModal] = useState(false);
   return (
     <>
       <div className={styles.main}>
@@ -33,13 +35,13 @@ export default function Home() {
                     <PrimaryButton text="Sign Up for free" className={styles.signUpFree} />
                   </a>
                 </Link>
-                <Link href="/create-a-story/start">
-                  <a className={styles.header__menu}>
-                    <PrimaryButton
-                      className={styles.joinBtn}
-                      text="Start a Project"></PrimaryButton>
-                  </a>
-                </Link>
+                <a className={styles.header__menu}>
+                  <PrimaryButton
+                    className={styles.joinBtn}
+                    onClick={() => showCreateProjectModal(true)}
+                    text="Start a Project"
+                  />
+                </a>
               </div>
               <div className={styles.main__ico}>
                 <Imgix
@@ -247,6 +249,10 @@ export default function Home() {
           <SimpleSlider />
         </div>
       </div> */}
+      <ModalCreateProject
+        createProjectModal={createProjectModal}
+        showCreateProjectModal={showCreateProjectModal}
+      />
     </>
   );
 }

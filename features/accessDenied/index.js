@@ -4,7 +4,6 @@ import Footer from 'components/footer';
 import Header from 'components/header';
 import Imgix from 'components/imgix';
 import LargeButton from 'components/ui-elements/large-button';
-import FooterLogin from 'features/footerLogin';
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
@@ -39,7 +38,7 @@ const AccessDenied = ({ user }) => (
         </div>
       </div>
       <Footer />
-      <FooterLogin user={user} />
+      {/* <FooterLogin user={user} /> */}
     </main>
   </div>
 );
