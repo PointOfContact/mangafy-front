@@ -63,6 +63,18 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
   .container {
     min-height: 320px;
     padding: 0;
+    .board {
+      width: 100%;
+      left: 0;
+      top: 75px;
+      position: absolute;
+      height: 2.95px;
+      background: linear-gradient(
+        90deg,
+        rgba(33, 33, 33, 0.07) -0.96%,
+        rgba(33, 33, 33, 0) 100.58%
+      );
+    }
   }
   .close {
     width: 39.71px;
@@ -94,14 +106,6 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
         height: 13.12px;
       }
     }
-  }
-  .modalTitle {
-    color: $black;
-    margin-top: 24px;
-    text-align: center;
-    @include font($text1, 35px, normal, bold);
-    padding: 14px;
-    box-sizing: border-box;
   }
   .modalSelect {
     box-sizing: border-box;
@@ -197,11 +201,6 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
   }
 }
 
-.editStyle {
-  margin-top: 16px;
-  border-top: 1px solid $borderColor;
-}
-
 .selectModal {
   width: calc(100% - 47px);
   margin-top: 20px;
@@ -212,8 +211,6 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
       font-size: 20px;
       line-height: 35px;
       display: flex;
-      -webkit-align-items: center;
-      -moz-box-align: center;
       align-items: center;
       margin: 14px 0 10px 0;
       & + div {

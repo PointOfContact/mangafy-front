@@ -16,9 +16,7 @@ const PDFViewer = dynamic(() => import('components/pdfViewer'), {
 const ShowImgModal = ({ setIsModalVisible, isModalVisible, img, imageType }) => (
   <Modal
     className={styles.modal}
-    bodyStyle={{ height: 'calc(100vh - 30px)', overflow: 'auto' }}
     footer={null}
-    width={'100%'}
     zIndex={200000000}
     onCancel={() => setIsModalVisible(false)}
     closeIcon={

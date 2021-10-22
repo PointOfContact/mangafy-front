@@ -9,7 +9,7 @@ import TextArea from 'components/ui-elements/text-area';
 import { heroQuality, heroTypes } from 'helpers/constant';
 import PropTypes from 'prop-types';
 
-import EditBackground from '../createEditHero/backgroundUpload';
+import HeroUpload from '../createEditHero/heroUpload';
 import styles from './styles.module.scss';
 
 const { Option } = Select;
@@ -277,14 +277,14 @@ const ModalHeroes = ({
                   )}
                 </div>
                 <Form.Item name="imageUrl" className={styles.uploadMobile}>
-                  <EditBackground
+                  <HeroUpload
                     text="Drag or browse your art to start uploading"
                     disabled={!idCardHero}
                     hero={hero}
-                    imageUrl={imageUrl}
-                    setImgId={setImgId}
                     onChangeHero={onChangeHero}
                     className={styles.upload}
+                    mangaUrl={imageUrl}
+                    setImgId={setImgId}
                   />
                 </Form.Item>
               </Form>

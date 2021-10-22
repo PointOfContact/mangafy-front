@@ -13,6 +13,8 @@ const { TextArea } = Input;
 
 const EditGenresField = ({ baseData, onChangeSingleField, saveMangaStoryData, genresEnums }) => {
   const [countries, setCountries] = useState([]);
+  const [validationTitle, setValidationTitle] = useState('');
+  const [validationDesc, setValidationDesc] = useState('');
   const [projectType, setProjectType] = useState(baseData?.projectType);
 
   const genres = genresEnums.map(({ _id: key, value }) => ({ key, value }));
@@ -71,11 +73,13 @@ const EditGenresField = ({ baseData, onChangeSingleField, saveMangaStoryData, ge
         onChange={(e) => {
           onChangeSingleField(e);
         }}
-        onBlur={() => baseData?.title && saveMangaStoryData(baseData, 'title')}
+        onBlur={() => {
+          baseData?.title?.trim().length > 1
+            ? (saveMangaStoryData(baseData, 'title'), setValidationTitle(''))
+            : setValidationTitle('Wait. wait! Add name to your next bestseller!');
+        }}
       />
-      {!baseData?.title && (
-        <p className={styles.error}>Wait. wait! Add name to your next bestseller!</p>
-      )}
+      {validationTitle && <p className={styles.error}>{validationTitle}</p>}
       <h3>Project description</h3>
       <TextArea
         autoSize={true}
@@ -90,11 +94,13 @@ const EditGenresField = ({ baseData, onChangeSingleField, saveMangaStoryData, ge
         onChange={(e) => {
           onChangeSingleField(e);
         }}
-        onBlur={() => baseData?.story && saveMangaStoryData(baseData, 'story')}
+        onBlur={() => {
+          baseData?.story?.trim()
+            ? (saveMangaStoryData(baseData, 'story'), setValidationDesc(''))
+            : setValidationDesc('Wait. wait! Add description to your next bestseller!');
+        }}
       />
-      {!baseData?.story && (
-        <p className={styles.error}>Wait. wait! Add description to your next bestseller!</p>
-      )}
+      {validationDesc && <p className={styles.error}>{validationDesc}</p>}
       <h3>Project language</h3>
       <Select
         showSearch
