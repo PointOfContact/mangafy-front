@@ -12,7 +12,8 @@ const fetch = require('node-fetch');
 //
 // https://github.com/zeit/next.js/tree/canary/examples/with-universal-configuration-runtime
 //
-const API_ENDPOINT = process.env.NEXT_GET_BACKEND_API;
+const API_ENDPOINT = 'http://localhost:3030';
+// const API_ENDPOINT = 'https://mangafy.club';
 
 const restClient = rest(API_ENDPOINT);
 
