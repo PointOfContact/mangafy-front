@@ -28,7 +28,6 @@ const Hero = ({ storyBoard, getStoryBoard, user }) => {
   const [selectedHero, setSelectedHero] = useState({});
   const [ifIsEdit, setEdit] = useState(false);
   const [selectedType, setSelectedType] = useState('');
-  const [ifIsEdit, setEdit] = useState(false);
 
   const { allowPersonageCreate, allowComponentCreate, allowBackgroundCreate } = useMemo(() => {
     const allow = {

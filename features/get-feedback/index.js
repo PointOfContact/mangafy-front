@@ -4,7 +4,7 @@ import { Modal, notification } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 import client from 'api/client';
 import SvgClose from 'components/icon/Close';
-import EditBackground from 'components/modals/createEditHero/backgroundUpload';
+import HeroUpload from 'components/modals/createEditHero/heroUpload';
 import PrimaryButton from 'components/ui-elements/button';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import PropTypes from 'prop-types';
@@ -90,7 +90,7 @@ const GetFeedback = ({ user, setIsModalVisible, isModalVisible, isPage }) => {
       </div>
       <div className={styles.container}>
         <h2>Upload image or video</h2>
-        <EditBackground
+        <HeroUpload
           text="Drag or browse your art to start uploading"
           setImgId={setImgId}
           className={styles.feedbackUpload}
