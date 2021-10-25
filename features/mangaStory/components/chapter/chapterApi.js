@@ -47,7 +47,7 @@ const chapterApi = {
           mode: 'no-cors',
         })
         .then((res) => {
-          setEdit(false);
+          setEdit('');
           setChapters(renameData(res, res._id));
         })
         .catch((err) => {
