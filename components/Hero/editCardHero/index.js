@@ -10,7 +10,7 @@ import download from 'utils/downloadImages';
 
 import styles from './styles.module.scss';
 
-const EditCardHero = ({ confirmDelete, editCard, hero }) => {
+const EditCard = ({ confirmDelete, editCard, hero, setEdit }) => {
   const handleClick = (e) => {
     e.stopPropagation();
   };
@@ -28,11 +28,7 @@ const EditCardHero = ({ confirmDelete, editCard, hero }) => {
         style={{ cursor: !!hero?.imageUrl?.length ? 'pointer' : 'not-allowed' }}>
         <span
           onClick={
-            !!hero?.imageUrl?.length
-              ? () => {
-                  download(client.UPLOAD_URL + hero?.imageUrl, hero?.name);
-                }
-              : ''
+            !!hero?.imageUrl?.length && download(client.UPLOAD_URL + hero?.imageUrl, hero?.name)
           }>
           <SvgExport width="11px" height="9px" />
         </span>
@@ -57,17 +53,18 @@ const EditCardHero = ({ confirmDelete, editCard, hero }) => {
   );
 };
 
-EditCardHero.propTypes = {
-  confirmDelete: PropTypes.func.isRequired,
-  editCard: PropTypes.func.isRequired,
-  hero: PropTypes.object.isRequired,
+EditCard.propTypes = {
+  confirmDelete: PropTypes.func,
+  editCard: PropTypes.func,
+  hero: PropTypes.object,
+  setEdit: PropTypes.func,
 };
 
-EditCardHero.defaultProp = {
+EditCard.defaultProps = {
   confirmDelete: () => {},
   editCard: () => {},
   hero: {},
   setEdit: () => {},
 };
 
-export default EditCardHero;
+export default EditCard;

@@ -13,7 +13,7 @@ const Pages = ({ pages }) => {
   const imageType = pages?.imageUrl?.slice(-3) === 'pdf' || pages?.imageUrl?.slice(-3) === 'PDF';
 
   const pagesArray = pages?.map((value) => {
-    console.log(value, 'pages');
+    const image = !!value.imageIrl ? value.imageIrl : 'https://mangafy.club/img/collab_baner.webp';
 
     return (
       <>
@@ -24,11 +24,7 @@ const Pages = ({ pages }) => {
             <SettingsPage />
           </div>
           <div className={styles.pageImage} onClick={() => setIsModalVisible(true)}>
-            <Imgix
-              layout="fill"
-              src={client.API_ENDPOINT + pages?.imageUrl}
-              alt={'MangaFy page image'}
-            />
+            <Imgix layout="fill" src={image} alt={'MangaFy page image'} />
           </div>
         </div>
         <ShowImgModal
@@ -41,7 +37,7 @@ const Pages = ({ pages }) => {
     );
   });
 
-  return <div className={styles.card_wrap}>{pagesArray}</div>;
+  return <div className={styles.containerPage}>{pagesArray}</div>;
 };
 
 Pages.propTypes = {
