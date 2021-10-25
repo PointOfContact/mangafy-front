@@ -1,60 +1,33 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
-import { notification } from 'antd';
-import client from 'api/client';
 import SvgAdd from 'components/icon/Add';
-import AddButton from 'components/ui-elements/add-button';
 import PrimaryButton from 'components/ui-elements/button';
+import PrimaryInput from 'components/ui-elements/input';
 import PropTypes from 'prop-types';
 
-import Pages from './pages';
+import chapterApi from './chapterApi';
+import ChapterItems from './chapterItems';
 import styles from './styles.module.scss';
 
-const Chapter = ({ pages, storyBoard }) => {
-  const [chapters, setChapters] = useState([]);
+const Chapter = ({ storyBoard }) => {
+  const [chapters, setChapters] = useState(storyBoard?.chapters);
+  const [chapterName, setChapterName] = useState('');
+  const [createChapter, setCreateChapter] = useState(false);
+  const [lengthChapters, setLengthChapters] = useState(chapters.length);
+  const [onBlur, setOnBlur] = useState(false);
+  const inputRef = useRef(null);
+  const validate = chapterName.trim().length < 2;
 
-  const chaptersApi = () => {
-    const jwt = client.getCookie('feathers-jwt');
+  useEffect(() => {
+    createChapter &&
+      inputRef.current.focus({
+        cursor: 'end',
+      });
+  }, [createChapter]);
 
-    // eslint-disable-next-line import/extensions
-    import('../../../../api/restClient').then((m) => {
-      const data = {
-        title: `Chapter ${chapters[chapters.length - 1].order + 1}`,
-        storyBoard: storyBoard?._id,
-      };
-
-      m.default
-        .service('/api/v2/chapters')
-        .create(data, {
-          headers: { Authorization: `Bearer ${jwt}` },
-          mode: 'no-cors',
-        })
-        .then((res) => {
-          console.log(res, 5555);
-          setChapters([...chapters, res.data]);
-        })
-        .catch((err) => {
-          notification.error({
-            message: err.message,
-            placement: 'bottomLeft',
-          });
-          return err;
-        });
-    });
-  };
-
-  const createChapters = chapters.map((value) => (
-    <div key={value._id} className={styles.chapterContainer}>
-      <div className={styles.addPageContainer}>
-        <h2 className={styles.chapterTitle}>Chapter 1</h2>
-        <div className={styles.addPage}>
-          <h3>New Page</h3>
-          <SvgAdd width={50} height={50} />
-        </div>
-      </div>
-      <Pages pages={pages} />
-    </div>
-  ));
+  const error = validate && onBlur && (
+    <p className={styles.error}>Chapter name should be min 2 characters</p>
+  );
 
   return (
     <div className={styles.container}>
@@ -62,30 +35,48 @@ const Chapter = ({ pages, storyBoard }) => {
         <PrimaryButton className={styles.published} isWhite={true} text={'Published'} />
         <PrimaryButton isWhite={true} text={'Last modified'} />
       </div>
-      {/* <div className={styles.chapterContainer}>
-        <div className={styles.addPageContainer}>
-          <h2 className={styles.chapterTitle}>Chapter 1</h2>
-          <div className={styles.addPage}>
-            <h3>New Page</h3>
+      {<ChapterItems chapters={chapters} setChapters={setChapters} />}
+      <div className={styles.addChaptersContainer}>
+        {createChapter ? (
+          <>
+            <PrimaryInput
+              inputRef={inputRef}
+              value={chapterName}
+              placeHolder="Chapter name"
+              className={styles.chapterName}
+              onChange={(e) => setChapterName(e.target.value)}
+              onBlur={() => {
+                chapterApi.create(
+                  chapterName,
+                  storyBoard,
+                  chapters,
+                  setCreateChapter,
+                  setChapters,
+                  validate
+                );
+                setOnBlur(true);
+              }}
+            />
+            {error}
+          </>
+        ) : (
+          <div
+            className={styles.addChapter}
+            onClick={() => {
+              setCreateChapter(true);
+              setLengthChapters(lengthChapters + 1);
+              setChapterName(`Chapter ${lengthChapters + 1}`);
+            }}>
             <SvgAdd width={50} height={50} />
+            Add Chapter
           </div>
-        </div>
-        <Pages pages={pages} />
-      </div> */}
-      {createChapters}
-      <AddButton
-        className={styles.addChapter}
-        onClick={() => {
-          chaptersApi;
-        }}
-        text={'Add Chapter'}
-      />
+        )}
+      </div>
     </div>
   );
 };
 
 Chapter.propTypes = {
-  pages: PropTypes.array.isRequired,
   storyBoard: PropTypes.object.isRequired,
 };
 

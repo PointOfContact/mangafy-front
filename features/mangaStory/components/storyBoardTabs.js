@@ -450,7 +450,7 @@ const StoryBoardTabs = ({
             </span>
           }
           key={5}>
-          <Chapter pages={storyBoard?.pages} storyBoard={storyBoard} />
+          <Chapter storyBoard={storyBoard} />
         </TabPane>
 
         <TabPane
