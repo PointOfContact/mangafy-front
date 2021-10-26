@@ -52,9 +52,11 @@ const SettingsPage = ({ pages }) => {
 };
 
 SettingsPage.propTypes = {
-  pages: PropTypes.array.isRequired,
+  pages: PropTypes.array,
 };
 
-SettingsPage.defaultProp = {};
+SettingsPage.defaultProps = {
+  pages: [],
+};
 
 export default SettingsPage;

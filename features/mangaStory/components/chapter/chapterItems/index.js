@@ -3,13 +3,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import SvgAdd from 'components/icon/Add';
 import SvgPurplePencil from 'components/icon/PurplePencil';
 import PrimaryInput from 'components/ui-elements/input';
+import mangaStoryAPI from 'features/mangaStory/mangaStoryAPI';
 import PropTypes from 'prop-types';
 
-import chapterApi from '../chapterApi';
 import Pages from '../pages';
 import styles from './styles.module.scss';
 
-const ChapterItems = ({ chapters, setChapters }) => {
+const ChapterItems = ({ chapters, setChapters, storyBoard }) => {
   const [editName, setEditName] = useState('');
   const [mouseOut, onMouseOut] = useState(false);
   const inputRef = useRef(null);
@@ -24,14 +24,16 @@ const ChapterItems = ({ chapters, setChapters }) => {
       });
   }, [edit]);
 
-  const renameData = (item, resultId) =>
+  const upgradeChapterData = (item, resultId) =>
     chapters.map((value) => (value?._id === resultId ? item : value));
 
   const error = editName.trim().length < 2 && mouseOut && (
-    <p className={styles.error}>Chapter name should be min 2 characters</p>
+    <p className={styles.error}>
+      Please enter a name for your chapter. You can leave it blank if you want
+    </p>
   );
 
-  return chapters.map((value) => (
+  return chapters?.map((value, index) => (
     <div key={value?._id} className={styles.chapterContainer}>
       <div className={styles.addPageContainer}>
         <div className={styles.titleContainer}>
@@ -40,14 +42,20 @@ const ChapterItems = ({ chapters, setChapters }) => {
               <PrimaryInput
                 inputRef={inputRef}
                 value={editName}
-                placeHolder="Chapter name"
+                placeholder="Chapter name"
                 className={styles.chapterNameInput}
                 onChange={(e) => setEditName(e.target.value)}
                 onMouseOut={() => onMouseOut(true)}
                 onBlur={() => {
                   validate
                     ? setEdit(false)
-                    : chapterApi.patch(value?._id, setEdit, editName, renameData, setChapters);
+                    : mangaStoryAPI.chapter.patch(
+                        value?._id,
+                        setEdit,
+                        editName,
+                        upgradeChapterData,
+                        setChapters
+                      );
                 }}
               />
               {error}
@@ -66,7 +74,18 @@ const ChapterItems = ({ chapters, setChapters }) => {
           )}
         </div>
 
-        <div className={styles.addPage}>
+        <div
+          className={styles.addPage}
+          onClick={() => {
+            mangaStoryAPI.pages.createPage(
+              value?._id,
+              index,
+              chapters,
+              value.pages.length,
+              storyBoard,
+              setChapters
+            );
+          }}>
           <h3>New Page</h3>
           <SvgAdd width={50} height={50} />
         </div>
@@ -79,6 +98,7 @@ const ChapterItems = ({ chapters, setChapters }) => {
 ChapterItems.propTypes = {
   chapters: PropTypes.array.isRequired,
   setChapters: PropTypes.func.isRequired,
+  storyBoard: PropTypes.object.isRequired,
 };
 
 export default ChapterItems;

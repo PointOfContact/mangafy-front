@@ -14,10 +14,9 @@ const Pages = ({ pages }) => {
 
   const pagesArray = pages?.map((value) => {
     const image = !!value.imageIrl ? value.imageIrl : 'https://mangafy.club/img/collab_baner.webp';
-
     return (
-      <>
-        <div key={value._id} className={styles.itemPage}>
+      <div key={value?._id}>
+        <div className={styles.itemPage}>
           <div className={styles.content}>
             <h2>{value.title}</h2>
             <p>{value.text}</p>
@@ -33,7 +32,7 @@ const Pages = ({ pages }) => {
           img={client.UPLOAD_URL + pages?.imageUrl}
           imageType={imageType}
         />
-      </>
+      </div>
     );
   });
 
@@ -41,7 +40,11 @@ const Pages = ({ pages }) => {
 };
 
 Pages.propTypes = {
-  pages: PropTypes.array.isRequired,
+  pages: PropTypes.array,
+};
+
+Pages.defaultProps = {
+  pages: [],
 };
 
 export default Pages;
