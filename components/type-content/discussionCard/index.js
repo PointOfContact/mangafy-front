@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React, { useState } from 'react';
 
 import client from 'api/client';
@@ -8,6 +9,7 @@ import Imgix from 'components/imgix';
 import ModalDiscussion from 'components/modals/discussion';
 import PrimaryButton from 'components/ui-elements/button';
 import { EVENTS } from 'helpers/amplitudeEvents';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
@@ -17,6 +19,10 @@ import { LinkCreator } from 'utils/linkCreator';
 
 import DiscussionType from '../discussionType';
 import styles from './styles.module.scss';
+
+const PDFViewer = dynamic(() => import('components/pdfViewer'), {
+  ssr: false,
+});
 
 const DiscussionCard = (props) => {
   const {
@@ -37,6 +43,8 @@ const DiscussionCard = (props) => {
   } = props;
 
   const [showModal, changeShowModal] = useState(false);
+  const imgType = img.slice(-3);
+  const ifPdf = imgType === 'pdf' || imgType === 'PDF';
 
   const openPost = (postId) => {
     const parsed = qs.parse(window.location.search);
@@ -106,6 +114,8 @@ const DiscussionCard = (props) => {
                 <video controls autoPlay muted loop>
                   <source src={`${client.UPLOAD_URL + img}`} type="video/mp4" />
                 </video>
+              ) : ifPdf ? (
+                <PDFViewer url={client.UPLOAD_URL + img} />
               ) : (
                 <Imgix
                   className={(!img && styles.defaultBg) || ''}
@@ -150,7 +160,6 @@ const DiscussionCard = (props) => {
       <ModalDiscussion
         changeShowModal={changeShowModal}
         showModal={showModal}
-        url={url}
         img={img}
         logo={logo}
         title={title}
@@ -160,6 +169,7 @@ const DiscussionCard = (props) => {
         logoNavigate={logoNavigate}
         subTitle={subTitle}
         ifVideo={ifVideo}
+        ifPdf={ifPdf}
       />
     </>
   );

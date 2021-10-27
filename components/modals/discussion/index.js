@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React, { useEffect, useState } from 'react';
 
 import { Modal, notification, Popover, Spin } from 'antd';
@@ -11,6 +12,7 @@ import Loading from 'components/loading';
 import { ShareButtons } from 'components/share';
 import { Comments } from 'components/type-content/comments';
 import { EVENTS } from 'helpers/amplitudeEvents';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import Router, { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
@@ -20,6 +22,10 @@ import { LinkCreator } from 'utils/linkCreator';
 
 import styles from './styles.module.scss';
 
+const PDFViewer = dynamic(() => import('components/pdfViewer'), {
+  ssr: false,
+});
+
 const ModalDiscussion = ({
   changeShowModal,
   showModal,
@@ -28,11 +34,11 @@ const ModalDiscussion = ({
   title,
   logo,
   img,
-  url,
   likesCount,
   logoNavigate,
   subTitle,
   ifVideo,
+  ifPdf,
 }) => {
   const [commentsData, setCommentsData] = useState([]);
   const [likesData, setLikesData] = useState([]);
@@ -224,6 +230,8 @@ const ModalDiscussion = ({
                       <video controls autoPlay muted loop>
                         <source src={`${client.UPLOAD_URL + img}`} type="video/mp4" />
                       </video>
+                    ) : ifPdf ? (
+                      <PDFViewer url={client.UPLOAD_URL + img} />
                     ) : (
                       setPhotoOrLogo(photoProject, client.UPLOAD_URL + photoProject, 1000, false)
                     )}
@@ -268,6 +276,7 @@ ModalDiscussion.propTypes = {
   logoNavigate: PropTypes.string,
   subTitle: PropTypes.string,
   ifVideo: PropTypes.bool,
+  ifPdf: PropTypes.bool.isRequired,
 };
 
 ModalDiscussion.defaultProps = {

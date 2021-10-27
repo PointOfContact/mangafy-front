@@ -286,6 +286,7 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
     border-color: $primaryDark !important;
     border: none !important;
     border-radius: 5px !important;
+    background: white !important;
     & > div > div:last-child {
       height: 44px;
     }
