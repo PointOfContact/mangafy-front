@@ -1,0 +1,20 @@
+@import '../../../styles/variables.scss';
+
+.textEditor {
+  border: 1px solid $primaryDark;
+  border-radius: 6px;
+  & > div {
+    border-top: none !important;
+    border-radius: 0 !important;
+    & > div {
+      min-height: 199px;
+      &::before {
+        font-style: normal !important;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 23px;
+        color: #a5a4a4 !important;
+      }
+    }
+  }
+}

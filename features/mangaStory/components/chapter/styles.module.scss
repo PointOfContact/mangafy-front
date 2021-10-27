@@ -22,8 +22,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    @include media-sm{
-      margin: 0;
+    @include media-sm {
+      margin-top: 0;
+      margin-bottom: 40px;
     }
     .chapterName {
       border: 1px solid $primaryDark;

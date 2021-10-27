@@ -205,7 +205,15 @@ export default {
   },
 
   pages: {
-    createPage: (chapterId, index, chapters, pageCount, storyBoard, setChapters) => {
+    createPage: (
+      chapterId,
+      index,
+      chapters,
+      pageCount,
+      storyBoard,
+      setChapters,
+      setVisibleModal
+    ) => {
       const data = {
         title: 'Page 1',
         text: 'hello my page',
@@ -226,12 +234,14 @@ export default {
           .then((res) => {
             chapters[index].pages.push(res);
             setChapters([...chapters]);
+            setVisibleModal(false);
           })
           .catch((err) => {
             notification.error({
               message: err.message,
               placement: 'bottomLeft',
             });
+            setVisibleModal(false);
           });
       });
     },

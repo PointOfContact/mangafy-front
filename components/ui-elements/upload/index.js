@@ -34,6 +34,8 @@ const PrimaryUpload = ({
   showText,
   ifUploadImg,
   setIfUploadImg,
+  uploadText,
+  className,
 }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalContent, setIsModalContent] = useState('');
@@ -137,6 +139,7 @@ const PrimaryUpload = ({
   return (
     <div className="primary_upload">
       <Upload
+        className={className}
         accept="image/jpg, image/png, application/pdf, image/jpeg "
         listType="picture-card"
         fileList={fileList}
@@ -163,7 +166,7 @@ const PrimaryUpload = ({
               )}
             </span>
             <h4 className={showText ? styles.titleDef : styles.title}>
-              {!!fileList.length ? 'Upload pages' : 'Upload your pages'}
+              {uploadText || (!!fileList.length ? 'Upload pages' : 'Upload your pages')}
             </h4>
             {!fileList.length && (
               <div>
@@ -171,7 +174,7 @@ const PrimaryUpload = ({
                 <p className={styles.descriptionText}>Max 10MB each</p>
               </div>
             )}
-            {!fileList.length && (
+            {!fileList.length && showText && (
               <p className={styles.descriptionText}>
                 You store the PDF, JPEG, JPG or PNG files. Only upload media your own the rights to
               </p>
@@ -211,6 +214,8 @@ PrimaryUpload.propTypes = {
   setStoryBoard: PropTypes.func.isRequired,
   ifUploadImg: PropTypes.bool,
   setIfUploadImg: PropTypes.func,
+  uploadText: PropTypes.string,
+  className: PropTypes.object,
 };
 
 PrimaryUpload.defaultProps = {
@@ -221,6 +226,8 @@ PrimaryUpload.defaultProps = {
   mangaUrls: [],
   ifUploadImg: false,
   setIfUploadImg: () => {},
+  uploadText: '',
+  className: {},
 };
 
 export default PrimaryUpload;

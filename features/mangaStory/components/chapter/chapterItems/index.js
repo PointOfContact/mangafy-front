@@ -7,11 +7,14 @@ import mangaStoryAPI from 'features/mangaStory/mangaStoryAPI';
 import PropTypes from 'prop-types';
 
 import Pages from '../pages';
+import ModalCreatePage from './modalCreatePage';
 import styles from './styles.module.scss';
 
 const ChapterItems = ({ chapters, setChapters, storyBoard }) => {
   const [editName, setEditName] = useState('');
   const [mouseOut, onMouseOut] = useState(false);
+  const [visibleModal, setVisibleModal] = useState(false);
+  const [chapterItem, setChapterItem] = useState({});
   const inputRef = useRef(null);
   const [edit, setEdit] = useState('');
   const validate = editName.trim().length < 2;
@@ -33,66 +36,80 @@ const ChapterItems = ({ chapters, setChapters, storyBoard }) => {
     </p>
   );
 
-  return chapters?.map((value, index) => (
-    <div key={value?._id} className={styles.chapterContainer}>
-      <div className={styles.addPageContainer}>
-        <div className={styles.titleContainer}>
-          {edit === value?._id ? (
-            <div className={styles.inputNameContainer}>
-              <PrimaryInput
-                inputRef={inputRef}
-                value={editName}
-                placeholder="Chapter name"
-                className={styles.chapterNameInput}
-                onChange={(e) => setEditName(e.target.value)}
-                onMouseOut={() => onMouseOut(true)}
-                onBlur={() => {
-                  validate
-                    ? setEdit(false)
-                    : mangaStoryAPI.chapter.patch(
-                        value?._id,
-                        setEdit,
-                        editName,
-                        upgradeChapterData,
-                        setChapters
-                      );
-                }}
-              />
-              {error}
+  return (
+    <>
+      {chapters?.map((value, index) => (
+        <div key={value?._id} className={styles.chapterContainer}>
+          <div className={styles.addPageContainer}>
+            <div className={styles.titleContainer}>
+              {edit === value?._id ? (
+                <div className={styles.inputNameContainer}>
+                  <PrimaryInput
+                    inputRef={inputRef}
+                    value={editName}
+                    placeholder="Chapter name"
+                    className={styles.chapterNameInput}
+                    onChange={(e) => setEditName(e.target.value)}
+                    onMouseOut={() => onMouseOut(true)}
+                    onBlur={() => {
+                      validate
+                        ? setEdit(false)
+                        : mangaStoryAPI.chapter.patch(
+                            value?._id,
+                            setEdit,
+                            editName,
+                            upgradeChapterData,
+                            setChapters
+                          );
+                    }}
+                  />
+                  {error}
+                </div>
+              ) : (
+                <div
+                  onClick={() => {
+                    setEdit(value?._id);
+                    onMouseOut(false);
+                    setEditName(value?.title);
+                  }}
+                  className={styles.chapterName}>
+                  <h2 className={styles.chapterTitle}>{value?.title}</h2>
+                  <SvgPurplePencil width={25} height={25} />
+                </div>
+              )}
             </div>
-          ) : (
-            <div
-              onClick={() => {
-                setEdit(value?._id);
-                onMouseOut(false);
-                setEditName(value?.title);
-              }}
-              className={styles.chapterName}>
-              <h2 className={styles.chapterTitle}>{value?.title}</h2>
-              <SvgPurplePencil width={25} height={25} />
-            </div>
-          )}
-        </div>
 
-        <div
-          className={styles.addPage}
-          onClick={() => {
-            mangaStoryAPI.pages.createPage(
-              value?._id,
-              index,
-              chapters,
-              value.pages.length,
-              storyBoard,
-              setChapters
-            );
-          }}>
-          <h3>New Page</h3>
-          <SvgAdd width={50} height={50} />
+            <div
+              className={styles.addPage}
+              onClick={() => {
+                setVisibleModal(true);
+                setChapterItem(value);
+                // mangaStoryAPI.pages.createPage(
+                //   value?._id,
+                //   index,
+                //   chapters,
+                //   value.pages.length,
+                //   storyBoard,
+                //   setChapters
+                //   setVisibleModal,
+                // );
+              }}>
+              <h3>New Page</h3>
+              <SvgAdd width={50} height={50} />
+            </div>
+          </div>
+          <Pages pages={value?.pages} />
         </div>
-      </div>
-      <Pages pages={value?.pages} />
-    </div>
-  ));
+      ))}
+
+      <ModalCreatePage
+        visibleModal={visibleModal}
+        setVisibleModal={setVisibleModal}
+        storyBoard={storyBoard}
+        pages={chapterItem.pages}
+      />
+    </>
+  );
 };
 
 ChapterItems.propTypes = {
