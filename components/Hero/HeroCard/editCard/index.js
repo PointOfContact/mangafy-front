@@ -27,12 +27,8 @@ const EditCard = ({ confirmDelete, editCard, hero, setEdit }) => {
         title={!!hero?.imageUrl?.length ? '' : 'image not available'}
         style={{ cursor: !!hero?.imageUrl?.length ? 'pointer' : 'not-allowed' }}>
         <span
-          onClick={
-            !!hero?.imageUrl?.length
-              ? () => {
-                  download(client.UPLOAD_URL + hero?.imageUrl, hero?.name);
-                }
-              : ''
+          onClick={() =>
+            !!hero?.imageUrl?.length && download(client.UPLOAD_URL + hero?.imageUrl, hero?.name)
           }>
           <SvgExport width="11px" height="9px" />
         </span>
