@@ -7,7 +7,8 @@ export default withAuthComponent(MiddlewareIndexPage);
 
 export const getServerSideProps = withAuthServerSideProps(async (context, user = null, jwt) => {
   const viewUrlName = context?.req?.headers?.host;
-  const getNameViewUrl = !!viewUrlName && viewUrlName.split('.').reverse()[2];
+
+  const getNameViewUrl = viewUrlName.split('.').reverse()[0];
 
   if (!getNameViewUrl) {
     return {
@@ -28,7 +29,7 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
       },
     });
 
-    if (!mangaStory?.data?.length && process.env.NEXT_REDIRECT_ENABLED) {
+    if (!mangaStory?.data?.length && process.env.NEXT_PUBLIC_REDIRECT_ENABLED) {
       context.res.writeHead(301, {
         Location: 'https://mangafy.club',
       });
