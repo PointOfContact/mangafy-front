@@ -6,9 +6,9 @@ import SvgClose from 'components/icon/Close';
 import SvgDelete from 'components/icon/Delete';
 import Popconfirm from 'components/popconfirm';
 import PrimaryButton from 'components/ui-elements/button';
+import HeroUpload from 'components/ui-elements/heroUpload';
 import PrimaryInput from 'components/ui-elements/input';
 import TextEditor from 'components/ui-elements/text-editor';
-import Upload from 'components/ui-elements/upload';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
@@ -18,6 +18,7 @@ const { Option } = Select;
 const ModalCreatePage = ({ visibleModal, setVisibleModal, storyBoard, pages }) => {
   const [title, setTitle] = useState('Create Page');
   const [options, setOptions] = useState([]);
+  const [imgId, setImgId] = useState('');
   const [personage, setPersonage] = useState([]);
 
   useEffect(() => {
@@ -28,14 +29,16 @@ const ModalCreatePage = ({ visibleModal, setVisibleModal, storyBoard, pages }) =
 
   useEffect(() => {
     const createOption = personage.map((value) => (
-      <Option key={value._id} value={value.name} label={value.name}>
+      <Option key={value._id} value={value._id} label={value.name}>
         {value.name}
       </Option>
     ));
     setOptions(createOption);
   }, [personage]);
 
-  const changeSelectedHero = () => {};
+  const changeSelectedHero = (value) => {
+    console.log(value);
+  };
 
   const textEditorData = (value) => {
     console.log(value);
@@ -56,10 +59,11 @@ const ModalCreatePage = ({ visibleModal, setVisibleModal, storyBoard, pages }) =
       visible={visibleModal}
       footer={null}>
       <div className={styles.border} />
-      <Form name="name">
+      <Form name="page">
         <h3>Page beats</h3>
         <Form.Item name="title">
           <PrimaryInput
+            maxLength={200}
             className={styles.namePage}
             isLinear={true}
             isFullWidth={true}
@@ -88,17 +92,16 @@ const ModalCreatePage = ({ visibleModal, setVisibleModal, storyBoard, pages }) =
         <h3>Panel proposal</h3>
         <Form.Item name="description">
           <TextEditor
-            placeholder={
-              'Using your thumbnails as a reference, write a script for your story which will eventually be turned into the final panel.'
-            }
+            placeholder="Using your thumbnails as a reference, write a script for your story which will eventually be turned into the final panel."
             result={textEditorData}
           />
         </Form.Item>
-        <h3>Panel proposal</h3>
-        <Upload
+        <h3 className={styles.uploadTitle}>Upload page</h3>
+        <HeroUpload
           className={styles.imgPage}
           showText={false}
-          uploadText="Drag or browse your art to start uploading"
+          setImgId={setImgId}
+          text="Drag or browse your art to start uploading"
         />
         <Form.Item className={styles.deletePage}>
           <Popconfirm
@@ -111,7 +114,7 @@ const ModalCreatePage = ({ visibleModal, setVisibleModal, storyBoard, pages }) =
               </span>
             }
           />
-          <PrimaryButton className={styles.saveButton} text="Save" />
+          <PrimaryButton className={styles.saveButton} htmlType="submit" text="Save" />
           <PrimaryButton className={styles.newPage} isWhite={true} text="New Page" />
         </Form.Item>
       </Form>

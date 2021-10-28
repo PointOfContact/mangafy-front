@@ -33,8 +33,7 @@ function uploadFilePromise(url, file, fileName, callback, setLoading, resolve) {
   return new Promise((res, rej) => {
     axios
       .put(url, file, options)
-      .then((response) => {
-        console.log('Done', response);
+      .then(() => {
         callback(fileName, resolve);
         setLoading(false);
         res(fileName);

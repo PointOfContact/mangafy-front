@@ -23,12 +23,8 @@ const SettingsPage = ({ pages }) => {
 
       <div onClick={handleClick} className={styles.loadImage}>
         <span
-          onClick={
-            !!pages?.imageUrl?.length
-              ? () => {
-                  download(client.UPLOAD_URL + pages?.imageUrl, pages?.name);
-                }
-              : ''
+          onClick={() =>
+            !!pages?.imageUrl?.length && download(client.UPLOAD_URL + pages?.imageUrl, pages?.name)
           }>
           <SvgExport width="13px" height="11px" />
         </span>
