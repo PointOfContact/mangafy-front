@@ -126,7 +126,6 @@ export default function LandingNew(props) {
           <ModalDiscussion
             changeShowModal={changeShowModal}
             showModal={showModal}
-            url={selectedPost.url}
             img={selectedPost.img}
             logo={selectedPost.logo}
             title={selectedPost.title}

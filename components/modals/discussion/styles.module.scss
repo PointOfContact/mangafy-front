@@ -1,14 +1,14 @@
 @import '../../../styles/variables.scss';
 
 .modal {
-  margin-top: 25px !important;
+  margin-top: 0 !important;
   & > div {
     border-radius: 10px;
+    height: calc(100vh - 120px);
   }
   @include media-sm {
     width: 95% !important;
     max-width: 95% !important;
-    margin-top: 0px !important;
     & > div > div {
       padding: 24px 0;
     }
@@ -183,14 +183,17 @@
     }
   }
   .imgDef {
+    height: calc(100vh - 290px);
+    overflow-y: auto;
+    display: flex;
     .postVideo {
       width: 100%;
       height: 650px;
       border-radius: 5px;
-      @include media-lg{
+      @include media-lg {
         height: 550px;
       }
-      @include media-sm{
+      @include media-sm {
         height: 400px;
       }
     }
@@ -204,18 +207,11 @@
   .containerPhoto {
     display: flex;
     flex-direction: column-reverse;
-    .imgDef {
-      min-height: 580px;
-      @include media-sm {
-        min-height: 100px;
-      }
-    }
-    .img{
+    .img {
       min-height: 0;
     }
-   
   }
-  video{
+  video {
     width: 100%;
     height: 100%;
   }

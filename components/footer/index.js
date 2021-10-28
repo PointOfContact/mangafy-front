@@ -66,9 +66,6 @@ const Footer = () => {
               {/* <Link href="/pricing">
               <a className={styles.footer__itemLink}>Go PRO</a>
             </Link> */}
-              <Link href="/collaborations">
-                <a className={styles.footer__itemLink}>Find Collaboration</a>
-              </Link>
               <a className={styles.footer__itemLink} onClick={() => showCreateProjectModal(true)}>
                 Post Collaboration
               </a>

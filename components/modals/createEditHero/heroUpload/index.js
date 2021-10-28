@@ -111,6 +111,7 @@ const HeroUpload = ({
         onChange={onChange}
         beforeUpload={beforeUpload}
         onRemove={() => {
+          onChangeHero({}, '');
           setImgId('');
         }}
         onPreview={onPreview}>
