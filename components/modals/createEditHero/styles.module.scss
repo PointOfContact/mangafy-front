@@ -161,9 +161,7 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
 .inputContainer {
   display: flex;
   margin: 0%;
-  @include media-sm {
-    flex-direction: column;
-  }
+  flex-direction: column;
   & > div {
     flex: 1;
     display: flex;
