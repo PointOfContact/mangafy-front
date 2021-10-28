@@ -31,7 +31,14 @@ const OAuth = () => {
         },
       ];
       myAmplitude(data);
-      Router.push('/feed');
+      console.log(user, 'googl user');
+      const getCreateData = user.createdAt.slice(0, -8);
+      const getLastLoginData = user.lastLoginDate.slice(0, -8);
+      if (getCreateData === getLastLoginData) {
+        Router.push(`/profile/${user._id}?editModal=true`);
+      } else {
+        Router.push('/feed');
+      }
       return user;
     });
   });
