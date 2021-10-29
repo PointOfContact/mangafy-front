@@ -14,7 +14,7 @@ const PDFViewer = dynamic(() => import('components/pdfViewer'), {
 });
 
 const ShowImgModal = ({ setIsModalVisible, isModalVisible, img, imageType }) => {
-  const imgTypeVideo = img.slice(-3) === 'mp4';
+  const imgTypeVideo = img?.slice(-3) === 'mp4';
 
   return (
     <Modal
