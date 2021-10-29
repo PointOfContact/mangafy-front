@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import SettingsPage from './settingsPage';
 import styles from './styles.module.scss';
 
-const Pages = ({ pages, setVisibleModal, setModalTitle }) => {
+const Pages = ({ pages, setVisibleModal, setModalTitle, setPageItem }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const imageType = pages?.imageUrl?.slice(-3) === 'pdf' || pages?.imageUrl?.slice(-3) === 'PDF';
 
@@ -24,11 +24,17 @@ const Pages = ({ pages, setVisibleModal, setModalTitle }) => {
           onClick={() => {
             setVisibleModal(true);
             setModalTitle('Edit page');
+            setPageItem(value);
           }}>
           <div className={styles.content}>
             <h2>{value.title}</h2>
             <p dangerouslySetInnerHTML={{ __html: value.text }} />
-            <SettingsPage setVisibleModal={setVisibleModal} setModalTitle={setModalTitle} />
+            <SettingsPage
+              pages={value}
+              setVisibleModal={setVisibleModal}
+              setModalTitle={setModalTitle}
+              setPageItem={() => setPageItem(value)}
+            />
           </div>
           <div className={styles.pageImage} onClick={() => setIsModalVisible(true)}>
             <Imgix className={styles.image} layout="fill" src={image} alt={'MangaFy page image'} />
@@ -51,6 +57,7 @@ Pages.propTypes = {
   pages: PropTypes.array,
   setVisibleModal: PropTypes.func.isRequired,
   setModalTitle: PropTypes.func.isRequired,
+  setPageItem: PropTypes.func.isRequired,
 };
 
 Pages.defaultProps = {

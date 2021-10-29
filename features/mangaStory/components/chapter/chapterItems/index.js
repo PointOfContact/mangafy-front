@@ -15,6 +15,7 @@ const ChapterItems = ({ chapters, setChapters, storyBoard }) => {
   const [mouseOut, onMouseOut] = useState(false);
   const [visibleModal, setVisibleModal] = useState(false);
   const [chapterItem, setChapterItem] = useState({});
+  const [pageItem, setPageItem] = useState({});
   const [modalTitle, setModalTitle] = useState('Create page');
   const inputRef = useRef(null);
   const [edit, setEdit] = useState('');
@@ -86,6 +87,7 @@ const ChapterItems = ({ chapters, setChapters, storyBoard }) => {
                 setVisibleModal(true);
                 setChapterItem({ value, index });
                 setModalTitle('Create page');
+                setPageItem({});
               }}>
               <h3>New Page</h3>
               <SvgAdd width={50} height={50} />
@@ -95,6 +97,7 @@ const ChapterItems = ({ chapters, setChapters, storyBoard }) => {
             pages={value?.pages}
             setVisibleModal={setVisibleModal}
             setModalTitle={setModalTitle}
+            setPageItem={setPageItem}
           />
         </div>
       ))}
@@ -106,8 +109,9 @@ const ChapterItems = ({ chapters, setChapters, storyBoard }) => {
         setChapters={setChapters}
         chapters={chapters}
         chapterItem={chapterItem}
-        pages={chapterItem?.value?.pages}
+        pagesArray={chapterItem?.value?.pages}
         modalTitle={modalTitle}
+        pageItem={pageItem}
       />
     </>
   );

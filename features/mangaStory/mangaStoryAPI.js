@@ -229,5 +229,31 @@ export default {
           });
       });
     },
+    patchPage: (index, chapters, setChapters, setVisibleModal, data) => {
+      const page = chapters[index]?.pages;
+
+      const jwt = client.getCookie('feathers-jwt');
+
+      import('api/restClient').then((m) => {
+        m.default
+          .service('api/v2/pages')
+          .patch(page?._id, data, {
+            headers: { Authorization: `Bearer ${jwt}` },
+            mode: 'no-cors',
+          })
+          .then((res) => {
+            console.log(res);
+            setChapters([...chapters]);
+            setVisibleModal(false);
+          })
+          .catch((err) => {
+            notification.error({
+              message: err.message,
+              placement: 'bottomLeft',
+            });
+            setVisibleModal(false);
+          });
+      });
+    },
   },
 };

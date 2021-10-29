@@ -23,23 +23,32 @@ const ModalCreatePage = ({
   setChapters,
   storyBoard,
   chapterItem,
-  pages,
+  pagesArray,
   modalTitle,
+  pageItem,
 }) => {
   const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+  const [text, setDescription] = useState('');
   const [characterArray, setCharacterArray] = useState([]);
   const [imgId, setImgId] = useState('');
   const [options, setOptions] = useState([]);
   const [personage, setPersonage] = useState([]);
   const [form] = Form.useForm();
+  const ifEdit = modalTitle === 'Edit page';
 
   useEffect(() => {
-    setTitle('');
-    setDescription('');
-    setCharacterArray([]);
-    setImgId('');
-    form.resetFields();
+    if (visibleModal) {
+      setDescription(pageItem?.text);
+      setImgId(pageItem?.imageUrl);
+      form.setFieldsValue({
+        title: pageItem?.title,
+        characterArray: pageItem?.characterArray,
+      });
+    } else {
+      setDescription('');
+      setImgId('');
+      form.resetFields();
+    }
   }, [visibleModal]);
 
   useEffect(() => {
@@ -68,14 +77,25 @@ const ModalCreatePage = ({
   const createPage = () => {
     const data = {
       title,
-      text: description,
-      order: pages?.length + 1,
+      text,
+      order: pagesArray?.length + 1,
       storyBoard: storyBoard?._id,
       characterArray,
       imageUrl: imgId,
       chapterId: chapterItem?.value?._id,
     };
 
+    // const page = chapters[chapterItem?.index]?.pages;
+    // if (ifEdit) {
+    //   mangaStoryAPI.pages.patchPage(
+    //     chapterItem?.index,
+    //     chapters,
+    //     setChapters,
+    //     setVisibleModal,
+    //     data
+    //   );
+    // }
+    // } else {
     mangaStoryAPI.pages.createPage(
       chapterItem?.index,
       chapters,
@@ -83,6 +103,7 @@ const ModalCreatePage = ({
       setVisibleModal,
       data
     );
+    // }
   };
 
   return (
@@ -100,26 +121,48 @@ const ModalCreatePage = ({
       visible={visibleModal}
       footer={null}>
       <div className={styles.border} />
-      <Form name="page" form={form}>
+      <Form
+        name="createPage"
+        form={form}
+        onFinish={(e) => {
+          setTitle(e.title);
+          setCharacterArray(e.characterArray);
+        }}>
         <h3>Page beats</h3>
-        <Form.Item name="title">
+        <Form.Item
+          name="title"
+          rules={[
+            {
+              required: true,
+              validator: async (_, names) => {
+                if (names === undefined) {
+                  return Promise.reject(
+                    new Error('Hey, bud. You forgot to add your name in the field above...')
+                  );
+                }
+                if (names.trim().length < 2) {
+                  return Promise.reject(new Error('Length must be at least 3 characters long'));
+                }
+              },
+            },
+          ]}>
           <PrimaryInput
             maxLength={200}
+            // value={title}
             className={styles.namePage}
-            onChange={(e) => setTitle(e.target.value)}
+            // onChange={(e) => setTitle(e.target.value)}
             placeholder={'Give a name to page '}
           />
         </Form.Item>
         <h3>Characters</h3>
-        <Form.Item name="chooseCharacter">
+        <Form.Item name="characterArray">
           <Select
             className={styles.option}
-            disabled={!title?.trim()}
             mode="multiple"
-            onChange={changeSelectedHero}
+            // onChange={changeSelectedHero}
             showSearch
             placeholder={'Link characters to page'}
-            defaultValue={pages?.characterArray}
+            // value={characterArray}
             filterOption={(inputValue, option) =>
               inputValue ? option.label.toLowerCase().includes(inputValue.toLowerCase()) : true
             }>
@@ -127,19 +170,17 @@ const ModalCreatePage = ({
           </Select>
         </Form.Item>
         <h3>Panel proposal</h3>
-        <Form.Item name="description">
-          <TextEditor
-            disabled={!title?.trim()}
-            placeholder="Using your thumbnails as a reference, write a script for your story which will eventually be turned into the final panel."
-            result={textEditorData}
-          />
-        </Form.Item>
+        <TextEditor
+          placeholder="Using your thumbnails as a reference, write a script for your story which will eventually be turned into the final panel."
+          result={textEditorData}
+          value={text}
+        />
         <h3 className={styles.uploadTitle}>Upload page</h3>
         <HeroUpload
           className={styles.imgPage}
           showText={false}
+          mangaUrl={imgId}
           setImgId={setImgId}
-          disabled={!title?.trim()}
           text="Drag or browse your art to start uploading"
         />
         <Form.Item className={styles.deletePage}>
@@ -153,7 +194,12 @@ const ModalCreatePage = ({
               </span>
             }
           />
-          <PrimaryButton className={styles.saveButton} onClick={createPage} text="Save" />
+          <PrimaryButton
+            className={styles.saveButton}
+            onClick={createPage}
+            htmlType="submit"
+            text="Save"
+          />
           <PrimaryButton className={styles.newPage} isWhite={true} text="New Page" />
         </Form.Item>
       </Form>
@@ -165,15 +211,17 @@ ModalCreatePage.propTypes = {
   visibleModal: PropTypes.bool.isRequired,
   setVisibleModal: PropTypes.func.isRequired,
   storyBoard: PropTypes.object.isRequired,
-  pages: PropTypes.array,
+  pagesArray: PropTypes.array,
   modalTitle: PropTypes.string.isRequired,
   chapterItem: PropTypes.object.isRequired,
   chapters: PropTypes.array.isRequired,
   setChapters: PropTypes.func.isRequired,
+  pageItem: PropTypes.object,
 };
 
 ModalCreatePage.defaultProps = {
-  pages: [],
+  pagesArray: [],
+  pageItem: {},
 };
 
 export default ModalCreatePage;

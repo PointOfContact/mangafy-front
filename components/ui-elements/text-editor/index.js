@@ -43,7 +43,7 @@ const modules = {
   clipboard: { matchVisual: false },
 };
 
-const TextEditor = ({ placeholder, result }) => (
+const TextEditor = ({ placeholder, result, disabled, value }) => (
   <QuillNoSSRWrapper
     placeholder={placeholder}
     className={styles.textEditor}
@@ -51,16 +51,22 @@ const TextEditor = ({ placeholder, result }) => (
     modules={modules}
     formats={formats}
     theme="snow"
+    readOnly={disabled}
+    value={value}
   />
 );
 
 TextEditor.propTypes = {
   result: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
+  disabled: PropTypes.bool,
+  value: PropTypes.string,
 };
 
 TextEditor.defaultProps = {
   placeholder: '',
+  disabled: false,
+  value: '',
 };
 
 export default TextEditor;
