@@ -229,20 +229,18 @@ export default {
           });
       });
     },
-    patchPage: (index, chapters, setChapters, setVisibleModal, data) => {
-      const page = chapters[index]?.pages;
-
+    patchPage: (index, pageItem, chapters, setChapters, setVisibleModal, data) => {
       const jwt = client.getCookie('feathers-jwt');
 
       import('api/restClient').then((m) => {
         m.default
           .service('api/v2/pages')
-          .patch(page?._id, data, {
+          .patch(pageItem?.value?._id, data, {
             headers: { Authorization: `Bearer ${jwt}` },
             mode: 'no-cors',
           })
           .then((res) => {
-            console.log(res);
+            chapters[index].pages[pageItem?.index] = res;
             setChapters([...chapters]);
             setVisibleModal(false);
           })

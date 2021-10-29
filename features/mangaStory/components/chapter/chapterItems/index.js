@@ -98,6 +98,9 @@ const ChapterItems = ({ chapters, setChapters, storyBoard }) => {
             setVisibleModal={setVisibleModal}
             setModalTitle={setModalTitle}
             setPageItem={setPageItem}
+            setChapterItem={setChapterItem}
+            chapterValue={value}
+            chapterIndex={index}
           />
         </div>
       ))}

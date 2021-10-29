@@ -8,11 +8,19 @@ import PropTypes from 'prop-types';
 import SettingsPage from './settingsPage';
 import styles from './styles.module.scss';
 
-const Pages = ({ pages, setVisibleModal, setModalTitle, setPageItem }) => {
+const Pages = ({
+  pages,
+  setVisibleModal,
+  setModalTitle,
+  setPageItem,
+  setChapterItem,
+  chapterItem,
+  chapterIndex,
+}) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const imageType = pages?.imageUrl?.slice(-3) === 'pdf' || pages?.imageUrl?.slice(-3) === 'PDF';
 
-  const pagesArray = pages?.map((value) => {
+  const pagesArray = pages?.map((value, index) => {
     const image = !!value.imageUrl
       ? client.UPLOAD_URL + value.imageUrl
       : 'https://mangafy.club/img/collab_baner.webp';
@@ -24,7 +32,8 @@ const Pages = ({ pages, setVisibleModal, setModalTitle, setPageItem }) => {
           onClick={() => {
             setVisibleModal(true);
             setModalTitle('Edit page');
-            setPageItem(value);
+            setPageItem({ value, index });
+            setChapterItem({ value: chapterItem, index: chapterIndex });
           }}>
           <div className={styles.content}>
             <h2>{value.title}</h2>
@@ -58,10 +67,16 @@ Pages.propTypes = {
   setVisibleModal: PropTypes.func.isRequired,
   setModalTitle: PropTypes.func.isRequired,
   setPageItem: PropTypes.func.isRequired,
+  setChapterItem: PropTypes.func,
+  chapterItem: PropTypes.object,
+  chapterIndex: PropTypes.number,
 };
 
 Pages.defaultProps = {
   pages: [],
+  setChapterItem: () => {},
+  chapterItem: {},
+  chapterIndex: 0,
 };
 
 export default Pages;

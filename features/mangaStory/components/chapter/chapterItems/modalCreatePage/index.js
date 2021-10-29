@@ -38,11 +38,13 @@ const ModalCreatePage = ({
 
   useEffect(() => {
     if (visibleModal) {
-      setDescription(pageItem?.text);
-      setImgId(pageItem?.imageUrl);
+      setTitle(pageItem?.value?.title);
+      setCharacterArray(pageItem?.value?.characterArray);
+      setDescription(pageItem?.value?.text);
+      setImgId(pageItem?.value?.imageUrl);
       form.setFieldsValue({
-        title: pageItem?.title,
-        characterArray: pageItem?.characterArray,
+        title: pageItem?.value?.title,
+        characterArray: pageItem?.value?.characterArray,
       });
     } else {
       setDescription('');
@@ -66,44 +68,46 @@ const ModalCreatePage = ({
     setOptions(createOption);
   }, [personage]);
 
-  const changeSelectedHero = (value) => {
-    setCharacterArray(value);
-  };
-
   const textEditorData = (value) => {
     setDescription(value);
   };
 
-  const createPage = () => {
+  const createPage = (newTitle, newCharacterArray) => {
     const data = {
-      title,
+      title: newTitle,
       text,
       order: pagesArray?.length + 1,
       storyBoard: storyBoard?._id,
-      characterArray,
+      characterArray: newCharacterArray,
       imageUrl: imgId,
       chapterId: chapterItem?.value?._id,
     };
 
-    // const page = chapters[chapterItem?.index]?.pages;
-    // if (ifEdit) {
-    //   mangaStoryAPI.pages.patchPage(
-    //     chapterItem?.index,
-    //     chapters,
-    //     setChapters,
-    //     setVisibleModal,
-    //     data
-    //   );
-    // }
-    // } else {
-    mangaStoryAPI.pages.createPage(
-      chapterItem?.index,
-      chapters,
-      setChapters,
-      setVisibleModal,
-      data
-    );
-    // }
+    if (ifEdit) {
+      delete data.storyBoard;
+      mangaStoryAPI.pages.patchPage(
+        chapterItem?.index,
+        pageItem,
+        chapters,
+        setChapters,
+        setVisibleModal,
+        data
+      );
+    } else {
+      mangaStoryAPI.pages.createPage(
+        chapterItem?.index,
+        chapters,
+        setChapters,
+        setVisibleModal,
+        data
+      );
+    }
+  };
+
+  const request = (e) => {
+    setTitle(e.title);
+    setCharacterArray(e.characterArray);
+    createPage(e.title, e.characterArray);
   };
 
   return (
@@ -121,13 +125,7 @@ const ModalCreatePage = ({
       visible={visibleModal}
       footer={null}>
       <div className={styles.border} />
-      <Form
-        name="createPage"
-        form={form}
-        onFinish={(e) => {
-          setTitle(e.title);
-          setCharacterArray(e.characterArray);
-        }}>
+      <Form name="createPage" form={form} onFinish={(e) => request(e)}>
         <h3>Page beats</h3>
         <Form.Item
           name="title"
@@ -194,12 +192,7 @@ const ModalCreatePage = ({
               </span>
             }
           />
-          <PrimaryButton
-            className={styles.saveButton}
-            onClick={createPage}
-            htmlType="submit"
-            text="Save"
-          />
+          <PrimaryButton className={styles.saveButton} htmlType="submit" text="Save" />
           <PrimaryButton className={styles.newPage} isWhite={true} text="New Page" />
         </Form.Item>
       </Form>
