@@ -69,7 +69,7 @@ const Footer = () => {
               <a className={styles.footer__itemLink} onClick={() => showCreateProjectModal(true)}>
                 Post Collaboration
               </a>
-              <Link href="/profiles">
+              <Link href="profiles">
                 <a className={styles.footer__itemLink}>Find enthusiast</a>
               </Link>
             </div>
