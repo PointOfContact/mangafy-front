@@ -86,6 +86,7 @@
     "prop-types": "^15.7.2",
     "query-string": "^6.13.8",
     "queue-promise": "^2.2.1",
+    "rc-tween-one": "^2.7.3",
     "react": "^16.14.0",
     "react-amplitude": "^0.1.7",
     "react-avatar-edit": "^1.0.0",

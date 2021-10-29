@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
-const FooterLogin = React.memo(({ user, cookieVisibility }) => {
+const FooterLogin = ({ user, cookieVisibility }) => {
   const [cookieBubble, setCookieBubble] = useState(false);
   const [showDialog, setShowDialog] = useState(true);
 
@@ -48,7 +48,7 @@ const FooterLogin = React.memo(({ user, cookieVisibility }) => {
       </div>
     )
   );
-});
+};
 
 FooterLogin.propTypes = {
   user: PropTypes.object.isRequired,
@@ -59,4 +59,4 @@ FooterLogin.defaultProps = {
   cookieVisibility: true,
 };
 
-export default FooterLogin;
+export default React.memo(FooterLogin);

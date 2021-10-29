@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Row } from 'antd';
 import client from 'api/client';
@@ -8,16 +8,15 @@ import CollaborationsHeader from 'components/collaborationsHeader';
 import Footer from 'components/footer';
 import FooterPolicy from 'components/footer-policy';
 import Header from 'components/header';
+import ModalCreateProject from 'components/modalCreateProject';
 import Paginations from 'components/paginations';
 import SearchForCollaborations from 'components/searchForCollaborations';
 import PrimaryButton from 'components/ui-elements/button';
 import ButtonToTop from 'components/ui-elements/button-toTop';
-import FooterLogin from 'features/footerLogin';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { userTypes } from 'helpers/constant';
 import { NextSeo } from 'next-seo';
 // import dynamic from 'next/dynamic';
-import Link from 'next/link';
 import PropTypes from 'prop-types';
 import myAmplitude from 'utils/amplitude';
 
@@ -39,14 +38,16 @@ const Collaborations = (props) => {
     search,
     selectedTypes,
   } = props;
+  const [createProjectModal, showCreateProjectModal] = useState(false);
 
   const data = {
-    event_type: EVENTS.OPENED_ALL_PROFILES,
+    event_type: EVENTS.OPENED_ALL_COLLABORATION,
     user_id: user?._id,
     user_properties: {
       ...user,
     },
   };
+
   myAmplitude(data);
 
   return (
@@ -100,14 +101,13 @@ const Collaborations = (props) => {
                           <div className={cn(styles.PostColab__descr)}>
                             Have an idea for a graphic novel or manga and looking for collaboration?
                           </div>
-                          <Link href="/create-a-story/start">
-                            <a>
-                              <PrimaryButton
-                                text="Post Collab"
-                                className={cn(styles.PostColab__btn)}
-                              />
-                            </a>
-                          </Link>
+                          <PrimaryButton
+                            text="Post Collab"
+                            className={cn(styles.PostColab__btn)}
+                            onClick={() => {
+                              showCreateProjectModal(true);
+                            }}
+                          />
                         </div>
                       </div>
                       {mangaStories &&
@@ -143,7 +143,11 @@ const Collaborations = (props) => {
           iconColor="#7b65f3"
         /> */}
       </div>
-      <FooterLogin user={user} cookieVisibility={false} />
+      {/* <FooterLogin user={user} cookieVisibility={false} /> */}
+      <ModalCreateProject
+        createProjectModal={createProjectModal}
+        showCreateProjectModal={showCreateProjectModal}
+      />
     </>
   );
 };

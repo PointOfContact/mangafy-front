@@ -13,31 +13,33 @@ const PDFViewer = dynamic(() => import('components/pdfViewer'), {
   ssr: false,
 });
 
-const ShowImgModal = ({ setIsModalVisible, isModalVisible, img, imageType }) => (
-  <Modal
-    className={styles.modal}
-    bodyStyle={{ height: 'calc(100vh - 30px)', overflow: 'auto' }}
-    footer={null}
-    width={'100%'}
-    zIndex={200000000}
-    onCancel={() => setIsModalVisible(false)}
-    closeIcon={
-      <span className={styles.closeIcon}>
-        <SvgClose />
-      </span>
-    }
-    visible={isModalVisible}>
-    {typeof img === 'string' ? (
-      imageType ? (
+const ShowImgModal = ({ setIsModalVisible, isModalVisible, img, imageType }) => {
+  const imgTypeVideo = img?.slice(-3) === 'mp4';
+
+  return (
+    <Modal
+      className={styles.modal}
+      footer={null}
+      zIndex={200000000}
+      onCancel={() => setIsModalVisible(false)}
+      closeIcon={
+        <span className={styles.closeIcon}>
+          <SvgClose />
+        </span>
+      }
+      visible={isModalVisible}>
+      {imgTypeVideo ? (
+        <video controls autoPlay muted loop>
+          <source src={img} type="video/mp4" />
+        </video>
+      ) : imageType ? (
         <PDFViewer url={img} />
       ) : (
         <Imgix layout="fill" src={img} alt="MangaFy modal" />
-      )
-    ) : (
-      img
-    )}
-  </Modal>
-);
+      )}
+    </Modal>
+  );
+};
 
 ShowImgModal.propTypes = {
   isModalVisible: PropTypes.bool.isRequired,

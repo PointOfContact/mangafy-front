@@ -6,7 +6,6 @@ import Header from 'components/header';
 import Imgix from 'components/imgix';
 import { ShareButtons } from 'components/share';
 import ButtonToTop from 'components/ui-elements/button-toTop';
-import FooterLogin from 'features/footerLogin';
 import { NextSeo } from 'next-seo';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
@@ -112,11 +111,11 @@ const HowToGetStartedWithMangaFY = ({ user }) => {
                 />
               </b>
               <br />
-              <p>
+              {/* <p>
                 You will be directed to create your story page -
                 https://mangafy.club/create-a-story/start. Press start and start building your user
                 profile on MangaFY.
-              </p>
+              </p> */}
               <Imgix
                 width={860}
                 height={1000}
@@ -182,7 +181,7 @@ const HowToGetStartedWithMangaFY = ({ user }) => {
         </div>
         <Footer />
         <FooterPolicy />
-        <FooterLogin user={user} />
+        {/* <FooterLogin user={user} /> */}
       </div>
     </>
   );

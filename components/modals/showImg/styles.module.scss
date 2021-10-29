@@ -2,12 +2,24 @@
 
 .modal {
   top: 20px;
-  height: calc(100% - 30px);
+  width: 100% !important;
+  min-height: calc(100% - 30px) !important;
+  height: 100% !important;
   margin: auto;
+  video{
+    max-width: 100%;
+  }
   & > div {
+    height: 100%;
     border-radius: 10px;
     display: flex;
     justify-content: center;
+    align-items: center;
+    & > div {
+      height: 100%;
+      overflow-y: auto;
+      display: flex;
+    }
   }
   span:hover {
     path {

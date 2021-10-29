@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
 
-import { Upload, message, notification, Modal } from 'antd';
+import { Upload, message, notification } from 'antd';
 import client from 'api/client';
 // Api
 // Components
 import cn from 'classnames';
-import SvgClose from 'components/icon/Close';
 import SvgCloud from 'components/icon/Cloud';
 import SvgImage from 'components/icon/Image';
-import Imgix from 'components/imgix';
+import ShowImgModal from 'components/modals/showImg';
 import PropTypes from 'prop-types';
 import beforeUploadFromAMZ from 'utils/upload';
 
@@ -23,24 +22,38 @@ const HeroUpload = ({
   onChangeHero,
   disabled,
   className,
-  setSubmitButton,
-  requestAuto,
   uploadVideo,
-  setUploadLoading,
 }) => {
   const [img, setImg] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [fileList, setFileList] = useState(img || []);
+  const imgType = mangaUrl?.slice(-3);
+  const ifPdf = imgType === 'pdf' || imgType === 'PDF';
+  const ifUploadVideo = uploadVideo
+    ? 'You can only upload PDF, JPG, JPEG, PNG, MP4 file!'
+    : 'You can only upload PDF, JPG, JPEG, PNG file!';
 
   useEffect(() => {
-    const newImg = mangaUrl?.slice(-3)
+    let imgUrl;
+    switch (imgType) {
+      case 'pdf' || 'PDF':
+        imgUrl =
+          'https://cdn2.iconfinder.com/data/icons/file-extension-names-vol-2-14/512/18_Pdf_document_file_format_file-512.png';
+        break;
+      case 'mp4':
+        imgUrl =
+          'https://cdn2.iconfinder.com/data/icons/file-extension-names-vol-2-14/512/33_Extention_file_file_format_mp4-512.png';
+        break;
+      default:
+        imgUrl = client.UPLOAD_URL + mangaUrl;
+        break;
+    }
+
+    const newImg = imgType
       ? [
           {
             uid: '-1',
-            url:
-              mangaUrl?.slice(-3) === 'pdf' || mangaUrl?.slice(-3) === 'PDF'
-                ? 'https://icons.iconarchive.com/icons/graphicloads/filetype/256/pdf-icon.png'
-                : client.UPLOAD_URL + mangaUrl,
+            url: imgUrl,
             status: 'done',
           },
         ]
@@ -55,8 +68,7 @@ const HeroUpload = ({
 
   const setUploadCallback = (fileName) => {
     setImgId(fileName);
-    requestAuto && onChangeHero({}, fileName);
-    setSubmitButton(false);
+    onChangeHero({}, fileName);
   };
 
   const beforeUpload = (file) => {
@@ -64,9 +76,10 @@ const HeroUpload = ({
       file.type === 'image/jpeg' ||
       file.type === 'image/png' ||
       file.type === 'application/pdf' ||
-      file.type === 'image/jpg';
+      file.type === 'image/jpg' ||
+      file.type === 'video/mp4';
     if (!isJpgOrPng) {
-      openNotification('error', 'You can only upload PDF, JPG, JPEG, PNG file!');
+      openNotification('error', ifUploadVideo);
     }
     const isLt2M = file.size / 1024 / 1024 < 10;
     if (!isLt2M) {
@@ -74,7 +87,7 @@ const HeroUpload = ({
       openNotification('error', 'Image must smaller than 10MB!');
     }
 
-    if (isJpgOrPng && isLt2M) beforeUploadFromAMZ(file, setUploadCallback, setSubmitButton);
+    if (isJpgOrPng && isLt2M) beforeUploadFromAMZ(file, setUploadCallback);
 
     return isJpgOrPng && isLt2M;
   };
@@ -105,12 +118,13 @@ const HeroUpload = ({
     <div className={cn('primary_upload hero_upload', styles.primary_upload)}>
       <Upload
         disabled={disabled}
-        accept="image/jpg, image/png, application/pdf, image/jpeg "
+        accept="image/jpg, image/png, application/pdf, image/jpeg, video/mp4"
         listType="picture-card"
         fileList={fileList}
         onChange={onChange}
         beforeUpload={beforeUpload}
         onRemove={() => {
+          onChangeHero({}, '');
           setImgId('');
         }}
         onPreview={onPreview}>
@@ -118,7 +132,7 @@ const HeroUpload = ({
           <div className={cn(styles.content, className)}>
             <div className={styles.types}>
               <SvgImage width="23px" height="23px" />
-              PDF, JPG, JPEG, PNG
+              PDF, JPG, JPEG, PNG, {uploadVideo && 'MP4'}
             </div>
             <div className={styles.description}>
               <span className="desc">
@@ -134,21 +148,12 @@ const HeroUpload = ({
           </div>
         )}
       </Upload>
-      <Modal
-        className={styles.modal}
-        bodyStyle={{ height: 'calc(100vh - 30px)', overflow: 'auto' }}
-        footer={null}
-        width={'100%'}
-        zIndex={200000000}
-        onCancel={() => setShowModal(false)}
-        closeIcon={
-          <span className={styles.closeIcon}>
-            <SvgClose />
-          </span>
-        }
-        visible={showModal}>
-        <Imgix layout="fill" src={img} alt="MangaFy modal" />
-      </Modal>
+      <ShowImgModal
+        setIsModalVisible={setShowModal}
+        isModalVisible={showModal}
+        img={client.UPLOAD_URL + mangaUrl}
+        imageType={ifPdf}
+      />
     </div>
   );
 };
@@ -164,10 +169,8 @@ HeroUpload.propTypes = {
   disabled: PropTypes.bool,
   text: PropTypes.string,
   className: PropTypes.string,
-  setSubmitButton: PropTypes.func,
-  requestAuto: PropTypes.bool,
+  ifPdf: PropTypes.bool.isRequired,
   uploadVideo: PropTypes.bool,
-  setUploadLoading: PropTypes.func,
 };
 
 HeroUpload.defaultProps = {
@@ -181,10 +184,7 @@ HeroUpload.defaultProps = {
   disabled: false,
   text: '',
   className: '',
-  setSubmitButton: () => {},
-  requestAuto: true,
   uploadVideo: false,
-  setUploadLoading: () => {},
 };
 
 export default HeroUpload;

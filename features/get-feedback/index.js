@@ -1,12 +1,31 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
+import { Modal, notification } from 'antd';
+import TextArea from 'antd/lib/input/TextArea';
+import client from 'api/client';
+import SvgClose from 'components/icon/Close';
+import HeroUpload from 'components/modals/createEditHero/heroUpload';
+import PrimaryButton from 'components/ui-elements/button';
 import { EVENTS } from 'helpers/amplitudeEvents';
-import { NextSeo } from 'next-seo';
 import PropTypes from 'prop-types';
 import myAmplitude from 'utils/amplitude';
 
-const Start = ({ user, closeModal, isPage }) => {
-  const typeFormRef = useRef(null);
+import SelectTags from './selectTags';
+import styles from './styles.module.scss';
+
+const GetFeedback = ({ user, setIsModalVisible, isModalVisible, isPage }) => {
+  const [imageUrl, setImgId] = useState('');
+  const [subTitle, setSubTitle] = useState('');
+  const [selectedTags, setSelectedTags] = useState([]);
+  const [validation, setValidation] = useState('');
+  const [uploadLoading, setUploadLoading] = useState(false);
+
+  useEffect(() => {
+    setSelectedTags([]);
+    setSubTitle('');
+    setValidation('');
+    setValidation('');
+  }, [isModalVisible]);
 
   const onSubmit = useCallback(async (event) => {
     const data = [
@@ -20,69 +39,101 @@ const Start = ({ user, closeModal, isPage }) => {
       },
     ];
     myAmplitude(data);
-    // eslint- disable-next-line no-underscore-dangle
-    setTimeout(() => {
-      closeModal(false);
-    }, 4000);
   });
 
-  useEffect(() => {
-    import('@typeform/embed').then((typeFormEmbed) => {
-      typeFormEmbed.makeWidget(
-        typeFormRef.current,
-        `https://form.typeform.com/to/V9Wd5WAY#userid=${user._id}`,
-        {
-          hideFooter: true,
-          hideHeaders: true,
-          opacity: 50,
-          onSubmit,
-        }
-      );
+  const requestPost = () => {
+    const data = {
+      imageUrl,
+      subTitle,
+      categories: selectedTags,
+    };
+    const jwt = client.getCookie('feathers-jwt');
+    import('api/restClient').then((m) => {
+      m.default
+        .service('/api/v2/posts')
+        .create(data, {
+          headers: { Authorization: `Bearer ${jwt}` },
+          mode: 'no-cors',
+        })
+        .then(() => {})
+        .catch((err) => {
+          notification.error({
+            message: err.message,
+            placement: 'bottomLeft',
+          });
+          return err;
+        });
     });
-  }, [typeFormRef, onSubmit]);
+  };
+
+  const doingRequest = () =>
+    !!subTitle.trim()
+      ? requestPost()
+      : setValidation('Think of your post title as a super short (but compelling!) ');
 
   return (
-    <>
-      <NextSeo
-        title="Focus on things that are really important"
-        description="MangaFY Expand your planning horizons."
-        canonical=""
-        openGraph={{
-          url: '',
-          title: '',
-          description: '',
-          images: [
-            {
-              url: '',
-              width: 800,
-              height: 600,
-              alt: '',
-            },
-          ],
-          site_name: 'MangaFY',
-        }}
-        twitter={{
-          handle: '@handle',
-          site: '@site',
-          cardType: 'summary_large_image',
-        }}
-      />
-      <div>
-        <div ref={typeFormRef} style={{ height: '100vh', width: '100%' }}></div>
+    <Modal
+      className={styles.modalFeedbacks}
+      closeIcon={
+        <span className={styles.closeIcon} onClick={() => setIsModalVisible(false)}>
+          <SvgClose />
+        </span>
+      }
+      visible={isModalVisible}
+      onCancel={() => {
+        setIsModalVisible(false);
+      }}
+      footer={null}>
+      <div className={styles.titleContainer}>
+        <h1 className={styles.titleNewPost}>New Post</h1>
+        <div className={styles.border}></div>
       </div>
-    </>
+      <div className={styles.container}>
+        <h2>Upload image or video</h2>
+        <HeroUpload
+          text="Drag or browse your art to start uploading"
+          setImgId={setImgId}
+          mangaUrl={imageUrl}
+          className={styles.feedbackUpload}
+          uploadVideo={true}
+          setUploadLoading={setUploadLoading}
+        />
+        <h2>Post content here</h2>
+        <TextArea
+          placeholder="Write a caption..."
+          value={subTitle}
+          onChange={(e) => setSubTitle(e.target.value)}
+          className={styles.modalTextarea}
+        />
+        {validation && <p className={styles.error}>{validation}</p>}
+        <h2>Tags</h2>
+        <SelectTags selectedTags={selectedTags} setSelectedTags={setSelectedTags} />
+        <PrimaryButton
+          className={styles.createPost}
+          loading={uploadLoading}
+          text="Post"
+          onClick={(e) => {
+            onSubmit(e);
+            doingRequest();
+            !!subTitle.trim() && setIsModalVisible(false);
+          }}
+        />
+      </div>
+    </Modal>
   );
 };
 
-Start.propTypes = {
+GetFeedback.propTypes = {
   isPage: PropTypes.object,
   user: PropTypes.object.isRequired,
-  closeModal: PropTypes.func,
+  setIsModalVisible: PropTypes.func,
+  isModalVisible: PropTypes.bool,
 };
 
-Start.defaultProps = {
+GetFeedback.defaultProps = {
   isPage: {},
-  closeModal: () => {},
+  setIsModalVisible: () => {},
+  isModalVisible: false,
 };
 
-export default Start;
+export default GetFeedback;

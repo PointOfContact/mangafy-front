@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import cn from 'classnames';
+import ModalCreateProject from 'components/modalCreateProject';
 import PrimaryButton from 'components/ui-elements/button';
 import { removeAllStorage } from 'helpers/shared';
 import Link from 'next/link';
@@ -10,6 +11,7 @@ import PropTypes from 'prop-types';
 import styles from '../styles.module.scss';
 
 const MenuLinks = ({ isOpen, user, setShowModal, handleMenuOpen }) => {
+  const [createProjectModal, showCreateProjectModal] = useState(false);
   const initialLinks = [
     // {
     //   text: 'About Us',
@@ -60,11 +62,12 @@ const MenuLinks = ({ isOpen, user, setShowModal, handleMenuOpen }) => {
                   </Link>
                 </li>
                 <li className={styles.menu_item}>
-                  <Link href="/create-a-story/start">
-                    <a>
-                      <span className={styles.iconText}>✏️</span>Create a collab
-                    </a>
-                  </Link>
+                  <a>
+                    <span className={styles.iconText} onClick={() => showCreateProjectModal(true)}>
+                      ✏️
+                    </span>
+                    Create a collab
+                  </a>
                 </li>
                 {/* <li className={styles.menu_item}>
                     <Link href="/pricing">Go Pro</Link>
@@ -136,11 +139,12 @@ const MenuLinks = ({ isOpen, user, setShowModal, handleMenuOpen }) => {
                   </Link>
                 </li>
                 <li className={styles.menu_item}>
-                  <Link href="/create-a-story/start">
-                    <a>
-                      <span className={styles.iconText}>✏️</span>Create a collab
-                    </a>
-                  </Link>
+                  <a>
+                    <span className={styles.iconText} onClick={() => showCreateProjectModal(true)}>
+                      ✏️
+                    </span>
+                    Create a collab
+                  </a>
                 </li>
                 <li className={styles.menu_item}>
                   <Link href="/profiles">
@@ -186,6 +190,10 @@ const MenuLinks = ({ isOpen, user, setShowModal, handleMenuOpen }) => {
           </div> */}
         </div>
       </div>
+      <ModalCreateProject
+        createProjectModal={createProjectModal}
+        showCreateProjectModal={showCreateProjectModal}
+      />
     </div>
   );
 };

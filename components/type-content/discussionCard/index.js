@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React, { useState } from 'react';
 
 import client from 'api/client';
@@ -8,6 +9,7 @@ import Imgix from 'components/imgix';
 import ModalDiscussion from 'components/modals/discussion';
 import PrimaryButton from 'components/ui-elements/button';
 import { EVENTS } from 'helpers/amplitudeEvents';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
@@ -17,6 +19,10 @@ import { LinkCreator } from 'utils/linkCreator';
 
 import DiscussionType from '../discussionType';
 import styles from './styles.module.scss';
+
+const PDFViewer = dynamic(() => import('components/pdfViewer'), {
+  ssr: false,
+});
 
 const DiscussionCard = (props) => {
   const {
@@ -37,6 +43,8 @@ const DiscussionCard = (props) => {
   } = props;
 
   const [showModal, changeShowModal] = useState(false);
+  const imgType = img.slice(-3);
+  const ifPdf = imgType === 'pdf' || imgType === 'PDF';
 
   const openPost = (postId) => {
     const parsed = qs.parse(window.location.search);
@@ -61,7 +69,7 @@ const DiscussionCard = (props) => {
     changeShowModal(true);
   };
 
-  const ifVideo = img?.includes('youtube');
+  const ifVideo = img?.includes('.mp4');
 
   return (
     <>
@@ -103,14 +111,11 @@ const DiscussionCard = (props) => {
           <div className={styles.bgImg}>
             {img &&
               (ifVideo ? (
-                <iframe
-                  loading="lazy"
-                  className={styles.postVideo}
-                  src={`${img}?autoplay=1&mute=1&controls=0&playlist=RBolDaIdg5M&loop=1&autopause=0`}
-                  title="YouTube video player"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen></iframe>
+                <video controls autoPlay muted loop>
+                  <source src={`${client.UPLOAD_URL + img}`} type="video/mp4" />
+                </video>
+              ) : ifPdf ? (
+                <PDFViewer url={client.UPLOAD_URL + img} />
               ) : (
                 <Imgix
                   className={(!img && styles.defaultBg) || ''}
@@ -146,14 +151,15 @@ const DiscussionCard = (props) => {
                 />
               </a>
             </Link>
-            {!img && <span className={cn(!img && styles.cat, styles.catDef)}>{categories[0]}</span>}
+            {!img && !!categories[0] && (
+              <span className={cn(!img && styles.cat, styles.catDef)}>{categories[0]}</span>
+            )}
           </div>
         </div>
       </div>
       <ModalDiscussion
         changeShowModal={changeShowModal}
         showModal={showModal}
-        url={url}
         img={img}
         logo={logo}
         title={title}
@@ -162,6 +168,8 @@ const DiscussionCard = (props) => {
         likesCount={likesCount}
         logoNavigate={logoNavigate}
         subTitle={subTitle}
+        ifVideo={ifVideo}
+        ifPdf={ifPdf}
       />
     </>
   );
