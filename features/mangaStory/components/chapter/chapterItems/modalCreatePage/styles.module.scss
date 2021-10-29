@@ -170,12 +170,12 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
       display: flex;
       align-items: center;
       padding: 0;
-
       & > div {
         width: 100% !important;
         border-color: $primaryDark !important;
         border: none !important;
         border-radius: 5px !important;
+        background: white !important; 
         & > div > div:last-child {
           height: 42px;
           & > div {
@@ -219,6 +219,7 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
       }
     }
     .namePage {
+      width: 100%;
       height: 44px;
       background-color: #ffffff;
       border-radius: 6px;

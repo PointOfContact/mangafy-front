@@ -8,22 +8,30 @@ import PropTypes from 'prop-types';
 import SettingsPage from './settingsPage';
 import styles from './styles.module.scss';
 
-const Pages = ({ pages }) => {
+const Pages = ({ pages, setVisibleModal, setModalTitle }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const imageType = pages?.imageUrl?.slice(-3) === 'pdf' || pages?.imageUrl?.slice(-3) === 'PDF';
 
   const pagesArray = pages?.map((value) => {
-    const image = !!value.imageIrl ? value.imageIrl : 'https://mangafy.club/img/collab_baner.webp';
+    const image = !!value.imageUrl
+      ? client.UPLOAD_URL + value.imageUrl
+      : 'https://mangafy.club/img/collab_baner.webp';
+
     return (
       <div key={value?._id}>
-        <div className={styles.itemPage}>
+        <div
+          className={styles.itemPage}
+          onClick={() => {
+            setVisibleModal(true);
+            setModalTitle('Edit page');
+          }}>
           <div className={styles.content}>
             <h2>{value.title}</h2>
-            <p>{value.text}</p>
-            <SettingsPage />
+            <p dangerouslySetInnerHTML={{ __html: value.text }} />
+            <SettingsPage setVisibleModal={setVisibleModal} setModalTitle={setModalTitle} />
           </div>
           <div className={styles.pageImage} onClick={() => setIsModalVisible(true)}>
-            <Imgix layout="fill" src={image} alt={'MangaFy page image'} />
+            <Imgix className={styles.image} layout="fill" src={image} alt={'MangaFy page image'} />
           </div>
         </div>
         <ShowImgModal
@@ -41,6 +49,8 @@ const Pages = ({ pages }) => {
 
 Pages.propTypes = {
   pages: PropTypes.array,
+  setVisibleModal: PropTypes.func.isRequired,
+  setModalTitle: PropTypes.func.isRequired,
 };
 
 Pages.defaultProps = {

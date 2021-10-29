@@ -205,23 +205,7 @@ export default {
   },
 
   pages: {
-    createPage: (
-      chapterId,
-      index,
-      chapters,
-      pageCount,
-      storyBoard,
-      setChapters,
-      setVisibleModal
-    ) => {
-      const data = {
-        title: 'Page 1',
-        text: 'hello my page',
-        order: pageCount + 1,
-        storyBoard: storyBoard?._id,
-        chapterId,
-      };
-
+    createPage: (index, chapters, setChapters, setVisibleModal, data) => {
       const jwt = client.getCookie('feathers-jwt');
 
       import('api/restClient').then((m) => {

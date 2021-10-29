@@ -9,17 +9,38 @@ import PrimaryButton from 'components/ui-elements/button';
 import HeroUpload from 'components/ui-elements/heroUpload';
 import PrimaryInput from 'components/ui-elements/input';
 import TextEditor from 'components/ui-elements/text-editor';
+import mangaStoryAPI from 'features/mangaStory/mangaStoryAPI';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
 const { Option } = Select;
 
-const ModalCreatePage = ({ visibleModal, setVisibleModal, storyBoard, pages }) => {
-  const [title, setTitle] = useState('Create Page');
-  const [options, setOptions] = useState([]);
+const ModalCreatePage = ({
+  visibleModal,
+  setVisibleModal,
+  chapters,
+  setChapters,
+  storyBoard,
+  chapterItem,
+  pages,
+  modalTitle,
+}) => {
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [characterArray, setCharacterArray] = useState([]);
   const [imgId, setImgId] = useState('');
+  const [options, setOptions] = useState([]);
   const [personage, setPersonage] = useState([]);
+  const [form] = Form.useForm();
+
+  useEffect(() => {
+    setTitle('');
+    setDescription('');
+    setCharacterArray([]);
+    setImgId('');
+    form.resetFields();
+  }, [visibleModal]);
 
   useEffect(() => {
     // get personage
@@ -37,11 +58,31 @@ const ModalCreatePage = ({ visibleModal, setVisibleModal, storyBoard, pages }) =
   }, [personage]);
 
   const changeSelectedHero = (value) => {
-    console.log(value);
+    setCharacterArray(value);
   };
 
   const textEditorData = (value) => {
-    console.log(value);
+    setDescription(value);
+  };
+
+  const createPage = () => {
+    const data = {
+      title,
+      text: description,
+      order: pages?.length + 1,
+      storyBoard: storyBoard?._id,
+      characterArray,
+      imageUrl: imgId,
+      chapterId: chapterItem?.value?._id,
+    };
+
+    mangaStoryAPI.pages.createPage(
+      chapterItem?.index,
+      chapters,
+      setChapters,
+      setVisibleModal,
+      data
+    );
   };
 
   return (
@@ -52,21 +93,20 @@ const ModalCreatePage = ({ visibleModal, setVisibleModal, storyBoard, pages }) =
           <SvgClose />
         </span>
       }
-      title={<h2 className={styles.titlePage}>{title}</h2>}
+      title={<h2 className={styles.titlePage}>{modalTitle}</h2>}
       onCancel={() => {
         setVisibleModal(false);
       }}
       visible={visibleModal}
       footer={null}>
       <div className={styles.border} />
-      <Form name="page">
+      <Form name="page" form={form}>
         <h3>Page beats</h3>
         <Form.Item name="title">
           <PrimaryInput
             maxLength={200}
             className={styles.namePage}
-            isLinear={true}
-            isFullWidth={true}
+            onChange={(e) => setTitle(e.target.value)}
             placeholder={'Give a name to page '}
           />
         </Form.Item>
@@ -74,15 +114,12 @@ const ModalCreatePage = ({ visibleModal, setVisibleModal, storyBoard, pages }) =
         <Form.Item name="chooseCharacter">
           <Select
             className={styles.option}
-            countLimit={true}
+            disabled={!title?.trim()}
             mode="multiple"
             onChange={changeSelectedHero}
-            isLinear={true}
             showSearch
-            isFullWidth={true}
             placeholder={'Link characters to page'}
             defaultValue={pages?.characterArray}
-            // onBlur={() => onChangeHero({})}
             filterOption={(inputValue, option) =>
               inputValue ? option.label.toLowerCase().includes(inputValue.toLowerCase()) : true
             }>
@@ -92,6 +129,7 @@ const ModalCreatePage = ({ visibleModal, setVisibleModal, storyBoard, pages }) =
         <h3>Panel proposal</h3>
         <Form.Item name="description">
           <TextEditor
+            disabled={!title?.trim()}
             placeholder="Using your thumbnails as a reference, write a script for your story which will eventually be turned into the final panel."
             result={textEditorData}
           />
@@ -101,6 +139,7 @@ const ModalCreatePage = ({ visibleModal, setVisibleModal, storyBoard, pages }) =
           className={styles.imgPage}
           showText={false}
           setImgId={setImgId}
+          disabled={!title?.trim()}
           text="Drag or browse your art to start uploading"
         />
         <Form.Item className={styles.deletePage}>
@@ -114,7 +153,7 @@ const ModalCreatePage = ({ visibleModal, setVisibleModal, storyBoard, pages }) =
               </span>
             }
           />
-          <PrimaryButton className={styles.saveButton} htmlType="submit" text="Save" />
+          <PrimaryButton className={styles.saveButton} onClick={createPage} text="Save" />
           <PrimaryButton className={styles.newPage} isWhite={true} text="New Page" />
         </Form.Item>
       </Form>
@@ -126,7 +165,15 @@ ModalCreatePage.propTypes = {
   visibleModal: PropTypes.bool.isRequired,
   setVisibleModal: PropTypes.func.isRequired,
   storyBoard: PropTypes.object.isRequired,
-  pages: PropTypes.object.isRequired,
+  pages: PropTypes.array,
+  modalTitle: PropTypes.string.isRequired,
+  chapterItem: PropTypes.object.isRequired,
+  chapters: PropTypes.array.isRequired,
+  setChapters: PropTypes.func.isRequired,
+};
+
+ModalCreatePage.defaultProps = {
+  pages: [],
 };
 
 export default ModalCreatePage;

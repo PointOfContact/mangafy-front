@@ -10,14 +10,19 @@ import download from 'utils/downloadImages';
 
 import styles from './styles.module.scss';
 
-const SettingsPage = ({ pages }) => {
+const SettingsPage = ({ pages, setVisibleModal, setModalTitle }) => {
   const handleClick = (e) => {
     e.stopPropagation();
   };
 
   return (
     <div className={styles.settingsPageContainer}>
-      <div onClick={() => {}} className={styles.editCard}>
+      <div
+        onClick={() => {
+          setVisibleModal(true);
+          setModalTitle('Edit page');
+        }}
+        className={styles.editCard}>
         <SvgChange width="11px" height="13px" />
       </div>
 
@@ -49,6 +54,8 @@ const SettingsPage = ({ pages }) => {
 
 SettingsPage.propTypes = {
   pages: PropTypes.array,
+  setVisibleModal: PropTypes.func.isRequired,
+  setModalTitle: PropTypes.func.isRequired,
 };
 
 SettingsPage.defaultProps = {

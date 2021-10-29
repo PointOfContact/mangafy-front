@@ -6,6 +6,9 @@
   min-height: calc(100% - 30px) !important;
   height: 100% !important;
   margin: auto;
+  video{
+    max-width: 100%;
+  }
   & > div {
     height: 100%;
     border-radius: 10px;

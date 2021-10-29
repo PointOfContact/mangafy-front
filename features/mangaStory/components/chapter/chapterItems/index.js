@@ -15,6 +15,7 @@ const ChapterItems = ({ chapters, setChapters, storyBoard }) => {
   const [mouseOut, onMouseOut] = useState(false);
   const [visibleModal, setVisibleModal] = useState(false);
   const [chapterItem, setChapterItem] = useState({});
+  const [modalTitle, setModalTitle] = useState('Create page');
   const inputRef = useRef(null);
   const [edit, setEdit] = useState('');
   const validate = editName.trim().length < 2;
@@ -83,22 +84,18 @@ const ChapterItems = ({ chapters, setChapters, storyBoard }) => {
               className={styles.addPage}
               onClick={() => {
                 setVisibleModal(true);
-                setChapterItem(value);
-                // mangaStoryAPI.pages.createPage(
-                //   value?._id,
-                //   index,
-                //   chapters,
-                //   value.pages.length,
-                //   storyBoard,
-                //   setChapters
-                //   setVisibleModal,
-                // );
+                setChapterItem({ value, index });
+                setModalTitle('Create page');
               }}>
               <h3>New Page</h3>
               <SvgAdd width={50} height={50} />
             </div>
           </div>
-          <Pages pages={value?.pages} />
+          <Pages
+            pages={value?.pages}
+            setVisibleModal={setVisibleModal}
+            setModalTitle={setModalTitle}
+          />
         </div>
       ))}
 
@@ -106,7 +103,11 @@ const ChapterItems = ({ chapters, setChapters, storyBoard }) => {
         visibleModal={visibleModal}
         setVisibleModal={setVisibleModal}
         storyBoard={storyBoard}
-        pages={chapterItem.pages}
+        setChapters={setChapters}
+        chapters={chapters}
+        chapterItem={chapterItem}
+        pages={chapterItem?.value?.pages}
+        modalTitle={modalTitle}
       />
     </>
   );

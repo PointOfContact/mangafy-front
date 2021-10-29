@@ -14,6 +14,8 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
           margin-right: 3px;
           margin-bottom: 3px;
           border-radius: 5px;
+          overflow: hidden;
+          white-space: pre-wrap;
           & > span {
             color: white;
             font-size: 14px;

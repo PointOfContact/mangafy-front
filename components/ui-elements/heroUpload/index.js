@@ -27,20 +27,33 @@ const HeroUpload = ({
   const [img, setImg] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [fileList, setFileList] = useState(img || []);
-  const typePdf = mangaUrl?.slice(-3);
-  const ifPdf = typePdf === 'pdf' || typePdf === 'PDF';
+  const imgType = mangaUrl?.slice(-3);
+  const ifPdf = imgType === 'pdf' || imgType === 'PDF';
   const ifUploadVideo = uploadVideo
     ? 'You can only upload PDF, JPG, JPEG, PNG, MP4 file!'
     : 'You can only upload PDF, JPG, JPEG, PNG file!';
 
   useEffect(() => {
-    const newImg = typePdf
+    let imgUrl;
+    switch (imgType) {
+      case 'pdf' || 'PDF':
+        imgUrl =
+          'https://cdn2.iconfinder.com/data/icons/file-extension-names-vol-2-14/512/18_Pdf_document_file_format_file-512.png';
+        break;
+      case 'mp4':
+        imgUrl =
+          'https://cdn2.iconfinder.com/data/icons/file-extension-names-vol-2-14/512/33_Extention_file_file_format_mp4-512.png';
+        break;
+      default:
+        imgUrl = client.UPLOAD_URL + mangaUrl;
+        break;
+    }
+
+    const newImg = imgType
       ? [
           {
             uid: '-1',
-            url: ifPdf
-              ? 'https://icons.iconarchive.com/icons/graphicloads/filetype/256/pdf-icon.png'
-              : client.UPLOAD_URL + mangaUrl,
+            url: imgUrl,
             status: 'done',
           },
         ]
@@ -148,14 +161,14 @@ HeroUpload.propTypes = {
   storyBoardId: PropTypes.string.isRequired,
   onUploadSuccess: PropTypes.func,
   mangaUrl: PropTypes.string,
-  setImgId: PropTypes.string.isRequired,
+  setImgId: PropTypes.func.isRequired,
   titleLoad: PropTypes.bool,
   typeCard: PropTypes.string,
   onChangeHero: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
   text: PropTypes.string,
   className: PropTypes.string,
-  ifPdf: PropTypes.bool.isRequired,
+  ifPdf: PropTypes.bool,
   uploadVideo: PropTypes.bool,
 };
 
@@ -171,6 +184,7 @@ HeroUpload.defaultProps = {
   text: '',
   className: '',
   uploadVideo: false,
+  ifPdf: false,
 };
 
 export default HeroUpload;
