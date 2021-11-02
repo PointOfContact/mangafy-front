@@ -14,11 +14,11 @@
       display: flex;
       justify-content: center;
       align-items: center;
-    }
-    .editCard{
-
-    }
-    .loadImage{
-
+      &:hover{
+        background-color: $primaryDark;
+        svg path {
+          fill: white;
+        }
+      }
     }
 }

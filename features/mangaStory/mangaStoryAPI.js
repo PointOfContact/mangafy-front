@@ -207,26 +207,29 @@ export default {
   pages: {
     createPage: (index, chapters, setChapters, setVisibleModal, data) => {
       const jwt = client.getCookie('feathers-jwt');
-
-      import('api/restClient').then((m) => {
-        m.default
-          .service('api/v2/pages')
-          .create(data, {
-            headers: { Authorization: `Bearer ${jwt}` },
-            mode: 'no-cors',
-          })
-          .then((res) => {
-            chapters[index].pages.push(res);
-            setChapters([...chapters]);
-            setVisibleModal(false);
-          })
-          .catch((err) => {
-            notification.error({
-              message: err.message,
-              placement: 'bottomLeft',
+      return new Promise((resolve, reject) => {
+        import('api/restClient').then((m) => {
+          m.default
+            .service('api/v2/pages')
+            .create(data, {
+              headers: { Authorization: `Bearer ${jwt}` },
+              mode: 'no-cors',
+            })
+            .then((res) => {
+              chapters[index].pages = [res];
+              setChapters([...chapters]);
+              setVisibleModal(false);
+              resolve(res);
+            })
+            .catch((err) => {
+              notification.error({
+                message: err.message,
+                placement: 'bottomLeft',
+              });
+              reject(err);
+              setVisibleModal(false);
             });
-            setVisibleModal(false);
-          });
+        });
       });
     },
     patchPage: (index, pageItem, chapters, setChapters, setVisibleModal, data) => {
@@ -241,6 +244,30 @@ export default {
           })
           .then((res) => {
             chapters[index].pages[pageItem?.index] = res;
+            setChapters([...chapters]);
+            setVisibleModal(false);
+          })
+          .catch((err) => {
+            notification.error({
+              message: err.message,
+              placement: 'bottomLeft',
+            });
+            setVisibleModal(false);
+          });
+      });
+    },
+    deletePage: (index, chapters, setChapters, pageItem, setVisibleModal) => {
+      const jwt = client.getCookie('feathers-jwt');
+
+      import('api/restClient').then((m) => {
+        m.default
+          .service('api/v2/pages')
+          .remove(pageItem?.value?._id, {
+            headers: { Authorization: `Bearer ${jwt}` },
+            mode: `no-cors`,
+          })
+          .then(() => {
+            delete chapters[index].pages[pageItem?.index];
             setChapters([...chapters]);
             setVisibleModal(false);
           })

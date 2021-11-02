@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 import SvgAdd from 'components/icon/Add';
-import PrimaryButton from 'components/ui-elements/button';
 import PrimaryInput from 'components/ui-elements/input';
 import mangaStoryAPI from 'features/mangaStory/mangaStoryAPI';
 import PropTypes from 'prop-types';
@@ -25,6 +24,10 @@ const Chapter = ({ storyBoard }) => {
       });
   }, [createChapter]);
 
+  useEffect(() => {
+    setChapters(storyBoard?.chapters);
+  }, [storyBoard]);
+
   const error = validate && onBlur && (
     <p className={styles.error}>
       Please enter a name for your chapter. You can leave it blank if you want
@@ -33,10 +36,10 @@ const Chapter = ({ storyBoard }) => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.selectContainer}>
+      {/* <div className={styles.selectContainer}>
         <PrimaryButton className={styles.published} isWhite={true} text={'Published'} />
         <PrimaryButton isWhite={true} text={'Last modified'} />
-      </div>
+      </div> */}
       {<ChapterItems chapters={chapters} setChapters={setChapters} storyBoard={storyBoard} />}
       <div className={styles.addChaptersContainer}>
         {createChapter ? (

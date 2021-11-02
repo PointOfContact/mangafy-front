@@ -31,10 +31,13 @@ const ModalCreatePage = ({
   const [text, setDescription] = useState('');
   const [characterArray, setCharacterArray] = useState([]);
   const [imgId, setImgId] = useState('');
+  const [openNew, setOpenNew] = useState(false);
   const [options, setOptions] = useState([]);
+  const [imgLoad, setImgLoad] = useState(false);
   const [personage, setPersonage] = useState([]);
   const [form] = Form.useForm();
   const ifEdit = modalTitle === 'Edit page';
+  const ifUpgrade = !title?.length;
 
   useEffect(() => {
     if (visibleModal) {
@@ -55,12 +58,12 @@ const ModalCreatePage = ({
 
   useEffect(() => {
     // get personage
-    const getPersonage = storyBoard.heroes.filter((value) => value.type === 'personage');
+    const getPersonage = storyBoard?.heroes?.filter((value) => value.type === 'personage');
     setPersonage(getPersonage);
   }, [storyBoard?.heroes]);
 
   useEffect(() => {
-    const createOption = personage.map((value) => (
+    const createOption = personage?.map((value) => (
       <Option key={value._id} value={value._id} label={value.name}>
         {value.name}
       </Option>
@@ -94,7 +97,7 @@ const ModalCreatePage = ({
         data
       );
     } else {
-      mangaStoryAPI.pages.createPage(
+      return mangaStoryAPI.pages.createPage(
         chapterItem?.index,
         chapters,
         setChapters,
@@ -104,10 +107,22 @@ const ModalCreatePage = ({
     }
   };
 
+  const confirmDelete = () => {
+    mangaStoryAPI.pages.deletePage(
+      chapterItem?.index,
+      chapters,
+      setChapters,
+      pageItem,
+      setVisibleModal
+    );
+  };
+
   const request = (e) => {
     setTitle(e.title);
     setCharacterArray(e.characterArray);
-    createPage(e.title, e.characterArray);
+    createPage(e.title, e.characterArray).then(() => {
+      openNew && (setVisibleModal(true), setOpenNew(false));
+    });
   };
 
   return (
@@ -146,9 +161,7 @@ const ModalCreatePage = ({
           ]}>
           <PrimaryInput
             maxLength={200}
-            // value={title}
             className={styles.namePage}
-            // onChange={(e) => setTitle(e.target.value)}
             placeholder={'Give a name to page '}
           />
         </Form.Item>
@@ -157,10 +170,8 @@ const ModalCreatePage = ({
           <Select
             className={styles.option}
             mode="multiple"
-            // onChange={changeSelectedHero}
             showSearch
             placeholder={'Link characters to page'}
-            // value={characterArray}
             filterOption={(inputValue, option) =>
               inputValue ? option.label.toLowerCase().includes(inputValue.toLowerCase()) : true
             }>
@@ -179,21 +190,35 @@ const ModalCreatePage = ({
           showText={false}
           mangaUrl={imgId}
           setImgId={setImgId}
+          setImgLoad={setImgLoad}
           text="Drag or browse your art to start uploading"
         />
         <Form.Item className={styles.deletePage}>
           <Popconfirm
             position={'right'}
             title={`Are you sure to delete this page`}
-            // onConfirm={confirmDelete}
+            onConfirm={confirmDelete}
             item={
               <span className={styles.deleteCard}>
                 <SvgDelete width="10px" height="11px" />
               </span>
             }
           />
-          <PrimaryButton className={styles.saveButton} htmlType="submit" text="Save" />
-          <PrimaryButton className={styles.newPage} isWhite={true} text="New Page" />
+          <PrimaryButton
+            loading={imgLoad}
+            className={styles.saveButton}
+            htmlType="submit"
+            text="Save"
+          />
+          {ifUpgrade && (
+            <PrimaryButton
+              className={styles.newPage}
+              isWhite={true}
+              htmlType="submit"
+              onClick={() => setOpenNew(true)}
+              text="New Page"
+            />
+          )}
         </Form.Item>
       </Form>
     </Modal>
