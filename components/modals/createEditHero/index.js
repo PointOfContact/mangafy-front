@@ -106,7 +106,7 @@ const ModalComponent = ({
     form.resetFields();
   };
 
-  const onChangeHero = (e, imgId = '', newCreated = false) => {
+  const onChangeHero = (e, imgId, newCreated = false) => {
     const newHero = {
       ...hero,
       name,
@@ -173,6 +173,7 @@ const ModalComponent = ({
                     <h3>{titles.inputLink}</h3>
                     <Form.Item name="chooseCharacter">
                       <Select
+                        disabled={!name.trim()}
                         countLimit={true}
                         mode="multiple"
                         onChange={changeSelectedHero}
@@ -196,6 +197,7 @@ const ModalComponent = ({
                 <h3>{titles.inputDesc}</h3>
                 <Form.Item name="description">
                   <TextArea
+                    disabled={!name.trim()}
                     placeholder={titles.description}
                     className={styles.modalTexArea}
                     isFullWidth={true}

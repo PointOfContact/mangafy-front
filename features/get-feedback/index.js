@@ -93,6 +93,7 @@ const GetFeedback = ({ user, setIsModalVisible, isModalVisible, isPage }) => {
         <HeroUpload
           text="Drag or browse your art to start uploading"
           setImgId={setImgId}
+          mangaUrl={imageUrl}
           className={styles.feedbackUpload}
           uploadVideo={true}
           setUploadLoading={setUploadLoading}
@@ -108,6 +109,7 @@ const GetFeedback = ({ user, setIsModalVisible, isModalVisible, isPage }) => {
         <h2>Tags</h2>
         <SelectTags selectedTags={selectedTags} setSelectedTags={setSelectedTags} />
         <PrimaryButton
+          className={styles.createPost}
           loading={uploadLoading}
           text="Post"
           onClick={(e) => {
