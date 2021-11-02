@@ -71,16 +71,16 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
       );
     }
   }
-  .error{
+  .error {
     color: $red;
     font-size: 14px;
   }
   .container {
     margin: 10px 30px;
-    @include media-sm{
+    @include media-sm {
       margin: 10px 25px;
     }
-    & > div > span > div > div > div > span{
+    & > div > span > div > div > div > span {
       width: 10px;
     }
     & > div {
@@ -89,7 +89,8 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
         height: 232px !important;
         max-height: 232px !important;
         margin-bottom: 0px;
-        & > span {
+        & > span,
+        & > div {
           height: 232px !important;
           max-height: 232px !important;
         }

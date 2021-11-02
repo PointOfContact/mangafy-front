@@ -8,7 +8,7 @@ import PrimaryInput from 'components/ui-elements/input';
 import TextArea from 'components/ui-elements/text-area';
 import PropTypes from 'prop-types';
 
-import HeroUpload from './heroUpload';
+import HeroUpload from '../../ui-elements/heroUpload';
 import styles from './styles.module.scss';
 
 const { Option } = Select;

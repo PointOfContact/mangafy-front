@@ -6,6 +6,7 @@ import * as Sentry from '@sentry/node';
 import { notification } from 'antd';
 import { DefaultSeo } from 'next-seo';
 import { useRouter } from 'next/router';
+import 'react-quill/dist/quill.snow.css';
 
 Sentry.init({
   enabled: process.env.NEXT_PUBLIC_SENTRY_ENABLED === 'true',

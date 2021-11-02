@@ -22,6 +22,10 @@ export default {
           })
           .catch((err) => {
             console.log(err.message);
+            notification.error({
+              message: err.message,
+              placement: 'bottomLeft',
+            });
             return err;
           });
       });
@@ -137,6 +141,144 @@ export default {
             });
           })
       );
+    },
+  },
+
+  chapter: {
+    create: (chapterName, storyBoard, chapters, setCreateChapter, setChapters, lengthChapters) => {
+      const data = {
+        title: chapterName,
+        order: lengthChapters,
+        storyBoardId: storyBoard?._id,
+      };
+
+      const jwt = client.getCookie('feathers-jwt');
+
+      import('api/restClient').then((m) => {
+        m.default
+          .service('/api/v2/chapters')
+          .create(data, {
+            headers: { Authorization: `Bearer ${jwt}` },
+            mode: 'no-cors',
+          })
+          .then((res) => {
+            setCreateChapter(false);
+            setChapters([...chapters, res]);
+          })
+          .catch((err) => {
+            notification.error({
+              message: err.message,
+              placement: 'bottomLeft',
+            });
+            return err;
+          });
+      });
+    },
+
+    patch: (chapterId, setEdit, editName, upgradeChapterData, setChapters) => {
+      const data = {
+        title: editName,
+      };
+
+      const jwt = client.getCookie('feathers-jwt');
+
+      import('api/restClient').then((m) => {
+        m.default
+          .service('/api/v2/chapters')
+          .patch(chapterId, data, {
+            headers: { Authorization: `Bearer ${jwt}` },
+            mode: 'no-cors',
+          })
+          .then((res) => {
+            setEdit('');
+            setChapters(upgradeChapterData(res, res._id));
+          })
+          .catch((err) => {
+            notification.error({
+              message: err.message,
+              placement: 'bottomLeft',
+            });
+            return err;
+          });
+      });
+    },
+  },
+
+  pages: {
+    createPage: (index, chapters, setChapters, setVisibleModal, data) => {
+      const jwt = client.getCookie('feathers-jwt');
+      return new Promise((resolve, reject) => {
+        import('api/restClient').then((m) => {
+          m.default
+            .service('api/v2/pages')
+            .create(data, {
+              headers: { Authorization: `Bearer ${jwt}` },
+              mode: 'no-cors',
+            })
+            .then((res) => {
+              chapters[index].pages.push(res);
+              setChapters([...chapters]);
+              setVisibleModal(false);
+              resolve(res);
+            })
+            .catch((err) => {
+              notification.error({
+                message: err.message,
+                placement: 'bottomLeft',
+              });
+              reject(err);
+              setVisibleModal(false);
+            });
+        });
+      });
+    },
+    patchPage: (index, pageItem, chapters, setChapters, setVisibleModal, data) => {
+      const jwt = client.getCookie('feathers-jwt');
+
+      import('api/restClient').then((m) => {
+        m.default
+          .service('api/v2/pages')
+          .patch(pageItem?.value?._id, data, {
+            headers: { Authorization: `Bearer ${jwt}` },
+            mode: 'no-cors',
+          })
+          .then((res) => {
+            chapters[index].pages[pageItem?.index] = res;
+            setChapters([...chapters]);
+            setVisibleModal(false);
+          })
+          .catch((err) => {
+            notification.error({
+              message: err.message,
+              placement: 'bottomLeft',
+            });
+            setVisibleModal(false);
+          });
+      });
+    },
+    deletePage: (index, chapters, setChapters, pageItem, setVisibleModal) => {
+      const jwt = client.getCookie('feathers-jwt');
+
+      import('api/restClient').then((m) => {
+        m.default
+          .service('api/v2/pages')
+          .remove(pageItem?.value?._id, {
+            headers: { Authorization: `Bearer ${jwt}` },
+            mode: `no-cors`,
+          })
+          .then(() => {
+            delete chapters[index].pages[pageItem?.index];
+            setChapters([...chapters]);
+            setVisibleModal(false);
+          })
+          .catch((err) => {
+            notification.error({
+              message: err.message,
+              placement: 'bottomLeft',
+            });
+            setVisibleModal(false);
+          });
+      });
     },
   },
 };

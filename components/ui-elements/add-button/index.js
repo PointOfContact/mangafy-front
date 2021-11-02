@@ -22,9 +22,9 @@ const AddButton = ({
     {...rest}
     className={cn(
       styles.add_button,
-      className,
       isDark && styles.dark,
-      isActive && styles.active_primary
+      isActive && styles.active_primary,
+      className
     )}
     onClick={onClick}
     disabled={disabled}>

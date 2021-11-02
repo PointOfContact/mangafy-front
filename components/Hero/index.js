@@ -22,7 +22,7 @@ export const HeroTypes = {
   background: 'background',
 };
 
-const Hero = ({ storyBoard, getStoryBoard, user }) => {
+const Hero = ({ storyBoard, setStoryBoard, getStoryBoard, user }) => {
   const [showModal, changeShowModal] = useState(false);
   const [showModalHeroes, changeShowModalHeroes] = useState(false);
   const [selectedHero, setSelectedHero] = useState({});
@@ -75,6 +75,8 @@ const Hero = ({ storyBoard, getStoryBoard, user }) => {
     deleteHero(heroId, getStoryBoard, getStoryBoard);
     changeShowModalHeroes(false);
     changeShowModal(false);
+    // upgrade all
+    setStoryBoard({ ...storyBoard });
   };
 
   const getLists = (type) => {

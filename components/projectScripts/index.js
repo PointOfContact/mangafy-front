@@ -156,7 +156,9 @@ const ProjectScripts = ({ pages, storyBoardId, storyBoard, setStoryBoard, user }
     }
     setScripts(items);
   };
+
   const ifCreateScript = (script) => script.title && !script.newCreated;
+
   return (
     <div className={styles.projectScripts}>
       {scripts.map((script, index) => (

@@ -1,0 +1,65 @@
+@import '../../../../styles/variables.scss';
+
+.container {
+  padding-left: 85px;
+  padding-right: 85px;
+  box-sizing: border-box;
+  @include media-sm {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+  .selectContainer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 57px;
+    .published {
+      margin-right: 10px;
+    }
+  }
+  .addChaptersContainer {
+    margin-top: 80px;
+    margin-bottom: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    @include media-sm {
+      margin-top: 0;
+      margin-bottom: 40px;
+    }
+    .chapterName {
+      border: 1px solid $primaryDark;
+      background-color: white;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 23px;
+      color: $black;
+      &::placeholder {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 23px;
+        color: $gray85;
+      }
+    }
+    .addChapter {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 29px;
+      color: $black;
+      margin-left: 10px;
+      @include media-sm {
+        margin-top: 60px;
+      }
+    }
+    .error {
+      font-size: 14px;
+      color: $red;
+      text-align: center;
+    }
+  }
+}

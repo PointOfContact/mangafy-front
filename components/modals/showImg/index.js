@@ -45,12 +45,12 @@ ShowImgModal.propTypes = {
   isModalVisible: PropTypes.bool.isRequired,
   setIsModalVisible: PropTypes.func.isRequired,
   img: PropTypes.string,
-  imageType: PropTypes.string,
+  imageType: PropTypes.bool,
 };
 
 ShowImgModal.defaultProps = {
   img: '',
-  imageType: '',
+  imageType: false,
 };
 
 export default ShowImgModal;

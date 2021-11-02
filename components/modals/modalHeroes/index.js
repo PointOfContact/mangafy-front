@@ -9,7 +9,7 @@ import TextArea from 'components/ui-elements/text-area';
 import { heroQuality, heroTypes } from 'helpers/constant';
 import PropTypes from 'prop-types';
 
-import HeroUpload from '../createEditHero/heroUpload';
+import HeroUpload from '../../ui-elements/heroUpload';
 import styles from './styles.module.scss';
 
 const { Option } = Select;

@@ -1,0 +1,24 @@
+@import '../../../../../../styles/variables.scss';
+
+.settingsPageContainer{
+    max-width: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 7px auto 7px;
+    & > div {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 0.5px solid $gray85;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      &:hover{
+        background-color: $primaryDark;
+        svg path {
+          fill: white;
+        }
+      }
+    }
+}

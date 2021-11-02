@@ -23,6 +23,7 @@ const HeroUpload = ({
   disabled,
   className,
   uploadVideo,
+  setImgLoad,
 }) => {
   const [img, setImg] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -87,7 +88,7 @@ const HeroUpload = ({
       openNotification('error', 'Image must smaller than 10MB!');
     }
 
-    if (isJpgOrPng && isLt2M) beforeUploadFromAMZ(file, setUploadCallback);
+    if (isJpgOrPng && isLt2M) beforeUploadFromAMZ(file, setUploadCallback, setImgLoad);
 
     return isJpgOrPng && isLt2M;
   };
@@ -162,15 +163,16 @@ HeroUpload.propTypes = {
   storyBoardId: PropTypes.string.isRequired,
   onUploadSuccess: PropTypes.func,
   mangaUrl: PropTypes.string,
-  setImgId: PropTypes.string.isRequired,
+  setImgId: PropTypes.func.isRequired,
   titleLoad: PropTypes.bool,
   typeCard: PropTypes.string,
   onChangeHero: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
   text: PropTypes.string,
   className: PropTypes.string,
-  ifPdf: PropTypes.bool.isRequired,
+  ifPdf: PropTypes.bool,
   uploadVideo: PropTypes.bool,
+  setImgLoad: PropTypes.func,
 };
 
 HeroUpload.defaultProps = {
@@ -185,6 +187,8 @@ HeroUpload.defaultProps = {
   text: '',
   className: '',
   uploadVideo: false,
+  ifPdf: false,
+  setImgLoad: () => {},
 };
 
 export default HeroUpload;
