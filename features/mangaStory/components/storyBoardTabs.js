@@ -6,7 +6,6 @@ import FindPartner from 'components/findPartner';
 import Hero from 'components/Hero';
 import SvgAdd2 from 'components/icon/Add2';
 import SvgChapter from 'components/icon/Chapter';
-import DocumentsSvg from 'components/icon/Documents';
 import GroupSvg from 'components/icon/Group';
 import PencilCaseSvg from 'components/icon/PencilCase';
 import ShareSvg from 'components/icon/Share';
@@ -15,7 +14,6 @@ import Idea from 'components/Idea';
 import Modal from 'components/modals/createTaskModal';
 import ShowImgModal from 'components/modals/showImg';
 import { ModalSuccess } from 'components/modalSuccess';
-import ProjectScripts from 'components/projectScripts';
 import { ShareStoryBoard } from 'components/shareStoryBoard';
 import PrimaryButton from 'components/ui-elements/button';
 import Upload from 'components/ui-elements/upload';
@@ -84,10 +82,18 @@ const StoryBoardTabs = ({
             'To get the reader engaged we need to build an awesome cast and world. Define your characters to kick off your tale.',
         });
         break;
+      // case '3':
+      //   setStage({
+      //     tab,
+      //     title: 'SCRIPT',
+      //     description:
+      //       'Add full comic and manga script pages for an Arc, volume, or a full graphic novel',
+      //   });
+      //   break;
       case '3':
         setStage({
           tab,
-          title: 'SCRIPT',
+          title: 'CREATE_SCRIPT',
           description:
             'Add full comic and manga script pages for an Arc, volume, or a full graphic novel',
         });
@@ -109,14 +115,6 @@ const StoryBoardTabs = ({
         });
         break;
       case '5':
-        setStage({
-          tab,
-          title: 'CREATE_SCRIPT',
-          description:
-            'Add full comic and manga script pages for an Arc, volume, or a full graphic novel',
-        });
-        break;
-      case '6':
         setStage({
           tab,
           title: 'PUBLISH',
@@ -183,7 +181,8 @@ const StoryBoardTabs = ({
         myEvent = EVENTS.CHARACTERS_COMPLETED;
         break;
       case '3':
-        myEvent = EVENTS.PAGES_COMPLETED;
+        // myEvent = EVENTS.PAGES_COMPLETED;
+        myEvent = EVENTS.PROJECT_CHAPTER;
         break;
       // case '4':
       //   myEvent = EVENTS.TEMPLATES_COMPLETED;
@@ -192,9 +191,6 @@ const StoryBoardTabs = ({
         myEvent = EVENTS.PROJECT_UPLOADED;
         break;
       case '5':
-        myEvent = EVENTS.PROJECT_CHAPTER;
-        break;
-      case '6':
         myEvent = EVENTS.PROJECT_PUBLISHED;
         break;
       default:
@@ -238,7 +234,10 @@ const StoryBoardTabs = ({
       case 'hero':
         setStoryBoardActiveTab('2');
         break;
-      case 'project-scripts':
+      // case 'project-scripts':
+      //   setStoryBoardActiveTab('3');
+      //   break;
+      case 'project-chapters':
         setStoryBoardActiveTab('3');
         break;
       // case 'choose-layout':
@@ -247,11 +246,8 @@ const StoryBoardTabs = ({
       case 'upload':
         setStoryBoardActiveTab('4');
         break;
-      case 'project-chapters':
-        setStoryBoardActiveTab('5');
-        break;
       case 'share-story-board':
-        setStoryBoardActiveTab('6');
+        setStoryBoardActiveTab('5');
         break;
       default:
         setStoryBoardActiveTab('1');
@@ -335,7 +331,7 @@ const StoryBoardTabs = ({
             {renderNavigationButtons()}
           </div>
         </TabPane>
-        <TabPane
+        {/* <TabPane
           tab={
             <span>
               <DocumentsSvg width="25px" />
@@ -354,6 +350,15 @@ const StoryBoardTabs = ({
             />
             {renderNavigationButtons(!storyBoard?.pages?.length)}
           </div>
+        </TabPane> */}
+        <TabPane
+          tab={
+            <span>
+              <SvgChapter height="25px" />
+            </span>
+          }
+          key={5}>
+          <Chapter storyBoard={storyBoard} />
         </TabPane>
         {/* <TabPane
           tab={
@@ -369,6 +374,7 @@ const StoryBoardTabs = ({
             {renderNavigationButtons(!storyBoard?.layoutId)}
           </div>
         </TabPane> */}
+        {/* {!!storyBoard?.mangaUrls?.length && ( */}
         <TabPane
           // disabled={!storyBoard?.layoutId}
           tab={
@@ -430,6 +436,7 @@ const StoryBoardTabs = ({
             {renderNavigationButtons(!uploadImages.length)}
           </div>
         </TabPane>
+        )
         {/* <TabPane
         tab={
           <span>
@@ -442,17 +449,6 @@ const StoryBoardTabs = ({
           {renderNavigationButtons()}
         </div>
       </TabPane> */}
-
-        <TabPane
-          tab={
-            <span>
-              <SvgChapter height="25px" />
-            </span>
-          }
-          key={5}>
-          <Chapter storyBoard={storyBoard} />
-        </TabPane>
-
         <TabPane
           tab={
             <span>

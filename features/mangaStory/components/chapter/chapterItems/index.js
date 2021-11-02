@@ -41,67 +41,68 @@ const ChapterItems = ({ chapters, setChapters, storyBoard }) => {
   return (
     <>
       {chapters?.map((value, index) => (
-        <div key={value?._id} className={styles.chapterContainer}>
-          <Pages
-            pages={value?.pages}
-            setVisibleModal={setVisibleModal}
-            setModalTitle={setModalTitle}
-            setPageItem={setPageItem}
-            setChapterItem={setChapterItem}
-            chapterValue={value}
-            chapterIndex={index}
-            setChapters={setChapters}
-            chapters={chapters}
-          />
-          <div className={styles.addPageContainer}>
-            <div className={styles.titleContainer}>
-              {edit === value?._id ? (
-                <div className={styles.inputNameContainer}>
-                  <PrimaryInput
-                    inputRef={inputRef}
-                    value={editName}
-                    placeholder="Chapter name"
-                    className={styles.chapterNameInput}
-                    onChange={(e) => setEditName(e.target.value)}
-                    onMouseOut={() => onMouseOut(true)}
-                    onBlur={() => {
-                      validate
-                        ? setEdit(false)
-                        : mangaStoryAPI.chapter.patch(
-                            value?._id,
-                            setEdit,
-                            editName,
-                            upgradeChapterData,
-                            setChapters
-                          );
-                    }}
-                  />
-                  {error}
-                </div>
-              ) : (
-                <div
-                  onClick={() => {
-                    setEdit(value?._id);
-                    onMouseOut(false);
-                    setEditName(value?.title);
+        <div key={value?._id}>
+          <div className={styles.titleContainer}>
+            {edit === value?._id ? (
+              <div className={styles.inputNameContainer}>
+                <PrimaryInput
+                  inputRef={inputRef}
+                  value={editName}
+                  placeholder="Chapter name"
+                  className={styles.chapterNameInput}
+                  onChange={(e) => setEditName(e.target.value)}
+                  onMouseOut={() => onMouseOut(true)}
+                  onBlur={() => {
+                    validate
+                      ? setEdit(false)
+                      : mangaStoryAPI.chapter.patch(
+                          value?._id,
+                          setEdit,
+                          editName,
+                          upgradeChapterData,
+                          setChapters
+                        );
                   }}
-                  className={styles.chapterName}>
-                  <h2 className={styles.chapterTitle}>{value?.title}</h2>
-                  <SvgPurplePencil width={25} height={25} />
-                </div>
-              )}
-            </div>
-
-            <div
-              className={styles.addPage}
-              onClick={() => {
-                setVisibleModal(true);
-                setChapterItem({ value, index });
-                setModalTitle('Create page');
-                setPageItem({});
-              }}>
-              <h3>New Page</h3>
-              <SvgAdd width={50} height={50} />
+                />
+                {error}
+              </div>
+            ) : (
+              <div
+                onClick={() => {
+                  setEdit(value?._id);
+                  onMouseOut(false);
+                  setEditName(value?.title);
+                }}
+                className={styles.chapterName}>
+                <h2 className={styles.chapterTitle}>{value?.title}</h2>
+                <SvgPurplePencil width={25} height={25} />
+              </div>
+            )}
+          </div>
+          <div className={styles.chapterContainer}>
+            <Pages
+              pages={value?.pages}
+              setVisibleModal={setVisibleModal}
+              setModalTitle={setModalTitle}
+              setPageItem={setPageItem}
+              setChapterItem={setChapterItem}
+              chapterValue={value}
+              chapterIndex={index}
+              setChapters={setChapters}
+              chapters={chapters}
+            />
+            <div className={styles.addPageContainer}>
+              <div
+                className={styles.addPage}
+                onClick={() => {
+                  setVisibleModal(true);
+                  setChapterItem({ value, index });
+                  setModalTitle('Create page');
+                  setPageItem({});
+                }}>
+                <h3>New Page</h3>
+                <SvgAdd width={50} height={50} />
+              </div>
             </div>
           </div>
         </div>

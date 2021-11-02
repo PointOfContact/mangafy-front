@@ -216,7 +216,7 @@ export default {
               mode: 'no-cors',
             })
             .then((res) => {
-              chapters[index].pages = [res];
+              chapters[index].pages.push(res);
               setChapters([...chapters]);
               setVisibleModal(false);
               resolve(res);

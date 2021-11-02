@@ -214,6 +214,7 @@ const ModalCreatePage = ({
             <PrimaryButton
               className={styles.newPage}
               isWhite={true}
+              loading={imgLoad}
               htmlType="submit"
               onClick={() => setOpenNew(true)}
               text="New Page"

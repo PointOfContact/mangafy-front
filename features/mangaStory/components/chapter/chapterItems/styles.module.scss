@@ -2,7 +2,7 @@
 
 .chapterContainer {
   width: 100%;
-  margin-top: 37px;
+  margin-top: 39px;
   overflow-x: auto;
   display: flex;
   white-space: nowrap;
@@ -28,52 +28,6 @@
   }
 
   .addPageContainer {
-    .titleContainer {
-      .chapterName {
-        display: flex;
-        justify-content: space-between;
-      }
-      .inputNameContainer {
-        height: 80px;
-        @include media-sm {
-          height: 60px;
-        }
-        .error {
-          font-size: 14px;
-          color: $red;
-          text-align: center;
-        }
-        .chapterNameInput {
-          border: 1px solid $primaryDark;
-          background-color: white;
-          font-style: normal;
-          font-weight: 500;
-          font-size: 16px;
-          line-height: 23px;
-          color: $black;
-          &::placeholder {
-            font-style: normal;
-            font-weight: 500;
-            font-size: 16px;
-            line-height: 23px;
-            color: $gray85;
-          }
-        }
-      }
-    }
-    .chapterTitle {
-      font-style: normal;
-      font-weight: bold;
-      font-size: 25px;
-      line-height: 36px;
-      color: $black;
-      height: 80px;
-      margin: 0;
-      margin-right: 10px;
-      @include media-sm {
-        height: 60px;
-      }
-    }
     .addPage {
       width: 273.61px;
       height: 320px;
@@ -108,6 +62,49 @@
         circle {
           fill: $primaryDark;
         }
+      }
+    }
+  }
+}
+
+.titleContainer {
+  width: 273.61px;
+  margin-top: 50px;
+  .chapterName {
+    display: flex;
+    justify-content: space-between;
+    height: 44px;
+  }
+  .chapterTitle {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 25px;
+    line-height: 36px;
+    color: $black;
+    margin: 0;
+    margin-right: 10px;
+  }
+  .inputNameContainer {
+    height: 44px;
+    .error {
+      font-size: 14px;
+      color: $red;
+      text-align: center;
+    }
+    .chapterNameInput {
+      border: 1px solid $primaryDark;
+      background-color: white;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 23px;
+      color: $black;
+      &::placeholder {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 23px;
+        color: $gray85;
       }
     }
   }
