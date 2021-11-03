@@ -27,10 +27,10 @@ const HeaderEditUser = ({
           text="Cancel"
           onClick={() => {
             setShowModalEdit(false);
-            setUserData(user);
             const data = [
               {
                 event_type: EVENTS.CLOSE_UPDATE_USER_MODAL,
+                event_properties: { userData },
                 user_id: user._id,
                 user_properties: {
                   ...user,
@@ -38,6 +38,7 @@ const HeaderEditUser = ({
               },
             ];
             myAmplitude(data);
+            setUserData(user);
             router.push(`/profile/${router.query.pid}`, undefined, { shallow: true });
           }}
         />
