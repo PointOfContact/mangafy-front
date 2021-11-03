@@ -37,7 +37,6 @@ const ContentEditUser = ({
         },
       },
     ];
-    console.log('data', data);
     myAmplitude(data);
   };
 

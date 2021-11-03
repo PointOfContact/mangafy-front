@@ -14,16 +14,20 @@ const OAuth = () => {
       setClientCookie(FEATHERS_COOKIE, jwt);
       store.user = user;
       let event_type = EVENTS.O_AUTH;
+      let strategy = 'local';
       if (user.googleId) {
         event_type = EVENTS.O_AUTH_GOOGLE;
+        strategy = 'google';
       }
       if (user.facebookId) {
         event_type = EVENTS.O_AUTH_FACEBOOK;
+        strategy = 'facebook';
       }
 
       const data = [
         {
           event_type,
+          event_properties: { userData: user, strategy },
           user_id: user._id,
           user_properties: {
             ...user,

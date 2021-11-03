@@ -57,6 +57,7 @@ const HeaderEditUser = ({
             const data = [
               {
                 event_type: EVENTS.UPDATE_USER_IN_MODAL,
+                event_properties: { userData },
                 user_id: user._id,
                 user_properties: {
                   ...user,
