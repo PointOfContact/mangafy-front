@@ -10,6 +10,7 @@ import ProfileContent from 'components/profile/profileContent';
 import ProfileOpenCollabs from 'components/profile/profileOpenCollabs';
 import ProfileTopBar from 'components/profile/profileTopBar';
 import ButtonToTop from 'components/ui-elements/button-toTop';
+import FooterLogin from 'features/footerLogin';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { beforeUploadBase64 } from 'helpers/shared';
 import { NextSeo } from 'next-seo';
@@ -249,7 +250,7 @@ const Profile = (props) => {
         </div>
         {!user && <Footer />}
         {!user && <FooterPolicy />}
-        {/* <FooterLogin user={user} /> */}
+        <FooterLogin user={user} />
       </div>
     </>
   );
