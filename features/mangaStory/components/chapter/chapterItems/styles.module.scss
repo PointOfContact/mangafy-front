@@ -2,15 +2,11 @@
 
 .chapterContainer {
   width: 100%;
-  margin-top: 39px;
   overflow-x: auto;
   display: flex;
   white-space: nowrap;
   padding-bottom: 20px;
   align-items: flex-end;
-  @include media-sm {
-    margin-top: 25px;
-  }
   &::-webkit-scrollbar {
     height: 6px;
   }
@@ -29,47 +25,52 @@
   &::-webkit-scrollbar-thumb:hover {
     background: $primaryDark;
   }
-
-  .addPageContainer {
-    .addPage {
-      width: 273.61px;
-      height: 320px;
-      background: $primaryDark;
-      border-radius: 10px;
-      box-sizing: border-box;
-      border: 1px solid $primaryDark;
-      margin-right: 28px;
-      @include media-sm {
-        width: 240px;
-        height: 290px;
+}
+.chapterItem {
+  display: flex;
+  margin-top: 39px;
+  @include media-sm {
+    margin-top: 25px;
+  }
+}
+.addPageContainer {
+  .addPage {
+    width: 273.61px;
+    height: 320px;
+    background: $primaryDark;
+    border-radius: 10px;
+    box-sizing: border-box;
+    border: 1px solid $primaryDark;
+    margin-right: 28px;
+    @include media-sm {
+      width: 240px;
+      height: 290px;
+    }
+    h3 {
+      width: 168.53px;
+      height: 59px;
+      display: flex;
+      align-items: center;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 28px;
+      line-height: 41px;
+      color: white;
+      margin-top: 25px;
+      margin-left: 20px;
+    }
+    svg {
+      width: 100%;
+      margin-top: 70px;
+      path {
+        fill: $primaryLight;
       }
-      h3 {
-        width: 168.53px;
-        height: 59px;
-        display: flex;
-        align-items: center;
-        font-style: normal;
-        font-weight: bold;
-        font-size: 28px;
-        line-height: 41px;
-        color: white;
-        margin-top: 25px;
-        margin-left: 20px;
-      }
-      svg {
-        width: 100%;
-        margin-top: 70px;
-        path {
-          fill: $primaryLight;
-        }
-        circle {
-          fill: $primaryDark;
-        }
+      circle {
+        fill: $primaryDark;
       }
     }
   }
 }
-
 .titleContainer {
   max-width: 300px;
   margin-top: 50px;
@@ -96,7 +97,7 @@
     -webkit-box-orient: vertical;
     margin: 0;
     margin-right: 10px;
-    @include media-sm{
+    @include media-sm {
       width: 240px;
     }
   }
@@ -115,7 +116,7 @@
       font-size: 16px;
       line-height: 23px;
       color: $black;
-      @include media-sm{
+      @include media-sm {
         width: 240px;
       }
       &::placeholder {

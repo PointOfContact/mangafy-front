@@ -3,6 +3,12 @@
 .textEditor {
   border: 1px solid $primaryDark;
   border-radius: 6px;
+  em {
+    font: revert;
+  }
+  u, s {
+    text-decoration: revert;
+  }
   & > div {
     border-top: none !important;
     border-radius: 0 !important;

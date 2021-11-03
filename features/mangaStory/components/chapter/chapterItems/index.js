@@ -41,7 +41,7 @@ const ChapterItems = ({ chapters, setChapters, storyBoard }) => {
   return (
     <>
       {chapters?.map((value, index) => (
-        <div key={value?._id}>
+        <div key={value._id}>
           <div className={styles.titleContainer}>
             {edit === value?._id ? (
               <div className={styles.inputNameContainer}>
@@ -80,18 +80,7 @@ const ChapterItems = ({ chapters, setChapters, storyBoard }) => {
               </div>
             )}
           </div>
-          <div className={styles.chapterContainer}>
-            <Pages
-              pages={value?.pages}
-              setVisibleModal={setVisibleModal}
-              setModalTitle={setModalTitle}
-              setPageItem={setPageItem}
-              setChapterItem={setChapterItem}
-              chapterValue={value}
-              chapterIndex={index}
-              setChapters={setChapters}
-              chapters={chapters}
-            />
+          <div className={styles.chapterItem}>
             <div className={styles.addPageContainer}>
               <div
                 className={styles.addPage}
@@ -104,6 +93,19 @@ const ChapterItems = ({ chapters, setChapters, storyBoard }) => {
                 <h3>New Page</h3>
                 <SvgAdd width={50} height={50} />
               </div>
+            </div>
+            <div className={styles.chapterContainer}>
+              <Pages
+                pages={value?.pages}
+                setVisibleModal={setVisibleModal}
+                setModalTitle={setModalTitle}
+                setPageItem={setPageItem}
+                setChapterItem={setChapterItem}
+                chapterValue={value}
+                chapterIndex={index}
+                setChapters={setChapters}
+                chapters={chapters}
+              />
             </div>
           </div>
         </div>

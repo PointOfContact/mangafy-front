@@ -39,7 +39,9 @@ const EditCard = ({ confirmDelete, editCard, hero, setEdit }) => {
           overlayClassName={styles.popConfirm}
           position={hero?.type === 'background' ? 'right' : 'bottom'}
           title={`Are you sure to delete this ${
-            hero?.type === 'personage' ? 'characters' : hero?.type
+            hero?.type === 'personage'
+              ? 'Hey , what are you doing? This character already has links to pages in your story ( {{ story.getLength() }} / {{ story.getNumPages() }} ). If you delete it, those links will break! Are you sure?'
+              : hero?.type
           }.`}
           onConfirm={confirmDelete}
           item={
