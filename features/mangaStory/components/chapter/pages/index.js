@@ -25,9 +25,11 @@ const Pages = ({
   chapters,
 }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [currentImg, setCurrentImg] = useState('');
+  const ifTypePdf = currentImg?.slice(-3) === 'pdf' || currentImg?.slice(-3) === 'PDF';
 
   const pagesArray = pages?.map((value, index) => {
-    const imageType = value?.imageUrl?.slice(-3) === 'pdf' || pages?.imageUrl?.slice(-3) === 'PDF';
+    const ifPdf = value?.imageUrl?.slice(-3) === 'pdf' || pages?.imageUrl?.slice(-3) === 'PDF';
     const image = !!value.imageUrl
       ? client.UPLOAD_URL + value.imageUrl
       : 'https://mangafy.club/img/collab_baner.webp';
@@ -57,8 +59,8 @@ const Pages = ({
           </div>
           <div
             className={styles.pageImage}
-            onClick={() => !!value?.imageUrl && setIsModalVisible(true)}>
-            {imageType ? (
+            onClick={() => !!value?.imageUrl && (setIsModalVisible(true), setCurrentImg(image))}>
+            {ifPdf ? (
               <PDFViewer url={image} />
             ) : (
               <Imgix
@@ -70,17 +72,21 @@ const Pages = ({
             )}
           </div>
         </div>
-        <ShowImgModal
-          isModalVisible={isModalVisible}
-          setIsModalVisible={setIsModalVisible}
-          img={image}
-          imageType={imageType}
-        />
       </div>
     );
   });
 
-  return <div className={styles.containerPage}>{pagesArray}</div>;
+  return (
+    <div className={styles.containerPage}>
+      {pagesArray}
+      <ShowImgModal
+        isModalVisible={isModalVisible}
+        setIsModalVisible={setIsModalVisible}
+        img={currentImg}
+        imageType={ifTypePdf}
+      />
+    </div>
+  );
 };
 
 Pages.propTypes = {
