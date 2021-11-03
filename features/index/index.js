@@ -4,6 +4,7 @@ import Footer from 'components/footer';
 import FooterPolicy from 'components/footer-policy';
 import Header from 'components/header';
 import ButtonToTop from 'components/ui-elements/button-toTop';
+import FooterLogin from 'features/footerLogin';
 import Home from 'features/index/home';
 import { NextSeo } from 'next-seo';
 import PropTypes from 'prop-types';
@@ -46,7 +47,7 @@ const Landing = ({ user }) => (
       </div>
       <Footer />
       <FooterPolicy />
-      {/* <FooterLogin user={user} /> */}
+      <FooterLogin user={user} />
     </div>
   </>
 );
