@@ -160,7 +160,7 @@ const ModalCreatePage = ({
             },
           ]}>
           <PrimaryInput
-            maxLength={200}
+            maxLength={100}
             className={styles.namePage}
             placeholder={'Give a name to page '}
           />

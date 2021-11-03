@@ -48,6 +48,7 @@ const ChapterItems = ({ chapters, setChapters, storyBoard }) => {
                 <PrimaryInput
                   inputRef={inputRef}
                   value={editName}
+                  maxLength={30}
                   placeholder="Chapter name"
                   className={styles.chapterNameInput}
                   onChange={(e) => setEditName(e.target.value)}
