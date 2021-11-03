@@ -8,6 +8,9 @@
   white-space: nowrap;
   padding-bottom: 20px;
   align-items: flex-end;
+  @include media-sm {
+    margin-top: 25px;
+  }
   &::-webkit-scrollbar {
     height: 6px;
   }
@@ -68,21 +71,34 @@
 }
 
 .titleContainer {
-  width: 273.61px;
+  max-width: 300px;
   margin-top: 50px;
+  @include media-sm {
+    max-width: 250px;
+    margin-top: 30px;
+  }
   .chapterName {
     display: flex;
     justify-content: space-between;
     height: 44px;
   }
   .chapterTitle {
+    width: 273.61px;
     font-style: normal;
     font-weight: bold;
     font-size: 25px;
     line-height: 36px;
     color: $black;
+    word-break: break-all;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
     margin: 0;
     margin-right: 10px;
+    @include media-sm{
+      width: 240px;
+    }
   }
   .inputNameContainer {
     height: 44px;
@@ -99,6 +115,9 @@
       font-size: 16px;
       line-height: 23px;
       color: $black;
+      @include media-sm{
+        width: 240px;
+      }
       &::placeholder {
         font-style: normal;
         font-weight: 500;
