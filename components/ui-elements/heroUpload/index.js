@@ -24,6 +24,7 @@ const HeroUpload = ({
   className,
   uploadVideo,
   setImgLoad,
+  notUploadVideo,
 }) => {
   const [img, setImg] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -73,6 +74,14 @@ const HeroUpload = ({
   };
 
   const beforeUpload = (file) => {
+    const type = file.type.slice(-3) === 'mp4';
+    if (notUploadVideo && type) {
+      notification.error({
+        message: 'mp4 file not support',
+        placement: 'bottomLeft',
+      });
+      return;
+    }
     const isJpgOrPng =
       file.type === 'image/jpeg' ||
       file.type === 'image/png' ||
@@ -173,6 +182,7 @@ HeroUpload.propTypes = {
   ifPdf: PropTypes.bool,
   uploadVideo: PropTypes.bool,
   setImgLoad: PropTypes.func,
+  notUploadVideo: PropTypes.bool,
 };
 
 HeroUpload.defaultProps = {
@@ -189,6 +199,7 @@ HeroUpload.defaultProps = {
   uploadVideo: false,
   ifPdf: false,
   setImgLoad: () => {},
+  notUploadVideo: false,
 };
 
 export default HeroUpload;

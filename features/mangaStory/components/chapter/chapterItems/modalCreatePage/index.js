@@ -192,6 +192,7 @@ const ModalCreatePage = ({
           setImgId={setImgId}
           setImgLoad={setImgLoad}
           text="Drag or browse your art to start uploading"
+          notUploadVideo={true}
         />
         <Form.Item className={styles.deletePage}>
           <Popconfirm

@@ -353,11 +353,11 @@ const StoryBoardTabs = ({
         </TabPane> */}
         <TabPane
           tab={
-            <span>
+            <span className={styles.chapterIcon}>
               <SvgChapter height="25px" />
             </span>
           }
-          key={5}>
+          key={3}>
           <Chapter storyBoard={storyBoard} />
         </TabPane>
         {/* <TabPane
