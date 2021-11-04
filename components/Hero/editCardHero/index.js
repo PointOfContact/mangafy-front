@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React from 'react';
 
 import client from 'api/client';
@@ -10,10 +11,17 @@ import download from 'utils/downloadImages';
 
 import styles from './styles.module.scss';
 
-const EditCard = ({ confirmDelete, editCard, hero, setEdit }) => {
+const EditCard = ({ confirmDelete, editCard, hero, setEdit, componentNames, clickDelete }) => {
   const handleClick = (e) => {
     e.stopPropagation();
   };
+
+  const popConfirm =
+    hero?.type === 'personage'
+      ? !!componentNames?.length
+        ? `Hey , what are you doing? This character already has links to page/component in your story (${componentNames}). If you delete it, those links will break! Are you sure?`
+        : 'Are you sure to delete this personage'
+      : `Are you sure to delete this ${hero?.type}`;
 
   return (
     <div className={styles.changeCard}>
@@ -38,10 +46,9 @@ const EditCard = ({ confirmDelete, editCard, hero, setEdit }) => {
         <Popconfirm
           overlayClassName={styles.popConfirm}
           position={hero?.type === 'background' ? 'right' : 'bottom'}
-          title={`Are you sure to delete this ${
-            hero?.type === 'personage' ? 'characters' : hero?.type
-          }.`}
+          title={popConfirm}
           onConfirm={confirmDelete}
+          onClick={clickDelete}
           item={
             <span className={styles.deleteCard}>
               <SvgDelete width="10px" height="11px" />
@@ -58,6 +65,8 @@ EditCard.propTypes = {
   editCard: PropTypes.func,
   hero: PropTypes.object,
   setEdit: PropTypes.func,
+  componentNames: PropTypes.array,
+  clickDelete: PropTypes.func,
 };
 
 EditCard.defaultProps = {
@@ -65,6 +74,8 @@ EditCard.defaultProps = {
   editCard: () => {},
   hero: {},
   setEdit: () => {},
+  componentNames: [],
+  clickDelete: () => {},
 };
 
 export default EditCard;
