@@ -19,7 +19,7 @@ const EditCard = ({ confirmDelete, editCard, hero, setEdit, componentNames, clic
   const popConfirm =
     hero?.type === 'personage'
       ? !!componentNames?.length
-        ? `Hey , what are you doing? This character already has links to pages in your story/Component and story/Page (${componentNames}). If you delete it, those links will break! Are you sure?`
+        ? `Hey , what are you doing? This character already has links to page/component in your story (${componentNames}). If you delete it, those links will break! Are you sure?`
         : 'Are you sure to delete this personage'
       : `Are you sure to delete this ${hero?.type}`;
 
