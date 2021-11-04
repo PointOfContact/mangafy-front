@@ -268,6 +268,8 @@ const Hero = ({ storyBoard, setStoryBoard, getStoryBoard, user }) => {
         setEdit={setEdit}
         confirmDelete={confirmDelete}
         onChangeHeroLogic={onChangeHeroLogic}
+        componentNames={componentNames}
+        clickDelete={clickDeleteHero}
       />
     </div>
   );

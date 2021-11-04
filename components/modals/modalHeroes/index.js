@@ -1,8 +1,10 @@
+/* eslint-disable no-nested-ternary */
 import React, { useEffect, useRef, useState } from 'react';
 
 import { Modal, Form, Select } from 'antd';
 import cn from 'classnames';
 import SvgClose from 'components/icon/Close';
+import Popconfirm from 'components/popconfirm';
 import PrimaryButton from 'components/ui-elements/button';
 import PrimaryInput from 'components/ui-elements/input';
 import TextArea from 'components/ui-elements/text-area';
@@ -23,6 +25,8 @@ const ModalHeroes = ({
   onChangeHeroLogic,
   ifIsEdit,
   setEdit,
+  componentNames,
+  clickDelete,
 }) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
@@ -108,6 +112,13 @@ const ModalHeroes = ({
     onChangeHero();
     setValidation('');
   };
+
+  const popConfirm =
+    hero?.type === 'personage'
+      ? !!componentNames?.length
+        ? `Hey , what are you doing? This character already has links to page/component in your story (${componentNames}). If you delete it, those links will break! Are you sure?`
+        : 'Are you sure to delete this personage'
+      : `Are you sure to delete this ${hero?.type}`;
 
   return (
     <Modal
@@ -297,12 +308,14 @@ const ModalHeroes = ({
                   }}
                   text="Duplicate"
                 />
-                <PrimaryButton
-                  isWhite={true}
-                  onClick={() => {
-                    confirmDelete(hero);
-                  }}
-                  text="Delete Character"
+
+                <Popconfirm
+                  overlayClassName={styles.popConfirm}
+                  placement={'top'}
+                  title={popConfirm}
+                  onConfirm={() => confirmDelete(hero)}
+                  onClick={() => clickDelete(hero)}
+                  item={<PrimaryButton isWhite={true} text="Delete Character" />}
                 />
               </div>
             </div>
@@ -322,6 +335,9 @@ ModalHeroes.propTypes = {
   confirmDelete: PropTypes.func.isRequired,
   onChangeHeroLogic: PropTypes.func.isRequired,
   ifIsEdit: PropTypes.bool,
+  setEdit: PropTypes.func,
+  componentNames: PropTypes.array,
+  clickDelete: PropTypes.func,
 };
 
 ModalHeroes.defaultProps = {
@@ -329,6 +345,9 @@ ModalHeroes.defaultProps = {
   user: {},
   mangaUrl: null,
   ifIsEdit: false,
+  setEdit: () => {},
+  componentNames: [],
+  clickDelete: () => {},
 };
 
 export default ModalHeroes;
