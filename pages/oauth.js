@@ -14,16 +14,20 @@ const OAuth = () => {
       setClientCookie(FEATHERS_COOKIE, jwt);
       store.user = user;
       let event_type = EVENTS.O_AUTH;
+      let strategy = 'local';
       if (user.googleId) {
         event_type = EVENTS.O_AUTH_GOOGLE;
+        strategy = 'google';
       }
       if (user.facebookId) {
         event_type = EVENTS.O_AUTH_FACEBOOK;
+        strategy = 'facebook';
       }
 
       const data = [
         {
           event_type,
+          event_properties: { userData: user, strategy },
           user_id: user._id,
           user_properties: {
             ...user,
@@ -31,14 +35,16 @@ const OAuth = () => {
         },
       ];
       myAmplitude(data);
-      console.log(user, 'googl user');
       const getCreateData = user.createdAt.slice(0, -8);
       const getLastLoginData = user.lastLoginDate.slice(0, -8);
       if (getCreateData === getLastLoginData) {
+        data[0].event_type = EVENTS.SIGN_UP;
         Router.push(`/profile/${user._id}?editModal=true`);
       } else {
+        data[0].event_type = EVENTS.SIGN_IN;
         Router.push('/feed');
       }
+      myAmplitude(data);
       return user;
     });
   });

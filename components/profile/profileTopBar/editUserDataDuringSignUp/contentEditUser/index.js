@@ -4,8 +4,10 @@ import { Select } from 'antd';
 import cn from 'classnames';
 import PrimaryInput from 'components/ui-elements/input';
 import TextArea from 'components/ui-elements/text-area';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import { userTypes, userTypesEnums } from 'helpers/constant';
 import PropTypes from 'prop-types';
+import myAmplitude from 'utils/amplitude';
 
 import styles from './styles.module.scss';
 
@@ -20,8 +22,23 @@ const ContentEditUser = ({
   handleChangeGenres,
   errorAboutMe,
   nameRequired,
+  user,
 }) => {
   const [editMod, setFavoriteNovel] = useState('');
+
+  const sendEvent = (event_type, update = {}) => {
+    const data = [
+      {
+        event_type,
+        event_properties: { isModal: true, ...update },
+        user_id: user._id,
+        user_properties: {
+          ...user,
+        },
+      },
+    ];
+    myAmplitude(data);
+  };
 
   return (
     <div className={styles.container}>
@@ -30,6 +47,7 @@ const ContentEditUser = ({
         <h3>Full Name</h3>
         <PrimaryInput
           value={userData.name}
+          onBlur={() => sendEvent(EVENTS.UPDATE_FULL_NAME, { name: userData.name })}
           onChange={(e) => setUserData({ ...userData, name: e.target.value })}
           placeholder="Your name"
           className={styles.fullNameInput}
@@ -46,6 +64,7 @@ const ContentEditUser = ({
             defaultValue={userTypesEnums[userData.types[0]]}
             value={userData.types}
             style={{ width: '100%' }}
+            onBlur={() => sendEvent(EVENTS.ADDED_USER_TYPES, { types: userData.types })}
             onChange={(value) => setUserData({ ...userData, types: value })}>
             {userTypes.map((item) => (
               <Option key={item.key} value={item.key}>
@@ -70,6 +89,7 @@ const ContentEditUser = ({
         <TextArea
           className={styles.aboutMe}
           value={userData.content}
+          onBlur={() => sendEvent(EVENTS.ADDED_BIO, { content: userData.content })}
           onChange={(e) => {
             setUserData({
               ...userData,
@@ -99,6 +119,7 @@ const ContentEditUser = ({
             MangaGenres={userData.skills || []}
             placeholder="Type or select an option"
             style={{ width: '100%' }}
+            onBlur={() => sendEvent(EVENTS.ADDED_GENRES, { genres })}
             options={genresMyProfileEnums}
             value={genres}
             onChange={handleChangeGenres}
@@ -132,6 +153,7 @@ ContentEditUser.propTypes = {
   setUserData: PropTypes.func,
   errorAboutMe: PropTypes.bool.isRequired,
   nameRequired: PropTypes.bool.isRequired,
+  user: PropTypes.object.isRequired,
 };
 
 ContentEditUser.defaultProps = {

@@ -1,8 +1,10 @@
 import React from 'react';
 
 import PrimaryButton from 'components/ui-elements/button';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
+import myAmplitude from 'utils/amplitude';
 
 import styles from '../styles.module.scss';
 
@@ -25,6 +27,17 @@ const HeaderEditUser = ({
           text="Cancel"
           onClick={() => {
             setShowModalEdit(false);
+            const data = [
+              {
+                event_type: EVENTS.CLOSE_UPDATE_USER_MODAL,
+                event_properties: { userData },
+                user_id: user._id,
+                user_properties: {
+                  ...user,
+                },
+              },
+            ];
+            myAmplitude(data);
             setUserData(user);
             router.push(`/profile/${router.query.pid}`, undefined, { shallow: true });
           }}
@@ -41,6 +54,17 @@ const HeaderEditUser = ({
             } else {
               saveUserDataByKey('content', 'genresIds', 'name', 'types');
             }
+            const data = [
+              {
+                event_type: EVENTS.UPDATE_USER_IN_MODAL,
+                event_properties: { userData },
+                user_id: user._id,
+                user_properties: {
+                  ...user,
+                },
+              },
+            ];
+            myAmplitude(data);
             router.push(`/profile/${router.query.pid}`, undefined, { shallow: true });
           }}
         />

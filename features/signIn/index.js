@@ -46,6 +46,7 @@ const Login = ({ user }) => {
         const data = [
           {
             event_type: EVENTS.SIGN_IN,
+            event_properties: { strategy: 'local', userData: newUser },
             user_id: newUser._id,
             user_properties: {
               ...newUser,
