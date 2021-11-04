@@ -202,6 +202,36 @@ export default {
           });
       });
     },
+
+    delete: (chapterId, index, chapters, setChapters) => {
+      const jwt = client.getCookie('feathers-jwt');
+
+      const deleteChapter = () => {
+        const newChapter = chapters.filter((value) => value._id !== chapterId);
+        setChapters([...newChapter]);
+      };
+
+      import('api/restClient').then((m) => {
+        m.default
+          .service('/api/v2/chapters')
+          .remove(chapterId, {
+            headers: { Authorization: `Bearer ${jwt}` },
+            mode: 'no-cors',
+          })
+          .then(() => {
+            deleteChapter();
+          })
+          .catch((err) => {
+            err.code === 404 && err.name === 'NotFound'
+              ? deleteChapter()
+              : notification.error({
+                  message: err.message,
+                  placement: 'bottomLeft',
+                });
+            return err;
+          });
+      });
+    },
   },
 
   pages: {

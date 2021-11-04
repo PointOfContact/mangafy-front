@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 import SvgAdd from 'components/icon/Add';
+import SvgDelete from 'components/icon/Delete';
 import SvgPurplePencil from 'components/icon/PurplePencil';
+import Popconfirm from 'components/popconfirm';
 import PrimaryInput from 'components/ui-elements/input';
 import mangaStoryAPI from 'features/mangaStory/mangaStoryAPI';
 import PropTypes from 'prop-types';
@@ -79,6 +81,20 @@ const ChapterItems = ({ chapters, setChapters, storyBoard }) => {
                 <SvgPurplePencil width={25} height={25} />
               </div>
             )}
+
+            <Popconfirm
+              overlayClassName={styles.popConfirm}
+              position={'right'}
+              title="Are you sure to delete this chapter"
+              onConfirm={() => {
+                mangaStoryAPI.chapter.delete(value._id, index, chapters, setChapters);
+              }}
+              item={
+                <span className={styles.deleteChapter}>
+                  <SvgDelete width={15} height={15} />
+                </span>
+              }
+            />
           </div>
           <div className={styles.chapterItem}>
             <div className={styles.addPageContainer}>

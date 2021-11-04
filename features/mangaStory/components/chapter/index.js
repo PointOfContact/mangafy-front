@@ -74,7 +74,7 @@ const Chapter = ({ storyBoard }) => {
             onClick={() => {
               setCreateChapter(true);
               setLengthChapters(lengthChapters + 1);
-              setChapterName(`Chapter ${lengthChapters + 1}`);
+              setChapterName(`Untitled Chapter`);
             }}>
             <SvgAdd width={50} height={50} />
             Add Chapter

@@ -72,13 +72,29 @@
   }
 }
 .titleContainer {
-  max-width: 300px;
   margin-top: 50px;
+  display: flex;
+  justify-content: space-between;
   @include media-sm {
-    max-width: 250px;
     margin-top: 30px;
   }
+  .deleteChapter{
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    border: 1px solid $gray85;
+    &:hover{
+      background-color: $primaryDark;
+      svg path{
+         fill: white;
+      }
+    }
+  }
   .chapterName {
+    max-width: 300px;
     display: flex;
     justify-content: space-between;
     height: 44px;
@@ -128,4 +144,8 @@
       }
     }
   }
+}
+
+.popConfirm{
+  min-width: 250px;
 }
