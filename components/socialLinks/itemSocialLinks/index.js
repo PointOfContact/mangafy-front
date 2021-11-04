@@ -102,9 +102,11 @@ const EditSocial = ({ user, socialLinks, setSocialLinks, setUserData }) => {
     const filteredItems = newLinks.filter((item) => item.link);
 
     const newUserData = { ...user, socialLinks: filteredItems };
+    const method = link === '' ? 'delete' : 'add';
     const data = [
       {
         event_type: EVENTS.SOCIAL_ACCOUNT,
+        event_properties: { method, link, platform },
         user_id: user._id,
         user_properties: {
           ...user,

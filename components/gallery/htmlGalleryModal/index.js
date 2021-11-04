@@ -42,6 +42,7 @@ const HtmlGalleryModal = ({ gallery, setImages, images, handleCancel, isModalVis
       (res) => {
         const event = {
           event_type: EVENTS.ADDED_PORTFOLIO_TEXT,
+          event_properties: { extention: 'text', type: 'text', info: data },
           user_id: user._id,
           user_properties: {
             ...user,
