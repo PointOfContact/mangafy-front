@@ -160,9 +160,12 @@ export const Gallery = (props) => {
   };
 
   const onBeforeGalleryUpload = (file) => {
+    const { size, type } = file;
+    const extention = file?.type === 'application/pdf' ? 'pdf' : 'image';
     const data = {
       event_type:
         file?.type === 'application/pdf' ? EVENTS.ADDED_PORTFOLIO_PDF : EVENTS.ADDED_PORTFOLIO,
+      event_properties: { extention, size, type },
       user_id: user._id,
       user_properties: {
         ...user,
