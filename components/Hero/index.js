@@ -28,6 +28,7 @@ const Hero = ({ storyBoard, setStoryBoard, getStoryBoard, user }) => {
   const [selectedHero, setSelectedHero] = useState({});
   const [ifIsEdit, setEdit] = useState(false);
   const [selectedType, setSelectedType] = useState('');
+  const [componentNames, setComponentNames] = useState([]);
 
   const { allowPersonageCreate, allowComponentCreate, allowBackgroundCreate } = useMemo(() => {
     const allow = {
@@ -69,6 +70,25 @@ const Hero = ({ storyBoard, setStoryBoard, getStoryBoard, user }) => {
     type === 'personage' ? changeShowModalHeroes(true) : changeShowModal(true);
   };
 
+  const clickDeleteHero = (hero) => {
+    const componentNameArray = [];
+    storyBoard?.heroes?.forEach((element) => {
+      if (!!element?.characterArray?.length && element?.characterArray?.includes(hero._id)) {
+        componentNameArray.push(`"${element.name}"`);
+      }
+    });
+
+    storyBoard?.chapters?.map((value) => {
+      value.pages.forEach((element) => {
+        if (!!element?.characterArray?.length && element?.characterArray?.includes(hero._id)) {
+          componentNameArray.push(`"${element.title}"`);
+        }
+      });
+    });
+
+    setComponentNames(componentNameArray);
+  };
+
   const confirmDelete = (hero) => {
     const getLastCreateHeroId = storyBoard?.heroes[storyBoard?.heroes?.length - 1]?._id;
     const heroId = !!hero?._id ? hero?._id : getLastCreateHeroId;
@@ -91,6 +111,8 @@ const Hero = ({ storyBoard, setStoryBoard, getStoryBoard, user }) => {
             getStoryBoard={getStoryBoard}
             confirmDelete={confirmDelete}
             setEdit={setEdit}
+            componentNames={componentNames}
+            clickDeleteHero={clickDeleteHero}
           />
         );
       }
