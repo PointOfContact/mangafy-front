@@ -179,6 +179,14 @@ const ModalComponent = ({
                         onChange={changeSelectedHero}
                         isLinear={true}
                         showSearch
+                        dropdownRender={(menu) => (
+                          <div className={styles.selectDropDown}>
+                            {menu}
+                            Bzzzt! You are missing some characters in your story. Characters are the
+                            building blocks of your story add them here Note here - should be a link
+                            to the character creation page
+                          </div>
+                        )}
                         isFullWidth={true}
                         placeholder={titles.inputLinkDesc}
                         defaultValue={chooseCharacter}

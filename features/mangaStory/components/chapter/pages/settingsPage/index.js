@@ -1,13 +1,9 @@
 import React from 'react';
 
-import client from 'api/client';
-import SvgChange from 'components/icon/Change';
 import SvgDelete from 'components/icon/Delete';
-import SvgExport from 'components/icon/Export';
 import Popconfirm from 'components/popconfirm';
 import mangaStoryAPI from 'features/mangaStory/mangaStoryAPI';
 import PropTypes from 'prop-types';
-import download from 'utils/downloadImages';
 
 import styles from './styles.module.scss';
 
@@ -36,7 +32,7 @@ const SettingsPage = ({
 
   return (
     <div className={styles.settingsPageContainer}>
-      <div
+      {/* <div
         onClick={() => {
           setVisibleModal(true);
           setModalTitle('Edit page');
@@ -55,7 +51,7 @@ const SettingsPage = ({
           }>
           <SvgExport width="13px" height="11px" />
         </span>
-      </div>
+      </div> */}
 
       <div onClick={handleClick}>
         <Popconfirm

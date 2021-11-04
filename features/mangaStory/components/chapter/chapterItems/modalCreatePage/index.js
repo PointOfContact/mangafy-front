@@ -118,9 +118,10 @@ const ModalCreatePage = ({
   };
 
   const request = (e) => {
-    setTitle(e.title);
+    const newTitle = !!e.title.trim() ? e.title : 'Untitled page';
+    setTitle(newTitle);
     setCharacterArray(e.characterArray);
-    createPage(e.title, e.characterArray).then(() => {
+    createPage(newTitle, e.characterArray).then(() => {
       openNew && (setVisibleModal(true), setOpenNew(false));
     });
   };
@@ -142,23 +143,7 @@ const ModalCreatePage = ({
       <div className={styles.border} />
       <Form name="createPage" form={form} onFinish={(e) => request(e)}>
         <h3>Page beats</h3>
-        <Form.Item
-          name="title"
-          rules={[
-            {
-              required: true,
-              validator: async (_, names) => {
-                if (names === undefined) {
-                  return Promise.reject(
-                    new Error('Hey, bud. You forgot to add your name in the field above...')
-                  );
-                }
-                if (names.trim().length < 2) {
-                  return Promise.reject(new Error('Length must be at least 3 characters long'));
-                }
-              },
-            },
-          ]}>
+        <Form.Item name="title">
           <PrimaryInput
             maxLength={100}
             className={styles.namePage}
@@ -170,6 +155,14 @@ const ModalCreatePage = ({
           <Select
             className={styles.option}
             mode="multiple"
+            dropdownRender={(menu) => (
+              <div className={styles.selectDropDown}>
+                {menu}
+                Bzzzt! You are missing some characters in your story. Characters are the building
+                blocks of your story add them here Note here - should be a link to the character
+                creation page
+              </div>
+            )}
             showSearch
             placeholder={'Link characters to page'}
             filterOption={(inputValue, option) =>
