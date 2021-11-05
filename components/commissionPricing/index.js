@@ -59,6 +59,17 @@ export const CommissionPricing = ({ id, user }) => {
             }
           )
           .then((res) => {
+            const data = [
+              {
+                event_type: EVENTS.COMMISION_SAVE,
+                event_properties: { pricingTable: res.pricingTable },
+                user_id: user._id,
+                user_properties: {
+                  ...user,
+                },
+              },
+            ];
+            myAmplitude(data);
             setPricingList(res.pricingTable);
             setEditMode(false);
           })
@@ -93,6 +104,7 @@ export const CommissionPricing = ({ id, user }) => {
     const data = [
       {
         event_type: EVENTS.COMMISION_CREATED,
+        event_properties: { method: 'add' },
         user_id: user._id,
         user_properties: {
           ...user,
@@ -105,8 +117,33 @@ export const CommissionPricing = ({ id, user }) => {
   };
 
   const remove = (position) => {
+    const data = [
+      {
+        event_type: EVENTS.COMMISION_DELETE,
+        event_properties: { method: 'delete', item: pricingList[position] },
+        user_id: user._id,
+        user_properties: {
+          ...user,
+        },
+      },
+    ];
+    myAmplitude(data);
     const newList = pricingList.filter((item, index) => index !== position);
     setPricingList(newList);
+  };
+
+  const sendEvent = (index, type) => {
+    const data = [
+      {
+        event_type: EVENTS.COMMISION_EDIT,
+        event_properties: { method: 'edit', type, item: pricingList[index] },
+        user_id: user._id,
+        user_properties: {
+          ...user,
+        },
+      },
+    ];
+    myAmplitude(data);
   };
 
   return (
@@ -179,6 +216,7 @@ export const CommissionPricing = ({ id, user }) => {
                       name="first"
                       data-id={index}
                       value={field.first}
+                      onBlur={() => sendEvent(index, 'text')}
                       onChange={handleChange}
                     />
                     {!field.first && canEdit && editMode && isSubmitted && (
@@ -196,6 +234,7 @@ export const CommissionPricing = ({ id, user }) => {
                       name="last"
                       data-id={index}
                       value={field.last}
+                      onBlur={() => sendEvent(index, 'price')}
                       onChange={handleChange}
                     />
                     {!field.last && canEdit && editMode && isSubmitted && (

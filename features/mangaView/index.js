@@ -6,21 +6,31 @@ import Header from 'components/header';
 import Imgix from 'components/imgix';
 import { ShareButtons } from 'components/share';
 import { NextSeo } from 'next-seo';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
+const PDFViewer = dynamic(() => import('components/pdfViewer'), {
+  ssr: false,
+});
+
 const MangaView = ({ user, storyBoardId, mangaUrls, mangaStoryId, mangaStoryTitle }) => {
-  const images = mangaUrls?.map((value) => (
-    <div className={styles.containerImages} key={value}>
-      <Imgix
-        layout="fill"
-        src={`${client.API_ENDPOINT}/api/v2/uploads/${value}`}
-        alt="Mangafy preview images"
-      />
-    </div>
-  ));
+  const images = mangaUrls?.map((value) => {
+    const imgType = value.slice(-3);
+    const ifPdf = imgType === 'pdf' || imgType === 'PDF';
+
+    return (
+      <div className={styles.containerImages} key={value}>
+        {ifPdf ? (
+          <PDFViewer url={client.UPLOAD_URL + value} />
+        ) : (
+          <Imgix layout="fill" src={client.UPLOAD_URL + value} alt="Mangafy preview images" />
+        )}
+      </div>
+    );
+  });
 
   const shareContent = (
     <div>

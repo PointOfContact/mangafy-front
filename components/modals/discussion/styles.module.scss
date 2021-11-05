@@ -4,7 +4,6 @@
   margin-top: 0 !important;
   & > div {
     border-radius: 10px;
-    height: calc(100vh - 120px);
   }
   @include media-sm {
     width: 95% !important;

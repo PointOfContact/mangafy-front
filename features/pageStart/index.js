@@ -5,6 +5,7 @@ import Footer from 'components/footer';
 import FooterPolicy from 'components/footer-policy';
 import Header from 'components/header';
 import Imgix from 'components/imgix';
+import FooterLogin from 'features/footerLogin';
 import Link from 'next/link';
 
 import styles from './styles.module.scss';
@@ -123,7 +124,7 @@ const pageStart = ({ user }) => (
       </div>
       <Footer />
       <FooterPolicy />
-      {/* <FooterLogin user={user} /> */}
+      <FooterLogin user={user} />
     </div>
   </>
 );

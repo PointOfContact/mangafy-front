@@ -12,6 +12,7 @@ import ProfilesHeader from 'components/profilesHeader';
 import SearchForMembers from 'components/searchForMembers';
 import PrimaryButton from 'components/ui-elements/button';
 import ButtonToTop from 'components/ui-elements/button-toTop';
+import FooterLogin from 'features/footerLogin';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { userTypes } from 'helpers/constant';
 import { NextSeo } from 'next-seo';
@@ -94,7 +95,7 @@ const Profiles = (props) => {
       </div>
       <Footer />
       <FooterPolicy />
-      {/* <FooterLogin user={user} /> */}
+      <FooterLogin user={user} />
       <ModalCreateProject
         createProjectModal={createProjectModal}
         showCreateProjectModal={showCreateProjectModal}

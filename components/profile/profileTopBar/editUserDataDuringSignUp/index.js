@@ -54,6 +54,7 @@ const EditUserDataDuringSignUp = ({
         nameRequired={nameRequired}
       />
       <ContentEditUser
+        user={user}
         userData={userData}
         userGenres={userGenres}
         genres={genres}
