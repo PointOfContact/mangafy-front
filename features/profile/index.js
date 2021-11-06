@@ -41,6 +41,7 @@ const Profile = (props) => {
     types: user?.types,
     content: user?.content,
     genresIds: user?.genresIds,
+    galleryLikedUsers: user?.galleryLikedUsers,
     avatar: user?.avatar,
   });
 

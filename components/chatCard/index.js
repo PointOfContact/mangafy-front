@@ -112,7 +112,7 @@ const ChatCard = ({
             <MessageHeaderAvatar senderInfo={senderInfo} isTeamChat={isTeamChat} />
             <div className={styles.name_special}>
               <div>
-                <h4>{senderInfo && senderInfo.name}</h4>
+                <h4>{senderInfo && senderInfo?.name}</h4>
                 <p>{senderInfo && characterType}</p>
                 <p className={styles.messages}>{messages && messages.content}</p>
               </div>

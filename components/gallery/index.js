@@ -27,7 +27,14 @@ const PDFViewer = dynamic(() => import('components/pdfViewer'), {
 });
 
 export const Gallery = (props) => {
-  const { user = false, profile, mangaStoriesMyProfile, fromPath = 'users', title = '' } = props;
+  const {
+    user = false,
+    profile,
+    ifMyProfile,
+    mangaStoriesMyProfile,
+    fromPath = 'users',
+    title = '',
+  } = props;
   let canEditInit;
   if (!user) {
     canEditInit = false;
@@ -36,9 +43,10 @@ export const Gallery = (props) => {
   } else if (profile._id === user._id) {
     canEditInit = true;
   }
+
   const [images, setImages] = useState([]);
   const [startIndex, setStartIndex] = useState(0);
-  const [userData, setUserData] = useState(profile || user);
+  const [userData, setUserData] = useState(ifMyProfile ? user : profile);
   const [showUploadList, setShowUploadList] = useState(true);
   const [showGallery, setShowGallery] = useState(false);
   const [createGalleryModal, setCreateGalleryModal] = useState(false);
@@ -241,7 +249,7 @@ export const Gallery = (props) => {
             canEdit={canEdit}
             canEditInit={canEditInit}
             user={user}
-            userData={userData}
+            userData={ifMyProfile ? user : profile}
             gallerySet={gallerySet}
             setUserData={setUserData}
             fromPath={fromPath}
