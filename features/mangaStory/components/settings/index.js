@@ -5,7 +5,9 @@ import { findStoryBoard } from 'api/storyBoardClient';
 import SvgClose from 'components/icon/Close';
 import ToggleSwitch from 'components/ui-elements/toggleSwitch';
 import mangaStoryAPI from 'features/mangaStory/mangaStoryAPI';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import PropTypes from 'prop-types';
+import myAmplitude from 'utils/amplitude';
 
 import DraftCheckbox from '../headerCollab/draftCheckbox';
 import DeleteProjectField from './deleteProjectField';
@@ -73,10 +75,26 @@ const Settings = ({
         published: false,
       });
       mangaStoryAPI.draft.leaveManga(baseData, false);
+      sendEvent(EVENTS.EDIT_PROJECT_PUBLISHED, 'published', false);
     } else {
       onGoToPublic(userData?._id, baseData?._id);
       userData?.payPalEmail && mangaStoryAPI.draft.leaveManga(baseData, true);
+      sendEvent(EVENTS.EDIT_PROJECT_PUBLISHED, 'published', true);
     }
+  };
+
+  const sendEvent = (event_type, field, value) => {
+    const eventData = [
+      {
+        event_type,
+        event_properties: { baseData, [field]: value },
+        user_id: userData._id,
+        user_properties: {
+          ...userData,
+        },
+      },
+    ];
+    myAmplitude(eventData);
   };
 
   return (
@@ -84,6 +102,8 @@ const Settings = ({
       <div className={styles.container}>
         <EditGenresField
           baseData={baseData}
+          userData={userData}
+          sendEvent={sendEvent}
           genresEnums={genres}
           onChangeSingleField={onChangeSingleField}
           saveMangaStoryData={saveMangaStoryData}
@@ -113,11 +133,13 @@ const Settings = ({
         <ViewUrlName
           storyBoard={storyBoard}
           baseData={baseData}
+          sendEvent={sendEvent}
           onChangeSingleField={onChangeSingleField}
         />
       </div>
       <div className={styles.container}>
         <PaypalEmailField
+          sendEvent={sendEvent}
           userData={userData}
           setUserData={setUserData}
           onChangeSingleField={onChangeSingleField}
@@ -126,7 +148,7 @@ const Settings = ({
         />
       </div>
       <div className={styles.container}>
-        <DeleteProjectField userData={userData} baseData={baseData} />
+        <DeleteProjectField sendEvent={sendEvent} userData={userData} baseData={baseData} />
       </div>
     </>
   );
