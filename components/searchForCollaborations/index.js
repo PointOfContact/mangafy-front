@@ -163,7 +163,11 @@ const SearchForCollaborations = (props) => {
                 defaultValue={selectedCompensationModel}
                 onChange={handleCompasitionClick}
                 dropdownClassName="select-filter"
-                className={cn(styles.box__nav_select, 'select-filter')}>
+                className={cn(
+                  styles.box__nav_selectDef,
+                  !selectedCompensationModel?.length && styles.box__nav_select,
+                  'select-filter'
+                )}>
                 {menuOptions(handleCompasitionClick)}
               </Select>
               <Select
@@ -178,7 +182,11 @@ const SearchForCollaborations = (props) => {
                 value={selectedTypes || []}
                 onChange={handleArtistClick}
                 dropdownClassName="select-filter"
-                className={cn(styles.box__nav_select, 'select-filter')}>
+                className={cn(
+                  styles.box__nav_selectDef,
+                  !selectedTypes?.length && styles.box__nav_select,
+                  'select-filter'
+                )}>
                 {artistOptions(userTypes)}
               </Select>
               <div className={styles.allGenres} id="area">
@@ -195,7 +203,11 @@ const SearchForCollaborations = (props) => {
                   onChange={handleGenresClick}
                   getPopupContainer={() => document.getElementById('area')}
                   dropdownClassName="select-filter"
-                  className={cn(styles.box__nav_select, 'select-filter')}>
+                  className={cn(
+                    styles.box__nav_selectDef,
+                    !selectedGenres?.length && styles.box__nav_select,
+                    'select-filter'
+                  )}>
                   {menuGenresOptions(genres)}
                 </Select>
               </div>

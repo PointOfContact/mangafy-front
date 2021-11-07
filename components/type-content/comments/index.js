@@ -57,10 +57,25 @@ CommentList.propTypes = {
   comments: PropTypes.array.isRequired,
 };
 
-const Editor = ({ onChange, onSubmit, submitting, value, user }) => (
-  <>
-    <Form.Item>
-      <TextArea autoSize={{ minRows: 1, maxRows: 7 }} onChange={onChange} value={value} />
+const Editor = ({ onSubmit, submitting, user }) => (
+  <Form
+    onFinish={(e) => {
+      onSubmit(e.comment);
+    }}>
+    <Form.Item
+      name={'comment'}
+      rules={[
+        {
+          required: true,
+          validator: async (_, names) => {
+            if (names.trim().length < 1) {
+              return Promise.reject(new Error('Length must be at least 2 characters long'));
+            }
+          },
+          message: 'Length must be at least 2 characters long',
+        },
+      ]}>
+      <TextArea autoSize={{ minRows: 1, maxRows: 7 }} />
     </Form.Item>
     <Form.Item>
       {!user && (
@@ -76,25 +91,20 @@ const Editor = ({ onChange, onSubmit, submitting, value, user }) => (
         id="AddACommentBtnId"
         htmlType="submit"
         loading={submitting}
-        onClick={onSubmit}
         text="Add Comment"
       />
     </Form.Item>
-  </>
+  </Form>
 );
 
 Editor.propTypes = {
-  onChange: PropTypes.func,
   onSubmit: PropTypes.func,
-  value: PropTypes.any,
   submitting: PropTypes.bool,
   user: PropTypes.object,
 };
 
 Editor.defaultProps = {
-  onChange: () => {},
   onSubmit: () => {},
-  value: null,
   submitting: null,
   user: null,
 };
@@ -102,19 +112,14 @@ Editor.defaultProps = {
 export const Comments = ({ commentsData, postId, user, setCommentsData }) => {
   const [comments, setComments] = useState([]);
   const [submitting, setSubmitting] = useState(false);
-  const [value, setValue] = useState('');
   const [errMessage, setErrMessage] = useState('');
 
-  const handleChange = (e) => {
-    setValue(e.target.value);
-  };
-
-  const handleSubmit = () => {
+  const handleSubmit = (value) => {
     if (!user) {
       Router.push(`/sign-in?page=`);
     }
 
-    if (!value || !user) {
+    if (!value.trim() || !user) {
       return;
     }
     setSubmitting(true);
@@ -138,7 +143,6 @@ export const Comments = ({ commentsData, postId, user, setCommentsData }) => {
           const newCommentsData = [...comments, { ...res }];
           setCommentsData(newCommentsData);
           setSubmitting(false);
-          setValue('');
           const eventData = [
             {
               event_type: EVENTS.POST_COMMENT,
@@ -188,15 +192,7 @@ export const Comments = ({ commentsData, postId, user, setCommentsData }) => {
             </>
           )
         }
-        content={
-          <Editor
-            onChange={handleChange}
-            onSubmit={handleSubmit}
-            submitting={submitting}
-            value={value}
-            user={user}
-          />
-        }
+        content={<Editor onSubmit={handleSubmit} submitting={submitting} user={user} />}
       />
       {errMessage && <p>{errMessage}</p>}
     </>

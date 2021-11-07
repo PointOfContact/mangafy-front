@@ -5,11 +5,12 @@ import client from 'api/client';
 import SvgCopy from 'components/icon/Copy';
 import PrimaryInput from 'components/ui-elements/input';
 import copy from 'copy-to-clipboard';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import PropTypes from 'prop-types';
 
 import styles from '../styles.module.scss';
 
-const ViewUrlName = ({ storyBoard, baseData, onChangeSingleField }) => {
+const ViewUrlName = ({ storyBoard, baseData, onChangeSingleField, sendEvent }) => {
   const [value, setValue] = useState(baseData?.typeUrlView);
   const [copyText, setCopyText] = useState('Copy to clipboard');
   const [isTouched, setIsTouched] = useState(false);
@@ -75,7 +76,12 @@ const ViewUrlName = ({ storyBoard, baseData, onChangeSingleField }) => {
           )}
         </Radio>
 
-        <Radio value={'Standard domain'} onChange={() => setIsTouched(false)}>
+        <Radio
+          value={'Standard domain'}
+          onChange={() => {
+            sendEvent(EVENTS.EDIT_PROJECT_DOMAIN, 'domain', 'standard');
+            setIsTouched(false);
+          }}>
           Standard domain
         </Radio>
       </Radio.Group>
@@ -115,6 +121,7 @@ ViewUrlName.propTypes = {
   storyBoard: PropTypes.object.isRequired,
   baseData: PropTypes.object.isRequired,
   onChangeSingleField: PropTypes.func.isRequired,
+  sendEvent: PropTypes.func.isRequired,
 };
 
 export default ViewUrlName;

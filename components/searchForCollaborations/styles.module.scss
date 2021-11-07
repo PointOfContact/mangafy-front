@@ -221,7 +221,7 @@
         }
       }
     }
-    &_select {
+    &_selectDef {
       max-width: 340px;
       height: 100%;
       font-weight: bold;
@@ -253,6 +253,13 @@
       &:last-child {
         @media #{$media-sm} {
           margin-bottom: 0;
+        }
+      }
+    }
+    &_select{
+      & > div {
+        & > div {
+          overflow-y: clip;
         }
       }
     }

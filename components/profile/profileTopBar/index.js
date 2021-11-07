@@ -300,6 +300,7 @@ const ProfileTopBar = (props) => {
                     )}
                     defaultValue={userTypesEnums[userData?.types[0]]}
                     value={userData.types}
+                    dropdownMatchSelectWidth={false}
                     style={{ width: '100%' }}
                     onChange={(value) => setUserData({ ...userData, types: value })}>
                     {userTypesOptions}

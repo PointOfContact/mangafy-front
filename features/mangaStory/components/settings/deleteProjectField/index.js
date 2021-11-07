@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 
 import DeleteProjectModal from 'components/deleteProjectModal';
 import PrimaryButton from 'components/ui-elements/button';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import PropTypes from 'prop-types';
 
 import styles from '../styles.module.scss';
 
-const DeleteProjectField = ({ userData, baseData }) => {
+const DeleteProjectField = ({ userData, baseData, sendEvent }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   return (
     <>
@@ -22,7 +23,10 @@ const DeleteProjectField = ({ userData, baseData }) => {
         <PrimaryButton
           className={styles.deleteProjectButton}
           text="Delete project"
-          onClick={() => setIsModalVisible(true)}
+          onClick={() => {
+            setIsModalVisible(true);
+            sendEvent(EVENTS.DELETE_PROJECT, 'method', 'delete');
+          }}
         />
         <a href="mailto:yo@mangafy.club">
           Feel free to contact <span> yo@mangafy.</span> club with any questions.
@@ -41,6 +45,7 @@ const DeleteProjectField = ({ userData, baseData }) => {
 DeleteProjectField.propTypes = {
   userData: PropTypes.object.isRequired,
   baseData: PropTypes.object.isRequired,
+  sendEvent: PropTypes.func.isRequired,
 };
 
 export default DeleteProjectField;
