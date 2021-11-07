@@ -87,7 +87,11 @@ const Settings = ({
     const eventData = [
       {
         event_type,
-        event_properties: { baseData, [field]: value },
+        event_properties: {
+          collaborationData: baseData,
+          collaborationId: baseData._id,
+          [field]: value,
+        },
         user_id: userData._id,
         user_properties: {
           ...userData,
