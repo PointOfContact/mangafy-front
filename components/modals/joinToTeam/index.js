@@ -101,7 +101,13 @@ const ModalStart = ({ changeShowModal, showModal, baseData, selectedTask, user }
           const eventData = [
             {
               event_type: EVENTS.REQUEST_TO_JOIN,
-              event_properties: { mangaStoryId: baseData._id, taskId: selectedTask?._id },
+              event_properties: {
+                authorId: baseData.author,
+                authorInfo: baseData.authorInfo,
+                mangaStoryId: baseData._id,
+                mangaStory: baseData,
+                taskId: selectedTask?._id,
+              },
               user_id: user._id,
               user_properties: {
                 ...user,

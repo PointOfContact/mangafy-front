@@ -49,6 +49,25 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipant, showPayPalContent
     // To do 404
   };
 
+  const sendEvent = (event_type) => {
+    const data = [
+      {
+        event_type,
+        event_properties: {
+          authorId: baseData.author,
+          authorInfo: baseData.authorInfo,
+          mangaStory: baseData,
+          mangaStoryId: baseData._id,
+        },
+        user_id: user._id,
+        user_properties: {
+          ...user,
+        },
+      },
+    ];
+    myAmplitude(data);
+  };
+
   const updateTasks = async () => {
     const jwt = client.getCookie('feathers-jwt');
     const { default: api } = await import('api/restClient');
@@ -90,6 +109,7 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipant, showPayPalContent
             <PrimaryButton
               className={styles.contributeBtn}
               onClick={() => {
+                sendEvent(EVENTS.OPEN_MODAL_REQUEST_TO_JOIN);
                 toTeam(null);
               }}
               text="Contribute"
@@ -139,6 +159,7 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipant, showPayPalContent
                     {!isParticipant && (
                       <PrimaryButton
                         onClick={() => {
+                          sendEvent(EVENTS.OPEN_MODAL_REQUEST_TO_JOIN);
                           toTeam(task);
                         }}
                         text="Contribute"
@@ -168,6 +189,7 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipant, showPayPalContent
               {!tasks?.length && !isParticipant && (
                 <PrimaryButton
                   onClick={() => {
+                    sendEvent(EVENTS.OPEN_MODAL_REQUEST_TO_JOIN);
                     toTeam(null);
                   }}
                   text="Contribute"
