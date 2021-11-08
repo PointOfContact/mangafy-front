@@ -1,85 +1,77 @@
 import React from 'react';
 
-import { Popover } from 'antd';
 import Modal from 'antd/lib/modal/Modal';
-import { findStoryBoard } from 'api/storyBoardClient';
 import cn from 'classnames';
-import SvgClose from 'components/icon/Close';
-import SvgPencilColored from 'components/icon/PencilColored';
-import ButtonToggle from 'components/ui-elements/button-toggle';
 import PropTypes from 'prop-types';
 
-import mangaStoryAPI from '../../mangaStoryAPI';
-import DraftCheckbox from './draftCheckbox';
 import styles from './styles.module.scss';
-import WriteCollabName from './writeCollabName';
 
 const { info } = Modal;
 
 const HeaderCollab = ({
-  isOwn,
-  user,
-  mangaStory,
-  openNotification,
-  originUrl,
+  // isOwn,
+  // user,
+  // mangaStory,
+  // openNotification,
+  // originUrl,
   baseData,
-  setBaseData,
-  onChangeSingleField,
-  editTitle,
+  // setBaseData,
+  // onChangeSingleField,
+  // editTitle,
   collabActiveTab,
   stage,
-  canEdit,
-  setEditTitle,
-  saveMangaStoryData,
-  setMangaStoryNew,
-  mangaStoryNew,
+  // canEdit,
+  // setEditTitle,
+  // saveMangaStoryData,
+  // setMangaStoryNew,
+  // mangaStoryNew,
 }) => {
-  const onPublish = () => {
-    if (baseData.published) {
-      patchStory({
-        published: false,
-      });
-      mangaStoryAPI.draft.leaveManga(mangaStory, false);
-    } else {
-      onGoToPublic(user?._id, mangaStory?._id);
-      user?.payPalEmail && mangaStoryAPI.draft.leaveManga(mangaStory, true);
-    }
-  };
+  // const onPublish = () => {
+  //   if (baseData.published) {
+  //     patchStory({
+  //       published: false,
+  //     });
+  //     mangaStoryAPI.draft.leaveManga(mangaStory, false);
+  //   } else {
+  //     onGoToPublic(user?._id, mangaStory?._id);
+  //     user?.payPalEmail && mangaStoryAPI.draft.leaveManga(mangaStory, true);
+  //   }
+  // };
 
-  const patchStory = (data) =>
-    mangaStoryAPI.hiderCollab.patchStory(data, setBaseData, user, baseData, openNotification);
+  // const patchStory = (data) =>
+  //   mangaStoryAPI.hiderCollab.patchStory(data, setBaseData, user, baseData, openNotification);
 
-  const onGoToPublic = () => {
-    findStoryBoard(
-      user._id,
-      mangaStory._id,
-      () => {
-        patchStory({
-          published: true,
-        }).then(() =>
-          info({
-            className: styles.modal,
-            closable: true,
-            icon: <SvgClose width={10} height={10} />,
-            okText: <></>,
-            content: (
-              <DraftCheckbox
-                originUrl={originUrl}
-                user={user}
-                mangaStory={mangaStory}
-                setMangaStoryNew={setMangaStoryNew}
-                mangaStoryNew={mangaStoryNew}
-              />
-            ),
-            onOk() {},
-          })
-        );
-      },
-      (err) => {
-        openNotification('error', err.message);
-      }
-    );
-  };
+  // const onGoToPublic = () => {
+  //   findStoryBoard(
+  //     user._id,
+  //     mangaStory._id,
+  //     () => {
+  //       patchStory({
+  //         published: true,
+  //       }).then(() =>
+  //         info({
+  //           className: styles.modal,
+  //           closable: true,
+  //           icon: <SvgClose width={10} height={10} />,
+  //           okText: <></>,
+  //           content: (
+  //             <DraftCheckbox
+  //               originUrl={originUrl}
+  //               user={user}
+  //               mangaStory={mangaStory}
+  //               setMangaStoryNew={setMangaStoryNew}
+  //               mangaStoryNew={mangaStoryNew}
+  //             />
+  //           ),
+  //           onOk() {},
+  //         })
+  //       );
+  //     },
+  //     (err) => {
+  //       openNotification('error', err.message);
+  //     }
+  //   );
+  // };
 
   const ifCreatePage = collabActiveTab === '2';
 
@@ -88,7 +80,7 @@ const HeaderCollab = ({
       <div className="mangafy_vontainer  container">
         <div className="row">
           <div className="col-sm-12 manga-story manga-story-m">
-            {isOwn && (
+            {/* {isOwn && (
               <>
                 <div className={styles.publishContent}>
                   <Popover
@@ -112,33 +104,33 @@ const HeaderCollab = ({
                   </Popover>
                 </div>
               </>
-            )}
+            )} */}
 
             <div
               className={cn(
                 styles.storyTabContent,
-                editTitle && styles.containerInput,
+                // editTitle && styles.containerInput,
                 ifCreatePage && styles.storyTabCreate
               )}>
-              {!editTitle ? (
-                <>
-                  <div className={styles.header}>
-                    {ifCreatePage ? (
-                      <>
-                        {stage?.tab !== '6' ? (
-                          <h2>
-                            <span>STAGE {stage?.tab}</span> - {stage?.title}
-                          </h2>
-                        ) : (
-                          <h2>{stage?.title}</h2>
-                        )}
-                        <p>{stage?.description}</p>
-                      </>
+              {/* {!editTitle ? (
+                <> */}
+              <div className={styles.header}>
+                {ifCreatePage ? (
+                  <>
+                    {stage?.tab !== '6' ? (
+                      <h2>
+                        <span>STAGE {stage?.tab}</span> - {stage?.title}
+                      </h2>
                     ) : (
-                      <h2>{baseData.title}</h2>
+                      <h2>{stage?.title}</h2>
                     )}
-                  </div>
-                  {canEdit && collabActiveTab !== '2' && (
+                    <p>{stage?.description}</p>
+                  </>
+                ) : (
+                  <h2>{baseData.title}</h2>
+                )}
+              </div>
+              {/* {canEdit && collabActiveTab !== '2' && (
                     <SvgPencilColored
                       className={styles.editSVG}
                       onClick={() => setEditTitle(true)}
@@ -156,7 +148,7 @@ const HeaderCollab = ({
                     saveMangaStoryData={saveMangaStoryData}
                   />
                 )
-              )}
+              )} */}
             </div>
           </div>
         </div>
@@ -166,30 +158,30 @@ const HeaderCollab = ({
 };
 
 HeaderCollab.propTypes = {
-  isOwn: PropTypes.bool.isRequired,
-  user: PropTypes.object.isRequired,
-  mangaStory: PropTypes.object.isRequired,
-  openNotification: PropTypes.func.isRequired,
-  originUrl: PropTypes.string.isRequired,
-  setCollabActiveTab: PropTypes.func,
+  // isOwn: PropTypes.bool.isRequired,
+  // user: PropTypes.object.isRequired,
+  // mangaStory: PropTypes.object.isRequired,
+  // openNotification: PropTypes.func.isRequired,
+  // originUrl: PropTypes.string.isRequired,
+  // setCollabActiveTab: PropTypes.func,
   baseData: PropTypes.object.isRequired,
-  setBaseData: PropTypes.func.isRequired,
-  onChangeSingleField: PropTypes.func.isRequired,
-  paypalToggle: PropTypes.object,
-  editTitle: PropTypes.bool.isRequired,
+  // setBaseData: PropTypes.func.isRequired,
+  // onChangeSingleField: PropTypes.func.isRequired,
+  // paypalToggle: PropTypes.object,
+  // editTitle: PropTypes.bool.isRequired,
   collabActiveTab: PropTypes.string.isRequired,
   stage: PropTypes.object.isRequired,
-  canEdit: PropTypes.bool.isRequired,
-  setEditTitle: PropTypes.func.isRequired,
-  saveMangaStoryData: PropTypes.func.isRequired,
-  setMangaStoryNew: PropTypes.func,
-  mangaStoryNew: PropTypes.object,
+  // canEdit: PropTypes.bool.isRequired,
+  // setEditTitle: PropTypes.func.isRequired,
+  // saveMangaStoryData: PropTypes.func.isRequired,
+  // setMangaStoryNew: PropTypes.func,
+  // mangaStoryNew: PropTypes.object,
 };
-HeaderCollab.defaultProps = {
-  mangaStoryNew: {},
-  setMangaStoryNew: () => {},
-  paypalToggle: {},
-  setCollabActiveTab: () => {},
-};
+// HeaderCollab.defaultProps = {
+//   mangaStoryNew: {},
+//   setMangaStoryNew: () => {},
+//   paypalToggle: {},
+//   setCollabActiveTab: () => {},
+// };
 
 export default HeaderCollab;
