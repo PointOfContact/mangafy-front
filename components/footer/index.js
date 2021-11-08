@@ -90,7 +90,7 @@ const Footer = () => {
                 <a className={styles.footer__itemLink}>Find Collaboration</a>
               </Link>
               <Link href="/collaborations?compensationModel=paid">
-                <a className={styles.footer__itemLink}>Find Commisions Work</a>
+                <a className={styles.footer__itemLink}>Find Commission Work</a>
               </Link>
               <a className={styles.footer__itemLink} onClick={() => showCreateProjectModal(true)}>
                 Post Commission Work
