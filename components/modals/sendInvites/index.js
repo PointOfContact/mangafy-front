@@ -83,7 +83,14 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
       const eventData = [
         {
           event_type: EVENTS.INVITE_SOMEONE,
-          event_properties: { mangaStoryId: story, taskId: task },
+          event_properties: {
+            mangaStoryId: story,
+            profileId: profile._id,
+            userId: user._id,
+            text,
+            joinAs,
+            taskId: task,
+          },
           user_id: user._id,
           user_properties: {
             ...user,
