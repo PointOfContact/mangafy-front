@@ -116,6 +116,17 @@ export const Comments = ({ commentsData, postId, user, setCommentsData }) => {
 
   const handleSubmit = (value) => {
     if (!user) {
+      const eventData = [
+        {
+          event_type: EVENTS.UNAUTHORIZED_POST_COMMENT,
+          event_properties: { postId, comment: value },
+          user_id: user._id,
+          user_properties: {
+            ...user,
+          },
+        },
+      ];
+      myAmplitude(eventData);
       Router.push(`/sign-in?page=`);
     }
 
@@ -146,7 +157,7 @@ export const Comments = ({ commentsData, postId, user, setCommentsData }) => {
           const eventData = [
             {
               event_type: EVENTS.POST_COMMENT,
-              event_properties: { postId },
+              event_properties: { postId, comment: value, comentData: res },
               user_id: user._id,
               user_properties: {
                 ...user,
