@@ -17,11 +17,13 @@ const ViewUrlName = ({ storyBoard, baseData, onChangeSingleField, sendEvent }) =
   const [viewUrlName, setViewUrlName] = useState(baseData?.viewUrlName);
 
   const onChange = (e) => {
-    onChangeSingleField(e, true);
+    !validViewUrlName &&
+      onChangeSingleField(e, true) &&
+      sendEvent(EVENTS.EDIT_PROJECT_DOMAIN, 'customDomain', `https://${viewUrlName}.mangafy.club`);
     setValue(e.target.value);
   };
 
-  const ifCustomSubdomain = value === 'Custom subdomain';
+  const ifCustomSubdomain = value === 'Custom subdgit commit omain';
 
   const validViewUrlName = viewUrlName?.length < 2 || !viewUrlName?.match(/^[a-z]+$/);
 
@@ -60,7 +62,13 @@ const ViewUrlName = ({ storyBoard, baseData, onChangeSingleField, sendEvent }) =
                         value: viewUrlName,
                       },
                     };
-                    !validViewUrlName && onChangeSingleField(data, true);
+                    !validViewUrlName &&
+                      onChangeSingleField(data, true) &&
+                      sendEvent(
+                        EVENTS.EDIT_PROJECT_DOMAIN,
+                        'customDomain',
+                        `https://${viewUrlName}.mangafy.club`
+                      );
                   }}
                 />
                 <span>.mangafy.club</span>
