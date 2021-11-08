@@ -49,6 +49,25 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipant, showPayPalContent
     // To do 404
   };
 
+  const sendEvent = (event_type) => {
+    const data = [
+      {
+        event_type,
+        event_properties: {
+          authorId: baseData.author,
+          authorInfo: baseData.authorInfo,
+          mangaStory: baseData,
+          mangaStoryId: baseData._id,
+        },
+        user_id: user._id,
+        user_properties: {
+          ...user,
+        },
+      },
+    ];
+    myAmplitude(data);
+  };
+
   const updateTasks = async () => {
     const jwt = client.getCookie('feathers-jwt');
     const { default: api } = await import('api/restClient');
@@ -70,6 +89,25 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipant, showPayPalContent
     setTasks(baseData.tasks);
   }, [baseData.tasks]);
 
+  const sendMiniJobEvent = (event_type, task = 'new') => {
+    const eventData = [
+      {
+        event_type,
+        event_properties: {
+          mangaStory: baseData,
+          mangaStoryId: baseData._id,
+          task,
+          taskId: task !== 'new' ? task._id : '',
+        },
+        user_id: user._id,
+        user_properties: {
+          ...user,
+        },
+      },
+    ];
+    myAmplitude(eventData);
+  };
+
   return (
     <div className={cn(styles.tasks, !taskList.length && styles.noTasks)}>
       <span className={styles.mobile_add}>
@@ -78,6 +116,7 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipant, showPayPalContent
             className={styles.createTaskMobileBut}
             text={'Create a task'}
             onClick={() => {
+              sendMiniJobEvent(EVENTS.MINI_JOB_OPEN_CREATE_MODAL);
               changeShowModal(true);
               setSelectedTask(null);
             }}
@@ -90,6 +129,7 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipant, showPayPalContent
             <PrimaryButton
               className={styles.contributeBtn}
               onClick={() => {
+                sendEvent(EVENTS.OPEN_MODAL_REQUEST_TO_JOIN);
                 toTeam(null);
               }}
               text="Contribute"
@@ -119,6 +159,7 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipant, showPayPalContent
                   <div className={styles.editBtns}>
                     <SvgPencilColored
                       onClick={() => {
+                        sendMiniJobEvent(EVENTS.MINI_JOB_OPEN_EDIT_MODAL, task);
                         changeShowModal(true);
                         setSelectedTask(task);
                       }}
@@ -139,6 +180,7 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipant, showPayPalContent
                     {!isParticipant && (
                       <PrimaryButton
                         onClick={() => {
+                          sendEvent(EVENTS.OPEN_MODAL_REQUEST_TO_JOIN);
                           toTeam(task);
                         }}
                         text="Contribute"
@@ -157,6 +199,7 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipant, showPayPalContent
           {isOwn ? (
             <PrimaryButton
               onClick={() => {
+                sendMiniJobEvent(EVENTS.MINI_JOB_OPEN_CREATE_MODAL);
                 changeShowModal(true);
                 setSelectedTask(null);
               }}
@@ -168,6 +211,7 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipant, showPayPalContent
               {!tasks?.length && !isParticipant && (
                 <PrimaryButton
                   onClick={() => {
+                    sendEvent(EVENTS.OPEN_MODAL_REQUEST_TO_JOIN);
                     toTeam(null);
                   }}
                   text="Contribute"

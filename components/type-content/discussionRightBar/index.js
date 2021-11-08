@@ -3,8 +3,10 @@ import React, { useEffect, useState } from 'react';
 import SvgBulbColored from 'components/icon/BulbColored';
 import PrimaryButton from 'components/ui-elements/button';
 import GetFeedback from 'features/get-feedback';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
+import myAmplitude from 'utils/amplitude';
 
 import ExerciseCard from './exerciseCard';
 import styles from './styles.module.scss';
@@ -17,6 +19,27 @@ const DiscussionRightBar = ({ dailyWarmUps, user }) => {
     setExercises(dailyWarmUps);
   }, [dailyWarmUps]);
 
+  const sendEvent = (event_type, post = 'New') => {
+    const eventData = user
+      ? [
+          {
+            event_type,
+            event_properties: { post },
+            user_id: user?._id,
+            user_properties: {
+              ...user,
+            },
+          },
+        ]
+      : [
+          {
+            event_type,
+            event_properties: { post },
+          },
+        ];
+    myAmplitude(eventData);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.addfeed}>
@@ -26,8 +49,10 @@ const DiscussionRightBar = ({ dailyWarmUps, user }) => {
           text="Write a post"
           onClick={() => {
             if (user) {
+              sendEvent(EVENTS.OPEN_CREATE_NEW_POST_MODAL);
               setIsModalVisible(true);
             } else {
+              sendEvent(EVENTS.UNAUTHORIZED_CREATE_NEW_POST);
               Router.push('/sign-in?page=get-feedback');
             }
           }}
@@ -67,6 +92,7 @@ const DiscussionRightBar = ({ dailyWarmUps, user }) => {
           user={user}
           isModalVisible={isModalVisible}
           setIsModalVisible={setIsModalVisible}
+          sendEvent={sendEvent}
         />
       </div>
     </div>

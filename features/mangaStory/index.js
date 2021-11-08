@@ -12,9 +12,11 @@ import FooterPolicy from 'components/footer-policy';
 import Header from 'components/header';
 import ButtonToTop from 'components/ui-elements/button-toTop';
 import FooterLogin from 'features/footerLogin';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import { NextSeo } from 'next-seo';
 import Router, { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
+import myAmplitude from 'utils/amplitude';
 
 import BannerSection from './components/bannersSection/index';
 import EditMode from './components/editMode';
@@ -58,7 +60,8 @@ const MangeStory = (props) => {
   });
 
   useEffect(() => {
-    const tab = router.query.create === 'true' ? 'settings' : 'story';
+    const { tab } = router.query;
+
     switch (tab) {
       case 'story-board':
         setCollabActiveTab('2');
@@ -77,6 +80,19 @@ const MangeStory = (props) => {
       default:
         setCollabActiveTab('1');
     }
+    const data = {
+      event_type: EVENTS.OPENED_MANGA_STORY,
+      event_properties: {
+        mangaStory: baseData,
+        mangaStoryId: baseData._id,
+      },
+      user_id: user?._id,
+      user_properties: {
+        ...user,
+      },
+    };
+
+    myAmplitude(data);
   }, []);
 
   const openNotification = (type, message, description = '') => {
