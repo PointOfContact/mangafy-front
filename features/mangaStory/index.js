@@ -60,7 +60,8 @@ const MangeStory = (props) => {
   });
 
   useEffect(() => {
-    const tab = router.query.create === 'true' ? 'settings' : 'story';
+    const { tab } = router.query;
+
     switch (tab) {
       case 'story-board':
         setCollabActiveTab('2');
