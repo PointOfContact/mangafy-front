@@ -29,6 +29,8 @@ const MenuNotificationsItem = ({
   params,
 }) => {
   const [verify, setVerify] = useState(null);
+  const navigate = title === 'New Unread Comment.' ? `${navigateTo}?tab=comments` : navigateTo;
+
   const addUnreadNotificationsId = () => {
     if (!verified && !verify) {
       setVerify(true);
@@ -98,8 +100,8 @@ const MenuNotificationsItem = ({
           <button className={styles.isVerifiedBtn} onClick={addUnreadNotificationsId}></button>
         </Tooltip>
         <div>
-          {navigateTo ? (
-            <Link href={navigateTo || '#'}>
+          {navigate ? (
+            <Link href={navigate || '#'}>
               <a>
                 <NotificationsItem />
               </a>
@@ -112,7 +114,7 @@ const MenuNotificationsItem = ({
             <MenuNotificationsInvite
               type={type}
               user={user}
-              navigateTo={navigateTo}
+              navigateTo={navigate}
               requestId={requestId}
               addUnreadNotificationsId={addUnreadNotificationsId}
             />
