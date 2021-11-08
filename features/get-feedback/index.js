@@ -13,7 +13,7 @@ import myAmplitude from 'utils/amplitude';
 import SelectTags from './selectTags';
 import styles from './styles.module.scss';
 
-const GetFeedback = ({ user, setIsModalVisible, isModalVisible, isPage }) => {
+const GetFeedback = ({ user, setIsModalVisible, isModalVisible, isPage, sendEvent }) => {
   const [imageUrl, setImgId] = useState('');
   const [subTitle, setSubTitle] = useState('');
   const [selectedTags, setSelectedTags] = useState([]);
@@ -55,7 +55,9 @@ const GetFeedback = ({ user, setIsModalVisible, isModalVisible, isPage }) => {
           headers: { Authorization: `Bearer ${jwt}` },
           mode: 'no-cors',
         })
-        .then(() => {})
+        .then((res) => {
+          sendEvent(EVENTS.CREATE_NEW_POST, res);
+        })
         .catch((err) => {
           notification.error({
             message: err.message,
@@ -127,6 +129,7 @@ GetFeedback.propTypes = {
   isPage: PropTypes.object,
   user: PropTypes.object.isRequired,
   setIsModalVisible: PropTypes.func,
+  sendEvent: PropTypes.func.isRequired,
   isModalVisible: PropTypes.bool,
 };
 
