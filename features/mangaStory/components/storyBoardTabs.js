@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import { Tabs, Button } from 'antd';
 import client from 'api/client';
-import FindPartner from 'components/findPartner';
 import Hero from 'components/Hero';
-import SvgAdd2 from 'components/icon/Add2';
 import SvgChapter from 'components/icon/Chapter';
 import GroupSvg from 'components/icon/Group';
 import PencilCaseSvg from 'components/icon/PencilCase';
@@ -15,7 +13,6 @@ import Modal from 'components/modals/createTaskModal';
 import ShowImgModal from 'components/modals/showImg';
 import { ModalSuccess } from 'components/modalSuccess';
 import { ShareStoryBoard } from 'components/shareStoryBoard';
-import PrimaryButton from 'components/ui-elements/button';
 import Upload from 'components/ui-elements/upload';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import PropTypes from 'prop-types';
@@ -275,20 +272,20 @@ const StoryBoardTabs = ({
       .catch((err) => err);
   };
 
-  const addNewButtons = (
-    <div className={styles.addNewButtons}>
-      <FindPartner participentsInfo={participentsInfo} />
-      <PrimaryButton
-        onClick={() => changeShowTaskModal(true)}
-        className={styles.addTask}
-        text="Add a task"
-        isPlump={true}
-        isActive={true}
-        items={[]}
-        suffix={<SvgAdd2 width="25px" height="25px" />}
-      />
-    </div>
-  );
+  // const addNewButtons = (
+  //   <div className={styles.addNewButtons}>
+  //     <FindPartner participentsInfo={participentsInfo} />
+  //     <PrimaryButton
+  //       onClick={() => changeShowTaskModal(true)}
+  //       className={styles.addTask}
+  //       text="Add a task"
+  //       isPlump={true}
+  //       isActive={true}
+  //       items={[]}
+  //       suffix={<SvgAdd2 width="25px" height="25px" />}
+  //     />
+  //   </div>
+  // );
 
   return (
     <>
@@ -307,7 +304,7 @@ const StoryBoardTabs = ({
           }
           key={1}>
           <div className={styles.tabContent}>
-            {addNewButtons}
+            {/* {addNewButtons} */}
             <Idea storyBoard={storyBoard} setStoryBoard={setStoryBoard} user={user} />
             {renderNavigationButtons(!(storyBoard?.idea?.title && storyBoard?.idea?.text))}
           </div>
@@ -321,7 +318,7 @@ const StoryBoardTabs = ({
           key={2}>
           {isShowAnimation && <span className={styles.showAnimation}></span>}
           <div className={styles.tabContent}>
-            {addNewButtons}
+            {/* {addNewButtons} */}
             <Hero
               storyBoard={storyBoard}
               setStoryBoard={setStoryBoard}
@@ -385,7 +382,7 @@ const StoryBoardTabs = ({
           key={4}>
           {isShowAnimation && <span className={styles.showAnimation}></span>}
           <div className={styles.tabContent}>
-            {addNewButtons}
+            {/* {addNewButtons} */}
             <div className={styles.uploadPhotoContainer}>
               <div className={styles.uploadListContainer}>
                 <div className={styles.card_wrap}>
@@ -459,7 +456,7 @@ const StoryBoardTabs = ({
           key={6}>
           {isShowAnimation && <span className={styles.showAnimation}></span>}
           <div className={styles.tabContent}>
-            {addNewButtons}
+            {/* {addNewButtons} */}
             {isModalVisible ? (
               <ModalSuccess isModalVisible={isModalVisible} handleCancelModal={handleCancelModal} />
             ) : (

@@ -18,7 +18,7 @@ import Router, { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import myAmplitude from 'utils/amplitude';
 
-import BannerSection from './components/bannersSection/index';
+import BannerSection from './components/bannersSection';
 import EditMode from './components/editMode';
 import HeaderCollab from './components/headerCollab';
 import Settings from './components/settings';
@@ -40,7 +40,7 @@ const MangeStory = (props) => {
   } = props;
   const [stage, setStage] = useState({});
   const [editMode, setEditMode] = useState(false);
-  const [editTitle, setEditTitle] = useState(false);
+  // const [editTitle, setEditTitle] = useState(false);
   const [baseData, setBaseData] = useState(mangaStory);
   const [userData, setUserData] = useState(user);
   const [showPayPalContent, setShowPayPalContent] = useState(baseData?.payPalPublished);
@@ -132,7 +132,7 @@ const MangeStory = (props) => {
         })
         .then((res) => {
           setEditMode(false);
-          setEditTitle(false);
+          // setEditTitle(false);
           setBaseData(res);
         })
         .catch((err) => {
@@ -195,11 +195,11 @@ const MangeStory = (props) => {
             baseData={baseData}
             setBaseData={setBaseData}
             onChangeSingleField={onChangeSingleField}
-            editTitle={editTitle}
+            // editTitle={editTitle}
             collabActiveTab={collabActiveTab}
             stage={stage}
             canEdit={canEdit}
-            setEditTitle={setEditTitle}
+            // setEditTitle={setEditTitle}
             saveMangaStoryData={saveMangaStoryData}
           />
           <section className={cn(`container mobile_full_content mobile_top_round`, styles.section)}>
