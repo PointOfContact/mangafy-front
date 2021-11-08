@@ -42,8 +42,7 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
 
   const wrapUrls = (text) => {
     // eslint-disable-next-line no-useless-escape
-    const url_pattern =
-      /(http|ftp|https|www):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/gi;
+    const url_pattern = /(http|ftp|https|www):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/gi;
     return text.replace(url_pattern, (url) => {
       const href = url_pattern.test(url) ? url : `http://${url}`;
       return `<a href="${href}" target="_blank">${url}</a>`;

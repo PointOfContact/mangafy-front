@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Input, Select } from 'antd';
 import PrimaryInput from 'components/ui-elements/input';
 import PrimarySelect from 'components/ui-elements/select';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import { COUNTRIES, projectTypes } from 'helpers/constant';
 import PropTypes from 'prop-types';
 
@@ -11,7 +12,13 @@ import styles from '../styles.module.scss';
 const { Option } = Select;
 const { TextArea } = Input;
 
-const EditGenresField = ({ baseData, onChangeSingleField, saveMangaStoryData, genresEnums }) => {
+const EditGenresField = ({
+  baseData,
+  onChangeSingleField,
+  saveMangaStoryData,
+  genresEnums,
+  sendEvent,
+}) => {
   const [countries, setCountries] = useState([]);
   const [validationTitle, setValidationTitle] = useState('');
   const [validationDesc, setValidationDesc] = useState('');
@@ -27,6 +34,7 @@ const EditGenresField = ({ baseData, onChangeSingleField, saveMangaStoryData, ge
         value,
       },
     };
+    sendEvent(EVENTS.EDIT_PROJECT_LANGUAGE, 'language', value);
     onChangeSingleField(data, true);
   };
 
@@ -37,6 +45,7 @@ const EditGenresField = ({ baseData, onChangeSingleField, saveMangaStoryData, ge
         value,
       },
     };
+    sendEvent(EVENTS.EDIT_PROJECT_TYPE, 'type', value);
     onChangeSingleField(data, true);
   };
 
@@ -59,6 +68,7 @@ const EditGenresField = ({ baseData, onChangeSingleField, saveMangaStoryData, ge
 
   const changeSelectedGenre = (genresIds) => {
     const data = { ...baseData, genresIds };
+    sendEvent(EVENTS.EDIT_PROJECT_GENRES, 'genres', genresIds);
     saveMangaStoryData(data, 'genresIds');
   };
 
@@ -75,7 +85,9 @@ const EditGenresField = ({ baseData, onChangeSingleField, saveMangaStoryData, ge
         }}
         onBlur={() => {
           baseData?.title?.trim().length > 1
-            ? (saveMangaStoryData(baseData, 'title'), setValidationTitle(''))
+            ? (saveMangaStoryData(baseData, 'title'),
+              sendEvent(EVENTS.EDIT_PROJECT_TITLE, 'title', baseData.title),
+              setValidationTitle(''))
             : setValidationTitle('Wait. wait! Add name to your next bestseller!');
         }}
       />
@@ -96,7 +108,9 @@ const EditGenresField = ({ baseData, onChangeSingleField, saveMangaStoryData, ge
         }}
         onBlur={() => {
           baseData?.story?.trim()
-            ? (saveMangaStoryData(baseData, 'story'), setValidationDesc(''))
+            ? (saveMangaStoryData(baseData, 'story'),
+              sendEvent(EVENTS.EDIT_PROJECT_STORY, 'story', baseData.story),
+              setValidationDesc(''))
             : setValidationDesc('Wait. wait! Add description to your next bestseller!');
         }}
       />
@@ -141,6 +155,7 @@ EditGenresField.propTypes = {
   genresEnums: PropTypes.array.isRequired,
   onChangeSingleField: PropTypes.func.isRequired,
   saveMangaStoryData: PropTypes.func.isRequired,
+  sendEvent: PropTypes.func.isRequired,
 };
 
 export default EditGenresField;

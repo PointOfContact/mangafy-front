@@ -107,7 +107,7 @@ CreatePreviousWorks.propTypes = {
   setCreateGalleryModal: PropTypes.func.isRequired,
   setIsModalVisible: PropTypes.func.isRequired,
   onBeforeGalleryUpload: PropTypes.func.isRequired,
-  showUploadList: PropTypes.func.isRequired,
+  showUploadList: PropTypes.bool.isRequired,
   profile: PropTypes.object.isRequired,
 };
 

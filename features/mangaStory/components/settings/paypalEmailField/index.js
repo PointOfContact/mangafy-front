@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import PrimaryInput from 'components/ui-elements/input';
 import ToggleSwitch from 'components/ui-elements/toggleSwitch';
 import mangaStoryAPI from 'features/mangaStory/mangaStoryAPI';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import PropTypes from 'prop-types';
 
 import styles from '../styles.module.scss';
@@ -13,6 +14,7 @@ const PaypalEmailField = ({
   onChangeSingleField,
   setShowPayPalContent,
   showPayPalContent,
+  sendEvent,
 }) => {
   const [bubbleVisible, setBubbleVisible] = useState(false);
   const [touchedPaypal, setTouchedPaypal] = useState(false);
@@ -46,7 +48,10 @@ const PaypalEmailField = ({
           setTouchedPaypal(true);
           setPayPalEmail(e.target.value);
         }}
-        onBlur={() => payPalEmailValidate && savePayPalEmail(payPalEmail)}
+        onBlur={() => {
+          payPalEmailValidate && savePayPalEmail(payPalEmail);
+          sendEvent(EVENTS.EDIT_PROJECT_PAY_PAL_EMAIL, 'payPalEmail', payPalEmail);
+        }}
       />
       {!payPalEmailValidate && bubbleVisible && (
         <p className={styles.error}>Yo! Please use valid email connected to your PayPal account</p>
@@ -64,6 +69,7 @@ const PaypalEmailField = ({
                 value: e.target.checked,
               },
             };
+            sendEvent(EVENTS.EDIT_PROJECT_PAY_PAL_PUBLISHED, 'payPalPublished', e.target.checked);
             setBubbleVisible(e.target.checked);
             onChangeSingleField(data, true);
             setShowPayPalContent(!showPayPalContent);
@@ -81,6 +87,7 @@ PaypalEmailField.propTypes = {
   setUserData: PropTypes.func.isRequired,
   onChangeSingleField: PropTypes.func.isRequired,
   setShowPayPalContent: PropTypes.func.isRequired,
+  sendEvent: PropTypes.func.isRequired,
   showPayPalContent: PropTypes.bool,
 };
 
