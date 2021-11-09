@@ -153,6 +153,29 @@ const MangeStory = (props) => {
     setEditMode(false);
   };
 
+  const confirmDelete = (userId, mangaId) => {
+    const jwt = client.getCookie('feathers-jwt');
+    import('api/restClient').then((m) => {
+      m.default
+        .service('/api/v2/manga-stories')
+        .remove(mangaId, {
+          headers: { Authorization: `Bearer ${jwt}` },
+          mode: 'no-cors',
+        })
+        .then(() => {})
+        .catch((err) => {
+          if (err.code === 404) {
+            Router.push(`/profile/${userId}`);
+          } else {
+            notification.error({
+              message: err.message,
+              placement: 'bottomLeft',
+            });
+          }
+        });
+    });
+  };
+
   return (
     <div className="story_page">
       <NextSeo
@@ -223,6 +246,7 @@ const MangeStory = (props) => {
                       saveMangaStoryData={saveMangaStoryData}
                       userData={userData}
                       showPayPalContent={showPayPalContent}
+                      confirmDelete={confirmDelete}
                     />
                   </TabPane>
                   {(isOwn || hasStoryBoardPermision) && (
@@ -285,6 +309,7 @@ const MangeStory = (props) => {
                             setUserData={setUserData}
                             showPayPalContent={showPayPalContent}
                             setShowPayPalContent={setShowPayPalContent}
+                            confirmDelete={confirmDelete}
                           />
                         </div>
                       </TabPane>
