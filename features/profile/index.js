@@ -24,7 +24,7 @@ const Profile = (props) => {
   const { user, profile, userProfile, originUrl } = props;
   const ifMyProfile = user?._id === profile?._id;
   const mangaStoriesMyProfile = userProfile?.mangaStories?.data;
-  const mangaStories = profile?.mangaStories?.data;
+  const [mangaStories, setMangaStories] = useState(profile?.mangaStories?.data);
   const total = ifMyProfile ? userProfile?.mangaStories?.data : profile?.mangaStories?.data?.length;
   const { genres: genresEnums } = props;
   const { genresUser: genresMyProfileEnums } = props;
@@ -242,6 +242,7 @@ const Profile = (props) => {
                     client,
                     mangaStoriesMyProfile,
                     mangaStories,
+                    setMangaStories,
                     ifMyProfile,
                   }}
                 />
