@@ -47,6 +47,15 @@ const MangeStory = (props) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [canEdit] = useState(isOwn);
   const [collabActiveTab, setCollabActiveTab] = useState('1');
+  const [tabsArray, setTabsArray] = useState([
+    '',
+    'story',
+    'story-board',
+    'comments',
+    'invite',
+    'settings',
+  ]);
+  const routerBasePath = `/manga-story/${baseData?._id}?tab=`;
   const router = useRouter();
   const [storyBoard, setStoryBoard] = useState({
     idea: {
@@ -176,6 +185,11 @@ const MangeStory = (props) => {
     });
   };
 
+  const tabChange = (activeKey) => {
+    Router.push(`${routerBasePath}${tabsArray[activeKey]}`);
+    setCollabActiveTab(activeKey);
+  };
+
   return (
     <div className="story_page">
       <NextSeo
@@ -228,9 +242,7 @@ const MangeStory = (props) => {
           <section className={cn(`container mobile_full_content mobile_top_round`, styles.section)}>
             <div className="row">
               <div className={cn('col-lg-7 mangaStoriTopPanel', styles.story_page)}>
-                <Tabs
-                  activeKey={collabActiveTab}
-                  onChange={(activeKey) => setCollabActiveTab(activeKey)}>
+                <Tabs activeKey={collabActiveTab} onChange={tabChange}>
                   <TabPane tab="STORY" key="1" className="story">
                     <EditMode
                       user={userData}
