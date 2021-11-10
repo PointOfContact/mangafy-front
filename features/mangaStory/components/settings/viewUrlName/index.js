@@ -23,7 +23,7 @@ const ViewUrlName = ({ storyBoard, baseData, onChangeSingleField, sendEvent }) =
     setValue(e.target.value);
   };
 
-  const ifCustomSubdomain = value === 'Custom subdgit commit omain';
+  const ifCustomSubdomain = value === 'Custom subdomain';
 
   const validViewUrlName = viewUrlName?.length < 2 || !viewUrlName?.match(/^[a-z]+$/);
 
