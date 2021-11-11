@@ -63,7 +63,9 @@ const DeleteProjectButton = ({ label, user, index, mangaStories, setMangaStories
           <Popconfirm
             overlayClassName={styles.popConfirm}
             position={'right'}
-            title={'Delete project'}
+            title={`Delete project? You're about to delete "${label?.title}" Deleting a project is permanent, and deleted project cannot be recovered.`}
+            cancelText="Cancel"
+            okText="Yes, delete it"
             onConfirm={confirmDelete}
             item={
               <span>
