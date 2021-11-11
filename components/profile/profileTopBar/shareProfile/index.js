@@ -18,7 +18,7 @@ const ShareProfile = ({ ifMyProfile, originUrl, profile, user, sendInvites, send
   const sendEvent = (event) => {
     const data = {
       event_type: event,
-      event_properties: { profileId: profile?._id },
+      event_properties: { profileId: profile?._id, user_id: user?._id },
       user_id: user?._id,
       user_properties: {
         ...user,

@@ -32,6 +32,7 @@ const Settings = ({
   setUserData,
   showPayPalContent,
   setShowPayPalContent,
+  confirmDelete,
 }) => {
   const collabRef = useRef();
 
@@ -148,7 +149,12 @@ const Settings = ({
         />
       </div>
       <div className={styles.container}>
-        <DeleteProjectField sendEvent={sendEvent} userData={userData} baseData={baseData} />
+        <DeleteProjectField
+          sendEvent={sendEvent}
+          userData={userData}
+          baseData={baseData}
+          confirmDelete={confirmDelete}
+        />
       </div>
     </>
   );
@@ -168,6 +174,7 @@ Settings.propTypes = {
   originUrl: PropTypes.string.isRequired,
   showPayPalContent: PropTypes.bool.isRequired,
   setShowPayPalContent: PropTypes.func.isRequired,
+  confirmDelete: PropTypes.func.isRequired,
 };
 
 export default Settings;

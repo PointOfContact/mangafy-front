@@ -10,16 +10,22 @@ import PropTypes from 'prop-types';
 import DeleteProjectButton from './deleteProjectButton';
 import styles from './styles.module.scss';
 
-const MangeStoryCard = ({ mangaStories, client, user }) =>
+const MangeStoryCard = ({ mangaStories, setMangaStories, client, user }) =>
   mangaStories?.map((label, index) => (
     <>
-      <Link key={label._id} href={`/manga-story/${label._id}`}>
+      <Link key={label._id} href={`/manga-story/${label._id}?tab=story`}>
         <a>
           <div className={styles.mangeStoryCard}>
             <div>
               <div className={styles.titleBlok}>
                 <h3 className={styles.title}>{label.title}</h3>
-                <DeleteProjectButton label={label} user={user} mangaStory={mangaStories[index]} />
+                <DeleteProjectButton
+                  label={label}
+                  user={user}
+                  index={index}
+                  mangaStories={mangaStories}
+                  setMangaStories={setMangaStories}
+                />
               </div>
               <div className={styles.description}>
                 <p>{label.story}</p>
@@ -86,10 +92,12 @@ MangeStoryCard.propTypes = {
   user: PropTypes.object,
   mangaStories: PropTypes.array,
   client: PropTypes.object,
+  setMangaStories: PropTypes.func,
 };
 
 MangeStoryCard.defaultProps = {
   user: null,
+  setMangaStories: () => {},
 };
 
 export default MangeStoryCard;

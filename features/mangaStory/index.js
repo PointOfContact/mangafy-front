@@ -18,7 +18,7 @@ import Router, { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import myAmplitude from 'utils/amplitude';
 
-import BannerSection from './components/bannersSection/index';
+import BannerSection from './components/bannersSection';
 import EditMode from './components/editMode';
 import HeaderCollab from './components/headerCollab';
 import Settings from './components/settings';
@@ -40,13 +40,22 @@ const MangeStory = (props) => {
   } = props;
   const [stage, setStage] = useState({});
   const [editMode, setEditMode] = useState(false);
-  const [editTitle, setEditTitle] = useState(false);
+  // const [editTitle, setEditTitle] = useState(false);
   const [baseData, setBaseData] = useState(mangaStory);
   const [userData, setUserData] = useState(user);
   const [showPayPalContent, setShowPayPalContent] = useState(baseData?.payPalPublished);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [canEdit] = useState(isOwn);
   const [collabActiveTab, setCollabActiveTab] = useState('1');
+  const [tabsArray, setTabsArray] = useState([
+    '',
+    'story',
+    'story-board',
+    'comments',
+    'invite',
+    'settings',
+  ]);
+  const routerBasePath = `/manga-story/${baseData?._id}?tab=`;
   const router = useRouter();
   const [storyBoard, setStoryBoard] = useState({
     idea: {
@@ -132,7 +141,7 @@ const MangeStory = (props) => {
         })
         .then((res) => {
           setEditMode(false);
-          setEditTitle(false);
+          // setEditTitle(false);
           setBaseData(res);
         })
         .catch((err) => {
@@ -151,6 +160,34 @@ const MangeStory = (props) => {
 
   const cancelEditMode = () => {
     setEditMode(false);
+  };
+
+  const confirmDelete = (userId, mangaId) => {
+    const jwt = client.getCookie('feathers-jwt');
+    import('api/restClient').then((m) => {
+      m.default
+        .service('/api/v2/manga-stories')
+        .remove(mangaId, {
+          headers: { Authorization: `Bearer ${jwt}` },
+          mode: 'no-cors',
+        })
+        .then(() => {})
+        .catch((err) => {
+          if (err.code === 404) {
+            Router.push(`/profile/${userId}`);
+          } else {
+            notification.error({
+              message: err.message,
+              placement: 'bottomLeft',
+            });
+          }
+        });
+    });
+  };
+
+  const tabChange = (activeKey) => {
+    Router.push(`${routerBasePath}${tabsArray[activeKey]}`);
+    setCollabActiveTab(activeKey);
   };
 
   return (
@@ -195,19 +232,17 @@ const MangeStory = (props) => {
             baseData={baseData}
             setBaseData={setBaseData}
             onChangeSingleField={onChangeSingleField}
-            editTitle={editTitle}
+            // editTitle={editTitle}
             collabActiveTab={collabActiveTab}
             stage={stage}
             canEdit={canEdit}
-            setEditTitle={setEditTitle}
+            // setEditTitle={setEditTitle}
             saveMangaStoryData={saveMangaStoryData}
           />
           <section className={cn(`container mobile_full_content mobile_top_round`, styles.section)}>
             <div className="row">
               <div className={cn('col-lg-7 mangaStoriTopPanel', styles.story_page)}>
-                <Tabs
-                  activeKey={collabActiveTab}
-                  onChange={(activeKey) => setCollabActiveTab(activeKey)}>
+                <Tabs activeKey={collabActiveTab} onChange={tabChange}>
                   <TabPane tab="STORY" key="1" className="story">
                     <EditMode
                       user={userData}
@@ -223,6 +258,7 @@ const MangeStory = (props) => {
                       saveMangaStoryData={saveMangaStoryData}
                       userData={userData}
                       showPayPalContent={showPayPalContent}
+                      confirmDelete={confirmDelete}
                     />
                   </TabPane>
                   {(isOwn || hasStoryBoardPermision) && (
@@ -285,6 +321,7 @@ const MangeStory = (props) => {
                             setUserData={setUserData}
                             showPayPalContent={showPayPalContent}
                             setShowPayPalContent={setShowPayPalContent}
+                            confirmDelete={confirmDelete}
                           />
                         </div>
                       </TabPane>

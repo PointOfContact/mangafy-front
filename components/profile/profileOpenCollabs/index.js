@@ -13,7 +13,16 @@ import styles from './styles.module.scss';
 const { Content } = Layout;
 
 const ProfileOpenCollabs = (props) => {
-  const { total, mangaStories, mangaStoriesMyProfile, profile, user, ifMyProfile } = props;
+  const {
+    total,
+    mangaStories,
+    setMangaStories,
+    mangaStoriesMyProfile,
+    profile,
+    user,
+    ifMyProfile,
+  } = props;
+
   const [createProjectModal, showCreateProjectModal] = useState(false);
 
   return (
@@ -32,6 +41,7 @@ const ProfileOpenCollabs = (props) => {
                 <MangeStoryCard
                   client={client}
                   mangaStories={ifMyProfile ? mangaStoriesMyProfile : mangaStories}
+                  setMangaStories={setMangaStories}
                   user={user}
                 />
               </div>
@@ -61,6 +71,7 @@ ProfileOpenCollabs.propTypes = {
   total: PropTypes.array.isRequired,
   mangaStoriesMyProfile: PropTypes.array.isRequired,
   mangaStories: PropTypes.array.isRequired,
+  setMangaStories: PropTypes.func,
   profile: PropTypes.object,
   user: PropTypes.object,
   ifMyProfile: PropTypes.bool,
@@ -70,6 +81,7 @@ ProfileOpenCollabs.defaultProps = {
   profile: null,
   user: null,
   ifMyProfile: false,
+  setMangaStories: () => {},
 };
 
 export default ProfileOpenCollabs;

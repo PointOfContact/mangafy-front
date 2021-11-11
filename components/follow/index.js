@@ -47,7 +47,12 @@ const Follow = ({ count, user, profile, likedUsers, setLikedUsers }) => {
         .then(() => {
           const data = {
             event_type: EVENTS.FOLLOW_ACCOUNT,
-            event_properties: { profileId: profile._id },
+            event_properties: {
+              profileId: profile._id,
+              likedUsers: [...likedUsers, user._id],
+              userId: user.id,
+              userData: user,
+            },
             user_id: user._id,
             user_properties: {
               ...user,
@@ -72,6 +77,20 @@ const Follow = ({ count, user, profile, likedUsers, setLikedUsers }) => {
       unFollowUser(profile._id)
         .then(() => {
           const newLikedUsers = likedUsers.filter((item) => item !== user._id);
+          const data = {
+            event_type: EVENTS.UNFOLLOW_ACCOUNT,
+            event_properties: {
+              profileId: profile._id,
+              likedUsers: [...likedUsers, user._id],
+              userId: user.id,
+              userData: user,
+            },
+            user_id: user._id,
+            user_properties: {
+              ...user,
+            },
+          };
+          myAmplitude(data);
           setLikedUsers([...newLikedUsers]);
         })
         .catch((err) => {

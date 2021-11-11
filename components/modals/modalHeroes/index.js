@@ -95,7 +95,7 @@ const ModalHeroes = ({
   const heroQualityArray = createOptions(heroQuality);
 
   const handleChangeTypes = (value) => {
-    setHeroType(value);
+    setHeroType([value]);
   };
 
   const handleChangeQuality = (value) => {
@@ -206,11 +206,14 @@ const ModalHeroes = ({
                   <Form.Item name="heroType">
                     <Select
                       disabled={!idCardHero}
-                      className={cn(styles.option, heroType?.length > 2 && styles.childLength)}
+                      className={cn(
+                        styles.option,
+                        heroType?.length > 2 && styles.childLength,
+                        styles.typesSelect
+                      )}
+                      showSearch
                       bordered={false}
-                      mode="multiple"
                       placeholder="By examining how they change  over the course"
-                      style={{ width: '100%' }}
                       onFocus={() => setSearchTypesIcon(true)}
                       onChange={handleChangeTypes}
                       defaultValue={heroType}

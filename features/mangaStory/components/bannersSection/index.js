@@ -1,22 +1,14 @@
 import React, { useState } from 'react';
 
-import { Popover, Button, Progress, Upload, Spin } from 'antd';
+import { Upload, Spin } from 'antd';
 import client from 'api/client';
-import cn from 'classnames';
-import SvgCat from 'components/icon/Cat';
-import SvgLang from 'components/icon/Lang';
-import SvgMone from 'components/icon/Mone';
-import SvgPencilColored from 'components/icon/PencilColored';
-import SvgTie from 'components/icon/Tie';
 import Imgix from 'components/imgix';
-import { ShareButtons } from 'components/share';
 import { OPTIONS } from 'features/createStory/lenguage/constant';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import PropTypes from 'prop-types';
 import myAmplitude from 'utils/amplitude';
 import beforeUploadFromAMZ from 'utils/upload';
 
-import EditContent from './editContent';
 import styles from './styles.module.scss';
 
 const languages = OPTIONS.map((item) => ({ key: item, value: item }));
@@ -164,7 +156,7 @@ const BannerSection = ({
           )}
         </div>
       )}
-      <div className={cn(styles.bannerWrapContent, 'row')}>
+      {/* <div className={cn(styles.bannerWrapContent, 'row')}>
         <div className="row">
           <div className={styles.edit_settings}>
             <div className={`${styles.bannerGenres} d-flex `}>
@@ -267,7 +259,7 @@ const BannerSection = ({
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
