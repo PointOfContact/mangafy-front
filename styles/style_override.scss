@@ -112,6 +112,7 @@ body {
     }
     .ant-tabs {
       height: 100% !important;
+
       .ant-tabs-content-holder {
         height: 100% !important;
         .ant-tabs-content {
@@ -144,6 +145,9 @@ body {
         .ant-tabs-nav-list {
           height: 63px;
           padding-left: 30px;
+          @include media-sm{
+            padding-left: 22px;
+          }
         }
         .ant-tabs-tab-btn {
           svg {
@@ -169,10 +173,13 @@ body {
       left: 0;
       top: 0;
       height: 100%;
+      bottom: 4px;
       @include media-md {
         height: 2px;
         top: unset;
-        bottom: 12px;
+      }
+      @include media-sm {
+        bottom: 8px;
       }
     }
   }

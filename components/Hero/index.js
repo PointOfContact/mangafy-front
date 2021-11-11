@@ -218,7 +218,7 @@ const Hero = ({ storyBoard, setStoryBoard, getStoryBoard, user }) => {
             }
             {
               <CreateBoard
-                title="Component"
+                title="Components"
                 list={getLists(HeroTypes.component)}
                 addHero={addHero}
                 heroTypes={HeroTypes.component}
@@ -227,7 +227,7 @@ const Hero = ({ storyBoard, setStoryBoard, getStoryBoard, user }) => {
             }
             {
               <CreateBoard
-                title="Background"
+                title="Backgrounds"
                 list={getLists(HeroTypes.background)}
                 addHero={addHero}
                 heroTypes={HeroTypes.background}
