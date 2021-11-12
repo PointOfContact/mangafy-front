@@ -334,7 +334,11 @@ const StoryBoardTabs = ({
             </span>
           }
           key={1}>
-          {isShowAnimation && <span className={styles.showAnimation}></span>}
+          {isShowAnimation && (
+            <span
+              className={styles.showAnimation}
+              onMouseOver={() => setIsShowAnimation(false)}></span>
+          )}
           <div className={styles.tabContent}>
             {/* {addNewButtons} */}
             <Idea storyBoard={storyBoard} setStoryBoard={setStoryBoard} user={user} />
@@ -353,7 +357,11 @@ const StoryBoardTabs = ({
             </span>
           }
           key={2}>
-          {isShowAnimation && <span className={styles.showAnimation}></span>}
+          {isShowAnimation && (
+            <span
+              className={styles.showAnimation}
+              onMouseOver={() => setIsShowAnimation(false)}></span>
+          )}
           <div className={styles.tabContent}>
             {/* {addNewButtons} */}
             <Hero
@@ -397,7 +405,11 @@ const StoryBoardTabs = ({
             </span>
           }
           key={3}>
-          {isShowAnimation && <span className={styles.showAnimation}></span>}
+          {isShowAnimation && (
+            <span
+              className={styles.showAnimation}
+              onMouseOver={() => setIsShowAnimation(false)}></span>
+          )}
           <Chapter storyBoard={storyBoard} />
         </TabPane>
         {/* <TabPane
@@ -428,7 +440,11 @@ const StoryBoardTabs = ({
             </span>
           }
           key={4}>
-          {isShowAnimation && <span className={styles.showAnimation}></span>}
+          {isShowAnimation && (
+            <span
+              className={styles.showAnimation}
+              onMouseOver={() => setIsShowAnimation(false)}></span>
+          )}
           <div className={styles.tabContent}>
             {/* {addNewButtons} */}
             <div className={styles.uploadPhotoContainer}>
