@@ -364,38 +364,6 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
     }
   }
 }
-.modal {
-  top: 125px !important;
-  width: 100% !important;
-  max-width: 1000px !important;
-  @include media-md {
-    padding: 0 10px;
-  }
-  & > div > div > div > div:last-child {
-    display: none;
-  }
-  & > div > button {
-    width: 31px !important;
-    height: 31px !important;
-    background: $primaryDark !important;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: 31px;
-    margin-top: 20px;
-    svg {
-      width: 17px;
-      height: 17px;
-      path {
-        fill: white !important;
-      }
-    }
-    &:hover {
-      background: $primaryLight !important;
-    }
-  }
-}
 .popConfirm {
   min-width: 250px;
   max-width: 400px;

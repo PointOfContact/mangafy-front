@@ -258,7 +258,6 @@ const MangeStory = (props) => {
                       saveMangaStoryData={saveMangaStoryData}
                       userData={userData}
                       showPayPalContent={showPayPalContent}
-                      confirmDelete={confirmDelete}
                     />
                   </TabPane>
                   {(isOwn || hasStoryBoardPermision) && (
