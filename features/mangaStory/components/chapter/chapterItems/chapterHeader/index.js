@@ -50,8 +50,15 @@ const ChapterHeader = ({ value, setChapters, index, chapters }) => {
       setChapters
     );
   };
+
   const onFinish = () => {
-    setEdit('');
+    mangaStoryAPI.chapter.patch(
+      value?._id,
+      { title: editName },
+      upgradeChapterData,
+      setEdit,
+      setChapters
+    );
   };
 
   return (
@@ -59,7 +66,7 @@ const ChapterHeader = ({ value, setChapters, index, chapters }) => {
       {edit === value?._id ? (
         <div className={styles.inputNameContainer}>
           <Form name="chapterTitle" onFinish={onFinish}>
-            <Form.Item>
+            <Form.Item name={'title'}>
               <PrimaryInput
                 inputRef={inputRef}
                 value={editName}
