@@ -12,7 +12,6 @@ const Chapter = ({ storyBoard }) => {
   const [chapters, setChapters] = useState(storyBoard?.chapters);
   const [chapterName, setChapterName] = useState('');
   const [createChapter, setCreateChapter] = useState(false);
-  const [lengthChapters, setLengthChapters] = useState(chapters?.length);
   const [onBlur, setOnBlur] = useState(false);
   const inputRef = useRef(null);
   const validate = chapterName.trim().length < 2;
@@ -55,14 +54,14 @@ const Chapter = ({ storyBoard }) => {
               }}
               onBlur={() => {
                 validate
-                  ? (setLengthChapters(lengthChapters - 1), setCreateChapter(false))
+                  ? setCreateChapter(false)
                   : mangaStoryAPI.chapter.create(
                       chapterName,
                       storyBoard,
                       chapters,
                       setCreateChapter,
                       setChapters,
-                      lengthChapters
+                      chapters?.length + 1
                     );
               }}
             />
@@ -73,7 +72,6 @@ const Chapter = ({ storyBoard }) => {
             className={styles.addChapter}
             onClick={() => {
               setCreateChapter(true);
-              setLengthChapters(lengthChapters + 1);
               setChapterName(`Untitled Chapter`);
             }}>
             <SvgAdd width={50} height={50} />

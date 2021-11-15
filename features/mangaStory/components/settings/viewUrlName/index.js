@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 
 import styles from '../styles.module.scss';
 
-const ViewUrlName = ({ storyBoard, baseData, onChangeSingleField, sendEvent }) => {
+const ViewUrlName = ({ baseData, onChangeSingleField, sendEvent }) => {
   const [value, setValue] = useState(baseData?.typeUrlView);
   const [copyText, setCopyText] = useState('Copy to clipboard');
   const [isTouched, setIsTouched] = useState(false);
@@ -94,7 +94,7 @@ const ViewUrlName = ({ storyBoard, baseData, onChangeSingleField, sendEvent }) =
           value={
             ifCustomSubdomain
               ? `https://${viewUrlName}.mangafy.club`
-              : `${client.API_ENDPOINT}/manga-view/${storyBoard?._id}`
+              : `${client.API_ENDPOINT}/manga-view/${baseData?._id}`
           }
         />
         <Tooltip placement="topLeft" title={copyText}>
@@ -105,7 +105,7 @@ const ViewUrlName = ({ storyBoard, baseData, onChangeSingleField, sendEvent }) =
               copy(
                 ifCustomSubdomain
                   ? `https://${viewUrlName}.mangafy.club`
-                  : `${client.API_ENDPOINT}/manga-view/${storyBoard?._id}`
+                  : `${client.API_ENDPOINT}/manga-view/${baseData?._id}`
               );
             }}
             onMouseOut={() => setCopyText('Copy to clipboard')}>
@@ -118,7 +118,6 @@ const ViewUrlName = ({ storyBoard, baseData, onChangeSingleField, sendEvent }) =
 };
 
 ViewUrlName.propTypes = {
-  storyBoard: PropTypes.object.isRequired,
   baseData: PropTypes.object.isRequired,
   onChangeSingleField: PropTypes.func.isRequired,
   sendEvent: PropTypes.func.isRequired,
