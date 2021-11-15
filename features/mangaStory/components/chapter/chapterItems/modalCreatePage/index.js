@@ -130,14 +130,15 @@ const ModalCreatePage = ({
     <Modal
       className={styles.modalCreatePage}
       closeIcon={
-        <span className={styles.close}>
+        <span
+          onClick={() => {
+            setVisibleModal(false);
+          }}
+          className={styles.close}>
           <SvgClose />
         </span>
       }
       title={<h2 className={styles.titlePage}>{modalTitle}</h2>}
-      onCancel={() => {
-        setVisibleModal(false);
-      }}
       visible={visibleModal}
       footer={null}>
       <div className={styles.border} />
