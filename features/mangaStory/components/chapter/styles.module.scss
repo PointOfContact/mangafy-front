@@ -54,6 +54,12 @@
       color: $black;
       margin-left: 10px;
       cursor: pointer;
+      svg path {
+        fill: $primaryLight;
+        &:hover{
+          fill: $primaryDark; 
+        }
+      }
     }
     .error {
       font-size: 14px;

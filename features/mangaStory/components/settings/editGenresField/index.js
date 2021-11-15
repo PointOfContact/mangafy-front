@@ -124,7 +124,7 @@ const EditGenresField = ({
         style={{ width: 200 }}>
         {countries}
       </Select>
-      <h3>Project Types</h3>
+      <h3>Project types</h3>
       <Select
         showSearch
         defaultValue={baseData?.projectType}

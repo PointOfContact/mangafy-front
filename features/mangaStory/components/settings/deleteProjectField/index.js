@@ -36,7 +36,7 @@ const DeleteProjectField = ({ userData, baseData, sendEvent, confirmDelete }) =>
         }
       />
       <a href="mailto:yo@mangafy.club">
-        Feel free to contact <span> yo@mangafy.</span> club with any questions.
+        Feel free to contact <span> yo@mangafy.club</span> with any questions.
       </a>
     </div>
   </>

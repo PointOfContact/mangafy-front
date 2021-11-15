@@ -93,7 +93,7 @@ const ViewUrlName = ({ baseData, onChangeSingleField, sendEvent }) => {
           className={styles.viewUrl}
           value={
             ifCustomSubdomain
-              ? `https://${viewUrlName}.mangafy.club`
+              ? `https://${!!viewUrlName && viewUrlName}.mangafy.club`
               : `${client.API_ENDPOINT}/manga-view/${baseData?._id}`
           }
         />

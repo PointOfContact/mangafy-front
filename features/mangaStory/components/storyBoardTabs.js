@@ -313,8 +313,6 @@ const StoryBoardTabs = ({
   //   </div>
   // );
 
-  console.log(uploadImages, '!!uploadImages');
-
   return (
     <>
       <Tabs
