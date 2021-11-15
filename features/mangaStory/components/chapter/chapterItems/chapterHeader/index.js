@@ -85,7 +85,7 @@ const ChapterHeader = ({ value, setChapters, index, chapters }) => {
           }}
           className={styles.chapterName}>
           <h2 className={styles.chapterTitle}>{value?.title}</h2>
-          <SvgPurplePencil width={25} height={25} />
+          <SvgPurplePencil className={styles.editName} width={25} height={25} />
         </div>
       )}
       <div className={styles.headerAction}>

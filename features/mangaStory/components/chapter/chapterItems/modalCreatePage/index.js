@@ -187,27 +187,23 @@ const ModalCreatePage = ({
           notUploadVideo={true}
         />
         <Form.Item className={styles.deletePage}>
-          <Popconfirm
-            position={'right'}
-            title={`Are you sure to delete this page`}
-            onConfirm={confirmDelete}
-            item={
-              <span className={styles.deleteCard}>
-                <SvgDelete width="10px" height="11px" />
-              </span>
-            }
-          />
-          <PrimaryButton
-            loading={imgLoad}
-            className={styles.saveButton}
-            htmlType="submit"
-            text="Save"
-          />
+          {ifEdit && (
+            <Popconfirm
+              position={'right'}
+              title={`Are you sure to delete this page`}
+              onConfirm={confirmDelete}
+              item={
+                <span className={styles.deleteCard}>
+                  <SvgDelete width="10px" height="11px" />
+                </span>
+              }
+            />
+          )}
+          <PrimaryButton className={styles.saveButton} htmlType="submit" text="Save" />
           {ifUpgrade && (
             <PrimaryButton
               className={styles.newPage}
               isWhite={true}
-              loading={imgLoad}
               htmlType="submit"
               onClick={() => setOpenNew(true)}
               text="New Page"
