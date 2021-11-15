@@ -313,7 +313,6 @@ const MangeStory = (props) => {
                             onChangeSingleField={onChangeSingleField}
                             saveMangaStoryData={saveMangaStoryData}
                             getStoryBoard={getStoryBoard}
-                            storyBoard={storyBoard}
                             setBaseData={setBaseData}
                             openNotification={openNotification}
                             originUrl={originUrl}

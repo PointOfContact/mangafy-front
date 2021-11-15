@@ -24,7 +24,6 @@ const Settings = ({
   onChangeSingleField,
   saveMangaStoryData,
   getStoryBoard,
-  storyBoard,
   setBaseData,
   openNotification,
   originUrl,
@@ -132,7 +131,6 @@ const Settings = ({
       </div>
       <div className={styles.container}>
         <ViewUrlName
-          storyBoard={storyBoard}
           baseData={baseData}
           sendEvent={sendEvent}
           onChangeSingleField={onChangeSingleField}
@@ -168,7 +166,6 @@ Settings.propTypes = {
   onChangeSingleField: PropTypes.func.isRequired,
   saveMangaStoryData: PropTypes.func.isRequired,
   getStoryBoard: PropTypes.func.isRequired,
-  storyBoard: PropTypes.object.isRequired,
   setBaseData: PropTypes.func.isRequired,
   openNotification: PropTypes.func.isRequired,
   originUrl: PropTypes.string.isRequired,

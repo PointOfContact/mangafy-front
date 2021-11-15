@@ -18,7 +18,7 @@ const PDFViewer = dynamic(() => import('components/pdfViewer'), {
 
 const MangaView = ({ user, storyBoardId, mangaUrls, mangaStoryId, mangaStoryTitle }) => {
   const images = mangaUrls?.map((value) => {
-    const imgType = value.slice(-3);
+    const imgType = !!value.imageUrl ? value.imageUrl.slice(-3) : value.slice(-3);
     const ifPdf = imgType === 'pdf' || imgType === 'PDF';
 
     return (
