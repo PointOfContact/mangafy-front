@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 
+import { Form } from 'antd';
 import SvgDelete from 'components/icon/Delete';
 import SvgPurplePencil from 'components/icon/PurplePencil';
 import Popconfirm from 'components/popconfirm';
@@ -49,31 +50,38 @@ const ChapterHeader = ({ value, setChapters, index, chapters }) => {
       setChapters
     );
   };
+  const onFinish = () => {
+    setEdit('');
+  };
 
   return (
     <div className={styles.titleContainer}>
       {edit === value?._id ? (
         <div className={styles.inputNameContainer}>
-          <PrimaryInput
-            inputRef={inputRef}
-            value={editName}
-            maxLength={30}
-            placeholder="Chapter name"
-            className={styles.chapterNameInput}
-            onChange={(e) => setEditName(e.target.value)}
-            onMouseOut={() => onMouseOut(true)}
-            onBlur={() => {
-              validate
-                ? setEdit(false)
-                : mangaStoryAPI.chapter.patch(
-                    value?._id,
-                    { title: editName },
-                    upgradeChapterData,
-                    setEdit,
-                    setChapters
-                  );
-            }}
-          />
+          <Form name="chapterTitle" onFinish={onFinish}>
+            <Form.Item>
+              <PrimaryInput
+                inputRef={inputRef}
+                value={editName}
+                maxLength={30}
+                placeholder="Chapter name"
+                className={styles.chapterNameInput}
+                onChange={(e) => setEditName(e.target.value)}
+                onMouseOut={() => onMouseOut(true)}
+                onBlur={() => {
+                  validate
+                    ? setEdit(false)
+                    : mangaStoryAPI.chapter.patch(
+                        value?._id,
+                        { title: editName },
+                        upgradeChapterData,
+                        setEdit,
+                        setChapters
+                      );
+                }}
+              />
+            </Form.Item>
+          </Form>
           {error}
         </div>
       ) : (
