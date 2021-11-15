@@ -1,8 +1,7 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { Modal } from 'antd';
 import { findStoryBoard } from 'api/storyBoardClient';
-import SvgClose from 'components/icon/Close';
 import ToggleSwitch from 'components/ui-elements/toggleSwitch';
 import mangaStoryAPI from 'features/mangaStory/mangaStoryAPI';
 import { EVENTS } from 'helpers/amplitudeEvents';
@@ -34,6 +33,7 @@ const Settings = ({
   confirmDelete,
 }) => {
   const collabRef = useRef();
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   useEffect(() => {
     getStoryBoard();
@@ -51,16 +51,7 @@ const Settings = ({
         patchStory({
           ...baseData,
           published: true,
-        }).then(() =>
-          info({
-            className: styles.modal,
-            closable: true,
-            icon: <SvgClose width={10} height={10} />,
-            okText: <></>,
-            content: <DraftCheckbox originUrl={originUrl} />,
-            onOk() {},
-          })
-        );
+        }).then(() => setIsModalVisible(true));
       },
       (err) => {
         openNotification('error', err.message);
@@ -154,6 +145,11 @@ const Settings = ({
           confirmDelete={confirmDelete}
         />
       </div>
+      <DraftCheckbox
+        originUrl={originUrl}
+        isModalVisible={isModalVisible}
+        setIsModalVisible={setIsModalVisible}
+      />
     </>
   );
 };

@@ -1,10 +1,6 @@
 import React from 'react';
 
-import Popconfirm from 'components/popconfirm';
-import PrimaryButton from 'components/ui-elements/button';
-import { EVENTS } from 'helpers/amplitudeEvents';
 import PropTypes from 'prop-types';
-import myAmplitude from 'utils/amplitude';
 
 import EditStoryTab from '../editStoryTab';
 import BuyBubbleTea from './buyBubbleTea';
@@ -17,7 +13,6 @@ const EditMode = ({
   baseData,
   isOwn,
   setBaseData,
-  setEditMode,
   canEdit,
   isParticipant,
   onChangeSingleField,
@@ -25,7 +20,6 @@ const EditMode = ({
   saveMangaStoryData,
   showPayPalContent,
   userData,
-  confirmDelete,
 }) => (
   <div className={styles.tabWrap}>
     {/* <StoryTab baseData={baseData} /> */}
@@ -42,53 +36,6 @@ const EditMode = ({
             userData={userData}
           />
           <div>
-            {canEdit && (
-              <div className={styles.editDeleteButtons}>
-                <PrimaryButton
-                  isWhite={true}
-                  className={styles.editTitleSvg}
-                  text={'Edit Project'}
-                  onClick={() => {
-                    const data = {
-                      event_type: EVENTS.EDIT_PROJECT,
-                      event_properties: { mangaStoryId: baseData?._id },
-                      user_id: user._id,
-                      user_properties: {
-                        ...user,
-                      },
-                    };
-                    myAmplitude(data);
-                    setEditMode(true);
-                  }}
-                />
-                <Popconfirm
-                  overlayClassName={styles.popConfirm}
-                  position={'right'}
-                  title={`Delete project? You're about to delete "${baseData?.title}" Deleting a project is permanent, and deleted project cannot be recovered.`}
-                  cancelText="Cancel"
-                  okText="Yes, delete it"
-                  onConfirm={() => confirmDelete(userData?._id, baseData?._id)}
-                  item={
-                    <PrimaryButton
-                      isWhite={true}
-                      className={styles.deleteTitleSvg}
-                      text={'Delete Project'}
-                      onClick={() => {
-                        const data = {
-                          event_type: EVENTS.DELETE_PROJECT,
-                          event_properties: { mangaStoryId: baseData?._id },
-                          user_id: user._id,
-                          user_properties: {
-                            ...user,
-                          },
-                        };
-                        myAmplitude(data);
-                      }}
-                    />
-                  }
-                />
-              </div>
-            )}
             <div className={styles.containerEdit}>
               {showPayPalContent && (
                 <BuyBubbleTea payPalEmail={userData?.authorInfo?.payPalEmail} />
@@ -118,7 +65,6 @@ EditMode.propTypes = {
   editMode: PropTypes.bool.isRequired,
   baseData: PropTypes.object.isRequired,
   setBaseData: PropTypes.func.isRequired,
-  setEditMode: PropTypes.func.isRequired,
   canEdit: PropTypes.bool.isRequired,
   onChangeSingleField: PropTypes.func.isRequired,
   cancelEditMode: PropTypes.func.isRequired,
@@ -126,7 +72,6 @@ EditMode.propTypes = {
   showPayPalToggle: PropTypes.bool,
   showPayPalContent: PropTypes.bool.isRequired,
   userData: PropTypes.object.isRequired,
-  confirmDelete: PropTypes.func.isRequired,
 };
 
 EditMode.defaultProps = {
