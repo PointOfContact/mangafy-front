@@ -25,7 +25,7 @@ const Preview = ({ uploadImages, storyBoardId, mangaStoryTitle }) => {
   ));
 
   const redirectMangaFyPage = () => {
-    Router.push(`/manga-view/${storyBoardId}`);
+    Router.push(`/manga-view/${storyBoardId}?upload=true`);
   };
 
   const shareContent = (className) => (
@@ -45,11 +45,6 @@ const Preview = ({ uploadImages, storyBoardId, mangaStoryTitle }) => {
         text="Preview"
         onClick={redirectMangaFyPage}
       />
-      {/* <PrimaryButton
-        className={styles.previewButton}
-        text="Preview"
-        onClick={() => setShowPreviewModal(true)}
-      /> */}
       <Modal
         className={styles.modal}
         closeIcon={

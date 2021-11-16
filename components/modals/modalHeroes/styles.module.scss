@@ -370,6 +370,7 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
     min-height: 44px;
     span {
       color: $gray85;
+      top: 63%;
     }
     div {
       & > div {

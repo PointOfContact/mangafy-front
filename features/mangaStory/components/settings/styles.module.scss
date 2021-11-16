@@ -91,18 +91,22 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
       display: flex;
       align-items: center;
       margin-bottom: 10px;
+      &:last-child{
+        margin-top: -23px;
+      }
       input {
-        margin-bottom: 10px;
+        margin-bottom: 34px;
       }
       span {
         font-style: normal;
         font-weight: normal;
         font-size: 20px;
         line-height: 29px;
-        span {
+        & > span {
           border-color: $black !important;
           box-shadow: 0 0 0 3px white !important;
           margin-bottom: 7px;
+          top: 5px;
           &::after {
             width: 14px !important;
             height: 14.5px !important;
@@ -123,6 +127,16 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
       }
     }
   }
+  .custom{
+    label {
+      &:last-child{
+        margin-top: 0px;
+      }
+      input {
+        margin-bottom: 0px;
+      }
+    }
+  }
   .getLink {
     margin-top: 20px;
   }
@@ -135,6 +149,7 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
   }
   .viewUrlName {
     max-width: 300px;
+    cursor: pointer;
     &::placeholder {
       font-style: normal;
       font-weight: normal;
@@ -204,6 +219,13 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
           }
         }
       }
+      span{
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 23px;
+        color: $gray85;
+      }
     }
   }
   textarea {
@@ -256,6 +278,7 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
     path {
       fill: $gray85;
     }
@@ -360,39 +383,7 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
       font-style: normal;
       font-weight: 900;
       font-size: 15px;
-      line-height: 25px;
-    }
-  }
-}
-.modal {
-  top: 125px !important;
-  width: 100% !important;
-  max-width: 1000px !important;
-  @include media-md {
-    padding: 0 10px;
-  }
-  & > div > div > div > div:last-child {
-    display: none;
-  }
-  & > div > button {
-    width: 31px !important;
-    height: 31px !important;
-    background: $primaryDark !important;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: 31px;
-    margin-top: 20px;
-    svg {
-      width: 17px;
-      height: 17px;
-      path {
-        fill: white !important;
-      }
-    }
-    &:hover {
-      background: $primaryLight !important;
+      line-height: 26px;
     }
   }
 }

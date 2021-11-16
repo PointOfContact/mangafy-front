@@ -334,7 +334,6 @@ const StoryBoardTabs = ({
             </span>
           }
           key={1}>
-          {isShowAnimation && <span className={styles.showAnimation}></span>}
           <div className={styles.tabContent}>
             {/* {addNewButtons} */}
             <Idea storyBoard={storyBoard} setStoryBoard={setStoryBoard} user={user} />
@@ -353,7 +352,6 @@ const StoryBoardTabs = ({
             </span>
           }
           key={2}>
-          {isShowAnimation && <span className={styles.showAnimation}></span>}
           <div className={styles.tabContent}>
             {/* {addNewButtons} */}
             <Hero
@@ -397,7 +395,6 @@ const StoryBoardTabs = ({
             </span>
           }
           key={3}>
-          {isShowAnimation && <span className={styles.showAnimation}></span>}
           <Chapter storyBoard={storyBoard} />
         </TabPane>
         {/* <TabPane
@@ -414,73 +411,73 @@ const StoryBoardTabs = ({
             {renderNavigationButtons(!storyBoard?.layoutId)}
           </div>
         </TabPane> */}
-        {/* {!!storyBoard?.mangaUrls?.length && ( */}
-        <TabPane
-          // disabled={!storyBoard?.layoutId}
-          tab={
-            <span
-              className={styles.tab}
-              onClick={() => {
-                Router.push(`${routerBasePath}upload`);
-              }}>
-              <PencilCaseSvg width="25px" />
-              <p>Upload</p>
-            </span>
-          }
-          key={4}>
-          {isShowAnimation && <span className={styles.showAnimation}></span>}
-          <div className={styles.tabContent}>
-            {/* {addNewButtons} */}
-            <div className={styles.uploadPhotoContainer}>
-              <div className={styles.uploadListContainer}>
-                <div className={styles.card_wrap}>
+        {!!storyBoard?.mangaUrls?.length && (
+          <TabPane
+            // disabled={!storyBoard?.layoutId}
+            tab={
+              <span
+                className={styles.tab}
+                onClick={() => {
+                  Router.push(`${routerBasePath}upload`);
+                }}>
+                <PencilCaseSvg width="25px" />
+                <p>Upload</p>
+              </span>
+            }
+            key={4}>
+            <div className={styles.tabContent}>
+              {/* {addNewButtons} */}
+              <div className={styles.uploadPhotoContainer}>
+                <div className={styles.uploadListContainer}>
+                  <div className={styles.card_wrap}>
+                    {!!uploadImages.length && (
+                      <DragDrop
+                        uploadImages={uploadImages}
+                        storyBoard={storyBoard}
+                        setStoryBoard={setStoryBoard}
+                        openNotification={openNotification}
+                        setZoomImageUrl={setZoomImageUrl}
+                        setIsModalVisible={setIsModalVisible}
+                        ifUploadImg={ifUploadImg}
+                        isModalVisible={isModalVisible}
+                      />
+                    )}
+                  </div>
+                </div>
+                <div
+                  className={
+                    !!uploadImages.length ? styles.uploadContainerDef : styles.uploadContainer
+                  }>
                   {!!uploadImages.length && (
-                    <DragDrop
+                    <Preview
                       uploadImages={uploadImages}
-                      storyBoard={storyBoard}
-                      setStoryBoard={setStoryBoard}
-                      openNotification={openNotification}
-                      setZoomImageUrl={setZoomImageUrl}
-                      setIsModalVisible={setIsModalVisible}
-                      ifUploadImg={ifUploadImg}
-                      isModalVisible={isModalVisible}
+                      storyBoardId={storyBoard?._id}
+                      mangaStoryTitle={baseData?.title}
                     />
                   )}
+                  <Upload
+                    storyBoardId={storyBoard?._id}
+                    mangaUrl={storyBoard?.mangaUrl}
+                    setStoryBoard={setStoryBoard}
+                    mangaUrls={storyBoard?.mangaUrls}
+                    setUploadImages={setUploadImages}
+                    showText={false}
+                    className={styles.upload}
+                    ifUploadImg={ifUploadImg}
+                    setIfUploadImg={setIfUploadImg}
+                  />
+                  <ShowImgModal
+                    isModalVisible={isModalVisible}
+                    setIsModalVisible={setIsModalVisible}
+                    img={zoomImageUrl}
+                    imageType={imageType}
+                  />
                 </div>
               </div>
-              <div
-                className={
-                  !!uploadImages.length ? styles.uploadContainerDef : styles.uploadContainer
-                }>
-                {!!uploadImages.length && (
-                  <Preview
-                    uploadImages={uploadImages}
-                    storyBoardId={storyBoard?._id}
-                    mangaStoryTitle={baseData?.title}
-                  />
-                )}
-                <Upload
-                  storyBoardId={storyBoard?._id}
-                  mangaUrl={storyBoard?.mangaUrl}
-                  setStoryBoard={setStoryBoard}
-                  mangaUrls={storyBoard?.mangaUrls}
-                  setUploadImages={setUploadImages}
-                  showText={false}
-                  className={styles.upload}
-                  ifUploadImg={ifUploadImg}
-                  setIfUploadImg={setIfUploadImg}
-                />
-                <ShowImgModal
-                  isModalVisible={isModalVisible}
-                  setIsModalVisible={setIsModalVisible}
-                  img={zoomImageUrl}
-                  imageType={imageType}
-                />
-              </div>
+              {/* {renderNavigationButtons(!uploadImages.length)} */}
             </div>
-            {/* {renderNavigationButtons(!uploadImages.length)} */}
-          </div>
-        </TabPane>
+          </TabPane>
+        )}
         )
         {/* <TabPane
         tab={

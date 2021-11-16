@@ -18,7 +18,6 @@ import Router, { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import myAmplitude from 'utils/amplitude';
 
-import BannerSection from './components/bannersSection';
 import EditMode from './components/editMode';
 import HeaderCollab from './components/headerCollab';
 import Settings from './components/settings';
@@ -88,6 +87,7 @@ const MangeStory = (props) => {
         break;
       default:
         setCollabActiveTab('1');
+        Router.push(`${routerBasePath}story`);
     }
     const data = {
       event_type: EVENTS.OPENED_MANGA_STORY,
@@ -258,7 +258,6 @@ const MangeStory = (props) => {
                       saveMangaStoryData={saveMangaStoryData}
                       userData={userData}
                       showPayPalContent={showPayPalContent}
-                      confirmDelete={confirmDelete}
                     />
                   </TabPane>
                   {(isOwn || hasStoryBoardPermision) && (
@@ -313,7 +312,6 @@ const MangeStory = (props) => {
                             onChangeSingleField={onChangeSingleField}
                             saveMangaStoryData={saveMangaStoryData}
                             getStoryBoard={getStoryBoard}
-                            storyBoard={storyBoard}
                             setBaseData={setBaseData}
                             openNotification={openNotification}
                             originUrl={originUrl}
@@ -331,7 +329,7 @@ const MangeStory = (props) => {
             </div>
           </section>
           <section>
-            <BannerSection
+            {/* <BannerSection
               originUrl={originUrl}
               canEdit={canEdit}
               baseData={baseData}
@@ -342,7 +340,8 @@ const MangeStory = (props) => {
               openNotification={openNotification}
               isOwn={isOwn}
               user={userData}
-            />
+            /> */}
+            <FooterPolicy />
           </section>
         </div>
         {!userData && <Footer />}

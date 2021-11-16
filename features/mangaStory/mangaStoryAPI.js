@@ -175,11 +175,7 @@ export default {
       });
     },
 
-    patch: (chapterId, setEdit, editName, upgradeChapterData, setChapters) => {
-      const data = {
-        title: editName,
-      };
-
+    patch: (chapterId, data, upgradeChapterData, setEdit, setChapters) => {
       const jwt = client.getCookie('feathers-jwt');
 
       import('api/restClient').then((m) => {

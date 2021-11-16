@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import { Tooltip, Radio } from 'antd';
 import client from 'api/client';
+import cn from 'classnames';
 import SvgCopy from 'components/icon/Copy';
 import PrimaryInput from 'components/ui-elements/input';
 import copy from 'copy-to-clipboard';
@@ -10,14 +11,16 @@ import PropTypes from 'prop-types';
 
 import styles from '../styles.module.scss';
 
-const ViewUrlName = ({ storyBoard, baseData, onChangeSingleField, sendEvent }) => {
+const ViewUrlName = ({ baseData, onChangeSingleField, sendEvent }) => {
   const [value, setValue] = useState(baseData?.typeUrlView);
   const [copyText, setCopyText] = useState('Copy to clipboard');
   const [isTouched, setIsTouched] = useState(false);
   const [viewUrlName, setViewUrlName] = useState(baseData?.viewUrlName);
 
   const onChange = (e) => {
-    onChangeSingleField(e, true);
+    !validViewUrlName &&
+      onChangeSingleField(e, true) &&
+      sendEvent(EVENTS.EDIT_PROJECT_DOMAIN, 'customDomain', `https://${viewUrlName}.mangafy.club`);
     setValue(e.target.value);
   };
 
@@ -39,7 +42,7 @@ const ViewUrlName = ({ storyBoard, baseData, onChangeSingleField, sendEvent }) =
         name={'typeUrlView'}
         onChange={onChange}
         value={value || 'Standard domain'}
-        className={styles.radioButton}>
+        className={cn(styles.radioButton, !ifCustomSubdomain && styles.custom)}>
         <Radio value={'Custom subdomain'}>
           Custom subdomain
           {ifCustomSubdomain && (
@@ -60,7 +63,13 @@ const ViewUrlName = ({ storyBoard, baseData, onChangeSingleField, sendEvent }) =
                         value: viewUrlName,
                       },
                     };
-                    !validViewUrlName && onChangeSingleField(data, true);
+                    !validViewUrlName &&
+                      onChangeSingleField(data, true) &&
+                      sendEvent(
+                        EVENTS.EDIT_PROJECT_DOMAIN,
+                        'customDomain',
+                        `https://${viewUrlName}.mangafy.club`
+                      );
                   }}
                 />
                 <span>.mangafy.club</span>
@@ -93,8 +102,8 @@ const ViewUrlName = ({ storyBoard, baseData, onChangeSingleField, sendEvent }) =
           className={styles.viewUrl}
           value={
             ifCustomSubdomain
-              ? `https://${viewUrlName}.mangafy.club`
-              : `${client.API_ENDPOINT}/manga-view/${storyBoard?._id}`
+              ? `https://${!!viewUrlName && viewUrlName}.mangafy.club`
+              : `${client.API_ENDPOINT}/manga-view/${baseData?._id}`
           }
         />
         <Tooltip placement="topLeft" title={copyText}>
@@ -105,7 +114,7 @@ const ViewUrlName = ({ storyBoard, baseData, onChangeSingleField, sendEvent }) =
               copy(
                 ifCustomSubdomain
                   ? `https://${viewUrlName}.mangafy.club`
-                  : `${client.API_ENDPOINT}/manga-view/${storyBoard?._id}`
+                  : `${client.API_ENDPOINT}/manga-view/${baseData?._id}`
               );
             }}
             onMouseOut={() => setCopyText('Copy to clipboard')}>
@@ -118,7 +127,6 @@ const ViewUrlName = ({ storyBoard, baseData, onChangeSingleField, sendEvent }) =
 };
 
 ViewUrlName.propTypes = {
-  storyBoard: PropTypes.object.isRequired,
   baseData: PropTypes.object.isRequired,
   onChangeSingleField: PropTypes.func.isRequired,
   sendEvent: PropTypes.func.isRequired,

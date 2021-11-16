@@ -1,8 +1,7 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { Modal } from 'antd';
 import { findStoryBoard } from 'api/storyBoardClient';
-import SvgClose from 'components/icon/Close';
 import ToggleSwitch from 'components/ui-elements/toggleSwitch';
 import mangaStoryAPI from 'features/mangaStory/mangaStoryAPI';
 import { EVENTS } from 'helpers/amplitudeEvents';
@@ -24,7 +23,6 @@ const Settings = ({
   onChangeSingleField,
   saveMangaStoryData,
   getStoryBoard,
-  storyBoard,
   setBaseData,
   openNotification,
   originUrl,
@@ -35,6 +33,7 @@ const Settings = ({
   confirmDelete,
 }) => {
   const collabRef = useRef();
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   useEffect(() => {
     getStoryBoard();
@@ -52,16 +51,7 @@ const Settings = ({
         patchStory({
           ...baseData,
           published: true,
-        }).then(() =>
-          info({
-            className: styles.modal,
-            closable: true,
-            icon: <SvgClose width={10} height={10} />,
-            okText: <></>,
-            content: <DraftCheckbox originUrl={originUrl} />,
-            onOk() {},
-          })
-        );
+        }).then(() => setIsModalVisible(true));
       },
       (err) => {
         openNotification('error', err.message);
@@ -132,7 +122,6 @@ const Settings = ({
       </div>
       <div className={styles.container}>
         <ViewUrlName
-          storyBoard={storyBoard}
           baseData={baseData}
           sendEvent={sendEvent}
           onChangeSingleField={onChangeSingleField}
@@ -156,6 +145,11 @@ const Settings = ({
           confirmDelete={confirmDelete}
         />
       </div>
+      <DraftCheckbox
+        originUrl={originUrl}
+        isModalVisible={isModalVisible}
+        setIsModalVisible={setIsModalVisible}
+      />
     </>
   );
 };
@@ -168,7 +162,6 @@ Settings.propTypes = {
   onChangeSingleField: PropTypes.func.isRequired,
   saveMangaStoryData: PropTypes.func.isRequired,
   getStoryBoard: PropTypes.func.isRequired,
-  storyBoard: PropTypes.object.isRequired,
   setBaseData: PropTypes.func.isRequired,
   openNotification: PropTypes.func.isRequired,
   originUrl: PropTypes.string.isRequired,

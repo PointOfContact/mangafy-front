@@ -21,7 +21,7 @@ const DeleteProjectField = ({ userData, baseData, sendEvent, confirmDelete }) =>
       <Popconfirm
         overlayClassName={styles.popConfirm}
         position={'right'}
-        title={`Delete project? You're about to delete "${baseData?.title}" Deleting a project is permanent, and deleted project cannot be recovered.`}
+        title={`Delete project? You're are about to delete "${baseData?.title}" Deleting a project is permanent, and deleted project cannot be recovered.`}
         cancelText="Cancel"
         okText="Yes, delete it"
         onConfirm={() => confirmDelete(userData?._id, baseData?._id)}
@@ -36,7 +36,7 @@ const DeleteProjectField = ({ userData, baseData, sendEvent, confirmDelete }) =>
         }
       />
       <a href="mailto:yo@mangafy.club">
-        Feel free to contact <span> yo@mangafy.</span> club with any questions.
+        Feel free to contact <span> yo@mangafy.club</span> with any questions.
       </a>
     </div>
   </>

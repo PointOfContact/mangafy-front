@@ -95,11 +95,11 @@ const ModalHeroes = ({
   const heroQualityArray = createOptions(heroQuality);
 
   const handleChangeTypes = (value) => {
-    setHeroType([value]);
+    setHeroType(value);
   };
 
   const handleChangeQuality = (value) => {
-    setQuality(value);
+    setQuality([value]);
   };
 
   const setNameValue = () =>
@@ -178,9 +178,12 @@ const ModalHeroes = ({
                   <Form.Item name="quality">
                     <Select
                       disabled={!idCardHero}
-                      className={cn(styles.option, quality?.length > 1 && styles.childLength)}
+                      className={cn(
+                        styles.option,
+                        quality?.length > 1 && styles.childLength,
+                        styles.typesSelect
+                      )}
                       bordered={false}
-                      mode="multiple"
                       placeholder="By the role they play in a narrative"
                       style={{ width: '100%' }}
                       onChange={handleChangeQuality}
@@ -206,13 +209,10 @@ const ModalHeroes = ({
                   <Form.Item name="heroType">
                     <Select
                       disabled={!idCardHero}
-                      className={cn(
-                        styles.option,
-                        heroType?.length > 2 && styles.childLength,
-                        styles.typesSelect
-                      )}
+                      className={cn(styles.option, heroType?.length > 2 && styles.childLength)}
                       showSearch
                       bordered={false}
+                      mode="multiple"
                       placeholder="By examining how they change  over the course"
                       onFocus={() => setSearchTypesIcon(true)}
                       onChange={handleChangeTypes}
@@ -316,6 +316,8 @@ const ModalHeroes = ({
                   overlayClassName={styles.popConfirm}
                   placement={'top'}
                   title={popConfirm}
+                  okText="Delete"
+                  cancelText="Cancel"
                   onConfirm={() => confirmDelete(hero)}
                   onClick={() => clickDelete(hero)}
                   item={<PrimaryButton isWhite={true} text="Delete Character" />}

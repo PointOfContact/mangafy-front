@@ -1,0 +1,99 @@
+@import '../../../../../../styles/variables.scss';
+
+.titleContainer {
+  margin-top: 50px;
+  display: flex;
+  justify-content: space-between;
+  @include media-sm {
+    margin-top: 30px;
+  }
+  .deleteChapter {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    border: 1px solid $gray85;
+    margin-right: 20px;
+    cursor: pointer;
+    @include media-sm {
+      margin-right: 10px;
+    }
+    &:hover {
+      background-color: $primaryDark;
+      svg path {
+        fill: white;
+      }
+    }
+  }
+  .chapterName {
+    max-width: 300px;
+    display: flex;
+    justify-content: space-between;
+    height: 44px;
+    @include media-sm {
+      max-width: 250px;
+    }
+  }
+  .chapterTitle {
+    width: 273.61px;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 25px;
+    line-height: 36px;
+    color: $black;
+    word-break: break-all;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    margin: 0;
+    margin-right: 10px;
+    @include media-sm {
+      width: 240px;
+    }
+  }
+  .editName{
+    cursor: pointer;
+  }
+  .inputNameContainer {
+    height: 44px;
+    .error {
+      font-size: 14px;
+      color: $red;
+      text-align: center;
+    }
+    .chapterNameInput {
+      border: 1px solid $primaryDark;
+      background-color: white;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 23px;
+      color: $black;
+      @include media-sm {
+        width: 240px;
+      }
+      &::placeholder {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 23px;
+        color: $gray85;
+      }
+    }
+  }
+  .headerAction {
+    display: flex;
+  }
+  form{
+    div{
+      margin: 0;
+    }
+  }
+}
+
+.popConfirm {
+  min-width: 250px;
+}

@@ -34,6 +34,7 @@
   }
 }
 .addPageContainer {
+  cursor: pointer;
   .addPage {
     width: 273.61px;
     height: 320px;
@@ -70,82 +71,4 @@
       }
     }
   }
-}
-.titleContainer {
-  margin-top: 50px;
-  display: flex;
-  justify-content: space-between;
-  @include media-sm {
-    margin-top: 30px;
-  }
-  .deleteChapter{
-    width: 35px;
-    height: 35px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    border: 1px solid $gray85;
-    &:hover{
-      background-color: $primaryDark;
-      svg path{
-         fill: white;
-      }
-    }
-  }
-  .chapterName {
-    max-width: 300px;
-    display: flex;
-    justify-content: space-between;
-    height: 44px;
-  }
-  .chapterTitle {
-    width: 273.61px;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 25px;
-    line-height: 36px;
-    color: $black;
-    word-break: break-all;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    margin: 0;
-    margin-right: 10px;
-    @include media-sm {
-      width: 240px;
-    }
-  }
-  .inputNameContainer {
-    height: 44px;
-    .error {
-      font-size: 14px;
-      color: $red;
-      text-align: center;
-    }
-    .chapterNameInput {
-      border: 1px solid $primaryDark;
-      background-color: white;
-      font-style: normal;
-      font-weight: 500;
-      font-size: 16px;
-      line-height: 23px;
-      color: $black;
-      @include media-sm {
-        width: 240px;
-      }
-      &::placeholder {
-        font-style: normal;
-        font-weight: 500;
-        font-size: 16px;
-        line-height: 23px;
-        color: $gray85;
-      }
-    }
-  }
-}
-
-.popConfirm{
-  min-width: 250px;
 }
