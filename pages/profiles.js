@@ -16,6 +16,7 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
     const query = {
       $limit: count,
       $skip: (page - 1) * count,
+      popular: true,
     };
     if (genres && genres.length > 0) {
       genres = Array.isArray(genres) ? genres : [genres];
