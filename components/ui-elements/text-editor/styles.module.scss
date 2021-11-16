@@ -16,6 +16,7 @@
     flex-wrap: wrap;
     & > div {
       min-height: 199px;
+      width: 100%;
       &::before {
         font-style: normal !important;
         font-weight: normal;

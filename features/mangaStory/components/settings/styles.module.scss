@@ -254,17 +254,22 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
     display: flex;
     align-items: center;
     margin-bottom: 45px;
-    input {
+    .viewUrl {
       max-width: 920px;
-      border-right: none;
+      height: 44px;
+      border-radius: 5px;
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
-      background-color: white !important;
-      border-color: $primaryDark !important;
-      color: $black !important;
-      &:hover {
-        color: $gray85;
-      }
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      background-color: white;
+      border: 1px solid $primaryDark;
+      border-right: none;
+      color: $black;
+      padding-left: 13px;
+      cursor: pointer;
     }
   }
   .copy {
