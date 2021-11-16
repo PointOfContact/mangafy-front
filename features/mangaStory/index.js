@@ -18,7 +18,6 @@ import Router, { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import myAmplitude from 'utils/amplitude';
 
-import BannerSection from './components/bannersSection';
 import EditMode from './components/editMode';
 import HeaderCollab from './components/headerCollab';
 import Settings from './components/settings';
@@ -329,7 +328,7 @@ const MangeStory = (props) => {
             </div>
           </section>
           <section>
-            <BannerSection
+            {/* <BannerSection
               originUrl={originUrl}
               canEdit={canEdit}
               baseData={baseData}
@@ -340,7 +339,8 @@ const MangeStory = (props) => {
               openNotification={openNotification}
               isOwn={isOwn}
               user={userData}
-            />
+            /> */}
+            <FooterPolicy />
           </section>
         </div>
         {!userData && <Footer />}
