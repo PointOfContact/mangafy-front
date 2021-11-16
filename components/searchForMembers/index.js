@@ -130,7 +130,7 @@ const SearchForMembers = (props) => {
                 defaultValue={selectedTypes}
                 onChange={handleCompasitionClick}
                 dropdownClassName="select-filter"
-                className={cn(styles.box__nav_select, 'select-filter')}>
+                className={cn(styles.box__nav_selectDef, 'select-filter')}>
                 {menuOptions(userTypes, handleCompasitionClick)}
               </Select>
               <Select
@@ -145,7 +145,11 @@ const SearchForMembers = (props) => {
                 value={selectedGenres || []}
                 onChange={handleGenresClick}
                 dropdownClassName="select-filter"
-                className={cn(styles.box__nav_select, 'select-filter')}>
+                className={cn(
+                  styles.box__nav_selectDef,
+                  !selectedGenres?.length && styles.box__nav_select,
+                  'select-filter'
+                )}>
                 {menuGenresOptions(genres)}
               </Select>
             </div>
