@@ -17,7 +17,9 @@ const ViewUrlName = ({ baseData, onChangeSingleField, sendEvent }) => {
   const [viewUrlName, setViewUrlName] = useState(baseData?.viewUrlName);
 
   const onChange = (e) => {
-    onChangeSingleField(e, true);
+    !validViewUrlName &&
+      onChangeSingleField(e, true) &&
+      sendEvent(EVENTS.EDIT_PROJECT_DOMAIN, 'customDomain', `https://${viewUrlName}.mangafy.club`);
     setValue(e.target.value);
   };
 
@@ -60,7 +62,13 @@ const ViewUrlName = ({ baseData, onChangeSingleField, sendEvent }) => {
                         value: viewUrlName,
                       },
                     };
-                    !validViewUrlName && onChangeSingleField(data, true);
+                    !validViewUrlName &&
+                      onChangeSingleField(data, true) &&
+                      sendEvent(
+                        EVENTS.EDIT_PROJECT_DOMAIN,
+                        'customDomain',
+                        `https://${viewUrlName}.mangafy.club`
+                      );
                   }}
                 />
                 <span>.mangafy.club</span>
