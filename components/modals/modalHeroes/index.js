@@ -316,6 +316,8 @@ const ModalHeroes = ({
                   overlayClassName={styles.popConfirm}
                   placement={'top'}
                   title={popConfirm}
+                  okText="Delete"
+                  cancelText="Cancel"
                   onConfirm={() => confirmDelete(hero)}
                   onClick={() => clickDelete(hero)}
                   item={<PrimaryButton isWhite={true} text="Delete Character" />}

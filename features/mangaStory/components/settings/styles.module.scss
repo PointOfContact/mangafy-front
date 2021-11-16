@@ -127,6 +127,16 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
       }
     }
   }
+  .custom{
+    label {
+      &:last-child{
+        margin-top: 0px;
+      }
+      input {
+        margin-bottom: 0px;
+      }
+    }
+  }
   .getLink {
     margin-top: 20px;
   }

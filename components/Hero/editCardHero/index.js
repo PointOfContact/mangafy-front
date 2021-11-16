@@ -49,6 +49,8 @@ const EditCard = ({ confirmDelete, editCard, hero, setEdit, componentNames, clic
           title={popConfirm}
           onConfirm={confirmDelete}
           onClick={clickDelete}
+          okText="Delete"
+          cancelText="Cancel"
           item={
             <span className={styles.deleteCard}>
               <SvgDelete width="10px" height="11px" />

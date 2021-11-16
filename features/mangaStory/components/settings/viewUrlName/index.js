@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import { Tooltip, Radio } from 'antd';
 import client from 'api/client';
+import cn from 'classnames';
 import SvgCopy from 'components/icon/Copy';
 import PrimaryInput from 'components/ui-elements/input';
 import copy from 'copy-to-clipboard';
@@ -39,7 +40,7 @@ const ViewUrlName = ({ baseData, onChangeSingleField, sendEvent }) => {
         name={'typeUrlView'}
         onChange={onChange}
         value={value || 'Standard domain'}
-        className={styles.radioButton}>
+        className={cn(styles.radioButton, !ifCustomSubdomain && styles.custom)}>
         <Radio value={'Custom subdomain'}>
           Custom subdomain
           {ifCustomSubdomain && (

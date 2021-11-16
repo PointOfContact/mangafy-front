@@ -87,6 +87,7 @@ const MangeStory = (props) => {
         break;
       default:
         setCollabActiveTab('1');
+        Router.push(`${routerBasePath}story`);
     }
     const data = {
       event_type: EVENTS.OPENED_MANGA_STORY,
