@@ -12,8 +12,8 @@ const { TextArea } = Input;
 
 const Idea = ({ storyBoard, setStoryBoard, user }) => {
   const [idea, setIdea] = useState({
-    title: storyBoard?.idea?.title.trimStart(),
-    text: storyBoard?.idea?.text.trimStart(),
+    title: storyBoard?.idea?.title?.trimStart(),
+    text: storyBoard?.idea?.text?.trimStart(),
   });
 
   useEffect(() => {
