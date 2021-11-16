@@ -9,26 +9,23 @@
   border-radius: 5px;
   border: 1px solid $gray85;
   background: $primaryDark;
-  .copyInput {
+  .copy {
     padding: 0;
     height: 100%;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
-    padding-left: 29px;
+    padding-left: 13px;
     box-sizing: border-box;
     border: none;
-    position: relative;
+    overflow: hidden;
     font-weight: normal;
     font-size: 15px;
     line-height: 22px;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
     background-color: white;
-    &::placeholder {
-      position: absolute;
-      color: $gray85;
-      font-weight: normal;
-      font-size: 15px;
-      line-height: 22px;
-    }
   }
   .copyButton {
     width: 96px;

@@ -256,7 +256,7 @@ const StoryBoardTabs = ({
         break;
       case 'publish':
         myEvent = EVENTS.PROJECT_PUBLISHED;
-        setStoryBoardActiveTab('5');
+        setStoryBoardActiveTab(!!storyBoard?.mangaUrls?.length ? '5' : '4');
         break;
       default:
         myEvent = EVENTS.PILOT_COMPLETED;

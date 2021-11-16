@@ -97,15 +97,12 @@ const ViewUrlName = ({ baseData, onChangeSingleField, sendEvent }) => {
 
       <h3 className={styles.getLink}>Get the link or share on social</h3>
       <div className={styles.copyView}>
-        <PrimaryInput
-          disabled={true}
-          className={styles.viewUrl}
-          value={
-            ifCustomSubdomain
-              ? `https://${!!viewUrlName && viewUrlName}.mangafy.club`
-              : `${client.API_ENDPOINT}/manga-view/${baseData?._id}`
-          }
-        />
+        <div className={styles.viewUrl}>
+          {ifCustomSubdomain
+            ? `https://${!!viewUrlName ? viewUrlName : '?'}.mangafy.club`
+            : `${client.API_ENDPOINT}/manga-view/${baseData?._id}`}
+        </div>
+
         <Tooltip placement="topLeft" title={copyText}>
           <div
             className={styles.copy}
