@@ -12,8 +12,6 @@ import SuperHeroSvg from 'components/icon/Superhero';
 import Idea from 'components/Idea';
 import Modal from 'components/modals/createTaskModal';
 import ShowImgModal from 'components/modals/showImg';
-import { ModalSuccess } from 'components/modalSuccess';
-import { ShareStoryBoard } from 'components/shareStoryBoard';
 import Upload from 'components/ui-elements/upload';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import Router from 'next/router';
@@ -26,6 +24,7 @@ import styles from '../styles.module.scss';
 import Chapter from './chapter';
 import DragDrop from './dragDrop';
 import Preview from './preview';
+import Publish from './publish';
 
 const { TabPane } = Tabs;
 
@@ -505,12 +504,13 @@ const StoryBoardTabs = ({
           {isShowAnimation && <span className={styles.showAnimation}></span>}
           <div className={styles.tabContent}>
             {/* {addNewButtons} */}
-            {isModalVisible ? (
+            {/* {isModalVisible ? (
               <ModalSuccess isModalVisible={isModalVisible} handleCancelModal={handleCancelModal} />
             ) : (
               <ShareStoryBoard user={user} shareUrl={originUrl} />
-            )}
+            )} */}
             {/* {renderNavigationButtons()} */}
+            <Publish baseData={baseData} />
           </div>
         </TabPane>
       </Tabs>
