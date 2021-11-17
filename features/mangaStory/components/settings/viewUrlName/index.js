@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Tooltip, Radio } from 'antd';
 import client from 'api/client';
@@ -7,6 +7,7 @@ import SvgCopy from 'components/icon/Copy';
 import PrimaryInput from 'components/ui-elements/input';
 import copy from 'copy-to-clipboard';
 import { EVENTS } from 'helpers/amplitudeEvents';
+import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 
 import styles from '../styles.module.scss';
@@ -16,20 +17,28 @@ const ViewUrlName = ({ baseData, onChangeSingleField, sendEvent }) => {
   const [copyText, setCopyText] = useState('Copy to clipboard');
   const [isTouched, setIsTouched] = useState(false);
   const [viewUrlName, setViewUrlName] = useState(baseData?.viewUrlName);
+  const validViewUrlName = viewUrlName?.length < 2 || !viewUrlName?.match(/^[a-z]+$/);
+  const router = useRouter();
+  const ref = React.createRef();
+
+  useEffect(() => {
+    !!router.query.active &&
+      ref.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+  }, []);
 
   const onChange = (e) => {
-    !validViewUrlName &&
-      onChangeSingleField(e, true) &&
+    onChangeSingleField(e, true) &&
       sendEvent(EVENTS.EDIT_PROJECT_DOMAIN, 'customDomain', `https://${viewUrlName}.mangafy.club`);
     setValue(e.target.value);
   };
 
   const ifCustomSubdomain = value === 'Custom subdomain';
 
-  const validViewUrlName = viewUrlName?.length < 2 || !viewUrlName?.match(/^[a-z]+$/);
-
   return (
-    <div className={styles.viewLink}>
+    <div ref={ref} className={styles.viewLink}>
       <div className={styles.titleContainer}>
         <h2>Generate a personal page for your project</h2>
         <div className={styles.betaButton}>Beta</div>
@@ -110,7 +119,7 @@ const ViewUrlName = ({ baseData, onChangeSingleField, sendEvent }) => {
               setCopyText('Copied');
               copy(
                 ifCustomSubdomain
-                  ? `https://${viewUrlName}.mangafy.club`
+                  ? `https://${!!viewUrlName ? viewUrlName : '?'}.mangafy.club`
                   : `${client.API_ENDPOINT}/manga-view/${baseData?._id}`
               );
             }}

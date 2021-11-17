@@ -8,7 +8,7 @@
   @include media-sm {
     flex-direction: column !important;
   }
-  .copy{
+  .copy {
     width: 32px !important;
     height: 32px !important;
     border-radius: 50%;
@@ -16,7 +16,7 @@
     justify-content: center;
     align-items: center;
     background-color: #405f8f;
-    svg{
+    svg {
       margin-top: -1px;
       margin-left: 1px;
     }
@@ -36,6 +36,20 @@
       display: inline-block;
       margin-left: 5px;
       cursor: pointer;
+      .titleIcon {
+        font-style: normal;
+        font-weight: normal;
+        font-size: 15px;
+        line-height: 40px;
+        color: $gray85;
+        margin: 0;
+        &:hover{
+          color: $black;       
+        }
+        @include media-sm{
+          font-size: 11px;
+        }
+      }
     }
   }
 }
