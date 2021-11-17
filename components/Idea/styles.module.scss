@@ -1,3 +1,5 @@
+@import '../../styles/variables.scss';
+
 .idea {
   &__container {
     background-color: #ffffff;
@@ -6,5 +8,15 @@
     padding: 10px;
     margin-top: 20px;
     margin-bottom: 40px;
+  }
+}
+.title {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 30px;
+  line-height: 43px;
+  color: $black;
+  @include media-sm{
+    font-size: 25px;
   }
 }
