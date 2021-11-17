@@ -9,6 +9,9 @@
   u, s {
     text-decoration: revert;
   }
+  div{
+    border: none !important;
+  }
   & > div {
     border-top: none !important;
     border-radius: 0 !important;

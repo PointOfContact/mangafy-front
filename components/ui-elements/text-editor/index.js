@@ -43,7 +43,7 @@ const modules = {
   clipboard: { matchVisual: false },
 };
 
-const TextEditor = ({ placeholder, result, disabled, value }) => (
+const TextEditor = ({ placeholder, result, disabled, value, ...res }) => (
   <QuillNoSSRWrapper
     placeholder={placeholder}
     className={styles.textEditor}
@@ -53,6 +53,7 @@ const TextEditor = ({ placeholder, result, disabled, value }) => (
     theme="snow"
     readOnly={disabled}
     value={value}
+    {...res}
   />
 );
 

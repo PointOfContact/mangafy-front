@@ -18,7 +18,7 @@ import {
 
 import styles from './styles.module.scss';
 
-export const ShareButtons = ({ className, shareUrl, text, onClick }) => {
+export const ShareButtons = ({ className, shareUrl, text, onClick, showTitle }) => {
   const [copyText, setCopyText] = useState('Copy to clipboard');
   return (
     <div className={cn(styles.shareButtons, className)}>
@@ -28,21 +28,25 @@ export const ShareButtons = ({ className, shareUrl, text, onClick }) => {
           <FacebookShareButton title="Mangafy-Club" url={shareUrl}>
             <SvgFacebook width="32px" height="32px" />
           </FacebookShareButton>
+          {showTitle && <p className={styles.titleIcon}>Facebook</p>}
         </li>
         <li onClick={onClick}>
           <TwitterShareButton title="Mangafy-Club" url={shareUrl}>
             <SvgTwitter width="32px" height="32px" />
           </TwitterShareButton>
+          {showTitle && <p className={styles.titleIcon}>Twitter</p>}
         </li>
         <li onClick={onClick}>
           <TelegramShareButton title="Mangafy-Club" url={shareUrl}>
             <TelegramIcon size={32} round={true} />
           </TelegramShareButton>
+          {showTitle && <p className={styles.titleIcon}>Telegram</p>}
         </li>
         <li onClick={onClick}>
           <WhatsappShareButton title="Mangafy-Club" url={shareUrl}>
             <SvgWhatsapp width="32px" height="32px" />
           </WhatsappShareButton>
+          {showTitle && <p className={styles.titleIcon}>Whatsapp</p>}
         </li>
         <li onClick={onClick}>
           <Tooltip placement="topLeft" title={copyText}>
@@ -56,6 +60,7 @@ export const ShareButtons = ({ className, shareUrl, text, onClick }) => {
               <SvgCopy width="18px" height="18px" alt="mangaFy copy icon" />
             </span>
           </Tooltip>
+          {showTitle && <p className={styles.titleIcon}>Copy</p>}
         </li>
       </ul>
     </div>
@@ -67,10 +72,12 @@ ShareButtons.propTypes = {
   onClick: PropTypes.func,
   text: PropTypes.string,
   className: PropTypes.string,
+  showTitle: PropTypes.bool,
 };
 
 ShareButtons.defaultProps = {
   text: '',
   onClick: () => {},
   className: '',
+  showTitle: false,
 };

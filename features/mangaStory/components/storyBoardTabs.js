@@ -12,8 +12,6 @@ import SuperHeroSvg from 'components/icon/Superhero';
 import Idea from 'components/Idea';
 import Modal from 'components/modals/createTaskModal';
 import ShowImgModal from 'components/modals/showImg';
-import { ModalSuccess } from 'components/modalSuccess';
-import { ShareStoryBoard } from 'components/shareStoryBoard';
 import Upload from 'components/ui-elements/upload';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import Router from 'next/router';
@@ -26,6 +24,7 @@ import styles from '../styles.module.scss';
 import Chapter from './chapter';
 import DragDrop from './dragDrop';
 import Preview from './preview';
+import Publish from './publish';
 
 const { TabPane } = Tabs;
 
@@ -48,7 +47,7 @@ const StoryBoardTabs = ({
   const [ifUploadImg, setIfUploadImg] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isShowAnimation, setIsShowAnimation] = useState(false);
-  const routerBasePath = `/manga-story/${baseData?._id}?tab=create?page=`;
+  const routerBasePath = `/manga-story/${baseData?._id}?tab=create&page=`;
   const imageType = zoomImageUrl?.slice(-3) === 'pdf' || zoomImageUrl?.slice(-3) === 'PDF';
   // const [storyBoard, setStoryBoard] = useState({
   //   idea: {
@@ -225,14 +224,13 @@ const StoryBoardTabs = ({
   //     showModal();
   //   }, 2000);
   // };
-  const query = qs.parse(location.search).tab;
+  const query = qs.parse(location.search);
 
   useEffect(() => {
     setIsShowAnimation(true);
 
     let myEvent = '';
-    const indexQuery = query?.lastIndexOf('=') + 1;
-    const page = query?.slice(indexQuery, query?.length);
+    const { page } = query;
 
     switch (page) {
       case 'plot':
@@ -260,7 +258,6 @@ const StoryBoardTabs = ({
         break;
       default:
         myEvent = EVENTS.PILOT_COMPLETED;
-        // Router.push(`${routerBasePath}plot`);
         setStoryBoardActiveTab('1');
     }
 
@@ -275,7 +272,7 @@ const StoryBoardTabs = ({
     ];
 
     myAmplitude(data);
-  }, [query]);
+  }, [query.page]);
 
   const updateTasks = async () => {
     const jwt = client.getCookie('feathers-jwt');
@@ -336,7 +333,7 @@ const StoryBoardTabs = ({
           key={1}>
           <div className={styles.tabContent}>
             {/* {addNewButtons} */}
-            <Idea storyBoard={storyBoard} setStoryBoard={setStoryBoard} user={user} />
+            <Idea storyBoard={storyBoard} user={user} />
             {/* {renderNavigationButtons(!(storyBoard?.idea?.title && storyBoard?.idea?.text))} */}
           </div>
         </TabPane>
@@ -507,12 +504,13 @@ const StoryBoardTabs = ({
           {isShowAnimation && <span className={styles.showAnimation}></span>}
           <div className={styles.tabContent}>
             {/* {addNewButtons} */}
-            {isModalVisible ? (
+            {/* {isModalVisible ? (
               <ModalSuccess isModalVisible={isModalVisible} handleCancelModal={handleCancelModal} />
             ) : (
               <ShareStoryBoard user={user} shareUrl={originUrl} />
-            )}
+            )} */}
             {/* {renderNavigationButtons()} */}
+            <Publish baseData={baseData} />
           </div>
         </TabPane>
       </Tabs>

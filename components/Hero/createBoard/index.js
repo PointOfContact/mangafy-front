@@ -48,7 +48,7 @@ CreateBoard.propTypes = {
   title: PropTypes.string.isRequired,
   list: PropTypes.array.isRequired,
   addHero: PropTypes.func,
-  heroTypes: PropTypes.object,
+  heroTypes: PropTypes.string,
   getAllowCreate: PropTypes.func,
 };
 
@@ -56,7 +56,7 @@ CreateBoard.defaultProps = {
   title: '',
   list: [],
   addHero: () => {},
-  heroTypes: {},
+  heroTypes: '',
   getAllowCreate: () => {},
 };
 
