@@ -177,7 +177,7 @@ export const Comments = ({ commentsData, mangaStory, user }) => {
 
   return (
     <>
-      <h2 className={styles.subTitle}> {!!comments?.length && comments?.length} Comments</h2>
+      {/* <h2 className={styles.subTitle}> {!!comments?.length && comments?.length} Comments</h2> */}
       {comments.length > 0 && (
         <div className={cn(styles.comments, 'commentsBlock')}>
           <pre>
