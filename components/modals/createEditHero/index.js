@@ -6,6 +6,7 @@ import SvgClose from 'components/icon/Close';
 import PrimaryButton from 'components/ui-elements/button';
 import PrimaryInput from 'components/ui-elements/input';
 import TextArea from 'components/ui-elements/text-area';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import PropTypes from 'prop-types';
 
 import HeroUpload from '../../ui-elements/heroUpload';
@@ -17,14 +18,15 @@ const ModalComponent = ({
   changeShowModal,
   showModal,
   hero,
-  user,
   ifIsEdit,
   setEdit,
   heroItems,
   confirmDelete,
   onChangeHeroLogic,
+  sendEvent,
 }) => {
   const [name, setName] = useState('');
+  const [heroType, setHeroType] = useState({});
   const [description, setDescription] = useState('');
   const [imageUrl, setImgId] = useState('');
   const [titles, setTitles] = useState({});
@@ -49,6 +51,10 @@ const ModalComponent = ({
 
   const setGlobalTitle = (type) => {
     if (type === 'component') {
+      setHeroType({
+        event: 'TOOL',
+        type: 'component',
+      });
       setTitles({
         title: ifIsEdit ? 'Edit item' : 'Create item',
         inputTitle: 'Item definition',
@@ -63,6 +69,10 @@ const ModalComponent = ({
         button: 'Add component',
       });
     } else {
+      setHeroType({
+        event: 'BACKGROUND',
+        type: 'background',
+      });
       setTitles({
         title: ifIsEdit ? 'Edit background' : 'Create background',
         inputTitle: 'Background definition',
@@ -165,7 +175,15 @@ const ModalComponent = ({
                     isFullWidth={true}
                     isLinear={true}
                     onChange={(e) => setName(e.target.value)}
-                    onMouseOut={() => name.trim().length > 0 && onChangeHero({})}
+                    onMouseOut={() =>
+                      name.trim().length > 0 &&
+                      (onChangeHero({}),
+                      sendEvent(EVENTS[`CHANGE_BOARD_${heroType.event}`], {
+                        [`${heroType.type}`]: hero,
+                        changed: 'Name',
+                        name,
+                      }))
+                    }
                   />
                 </Form.Item>
                 {hero?.type === 'component' && (
@@ -189,7 +207,14 @@ const ModalComponent = ({
                         isFullWidth={true}
                         placeholder={titles.inputLinkDesc}
                         defaultValue={chooseCharacter}
-                        onBlur={() => onChangeHero({})}
+                        onBlur={() => {
+                          onChangeHero({});
+                          sendEvent(EVENTS[`CHANGE_BOARD_${heroType.event}`], {
+                            [`${heroType.type}`]: hero,
+                            changed: 'Link to character',
+                            character: chooseCharacter,
+                          });
+                        }}
                         filterOption={(inputValue, option) =>
                           inputValue
                             ? option.label.toLowerCase().includes(inputValue.toLowerCase())
@@ -211,7 +236,14 @@ const ModalComponent = ({
                     isLinear={true}
                     autoSize={{ minRows: 1, maxRows: 8 }}
                     onChange={(e) => setDescription(e.target.value)}
-                    onBlur={() => onChangeHero({})}
+                    onBlur={() => {
+                      onChangeHero({});
+                      sendEvent(EVENTS[`CHANGE_BOARD_${heroType.event}`], {
+                        [`${heroType.type}`]: hero,
+                        changed: 'Description',
+                        description,
+                      });
+                    }}
                   />
                 </Form.Item>
                 <h3>{titles.uploadTitle}</h3>
@@ -224,6 +256,8 @@ const ModalComponent = ({
                     mangaUrl={imageUrl}
                     setImgId={setImgId}
                     typeCard={hero?.type}
+                    sendEvent={sendEvent}
+                    hero={hero}
                   />
                 </div>
                 <h3>Action</h3>
@@ -232,10 +266,22 @@ const ModalComponent = ({
                     onClick={() => {
                       changeShowModal(false);
                       onChangeHero({}, imageUrl, true);
+                      sendEvent(EVENTS[`DUPLICATE_BOARD_${heroType.event}`], {
+                        [`${heroType.type}`]: hero,
+                      });
                     }}
                     text="Duplicate"
                   />
-                  <PrimaryButton isWhite={true} onClick={() => confirmDelete(hero)} text="Delete" />
+                  <PrimaryButton
+                    isWhite={true}
+                    onClick={() => {
+                      confirmDelete(hero);
+                      sendEvent(EVENTS[`DELETE_BOARD_${heroType.event}`], {
+                        [`${heroType.type}`]: hero,
+                      });
+                    }}
+                    text="Delete"
+                  />
                 </div>
               </Form>
             </div>
@@ -251,17 +297,16 @@ ModalComponent.propTypes = {
   showModal: PropTypes.bool.isRequired,
   hero: PropTypes.object,
   mangaUrl: PropTypes.string,
-  user: PropTypes.object,
   ifIsEdit: PropTypes.bool,
   setEdit: PropTypes.func,
   heroItems: PropTypes.array,
   confirmDelete: PropTypes.func,
   onChangeHeroLogic: PropTypes.func.isRequired,
+  sendEvent: PropTypes.func.isRequired,
 };
 
 ModalComponent.defaultProps = {
   hero: {},
-  user: {},
   mangaUrl: null,
   ifIsEdit: false,
   setEdit: () => {},

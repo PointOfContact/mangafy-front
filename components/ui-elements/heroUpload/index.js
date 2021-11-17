@@ -8,6 +8,7 @@ import cn from 'classnames';
 import SvgCloud from 'components/icon/Cloud';
 import SvgImage from 'components/icon/Image';
 import ShowImgModal from 'components/modals/showImg';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import PropTypes from 'prop-types';
 import beforeUploadFromAMZ from 'utils/upload';
 
@@ -25,6 +26,8 @@ const HeroUpload = ({
   uploadVideo,
   setImgLoad,
   notUploadVideo,
+  sendEvent,
+  hero,
 }) => {
   const [img, setImg] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -97,7 +100,15 @@ const HeroUpload = ({
       openNotification('error', 'Image must smaller than 10MB!');
     }
 
-    if (isJpgOrPng && isLt2M) beforeUploadFromAMZ(file, setUploadCallback, setImgLoad);
+    if (isJpgOrPng && isLt2M) {
+      beforeUploadFromAMZ(file, setUploadCallback, setImgLoad);
+      sendEvent(EVENTS.CHANGE_BOARD_CHARACTER, {
+        hero,
+        type: hero.type,
+        changed: 'image',
+        file,
+      });
+    }
 
     return isJpgOrPng && isLt2M;
   };
@@ -183,6 +194,8 @@ HeroUpload.propTypes = {
   uploadVideo: PropTypes.bool,
   setImgLoad: PropTypes.func,
   notUploadVideo: PropTypes.bool,
+  sendEvent: PropTypes.func,
+  hero: PropTypes.object,
 };
 
 HeroUpload.defaultProps = {
@@ -200,6 +213,8 @@ HeroUpload.defaultProps = {
   ifPdf: false,
   setImgLoad: () => {},
   notUploadVideo: false,
+  hero: {},
+  sendEvent: () => {},
 };
 
 export default HeroUpload;
