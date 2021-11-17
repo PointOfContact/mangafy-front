@@ -1,48 +1,50 @@
 @import '../../styles/variables.scss';
 
-
 .footerPolicy {
-    background: $white;
-    padding: 45px 0;
-    @media (max-width: 991px) {
-        padding: 25px 0;
-    }
-    @media (max-width: 767px) {
-        padding: 20px 0;
-    }
+  background: $white;
+  padding: 20px;
+  & > div {
+    height: 100%;
+  }
 }
 
 .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  height: 100%;
+  @media (max-width: 767px) {
+    flex-direction: column;
+    align-items: center;
+  }
+  &__left {
+    font-style: normal;
+    font-weight: normal;
+    font-size: $text4;
+    line-height: 24px;
+    color: $black;
+    @include media-md{
+      font-size: $text5;
+      position: static;
+      margin-bottom: 5px;
+    }
+  }
+  &__center {
     display: flex;
     align-items: center;
-    justify-content: center;
-    position: relative;
-    @media (max-width: 767px) {
-        flex-direction: column;
-        align-items: center;
+    span {
+      font-style: normal;
+      font-weight: normal;
+      font-size: $text4;
+      line-height: 24px;
+      color: $black;
+      @include media-md{
+        font-size: $text5;
+      }
     }
-    &__left {
-        color: #000000;
-        font-size: 15px;
-        position: absolute;
-        left: 0;
-        @media (max-width: 991px) {
-            font-size: 15px;
-        }
-        @media (max-width: 767px) {
-            position: static;
-            margin-bottom: 5px;
-        }
+    svg {
+      margin-left: 10px;
     }
-    &__center {
-        display: flex;
-        align-items: center;
-        span {
-            color: $black;
-            font-size: 15px;
-        }
-        svg {
-            margin-left: 10px;
-        }
-    }
+  }
 }

@@ -115,7 +115,7 @@ const HeaderCollab = ({
               {/* {!editTitle ? (
                 <> */}
               <div className={styles.header}>
-                {ifCreatePage ? (
+                {/* {ifCreatePage ? (
                   <>
                     {stage?.tab !== '6' ? (
                       <h2>
@@ -126,9 +126,9 @@ const HeaderCollab = ({
                     )}
                     <p>{stage?.description}</p>
                   </>
-                ) : (
-                  <h2>{baseData.title}</h2>
-                )}
+                ) : ( */}
+                <h2>{baseData.title}</h2>
+                {/* )} */}
               </div>
               {/* {canEdit && collabActiveTab !== '2' && (
                     <SvgPencilColored

@@ -68,17 +68,17 @@ const StoryBoardTabs = ({
       case '1':
         setStage({
           tab,
-          title: 'THE SETTING',
-          description:
-            "Every good story begins with an idea. This part should include your story's concept, genre, and synopsis.",
+          // title: 'THE SETTING',
+          // description:
+          //   "Every good story begins with an idea. This part should include your story's concept, genre, and synopsis.",
         });
         break;
       case '2':
         setStage({
           tab,
-          title: 'BUILD YOUR CHARACTERS',
-          description:
-            'To get the reader engaged we need to build an awesome cast and world. Define your characters to kick off your tale.',
+          // title: 'BUILD YOUR CHARACTERS',
+          // description:
+          //   'To get the reader engaged we need to build an awesome cast and world. Define your characters to kick off your tale.',
         });
         break;
       // case '3':
@@ -92,9 +92,9 @@ const StoryBoardTabs = ({
       case '3':
         setStage({
           tab,
-          title: 'CREATE_SCRIPT',
-          description:
-            'Add full comic and manga script pages for an Arc, volume, or a full graphic novel',
+          // title: 'CREATE_SCRIPT',
+          // description:
+          //   'Add full comic and manga script pages for an Arc, volume, or a full graphic novel',
         });
         break;
       // case '4':
@@ -108,25 +108,25 @@ const StoryBoardTabs = ({
       case '4':
         setStage({
           tab,
-          title: 'UPLOAD YOUR DIGITAL WORK',
-          description:
-            'Upload illustration and exchange work files with your team - all in one hosting place.',
+          // title: 'UPLOAD YOUR DIGITAL WORK',
+          // description:
+          //   'Upload illustration and exchange work files with your team - all in one hosting place.',
         });
         break;
       case '5':
         setStage({
           tab,
-          title: 'PUBLISH',
-          description:
-            "Congratulations! you finalized your volume, arc or novel and now it's time to publish. Select one of MangaFY's self-publishing partners and start monetizing",
+          // title: 'PUBLISH',
+          // description:
+          //   "Congratulations! you finalized your volume, arc or novel and now it's time to publish. Select one of MangaFY's self-publishing partners and start monetizing",
         });
         break;
       default:
         setStage({
           tab,
-          title: 'THE SETTING',
-          description:
-            'Every good story begins with an idea. This part should include the concept, location, and synopses',
+          // title: 'THE SETTING',
+          // description:
+          //   'Every good story begins with an idea. This part should include the concept, location, and synopses',
         });
     }
   };
@@ -228,7 +228,7 @@ const StoryBoardTabs = ({
 
   useEffect(() => {
     setIsShowAnimation(true);
-
+    const pageNumber = !!storyBoard?.mangaUrls?.length ? '5' : '4';
     let myEvent = '';
     const { page } = query;
 
@@ -254,10 +254,11 @@ const StoryBoardTabs = ({
         break;
       case 'publish':
         myEvent = EVENTS.PROJECT_PUBLISHED;
-        setStoryBoardActiveTab(!!storyBoard?.mangaUrls?.length ? '5' : '4');
+        setStoryBoardActiveTab(pageNumber);
         break;
       default:
         myEvent = EVENTS.PILOT_COMPLETED;
+        Router.push(`${routerBasePath}plot`);
         setStoryBoardActiveTab('1');
     }
 
@@ -500,7 +501,7 @@ const StoryBoardTabs = ({
             </span>
           }
           // disabled={!storyBoard?.mangaUrl}
-          key={5}>
+          key={!!storyBoard?.mangaUrls?.length ? 5 : 4}>
           {isShowAnimation && <span className={styles.showAnimation}></span>}
           <div className={styles.tabContent}>
             {/* {addNewButtons} */}
