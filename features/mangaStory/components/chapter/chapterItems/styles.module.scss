@@ -38,36 +38,106 @@
   .addPage {
     width: 273.61px;
     height: 320px;
-    background: $primaryDark;
     border-radius: 10px;
     box-sizing: border-box;
-    border: 1px solid $primaryDark;
     margin-right: 28px;
+    position: relative;
+    box-shadow: -12px 16px 20px -19px rgb(0 0 0 / 25%);
+    border: 1px solid #e1e0ef;
     @include media-sm {
       width: 240px;
       height: 290px;
+    }
+    &::after {
+      content: '';
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 7.3px;
+      bottom: 7.3px;
+      border-radius: 10px;
+      border: 1px solid #e1e0ef;
+      border-bottom: none;
+      border-left: none;
+    }
+    &::before {
+      content: '';
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 14.6px;
+      bottom: 14.6px;
+      border-radius: 10px;
+      border: 1px solid #e1e0ef;
+      border-bottom: none;
+      border-left: none;
     }
     h3 {
       width: 168.53px;
       height: 59px;
       display: flex;
       align-items: center;
-      font-style: normal;
-      font-weight: bold;
-      font-size: 28px;
-      line-height: 41px;
-      color: white;
+      color: $black;
       margin-top: 25px;
       margin-left: 20px;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 29px;
     }
-    svg {
+    .newPageContainer {
       width: 100%;
-      margin-top: 70px;
-      path {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      z-index: 5;
+      top: 45%;
+      h4 {
+        font-style: normal;
+        font-weight: 500;
+        font-size: $text3;
+        line-height: 29px;
+        color: $black;
+        margin: 0;
+        @include media-sm {
+          font-size: 18px;
+        }
+      }
+      &:hover svg path {
         fill: $primaryLight;
       }
-      circle {
-        fill: $primaryDark;
+    }
+  }
+
+  .chapterItemFooter {
+    max-width: 231px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 12px;
+    left: 20px;
+    z-index: 5;
+    border: 1px solid;
+    .switchContainer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 12px;
+      line-height: 32px;
+      color: $black;
+      .switch {
+        width: 52px;
+        height: 22px;
+        margin-top: 0;
+        margin-right: 5px;
+        & > span::before {
+          width: 16px;
+          height: 16px;
+        }
       }
     }
   }

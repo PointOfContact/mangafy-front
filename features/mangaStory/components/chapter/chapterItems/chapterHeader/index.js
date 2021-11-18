@@ -42,6 +42,7 @@ const ChapterHeader = ({ value, setChapters, index, chapters }) => {
 
   const publishedChapter = () => {
     const publishedValue = publishedRef.current.checked;
+    console.log(publishedValue);
     mangaStoryAPI.chapter.patch(
       value?._id,
       { published: publishedValue },
