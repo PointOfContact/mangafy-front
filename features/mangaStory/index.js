@@ -341,13 +341,13 @@ const MangeStory = (props) => {
               isOwn={isOwn}
               user={userData}
             /> */}
-            <FooterPolicy />
           </section>
         </div>
         {!userData && <Footer />}
         {!userData && <FooterPolicy />}
         <FooterLogin user={userData} />
       </main>
+      <FooterPolicy />
       <DeleteProjectModal
         user={userData}
         mangaStory={baseData}

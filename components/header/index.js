@@ -54,6 +54,7 @@ const Header = ({ user, path, setShowModalEdit }) => {
   const [createProjectModal, showCreateProjectModal] = useState(false);
   const [notificationsCount, setNotificationsCount] = useState(0);
   const [unreadNotificationsId, setUnreadNotificationsId] = useState([]);
+  const [changeHeaderSize, setChangeHeaderSize] = useState(false);
   const router = useRouter();
   const ifMyProfile = router?.query?.pid === user?._id;
   const ifNotData = !user?.content || !user?.name || !user?.genresIds?.length;
@@ -106,6 +107,14 @@ const Header = ({ user, path, setShowModalEdit }) => {
     }
   };
 
+  useEffect(() => {
+    const el = document.querySelector('.menubar');
+    const headerCont = document.querySelector('.headerCont');
+    router.pathname === '/manga-story/[pid]' && el.classList.add(styles.header__fixed);
+    headerCont.style.height = '94px';
+    setChangeHeaderSize(true);
+  }, [router.pathname]);
+
   const handleDocumentClick = () => {
     handleMenuOpen(false);
     const el = document.body;
@@ -113,7 +122,7 @@ const Header = ({ user, path, setShowModalEdit }) => {
   };
 
   return (
-    <div className={cn(styles.header_cont, showWarning && styles.isWarning)}>
+    <div className={cn(styles.header_cont, 'headerCont', showWarning && styles.isWarning)}>
       <header className={`${styles.header} navbar menubar`}>
         <div className={'container'}>
           <div className={styles.header__top}>
