@@ -27,6 +27,7 @@ import Preview from './preview';
 import Publish from './publish';
 
 const { TabPane } = Tabs;
+const pageArray = ['', 'plot', 'characters', 'chapters', 'upload', 'publish'];
 
 const StoryBoardTabs = ({
   user,
@@ -39,6 +40,7 @@ const StoryBoardTabs = ({
   storyBoard,
   getStoryBoard,
   setStoryBoard,
+  setCurrentPage,
 }) => {
   const [storyBoardActiveTab, setStoryBoardActiveTabSeter] = useState(1);
   const [showTaskModal, changeShowTaskModal] = useState(false);
@@ -64,6 +66,7 @@ const StoryBoardTabs = ({
 
   const setStoryBoardActiveTab = (tab) => {
     setStoryBoardActiveTabSeter(tab);
+
     switch (tab.toString()) {
       case '1':
         setStage({
@@ -136,10 +139,11 @@ const StoryBoardTabs = ({
   //   setIsModalVisible(true);
   // };
 
-  const handleCancelModal = () => {
-    document.body.classList.remove('body_remove_scroll');
-    setIsModalVisible(false);
-  };
+  // const handleCancelModal = () => {
+  //   document.body.classList.remove('body_remove_scroll');
+  //   setIsModalVisible(false);
+  // };
+
   // const renderNavigationButtons = (disableNextBtn = false) => (
   //   <div className={styles.actionButtons}>
   //     <div>
@@ -228,7 +232,7 @@ const StoryBoardTabs = ({
 
   useEffect(() => {
     setIsShowAnimation(true);
-    const pageNumber = !!storyBoard?.mangaUrls?.length ? '5' : '4';
+    const pageNumber = !!storyBoard?.mangaUrls?.length ? '4' : '5';
     let myEvent = '';
     const { page } = query;
 
@@ -237,7 +241,7 @@ const StoryBoardTabs = ({
         myEvent = EVENTS.PILOT_COMPLETED;
         setStoryBoardActiveTab('1');
         break;
-      case 'character':
+      case 'characters':
         myEvent = EVENTS.CHARACTERS_COMPLETED;
         setStoryBoardActiveTab('2');
         break;
@@ -257,9 +261,7 @@ const StoryBoardTabs = ({
         setStoryBoardActiveTab(pageNumber);
         break;
       default:
-        myEvent = EVENTS.PILOT_COMPLETED;
-        Router.push(`${routerBasePath}plot`);
-        setStoryBoardActiveTab('1');
+        break;
     }
 
     const data = [
@@ -273,7 +275,7 @@ const StoryBoardTabs = ({
     ];
 
     myAmplitude(data);
-  }, [query.page]);
+  }, []);
 
   const updateTasks = async () => {
     const jwt = client.getCookie('feathers-jwt');
@@ -310,6 +312,11 @@ const StoryBoardTabs = ({
   //     />
   //   </div>
   // );
+  const tabsOnChange = (activeKey) => {
+    Router.push(`${routerBasePath}${pageArray[activeKey]}`);
+    setCurrentPage(pageArray[activeKey]);
+    setStoryBoardActiveTab(activeKey);
+  };
 
   return (
     <>
@@ -318,15 +325,11 @@ const StoryBoardTabs = ({
         defaultActiveKey={1}
         className={`${styles.storyBoardTab} storyBoardTabs`}
         type="line"
-        onChange={(activeKey) => setStoryBoardActiveTab(activeKey)}
+        onChange={tabsOnChange}
         tabPosition={width < 992 ? 'bottom' : 'left'}>
         <TabPane
           tab={
-            <span
-              className={styles.tab}
-              onClick={() => {
-                Router.push(`${routerBasePath}plot`);
-              }}>
+            <span className={styles.tab}>
               <GroupSvg fill="#7b65f3" width="25px" />
               <p>Plot</p>
             </span>
@@ -340,11 +343,7 @@ const StoryBoardTabs = ({
         </TabPane>
         <TabPane
           tab={
-            <span
-              className={styles.tab}
-              onClick={() => {
-                Router.push(`${routerBasePath}character`);
-              }}>
+            <span className={styles.tab}>
               <SuperHeroSvg width="25px" />
               <p>Characters</p>
             </span>
@@ -383,11 +382,7 @@ const StoryBoardTabs = ({
         </TabPane> */}
         <TabPane
           tab={
-            <span
-              className={cn(styles.chapterIcon, styles.tab)}
-              onClick={() => {
-                Router.push(`${routerBasePath}chapters`);
-              }}>
+            <span className={cn(styles.chapterIcon, styles.tab)}>
               <SvgChapter height="25px" />
               <p>Chapters</p>
             </span>
@@ -413,11 +408,7 @@ const StoryBoardTabs = ({
           <TabPane
             // disabled={!storyBoard?.layoutId}
             tab={
-              <span
-                className={styles.tab}
-                onClick={() => {
-                  Router.push(`${routerBasePath}upload`);
-                }}>
+              <span className={styles.tab}>
                 <PencilCaseSvg width="25px" />
                 <p>Upload</p>
               </span>
@@ -491,11 +482,7 @@ const StoryBoardTabs = ({
       </TabPane> */}
         <TabPane
           tab={
-            <span
-              className={styles.tab}
-              onClick={() => {
-                Router.push(`${routerBasePath}publish`);
-              }}>
+            <span className={styles.tab}>
               <ShareSvg height="25px" />
               <p>Publish</p>
             </span>
@@ -538,6 +525,7 @@ StoryBoardTabs.propTypes = {
   getStoryBoard: PropTypes.func,
   setStoryBoard: PropTypes.func,
   storyBoard: PropTypes.object,
+  setCurrentPage: PropTypes.func,
 };
 
 StoryBoardTabs.defaultProps = {
@@ -547,6 +535,7 @@ StoryBoardTabs.defaultProps = {
   getStoryBoard: () => {},
   setStoryBoard: () => {},
   participentsInfo: [],
+  setCurrentPage: () => {},
 };
 
 export default StoryBoardTabs;
