@@ -3,18 +3,18 @@ import { withAuthServerSideProps, withAuthComponent } from 'components/withAuth'
 import MangaView from 'features/mangaView';
 import { store } from 'store';
 
-const getDataFromStroyBoard = async (user, context) => {
-  const res = await client.service('/api/v2/story-boards').get(context.params.pid);
-  const resMangaStory = await client.service('/api/v2/manga-stories').get(res.mangaStoryId);
-
+export default withAuthComponent(MangaView);
+export const getServerSideProps = withAuthServerSideProps(async (context, user = store.user) => {
+  const res = await client.service(`/api/v2/manga-view`).get(context.params.pid, {
+    query: {
+      storyBoardId: context.params.pid,
+    },
+  });
   try {
     return {
       props: {
         user,
-        storyBoardId: context.params.pid,
-        mangaUrls: res.mangaUrls,
-        mangaStoryId: resMangaStory._id,
-        mangaStoryTitle: resMangaStory.title,
+        ...res,
       },
     };
   } catch (error) {

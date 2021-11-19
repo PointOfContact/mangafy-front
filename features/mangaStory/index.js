@@ -57,10 +57,7 @@ const MangeStory = (props) => {
   const routerBasePath = `/manga-story/${baseData?._id}?tab=`;
   const router = useRouter();
   const [storyBoard, setStoryBoard] = useState({
-    idea: {
-      title: '',
-      text: '',
-    },
+    idea: '',
     pages: [],
     heroes: [],
     author: [],
