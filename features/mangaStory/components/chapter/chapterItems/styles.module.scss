@@ -72,19 +72,6 @@
       border-bottom: none;
       border-left: none;
     }
-    h3 {
-      width: 168.53px;
-      height: 59px;
-      display: flex;
-      align-items: center;
-      color: $black;
-      margin-top: 25px;
-      margin-left: 20px;
-      font-style: normal;
-      font-weight: 500;
-      font-size: 20px;
-      line-height: 29px;
-    }
     .newPageContainer {
       width: 100%;
       display: flex;
@@ -115,11 +102,14 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
+    align-items: end;
     position: absolute;
     bottom: 12px;
     left: 20px;
     z-index: 5;
-    border: 1px solid;
+    @include media-sm {
+      max-width: 200px;
+    }
     .switchContainer {
       display: flex;
       align-items: center;
@@ -134,9 +124,17 @@
         height: 22px;
         margin-top: 0;
         margin-right: 5px;
+        @include media-sm {
+          width: 42px;
+          height: 20px;
+        }
         & > span::before {
           width: 16px;
           height: 16px;
+          @include media-sm {
+            width: 14px;
+            height: 14px;
+          }
         }
       }
     }

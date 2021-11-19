@@ -1,0 +1,53 @@
+@import '../../../../../../styles/variables.scss';
+
+.titleContainer {
+  width: 100%;
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  z-index: 5;
+  .inputNameContainer {
+    height: 44px;
+    form div {
+        margin: 0;
+    }
+    .error {
+      max-width: 231px;
+      font-size: 14px;
+      color: $red;
+      text-align: center;
+      @include media-sm {
+        width: 200px;
+        font-size: 12px;
+      }
+    }
+    .chapterNameInput {
+      max-width: 231px;
+      width: 100%;
+      border: 1px solid $primaryDark;
+      background-color: white;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 23px;
+      color: $black;
+      @include media-sm {
+        width: 200px;
+      }
+      &::placeholder {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 23px;
+        color: $gray85;
+      }
+    }
+  }
+  .chapterTitle{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 29px;
+    color: $black;
+  }
+}

@@ -7,7 +7,7 @@ import mangaStoryAPI from 'features/mangaStory/mangaStoryAPI';
 import PropTypes from 'prop-types';
 
 import Pages from '../pages';
-import ChapterHeader from './chapterHeader';
+import ChapterTitle from './chapterTitle';
 import ModalCreatePage from './modalCreatePage';
 import styles from './styles.module.scss';
 
@@ -43,16 +43,16 @@ const ChapterItems = ({ chapters, setChapters, storyBoard }) => {
     <>
       {chapters?.map((value, index) => (
         <div key={value._id}>
-          <ChapterHeader
+          {/* <ChapterHeader
             value={value}
             setChapters={setChapters}
             index={index}
             chapters={chapters}
-          />
+          /> */}
           <div className={styles.chapterItem}>
             <div className={styles.addPageContainer}>
               <div className={styles.addPage}>
-                <h3>{value.title}</h3>
+                <ChapterTitle value={value} chapters={chapters} setChapters={setChapters} />
                 <div
                   className={styles.newPageContainer}
                   onClick={() => {
