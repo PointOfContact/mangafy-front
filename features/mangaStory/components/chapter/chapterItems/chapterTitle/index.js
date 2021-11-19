@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 
 import { Form } from 'antd';
 import PrimaryInput from 'components/ui-elements/input';
@@ -7,11 +7,9 @@ import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
-const ChapterTitle = ({ value, chapters, setChapters }) => {
-  const inputRef = useRef(null);
+const ChapterTitle = ({ value, chapters, setChapters, edit, setEdit }) => {
   const [mouseOut, onMouseOut] = useState(false);
   const [editName, setEditName] = useState(value?.title);
-  const [edit, setEdit] = useState('');
   const validate = editName.trim().length < 2;
 
   const error = validate && mouseOut && (
@@ -19,10 +17,6 @@ const ChapterTitle = ({ value, chapters, setChapters }) => {
       Please enter a name for your chapter. You can leave it blank if you want
     </p>
   );
-
-  useEffect(() => {
-    // publishedRef.current.checked = value?.published;
-  }, []);
 
   const upgradeChapterData = (item, resultId) =>
     chapters.map((val) => (val?._id === resultId ? item : val));
@@ -45,19 +39,27 @@ const ChapterTitle = ({ value, chapters, setChapters }) => {
     <div className={styles.titleContainer}>
       {edit === value?._id ? (
         <div className={styles.inputNameContainer}>
-          <Form name="chapterTitle" onFinish={onFinish}>
+          <Form
+            name="chapterTitle"
+            onFinish={onFinish}
+            initialValues={{
+              title: value?.title,
+            }}>
             <Form.Item name={'title'}>
               <PrimaryInput
-                inputRef={inputRef}
                 value={editName}
                 maxLength={30}
+                autoFocus={true}
+                isFieldTouched={() => true}
                 placeholder="Chapter name"
                 className={styles.chapterNameInput}
                 onChange={(e) => setEditName(e.target.value)}
-                onMouseOut={() => onMouseOut(true)}
+                onMouseOut={() => {
+                  onMouseOut(true);
+                }}
                 onBlur={() => {
                   validate
-                    ? setEdit(false)
+                    ? setEdit('')
                     : mangaStoryAPI.chapter.patch(
                         value?._id,
                         { title: editName },
@@ -90,6 +92,8 @@ ChapterTitle.propTypes = {
   value: PropTypes.object.isRequired,
   chapters: PropTypes.object.isRequired,
   setChapters: PropTypes.func.isRequired,
+  edit: PropTypes.string.isRequired,
+  setEdit: PropTypes.func.isRequired,
 };
 
 export default ChapterTitle;

@@ -1,0 +1,60 @@
+@import '../../../../../../styles/variables.scss';
+
+.chapterItemFooter {
+  max-width: 231px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  position: absolute;
+  bottom: 12px;
+  left: 20px;
+  z-index: 5;
+  @include media-sm {
+    max-width: 160px;
+  }
+  .switchContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 32px;
+    color: $black;
+    .switch {
+      width: 52px;
+      height: 22px;
+      margin-top: 0;
+      margin-right: 5px;
+      @include media-sm {
+        width: 42px;
+        height: 20px;
+      }
+      & > span::before {
+        width: 16px;
+        height: 16px;
+        @include media-sm {
+          width: 14px;
+          height: 14px;
+        }
+      }
+    }
+  }
+}
+
+.menuChapter {
+  width: 100px;
+  p {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 20px;
+    color: $gray85;
+    margin: 16px;
+    cursor: pointer;
+    &:hover {
+      color: $black;
+    }
+  }
+}
