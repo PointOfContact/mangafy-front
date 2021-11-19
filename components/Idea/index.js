@@ -47,7 +47,7 @@ const Idea = ({ storyBoard, user }) => {
         placeholder="The plot is what happens in a story. However, it is not simply a sequence of events. You want a lot of dialogue and large, easily recognizable moments. Come up with a short story idea that would work well visually and start typing..."
         result={handleTextChange}
         value={idea}
-        disabled={idea.length >= 1000}
+        disabled={idea?.length >= 1000}
         maxLength={10}
         onBlur={onBlur}
       />
