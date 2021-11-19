@@ -52,10 +52,7 @@ const StoryBoardTabs = ({
   const routerBasePath = `/manga-story/${baseData?._id}?tab=create&page=`;
   const imageType = zoomImageUrl?.slice(-3) === 'pdf' || zoomImageUrl?.slice(-3) === 'PDF';
   // const [storyBoard, setStoryBoard] = useState({
-  //   idea: {
-  //     title: '',
-  //     text: '',
-  //   },
+  //   idea: '',
   //   pages: [],
   //   heroes: [],
   //   author: [],
