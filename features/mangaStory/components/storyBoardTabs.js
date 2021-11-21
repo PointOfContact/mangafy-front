@@ -313,7 +313,7 @@ const StoryBoardTabs = ({
   //   </div>
   // );
   const tabsOnChange = (activeKey) => {
-    Router.push(`${routerBasePath}${pageArray[activeKey]}`);
+    Router.push(`${routerBasePath}${pageArray[activeKey]}`, undefined, { shallow: true });
     setCurrentPage(pageArray[activeKey]);
     setStoryBoardActiveTab(activeKey);
   };

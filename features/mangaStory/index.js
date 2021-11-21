@@ -187,7 +187,8 @@ const MangeStory = (props) => {
   const tabChange = (activeKey) => {
     const ifCreate = activeKey === '2' ? `&page=${currentPage}` : '';
     const path = `${routerBasePath}${tabsArray[activeKey]}${ifCreate}`;
-    Router.push(path);
+    Router.push(path, undefined, { shallow: true });
+
     setCollabActiveTab(activeKey);
   };
 
