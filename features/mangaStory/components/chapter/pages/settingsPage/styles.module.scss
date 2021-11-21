@@ -1,27 +1,41 @@
 @import '../../../../../../styles/variables.scss';
 
-.settingsPageContainer{
-    max-width: 100px;
+.settingsPageContainer {
+  max-width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 7px auto 7px;
+  & > div {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 0.5px solid $gray85;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 7px auto 7px;
-    & > div {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      border: 0.5px solid $gray85;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      &:hover{
-        background-color: $primaryDark;
-        svg path {
-          fill: white;
-        }
+    @include media-sm {
+      width: 24px;
+      height: 24px;
+      svg {
+        width: 10px;
+        height: 11px;
       }
     }
-    .deleteCard{
-      cursor: pointer;
+    &:hover {
+      background-color: $primaryDark;
+      svg path {
+        fill: white;
+      }
     }
+  }
+  .deleteCard {
+    cursor: pointer;
+  }
+}
+
+.popConfirm{
+  & > div div div > div{
+    width: 220px;
+  }
 }
