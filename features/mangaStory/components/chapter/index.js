@@ -35,6 +35,10 @@ const Chapter = ({ storyBoard }) => {
   );
 
   const onFinish = () => {
+    if (validate) {
+      setOnBlur(true);
+      return;
+    }
     mangaStoryAPI.chapter.create(
       chapterName,
       storyBoard,
@@ -54,7 +58,12 @@ const Chapter = ({ storyBoard }) => {
       {<ChapterItems chapters={chapters} setChapters={setChapters} storyBoard={storyBoard} />}
       <div className={styles.addChaptersContainer}>
         {createChapter ? (
-          <Form name="chapterCreate" onFinish={onFinish}>
+          <Form
+            name="chapterCreate"
+            initialValues={{
+              chapterName: 'Untitled Chapter',
+            }}
+            onFinish={onFinish}>
             <Form.Item name="chapterName">
               <PrimaryInput
                 inputRef={inputRef}

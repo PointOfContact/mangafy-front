@@ -48,7 +48,10 @@
     align-items: center;
     @include media-sm {
       margin-top: 40px;
-      margin-bottom: 10px;
+      margin-bottom: 24px;
+    }
+    form > div {
+      margin: 0;
     }
     .chapterName {
       border: 1px solid $primaryDark;
@@ -85,9 +88,11 @@
       }
     }
     .error {
+      max-width: 300px;
       font-size: 14px;
       color: $red;
       text-align: center;
+      white-space: break-spaces;
     }
   }
 }

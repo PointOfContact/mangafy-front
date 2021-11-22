@@ -34,7 +34,7 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
       line-height: 30px;
     }
   }
-  p {
+  & > div > p {
     font-style: normal;
     font-weight: normal;
     font-size: 20px;
@@ -90,12 +90,10 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
     label {
       display: flex;
       align-items: center;
+      height: 44px;
       margin-bottom: 10px;
-      &:last-child{
-        margin-top: -23px;
-      }
       input {
-        margin-bottom: 34px;
+        margin-bottom: 10px;
       }
       span {
         font-style: normal;
@@ -106,7 +104,6 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
           border-color: $black !important;
           box-shadow: 0 0 0 3px white !important;
           margin-bottom: 7px;
-          top: 5px;
           &::after {
             width: 14px !important;
             height: 14.5px !important;
@@ -119,16 +116,28 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
       }
     }
     .error {
-      margin-top: -12px;
+      margin: 0;
       color: $red;
       font-size: 16px;
+      line-height: 20px;
+      margin-left: 24px;
       @include media-sm {
-        font-size: 14px;
+        font-size: $text5;
       }
     }
   }
+  .customSubdomainTitle{
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 29px;
+    margin-left: 24px;
+    margin-top: 10px;
+    margin-bottom: -5px;
+  }
   .custom{
     label {
+      margin-bottom: 0;
       &:last-child{
         margin-top: 0px;
       }
