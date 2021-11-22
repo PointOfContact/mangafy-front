@@ -9,6 +9,7 @@ import PrimaryButton from 'components/ui-elements/button';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
+// eslint-disable-next-line import/order
 import { MessageList } from 'react-chat-elements';
 
 import 'react-chat-elements/dist/main.css';
@@ -42,7 +43,9 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
 
   const wrapUrls = (text) => {
     // eslint-disable-next-line no-useless-escape
-    const url_pattern = /(http|ftp|https|www):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/gi;
+    const url_pattern =
+      // eslint-disable-next-line no-useless-escape
+      /(http|ftp|https|www):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/gi;
     return text.replace(url_pattern, (url) => {
       const href = url_pattern.test(url) ? url : `http://${url}`;
       return `<a href="${href}" target="_blank">${url}</a>`;
@@ -88,15 +91,26 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
           headers: { Authorization: `Bearer ${jwt}` },
         })
         .then((res) => {
-          if (res?.messages && (totalMess !== res.messages.length || res._id !== convId)) {
+          if (
+            res?.messages &&
+            (totalMess !== res.messages.length ||
+              res._id !== convId ||
+              messageItem.length !== res.messages.length)
+          ) {
             convId = res._id;
             totalMess = res.messages.length;
             const neMess = res.messages.map((item, index) => {
               const content = wrapUrls(item.content, index);
               return { ...item, content };
             });
-            setMessageItem(neMess);
+            if (messageItem.length !== res.messages.length) {
+              clearInterval(interval);
+              interval = setInterval(() => {
+                getMessages(conversationId);
+              }, 3000);
+            }
             setParticipantsInfo(res.participentsInfo);
+            setMessageItem(neMess);
             scrollToBottom();
           }
         })
