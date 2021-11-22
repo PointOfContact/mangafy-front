@@ -35,6 +35,14 @@ const ViewUrlName = ({ baseData, onChangeSingleField, sendEvent }) => {
     setValue(e.target.value);
   };
 
+  const error = validViewUrlName && isTouched && (
+    <p className={styles.error}>
+      {viewUrlName.length < 2
+        ? 'This field minimum length should be min 2 character'
+        : 'Subdomain is invalid. Only characters are allowed.'}
+    </p>
+  );
+
   const ifCustomSubdomain = value === 'Custom subdomain';
 
   return (
@@ -47,13 +55,15 @@ const ViewUrlName = ({ baseData, onChangeSingleField, sendEvent }) => {
         Claim project name and give fans an easy-to remember web address for your Webcomics project
       </p>
 
+      {ifCustomSubdomain && <p className={styles.customSubdomainTitle}> Custom subdomain </p>}
+
       <Radio.Group
         name={'typeUrlView'}
         onChange={onChange}
         value={value || 'Standard domain'}
         className={cn(styles.radioButton, !ifCustomSubdomain && styles.custom)}>
         <Radio value={'Custom subdomain'}>
-          Custom subdomain
+          {!ifCustomSubdomain && 'Custom subdomain'}
           {ifCustomSubdomain && (
             <>
               <div className={styles.standardDomain}>
@@ -83,17 +93,10 @@ const ViewUrlName = ({ baseData, onChangeSingleField, sendEvent }) => {
                 />
                 <span>.mangafy.club</span>
               </div>
-              {validViewUrlName && isTouched && (
-                <p className={styles.error}>
-                  {viewUrlName.length < 2
-                    ? 'This field minimum length should be min 2 character'
-                    : 'Subdomain is invalid. Only characters are allowed.'}
-                </p>
-              )}
             </>
           )}
         </Radio>
-
+        {error}
         <Radio
           value={'Standard domain'}
           onChange={() => {
