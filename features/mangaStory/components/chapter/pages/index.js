@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import client from 'api/client';
+import cn from 'classnames';
 import Imgix from 'components/imgix';
 import ShowImgModal from 'components/modals/showImg';
 import dynamic from 'next/dynamic';
@@ -30,15 +31,13 @@ const Pages = ({
 
   const pagesArray = pages?.map((value, index) => {
     const ifPdf = value?.imageUrl?.slice(-3) === 'pdf' || pages?.imageUrl?.slice(-3) === 'PDF';
-    const image = !!value.imageUrl
-      ? client.UPLOAD_URL + value.imageUrl
-      : 'https://mangafy.club/img/collab_baner.webp';
+    const image = client.UPLOAD_URL + value.imageUrl;
 
     return (
       <div key={value?._id}>
         <div className={styles.itemPage}>
           <div
-            className={styles.content}
+            className={cn(styles.content, !value?.imageUrl && styles.contentDef)}
             onClick={() => {
               setVisibleModal(true);
               setModalTitle('Edit page');
@@ -46,7 +45,10 @@ const Pages = ({
               setChapterItem({ value: chapterItem, index: chapterIndex });
             }}>
             <h2>{value.title}</h2>
-            <p dangerouslySetInnerHTML={{ __html: value.text }} />
+            <p
+              dangerouslySetInnerHTML={{ __html: value.text }}
+              className={cn(styles.description, styles.descriptionDef)}
+            />
             <SettingsPage
               page={{ value, index }}
               setVisibleModal={setVisibleModal}
@@ -57,20 +59,22 @@ const Pages = ({
               chapters={chapters}
             />
           </div>
-          <div
-            className={styles.pageImage}
-            onClick={() => !!value?.imageUrl && (setIsModalVisible(true), setCurrentImg(image))}>
-            {ifPdf ? (
-              <PDFViewer url={image} />
-            ) : (
-              <Imgix
-                className={styles.image}
-                layout="fill"
-                src={image}
-                alt={'MangaFy page image'}
-              />
-            )}
-          </div>
+          {!!value?.imageUrl && (
+            <div
+              className={styles.pageImage}
+              onClick={() => !!value?.imageUrl && (setIsModalVisible(true), setCurrentImg(image))}>
+              {ifPdf ? (
+                <PDFViewer url={image} />
+              ) : (
+                <Imgix
+                  className={styles.image}
+                  layout="fill"
+                  src={image}
+                  alt={'MangaFy page image'}
+                />
+              )}
+            </div>
+          )}
         </div>
       </div>
     );

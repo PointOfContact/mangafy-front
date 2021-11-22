@@ -8,6 +8,7 @@ import Popconfirm from 'components/popconfirm';
 import PrimaryButton from 'components/ui-elements/button';
 import PrimaryInput from 'components/ui-elements/input';
 import TextArea from 'components/ui-elements/text-area';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import { heroQuality, heroTypes } from 'helpers/constant';
 import PropTypes from 'prop-types';
 
@@ -20,7 +21,7 @@ const ModalHeroes = ({
   changeShowModalHeroes,
   showModal,
   hero,
-  user,
+  sendEvent,
   confirmDelete,
   onChangeHeroLogic,
   ifIsEdit,
@@ -168,7 +169,12 @@ const ModalHeroes = ({
                       setNameValue();
                       name?.trim()?.length === 1
                         ? setValidation('This field max length 2 letter')
-                        : onMouseOut();
+                        : (onMouseOut(),
+                          sendEvent(EVENTS.CHANGE_BOARD_CHARACTER, {
+                            hero,
+                            changed: 'name',
+                            name,
+                          }));
                     }}
                   />
                 </Form.Item>
@@ -192,6 +198,11 @@ const ModalHeroes = ({
                       onBlur={() => {
                         setSearchQualityIcon(false);
                         onChangeHero();
+                        sendEvent(EVENTS.CHANGE_BOARD_CHARACTER, {
+                          hero,
+                          changed: 'Character development',
+                          character_development: quality,
+                        });
                       }}>
                       {heroQualityArray}
                     </Select>
@@ -220,6 +231,11 @@ const ModalHeroes = ({
                       onBlur={() => {
                         setSearchTypesIcon(false);
                         onChangeHero();
+                        sendEvent(EVENTS.CHANGE_BOARD_CHARACTER, {
+                          hero,
+                          changed: 'type',
+                          heroType,
+                        });
                       }}>
                       {heroTypesArray}
                     </Select>
@@ -251,7 +267,14 @@ const ModalHeroes = ({
                     isLinear={true}
                     autoSize={{ minRows: 1, maxRows: 4 }}
                     onChange={(e) => setDescription(e.target.value)}
-                    onBlur={() => onChangeHero()}
+                    onBlur={() => {
+                      onChangeHero();
+                      sendEvent(EVENTS.CHANGE_BOARD_CHARACTER, {
+                        hero,
+                        changed: 'Description',
+                        description,
+                      });
+                    }}
                   />
                 </Form.Item>
                 <h3 className={styles.title}>Appearance and Powers</h3>
@@ -273,7 +296,14 @@ const ModalHeroes = ({
                     isLinear={true}
                     autoSize={{ minRows: 1, maxRows: 4 }}
                     onChange={(e) => setAppearance(e.target.value)}
-                    onBlur={() => onChangeHero()}
+                    onBlur={() => {
+                      onChangeHero();
+                      sendEvent(EVENTS.CHANGE_BOARD_CHARACTER, {
+                        hero,
+                        changed: 'Appearance',
+                        appearance,
+                      });
+                    }}
                   />
                 </Form.Item>
                 <div className={styles.attachmentContainer}>
@@ -299,6 +329,7 @@ const ModalHeroes = ({
                     className={styles.upload}
                     mangaUrl={imageUrl}
                     setImgId={setImgId}
+                    sendEvent={sendEvent}
                   />
                 </Form.Item>
               </Form>
@@ -308,6 +339,9 @@ const ModalHeroes = ({
                   onClick={() => {
                     changeShowModalHeroes(false);
                     onChangeHero({}, imageUrl, true);
+                    sendEvent(EVENTS.DUPLICATE_BOARD_CHARACTER, {
+                      hero,
+                    });
                   }}
                   text="Duplicate"
                 />
@@ -319,7 +353,12 @@ const ModalHeroes = ({
                   okText="Delete"
                   cancelText="Cancel"
                   onConfirm={() => confirmDelete(hero)}
-                  onClick={() => clickDelete(hero)}
+                  onClick={() => {
+                    clickDelete(hero);
+                    sendEvent(EVENTS.DELETE_BOARD_CHARACTER, {
+                      hero,
+                    });
+                  }}
                   item={<PrimaryButton isWhite={true} text="Delete Character" />}
                 />
               </div>
@@ -336,18 +375,17 @@ ModalHeroes.propTypes = {
   showModal: PropTypes.bool.isRequired,
   hero: PropTypes.object,
   mangaUrl: PropTypes.string,
-  user: PropTypes.object,
   confirmDelete: PropTypes.func.isRequired,
   onChangeHeroLogic: PropTypes.func.isRequired,
   ifIsEdit: PropTypes.bool,
   setEdit: PropTypes.func,
   componentNames: PropTypes.array,
   clickDelete: PropTypes.func,
+  sendEvent: PropTypes.func.isRequired,
 };
 
 ModalHeroes.defaultProps = {
   hero: {},
-  user: {},
   mangaUrl: null,
   ifIsEdit: false,
   setEdit: () => {},

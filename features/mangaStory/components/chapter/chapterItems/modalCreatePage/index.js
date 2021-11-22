@@ -118,7 +118,7 @@ const ModalCreatePage = ({
   };
 
   const request = (e) => {
-    const newTitle = !!e.title.trim() ? e.title : 'Untitled page';
+    const newTitle = !!e?.title?.trim() ? e.title : 'Untitled page';
     setTitle(newTitle);
     setCharacterArray(e.characterArray);
     createPage(newTitle, e.characterArray).then(() => {

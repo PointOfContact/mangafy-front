@@ -39,9 +39,9 @@ const Publish = ({ baseData }) => {
         </div>
         <div className={styles.shareContainer}>
           <ShareButtons className={styles.share} shareUrl={link} showTitle={true} />
-          <Link href={`/manga-story/60a3daa40f853d4773a06021?tab=settings&active=domain`}>
-            <a>Customize link</a>
-          </Link>
+          <a href={`/manga-story/${baseData?._id}?tab=settings&active=domain`} target="_self">
+            Customize link
+          </a>
         </div>
       </div>
       <div className={styles.guide}>

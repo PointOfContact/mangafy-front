@@ -27,6 +27,7 @@ import Preview from './preview';
 import Publish from './publish';
 
 const { TabPane } = Tabs;
+const pageArray = ['', 'plot', 'characters', 'chapters', 'upload', 'publish'];
 
 const StoryBoardTabs = ({
   user,
@@ -39,6 +40,7 @@ const StoryBoardTabs = ({
   storyBoard,
   getStoryBoard,
   setStoryBoard,
+  setCurrentPage,
 }) => {
   const [storyBoardActiveTab, setStoryBoardActiveTabSeter] = useState(1);
   const [showTaskModal, changeShowTaskModal] = useState(false);
@@ -64,21 +66,22 @@ const StoryBoardTabs = ({
 
   const setStoryBoardActiveTab = (tab) => {
     setStoryBoardActiveTabSeter(tab);
+
     switch (tab.toString()) {
       case '1':
         setStage({
           tab,
-          title: 'THE SETTING',
-          description:
-            "Every good story begins with an idea. This part should include your story's concept, genre, and synopsis.",
+          // title: 'THE SETTING',
+          // description:
+          //   "Every good story begins with an idea. This part should include your story's concept, genre, and synopsis.",
         });
         break;
       case '2':
         setStage({
           tab,
-          title: 'BUILD YOUR CHARACTERS',
-          description:
-            'To get the reader engaged we need to build an awesome cast and world. Define your characters to kick off your tale.',
+          // title: 'BUILD YOUR CHARACTERS',
+          // description:
+          //   'To get the reader engaged we need to build an awesome cast and world. Define your characters to kick off your tale.',
         });
         break;
       // case '3':
@@ -92,9 +95,9 @@ const StoryBoardTabs = ({
       case '3':
         setStage({
           tab,
-          title: 'CREATE_SCRIPT',
-          description:
-            'Add full comic and manga script pages for an Arc, volume, or a full graphic novel',
+          // title: 'CREATE_SCRIPT',
+          // description:
+          //   'Add full comic and manga script pages for an Arc, volume, or a full graphic novel',
         });
         break;
       // case '4':
@@ -108,25 +111,25 @@ const StoryBoardTabs = ({
       case '4':
         setStage({
           tab,
-          title: 'UPLOAD YOUR DIGITAL WORK',
-          description:
-            'Upload illustration and exchange work files with your team - all in one hosting place.',
+          // title: 'UPLOAD YOUR DIGITAL WORK',
+          // description:
+          //   'Upload illustration and exchange work files with your team - all in one hosting place.',
         });
         break;
       case '5':
         setStage({
           tab,
-          title: 'PUBLISH',
-          description:
-            "Congratulations! you finalized your volume, arc or novel and now it's time to publish. Select one of MangaFY's self-publishing partners and start monetizing",
+          // title: 'PUBLISH',
+          // description:
+          //   "Congratulations! you finalized your volume, arc or novel and now it's time to publish. Select one of MangaFY's self-publishing partners and start monetizing",
         });
         break;
       default:
         setStage({
           tab,
-          title: 'THE SETTING',
-          description:
-            'Every good story begins with an idea. This part should include the concept, location, and synopses',
+          // title: 'THE SETTING',
+          // description:
+          //   'Every good story begins with an idea. This part should include the concept, location, and synopses',
         });
     }
   };
@@ -136,10 +139,11 @@ const StoryBoardTabs = ({
   //   setIsModalVisible(true);
   // };
 
-  const handleCancelModal = () => {
-    document.body.classList.remove('body_remove_scroll');
-    setIsModalVisible(false);
-  };
+  // const handleCancelModal = () => {
+  //   document.body.classList.remove('body_remove_scroll');
+  //   setIsModalVisible(false);
+  // };
+
   // const renderNavigationButtons = (disableNextBtn = false) => (
   //   <div className={styles.actionButtons}>
   //     <div>
@@ -228,7 +232,7 @@ const StoryBoardTabs = ({
 
   useEffect(() => {
     setIsShowAnimation(true);
-
+    const pageNumber = !!storyBoard?.mangaUrls?.length ? '4' : '5';
     let myEvent = '';
     const { page } = query;
 
@@ -237,7 +241,7 @@ const StoryBoardTabs = ({
         myEvent = EVENTS.PILOT_COMPLETED;
         setStoryBoardActiveTab('1');
         break;
-      case 'character':
+      case 'characters':
         myEvent = EVENTS.CHARACTERS_COMPLETED;
         setStoryBoardActiveTab('2');
         break;
@@ -254,11 +258,10 @@ const StoryBoardTabs = ({
         break;
       case 'publish':
         myEvent = EVENTS.PROJECT_PUBLISHED;
-        setStoryBoardActiveTab(!!storyBoard?.mangaUrls?.length ? '5' : '4');
+        setStoryBoardActiveTab(pageNumber);
         break;
       default:
-        myEvent = EVENTS.PILOT_COMPLETED;
-        setStoryBoardActiveTab('1');
+        break;
     }
 
     const data = [
@@ -272,7 +275,7 @@ const StoryBoardTabs = ({
     ];
 
     myAmplitude(data);
-  }, [query.page]);
+  }, []);
 
   const updateTasks = async () => {
     const jwt = client.getCookie('feathers-jwt');
@@ -309,6 +312,11 @@ const StoryBoardTabs = ({
   //     />
   //   </div>
   // );
+  const tabsOnChange = (activeKey) => {
+    Router.push(`${routerBasePath}${pageArray[activeKey]}`, undefined, { shallow: true });
+    setCurrentPage(pageArray[activeKey]);
+    setStoryBoardActiveTab(activeKey);
+  };
 
   return (
     <>
@@ -317,15 +325,11 @@ const StoryBoardTabs = ({
         defaultActiveKey={1}
         className={`${styles.storyBoardTab} storyBoardTabs`}
         type="line"
-        onChange={(activeKey) => setStoryBoardActiveTab(activeKey)}
+        onChange={tabsOnChange}
         tabPosition={width < 992 ? 'bottom' : 'left'}>
         <TabPane
           tab={
-            <span
-              className={styles.tab}
-              onClick={() => {
-                Router.push(`${routerBasePath}plot`);
-              }}>
+            <span className={styles.tab}>
               <GroupSvg fill="#7b65f3" width="25px" />
               <p>Plot</p>
             </span>
@@ -339,11 +343,7 @@ const StoryBoardTabs = ({
         </TabPane>
         <TabPane
           tab={
-            <span
-              className={styles.tab}
-              onClick={() => {
-                Router.push(`${routerBasePath}character`);
-              }}>
+            <span className={styles.tab}>
               <SuperHeroSvg width="25px" />
               <p>Characters</p>
             </span>
@@ -382,11 +382,7 @@ const StoryBoardTabs = ({
         </TabPane> */}
         <TabPane
           tab={
-            <span
-              className={cn(styles.chapterIcon, styles.tab)}
-              onClick={() => {
-                Router.push(`${routerBasePath}chapters`);
-              }}>
+            <span className={cn(styles.chapterIcon, styles.tab)}>
               <SvgChapter height="25px" />
               <p>Chapters</p>
             </span>
@@ -412,11 +408,7 @@ const StoryBoardTabs = ({
           <TabPane
             // disabled={!storyBoard?.layoutId}
             tab={
-              <span
-                className={styles.tab}
-                onClick={() => {
-                  Router.push(`${routerBasePath}upload`);
-                }}>
+              <span className={styles.tab}>
                 <PencilCaseSvg width="25px" />
                 <p>Upload</p>
               </span>
@@ -490,17 +482,13 @@ const StoryBoardTabs = ({
       </TabPane> */}
         <TabPane
           tab={
-            <span
-              className={styles.tab}
-              onClick={() => {
-                Router.push(`${routerBasePath}publish`);
-              }}>
+            <span className={styles.tab}>
               <ShareSvg height="25px" />
               <p>Publish</p>
             </span>
           }
           // disabled={!storyBoard?.mangaUrl}
-          key={5}>
+          key={!!storyBoard?.mangaUrls?.length ? 5 : 4}>
           {isShowAnimation && <span className={styles.showAnimation}></span>}
           <div className={styles.tabContent}>
             {/* {addNewButtons} */}
@@ -537,6 +525,7 @@ StoryBoardTabs.propTypes = {
   getStoryBoard: PropTypes.func,
   setStoryBoard: PropTypes.func,
   storyBoard: PropTypes.object,
+  setCurrentPage: PropTypes.func,
 };
 
 StoryBoardTabs.defaultProps = {
@@ -546,6 +535,7 @@ StoryBoardTabs.defaultProps = {
   getStoryBoard: () => {},
   setStoryBoard: () => {},
   participentsInfo: [],
+  setCurrentPage: () => {},
 };
 
 export default StoryBoardTabs;

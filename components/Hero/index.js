@@ -30,6 +30,20 @@ const Hero = ({ storyBoard, setStoryBoard, getStoryBoard, user }) => {
   const [selectedType, setSelectedType] = useState('');
   const [componentNames, setComponentNames] = useState([]);
 
+  const sendEvent = (event_type, properties) => {
+    const data = [
+      {
+        event_type,
+        event_properties: { storyBoard, ...properties },
+        user_id: user._id,
+        user_properties: {
+          ...user,
+        },
+      },
+    ];
+    myAmplitude(data);
+  };
+
   const { allowPersonageCreate, allowComponentCreate, allowBackgroundCreate } = useMemo(() => {
     const allow = {
       allowPersonageCreate: true,
@@ -257,6 +271,7 @@ const Hero = ({ storyBoard, setStoryBoard, getStoryBoard, user }) => {
         confirmDelete={confirmDelete}
         heroItems={getLists(HeroTypes.personage)}
         onChangeHeroLogic={onChangeHeroLogic}
+        sendEvent={sendEvent}
       />
       <ModalHeroes
         changeShowModalHeroes={changeShowModalHeroes}
@@ -270,6 +285,7 @@ const Hero = ({ storyBoard, setStoryBoard, getStoryBoard, user }) => {
         onChangeHeroLogic={onChangeHeroLogic}
         componentNames={componentNames}
         clickDelete={clickDeleteHero}
+        sendEvent={sendEvent}
       />
     </div>
   );

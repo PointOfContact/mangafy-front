@@ -4,7 +4,8 @@ import SvgAdd from 'components/icon/Add';
 import PropTypes from 'prop-types';
 
 import Pages from '../pages';
-import ChapterHeader from './chapterHeader';
+import ChapterFooter from './chapterFooter';
+import ChapterTitle from './chapterTitle';
 import ModalCreatePage from './modalCreatePage';
 import styles from './styles.module.scss';
 
@@ -12,30 +13,41 @@ const ChapterItems = ({ chapters, setChapters, storyBoard }) => {
   const [visibleModal, setVisibleModal] = useState(false);
   const [chapterItem, setChapterItem] = useState({});
   const [pageItem, setPageItem] = useState({});
+  const [edit, setEdit] = useState('');
   const [modalTitle, setModalTitle] = useState('Create page');
 
   return (
-    <>
+    <div className={styles.container}>
       {chapters?.map((value, index) => (
         <div key={value._id}>
-          <ChapterHeader
-            value={value}
-            setChapters={setChapters}
-            index={index}
-            chapters={chapters}
-          />
           <div className={styles.chapterItem}>
             <div className={styles.addPageContainer}>
-              <div
-                className={styles.addPage}
-                onClick={() => {
-                  setVisibleModal(true);
-                  setChapterItem({ value, index });
-                  setModalTitle('Create page');
-                  setPageItem({});
-                }}>
-                <h3>New Page</h3>
-                <SvgAdd width={50} height={50} />
+              <div className={styles.addPage}>
+                <ChapterTitle
+                  value={value}
+                  chapters={chapters}
+                  setChapters={setChapters}
+                  edit={edit}
+                  setEdit={setEdit}
+                />
+                <div
+                  className={styles.newPageContainer}
+                  onClick={() => {
+                    setVisibleModal(true);
+                    setChapterItem({ value, index });
+                    setModalTitle('Create page');
+                    setPageItem({});
+                  }}>
+                  <SvgAdd width={50} height={50} />
+                  <h4>New Page</h4>
+                </div>
+                <ChapterFooter
+                  value={value}
+                  setChapters={setChapters}
+                  index={index}
+                  chapters={chapters}
+                  setEdit={setEdit}
+                />
               </div>
             </div>
             <div className={styles.chapterContainer}>
@@ -66,7 +78,7 @@ const ChapterItems = ({ chapters, setChapters, storyBoard }) => {
         modalTitle={modalTitle}
         pageItem={pageItem}
       />
-    </>
+    </div>
   );
 };
 

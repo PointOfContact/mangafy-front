@@ -25,6 +25,7 @@ import StoryBoardTabs from './components/storyBoardTabs';
 import styles from './styles.module.scss';
 
 const { TabPane } = Tabs;
+const tabsArray = ['', 'story', 'create', 'comments', 'team_chat', 'settings'];
 
 const MangeStory = (props) => {
   const {
@@ -45,17 +46,12 @@ const MangeStory = (props) => {
   const [showPayPalContent, setShowPayPalContent] = useState(baseData?.payPalPublished);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [canEdit] = useState(isOwn);
-  const [collabActiveTab, setCollabActiveTab] = useState('1');
-  const [tabsArray, setTabsArray] = useState([
-    '',
-    'story',
-    'story-board',
-    'comments',
-    'invite',
-    'settings',
-  ]);
-  const routerBasePath = `/manga-story/${baseData?._id}?tab=`;
   const router = useRouter();
+  const pathPage = router.query.page || 'plot';
+  const [currentPage, setCurrentPage] = useState(pathPage);
+  const [collabActiveTab, setCollabActiveTab] = useState('1');
+
+  const routerBasePath = `/manga-story/${baseData?._id}?tab=`;
   const [storyBoard, setStoryBoard] = useState({
     idea: {
       title: '',
@@ -71,24 +67,27 @@ const MangeStory = (props) => {
     const { tab } = router.query;
 
     switch (tab) {
-      case 'story-board':
+      case 'story':
+        setCollabActiveTab('1');
+        break;
+      case 'create':
         setCollabActiveTab('2');
         break;
       case 'comments':
         setCollabActiveTab('3');
         break;
-      case 'invites':
+      case 'team_chat':
         user
           ? setCollabActiveTab('4')
-          : Router.push(`/sign-in?page=manga-story/${mangaStory._id}?tab=invites`);
+          : Router.push(`/sign-in?page=manga-story/${mangaStory._id}?tab=team_chat`);
         break;
       case 'settings':
         setCollabActiveTab('5');
         break;
       default:
-        setCollabActiveTab('1');
-        Router.push(`${routerBasePath}story`);
+        break;
     }
+
     const data = {
       event_type: EVENTS.OPENED_MANGA_STORY,
       event_properties: {
@@ -186,7 +185,10 @@ const MangeStory = (props) => {
   };
 
   const tabChange = (activeKey) => {
-    Router.push(`${routerBasePath}${tabsArray[activeKey]}`);
+    const ifCreate = activeKey === '2' ? `&page=${currentPage}` : '';
+    const path = `${routerBasePath}${tabsArray[activeKey]}${ifCreate}`;
+    Router.push(path, undefined, { shallow: true });
+
     setCollabActiveTab(activeKey);
   };
 
@@ -220,7 +222,7 @@ const MangeStory = (props) => {
         }}
       />
       <ButtonToTop />
-      <main className="main_back_2">
+      <main className="main_back_2" style={{ background: '#fafafa' }}>
         <Header path="mangaStory" user={userData} />
         <div className={cn(styles.pageWrap, 'manga-story-page')}>
           <HeaderCollab
@@ -273,6 +275,7 @@ const MangeStory = (props) => {
                         storyBoard={storyBoard}
                         getStoryBoard={getStoryBoard}
                         setStoryBoard={setStoryBoard}
+                        setCurrentPage={setCurrentPage}
                       />
                     </TabPane>
                   )}
@@ -341,13 +344,13 @@ const MangeStory = (props) => {
               isOwn={isOwn}
               user={userData}
             /> */}
-            <FooterPolicy />
           </section>
         </div>
         {!userData && <Footer />}
         {!userData && <FooterPolicy />}
         <FooterLogin user={userData} />
       </main>
+      <FooterPolicy />
       <DeleteProjectModal
         user={userData}
         mangaStory={baseData}
