@@ -18,6 +18,7 @@ const DescriptionBestProfile = ({
   topGallery,
   setTopGallery,
   ifModal,
+  setStartIndex,
 }) => {
   const isLiked = (userId) => !!item?.galleryLikedUsers?.find((value) => value === userId);
 
@@ -26,17 +27,19 @@ const DescriptionBestProfile = ({
       ? likeGallery(galleryId, userId)
           .then(() => {
             setTopGallery(
-              topGallery.map((value) =>
-                value._id === galleryId
-                  ? {
-                      ...value,
-                      // add new like user id
-                      galleryLikedUsers: [...value.galleryLikedUsers, likedUserId],
-                      // add like
-                      likeCount: item?.likeCount + 1,
-                    }
-                  : value
-              )
+              topGallery.map((value, index) => {
+                if (value._id === galleryId) {
+                  setStartIndex(index);
+                  return {
+                    ...value,
+                    // add new like user id
+                    galleryLikedUsers: [...value.galleryLikedUsers, likedUserId],
+                    // add like
+                    likeCount: item?.likeCount + 1,
+                  };
+                }
+                return value;
+              })
             );
           })
           .catch((err) => {
@@ -100,6 +103,7 @@ DescriptionBestProfile.propTypes = {
   topGallery: PropTypes.array.isRequired,
   setTopGallery: PropTypes.func.isRequired,
   ifModal: PropTypes.bool,
+  setStartIndex: PropTypes.func.isRequired,
 };
 
 DescriptionBestProfile.defaultProps = {
