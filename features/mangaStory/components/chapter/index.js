@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import ChapterItems from './chapterItems';
 import styles from './styles.module.scss';
 
-const Chapter = ({ storyBoard }) => {
+const Chapter = ({ storyBoard, setStoryBoard }) => {
   const [chapters, setChapters] = useState(storyBoard?.chapters);
   const [chapterName, setChapterName] = useState('');
   const [createChapter, setCreateChapter] = useState(false);
@@ -55,7 +55,14 @@ const Chapter = ({ storyBoard }) => {
         <PrimaryButton className={styles.published} isWhite={true} text={'Published'} />
         <PrimaryButton isWhite={true} text={'Last modified'} />
       </div> */}
-      {<ChapterItems chapters={chapters} setChapters={setChapters} storyBoard={storyBoard} />}
+      {
+        <ChapterItems
+          chapters={chapters}
+          setChapters={setChapters}
+          storyBoard={storyBoard}
+          setStoryBoard={setStoryBoard}
+        />
+      }
       <div className={styles.addChaptersContainer}>
         {createChapter ? (
           <Form
@@ -108,6 +115,7 @@ const Chapter = ({ storyBoard }) => {
 
 Chapter.propTypes = {
   storyBoard: PropTypes.object.isRequired,
+  setStoryBoard: PropTypes.func.isRequired,
 };
 
 export default Chapter;

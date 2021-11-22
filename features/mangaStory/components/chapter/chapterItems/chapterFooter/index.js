@@ -9,7 +9,15 @@ import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
-const ChapterFooter = ({ value, setChapters, index, chapters, setEdit }) => {
+const ChapterFooter = ({
+  value,
+  setChapters,
+  index,
+  chapters,
+  setEdit,
+  storyBoard,
+  setStoryBoard,
+}) => {
   const [publish, setPublish] = useState(false);
   const publishedRef = useRef(null);
 
@@ -39,8 +47,10 @@ const ChapterFooter = ({ value, setChapters, index, chapters, setEdit }) => {
     </div>
   );
 
-  const upgradeChapterData = (item, resultId) =>
-    chapters.map((val) => (val?._id === resultId ? item : val));
+  const upgradeChapterData = (item, resultId) => ({
+    ...storyBoard,
+    chapters: storyBoard.chapters.map((val) => (val?._id === resultId ? item : val)),
+  });
 
   const publishedChapter = () => {
     const publishedValue = publishedRef.current.checked;
@@ -51,7 +61,7 @@ const ChapterFooter = ({ value, setChapters, index, chapters, setEdit }) => {
       { published: publishedValue },
       upgradeChapterData,
       () => {},
-      setChapters
+      setStoryBoard
     );
   };
 
@@ -79,6 +89,8 @@ ChapterFooter.propTypes = {
   index: PropTypes.number.isRequired,
   chapters: PropTypes.array.isRequired,
   setEdit: PropTypes.func.isRequired,
+  storyBoard: PropTypes.object.isRequired,
+  setStoryBoard: PropTypes.func.isRequired,
 };
 
 export default ChapterFooter;

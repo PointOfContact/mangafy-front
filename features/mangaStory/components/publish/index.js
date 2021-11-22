@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+/* eslint-disable no-nested-ternary */
+import React, { useEffect, useState } from 'react';
 
 import { Tooltip } from 'antd';
 import client from 'api/client';
@@ -10,17 +11,35 @@ import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
-const Publish = ({ baseData }) => {
+const Publish = ({ baseData, storyBoard }) => {
   const viewUrlName = baseData?.viewUrlName;
   const [copyText, setCopyText] = useState('Copy to clipboard');
+  const [ifExistPublishedChapter, setIfExistPublishedChapter] = useState(0);
   const ifCustomSubdomain = baseData?.typeUrlView === 'Custom subdomain';
 
   const link = ifCustomSubdomain
     ? `https://${!!viewUrlName ? viewUrlName : '?'}.mangafy.club`
     : `${client.API_ENDPOINT}/manga-view/${baseData?._id}`;
 
+  const publishImage = !!baseData?.image
+    ? `&image=${baseData?.image}`
+    : !!storyBoard.mangaUrls[0]
+    ? `&image=${storyBoard.mangaUrls[0]}`
+    : '';
+
+  useEffect(() => {
+    setIfExistPublishedChapter(storyBoard?.chapters?.filter((val) => val.published).length);
+  }, [storyBoard]);
+
   return (
     <div className={styles.containerPublish}>
+      {!ifExistPublishedChapter ? (
+        <div className={styles.publishedMessage}>
+          You should have at least one published chapter
+        </div>
+      ) : (
+        ''
+      )}
       <div className={styles.linksContainer}>
         <h3 className={styles.getLink}>Get the link or share on social</h3>
         <div className={styles.copyView}>
@@ -69,6 +88,12 @@ const Publish = ({ baseData }) => {
             </p>
           </a>
         </Link>
+        <Link href={`/feed?pid=${storyBoard?._id}&title=${baseData?.title}${publishImage}`}>
+          <a className={!ifExistPublishedChapter && styles.postManga}>
+            <h4>Publish to Mangafy</h4>
+            <p>Post your manga</p>
+          </a>
+        </Link>
       </div>
     </div>
   );
@@ -76,6 +101,7 @@ const Publish = ({ baseData }) => {
 
 Publish.propTypes = {
   baseData: PropTypes.object.isRequired,
+  storyBoard: PropTypes.object.isRequired,
 };
 
 export default Publish;

@@ -388,7 +388,7 @@ const StoryBoardTabs = ({
             </span>
           }
           key={3}>
-          <Chapter storyBoard={storyBoard} />
+          <Chapter storyBoard={storyBoard} setStoryBoard={setStoryBoard} />
         </TabPane>
         {/* <TabPane
           tab={
@@ -498,7 +498,7 @@ const StoryBoardTabs = ({
               <ShareStoryBoard user={user} shareUrl={originUrl} />
             )} */}
             {/* {renderNavigationButtons()} */}
-            <Publish baseData={baseData} />
+            <Publish baseData={baseData} storyBoard={storyBoard} />
           </div>
         </TabPane>
       </Tabs>
