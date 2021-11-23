@@ -28,6 +28,7 @@ const BestProfile = ({ gallery, user }) => {
           <Imgix layout="fill" src={client.UPLOAD_URL + item?._id} alt="mangaFy gallery" />
           <DescriptionBestProfile
             item={item}
+            setStartIndex={setStartIndex}
             user={user}
             topGallery={topGallery}
             setTopGallery={setTopGallery}
@@ -52,6 +53,7 @@ const BestProfile = ({ gallery, user }) => {
           user={user}
           topGallery={topGallery}
           setTopGallery={setTopGallery}
+          setStartIndex={setStartIndex}
         />
       </div>
     </div>
