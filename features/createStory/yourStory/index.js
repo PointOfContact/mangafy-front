@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { Button, Input, Tooltip } from 'antd';
+import cn from 'classnames';
 import SvgLeftArrow from 'components/icon/LeftArrow';
 import SvgRightArrow from 'components/icon/RightArrow';
 import Imgix from 'components/imgix';
@@ -9,6 +10,8 @@ import Head from 'next/head';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import myAmplitude from 'utils/amplitude';
+
+import styles from './styles.module.scss';
 
 const { TextArea } = Input;
 
@@ -55,7 +58,7 @@ const ProjectStory = ({ user }) => {
   return (
     <>
       <Head></Head>
-      <main className="story_page">
+      <main className={cn('story_page', styles.story_page)}>
         <div className="container">
           <div className="row collab_radio">
             <div className="cool-lg-8">

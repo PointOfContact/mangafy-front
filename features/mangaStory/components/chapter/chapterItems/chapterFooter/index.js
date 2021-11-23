@@ -5,21 +5,29 @@ import SvgMobileMenu from 'components/icon/MobileMenu';
 import Popconfirm from 'components/popconfirm';
 import ToggleSwitch from 'components/ui-elements/toggleSwitch';
 import mangaStoryAPI from 'features/mangaStory/mangaStoryAPI';
+import Router from 'next/router';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
-const ChapterFooter = ({ value, setChapters, index, chapters, setEdit }) => {
+const ChapterFooter = ({ value, setChapters, index, chapters, setEdit, storyBoard }) => {
   const [publish, setPublish] = useState(false);
+  const [mangaUrl, setMangaUrl] = useState([]);
   const publishedRef = useRef(null);
 
   useEffect(() => {
     publishedRef.current.checked = value?.published;
   }, []);
 
+  useEffect(() => {
+    setMangaUrl(value.pages.some((item) => !!item.imageUrl === true));
+  }, [chapters]);
+
+  const showView = value.published && (!!storyBoard?.mangaUrls.length || mangaUrl);
+
   const content = () => (
     <div className={styles.menuChapter}>
-      <p>View</p>
+      {showView ? <p onClick={() => Router.push(`/manga-view/${storyBoard?._id}`)}>View</p> : ''}
       <p
         onClick={() => {
           setEdit(value._id);
@@ -79,6 +87,7 @@ ChapterFooter.propTypes = {
   index: PropTypes.number.isRequired,
   chapters: PropTypes.array.isRequired,
   setEdit: PropTypes.func.isRequired,
+  storyBoard: PropTypes.object.isRequired,
 };
 
 export default ChapterFooter;

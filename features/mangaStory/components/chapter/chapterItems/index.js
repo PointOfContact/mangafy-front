@@ -47,6 +47,7 @@ const ChapterItems = ({ chapters, setChapters, storyBoard }) => {
                   index={index}
                   chapters={chapters}
                   setEdit={setEdit}
+                  storyBoard={storyBoard}
                 />
               </div>
             </div>

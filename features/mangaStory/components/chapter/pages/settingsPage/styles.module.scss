@@ -32,6 +32,14 @@
   .deleteCard {
     cursor: pointer;
   }
+  span{
+    width: 28px;
+    height: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+  }
 }
 
 .popConfirm{

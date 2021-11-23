@@ -175,6 +175,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-right: 20px;
     @include media-md {
       margin-right: 0px;
     }
@@ -308,37 +309,37 @@
         }
       }
     }
-    .inviteMembers {
-      width: 232px;
-      margin-left: 45px;
-      display: flex;
-      align-items: center;
-      padding: 0;
-      @include media-lg {
-        width: 170px;
-        margin-left: 40px;
-      }
-      @include media-md {
-        width: 130px;
-        margin-left: 15px;
-      }
-      .fullInviteName {
-        font-weight: bold;
-        line-height: 29px;
-        color: $black;
-        margin-bottom: 0;
-        margin-left: 13.85px;
-        margin-right: 6px;
-        margin-top: -3px;
-        @include media-lg {
-          margin-top: -2px;
-        }
-      }
-      .inviteMembersButton {
-        display: flex;
-        align-items: center;
-      }
-    }
+    // .inviteMembers {
+    //   width: 232px;
+    //   margin-left: 45px;
+    //   display: flex;
+    //   align-items: center;
+    //   padding: 0;
+    //   @include media-lg {
+    //     width: 170px;
+    //     margin-left: 40px;
+    //   }
+    //   @include media-md {
+    //     width: 130px;
+    //     margin-left: 15px;
+    //   }
+    //   .fullInviteName {
+    //     font-weight: bold;
+    //     line-height: 29px;
+    //     color: $black;
+    //     margin-bottom: 0;
+    //     margin-left: 13.85px;
+    //     margin-right: 6px;
+    //     margin-top: -3px;
+    //     @include media-lg {
+    //       margin-top: -2px;
+    //     }
+    //   }
+    //   .inviteMembersButton {
+    //     display: flex;
+    //     align-items: center;
+    //   }
+    // }
     .fullStartProject,
     .startProject {
       margin-left: 18.85px;

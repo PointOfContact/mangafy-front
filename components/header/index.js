@@ -9,7 +9,6 @@ import Imgix from 'components/imgix';
 import MenuMobilePopover from 'components/menu-mobile-popover';
 import MenuNotificationsBox from 'components/menu-notifications-box';
 import ModalCreateProject from 'components/modalCreateProject';
-import AddButton from 'components/ui-elements/add-button';
 import Avatar from 'components/ui-elements/avatar';
 import PrimaryButton from 'components/ui-elements/button';
 import WarningFillAllData from 'components/warningFillAllData';
@@ -291,7 +290,7 @@ const Header = ({ user, path, setShowModalEdit }) => {
               )}
             </div>
             <span className={cn(styles.btn_submit)}>
-              {user && (
+              {/* {user && (
                 <PrimaryButton
                   isWhite={true}
                   className={styles.inviteMembers}
@@ -310,7 +309,7 @@ const Header = ({ user, path, setShowModalEdit }) => {
                     setShowModal(true);
                   }}
                 />
-              )}
+              )} */}
               <PrimaryButton
                 text="Start a project"
                 className={styles.fullStartProject}
