@@ -55,10 +55,10 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
     white-space: nowrap;
     align-items: flex-end;
 
-    @include media-sm{
+    @include media-sm {
       max-height: calc(100vh - 235px);
     }
-    
+
     @media (max-width: 377px) {
       max-height: calc(100vh - 168px);
     }
@@ -67,18 +67,18 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
       width: 4px;
       height: 6px;
     }
-  
+
     &::-webkit-scrollbar-track {
       box-shadow: inset 0 0 2px $black;
       background-color: $black;
       border-radius: 0;
     }
-  
+
     &::-webkit-scrollbar-thumb {
       background: $primaryDark;
       border-radius: 0px;
     }
-  
+
     &::-webkit-scrollbar-thumb:hover {
       background: $primaryDark;
     }
@@ -396,30 +396,34 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
     }
   }
   .typesSelect {
-    display: flex;
-    align-items: center;
+    padding-top: 1px;
     & > div {
       height: 100% !important;
-      padding: 0 4px !important;
-      &  > span:nth-child(2){
-        padding: 12px;
-        max-width: fit-content;
-        background-color: $primaryLight;
-        height: 38px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-size: 14px;
-        font-weight: bold;
-        border-radius: 15px;
+      padding: 0 10px !important;
+      & > span{
+        width: 50px;
       }
-      input{
+      input {
         height: 100% !important;
       }
     }
     & > span {
       display: none;
+    }
+  }
+  .childLength {
+    & > div > span {
+      max-width: 160px;
+      background-color: $primaryLight;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white !important;
+      font-size: 14px;
+      font-weight: bold;
+      border-radius: 15px;
+      padding: 10px !important;
     }
   }
 }

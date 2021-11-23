@@ -33,7 +33,7 @@ const ModalCreateProject = ({ createProjectModal, showCreateProjectModal }) => {
         .then((res) => {
           showCreateProjectModal(false);
           setLoading(false);
-          window.open(`/manga-story/${res._id}?tab=settings`, '_self');
+          window.open(`/manga-story/${res._id}?tab=settings&manga=create`, '_self');
         })
         .catch((err) => {
           setLoading(false);

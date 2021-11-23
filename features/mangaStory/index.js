@@ -50,6 +50,8 @@ const MangeStory = (props) => {
   const pathPage = router.query.page || 'plot';
   const [currentPage, setCurrentPage] = useState(pathPage);
   const [collabActiveTab, setCollabActiveTab] = useState('1');
+  const { manga } = router.query;
+  const ifCreatedManga = manga === 'create';
 
   const routerBasePath = `/manga-story/${baseData?._id}?tab=`;
   const [storyBoard, setStoryBoard] = useState({
@@ -263,7 +265,14 @@ const MangeStory = (props) => {
                     />
                   </TabPane>
                   {(isOwn || hasStoryBoardPermision) && (
-                    <TabPane tab="CREATE" key="2" className="story">
+                    <TabPane
+                      tab={
+                        <p className={cn(styles.create, ifCreatedManga && styles.create_animation)}>
+                          CREATE
+                        </p>
+                      }
+                      key="2"
+                      className="story">
                       <StoryBoardTabs
                         setStage={setStage}
                         user={userData}
