@@ -105,27 +105,34 @@ const Pages = ({
     );
   };
 
+  const middleNumber = (num1, num2) => {
+    if (!num1) {
+      return arrayPage[arrayPage.length - 1].order + 1;
+    }
+    return (num1 - num2) / 2 + num2;
+  };
+
   const handleOnDragEnd = (result) => {
     const ifNoChangePosition = result?.source?.index === result?.destination?.index;
     if (!result.destination || ifNoChangePosition) {
       return;
     }
-    const target = arrayPage[result.destination.index];
-    const item = arrayPage[result.source.index];
 
     // replace page order
-    const targetOrder = target.order;
-    target.order = item.order;
-    item.order = targetOrder;
+    arrayPage[result?.source?.index].order = middleNumber(
+      arrayPage[result?.destination?.index + 1]?.order,
+      !result?.destination?.index || arrayPage[result?.destination?.index]?.order
+    );
+
+    // save page order
+    patchPage(
+      { value: arrayPage[result?.source?.index], index: result?.source?.index },
+      { order: arrayPage[result?.source?.index].order }
+    );
 
     // replace pages positions
     const [reorderedItem] = arrayPage.splice(result.source.index, 1);
     arrayPage.splice(result.destination.index, 0, reorderedItem);
-
-    // save changes
-    patchPage({ value: item, index: result.destination.index }, { order: item.order });
-    patchPage({ value: target, index: result.source.index }, { order: target.order });
-
     setArrayPage([...arrayPage]);
   };
 
