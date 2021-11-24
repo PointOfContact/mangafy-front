@@ -175,7 +175,7 @@ export default {
       });
     },
 
-    patch: (chapterId, data, upgradeChapterData, setEdit, setChapters) => {
+    patch: (chapterId, data, upgradeChapterData, setEdit, setStoryBoard) => {
       const jwt = client.getCookie('feathers-jwt');
 
       import('api/restClient').then((m) => {
@@ -187,7 +187,7 @@ export default {
           })
           .then((res) => {
             setEdit('');
-            setChapters(upgradeChapterData(res, res._id));
+            setStoryBoard(upgradeChapterData(res, res._id));
           })
           .catch((err) => {
             notification.error({

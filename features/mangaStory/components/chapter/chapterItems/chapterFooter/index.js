@@ -10,7 +10,15 @@ import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
-const ChapterFooter = ({ value, setChapters, index, chapters, setEdit, storyBoard }) => {
+const ChapterFooter = ({
+  value,
+  setChapters,
+  index,
+  chapters,
+  setEdit,
+  storyBoard,
+  setStoryBoard,
+}) => {
   const [publish, setPublish] = useState(false);
   const [mangaUrl, setMangaUrl] = useState([]);
   const publishedRef = useRef(null);
@@ -47,8 +55,10 @@ const ChapterFooter = ({ value, setChapters, index, chapters, setEdit, storyBoar
     </div>
   );
 
-  const upgradeChapterData = (item, resultId) =>
-    chapters.map((val) => (val?._id === resultId ? item : val));
+  const upgradeChapterData = (item, resultId) => ({
+    ...storyBoard,
+    chapters: storyBoard.chapters.map((val) => (val?._id === resultId ? item : val)),
+  });
 
   const publishedChapter = () => {
     const publishedValue = publishedRef.current.checked;
@@ -59,7 +69,7 @@ const ChapterFooter = ({ value, setChapters, index, chapters, setEdit, storyBoar
       { published: publishedValue },
       upgradeChapterData,
       () => {},
-      setChapters
+      setStoryBoard
     );
   };
 
@@ -88,6 +98,7 @@ ChapterFooter.propTypes = {
   chapters: PropTypes.array.isRequired,
   setEdit: PropTypes.func.isRequired,
   storyBoard: PropTypes.object.isRequired,
+  setStoryBoard: PropTypes.func.isRequired,
 };
 
 export default ChapterFooter;

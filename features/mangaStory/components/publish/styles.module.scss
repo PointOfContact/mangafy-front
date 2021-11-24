@@ -55,6 +55,21 @@
       }
     }
   }
+  .publishedMessage{
+    margin-bottom: 20px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: $text3;
+    line-height: 24px;
+    color: $primaryDark;
+    @include media-sm{
+      font-size: $text4;
+    }
+  }
+  .postManga{
+    pointer-events: none;
+    opacity: 0.5;
+  }
   .copyView {
     display: flex;
     align-items: center;
@@ -103,6 +118,7 @@
     }
     & > a {
       width: 300px;
+      height: 130px;
       border-radius: 10px;
       padding: 10px;
       border: 1px solid $gray85;

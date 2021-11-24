@@ -7,6 +7,7 @@ import SvgClose from 'components/icon/Close';
 import PrimaryButton from 'components/ui-elements/button';
 import HeroUpload from 'components/ui-elements/heroUpload';
 import { EVENTS } from 'helpers/amplitudeEvents';
+import Router, { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import myAmplitude from 'utils/amplitude';
 
@@ -16,15 +17,31 @@ import styles from './styles.module.scss';
 const GetFeedback = ({ user, setIsModalVisible, isModalVisible, isPage, sendEvent }) => {
   const [imageUrl, setImgId] = useState('');
   const [subTitle, setSubTitle] = useState('');
+  const [viewUrl, setViewUrl] = useState('');
   const [selectedTags, setSelectedTags] = useState([]);
   const [validation, setValidation] = useState('');
+  const router = useRouter(null);
   const [uploadLoading, setUploadLoading] = useState(false);
 
   useEffect(() => {
-    setSelectedTags([]);
-    setSubTitle('');
-    setValidation('');
-    setValidation('');
+    const { pid, title, image } = router.query;
+    if (!!pid) {
+      setIsModalVisible(true);
+      setImgId(image);
+      setSubTitle(title);
+      setViewUrl(`/manga-view/${pid}`);
+    }
+  }, []);
+
+  useEffect(() => {
+    const { pid } = router.query;
+    if (!pid) {
+      setSelectedTags([]);
+      setSubTitle('');
+      setValidation('');
+      setValidation('');
+      setImgId('');
+    }
   }, [isModalVisible]);
 
   const onSubmit = useCallback(async (event) => {
@@ -47,6 +64,11 @@ const GetFeedback = ({ user, setIsModalVisible, isModalVisible, isPage, sendEven
       subTitle,
       categories: selectedTags,
     };
+
+    if (viewUrl) {
+      data.viewUrl = viewUrl;
+    }
+
     const jwt = client.getCookie('feathers-jwt');
     import('api/restClient').then((m) => {
       m.default
@@ -115,6 +137,7 @@ const GetFeedback = ({ user, setIsModalVisible, isModalVisible, isPage, sendEven
           loading={uploadLoading}
           text="Post"
           onClick={(e) => {
+            Router.push('/feed');
             onSubmit(e);
             doingRequest();
             !!subTitle.trim() && setIsModalVisible(false);
