@@ -17,6 +17,7 @@ const ModalBestProfile = ({
   setTopGallery,
   startIndex,
   user,
+  setStartIndex,
 }) => {
   const images = topGallery.map((item) => ({
     renderItem: () => (
@@ -28,6 +29,7 @@ const ModalBestProfile = ({
           topGallery={topGallery}
           setTopGallery={setTopGallery}
           ifModal={true}
+          setStartIndex={setStartIndex}
         />
         <Imgix
           layout="fill"
@@ -78,6 +80,7 @@ ModalBestProfile.propTypes = {
   user: PropTypes.object.isRequired,
   topGallery: PropTypes.array.isRequired,
   setTopGallery: PropTypes.func.isRequired,
+  setStartIndex: PropTypes.func.isRequired,
 };
 
 ModalBestProfile.defaultProps = {
