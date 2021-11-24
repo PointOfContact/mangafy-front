@@ -2,7 +2,7 @@
 
 .containerPage {
   display: flex;
-  @include media-sm{
+  @include media-sm {
     flex-direction: column;
     white-space: nowrap;
     align-items: flex-end;
@@ -13,20 +13,35 @@
       width: 8px;
       height: 4px;
     }
-  
+
     &::-webkit-scrollbar-track {
       box-shadow: inset 0 0 2px $black;
       background-color: $black;
       border-radius: 0;
     }
-  
+
     &::-webkit-scrollbar-thumb {
       background: $primaryDark;
       border-radius: 0px;
     }
-  
+
     &::-webkit-scrollbar-thumb:hover {
       background: $primaryDark;
+    }
+  }
+  .pageIndex {
+    width: 273.61px;
+    text-align: center;
+    font-style: normal;
+    font-weight: normal;
+    font-size: $text3;
+    line-height: 29px;
+    color: $gray85;
+    margin-bottom: 20px;
+    @include media-sm {
+      width: 200px;
+      font-size: 18px;
+      line-height: 24px;
     }
   }
   .itemPage {
@@ -38,7 +53,7 @@
     box-sizing: border-box;
     box-shadow: -12px 16px 20px -19px rgb(0 0 0 / 25%);
     border-radius: 10px;
-    border: 1px solid #E1E0EF;
+    border: 1px solid #e1e0ef;
     @include media-sm {
       width: 200px;
       height: 230px;
@@ -48,9 +63,9 @@
     .content {
       height: 60%;
       padding: 17px 18px 0;
-      border-top-left-radius: 10px;
-      border-top-right-radius: 10px;
-      @include media-sm{
+      border-radius: 10px;
+      background-color: white;
+      @include media-sm {
         height: 55%;
         padding-top: 10px;
       }
@@ -66,7 +81,7 @@
         display: -webkit-box;
         -webkit-line-clamp: 1;
         -webkit-box-orient: vertical;
-        @include media-sm{
+        @include media-sm {
           font-size: 18px;
           margin-bottom: 0;
         }
@@ -84,17 +99,17 @@
         white-space: pre-wrap;
         -webkit-box-orient: vertical;
         margin: 0;
-        @include media-sm{
+        @include media-sm {
           height: 44px;
           font-size: $text5;
         }
       }
     }
-    .contentDef{
+    .contentDef {
       height: 100%;
-      .descriptionDef{
+      .descriptionDef {
         height: 202px;
-        @include media-sm{
+        @include media-sm {
           height: 140px;
         }
       }
@@ -109,7 +124,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      @include media-sm{
+      @include media-sm {
         height: 45%;
       }
       & > div {
