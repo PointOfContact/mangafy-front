@@ -85,10 +85,14 @@ const ChapterItems = ({ chapters, setChapters, storyBoard, setStoryBoard }) => {
 };
 
 ChapterItems.propTypes = {
-  chapters: PropTypes.array.isRequired,
+  chapters: PropTypes.array,
   setChapters: PropTypes.func.isRequired,
   storyBoard: PropTypes.object.isRequired,
   setStoryBoard: PropTypes.func.isRequired,
+};
+
+ChapterItems.defaultProps = {
+  chapters: [],
 };
 
 export default ChapterItems;

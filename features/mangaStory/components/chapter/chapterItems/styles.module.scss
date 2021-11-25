@@ -40,7 +40,9 @@
 }
 .addPageContainer {
   cursor: pointer;
-  @include media-sm{
+  padding-bottom: 36px;
+  @include media-sm {
+    padding-bottom: 10px;
     margin-bottom: 20px;
   }
   .addPage {

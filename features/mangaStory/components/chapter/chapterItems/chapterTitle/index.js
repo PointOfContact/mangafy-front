@@ -10,7 +10,7 @@ import styles from './styles.module.scss';
 const ChapterTitle = ({ value, chapters, setChapters, edit, setEdit }) => {
   const [mouseOut, onMouseOut] = useState(false);
   const [editName, setEditName] = useState(value?.title);
-  const validate = editName.trim().length < 2;
+  const validate = editName?.trim()?.length < 2;
 
   const error = validate && mouseOut && (
     <p className={styles.error}>
@@ -90,7 +90,7 @@ const ChapterTitle = ({ value, chapters, setChapters, edit, setEdit }) => {
 
 ChapterTitle.propTypes = {
   value: PropTypes.object.isRequired,
-  chapters: PropTypes.object.isRequired,
+  chapters: PropTypes.array.isRequired,
   setChapters: PropTypes.func.isRequired,
   edit: PropTypes.string.isRequired,
   setEdit: PropTypes.func.isRequired,

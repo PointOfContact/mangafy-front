@@ -164,9 +164,9 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
           @include media-sm {
             margin-right: 10px;
           }
-          &:hover{
+          &:hover {
             background-color: $primaryDark;
-            svg path{
+            svg path {
               fill: white;
             }
           }
@@ -254,6 +254,39 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
               }
             }
           }
+        }
+      }
+    }
+    .typesSelect {
+      & > div {
+        height: 100% !important;
+        padding: 0 10px !important;
+        & > span {
+          width: 50px;
+        }
+        input {
+          height: 100% !important;
+        }
+      }
+      & > span {
+        display: none;
+      }
+    }
+    .childLength {
+      & > div > span {
+        max-width: 160px;
+        background-color: $primaryLight;
+        height: 38px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white !important;
+        font-size: 14px;
+        font-weight: bold;
+        border-radius: 15px;
+        padding: 10px !important;
+        &:first-child{
+          width: 0;
         }
       }
     }
