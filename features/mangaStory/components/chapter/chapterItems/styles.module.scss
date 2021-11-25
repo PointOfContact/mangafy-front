@@ -26,21 +26,28 @@
     background: $primaryDark;
   }
 }
-.container{
-  @include media-sm{
+.container {
+  @include media-sm {
     display: flex;
   }
 }
 .chapterItem {
   display: flex;
   margin-top: 40px;
-  @include media-sm{
+  align-items: end;
+  @include media-sm {
+    align-items: initial;
     flex-direction: column;
   }
 }
 .addPageContainer {
   cursor: pointer;
-  @include media-sm{
+  padding-bottom: 36px;
+  @media (max-width: 1450px) {
+    padding-bottom: 44px;
+  }
+  @include media-sm {
+    padding-bottom: 10px;
     margin-bottom: 20px;
   }
   .addPage {
@@ -99,7 +106,7 @@
           font-size: $text4;
         }
       }
-      svg{
+      svg {
         width: 40px;
         height: 40px;
       }

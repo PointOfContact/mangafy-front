@@ -76,10 +76,11 @@ const ModalCreatePage = ({
   };
 
   const createPage = (newTitle, newCharacterArray) => {
+    const orderNumber = pagesArray[pagesArray.length - 1]?.order + 1 || 1;
     const data = {
       title: newTitle,
       text,
-      order: pagesArray?.length + 1,
+      order: orderNumber,
       storyBoard: storyBoard?._id,
       characterArray: newCharacterArray,
       imageUrl: imgId,

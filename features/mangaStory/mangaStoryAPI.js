@@ -258,7 +258,7 @@ export default {
         });
       });
     },
-    patchPage: (index, pageItem, chapters, setChapters, setVisibleModal, data) => {
+    patchPage: (index, pageItem, chapters, setChapters, setVisibleModal = () => {}, data) => {
       const jwt = client.getCookie('feathers-jwt');
 
       import('api/restClient').then((m) => {
