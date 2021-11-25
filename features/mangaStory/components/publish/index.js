@@ -64,34 +64,22 @@ const Publish = ({ baseData, storyBoard }) => {
         </div>
       </div>
       <div className={styles.guide}>
+        <Link href={`/feed?pid=${storyBoard?._id}&title=${baseData?.title}${publishImage}`}>
+          <a className={!ifExistPublishedChapter && styles.postManga}>
+            <h4>MangaFY</h4>
+            <p>Publish on MangaFY!</p>
+          </a>
+        </Link>
         <Link href="https://www.webtoons.com/">
           <a>
             <h4>Webtoon</h4>
-            <p>
-              Upload your work for <br /> monetization
-            </p>
+            <p>Upload to webtoon</p>
           </a>
         </Link>
         <Link href="https://tapas.io/">
           <a>
             <h4>Tapas</h4>
-            <p>
-              Upload your work for <br /> monetization
-            </p>
-          </a>
-        </Link>
-        <Link href="https://mangacat.io/">
-          <a>
-            <h4>Manga Cat</h4>
-            <p>
-              Upload your work for <br /> monetization
-            </p>
-          </a>
-        </Link>
-        <Link href={`/feed?pid=${storyBoard?._id}&title=${baseData?.title}${publishImage}`}>
-          <a className={!ifExistPublishedChapter && styles.postManga}>
-            <h4>Publish to Mangafy</h4>
-            <p>Post your manga</p>
+            <p>Publish on Tapas</p>
           </a>
         </Link>
       </div>
