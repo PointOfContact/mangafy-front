@@ -150,7 +150,7 @@ body {
         .ant-tabs-nav-list {
           height: 63px;
           padding-left: 30px;
-          @include media-sm{
+          @include media-sm {
             padding-left: 22px;
           }
         }
@@ -291,7 +291,7 @@ body {
   .ant-upload {
     width: 100% !important;
     height: 220px;
-    max-height: 220px ;
+    max-height: 220px;
     max-width: 520px;
     @include media-sm {
       height: 331px !important;
@@ -1591,5 +1591,12 @@ img.rot4 {
   .ant-select-selection-placeholder {
     margin-left: -10px !important;
     color: unset !important;
+  }
+}
+
+.ant-tabs > .ant-tabs-nav .ant-tabs-nav-wrap {
+  justify-content: center;
+  @include media-sm {
+    justify-content: initial;
   }
 }
