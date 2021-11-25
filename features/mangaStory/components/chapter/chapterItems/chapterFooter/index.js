@@ -31,7 +31,7 @@ const ChapterFooter = ({
     setMangaUrl(value.pages.some((item) => !!item.imageUrl === true));
   }, [chapters]);
 
-  const showView = value.published && (!!storyBoard?.mangaUrls.length || mangaUrl);
+  const showView = value.published && (!!storyBoard?.mangaUrls?.length || mangaUrl);
 
   const content = () => (
     <div className={styles.menuChapter}>

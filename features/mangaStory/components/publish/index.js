@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable no-nested-ternary */
 import React, { useEffect, useState } from 'react';
 
@@ -21,11 +22,23 @@ const Publish = ({ baseData, storyBoard }) => {
     ? `https://${!!viewUrlName ? viewUrlName : '?'}.mangafy.club`
     : `${client.API_ENDPOINT}/manga-view/${baseData?._id}`;
 
-  const publishImage = !!baseData?.image
-    ? `&image=${baseData?.image}`
-    : !!storyBoard.mangaUrls[0]
-    ? `&image=${storyBoard.mangaUrls[0]}`
-    : '';
+  const publishImage = () => {
+    if (!!baseData?.image) {
+      return `&image=${baseData?.image}`;
+    }
+
+    for (const element of storyBoard?.chapters) {
+      if (element.published) {
+        for (const value of element.pages) {
+          if (value.imageUrl) {
+            return `&image=${value.imageUrl}`;
+          }
+        }
+      }
+    }
+
+    return '';
+  };
 
   useEffect(() => {
     setIfExistPublishedChapter(storyBoard?.chapters?.filter((val) => val.published).length);
@@ -64,7 +77,7 @@ const Publish = ({ baseData, storyBoard }) => {
         </div>
       </div>
       <div className={styles.guide}>
-        <Link href={`/feed?pid=${storyBoard?._id}&title=${baseData?.title}${publishImage}`}>
+        <Link href={`/feed?pid=${storyBoard?._id}&title=${baseData?.title}${publishImage()}`}>
           <a className={!ifExistPublishedChapter && styles.postManga}>
             <h4>MangaFY</h4>
             <p>Publish on MangaFY!</p>
