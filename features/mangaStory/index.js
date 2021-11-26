@@ -63,6 +63,7 @@ const MangeStory = (props) => {
     heroes: [],
     author: [],
     layouts: [],
+    chapters: [],
   });
 
   useEffect(() => {

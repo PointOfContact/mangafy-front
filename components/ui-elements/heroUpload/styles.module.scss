@@ -38,7 +38,8 @@
       color: $gray85;
     }
     .titlePersonage {
-      font-size: 16px;
+      font-size: $text4;
+      white-space: initial;
     }
   }
 }
