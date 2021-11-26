@@ -10,15 +10,7 @@ import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
-const ChapterFooter = ({
-  value,
-  setChapters,
-  index,
-  chapters,
-  setEdit,
-  storyBoard,
-  setStoryBoard,
-}) => {
+const ChapterFooter = ({ value, setChapters, index, chapters, setEdit, storyBoard }) => {
   const [publish, setPublish] = useState(false);
   const [mangaUrl, setMangaUrl] = useState([]);
   const publishedRef = useRef(null);
@@ -96,7 +88,6 @@ ChapterFooter.propTypes = {
   chapters: PropTypes.array.isRequired,
   setEdit: PropTypes.func.isRequired,
   storyBoard: PropTypes.object.isRequired,
-  setStoryBoard: PropTypes.func.isRequired,
 };
 
 export default ChapterFooter;

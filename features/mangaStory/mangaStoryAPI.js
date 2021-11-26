@@ -187,6 +187,7 @@ export default {
           })
           .then((res) => {
             setEdit('');
+
             setChapters(upgradeChapterData(res, res._id));
           })
           .catch((err) => {
@@ -218,7 +219,7 @@ export default {
             deleteChapter();
           })
           .catch((err) => {
-            err.code === 404 && err.name === 'NotFound'
+            err.code === 404
               ? deleteChapter()
               : notification.error({
                   message: err.message,

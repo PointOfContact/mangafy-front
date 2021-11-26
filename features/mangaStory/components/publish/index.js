@@ -27,7 +27,7 @@ const Publish = ({ baseData, storyBoard, chapters }) => {
       return `&image=${baseData?.image}`;
     }
 
-    for (const element of storyBoard?.chapters) {
+    for (const element of chapters) {
       if (element.published) {
         for (const value of element.pages) {
           if (value.imageUrl) {

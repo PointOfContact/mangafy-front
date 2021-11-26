@@ -57,5 +57,8 @@
     color: $black;
     word-break: break-all;
     white-space: initial;
+    @include media-sm{
+      font-size: $text4;
+    }
   }
 }
