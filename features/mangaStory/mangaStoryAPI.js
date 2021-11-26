@@ -218,7 +218,7 @@ export default {
             deleteChapter();
           })
           .catch((err) => {
-            err.code === 404 && err.name === 'NotFound'
+            err.code === 404
               ? deleteChapter()
               : notification.error({
                   message: err.message,
