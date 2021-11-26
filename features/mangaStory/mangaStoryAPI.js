@@ -187,6 +187,7 @@ export default {
           })
           .then((res) => {
             setEdit('');
+
             setChapters(upgradeChapterData(res, res._id));
           })
           .catch((err) => {
