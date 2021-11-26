@@ -120,6 +120,7 @@ const EditGenresField = ({
         showSearch
         defaultValue={baseData?.preferredLanguage}
         onChange={chooseLanguage}
+        placeholder={'Project language'}
         className={styles.language}
         style={{ width: 200 }}>
         {countries}

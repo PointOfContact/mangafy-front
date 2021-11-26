@@ -48,6 +48,7 @@ const StoryBoardTabs = ({
   const [zoomImageUrl, setZoomImageUrl] = useState(null);
   const [ifUploadImg, setIfUploadImg] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [chapters, setChapters] = useState(storyBoard?.chapters);
   const [isShowAnimation, setIsShowAnimation] = useState(false);
   const routerBasePath = `/manga-story/${baseData?._id}?tab=create&page=`;
   const imageType = zoomImageUrl?.slice(-3) === 'pdf' || zoomImageUrl?.slice(-3) === 'PDF';
@@ -61,6 +62,10 @@ const StoryBoardTabs = ({
   //   author: [],
   //   layouts: [],
   // });
+
+  useEffect(() => {
+    setChapters(storyBoard?.chapters);
+  }, [storyBoard]);
 
   const { width } = useWindowSize();
 
@@ -388,7 +393,12 @@ const StoryBoardTabs = ({
             </span>
           }
           key={3}>
-          <Chapter storyBoard={storyBoard} setStoryBoard={setStoryBoard} />
+          <Chapter
+            storyBoard={storyBoard}
+            setStoryBoard={setStoryBoard}
+            chapters={chapters}
+            setChapters={setChapters}
+          />
         </TabPane>
         {/* <TabPane
           tab={
@@ -498,7 +508,7 @@ const StoryBoardTabs = ({
               <ShareStoryBoard user={user} shareUrl={originUrl} />
             )} */}
             {/* {renderNavigationButtons()} */}
-            <Publish baseData={baseData} storyBoard={storyBoard} />
+            <Publish baseData={baseData} storyBoard={storyBoard} chapters={chapters} />
           </div>
         </TabPane>
       </Tabs>
