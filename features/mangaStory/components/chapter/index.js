@@ -9,8 +9,7 @@ import PropTypes from 'prop-types';
 import ChapterItems from './chapterItems';
 import styles from './styles.module.scss';
 
-const Chapter = ({ storyBoard, setStoryBoard }) => {
-  const [chapters, setChapters] = useState(storyBoard?.chapters);
+const Chapter = ({ storyBoard, setStoryBoard, chapters, setChapters }) => {
   const [chapterName, setChapterName] = useState('');
   const [createChapter, setCreateChapter] = useState(false);
   const [onBlur, setOnBlur] = useState(false);
@@ -23,10 +22,6 @@ const Chapter = ({ storyBoard, setStoryBoard }) => {
         cursor: 'end',
       });
   }, [createChapter]);
-
-  useEffect(() => {
-    setChapters(storyBoard?.chapters);
-  }, [storyBoard]);
 
   const error = validate && onBlur && (
     <p className={styles.error}>
@@ -116,6 +111,8 @@ const Chapter = ({ storyBoard, setStoryBoard }) => {
 Chapter.propTypes = {
   storyBoard: PropTypes.object.isRequired,
   setStoryBoard: PropTypes.func.isRequired,
+  chapters: PropTypes.array.isRequired,
+  setChapters: PropTypes.func.isRequired,
 };
 
 export default Chapter;

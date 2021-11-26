@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
-const Publish = ({ baseData, storyBoard }) => {
+const Publish = ({ baseData, storyBoard, chapters }) => {
   const viewUrlName = baseData?.viewUrlName;
   const [copyText, setCopyText] = useState('Copy to clipboard');
   const [ifExistPublishedChapter, setIfExistPublishedChapter] = useState(0);
@@ -28,8 +28,8 @@ const Publish = ({ baseData, storyBoard }) => {
     : '';
 
   useEffect(() => {
-    setIfExistPublishedChapter(storyBoard?.chapters?.filter((val) => val.published).length);
-  }, [storyBoard]);
+    setIfExistPublishedChapter(chapters?.filter((val) => val.published).length);
+  }, [chapters]);
 
   return (
     <div className={styles.containerPublish}>
@@ -102,6 +102,7 @@ const Publish = ({ baseData, storyBoard }) => {
 Publish.propTypes = {
   baseData: PropTypes.object.isRequired,
   storyBoard: PropTypes.object.isRequired,
+  chapters: PropTypes.array.isRequired,
 };
 
 export default Publish;

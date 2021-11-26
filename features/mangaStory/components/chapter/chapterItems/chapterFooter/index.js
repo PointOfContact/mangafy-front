@@ -55,10 +55,8 @@ const ChapterFooter = ({
     </div>
   );
 
-  const upgradeChapterData = (item, resultId) => ({
-    ...storyBoard,
-    chapters: storyBoard.chapters.map((val) => (val?._id === resultId ? item : val)),
-  });
+  const upgradeChapterData = (item, resultId) =>
+    chapters.map((val) => (val?._id === resultId ? item : val));
 
   const publishedChapter = () => {
     const publishedValue = publishedRef.current.checked;
@@ -69,7 +67,7 @@ const ChapterFooter = ({
       { published: publishedValue },
       upgradeChapterData,
       () => {},
-      setStoryBoard
+      setChapters
     );
   };
 
