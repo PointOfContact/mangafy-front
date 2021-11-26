@@ -258,7 +258,16 @@ export default {
         });
       });
     },
-    patchPage: (index, pageItem, chapters, setChapters, setVisibleModal = () => {}, data) => {
+    patchPage: (
+      index,
+      pageItem,
+      chapters,
+      setChapters,
+      setVisibleModal,
+      data,
+      chooseChapter = false,
+      ifChooseChapter
+    ) => {
       const jwt = client.getCookie('feathers-jwt');
 
       import('api/restClient').then((m) => {
@@ -269,8 +278,13 @@ export default {
             mode: 'no-cors',
           })
           .then((res) => {
-            chapters[index].pages[pageItem?.index] = res;
-            setChapters([...chapters]);
+            if (chooseChapter) {
+              ifChooseChapter(index, res);
+            } else {
+              chapters[index].pages[pageItem?.index] = res;
+              setChapters([...chapters]);
+            }
+
             setVisibleModal(false);
           })
           .catch((err) => {

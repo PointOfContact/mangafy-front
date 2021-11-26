@@ -2,7 +2,7 @@ import React from 'react';
 
 import 'react-quill/dist/quill.snow.css';
 import dynamic from 'next/dynamic';
-import PropTypes from 'prop-types';
+import PropTypes, { any } from 'prop-types';
 
 import styles from './styles.module.scss';
 
@@ -61,13 +61,13 @@ TextEditor.propTypes = {
   result: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
   disabled: PropTypes.bool,
-  value: PropTypes.string,
+  value: PropTypes.any,
 };
 
 TextEditor.defaultProps = {
   placeholder: '',
   disabled: false,
-  value: '',
+  value: any,
 };
 
 export default TextEditor;

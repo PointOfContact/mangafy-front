@@ -23,8 +23,8 @@ const Publish = ({ baseData, storyBoard }) => {
 
   const publishImage = !!baseData?.image
     ? `&image=${baseData?.image}`
-    : !!storyBoard.mangaUrls[0]
-    ? `&image=${storyBoard.mangaUrls[0]}`
+    : storyBoard?.mangaUrls?.length
+    ? `&image=${storyBoard?.mangaUrls[0]}`
     : '';
 
   useEffect(() => {

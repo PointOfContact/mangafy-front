@@ -43,9 +43,6 @@
 .addPageContainer {
   cursor: pointer;
   padding-bottom: 36px;
-  @media (max-width: 1450px) {
-    padding-bottom: 44px;
-  }
   @include media-sm {
     padding-bottom: 10px;
     margin-bottom: 20px;
