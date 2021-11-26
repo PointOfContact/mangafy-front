@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { Modal, Form, Select } from 'antd';
+import cn from 'classnames';
 import SvgClose from 'components/icon/Close';
 import SvgDelete from 'components/icon/Delete';
 import Popconfirm from 'components/popconfirm';
@@ -34,6 +35,8 @@ const ModalCreatePage = ({
   const [openNew, setOpenNew] = useState(false);
   const [options, setOptions] = useState([]);
   const [imgLoad, setImgLoad] = useState(false);
+  const [chooseChapterArray, setChooseChapterArray] = useState([]);
+  const [chooseChapter, setChooseChapter] = useState(false);
   const [personage, setPersonage] = useState([]);
   const [form] = Form.useForm();
   const ifEdit = modalTitle === 'Edit page';
@@ -48,6 +51,7 @@ const ModalCreatePage = ({
       form.setFieldsValue({
         title: pageItem?.value?.title,
         characterArray: pageItem?.value?.characterArray,
+        chooseChapter: pageItem?.value?.chapterId,
       });
     } else {
       setDescription('');
@@ -71,11 +75,34 @@ const ModalCreatePage = ({
     setOptions(createOption);
   }, [personage]);
 
+  useEffect(() => {
+    const createOption = chapters?.map((value) => (
+      <Option key={value._id} value={value._id} label={value.title}>
+        {value.title}
+      </Option>
+    ));
+    setChooseChapterArray(createOption);
+  }, [chapters]);
+
   const textEditorData = (value) => {
     setDescription(value);
   };
 
-  const createPage = (newTitle, newCharacterArray) => {
+  const ifChooseChapter = (index, res) => {
+    delete chapters[index].pages[pageItem?.index];
+    chapters = chapters.map((val) =>
+      val._id === res.chapterId
+        ? {
+            ...val,
+            pages: val.pages.splice(val.pages.length, 0, res).length === 0 && val.pages,
+          }
+        : val
+    );
+    setChapters(chapters);
+    setChooseChapter(false);
+  };
+
+  const createPage = (newTitle, newCharacterArray, newChapter) => {
     const orderNumber = pagesArray[pagesArray.length - 1]?.order + 1 || 1;
     const data = {
       title: newTitle,
@@ -84,7 +111,7 @@ const ModalCreatePage = ({
       storyBoard: storyBoard?._id,
       characterArray: newCharacterArray,
       imageUrl: imgId,
-      chapterId: chapterItem?.value?._id,
+      chapterId: newChapter || chapterItem?.value?._id,
     };
 
     if (ifEdit) {
@@ -95,7 +122,9 @@ const ModalCreatePage = ({
         chapters,
         setChapters,
         setVisibleModal,
-        data
+        data,
+        chooseChapter,
+        ifChooseChapter
       );
     } else {
       return mangaStoryAPI.pages.createPage(
@@ -119,10 +148,10 @@ const ModalCreatePage = ({
   };
 
   const request = (e) => {
-    const newTitle = !!e?.title?.trim() ? e.title : 'Untitled page';
+    const newTitle = !!e?.title?.trim() ? e?.title : 'Untitled page';
     setTitle(newTitle);
     setCharacterArray(e.characterArray);
-    createPage(newTitle, e.characterArray).then(() => {
+    createPage(newTitle, e.characterArray, e.chooseChapter).then(() => {
       openNew && (setVisibleModal(true), setOpenNew(false));
     });
   };
@@ -172,6 +201,25 @@ const ModalCreatePage = ({
             {options}
           </Select>
         </Form.Item>
+        {ifEdit && (
+          <>
+            <h3>Choose chapter</h3>
+            <Form.Item name="chooseChapter">
+              <Select
+                className={cn(styles.option, styles.typesSelect, styles.childLength)}
+                showSearch
+                bordered={false}
+                onChange={() => {
+                  setChooseChapter(true);
+                }}
+                filterOption={(inputValue, option) =>
+                  inputValue ? option.label.toLowerCase().includes(inputValue.toLowerCase()) : true
+                }>
+                {chooseChapterArray}
+              </Select>
+            </Form.Item>
+          </>
+        )}
         <h3>Panel proposal</h3>
         <TextEditor
           placeholder="Using your thumbnails as a reference, write a script for your story which will eventually be turned into the final panel."
@@ -224,13 +272,14 @@ ModalCreatePage.propTypes = {
   pagesArray: PropTypes.array,
   modalTitle: PropTypes.string.isRequired,
   chapterItem: PropTypes.object.isRequired,
-  chapters: PropTypes.array.isRequired,
+  chapters: PropTypes.array,
   setChapters: PropTypes.func.isRequired,
   pageItem: PropTypes.object,
 };
 
 ModalCreatePage.defaultProps = {
   pagesArray: [],
+  chapters: [],
   pageItem: {},
 };
 

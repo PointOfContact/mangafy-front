@@ -360,7 +360,6 @@ const MangeStory = (props) => {
         {!userData && <FooterPolicy />}
         <FooterLogin user={userData} />
       </main>
-      <FooterPolicy />
       <DeleteProjectModal
         user={userData}
         mangaStory={baseData}

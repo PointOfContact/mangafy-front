@@ -28,7 +28,7 @@ const ChapterFooter = ({
   }, []);
 
   useEffect(() => {
-    setMangaUrl(value.pages.some((item) => !!item.imageUrl === true));
+    setMangaUrl(value?.pages?.some((item) => !!item.imageUrl === true));
   }, [chapters]);
 
   const showView = value.published && (!!storyBoard?.mangaUrls?.length || mangaUrl);

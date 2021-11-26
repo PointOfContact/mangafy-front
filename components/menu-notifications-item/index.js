@@ -132,11 +132,11 @@ MenuNotificationsItem.propTypes = {
   _id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   image: PropTypes.string,
-  icon: PropTypes.string.isRequired,
+  icon: PropTypes.string,
   description: PropTypes.string,
   createdAt: PropTypes.string.isRequired,
   verified: PropTypes.bool,
-  profileId: PropTypes.string.isRequired,
+  profileId: PropTypes.string,
   patchNotification: PropTypes.func.isRequired,
   navigateTo: PropTypes.string,
   type: PropTypes.string,
@@ -151,7 +151,9 @@ MenuNotificationsItem.defaultProps = {
   description: '',
   verified: false,
   navigateTo: '',
+  profileId: '',
   type: null,
+  icon: '',
   params: {},
 };
 
