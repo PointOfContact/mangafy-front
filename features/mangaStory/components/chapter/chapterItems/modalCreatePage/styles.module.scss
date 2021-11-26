@@ -274,7 +274,7 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
     }
     .childLength {
       & > div > span {
-        max-width: 160px;
+        max-width: 240px;
         background-color: $primaryLight;
         height: 38px;
         display: flex;
