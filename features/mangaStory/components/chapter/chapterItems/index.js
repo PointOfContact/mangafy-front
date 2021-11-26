@@ -19,52 +19,50 @@ const ChapterItems = ({ chapters, setChapters, storyBoard, setStoryBoard }) => {
   return (
     <div className={styles.container}>
       {chapters?.map((value, index) => (
-        <div key={value._id}>
-          <div className={styles.chapterItem}>
-            <div className={styles.addPageContainer}>
-              <div className={styles.addPage}>
-                <ChapterTitle
-                  value={value}
-                  chapters={chapters}
-                  setChapters={setChapters}
-                  edit={edit}
-                  setEdit={setEdit}
-                />
-                <div
-                  className={styles.newPageContainer}
-                  onClick={() => {
-                    setVisibleModal(true);
-                    setChapterItem({ value, index });
-                    setModalTitle('Create page');
-                    setPageItem({});
-                  }}>
-                  <SvgAdd width={50} height={50} />
-                  <h4>New Page</h4>
-                </div>
-                <ChapterFooter
-                  value={value}
-                  setChapters={setChapters}
-                  index={index}
-                  chapters={chapters}
-                  setEdit={setEdit}
-                  storyBoard={storyBoard}
-                  setStoryBoard={setStoryBoard}
-                />
-              </div>
-            </div>
-            <div className={styles.chapterContainer}>
-              <Pages
-                pages={value?.pages}
-                setVisibleModal={setVisibleModal}
-                setModalTitle={setModalTitle}
-                setPageItem={setPageItem}
-                setChapterItem={setChapterItem}
-                chapterValue={value}
-                chapterIndex={index}
-                setChapters={setChapters}
+        <div key={value._id} className={styles.chapterItem}>
+          <div className={styles.addPageContainer}>
+            <div className={styles.addPage}>
+              <ChapterTitle
+                value={value}
                 chapters={chapters}
+                setChapters={setChapters}
+                edit={edit}
+                setEdit={setEdit}
+              />
+              <div
+                className={styles.newPageContainer}
+                onClick={() => {
+                  setVisibleModal(true);
+                  setChapterItem({ value, index });
+                  setModalTitle('Create page');
+                  setPageItem({});
+                }}>
+                <SvgAdd width={50} height={50} />
+                <h4>New Page</h4>
+              </div>
+              <ChapterFooter
+                value={value}
+                setChapters={setChapters}
+                index={index}
+                chapters={chapters}
+                setEdit={setEdit}
+                storyBoard={storyBoard}
+                setStoryBoard={setStoryBoard}
               />
             </div>
+          </div>
+          <div className={styles.chapterContainer}>
+            <Pages
+              pages={value?.pages}
+              setVisibleModal={setVisibleModal}
+              setModalTitle={setModalTitle}
+              setPageItem={setPageItem}
+              setChapterItem={setChapterItem}
+              chapterValue={value}
+              chapterIndex={index}
+              setChapters={setChapters}
+              chapters={chapters}
+            />
           </div>
         </div>
       ))}
