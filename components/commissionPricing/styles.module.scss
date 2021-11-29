@@ -17,9 +17,9 @@
       flex-wrap: wrap;
     }
   }
-  .noContent {
-    display: inline-block;
-  }
+  // .noContent {
+  //   display: inline-block;
+  // }
   .errMessage {
     font-size: 10px;
     color: $red;
@@ -91,7 +91,6 @@
     color: $gray85 !important;
     font-size: 20px;
     height: 40px;
-    min-width: 350px;
     &::placeholder {
       color: $grey !important;
       font-size: 15px;
@@ -116,39 +115,50 @@
         font-weight: 700;
       }
     }
-    &.inputCost {
-      max-width: 220px;
-      min-width: 80px;
-      height: 43px;
-      margin-left: 11px;
-      border-radius: 10px;
-      font-size: 15px;
-      line-height: 22px;
-      display: flex;
-      align-items: center;
-      text-align: center;
-      border: 1px solid #dcdcdc;
-      @include media-sm {
-        min-width: calc(100% - 60px);
-        max-width: calc(100% - 00px);
-        margin-left: 0px;
-      }
+  }
+  .inputService,
+  .price {
+    max-width: 386px;
+    height: 44px;
+    border: 1px solid $primaryDark;
+    border-radius: 10px;
+    padding-left: 20px;
+    box-sizing: border-box;
+    font-size: 15px;
+    line-height: 22px;
+    margin-right: 34px;
+    @include media-sm {
+      min-width: calc(100% - 60px);
+      max-width: calc(100% - 0px);
+      margin-left: 0px;
     }
-    &.inputService {
-      width: 346px;
-      height: 43px;
-      border: 1px solid #dcdcdc;
-      border-radius: 10px;
-      padding-left: 20px;
-      box-sizing: border-box;
-      font-size: 15px;
-      line-height: 22px;
-      @include media-sm {
-        min-width: calc(100% - 60px);
-        max-width: calc(100% - 0px);
-        margin-left: 0px;
-      }
-    }
+  }
+  .price {
+    max-width: 214px;
+    margin-right: 0px;
+  }
+}
+.title {
+  display: flex;
+  @include media-sm{
+    display: none;
+  }
+  & > p {
+    width: 100%;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 35px;
+    color: $black;
+    margin-bottom: 11px;
+  }
+  & > p:first-child {
+    max-width: 386px;
+    margin-right: 34px;
+  }
+  & > p:last-child {
+    max-width: 214px;
+    margin-right: 0px;
   }
 }
 .close {
@@ -163,4 +173,11 @@
 .editAboutButton {
   width: 22px;
   height: 22px;
+}
+.addCommission{
+  flex-direction: row-reverse;
+  margin-top: 38px;
+  & > span {
+    margin-left: 7px;
+  }
 }

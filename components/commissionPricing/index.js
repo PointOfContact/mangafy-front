@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
 import { MinusCircleOutlined } from '@ant-design/icons';
-import { Input, Button, Space, notification } from 'antd';
+import { Input, Space, notification } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
 import Card from 'components/card';
-import SvgPurplePencil from 'components/icon/PurplePencil';
 import Imgix from 'components/imgix';
+import AddButton from 'components/ui-elements/add-button';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import PropTypes from 'prop-types';
 import myAmplitude from 'utils/amplitude';
@@ -43,8 +43,8 @@ export const CommissionPricing = ({ id, user }) => {
     });
   };
 
-  const setPricing = () => {
-    const empti = pricingList.find((item) => item.first === '' || item.last === '');
+  const setPricing = (newList) => {
+    const empti = newList.find((item) => item.first === '' || item.last === '');
     if (!empti) {
       const jwt = client.getCookie('feathers-jwt');
       import('api/restClient').then((m) => {
@@ -52,7 +52,7 @@ export const CommissionPricing = ({ id, user }) => {
           .service('/api/v2/users')
           .patch(
             id,
-            { pricingTable: pricingList },
+            { pricingTable: newList },
             {
               headers: { Authorization: `Bearer ${jwt}` },
               mode: 'no-cors',
@@ -130,6 +130,7 @@ export const CommissionPricing = ({ id, user }) => {
     myAmplitude(data);
     const newList = pricingList.filter((item, index) => index !== position);
     setPricingList(newList);
+    setPricing(newList);
   };
 
   const sendEvent = (index, type) => {
@@ -148,15 +149,7 @@ export const CommissionPricing = ({ id, user }) => {
 
   return (
     <div className={`title d-flex`}>
-      <div className="buttons change_btn_commission col-lg-12">
-        {canEdit && (
-          <SvgPurplePencil
-            className={styles.editAboutButton}
-            onClick={() => setEditMode(true)}
-            width="30"
-          />
-        )}
-      </div>
+      <div className="buttons change_btn_commission col-lg-12"></div>
       <div className="">
         <div className="">
           <div className="">
@@ -180,7 +173,7 @@ export const CommissionPricing = ({ id, user }) => {
                   />
                 </div>
               )}
-              {!pricingList.length && id === user?._id && !editMode && (
+              {/* {!pricingList.length && id === user?._id && !editMode && (
                 <div className={styles.noContent}>
                   <Card
                     description="It's time to tell about your services. <br/> Let's start!"
@@ -198,51 +191,59 @@ export const CommissionPricing = ({ id, user }) => {
                     ]}
                   />
                 </div>
-              )}
+              )} */}
+              <div className={styles.title}>
+                <p>What services do you provide</p>
+                <p>Price</p>
+              </div>
               {pricingList.map((field, index) => (
-                <Space
-                  className={'col-lg-12'}
-                  key={field.key}
-                  style={{ display: 'flex', position: 'relative', marginBottom: 15 }}
-                  align="start">
-                  <span className={styles.grupe}>
-                    <Input
-                      className={cn(
-                        styles.inputService,
-                        !field.first && canEdit && editMode && isSubmitted && styles.errInp
+                <>
+                  <Space
+                    className={'col-lg-12'}
+                    key={field.key}
+                    style={{ display: 'flex', position: 'relative', marginBottom: 15 }}
+                    align="start">
+                    <span className={styles.grupe}>
+                      <Input
+                        className={cn(
+                          styles.inputService,
+                          !field.first && canEdit && editMode && isSubmitted && styles.errInp
+                        )}
+                        placeholder="Drawing, writing, or translating"
+                        name="first"
+                        data-id={index}
+                        value={field.first}
+                        onBlur={() => {
+                          sendEvent(index, 'text');
+                          inputValue ? setPricing(pricingList) : setSubmitted(addMore);
+                        }}
+                        onChange={handleChange}
+                      />
+                      {!field.first && canEdit && editMode && isSubmitted && (
+                        <span className={styles.errMessage}> Field is require </span>
                       )}
-                      disabled={!(canEdit && editMode)}
-                      placeholder="Service"
-                      name="first"
-                      data-id={index}
-                      value={field.first}
-                      onBlur={() => sendEvent(index, 'text')}
-                      onChange={handleChange}
-                    />
-                    {!field.first && canEdit && editMode && isSubmitted && (
-                      <span className={styles.errMessage}> Field is require </span>
-                    )}
-                  </span>
-                  <span className={cn(styles.grupe)}>
-                    <Input
-                      className={cn(
-                        styles.inputCost,
-                        !field.last && canEdit && editMode && isSubmitted && styles.errInp
+                    </span>
+                    <span className={cn(styles.grupe)}>
+                      <Input
+                        className={cn(
+                          !field.last && canEdit && editMode && isSubmitted && styles.errInp,
+                          styles.price
+                        )}
+                        placeholder="Commission price"
+                        name="last"
+                        data-id={index}
+                        value={field.last}
+                        onBlur={() => {
+                          sendEvent(index, 'price');
+                          inputValue ? setPricing(pricingList) : setSubmitted(addMore);
+                        }}
+                        onChange={handleChange}
+                      />
+                      {!field.last && canEdit && editMode && isSubmitted && (
+                        <span className={cn(styles.errMessage, styles.ml)}> Field is require </span>
                       )}
-                      disabled={!(canEdit && editMode)}
-                      placeholder="Cost"
-                      name="last"
-                      data-id={index}
-                      value={field.last}
-                      onBlur={() => sendEvent(index, 'price')}
-                      onChange={handleChange}
-                    />
-                    {!field.last && canEdit && editMode && isSubmitted && (
-                      <span className={cn(styles.errMessage, styles.ml)}> Field is require </span>
-                    )}
-                  </span>
-                  <div className={styles.close}>
-                    {editMode && canEdit && (
+                    </span>
+                    <div className={styles.close}>
                       <MinusCircleOutlined
                         style={{ 'margin-left': '11px' }}
                         onClick={() => {
@@ -251,11 +252,12 @@ export const CommissionPricing = ({ id, user }) => {
                           remove(index);
                         }}
                       />
-                    )}
-                  </div>
-                </Space>
+                    </div>
+                  </Space>
+                  {errMessage && <p>{errMessage}</p>}
+                </>
               ))}
-              {editMode && canEdit && (
+              {/* {editMode && canEdit && (
                 <div className={styles.addService}>
                   <Button
                     className={styles.addBtn}
@@ -283,7 +285,17 @@ export const CommissionPricing = ({ id, user }) => {
                   </Button>
                   {errMessage && <p>{errMessage}</p>}
                 </div>
-              )}
+              )} */}
+              <AddButton
+                width="25px"
+                height="25px"
+                onClick={() => {
+                  setAddMore(true);
+                  add();
+                }}
+                className={styles.addCommission}
+                text={'Add commission'}
+              />
             </div>
           </div>
         </div>
