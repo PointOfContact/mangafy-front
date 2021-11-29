@@ -164,11 +164,17 @@
 .close {
   display: flex;
   align-items: flex-start !important;
+  margin-left: 40px;
   @include media-sm {
     position: absolute;
     left: 76%;
     top: 36%;
   }
+  svg {
+    path {
+      fill: $gray85;
+    }
+  } 
 }
 .editAboutButton {
   width: 22px;

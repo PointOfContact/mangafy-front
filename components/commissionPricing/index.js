@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
-import { MinusCircleOutlined } from '@ant-design/icons';
 import { Input, Space, notification } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
 import Card from 'components/card';
+import SvgClose from 'components/icon/Close';
 import Imgix from 'components/imgix';
 import AddButton from 'components/ui-elements/add-button';
 import { EVENTS } from 'helpers/amplitudeEvents';
@@ -201,7 +201,12 @@ export const CommissionPricing = ({ id, user }) => {
                   <Space
                     className={'col-lg-12'}
                     key={field.key}
-                    style={{ display: 'flex', position: 'relative', marginBottom: 15 }}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      position: 'relative',
+                      marginBottom: 15,
+                    }}
                     align="start">
                     <span className={styles.grupe}>
                       <Input
@@ -244,8 +249,9 @@ export const CommissionPricing = ({ id, user }) => {
                       )}
                     </span>
                     <div className={styles.close}>
-                      <MinusCircleOutlined
-                        style={{ 'margin-left': '11px' }}
+                      <SvgClose
+                        width="19"
+                        height="19"
                         onClick={() => {
                           setInputValue(true);
                           setSubmitted(false);
