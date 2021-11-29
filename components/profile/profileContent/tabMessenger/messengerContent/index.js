@@ -307,14 +307,14 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
 MessengerContent.propTypes = {
   user: PropTypes.object.isRequired,
   selectedRequest: PropTypes.object.isRequired,
-  requests: PropTypes.object,
+  requests: PropTypes.array,
   setRequests: PropTypes.func,
   setSelectedRequest: PropTypes.func.isRequired,
 };
 
 MessengerContent.defaultProps = {
   avatar: '',
-  requests: {},
+  requests: [],
   setRequests: () => {},
 };
 
