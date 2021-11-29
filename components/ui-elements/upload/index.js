@@ -171,7 +171,7 @@ const PrimaryUpload = ({
             {!fileList.length && (
               <div>
                 <p className={styles.descriptionText}>Drag and drop an image, or Browse</p>
-                <p className={styles.descriptionText}>Max 10MB each</p>
+                {/* <p className={styles.descriptionText}>Max 10MB each</p> */}
               </div>
             )}
             {!fileList.length && showText && (
