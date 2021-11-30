@@ -55,3 +55,19 @@
     }
   }
 }
+.errorModal {
+  border: 1px solid $gray85;
+  width: 91px;
+  height: 32px;
+  border-radius: 4px;
+  position: absolute;
+  bottom: 24px;
+  right: 150px;
+  color: $black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &:hover{
+    color: $primaryDark;
+  }
+}

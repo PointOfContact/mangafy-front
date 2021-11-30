@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import React, { useState } from 'react';
 
 import { Modal } from 'antd';
@@ -67,14 +68,26 @@ const ForgotPassword = () => {
           // setErrorMessage('');
           setEmail('');
         })
-        .catch((err) => {
+        .catch(() => {
+          setLoading(false);
           modal.error({
             okButtonProps: {
               style: { background: '#7b65f3', borderRadius: '4px', borderColor: '#7b65f3' },
             },
             centered: true,
-            title: 'Failed',
-            content: err.message,
+            title: 'Oh...',
+            okText: 'Try again',
+            content: (
+              <>
+                There wasn't an account for that email.
+                <br />
+                <Link href="/sign-up">
+                  <a className={styles.errorModal}>
+                    <button>Sign up</button>
+                  </a>
+                </Link>
+              </>
+            ),
           });
           // setErrorMessage(err.message);
         });
