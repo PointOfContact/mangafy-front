@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { Modal, Input, notification, Form, Select } from 'antd';
+import { Modal, Input, notification, Form } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
 import SvgClose from 'components/icon/Close';
@@ -15,14 +15,11 @@ import myAmplitude from 'utils/amplitude';
 import styles from './styles.module.scss';
 
 const { TextArea } = Input;
-const { Option } = Select;
 
 const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, user }) => {
-  const [lookingFor, changeLookingFor] = useState('');
-  const [amount, changeAmount] = useState('');
-
-  const [rewardType, changeRewardType] = useState('');
-
+  const [lookingFor, changeLookingFor] = useState(null);
+  const [amount, changeAmount] = useState(null);
+  const [rewardType, changeRewardType] = useState(null);
   const [text, changeText] = useState('');
   const [form] = Form.useForm();
 
@@ -34,21 +31,21 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
   );
 
   useEffect(() => {
-    if (task) {
-      changeLookingFor(task?.lookingFor || '');
+    if (task || showModal) {
+      changeLookingFor(task?.lookingFor || null);
       changeText(task?.description || '');
-      changeRewardType(task?.rewardType || '');
-      changeAmount(task?.maxValue || '');
+      changeRewardType(task?.rewardType || null);
+      changeAmount(task?.amount || null);
       form.setFieldsValue({
-        lookingFor: task?.lookingFor || '',
+        lookingFor: task?.lookingFor || null,
         text: task?.description || '',
-        rewardType: task?.rewardType || '',
-        amount: task?.amount || '',
+        rewardType: task?.rewardType || null,
+        amount: task?.amount || null,
       });
     } else {
-      changeLookingFor('');
+      changeLookingFor(null);
       changeText('');
-      changeRewardType('');
+      changeRewardType(null);
       changeAmount('');
       form.resetFields();
     }
@@ -87,9 +84,9 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
       })
       .then((res) => {
         updateTasks();
-        changeLookingFor('');
+        changeLookingFor(null);
         changeText('');
-        changeRewardType('');
+        changeRewardType(null);
         changeAmount('');
         changeShowModal(false);
         const eventData = [
@@ -115,21 +112,24 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
   const editTask = async () => {
     const jwt = client.getCookie('feathers-jwt');
     const { default: api } = await import('api/restClient');
-    console.log(amount, 'amount');
+    const data =
+      rewardType === 'Free'
+        ? {
+            lookingFor,
+            description: text,
+            rewardType,
+          }
+        : {
+            lookingFor,
+            description: text,
+            rewardType,
+            amount,
+          };
     api
       .service('/api/v2/tasks')
-      .patch(
-        task._id,
-        {
-          lookingFor,
-          description: text,
-          rewardType,
-          amount,
-        },
-        {
-          headers: { Authorization: `Bearer ${jwt}` },
-        }
-      )
+      .patch(task._id, data, {
+        headers: { Authorization: `Bearer ${jwt}` },
+      })
       .then(() => {
         updateTasks();
         changeShowModal(false);
@@ -190,13 +190,6 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
     myAmplitude(data);
   };
 
-  const createOptions = (array) =>
-    array?.map((value) => (
-      <Option key={value} value={value}>
-        {value}
-      </Option>
-    ));
-
   return (
     <Modal
       forceRender
@@ -242,16 +235,16 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
               ]}>
               <PrimarySelect
                 showSearch
-                className={cn(styles.selectDef, !lookingFor.length && styles.select)}
+                className={cn(styles.selectDef, !lookingFor && styles.select)}
                 onChange={(e) => {
                   changeLookingFor(e);
                   sendEvent(EVENTS.CHOOSED_TASK_ROLL_TYPE);
                 }}
+                value={lookingFor}
                 bordered={false}
                 options={MyCheckboxes}
                 placeholder="Find a teamate to help you reach your goals"
               />
-              {''}
             </Form.Item>
             <h2>What type of collaboration are you looking for?</h2>
             <Form.Item
@@ -265,15 +258,15 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
               <PrimarySelect
                 showSearch
                 bordered={false}
-                className={cn(styles.selectDef, !rewardType.length && styles.select)}
+                className={cn(styles.selectDef, !rewardType && styles.select)}
                 onChange={(e) => {
                   changeRewardType(e);
                   sendEvent(EVENTS.CHOOSED_TASK_COMMISSION_TYPE);
                 }}
+                value={rewardType}
                 options={RewardTypes}
                 placeholder="Choose the type of collaboration"
               />
-              {''}
             </Form.Item>
             {rewardType !== 'Free' && (
               <div className={styles.value}>

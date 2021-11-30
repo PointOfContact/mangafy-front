@@ -7,10 +7,13 @@
     max-width: 95% !important;
     margin-top: 0px;
   }
-  & > div > div {
-    padding: 17px 21px 0;
-    border-bottom: 0px;
+  & > div {
     border-radius: 5px;
+    & > div {
+      padding: 17px 21px 0;
+      border-bottom: 0px;
+      border-radius: 5px;
+    }
   }
   .content {
     padding: 5px;
@@ -53,7 +56,8 @@
     height: 2px;
     background: linear-gradient(90deg, rgba(33, 33, 33, 0.07) -0.96%, rgba(33, 33, 33, 0) 100.58%);
   }
-  .selectDef, .select {
+  .selectDef,
+  .select {
     height: 44px;
     box-sizing: border-box;
     border-radius: 5px;
@@ -70,9 +74,12 @@
       line-height: 23px;
       color: $black;
     }
+    & > div {
+      border: none !important;
+    }
   }
-  .select{
-    span{
+  .select {
+    span {
       color: $gray85;
     }
   }
@@ -106,6 +113,7 @@
     font-weight: normal;
     font-size: 16px;
     line-height: 23px;
+    border-color: $primaryDark !important;
   }
   .hugeButton {
     display: flex;
@@ -126,7 +134,7 @@
   }
   .anticon {
     padding: 4px;
-    background: #7b65f3;
+    background: $primaryDark;
     border-radius: 50%;
     color: white;
   }
@@ -135,14 +143,15 @@
     .modalInput {
       height: 44px;
       border-radius: 6px;
-      border: 1px solid #7b65f3;
+      border: 1px solid $primaryDark;
       overflow-y: auto !important;
-      color: #212121;
+      color: $black;
       padding: 10px;
       font-style: normal;
       font-weight: normal;
       font-size: $text4;
       line-height: 23px;
+      border-color: $primaryDark !important;
       input {
         font-size: $text4;
         font-weight: 500;
