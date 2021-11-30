@@ -52,6 +52,10 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
     });
   };
 
+  const scrollToBottom = () => {
+    messageListElement.current.scrollTop = messageListElement.current.scrollHeight;
+  };
+
   useEffect(() => {
     setMessageList(
       messageItems(messageItem, participantsInfo, setRequestStatus, user, setMessageItem)
@@ -72,10 +76,6 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
       message,
       placement: 'bottomLeft',
     });
-  };
-
-  const scrollToBottom = () => {
-    messageListElement.current.scrollTop = messageListElement.current.scrollHeight;
   };
 
   const getMessages = () => {
@@ -111,7 +111,6 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
             }
             setParticipantsInfo(res.participentsInfo);
             setMessageItem(neMess);
-            scrollToBottom();
           }
         })
         .catch((err) => openNotification('error', err.message));
@@ -124,6 +123,7 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
     interval = setInterval(() => {
       getMessages(conversationId);
     }, 3000);
+    scrollToBottom();
   }, [conversationId]);
 
   useEffect(() => () => clearInterval(interval), []);
