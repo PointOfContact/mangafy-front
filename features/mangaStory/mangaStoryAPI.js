@@ -118,7 +118,10 @@ export default {
       user,
       setParticipantsData
     ) => {
-      const data = { participents: newParticipantsData };
+      const data = {
+        participents: newParticipantsData,
+        participantId,
+      };
       const jwt = client.getCookie('feathers-jwt');
       return import('api/restClient').then((m) =>
         m.default

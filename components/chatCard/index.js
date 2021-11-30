@@ -155,17 +155,17 @@ const ChatCard = ({
 
 ChatCard.propTypes = {
   isOwn: PropTypes.bool.isRequired,
-  mangaStory: PropTypes.object.isRequired,
+  mangaStory: PropTypes.object,
   user: PropTypes.object.isRequired,
   rid: PropTypes.string.isRequired,
-  isInvite: PropTypes.bool.isRequired,
-  messages: PropTypes.array.isRequired,
+  isInvite: PropTypes.bool,
+  messages: PropTypes.object,
   senderInfo: PropTypes.object.isRequired,
   conversations: PropTypes.array,
-  setAv: PropTypes.func.isRequired,
+  setAv: PropTypes.func,
   isSmall: PropTypes.bool.isRequired,
-  status: PropTypes.string.isRequired,
-  setSelectedRequest: PropTypes.object.isRequired,
+  status: PropTypes.string,
+  setSelectedRequest: PropTypes.func.isRequired,
   selectedRequest: PropTypes.object.isRequired,
   isTeamChat: PropTypes.bool.isRequired,
   profileId: PropTypes.string,
@@ -181,6 +181,11 @@ ChatCard.defaultProps = {
   isArchive: false,
   participentsInfo: [],
   mangaStoryId: null,
+  messages: {},
+  status: '',
+  setAv: () => {},
+  isInvite: false,
+  mangaStory: {},
 };
 
 export default ChatCard;
