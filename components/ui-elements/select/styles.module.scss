@@ -7,7 +7,6 @@
   font-size: 25px;
   line-height: 22px;
   color: $black;
-  background: #fafafa;
   border: 1px solid $white;
   box-sizing: border-box;
   border-radius: 5px;
@@ -22,7 +21,6 @@
   }
 
   &:hover {
-    box-shadow: $primaryShadow;
     border: 1px solid $primaryDark;
     color: $primaryDark;
   }

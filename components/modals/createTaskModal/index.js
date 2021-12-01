@@ -17,44 +17,37 @@ import styles from './styles.module.scss';
 const { TextArea } = Input;
 
 const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, user }) => {
-  const [lookingFor, changeLookingFor] = useState('Writer');
-  const [amount, changeAmount] = useState(40);
-
-  const [rewardType, changeRewardType] = useState('Revenue Split');
-
+  const [lookingFor, changeLookingFor] = useState(null);
+  const [amount, changeAmount] = useState(null);
+  const [rewardType, changeRewardType] = useState(null);
   const [text, changeText] = useState('');
   const [form] = Form.useForm();
 
   const ModalTitle = (
-    <div className={styles.titleWrapper}>
-      <div className={styles.modalTitle}>{task ? 'EDIT A TASK' : 'CREATE A TASK'}</div>
-      <div className={styles.desc}>{baseData.title}</div>
-    </div>
+    <>
+      <div className={styles.modalTitle}>{task ? 'Edit commission ' : 'Create commission'}</div>
+      <div className={styles.border} />
+    </>
   );
 
   useEffect(() => {
-    if (task) {
-      changeLookingFor(task?.lookingFor || 'Writer');
+    if (task || showModal) {
+      changeLookingFor(task?.lookingFor || null);
       changeText(task?.description || '');
-      changeRewardType(task?.rewardType || 'Revenue Split');
-      changeAmount(task?.maxValue || '40');
+      changeRewardType(task?.rewardType || null);
+      changeAmount(task?.amount || null);
       form.setFieldsValue({
-        lookingFor: task?.lookingFor || 'Writer',
+        lookingFor: task?.lookingFor || null,
         text: task?.description || '',
-        rewardType: task?.rewardType || 'Revenue Split',
-        amount: task?.amount || '40',
+        rewardType: task?.rewardType || null,
+        amount: task?.amount || null,
       });
     } else {
-      changeLookingFor('Writer');
+      changeLookingFor(null);
       changeText('');
-      changeRewardType('Revenue Split');
-      changeAmount('40');
-      form.setFieldsValue({
-        lookingFor: 'Writer',
-        text: '',
-        rewardType: 'Revenue Split',
-        amount: '40',
-      });
+      changeRewardType(null);
+      changeAmount('');
+      form.resetFields();
     }
   }, [task, form, showModal]);
 
@@ -91,10 +84,10 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
       })
       .then((res) => {
         updateTasks();
-        changeLookingFor('Writer');
+        changeLookingFor(null);
         changeText('');
-        changeRewardType('Revenue Split');
-        changeAmount('40');
+        changeRewardType(null);
+        changeAmount('');
         changeShowModal(false);
         const eventData = [
           {
@@ -119,20 +112,24 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
   const editTask = async () => {
     const jwt = client.getCookie('feathers-jwt');
     const { default: api } = await import('api/restClient');
+    const data =
+      rewardType === 'Free'
+        ? {
+            lookingFor,
+            description: text,
+            rewardType,
+          }
+        : {
+            lookingFor,
+            description: text,
+            rewardType,
+            amount,
+          };
     api
       .service('/api/v2/tasks')
-      .patch(
-        task._id,
-        {
-          lookingFor,
-          description: text,
-          rewardType,
-          amount,
-        },
-        {
-          headers: { Authorization: `Bearer ${jwt}` },
-        }
-      )
+      .patch(task._id, data, {
+        headers: { Authorization: `Bearer ${jwt}` },
+      })
       .then(() => {
         updateTasks();
         changeShowModal(false);
@@ -201,7 +198,16 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
       footer={null}
       style={{ width: '900px' }}
       visible={showModal}
-      closeIcon={<SvgClose height="18px" width="18px" />}
+      closeIcon={
+        <span
+          className={styles.closeIcon}
+          onClick={(e) => {
+            e.stopPropagation();
+            changeShowModal(false);
+          }}>
+          <SvgClose />
+        </span>
+      }
       okText="Send"
       onCancel={handleCancel}>
       <div className={cn(styles.content, 'row')}>
@@ -218,7 +224,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
               rewardType,
               amount,
             }}>
-            <h2>What roles are you looking to add to your project</h2>
+            <h2>What roles is this project likely to require?</h2>
             <Form.Item
               name="lookingFor"
               rules={[
@@ -229,16 +235,18 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
               ]}>
               <PrimarySelect
                 showSearch
-                className={styles.modalSelect}
+                className={cn(styles.selectDef, !lookingFor && styles.select)}
                 onChange={(e) => {
                   changeLookingFor(e);
                   sendEvent(EVENTS.CHOOSED_TASK_ROLL_TYPE);
                 }}
-                options={MyCheckboxes}
                 value={lookingFor}
+                bordered={false}
+                options={MyCheckboxes}
+                placeholder="Find a teamate to help you reach your goals"
               />
             </Form.Item>
-            <h2>Offered Commission or Reward Type</h2>
+            <h2>What type of collaboration are you looking for?</h2>
             <Form.Item
               name="rewardType"
               rules={[
@@ -249,19 +257,21 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
               ]}>
               <PrimarySelect
                 showSearch
-                className={styles.modalSelect}
+                bordered={false}
+                className={cn(styles.selectDef, !rewardType && styles.select)}
                 onChange={(e) => {
                   changeRewardType(e);
                   sendEvent(EVENTS.CHOOSED_TASK_COMMISSION_TYPE);
                 }}
-                options={RewardTypes}
                 value={rewardType}
+                options={RewardTypes}
+                placeholder="Choose the type of collaboration"
               />
             </Form.Item>
             {rewardType !== 'Free' && (
               <div className={styles.value}>
                 <div>
-                  <h2>How much are you willing to offer per work</h2>
+                  <h2>Budget</h2>
                   <Form.Item
                     name="amount"
                     rules={[
@@ -277,21 +287,13 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
                       onChange={(e) => changeAmount(e.target.value)}
                       onBlur={() => sendEvent(EVENTS.ADDED_TASK_PRICE)}
                       value={amount}
-                      prefix="$"
-                      suffix="USD"
+                      placeholder="You can change the amount or choose a different reward"
                     />
                   </Form.Item>
-                  <span className={styles.short_info}>
-                    You can change the amount, or choose a different type of reward
-                  </span>
                 </div>
               </div>
             )}
-            <div className={styles.line}></div>
-            <h2>
-              Please write and define as clearly as possible what are you looking for when working
-              on the task.
-            </h2>
+            <h2>Your brief is on its way</h2>
             <Form.Item
               name="text"
               rules={[
@@ -302,22 +304,32 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
               ]}>
               <TextArea
                 autoSize={{ minRows: 3, maxRows: 10 }}
-                placeholder=""
+                placeholder="Please be specific. The more detail you provide, the less time it will take."
                 value={text}
                 onChange={handleChangeText}
                 onBlur={() => sendEvent(EVENTS.ADDED_TASK_DESCRIPTION)}
-                className={styles.modalTexarea}
+                className={styles.modalTexArea}
               />
             </Form.Item>
 
             <div className="modal_select_btn">
-              <Form.Item>
+              <Form.Item className={styles.buttonContainer}>
+                {task && (
+                  <PrimaryButton
+                    id="modalJoinMyJourneySubmitBtnId"
+                    className={styles.hugeButton}
+                    isFullWidth={false}
+                    text="Completed"
+                    isWhite={true}
+                    onClick={() => changeShowModal(false)}
+                  />
+                )}
                 <PrimaryButton
                   htmlType="submit"
                   id="modalJoinMyJourneySubmitBtnId"
                   className={styles.hugeButton}
                   isFullWidth={false}
-                  text={task ? 'Edit a task' : 'Create a task'}
+                  text="Create a task"
                 />
               </Form.Item>
             </div>

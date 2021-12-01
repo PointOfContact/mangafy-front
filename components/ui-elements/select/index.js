@@ -20,6 +20,7 @@ function PrimarySelect({
   id,
   label,
   isMulti,
+  placeholder,
   ...rest
 }) {
   const [optionsSelected, setOptionsSelected] = useState([]);
@@ -72,7 +73,8 @@ function PrimarySelect({
         filterOption={(inputValue, option) =>
           inputValue ? option.label.toLowerCase().includes(inputValue.toLowerCase()) : true
         }
-        {...rest}>
+        {...rest}
+        placeholder={placeholder}>
         {itemOptions}
       </Select>
     </>
@@ -92,6 +94,7 @@ PrimarySelect.propTypes = {
   label: PropTypes.string,
   isMulti: PropTypes.bool,
   countLimit: PropTypes.bool,
+  placeholder: PropTypes.string,
 };
 
 PrimarySelect.defaultProps = {
@@ -107,6 +110,7 @@ PrimarySelect.defaultProps = {
   options: [],
   isMulti: false,
   countLimit: false,
+  placeholder: '',
 };
 
 export default PrimarySelect;
