@@ -1,22 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import client from 'api/client';
 import FooterPolicy from 'components/footer-policy';
-import Header from 'components/header';
 import Imgix from 'components/imgix';
-import { ShareButtons } from 'components/share';
+import Pagination from 'components/ui-elements/pagination';
 import { NextSeo } from 'next-seo';
 import dynamic from 'next/dynamic';
-import Link from 'next/link';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
+import ViewHeader from './viewHeader';
 
 const PDFViewer = dynamic(() => import('components/pdfViewer'), {
   ssr: false,
 });
 
-const MangaView = ({ user, storyBoardId, mangaUrls, mangaStoryId, mangaStoryTitle }) => {
+const MangaView = ({ user, storyBoardId, mangaUrls, mangaStoryId, mangaStoryTitle, chapters }) => {
+  const [currentChapter, setCurrentChapter] = useState(1);
+
   const images = mangaUrls?.map((value) => {
     const imgType = !!value.imageUrl ? value.imageUrl.slice(-3) : value.slice(-3);
     const ifPdf = imgType === 'pdf' || imgType === 'PDF';
@@ -31,16 +32,6 @@ const MangaView = ({ user, storyBoardId, mangaUrls, mangaStoryId, mangaStoryTitl
       </div>
     );
   });
-
-  const shareContent = (
-    <div>
-      <p className={styles.shareTitle}>Share</p>
-      <ShareButtons
-        className={styles.shareButPreview}
-        shareUrl={`${client.API_ENDPOINT}/manga-view/${storyBoardId}`}
-      />
-    </div>
-  );
 
   return (
     <>
@@ -71,21 +62,27 @@ const MangaView = ({ user, storyBoardId, mangaUrls, mangaStoryId, mangaStoryTitl
           cardType: 'summary_large_image',
         }}
       />
-      <Header user={user} />
       <div className={styles.containerPreview}>
-        <div className={styles.containerTitle}>
-          <Link href={`${client.API_ENDPOINT}/manga-story/${mangaStoryId}`}>
-            <a className={styles.prev}>&#8249;</a>
-          </Link>
-          <h1>VIEW</h1>
-          <p>Time to see what you already have</p>
-        </div>
-        {shareContent}
-        <p className={styles.projectName}>{mangaStoryTitle}</p>
+        <ViewHeader
+          user={user}
+          chapters={chapters}
+          storyBoardId={storyBoardId}
+          mangaStoryTitle={mangaStoryTitle}
+          currentChapter={currentChapter}
+          setCurrentChapter={setCurrentChapter}
+        />
         <div className={styles.imagesContainer}>{images}</div>
-        {shareContent}
+        <div className={styles.footer}>
+          <div className={styles.paginationContainer}>
+            <Pagination
+              currentNumber={currentChapter}
+              setCurrentNumber={setCurrentChapter}
+              data={chapters}
+            />
+          </div>
+          <FooterPolicy />
+        </div>
       </div>
-      <FooterPolicy />
     </>
   );
 };
@@ -96,6 +93,7 @@ MangaView.propTypes = {
   mangaUrls: PropTypes.array.isRequired,
   mangaStoryId: PropTypes.string.isRequired,
   mangaStoryTitle: PropTypes.string.isRequired,
+  chapters: PropTypes.array.isRequired,
 };
 
 MangaView.defaultProps = {
