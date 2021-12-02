@@ -34,8 +34,11 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
-    .chapterCount {
+    .chapterCount, svg {
       margin-left: 10px;
+      @include media-lg{
+        margin-left: 5px;
+      }
     }
     p {
       color: $black;
@@ -50,10 +53,10 @@
       @include media-lg {
         font-size: $text4;
         line-height: 20px;
+        margin-left: 10px;
       }
     }
     svg {
-      margin-left: 10px;
       path {
         fill: $black;
       }

@@ -3,7 +3,7 @@
 .pagination {
   display: flex;
   align-items: center;
-  margin-right: 150px;
+  margin-right: 200px;
   @include media-md{
     width: 100%;
     justify-content: center;
@@ -17,6 +17,7 @@
     justify-content: center;
     align-items: center;
     font-size: $text4;
+    cursor: pointer;
     svg {
       path {
         fill: white;
