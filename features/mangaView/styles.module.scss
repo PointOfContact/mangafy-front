@@ -1,13 +1,11 @@
 @import '../../styles/variables.scss';
 
 .containerPreview {
-  max-width: 860px;
   width: 100%;
-  padding: 30px;
-  @include media-sm {
-    padding: 0;
-  }
-  margin: 50px auto;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   .shareButPreview {
     margin-bottom: 20px;
     justify-content: start;
@@ -15,34 +13,10 @@
       flex-direction: initial;
     }
   }
-  .containerTitle {
-    position: relative;
-    a{
-      position: absolute;
-      top: -25px;
-    }
-    h1 {
-      text-align: center;
-      font-size: 30px;
-      color: $primaryDark;
-      font-weight: bold;
-      margin: 0;
-      @include media-sm {
-        height: 53px;
-        font-weight: bold;
-        font-size: 20px;
-        line-height: 55px;
-        color: $black;
-      }
-    }
-    p {
-      text-align: center;
-      color: $gray85;
-      font-size: 18px;
-      @include media-sm {
-        display: none;
-      }
-    }
+  .imagesContainer {
+    max-width: 860px;
+    width: 100%;
+    margin: 60px auto 0px;
   }
   .shareButPreview {
     justify-content: start;
@@ -65,7 +39,7 @@
       margin-left: 20px;
     }
   }
-  .prev{
+  .prev {
     font-size: 55px;
     color: $black;
   }
@@ -100,6 +74,17 @@
         height: auto !important;
         position: inherit !important;
       }
+    }
+  }
+  .paginationContainer {
+    display: none;
+    @include media-md {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 100%;
+      height: 40px;
+      box-shadow: -12px -21px 20px -19px rgb(0 0 0 / 25%);
     }
   }
 }
