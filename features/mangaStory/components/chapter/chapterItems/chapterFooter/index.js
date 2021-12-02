@@ -27,7 +27,13 @@ const ChapterFooter = ({ value, setChapters, index, chapters, setEdit, storyBoar
 
   const content = () => (
     <div className={styles.menuChapter}>
-      {showView ? <p onClick={() => Router.push(`/manga-view/${storyBoard?._id}`)}>View</p> : ''}
+      {showView ? (
+        <p onClick={() => Router.push(`/manga-view/${storyBoard?._id}?chapter=${index + 1}`)}>
+          View
+        </p>
+      ) : (
+        ''
+      )}
       <p
         onClick={() => {
           setEdit(value._id);

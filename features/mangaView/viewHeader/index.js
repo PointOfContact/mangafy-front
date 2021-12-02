@@ -36,7 +36,7 @@ const ViewHeader = ({
       <p className={styles.mangaTitle}>{mangaStoryTitle}</p>
       <SvgRightArrow width="14" height="14" />
       <p className={styles.chapterCount}>{`CH ${currentChapter}`} |</p>
-      <p className={styles.chapterTitle}> {chapters[currentChapter - 1].title}</p>...
+      <p className={styles.chapterTitle}> {chapters[currentChapter - 1]?.title}</p>...
     </div>
     <div className={styles.paginationContainer}>
       <Pagination
