@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Tooltip } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
+import { Comments } from 'components/comments';
 import FooterPolicy from 'components/footer-policy';
 import Imgix from 'components/imgix';
 import { ShareButtons } from 'components/share';
@@ -34,7 +35,21 @@ const MangaView = ({
   const router = useRouter();
   const currentChapterNumber = +router.query.chapter;
   const [currentChapter, setCurrentChapter] = useState(currentChapterNumber);
+  const [comments, setComments] = useState([]);
   const [images, setImages] = useState([]);
+
+  useEffect(() => {
+    client
+      .service('/api/v2/comments')
+      .find({
+        query: {
+          mangaStoryId,
+          $sort: { createdAt: -1 },
+          $limit: 1000,
+        },
+      })
+      .then((res) => setComments(res.data));
+  }, []);
 
   useEffect(() => {
     const getCurrentMangaUrls = chapters[currentChapter - 1].mangaUrls;
@@ -162,6 +177,9 @@ const MangaView = ({
             </Link>
             {participantItems}
           </div>
+          <div className={styles.commentContainerMenu}>
+            <Comments commentsData={comments} mangaStory={{ _id: mangaStoryId }} user={user} />
+          </div>
         </div>
         <div className={styles.footer}>
           <div className={styles.chaptersItems}>{chapterItems}</div>
@@ -171,6 +189,9 @@ const MangaView = ({
               setCurrentNumber={setCurrentChapter}
               data={chapters}
             />
+          </div>
+          <div className={styles.commentContainer}>
+            <Comments commentsData={comments} mangaStory={{ _id: mangaStoryId }} user={user} />
           </div>
           <FooterPolicy />
         </div>

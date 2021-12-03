@@ -15,7 +15,9 @@
 .subTitle {
   font-size: $text2;
 }
-
+.commentInput{
+  resize: inherit;
+}
 .comments {
   max-height: 300px;
   overflow: auto;
