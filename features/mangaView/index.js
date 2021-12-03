@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
 
+import { Tooltip } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
 import FooterPolicy from 'components/footer-policy';
 import Imgix from 'components/imgix';
 import { ShareButtons } from 'components/share';
+import ButtonToTop from 'components/ui-elements/button-toTop';
 import Pagination from 'components/ui-elements/pagination';
 import { NextSeo } from 'next-seo';
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 
@@ -25,15 +28,13 @@ const MangaView = ({
   mangaStoryId,
   mangaStoryTitle,
   chapters,
-  userName,
+  userData,
   participants,
 }) => {
   const router = useRouter();
   const currentChapterNumber = +router.query.chapter;
   const [currentChapter, setCurrentChapter] = useState(currentChapterNumber);
   const [images, setImages] = useState([]);
-
-  console.log(userName, participants, 'participants');
 
   useEffect(() => {
     const getCurrentMangaUrls = chapters[currentChapter - 1].mangaUrls;
@@ -56,11 +57,9 @@ const MangaView = ({
   }, [currentChapter]);
 
   useEffect(() => {
-    router.push(
-      `http://localhost:3000/manga-view/${storyBoardId}?chapter=${currentChapter}`,
-      undefined,
-      { shallow: true }
-    );
+    router.push(`/manga-view/${storyBoardId}?chapter=${currentChapter}`, undefined, {
+      shallow: true,
+    });
   }, [currentChapter]);
 
   const chapterItems = chapters.map((value, index) => {
@@ -69,8 +68,8 @@ const MangaView = ({
     const activeChapter = index + 1 === currentChapter;
     return (
       <div
-        className={cn(styles.itemChapters, activeChapter && styles.activeChapter)}
         key={value._id + index}
+        className={cn(styles.itemChapters, activeChapter && styles.activeChapter)}
         onClick={() => setCurrentChapter(index + 1)}>
         {ifPdf ? (
           <PDFViewer url={client.UPLOAD_URL + value.cover} />
@@ -89,14 +88,20 @@ const MangaView = ({
   });
 
   const participantItems = participants.map((value, index) => (
-    <div key={value + index} className={styles.participantsContainer}>
-      <Imgix
-        width={50}
-        height={50}
-        src={client.UPLOAD_URL + value.avatar}
-        alt={'MangaFy participants image'}
-      />
-    </div>
+    <Tooltip key={value._id + index} placement="top" title={value.name} arrowPointAtCenter>
+      <div className={styles.participantsItem} style={{ marginLeft: `-${(index + 1) * 4}px` }}>
+        <Link href={`/profile/${value._id}`}>
+          <a>
+            <Imgix
+              width={40}
+              height={40}
+              src={client.UPLOAD_URL + value.avatar}
+              alt={'MangaFy participants image'}
+            />
+          </a>
+        </Link>
+      </div>
+    </Tooltip>
   ));
 
   return (
@@ -146,10 +151,17 @@ const MangaView = ({
             className={styles.shareButtons}
             shareUrl={`${client.API_ENDPOINT}/manga-view/${storyBoardId}`}
           />
-          {/* <div className={styles.userData}>
-            <p className={styles.shareDescription}>{userName}</p>
+          <div className={styles.userData}>
+            <Link href={`/profile/${userData[0]._id}`}>
+              <a>
+                <p className={styles.owner}>
+                  {userData[0].name}
+                  <span> .Creator</span>
+                </p>
+              </a>
+            </Link>
             {participantItems}
-          </div> */}
+          </div>
         </div>
         <div className={styles.footer}>
           <div className={styles.chaptersItems}>{chapterItems}</div>
@@ -163,6 +175,7 @@ const MangaView = ({
           <FooterPolicy />
         </div>
       </div>
+      <ButtonToTop />
     </>
   );
 };
@@ -174,7 +187,7 @@ MangaView.propTypes = {
   mangaStoryId: PropTypes.string.isRequired,
   mangaStoryTitle: PropTypes.string.isRequired,
   chapters: PropTypes.array.isRequired,
-  userName: PropTypes.string.isRequired,
+  userData: PropTypes.object.isRequired,
   participants: PropTypes.array.isRequired,
 };
 

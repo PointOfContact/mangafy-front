@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
-const ChapterTitle = ({ value, chapters, setChapters, edit, setEdit }) => {
+const ChapterTitle = ({ value, chapters, setChapters, edit, setEdit, index }) => {
   const [mouseOut, onMouseOut] = useState(false);
   const [editName, setEditName] = useState(value?.title);
   const validate = editName?.trim()?.length < 2;
@@ -81,7 +81,9 @@ const ChapterTitle = ({ value, chapters, setChapters, edit, setEdit }) => {
             setEditName(value?.title);
           }}
           className={styles.chapterName}>
-          <h2 className={styles.chapterTitle}>{value?.title}</h2>
+          <h2 className={styles.chapterTitle}>
+            #{index + 1} | {value?.title}
+          </h2>
         </div>
       )}
     </div>
@@ -94,6 +96,7 @@ ChapterTitle.propTypes = {
   setChapters: PropTypes.func.isRequired,
   edit: PropTypes.string.isRequired,
   setEdit: PropTypes.func.isRequired,
+  index: PropTypes.number.isRequired,
 };
 
 export default ChapterTitle;

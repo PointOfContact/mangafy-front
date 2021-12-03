@@ -25,15 +25,15 @@ const ChapterFooter = ({ value, setChapters, index, chapters, setEdit, storyBoar
 
   const showView = value.published && (!!storyBoard?.mangaUrls?.length || mangaUrl);
 
+  const viewClick = () => {
+    const publishedChapters = chapters.filter((e) => e.published);
+    const chapterIndex = publishedChapters.findIndex(({ order }) => order === value.order);
+    Router.push(`/manga-view/${storyBoard?._id}?chapter=${chapterIndex + 1}`);
+  };
+
   const content = () => (
     <div className={styles.menuChapter}>
-      {showView ? (
-        <p onClick={() => Router.push(`/manga-view/${storyBoard?._id}?chapter=${index + 1}`)}>
-          View
-        </p>
-      ) : (
-        ''
-      )}
+      {showView ? <p onClick={viewClick}>View</p> : ''}
       <p
         onClick={() => {
           setEdit(value._id);

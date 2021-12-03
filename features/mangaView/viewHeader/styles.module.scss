@@ -16,10 +16,20 @@
       justify-content: center;
   }
   .leftContainer {
+    width: 600px;
     display: flex;
     align-items: center;
+    @include media-md{
+      width: 100%;
+      justify-content: center;
+    }
     .mangaTitle {
       text-transform: uppercase;
+      width: 100px;
+      white-space: nowrap;
+      overflow: hidden;
+      display: block;
+      text-overflow: ellipsis;
     }
     a {
       @include media-md {
@@ -27,11 +37,12 @@
       }
     }
     .chapterTitle {
-      width: 101px;
+      width: 100px;
       margin-left: 5px;
       font-size: $text4;
       white-space: nowrap;
       overflow: hidden;
+      display: block;
       text-overflow: ellipsis;
     }
     .chapterCount, svg {
@@ -63,11 +74,13 @@
     }
   }
   .shareButtons {
+    width: 600px;
     @include media-md {
       display: none;
     }
   }
   .paginationContainer{
+    width: 130px;
       @include media-md{
           display: none;
       }
