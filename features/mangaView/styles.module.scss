@@ -53,9 +53,13 @@ $subLineAlpha: 0.5;
       flex-direction: initial;
     }
   }
+  a {
+    color: $black;
+  }
   .imagesContainer {
     max-width: 860px;
     width: 100%;
+    min-height: 400px;
     margin: 60px auto 0px;
   }
   .shareButPreview {
@@ -106,15 +110,6 @@ $subLineAlpha: 0.5;
       border-bottom: 2px solid $grayBG;
     }
   }
-  .shareDescription {
-    text-align: center;
-    padding: 10px;
-    margin: 0;
-    margin-top: 50px;
-    @include media-sm {
-      margin-top: 20px;
-    }
-  }
   .shareButtons {
     justify-content: center;
     margin-bottom: 20px;
@@ -127,18 +122,6 @@ $subLineAlpha: 0.5;
         height: auto !important;
         position: inherit !important;
       }
-    }
-  }
-  .paginationContainer {
-    display: none;
-    background: white;
-    @include media-md {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      width: 100%;
-      height: 40px;
-      box-shadow: -12px -21px 20px -19px rgb(0 0 0 / 25%);
     }
   }
   .menu {
@@ -188,6 +171,11 @@ $subLineAlpha: 0.5;
       flex-direction: column;
       justify-content: space-between;
       cursor: pointer;
+      &:hover {
+        .opacity {
+          background: #21212100;
+        }
+      }
       @include media-sm {
         position: relative;
         min-width: 50px;
@@ -226,7 +214,6 @@ $subLineAlpha: 0.5;
       p {
         color: $black;
         @include media-sm {
-          background: #21212100;
           color: white;
         }
       }
@@ -241,18 +228,43 @@ $subLineAlpha: 0.5;
       background: #00000096;
     }
   }
+  .shareDescription {
+    text-align: center;
+    padding: 10px;
+    margin: 0;
+    margin-top: 50px;
+    font-size: $text4;
+    @include media-sm {
+      margin-top: 20px;
+    }
+  }
   .userData {
+    height: 40px;
     display: flex;
+    align-items: center;
     justify-content: center;
     margin-bottom: 20px;
-    p {
-      margin: 0;
-      font-size: $text3;
-      line-height: 25px;
+    .owner {
+      display: flex;
+      font-size: $text4;
       font-weight: bold;
+      margin: 0;
+      span {
+        font-size: $text5;
+        color: $avatar_outline;
+        margin-left: 5px;
+        margin-top: 2px;
+      }
     }
-    img{
-      border-radius: 50%;
+    .participantsItem {
+      &:nth-child(2) {
+        margin-left: 10px !important;
+        margin-right: -10px !important;
+      }
+      img {
+        border: 1px solid $grayBG !important;
+        border-radius: 50%;
+      }
     }
   }
   .footer {
@@ -264,6 +276,19 @@ $subLineAlpha: 0.5;
     & > div:last-child {
       @include media-sm {
         display: none;
+      }
+    }
+    .paginationContainer {
+      display: flex;
+      justify-content: center;
+      background: white;
+      padding: 5px;
+      display: none;
+      & > div {
+        margin: 0;
+      }
+      @include media-md {
+        display: block;
       }
     }
   }

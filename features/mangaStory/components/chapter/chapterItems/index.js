@@ -28,6 +28,7 @@ const ChapterItems = ({ chapters, setChapters, storyBoard, setStoryBoard }) => {
                 setChapters={setChapters}
                 edit={edit}
                 setEdit={setEdit}
+                index={index}
               />
               <div
                 className={styles.newPageContainer}
