@@ -138,6 +138,9 @@
     margin-right: 0px;
   }
 }
+.error{
+  color: $red;
+}
 .title {
   display: flex;
   @include media-sm{

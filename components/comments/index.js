@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Comment, List, Form, Input } from 'antd';
 import client from 'api/client';
@@ -71,7 +71,14 @@ const Editor = ({ onChange, onSubmit, submitting, value, user, mangaStory }) => 
   return (
     <>
       <Form.Item>
-        <TextArea maxLength={490} rows={4} onChange={commentChange} value={value} />
+        <TextArea
+          className={styles.commentInput}
+          maxLength={490}
+          rows={4}
+          onChange={commentChange}
+          value={value}
+          placeholder="Comment"
+        />
         <p className={commentError ? styles.commentError : styles.notError}>{commentError}</p>
       </Form.Item>
       <Form.Item>
@@ -118,6 +125,10 @@ export const Comments = ({ commentsData, mangaStory, user }) => {
   const [submitting, setSubmitting] = useState(false);
   const [value, setValue] = useState('');
   const [errMessage, setErrMessage] = useState('');
+
+  useEffect(() => {
+    setComments(commentsData);
+  }, [commentsData]);
 
   const handleChange = (e) => {
     setValue(e.target.value);
