@@ -38,8 +38,8 @@ const MangaView = ({
   const [images, setImages] = useState([]);
 
   useEffect(() => {
-    const getCurrentMangaUrls = chapters[currentChapter - 1].mangaUrls;
-    const chapterImages = getCurrentMangaUrls.map((value) => {
+    const getCurrentMangaUrls = chapters[currentChapter - 1]?.mangaUrls;
+    const chapterImages = getCurrentMangaUrls?.map((value) => {
       const imgType = !!value.imageUrl ? value.imageUrl.slice(-3) : value.slice(-3);
       const ifPdf = imgType === 'pdf' || imgType === 'PDF';
 
@@ -65,7 +65,7 @@ const MangaView = ({
     }
   }, [currentChapter]);
 
-  const chapterItems = chapters.map((value, index) => {
+  const chapterItems = chapters?.map((value, index) => {
     const type = value.cover.slice(-3);
     const ifPdf = type === 'pdf' || type === '{DF';
     const activeChapter = index + 1 === currentChapter;
@@ -126,7 +126,7 @@ const MangaView = ({
             'authors who wish to create manga and comics for digital publication',
           images: [
             {
-              url: `https://mangafy.club/api/v2/uploads/${images[0]}`,
+              url: images?.length ? `https://mangafy.club/api/v2/uploads/${images[0]}` : '',
               width: 800,
               height: 600,
               alt: 'Manga Story Image',
