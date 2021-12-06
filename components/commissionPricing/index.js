@@ -80,7 +80,7 @@ export const CommissionPricing = ({ id, user }) => {
           });
       });
     } else {
-      setErrMessage('Both fields must not be empty');
+      setErrMessage('Please complete both fields before submitting');
       setSubmitted(true);
     }
   };
