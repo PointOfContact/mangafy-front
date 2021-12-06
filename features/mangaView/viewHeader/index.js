@@ -1,6 +1,5 @@
 import React from 'react';
 
-import client from 'api/client';
 import SvgRightArrow from 'components/icon/RightArrow';
 import Imgix from 'components/imgix';
 import { ShareButtons } from 'components/share';
@@ -17,6 +16,7 @@ const ViewHeader = ({
   mangaStoryTitle,
   currentChapter,
   setCurrentChapter,
+  shareUrl,
 }) => (
   <div className={styles.headerContainer}>
     <div className={styles.leftContainer}>
@@ -45,20 +45,23 @@ const ViewHeader = ({
         data={chapters}
       />
     </div>
-    <ShareButtons
-      className={styles.shareButtons}
-      shareUrl={`${client.API_ENDPOINT}/manga-view/${storyBoardId}`}
-    />
+    <ShareButtons className={styles.shareButtons} shareUrl={shareUrl} />
   </div>
 );
 
 ViewHeader.propTypes = {
-  user: PropTypes.object.isRequired,
+  user: PropTypes.object,
   chapters: PropTypes.array.isRequired,
   storyBoardId: PropTypes.string.isRequired,
   mangaStoryTitle: PropTypes.string.isRequired,
   currentChapter: PropTypes.number.isRequired,
   setCurrentChapter: PropTypes.func.isRequired,
+  shareUrl: PropTypes.string,
+};
+
+ViewHeader.defaultProps = {
+  user: {},
+  shareUrl: '',
 };
 
 export default ViewHeader;

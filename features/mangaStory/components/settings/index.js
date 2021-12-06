@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-import { Modal } from 'antd';
 import { findStoryBoard } from 'api/storyBoardClient';
 import ToggleSwitch from 'components/ui-elements/toggleSwitch';
 import mangaStoryAPI from 'features/mangaStory/mangaStoryAPI';
@@ -14,8 +13,6 @@ import EditGenresField from './editGenresField';
 import PaypalEmailField from './paypalEmailField';
 import styles from './styles.module.scss';
 import ViewUrlName from './viewUrlName';
-
-const { info } = Modal;
 
 const Settings = ({
   baseData,
@@ -31,6 +28,7 @@ const Settings = ({
   showPayPalContent,
   setShowPayPalContent,
   confirmDelete,
+  storyBoard,
 }) => {
   const collabRef = useRef();
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -125,6 +123,7 @@ const Settings = ({
           baseData={baseData}
           sendEvent={sendEvent}
           onChangeSingleField={onChangeSingleField}
+          storyBoard={storyBoard}
         />
       </div>
       <div className={styles.container}>
@@ -168,6 +167,7 @@ Settings.propTypes = {
   showPayPalContent: PropTypes.bool.isRequired,
   setShowPayPalContent: PropTypes.func.isRequired,
   confirmDelete: PropTypes.func.isRequired,
+  storyBoard: PropTypes.object.isRequired,
 };
 
 export default Settings;

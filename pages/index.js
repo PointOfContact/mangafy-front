@@ -8,7 +8,7 @@ export default withAuthComponent(MiddlewareIndexPage);
 export const getServerSideProps = withAuthServerSideProps(async (context, user = null, jwt) => {
   const viewUrlName = context?.req?.headers?.host;
   console.log('viewUrlName', viewUrlName);
-  const getNameViewUrl = !!viewUrlName && viewUrlName.split('.').reverse()[2];
+  const getNameViewUrl = !!viewUrlName && viewUrlName.split('.')[0];
   console.log('getNameViewUrl', getNameViewUrl);
 
   if (!getNameViewUrl) {
@@ -39,6 +39,7 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
       props: {
         user: user || store.user,
         ...mangaView,
+        getNameViewUrl,
       },
     };
   } catch (error) {

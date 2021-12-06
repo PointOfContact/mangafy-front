@@ -31,9 +31,16 @@ const MangaView = ({
   chapters,
   userData,
   participants,
+  getNameViewUrl,
 }) => {
   const router = useRouter();
   const currentChapterNumber = +router.query.chapter;
+  const [currentChapter, setCurrentChapter] = useState(currentChapterNumber || 1);
+  const [images, setImages] = useState([]);
+
+  useEffect(() => {
+    const getCurrentMangaUrls = chapters[currentChapter - 1]?.mangaUrls;
+    const chapterImages = getCurrentMangaUrls?.map((value) => {
   const [currentChapter, setCurrentChapter] = useState(currentChapterNumber);
   const [comments, setComments] = useState([]);
   const [images, setImages] = useState([]);
@@ -72,12 +79,14 @@ const MangaView = ({
   }, [currentChapter]);
 
   useEffect(() => {
-    router.push(`/manga-view/${storyBoardId}?chapter=${currentChapter}`, undefined, {
-      shallow: true,
-    });
+    if (!getNameViewUrl) {
+      router.push(`/manga-view/${storyBoardId}?chapter=${currentChapter}`, undefined, {
+        shallow: true,
+      });
+    }
   }, [currentChapter]);
 
-  const chapterItems = chapters.map((value, index) => {
+  const chapterItems = chapters?.map((value, index) => {
     const type = value.cover.slice(-3);
     const ifPdf = type === 'pdf' || type === '{DF';
     const activeChapter = index + 1 === currentChapter;
@@ -119,22 +128,26 @@ const MangaView = ({
     </Tooltip>
   ));
 
+  const shareUrl = !!getNameViewUrl
+    ? `https://${getNameViewUrl}.mangafy.club`
+    : `https://mangafy.club/manga-view/${storyBoardId}?chapter=${currentChapter}`;
+
   return (
     <>
       <NextSeo
         title={`MangaFY is happy to introduce my latest graphic novel project, entitled ${mangaStoryTitle}.`}
         description="MangaFY is an easy to use application that features tools for
                    authors who wish to create manga and comics for digital publication"
-        canonical={`${client.API_ENDPOINT}/manga-view/${storyBoardId}`}
+        canonical={`https://mangafy.club/manga-view/${storyBoardId}`}
         openGraph={{
-          url: `${client.API_ENDPOINT}/manga-view/${storyBoardId}`,
+          url: shareUrl,
           title: `MangaFY is happy to introduce my latest graphic novel project, entitled ${mangaStoryTitle}.`,
           description:
             'MangaFY is an easy to use application that features tools for ' +
             'authors who wish to create manga and comics for digital publication',
           images: [
             {
-              url: `${client.API_ENDPOINT}/api/v2/uploads/${images[0]}`,
+              url: images?.length ? `https://mangafy.club/api/v2/uploads/${images[0]}` : '',
               width: 800,
               height: 600,
               alt: 'Manga Story Image',
@@ -156,22 +169,20 @@ const MangaView = ({
           mangaStoryTitle={mangaStoryTitle}
           currentChapter={currentChapter}
           setCurrentChapter={setCurrentChapter}
+          shareUrl={shareUrl}
         />
         <div className={styles.menu}>
           <div className={styles.imagesContainer}>{images}</div>
           <p className={styles.shareDescription}>
             Share this series and show support for the creator!
           </p>
-          <ShareButtons
-            className={styles.shareButtons}
-            shareUrl={`${client.API_ENDPOINT}/manga-view/${storyBoardId}`}
-          />
+          <ShareButtons className={styles.shareButtons} shareUrl={shareUrl} />
           <div className={styles.userData}>
             <Link href={`/profile/${userData[0]._id}`}>
               <a>
                 <p className={styles.owner}>
                   {userData[0].name}
-                  <span> .Creator</span>
+                  <span> .Owner</span>
                 </p>
               </a>
             </Link>
@@ -208,12 +219,14 @@ MangaView.propTypes = {
   mangaStoryId: PropTypes.string.isRequired,
   mangaStoryTitle: PropTypes.string.isRequired,
   chapters: PropTypes.array.isRequired,
-  userData: PropTypes.object.isRequired,
+  userData: PropTypes.array.isRequired,
   participants: PropTypes.array.isRequired,
+  getNameViewUrl: PropTypes.string,
 };
 
 MangaView.defaultProps = {
   user: {},
+  getNameViewUrl: '',
 };
 
 export default MangaView;

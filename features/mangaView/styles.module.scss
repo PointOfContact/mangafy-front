@@ -162,7 +162,7 @@ $subLineAlpha: 0.5;
     white-space: nowrap;
     padding: 5px 7px 0px;
     margin: 0 auto;
-    background: $gray85;
+    background: #77719954;
     @include media-xs {
       padding: 0;
     }
@@ -306,7 +306,7 @@ $subLineAlpha: 0.5;
     .paginationContainer {
       display: flex;
       justify-content: center;
-      background: white;
+      background: #77719954;
       padding: 5px;
       display: none;
       & > div {

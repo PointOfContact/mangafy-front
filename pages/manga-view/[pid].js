@@ -10,6 +10,7 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
       storyBoardId: context.params.pid,
     },
   });
+
   try {
     return {
       props: {
