@@ -37,13 +37,7 @@ const MangaView = ({
   const currentChapterNumber = +router.query.chapter;
   const [currentChapter, setCurrentChapter] = useState(currentChapterNumber || 1);
   const [images, setImages] = useState([]);
-
-  useEffect(() => {
-    const getCurrentMangaUrls = chapters[currentChapter - 1]?.mangaUrls;
-    const chapterImages = getCurrentMangaUrls?.map((value) => {
-  const [currentChapter, setCurrentChapter] = useState(currentChapterNumber);
   const [comments, setComments] = useState([]);
-  const [images, setImages] = useState([]);
 
   useEffect(() => {
     client
@@ -76,9 +70,6 @@ const MangaView = ({
     });
 
     setImages(chapterImages);
-  }, [currentChapter]);
-
-  useEffect(() => {
     if (!getNameViewUrl) {
       router.push(`/manga-view/${storyBoardId}?chapter=${currentChapter}`, undefined, {
         shallow: true,
