@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { Input, Space, notification } from 'antd';
+import { Input, Space } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
 import Card from 'components/card';
@@ -69,6 +69,7 @@ export const CommissionPricing = ({ id, user }) => {
                 },
               },
             ];
+            setErrMessage('');
             myAmplitude(data);
             setPricingList(res.pricingTable);
             setEditMode(false);
@@ -79,10 +80,7 @@ export const CommissionPricing = ({ id, user }) => {
           });
       });
     } else {
-      notification.error({
-        message: 'invalid Form',
-        placement: 'bottomLeft',
-      });
+      setErrMessage('Both fields must not be empty');
       setSubmitted(true);
     }
   };
@@ -225,7 +223,7 @@ export const CommissionPricing = ({ id, user }) => {
                         onChange={handleChange}
                       />
                       {!field.first && canEdit && editMode && isSubmitted && (
-                        <span className={styles.errMessage}> Field is require </span>
+                        <span className={styles.errMessage}>{} Field is require </span>
                       )}
                     </span>
                     <span className={cn(styles.grupe)}>
@@ -244,7 +242,7 @@ export const CommissionPricing = ({ id, user }) => {
                         }}
                         onChange={handleChange}
                       />
-                      {!field.last && canEdit && editMode && isSubmitted && (
+                      {!field.last && !field.first && canEdit && editMode && isSubmitted && (
                         <span className={cn(styles.errMessage, styles.ml)}> Field is require </span>
                       )}
                     </span>
@@ -260,9 +258,9 @@ export const CommissionPricing = ({ id, user }) => {
                       />
                     </div>
                   </Space>
-                  {errMessage && <p>{errMessage}</p>}
                 </>
               ))}
+              {errMessage && <p className={styles.error}>{errMessage}</p>}
               {/* {editMode && canEdit && (
                 <div className={styles.addService}>
                   <Button
