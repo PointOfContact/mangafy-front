@@ -30,10 +30,11 @@ const MangaView = ({
   chapters,
   userData,
   participants,
+  getNameViewUrl,
 }) => {
   const router = useRouter();
   const currentChapterNumber = +router.query.chapter;
-  const [currentChapter, setCurrentChapter] = useState(currentChapterNumber);
+  const [currentChapter, setCurrentChapter] = useState(currentChapterNumber || 1);
   const [images, setImages] = useState([]);
 
   useEffect(() => {
@@ -57,9 +58,11 @@ const MangaView = ({
   }, [currentChapter]);
 
   useEffect(() => {
-    router.push(`/manga-view/${storyBoardId}?chapter=${currentChapter}`, undefined, {
-      shallow: true,
-    });
+    if (!getNameViewUrl) {
+      router.push(`/manga-view/${storyBoardId}?chapter=${currentChapter}`, undefined, {
+        shallow: true,
+      });
+    }
   }, [currentChapter]);
 
   const chapterItems = chapters.map((value, index) => {
@@ -147,16 +150,13 @@ const MangaView = ({
           <p className={styles.shareDescription}>
             Share this series and show support for the creator!
           </p>
-          <ShareButtons
-            className={styles.shareButtons}
-            shareUrl={`${client.API_ENDPOINT}/manga-view/${storyBoardId}`}
-          />
+          <ShareButtons className={styles.shareButtons} shareUrl={router.asPath} />
           <div className={styles.userData}>
             <Link href={`/profile/${userData[0]._id}`}>
               <a>
                 <p className={styles.owner}>
                   {userData[0].name}
-                  <span> .Creator</span>
+                  <span> .Owner</span>
                 </p>
               </a>
             </Link>
@@ -187,12 +187,14 @@ MangaView.propTypes = {
   mangaStoryId: PropTypes.string.isRequired,
   mangaStoryTitle: PropTypes.string.isRequired,
   chapters: PropTypes.array.isRequired,
-  userData: PropTypes.object.isRequired,
+  userData: PropTypes.array.isRequired,
   participants: PropTypes.array.isRequired,
+  getNameViewUrl: PropTypes.string,
 };
 
 MangaView.defaultProps = {
   user: {},
+  getNameViewUrl: '',
 };
 
 export default MangaView;

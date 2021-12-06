@@ -10,6 +10,14 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
       storyBoardId: context.params.pid,
     },
   });
+
+  if (!res.chapters.length) {
+    context.res.writeHead(301, {
+      Location: `/manga-story/${res.mangaStoryId}`,
+    });
+    context.res.end();
+  }
+
   try {
     return {
       props: {

@@ -53,12 +53,16 @@ const ViewHeader = ({
 );
 
 ViewHeader.propTypes = {
-  user: PropTypes.object.isRequired,
+  user: PropTypes.object,
   chapters: PropTypes.array.isRequired,
   storyBoardId: PropTypes.string.isRequired,
   mangaStoryTitle: PropTypes.string.isRequired,
   currentChapter: PropTypes.number.isRequired,
   setCurrentChapter: PropTypes.func.isRequired,
+};
+
+ViewHeader.defaultProps = {
+  user: {},
 };
 
 export default ViewHeader;

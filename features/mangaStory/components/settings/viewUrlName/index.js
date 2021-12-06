@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
 import { Tooltip, Radio } from 'antd';
-import client from 'api/client';
 import cn from 'classnames';
 import SvgCopy from 'components/icon/Copy';
 import PrimaryInput from 'components/ui-elements/input';
@@ -12,7 +11,7 @@ import PropTypes from 'prop-types';
 
 import styles from '../styles.module.scss';
 
-const ViewUrlName = ({ baseData, onChangeSingleField, sendEvent }) => {
+const ViewUrlName = ({ baseData, onChangeSingleField, sendEvent, storyBoard }) => {
   const [value, setValue] = useState(baseData?.typeUrlView);
   const [copyText, setCopyText] = useState('Copy to clipboard');
   const [isTouched, setIsTouched] = useState(false);
@@ -112,7 +111,7 @@ const ViewUrlName = ({ baseData, onChangeSingleField, sendEvent }) => {
         <div className={styles.viewUrl}>
           {ifCustomSubdomain
             ? `https://${!!viewUrlName ? viewUrlName : '?'}.mangafy.club`
-            : `${client.API_ENDPOINT}/manga-view/${baseData?._id}`}
+            : `https://mangafy-club/manga-view/${storyBoard?._id}`}
         </div>
 
         <Tooltip placement="topLeft" title={copyText}>
@@ -123,7 +122,7 @@ const ViewUrlName = ({ baseData, onChangeSingleField, sendEvent }) => {
               copy(
                 ifCustomSubdomain
                   ? `https://${!!viewUrlName ? viewUrlName : '?'}.mangafy.club`
-                  : `${client.API_ENDPOINT}/manga-view/${baseData?._id}`
+                  : `https://mangafy-club/manga-view/${storyBoard?._id}`
               );
             }}
             onMouseOut={() => setCopyText('Copy to clipboard')}>
@@ -139,6 +138,7 @@ ViewUrlName.propTypes = {
   baseData: PropTypes.object.isRequired,
   onChangeSingleField: PropTypes.func.isRequired,
   sendEvent: PropTypes.func.isRequired,
+  storyBoard: PropTypes.object.isRequired,
 };
 
 export default ViewUrlName;

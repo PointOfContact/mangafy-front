@@ -333,6 +333,7 @@ const MangeStory = (props) => {
                             showPayPalContent={showPayPalContent}
                             setShowPayPalContent={setShowPayPalContent}
                             confirmDelete={confirmDelete}
+                            storyBoard={storyBoard}
                           />
                         </div>
                       </TabPane>
