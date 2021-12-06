@@ -107,22 +107,26 @@ const MangaView = ({
     </Tooltip>
   ));
 
+  const shareUrl = !!getNameViewUrl
+    ? `https://${getNameViewUrl}.mangafy.club`
+    : `https://mangafy.club/manga-view/${storyBoardId}?chapter=${currentChapter}`;
+
   return (
     <>
       <NextSeo
         title={`MangaFY is happy to introduce my latest graphic novel project, entitled ${mangaStoryTitle}.`}
         description="MangaFY is an easy to use application that features tools for
                    authors who wish to create manga and comics for digital publication"
-        canonical={`${client.API_ENDPOINT}/manga-view/${storyBoardId}`}
+        canonical={`https://mangafy.club/manga-view/${storyBoardId}`}
         openGraph={{
-          url: `${client.API_ENDPOINT}/manga-view/${storyBoardId}`,
+          url: shareUrl,
           title: `MangaFY is happy to introduce my latest graphic novel project, entitled ${mangaStoryTitle}.`,
           description:
             'MangaFY is an easy to use application that features tools for ' +
             'authors who wish to create manga and comics for digital publication',
           images: [
             {
-              url: `${client.API_ENDPOINT}/api/v2/uploads/${images[0]}`,
+              url: `https://mangafy.club/api/v2/uploads/${images[0]}`,
               width: 800,
               height: 600,
               alt: 'Manga Story Image',
@@ -144,13 +148,14 @@ const MangaView = ({
           mangaStoryTitle={mangaStoryTitle}
           currentChapter={currentChapter}
           setCurrentChapter={setCurrentChapter}
+          shareUrl={shareUrl}
         />
         <div className={styles.menu}>
           <div className={styles.imagesContainer}>{images}</div>
           <p className={styles.shareDescription}>
             Share this series and show support for the creator!
           </p>
-          <ShareButtons className={styles.shareButtons} shareUrl={router.asPath} />
+          <ShareButtons className={styles.shareButtons} shareUrl={shareUrl} />
           <div className={styles.userData}>
             <Link href={`/profile/${userData[0]._id}`}>
               <a>
