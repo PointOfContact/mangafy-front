@@ -2,8 +2,8 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 
+import BuyBubbleTea from '../../../../components/ui-elements/buyBubbleTea';
 import EditStoryTab from '../editStoryTab';
-import BuyBubbleTea from './buyBubbleTea';
 import StoryTab from './storyTab';
 import styles from './styles.module.scss';
 
