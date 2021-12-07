@@ -8,6 +8,7 @@ import FooterPolicy from 'components/footer-policy';
 import Imgix from 'components/imgix';
 import { ShareButtons } from 'components/share';
 import ButtonToTop from 'components/ui-elements/button-toTop';
+import BuyBubbleTea from 'components/ui-elements/buyBubbleTea';
 import Pagination from 'components/ui-elements/pagination';
 import { NextSeo } from 'next-seo';
 import dynamic from 'next/dynamic';
@@ -32,6 +33,7 @@ const MangaView = ({
   userData,
   participants,
   getNameViewUrl,
+  payPalPublished,
 }) => {
   const router = useRouter();
   const currentChapterNumber = +router.query.chapter;
@@ -180,6 +182,7 @@ const MangaView = ({
             {participantItems}
           </div>
           <div className={styles.commentContainerMenu}>
+            {payPalPublished && <BuyBubbleTea payPalEmail={userData.payPalEmail} />}
             <Comments commentsData={comments} mangaStory={{ _id: mangaStoryId }} user={user} />
           </div>
         </div>
@@ -192,8 +195,11 @@ const MangaView = ({
               data={chapters}
             />
           </div>
-          <div className={styles.commentContainer}>
-            <Comments commentsData={comments} mangaStory={{ _id: mangaStoryId }} user={user} />
+          <div className={styles.commentAndBubble}>
+            <div className={styles.commentContainer}>
+              <Comments commentsData={comments} mangaStory={{ _id: mangaStoryId }} user={user} />
+            </div>
+            {payPalPublished && <BuyBubbleTea payPalEmail={userData.payPalEmail} />}
           </div>
           <FooterPolicy />
         </div>
@@ -213,6 +219,7 @@ MangaView.propTypes = {
   userData: PropTypes.array.isRequired,
   participants: PropTypes.array.isRequired,
   getNameViewUrl: PropTypes.string,
+  payPalPublished: PropTypes.bool.isRequired,
 };
 
 MangaView.defaultProps = {
