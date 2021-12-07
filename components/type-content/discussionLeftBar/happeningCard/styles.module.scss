@@ -125,3 +125,15 @@
     }
   }
 }
+.defStyle{
+  width: 37px;
+  height: 43px;
+  text-transform: uppercase;
+  color: white;
+  font-weight: bold;
+  background: $primaryLight;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+}

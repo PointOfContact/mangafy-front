@@ -53,17 +53,18 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: start;
     justify-content: center;
     background-color: #fafafa;
+    padding: 30px;
   }
   &__descr {
     color: $black;
-    font-size: 20px;
-    line-height: 25px;
-    font-weight: 700;
-    text-align: center;
-    padding: 0 25px;
+    font-style: normal;
+    font-weight: bold;
+    font-size: $text4;
+    line-height: 20px;
+    text-align: initial;
     margin-bottom: 19px;
   }
   &__btn {
