@@ -66,7 +66,11 @@ const ColaborationCards = ({ label, client }) => {
         <div className={styles.colabWrap__footer}>
           <div className={styles.participantsContainer}>
             {participantsInfo}
-            <span>{label?.participentsInfo?.length} participants</span>
+            {label?.participentsInfo?.length ? (
+              <span>{label?.participentsInfo?.length} participants</span>
+            ) : (
+              ''
+            )}
           </div>
           <div className={styles.colabWrap__bot}>
             <СardGenres genres={label.genres} limit={2} />
