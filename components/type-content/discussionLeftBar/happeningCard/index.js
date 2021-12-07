@@ -9,6 +9,7 @@ import styles from './styles.module.scss';
 
 const HappeningCard = (props) => {
   const { id, img, title } = props;
+  const titleChars = title.slice(0, 2);
 
   return (
     <>
@@ -16,14 +17,18 @@ const HappeningCard = (props) => {
         <a className={styles.href}>
           <li className={styles.tagsListItem}>
             <div className={styles.tagsDescr}>
-              <Imgix
-                className={styles.tagsImages}
-                layout="fixed"
-                width={35}
-                height={43}
-                src={img ? client.UPLOAD_URL + img : 'https://mangafy.club/img/mangastory.webp'}
-                alt="MangaFy club tags"
-              />
+              {img ? (
+                <Imgix
+                  className={styles.tagsImages}
+                  layout="fixed"
+                  width={35}
+                  height={43}
+                  src={client.UPLOAD_URL + img}
+                  alt="MangaFy club tags"
+                />
+              ) : (
+                <div className={styles.defStyle}>{titleChars}</div>
+              )}
               <div className={styles.tagsDescrText}>{title}</div>
             </div>
             <div className={styles.tagsCount}>

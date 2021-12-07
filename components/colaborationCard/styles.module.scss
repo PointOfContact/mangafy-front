@@ -142,11 +142,13 @@
   &__footer{
     position: absolute;
     bottom: 14px;
+    width: 90%;
   }
   &__bot {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
+    justify-content: space-between;
   }
   &__commision {
     display: flex;
@@ -154,7 +156,6 @@
     color: $black;
     font-weight: 500;
     font-size: 15px;
-    margin-right: 20px;
     line-height: 20px;
     svg {
       margin-right: 7px;
