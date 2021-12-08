@@ -17,7 +17,7 @@ const PaypalEmailField = ({
   sendEvent,
 }) => {
   const [bubbleVisible, setBubbleVisible] = useState(false);
-  const [touchedPaypal, setTouchedPaypal] = useState(false);
+  const [touchedPaypal, setTouchedPaypal] = useState(true);
   const [payPalEmail, setPayPalEmail] = useState(userData?.payPalEmail);
   const bubbleChecked = useRef();
 
