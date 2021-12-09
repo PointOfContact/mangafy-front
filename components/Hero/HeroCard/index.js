@@ -37,7 +37,7 @@ const HeroCard = ({
     case 'personage':
       defaultImage = '/img/heroCard.png';
       defaultColor = '#D6CFFF';
-      titleButton = 'Hero';
+      titleButton = hero?.heroType;
       buttonColor = '#7B65F3';
       break;
     case 'component':
