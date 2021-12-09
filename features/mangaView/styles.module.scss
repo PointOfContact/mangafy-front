@@ -53,6 +53,13 @@ $subLineAlpha: 0.5;
       flex-direction: initial;
     }
   }
+  .commentAndBubble{
+    display: flex;
+    padding: 40px;
+    @include media-sm{
+      display: none;
+    }
+  }
   a {
     color: $black;
   }
@@ -71,12 +78,14 @@ $subLineAlpha: 0.5;
     }
   }
   .commentContainerMenu{
-    max-width: 860px;
     width: 90%;
     margin: 20px auto;
     flex-direction: column-reverse;
     & > div:last-child{
       margin-bottom: 20px;
+    }
+    & > div:first-child{
+      justify-content: center;
     }
     display: none;
     @include media-sm{
@@ -84,16 +93,13 @@ $subLineAlpha: 0.5;
     }
   }
   .commentContainer{
-    max-width: 860px;
+    max-width: 700px;
     width: 90%;
-    margin: 20px auto;
+    margin-right: 10px;
     display: flex;
     flex-direction: column-reverse;
     & > div:last-child{
       margin-bottom: 20px;
-    }
-    @include media-sm{
-      display: none;
     }
   }
   .shareTitle {

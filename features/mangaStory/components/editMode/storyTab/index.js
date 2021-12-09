@@ -11,8 +11,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 
+import BuyBubbleTea from '../../../../../components/ui-elements/buyBubbleTea';
 import Tasks from '../../tasks/index';
-import BuyBubbleTea from '../buyBubbleTea';
 import ParticipantCard from './participantCard';
 import styles from './styles.module.scss';
 

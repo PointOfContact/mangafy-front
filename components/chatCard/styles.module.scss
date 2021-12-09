@@ -225,9 +225,11 @@
         font-size: $text4;
         line-height: $text4;
         text-align: initial;
-        @include media-sm{
-          max-width: 100%;
-        }
+        word-break: break-all;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
       }
       p {
         max-width: 85%;
