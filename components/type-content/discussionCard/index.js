@@ -43,7 +43,7 @@ const DiscussionCard = (props) => {
   } = props;
 
   const [showModal, changeShowModal] = useState(false);
-  const imgType = img.slice(-3);
+  const imgType = img?.slice(-3);
   const ifPdf = imgType === 'pdf' || imgType === 'PDF';
 
   const openPost = (postId) => {

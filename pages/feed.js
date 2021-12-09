@@ -7,17 +7,27 @@ import { store } from 'store';
 export default withAuthComponent(LandingNew);
 export const getServerSideProps = withAuthServerSideProps(async (context, user = null) => {
   try {
-    const selectedCategories = context.query.categories || null;
-    const selectedType = context.query.compensationModel || null;
+    const { query } = context;
+    const selectedCategories = query.categories || null;
+    const selectedType = query.compensationModel || null;
     const gallery = await client.service('/api/v2/gallery').find({ query: { count: 8 } });
-    const posts = await client.service('/api/v2/posts').find({
-      query: {
-        $limit: 5,
+    let queryPosts;
+    if (!!query.type) {
+      queryPosts = {
+        $limit: 7,
+        postType: {
+          $in: query.type,
+        },
+      };
+    } else {
+      queryPosts = {
+        $limit: 7,
         $sort: {
           createdAt: -1,
         },
-      },
-    });
+      };
+    }
+    const posts = await client.service('/api/v2/posts').find({ query: queryPosts });
     const dailyWarmUps = await client.service('/api/v2/daily-warm-ups').find({
       query: {
         $limit: 100,
@@ -27,7 +37,7 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
         },
       },
     });
-    const query = {
+    const queryUsers = {
       $limit: 5,
       $sort: {
         internalOrder: -1,
@@ -35,7 +45,7 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
       },
     };
     const members = await client.service('/api/v2/users').find({
-      query,
+      query: queryUsers,
     });
     const query1 = {
       $limit: 6,
