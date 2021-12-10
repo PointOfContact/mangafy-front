@@ -109,7 +109,7 @@ const Pages = ({
     if (!num1) {
       return arrayPage[arrayPage.length - 1].order + 1;
     }
-    return (num1 - num2) / 2 + num2;
+    return num2 - (num1 - num2) / 2;
   };
 
   const handleOnDragEnd = (result) => {
@@ -118,17 +118,17 @@ const Pages = ({
       return;
     }
 
+    const source = arrayPage[result?.source?.index];
+    const destination = arrayPage[result?.destination?.index];
+
     // replace page order
-    arrayPage[result?.source?.index].order = middleNumber(
+    source.order = middleNumber(
       arrayPage[result?.destination?.index + 1]?.order,
-      !result?.destination?.index || arrayPage[result?.destination?.index]?.order
+      destination?.order
     );
 
     // save page order
-    patchPage(
-      { value: arrayPage[result?.source?.index], index: result?.source?.index },
-      { order: arrayPage[result?.source?.index].order }
-    );
+    patchPage({ value: source, index: result?.source?.index }, { order: source.order });
 
     // replace pages positions
     const [reorderedItem] = arrayPage.splice(result.source.index, 1);

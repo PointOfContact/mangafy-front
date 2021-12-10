@@ -13,7 +13,7 @@ import beforeUploadFromAMZ from 'utils/upload';
 import styles from './styles.module.scss';
 
 const ChapterFooter = ({ value, setChapters, index, chapters, setEdit, storyBoard, pages }) => {
-  const [publish, setPublish] = useState(false);
+  const [publish, setPublish] = useState(!!value.published);
   const [mangaUrl, setMangaUrl] = useState([]);
   const publishedRef = useRef(null);
 
@@ -23,6 +23,7 @@ const ChapterFooter = ({ value, setChapters, index, chapters, setEdit, storyBoar
 
   useEffect(() => {
     setMangaUrl(value?.pages?.some((item) => !!item.imageUrl === true));
+    setPublish(value.published);
   }, [chapters]);
 
   const showView = value.published && (!!storyBoard?.mangaUrls?.length || mangaUrl);
@@ -32,19 +33,19 @@ const ChapterFooter = ({ value, setChapters, index, chapters, setEdit, storyBoar
     const chapterIndex = publishedChapters.findIndex(({ order }) => order === value.order);
     Router.push(`/manga-view/${storyBoard?._id}?chapter=${chapterIndex + 1}`);
   };
-  const setStoryBoardCallback = (e) => {
-    const getLastOrder = pages[pages.length - 1].order;
+
+  const createPage = (e, count) => {
     const data = {
       storyBoard: storyBoard._id,
       title: 'Untitled page',
-      order: getLastOrder,
+      order: count,
       imageUrl: e,
       chapterId: value._id,
     };
     mangaStoryAPI.pages.createPage(index, chapters, setChapters, () => {}, data);
   };
 
-  function beforeUpload(file) {
+  function beforeUpload(pagesArray, file, fileList) {
     return new Promise((resolve) => {
       const isJpgOrPng =
         file.type === 'image/jpeg' ||
@@ -59,6 +60,10 @@ const ChapterFooter = ({ value, setChapters, index, chapters, setEdit, storyBoar
         });
       }
 
+      const getLastOrder = !!pagesArray.length ? pagesArray[pagesArray.length - 1].order + 1 : 20;
+
+      const indexImage = fileList.findIndex((val) => val.uid === file.uid);
+
       const isLt2M = file.size / 1024 / 1024 < 50;
       if (!isLt2M) {
         notification.error({
@@ -67,7 +72,8 @@ const ChapterFooter = ({ value, setChapters, index, chapters, setEdit, storyBoar
         });
       }
 
-      if (isLt2M && isJpgOrPng) beforeUploadFromAMZ(file, setStoryBoardCallback, resolve);
+      if (isLt2M && isJpgOrPng)
+        beforeUploadFromAMZ(file, (e) => createPage(e, getLastOrder + indexImage), resolve);
 
       return isJpgOrPng && isLt2M;
     });
@@ -89,7 +95,7 @@ const ChapterFooter = ({ value, setChapters, index, chapters, setEdit, storyBoar
           className={cn('avatar-uploader', styles.upload)}
           multiple
           showUploadList={false}
-          beforeUpload={beforeUpload}>
+          beforeUpload={(file, fileList) => beforeUpload(pages, file, fileList)}>
           Upload
         </Upload>
       </p>

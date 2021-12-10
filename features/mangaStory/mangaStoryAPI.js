@@ -247,6 +247,7 @@ export default {
             })
             .then((res) => {
               chapters[index].pages.push(res);
+              chapters[index].pages.sort((a, b) => a.order - b.order);
               setChapters([...chapters]);
               setVisibleModal(false);
               resolve(res);
@@ -311,7 +312,7 @@ export default {
             mode: `no-cors`,
           })
           .then(() => {
-            delete chapters[index].pages[pageItem?.index];
+            chapters[index].pages.splice(pageItem?.index, 1);
             setChapters([...chapters]);
             setVisibleModal(false);
           })
