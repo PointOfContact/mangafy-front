@@ -6,13 +6,24 @@ import SvgMobileMenu from 'components/icon/MobileMenu';
 import Popconfirm from 'components/popconfirm';
 import ToggleSwitch from 'components/ui-elements/toggleSwitch';
 import mangaStoryAPI from 'features/mangaStory/mangaStoryAPI';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
+import myAmplitude from 'utils/amplitude';
 import beforeUploadFromAMZ from 'utils/upload';
 
 import styles from './styles.module.scss';
 
-const ChapterFooter = ({ value, setChapters, index, chapters, setEdit, storyBoard, pages }) => {
+const ChapterFooter = ({
+  value,
+  setChapters,
+  index,
+  chapters,
+  setEdit,
+  storyBoard,
+  pages,
+  user,
+}) => {
   const [publish, setPublish] = useState(!!value.published);
   const [mangaUrl, setMangaUrl] = useState([]);
   const publishedRef = useRef(null);
@@ -118,6 +129,23 @@ const ChapterFooter = ({ value, setChapters, index, chapters, setEdit, storyBoar
     const publishedValue = publishedRef.current.checked;
     setPublish(publishedValue);
 
+    const dataEvent = [
+      {
+        event_properties: { chapter: value },
+        user_id: user._id,
+        user_properties: {
+          ...user,
+        },
+      },
+    ];
+
+    if (publishedValue) {
+      dataEvent[0].event_type = EVENTS.PUBLISHED_CHAPTER;
+    } else {
+      dataEvent[0].event_type = EVENTS.DRAFT_CHAPTER;
+    }
+
+    myAmplitude(dataEvent);
     mangaStoryAPI.chapter.patch(
       value?._id,
       { published: publishedValue },
@@ -153,6 +181,11 @@ ChapterFooter.propTypes = {
   setEdit: PropTypes.func.isRequired,
   storyBoard: PropTypes.object.isRequired,
   pages: PropTypes.array.isRequired,
+  user: PropTypes.object,
+};
+
+ChapterFooter.defaultProps = {
+  user: {},
 };
 
 export default ChapterFooter;

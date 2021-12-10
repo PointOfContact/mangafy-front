@@ -120,7 +120,7 @@ Editor.defaultProps = {
   user: null,
 };
 
-export const Comments = ({ commentsData, mangaStory, user }) => {
+export const Comments = ({ commentsData, mangaStory, user, viewPage, chapter }) => {
   const [comments, setComments] = useState(commentsData);
   const [submitting, setSubmitting] = useState(false);
   const [value, setValue] = useState('');
@@ -177,6 +177,12 @@ export const Comments = ({ commentsData, mangaStory, user }) => {
               },
             },
           ];
+
+          if (viewPage) {
+            eventData[0].event_type = EVENTS.ADD_VIEW_COMMENT;
+            eventData[0].event_properties.chapter = chapter;
+          }
+
           myAmplitude(eventData);
         })
         .catch((err) => {
@@ -236,6 +242,8 @@ Comments.propTypes = {
   mangaStory: PropTypes.object,
   user: PropTypes.object,
   isOwn: PropTypes.bool,
+  viewPage: PropTypes.bool,
+  chapter: PropTypes.object,
 };
 
 Comments.defaultProps = {
@@ -243,4 +251,6 @@ Comments.defaultProps = {
   mangaStory: null,
   user: null,
   isOwn: false,
+  viewPage: false,
+  chapter: {},
 };
