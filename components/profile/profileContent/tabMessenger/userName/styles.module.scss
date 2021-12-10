@@ -2,7 +2,8 @@
 
 @mixin container {
   border-bottom: 0.5px solid #f1f1f1;
-  .description{
+  .description {
+    width: 80%;
     padding-right: 10px;
     margin-left: 20px;
     margin-top: 10px;
@@ -11,7 +12,7 @@
     height: 80px;
     display: flex;
     align-items: center;
-    .avatarHiderMobile{
+    .avatarHiderMobile {
       display: none;
       @include media-sm {
         display: block;
@@ -28,6 +29,10 @@
       line-height: 20px;
       color: $black;
       margin-bottom: 5px;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
       &:hover {
         color: $primaryDark;
       }
@@ -52,7 +57,7 @@
 
 .container {
   @include container;
-  svg{
+  svg {
     display: none;
   }
   @include media-sm {
@@ -84,7 +89,7 @@
     svg {
       display: block;
       margin-left: 10px;
-    } 
+    }
   }
 }
 .avatarName {

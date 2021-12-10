@@ -223,7 +223,7 @@
       h4 {
         max-width: 64%;
         font-size: $text4;
-        line-height: $text4;
+        line-height: 21px;
         text-align: initial;
         word-break: break-all;
         overflow: hidden;
@@ -233,12 +233,16 @@
       }
       p {
         max-width: 85%;
-        height: 25px;
         font-size: $text5;
-        line-height: 1.2;
+        line-height: 18px;
         padding-bottom: 1px;
         margin: 0;
         margin-top: 4px;
+        word-break: break-all;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
         text-align: initial;
       }
     }
