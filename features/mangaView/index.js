@@ -195,7 +195,7 @@ const MangaView = ({
               data={chapters}
             />
           </div>
-          <div className={styles.commentAndBubble}>
+          <div className={cn(styles.commentAndBubble, !payPalPublished && styles.ifNotBubble)}>
             <div className={styles.commentContainer}>
               <Comments commentsData={comments} mangaStory={{ _id: mangaStoryId }} user={user} />
             </div>

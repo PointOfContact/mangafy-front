@@ -103,11 +103,9 @@ const ModalCreatePage = ({
   };
 
   const createPage = (newTitle, newCharacterArray, newChapter) => {
-    const orderNumber = pagesArray[pagesArray.length - 1]?.order + 1 || 1;
     const data = {
       title: newTitle,
       text,
-      order: orderNumber,
       storyBoard: storyBoard?._id,
       characterArray: newCharacterArray,
       imageUrl: imgId,
@@ -127,6 +125,8 @@ const ModalCreatePage = ({
         ifChooseChapter
       );
     } else {
+      const orderNumber = pagesArray[pagesArray.length - 1]?.order + 1 || 20;
+      data.order = orderNumber;
       return mangaStoryAPI.pages.createPage(
         chapterItem?.index,
         chapters,
