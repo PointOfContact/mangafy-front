@@ -62,6 +62,7 @@ const ProfileOpenCollabs = (props) => {
       <ModalCreateProject
         createProjectModal={createProjectModal}
         showCreateProjectModal={showCreateProjectModal}
+        user={user}
       />
     </section>
   );

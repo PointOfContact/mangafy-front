@@ -6,11 +6,14 @@ import cn from 'classnames';
 import SvgAllowLeft from 'components/icon/AllowLeft';
 import SvgClose from 'components/icon/Close';
 import PrimaryInput from 'components/ui-elements/input';
+import { EVENTS } from 'helpers/amplitudeEvents';
+import router from 'next/router';
 import PropTypes from 'prop-types';
+import myAmplitude from 'utils/amplitude';
 
 import styles from './styles.module.scss';
 
-const ModalCreateProject = ({ createProjectModal, showCreateProjectModal }) => {
+const ModalCreateProject = ({ createProjectModal, showCreateProjectModal, user }) => {
   const [title, setTitle] = useState('');
   const [loading, setLoading] = useState(false);
   const [change, setChange] = useState(false);
@@ -30,10 +33,25 @@ const ModalCreateProject = ({ createProjectModal, showCreateProjectModal }) => {
         .create(data, {
           headers: { Authorization: `Bearer ${jwt}` },
         })
-        .then((res) => {
+        .then(async (res) => {
+          const dataEvent = [
+            {
+              event_type: EVENTS.CREATE_MANGA_STORY,
+              event_properties: { mangaStory: res, mangaStoryId: res._id },
+              user_id: user._id,
+              user_properties: {
+                ...user,
+              },
+            },
+          ];
           showCreateProjectModal(false);
           setLoading(false);
-          window.open(`/manga-story/${res._id}?tab=settings&manga=create`, '_self');
+          await myAmplitude(dataEvent);
+          if (router.router.pathname === '/manga-story/[pid]') {
+            window.open(`/manga-story/${res._id}?tab=settings&manga=create`, '_self');
+          } else {
+            router.push(`/manga-story/${res._id}?tab=settings&manga=create`);
+          }
         })
         .catch((err) => {
           setLoading(false);
@@ -91,6 +109,11 @@ const ModalCreateProject = ({ createProjectModal, showCreateProjectModal }) => {
 ModalCreateProject.propTypes = {
   createProjectModal: PropTypes.bool.isRequired,
   showCreateProjectModal: PropTypes.func.isRequired,
+  user: PropTypes.object,
+};
+
+ModalCreateProject.defaultProps = {
+  user: {},
 };
 
 export default ModalCreateProject;

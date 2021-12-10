@@ -93,12 +93,13 @@ const Profiles = (props) => {
           </div>
         </main>
       </div>
-      <Footer />
+      <Footer user={user} />
       <FooterPolicy />
       <FooterLogin user={user} />
       <ModalCreateProject
         createProjectModal={createProjectModal}
         showCreateProjectModal={showCreateProjectModal}
+        user={user}
       />
     </>
   );

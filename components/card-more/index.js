@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
-const СardMore = ({ text }) => {
+const СardMore = ({ text, user }) => {
   const [createProjectModal, showCreateProjectModal] = useState(false);
 
   return (
@@ -26,6 +26,7 @@ const СardMore = ({ text }) => {
       <ModalCreateProject
         createProjectModal={createProjectModal}
         showCreateProjectModal={showCreateProjectModal}
+        user={user}
       />
     </div>
   );
@@ -33,10 +34,12 @@ const СardMore = ({ text }) => {
 
 СardMore.propTypes = {
   text: PropTypes.string,
+  user: PropTypes.object,
 };
 
 СardMore.defaultProps = {
   text: '',
+  user: {},
 };
 
 export default СardMore;

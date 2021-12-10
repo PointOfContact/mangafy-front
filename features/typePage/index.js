@@ -110,7 +110,7 @@ export default function LandingNew(props) {
         <div className={'content'}>
           <Header user={user} />
           <main className={styles.main}>
-            {!user && <AnimePlatform />}
+            {!user && <AnimePlatform user={user} />}
             <BestProfileImages gallery={gallery} user={user} />
             <TypePage
               user={user}
@@ -136,7 +136,7 @@ export default function LandingNew(props) {
             logoNavigate={selectedPost.logoNavigate}
           />
         )}
-        <Footer />
+        <Footer user={user} />
         <FooterPolicy />
         <FooterLogin user={user} />
       </div>

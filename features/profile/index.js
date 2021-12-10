@@ -250,7 +250,7 @@ const Profile = (props) => {
             </section>
           </main>
         </div>
-        {!user && <Footer />}
+        {!user && <Footer user={user} />}
         {!user && <FooterPolicy />}
         <FooterLogin user={user} />
       </div>

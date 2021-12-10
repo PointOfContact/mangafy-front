@@ -32,7 +32,7 @@ const Start = ({ user }) => {
       <div>
         <Header path="contact-us" user={user} />
         <div ref={typeformRef} style={{ height: '100vh', width: '100%' }}></div>
-        <Footer />
+        <Footer user={user} />
         <FooterLogin user={user} />
       </div>
     </>

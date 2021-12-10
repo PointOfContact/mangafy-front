@@ -123,7 +123,7 @@ const IncludeYourPortfolio = ({ user }) => (
           </div>
         </div>
       </div>
-      <Footer />
+      <Footer user={user} />
       <FooterPolicy />
       <FooterLogin user={user} />
     </div>

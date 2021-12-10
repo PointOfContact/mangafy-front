@@ -1584,7 +1584,7 @@ const Terms = ({ user }) => (
           </div>
         </main>
       </div>
-      <Footer />
+      <Footer user={user} />
       <FooterLogin user={user} />
     </div>
   </>

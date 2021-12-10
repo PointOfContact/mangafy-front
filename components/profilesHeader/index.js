@@ -68,6 +68,7 @@ const ProfilesHeader = ({ user }) => {
       <ModalCreateProject
         createProjectModal={createProjectModal}
         showCreateProjectModal={showCreateProjectModal}
+        user={user}
       />
     </div>
   );

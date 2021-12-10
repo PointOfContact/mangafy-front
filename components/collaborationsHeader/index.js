@@ -3,10 +3,11 @@ import React, { useState } from 'react';
 import Imgix from 'components/imgix';
 import ModalCreateProject from 'components/modalCreateProject';
 import HugeButton from 'components/ui-elements/huge-button';
+import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
-const CollaborationsHeader = () => {
+const CollaborationsHeader = ({ user }) => {
   const [createProjectModal, showCreateProjectModal] = useState(false);
 
   return (
@@ -47,9 +48,18 @@ const CollaborationsHeader = () => {
       <ModalCreateProject
         createProjectModal={createProjectModal}
         showCreateProjectModal={showCreateProjectModal}
+        user={user}
       />
     </div>
   );
+};
+
+CollaborationsHeader.propTypes = {
+  user: PropTypes.object,
+};
+
+CollaborationsHeader.defaultProps = {
+  user: {},
 };
 
 export default CollaborationsHeader;

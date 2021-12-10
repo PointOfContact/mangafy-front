@@ -38,7 +38,7 @@ const AccessDenied = ({ user }) => (
           </Link>
         </div>
       </div>
-      <Footer />
+      <Footer user={user} />
       <FooterLogin user={user} />
     </main>
   </div>

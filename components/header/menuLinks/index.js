@@ -193,6 +193,7 @@ const MenuLinks = ({ isOpen, user, setShowModal, handleMenuOpen }) => {
       <ModalCreateProject
         createProjectModal={createProjectModal}
         showCreateProjectModal={showCreateProjectModal}
+        user={user}
       />
     </div>
   );
