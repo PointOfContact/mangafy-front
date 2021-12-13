@@ -50,7 +50,7 @@ export default function LandingNew(props) {
       changeShowModal(true);
     } catch (err) {
       if (err.code === 400) {
-        Router.push('/feed');
+        Router.push('/feed', undefined, { scroll: false });
       } else {
         notification.error({
           message: err.message,
@@ -59,6 +59,7 @@ export default function LandingNew(props) {
       }
     }
   };
+
   return (
     <>
       <NextSeo

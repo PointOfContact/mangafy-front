@@ -225,7 +225,15 @@ const MangaView = ({
             {participantItems}
           </div>
           <div className={styles.commentContainerMenu}>
-            {payPalPublished && <BuyBubbleTea payPalEmail={userData.payPalEmail} />}
+            {payPalPublished && (
+              <BuyBubbleTea
+                payPalEmail={userData.payPalEmail}
+                createAmplitude={true}
+                chapter={chapters[currentChapter - 1]}
+                mangaStoryId={mangaStoryId}
+                user={user}
+              />
+            )}
             <Comments
               commentsData={comments}
               mangaStory={{ _id: mangaStoryId }}
@@ -255,7 +263,15 @@ const MangaView = ({
                 chapter={chapters[currentChapter - 1]}
               />
             </div>
-            {payPalPublished && <BuyBubbleTea payPalEmail={userData.payPalEmail} />}
+            {payPalPublished && (
+              <BuyBubbleTea
+                payPalEmail={userData.payPalEmail}
+                createAmplitude={true}
+                chapter={chapters[currentChapter - 1]}
+                mangaStoryId={mangaStoryId}
+                user={user}
+              />
+            )}
           </div>
           <FooterPolicy />
         </div>
