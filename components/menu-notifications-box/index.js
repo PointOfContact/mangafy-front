@@ -56,7 +56,12 @@ const findNotifications = (limit, onSuccess, onFailure) => {
   });
 };
 
-const MenuNotificationsBox = ({ user, unreadNotificationsId, notificationsCount }) => {
+const MenuNotificationsBox = ({
+  user,
+  unreadNotificationsId,
+  notificationsCount,
+  setNotificationsCount,
+}) => {
   const [notifications, setNotifications] = useState(unreadNotificationsId);
   const [allNot, setAllNot] = useState(false);
   const [moreUpdatesCount, setMoreUpdatesCount] = useState(0);
@@ -95,6 +100,7 @@ const MenuNotificationsBox = ({ user, unreadNotificationsId, notificationsCount 
   };
 
   const makeAllRead = () => {
+    setNotificationsCount(0);
     patchNotification(unreadNotificationsId.map(({ _id }) => _id));
   };
 
@@ -194,11 +200,13 @@ MenuNotificationsBox.propTypes = {
   notificationsCount: PropTypes.number,
   showNotification: PropTypes.bool,
   setShowNotification: PropTypes.func,
+  setNotificationsCount: PropTypes.func,
 };
 MenuNotificationsBox.defaultProps = {
   notificationsCount: null,
   showNotification: false,
   setShowNotification: () => {},
+  setNotificationsCount: () => {},
 };
 
 export default MenuNotificationsBox;

@@ -228,6 +228,7 @@ const Header = ({ user, path, setShowModalEdit }) => {
                           user={user}
                           unreadNotificationsId={unreadNotificationsId}
                           notificationsCount={notificationsCount}
+                          setNotificationsCount={setNotificationsCount}
                         />
                       }
                       trigger="click">
