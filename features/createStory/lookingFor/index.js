@@ -155,6 +155,7 @@ const LookingFor = ({ user }) => {
       <ModalCreateProject
         createProjectModal={createProjectModal}
         showCreateProjectModal={showCreateProjectModal}
+        user={user}
       />
     </>
   );

@@ -398,6 +398,7 @@ const StoryBoardTabs = ({
             setStoryBoard={setStoryBoard}
             chapters={chapters}
             setChapters={setChapters}
+            user={user}
           />
         </TabPane>
         {/* <TabPane

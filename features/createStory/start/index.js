@@ -113,7 +113,7 @@ const Start = ({ genres, jwt, user }) => {
       <div>
         <Header path="create-a-story/start" user={user} />
         {closeTypeForm && <div ref={typeformRef} style={{ height: '100vh', width: '100%' }}></div>}
-        <Footer />
+        <Footer user={user} />
       </div>
     </>
   );

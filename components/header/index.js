@@ -337,6 +337,7 @@ const Header = ({ user, path, setShowModalEdit }) => {
       <ModalCreateProject
         createProjectModal={createProjectModal}
         showCreateProjectModal={showCreateProjectModal}
+        user={user}
       />
     </div>
   );

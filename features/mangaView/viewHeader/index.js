@@ -17,6 +17,7 @@ const ViewHeader = ({
   currentChapter,
   setCurrentChapter,
   shareUrl,
+  shareOnClick,
 }) => (
   <div className={styles.headerContainer}>
     <div className={styles.leftContainer}>
@@ -43,9 +44,10 @@ const ViewHeader = ({
         currentNumber={currentChapter}
         setCurrentNumber={setCurrentChapter}
         data={chapters}
+        user={user}
       />
     </div>
-    <ShareButtons className={styles.shareButtons} shareUrl={shareUrl} />
+    <ShareButtons className={styles.shareButtons} shareUrl={shareUrl} onClick={shareOnClick} />
   </div>
 );
 
@@ -57,11 +59,13 @@ ViewHeader.propTypes = {
   currentChapter: PropTypes.number.isRequired,
   setCurrentChapter: PropTypes.func.isRequired,
   shareUrl: PropTypes.string,
+  shareOnClick: PropTypes.func,
 };
 
 ViewHeader.defaultProps = {
   user: {},
   shareUrl: '',
+  shareOnClick: () => {},
 };
 
 export default ViewHeader;

@@ -10,11 +10,13 @@ import { ShareButtons } from 'components/share';
 import ButtonToTop from 'components/ui-elements/button-toTop';
 import BuyBubbleTea from 'components/ui-elements/buyBubbleTea';
 import Pagination from 'components/ui-elements/pagination';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import { NextSeo } from 'next-seo';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
+import myAmplitude from 'utils/amplitude';
 
 import styles from './styles.module.scss';
 import ViewHeader from './viewHeader';
@@ -52,6 +54,19 @@ const MangaView = ({
         },
       })
       .then((res) => setComments(res.data));
+
+    const data = [
+      {
+        event_type: EVENTS.OPEN_VIEW_PAGE,
+        event_properties: { storyBoardId },
+        user_id: user._id,
+        user_properties: {
+          ...user,
+        },
+      },
+    ];
+
+    myAmplitude(data);
   }, []);
 
   useEffect(() => {
@@ -87,7 +102,20 @@ const MangaView = ({
       <div
         key={value._id + index}
         className={cn(styles.itemChapters, activeChapter && styles.activeChapter)}
-        onClick={() => setCurrentChapter(index + 1)}>
+        onClick={() => {
+          const dataEvent = [
+            {
+              event_type: EVENTS.CHOOSE_VIEW_CHAPTER,
+              event_properties: { chapter: chapters[currentChapter - 1] },
+              user_id: user._id,
+              user_properties: {
+                ...user,
+              },
+            },
+          ];
+          myAmplitude(dataEvent);
+          setCurrentChapter(index + 1);
+        }}>
         {ifPdf ? (
           <PDFViewer url={client.UPLOAD_URL + value.cover} />
         ) : (
@@ -124,6 +152,20 @@ const MangaView = ({
   const shareUrl = !!getNameViewUrl
     ? `https://${getNameViewUrl}.mangafy.club`
     : `https://mangafy.club/manga-view/${storyBoardId}?chapter=${currentChapter}`;
+
+  const shareClick = () => {
+    const dataEvent = [
+      {
+        event_type: EVENTS.SHARE_VIEW_PAGE,
+        event_properties: { chapter: chapters[currentChapter - 1] },
+        user_id: user._id,
+        user_properties: {
+          ...user,
+        },
+      },
+    ];
+    myAmplitude(dataEvent);
+  };
 
   return (
     <>
@@ -163,13 +205,14 @@ const MangaView = ({
           currentChapter={currentChapter}
           setCurrentChapter={setCurrentChapter}
           shareUrl={shareUrl}
+          shareOnClick={shareClick}
         />
         <div className={styles.menu}>
           <div className={styles.imagesContainer}>{images}</div>
           <p className={styles.shareDescription}>
             Share this series and show support for the creator!
           </p>
-          <ShareButtons className={styles.shareButtons} shareUrl={shareUrl} />
+          <ShareButtons className={styles.shareButtons} shareUrl={shareUrl} onClick={shareClick} />
           <div className={styles.userData}>
             <Link href={`/profile/${userData[0]._id}`}>
               <a>
@@ -183,7 +226,13 @@ const MangaView = ({
           </div>
           <div className={styles.commentContainerMenu}>
             {payPalPublished && <BuyBubbleTea payPalEmail={userData.payPalEmail} />}
-            <Comments commentsData={comments} mangaStory={{ _id: mangaStoryId }} user={user} />
+            <Comments
+              commentsData={comments}
+              mangaStory={{ _id: mangaStoryId }}
+              user={user}
+              viewPage={true}
+              chapter={chapters[currentChapter - 1]}
+            />
           </div>
         </div>
         <div className={styles.footer}>
@@ -193,11 +242,18 @@ const MangaView = ({
               currentNumber={currentChapter}
               setCurrentNumber={setCurrentChapter}
               data={chapters}
+              user={user}
             />
           </div>
           <div className={cn(styles.commentAndBubble, !payPalPublished && styles.ifNotBubble)}>
             <div className={styles.commentContainer}>
-              <Comments commentsData={comments} mangaStory={{ _id: mangaStoryId }} user={user} />
+              <Comments
+                commentsData={comments}
+                mangaStory={{ _id: mangaStoryId }}
+                user={user}
+                viewPage={true}
+                chapter={chapters[currentChapter - 1]}
+              />
             </div>
             {payPalPublished && <BuyBubbleTea payPalEmail={userData.payPalEmail} />}
           </div>

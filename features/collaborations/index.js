@@ -83,7 +83,7 @@ const Collaborations = (props) => {
         <div className={'content'}>
           <Header path="collaborations" user={user} />
           <main>
-            <CollaborationsHeader />
+            <CollaborationsHeader user={user} />
             <SearchForCollaborations
               genres={genres}
               selectedGenres={selectedGenres}
@@ -134,7 +134,7 @@ const Collaborations = (props) => {
             </div>
           </main>
         </div>
-        <Footer />
+        <Footer user={user} />
         <FooterPolicy />
         {/* <Cookiebubble
           messageTextColor="#212121"
@@ -148,6 +148,7 @@ const Collaborations = (props) => {
       <ModalCreateProject
         createProjectModal={createProjectModal}
         showCreateProjectModal={showCreateProjectModal}
+        user={user}
       />
     </>
   );

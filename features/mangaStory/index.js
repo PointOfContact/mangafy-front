@@ -357,7 +357,7 @@ const MangeStory = (props) => {
             /> */}
           </section>
         </div>
-        {!userData && <Footer />}
+        {!userData && <Footer user={user} />}
         {!userData && <FooterPolicy />}
         <FooterLogin user={userData} />
       </main>

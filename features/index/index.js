@@ -45,7 +45,7 @@ const Landing = ({ user }) => (
           <Home />
         </main>
       </div>
-      <Footer />
+      <Footer user={user} />
       <FooterPolicy />
       <FooterLogin user={user} />
     </div>

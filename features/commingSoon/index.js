@@ -44,7 +44,7 @@ const CommingSoon = (props) => {
             <LargeButton className={styles.btn__submit} text="MangaFY Home" />
           </div>
         </div>
-        <Footer />
+        <Footer user={user} />
         <FooterLogin user={user} />
       </main>
     </div>

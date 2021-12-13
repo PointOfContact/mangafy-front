@@ -45,6 +45,7 @@ const GetFeedback = ({ user, setIsModalVisible, isModalVisible, isPage, sendEven
   }, [isModalVisible]);
 
   const onSubmit = useCallback(async (event) => {
+    const { title } = router.query;
     const data = [
       {
         event_type: EVENTS.ADD_FEEDBACK,
@@ -55,6 +56,11 @@ const GetFeedback = ({ user, setIsModalVisible, isModalVisible, isPage, sendEven
         },
       },
     ];
+
+    if (title) {
+      data[0].event_type = EVENTS.POST_MANGA;
+      data[0].user_properties.manga_title = title;
+    }
     myAmplitude(data);
   });
 

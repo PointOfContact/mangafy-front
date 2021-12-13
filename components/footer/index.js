@@ -7,10 +7,11 @@ import SvgTwNew from 'components/icon/TwNew';
 import Imgix from 'components/imgix';
 import ModalCreateProject from 'components/modalCreateProject';
 import Link from 'next/link';
+import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
-const Footer = () => {
+const Footer = ({ user }) => {
   const [createProjectModal, showCreateProjectModal] = useState(false);
 
   return (
@@ -131,8 +132,18 @@ const Footer = () => {
       <ModalCreateProject
         createProjectModal={createProjectModal}
         showCreateProjectModal={showCreateProjectModal}
+        user={user}
       />
     </footer>
   );
 };
+
+Footer.propTypes = {
+  user: PropTypes.object,
+};
+
+Footer.defaultProps = {
+  user: {},
+};
+
 export default Footer;

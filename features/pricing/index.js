@@ -423,7 +423,7 @@ const Pricing = (props) => {
             </ul>
           </div>
         </div>
-        <Footer />
+        <Footer user={user} />
         <FooterLogin user={user} />
       </main>
     </div>

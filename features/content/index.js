@@ -122,7 +122,7 @@ const Content = (props) => {
             </div>
           </div>
         </div>
-        <Footer />
+        <Footer user={user} />
         <FooterLogin user={user} />
       </main>
     </div>

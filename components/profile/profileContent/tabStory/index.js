@@ -197,6 +197,7 @@ const TabStory = (props) => {
       <ModalCreateProject
         createProjectModal={createProjectModal}
         showCreateProjectModal={showCreateProjectModal}
+        user={userData}
       />
     </div>
   );

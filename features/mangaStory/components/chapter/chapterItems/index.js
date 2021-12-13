@@ -9,7 +9,7 @@ import ChapterTitle from './chapterTitle';
 import ModalCreatePage from './modalCreatePage';
 import styles from './styles.module.scss';
 
-const ChapterItems = ({ chapters, setChapters, storyBoard, setStoryBoard }) => {
+const ChapterItems = ({ chapters, setChapters, storyBoard, setStoryBoard, user }) => {
   const [visibleModal, setVisibleModal] = useState(false);
   const [chapterItem, setChapterItem] = useState({});
   const [pageItem, setPageItem] = useState({});
@@ -49,6 +49,7 @@ const ChapterItems = ({ chapters, setChapters, storyBoard, setStoryBoard }) => {
                 setEdit={setEdit}
                 storyBoard={storyBoard}
                 pages={value.pages}
+                user={user}
               />
             </div>
           </div>
@@ -88,10 +89,12 @@ ChapterItems.propTypes = {
   setChapters: PropTypes.func.isRequired,
   storyBoard: PropTypes.object.isRequired,
   setStoryBoard: PropTypes.func.isRequired,
+  user: PropTypes.object,
 };
 
 ChapterItems.defaultProps = {
   chapters: [],
+  user: {},
 };
 
 export default ChapterItems;
