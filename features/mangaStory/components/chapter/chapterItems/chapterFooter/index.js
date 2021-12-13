@@ -7,7 +7,7 @@ import Popconfirm from 'components/popconfirm';
 import ToggleSwitch from 'components/ui-elements/toggleSwitch';
 import mangaStoryAPI from 'features/mangaStory/mangaStoryAPI';
 import { EVENTS } from 'helpers/amplitudeEvents';
-import Router from 'next/router';
+import Link from 'next/link';
 import PropTypes from 'prop-types';
 import myAmplitude from 'utils/amplitude';
 import beforeUploadFromAMZ from 'utils/upload';
@@ -26,6 +26,7 @@ const ChapterFooter = ({
 }) => {
   const [publish, setPublish] = useState(!!value.published);
   const [mangaUrl, setMangaUrl] = useState([]);
+  const [indexChapterView, setIndexChapterView] = useState(1);
   const publishedRef = useRef(null);
 
   useEffect(() => {
@@ -42,7 +43,7 @@ const ChapterFooter = ({
   const viewClick = () => {
     const publishedChapters = chapters.filter((e) => e.published);
     const chapterIndex = publishedChapters.findIndex(({ order }) => order === value.order);
-    Router.push(`/manga-view/${storyBoard?._id}?chapter=${chapterIndex + 1}`);
+    setIndexChapterView(chapterIndex + 1);
   };
 
   const createPage = (e, count) => {
@@ -92,7 +93,15 @@ const ChapterFooter = ({
 
   const content = () => (
     <div className={styles.menuChapter}>
-      {showView ? <p onClick={viewClick}>View</p> : ''}
+      {showView ? (
+        <Link href={`/manga-view/${storyBoard?._id}?chapter=${indexChapterView}`}>
+          <a onClick={viewClick} target="_blank">
+            View
+          </a>
+        </Link>
+      ) : (
+        ''
+      )}
       <p
         onClick={() => {
           setEdit(value._id);

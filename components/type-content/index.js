@@ -31,6 +31,7 @@ export default function TypePage({
   const [isLoading, setIsLoading] = useState(false);
   const [option, setOption] = useState([]);
   const [infiniteScroll, setInfiniteScroll] = useState(false);
+  const [width, setWidth] = useState(1920);
   const [query, serQuery] = useState([]);
 
   useEffect(() => {
@@ -77,7 +78,7 @@ export default function TypePage({
     type.forEach((element, index) => {
       !!index ? (queryData += `&type=${element}`) : (queryData += `?type=${element}`);
     });
-    router.push(queryData, undefined, { shallow: false });
+    router.push(queryData, undefined, { shallow: false, scroll: false });
   };
 
   const defaultValue = typeof query === 'string' ? [query] : query;
@@ -100,6 +101,29 @@ export default function TypePage({
       logoNavigate={discussion.logoNavigate}
     />
   ));
+
+  const infiniteScrollComponent = () => {
+    if (width >= 767 || infiniteScroll) {
+      return (
+        <InfiniteScroll
+          className={styles.movie}
+          dataLength={discussions.length}
+          next={showMore}
+          hasMore={true}>
+          {postElements}
+        </InfiniteScroll>
+      );
+    }
+    return postElements;
+  };
+
+  const updateDimensions = (size) => {
+    setWidth(size);
+  };
+
+  useEffect(() => {
+    updateDimensions(window.innerWidth);
+  }, []);
 
   return (
     <>
@@ -140,18 +164,7 @@ export default function TypePage({
                   </div> */}
                 </h2>
               </div>
-
-              {infiniteScroll ? (
-                <InfiniteScroll
-                  className={styles.movie}
-                  dataLength={discussions.length}
-                  next={showMore}
-                  hasMore={true}>
-                  {postElements}
-                </InfiniteScroll>
-              ) : (
-                postElements
-              )}
+              {infiniteScrollComponent()}
               {!infiniteScroll && more && (
                 <PrimaryButton
                   text="Show More"
