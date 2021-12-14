@@ -544,3 +544,37 @@ export const heroTypes = [
 ];
 
 export const heroQuality = ['Dynamic/changing', 'Static/unchanging', 'Stock', 'Symbolic', 'Round'];
+
+export const rewardTypes = [
+  {
+    key: 'Free',
+    value: 'Free',
+  },
+  {
+    key: 'PerPage',
+    value: 'Per Page',
+  },
+  {
+    key: 'FlatRate',
+    value: 'Flat Rate',
+  },
+  {
+    key: 'RevenueSplit',
+    value: 'Revenue Split',
+  },
+];
+
+export const taskTypesArray = [
+  {
+    key: 'InSearch',
+    value: 'In search',
+  },
+  {
+    key: 'Hired',
+    value: 'Hired',
+  },
+  {
+    key: 'Archived',
+    value: 'Archived',
+  },
+];

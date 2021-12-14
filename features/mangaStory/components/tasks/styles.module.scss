@@ -40,6 +40,11 @@ $repeat: 5;
     margin-top: 65px;
   }
 }
+.postTask{
+  width: 100px;
+  height: 32px;
+  font-size: $text4;
+}
 .editBtns {
   @include media-sm {
     position: absolute;

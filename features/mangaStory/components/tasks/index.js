@@ -10,6 +10,7 @@ import Modal from 'components/modals/createTaskModal';
 import AddButton from 'components/ui-elements/add-button';
 import PrimaryButton from 'components/ui-elements/button';
 import { EVENTS } from 'helpers/amplitudeEvents';
+import router from 'next/router';
 import PropTypes from 'prop-types';
 import myAmplitude from 'utils/amplitude';
 
@@ -108,6 +109,20 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipant, showPayPalContent
     myAmplitude(eventData);
   };
 
+  const getFeedLink = (task) =>
+    `${client.API_ENDPOINT}/feed?postType=task&pid=${baseData?._id}&text=${
+      task.description
+    }&lookingFor=${task?.lookingFor}&title=${baseData?.title}${
+      task?.amount ? `&money=${task?.amount}` : ''
+    }`;
+
+  const getFeedLinkAS = (task) =>
+    `${client.API_ENDPOINT}/feed?postType=task&&pid=${baseData?._id}&text=${task.description.slice(
+      -10
+    )}&lookingFor=${task?.lookingFor}&title=${baseData?.title}${
+      task?.amount ? `&money=${task?.amount}` : ''
+    }`;
+
   return (
     <div className={cn(styles.tasks, !taskList.length && styles.noTasks)}>
       <span className={styles.mobile_add}>
@@ -142,6 +157,9 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipant, showPayPalContent
                   <h2 className={styles.taskName}>Looking For - {task?.lookingFor}</h2>
                   <div>
                     <ButtonColab className={cn(styles.ButtonPurple)} text={task?.lookingFor} />
+                    {!!task?.type && (
+                      <ButtonColab className={cn(styles.ButtonPurple)} text={task?.type} />
+                    )}
                     {task?.rewardType && (
                       <ButtonColab
                         className={cn(styles.ButtonPurple, styles.rewardType)}
@@ -174,6 +192,14 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipant, showPayPalContent
                       cancelText="No">
                       <SvgDustbin white="22px" height="22px" />
                     </Popconfirm>
+                    <PrimaryButton
+                      onClick={() => {
+                        router.push(getFeedLink(task), getFeedLinkAS(task), { shallow: false });
+                      }}
+                      isActive={true}
+                      className={styles.postTask}
+                      text="Post Task"
+                    />
                   </div>
                 ) : (
                   <div className={styles.contributeContent}>

@@ -1,17 +1,20 @@
 /* eslint-disable no-nested-ternary */
 import React, { useState } from 'react';
 
+import { Popover } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
 import SvgComment from 'components/icon/Comment';
 import SvgHeart from 'components/icon/Heart';
+import SvgShareColored from 'components/icon/ShareColored';
 import Imgix from 'components/imgix';
 import ModalDiscussion from 'components/modals/discussion';
+import { ShareButtons } from 'components/share';
 import PrimaryButton from 'components/ui-elements/button';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
-import Router from 'next/router';
+import router from 'next/router';
 import PropTypes from 'prop-types';
 import * as qs from 'query-string';
 import myAmplitude from 'utils/amplitude';
@@ -45,10 +48,9 @@ const DiscussionCard = (props) => {
   const [showModal, changeShowModal] = useState(false);
   const imgType = img?.slice(-3);
   const ifPdf = imgType === 'pdf' || imgType === 'PDF';
-
   const openPost = (postId) => {
     const parsed = qs.parse(window.location.search);
-    Router.push(
+    router.push(
       LinkCreator.toQuery({ ...parsed, postId }, '/feed'),
       LinkCreator.toQuery({ ...parsed, postId }, '/feed'),
       {
@@ -142,7 +144,19 @@ const DiscussionCard = (props) => {
           className={cn(!img && styles.projectsForYou_botDesc, styles.projectsForYou_botDescDef)}
           onClick={() => openPost(id)}>
           <span>{subTitle}</span>
-          <div className={styles.containerButton}>
+          <div
+            className={cn(!img && styles.containerButton, styles.containerButtonDef)}
+            onClick={(e) => e.stopPropagation()}>
+            {/* <div className={styles.}> */}
+            <Popover
+              placement="bottomRight"
+              title={''}
+              content={
+                <ShareButtons shareUrl={`${client.API_ENDPOINT}/feed?postId=${id}`} text="" />
+              }
+              trigger="click">
+              <SvgShareColored width="25px" height="25px" />
+            </Popover>
             <Link href={url || '/'}>
               <a>
                 <PrimaryButton
@@ -151,6 +165,7 @@ const DiscussionCard = (props) => {
                 />
               </a>
             </Link>
+            {/* </div> */}
             {!img && !!categories[0] && (
               <span className={cn(!img && styles.cat, styles.catDef)}>{categories[0]}</span>
             )}
