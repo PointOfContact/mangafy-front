@@ -6,7 +6,6 @@ import client from 'api/client';
 import cn from 'classnames';
 import SvgComment from 'components/icon/Comment';
 import SvgHeart from 'components/icon/Heart';
-import SvgShareColored from 'components/icon/ShareColored';
 import Imgix from 'components/imgix';
 import ModalDiscussion from 'components/modals/discussion';
 import { ShareButtons } from 'components/share';
@@ -155,7 +154,7 @@ const DiscussionCard = (props) => {
                 <ShareButtons shareUrl={`${client.API_ENDPOINT}/feed?postId=${id}`} text="" />
               }
               trigger="click">
-              <SvgShareColored width="25px" height="25px" />
+              <span className={styles.shareUrl}>...</span>
             </Popover>
             <Link href={url || '/'}>
               <a>
