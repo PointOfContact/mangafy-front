@@ -25,12 +25,12 @@ const GetFeedback = ({ user, setIsModalVisible, isModalVisible, isPage, sendEven
 
   useEffect(() => {
     const { postType, pid, title, image, text, money, lookingFor } = router.query;
-    if (postType === 'manga') {
+    if (postType === 'Manga') {
       setIsModalVisible(true);
       setImgId(image);
       setSubTitle(title);
       setViewUrl(`/manga-view/${pid}`);
-    } else if (postType === 'task') {
+    } else if (postType === 'Task') {
       setIsModalVisible(true);
       setSubTitle(`Looking For - ${lookingFor}, ${text}`);
       !!money && setSelectedTags([`#${money}$`]);
@@ -62,10 +62,10 @@ const GetFeedback = ({ user, setIsModalVisible, isModalVisible, isPage, sendEven
       },
     ];
 
-    if (postType === 'manga') {
+    if (postType === 'Manga') {
       data[0].event_type = EVENTS.POST_MANGA;
       data[0].user_properties.manga_title = title;
-    } else if (postType === 'type') {
+    } else if (postType === 'Task') {
       data[0].event_type = EVENTS.POST_TASK;
       data[0].user_properties.manga_title = title;
       data[0].user_properties.looking_for = lookingFor;

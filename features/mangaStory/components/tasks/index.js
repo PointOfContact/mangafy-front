@@ -110,14 +110,14 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipant, showPayPalContent
   };
 
   const getFeedLink = (task) =>
-    `${client.API_ENDPOINT}/feed?postType=task&pid=${baseData?._id}&text=${
+    `${client.API_ENDPOINT}/feed?postType=Task&pid=${baseData?._id}&text=${
       task.description
     }&lookingFor=${task?.lookingFor}&title=${baseData?.title}${
       task?.amount ? `&money=${task?.amount}` : ''
     }`;
 
   const getFeedLinkAS = (task) =>
-    `${client.API_ENDPOINT}/feed?postType=task&&pid=${baseData?._id}&text=${task.description.slice(
+    `${client.API_ENDPOINT}/feed?postType=Task&&pid=${baseData?._id}&text=${task.description.slice(
       -10
     )}&lookingFor=${task?.lookingFor}&title=${baseData?.title}${
       task?.amount ? `&money=${task?.amount}` : ''

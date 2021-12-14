@@ -78,7 +78,7 @@ const Publish = ({ baseData, storyBoard, chapters }) => {
       </div>
       <div className={styles.guide}>
         <Link
-          href={`/feed?postType=manga&pid=${storyBoard?._id}&title=${
+          href={`/feed?postType=Manga&pid=${storyBoard?._id}&title=${
             baseData?.title
           }${publishImage()}`}>
           <a className={!ifExistPublishedChapter && styles.postManga}>
