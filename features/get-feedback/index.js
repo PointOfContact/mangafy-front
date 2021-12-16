@@ -24,12 +24,17 @@ const GetFeedback = ({ user, setIsModalVisible, isModalVisible, isPage, sendEven
   const [uploadLoading, setUploadLoading] = useState(false);
 
   useEffect(() => {
-    const { pid, title, image } = router.query;
-    if (!!pid) {
+    const { postType, pid, title, image, text, money, lookingFor } = router.query;
+    if (postType === 'Manga') {
       setIsModalVisible(true);
       setImgId(image);
       setSubTitle(title);
       setViewUrl(`/manga-view/${pid}`);
+    } else if (postType === 'Task') {
+      setIsModalVisible(true);
+      setSubTitle(`Looking For - ${lookingFor}, ${text}`);
+      !!money && setSelectedTags([`#${money}$`]);
+      setViewUrl(`manga-story/${pid}?tab=story`);
     }
   }, []);
 
@@ -45,7 +50,7 @@ const GetFeedback = ({ user, setIsModalVisible, isModalVisible, isPage, sendEven
   }, [isModalVisible]);
 
   const onSubmit = useCallback(async (event) => {
-    const { title } = router.query;
+    const { postType, title, lookingFor } = router.query;
     const data = [
       {
         event_type: EVENTS.ADD_FEEDBACK,
@@ -57,9 +62,13 @@ const GetFeedback = ({ user, setIsModalVisible, isModalVisible, isPage, sendEven
       },
     ];
 
-    if (title) {
+    if (postType === 'Manga') {
       data[0].event_type = EVENTS.POST_MANGA;
       data[0].user_properties.manga_title = title;
+    } else if (postType === 'Task') {
+      data[0].event_type = EVENTS.POST_TASK;
+      data[0].user_properties.manga_title = title;
+      data[0].user_properties.looking_for = lookingFor;
     }
     myAmplitude(data);
   });
@@ -75,10 +84,14 @@ const GetFeedback = ({ user, setIsModalVisible, isModalVisible, isPage, sendEven
       data.viewUrl = viewUrl;
     }
 
+    const query = router?.query?.postType
+      ? `?postType=${router?.query?.postType}&pid=${router?.query?.pid}`
+      : '';
+
     const jwt = client.getCookie('feathers-jwt');
     import('api/restClient').then((m) => {
       m.default
-        .service('/api/v2/posts')
+        .service(`/api/v2/posts${query}`)
         .create(data, {
           headers: { Authorization: `Bearer ${jwt}` },
           mode: 'no-cors',

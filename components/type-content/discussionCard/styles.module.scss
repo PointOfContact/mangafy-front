@@ -153,6 +153,7 @@ $backgroundColor: '';
       }
       span {
         margin-left: 15px;
+        margin-right: 5px;
         font-size: 15px;
       }
       svg {
@@ -170,7 +171,7 @@ $backgroundColor: '';
       height: 100%;
       background: linear-gradient(#9198e5, rgba(255, 255, 255, 0) 170px);
     }
-    video{
+    video {
       width: 100%;
       height: 100%;
       border-radius: 4px;
@@ -190,7 +191,7 @@ $backgroundColor: '';
     justify-content: space-between;
     overflow: hidden;
     span {
-      max-width: calc(100% - 90px);
+      max-width: calc(100% - 200px);
       display: block;
       word-wrap: break-word;
     }
@@ -219,17 +220,19 @@ $backgroundColor: '';
     .containerButton {
       position: relative;
       display: flex;
-      justify-content: space-between;
-      flex-direction: row-reverse;
+      justify-content: right;
       margin-top: 10px;
+      align-items: end;
       background-color: white;
       padding: 10px;
       .cat {
         bottom: 12px;
       }
+      svg {
+        margin-left: 10px;
+      }
     }
   }
-
   @for $i from 1 through $repeat {
     &_card:nth-child(#{length($colors)}n + #{$i}) {
       $backgroundColor: random(length($colors));
@@ -241,6 +244,18 @@ $backgroundColor: '';
       }
     }
   }
+}
+.containerButtonDef {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.shareUrl {
+  margin-right: 5px;
+  color: $black;
+  font-size: $text2;
+  line-height: 1;
+  word-wrap: unset !important;
 }
 .catDef {
   position: absolute;

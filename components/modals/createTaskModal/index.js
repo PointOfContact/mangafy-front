@@ -8,7 +8,7 @@ import PrimaryButton from 'components/ui-elements/button';
 import PrimaryInput from 'components/ui-elements/input';
 import PrimarySelect from 'components/ui-elements/select';
 import { EVENTS } from 'helpers/amplitudeEvents';
-import { userTypes } from 'helpers/constant';
+import { userTypes, rewardTypes, taskTypesArray } from 'helpers/constant';
 import PropTypes from 'prop-types';
 import myAmplitude from 'utils/amplitude';
 
@@ -18,6 +18,7 @@ const { TextArea } = Input;
 
 const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, user }) => {
   const [lookingFor, changeLookingFor] = useState(null);
+  const [taskType, changeTaskType] = useState(null);
   const [amount, changeAmount] = useState(null);
   const [rewardType, changeRewardType] = useState(null);
   const [text, changeText] = useState('');
@@ -35,15 +36,18 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
       changeLookingFor(task?.lookingFor || null);
       changeText(task?.description || '');
       changeRewardType(task?.rewardType || null);
+      changeTaskType(task?.type || null);
       changeAmount(task?.amount || null);
       form.setFieldsValue({
         lookingFor: task?.lookingFor || null,
         text: task?.description || '',
         rewardType: task?.rewardType || null,
+        taskType: task?.type,
         amount: task?.amount || null,
       });
     } else {
       changeLookingFor(null);
+      changeTaskType(null);
       changeText('');
       changeRewardType(null);
       changeAmount('');
@@ -65,12 +69,14 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
         ? {
             mangaStoryId: baseData._id,
             lookingFor,
+            type: taskType,
             description: text,
             rewardType,
           }
         : {
             mangaStoryId: baseData._id,
             lookingFor,
+            type: taskType,
             description: text,
             rewardType,
             amount,
@@ -87,6 +93,8 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
         changeLookingFor(null);
         changeText('');
         changeRewardType(null);
+        changeTaskType(null);
+        changeShowModal(null);
         changeAmount('');
         changeShowModal(false);
         const eventData = [
@@ -117,11 +125,13 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
         ? {
             lookingFor,
             description: text,
+            type: taskType,
             rewardType,
           }
         : {
             lookingFor,
             description: text,
+            type: taskType,
             rewardType,
             amount,
           };
@@ -154,29 +164,15 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
       );
   };
 
-  const MyCheckboxes = userTypes.map((item) => ({
+  const myCheckboxes = userTypes.map((item) => ({
     key: item.value,
     value: item.value,
   }));
 
-  const RewardTypes = [
-    {
-      key: 'Free',
-      value: 'Free',
-    },
-    {
-      key: 'PerPage',
-      value: 'Per Page',
-    },
-    {
-      key: 'FlatRate',
-      value: 'Flat Rate',
-    },
-    {
-      key: 'RevenueSplit',
-      value: 'Revenue Split',
-    },
-  ];
+  const typesArray = taskTypesArray.map((item) => ({
+    key: item.value,
+    value: item.value,
+  }));
 
   const sendEvent = (event) => {
     const data = {
@@ -221,6 +217,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
             initialValues={{
               lookingFor,
               text,
+              taskType,
               rewardType,
               amount,
             }}>
@@ -242,7 +239,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
                 }}
                 value={lookingFor}
                 bordered={false}
-                options={MyCheckboxes}
+                options={myCheckboxes}
                 placeholder="Find a teamate to help you reach your goals"
               />
             </Form.Item>
@@ -264,8 +261,30 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
                   sendEvent(EVENTS.CHOOSED_TASK_COMMISSION_TYPE);
                 }}
                 value={rewardType}
-                options={RewardTypes}
+                options={rewardTypes}
                 placeholder="Choose the type of collaboration"
+              />
+            </Form.Item>
+            <h2>Types</h2>
+            <Form.Item
+              name="taskType"
+              rules={[
+                {
+                  required: true,
+                  message: 'Type is required',
+                },
+              ]}>
+              <PrimarySelect
+                showSearch
+                className={cn(styles.selectDef, !taskType && styles.select)}
+                onChange={(e) => {
+                  changeTaskType(e);
+                  sendEvent(EVENTS.CHOOSED_TASK_TYPE);
+                }}
+                value={taskType}
+                bordered={false}
+                options={typesArray}
+                placeholder="Task type"
               />
             </Form.Item>
             {rewardType !== 'Free' && (
