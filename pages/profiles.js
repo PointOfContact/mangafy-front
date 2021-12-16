@@ -18,6 +18,7 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
       $skip: (page - 1) * count,
       popular: true,
     };
+
     if (genres && genres.length > 0) {
       genres = Array.isArray(genres) ? genres : [genres];
       query.genresIds = { $in: genres };
@@ -33,15 +34,13 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
         { email: { $search: search } },
       ];
     }
+
     const res = await client.service('/api/v2/users').find({
       query,
     });
 
-    const genresRes = await client.service('/api/v2/genres').find({
-      query: {
-        $limit: 100,
-      },
-    });
+    const genresRes = await client.service('/api/v2/genres').find();
+
     return {
       props: {
         user: user || store.user,

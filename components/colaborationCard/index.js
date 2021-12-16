@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 
 import cn from 'classnames';
 import СardGenres from 'components/card-genres';
-import SvgPortfolio from 'components/icon/Portfolio';
 import Imgix from 'components/imgix';
 import Avatar from 'components/ui-elements/avatar';
 import Link from 'next/link';
@@ -12,6 +11,12 @@ import styles from './styles.module.scss';
 
 const ColaborationCards = ({ label, client }) => {
   const [participantsInfo, setParticipantsInfo] = useState([]);
+  const [publishChapter, setPublishChapter] = useState(false);
+
+  useEffect(() => {
+    const publishedChapter = label?.storyBoards[0]?.chapters?.some((value) => value.published);
+    setPublishChapter(publishedChapter);
+  }, []);
 
   useEffect(() => {
     const participants = label.participentsInfo.map((value, index) => {
@@ -74,9 +79,8 @@ const ColaborationCards = ({ label, client }) => {
           </div>
           <div className={styles.colabWrap__bot}>
             <СardGenres genres={label.genres} limit={2} />
-            <div className={styles.colabWrap__commision}>
-              <SvgPortfolio width="14px" height="14px" />
-              {label.compensationModel === 'paid' ? 'Commission' : 'Collaboration'}
+            <div className={styles.colabWrap__publish}>
+              {publishChapter ? 'Published' : 'No Published'}
             </div>
           </div>
         </div>
