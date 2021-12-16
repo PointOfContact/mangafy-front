@@ -277,7 +277,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
                     rules={[
                       {
                         required: true,
-                        message: 'Amount is required',
+                        message: 'Budget is required',
                       },
                     ]}>
                     <PrimaryInput
