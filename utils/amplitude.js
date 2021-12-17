@@ -34,9 +34,9 @@ const setSeveralProperty = () => {
 };
 
 export default async function myAmplitude(eventData) {
-  // if (process.env.NEXT_PUBLIC_AMPLITUDE_ENABLED !== 'true') {
-  //   return;
-  // }
+  if (process.env.NEXT_PUBLIC_AMPLITUDE_ENABLED !== 'true') {
+    return;
+  }
 
   if (Array.isArray(eventData)) {
     try {
@@ -70,9 +70,9 @@ export default async function myAmplitude(eventData) {
 export const initAmplitude = async (fingerPrint, user = null) => {
   console.log('fingerPrint', fingerPrint);
   console.log('userId', user?._id);
-  // if (process.env.NEXT_PUBLIC_AMPLITUDE_ENABLED !== 'true') {
-  //   return;
-  // }
+  if (process.env.NEXT_PUBLIC_AMPLITUDE_ENABLED !== 'true') {
+    return;
+  }
 
   if (process.browser) {
     amplitude.getInstance().init(
@@ -94,9 +94,9 @@ export const initAmplitude = async (fingerPrint, user = null) => {
 };
 
 export const setUser = async (user) => {
-  // if (process.env.NEXT_PUBLIC_AMPLITUDE_ENABLED !== 'true') {
-  //   return;
-  // }
+  if (process.env.NEXT_PUBLIC_AMPLITUDE_ENABLED !== 'true') {
+    return;
+  }
   if (process.browser) {
     await amplitude.getInstance().setUserId(user._id);
     await amplitude.getInstance().setUserProperties(user);
