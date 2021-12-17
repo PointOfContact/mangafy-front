@@ -9,7 +9,6 @@ import Head from 'next/head';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import myAmplitude from 'utils/amplitude';
-import { v4 as uuidv4 } from 'uuid';
 
 const Introduce = ({ user }) => {
   const [loadings, changeLoading] = useState([]);
@@ -26,12 +25,6 @@ const Introduce = ({ user }) => {
       },
       event_properties: input,
     };
-    if (user) {
-      data.user_id = user._id;
-      data.user_properties = user;
-    } else {
-      data.device_id = uuidv4();
-    }
     myAmplitude([data]);
   };
   const handleInput = (evt) => {

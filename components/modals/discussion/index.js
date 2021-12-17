@@ -98,10 +98,6 @@ const ModalDiscussion = ({
             {
               event_type: EVENTS.POST_LIKE,
               event_properties: { postLike: res._id, postId: res.postId },
-              user_id: user._id,
-              user_properties: {
-                ...user,
-              },
             },
           ];
           myAmplitude(eventData);

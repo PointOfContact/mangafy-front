@@ -55,10 +55,6 @@ const GetFeedback = ({ user, setIsModalVisible, isModalVisible, isPage, sendEven
       {
         event_type: EVENTS.ADD_FEEDBACK,
         event_properties: { response_id: event.response_id },
-        user_id: user._id,
-        user_properties: {
-          ...user,
-        },
       },
     ];
 

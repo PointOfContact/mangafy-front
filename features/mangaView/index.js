@@ -59,10 +59,6 @@ const MangaView = ({
       {
         event_type: EVENTS.OPEN_VIEW_PAGE,
         event_properties: { storyBoardId },
-        user_id: user?._id,
-        user_properties: {
-          ...user,
-        },
       },
     ];
 
@@ -107,10 +103,6 @@ const MangaView = ({
             {
               event_type: EVENTS.CHOOSE_VIEW_CHAPTER,
               event_properties: { chapter: chapters[currentChapter - 1] },
-              user_id: user?._id,
-              user_properties: {
-                ...user,
-              },
             },
           ];
           myAmplitude(dataEvent);
@@ -158,10 +150,6 @@ const MangaView = ({
       {
         event_type: EVENTS.SHARE_VIEW_PAGE,
         event_properties: { chapter: chapters[currentChapter - 1] },
-        user_id: user?._id,
-        user_properties: {
-          ...user,
-        },
       },
     ];
     myAmplitude(dataEvent);

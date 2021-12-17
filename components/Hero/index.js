@@ -35,10 +35,6 @@ const Hero = ({ storyBoard, setStoryBoard, getStoryBoard, user }) => {
       {
         event_type,
         event_properties: { storyBoard, ...properties },
-        user_id: user._id,
-        user_properties: {
-          ...user,
-        },
       },
     ];
     myAmplitude(data);
@@ -182,10 +178,6 @@ const Hero = ({ storyBoard, setStoryBoard, getStoryBoard, user }) => {
           const data = {
             event_type: eventType,
             event_properties: { newHero },
-            user_id: user._id,
-            user_properties: {
-              ...user,
-            },
           };
           myAmplitude(data);
           delete newHero.storyBoard;

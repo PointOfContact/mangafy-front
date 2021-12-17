@@ -31,7 +31,6 @@ export default function TypePage({
   const [isLoading, setIsLoading] = useState(false);
   const [option, setOption] = useState([]);
   const [infiniteScroll, setInfiniteScroll] = useState(false);
-  const [width, setWidth] = useState(1920);
   const [query, serQuery] = useState([]);
 
   useEffect(() => {
@@ -102,28 +101,18 @@ export default function TypePage({
     />
   ));
 
-  const infiniteScrollComponent = () => {
-    if (width >= 767 || infiniteScroll) {
-      return (
-        <InfiniteScroll
-          className={styles.movie}
-          dataLength={discussions.length}
-          next={showMore}
-          hasMore={true}>
-          {postElements}
-        </InfiniteScroll>
-      );
-    }
-    return postElements;
-  };
-
-  const updateDimensions = (size) => {
-    setWidth(size);
-  };
-
-  useEffect(() => {
-    updateDimensions(window.innerWidth);
-  }, []);
+  const infiniteScrollComponent = () =>
+    infiniteScroll ? (
+      <InfiniteScroll
+        className={styles.postItems}
+        dataLength={discussions.length}
+        next={showMore}
+        hasMore={true}>
+        {postElements}
+      </InfiniteScroll>
+    ) : (
+      postElements
+    );
 
   return (
     <>

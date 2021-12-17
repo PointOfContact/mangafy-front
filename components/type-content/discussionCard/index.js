@@ -60,10 +60,6 @@ const DiscussionCard = (props) => {
     const data = {
       event_type: EVENTS.OPENED_POST,
       event_properties: { postId },
-      user_id: user?._id,
-      user_properties: {
-        ...user,
-      },
     };
     myAmplitude(data);
 

@@ -58,10 +58,6 @@ const ChangeYourAvatar = ({
       setLoadingImg(false);
       const data = {
         event_type: EVENTS.ADDED_PHOTO,
-        user_id: user._id,
-        user_properties: {
-          ...user,
-        },
       };
       myAmplitude(data);
     });

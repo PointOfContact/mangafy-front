@@ -42,10 +42,6 @@ const Start = ({ genres, jwt, user }) => {
 
         const data = {
           event_type: EVENTS.CREATE_PROJECT_COMPLETE,
-          user_id: user._id,
-          user_properties: {
-            ...user,
-          },
         };
         amplitude(data);
         // eslint- disable-next-line no-underscore-dangle
@@ -76,10 +72,6 @@ const Start = ({ genres, jwt, user }) => {
   useEffect(() => {
     const data = {
       event_type: EVENTS.CREATE_PROJECT_START,
-      user_id: user?._id,
-      user_properties: {
-        ...user,
-      },
     };
     amplitude(data);
   }, []);

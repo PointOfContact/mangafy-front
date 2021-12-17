@@ -10,7 +10,6 @@ import Head from 'next/head';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import myAmplitude from 'utils/amplitude';
-import { v4 as uuidv4 } from 'uuid';
 
 import { USER_TYPES } from './constant';
 
@@ -45,12 +44,6 @@ const LookingFor = ({ user }) => {
         data: checkboxes,
       },
     };
-    if (user) {
-      data.user_id = user._id;
-      data.user_properties = user;
-    } else {
-      data.device_id = uuidv4();
-    }
     myAmplitude([data]);
   };
 

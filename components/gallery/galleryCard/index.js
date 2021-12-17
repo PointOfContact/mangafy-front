@@ -62,10 +62,6 @@ const GalleryCard = ({
             const data = {
               event_type: EVENTS.LIKE_PORTFOLIO,
               event_properties: { galleryId, profileId },
-              user_id: user?._id,
-              user_properties: {
-                ...user,
-              },
             };
             myAmplitude(data);
 

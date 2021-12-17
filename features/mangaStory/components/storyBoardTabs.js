@@ -272,10 +272,6 @@ const StoryBoardTabs = ({
     const data = [
       {
         event_type: myEvent,
-        user_id: user._id,
-        user_properties: {
-          ...user,
-        },
       },
     ];
 

@@ -27,10 +27,6 @@ const Profiles = (props) => {
 
   const data = {
     event_type: EVENTS.OPENED_ALL_PROFILES,
-    user_id: user?._id,
-    user_properties: {
-      ...user,
-    },
   };
   myAmplitude(data);
 

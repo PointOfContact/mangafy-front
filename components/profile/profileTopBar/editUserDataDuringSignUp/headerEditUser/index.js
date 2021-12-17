@@ -31,10 +31,6 @@ const HeaderEditUser = ({
               {
                 event_type: EVENTS.CLOSE_UPDATE_USER_MODAL,
                 event_properties: { userData },
-                user_id: user._id,
-                user_properties: {
-                  ...user,
-                },
               },
             ];
             myAmplitude(data);
@@ -58,10 +54,6 @@ const HeaderEditUser = ({
               {
                 event_type: EVENTS.UPDATE_USER_IN_MODAL,
                 event_properties: { userData },
-                user_id: user._id,
-                user_properties: {
-                  ...user,
-                },
               },
             ];
             myAmplitude(data);

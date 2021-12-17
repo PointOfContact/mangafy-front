@@ -98,10 +98,6 @@ const ProjectScripts = ({ pages, storyBoardId, storyBoard, setStoryBoard, user }
             const data = {
               event_type: EVENTS.ADDED_BOARD_PAGE,
               event_properties: { storyBoardId, pageId: res?._id },
-              user_id: user._id,
-              user_properties: {
-                ...user,
-              },
             };
             myAmplitude(data);
 

@@ -141,10 +141,6 @@ const ChapterFooter = ({
     const dataEvent = [
       {
         event_properties: { chapter: value },
-        user_id: user?._id,
-        user_properties: {
-          ...user,
-        },
       },
     ];
 

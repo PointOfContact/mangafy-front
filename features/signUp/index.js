@@ -12,7 +12,7 @@ import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import * as qs from 'query-string';
 import { register } from 'store';
-import myAmplitude from 'utils/amplitude';
+import myAmplitude, { setUser } from 'utils/amplitude';
 
 import styles from './styles.module.scss';
 
@@ -71,15 +71,11 @@ const Register = ({ user }) => {
         setLoading(false);
         const data = [
           {
-            platform: 'WEB',
-            event_type: EVENTS.SIGN_UP,
-            event_properties: { strategy: 'local', userData: newUser },
-            user_id: newUser?._id,
-            user_properties: {
-              ...newUser,
-            },
+            event_type: EVENTS.SIGN_IN,
+            event_properties: { strategy: 'local', userData: newUser, type: EVENTS.SIGN_UP },
           },
         ];
+        setUser(newUser);
         myAmplitude(data);
         // info({
         //   className: 'MangaFY',

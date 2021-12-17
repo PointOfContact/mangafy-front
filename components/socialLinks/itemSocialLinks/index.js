@@ -107,10 +107,6 @@ const EditSocial = ({ user, socialLinks, setSocialLinks, setUserData }) => {
       {
         event_type: EVENTS.SOCIAL_ACCOUNT,
         event_properties: { method, link, platform },
-        user_id: user._id,
-        user_properties: {
-          ...user,
-        },
       },
     ];
     myAmplitude(data);

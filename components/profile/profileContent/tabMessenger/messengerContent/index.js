@@ -196,10 +196,6 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
         {
           event_type,
           event_properties: { inviteRequestId: id },
-          user_id: user._id,
-          user_properties: {
-            ...user,
-          },
         },
       ];
       myAmplitude(eventData);

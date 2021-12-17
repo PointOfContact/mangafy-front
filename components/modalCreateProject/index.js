@@ -38,10 +38,6 @@ const ModalCreateProject = ({ createProjectModal, showCreateProjectModal, user }
             {
               event_type: EVENTS.CREATE_MANGA_STORY,
               event_properties: { mangaStory: res, mangaStoryId: res._id },
-              user_id: user._id,
-              user_properties: {
-                ...user,
-              },
             },
           ];
           showCreateProjectModal(false);

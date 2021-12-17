@@ -7,6 +7,9 @@ import { notification } from 'antd';
 import { DefaultSeo } from 'next-seo';
 import { useRouter } from 'next/router';
 import 'react-quill/dist/quill.snow.css';
+import { load } from '@fingerprintjs/fingerprintjs';
+
+import { initAmplitude } from '../utils/amplitude';
 
 Sentry.init({
   enabled: process.env.NEXT_PUBLIC_SENTRY_ENABLED === 'true',
@@ -21,6 +24,18 @@ export default function MyApp({ Component, pageProps, err }) {
     top: 120,
     duration: 3,
   });
+
+  useEffect(() => {
+    load()
+      .then((fpPromise) => fpPromise.get())
+      .then((result) => {
+        // This is the visitor identifier:
+        const { visitorId } = result;
+        console.log('visitorIdvisitorIdvisitorId', visitorId);
+        initAmplitude(visitorId, pageProps?.user);
+      });
+  }, []);
+
   const router = useRouter();
 
   useEffect(() => {

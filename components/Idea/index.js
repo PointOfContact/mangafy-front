@@ -25,10 +25,6 @@ const Idea = ({ storyBoard, user }) => {
     const data = {
       event_type: type === 'title' ? EVENTS.CHANGE_BOARD_TITLE : EVENTS.CHANGE_BOARD_DESCRIPTION,
       event_properties: { storyBoardId: storyBoard._id },
-      user_id: user._id,
-      user_properties: {
-        ...user,
-      },
     };
     myAmplitude(data);
 

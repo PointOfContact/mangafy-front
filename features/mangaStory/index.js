@@ -97,10 +97,6 @@ const MangeStory = (props) => {
         mangaStory: baseData,
         mangaStoryId: baseData._id,
       },
-      user_id: user?._id,
-      user_properties: {
-        ...user,
-      },
     };
 
     myAmplitude(data);

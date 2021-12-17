@@ -120,10 +120,6 @@ export const Comments = ({ commentsData, postId, user, setCommentsData }) => {
         {
           event_type: EVENTS.UNAUTHORIZED_POST_COMMENT,
           event_properties: { postId, comment: value },
-          user_id: user._id,
-          user_properties: {
-            ...user,
-          },
         },
       ];
       myAmplitude(eventData);
@@ -158,10 +154,6 @@ export const Comments = ({ commentsData, postId, user, setCommentsData }) => {
             {
               event_type: EVENTS.POST_COMMENT,
               event_properties: { postId, comment: value, comentData: res },
-              user_id: user._id,
-              user_properties: {
-                ...user,
-              },
             },
           ];
           myAmplitude(eventData);
