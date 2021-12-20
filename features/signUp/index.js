@@ -71,8 +71,8 @@ const Register = ({ user }) => {
         setLoading(false);
         const data = [
           {
-            event_type: EVENTS.SIGN_IN,
-            event_properties: { strategy: 'local', userData: newUser, type: EVENTS.SIGN_UP },
+            event_type: EVENTS.SIGN_UP,
+            event_properties: { strategy: 'local', userData: newUser },
           },
         ];
         setUser(newUser);
