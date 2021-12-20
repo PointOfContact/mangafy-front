@@ -117,41 +117,49 @@ const StoryTab = ({
           </a>
         </Link>
         <div className={styles.participants}>
-          {[authorInfo].concat(participantsData).map(({ avatar, name, _id, type, types }) => (
-            <Popover
-              key={_id}
-              placement="bottomLeft"
-              title={''}
-              content={
-                <ParticipantCard
-                  isOwn={isOwn}
-                  avatar={avatar}
-                  name={name}
-                  id={_id}
-                  type={type}
-                  types={types}
-                  leaveManga={leaveManga}
-                  user={user}
-                  author={author}
-                />
-              }
-              trigger="click">
-              <Tooltip placement="topLeft" title={name} arrowPointAtCenter>
-                <div className={styles.participentInfo}>
-                  {avatar ? (
-                    <Imgix
-                      width={65}
-                      height={65}
-                      src={client.UPLOAD_URL + avatar}
-                      alt="MangaFy picture of the user"
-                    />
-                  ) : (
-                    <Avatar text={name} size={69} />
-                  )}
-                </div>
-              </Tooltip>
-            </Popover>
-          ))}
+          {[authorInfo]
+            .concat(participantsData)
+            .map(({ avatar, name, _id, type, types }, index) => (
+              <Popover
+                key={_id}
+                placement="bottomLeft"
+                title={''}
+                content={
+                  <ParticipantCard
+                    isOwn={isOwn}
+                    avatar={avatar}
+                    name={name}
+                    id={_id}
+                    type={type}
+                    types={types}
+                    leaveManga={leaveManga}
+                    user={user}
+                    author={author}
+                  />
+                }
+                trigger="click">
+                {index < 6 && (
+                  <Tooltip placement="topLeft" title={name} arrowPointAtCenter>
+                    <div className={styles.participentInfo}>
+                      {avatar ? (
+                        <Imgix
+                          className={styles.participantImage}
+                          width={65}
+                          height={65}
+                          src={client.UPLOAD_URL + avatar}
+                          alt="MangaFy picture of the user"
+                        />
+                      ) : (
+                        <Avatar text={name} size={69} />
+                      )}
+                    </div>
+                  </Tooltip>
+                )}
+              </Popover>
+            ))}
+          {participantsData.length > 5 && (
+            <p className={styles.participantsCount}>+ {participantsData.length - 5} participants</p>
+          )}
         </div>
       </div>
       <Modal

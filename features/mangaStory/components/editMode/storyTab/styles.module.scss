@@ -9,17 +9,17 @@
 .storyTab {
   font-family: Noto Sans JP;
   width: 70%;
-  @include media-md{
+  @include media-md {
     width: 60%;
   }
-  @include media-sm{
+  @include media-sm {
     width: 100%;
   }
   word-wrap: break-word;
   & + div {
     width: 30%;
-    @include media-md{
-      width: 40%;
+    @include media-md {
+      width: 0%;
     }
   }
   .isOwnBubble {
@@ -97,6 +97,12 @@
       max-width: 68.8px;
       max-height: 68.8px;
       border-radius: 50%;
+      @include media-sm {
+        min-width: 50px;
+        min-height: 50px;
+        max-width: 50px;
+        max-height: 50px;
+      }
     }
     .participentInfo {
       margin-left: -20px !important;
@@ -104,9 +110,27 @@
       img {
         object-fit: cover;
       }
+      & > div {
+        @include media-sm {
+          width: 50px !important;
+          height: 50px !important;
+          font-size: $text2 !important;
+        }
+      }
       &:first-of-type {
         margin-left: 0px !important;
       }
+    }
+  }
+  .participantsCount{
+    margin: 0;
+    font-size: $text3;
+    margin-left: 5px;
+    display: flex;
+    align-items: center;
+    height: 68.8px;
+    @include media-sm{
+      height: 50px;
     }
   }
 }
