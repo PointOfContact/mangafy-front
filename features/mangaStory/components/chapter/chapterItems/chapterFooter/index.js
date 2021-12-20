@@ -46,6 +46,13 @@ const ChapterFooter = ({
     setIndexChapterView(chapterIndex + 1);
   };
 
+  const uploadImage = (e) => {
+    const data = {
+      chapterImg: e,
+    };
+    mangaStoryAPI.chapter.patch(value._id, data, upgradeChapterData, setEdit, setChapters);
+  };
+
   const createPage = (e, count) => {
     const data = {
       storyBoard: storyBoard._id,
@@ -57,7 +64,7 @@ const ChapterFooter = ({
     mangaStoryAPI.pages.createPage(index, chapters, setChapters, () => {}, data);
   };
 
-  function beforeUpload(pagesArray, file, fileList) {
+  function beforeUpload(pagesArray, file, fileList, callback) {
     return new Promise((resolve) => {
       const isJpgOrPng =
         file.type === 'image/jpeg' ||
@@ -77,6 +84,7 @@ const ChapterFooter = ({
       const indexImage = fileList.findIndex((val) => val.uid === file.uid);
 
       const isLt2M = file.size / 1024 / 1024 < 50;
+
       if (!isLt2M) {
         notification.error({
           message: 'You can only upload JPG, JPEG, PDF or PNG file!',
@@ -85,11 +93,31 @@ const ChapterFooter = ({
       }
 
       if (isLt2M && isJpgOrPng)
-        beforeUploadFromAMZ(file, (e) => createPage(e, getLastOrder + indexImage), resolve);
+        beforeUploadFromAMZ(file, (e) => callback(e, getLastOrder + indexImage), resolve);
 
       return isJpgOrPng && isLt2M;
     });
   }
+
+  const addPages = () => {
+    const data = [
+      {
+        event_type: EVENTS.ADDING_PAGES,
+        event_properties: { chapterId: value._id, storyBoardId: storyBoard._id },
+      },
+    ];
+    myAmplitude(data);
+  };
+
+  const addChapterCover = () => {
+    const data = [
+      {
+        event_type: EVENTS.ADD_CHAPTER_COVER,
+        event_properties: { chapterId: value._id, storyBoardId: storyBoard._id },
+      },
+    ];
+    myAmplitude(data);
+  };
 
   const content = () => (
     <div className={styles.menuChapter}>
@@ -108,15 +136,25 @@ const ChapterFooter = ({
         }}>
         Rename
       </p>
-      <p>
+      <p onClick={addPages}>
         <Upload
           name="avatar"
           listType="picture-card"
           className={cn('avatar-uploader', styles.upload)}
           multiple
           showUploadList={false}
-          beforeUpload={(file, fileList) => beforeUpload(pages, file, fileList)}>
-          Upload
+          beforeUpload={(file, fileList) => beforeUpload(pages, file, fileList, createPage)}>
+          Upload pages
+        </Upload>
+      </p>
+      <p onClick={addChapterCover}>
+        <Upload
+          name="chapterImg"
+          listType="picture-card"
+          className={cn('avatar-uploader', styles.upload)}
+          showUploadList={false}
+          beforeUpload={(file, fileList) => beforeUpload(pages, file, fileList, uploadImage)}>
+          Upload cover
         </Upload>
       </p>
       <Popconfirm
@@ -124,7 +162,7 @@ const ChapterFooter = ({
         position={'right'}
         title="Are you sure to delete this chapter"
         onConfirm={() => {
-          mangaStoryAPI.chapter.delete(value._id, index, chapters, setChapters);
+          mangaStoryAPI.chapter.delete(value._id, index, chapters, setChapters, storyBoard);
         }}
         item={<p>Delete</p>}
       />
