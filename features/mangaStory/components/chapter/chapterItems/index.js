@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 
+import client from 'api/client';
 import SvgAdd from 'components/icon/Add';
+import Imgix from 'components/imgix';
 import PropTypes from 'prop-types';
 
 import Pages from '../pages';
@@ -22,6 +24,14 @@ const ChapterItems = ({ chapters, setChapters, storyBoard, setStoryBoard, user }
         <div key={value._id} className={styles.chapterItem}>
           <div className={styles.addPageContainer}>
             <div className={styles.addPage}>
+              {value.chapterImg && (
+                <Imgix
+                  className={styles.chapterImg}
+                  layout="fill"
+                  src={client.UPLOAD_URL + value.chapterImg}
+                  alt="MangaFy chapter img"
+                />
+              )}
               <ChapterTitle
                 value={value}
                 chapters={chapters}

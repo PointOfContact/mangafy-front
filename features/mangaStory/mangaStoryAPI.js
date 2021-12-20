@@ -165,6 +165,13 @@ export default {
             mode: 'no-cors',
           })
           .then((res) => {
+            const dataEvent = [
+              {
+                event_type: EVENTS.CREATE_CHAPTER,
+                event_properties: { chapter: res, storyBoardId: storyBoard._id },
+              },
+            ];
+            myAmplitude(dataEvent);
             setCreateChapter(false);
             setChapters([...chapters, res]);
           })
@@ -190,7 +197,6 @@ export default {
           })
           .then((res) => {
             setEdit('');
-
             setChapters(upgradeChapterData(res, res._id));
           })
           .catch((err) => {
@@ -203,7 +209,7 @@ export default {
       });
     },
 
-    delete: (chapterId, index, chapters, setChapters) => {
+    delete: (chapterId, index, chapters, setChapters, storyBoard) => {
       const jwt = client.getCookie('feathers-jwt');
 
       const deleteChapter = () => {
@@ -219,6 +225,13 @@ export default {
             mode: 'no-cors',
           })
           .then(() => {
+            const dataEvent = [
+              {
+                event_type: EVENTS.DELETE_CHAPTER,
+                event_properties: { chapterId, storyBoardId: storyBoard._id },
+              },
+            ];
+            myAmplitude(dataEvent);
             deleteChapter();
           })
           .catch((err) => {
@@ -274,7 +287,6 @@ export default {
       ifChooseChapter
     ) => {
       const jwt = client.getCookie('feathers-jwt');
-
       import('api/restClient').then((m) => {
         m.default
           .service('api/v2/pages')
