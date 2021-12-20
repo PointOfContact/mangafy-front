@@ -25,10 +25,6 @@ const DiscussionRightBar = ({ dailyWarmUps, user }) => {
           {
             event_type,
             event_properties: { post },
-            user_id: user?._id,
-            user_properties: {
-              ...user,
-            },
           },
         ]
       : [

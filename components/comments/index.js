@@ -171,10 +171,6 @@ export const Comments = ({ commentsData, mangaStory, user, viewPage, chapter }) 
             {
               event_type: EVENTS.ADDED_COMMENT,
               event_properties: { mangaStoryId: mangaStory._id },
-              user_id: user._id,
-              user_properties: {
-                ...user,
-              },
             },
           ];
 

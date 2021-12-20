@@ -96,10 +96,6 @@ const Profile = (props) => {
             const event = {
               event_type: EVENTS.ADDED_USER_TYPES,
               event_properties: { type: res.type },
-              user_id: user._id,
-              user_properties: {
-                ...user,
-              },
             };
             myAmplitude(event);
           }
@@ -128,10 +124,6 @@ const Profile = (props) => {
       {
         platform: 'WEB',
         event_type: EVENTS.ADDED_GENRES,
-        user_id: user._id,
-        user_properties: {
-          ...user,
-        },
       },
     ];
     myAmplitude(data);

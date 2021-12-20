@@ -10,7 +10,7 @@ import { NextSeo } from 'next-seo';
 import PropTypes from 'prop-types';
 import * as qs from 'query-string';
 import { login } from 'store';
-import myAmplitude from 'utils/amplitude';
+import myAmplitude, { setUser } from 'utils/amplitude';
 
 import styles from './styles.module.scss';
 
@@ -46,13 +46,10 @@ const Login = ({ user }) => {
         const data = [
           {
             event_type: EVENTS.SIGN_IN,
-            event_properties: { strategy: 'local', userData: newUser },
-            user_id: newUser._id,
-            user_properties: {
-              ...newUser,
-            },
+            event_properties: { strategy: 'local', userData: newUser, type: EVENTS.SIGN_IN },
           },
         ];
+        setUser(newUser);
         myAmplitude(data);
       })
       .catch((err) => {

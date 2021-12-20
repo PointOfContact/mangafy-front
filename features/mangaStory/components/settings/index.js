@@ -77,10 +77,6 @@ const Settings = ({
       {
         event_type,
         event_properties: { baseData, [field]: value },
-        user_id: userData._id,
-        user_properties: {
-          ...userData,
-        },
       },
     ];
     myAmplitude(eventData);

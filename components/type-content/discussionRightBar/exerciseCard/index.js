@@ -24,10 +24,6 @@ const ExerciseCard = (props) => {
     const data = {
       event_type: EVENTS.OPENED_POST,
       event_properties: { warmapId },
-      user_id: user?._id,
-      user_properties: {
-        ...user,
-      },
     };
     myAmplitude(data);
 

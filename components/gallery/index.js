@@ -174,10 +174,6 @@ export const Gallery = (props) => {
       event_type:
         file?.type === 'application/pdf' ? EVENTS.ADDED_PORTFOLIO_PDF : EVENTS.ADDED_PORTFOLIO,
       event_properties: { extention, size, type },
-      user_id: user._id,
-      user_properties: {
-        ...user,
-      },
     };
     myAmplitude(data);
     queue.enqueue([

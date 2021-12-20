@@ -1,8 +1,40 @@
-import { v4 as uuidv4 } from 'uuid';
+/* eslint-disable no-await-in-loop */
+/* eslint-disable no-restricted-syntax */
+import amplitude from 'amplitude-js';
 
-const Amplitude = require('amplitude');
+const getUTMData = () => {
+  const utmTypes = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
 
-const amp = new Amplitude(process.env.NEXT_PUBLIC_AMPLITUDE_KEY);
+  const { href, search } = window.location;
+
+  const utmDataArray = utmTypes.map((query) => {
+    const firstIndex = search.lastIndexOf(query);
+    const utmData = {};
+
+    if (firstIndex !== -1) {
+      const lastIndex =
+        search.indexOf('&', firstIndex) === -1 ? href.length : search.indexOf('&', firstIndex);
+
+      const queryValue = search.slice(firstIndex + query.length + 1, lastIndex);
+
+      if (queryValue) {
+        utmData[query] = queryValue;
+      }
+
+      return utmData;
+    }
+    utmData[query] = 'null';
+    return utmData;
+  });
+  return utmDataArray;
+};
+
+const setSeveralProperty = () => {
+  for (const utmValue of getUTMData()) {
+    // if the object is not an empty
+    amplitude.getInstance().setUserProperties(utmValue);
+  }
+};
 
 export default async function myAmplitude(eventData) {
   if (process.env.NEXT_PUBLIC_AMPLITUDE_ENABLED !== 'true') {
@@ -10,40 +42,65 @@ export default async function myAmplitude(eventData) {
   }
 
   if (Array.isArray(eventData)) {
-    const res = eventData.map((e) => {
-      if (!e.user_id) {
-        delete e.user_id;
-        delete e.user_properties;
-        e.device_id = uuidv4();
-      }
-
-      return {
-        platform: 'WEB',
-        ...e,
-      };
-    });
     try {
-      await amp.track(res);
+      // eslint-disable-next-line guard-for-in
+      for (const event of eventData) {
+        event.platform = 'WEB';
+        await amplitude.getInstance().logEvent(event.event_type, event);
+        setSeveralProperty();
+      }
     } catch (error) {
+      console.log(error, 'amplitude.error()', 55555555);
       // TODO: add sentry
     }
   } else {
-    if (!eventData.user_id) {
-      delete eventData.user_id;
-      delete eventData.user_properties;
-      eventData.device_id = uuidv4();
-    }
-
     const defaultEventData = [
       {
         platform: 'WEB',
         ...eventData,
       },
     ];
+
     try {
-      await amp.track(defaultEventData);
+      await amplitude.getInstance().logEvent(eventData.event_type, defaultEventData);
+      setSeveralProperty();
     } catch (error) {
       // TODO: add sentry
     }
   }
 }
+
+export const initAmplitude = async (fingerPrint, user = null) => {
+  if (process.env.NEXT_PUBLIC_AMPLITUDE_ENABLED !== 'true') {
+    return;
+  }
+
+  if (process.browser) {
+    amplitude.getInstance().init(
+      process.env.NEXT_PUBLIC_AMPLITUDE_KEY,
+      user?._id,
+      {
+        includeUtm: true,
+        deviceId: fingerPrint,
+        platform: 'WEB',
+        saveParamsReferrerOncePerSession: true,
+      },
+      () => {
+        console.log('amp', amplitude.getInstance());
+      }
+    );
+    amplitude.getInstance().setUserProperties(user);
+    setSeveralProperty();
+  }
+};
+
+export const setUser = async (user) => {
+  if (process.env.NEXT_PUBLIC_AMPLITUDE_ENABLED !== 'true') {
+    return;
+  }
+  if (process.browser) {
+    await amplitude.getInstance().setUserId(user._id);
+    await amplitude.getInstance().setUserProperties(user);
+    setSeveralProperty();
+  }
+};

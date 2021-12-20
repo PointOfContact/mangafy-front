@@ -38,10 +38,6 @@ const ModalCreateProject = ({ createProjectModal, showCreateProjectModal, user }
             {
               event_type: EVENTS.CREATE_MANGA_STORY,
               event_properties: { mangaStory: res, mangaStoryId: res._id },
-              user_id: user._id,
-              user_properties: {
-                ...user,
-              },
             },
           ];
           showCreateProjectModal(false);
@@ -50,7 +46,9 @@ const ModalCreateProject = ({ createProjectModal, showCreateProjectModal, user }
           if (router.router.pathname === '/manga-story/[pid]') {
             window.open(`/manga-story/${res._id}?tab=settings&manga=create`, '_self');
           } else {
-            router.push(`/manga-story/${res._id}?tab=settings&manga=create`);
+            router.push(`/manga-story/${res._id}?tab=settings&manga=create`, undefined, {
+              shallow: false,
+            });
           }
         })
         .catch((err) => {

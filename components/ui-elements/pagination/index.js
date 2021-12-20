@@ -10,14 +10,7 @@ import myAmplitude from 'utils/amplitude';
 import styles from './styles.module.scss';
 
 const Pagination = ({ currentNumber, setCurrentNumber, data, user }) => {
-  const dataEvent = [
-    {
-      user_id: user?._id,
-      user_properties: {
-        ...user,
-      },
-    },
-  ];
+  const dataEvent = [];
 
   return (
     <div className={styles.pagination}>

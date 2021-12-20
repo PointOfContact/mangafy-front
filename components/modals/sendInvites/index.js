@@ -91,10 +91,6 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
             joinAs,
             taskId: task,
           },
-          user_id: user._id,
-          user_properties: {
-            ...user,
-          },
         },
       ];
       myAmplitude(eventData);

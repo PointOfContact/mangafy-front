@@ -63,10 +63,6 @@ export const CommissionPricing = ({ id, user }) => {
               {
                 event_type: EVENTS.COMMISION_SAVE,
                 event_properties: { pricingTable: res.pricingTable },
-                user_id: user._id,
-                user_properties: {
-                  ...user,
-                },
               },
             ];
             setErrMessage('');
@@ -103,10 +99,6 @@ export const CommissionPricing = ({ id, user }) => {
       {
         event_type: EVENTS.COMMISION_CREATED,
         event_properties: { method: 'add' },
-        user_id: user._id,
-        user_properties: {
-          ...user,
-        },
       },
     ];
     myAmplitude(data);
@@ -119,10 +111,6 @@ export const CommissionPricing = ({ id, user }) => {
       {
         event_type: EVENTS.COMMISION_DELETE,
         event_properties: { method: 'delete', item: pricingList[position] },
-        user_id: user._id,
-        user_properties: {
-          ...user,
-        },
       },
     ];
     myAmplitude(data);
@@ -136,10 +124,6 @@ export const CommissionPricing = ({ id, user }) => {
       {
         event_type: EVENTS.COMMISION_EDIT,
         event_properties: { method: 'edit', type, item: pricingList[index] },
-        user_id: user._id,
-        user_properties: {
-          ...user,
-        },
       },
     ];
     myAmplitude(data);

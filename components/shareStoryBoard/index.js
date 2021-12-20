@@ -12,10 +12,6 @@ export const ShareStoryBoard = ({ shareUrl, user }) => {
     const data = [
       {
         event_type: EVENTS.PUBLISH_MANGA_CAT,
-        user_id: user._id,
-        user_properties: {
-          ...user,
-        },
       },
     ];
     myAmplitude(data);

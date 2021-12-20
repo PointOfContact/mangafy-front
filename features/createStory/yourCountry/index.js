@@ -23,10 +23,6 @@ const Country = ({ user }) => {
     const data = [
       {
         event_type: EVENTS.CREATE_MANGA_STORY_COUNTRY_NEXT,
-        user_id: user?._id,
-        user_properties: {
-          ...user,
-        },
         event_properties: selectedItems,
       },
     ];

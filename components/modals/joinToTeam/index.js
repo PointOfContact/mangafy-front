@@ -108,10 +108,6 @@ const ModalStart = ({ changeShowModal, showModal, baseData, selectedTask, user }
                 mangaStory: baseData,
                 taskId: selectedTask?._id,
               },
-              user_id: user._id,
-              user_properties: {
-                ...user,
-              },
             },
           ];
           myAmplitude(eventData);

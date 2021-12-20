@@ -38,10 +38,6 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipant, showPayPalContent
           {
             event_type: EVENTS.MINI_JOB_REMOVED,
             event_properties: { mangaStoryId: baseData._id, taskId, tasks },
-            user_id: user._id,
-            user_properties: {
-              ...user,
-            },
           },
         ];
         myAmplitude(eventData);
@@ -59,10 +55,6 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipant, showPayPalContent
           authorInfo: baseData.authorInfo,
           mangaStory: baseData,
           mangaStoryId: baseData._id,
-        },
-        user_id: user._id,
-        user_properties: {
-          ...user,
         },
       },
     ];
@@ -99,10 +91,6 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipant, showPayPalContent
           mangaStoryId: baseData._id,
           task,
           taskId: task !== 'new' ? task._id : '',
-        },
-        user_id: user._id,
-        user_properties: {
-          ...user,
         },
       },
     ];

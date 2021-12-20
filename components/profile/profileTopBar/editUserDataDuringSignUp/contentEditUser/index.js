@@ -31,10 +31,6 @@ const ContentEditUser = ({
       {
         event_type,
         event_properties: { isModal: true, ...update },
-        user_id: user._id,
-        user_properties: {
-          ...user,
-        },
       },
     ];
     myAmplitude(data);

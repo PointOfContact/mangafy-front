@@ -43,10 +43,6 @@ const ModalInviteMembers = ({ showModal, setShowModal, user }) => {
             {
               event_type,
               event_properties,
-              user_id: user._id,
-              user_properties: {
-                ...user,
-              },
             },
           ];
           myAmplitude(eventData);

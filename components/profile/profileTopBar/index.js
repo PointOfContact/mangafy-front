@@ -103,10 +103,6 @@ const ProfileTopBar = (props) => {
             const data = [
               {
                 event_type: EVENTS.MESSAGED_ACCOUNT,
-                user_id: user._id,
-                user_properties: {
-                  ...user,
-                },
               },
             ];
             myAmplitude(data);
@@ -159,10 +155,6 @@ const ProfileTopBar = (props) => {
     const data = [
       {
         event_type: EVENTS.ADDED_BIO,
-        user_id: user._id,
-        user_properties: {
-          ...user,
-        },
       },
     ];
     myAmplitude(data);
@@ -314,10 +306,6 @@ const ProfileTopBar = (props) => {
                   onClick={() => {
                     const event = {
                       event_type: EVENTS.DELETE_ACCOUNT,
-                      user_id: user._id,
-                      user_properties: {
-                        ...user,
-                      },
                     };
                     myAmplitude(event);
                   }}>

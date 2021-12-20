@@ -36,10 +36,6 @@ const BuyBubbleTea = ({ payPalEmail, createAmplitude, chapter, mangaStoryId, use
         {
           event_type: EVENTS.CREATE_VIEW_BUBBLE_TEA,
           event_properties: { chapterId: chapter._id, mangaStoryId },
-          user_id: user._id,
-          user_properties: {
-            ...user,
-          },
         },
       ];
       myAmplitude(eventData);

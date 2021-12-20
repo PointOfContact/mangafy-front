@@ -21,10 +21,6 @@ const DeleteProjectButton = ({ label, user, index, mangaStories, setMangaStories
     const data = {
       event_type: EVENTS.DELETE_PROJECT,
       event_properties: { mangaStoryId: mangaStory._id },
-      user_id: user._id,
-      user_properties: {
-        ...user,
-      },
     };
 
     myAmplitude(data);

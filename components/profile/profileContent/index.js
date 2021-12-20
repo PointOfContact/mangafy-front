@@ -55,10 +55,6 @@ const ProfileContent = (props) => {
     const data = {
       event_type: EVENTS.CHECKED_ACCOUNT_TABS,
       event_properties: { tab, profileId: profile?._id },
-      user_id: user?._id,
-      user_properties: {
-        ...user,
-      },
     };
     myAmplitude(data);
   };

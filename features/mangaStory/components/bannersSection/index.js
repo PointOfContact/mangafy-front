@@ -30,10 +30,6 @@ const BannerSection = ({
     const event = {
       event_type: EVENTS.SHARED_PROJECT,
       event_properties: { projectID: baseData._id },
-      user_id: user?._id,
-      user_properties: {
-        ...user,
-      },
     };
     myAmplitude(event);
   };

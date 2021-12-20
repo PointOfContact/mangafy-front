@@ -28,10 +28,6 @@ const OAuth = () => {
         {
           event_type,
           event_properties: { userData: user, strategy },
-          user_id: user._id,
-          user_properties: {
-            ...user,
-          },
         },
       ];
       myAmplitude(data);

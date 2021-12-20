@@ -53,10 +53,6 @@ const Follow = ({ count, user, profile, likedUsers, setLikedUsers }) => {
               userId: user.id,
               userData: user,
             },
-            user_id: user._id,
-            user_properties: {
-              ...user,
-            },
           };
           myAmplitude(data);
           setLikedUsers([...likedUsers, user._id]);
@@ -84,10 +80,6 @@ const Follow = ({ count, user, profile, likedUsers, setLikedUsers }) => {
               likedUsers: [...likedUsers, user._id],
               userId: user.id,
               userData: user,
-            },
-            user_id: user._id,
-            user_properties: {
-              ...user,
             },
           };
           myAmplitude(data);

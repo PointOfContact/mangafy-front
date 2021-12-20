@@ -192,10 +192,6 @@
     font-size: 15px;
     padding: 4px 15px;
     margin: 0 auto;
-    display: none;
-    @include media-sm{
-      display: block;
-    }
   }
   .forYou {
     white-space: nowrap;

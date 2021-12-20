@@ -101,10 +101,6 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
           {
             event_type: EVENTS.MINI_JOB_CREATED,
             event_properties: { mangaStoryId: baseData._id, taskId: res._id, task },
-            user_id: user._id,
-            user_properties: {
-              ...user,
-            },
           },
         ];
         myAmplitude(eventData);
@@ -148,10 +144,6 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
           {
             event_type: EVENTS.MINI_JOB_EDITED,
             event_properties: { mangaStoryId: baseData._id, taskId: task._id, task },
-            user_id: user._id,
-            user_properties: {
-              ...user,
-            },
           },
         ];
         myAmplitude(eventData);
@@ -178,10 +170,6 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
     const data = {
       event_type: event,
       event_properties: { mangaStoryId: baseData?._id },
-      user_id: user?._id,
-      user_properties: {
-        ...user,
-      },
     };
     myAmplitude(data);
   };
