@@ -9,27 +9,30 @@ const getUTMData = () => {
 
   const utmDataArray = utmTypes.map((query) => {
     const firstIndex = search.lastIndexOf(query);
-
-    const lastIndex =
-      search.indexOf('&', firstIndex) === -1 ? href.length : search.indexOf('&', firstIndex);
-
-    const queryValue = search.slice(firstIndex + query.length + 1, lastIndex);
     const utmData = {};
 
-    if (queryValue) {
-      utmData[query] = queryValue;
-    }
+    if (firstIndex !== -1) {
+      const lastIndex =
+        search.indexOf('&', firstIndex) === -1 ? href.length : search.indexOf('&', firstIndex);
 
+      const queryValue = search.slice(firstIndex + query.length + 1, lastIndex);
+
+      if (queryValue) {
+        utmData[query] = queryValue;
+      }
+
+      return utmData;
+    }
+    utmData[query] = 'null';
     return utmData;
   });
-
   return utmDataArray;
 };
 
 const setSeveralProperty = () => {
   for (const utmValue of getUTMData()) {
     // if the object is not an empty
-    if (Object.keys(utmValue).length) amplitude.getInstance().setUserProperties(utmValue);
+    amplitude.getInstance().setUserProperties(utmValue);
   }
 };
 
@@ -68,8 +71,6 @@ export default async function myAmplitude(eventData) {
 }
 
 export const initAmplitude = async (fingerPrint, user = null) => {
-  console.log('fingerPrint', fingerPrint);
-  console.log('userId', user?._id);
   if (process.env.NEXT_PUBLIC_AMPLITUDE_ENABLED !== 'true') {
     return;
   }

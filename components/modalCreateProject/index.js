@@ -46,7 +46,9 @@ const ModalCreateProject = ({ createProjectModal, showCreateProjectModal, user }
           if (router.router.pathname === '/manga-story/[pid]') {
             window.open(`/manga-story/${res._id}?tab=settings&manga=create`, '_self');
           } else {
-            router.push(`/manga-story/${res._id}?tab=settings&manga=create`);
+            router.push(`/manga-story/${res._id}?tab=settings&manga=create`, undefined, {
+              shallow: false,
+            });
           }
         })
         .catch((err) => {
