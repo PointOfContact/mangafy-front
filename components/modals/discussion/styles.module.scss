@@ -1,13 +1,13 @@
 @import '../../../styles/variables.scss';
 
 .modal {
-  margin-top: 0 !important;
   & > div {
     border-radius: 10px;
   }
   @include media-sm {
     width: 95% !important;
     max-width: 95% !important;
+    margin-top: 0 !important;
     & > div > div {
       padding: 24px 0;
     }

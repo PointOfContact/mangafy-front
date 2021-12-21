@@ -128,7 +128,7 @@ export default function LandingNew(props) {
           <ModalDiscussion
             changeShowModal={changeShowModal}
             showModal={showModal}
-            img={selectedPost.img}
+            img={selectedPost.imageUrl}
             logo={selectedPost.logo}
             title={selectedPost.title}
             user={user}
@@ -153,6 +153,8 @@ LandingNew.propTypes = {
   collaborations: PropTypes.array,
   getCurrentPostData: PropTypes.any,
   gallery: PropTypes.array,
+  selectedCategories: PropTypes.func,
+  selectedType: PropTypes.func,
 };
 
 LandingNew.defaultProps = {
@@ -163,4 +165,6 @@ LandingNew.defaultProps = {
   collaborations: [],
   getCurrentPostData: {},
   gallery: [],
+  selectedCategories: () => {},
+  selectedType: () => {},
 };

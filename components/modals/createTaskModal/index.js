@@ -64,23 +64,16 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
   };
 
   const createTask = async () => {
-    const data =
-      rewardType === 'Free'
-        ? {
-            mangaStoryId: baseData._id,
-            lookingFor,
-            type: taskType,
-            description: text,
-            rewardType,
-          }
-        : {
-            mangaStoryId: baseData._id,
-            lookingFor,
-            type: taskType,
-            description: text,
-            rewardType,
-            amount,
-          };
+    const data = {
+      mangaStoryId: baseData._id,
+      lookingFor,
+      type: taskType,
+      description: text,
+      rewardType,
+    };
+
+    if (rewardType !== 'Free') data.amount = amount;
+
     const jwt = client.getCookie('feathers-jwt');
     const { default: api } = await import('api/restClient');
     api
@@ -116,21 +109,15 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
   const editTask = async () => {
     const jwt = client.getCookie('feathers-jwt');
     const { default: api } = await import('api/restClient');
-    const data =
-      rewardType === 'Free'
-        ? {
-            lookingFor,
-            description: text,
-            type: taskType,
-            rewardType,
-          }
-        : {
-            lookingFor,
-            description: text,
-            type: taskType,
-            rewardType,
-            amount,
-          };
+    const data = {
+      lookingFor,
+      description: text,
+      type: taskType,
+      rewardType,
+    };
+
+    if (rewardType !== 'Free') data.amount = amount;
+
     api
       .service('/api/v2/tasks')
       .patch(task._id, data, {
@@ -328,16 +315,18 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
                     isFullWidth={false}
                     text="Completed"
                     isWhite={true}
-                    onClick={() => changeShowModal(false)}
+                    htmlType="submit"
                   />
                 )}
-                <PrimaryButton
-                  htmlType="submit"
-                  id="modalJoinMyJourneySubmitBtnId"
-                  className={styles.hugeButton}
-                  isFullWidth={false}
-                  text="Create a task"
-                />
+                {!task && (
+                  <PrimaryButton
+                    htmlType="submit"
+                    id="modalJoinMyJourneySubmitBtnId"
+                    className={styles.hugeButton}
+                    isFullWidth={false}
+                    text="Create a task"
+                  />
+                )}
               </Form.Item>
             </div>
           </Form>

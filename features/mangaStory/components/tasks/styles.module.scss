@@ -40,7 +40,7 @@ $repeat: 5;
     margin-top: 65px;
   }
 }
-.postTask{
+.postTask {
   width: 100px;
   height: 32px;
   font-size: $text4;
@@ -56,6 +56,20 @@ $repeat: 5;
   svg {
     cursor: pointer;
     margin-right: 10px;
+    @include media-sm {
+      width: 18px;
+      height: 18px;
+    }
+  }
+  button {
+    @include media-sm {
+      width: 90px;
+    }
+    & > span {
+      @include media-sm {
+        font-size: $text5;
+      }
+    }
   }
 }
 .contributeBtn {
@@ -251,6 +265,6 @@ $repeat: 5;
   }
   .createTaskButton {
     top: -25px;
-    left: 481px;
+    left: 520px;
   }
 }
