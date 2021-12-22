@@ -265,7 +265,7 @@ ModalDiscussion.propTypes = {
   title: PropTypes.string.isRequired,
   logo: PropTypes.string.isRequired,
   img: PropTypes.string,
-  url: PropTypes.string.isRequired,
+  url: PropTypes.string,
   likesCount: PropTypes.number,
   commentsData: PropTypes.array,
   user: PropTypes.object,
@@ -283,4 +283,5 @@ ModalDiscussion.defaultProps = {
   likesCount: 0,
   subTitle: '',
   ifVideo: true,
+  url: '',
 };
