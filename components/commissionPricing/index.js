@@ -274,16 +274,18 @@ export const CommissionPricing = ({ id, user }) => {
                   {errMessage && <p>{errMessage}</p>}
                 </div>
               )} */}
-              <AddButton
-                width="25px"
-                height="25px"
-                onClick={() => {
-                  setAddMore(true);
-                  add();
-                }}
-                className={styles.addCommission}
-                text={'Add commission'}
-              />
+              {canEdit && (
+                <AddButton
+                  width="25px"
+                  height="25px"
+                  onClick={() => {
+                    setAddMore(true);
+                    add();
+                  }}
+                  className={styles.addCommission}
+                  text={'Add commission'}
+                />
+              )}
             </div>
           </div>
         </div>

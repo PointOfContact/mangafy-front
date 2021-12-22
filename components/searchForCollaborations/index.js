@@ -49,6 +49,7 @@ const SearchForCollaborations = (props) => {
   } = props;
   const searchAPI = (search) => {
     const parsed = qs.parse(location.search);
+    parsed.page = 1;
     Router.push(
       LinkCreator.toQuery({ ...parsed, search }, '/collaborations'),
       LinkCreator.toQuery({ ...parsed, search }, '/collaborations'),
