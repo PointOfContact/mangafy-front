@@ -53,8 +53,16 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
   };
 
   const scrollToBottom = () => {
-    messageListElement.current.scrollTop = messageListElement.current.scrollHeight;
+    setTimeout(() => {
+      messageListElement.current.scrollTop = messageListElement.current.scrollHeight;
+    }, 0);
   };
+
+  useEffect(() => {
+    setTimeout(() => {
+      messageListElement.current.scrollTop = messageListElement.current.scrollHeight;
+    }, 0);
+  }, [messageList.length]);
 
   useEffect(() => {
     setMessageList(
