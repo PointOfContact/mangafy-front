@@ -11,7 +11,7 @@ import ChapterTitle from './chapterTitle';
 import ModalCreatePage from './modalCreatePage';
 import styles from './styles.module.scss';
 
-const ChapterItems = ({ chapters, setChapters, storyBoard, setStoryBoard, user }) => {
+const ChapterItems = ({ chapters, setChapters, storyBoard, setStoryBoard, user, baseData }) => {
   const [visibleModal, setVisibleModal] = useState(false);
   const [chapterItem, setChapterItem] = useState({});
   const [pageItem, setPageItem] = useState({});
@@ -60,6 +60,7 @@ const ChapterItems = ({ chapters, setChapters, storyBoard, setStoryBoard, user }
                 storyBoard={storyBoard}
                 pages={value.pages}
                 user={user}
+                baseData={baseData}
               />
             </div>
           </div>
@@ -100,6 +101,7 @@ ChapterItems.propTypes = {
   storyBoard: PropTypes.object.isRequired,
   setStoryBoard: PropTypes.func.isRequired,
   user: PropTypes.object,
+  baseData: PropTypes.object.isRequired,
 };
 
 ChapterItems.defaultProps = {

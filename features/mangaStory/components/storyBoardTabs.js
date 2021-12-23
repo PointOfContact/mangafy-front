@@ -27,7 +27,7 @@ import Preview from './preview';
 import Publish from './publish';
 
 const { TabPane } = Tabs;
-const pageArray = ['', 'plot', 'characters', 'chapters', 'upload', 'publish'];
+const pageArray = ['', 'plot', 'characters', 'chapters', 'publish'];
 
 const StoryBoardTabs = ({
   user,
@@ -276,6 +276,8 @@ const StoryBoardTabs = ({
     ];
 
     myAmplitude(data);
+    !storyBoard?.mangaUrls?.length && pageArray.splice(4, 0, 'upload');
+    console.log(pageArray, 'pageArray');
   }, []);
 
   const updateTasks = async () => {
@@ -395,6 +397,7 @@ const StoryBoardTabs = ({
             chapters={chapters}
             setChapters={setChapters}
             user={user}
+            baseData={baseData}
           />
         </TabPane>
         {/* <TabPane
@@ -495,7 +498,7 @@ const StoryBoardTabs = ({
             </span>
           }
           // disabled={!storyBoard?.mangaUrl}
-          key={!!storyBoard?.mangaUrls?.length ? 5 : 4}>
+          key={!storyBoard?.mangaUrls?.length ? 5 : 4}>
           {isShowAnimation && <span className={styles.showAnimation}></span>}
           <div className={styles.tabContent}>
             {/* {addNewButtons} */}
