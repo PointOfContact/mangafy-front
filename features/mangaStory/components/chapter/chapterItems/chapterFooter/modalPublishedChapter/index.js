@@ -18,6 +18,8 @@ const ModalPublishedChapter = ({
 }) => {
   const [copyText, setCopyText] = useState('Copy to clipboard');
 
+  const link = `https://mangafy.club/manga-story/${baseData._id}?tab=create&page=publish`;
+
   return (
     <Modal
       className={styles.modalPublishChapter}
@@ -37,16 +39,13 @@ const ModalPublishedChapter = ({
         <h2>Chapter {index + 1} published!</h2>
         <p>Get a peek and share with your friends and fans.</p>
         <div className={styles.copyView}>
-          <div
-            className={
-              styles.viewUrl
-            }>{`http://localhost:3000/manga-story/${baseData._id}?tab=create&page=publish`}</div>
+          <div className={styles.viewUrl}>{link}</div>
           <Tooltip placement="topLeft" title={copyText}>
             <div
               className={styles.copy}
               onClick={() => {
                 setCopyText('Copied');
-                copy(`http://localhost:3000/manga-story/${baseData._id}?tab=create&page=publish`);
+                copy(link);
               }}
               onMouseOut={() => setCopyText('Copy to clipboard')}>
               <SvgCopy width="18px" height="18px" alt="mangaFy copy icon" />
@@ -55,7 +54,7 @@ const ModalPublishedChapter = ({
         </div>
         <div className={styles.shareUrlContainer}>
           <ShareButtons
-            shareUrl={`http://localhost:3000/manga-story/${baseData._id}?tab=create&page=chapters`}
+            shareUrl={`https://mangafy.club/manga-story/${baseData._id}?tab=create&page=chapters`}
           />
           <p
             onClick={() => {
