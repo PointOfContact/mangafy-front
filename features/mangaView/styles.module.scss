@@ -65,6 +65,7 @@ $subLineAlpha: 0.5;
   }
   a {
     color: $black;
+    display: flex;
   }
   .imagesContainer {
     max-width: 860px;
@@ -104,6 +105,13 @@ $subLineAlpha: 0.5;
     & > div:last-child {
       margin-bottom: 20px;
     }
+  }
+  .defaultAvatar{
+    width: 42px !important;
+    height: 42px !important;
+    font-size: $text3 !important;
+    border: 1px solid;
+    position: relative;
   }
   .shareTitle {
     height: 53px;
@@ -146,7 +154,6 @@ $subLineAlpha: 0.5;
   }
   .shareButtons {
     justify-content: center;
-    margin-bottom: 20px;
   }
   .containerImages {
     position: relative;
@@ -273,12 +280,47 @@ $subLineAlpha: 0.5;
       margin-top: 20px;
     }
   }
+  .shareContainer{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    @include media-sm{
+      align-items: center;
+    }
+    .likeChapter{
+      display: flex;
+      height: 32px;
+      align-items: center;
+      padding: 0 20px;
+      background: #c5c5c5;
+      font-size: $text4;
+      color: $black;
+      border-radius: 20px;
+      svg{
+        margin-right: 5px;
+        path{
+          fill: white;
+        }
+      }
+      .likeItem{
+        path{
+          fill: $red;
+        }
+      }
+    }
+  }
   .userData {
     height: 40px;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     margin-bottom: 20px;
+    p{
+      margin: 0;
+      margin-left: 20px;
+      font-size: $text4;
+      color: $black;
+    }
     .owner {
       display: flex;
       font-size: $text4;
@@ -292,9 +334,9 @@ $subLineAlpha: 0.5;
       }
     }
     .participantsItem {
+      margin-right: -15px;
       &:nth-child(2) {
         margin-left: 10px !important;
-        margin-right: -10px !important;
       }
       img {
         border: 1px solid $grayBG !important;

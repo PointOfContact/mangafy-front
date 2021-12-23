@@ -23,12 +23,15 @@ const Publish = ({ baseData, storyBoard, chapters }) => {
     : `${client.API_ENDPOINT}/manga-view/${baseData?._id}`;
 
   const publishImage = () => {
-    if (!!baseData?.image) {
+    if (baseData?.image) {
       return `&image=${baseData?.image}`;
     }
 
     for (const element of chapters) {
       if (element.published) {
+        if (element.chapterImg) {
+          return `&image=${element.chapterImg}`;
+        }
         for (const value of element.pages) {
           if (value.imageUrl) {
             return `&image=${value.imageUrl}`;
