@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
+import { load } from '@fingerprintjs/fingerprintjs';
 import { notification, Tooltip } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
@@ -47,7 +48,29 @@ const MangaView = ({
   const [countLike, setCountLike] = useState(chapter.like);
   const [publishImage, setPublishImage] = useState('');
   const [like, setLike] = useState(false);
+  const [alreadyLiked, setAlreadyLiked] = useState(false);
+  const [participantItems, setParticipantItems] = useState([]);
+  const [chapterItems, setChapterItems] = useState([]);
   const [comments, setComments] = useState([]);
+
+  const getDeviceId = () =>
+    load()
+      .then((fpPromise) => fpPromise.get())
+      .then((result) => {
+        // This is the visitor identifier:
+        const { visitorId } = result;
+        return visitorId;
+      });
+
+  const alreadyLikedChapter = async () => {
+    const userId = !!user ? user._id : await getDeviceId();
+
+    const liked = chapter.likedUsers.some((value) => value === userId);
+    if (liked) {
+      setAlreadyLiked(liked);
+      setLike(true);
+    }
+  };
 
   useEffect(() => {
     const chapterImg = chapter?.chapterImg;
@@ -72,7 +95,10 @@ const MangaView = ({
     ];
 
     myAmplitude(data);
+    createParticipantItems();
+    createChapterItems();
     !!chapterImg ? setPublishImage(chapterImg) : setPublishImage(chapterImgFromPage);
+    alreadyLikedChapter();
   }, []);
 
   useEffect(() => {
@@ -100,63 +126,69 @@ const MangaView = ({
     }
   }, [currentChapter]);
 
-  const chapterItems = chapters?.map((value, index) => {
-    const type = value.cover.slice(-3);
-    const ifPdf = type === 'pdf' || type === '{DF';
-    const activeChapter = index + 1 === currentChapter;
-    return (
-      <div
-        key={value._id + index}
-        className={cn(styles.itemChapters, activeChapter && styles.activeChapter)}
-        onClick={() => {
-          const dataEvent = [
-            {
-              event_type: EVENTS.CHOOSE_VIEW_CHAPTER,
-              event_properties: { chapter },
-            },
-          ];
-          myAmplitude(dataEvent);
-          setCurrentChapter(index + 1);
-        }}>
-        {ifPdf ? (
-          <PDFViewer url={client.UPLOAD_URL + value.cover} />
-        ) : (
-          <Imgix
-            width={100}
-            height={100}
-            src={client.UPLOAD_URL + value.cover}
-            alt="MangaFy chapter image"
-          />
-        )}
-        <p>CH {index + 1}</p>
-        <div className={styles.opacity} />
-      </div>
+  const createParticipantItems = () => {
+    const items = participants.map(
+      (value, index) =>
+        index < 6 && (
+          <Tooltip key={value._id + index} placement="top" title={value.name} arrowPointAtCenter>
+            <div className={styles.participantsItem}>
+              <Link href={`/profile/${value._id}`}>
+                <a>
+                  {value.avatar ? (
+                    <Imgix
+                      width={40}
+                      height={40}
+                      src={client.UPLOAD_URL + value.avatar}
+                      alt={'MangaFy participants image'}
+                    />
+                  ) : (
+                    <Avatar className={styles.defaultAvatar} text={value.name} size={69} />
+                  )}
+                </a>
+              </Link>
+            </div>
+          </Tooltip>
+        )
     );
-  });
+    setParticipantItems(items);
+  };
 
-  const participantItems = participants.map(
-    (value, index) =>
-      index < 6 && (
-        <Tooltip key={value._id + index} placement="top" title={value.name} arrowPointAtCenter>
-          <div className={styles.participantsItem}>
-            <Link href={`/profile/${value._id}`}>
-              <a>
-                {value.avatar ? (
-                  <Imgix
-                    width={40}
-                    height={40}
-                    src={client.UPLOAD_URL + value.avatar}
-                    alt={'MangaFy participants image'}
-                  />
-                ) : (
-                  <Avatar className={styles.defaultAvatar} text={value.name} size={69} />
-                )}
-              </a>
-            </Link>
-          </div>
-        </Tooltip>
-      )
-  );
+  const createChapterItems = () => {
+    const items = chapters?.map((value, index) => {
+      const type = value.cover.slice(-3);
+      const ifPdf = type === 'pdf' || type === '{DF';
+      const activeChapter = index + 1 === currentChapter;
+      return (
+        <div
+          key={value._id + index}
+          className={cn(styles.itemChapters, activeChapter && styles.activeChapter)}
+          onClick={() => {
+            const dataEvent = [
+              {
+                event_type: EVENTS.CHOOSE_VIEW_CHAPTER,
+                event_properties: { chapter },
+              },
+            ];
+            myAmplitude(dataEvent);
+            setCurrentChapter(index + 1);
+          }}>
+          {ifPdf ? (
+            <PDFViewer url={client.UPLOAD_URL + value.cover} />
+          ) : (
+            <Imgix
+              width={100}
+              height={100}
+              src={client.UPLOAD_URL + value.cover}
+              alt="MangaFy chapter image"
+            />
+          )}
+          <p>CH {index + 1}</p>
+          <div className={styles.opacity} />
+        </div>
+      );
+    });
+    setChapterItems(items);
+  };
 
   const shareUrl = !!getNameViewUrl
     ? `https://${getNameViewUrl}.mangafy.club`
@@ -172,24 +204,52 @@ const MangaView = ({
     myAmplitude(dataEvent);
   };
 
-  const likeChapter = () => {
-    const likeCount = !!chapter.like ? chapters.like : 0;
+  const returnLikedData = async () => {
+    const userId = !!user ? user._id : await getDeviceId();
+
     const data = {
-      like: likeCount + 1,
+      chapterId: chapter._id,
     };
 
+    if (alreadyLiked) {
+      const deleteUserId = chapter.likedUsers.filter((value) => value !== userId);
+      chapter.likedUsers = deleteUserId;
+      data.like = 'decrement';
+      data.likedUsers = deleteUserId;
+      setCountLike(countLike - 1);
+    } else {
+      data.like = 'increment';
+      data.likedUsers = [...chapter.likedUsers, userId];
+      setCountLike(countLike + 1);
+    }
+
+    return data;
+  };
+
+  const changeStateLiked = () => {
+    if (alreadyLiked) {
+      setLike(false);
+      setAlreadyLiked(false);
+    } else {
+      setLike(true);
+      setAlreadyLiked(true);
+    }
+  };
+
+  const likeChapter = async () => {
     const jwt = client.getCookie('feathers-jwt');
+
+    const data = await returnLikedData();
 
     import('api/restClient').then((m) => {
       m.default
-        .service('/api/v2/chapters')
-        .patch(chapter._id, data, {
+        .service('/api/v2/chapter-like')
+        .create(data, {
           headers: { Authorization: `Bearer ${jwt}` },
           mode: 'no-cors',
         })
-        .then((res) => {
-          setLike(true);
-          setCountLike(res.like);
+        .then(() => {
+          changeStateLiked();
         })
         .catch((err) => {
           notification.error({
@@ -262,7 +322,7 @@ const MangaView = ({
                 width={20}
                 height={20}
               />
-              {countLike} Like
+              {!!countLike ? `${countLike} Likes` : 'Like'}
             </span>
             <ShareButtons
               className={styles.shareButtons}
@@ -280,7 +340,7 @@ const MangaView = ({
               </a>
             </Link>
             {participantItems}
-            <p> + {participants.length - 6} participants</p>
+            <p> {participants.length > 6 && `+ ${participants.length - 6}`} participants</p>
           </div>
           <div className={styles.commentContainerMenu}>
             {payPalPublished && (
