@@ -46,13 +46,14 @@ const MangaView = ({
   const chapter = chapters[currentChapter - 1];
   const [images, setImages] = useState([]);
   const [countLike, setCountLike] = useState(chapter.like);
-  const [publishImage, setPublishImage] = useState('');
   const [like, setLike] = useState(false);
   const [alreadyLiked, setAlreadyLiked] = useState(false);
   const [participantItems, setParticipantItems] = useState([]);
   const [chapterItems, setChapterItems] = useState([]);
   const [comments, setComments] = useState([]);
   const [deviceId, setDeviceId] = useState('');
+
+  const chapterImg = chapter?.chapterImg;
 
   const alreadyLikedChapter = async () => {
     const userId = !!user ? user._id : deviceId;
@@ -65,9 +66,6 @@ const MangaView = ({
   };
 
   useEffect(() => {
-    const chapterImg = chapter?.chapterImg;
-    const chapterImgFromPage = chapter?.mangaUrls[0];
-
     client
       .service('/api/v2/comments')
       .find({
@@ -89,7 +87,6 @@ const MangaView = ({
     myAmplitude(data);
     createParticipantItems();
     createChapterItems();
-    !!chapterImg ? setPublishImage(chapterImg) : setPublishImage(chapterImgFromPage);
     alreadyLikedChapter();
     getDeviceId(setDeviceId);
   }, []);
@@ -292,7 +289,9 @@ const MangaView = ({
           description: mangaStoryTitle,
           images: [
             {
-              url: `https://mangafy.club/api/v2/uploads/${publishImage}`,
+              url: `https://mangafy.club/api/v2/uploads/${
+                !!chapterImg ? chapterImg : chapter?.mangaUrls[0]
+              }`,
               width: 800,
               height: 600,
               alt: 'Manga Story Image',
@@ -308,7 +307,9 @@ const MangaView = ({
           cardType: 'summary_large_image',
           images: [
             {
-              url: `https://mangafy.club/api/v2/uploads/${publishImage}`,
+              url: `https://mangafy.club/api/v2/uploads/${
+                !!chapterImg ? chapterImg : chapter?.mangaUrls[0]
+              }`,
               width: 800,
               height: 600,
               alt: 'Manga Story Image',
