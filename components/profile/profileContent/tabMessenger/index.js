@@ -85,7 +85,8 @@ const TabMessenger = (props) => {
             setArcRequests(false);
           }
           if (newRequests.length) {
-            setRequests(newRequests);
+            const getExistData = newRequests.filter((value) => !!value.senderInfo);
+            setRequests(getExistData);
             const { conversation } = qs.parse(window.location.search);
             const thisConv = newRequests.find((r) => r._id === conversation);
             let newSelectedRequest = {};
