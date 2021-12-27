@@ -137,8 +137,7 @@ const ChapterFooter = ({
   const content = () => (
     <div className={styles.menuChapter}>
       {showView ? (
-        <Link
-          href={`/manga-view/${storyBoard?._id}?deviceId=${deviceId}&chapter=${indexChapterView}`}>
+        <Link href={`/manga-view/${storyBoard?._id}?chapter=${indexChapterView}`}>
           <a onClick={viewClick} target="_blank">
             View
           </a>

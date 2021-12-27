@@ -113,13 +113,9 @@ const MangaView = ({
 
     setImages(chapterImages);
     if (!getNameViewUrl) {
-      router.push(
-        `/manga-view/${storyBoardId}?deviceId=${deviceId}&chapter=${currentChapter}`,
-        undefined,
-        {
-          shallow: true,
-        }
-      );
+      router.push(`/manga-view/${storyBoardId}?chapter=${currentChapter}`, undefined, {
+        shallow: true,
+      });
     }
     client.service(`/api/v2/manga-view`).get(storyBoardId, {
       query: {
@@ -195,7 +191,7 @@ const MangaView = ({
 
   const shareUrl = !!getNameViewUrl
     ? `https://${getNameViewUrl}.mangafy.club`
-    : `https://mangafy.club/manga-view/${storyBoardId}?deviceId=${deviceId}&chapter=${currentChapter}`;
+    : `https://mangafy.club/manga-view/${storyBoardId}?chapter=${currentChapter}`;
 
   const shareClick = () => {
     const dataEvent = [
