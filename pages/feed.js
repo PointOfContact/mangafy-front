@@ -13,11 +13,16 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
     const gallery = await client.service('/api/v2/gallery').find({ query: { count: 8 } });
     let queryPosts;
     if (!!query.type) {
+      let type;
+      if (Object.keys(query)) {
+        type = [{ postType: query.type }];
+      } else {
+        type = query.type.map((value) => ({ postType: value }));
+      }
+
       queryPosts = {
         $limit: 7,
-        postType: {
-          $in: query.type,
-        },
+        $or: type,
       };
     } else {
       queryPosts = {

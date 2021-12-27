@@ -134,6 +134,7 @@ export default function LandingNew(props) {
             user={user}
             postId={selectedPost._id}
             likesCount={selectedPost.likesCount}
+            ifVideo={selectedPost.imageUrl?.includes('.mp4')}
             logoNavigate={selectedPost.logoNavigate}
           />
         )}
