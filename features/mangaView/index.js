@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 
-import { load } from '@fingerprintjs/fingerprintjs';
 import { notification, Tooltip } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
@@ -20,6 +19,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import myAmplitude from 'utils/amplitude';
+import getDeviceId from 'utils/deviceId';
 
 import styles from './styles.module.scss';
 import ViewHeader from './viewHeader';
@@ -52,18 +52,10 @@ const MangaView = ({
   const [participantItems, setParticipantItems] = useState([]);
   const [chapterItems, setChapterItems] = useState([]);
   const [comments, setComments] = useState([]);
-
-  const getDeviceId = () =>
-    load()
-      .then((fpPromise) => fpPromise.get())
-      .then((result) => {
-        // This is the visitor identifier:
-        const { visitorId } = result;
-        return visitorId;
-      });
+  const [deviceId, setDeviceId] = useState('');
 
   const alreadyLikedChapter = async () => {
-    const userId = !!user ? user._id : await getDeviceId();
+    const userId = !!user ? user._id : deviceId;
 
     const liked = chapter.likedUsers.some((value) => value === userId);
     if (liked) {
@@ -99,6 +91,7 @@ const MangaView = ({
     createChapterItems();
     !!chapterImg ? setPublishImage(chapterImg) : setPublishImage(chapterImgFromPage);
     alreadyLikedChapter();
+    getDeviceId(setDeviceId);
   }, []);
 
   useEffect(() => {
@@ -120,11 +113,21 @@ const MangaView = ({
 
     setImages(chapterImages);
     if (!getNameViewUrl) {
-      router.push(`/manga-view/${storyBoardId}?chapter=${currentChapter}`, undefined, {
-        shallow: true,
-      });
+      router.push(
+        `/manga-view/${storyBoardId}?deviceId=${deviceId}&chapter=${currentChapter}`,
+        undefined,
+        {
+          shallow: true,
+        }
+      );
     }
-  }, [currentChapter]);
+    client.service(`/api/v2/manga-view`).get(storyBoardId, {
+      query: {
+        storyBoardId,
+        deviceId,
+      },
+    });
+  }, [currentChapter, deviceId]);
 
   const createParticipantItems = () => {
     const items = participants.map(
@@ -192,7 +195,7 @@ const MangaView = ({
 
   const shareUrl = !!getNameViewUrl
     ? `https://${getNameViewUrl}.mangafy.club`
-    : `https://mangafy.club/manga-view/${storyBoardId}?chapter=${currentChapter}`;
+    : `https://mangafy.club/manga-view/${storyBoardId}?deviceId=${deviceId}&chapter=${currentChapter}`;
 
   const shareClick = () => {
     const dataEvent = [
@@ -205,7 +208,7 @@ const MangaView = ({
   };
 
   const returnLikedData = async () => {
-    const userId = !!user ? user._id : await getDeviceId();
+    const userId = !!user ? user._id : deviceId;
 
     const data = {
       chapterId: chapter._id,
@@ -261,6 +264,25 @@ const MangaView = ({
     });
   };
 
+  const chapterRatings = (
+    <div className={styles.footerRatings}>
+      <div className={styles.chapterRating}>
+        <SvgHeart
+          className={like && styles.likeItem}
+          onClick={likeChapter}
+          width={20}
+          height={20}
+        />
+        {!!countLike ? `${countLike}` : ''}
+      </div>
+      <div className={styles.chapterRating}>
+        <p className={styles.viewCount}>
+          <span>Views</span> {!!chapter.view ? chapter.view : ''}
+        </p>
+      </div>
+    </div>
+  );
+
   return (
     <>
       <NextSeo
@@ -315,7 +337,7 @@ const MangaView = ({
             Share this series and show support for the creator!
           </p>
           <div className={styles.shareContainer}>
-            <span className={styles.likeChapter}>
+            <div className={styles.chapterRating}>
               <SvgHeart
                 className={like && styles.likeItem}
                 onClick={likeChapter}
@@ -323,7 +345,10 @@ const MangaView = ({
                 height={20}
               />
               {!!countLike ? `${countLike} Likes` : 'Like'}
-            </span>
+            </div>
+            <div className={styles.chapterRating}>
+              {!!chapter.view ? `${chapter.view} Views` : 'View'}
+            </div>
             <ShareButtons
               className={styles.shareButtons}
               shareUrl={shareUrl}
@@ -364,6 +389,7 @@ const MangaView = ({
         <div className={styles.footer}>
           <div className={styles.chaptersItems}>{chapterItems}</div>
           <div className={styles.paginationContainer}>
+            {chapterRatings}
             <Pagination
               currentNumber={currentChapter}
               setCurrentNumber={setCurrentChapter}
