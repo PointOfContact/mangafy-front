@@ -49,13 +49,22 @@ export default function TypePage({
 
   const showMore = async () => {
     setIsLoading(true);
+    let type;
+    if (Object.keys(query)) {
+      type = [{ postType: query }];
+    } else {
+      type = query.type.map((value) => ({ postType: value }));
+    }
+
     const queryData = {
       $limit: 7,
       $skip: discussions.length,
       $sort: {
         createdAt: -1,
       },
+      $or: type,
     };
+
     try {
       const newPosts = await client.service('/api/v2/posts').find({
         query: queryData,
@@ -82,9 +91,9 @@ export default function TypePage({
 
   const defaultValue = typeof query === 'string' ? [query] : query;
 
-  const postElements = discussions.map((discussion) => (
+  const postElements = discussions.map((discussion, i) => (
     <DiscussionCard
-      key={discussion._id}
+      key={discussion._id + i}
       id={discussion._id}
       logo={discussion.logoUrl}
       title={discussion.title}
