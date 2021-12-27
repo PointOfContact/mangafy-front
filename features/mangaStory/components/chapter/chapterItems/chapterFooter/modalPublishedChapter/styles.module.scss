@@ -1,0 +1,115 @@
+@import '../../../../../../../styles/variables.scss';
+
+.modalPublishChapter {
+  width: 550px !important;
+  margin-top: 20px !important;
+  & > div {
+    border-radius: 10px;
+    & > div {
+      border-radius: 10px;
+      padding: 38px 13px;
+    }
+  }
+  .close {
+    background-color: $primaryDark;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    margin-top: 15px;
+    &:hover {
+      background-color: $primaryLight;
+    }
+    svg {
+      width: 14px;
+      height: 14px;
+      path {
+        fill: white;
+      }
+    }
+  }
+  .container {
+    h2 {
+      font-style: normal;
+      font-weight: bold;
+      font-size: 28px;
+      line-height: 32px;
+      color: $black;
+      @include media-sm {
+        font-size: 22px;
+      }
+    }
+    p {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 20px;
+      color: $gray85;
+      margin-bottom: $text4;
+      @include media-sm {
+        font-size: $text4;
+      }
+    }
+    .copyView {
+      display: flex;
+      margin-bottom: $text4;
+      .viewUrl {
+        width: 100%;
+        min-height: 44px;
+        border-radius: 5px;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        background-color: white;
+        border: 1px solid $primaryDark;
+        border-right: none;
+        padding-left: 13px;
+        font-style: normal;
+        font-weight: 500;
+        font-size: $text4;
+        line-height: 26px;
+        color: $gray85;
+        cursor: pointer;
+        @include media-sm {
+            font-size: $text5;
+            line-height: 20px;
+          }
+      }
+      .copy {
+        width: 40px;
+        min-height: 100%;
+        border: 1px solid $primaryDark;
+        border-left: none;
+        border-radius: 5px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        path {
+          fill: $gray85;
+        }
+      }
+    }
+    .shareUrlContainer {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      p {
+        margin: 0;
+        font-style: normal;
+        font-weight: normal;
+        font-size: $text4;
+        line-height: 22px;
+        color: $black;
+        border-bottom: 1px solid $black;
+        cursor: pointer;
+      }
+    }
+  }
+}

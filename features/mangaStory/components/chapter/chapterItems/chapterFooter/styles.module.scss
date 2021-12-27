@@ -42,14 +42,14 @@
     }
   }
 }
-.upload > div{
+.upload > div {
   border: 1px solid;
   width: auto !important;
   height: auto !important;
-  margin: 0 !important; 
+  margin: 0 !important;
   background-color: white !important;
   border: none !important;
-  &:hover{
+  &:hover {
     & > span {
       color: $black;
     }

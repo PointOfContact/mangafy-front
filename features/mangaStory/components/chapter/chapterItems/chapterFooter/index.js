@@ -12,6 +12,7 @@ import PropTypes from 'prop-types';
 import myAmplitude from 'utils/amplitude';
 import beforeUploadFromAMZ from 'utils/upload';
 
+import ModalPublishedChapter from './modalPublishedChapter';
 import styles from './styles.module.scss';
 
 const ChapterFooter = ({
@@ -23,15 +24,26 @@ const ChapterFooter = ({
   storyBoard,
   pages,
   user,
+  baseData,
 }) => {
   const [publish, setPublish] = useState(!!value.published);
   const [mangaUrl, setMangaUrl] = useState([]);
   const [indexChapterView, setIndexChapterView] = useState(1);
+  const [openPublishedModal, setOpenPublishedModal] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const publishedRef = useRef(null);
 
   useEffect(() => {
     publishedRef.current.checked = value?.published;
   }, []);
+
+  useEffect(() => {
+    const chapterPublished = chapters.some((item) => item.published);
+
+    if (!chapterPublished) {
+      setOpenPublishedModal(!chapterPublished);
+    }
+  }, [publish]);
 
   useEffect(() => {
     setMangaUrl(value?.pages?.some((item) => !!item.imageUrl === true));
@@ -183,6 +195,8 @@ const ChapterFooter = ({
     ];
 
     if (publishedValue) {
+      setIsModalVisible(true);
+      setOpenPublishedModal(false);
       dataEvent[0].event_type = EVENTS.PUBLISHED_CHAPTER;
     } else {
       dataEvent[0].event_type = EVENTS.DRAFT_CHAPTER;
@@ -212,6 +226,15 @@ const ChapterFooter = ({
       <Popover placement="topLeft" content={content(value, index)} trigger="click">
         <SvgMobileMenu width="20px" height="20px" />
       </Popover>
+      {openPublishedModal && (
+        <ModalPublishedChapter
+          index={index}
+          isModalVisible={isModalVisible}
+          setOpenPublishedModal={setOpenPublishedModal}
+          setIsModalVisible={setIsModalVisible}
+          baseData={baseData}
+        />
+      )}
     </div>
   );
 };
@@ -225,6 +248,7 @@ ChapterFooter.propTypes = {
   storyBoard: PropTypes.object.isRequired,
   pages: PropTypes.array.isRequired,
   user: PropTypes.object,
+  baseData: PropTypes.object.isRequired,
 };
 
 ChapterFooter.defaultProps = {

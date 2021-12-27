@@ -111,7 +111,7 @@ const ViewUrlName = ({ baseData, onChangeSingleField, sendEvent, storyBoard }) =
         <div className={styles.viewUrl}>
           {ifCustomSubdomain
             ? `https://${!!viewUrlName ? viewUrlName : '?'}.mangafy.club`
-            : `https://mangafy-club/manga-view/${storyBoard?._id}`}
+            : `https://mangafy.club/manga-view/${storyBoard?._id}`}
         </div>
 
         <Tooltip placement="topLeft" title={copyText}>
@@ -122,7 +122,7 @@ const ViewUrlName = ({ baseData, onChangeSingleField, sendEvent, storyBoard }) =
               copy(
                 ifCustomSubdomain
                   ? `https://${!!viewUrlName ? viewUrlName : '?'}.mangafy.club`
-                  : `https://mangafy-club/manga-view/${storyBoard?._id}`
+                  : `https://mangafy.club/manga-view/${storyBoard?._id}`
               );
             }}
             onMouseOut={() => setCopyText('Copy to clipboard')}>
