@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 
-import { Tooltip } from 'antd';
+import { load } from '@fingerprintjs/fingerprintjs';
+import { notification, Tooltip } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
 import { Comments } from 'components/comments';
 import FooterPolicy from 'components/footer-policy';
+import SvgHeart from 'components/icon/Heart';
 import Imgix from 'components/imgix';
 import { ShareButtons } from 'components/share';
+import Avatar from 'components/ui-elements/avatar';
 import ButtonToTop from 'components/ui-elements/button-toTop';
 import BuyBubbleTea from 'components/ui-elements/buyBubbleTea';
 import Pagination from 'components/ui-elements/pagination';
@@ -40,10 +43,39 @@ const MangaView = ({
   const router = useRouter();
   const currentChapterNumber = +router.query.chapter;
   const [currentChapter, setCurrentChapter] = useState(currentChapterNumber || 1);
+  const chapter = chapters[currentChapter - 1];
   const [images, setImages] = useState([]);
+  const [countLike, setCountLike] = useState(chapter.like);
+  const [publishImage, setPublishImage] = useState('');
+  const [like, setLike] = useState(false);
+  const [alreadyLiked, setAlreadyLiked] = useState(false);
+  const [participantItems, setParticipantItems] = useState([]);
+  const [chapterItems, setChapterItems] = useState([]);
   const [comments, setComments] = useState([]);
 
+  const getDeviceId = () =>
+    load()
+      .then((fpPromise) => fpPromise.get())
+      .then((result) => {
+        // This is the visitor identifier:
+        const { visitorId } = result;
+        return visitorId;
+      });
+
+  const alreadyLikedChapter = async () => {
+    const userId = !!user ? user._id : await getDeviceId();
+
+    const liked = chapter.likedUsers.some((value) => value === userId);
+    if (liked) {
+      setAlreadyLiked(liked);
+      setLike(true);
+    }
+  };
+
   useEffect(() => {
+    const chapterImg = chapter?.chapterImg;
+    const chapterImgFromPage = chapter?.mangaUrls[0];
+
     client
       .service('/api/v2/comments')
       .find({
@@ -63,10 +95,14 @@ const MangaView = ({
     ];
 
     myAmplitude(data);
+    createParticipantItems();
+    createChapterItems();
+    !!chapterImg ? setPublishImage(chapterImg) : setPublishImage(chapterImgFromPage);
+    alreadyLikedChapter();
   }, []);
 
   useEffect(() => {
-    const getCurrentMangaUrls = chapters[currentChapter - 1].mangaUrls;
+    const getCurrentMangaUrls = chapter.mangaUrls;
     const chapterImages = getCurrentMangaUrls.map((value) => {
       const imgType = !!value.imageUrl ? value.imageUrl.slice(-3) : value.slice(-3);
       const ifPdf = imgType === 'pdf' || imgType === 'PDF';
@@ -90,56 +126,69 @@ const MangaView = ({
     }
   }, [currentChapter]);
 
-  const chapterItems = chapters?.map((value, index) => {
-    const type = value.cover.slice(-3);
-    const ifPdf = type === 'pdf' || type === '{DF';
-    const activeChapter = index + 1 === currentChapter;
-    return (
-      <div
-        key={value._id + index}
-        className={cn(styles.itemChapters, activeChapter && styles.activeChapter)}
-        onClick={() => {
-          const dataEvent = [
-            {
-              event_type: EVENTS.CHOOSE_VIEW_CHAPTER,
-              event_properties: { chapter: chapters[currentChapter - 1] },
-            },
-          ];
-          myAmplitude(dataEvent);
-          setCurrentChapter(index + 1);
-        }}>
-        {ifPdf ? (
-          <PDFViewer url={client.UPLOAD_URL + value.cover} />
-        ) : (
-          <Imgix
-            width={100}
-            height={100}
-            src={client.UPLOAD_URL + value.cover}
-            alt="MangaFy chapter image"
-          />
-        )}
-        <p>CH {index + 1}</p>
-        <div className={styles.opacity} />
-      </div>
+  const createParticipantItems = () => {
+    const items = participants.map(
+      (value, index) =>
+        index < 6 && (
+          <Tooltip key={value._id + index} placement="top" title={value.name} arrowPointAtCenter>
+            <div className={styles.participantsItem}>
+              <Link href={`/profile/${value._id}`}>
+                <a>
+                  {value.avatar ? (
+                    <Imgix
+                      width={40}
+                      height={40}
+                      src={client.UPLOAD_URL + value.avatar}
+                      alt={'MangaFy participants image'}
+                    />
+                  ) : (
+                    <Avatar className={styles.defaultAvatar} text={value.name} size={69} />
+                  )}
+                </a>
+              </Link>
+            </div>
+          </Tooltip>
+        )
     );
-  });
+    setParticipantItems(items);
+  };
 
-  const participantItems = participants.map((value, index) => (
-    <Tooltip key={value._id + index} placement="top" title={value.name} arrowPointAtCenter>
-      <div className={styles.participantsItem} style={{ marginLeft: `-${(index + 1) * 4}px` }}>
-        <Link href={`/profile/${value._id}`}>
-          <a>
+  const createChapterItems = () => {
+    const items = chapters?.map((value, index) => {
+      const type = value.cover.slice(-3);
+      const ifPdf = type === 'pdf' || type === '{DF';
+      const activeChapter = index + 1 === currentChapter;
+      return (
+        <div
+          key={value._id + index}
+          className={cn(styles.itemChapters, activeChapter && styles.activeChapter)}
+          onClick={() => {
+            const dataEvent = [
+              {
+                event_type: EVENTS.CHOOSE_VIEW_CHAPTER,
+                event_properties: { chapter },
+              },
+            ];
+            myAmplitude(dataEvent);
+            setCurrentChapter(index + 1);
+          }}>
+          {ifPdf ? (
+            <PDFViewer url={client.UPLOAD_URL + value.cover} />
+          ) : (
             <Imgix
-              width={40}
-              height={40}
-              src={client.UPLOAD_URL + value.avatar}
-              alt={'MangaFy participants image'}
+              width={100}
+              height={100}
+              src={client.UPLOAD_URL + value.cover}
+              alt="MangaFy chapter image"
             />
-          </a>
-        </Link>
-      </div>
-    </Tooltip>
-  ));
+          )}
+          <p>CH {index + 1}</p>
+          <div className={styles.opacity} />
+        </div>
+      );
+    });
+    setChapterItems(items);
+  };
 
   const shareUrl = !!getNameViewUrl
     ? `https://${getNameViewUrl}.mangafy.club`
@@ -149,28 +198,83 @@ const MangaView = ({
     const dataEvent = [
       {
         event_type: EVENTS.SHARE_VIEW_PAGE,
-        event_properties: { chapter: chapters[currentChapter - 1] },
+        event_properties: { chapter },
       },
     ];
     myAmplitude(dataEvent);
   };
 
+  const returnLikedData = async () => {
+    const userId = !!user ? user._id : await getDeviceId();
+
+    const data = {
+      chapterId: chapter._id,
+    };
+
+    if (alreadyLiked) {
+      const deleteUserId = chapter.likedUsers.filter((value) => value !== userId);
+      chapter.likedUsers = deleteUserId;
+      data.like = 'decrement';
+      data.likedUsers = deleteUserId;
+      setCountLike(countLike - 1);
+    } else {
+      data.like = 'increment';
+      data.likedUsers = [...chapter.likedUsers, userId];
+      setCountLike(countLike + 1);
+    }
+
+    return data;
+  };
+
+  const changeStateLiked = () => {
+    if (alreadyLiked) {
+      setLike(false);
+      setAlreadyLiked(false);
+    } else {
+      setLike(true);
+      setAlreadyLiked(true);
+    }
+  };
+
+  const likeChapter = async () => {
+    const jwt = client.getCookie('feathers-jwt');
+
+    const data = await returnLikedData();
+
+    import('api/restClient').then((m) => {
+      m.default
+        .service('/api/v2/chapter-like')
+        .create(data, {
+          headers: { Authorization: `Bearer ${jwt}` },
+          mode: 'no-cors',
+        })
+        .then(() => {
+          changeStateLiked();
+        })
+        .catch((err) => {
+          notification.error({
+            message: err.message,
+            placement: 'bottomLeft',
+          });
+          return err;
+        });
+    });
+  };
+
   return (
     <>
       <NextSeo
-        title={`MangaFY is happy to introduce my latest graphic novel project, entitled ${mangaStoryTitle}.`}
-        description="MangaFY is an easy to use application that features tools for
-                   authors who wish to create manga and comics for digital publication"
+        title={`MangaFY - Collaborate, Create and Publish`}
+        description={`${mangaStoryTitle}`}
         canonical={`https://mangafy.club/manga-view/${storyBoardId}`}
         openGraph={{
+          type: 'Mangafy-story',
           url: shareUrl,
-          title: `MangaFY is happy to introduce my latest graphic novel project, entitled ${mangaStoryTitle}.`,
-          description:
-            'MangaFY is an easy to use application that features tools for ' +
-            'authors who wish to create manga and comics for digital publication',
+          title: `MangaFY - Collaborate, Create and Publish`,
+          description: mangaStoryTitle,
           images: [
             {
-              url: images?.length ? `https://mangafy.club/api/v2/uploads/${images[0]}` : '',
+              url: `https://mangafy.club/api/v2/uploads/${publishImage}`,
               width: 800,
               height: 600,
               alt: 'Manga Story Image',
@@ -179,9 +283,19 @@ const MangaView = ({
           site_name: 'MangaFY',
         }}
         twitter={{
+          title: 'MangaFY - Collaborate, Create and Publish',
+          description: `${mangaStoryTitle}`,
           handle: '@handle',
           site: '@site',
           cardType: 'summary_large_image',
+          images: [
+            {
+              url: `https://mangafy.club/api/v2/uploads/${publishImage}`,
+              width: 800,
+              height: 600,
+              alt: 'Manga Story Image',
+            },
+          ],
         }}
       />
       <div className={styles.containerPreview}>
@@ -200,7 +314,22 @@ const MangaView = ({
           <p className={styles.shareDescription}>
             Share this series and show support for the creator!
           </p>
-          <ShareButtons className={styles.shareButtons} shareUrl={shareUrl} onClick={shareClick} />
+          <div className={styles.shareContainer}>
+            <span className={styles.likeChapter}>
+              <SvgHeart
+                className={like && styles.likeItem}
+                onClick={likeChapter}
+                width={20}
+                height={20}
+              />
+              {!!countLike ? `${countLike} Likes` : 'Like'}
+            </span>
+            <ShareButtons
+              className={styles.shareButtons}
+              shareUrl={shareUrl}
+              onClick={shareClick}
+            />
+          </div>
           <div className={styles.userData}>
             <Link href={`/profile/${userData[0]._id}`}>
               <a>
@@ -211,13 +340,14 @@ const MangaView = ({
               </a>
             </Link>
             {participantItems}
+            <p> {participants.length > 6 && `+ ${participants.length - 6}`} participants</p>
           </div>
           <div className={styles.commentContainerMenu}>
             {payPalPublished && (
               <BuyBubbleTea
                 payPalEmail={userData.payPalEmail}
                 createAmplitude={true}
-                chapter={chapters[currentChapter - 1]}
+                chapter={chapter}
                 mangaStoryId={mangaStoryId}
                 user={user}
               />
@@ -227,7 +357,7 @@ const MangaView = ({
               mangaStory={{ _id: mangaStoryId }}
               user={user}
               viewPage={true}
-              chapter={chapters[currentChapter - 1]}
+              chapter={chapter}
             />
           </div>
         </div>
@@ -248,14 +378,14 @@ const MangaView = ({
                 mangaStory={{ _id: mangaStoryId }}
                 user={user}
                 viewPage={true}
-                chapter={chapters[currentChapter - 1]}
+                chapter={chapter}
               />
             </div>
             {payPalPublished && (
               <BuyBubbleTea
                 payPalEmail={userData.payPalEmail}
                 createAmplitude={true}
-                chapter={chapters[currentChapter - 1]}
+                chapter={chapter}
                 mangaStoryId={mangaStoryId}
                 user={user}
               />

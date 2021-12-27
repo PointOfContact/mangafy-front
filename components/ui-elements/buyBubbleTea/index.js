@@ -16,17 +16,14 @@ const BuyBubbleTea = ({ payPalEmail, createAmplitude, chapter, mangaStoryId, use
   const [valueCheckbox, setValueCheckbox] = React.useState('');
 
   const onChangeRadio = (e) => {
-    console.log('radio checked', e.target.value);
     setValueRadio(e.target.value);
   };
 
   const onChangeDescription = (e) => {
-    console.log('textArea checked', e.target.value);
     setValueDescription(e.target.value);
   };
 
   const onChangeCheckbox = (e) => {
-    console.log('checkbox', e.target.value);
     setValueCheckbox(e.target.value);
   };
 
