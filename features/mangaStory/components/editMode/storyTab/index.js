@@ -6,6 +6,7 @@ import cn from 'classnames';
 import Imgix from 'components/imgix';
 import Modal from 'components/modals/joinToTeam';
 import Avatar from 'components/ui-elements/avatar';
+import ShowSomeData from 'components/ui-elements/showSomeData';
 import mangaStoryAPI from 'features/mangaStory/mangaStoryAPI';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -34,6 +35,7 @@ const StoryTab = ({
 
   const leaveManga = (participantId) => {
     const newParticipantsData = participents.filter((value) => value !== participantId);
+
     return mangaStoryAPI.storyTab.leaveManga(
       newParticipantsData,
       participantId,
@@ -132,7 +134,7 @@ const StoryTab = ({
                     id={_id}
                     type={type}
                     types={types}
-                    leaveManga={leaveManga}
+                    leaveManga={() => leaveManga(_id)}
                     user={user}
                     author={author}
                   />
@@ -140,7 +142,7 @@ const StoryTab = ({
                 trigger="click">
                 {index < 6 && (
                   <Tooltip placement="topLeft" title={name} arrowPointAtCenter>
-                    <div className={styles.participentInfo}>
+                    <div className={styles.participantInfo}>
                       {avatar ? (
                         <Imgix
                           className={styles.participantImage}
@@ -157,9 +159,12 @@ const StoryTab = ({
                 )}
               </Popover>
             ))}
-          {participantsData.length > 5 && (
-            <p className={styles.participantsCount}>+ {participantsData.length - 5} participants</p>
-          )}
+          <ShowSomeData
+            participantsData={participantsData}
+            size={40}
+            leaveManga={leaveManga}
+            deleteButton={true}
+          />
         </div>
       </div>
       <Modal
