@@ -14,7 +14,6 @@ import 'react-chat-elements/dist/main.css';
 export const Chat = ({ mangaStory, user, isOwn, collabActiveTab }) => {
   const [selectedRequest, setSelectedRequest] = useState(null);
   const [conversation, setConversation] = useState({});
-  const [requests, setRequests] = useState([]);
 
   const openNotification = (type, message) => {
     notification[type]({
