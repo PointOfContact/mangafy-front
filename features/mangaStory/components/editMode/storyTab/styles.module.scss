@@ -91,6 +91,7 @@
   .participants {
     display: flex;
     margin-top: 16px;
+    align-items: center;
     img {
       min-width: 68.8px;
       min-height: 68.8px;
@@ -104,9 +105,10 @@
         max-height: 50px;
       }
     }
-    .participentInfo {
+    .participantInfo {
       margin-left: -20px !important;
       position: relative;
+      display: flex;
       img {
         object-fit: cover;
       }
@@ -120,17 +122,6 @@
       &:first-of-type {
         margin-left: 0px !important;
       }
-    }
-  }
-  .participantsCount{
-    margin: 0;
-    font-size: $text3;
-    margin-left: 5px;
-    display: flex;
-    align-items: center;
-    height: 68.8px;
-    @include media-sm{
-      height: 50px;
     }
   }
 }

@@ -12,6 +12,7 @@ import Avatar from 'components/ui-elements/avatar';
 import ButtonToTop from 'components/ui-elements/button-toTop';
 import BuyBubbleTea from 'components/ui-elements/buyBubbleTea';
 import Pagination from 'components/ui-elements/pagination';
+import ShowSomeData from 'components/ui-elements/showSomeData';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { NextSeo } from 'next-seo';
 import dynamic from 'next/dynamic';
@@ -362,8 +363,9 @@ const MangaView = ({
               </a>
             </Link>
             {participantItems}
-            <p> {participants.length > 6 && `+ ${participants.length - 6}`} participants</p>
+            <ShowSomeData participantsData={participants} size={40} />
           </div>
+
           <div className={styles.commentContainerMenu}>
             {payPalPublished && (
               <BuyBubbleTea
