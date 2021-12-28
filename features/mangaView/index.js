@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 
-import { load } from '@fingerprintjs/fingerprintjs';
 import { notification, Tooltip } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
@@ -20,6 +19,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import myAmplitude from 'utils/amplitude';
+import getDeviceId from 'utils/deviceId';
 
 import styles from './styles.module.scss';
 import ViewHeader from './viewHeader';
@@ -46,24 +46,17 @@ const MangaView = ({
   const chapter = chapters[currentChapter - 1];
   const [images, setImages] = useState([]);
   const [countLike, setCountLike] = useState(chapter.like);
-  const [publishImage, setPublishImage] = useState('');
   const [like, setLike] = useState(false);
   const [alreadyLiked, setAlreadyLiked] = useState(false);
   const [participantItems, setParticipantItems] = useState([]);
   const [chapterItems, setChapterItems] = useState([]);
   const [comments, setComments] = useState([]);
+  const [deviceId, setDeviceId] = useState('');
 
-  const getDeviceId = () =>
-    load()
-      .then((fpPromise) => fpPromise.get())
-      .then((result) => {
-        // This is the visitor identifier:
-        const { visitorId } = result;
-        return visitorId;
-      });
+  const chapterImg = chapter?.chapterImg;
 
   const alreadyLikedChapter = async () => {
-    const userId = !!user ? user._id : await getDeviceId();
+    const userId = !!user ? user._id : deviceId;
 
     const liked = chapter.likedUsers.some((value) => value === userId);
     if (liked) {
@@ -73,9 +66,6 @@ const MangaView = ({
   };
 
   useEffect(() => {
-    const chapterImg = chapter?.chapterImg;
-    const chapterImgFromPage = chapter?.mangaUrls[0];
-
     client
       .service('/api/v2/comments')
       .find({
@@ -97,8 +87,8 @@ const MangaView = ({
     myAmplitude(data);
     createParticipantItems();
     createChapterItems();
-    !!chapterImg ? setPublishImage(chapterImg) : setPublishImage(chapterImgFromPage);
     alreadyLikedChapter();
+    getDeviceId(setDeviceId);
   }, []);
 
   useEffect(() => {
@@ -124,7 +114,13 @@ const MangaView = ({
         shallow: true,
       });
     }
-  }, [currentChapter]);
+    client.service(`/api/v2/manga-view`).get(storyBoardId, {
+      query: {
+        storyBoardId,
+        deviceId,
+      },
+    });
+  }, [currentChapter, deviceId]);
 
   const createParticipantItems = () => {
     const items = participants.map(
@@ -205,7 +201,7 @@ const MangaView = ({
   };
 
   const returnLikedData = async () => {
-    const userId = !!user ? user._id : await getDeviceId();
+    const userId = !!user ? user._id : deviceId;
 
     const data = {
       chapterId: chapter._id,
@@ -261,6 +257,25 @@ const MangaView = ({
     });
   };
 
+  const chapterRatings = (
+    <div className={styles.footerRatings}>
+      <div className={styles.chapterRating}>
+        <SvgHeart
+          className={like && styles.likeItem}
+          onClick={likeChapter}
+          width={20}
+          height={20}
+        />
+        {!!countLike ? `${countLike}` : ''}
+      </div>
+      <div className={styles.chapterRating}>
+        <p className={styles.viewCount}>
+          <span>Views</span> {!!chapter.view ? chapter.view : ''}
+        </p>
+      </div>
+    </div>
+  );
+
   return (
     <>
       <NextSeo
@@ -274,7 +289,9 @@ const MangaView = ({
           description: mangaStoryTitle,
           images: [
             {
-              url: `https://mangafy.club/api/v2/uploads/${publishImage}`,
+              url: `https://mangafy.club/api/v2/uploads/${
+                !!chapterImg ? chapterImg : chapter?.mangaUrls[0]
+              }`,
               width: 800,
               height: 600,
               alt: 'Manga Story Image',
@@ -290,7 +307,9 @@ const MangaView = ({
           cardType: 'summary_large_image',
           images: [
             {
-              url: `https://mangafy.club/api/v2/uploads/${publishImage}`,
+              url: `https://mangafy.club/api/v2/uploads/${
+                !!chapterImg ? chapterImg : chapter?.mangaUrls[0]
+              }`,
               width: 800,
               height: 600,
               alt: 'Manga Story Image',
@@ -315,7 +334,7 @@ const MangaView = ({
             Share this series and show support for the creator!
           </p>
           <div className={styles.shareContainer}>
-            <span className={styles.likeChapter}>
+            <div className={styles.chapterRating}>
               <SvgHeart
                 className={like && styles.likeItem}
                 onClick={likeChapter}
@@ -323,7 +342,10 @@ const MangaView = ({
                 height={20}
               />
               {!!countLike ? `${countLike} Likes` : 'Like'}
-            </span>
+            </div>
+            <div className={styles.chapterRating}>
+              {!!chapter.view ? `${chapter.view} Views` : 'View'}
+            </div>
             <ShareButtons
               className={styles.shareButtons}
               shareUrl={shareUrl}
@@ -364,6 +386,7 @@ const MangaView = ({
         <div className={styles.footer}>
           <div className={styles.chaptersItems}>{chapterItems}</div>
           <div className={styles.paginationContainer}>
+            {chapterRatings}
             <Pagination
               currentNumber={currentChapter}
               setCurrentNumber={setCurrentChapter}

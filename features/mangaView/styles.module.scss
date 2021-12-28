@@ -60,7 +60,7 @@ $subLineAlpha: 0.5;
       display: none;
     }
   }
-  .ifNotBubble{
+  .ifNotBubble {
     justify-content: center;
   }
   a {
@@ -106,7 +106,7 @@ $subLineAlpha: 0.5;
       margin-bottom: 20px;
     }
   }
-  .defaultAvatar{
+  .defaultAvatar {
     width: 42px !important;
     height: 42px !important;
     font-size: $text3 !important;
@@ -280,14 +280,14 @@ $subLineAlpha: 0.5;
       margin-top: 20px;
     }
   }
-  .shareContainer{
+  .shareContainer {
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
-    @include media-sm{
+    @include media-sm {
       align-items: center;
     }
-    .likeChapter{
+    .chapterRating {
       display: flex;
       height: 32px;
       align-items: center;
@@ -296,16 +296,40 @@ $subLineAlpha: 0.5;
       font-size: $text4;
       color: $black;
       border-radius: 20px;
-      svg{
+      margin-right: 5px;
+      @include media-sm {
+        display: none;
+      }
+      svg {
         margin-right: 5px;
         cursor: pointer;
-        path{
+        path {
           fill: white;
         }
       }
-      .likeItem{
-        path{
-          fill: $red;
+    }
+  }
+  .footerRatings{
+    display: none;
+    @include media-sm{
+      display: flex;
+      position: absolute;
+      left: 10px;
+      .chapterRating{
+        display: flex;
+        margin-right: 10px;
+        color: white;
+        font-size: $text4;
+        svg {
+          margin-right: 5px;
+          path{
+            fill: white;
+          }
+        }
+        .viewCount{
+          span{
+            color: $black;
+          }
         }
       }
     }
@@ -316,7 +340,7 @@ $subLineAlpha: 0.5;
     justify-content: center;
     align-items: center;
     margin-bottom: 20px;
-    p{
+    p {
       margin: 0;
       margin-left: 20px;
       font-size: $text4;
@@ -357,22 +381,27 @@ $subLineAlpha: 0.5;
       }
     }
     .paginationContainer {
-      display: flex;
-      justify-content: center;
       background: #77719954;
-      padding: 5px;
+      padding: 10px;
       display: none;
       & > div {
         margin: 0;
       }
       @include media-md {
-        display: block;
+        display: flex;
+        justify-content: center;
       }
       @include media-sm {
         margin-top: -1px;
         background: #777199;
       }
     }
+  }
+}
+
+.likeItem {
+  path {
+    fill: $red !important;
   }
 }
 

@@ -10,6 +10,7 @@ import { EVENTS } from 'helpers/amplitudeEvents';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import myAmplitude from 'utils/amplitude';
+import getDeviceId from 'utils/deviceId';
 import beforeUploadFromAMZ from 'utils/upload';
 
 import ModalPublishedChapter from './modalPublishedChapter';
@@ -32,9 +33,11 @@ const ChapterFooter = ({
   const [openPublishedModal, setOpenPublishedModal] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const publishedRef = useRef(null);
+  const [deviceId, setDeviceId] = useState('');
 
   useEffect(() => {
     publishedRef.current.checked = value?.published;
+    getDeviceId(setDeviceId);
   }, []);
 
   useEffect(() => {

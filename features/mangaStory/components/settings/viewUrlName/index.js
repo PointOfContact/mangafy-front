@@ -8,6 +8,7 @@ import copy from 'copy-to-clipboard';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
+import getDeviceId from 'utils/deviceId';
 
 import styles from '../styles.module.scss';
 
@@ -15,6 +16,7 @@ const ViewUrlName = ({ baseData, onChangeSingleField, sendEvent, storyBoard }) =
   const [value, setValue] = useState(baseData?.typeUrlView);
   const [copyText, setCopyText] = useState('Copy to clipboard');
   const [isTouched, setIsTouched] = useState(false);
+  const [deviceId, setDeviceId] = useState('');
   const [viewUrlName, setViewUrlName] = useState(baseData?.viewUrlName);
   const validViewUrlName = viewUrlName?.length < 2 || !viewUrlName?.match(/^[a-z]+$/);
   const router = useRouter();
@@ -26,6 +28,7 @@ const ViewUrlName = ({ baseData, onChangeSingleField, sendEvent, storyBoard }) =
         behavior: 'smooth',
         block: 'start',
       });
+    getDeviceId(setDeviceId);
   }, []);
 
   const onChange = (e) => {
