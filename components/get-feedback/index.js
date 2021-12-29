@@ -85,7 +85,6 @@ const GetFeedback = ({
     const data = {
       imageUrl,
       subTitle,
-      userId: user._id,
       categories: selectedTags,
     };
 
