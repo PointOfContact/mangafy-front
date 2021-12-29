@@ -203,9 +203,10 @@ const MangaView = ({
 
   const returnLikedData = async () => {
     const userId = !!user ? user._id : deviceId;
-
     const data = {
       chapterId: chapter._id,
+      likedUserId: userId,
+      participants,
     };
 
     if (alreadyLiked) {

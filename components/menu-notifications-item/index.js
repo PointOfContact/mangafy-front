@@ -56,7 +56,7 @@ const MenuNotificationsItem = ({
 
   const NotificationsItem = () => (
     <div onClick={addUnreadNotificationsId} className={styles.flex}>
-      {profileId ? (
+      {profileId && profileId.length < 25 ? (
         <Link href={`/profile/${profileId}`}>
           <a>
             <AvatarNotifications />
