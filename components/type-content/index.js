@@ -50,10 +50,12 @@ export default function TypePage({
   const showMore = async () => {
     setIsLoading(true);
     let type;
-    if (Object.keys(query)) {
-      type = [{ postType: query }];
-    } else {
-      type = query.type.map((value) => ({ postType: value }));
+    if (query) {
+      if (Object.keys(query)) {
+        type = [{ postType: query }];
+      } else {
+        type = query.type.map((value) => ({ postType: value }));
+      }
     }
 
     const queryData = {
