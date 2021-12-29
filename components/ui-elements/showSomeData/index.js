@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
-const ShowSomeData = ({ participantsData, size, leaveManga, deleteButton }) => {
+const ShowSomeData = ({ participantsData, size, leaveManga, deleteButton, isOwn, user }) => {
   const allParticipantsData = () =>
     participantsData.map((value, i) => (
       <Link href={`/profile/${value._id}`} key={value + i}>
@@ -33,11 +33,17 @@ const ShowSomeData = ({ participantsData, size, leaveManga, deleteButton }) => {
               <p className={styles.participantName}>{value.name}</p>
               <p className={styles.participantType}>{value.type}</p>
             </div>
-            {deleteButton && (
-              <span className={styles.participantDelete} onClick={() => leaveManga(value._id)}>
-                <SvgDelete width="15px" height="15px" />
-              </span>
-            )}
+            {isOwn
+              ? deleteButton && (
+                  <span className={styles.participantDelete} onClick={() => leaveManga(value._id)}>
+                    <SvgDelete width="15px" height="15px" />
+                  </span>
+                )
+              : user._id === value._id && (
+                  <span className={styles.participantDelete} onClick={() => leaveManga(value._id)}>
+                    <SvgDelete width="15px" height="15px" />
+                  </span>
+                )}
           </div>
         </a>
       </Link>
@@ -59,11 +65,15 @@ ShowSomeData.propTypes = {
   size: PropTypes.number.isRequired,
   leaveManga: PropTypes.func,
   deleteButton: PropTypes.bool,
+  isOwn: PropTypes.bool,
+  user: PropTypes.object,
 };
 
 ShowSomeData.defaultProps = {
   leaveManga: () => {},
   deleteButton: false,
+  isOwn: false,
+  user: {},
 };
 
 export default ShowSomeData;

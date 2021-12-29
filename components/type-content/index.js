@@ -91,22 +91,25 @@ export default function TypePage({
 
   const defaultValue = typeof query === 'string' ? [query] : query;
 
-  const postElements = discussions.map((discussion, i) => (
+  const postElements = discussions.map((item, i) => (
     <DiscussionCard
-      key={discussion._id + i}
-      id={discussion._id}
-      logo={discussion.logoUrl}
-      title={discussion.title}
-      type={discussion.type}
-      categories={discussion.categories}
-      img={discussion.imageUrl}
-      subTitle={discussion.subTitle}
-      url={discussion.button?.navigateTo}
-      btnText={discussion.button?.title}
+      key={item._id + i}
+      id={item._id}
+      logo={item.logoUrl}
+      title={item.title}
+      type={item.type}
+      categories={item.categories}
+      img={item.imageUrl}
+      subTitle={item.subTitle}
+      url={item.button?.navigateTo}
+      btnText={item.button?.title}
       user={user}
-      commentsCount={discussion.commentsCount}
-      likesCount={discussion.likesCount}
-      logoNavigate={discussion.logoNavigate}
+      commentsCount={item.commentsCount}
+      likesCount={item.likesCount}
+      logoNavigate={item.logoNavigate}
+      userId={item.userId}
+      discussions={discussions}
+      setDiscussions={setDiscussions}
     />
   ));
 

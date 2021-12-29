@@ -1,6 +1,6 @@
 import client from 'api/client';
+import GetFeedback from 'components/get-feedback';
 import { withAuthServerSideProps, withAuthComponent } from 'components/withAuth';
-import GetFeedback from 'features/get-feedback';
 import { store } from 'store';
 
 export default withAuthComponent(GetFeedback);
