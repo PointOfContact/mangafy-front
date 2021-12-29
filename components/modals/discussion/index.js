@@ -11,6 +11,7 @@ import Imgix from 'components/imgix';
 import Loading from 'components/loading';
 import { ShareButtons } from 'components/share';
 import { Comments } from 'components/type-content/comments';
+import EditPostItems from 'components/type-content/discussionCard/editPostItems';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
@@ -39,6 +40,11 @@ const ModalDiscussion = ({
   subTitle,
   ifVideo,
   ifPdf,
+  id,
+  discussions,
+  setDiscussions,
+  userId,
+  categories,
 }) => {
   const [commentsData, setCommentsData] = useState([]);
   const [likesData, setLikesData] = useState([]);
@@ -194,6 +200,16 @@ const ModalDiscussion = ({
                     <h2 className={styles.subtitle}>{title}</h2>
                   </spam>
                   <div className={styles.share}>
+                    <EditPostItems
+                      id={id}
+                      discussions={discussions}
+                      setDiscussions={setDiscussions}
+                      user={user}
+                      userId={userId}
+                      img={img}
+                      subTitle={subTitle}
+                      categories={categories}
+                    />
                     {isLikedLoading ? (
                       <Spin className={styles.spin} size="small"></Spin>
                     ) : (
@@ -273,6 +289,11 @@ ModalDiscussion.propTypes = {
   subTitle: PropTypes.string,
   ifVideo: PropTypes.bool,
   ifPdf: PropTypes.bool.isRequired,
+  id: PropTypes.string.isRequired,
+  categories: PropTypes.array.isRequired,
+  userId: PropTypes.string.isRequired,
+  discussions: PropTypes.array.isRequired,
+  setDiscussions: PropTypes.func.isRequired,
 };
 
 ModalDiscussion.defaultProps = {

@@ -1,14 +1,12 @@
 /* eslint-disable no-nested-ternary */
 import React, { useState } from 'react';
 
-import { Popover } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
 import SvgComment from 'components/icon/Comment';
 import SvgHeart from 'components/icon/Heart';
 import Imgix from 'components/imgix';
 import ModalDiscussion from 'components/modals/discussion';
-import { ShareButtons } from 'components/share';
 import PrimaryButton from 'components/ui-elements/button';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import dynamic from 'next/dynamic';
@@ -20,6 +18,7 @@ import myAmplitude from 'utils/amplitude';
 import { LinkCreator } from 'utils/linkCreator';
 
 import DiscussionType from '../discussionType';
+import EditPostItems from './editPostItems';
 import styles from './styles.module.scss';
 
 const PDFViewer = dynamic(() => import('components/pdfViewer'), {
@@ -42,9 +41,13 @@ const DiscussionCard = (props) => {
     commentsCount,
     likesCount,
     type,
+    userId,
+    discussions,
+    setDiscussions,
   } = props;
 
   const [showModal, changeShowModal] = useState(false);
+
   const imgType = img?.slice(-3);
   const ifPdf = imgType === 'pdf' || imgType === 'PDF';
   const openPost = (postId) => {
@@ -102,6 +105,16 @@ const DiscussionCard = (props) => {
               </ul>
             </div>
           </div>
+          <EditPostItems
+            id={id}
+            discussions={discussions}
+            setDiscussions={setDiscussions}
+            user={user}
+            userId={userId}
+            img={img}
+            subTitle={subTitle}
+            categories={categories}
+          />
         </div>
         <div
           className={cn(!img && styles.projectsForYou_mainImg, styles.projectsForYou_mainImgDef)}>
@@ -143,15 +156,6 @@ const DiscussionCard = (props) => {
             className={cn(!img && styles.containerButton, styles.containerButtonDef)}
             onClick={(e) => e.stopPropagation()}>
             {/* <div className={styles.}> */}
-            <Popover
-              placement="bottomRight"
-              title={''}
-              content={
-                <ShareButtons shareUrl={`${client.API_ENDPOINT}/feed?postId=${id}`} text="" />
-              }
-              trigger="click">
-              <span className={styles.shareUrl}>...</span>
-            </Popover>
             <Link href={url || '/'}>
               <a>
                 <PrimaryButton
@@ -180,6 +184,11 @@ const DiscussionCard = (props) => {
         subTitle={subTitle}
         ifVideo={ifVideo}
         ifPdf={ifPdf}
+        id={id}
+        discussions={discussions}
+        setDiscussions={setDiscussions}
+        userId={userId}
+        categories={categories}
       />
     </>
   );
@@ -200,12 +209,18 @@ DiscussionCard.propTypes = {
   commentsCount: PropTypes.number.isRequired,
   likesCount: PropTypes.number.isRequired,
   logoNavigate: PropTypes.string,
+  userId: PropTypes.string,
+  discussions: PropTypes.array,
+  setDiscussions: PropTypes.func,
 };
 
 DiscussionCard.defaultProps = {
   user: null,
   logoNavigate: '',
   category: '',
+  userId: '',
+  discussions: [],
+  setDiscussions: () => {},
 };
 
 export default DiscussionCard;
