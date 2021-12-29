@@ -57,7 +57,7 @@ CommentList.propTypes = {
   comments: PropTypes.array.isRequired,
 };
 
-const Editor = ({ onSubmit, submitting, user }) => (
+const Editor = ({ onSubmit, submitting, user, postId }) => (
   <Form
     onFinish={(e) => {
       onSubmit(e.comment);
@@ -79,7 +79,7 @@ const Editor = ({ onSubmit, submitting, user }) => (
     </Form.Item>
     <Form.Item>
       {!user && (
-        <Link href={`/sign-in?page=`}>
+        <Link href={`/sign-in?postId=${postId}`}>
           <a>
             <h2 className={styles.loginOnText}>
               Please <span>login</span> to add comments
@@ -101,12 +101,14 @@ Editor.propTypes = {
   onSubmit: PropTypes.func,
   submitting: PropTypes.bool,
   user: PropTypes.object,
+  postId: PropTypes.string,
 };
 
 Editor.defaultProps = {
   onSubmit: () => {},
   submitting: null,
   user: null,
+  postId: '',
 };
 
 export const Comments = ({ commentsData, postId, user, setCommentsData }) => {
@@ -123,7 +125,7 @@ export const Comments = ({ commentsData, postId, user, setCommentsData }) => {
         },
       ];
       myAmplitude(eventData);
-      Router.push(`/sign-in?page=`);
+      Router.push(`/sign-in?postId=${postId}`);
     }
 
     if (!value.trim() || !user) {
@@ -195,7 +197,9 @@ export const Comments = ({ commentsData, postId, user, setCommentsData }) => {
             </>
           )
         }
-        content={<Editor onSubmit={handleSubmit} submitting={submitting} user={user} />}
+        content={
+          <Editor onSubmit={handleSubmit} submitting={submitting} user={user} postId={postId} />
+        }
       />
       {errMessage && <p>{errMessage}</p>}
     </>
