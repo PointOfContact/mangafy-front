@@ -164,6 +164,8 @@ const StoryTab = ({
             size={40}
             leaveManga={leaveManga}
             deleteButton={true}
+            isOwn={isOwn}
+            user={user}
           />
         </div>
       </div>

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
+import GetFeedback from 'components/get-feedback';
 import SvgBulbColored from 'components/icon/BulbColored';
 import PrimaryButton from 'components/ui-elements/button';
-import GetFeedback from 'features/get-feedback';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
@@ -49,7 +49,7 @@ const DiscussionRightBar = ({ dailyWarmUps, user }) => {
               setIsModalVisible(true);
             } else {
               sendEvent(EVENTS.UNAUTHORIZED_CREATE_NEW_POST);
-              Router.push('/sign-in?page=get-feedback');
+              Router.push('/sign-in?page=get-feedback', undefined, { scroll: false });
             }
           }}
         />
