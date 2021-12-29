@@ -19,13 +19,14 @@ export const store = {
 };
 
 export function login(payload) {
+  const postId = !!Router.router.query.postId ? `?postId=${Router.router.query.postId}` : '';
   return auth.login(payload.email, payload.password).then((_) => {
     setClientCookie(FEATHERS_COOKIE, _.accessToken, 5);
     store.user = _.user;
     if (payload.page) {
       Router.push(`/${payload.page}`);
     } else {
-      Router.push('/feed');
+      Router.push(`/feed${postId}`);
     }
     return _.user;
   });
