@@ -20,7 +20,7 @@ const Publish = ({ baseData, storyBoard, chapters }) => {
 
   const link = ifCustomSubdomain
     ? `https://${!!viewUrlName ? viewUrlName : '?'}.mangafy.club`
-    : `${client.API_ENDPOINT}/manga-view/${baseData?._id}`;
+    : `${client.API_ENDPOINT}/manga-view/${storyBoard?._id}`;
 
   const publishImage = () => {
     if (!!baseData?.image) {
