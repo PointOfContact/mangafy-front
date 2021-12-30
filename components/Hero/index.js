@@ -149,10 +149,6 @@ const Hero = ({ storyBoard, setStoryBoard, getStoryBoard, user }) => {
   };
 
   const onChangeHeroLogic = (newHero, hero, newCreated, setIdCardHero, idCardHero) => {
-    if (!newHero?.name || newHero?.name.length < 2) {
-      return;
-    }
-
     if (newHero.newCreated || newCreated) {
       delete newHero?.newCreated;
       delete hero?.newCreated;
