@@ -9,16 +9,18 @@ const WarningFillAllData = ({ user, setShowModalEdit }) => {
   const router = useRouter();
 
   return (
-    <div
-      className={styles.container}
-      onClick={() => {
-        setShowModalEdit(true);
-        router.push(`/profile/${user?._id}?editModal=true`, undefined, { shallow: true });
-      }}>
+    <div className={styles.container}>
       <p className={styles.text}>
         Hey! We&apos;re glad you found us - but wait, what&apos;s your name? You can share anything
         you want
-        <span className={styles.outLine}> here.</span>
+        <span
+          onClick={() => {
+            setShowModalEdit(true);
+            router.push(`/profile/${user?._id}?editModal=true`, undefined, { shallow: true });
+          }}
+          className={styles.outLine}>
+          here.
+        </span>
       </p>
     </div>
   );

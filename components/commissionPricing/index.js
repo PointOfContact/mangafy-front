@@ -20,6 +20,7 @@ export const CommissionPricing = ({ id, user }) => {
   const [isSubmitted, setSubmitted] = useState(false);
   const [inputValue, setInputValue] = useState(true);
   const [addMore, setAddMore] = useState(false);
+  const ifMyProfile = id === user?._id;
   const canEdit = !user ? false : id === user._id;
 
   const getPricing = () => {
@@ -230,17 +231,19 @@ export const CommissionPricing = ({ id, user }) => {
                         <span className={cn(styles.errMessage, styles.ml)}> Field is require </span>
                       )}
                     </span>
-                    <div className={styles.close}>
-                      <SvgClose
-                        width="19"
-                        height="19"
-                        onClick={() => {
-                          setInputValue(true);
-                          setSubmitted(false);
-                          remove(index);
-                        }}
-                      />
-                    </div>
+                    {ifMyProfile && (
+                      <div className={styles.close}>
+                        <SvgClose
+                          width="19"
+                          height="19"
+                          onClick={() => {
+                            setInputValue(true);
+                            setSubmitted(false);
+                            remove(index);
+                          }}
+                        />
+                      </div>
+                    )}
                   </Space>
                 </>
               ))}

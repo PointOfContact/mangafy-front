@@ -10,15 +10,15 @@ import myAmplitude from 'utils/amplitude';
 import styles from './styles.module.scss';
 
 const Pagination = ({ currentNumber, setCurrentNumber, data, user }) => {
-  const dataEvent = [];
+  const dataEvent = {};
 
   return (
     <div className={styles.pagination}>
       <div
         className={cn(currentNumber === 1 && styles.disabledButton, styles.arrow)}
         onClick={() => {
-          dataEvent[0].event_type = EVENTS.PREV_VIEW_PAGE;
-          dataEvent[0].event_properties = { chapter: data[currentNumber - 1] };
+          dataEvent.event_type = EVENTS.PREV_VIEW_PAGE;
+          dataEvent.event_properties = { chapter: data[currentNumber - 1] };
           myAmplitude(dataEvent);
           setCurrentNumber(currentNumber - 1);
         }}>
@@ -28,8 +28,8 @@ const Pagination = ({ currentNumber, setCurrentNumber, data, user }) => {
       <div
         className={cn(currentNumber === data.length && styles.disabledButton, styles.arrow)}
         onClick={() => {
-          dataEvent[0].event_type = EVENTS.NEXT_VIEW_PAGE;
-          dataEvent[0].event_properties = { chapter: data[currentNumber + 2] };
+          dataEvent.event_type = EVENTS.NEXT_VIEW_PAGE;
+          dataEvent.event_properties = { chapter: data[currentNumber + 2] };
           myAmplitude(dataEvent);
           setCurrentNumber(currentNumber + 1);
         }}>
