@@ -1,0 +1,137 @@
+@import '../../../../../styles/variables.scss';
+
+$colors: $primaryLight, $orangeLight, $secondaryDark;
+$repeat: 5;
+
+.taskCont {
+  padding-bottom: 15px;
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-between;
+
+  &:nth-child(1) {
+    padding-top: 0px;
+    @include media-sm {
+      .editBtns {
+        top: 0px !important;
+      }
+    }
+  }
+  @include media-sm {
+    position: relative;
+    display: block;
+    margin-right: 0px;
+  }
+}
+
+@for $i from 1 through $repeat {
+  .taskCont {
+    &:nth-child(#{length($colors)}n + #{$i}) {
+      .ButtonPurple {
+        margin-bottom: 0;
+        display: inline-flex;
+        background: nth($colors, random(length($colors)));
+      }
+      .rewardType {
+        margin-bottom: 0;
+        display: inline-flex;
+        background: #6fd257;
+      }
+    }
+  }
+}
+
+.taskName {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 22px;
+  margin-bottom: 10px;
+  @include media-sm {
+    width: calc(100% - 170px);
+  }
+}
+
+.description {
+  font-family: Noto Sans JP;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 15px;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: $black;
+  word-break: break-word;
+}
+.editBtns {
+  @include media-sm {
+    position: absolute;
+    top: 20px;
+    right: 0;
+  }
+  display: flex;
+  flex-wrap: nowrap;
+  svg {
+    cursor: pointer;
+    margin-right: 10px;
+    @include media-sm {
+      width: 18px;
+      height: 18px;
+    }
+  }
+  button {
+    @include media-sm {
+      width: 90px;
+    }
+    & > span {
+      @include media-sm {
+        font-size: $text5;
+      }
+    }
+  }
+}
+
+.postTask {
+  width: 100px;
+  height: 32px;
+  font-size: $text4;
+}
+
+.contributeContent {
+  width: 100%;
+  max-width: 155px;
+  min-width: 155px;
+  margin-left: 15px;
+  display: flex;
+  justify-content: flex-end;
+  button {
+    padding: 0;
+    width: 100%;
+    height: 46px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: $text4;
+    margin-top: 6px;
+    @include media-xs {
+      width: 80%;
+      height: 40px;
+      font-size: 14px;
+    }
+  }
+  @include media-sm {
+    position: absolute;
+    top: 20px;
+    right: 0;
+  }
+}
+
+.line {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(90deg, rgba(33, 33, 33, 0.07) 0%, rgba(33, 33, 33, 0) 100%);
+  position: absolute;
+  left: -30px;
+}
