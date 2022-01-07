@@ -48,12 +48,8 @@ export const options = [
 
 export const userTypes = [
   {
-    key: 'illustrator',
-    value: 'Illustrator',
-  },
-  {
-    key: 'storyteller',
-    value: 'Storyteller',
+    key: 'editor',
+    value: 'Editor',
   },
   {
     key: 'writer',
@@ -77,35 +73,23 @@ export const userTypes = [
   },
   {
     key: 'cover_artist',
-    value: 'Сover Artist',
+    value: 'Сover artist',
   },
   {
     key: 'character_designer',
-    value: 'Character Designer',
+    value: 'Character designer',
+  },
+  {
+    key: 'world_creator',
+    value: 'World creator',
   },
   {
     key: 'key_translator',
-    value: 'Key Translator',
-  },
-  {
-    key: 'publisher',
-    value: 'Publisher',
-  },
-  {
-    key: 'editor',
-    value: 'Editor',
-  },
-  {
-    key: 'backers',
-    value: 'Backers',
+    value: 'Key translator',
   },
   {
     key: 'mentorship',
     value: 'Mentorship',
-  },
-  {
-    key: 'world_builder',
-    value: 'World builder',
   },
 ];
 
@@ -547,20 +531,20 @@ export const heroQuality = ['Dynamic/changing', 'Static/unchanging', 'Stock', 'S
 
 export const rewardTypes = [
   {
-    key: 'Free',
-    value: 'Free',
+    key: 'Collaboration',
+    value: 'Collaboration',
   },
   {
-    key: 'PerPage',
-    value: 'Per Page',
+    key: 'PaymentPerPage ',
+    value: 'Payment per page ',
   },
   {
     key: 'FlatRate',
-    value: 'Flat Rate',
+    value: 'Flat rate',
   },
   {
     key: 'RevenueSplit',
-    value: 'Revenue Split',
+    value: 'Revenue split',
   },
 ];
 

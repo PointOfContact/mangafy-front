@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import React, { useEffect, useState } from 'react';
 
 import { Modal, Input, notification, Form } from 'antd';
@@ -16,17 +17,43 @@ import styles from './styles.module.scss';
 
 const { TextArea } = Input;
 
+const placeholderBrief = {
+  Editor: '',
+  Writer:
+    'The Writer is the person responsible for writing the story. They are skilled and responsible for the overall story structure, dialogue, overall beats of the story, and the framework of the story.',
+  Penciler:
+    'A penciller is a skilled drawer who has a collaborative mindset and is flexible enough to adapt to different styles.',
+  Inker:
+    'An inker is a graphic artist who finishes the outlines of a graphic image. He or she may also be involved in the creation of the story that is visually represented on the page.',
+  Colorist:
+    ' The colorist has a very specific kind of job. He or she is a visual interpreter. There’s no room for mistakes, and there’s no room for doubt, because the audience can see everything.',
+  Letterer:
+    "The letterer's job is to make the text flow smoothly so readers can follow the storyline more easily. Letterers must have excellent grammar skills, but must also be creative.",
+  'Cover artist':
+    "Great cover artists don't simply represent characters and narratives that the reader will encounter within the comic. They take an active role in the storytelling process by selectively curating what is shown and how it's shown.",
+  'Character designer':
+    'Character designers visualize and create the appearance of individual characters.',
+  'Word creator': '',
+  'Key translator':
+    "When translating webcomics, there are experts in the translation industry who perfectly understand the source language and its expressions and idioms. It's very important to translate the original as faithfully as possible while staying in the original space and losing as little information as possible.",
+  Mentorship:
+    'You have characters walking around in your head, you have a world you want to transport your audience to and you want to show them around in. Mentor differently can help',
+};
+
 const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, user }) => {
   const [lookingFor, changeLookingFor] = useState(null);
   const [taskType, changeTaskType] = useState(null);
   const [amount, changeAmount] = useState(null);
   const [rewardType, changeRewardType] = useState(null);
+  const [placeholder, setPlaceholder] = useState(
+    'Please be specific. The more detail you provide, the less time it will take.'
+  );
   const [text, changeText] = useState('');
   const [form] = Form.useForm();
 
   const ModalTitle = (
     <>
-      <div className={styles.modalTitle}>{task ? 'Edit commission ' : 'Create commission'}</div>
+      <div className={styles.modalTitle}>{task ? 'Edit a proposal' : 'Create a proposal'}</div>
       <div className={styles.border} />
     </>
   );
@@ -36,13 +63,13 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
       changeLookingFor(task?.lookingFor || null);
       changeText(task?.description || '');
       changeRewardType(task?.rewardType || null);
-      changeTaskType(task?.type || null);
+      changeTaskType(task?.status || null);
       changeAmount(task?.amount || null);
       form.setFieldsValue({
         lookingFor: task?.lookingFor || null,
         text: task?.description || '',
         rewardType: task?.rewardType || null,
-        taskType: task?.type,
+        taskType: task?.status,
         amount: task?.amount || null,
       });
     } else {
@@ -67,7 +94,6 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
     const data = {
       mangaStoryId: baseData._id,
       lookingFor,
-      type: taskType,
       description: text,
       rewardType,
     };
@@ -109,10 +135,11 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
   const editTask = async () => {
     const jwt = client.getCookie('feathers-jwt');
     const { default: api } = await import('api/restClient');
+
     const data = {
       lookingFor,
       description: text,
-      type: taskType,
+      status: taskType,
       rewardType,
     };
 
@@ -159,6 +186,15 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
       event_properties: { mangaStoryId: baseData?._id },
     };
     myAmplitude(data);
+  };
+
+  const changeLookingForFun = (e) => {
+    changeLookingFor(e);
+    const placeholder =
+      placeholderBrief[e] ||
+      'Please be specific. The more detail you provide, the less time it will take.';
+    setPlaceholder(placeholder);
+    sendEvent(EVENTS.CHOOSED_TASK_ROLL_TYPE);
   };
 
   return (
@@ -208,10 +244,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
               <PrimarySelect
                 showSearch
                 className={cn(styles.selectDef, !lookingFor && styles.select)}
-                onChange={(e) => {
-                  changeLookingFor(e);
-                  sendEvent(EVENTS.CHOOSED_TASK_ROLL_TYPE);
-                }}
+                onChange={changeLookingForFun}
                 value={lookingFor}
                 bordered={false}
                 options={myCheckboxes}
@@ -238,28 +271,6 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
                 value={rewardType}
                 options={rewardTypes}
                 placeholder="Choose the type of collaboration"
-              />
-            </Form.Item>
-            <h2>Types</h2>
-            <Form.Item
-              name="taskType"
-              rules={[
-                {
-                  required: true,
-                  message: 'Type is required',
-                },
-              ]}>
-              <PrimarySelect
-                showSearch
-                className={cn(styles.selectDef, !taskType && styles.select)}
-                onChange={(e) => {
-                  changeTaskType(e);
-                  sendEvent(EVENTS.CHOOSED_TASK_TYPE);
-                }}
-                value={taskType}
-                bordered={false}
-                options={typesArray}
-                placeholder="Task type"
               />
             </Form.Item>
             {rewardType !== 'Free' && (
@@ -298,23 +309,55 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
               ]}>
               <TextArea
                 autoSize={{ minRows: 3, maxRows: 10 }}
-                placeholder="Please be specific. The more detail you provide, the less time it will take."
+                placeholder={placeholder}
                 value={text}
                 onChange={handleChangeText}
                 onBlur={() => sendEvent(EVENTS.ADDED_TASK_DESCRIPTION)}
                 className={styles.modalTexArea}
               />
             </Form.Item>
-
+            {task && (
+              <>
+                <h2>Status</h2>
+                <Form.Item
+                  name="taskType"
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Type is required',
+                    },
+                  ]}>
+                  <PrimarySelect
+                    showSearch
+                    className={cn(styles.selectDef, !taskType && styles.select)}
+                    onChange={(e) => {
+                      changeTaskType(e);
+                      sendEvent(EVENTS.CHOOSED_TASK_TYPE);
+                    }}
+                    value={taskType}
+                    bordered={false}
+                    options={typesArray}
+                    placeholder="Task type"
+                  />
+                </Form.Item>
+              </>
+            )}
             <div className="modal_select_btn">
               <Form.Item className={styles.buttonContainer}>
+                <PrimaryButton
+                  id="modalJoinMyJourneySubmitBtnId"
+                  className={cn(styles.hugeButton, task && styles.editHugeButton)}
+                  isWhite={true}
+                  isFullWidth={false}
+                  onClick={() => changeShowModal(false)}
+                  text="Cancel"
+                />
                 {task && (
                   <PrimaryButton
                     id="modalJoinMyJourneySubmitBtnId"
-                    className={styles.hugeButton}
+                    className={cn(styles.hugeButton, styles.editHugeButton)}
                     isFullWidth={false}
                     text="Completed"
-                    isWhite={true}
                     htmlType="submit"
                   />
                 )}
@@ -324,7 +367,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
                     id="modalJoinMyJourneySubmitBtnId"
                     className={styles.hugeButton}
                     isFullWidth={false}
-                    text="Create a task"
+                    text="Сreate a task"
                   />
                 )}
               </Form.Item>

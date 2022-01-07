@@ -77,7 +77,7 @@ const Editor = ({ onChange, onSubmit, submitting, value, user, mangaStory }) => 
           rows={4}
           onChange={commentChange}
           value={value}
-          placeholder="Comment"
+          placeholder="Ask a creator"
         />
         <p className={commentError ? styles.commentError : styles.notError}>{commentError}</p>
       </Form.Item>

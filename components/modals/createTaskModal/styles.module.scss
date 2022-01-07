@@ -104,7 +104,7 @@
     }
   }
   .modalTexArea {
-    min-height: 198px;
+    min-height: 198px !important;
     border: 1px solid $primaryDark;
     box-sizing: border-box;
     border-radius: 10px;
@@ -121,8 +121,14 @@
     justify-content: center;
     width: 175px;
     height: 46px;
-    margin: 20px auto;
+    margin-top: 66px;
     font-size: 15px;
+    &:first-child{
+      margin-right: 5px;
+    }
+  }
+  .editHugeButton{
+    margin-top: 30px;
   }
   .desc {
     margin-top: 24px;
