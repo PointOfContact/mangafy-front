@@ -210,7 +210,7 @@ const Header = ({ user, path, setShowModalEdit }) => {
               </Link>
             </div>
             <div className={styles.header__rightNav}>
-              {user ? (
+              {user?._id ? (
                 <>
                   {/* <Link href="/pricing">
                     <a className={styles.header__menu}>
@@ -332,7 +332,9 @@ const Header = ({ user, path, setShowModalEdit }) => {
             handleMenuOpen={handleMenuOpen}
           />
         )}
-        {showWarning && <WarningFillAllData user={user} setShowModalEdit={setShowModalEdit} />}
+        {user?._id && showWarning && (
+          <WarningFillAllData user={user} setShowModalEdit={setShowModalEdit} />
+        )}
       </header>
       <ModalInviteMembers showModal={showModal} setShowModal={setShowModal} user={user} />
       <ModalCreateProject

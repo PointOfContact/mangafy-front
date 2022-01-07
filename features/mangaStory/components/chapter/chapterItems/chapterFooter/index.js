@@ -53,7 +53,7 @@ const ChapterFooter = ({
     setPublish(value.published);
   }, [chapters]);
 
-  const showView = value.published && (!!storyBoard?.mangaUrls?.length || mangaUrl);
+  const showView = value.published && (!!value?.pages.length || mangaUrl);
 
   const viewClick = () => {
     const publishedChapters = chapters.filter((e) => e.published);

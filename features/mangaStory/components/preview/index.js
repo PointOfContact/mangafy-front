@@ -6,9 +6,7 @@ import cn from 'classnames';
 import SvgClose from 'components/icon/Close';
 import Imgix from 'components/imgix';
 import { ShareButtons } from 'components/share';
-import PrimaryButton from 'components/ui-elements/button';
 import { NextSeo } from 'next-seo';
-import Router from 'next/router';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
@@ -24,10 +22,6 @@ const Preview = ({ uploadImages, storyBoardId, mangaStoryTitle }) => {
     </div>
   ));
 
-  const redirectMangaFyPage = () => {
-    Router.push(`/manga-view/${storyBoardId}?upload=true`);
-  };
-
   const shareContent = (className) => (
     <div className={cn(styles.shareContainer, className)}>
       <p className={styles.shareTitle}>Share</p>
@@ -40,11 +34,6 @@ const Preview = ({ uploadImages, storyBoardId, mangaStoryTitle }) => {
 
   return (
     <div className={styles.headerUpload}>
-      <PrimaryButton
-        className={styles.previewButton}
-        text="Preview"
-        onClick={redirectMangaFyPage}
-      />
       <Modal
         className={styles.modal}
         closeIcon={
