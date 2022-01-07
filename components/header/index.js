@@ -55,7 +55,7 @@ const Header = ({ user, path, setShowModalEdit }) => {
   const [unreadNotificationsId, setUnreadNotificationsId] = useState([]);
   const [changeHeaderSize, setChangeHeaderSize] = useState(false);
   const router = useRouter();
-  const ifMyProfile = router?.query?.pid === user?._id;
+  const ifMyProfile = user?._id && router?.query?.pid === user?._id;
   const ifNotData = !user?.content || !user?.name || !user?.genresIds?.length;
   const showWarning = !!user && router.query.editModal !== 'true' && ifNotData;
 
