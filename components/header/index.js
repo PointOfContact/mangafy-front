@@ -246,6 +246,7 @@ const Header = ({ user, path, setShowModalEdit }) => {
                             <div className={styles.avatar}>
                               {user.avatar ? (
                                 <Imgix
+                                  priority
                                   width={50}
                                   height={50}
                                   src={client.UPLOAD_URL + user.avatar}
