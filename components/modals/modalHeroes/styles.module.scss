@@ -163,15 +163,17 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
   .containerButton {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
     button {
       font-size: 18px;
-      width: 176px;
+      width: 145px;
       height: 46px;
       border-radius: 4px;
       font-style: normal;
       font-weight: 900;
-      font-size: 15px;
+      font-size: $text5;
       line-height: 22px;
+      margin-bottom: 5px;
       @include media-sm {
         width: 170px;
       }
@@ -319,11 +321,6 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
       margin: 0;
       div {
         margin: 0 !important;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 16px;
-        line-height: 23px;
-        color: $gray85;
       }
     }
     input {

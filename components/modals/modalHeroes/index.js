@@ -37,7 +37,6 @@ const ModalHeroes = ({
   const [heroType, setHeroType] = useState([]);
   const [quality, setQuality] = useState([]);
   const [imageUrl, setImgId] = useState('');
-  const [validation, setValidation] = useState('');
   const [idCardHero, setIdCardHero] = useState('');
   const [form] = Form.useForm();
   const inputRef = useRef(null);
@@ -54,7 +53,6 @@ const ModalHeroes = ({
     setHeroType(hero?.heroType || []);
     setQuality(hero?.quality || []);
     setIdCardHero(hero?._id);
-    setValidation('');
     form.setFieldsValue({
       name: hero?.name,
       heroType: hero?.heroType,
@@ -71,15 +69,24 @@ const ModalHeroes = ({
   }, [showModal]);
 
   const onChangeHero = (e, imgId, newCreated = false) => {
-    const newHero = {
-      ...hero,
-      name,
-      description,
-      appearance,
-      heroType,
-      quality,
-      imageUrl: imgId,
-    };
+    let newHero;
+
+    const selectData = (data) => (typeof data === 'string' ? [data] : data);
+
+    if (!imgId || newCreated) {
+      newHero = {
+        ...hero,
+        name: e.name || name,
+        description: e.description || description,
+        appearance: e.appearance || appearance,
+        heroType: selectData(e.heroType),
+        quality: selectData(e.quality),
+      };
+    } else {
+      newHero = {
+        imageUrl: imgId,
+      };
+    }
 
     onChangeHeroLogic(newHero, hero, newCreated, setIdCardHero, idCardHero);
   };
@@ -95,23 +102,14 @@ const ModalHeroes = ({
 
   const heroQualityArray = createOptions(heroQuality);
 
-  const handleChangeTypes = (value) => {
-    setHeroType([value]);
-  };
-
-  const handleChangeQuality = (value) => {
-    setQuality([value]);
-  };
-
-  const setNameValue = () =>
-    name?.trim()?.length < 1 &&
-    form.setFieldsValue({
-      name: hero?.name,
-    });
-
-  const onMouseOut = () => {
-    onChangeHero();
-    setValidation('');
+  const onFinish = (e) => {
+    setName(e.name);
+    setDescription(e.description);
+    setHeroType(e.heroType);
+    setQuality(e.quality);
+    setAppearance(e.appearance);
+    onChangeHero(e);
+    changeShowModalHeroes(false);
   };
 
   const popConfirm =
@@ -148,14 +146,25 @@ const ModalHeroes = ({
           <div className="row">
             <div className={styles.border} />
             <div className={cn('col-lg-12', 'select_modal', styles.selectModal)}>
-              <Form form={form} name="tasks" preserve={false}>
+              <Form form={form} name="tasks" preserve={false} onFinish={onFinish}>
                 <h3 className={styles.title}>Character name</h3>
                 <Form.Item
                   name="name"
                   rules={[
                     {
                       required: true,
-                      message: 'Name is required',
+                      validator: async (_, names) => {
+                        if (names === '') {
+                          return Promise.reject(
+                            new Error('Hey, bud. You forgot to add your name in the field above...')
+                          );
+                        }
+                        if (names.trim().length < 3) {
+                          return Promise.reject(
+                            new Error('Length must be at least 3 characters long')
+                          );
+                        }
+                      },
                     },
                   ]}>
                   <PrimaryInput
@@ -164,26 +173,12 @@ const ModalHeroes = ({
                     placeholder={'Start with your character name...'}
                     isFullWidth={true}
                     isLinear={true}
-                    onChange={(e) => setName(e.target.value)}
-                    onMouseOut={() => {
-                      setNameValue();
-                      name?.trim()?.length === 1
-                        ? setValidation('This field max length 2 letter')
-                        : (onMouseOut(),
-                          sendEvent(EVENTS.CHANGE_BOARD_CHARACTER, {
-                            hero,
-                            changed: 'name',
-                            name,
-                          }));
-                    }}
                   />
                 </Form.Item>
-                {validation && <p className={styles.error}>{validation}</p>}
                 <h3 className={styles.title}>Character development</h3>
                 <div className={styles.chooseTypes}>
                   <Form.Item name="quality">
                     <Select
-                      disabled={!idCardHero}
                       className={cn(
                         styles.option,
                         styles.typesSelect,
@@ -192,18 +187,8 @@ const ModalHeroes = ({
                       bordered={false}
                       placeholder="By the role they play in a narrative"
                       style={{ width: '100%' }}
-                      onChange={handleChangeQuality}
                       defaultValue={quality}
-                      onFocus={() => setSearchQualityIcon(true)}
-                      onBlur={() => {
-                        setSearchQualityIcon(false);
-                        onChangeHero();
-                        sendEvent(EVENTS.CHANGE_BOARD_CHARACTER, {
-                          hero,
-                          changed: 'Character development',
-                          character_development: quality,
-                        });
-                      }}>
+                      onFocus={() => setSearchQualityIcon(true)}>
                       {heroQualityArray}
                     </Select>
                   </Form.Item>
@@ -219,7 +204,6 @@ const ModalHeroes = ({
                 <div className={styles.chooseTypes}>
                   <Form.Item name="heroType">
                     <Select
-                      disabled={!idCardHero}
                       className={cn(
                         styles.option,
                         styles.typesSelect,
@@ -229,17 +213,7 @@ const ModalHeroes = ({
                       bordered={false}
                       placeholder="By examining how they change  over the course"
                       onFocus={() => setSearchTypesIcon(true)}
-                      onChange={handleChangeTypes}
-                      defaultValue={heroType}
-                      onBlur={() => {
-                        setSearchTypesIcon(false);
-                        onChangeHero();
-                        sendEvent(EVENTS.CHANGE_BOARD_CHARACTER, {
-                          hero,
-                          changed: 'type',
-                          heroType,
-                        });
-                      }}>
+                      defaultValue={heroType}>
                       {heroTypesArray}
                     </Select>
                   </Form.Item>
@@ -261,7 +235,6 @@ const ModalHeroes = ({
                     },
                   ]}>
                   <TextArea
-                    disabled={!idCardHero}
                     placeholder={
                       'Personality is a description of how character acts, behaves, or reacts.'
                     }
@@ -269,15 +242,6 @@ const ModalHeroes = ({
                     isFullWidth={true}
                     isLinear={true}
                     autoSize={{ minRows: 1, maxRows: 4 }}
-                    onChange={(e) => setDescription(e.target.value)}
-                    onBlur={() => {
-                      onChangeHero();
-                      sendEvent(EVENTS.CHANGE_BOARD_CHARACTER, {
-                        hero,
-                        changed: 'Description',
-                        description,
-                      });
-                    }}
                   />
                 </Form.Item>
                 <h3 className={styles.title}>Appearance and Powers</h3>
@@ -290,7 +254,6 @@ const ModalHeroes = ({
                     },
                   ]}>
                   <TextArea
-                    disabled={!idCardHero}
                     placeholder={
                       'Another thing to take notice of is the type of person they are,  their appearance and powers.'
                     }
@@ -298,15 +261,6 @@ const ModalHeroes = ({
                     isFullWidth={true}
                     isLinear={true}
                     autoSize={{ minRows: 1, maxRows: 4 }}
-                    onChange={(e) => setAppearance(e.target.value)}
-                    onBlur={() => {
-                      onChangeHero();
-                      sendEvent(EVENTS.CHANGE_BOARD_CHARACTER, {
-                        hero,
-                        changed: 'Appearance',
-                        appearance,
-                      });
-                    }}
                   />
                 </Form.Item>
                 <div className={styles.attachmentContainer}>
@@ -326,7 +280,6 @@ const ModalHeroes = ({
                 <Form.Item name="imageUrl" className={styles.uploadMobile}>
                   <HeroUpload
                     text="Drag or browse your art to start uploading"
-                    disabled={!idCardHero}
                     hero={hero}
                     onChangeHero={onChangeHero}
                     className={styles.upload}
@@ -335,36 +288,39 @@ const ModalHeroes = ({
                     sendEvent={sendEvent}
                   />
                 </Form.Item>
+                <h4 className={styles.title}>Actions</h4>
+                <div className={styles.containerButton}>
+                  <PrimaryButton text="Save" htmlType="submit" />
+                  <PrimaryButton
+                    onClick={() => {
+                      changeShowModalHeroes(false);
+                      onChangeHero({}, imageUrl, true);
+                      sendEvent(EVENTS.DUPLICATE_BOARD_CHARACTER, {
+                        hero,
+                      });
+                    }}
+                    text="Duplicate"
+                    htmlType="submit"
+                  />
+                  <Popconfirm
+                    overlayClassName={styles.popConfirm}
+                    placement={'top'}
+                    title={popConfirm}
+                    okText="Delete"
+                    cancelText="Cancel"
+                    onConfirm={() => confirmDelete(hero)}
+                    onClick={() => {
+                      clickDelete(hero);
+                      sendEvent(EVENTS.DELETE_BOARD_CHARACTER, {
+                        hero,
+                      });
+                    }}
+                    item={
+                      <PrimaryButton htmlType="submit" isWhite={true} text="Delete Character" />
+                    }
+                  />
+                </div>
               </Form>
-              <h4 className={styles.title}>Actions</h4>
-              <div className={styles.containerButton}>
-                <PrimaryButton
-                  onClick={() => {
-                    changeShowModalHeroes(false);
-                    onChangeHero({}, imageUrl, true);
-                    sendEvent(EVENTS.DUPLICATE_BOARD_CHARACTER, {
-                      hero,
-                    });
-                  }}
-                  text="Duplicate"
-                />
-
-                <Popconfirm
-                  overlayClassName={styles.popConfirm}
-                  placement={'top'}
-                  title={popConfirm}
-                  okText="Delete"
-                  cancelText="Cancel"
-                  onConfirm={() => confirmDelete(hero)}
-                  onClick={() => {
-                    clickDelete(hero);
-                    sendEvent(EVENTS.DELETE_BOARD_CHARACTER, {
-                      hero,
-                    });
-                  }}
-                  item={<PrimaryButton isWhite={true} text="Delete Character" />}
-                />
-              </div>
             </div>
           </div>
         </div>

@@ -53,10 +53,15 @@ const ModalCreateProject = ({ createProjectModal, showCreateProjectModal, user }
         })
         .catch((err) => {
           setLoading(false);
-          notification.error({
-            message: err.message,
-            placement: 'bottomLeft',
-          });
+          if (err.message === 'jwt malformed') {
+            router.push('/sign-in');
+          } else {
+            notification.error({
+              message: err.message,
+              placement: 'bottomLeft',
+            });
+          }
+          showCreateProjectModal(false);
           return err;
         });
     });
