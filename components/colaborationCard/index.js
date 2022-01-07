@@ -14,9 +14,11 @@ const ColaborationCards = ({ label, client }) => {
   const [publishChapter, setPublishChapter] = useState(false);
 
   useEffect(() => {
-    const publishedChapter = label?.storyBoards[0]?.chapters?.some((value) => value.published);
+    const publishedChapter = label?.storyBoards?.data[0]?.chapters?.some(
+      (value) => value.published
+    );
     setPublishChapter(publishedChapter);
-  }, []);
+  }, [label]);
 
   useEffect(() => {
     const participants = label.participentsInfo.map((value, index) => {
