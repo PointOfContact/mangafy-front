@@ -39,7 +39,7 @@ const ShowSomeData = ({ participantsData, size, leaveManga, deleteButton, isOwn,
                     <SvgDelete width="15px" height="15px" />
                   </span>
                 )
-              : user._id === value._id && (
+              : user?._id === value?._id && (
                   <span className={styles.participantDelete} onClick={() => leaveManga(value._id)}>
                     <SvgDelete width="15px" height="15px" />
                   </span>
