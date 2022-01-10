@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { Modal, Input, notification } from 'antd';
+import { Modal, Form, Input, notification } from 'antd';
 import client from 'api/client';
+import cn from 'classnames';
 import SvgClose from 'components/icon/Close';
-import LargeButton from 'components/ui-elements/large-button';
+import PrimaryButton from 'components/ui-elements/button';
 import PrimarySelect from 'components/ui-elements/select';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { userTypes } from 'helpers/constant';
@@ -16,24 +17,48 @@ const { TextArea } = Input;
 
 const ModalStart = ({ changeShowModal, showModal, baseData, selectedTask, user }) => {
   const [joinAs, changeJoinAs] = useState('Writer');
-  const [text, changeText] = useState('');
-
-  const ModalTitle = (
-    <div className={styles.titleWrapper}>
-      <div className={styles.modalTitle}>REQUEST TO JOIN</div>
-      <div className={styles.desc}>{baseData.title}</div>
-    </div>
-  );
-
-  const handleChangeText = (e) => {
-    changeText(e.target.value);
-  };
+  const [form] = Form.useForm();
 
   const handleCancel = () => {
     changeShowModal(false);
   };
 
-  const createRequest = async () => {
+  useEffect(() => {
+    form.resetFields();
+  }, [showModal]);
+
+  const sendMessage = (message, conv, conversation, mangaStoryRequest, headers, restClient) => {
+    restClient
+      .service('/api/v2/messages')
+      .create(
+        {
+          content: message || 'Hi',
+          conversationId: conv?._id || conversation._id,
+          joinMangaStoryRequestId: mangaStoryRequest._id,
+        },
+        {
+          headers,
+        }
+      )
+      .then(() => {
+        changeShowModal(false);
+        const eventData = [
+          {
+            event_type: EVENTS.REQUEST_TO_JOIN,
+            event_properties: {
+              authorId: baseData.author,
+              authorInfo: baseData.authorInfo,
+              mangaStoryId: baseData._id,
+              mangaStory: baseData,
+              taskId: selectedTask?._id,
+            },
+          },
+        ];
+        myAmplitude(eventData);
+      });
+  };
+
+  const createRequest = async (plan, yourself, join_as) => {
     try {
       const jwt = client.getCookie('feathers-jwt');
       const headers = {
@@ -45,7 +70,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, selectedTask, user }
         .create(
           {
             mangaStoryId: baseData._id,
-            joinAs,
+            joinAs: join_as,
             taskId: selectedTask?._id,
           },
           {
@@ -82,40 +107,13 @@ const ModalStart = ({ changeShowModal, showModal, baseData, selectedTask, user }
           }
         );
       }
-
-      return restClient
-        .service('/api/v2/messages')
-        .create(
-          {
-            content: text || 'Hi',
-            conversationId: conv?._id || conversation._id,
-            joinMangaStoryRequestId: mangaStoryRequest._id,
-          },
-          {
-            headers,
-          }
-        )
-        .then(() => {
-          changeText('');
-          changeShowModal(false);
-          const eventData = [
-            {
-              event_type: EVENTS.REQUEST_TO_JOIN,
-              event_properties: {
-                authorId: baseData.author,
-                authorInfo: baseData.authorInfo,
-                mangaStoryId: baseData._id,
-                mangaStory: baseData,
-                taskId: selectedTask?._id,
-              },
-            },
-          ];
-          myAmplitude(eventData);
-        });
+      sendMessage(plan, conv, conversation, mangaStoryRequest, headers, restClient);
+      sendMessage(yourself, conv, conversation, mangaStoryRequest, headers, restClient);
+      return;
     } catch (err) {
       if (err.name === 'Conflict') {
         notification.error({
-          message: `You have already sent a request with "${joinAs}"`,
+          message: `You have already sent a request with "${join_as}"`,
           placement: 'bottomLeft',
         });
       } else {
@@ -135,49 +133,97 @@ const ModalStart = ({ changeShowModal, showModal, baseData, selectedTask, user }
   return (
     <Modal
       className={styles.modal}
-      title={ModalTitle}
+      title={<div className={styles.modalTitle}>Claim this project</div>}
       footer={null}
       style={{ width: '900px' }}
       visible={showModal}
-      closeIcon={<SvgClose height="18px" width="18px" />}
+      closeIcon={
+        <span
+          className={styles.closeIcon}
+          onClick={(e) => {
+            e.stopPropagation();
+            changeShowModal(false);
+          }}>
+          <SvgClose />
+        </span>
+      }
       okText="Send"
       onCancel={handleCancel}>
-      <div className="container">
+      <div className={styles.border} />
+      <div className={cn('container', styles.container)}>
         <div className="row">
           <div className="col-lg-12 select_modal">
-            <form action="">
-              <h2>Join as</h2>
-              <PrimarySelect
-                showSearch
-                className={styles.modalSelect}
-                onChange={changeJoinAs}
-                options={MyCheckboxes}
-                value={joinAs}
-              />
-              <h2>Your message</h2>
-              <TextArea
-                placeholder="Please write a personal message to the team leader explaining why you are a good fit"
-                value={text}
-                onChange={handleChangeText}
-                required
-                type="text"
-                minLength={10}
-                maxLength={1000}
-                className={styles.modalTexarea}
-              />
+            <Form
+              form={form}
+              className={styles.taskForm}
+              name="taskRequest"
+              onFinish={(e) => {
+                changeJoinAs(e.joinAs);
+                createRequest(e.plan, e.yourseld, e.joinAs);
+              }}>
+              <h2>Iroduce yourseld *</h2>
+              <Form.Item
+                name="yourseld"
+                rules={[
+                  {
+                    required: true,
+                    message: 'This field is required',
+                  },
+                ]}>
+                <TextArea
+                  placeholder="Please introduce yourself and share why you think you are the best choice for this project."
+                  type="text"
+                  minLength={10}
+                  maxLength={1000}
+                  className={styles.modalTexarea}
+                />
+              </Form.Item>
+              <h2>Your plan *</h2>
+              <Form.Item
+                name="plan"
+                rules={[
+                  {
+                    required: true,
+                    message: 'This field is required',
+                  },
+                ]}>
+                <TextArea
+                  placeholder="This project will take longer than 1 month, please share your full plan including milestones and incremental progress you will be able to submit"
+                  type="text"
+                  minLength={10}
+                  maxLength={1000}
+                  className={styles.modalTexarea}
+                />
+              </Form.Item>
 
-              <div className="modal_select_btn">
-                <LargeButton
-                  onClick={() => {
-                    createRequest();
-                  }}
+              <h2>Join as *</h2>
+              <Form.Item name="joinAs">
+                <PrimarySelect
+                  showSearch
+                  className={styles.modalSelect}
+                  options={MyCheckboxes}
+                  value={joinAs}
+                />
+              </Form.Item>
+              <h2>Action</h2>
+              <div className={cn('modal_select_btn', styles.containerButton)}>
+                <PrimaryButton
+                  onClick={() => changeShowModal(false)}
+                  isWhite={true}
                   id="modalJoinMyJourneySubmitBtnId"
                   className={styles.hugeButton}
                   isFullWidth={false}
-                  text={'send'}
+                  text="Cancel"
+                />
+                <PrimaryButton
+                  id="modalJoinMyJourneySubmitBtnId"
+                  className={styles.hugeButton}
+                  isFullWidth={false}
+                  text="Submit"
+                  htmlType="submit"
                 />
               </div>
-            </form>
+            </Form>
           </div>
         </div>
       </div>
