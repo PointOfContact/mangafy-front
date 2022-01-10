@@ -193,6 +193,7 @@ export const CommissionPricing = ({ id, user }) => {
                     align="start">
                     <span className={styles.grupe}>
                       <Input
+                        disabled={!ifMyProfile}
                         className={cn(
                           styles.inputService,
                           !field.first && canEdit && editMode && isSubmitted && styles.errInp
@@ -213,6 +214,7 @@ export const CommissionPricing = ({ id, user }) => {
                     </span>
                     <span className={cn(styles.grupe)}>
                       <Input
+                        disabled={!ifMyProfile}
                         className={cn(
                           !field.last && canEdit && editMode && isSubmitted && styles.errInp,
                           styles.price

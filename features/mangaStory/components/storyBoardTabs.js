@@ -276,8 +276,7 @@ const StoryBoardTabs = ({
     ];
 
     myAmplitude(data);
-    !storyBoard?.mangaUrls?.length && pageArray.splice(4, 0, 'upload');
-    console.log(pageArray, 'pageArray');
+    storyBoard?.mangaUrls?.length && pageArray.splice(4, 0, 'upload');
   }, []);
 
   const updateTasks = async () => {
@@ -315,6 +314,7 @@ const StoryBoardTabs = ({
   //     />
   //   </div>
   // );
+
   const tabsOnChange = (activeKey) => {
     Router.push(`${routerBasePath}${pageArray[activeKey]}`, undefined, { shallow: true });
     setCurrentPage(pageArray[activeKey]);
@@ -498,7 +498,7 @@ const StoryBoardTabs = ({
             </span>
           }
           // disabled={!storyBoard?.mangaUrl}
-          key={!storyBoard?.mangaUrls?.length ? 5 : 4}>
+          key={storyBoard?.mangaUrls?.length ? 5 : 4}>
           {isShowAnimation && <span className={styles.showAnimation}></span>}
           <div className={styles.tabContent}>
             {/* {addNewButtons} */}
