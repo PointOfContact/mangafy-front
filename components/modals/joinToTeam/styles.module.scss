@@ -1,18 +1,59 @@
 @import '../../../styles/variables.scss';
 
 .modal {
+  max-width: 419px;
   margin-top: 30px;
+  & > div {
+    border-radius: 10px;
+    & > div {
+      border-radius: 10px;
+      padding: 0px;
+      border-bottom: 0;
+    }
+  }
   @include media-sm {
     width: 95% !important;
     max-width: 95% !important;
   }
   .modalTitle {
-    margin-top: 24px;
-    text-align: center;
-    font-family: Noto Sans JP;
     font-style: normal;
-    font-weight: 900;
-    font-size: 20px;
+    font-weight: 500;
+    font-size: $text3;
+    line-height: 35px;
+    padding: 19px;
+  }
+  .border {
+    width: 100%;
+    height: 2.95px;
+    background: -webkit-linear-gradient(
+      left,
+      rgba(33, 33, 33, 0.07) -0.96%,
+      rgba(33, 33, 33, 0) 100.58%
+    );
+    background: -moz-linear-gradient(
+      left,
+      rgba(33, 33, 33, 0.07) -0.96%,
+      rgba(33, 33, 33, 0) 100.58%
+    );
+    background: linear-gradient(90deg, rgba(33, 33, 33, 0.07) -0.96%, rgba(33, 33, 33, 0) 100.58%);
+  }
+  .container {
+    padding: 0 19px 35px;
+  }
+  .taskForm {
+    h2 {
+      font-style: normal;
+      font-weight: normal;
+      font-size: $text3;
+      line-height: 35px;
+      display: flex;
+      align-items: center;
+      margin-top: 14px;
+      margin-bottom: 10px;
+      & + div {
+        margin: 0;
+      }
+    }
   }
   .modalSelect {
     box-sizing: border-box;
@@ -21,37 +62,62 @@
     padding: 0;
     width: 100%;
     margin-bottom: 15px;
+    border: 1px solid $primaryDark;
   }
   .modalTexarea {
-    min-height: 198px;
+    min-height: 120px;
     border: 1px solid $primaryDark;
     box-sizing: border-box;
     border-radius: 10px;
     padding: 12px;
+    resize: none;
+    &::placeholder {
+      font-style: normal;
+      font-weight: 500;
+      font-size: $text4;
+      line-height: 23px;
+    }
   }
-  .hugeButton {
-    width: 240px;
-    height: 60px;
-    margin: 20px auto;
-  }
-  .titleWrapper {
+  .containerButton {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  .desc {
-    margin-top: 24px;
-    font-family: Noto Sans JP;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 20px;
-    line-height: 30px;
+    justify-content: space-between;
+    margin-top: 25px !important;
+    .hugeButton {
+      width: 175px;
+      height: 46px;
+      font-style: normal;
+      font-weight: 900;
+      font-size: $text3;
+      line-height: 29px;
+      &:first-child {
+        margin-right: 5px;
+      }
+    }
   }
   .anticon {
     padding: 4px;
     background: #7b65f3;
     border-radius: 50%;
     color: white;
+  }
+  .closeIcon {
+    background-color: $primaryDark;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    margin-top: 15px;
+    &:hover {
+      background-color: $primaryLight;
+    }
+    svg {
+      width: 14px;
+      height: 14px;
+      path {
+        fill: white;
+      }
+    }
   }
 }
