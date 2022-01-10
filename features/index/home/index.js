@@ -50,6 +50,7 @@ export default function Home() {
                   height={388}
                   src="https://mangafy.club/img/land-new-img1.webp"
                   alt="MangaFy land new"
+                  priority
                 />
               </div>
             </div>

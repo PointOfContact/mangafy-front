@@ -2,6 +2,7 @@
 // publicly available on the servers, only to the error reporting
 // const withSourceMaps = require('@zeit/next-source-maps')();
 // const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
+const ImgixClient = require('@imgix/js-core');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const withPlugins = require('next-compose-plugins');
 // const SentryWebpackPlugin = require('@sentry/webpack-plugin');
@@ -11,6 +12,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 });
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const withBabelMinify = require('next-babel-minify')({});
+const _imageConfig = require('next/dist/next-server/server/image-config');
 
 const path = require('path');
 
@@ -200,5 +202,9 @@ const nextConfigs = {
     return buildId;
   },
 };
+
+_imageConfig.imageConfigDefault.domains = ['mangafy.club', 'ui-avatars.com', 'mangafy.imgix.net'];
+_imageConfig.imageConfigDefault.loader = 'imgix';
+_imageConfig.imageConfigDefault.path = 'https://mangafy.imgix.net';
 
 module.exports = withPlugins([[withBundleAnalyzer], [withBabelMinify]], nextConfigs);

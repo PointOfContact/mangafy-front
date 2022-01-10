@@ -16,6 +16,7 @@ const AnimePlatformCard = ({ img, title, description, width, height }) => (
           width={width}
           height={height}
           src={`https://mangafy.club/img/${img}`}
+          priority
           alt="MangaFy anime platform"
         />
       </div>

@@ -55,7 +55,7 @@ const Header = ({ user, path, setShowModalEdit }) => {
   const [unreadNotificationsId, setUnreadNotificationsId] = useState([]);
   const [changeHeaderSize, setChangeHeaderSize] = useState(false);
   const router = useRouter();
-  const ifMyProfile = router?.query?.pid === user?._id;
+  const ifMyProfile = user?._id && router?.query?.pid === user?._id;
   const ifNotData = !user?.content || !user?.name || !user?.genresIds?.length;
   const showWarning = !!user && router.query.editModal !== 'true' && ifNotData;
 
@@ -246,6 +246,7 @@ const Header = ({ user, path, setShowModalEdit }) => {
                             <div className={styles.avatar}>
                               {user.avatar ? (
                                 <Imgix
+                                  priority
                                   width={50}
                                   height={50}
                                   src={client.UPLOAD_URL + user.avatar}

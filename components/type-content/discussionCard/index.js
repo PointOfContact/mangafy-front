@@ -76,14 +76,13 @@ const DiscussionCard = (props) => {
       <div className={styles.projectsForYou_card} onClick={() => openPost(id)}>
         <div className={styles.projectsForYou_Top}>
           <Link href={logoNavigate || ''}>
-            <a>
-              <div
+            <a style={{ marginRight: 8 }}>
+              <Imgix
                 className={styles.projectsForYou_Logo}
-                style={{
-                  backgroundImage: `url(${
-                    logo ? client.UPLOAD_URL + logo : '/img/mangastory.jpg'
-                  })`,
-                }}></div>
+                src={logo ? client.UPLOAD_URL + logo : 'https://mangafy.club/img/mangastory.jpg'}
+                width={40}
+                height={40}
+              />
             </a>
           </Link>
           <div className={styles.projectsForYou_Descr}>
