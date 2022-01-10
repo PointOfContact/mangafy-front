@@ -34,6 +34,7 @@ const ModalHeroes = ({
   const [appearance, setAppearance] = useState('');
   const [searchQualityIcon, setSearchQualityIcon] = useState(false);
   const [searchTypesIcon, setSearchTypesIcon] = useState(false);
+  const [imgLoad, setImgLoad] = useState(false);
   const [heroType, setHeroType] = useState([]);
   const [quality, setQuality] = useState([]);
   const [imageUrl, setImgId] = useState('');
@@ -69,25 +70,17 @@ const ModalHeroes = ({
   }, [showModal]);
 
   const onChangeHero = (e, imgId, newCreated = false) => {
-    let newHero;
-
     const selectData = (data) => (typeof data === 'string' ? [data] : data);
 
-    if (!imgId || newCreated) {
-      newHero = {
-        ...hero,
-        name: e.name || name,
-        description: e.description || description,
-        appearance: e.appearance || appearance,
-        heroType: selectData(e.heroType),
-        quality: selectData(e.quality),
-      };
-    } else {
-      newHero = {
-        imageUrl: imgId,
-      };
-    }
-
+    const newHero = {
+      ...hero,
+      name: e.name || name,
+      description: e.description || description,
+      appearance: e.appearance || appearance,
+      heroType: selectData(e.heroType),
+      quality: selectData(e.quality),
+      imageUrl: imgId,
+    };
     onChangeHeroLogic(newHero, hero, newCreated, setIdCardHero, idCardHero);
   };
 
@@ -108,7 +101,7 @@ const ModalHeroes = ({
     setHeroType(e.heroType);
     setQuality(e.quality);
     setAppearance(e.appearance);
-    onChangeHero(e);
+    onChangeHero(e, imageUrl);
     changeShowModalHeroes(false);
   };
 
@@ -171,6 +164,9 @@ const ModalHeroes = ({
                     className={styles.nameInput}
                     inputRef={inputRef}
                     placeholder={'Start with your character name...'}
+                    onChange={(e) => {
+                      setName(e.target.value);
+                    }}
                     isFullWidth={true}
                     isLinear={true}
                   />
@@ -241,6 +237,9 @@ const ModalHeroes = ({
                     className={styles.modalTexArea}
                     isFullWidth={true}
                     isLinear={true}
+                    onChange={(e) => {
+                      setDescription(e.target.value);
+                    }}
                     autoSize={{ minRows: 1, maxRows: 4 }}
                   />
                 </Form.Item>
@@ -259,6 +258,9 @@ const ModalHeroes = ({
                     }
                     className={styles.modalTexArea}
                     isFullWidth={true}
+                    onChange={(e) => {
+                      setAppearance(e.target.value);
+                    }}
                     isLinear={true}
                     autoSize={{ minRows: 1, maxRows: 4 }}
                   />
@@ -281,7 +283,9 @@ const ModalHeroes = ({
                   <HeroUpload
                     text="Drag or browse your art to start uploading"
                     hero={hero}
-                    onChangeHero={onChangeHero}
+                    // onChangeHero={onChangeHero}
+                    onChangeHero={() => {}}
+                    setImgLoad={setImgLoad}
                     className={styles.upload}
                     mangaUrl={imageUrl}
                     setImgId={setImgId}
@@ -290,7 +294,7 @@ const ModalHeroes = ({
                 </Form.Item>
                 <h4 className={styles.title}>Actions</h4>
                 <div className={styles.containerButton}>
-                  <PrimaryButton text="Save" htmlType="submit" />
+                  <PrimaryButton loading={imgLoad} text="Save" htmlType="submit" />
                   <PrimaryButton
                     onClick={() => {
                       changeShowModalHeroes(false);
@@ -299,6 +303,7 @@ const ModalHeroes = ({
                         hero,
                       });
                     }}
+                    loading={imgLoad}
                     text="Duplicate"
                     htmlType="submit"
                   />
