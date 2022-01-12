@@ -59,7 +59,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
+    color: white !important;
     cursor: pointer;
     border-radius: 20px;
     @include media-sm {
