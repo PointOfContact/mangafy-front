@@ -23,6 +23,9 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
       queryPosts = {
         $limit: 7,
         $or: type,
+        $sort: {
+          createdAt: -1,
+        },
       };
     } else {
       queryPosts = {
@@ -32,7 +35,9 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
         },
       };
     }
+
     const posts = await client.service('/api/v2/posts').find({ query: queryPosts });
+
     const dailyWarmUps = await client.service('/api/v2/daily-warm-ups').find({
       query: {
         $limit: 100,

@@ -35,28 +35,34 @@ const GetFeedback = ({
   const [uploadLoading, setUploadLoading] = useState(false);
 
   useEffect(() => {
-    const { postType, pid, title, image, text, money, lookingFor } = router.query;
-    if (postType === 'Manga') {
+    const { postType } = router.query;
+
+    if (postType === 'Manga' && !edit) {
       setIsModalVisible(true);
-      setImgId(image);
-      setSubTitle(title);
-      setViewUrl(`/manga-view/${pid}`);
-    } else if (postType === 'Task') {
+    } else if (postType === 'Task' && !edit) {
       setIsModalVisible(true);
-      setSubTitle(`Looking For - ${lookingFor}, ${text}`);
-      !!money && setSelectedTags([`#${money}$`]);
-      setViewUrl(`manga-story/${pid}?tab=story`);
     }
   }, []);
 
   useEffect(() => {
-    const { pid } = router.query;
-    if (!pid && !edit) {
+    const { postType, pid, title, image, text, money, lookingFor } = router.query;
+
+    if (!isModalVisible) {
       setSelectedTags([]);
       setSubTitle('');
       setValidation('');
       setValidation('');
       setImgId('');
+    } else if (postType === 'Manga' && !edit) {
+      setIsModalVisible(true);
+      setImgId(image);
+      setSubTitle(title);
+      setViewUrl(`/manga-view/${pid}`);
+    } else if (postType === 'Task' && !edit) {
+      setIsModalVisible(true);
+      setSubTitle(`Looking For - ${lookingFor}, ${text}`);
+      !!money && setSelectedTags([`#${money}$`]);
+      setViewUrl(`manga-story/${pid}?tab=story`);
     } else {
       setImgId(img);
       setSelectedTags(categories);
@@ -72,7 +78,6 @@ const GetFeedback = ({
         event_properties: { response_id: event.response_id },
       },
     ];
-
     if (postType === 'Manga') {
       data[0].event_type = EVENTS.POST_MANGA;
     } else if (postType === 'Task') {
@@ -87,7 +92,6 @@ const GetFeedback = ({
       subTitle,
       categories: selectedTags,
     };
-
     if (viewUrl) {
       data.viewUrl = viewUrl;
     }
