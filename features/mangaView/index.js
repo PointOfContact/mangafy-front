@@ -62,8 +62,8 @@ const MangaView = ({
 
   const alreadyLikedChapter = async () => {
     const userId = !!user ? user._id : deviceId;
+    const liked = chapter?.likedUsers?.some((value) => value === userId);
 
-    const liked = chapter.likedUsers.some((value) => value === userId);
     if (liked) {
       setAlreadyLiked(liked);
       setLike(true);
