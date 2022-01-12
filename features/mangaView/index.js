@@ -54,6 +54,10 @@ const MangaView = ({
   const [comments, setComments] = useState([]);
   const [deviceId, setDeviceId] = useState('');
 
+  useEffect(() => {
+    setCountLike(chapter.like);
+  }, [currentChapterNumber, chapter]);
+
   const chapterImg = chapter?.chapterImg;
 
   const alreadyLikedChapter = async () => {
@@ -204,6 +208,7 @@ const MangaView = ({
   const returnLikedData = async () => {
     const userId = !!user ? user._id : deviceId;
     const data = {
+      ownerId: userData[0]._id,
       chapterId: chapter._id,
       likedUserId: userId,
       participants,

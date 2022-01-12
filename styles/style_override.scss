@@ -260,7 +260,7 @@ body {
     background-color: inherit !important;
     border: none !important;
     .ant-upload-list-item-error {
-      border: 1px solid #ff4d4f !important;
+      border: none !important;
       background-image: none !important;
     }
     @include media-sm {

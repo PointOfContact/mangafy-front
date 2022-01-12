@@ -72,10 +72,11 @@ const ChapterFooter = ({
     const data = {
       storyBoard: storyBoard._id,
       title: 'Untitled page',
-      order: count,
+      order: value.pages.length + 1,
       imageUrl: e,
       chapterId: value._id,
     };
+
     mangaStoryAPI.pages.createPage(index, chapters, setChapters, () => {}, data);
   };
 
