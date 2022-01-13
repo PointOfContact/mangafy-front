@@ -33,11 +33,8 @@ const StoryTab = ({
   const [participantsData, setParticipantsData] = useState(participentsInfo);
   const history = useRouter();
 
-  const leaveManga = (participantId) => {
-    const newParticipantsData = participents.filter((value) => value !== participantId);
-
-    return mangaStoryAPI.storyTab.leaveManga(
-      newParticipantsData,
+  const leaveManga = (participantId) =>
+    mangaStoryAPI.storyTab.leaveManga(
       participantId,
       _id,
       setBaseData,
@@ -45,7 +42,6 @@ const StoryTab = ({
       user,
       setParticipantsData
     );
-  };
 
   const toTeam = (task) => {
     if (user) {

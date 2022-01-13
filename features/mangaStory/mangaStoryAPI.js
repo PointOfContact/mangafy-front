@@ -105,17 +105,8 @@ export default {
     },
   },
   storyTab: {
-    leaveManga: (
-      newParticipantsData,
-      participantId,
-      _id,
-      setBaseData,
-      history,
-      user,
-      setParticipantsData
-    ) => {
+    leaveManga: (participantId, _id, setBaseData, history, user, setParticipantsData) => {
       const data = {
-        participents: newParticipantsData,
         participantId,
       };
       const jwt = client.getCookie('feathers-jwt');
