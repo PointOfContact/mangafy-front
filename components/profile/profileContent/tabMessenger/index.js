@@ -46,40 +46,40 @@ const TabMessenger = (props) => {
               .filter((i) => !i.joinMangaStoryRequestId)
               .map((item) => ({
                 _id: item._id,
-                createdAt: item.createdAt || new Date(0),
-                mangaStoryId: item.mangaStoryId,
-                isTeamChat: !!item.mangaStoryId,
-                conversations: [{ _id: item._id }],
-                participents: item.participents,
-                participentsInfo: [item.mangaStoryAuthor, ...item.participentsInfo],
+                createdAt: item?.createdAt || new Date(0),
+                mangaStoryId: item?.mangaStoryId,
+                isTeamChat: !!item?.mangaStoryId,
+                conversations: [{ _id: item?._id }],
+                participents: item?.participents,
+                participentsInfo: [item?.mangaStoryAuthor, ...item?.participentsInfo],
                 senderInfo:
-                  (item.mangaStoryTitle && {
-                    name: item.mangaStoryTitle,
-                    avatar: item.mangaStoryImage,
+                  (item?.mangaStoryTitle && {
+                    name: item?.mangaStoryTitle,
+                    avatar: item?.mangaStoryImage,
                   }) ||
-                  item.participentsInfo[0],
-                messages: item.lastMessage,
+                  item?.participentsInfo[0],
+                messages: item?.lastMessage,
               }))
               ?.reverse();
-            if (newRequests.length === res.length && showArchive) setShowArchive(false);
+            if (newRequests?.length === res?.length && showArchive) setShowArchive(false);
           } else {
             newRequests = res
               .map((item) => ({
-                _id: item._id,
-                createdAt: item.createdAt || new Date(0),
-                mangaStoryId: item.mangaStoryId,
-                isTeamChat: !!item.mangaStoryId,
-                conversations: [{ _id: item._id }],
-                participents: item.participents,
-                joinMangaStoryRequestId: item.joinMangaStoryRequestId,
-                participentsInfo: [item.mangaStoryAuthor, ...item.participentsInfo],
+                _id: item?._id,
+                createdAt: item?.createdAt || new Date(0),
+                mangaStoryId: item?.mangaStoryId,
+                isTeamChat: !!item?.mangaStoryId,
+                conversations: [{ _id: item?._id }],
+                participents: item?.participents,
+                joinMangaStoryRequestId: item?.joinMangaStoryRequestId,
+                participentsInfo: [item?.mangaStoryAuthor, ...item?.participentsInfo],
                 senderInfo:
-                  (item.mangaStoryTitle && {
-                    name: item.mangaStoryTitle,
-                    avatar: item.mangaStoryImage,
+                  (item?.mangaStoryTitle && {
+                    name: item?.mangaStoryTitle,
+                    avatar: item?.mangaStoryImage,
                   }) ||
-                  item.participentsInfo[0],
-                messages: item.lastMessage,
+                  item?.participentsInfo[0],
+                messages: item?.lastMessage,
               }))
               ?.reverse();
             setArcRequests(false);
@@ -97,24 +97,24 @@ const TabMessenger = (props) => {
                 mangaStoryId: thisConv?.mangaStoryId,
                 isTeamChat: !!thisConv?.isTeamChat,
                 conversationId:
-                  thisConv?.conversations[0]._id || newRequests[0].conversations[0]._id,
-                name: thisConv?.senderInfo.name,
-                av: client.UPLOAD_URL + thisConv?.senderInfo.avatar || '',
+                  thisConv?.conversations[0]?._id || newRequests[0]?.conversations[0]?._id,
+                name: thisConv?.senderInfo?.name,
+                av: client.UPLOAD_URL + thisConv?.senderInfo?.avatar || '',
                 profileId: thisConv?.senderInfo?._id,
                 isArchive: !!thisConv?.joinMangaStoryRequestId,
                 participentsInfo: thisConv?.participentsInfo,
               };
             } else {
               newSelectedRequest = {
-                rid: newRequests[0]._id,
-                mangaStoryId: newRequests[0].mangaStoryId,
-                conversationId: newRequests[0].conversations[0]._id,
-                name: newRequests[0].senderInfo.name,
-                av: client.UPLOAD_URL + newRequests[0].senderInfo.avatar || '',
-                profileId: newRequests[0].senderInfo._id,
-                isTeamChat: newRequests[0].isTeamChat,
-                isArchive: !!newRequests[0].joinMangaStoryRequestId,
-                participentsInfo: newRequests[0].participentsInfo,
+                rid: newRequests[0]?._id,
+                mangaStoryId: newRequests[0]?.mangaStoryId,
+                conversationId: newRequests[0]?.conversations[0]?._id,
+                name: newRequests[0]?.senderInfo?.name,
+                av: client.UPLOAD_URL + newRequests[0]?.senderInfo?.avatar || '',
+                profileId: newRequests[0]?.senderInfo?._id,
+                isTeamChat: newRequests[0]?.isTeamChat,
+                isArchive: !!newRequests[0]?.joinMangaStoryRequestId,
+                participentsInfo: newRequests[0]?.participentsInfo,
               };
             }
             setSelectedRequest(newSelectedRequest);
