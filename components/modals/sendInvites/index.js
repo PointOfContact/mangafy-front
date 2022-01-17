@@ -18,6 +18,7 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
   const [joinAs, changeJoinAs] = useState('Writer');
   const [text, changeText] = useState('');
   const [task, setTask] = useState('');
+  const [loading, setLoading] = useState(false);
   const [optionsTasks, setOptionsTasks] = useState([]);
   const [optionsMangaStories, setOptionsMangaStories] = useState([]);
   const [story, setStory] = useState(null);
@@ -79,6 +80,7 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
         userId: user._id,
         text,
         taskId: task,
+        setLoading,
       });
       const eventData = [
         {
@@ -210,6 +212,7 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
               <div className="modal_select_btn">
                 <Form.Item>
                   <PrimaryButton
+                    loading={loading}
                     htmlType="submit"
                     id="modalJoinMyJourneySubmitBtnId"
                     className={styles.hugeButton}
