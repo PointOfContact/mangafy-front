@@ -66,7 +66,7 @@ const ChapterItems = ({ chapters, setChapters, storyBoard, setStoryBoard, user, 
           </div>
           <div className={styles.chapterContainer}>
             <Pages
-              pages={value?.pages}
+              pages={[...value?.pages]}
               setVisibleModal={setVisibleModal}
               setModalTitle={setModalTitle}
               setPageItem={setPageItem}

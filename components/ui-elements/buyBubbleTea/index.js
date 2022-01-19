@@ -76,7 +76,7 @@ const BuyBubbleTea = ({ payPalEmail, createAmplitude, chapter, mangaStoryId, use
 };
 
 BuyBubbleTea.propTypes = {
-  payPalEmail: PropTypes.string.isRequired,
+  payPalEmail: PropTypes.string,
   createAmplitude: PropTypes.bool,
   chapter: PropTypes.object,
   mangaStoryId: PropTypes.string,
@@ -84,6 +84,7 @@ BuyBubbleTea.propTypes = {
 };
 
 BuyBubbleTea.defaultProps = {
+  payPalEmail: '',
   createAmplitude: false,
   chapter: {},
   mangaStoryId: '',
