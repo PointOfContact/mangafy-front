@@ -69,10 +69,12 @@ const Editor = ({ onSubmit, submitting, user, postId }) => (
           required: true,
           validator: async (_, names) => {
             if (names.trim().length < 1) {
-              return Promise.reject(new Error('Length must be at least 2 characters long'));
+              return Promise.reject(
+                new Error('Feedback  from you will make creator happy! Minimum 2 characters.')
+              );
             }
           },
-          message: 'Length must be at least 2 characters long',
+          message: 'Feedback  from you will make creator happy! Minimum 2 characters.',
         },
       ]}>
       <TextArea autoSize={{ minRows: 1, maxRows: 7 }} />

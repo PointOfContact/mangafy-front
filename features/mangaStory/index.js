@@ -124,7 +124,7 @@ const MangeStory = (props) => {
     );
   }, [userData, mangaStory?._id]);
 
-  const saveMangaStoryData = (newBaseData, ...keys) => {
+  const saveMangaStoryData = (newBaseData, reject = () => {}, ...keys) => {
     const data = {};
     keys.forEach((item) => {
       data[item] = newBaseData[item];
@@ -143,17 +143,18 @@ const MangeStory = (props) => {
           setBaseData(res);
         })
         .catch((err) => {
-          openNotification('error', err.message);
+          reject(err.message);
+          // openNotification('error', err.message);
         });
     });
   };
 
-  const onChangeSingleField = ({ target }, changeCollabData = false) => {
+  const onChangeSingleField = ({ target }, changeCollabData = false, reject = () => {}) => {
     const { name, value } = target;
     const data = { ...baseData, [name]: value };
     setBaseData(data);
     setEditMode(true);
-    changeCollabData && saveMangaStoryData(data, name);
+    changeCollabData && saveMangaStoryData(data, reject, name);
   };
 
   const cancelEditMode = () => {

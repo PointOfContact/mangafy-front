@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 
-import { notification, Popover, Tooltip } from 'antd';
+import { notification, Popover } from 'antd';
 import client from 'api/client';
 import GetFeedback from 'components/get-feedback';
 import SvgDelete from 'components/icon/Delete';
 import SvgEdit from 'components/icon/Edit';
+import SvgShare from 'components/icon/Share';
 import Popconfirm from 'components/popconfirm';
 import { ShareButtons } from 'components/share';
 import { EVENTS } from 'helpers/amplitudeEvents';
@@ -24,6 +25,7 @@ const EditPostItems = ({
   categories,
 }) => {
   const [visibleEditModal, visibleEditPostModal] = useState(false);
+  const [showShareIcon, setShowShareIcon] = useState(false);
   const [visibleSettings, setVisibleSettings] = useState(false);
 
   const editPost = (e) => {
@@ -65,10 +67,10 @@ const EditPostItems = ({
 
   const editPostItems = user && userId && user._id === userId && (
     <div className={styles.editPost}>
-      <span className={styles.editPostItems} onClick={editPost}>
+      <p className={styles.editPostItems} onClick={editPost}>
         <SvgEdit width="15" height="15" />
         Edit
-      </span>
+      </p>
       <Popconfirm
         overlayClassName={styles.popConfirm}
         position={'right'}
@@ -82,6 +84,15 @@ const EditPostItems = ({
           </span>
         }
       />
+      <p
+        className={styles.editPostItems}
+        onClick={(e) => {
+          e.stopPropagation();
+          setShowShareIcon(true);
+        }}>
+        <SvgShare width="15" height="15" />
+        Share
+      </p>
     </div>
   );
 
@@ -93,19 +104,27 @@ const EditPostItems = ({
         visible={visibleSettings}
         onVisibleChange={() => setVisibleSettings(!visibleSettings)}
         content={
-          <ul>
+          <ul style={{ minWidth: '200px' }}>
             <li>{editPostItems}</li>
-            <li>
-              <ShareButtons shareUrl={`${client.API_ENDPOINT}/feed?postId=${id}`} text="" />
-            </li>
+            {showShareIcon && (
+              <li>
+                <ShareButtons
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setShowShareIcon(false);
+                    setVisibleSettings(false);
+                  }}
+                  shareUrl={`${client.API_ENDPOINT}/feed?postId=${id}`}
+                  text=""
+                />
+              </li>
+            )}
           </ul>
         }
         trigger="click">
-        <Tooltip title="Settings">
-          <span className={styles.shareUrl} onClick={() => setVisibleSettings(true)}>
-            ...
-          </span>
-        </Tooltip>
+        <span className={styles.shareUrl} onClick={() => setVisibleSettings(true)}>
+          ...
+        </span>
       </Popover>
       <GetFeedback
         user={user}
