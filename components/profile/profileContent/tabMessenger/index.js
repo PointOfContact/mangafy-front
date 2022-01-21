@@ -89,7 +89,7 @@ const TabMessenger = (props) => {
             setRequests(getExistData);
             const { conversation } = qs.parse(window.location.search);
             const thisConv = newRequests.find((r) => r._id === conversation);
-            let newSelectedRequest = {};
+            let newSelectedRequest;
 
             if (thisConv) {
               newSelectedRequest = {
@@ -97,8 +97,8 @@ const TabMessenger = (props) => {
                 mangaStoryId: thisConv?.mangaStoryId,
                 isTeamChat: !!thisConv?.isTeamChat,
                 conversationId:
-                  thisConv?.conversations[0]._id || newRequests[0].conversations[0]._id,
-                name: thisConv?.senderInfo.name,
+                  thisConv?.conversations[0]?._id || newRequests[0]?.conversations[0]?._id,
+                name: thisConv?.senderInfo?.name,
                 av: client.UPLOAD_URL + thisConv?.senderInfo.avatar || '',
                 profileId: thisConv?.senderInfo?._id,
                 isArchive: !!thisConv?.joinMangaStoryRequestId,
@@ -106,15 +106,15 @@ const TabMessenger = (props) => {
               };
             } else {
               newSelectedRequest = {
-                rid: newRequests[0]._id,
-                mangaStoryId: newRequests[0].mangaStoryId,
-                conversationId: newRequests[0].conversations[0]._id,
-                name: newRequests[0].senderInfo.name,
-                av: client.UPLOAD_URL + newRequests[0].senderInfo.avatar || '',
-                profileId: newRequests[0].senderInfo._id,
-                isTeamChat: newRequests[0].isTeamChat,
-                isArchive: !!newRequests[0].joinMangaStoryRequestId,
-                participentsInfo: newRequests[0].participentsInfo,
+                rid: newRequests[0]?._id,
+                mangaStoryId: newRequests[0]?.mangaStoryId,
+                conversationId: newRequests[0]?.conversations[0]?._id,
+                name: newRequests[0]?.senderInfo?.name,
+                av: client.UPLOAD_URL + newRequests[0]?.senderInfo?.avatar || '',
+                profileId: newRequests[0]?.senderInfo?._id,
+                isTeamChat: newRequests[0]?.isTeamChat,
+                isArchive: !!newRequests[0]?.joinMangaStoryRequestId,
+                participentsInfo: newRequests[0]?.participentsInfo,
               };
             }
             setSelectedRequest(newSelectedRequest);

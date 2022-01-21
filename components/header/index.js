@@ -63,8 +63,8 @@ const Header = ({ user, path, setShowModalEdit }) => {
     if (!user) return;
     findNotificationsCount(
       (res) => {
-        setUnreadNotificationsId(res);
-        setNotificationsCount(res.length);
+        setUnreadNotificationsId(res.data);
+        setNotificationsCount(res.total);
       },
       (err) => {
         console.log(err);
