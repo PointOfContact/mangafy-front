@@ -17,6 +17,7 @@ const ViewUrlName = ({ baseData, onChangeSingleField, sendEvent, storyBoard }) =
   const [copyText, setCopyText] = useState('Copy to clipboard');
   const [isTouched, setIsTouched] = useState(false);
   const [deviceId, setDeviceId] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const [viewUrlName, setViewUrlName] = useState(baseData?.viewUrlName);
   const validViewUrlName = viewUrlName?.length < 2 || !viewUrlName?.match(/^[a-z]+$/);
   const router = useRouter();
@@ -32,20 +33,28 @@ const ViewUrlName = ({ baseData, onChangeSingleField, sendEvent, storyBoard }) =
   }, []);
 
   const onChange = (e) => {
-    onChangeSingleField(e, true) &&
+    onChangeSingleField(e, true, (err) => {
+      setErrorMessage(err);
+    }) &&
       sendEvent(EVENTS.EDIT_PROJECT_DOMAIN, 'customDomain', `https://${viewUrlName}.mangafy.club`);
     setValue(e.target.value);
   };
 
-  const error = validViewUrlName && isTouched && (
-    <p className={styles.error}>
-      {viewUrlName.length < 2
-        ? 'This field minimum length should be min 2 character'
-        : 'Subdomain is invalid. Only characters are allowed.'}
-    </p>
+  const error = errorMessage ? (
+    <p className={styles.error}>{errorMessage && errorMessage}</p>
+  ) : (
+    validViewUrlName &&
+    isTouched && (
+      <p className={styles.error}>
+        {errorMessage && errorMessage}
+        {viewUrlName.length < 2
+          ? 'Use your creativity. Minimum 2 characters'
+          : 'Subdomain is invalid. Only characters are allowed.'}
+      </p>
+    )
   );
 
-  const ifCustomSubdomain = value === 'Custom subdomain';
+  const ifCustomSubdomain = value === 'Fan page';
 
   return (
     <div ref={ref} className={styles.viewLink}>
@@ -57,24 +66,25 @@ const ViewUrlName = ({ baseData, onChangeSingleField, sendEvent, storyBoard }) =
         Claim project name and give fans an easy-to remember web address for your Webcomics project
       </p>
 
-      {ifCustomSubdomain && <p className={styles.customSubdomainTitle}> Custom subdomain </p>}
+      {ifCustomSubdomain && <p className={styles.customSubdomainTitle}> Fan page </p>}
 
       <Radio.Group
         name={'typeUrlView'}
         onChange={onChange}
         value={value || 'Standard domain'}
         className={cn(styles.radioButton, !ifCustomSubdomain && styles.custom)}>
-        <Radio value={'Custom subdomain'}>
-          {!ifCustomSubdomain && 'Custom subdomain'}
+        <Radio value={'Fan page'}>
+          {!ifCustomSubdomain && 'Fan page'}
           {ifCustomSubdomain && (
             <>
               <div className={styles.standardDomain}>
                 <PrimaryInput
                   className={styles.viewUrlName}
-                  placeholder="subdomain"
+                  placeholder="Your domain"
                   value={viewUrlName}
                   onChange={(e) => {
                     setIsTouched(true);
+                    setErrorMessage('');
                     setViewUrlName(e.target.value);
                   }}
                   onBlur={() => {
@@ -85,7 +95,9 @@ const ViewUrlName = ({ baseData, onChangeSingleField, sendEvent, storyBoard }) =
                       },
                     };
                     !validViewUrlName &&
-                      onChangeSingleField(data, true) &&
+                      onChangeSingleField(data, true, (err) => {
+                        setErrorMessage(err);
+                      }) &&
                       sendEvent(
                         EVENTS.EDIT_PROJECT_DOMAIN,
                         'customDomain',
@@ -104,6 +116,7 @@ const ViewUrlName = ({ baseData, onChangeSingleField, sendEvent, storyBoard }) =
           onChange={() => {
             sendEvent(EVENTS.EDIT_PROJECT_DOMAIN, 'domain', 'standard');
             setIsTouched(false);
+            setErrorMessage('');
           }}>
           Standard domain
         </Radio>
