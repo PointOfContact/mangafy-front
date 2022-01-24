@@ -68,7 +68,7 @@ const GalleryCard = ({
             setUserData({
               ...userData,
               galleryLikedUsers: [
-                ...userData?.galleryLikedUsers,
+                ...(userData?.galleryLikedUsers || []),
                 {
                   galleryId,
                   likedUserId,
