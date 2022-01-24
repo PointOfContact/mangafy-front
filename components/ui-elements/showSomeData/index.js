@@ -50,7 +50,7 @@ const ShowSomeData = ({ participantsData, size, leaveManga, deleteButton, isOwn,
     ));
 
   return (
-    participantsData.length > 5 && (
+    participantsData?.length > 5 && (
       <Popover placement="topLeft" content={allParticipantsData()} trigger="click">
         <Tooltip placement="topLeft" title="All participants">
           <p className={styles.participantsCount}>+ {participantsData.length - 5}</p>

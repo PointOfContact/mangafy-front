@@ -1,18 +1,29 @@
 @import '../../styles/variables.scss';
 
 .participents {
-  padding-left: 20px;
+  padding: 0 0 20px 20px;
   display: flex;
+  align-items: center;
   margin-top: 16px;
   img {
-    min-width: 68.8px;
-    min-height: 68.8px;
-    max-width: 68.8px;
-    max-height: 68.8px;
     border-radius: 50%;
+    @include media-sm{
+      width: 50px !important;
+      height: 50px !important;
+    }
   }
   .participentInfo {
+    display: flex;
     margin-left: -20px !important;
+    cursor: pointer;
+  }
+  .avatar{
+    width: 69px !important;
+    height: 69px !important;
+    @include media-sm{
+      width: 50px !important;
+      height: 50px !important;
+    }
   }
 }
 

@@ -5,6 +5,7 @@ import client from 'api/client';
 import Imgix from 'components/imgix';
 import MessengerContent from 'components/profile/profileContent/tabMessenger/messengerContent';
 import Avatar from 'components/ui-elements/avatar';
+import ShowSomeData from 'components/ui-elements/showSomeData';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
@@ -57,23 +58,34 @@ export const Chat = ({ mangaStory, user, isOwn, collabActiveTab }) => {
   return (
     <div>
       <div className={styles.participents}>
-        {[user].concat(conversation?.participentsInfo || []).map(({ avatar, name }) => (
-          <Tooltip key={name} placement="topLeft" title={name} arrowPointAtCenter>
-            <div className={styles.participentInfo}>
-              {avatar ? (
-                <Imgix
-                  width={65}
-                  height={65}
-                  src={client.UPLOAD_URL + avatar}
-                  alt="Picture of the user"
-                />
-              ) : (
-                <Avatar text={name} size={69} />
-              )}
-            </div>
-          </Tooltip>
-        ))}
+        {[user].concat(conversation?.participentsInfo || []).map(
+          ({ avatar, name }, index) =>
+            index < 6 && (
+              <Tooltip key={name} placement="topLeft" title={name} arrowPointAtCenter>
+                <div className={styles.participentInfo}>
+                  {avatar ? (
+                    <Imgix
+                      width={65}
+                      height={65}
+                      src={client.UPLOAD_URL + avatar}
+                      alt="Picture of the user"
+                    />
+                  ) : (
+                    <Avatar className={styles.avatar} text={name} />
+                  )}
+                </div>
+              </Tooltip>
+            )
+        )}
+        <ShowSomeData
+          participantsData={conversation?.participentsInfo}
+          size={40}
+          deleteButton={false}
+          isOwn={isOwn}
+          user={user}
+        />
       </div>
+
       {selectedRequest && (
         <MessengerContent
           user={user}
