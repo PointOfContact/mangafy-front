@@ -21,7 +21,7 @@ const Avatar = ({ text, className, onClick, size, fontSize, ...rest }) => (
 
 Avatar.propTypes = {
   className: PropTypes.string,
-  size: PropTypes.number,
+  size: PropTypes.string,
   fontSize: PropTypes.number,
   onClick: PropTypes.func,
   text: PropTypes.string,
@@ -30,7 +30,7 @@ Avatar.propTypes = {
 Avatar.defaultProps = {
   className: '',
   fontSize: null,
-  size: null,
+  size: '',
   onClick: () => {},
   text: '',
 };

@@ -72,6 +72,7 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
 
   const onInvite = async () => {
     try {
+      setLoading(true);
       await createRequest({
         mangaStoryId: story,
         isInvite: true,
@@ -82,6 +83,7 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
         taskId: task,
         setLoading,
       });
+      setLoading(false);
       const eventData = [
         {
           event_type: EVENTS.INVITE_SOMEONE,
