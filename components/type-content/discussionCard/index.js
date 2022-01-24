@@ -165,7 +165,9 @@ const DiscussionCard = (props) => {
             </Link>
             {/* </div> */}
             {!img && !!categories[0] && (
-              <span className={cn(!img && styles.cat, styles.catDef)}>{categories[0]}</span>
+              <div className={cn(!img && styles.cat, styles.catDef)}>
+                <span>{categories[0]}</span>
+              </div>
             )}
           </div>
         </div>
