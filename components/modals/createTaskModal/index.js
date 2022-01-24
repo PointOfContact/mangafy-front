@@ -91,6 +91,8 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
   };
 
   const createTask = async () => {
+    if (!+amount) return;
+
     const data = {
       mangaStoryId: baseData._id,
       lookingFor,
@@ -133,6 +135,8 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
   };
 
   const editTask = async () => {
+    if (!+amount) return;
+
     const jwt = client.getCookie('feathers-jwt');
     const { default: api } = await import('api/restClient');
 
@@ -281,8 +285,14 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
                     name="amount"
                     rules={[
                       {
-                        required: true,
-                        message: 'All budget are allowed. Minimum 2 characters.',
+                        validator: async (_, amount) => {
+                          if (amount === null) {
+                            return Promise.reject(new Error('Budget field is required'));
+                          }
+                          if (+amount === 0) {
+                            return Promise.reject(new Error("This field value shouldn't be 0"));
+                          }
+                        },
                       },
                     ]}>
                     <PrimaryInput

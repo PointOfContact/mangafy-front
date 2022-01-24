@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 /* eslint-disable react/display-name */
 import React, { useEffect, useState } from 'react';
 
@@ -125,7 +126,7 @@ const ModalCreatePage = ({
         ifChooseChapter
       );
     } else {
-      const orderNumber = pagesArray[pagesArray.length - 1]?.order + 1 || 20;
+      const orderNumber = pagesArray[pagesArray.length - 1]?.order + 1 || 1;
       data.order = orderNumber;
       return mangaStoryAPI.pages.createPage(
         chapterItem?.index,
@@ -174,7 +175,20 @@ const ModalCreatePage = ({
       <div className={styles.border} />
       <Form name="createPage" form={form} onFinish={(e) => request(e)}>
         <h3>Page beats</h3>
-        <Form.Item name="title">
+        <Form.Item
+          name="title"
+          rules={[
+            {
+              required: true,
+              validator: async (_, title) => {
+                if (!!title && title.length === 1) {
+                  return Promise.reject(
+                    new Error('All symbols are allowed. Minimum 2 charactes. ')
+                  );
+                }
+              },
+            },
+          ]}>
           <PrimaryInput
             maxLength={100}
             className={styles.namePage}

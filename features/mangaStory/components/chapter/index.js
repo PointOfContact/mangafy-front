@@ -14,23 +14,28 @@ const Chapter = ({ storyBoard, setStoryBoard, chapters, setChapters, user, baseD
   const [createChapter, setCreateChapter] = useState(false);
   const [onBlur, setOnBlur] = useState(false);
   const inputRef = useRef(null);
-  const validate = chapterName.trim().length < 2;
+  const validateMin = chapterName.trim().length < 2;
+  const validateMax = chapterName.trim().length > 30;
 
   useEffect(() => {
     createChapter &&
       inputRef.current.focus({
         cursor: 'end',
       });
+    setOnBlur(false);
   }, [createChapter]);
 
-  const error = validate && onBlur && (
-    <p className={styles.error}>
-      Please enter a name for your chapter. You can leave it blank if you want
-    </p>
-  );
+  const error =
+    validateMin ||
+    (validateMax && onBlur && (
+      <p className={styles.error}>
+        {validateMin && 'Please enter a name for your chapter. You can leave it blank if you want'}
+        {validateMax && 'The title of a chapter can contain maximum 30 characters.'}
+      </p>
+    ));
 
   const onFinish = () => {
-    if (validate) {
+    if (validateMin || validateMax) {
       setOnBlur(true);
       return;
     }
@@ -79,7 +84,7 @@ const Chapter = ({ storyBoard, setStoryBoard, chapters, setChapters, user, baseD
                   setOnBlur(true);
                 }}
                 onBlur={() => {
-                  validate
+                  validateMin || validateMax
                     ? setCreateChapter(false)
                     : mangaStoryAPI.chapter.create(
                         chapterName,

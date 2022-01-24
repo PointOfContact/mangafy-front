@@ -32,7 +32,9 @@ const createRequest = async ({
   text,
   taskId,
   userId,
+  setLoading,
 }) => {
+  setLoading(true);
   const jwt = client.getCookie('feathers-jwt');
   const headers = {
     Authorization: `Bearer ${jwt}`,
@@ -75,6 +77,8 @@ const createRequest = async ({
       }
     );
   }
+
+  setLoading(false);
 
   return restClient.service('/api/v2/messages').create(
     {

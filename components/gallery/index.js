@@ -57,6 +57,10 @@ export const Gallery = (props) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setUserData(ifMyProfile ? user : profile);
+  }, [ifMyProfile]);
+
+  useEffect(() => {
     const data = [];
     let textData = [];
     if (canEdit) {
@@ -245,7 +249,7 @@ export const Gallery = (props) => {
             canEdit={canEdit}
             canEditInit={canEditInit}
             user={user}
-            userData={ifMyProfile ? user : profile}
+            userData={userData}
             gallerySet={gallerySet}
             setUserData={setUserData}
             fromPath={fromPath}
