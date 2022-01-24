@@ -286,6 +286,9 @@ export default {
               ifChooseChapter(index, res);
             } else {
               chapters[index].pages[pageItem?.index] = res;
+              chapters[index].pages.sort(
+                (firstItem, secondItem) => firstItem.order - secondItem.order
+              );
               setChapters([...chapters]);
             }
 

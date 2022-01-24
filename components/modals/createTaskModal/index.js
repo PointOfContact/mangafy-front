@@ -91,7 +91,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
   };
 
   const createTask = async () => {
-    if (amount) return;
+    if (!+amount) return;
 
     const data = {
       mangaStoryId: baseData._id,
@@ -135,7 +135,8 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
   };
 
   const editTask = async () => {
-    if (amount) return;
+    if (!+amount) return;
+
     const jwt = client.getCookie('feathers-jwt');
     const { default: api } = await import('api/restClient');
 

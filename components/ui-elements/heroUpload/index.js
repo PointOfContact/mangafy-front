@@ -68,7 +68,8 @@ const HeroUpload = ({
   }, [mangaUrl]);
 
   const onChange = ({ fileList: newFileList }) => {
-    newFileList[newFileList.length - 1].status = 'done';
+    const file = newFileList[newFileList.length - 1];
+    if (file) file.status = 'done';
     setFileList(newFileList);
   };
 

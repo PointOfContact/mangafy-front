@@ -1,20 +1,13 @@
+/* eslint-disable no-shadow */
 import React, { useEffect, useState } from 'react';
 
-import client from 'api/client';
-import cn from 'classnames';
-import Imgix from 'components/imgix';
 import ShowImgModal from 'components/modals/showImg';
 import mangaStoryAPI from 'features/mangaStory/mangaStoryAPI';
-import dynamic from 'next/dynamic';
 import PropTypes from 'prop-types';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
-import SettingsPage from './settingsPage';
+import PageItems from './pageItems';
 import styles from './styles.module.scss';
-
-const PDFViewer = dynamic(() => import('components/pdfViewer'), {
-  ssr: false,
-});
 
 const Pages = ({
   pages,
@@ -36,64 +29,6 @@ const Pages = ({
     setArrayPage(pages);
   }, [pages]);
 
-  const pagesArray = arrayPage?.map((value, index) => {
-    const ifPdf = value?.imageUrl?.slice(-3) === 'pdf' || arrayPage?.imageUrl?.slice(-3) === 'PDF';
-    const image = client.UPLOAD_URL + value?.imageUrl;
-
-    return (
-      <Draggable key={value._id + index} draggableId={value._id + index} index={index}>
-        {(provided) => (
-          <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-            <h4 className={styles.pageIndex}>Page {index + 1}</h4>
-            <div className={styles.itemPage}>
-              <div
-                className={cn(styles.content, !value?.imageUrl && styles.contentDef)}
-                onClick={() => {
-                  setVisibleModal(true);
-                  setModalTitle('Edit page');
-                  setPageItem({ value, index });
-                  setChapterItem({ value: chapterItem, index: chapterIndex });
-                }}>
-                <h2>{value.title}</h2>
-                <p
-                  dangerouslySetInnerHTML={{ __html: value.text }}
-                  className={cn(styles.description, styles.descriptionDef)}
-                />
-                <SettingsPage
-                  page={{ value, index }}
-                  setVisibleModal={setVisibleModal}
-                  setModalTitle={setModalTitle}
-                  setPageItem={() => setPageItem(value)}
-                  chapterItem={{ value: chapterItem, index: chapterIndex }}
-                  setChapters={setChapters}
-                  chapters={chapters}
-                />
-              </div>
-              {!!value?.imageUrl && (
-                <div
-                  className={styles.pageImage}
-                  onClick={() =>
-                    !!value?.imageUrl && (setIsModalVisible(true), setCurrentImg(image))
-                  }>
-                  {ifPdf ? (
-                    <PDFViewer url={image} />
-                  ) : (
-                    <Imgix
-                      className={styles.image}
-                      layout="fill"
-                      src={image}
-                      alt={'MangaFy page image'}
-                    />
-                  )}
-                </div>
-              )}
-            </div>
-          </div>
-        )}
-      </Draggable>
-    );
-  });
-
   const patchPage = (pageItem, data) => {
     mangaStoryAPI.pages.patchPage(
       chapterIndex,
@@ -105,11 +40,18 @@ const Pages = ({
     );
   };
 
-  const middleNumber = (num1, num2) => {
-    if (!num1) {
-      return arrayPage[arrayPage.length - 1].order + 1;
+  const middleNumber = (destination, source) => {
+    const index = +destination;
+    const destinationOrder = arrayPage[index]?.order;
+
+    let nextOrPrevItem;
+
+    if (destinationOrder > source) {
+      nextOrPrevItem = arrayPage[index + 1]?.order || arrayPage[arrayPage.length - 1].order + 1;
+      return destinationOrder + (nextOrPrevItem - destinationOrder) / 2;
     }
-    return num2 - (num1 - num2) / 2;
+    nextOrPrevItem = arrayPage[index - 1]?.order || arrayPage[0].order - 1;
+    return destinationOrder - (destinationOrder - nextOrPrevItem) / 2;
   };
 
   const handleOnDragEnd = (result) => {
@@ -117,15 +59,11 @@ const Pages = ({
     if (!result.destination || ifNoChangePosition) {
       return;
     }
-
+    result?.source?.index;
     const source = arrayPage[result?.source?.index];
-    const destination = arrayPage[result?.destination?.index];
 
     // replace page order
-    source.order = middleNumber(
-      arrayPage[result?.destination?.index + 1]?.order,
-      destination?.order
-    );
+    source.order = middleNumber(result?.destination?.index, source?.order);
 
     // save page order
     patchPage({ value: source, index: result?.source?.index }, { order: source.order });
@@ -145,7 +83,19 @@ const Pages = ({
               className={styles.containerPage}
               {...provided.droppableProps}
               ref={provided.innerRef}>
-              {pagesArray}
+              <PageItems
+                arrayPage={arrayPage}
+                setModalTitle={setModalTitle}
+                setVisibleModal={setVisibleModal}
+                setPageItem={setPageItem}
+                setChapterItem={setChapterItem}
+                chapterItem={chapterItem}
+                chapterIndex={chapterIndex}
+                setChapters={setChapters}
+                chapters={chapters}
+                setCurrentImg={setCurrentImg}
+                setIsModalVisible={setIsModalVisible}
+              />
               {provided.placeholder}
             </ul>
           )}

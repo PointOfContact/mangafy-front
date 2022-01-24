@@ -94,8 +94,7 @@ const ChapterFooter = ({
           placement: 'bottomLeft',
         });
       }
-
-      const getLastOrder = !!pagesArray.length ? pagesArray[pagesArray.length - 1].order + 1 : 20;
+      const getLastOrder = !!pagesArray.length ? pagesArray[pagesArray.length - 1].order + 1 : 1;
 
       const indexImage = fileList.findIndex((val) => val.uid === file.uid);
 

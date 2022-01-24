@@ -30,7 +30,7 @@ const Chapter = ({ storyBoard, setStoryBoard, chapters, setChapters, user, baseD
     (validateMax && onBlur && (
       <p className={styles.error}>
         {validateMin && 'Please enter a name for your chapter. You can leave it blank if you want'}
-        {validateMax && 'Chapter name only accepts a maximum of characters 30'}
+        {validateMax && 'The title of a chapter can contain maximum 30 characters.'}
       </p>
     ));
 
