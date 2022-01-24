@@ -130,7 +130,11 @@ EditPostItems.propTypes = {
   img: PropTypes.string.isRequired,
   currentSubTitle: PropTypes.string.isRequired,
   subTitle: PropTypes.string.isRequired,
-  categories: PropTypes.string.isRequired,
+  categories: PropTypes.array.isRequired,
+};
+
+EditPostItems.defaultProps = {
+  currentSubTitle: '',
 };
 
 export default EditPostItems;
