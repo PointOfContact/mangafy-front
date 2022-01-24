@@ -176,7 +176,7 @@ const GetFeedback = ({
             uploadVideo={true}
             setUploadLoading={setUploadLoading}
           />
-          <h2>Post content here</h2>
+          <h2>Add to your post</h2>
           <TextArea
             placeholder="Write a caption..."
             value={subTitle}
@@ -184,12 +184,12 @@ const GetFeedback = ({
             className={styles.modalTextarea}
           />
           {validation && <p className={styles.error}>{validation}</p>}
-          <h2>Tags</h2>
+          <h2>Global tags</h2>
           <SelectTags selectedTags={selectedTags} setSelectedTags={setSelectedTags} />
           <PrimaryButton
             className={styles.createPost}
             loading={uploadLoading}
-            text="Post"
+            text="Create Post"
             onClick={(e) => {
               Router.push('/feed', undefined, { scroll: false });
               onSubmit(e);

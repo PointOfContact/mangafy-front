@@ -238,7 +238,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
               rules={[
                 {
                   required: true,
-                  message: 'Genre is required',
+                  message: "Don't work on webcomics alone, find a partner",
                 },
               ]}>
               <PrimarySelect
@@ -257,7 +257,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
               rules={[
                 {
                   required: true,
-                  message: 'Reward Type is required',
+                  message: 'Choose reward type to engage more creators',
                 },
               ]}>
               <PrimarySelect
@@ -282,7 +282,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
                     rules={[
                       {
                         required: true,
-                        message: 'Budget is required',
+                        message: 'All budget are allowed. Minimum 2 characters.',
                       },
                     ]}>
                     <PrimaryInput
@@ -304,7 +304,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
               rules={[
                 {
                   required: true,
-                  message: 'Text is required',
+                  message: "Try to explain what you're looking for",
                 },
               ]}>
               <TextArea

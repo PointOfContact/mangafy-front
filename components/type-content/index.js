@@ -34,7 +34,7 @@ export default function TypePage({
   const [query, serQuery] = useState([]);
 
   useEffect(() => {
-    const types = ['Profile', 'Manga', 'Task'].map((value, index) => (
+    const types = ['Profile', 'Published', 'Proposals'].map((value, index) => (
       <Option className={styles.optionItem} key={value + index} value={value}>
         {value}
       </Option>

@@ -86,7 +86,7 @@ const SelectTags = ({ selectedTags, setSelectedTags }) => {
       )}
       {!inputVisible && (
         <Tag onClick={() => setInputVisible(true)} className="site-tag-plus">
-          <PlusOutlined /> New Tag
+          <PlusOutlined /> Add tag
         </Tag>
       )}
     </div>
