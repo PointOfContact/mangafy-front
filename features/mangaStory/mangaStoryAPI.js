@@ -78,6 +78,27 @@ export default {
       }
     },
   },
+  collab: {
+    patchCollab: (newBaseData) => {
+      const jwt = client.getCookie('feathers-jwt');
+      import('api/restClient').then((m) => {
+        m.default
+          .service('/api/v2/manga-stories')
+          .patch(newBaseData._id, newBaseData, {
+            headers: { Authorization: `Bearer ${jwt}` },
+          })
+          .then((res) => {
+            console.log(res, 'ewsssssssss');
+          })
+          .catch((err) => {
+            notification.error({
+              message: err.message,
+              placement: 'bottomLeft',
+            });
+          });
+      });
+    },
+  },
   hiderCollab: {
     patchStory: (data, setBaseData, user, baseData, openNotification) => {
       const jwt = client.getCookie('feathers-jwt');
@@ -104,6 +125,7 @@ export default {
       );
     },
   },
+
   storyTab: {
     leaveManga: (participantId, _id, setBaseData, history, user, setParticipantsData) => {
       const data = {

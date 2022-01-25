@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 
 import { Input, Select } from 'antd';
+import HeroUpload from 'components/ui-elements/heroUpload';
 import PrimaryInput from 'components/ui-elements/input';
 import PrimarySelect from 'components/ui-elements/select';
+import mangaStoryAPI from 'features/mangaStory/mangaStoryAPI';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { COUNTRIES, projectTypes } from 'helpers/constant';
 import PropTypes from 'prop-types';
@@ -22,6 +24,7 @@ const EditGenresField = ({
   const [countries, setCountries] = useState([]);
   const [validationTitle, setValidationTitle] = useState('');
   const [validationDesc, setValidationDesc] = useState('');
+  const [imgId, setImgId] = useState('');
   const [projectType, setProjectType] = useState(baseData?.projectType);
 
   const genres = genresEnums.map(({ _id: key, value }) => ({ key, value }));
@@ -70,6 +73,11 @@ const EditGenresField = ({
     const data = { ...baseData, genresIds };
     sendEvent(EVENTS.EDIT_PROJECT_GENRES, 'genres', genresIds);
     saveMangaStoryData(data, 'genresIds');
+  };
+
+  const setMangaPhoto = (e, image) => {
+    const data = { ...baseData, image };
+    mangaStoryAPI.collab.patchCollab(data);
   };
 
   return (
@@ -146,6 +154,15 @@ const EditGenresField = ({
         defaultValue={defaultGenres}
         options={genres}
         className={styles.option}
+      />
+      <HeroUpload
+        className={styles.imgPage}
+        showText={false}
+        mangaUrl={imgId}
+        setImgId={setImgId}
+        onChangeHero={setMangaPhoto}
+        text="Drag or browse your art to start uploading"
+        notUploadVideo={true}
       />
     </div>
   );

@@ -166,15 +166,13 @@ const AuthForm = ({
               id="signUpBtnId"
             />
           ) : (
-            <>
-              <LargeButton
-                className={styles.button_submit}
-                htmlType="submit"
-                loading={loading}
-                text={'Start your Journey'}
-                id="signInBtnId"
-              />
-            </>
+            <LargeButton
+              className={styles.button_submit}
+              htmlType="submit"
+              loading={loading}
+              text={'Start your Journey'}
+              id="signInBtnId"
+            />
           )}
         </div>
       </div>
