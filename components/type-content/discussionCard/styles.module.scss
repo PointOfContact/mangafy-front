@@ -190,7 +190,6 @@ $backgroundColor: '';
     justify-content: space-between;
     overflow: hidden;
     span {
-      max-width: calc(100% - 200px);
       display: block;
       word-wrap: break-word;
     }
@@ -258,6 +257,8 @@ $backgroundColor: '';
   word-wrap: unset !important;
 }
 .catDef {
+  max-width: calc(100% - 200px);
+  max-height: 24px;
   position: absolute;
   bottom: -10px;
   left: 10px;
@@ -265,6 +266,15 @@ $backgroundColor: '';
   padding: 2px 20px;
   border-radius: 25px;
   color: $text_white;
+  overflow: hidden;
+  span {
+    word-wrap: initial !important;
+    word-break: break-all;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+  }
 }
 .postVideo {
   width: 100%;

@@ -18,7 +18,7 @@ const { TextArea } = Input;
 
 const CommentList = ({ comments }) => {
   const com = [...comments];
-  // .reverse()
+
   return (
     <List
       className={styles.list}
@@ -57,47 +57,51 @@ CommentList.propTypes = {
   comments: PropTypes.array.isRequired,
 };
 
-const Editor = ({ onSubmit, submitting, user, postId }) => (
-  <Form
-    onFinish={(e) => {
-      onSubmit(e.comment);
-    }}>
-    <Form.Item
-      name={'comment'}
-      rules={[
-        {
-          required: true,
-          validator: async (_, names) => {
-            if (names.trim().length < 1) {
-              return Promise.reject(
-                new Error('Feedback  from you will make creator happy! Minimum 2 characters.')
-              );
-            }
+const Editor = ({ onSubmit, submitting, user, postId }) => {
+  const [form] = Form.useForm();
+
+  return (
+    <Form
+      form={form}
+      onFinish={(e) => {
+        form.resetFields();
+        onSubmit(e.comment);
+      }}>
+      <Form.Item
+        name={'comment'}
+        rules={[
+          {
+            required: true,
+            validator: async (_, names) => {
+              if (names.trim().length < 1) {
+                return Promise.reject(new Error('Length must be at least 2 characters long'));
+              }
+            },
+            message: 'Length must be at least 2 characters long',
           },
-          message: 'Feedback  from you will make creator happy! Minimum 2 characters.',
-        },
-      ]}>
-      <TextArea autoSize={{ minRows: 1, maxRows: 7 }} />
-    </Form.Item>
-    <Form.Item>
-      {!user && (
-        <Link href={`/sign-in?postId=${postId}`}>
-          <a>
-            <h2 className={styles.loginOnText}>
-              Please <span>login</span> to add comments
-            </h2>
-          </a>
-        </Link>
-      )}
-      <LargeButton
-        id="AddACommentBtnId"
-        htmlType="submit"
-        loading={submitting}
-        text="Add Comment"
-      />
-    </Form.Item>
-  </Form>
-);
+        ]}>
+        <TextArea autoSize={{ minRows: 1, maxRows: 7 }} />
+      </Form.Item>
+      <Form.Item>
+        {!user && (
+          <Link href={`/sign-in?postId=${postId}`}>
+            <a>
+              <h2 className={styles.loginOnText}>
+                Please <span>login</span> to add comments
+              </h2>
+            </a>
+          </Link>
+        )}
+        <LargeButton
+          id="AddACommentBtnId"
+          htmlType="submit"
+          loading={submitting}
+          text="Add Comment"
+        />
+      </Form.Item>
+    </Form>
+  );
+};
 
 Editor.propTypes = {
   onSubmit: PropTypes.func,

@@ -358,7 +358,7 @@
   @include media-sm() {
     margin-top: 30px;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
     margin-bottom: 30px;
     width: 205px;
     margin-left: auto;

@@ -24,7 +24,7 @@ const MenuMobilePopover = ({ removeAllStorage, user }) => (
       </div>
       <div className={styles.box__subtitle}>
         <Link href={`/profile/${user._id}?tab=gallery`}>
-          <a className={styles.box__link}>My programs</a>
+          <a className={styles.box__link}>Project</a>
         </Link>
       </div>
       <div className={styles.box__subtitle}>
