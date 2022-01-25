@@ -29,7 +29,9 @@ const MenuNotificationsItem = ({
   params,
 }) => {
   const [verify, setVerify] = useState(null);
-  const navigate = title === 'New Unread Comment.' ? `${navigateTo}?tab=comments` : navigateTo;
+  const querySymbol = navigateTo.includes('?') ? '&' : '?';
+  const navigate =
+    title === 'New Unread Comment.' ? `${navigateTo}${querySymbol}tab=comments` : navigateTo;
 
   const addUnreadNotificationsId = () => {
     if (!verified && !verify) {

@@ -56,17 +56,20 @@ const MangaView = ({
 
   useEffect(() => {
     setCountLike(chapter.like);
+    alreadyLikedChapter();
   }, [currentChapterNumber, chapter]);
 
   const chapterImg = chapter?.chapterImg;
 
-  const alreadyLikedChapter = async () => {
+  const alreadyLikedChapter = () => {
     const userId = !!user ? user._id : deviceId;
     const liked = chapter?.likedUsers?.some((value) => value === userId);
 
     if (liked) {
       setAlreadyLiked(liked);
       setLike(true);
+    } else {
+      setLike(false);
     }
   };
 
@@ -92,7 +95,6 @@ const MangaView = ({
     myAmplitude(data);
     createParticipantItems();
     createChapterItems();
-    alreadyLikedChapter();
     getDeviceId(setDeviceId);
   }, []);
 
@@ -215,14 +217,10 @@ const MangaView = ({
     };
 
     if (alreadyLiked) {
-      const deleteUserId = chapter.likedUsers.filter((value) => value !== userId);
-      chapter.likedUsers = deleteUserId;
       data.like = 'decrement';
-      data.likedUsers = deleteUserId;
       setCountLike(countLike - 1);
     } else {
       data.like = 'increment';
-      data.likedUsers = [...chapter.likedUsers, userId];
       setCountLike(countLike + 1);
     }
 
@@ -341,13 +339,10 @@ const MangaView = ({
             Share this series and show support for the creator!
           </p>
           <div className={styles.shareContainer}>
-            <div className={styles.chapterRating}>
-              <SvgHeart
-                className={like && styles.likeItem}
-                onClick={likeChapter}
-                width={20}
-                height={20}
-              />
+            <div
+              className={cn(styles.chapterRating, like && styles.likeItem)}
+              onClick={likeChapter}>
+              <SvgHeart width={20} height={20} />
               {!!countLike ? `${countLike} Likes` : 'Like'}
             </div>
             <div className={styles.chapterRating}>

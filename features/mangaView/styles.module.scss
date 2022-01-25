@@ -297,6 +297,7 @@ $subLineAlpha: 0.5;
       color: $black;
       border-radius: 20px;
       margin-right: 5px;
+      cursor: pointer;
       @include media-sm {
         display: none;
       }
