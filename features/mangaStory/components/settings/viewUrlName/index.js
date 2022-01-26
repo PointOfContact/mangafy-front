@@ -33,11 +33,13 @@ const ViewUrlName = ({ baseData, onChangeSingleField, sendEvent, storyBoard }) =
   }, []);
 
   const onChange = (e) => {
+    const targetValue = e.target.value;
+    e.target.value = e.target.value === 'Fan page' ? 'Custom subdomain' : 'Standard domain';
     onChangeSingleField(e, true, (err) => {
       setErrorMessage(err);
     }) &&
       sendEvent(EVENTS.EDIT_PROJECT_DOMAIN, 'customDomain', `https://${viewUrlName}.mangafy.club`);
-    setValue(e.target.value);
+    setValue(targetValue);
   };
 
   const error = errorMessage ? (

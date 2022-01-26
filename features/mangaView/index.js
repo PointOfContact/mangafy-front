@@ -46,7 +46,7 @@ const MangaView = ({
   const [currentChapter, setCurrentChapter] = useState(currentChapterNumber || 1);
   const chapter = chapters[currentChapter - 1];
   const [images, setImages] = useState([]);
-  const [countLike, setCountLike] = useState(chapter.like);
+  const [countLike, setCountLike] = useState(chapter?.like);
   const [like, setLike] = useState(false);
   const [alreadyLiked, setAlreadyLiked] = useState(false);
   const [participantItems, setParticipantItems] = useState([]);
@@ -55,7 +55,7 @@ const MangaView = ({
   const [deviceId, setDeviceId] = useState('');
 
   useEffect(() => {
-    setCountLike(chapter.like);
+    setCountLike(chapter?.like);
     alreadyLikedChapter();
   }, [currentChapterNumber, chapter]);
 
@@ -99,7 +99,7 @@ const MangaView = ({
   }, []);
 
   useEffect(() => {
-    const getCurrentMangaUrls = chapter.mangaUrls;
+    const getCurrentMangaUrls = !!chapter?.mangaUrls ? chapter?.mangaUrls : [];
     const chapterImages = getCurrentMangaUrls.map((value) => {
       const imgType = !!value.imageUrl ? value.imageUrl.slice(-3) : value.slice(-3);
       const ifPdf = imgType === 'pdf' || imgType === 'PDF';
@@ -211,7 +211,7 @@ const MangaView = ({
     const userId = !!user ? user._id : deviceId;
     const data = {
       ownerId: userData[0]._id,
-      chapterId: chapter._id,
+      chapterId: chapter?._id,
       likedUserId: userId,
       participants,
     };
@@ -275,7 +275,7 @@ const MangaView = ({
       </div>
       <div className={styles.chapterRating}>
         <p className={styles.viewCount}>
-          <span>Views</span> {!!chapter.view ? chapter.view : ''}
+          <span>Views</span> {!!chapter?.view ? chapter?.view : ''}
         </p>
       </div>
     </div>
@@ -346,7 +346,7 @@ const MangaView = ({
               {!!countLike ? `${countLike} Likes` : 'Like'}
             </div>
             <div className={styles.chapterRating}>
-              {!!chapter.view ? `${chapter.view} Views` : 'View'}
+              {!!chapter?.view ? `${chapter?.view} Views` : 'View'}
             </div>
             <ShareButtons
               className={styles.shareButtons}
