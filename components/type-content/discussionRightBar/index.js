@@ -54,35 +54,39 @@ const DiscussionRightBar = ({ dailyWarmUps, user }) => {
           }}
         />
       </div>
-      <div className={styles.dailyWarmUps}>
-        <div className={styles.dailyWarmUps_Top}>
-          <div className={styles.date}>
-            {new Date().toGMTString().split(' ').slice(0, 3).join(' ')}
-          </div>
-          <div className={styles.dialyTitle}>
-            <SvgBulbColored width="15px" height="15px" />
-            <div>
-              <h4>Daily Warm-Ups</h4>
-              <p>{exercises.length} quick & easy creative exercises</p>
+      {exercises.length ? (
+        <div className={styles.dailyWarmUps}>
+          <div className={styles.dailyWarmUps_Top}>
+            <div className={styles.date}>
+              {new Date().toGMTString().split(' ').slice(0, 3).join(' ')}
+            </div>
+            <div className={styles.dialyTitle}>
+              <SvgBulbColored width="15px" height="15px" />
+              <div>
+                <h4>Daily Warm-Ups</h4>
+                <p>{exercises.length} quick & easy creative exercises</p>
+              </div>
             </div>
           </div>
+          <div className={styles.cards}>
+            {exercises.map((exercise, index) => (
+              <ExerciseCard
+                user={user}
+                warmapId={exercise._id}
+                key={exercise._id}
+                order={index + 1}
+                categories={exercise.categories}
+                title={exercise.title}
+                url={exercise.button.navigateTo}
+                btnText={exercise.button.title}
+              />
+            ))}
+          </div>
+          <p className={styles.warmsText}>New warm-ups every morning</p>
         </div>
-        <div className={styles.cards}>
-          {exercises.map((exercise, index) => (
-            <ExerciseCard
-              user={user}
-              warmapId={exercise._id}
-              key={exercise._id}
-              order={index + 1}
-              categories={exercise.categories}
-              title={exercise.title}
-              url={exercise.button.navigateTo}
-              btnText={exercise.button.title}
-            />
-          ))}
-        </div>
-        <p className={styles.warmsText}>New warm-ups every morning</p>
-      </div>
+      ) : (
+        ''
+      )}
       <div>
         <GetFeedback
           user={user}

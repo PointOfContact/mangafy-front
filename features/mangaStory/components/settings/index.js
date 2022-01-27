@@ -32,6 +32,7 @@ const Settings = ({
 }) => {
   const collabRef = useRef();
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [publishedChapter, setPublishedChapter] = useState(false);
 
   useEffect(() => {
     getStoryBoard();
@@ -82,6 +83,11 @@ const Settings = ({
     myAmplitude(eventData);
   };
 
+  useEffect(() => {
+    const existPublishedChapter = storyBoard.chapters.some((item) => item.published);
+    setPublishedChapter(existPublishedChapter);
+  }, [storyBoard]);
+
   return (
     <>
       <div className={styles.container}>
@@ -114,14 +120,17 @@ const Settings = ({
           </div>
         </div>
       </div>
-      <div className={styles.container}>
-        <ViewUrlName
-          baseData={baseData}
-          sendEvent={sendEvent}
-          onChangeSingleField={onChangeSingleField}
-          storyBoard={storyBoard}
-        />
-      </div>
+      {publishedChapter && (
+        <div className={styles.container}>
+          <ViewUrlName
+            baseData={baseData}
+            sendEvent={sendEvent}
+            onChangeSingleField={onChangeSingleField}
+            storyBoard={storyBoard}
+            publishedChapter={publishedChapter}
+          />
+        </div>
+      )}
       <div className={styles.container}>
         <PaypalEmailField
           sendEvent={sendEvent}

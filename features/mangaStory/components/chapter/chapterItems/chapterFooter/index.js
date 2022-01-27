@@ -23,6 +23,7 @@ const ChapterFooter = ({
   chapters,
   setEdit,
   storyBoard,
+  setStoryBoard,
   pages,
   user,
   baseData,
@@ -187,9 +188,17 @@ const ChapterFooter = ({
   const upgradeChapterData = (item, resultId) =>
     chapters.map((val) => (val?._id === resultId ? item : val));
 
-  const publishedChapter = () => {
+  const publishedChapter = async () => {
     const publishedValue = publishedRef.current.checked;
     setPublish(publishedValue);
+
+    await mangaStoryAPI.chapter.patch(
+      value?._id,
+      { published: publishedValue },
+      upgradeChapterData,
+      () => {},
+      setChapters
+    );
 
     const dataEvent = [
       {
@@ -206,13 +215,16 @@ const ChapterFooter = ({
     }
 
     myAmplitude(dataEvent);
-    mangaStoryAPI.chapter.patch(
-      value?._id,
-      { published: publishedValue },
-      upgradeChapterData,
-      () => {},
-      setChapters
-    );
+
+    const updateChapter = chapters.map((val, i) => {
+      if (i === index) {
+        val.published = publishedValue;
+        return val;
+      }
+      return val;
+    });
+
+    setStoryBoard({ ...storyBoard, chapters: updateChapter });
   };
 
   return (
@@ -249,6 +261,7 @@ ChapterFooter.propTypes = {
   chapters: PropTypes.array.isRequired,
   setEdit: PropTypes.func.isRequired,
   storyBoard: PropTypes.object.isRequired,
+  setStoryBoard: PropTypes.object.isRequired,
   pages: PropTypes.array.isRequired,
   user: PropTypes.object,
   baseData: PropTypes.object.isRequired,
