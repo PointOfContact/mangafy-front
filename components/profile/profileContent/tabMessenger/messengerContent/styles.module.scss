@@ -396,6 +396,7 @@
   color: $red;
   margin-left: auto;
 }
+
 .messText {
   width: 226px;
   font-weight: normal;
@@ -416,6 +417,11 @@
     width: 173px;
     font-size: 14px;
   }
+}
+
+.unreadMessage{
+  font-weight: bold;
+  color: #565656;
 }
 .statusContainer {
   display: flex;
