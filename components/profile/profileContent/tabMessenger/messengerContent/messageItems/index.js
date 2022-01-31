@@ -7,6 +7,7 @@ import PrimaryButton from 'components/ui-elements/button';
 import moment from 'moment';
 
 import 'react-chat-elements/dist/main.css';
+
 import styles from '../styles.module.scss';
 
 const messageItems = (data, participants, setRequestStatus, user, setMessageItem) => {
@@ -17,6 +18,23 @@ const messageItems = (data, participants, setRequestStatus, user, setMessageItem
         {text}
       </span>
     );
+
+  const patchMessageStatus = (item) => {
+    const jwt = client.getCookie('feathers-jwt');
+
+    const dataStatus = {
+      ...item.status[0],
+      read: true,
+    };
+
+    const options = {
+      headers: { Authorization: `Bearer ${jwt}` },
+    };
+
+    import('api/restClient').then((m) => {
+      m.default.service('/api/v2/message_status').patch(item.status[0]._id, dataStatus, options);
+    });
+  };
 
   const newArrayMessage = (currentValue, choose) =>
     data.map((value) =>
@@ -49,7 +67,11 @@ const messageItems = (data, participants, setRequestStatus, user, setMessageItem
           <h2 className={styles.mangaTitle}>{item.joinMangaStoryRequest[0].mangaStory?.title}</h2>
         )}
         <div
-          className={styles.messText}
+          onMouseEnter={() => {
+            if (item.status[0]?.read || !item.status.length) return;
+            patchMessageStatus(item);
+          }}
+          className={cn(styles.messText, !item.status[0]?.read && styles.unreadMessage)}
           dangerouslySetInnerHTML={{
             __html: item.content,
           }}></div>
@@ -91,7 +113,11 @@ const messageItems = (data, participants, setRequestStatus, user, setMessageItem
       </div>
     ) : (
       <div
-        className={styles.messText}
+        onMouseEnter={() => {
+          if (item.status[0]?.read || !item.status.length) return;
+          patchMessageStatus(item);
+        }}
+        className={cn(styles.messText, !item.status[0]?.read && styles.unreadMessage)}
         dangerouslySetInnerHTML={{
           __html: item.content,
         }}></div>
