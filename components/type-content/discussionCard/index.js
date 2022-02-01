@@ -154,7 +154,11 @@ const DiscussionCard = (props) => {
           <div
             className={cn(!img && styles.containerButton, styles.containerButtonDef)}
             onClick={(e) => e.stopPropagation()}>
-            {/* <div className={styles.}> */}
+            {!img && !!categories[0] && (
+              <div className={cn(!img && styles.cat, styles.catDef)}>
+                <span>{categories[0]}</span>
+              </div>
+            )}
             <Link href={url || '/'}>
               <a>
                 <PrimaryButton
@@ -163,12 +167,6 @@ const DiscussionCard = (props) => {
                 />
               </a>
             </Link>
-            {/* </div> */}
-            {!img && !!categories[0] && (
-              <div className={cn(!img && styles.cat, styles.catDef)}>
-                <span>{categories[0]}</span>
-              </div>
-            )}
           </div>
         </div>
       </div>

@@ -216,9 +216,6 @@ $backgroundColor: '';
       word-wrap: break-word;
     }
     .containerButton {
-      position: relative;
-      display: flex;
-      justify-content: right;
       margin-top: 10px;
       align-items: end;
       background-color: white;
@@ -259,7 +256,6 @@ $backgroundColor: '';
 .catDef {
   max-width: calc(100% - 200px);
   max-height: 24px;
-  position: absolute;
   bottom: -10px;
   left: 10px;
   font-size: 13px;

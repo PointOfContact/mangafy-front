@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Input, Space } from 'antd';
 import client from 'api/client';
@@ -44,6 +44,10 @@ export const CommissionPricing = ({ id, user }) => {
     });
   };
 
+  useEffect(() => {
+    getPricing();
+  }, [id]);
+
   const setPricing = (newList) => {
     const empti = newList.find((item) => item.first === '' || item.last === '');
     if (!empti) {
@@ -81,10 +85,6 @@ export const CommissionPricing = ({ id, user }) => {
       setSubmitted(true);
     }
   };
-
-  useEffect(() => {
-    getPricing();
-  }, []);
 
   const handleChange = ({ target, currentTarget }) => {
     const newList = [...pricingList];

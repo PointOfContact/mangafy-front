@@ -73,7 +73,7 @@ const Editor = ({ onSubmit, submitting, user, postId }) => {
           {
             required: true,
             validator: async (_, names) => {
-              if (names.trim().length < 1) {
+              if (names.trim().length < 2) {
                 return Promise.reject(new Error('Length must be at least 2 characters long'));
               }
             },

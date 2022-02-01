@@ -100,7 +100,7 @@ const MenuNotificationsBox = ({
   };
 
   const makeAllRead = () => {
-    setNotificationsCount(0);
+    setNotificationsCount(notificationsCount - 10);
     patchNotification(unreadNotificationsId.map(({ _id }) => _id));
   };
 

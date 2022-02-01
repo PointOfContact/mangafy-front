@@ -183,7 +183,7 @@ const ModalCreatePage = ({
               validator: async (_, title) => {
                 if (!!title && title.length === 1) {
                   return Promise.reject(
-                    new Error('All symbols are allowed. Minimum 2 charactes. ')
+                    new Error('All symbols are allowed. Minimum 2 characters. ')
                   );
                 }
               },

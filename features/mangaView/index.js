@@ -54,11 +54,6 @@ const MangaView = ({
   const [comments, setComments] = useState([]);
   const [deviceId, setDeviceId] = useState('');
 
-  useEffect(() => {
-    setCountLike(chapter?.like);
-    alreadyLikedChapter();
-  }, [currentChapterNumber, chapter]);
-
   const chapterImg = chapter?.chapterImg;
 
   const alreadyLikedChapter = () => {
@@ -72,6 +67,11 @@ const MangaView = ({
       setLike(false);
     }
   };
+
+  useEffect(() => {
+    setCountLike(chapter?.like);
+    alreadyLikedChapter();
+  }, [currentChapterNumber, chapter]);
 
   useEffect(() => {
     client
@@ -118,7 +118,7 @@ const MangaView = ({
     setImages(chapterImages);
     if (!getNameViewUrl) {
       router.push(`/manga-view/${storyBoardId}?chapter=${currentChapter}`, undefined, {
-        shallow: true,
+        shallow: false,
       });
     }
     client.service(`/api/v2/manga-view`).get(storyBoardId, {
@@ -207,7 +207,7 @@ const MangaView = ({
     myAmplitude(dataEvent);
   };
 
-  const returnLikedData = async () => {
+  const returnLikedData = () => {
     const userId = !!user ? user._id : deviceId;
     const data = {
       ownerId: userData[0]._id,
@@ -237,10 +237,10 @@ const MangaView = ({
     }
   };
 
-  const likeChapter = async () => {
+  const likeChapter = () => {
     const jwt = client.getCookie('feathers-jwt');
 
-    const data = await returnLikedData();
+    const data = returnLikedData();
 
     import('api/restClient').then((m) => {
       m.default

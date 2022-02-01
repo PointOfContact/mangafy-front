@@ -25,14 +25,16 @@ const Chapter = ({ storyBoard, setStoryBoard, chapters, setChapters, user, baseD
     setOnBlur(false);
   }, [createChapter]);
 
-  const error =
-    validateMin ||
-    (validateMax && onBlur && (
-      <p className={styles.error}>
-        {validateMin && 'Please enter a name for your chapter. You can leave it blank if you want'}
-        {validateMax && 'The title of a chapter can contain maximum 30 characters.'}
-      </p>
-    ));
+  const error = validateMin ? (
+    <p className={styles.error}>
+      Please enter a name for your chapter. You can leave it blank if you want
+    </p>
+  ) : (
+    validateMax &&
+    onBlur && (
+      <p className={styles.error}>The title of a chapter can contain maximum 64 characters.</p>
+    )
+  );
 
   const onFinish = () => {
     if (validateMin || validateMax) {

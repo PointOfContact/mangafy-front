@@ -33,6 +33,7 @@ const ChapterFooter = ({
   const [indexChapterView, setIndexChapterView] = useState(1);
   const [openPublishedModal, setOpenPublishedModal] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [chapterListVisible, setChapterListVisible] = useState(false);
   const publishedRef = useRef(null);
   const [deviceId, setDeviceId] = useState('');
 
@@ -60,6 +61,7 @@ const ChapterFooter = ({
     const publishedChapters = chapters.filter((e) => e.published);
     const chapterIndex = publishedChapters.findIndex(({ order }) => order === value.order);
     setIndexChapterView(chapterIndex + 1);
+    setChapterListVisible(false);
   };
 
   const uploadImage = (e) => {
@@ -70,6 +72,8 @@ const ChapterFooter = ({
   };
 
   const createPage = (e, count) => {
+    setChapterListVisible(false);
+
     const data = {
       storyBoard: storyBoard._id,
       title: 'Untitled page',
@@ -133,6 +137,7 @@ const ChapterFooter = ({
       },
     ];
     myAmplitude(data);
+    setChapterListVisible(false);
   };
 
   const content = () => (
@@ -149,6 +154,7 @@ const ChapterFooter = ({
       <p
         onClick={() => {
           setEdit(value._id);
+          setChapterListVisible(false);
         }}>
         Rename
       </p>
@@ -238,8 +244,12 @@ const ChapterFooter = ({
         />
         {publish ? 'Published' : 'Draft'}
       </div>
-      <Popover placement="topLeft" content={content(value, index)} trigger="click">
-        <SvgMobileMenu width="20px" height="20px" />
+      <Popover
+        placement="topLeft"
+        content={content(value, index)}
+        visible={chapterListVisible}
+        trigger="click">
+        <SvgMobileMenu onClick={() => setChapterListVisible(true)} width="20px" height="20px" />
       </Popover>
       {openPublishedModal && (
         <ModalPublishedChapter

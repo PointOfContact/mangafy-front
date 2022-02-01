@@ -84,15 +84,6 @@ const EditPostItems = ({
           </span>
         }
       />
-      <p
-        className={styles.editPostItems}
-        onClick={(e) => {
-          e.stopPropagation();
-          setShowShareIcon(true);
-        }}>
-        <SvgShare width="15" height="15" />
-        Share
-      </p>
     </div>
   );
 
@@ -104,8 +95,17 @@ const EditPostItems = ({
         visible={visibleSettings}
         onVisibleChange={() => setVisibleSettings(!visibleSettings)}
         content={
-          <ul style={{ minWidth: '200px' }}>
+          <ul className={styles.postEdit}>
             <li>{editPostItems}</li>
+            <li
+              className={styles.editPostItems}
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowShareIcon(true);
+              }}>
+              <SvgShare width="15" height="15" />
+              Share
+            </li>
             {showShareIcon && (
               <li>
                 <ShareButtons
