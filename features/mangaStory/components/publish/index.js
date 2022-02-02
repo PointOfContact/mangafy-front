@@ -109,7 +109,11 @@ const Publish = ({ baseData, storyBoard, chapters }) => {
 Publish.propTypes = {
   baseData: PropTypes.object.isRequired,
   storyBoard: PropTypes.object.isRequired,
-  chapters: PropTypes.array.isRequired,
+  chapters: PropTypes.array,
+};
+
+Publish.defaultProps = {
+  chapters: [],
 };
 
 export default Publish;
