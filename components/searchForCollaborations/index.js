@@ -47,6 +47,7 @@ const SearchForCollaborations = (props) => {
     selectedTypes = [],
     userTypes = [],
   } = props;
+
   const searchAPI = (search) => {
     const parsed = qs.parse(location.search);
     parsed.page = 1;
@@ -66,6 +67,8 @@ const SearchForCollaborations = (props) => {
 
   const handleArtistClick = (keys) => {
     const parsed = qs.parse(location.search);
+    parsed.page = 1;
+
     if (keys && keys.includes('all')) {
       delete parsed.types;
       Router.push(
@@ -88,6 +91,7 @@ const SearchForCollaborations = (props) => {
 
   const handleCompasitionClick = (keys) => {
     const parsed = qs.parse(location.search);
+
     if (keys && keys.includes('all')) {
       delete parsed.compensationModel;
       Router.push(
@@ -107,8 +111,12 @@ const SearchForCollaborations = (props) => {
       }
     );
   };
+
   const handleGenresClick = (keys) => {
     const parsed = qs.parse(location.search);
+
+    parsed.page = 1;
+
     if (keys && keys.includes('all')) {
       delete parsed.genres;
       Router.push(
@@ -120,6 +128,7 @@ const SearchForCollaborations = (props) => {
       );
       return;
     }
+
     Router.push(
       LinkCreator.toQuery({ ...parsed, genres: keys }, '/collaborations'),
       LinkCreator.toQuery({ ...parsed, genres: keys }, '/collaborations'),
