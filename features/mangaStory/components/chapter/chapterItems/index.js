@@ -58,6 +58,7 @@ const ChapterItems = ({ chapters, setChapters, storyBoard, setStoryBoard, user, 
                 chapters={chapters}
                 setEdit={setEdit}
                 storyBoard={storyBoard}
+                setStoryBoard={setStoryBoard}
                 pages={value.pages}
                 user={user}
                 baseData={baseData}

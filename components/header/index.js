@@ -145,39 +145,7 @@ const Header = ({ user, path, setShowModalEdit }) => {
                 />
               </a>
             </Link>
-            <div className={styles.header__logIn}>
-              {user ? (
-                <Popover
-                  overlayClassName={styles.popover}
-                  placement="bottomRight"
-                  content={<MenuMobilePopover removeAllStorage={removeAllStorage} user={user} />}
-                  visible={showNotification}
-                  onVisibleChange={(visible) => setShowNotification(visible)}
-                  trigger="click">
-                  <div className={cn(styles.img, styles.imgOnline)}>
-                    <div className={styles.avatar}>
-                      {user.avatar ? (
-                        <Imgix
-                          width={52}
-                          height={52}
-                          className="avatar"
-                          src={client.UPLOAD_URL + user.avatar}
-                          alt="MangaFy avatar"
-                        />
-                      ) : (
-                        <Avatar text={user.name} fontSize={20} />
-                      )}
-                    </div>
-                  </div>
-                </Popover>
-              ) : (
-                <Link href="/sign-in">
-                  <a>
-                    <SvgLoginUser width={22} height={22} />
-                  </a>
-                </Link>
-              )}
-            </div>
+
             <div className={styles.header__leftNav}>
               {/* <Link href="/collaborations?compensationModel=paid">
                 <a
@@ -237,7 +205,40 @@ const Header = ({ user, path, setShowModalEdit }) => {
                       </Badge>
                     </Popover>
                   </span>
-                  {!ifMyProfile && (
+                  {user ? (
+                    <Popover
+                      overlayClassName={styles.popover}
+                      placement="bottomRight"
+                      content={
+                        <MenuMobilePopover removeAllStorage={removeAllStorage} user={user} />
+                      }
+                      visible={showNotification}
+                      onVisibleChange={(visible) => setShowNotification(visible)}
+                      trigger="click">
+                      <div className={cn(styles.img, styles.imgOnline)}>
+                        <div className={styles.avatar}>
+                          {user.avatar ? (
+                            <Imgix
+                              width={52}
+                              height={52}
+                              className="avatar"
+                              src={client.UPLOAD_URL + user.avatar}
+                              alt="MangaFy avatar"
+                            />
+                          ) : (
+                            <Avatar text={user.name} fontSize={20} />
+                          )}
+                        </div>
+                      </div>
+                    </Popover>
+                  ) : (
+                    <Link href="/sign-in">
+                      <a>
+                        <SvgLoginUser width={22} height={22} />
+                      </a>
+                    </Link>
+                  )}
+                  {/* {ifMyProfile && (
                     <Link href={`/profile/${user._id}`}>
                       <a className={styles.header__menu}>
                         <span className={styles.user_img}>
@@ -260,8 +261,8 @@ const Header = ({ user, path, setShowModalEdit }) => {
                         </span>
                       </a>
                     </Link>
-                  )}
-                  {ifMyProfile && (
+                  )} */}
+                  {/* {ifMyProfile && (
                     <a
                       className={cn(
                         path === 'main' ? 'whiteButton' : 'exploreBtn',
@@ -270,7 +271,7 @@ const Header = ({ user, path, setShowModalEdit }) => {
                       onClick={removeAllStorage}>
                       Sign out
                     </a>
-                  )}
+                  )} */}
                 </>
               ) : (
                 <>
