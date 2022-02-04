@@ -63,6 +63,10 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
     };
   } catch (error) {
     console.log('Error: collaboration.js', error);
-    return { props: {} };
+    return {
+      props: {
+        user: user || store.user,
+      },
+    };
   }
 });
