@@ -172,7 +172,11 @@ Settings.propTypes = {
   showPayPalContent: PropTypes.bool.isRequired,
   setShowPayPalContent: PropTypes.func.isRequired,
   confirmDelete: PropTypes.func.isRequired,
-  storyBoard: PropTypes.object.isRequired,
+  storyBoard: PropTypes.object,
+};
+
+Settings.defaultProps = {
+  storyBoard: {},
 };
 
 export default Settings;
