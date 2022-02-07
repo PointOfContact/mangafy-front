@@ -77,7 +77,7 @@ ModalBestProfile.propTypes = {
   setShowModal: PropTypes.func.isRequired,
   gallery: PropTypes.array.isRequired,
   startIndex: PropTypes.number.isRequired,
-  user: PropTypes.object.isRequired,
+  user: PropTypes.object,
   topGallery: PropTypes.array.isRequired,
   setTopGallery: PropTypes.func.isRequired,
   setStartIndex: PropTypes.func.isRequired,
@@ -85,6 +85,7 @@ ModalBestProfile.propTypes = {
 
 ModalBestProfile.defaultProps = {
   currentItem: {},
+  user: {},
 };
 
 export default ModalBestProfile;

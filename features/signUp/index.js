@@ -113,7 +113,7 @@ const Register = ({ user }) => {
         title="Welcome! - MangaFY Community"
         description="MangaFY is a community of amazing webcomics and webtoon creators"
       />
-      <ButtonToTop />
+      <ButtonToTop user={user} />
       <div className={styles.bg}>
         <Imgix layout="fill" src={'https://mangafy.club/img/login-bg.webp'} />
       </div>

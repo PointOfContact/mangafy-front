@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 import React, { useEffect, useState } from 'react';
 
-import { Modal, notification, Popover, Spin } from 'antd';
+import { Modal, notification, Popover } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
 import SvgClose from 'components/icon/Close';
@@ -45,11 +45,11 @@ const ModalDiscussion = ({
   setDiscussions,
   userId,
   categories,
+  likesData,
+  setLikesData,
 }) => {
   const [commentsData, setCommentsData] = useState([]);
-  const [likesData, setLikesData] = useState([]);
   const [isLiked, setIsLiked] = useState(false);
-  const [isLikedLoading, setIsLikedLoading] = useState(false);
   const [photoProject, setPhotoProject] = useState(img);
   const [logoProject, setLogoProject] = useState(client.UPLOAD_URL + logo);
   const [loading, setLoading] = useState('');
@@ -85,8 +85,9 @@ const ModalDiscussion = ({
       return;
     }
 
+    setIsLiked(true);
+
     const jwt = client.getCookie('feathers-jwt');
-    setIsLikedLoading(true);
     import('api/restClient').then((m) => {
       m.default
         .service('/api/v2/post-likes')
@@ -108,12 +109,9 @@ const ModalDiscussion = ({
           ];
           myAmplitude(eventData);
           setLikesData([...likesData, { ...res }]);
-          setIsLiked(true);
-          setIsLikedLoading(false);
         })
         .catch((err) => {
           openNotification('error', err.message);
-          setIsLikedLoading(false);
         });
     });
   };
@@ -210,21 +208,17 @@ const ModalDiscussion = ({
                       subTitle={subTitle}
                       categories={categories}
                     />
-                    {isLikedLoading ? (
-                      <Spin className={styles.spin} size="small"></Spin>
-                    ) : (
-                      <span className={styles.like}>
-                        <span>
-                          {(!!likesData.length && likesData.length) || (!!likesCount && likesCount)}
-                        </span>
-                        <SvgHeart
-                          width="25px"
-                          height="22px"
-                          onClick={handleLike}
-                          className={isLiked && styles.isLiked}
-                        />
+                    <span className={styles.like}>
+                      <span>
+                        {(!!likesData?.length && likesData?.length) || (!!likesCount && likesCount)}
                       </span>
-                    )}
+                      <SvgHeart
+                        width="25px"
+                        height="22px"
+                        onClick={handleLike}
+                        className={isLiked && styles.isLiked}
+                      />
+                    </span>
                     <Popover
                       placement="bottomRight"
                       title={''}
@@ -294,6 +288,8 @@ ModalDiscussion.propTypes = {
   userId: PropTypes.string,
   discussions: PropTypes.array,
   setDiscussions: PropTypes.func,
+  likesData: PropTypes.array.isRequired,
+  setLikesData: PropTypes.array.isRequired,
 };
 
 ModalDiscussion.defaultProps = {

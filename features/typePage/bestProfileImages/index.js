@@ -70,7 +70,11 @@ const BestProfile = ({ gallery, user }) => {
 
 BestProfile.propTypes = {
   gallery: PropTypes.array.isRequired,
-  user: PropTypes.object.isRequired,
+  user: PropTypes.object,
+};
+
+BestProfile.defaultProps = {
+  user: {},
 };
 
 export default BestProfile;

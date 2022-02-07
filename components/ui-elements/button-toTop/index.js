@@ -1,17 +1,20 @@
 import React from 'react';
 
 import { BackTop } from 'antd';
+import cn from 'classnames';
 import Imgix from 'components/imgix';
+import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
-const ButtonToTop = () => {
+const ButtonToTop = ({ user }) => {
   const scrollTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
   return (
     <BackTop>
-      <div className={styles.button} onClick={scrollTop}>
+      <div className={cn(styles.button, !user && styles.ifNotLogin)} onClick={scrollTop}>
         <div className={styles.button__circle}>
           <Imgix
             layout="fixed"
@@ -25,6 +28,14 @@ const ButtonToTop = () => {
       </div>
     </BackTop>
   );
+};
+
+ButtonToTop.propTypes = {
+  user: PropTypes.object,
+};
+
+ButtonToTop.defaultProps = {
+  user: {},
 };
 
 export default ButtonToTop;

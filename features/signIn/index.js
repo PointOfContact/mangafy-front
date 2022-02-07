@@ -67,7 +67,7 @@ const Login = ({ user }) => {
         title="Make the most of your talent!"
         description="Sign in to get your personalized page and start connecting with graphic novel enthusiasts"
       />
-      <ButtonToTop />
+      <ButtonToTop user={user} />
       <div className={styles.bg}>
         <Imgix layout="fill" src={'https://mangafy.club/img/login-bg.webp'} />
       </div>

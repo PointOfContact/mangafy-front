@@ -32,6 +32,7 @@ export default function LandingNew(props) {
   } = props;
 
   const [selectedPost, setSelectedPost] = useState(false);
+  const [likesData, setLikesData] = useState([]);
 
   const ifOpenNewTab = !!getCurrentPostData;
   const [showModal, changeShowModal] = useState(ifOpenNewTab);
@@ -106,7 +107,7 @@ export default function LandingNew(props) {
           cardType: 'summary_large_image',
         }}
       />
-      <ButtonToTop />
+      <ButtonToTop user={user} />
       <div className={'wrapper'}>
         <div className={'content'}>
           <Header user={user} />
@@ -136,6 +137,8 @@ export default function LandingNew(props) {
             likesCount={selectedPost.likesCount}
             ifVideo={selectedPost.imageUrl?.includes('.mp4')}
             logoNavigate={selectedPost.logoNavigate}
+            likesData={likesData}
+            setLikesData={setLikesData}
           />
         )}
         <Footer user={user} />
