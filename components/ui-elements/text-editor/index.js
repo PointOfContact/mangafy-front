@@ -43,11 +43,12 @@ const modules = {
   clipboard: { matchVisual: false },
 };
 
-const TextEditor = ({ placeholder, result, disabled, value, ...res }) => (
+const TextEditor = ({ placeholder, result, disabled, value, onBlur, ...res }) => (
   <QuillNoSSRWrapper
     placeholder={placeholder}
     className={styles.textEditor}
     onChange={(e) => result(e)}
+    onBlur={onBlur}
     modules={modules}
     formats={formats}
     theme="snow"
@@ -62,12 +63,14 @@ TextEditor.propTypes = {
   placeholder: PropTypes.string,
   disabled: PropTypes.bool,
   value: PropTypes.any,
+  onBlur: PropTypes.func.isRequired,
 };
 
 TextEditor.defaultProps = {
   placeholder: '',
   disabled: false,
   value: any,
+  onBlur: () => {},
 };
 
 export default TextEditor;
