@@ -189,10 +189,14 @@ $backgroundColor: '';
     display: flex;
     justify-content: space-between;
     overflow: hidden;
-    span {
+    & > span {
       display: block;
       max-width: calc(100% - 140px);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
       word-wrap: break-word;
+      white-space: pre-wrap;
+      -webkit-box-orient: vertical;
     }
     button {
       display: flex;
