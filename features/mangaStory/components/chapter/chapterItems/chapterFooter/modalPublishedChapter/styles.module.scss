@@ -71,9 +71,14 @@
         font-style: normal;
         font-weight: 500;
         font-size: $text4;
-        line-height: 26px;
         color: $gray85;
         cursor: pointer;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        word-break: break-all;
+        -webkit-box-orient: vertical;
+        line-height: 41px;
+        overflow: hidden;
         @include media-sm {
             font-size: $text5;
             line-height: 20px;

@@ -24,7 +24,7 @@
   }
 }
 
-.socialSB{
+.socialSB {
   position: relative;
   margin: auto;
   width: 117px;
@@ -61,22 +61,15 @@
   width: inherit;
   height: inherit;
   .copySB,
-  .copy{
-    width: 24px !important;
-    height: 24px !important;
-    border-radius: 50%;
+  .copy {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #405f8f;
-    svg{
-      margin-top: -1px;
-      margin-left: 1px;
+    svg {
+      path {
+        fill: #666262;
+      }
     }
-  }
-  .copySB{
-    width: 33px !important;
-    height: 33px !important;
   }
 }
 .share_btn span {
