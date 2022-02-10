@@ -5,6 +5,7 @@ import client from 'api/client';
 import Imgix from 'components/imgix';
 import Avatar from 'components/ui-elements/avatar';
 import LargeButton from 'components/ui-elements/large-button';
+import wrapUrls from 'components/wrapUrls/wrapUrls';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import moment from 'moment';
 import Link from 'next/link';
@@ -17,7 +18,7 @@ import styles from './styles.module.scss';
 const { TextArea } = Input;
 
 const CommentList = ({ comments }) => {
-  const com = [...comments];
+  const com = comments.map((val) => ({ ...val, content: wrapUrls(val.content) }));
 
   return (
     <List
@@ -47,6 +48,7 @@ const CommentList = ({ comments }) => {
               </Link>
             )
           }
+          content={<div dangerouslySetInnerHTML={{ __html: commentItem.content }} />}
         />
       )}
     />

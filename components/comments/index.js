@@ -6,6 +6,7 @@ import cn from 'classnames';
 import Imgix from 'components/imgix';
 import Avatar from 'components/ui-elements/avatar';
 import LargeButton from 'components/ui-elements/large-button';
+import wrapUrls from 'components/wrapUrls/wrapUrls';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import moment from 'moment';
 import Link from 'next/link';
@@ -17,41 +18,46 @@ import styles from './styles.module.scss';
 
 const { TextArea } = Input;
 
-const CommentList = ({ comments }) => (
-  <>
-    <List
-      dataSource={comments}
-      itemLayout="horizontal"
-      renderItem={(commentItem) => (
-        <Comment
-          datetime={moment(commentItem.createdAt)?.format('MMMM Do YYYY, h:mm:ss a')}
-          {...commentItem}
-          author={commentItem.senderInfo[0] && commentItem.senderInfo[0].name}
-          avatar={
-            commentItem.senderInfo[0] && (
-              <>
-                {commentItem.senderInfo[0].avatar ? (
-                  <Link href={`/profile/${commentItem.senderId}`}>
-                    <a>
-                      <Imgix
-                        width={40}
-                        height={40}
-                        src={client.UPLOAD_URL + commentItem.senderInfo[0].avatar}
-                        alt={'MangaFy avatar'}
-                      />
-                    </a>
-                  </Link>
-                ) : (
-                  <Avatar text={commentItem?.senderInfo[0]?.name} size={40} />
-                )}
-              </>
-            )
-          }
-        />
-      )}
-    />
-  </>
-);
+const CommentList = ({ comments }) => {
+  const com = comments.map((val) => ({ ...val, content: wrapUrls(val.content) }));
+
+  return (
+    <>
+      <List
+        dataSource={com}
+        itemLayout="horizontal"
+        renderItem={(commentItem) => (
+          <Comment
+            datetime={moment(commentItem.createdAt)?.format('MMMM Do YYYY, h:mm:ss a')}
+            {...commentItem}
+            author={commentItem.senderInfo[0] && commentItem.senderInfo[0].name}
+            avatar={
+              commentItem.senderInfo[0] && (
+                <>
+                  {commentItem.senderInfo[0].avatar ? (
+                    <Link href={`/profile/${commentItem.senderId}`}>
+                      <a>
+                        <Imgix
+                          width={40}
+                          height={40}
+                          src={client.UPLOAD_URL + commentItem.senderInfo[0].avatar}
+                          alt={'MangaFy avatar'}
+                        />
+                      </a>
+                    </Link>
+                  ) : (
+                    <Avatar text={commentItem?.senderInfo[0]?.name} size={40} />
+                  )}
+                </>
+              )
+            }
+            content={<div dangerouslySetInnerHTML={{ __html: commentItem.content }} />}
+          />
+        )}
+      />
+    </>
+  );
+};
 
 CommentList.propTypes = {
   comments: PropTypes.array.isRequired,
@@ -163,7 +169,7 @@ export const Comments = ({ commentsData, mangaStory, user, viewPage, chapter }) 
           res.avatar = client.UPLOAD_URL + user.avatar;
           res.datetime = moment().format('MMMM Do YYYY, h:mm:ss a');
           res.author = user.name;
-          const newCommentsData = [{ ...res }, ...comments];
+          const newCommentsData = [...comments, { ...res }];
           setComments(newCommentsData);
           setSubmitting(false);
           setValue('');
