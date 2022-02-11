@@ -77,7 +77,7 @@ const ModalDiscussion = ({
 
   const handleLike = () => {
     if (!user) {
-      Router.push(`/sign-in`);
+      Router.push(`/sign-in?postId=${postId}`);
       return;
     }
 
