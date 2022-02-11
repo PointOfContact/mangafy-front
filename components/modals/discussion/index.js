@@ -239,7 +239,7 @@ const ModalDiscussion = ({
                 <div className={!photoProject && styles.containerPhoto}>
                   <div className={cn(!photoProject && styles.img, styles.imgDef)}>
                     {ifVideo ? (
-                      <video controls autoPlay muted loop>
+                      <video controls="true" autoPlay muted loop playsInline>
                         <source src={`${client.UPLOAD_URL + img}`} type="video/mp4" />
                       </video>
                     ) : ifPdf ? (

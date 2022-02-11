@@ -120,7 +120,7 @@ const DiscussionCard = (props) => {
           <div className={styles.bgImg}>
             {img &&
               (ifVideo ? (
-                <video controls autoPlay muted loop>
+                <video controls="true" autoPlay muted loop playsInline>
                   <source src={`${client.UPLOAD_URL + img}`} type="video/mp4" />
                 </video>
               ) : ifPdf ? (
