@@ -6,7 +6,7 @@ import client from 'api/client';
 import cn from 'classnames';
 import SvgClose from 'components/icon/Close';
 import SvgHeart from 'components/icon/Heart';
-import SvgShareColored from 'components/icon/ShareColored';
+import SvgShare from 'components/icon/Share';
 import Imgix from 'components/imgix';
 import Loading from 'components/loading';
 import { ShareButtons } from 'components/share';
@@ -209,6 +209,7 @@ const ModalDiscussion = ({
                       img={img}
                       subTitle={subTitle}
                       categories={categories}
+                      className={styles.shareIcon}
                     />
                     {isLikedLoading ? (
                       <Spin className={styles.spin} size="small"></Spin>
@@ -218,7 +219,7 @@ const ModalDiscussion = ({
                           {(!!likesData.length && likesData.length) || (!!likesCount && likesCount)}
                         </span>
                         <SvgHeart
-                          width="25px"
+                          width="26px"
                           height="22px"
                           onClick={handleLike}
                           className={isLiked && styles.isLiked}
@@ -232,7 +233,7 @@ const ModalDiscussion = ({
                         <ShareButtons shareUrl={`${client.API_ENDPOINT}${router.asPath}`} text="" />
                       }
                       trigger="click">
-                      <SvgShareColored width="25px" height="25px" />
+                      <SvgShare className={styles.iconShare} width="20px" height="20px" />
                     </Popover>
                   </div>
                 </div>
