@@ -194,7 +194,6 @@
   .imgDef {
     max-height: calc(100vh - 290px);
     overflow-y: auto;
-    display: flex;
     &::-webkit-scrollbar {
       width: 10px;
     }
