@@ -200,17 +200,6 @@ const ModalDiscussion = ({
                     <h2 className={styles.subtitle}>{title}</h2>
                   </spam>
                   <div className={styles.share}>
-                    <EditPostItems
-                      id={id}
-                      discussions={discussions}
-                      setDiscussions={setDiscussions}
-                      user={user}
-                      userId={userId}
-                      img={img}
-                      subTitle={subTitle}
-                      categories={categories}
-                      className={styles.shareIcon}
-                    />
                     {isLikedLoading ? (
                       <Spin className={styles.spin} size="small"></Spin>
                     ) : (
@@ -226,6 +215,17 @@ const ModalDiscussion = ({
                         />
                       </span>
                     )}
+                    <EditPostItems
+                      id={id}
+                      discussions={discussions}
+                      setDiscussions={setDiscussions}
+                      user={user}
+                      userId={userId}
+                      img={img}
+                      subTitle={subTitle}
+                      categories={categories}
+                      className={styles.shareIcon}
+                    />
                     <Popover
                       placement="bottomRight"
                       title={''}
