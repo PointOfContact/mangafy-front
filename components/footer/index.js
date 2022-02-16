@@ -77,7 +77,7 @@ const Footer = ({ user }) => {
 
             <div className={styles.footer__item2}>
               <div className={styles.footer__itemTitle}>Help & Support</div>
-              <Link href="/contact-us">
+              <Link href="/https://www.notion.so/mangafy/What-Why-Documentation-5b00d2d6a82c42d9865fd109c1d1fbf6">
                 <a className={styles.footer__itemLink}>Help & Support</a>
               </Link>
               <Link href="/resources">

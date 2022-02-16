@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { Layout, Row, Col } from 'antd';
 import client from 'api/client';
@@ -6,6 +6,7 @@ import cn from 'classnames';
 import MangeStoryCard from 'components/mangeStoryCard';
 import ModalCreateProject from 'components/modalCreateProject';
 import AddButton from 'components/ui-elements/add-button';
+import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
@@ -24,9 +25,19 @@ const ProfileOpenCollabs = (props) => {
   } = props;
 
   const [createProjectModal, showCreateProjectModal] = useState(false);
+  const router = useRouter();
+  const ref = useRef(null);
+
+  useEffect(() => {
+    !!router.query.active &&
+      ref.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+  }, []);
 
   return (
-    <section>
+    <section ref={ref}>
       {!!total && (
         <Content
           className={cn(
