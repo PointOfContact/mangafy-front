@@ -27,3 +27,9 @@
 		}
 	}
 }
+
+.ifNotLogin{
+	@media (max-width: 576px) {
+		bottom: 160px;
+	}
+}

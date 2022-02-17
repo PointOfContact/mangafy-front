@@ -78,7 +78,7 @@ const Collaborations = (props) => {
           cardType: 'summary_large_image',
         }}
       />
-      <ButtonToTop />
+      <ButtonToTop user={user} />
       <div className={styles.hidden}>
         <div className={'content'}>
           <Header path="collaborations" user={user} />

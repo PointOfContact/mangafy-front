@@ -98,7 +98,7 @@ const DescriptionBestProfile = ({
 
 DescriptionBestProfile.propTypes = {
   item: PropTypes.object.isRequired,
-  user: PropTypes.object.isRequired,
+  user: PropTypes.object,
   likeModalContainerStyle: PropTypes.bool,
   topGallery: PropTypes.array.isRequired,
   setTopGallery: PropTypes.func.isRequired,
@@ -109,6 +109,7 @@ DescriptionBestProfile.propTypes = {
 DescriptionBestProfile.defaultProps = {
   ifModal: false,
   likeModalContainerStyle: false,
+  user: {},
 };
 
 export default DescriptionBestProfile;

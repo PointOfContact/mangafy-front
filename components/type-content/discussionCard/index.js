@@ -8,6 +8,7 @@ import SvgHeart from 'components/icon/Heart';
 import Imgix from 'components/imgix';
 import ModalDiscussion from 'components/modals/discussion';
 import PrimaryButton from 'components/ui-elements/button';
+import wrapUrls from 'components/wrapUrls/wrapUrls';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
@@ -47,6 +48,7 @@ const DiscussionCard = (props) => {
   } = props;
 
   const [showModal, changeShowModal] = useState(false);
+  const [likesData, setLikesData] = useState([]);
 
   const imgType = img?.slice(-3);
   const ifPdf = imgType === 'pdf' || imgType === 'PDF';
@@ -136,7 +138,9 @@ const DiscussionCard = (props) => {
           </div>
           <div className={cn(styles.comments, ifVideo && styles.comments_video)}>
             <div>
-              <span>{!!likesCount && likesCount}</span>
+              <span>
+                {(!!likesData.length && likesData.length) || (!!likesCount && likesCount)}
+              </span>
               <SvgHeart width="20px" height="17px" />
               <span>{!!commentsCount && commentsCount}</span>
               <SvgComment width="17px" height="17px" />
@@ -150,11 +154,19 @@ const DiscussionCard = (props) => {
         <div
           className={cn(!img && styles.projectsForYou_botDesc, styles.projectsForYou_botDescDef)}
           onClick={() => openPost(id)}>
-          <span>{subTitle}</span>
+          <span
+            dangerouslySetInnerHTML={{
+              __html: wrapUrls(subTitle),
+            }}
+          />
           <div
             className={cn(!img && styles.containerButton, styles.containerButtonDef)}
             onClick={(e) => e.stopPropagation()}>
-            {/* <div className={styles.}> */}
+            {!img && !!categories[0] && (
+              <div className={cn(!img && styles.cat, styles.catDef)}>
+                <span>{categories[0]}</span>
+              </div>
+            )}
             <Link href={url || '/'}>
               <a>
                 <PrimaryButton
@@ -163,12 +175,6 @@ const DiscussionCard = (props) => {
                 />
               </a>
             </Link>
-            {/* </div> */}
-            {!img && !!categories[0] && (
-              <div className={cn(!img && styles.cat, styles.catDef)}>
-                <span>{categories[0]}</span>
-              </div>
-            )}
           </div>
         </div>
       </div>
@@ -190,6 +196,8 @@ const DiscussionCard = (props) => {
         setDiscussions={setDiscussions}
         userId={userId}
         categories={categories}
+        likesData={likesData}
+        setLikesData={setLikesData}
       />
     </>
   );

@@ -86,15 +86,6 @@ const EditPostItems = ({
           </span>
         }
       />
-      <p
-        className={styles.editPostItems}
-        onClick={(e) => {
-          e.stopPropagation();
-          setShowShareIcon(true);
-        }}>
-        <SvgShare width="15" height="15" />
-        Share
-      </p>
     </div>
   );
 
@@ -106,8 +97,17 @@ const EditPostItems = ({
         visible={visibleSettings}
         onVisibleChange={() => setVisibleSettings(!visibleSettings)}
         content={
-          <ul style={{ minWidth: '200px' }}>
+          <ul className={styles.postEdit}>
             <li>{editPostItems}</li>
+            <li
+              className={styles.editPostItems}
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowShareIcon(true);
+              }}>
+              <SvgShare width="15" height="15" />
+              Share
+            </li>
             {showShareIcon && (
               <li>
                 <ShareButtons
@@ -146,7 +146,7 @@ EditPostItems.propTypes = {
   id: PropTypes.string.isRequired,
   discussions: PropTypes.array.isRequired,
   setDiscussions: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
+  user: PropTypes.object,
   userId: PropTypes.string.isRequired,
   img: PropTypes.string.isRequired,
   currentSubTitle: PropTypes.string.isRequired,
@@ -157,6 +157,7 @@ EditPostItems.propTypes = {
 
 EditPostItems.defaultProps = {
   currentSubTitle: '',
+  user: {},
   className: {},
 };
 

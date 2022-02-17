@@ -42,7 +42,7 @@ const Profiles = (props) => {
           },
         ]}
       />
-      <ButtonToTop />
+      <ButtonToTop user={user} />
       <div className={styles.hidden}>
         <main className="main_back_2">
           <Header user={user} path="profiles" />

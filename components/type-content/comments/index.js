@@ -5,6 +5,7 @@ import client from 'api/client';
 import SvgTopArrow from 'components/icon/TopArrow';
 import Imgix from 'components/imgix';
 import Avatar from 'components/ui-elements/avatar';
+import wrapUrls from 'components/wrapUrls/wrapUrls';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import moment from 'moment';
 import Link from 'next/link';
@@ -17,7 +18,7 @@ import styles from './styles.module.scss';
 const { TextArea } = Input;
 
 const CommentList = ({ comments }) => {
-  const com = [...comments];
+  const com = comments.map((val) => ({ ...val, content: wrapUrls(val.content) }));
 
   return (
     <List

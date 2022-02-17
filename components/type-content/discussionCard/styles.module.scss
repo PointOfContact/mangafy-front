@@ -189,9 +189,14 @@ $backgroundColor: '';
     display: flex;
     justify-content: space-between;
     overflow: hidden;
-    span {
+    & > span {
       display: block;
+      max-width: calc(100% - 140px);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
       word-wrap: break-word;
+      white-space: pre-wrap;
+      -webkit-box-orient: vertical;
     }
     button {
       display: flex;
@@ -200,6 +205,10 @@ $backgroundColor: '';
       padding: 3px 15px;
       @include media-sm {
         padding: 3px 10px;
+      }
+      span{
+        margin: 0;
+        margin-right: 5px;
       }
     }
   }
@@ -216,9 +225,6 @@ $backgroundColor: '';
       word-wrap: break-word;
     }
     .containerButton {
-      position: relative;
-      display: flex;
-      justify-content: right;
       margin-top: 10px;
       align-items: end;
       background-color: white;
@@ -259,7 +265,6 @@ $backgroundColor: '';
 .catDef {
   max-width: calc(100% - 200px);
   max-height: 24px;
-  position: absolute;
   bottom: -10px;
   left: 10px;
   font-size: 13px;

@@ -165,7 +165,7 @@ const Profile = (props) => {
           cardType: 'summary_large_image',
         }}
       />
-      <ButtonToTop />
+      <ButtonToTop user={user} />
       <div className={'wrapper'}>
         <div className={'content'}>
           <Header path="profile" user={user} setShowModalEdit={setShowModalEdit} />

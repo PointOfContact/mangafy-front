@@ -38,7 +38,7 @@ const PopularPlatforms = ({ user }) => (
         cardType: 'summary_large_image',
       }}
     />
-    <ButtonToTop />
+    <ButtonToTop user={user} />
     <div className={'wrapper'}>
       <div className={'content'}>
         <Header user={user} />

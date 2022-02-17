@@ -221,7 +221,7 @@ const MangeStory = (props) => {
           cardType: 'summary_large_image',
         }}
       />
-      <ButtonToTop />
+      <ButtonToTop user={user} />
       <main className="main_back_2" style={{ background: '#fafafa' }}>
         <Header path="mangaStory" user={userData} />
         <div className={cn(styles.pageWrap, 'manga-story-page')}>

@@ -6,6 +6,7 @@ import client from 'api/client';
 import Imgix from 'components/imgix';
 import ModalInvites from 'components/modals/sendInvites';
 import PrimaryButton from 'components/ui-elements/button';
+import wrapUrls from 'components/wrapUrls/wrapUrls';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
@@ -40,17 +41,6 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
   const messageListElement = useRef(null);
   const messenger = useRef(null);
   const { conversationId, profileId } = selectedRequest;
-
-  const wrapUrls = (text) => {
-    // eslint-disable-next-line no-useless-escape
-    const url_pattern =
-      // eslint-disable-next-line no-useless-escape
-      /(http|ftp|https|www):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/gi;
-    return text.replace(url_pattern, (url) => {
-      const href = url_pattern.test(url) ? url : `http://${url}`;
-      return `<a href="${href}" target="_blank">${url}</a>`;
-    });
-  };
 
   const scrollToBottom = () => {
     setTimeout(() => {
