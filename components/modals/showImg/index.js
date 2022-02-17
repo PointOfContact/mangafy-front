@@ -29,7 +29,7 @@ const ShowImgModal = ({ setIsModalVisible, isModalVisible, img, imageType }) => 
       }
       visible={isModalVisible}>
       {imgTypeVideo ? (
-        <video controls autoPlay muted loop>
+        <video controls="true" autoPlay muted loop playsInline>
           <source src={img} type="video/mp4" />
         </video>
       ) : imageType ? (

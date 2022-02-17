@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
-const СardGenres = ({ genres, limit }) => {
+const СardGenres = ({ title, subTitle, genres, limit }) => {
   const genresContent = () => (
     <div>
       {genres.slice(limit - 1).map((item) => (
@@ -15,6 +15,7 @@ const СardGenres = ({ genres, limit }) => {
       ))}
     </div>
   );
+
   return (
     <div className={cn(styles.PostColab)}>
       <div className={styles.colabWrap__buttons}>
@@ -33,7 +34,7 @@ const СardGenres = ({ genres, limit }) => {
                     text={item.name}
                   />
                 ))}
-                <Popover placement="bottomLeft" title="More Genres" content={genresContent}>
+                <Popover placement="bottomLeft" title={title} content={genresContent}>
                   {' '}
                   <ButtonColab
                     className={cn(styles.ButtonPurple)}
@@ -44,7 +45,7 @@ const СardGenres = ({ genres, limit }) => {
             )}
           </>
         ) : (
-          <ButtonColab className={cn(styles.ButtonWhite)} text={'💪 fan of all genres'} />
+          <ButtonColab className={cn(styles.ButtonWhite)} text={subTitle} />
         )}
       </div>
     </div>
@@ -54,11 +55,15 @@ const СardGenres = ({ genres, limit }) => {
 СardGenres.propTypes = {
   genres: PropTypes.array,
   limit: PropTypes.number,
+  title: PropTypes.string,
+  subTitle: '',
 };
 
 СardGenres.defaultProps = {
   genres: [],
   limit: 4,
+  title: '',
+  subTitle: '',
 };
 
 export default СardGenres;

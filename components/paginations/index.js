@@ -89,7 +89,7 @@ Paginations.propTypes = {
   showSizeChanger: PropTypes.bool,
   pageSize: PropTypes.number,
   defaultCurrent: PropTypes.number,
-  total: PropTypes.number.isRequired,
+  total: PropTypes.any,
   current: PropTypes.number.isRequired,
   onChange: PropTypes.func,
   prefix: PropTypes.string.isRequired,
@@ -100,6 +100,7 @@ Paginations.defaultProps = {
   hideOnSinglePage: true,
   showSizeChanger: false,
   pageSize: 9,
+  total: 0,
   defaultCurrent: 9,
   onChange: () => {},
 };

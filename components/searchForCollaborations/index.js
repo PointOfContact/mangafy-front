@@ -33,7 +33,7 @@ const menuGenresOptions = (genres = [], handleMenuClick) => (
 );
 
 const artistOptions = (userTypes) => {
-  const userTupe = userTypes.map((type) => <Option key={type.key}>{type.value}</Option>);
+  const userTupe = userTypes.map((type) => <Option key={type.value}>{type.value}</Option>);
   const all = [<Option key="all">All Artist Types</Option>];
   return all.concat(userTupe);
 };
@@ -80,6 +80,7 @@ const SearchForCollaborations = (props) => {
       );
       return;
     }
+
     Router.push(
       LinkCreator.toQuery({ ...parsed, types: keys }, '/collaborations'),
       LinkCreator.toQuery({ ...parsed, types: keys }, '/collaborations'),
@@ -230,17 +231,18 @@ const SearchForCollaborations = (props) => {
 };
 
 SearchForCollaborations.propTypes = {
-  selectedCompensationModel: PropTypes.string,
+  selectedCompensationModel: PropTypes.array,
   selectedGenres: PropTypes.array,
-  genres: PropTypes.array.isRequired,
+  genres: PropTypes.array,
   search: PropTypes.string,
   selectedTypes: PropTypes.array,
   userTypes: PropTypes.array,
 };
 
 SearchForCollaborations.defaultProps = {
-  selectedCompensationModel: null,
+  selectedCompensationModel: [],
   selectedGenres: [],
+  genres: [],
   search: '',
   selectedTypes: [],
   userTypes: [],

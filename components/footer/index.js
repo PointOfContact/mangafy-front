@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
 import cn from 'classnames';
-import SvgFbNew from 'components/icon/FbNew';
-import SvgInstNew from 'components/icon/InstNew';
-import SvgTwNew from 'components/icon/TwNew';
+import SvgFacebook from 'components/icon/Facebook';
+import SvgInstagram from 'components/icon/Instagram';
+import SvgTwitter from 'components/icon/Twitter';
 import Imgix from 'components/imgix';
 import ModalCreateProject from 'components/modalCreateProject';
 import Link from 'next/link';
@@ -42,21 +42,21 @@ const Footer = ({ user }) => {
                   target="_blank"
                   rel="noreferrer"
                   className={styles.footer__socBtn}>
-                  <SvgFbNew width="25px" height="25px" />
+                  <SvgFacebook width="25px" height="25px" />
                 </a>
                 <a
                   href="https://twitter.com/be_mangafy"
                   target="_blank"
                   rel="noreferrer"
                   className={styles.footer__socBtn}>
-                  <SvgTwNew width="25px" height="25px" />
+                  <SvgTwitter width="25px" height="25px" />
                 </a>
                 <a
                   href="https://www.instagram.com/be.mangafy/"
                   target="_blank"
                   rel="noreferrer"
                   className={styles.footer__socBtn}>
-                  <SvgInstNew width="25px" height="25px" />
+                  <SvgInstagram width="25px" height="25px" />
                 </a>
               </div>
             </div>
@@ -77,7 +77,7 @@ const Footer = ({ user }) => {
 
             <div className={styles.footer__item2}>
               <div className={styles.footer__itemTitle}>Help & Support</div>
-              <Link href="/contact-us">
+              <Link href="https://www.notion.so/mangafy/What-Why-Documentation-5b00d2d6a82c42d9865fd109c1d1fbf6">
                 <a className={styles.footer__itemLink}>Help & Support</a>
               </Link>
               <Link href="/resources">

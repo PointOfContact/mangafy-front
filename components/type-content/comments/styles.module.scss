@@ -12,8 +12,77 @@
     }
   }
 }
+.inputContainer {
+  display: flex;
+  & > div {
+    margin-bottom: 0 !important;
+    textarea {
+      min-height: 0 !important;
+      border-radius: 0 !important;
+      border-top-left-radius: 30px !important;
+      border-bottom-left-radius: 30px !important;
+      border: none !important;
+      font-size: $text4 !important;
+    }
+  }
+  .submitButton {
+    height: 55px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    padding: 5px;
+    box-sizing: border-box;
+    button {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      background-color: #0d707c;
+      border: none;
+      &:hover {
+        background-color: #0a9daf;
+      }
+    }
+  }
+}
 
 .list {
-  max-height: 30vh;
+  max-height: 40vh;
   overflow: auto;
+  color: white;
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+  div {
+    padding-bottom: 0;
+  }
+  span {
+    height: 32px;
+    display: flex;
+    align-items: center;
+    color: white;
+  }
+}
+
+.dataTime {
+  color: $gray85 !important;
+  font-size: 12px;
+  margin-left: 44px;
 }
