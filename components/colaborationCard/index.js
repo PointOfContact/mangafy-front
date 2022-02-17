@@ -4,17 +4,30 @@ import cn from 'classnames';
 import СardGenres from 'components/card-genres';
 import Imgix from 'components/imgix';
 import Avatar from 'components/ui-elements/avatar';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
+import myAmplitude from 'utils/amplitude';
 
 import styles from './styles.module.scss';
 
 const ColaborationCards = ({ label, client }) => {
   const [participantsInfo, setParticipantsInfo] = useState([]);
   const [publishChapter, setPublishChapter] = useState(false);
+  const [createdDate, setCreatedDate] = useState('');
 
   useEffect(() => {
-    const publishedChapter = label?.storyBoards?.data[0]?.chapters?.some(
+    const date = new Date(label.createdAt);
+    const year = date.getFullYear();
+    let month = date.getMonth().toString();
+    month = month.length < 2 ? `0${month}` : month;
+    let day = date.getDay().toString();
+    day = day.length < 2 ? `0${day}` : day;
+    setCreatedDate(`${year}-${month}-${day}`);
+  }, []);
+
+  useEffect(() => {
+    const publishedChapter = label?.storyBoards?.data[0]?.chapters?.filter(
       (value) => value.published
     );
     setPublishChapter(publishedChapter);
@@ -39,9 +52,19 @@ const ColaborationCards = ({ label, client }) => {
     setParticipantsInfo(participants);
   }, [label.participentsInfo]);
 
+  const navigateToManga = () => {
+    const eventData = [
+      {
+        event_type: EVENTS.OPENED_MANGA_STORY,
+        event_properties: { mangaStoryId: label._id, from: 'Collabs page' },
+      },
+    ];
+    myAmplitude(eventData);
+  };
+
   return (
     <Link href={`/manga-story/${label._id}`}>
-      <a className={styles.colabWrap__item}>
+      <a className={styles.colabWrap__item} onClick={navigateToManga}>
         <div className={styles.colabWrap__top}>
           <div className={cn(styles.avatar__img, styles.avatar__imgOnline)}>
             <div className={styles.avatar__avatar}>
@@ -66,6 +89,7 @@ const ColaborationCards = ({ label, client }) => {
           <div className={styles.language}>
             {/* <SVGEnglish width={26} height={26} /> */}
             <p>{label.preferredLanguage}</p>
+            <p>{createdDate}</p>
           </div>
         </div>
         <p className={styles.colabName}>{label.title}</p>
@@ -80,10 +104,28 @@ const ColaborationCards = ({ label, client }) => {
             )}
           </div>
           <div className={styles.colabWrap__bot}>
-            <СardGenres genres={label.genres} limit={2} />
-            <div className={styles.colabWrap__publish}>
-              {publishChapter ? 'Published' : 'No Published'}
+            <div>
+              Genres:
+              <СardGenres
+                title={'More Genres'}
+                subTitle={'💪 fan of all genres'}
+                genres={label.genres}
+                limit={2}
+              />
             </div>
+            <div>
+              Types:
+              <СardGenres
+                title={'More Types'}
+                subTitle={'💪 fan of all types'}
+                genres={label?.searchingFor?.map((val) => ({ name: val }))}
+                limit={2}
+              />
+            </div>
+          </div>
+          <div className={styles.colabWrap__publish}>
+            Chapter:
+            <span>{!!publishChapter.length ? publishChapter.length : 'Coming soon…'}</span>
           </div>
         </div>
       </a>

@@ -156,10 +156,10 @@ const Collaborations = (props) => {
 
 Collaborations.propTypes = {
   user: PropTypes.object,
-  mangaStories: PropTypes.array.isRequired,
-  total: PropTypes.number.isRequired,
-  current: PropTypes.number.isRequired,
-  genres: PropTypes.array.isRequired,
+  mangaStories: PropTypes.array,
+  total: PropTypes.any,
+  current: PropTypes.number,
+  genres: PropTypes.array,
   selectedGenres: PropTypes.array,
   selectedCompensationModel: PropTypes.array,
   search: PropTypes.string,
@@ -172,6 +172,10 @@ Collaborations.defaultProps = {
   selectedCompensationModel: [],
   selectedTypes: [],
   search: '',
+  mangaStories: [],
+  total: 0,
+  current: 0,
+  genres: [],
 };
 
 export default Collaborations;

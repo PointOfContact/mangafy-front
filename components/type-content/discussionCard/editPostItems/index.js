@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import { notification, Popover } from 'antd';
 import client from 'api/client';
+import cn from 'classnames';
 import GetFeedback from 'components/get-feedback';
 import SvgDelete from 'components/icon/Delete';
 import SvgEdit from 'components/icon/Edit';
@@ -23,6 +24,7 @@ const EditPostItems = ({
   img,
   subTitle,
   categories,
+  className,
 }) => {
   const [visibleEditModal, visibleEditPostModal] = useState(false);
   const [showShareIcon, setShowShareIcon] = useState(false);
@@ -122,7 +124,7 @@ const EditPostItems = ({
           </ul>
         }
         trigger="click">
-        <span className={styles.shareUrl} onClick={() => setVisibleSettings(true)}>
+        <span className={cn(styles.shareUrl, className)} onClick={() => setVisibleSettings(true)}>
           ...
         </span>
       </Popover>
@@ -150,11 +152,13 @@ EditPostItems.propTypes = {
   currentSubTitle: PropTypes.string.isRequired,
   subTitle: PropTypes.string.isRequired,
   categories: PropTypes.array.isRequired,
+  className: PropTypes.object,
 };
 
 EditPostItems.defaultProps = {
   currentSubTitle: '',
   user: {},
+  className: {},
 };
 
 export default EditPostItems;

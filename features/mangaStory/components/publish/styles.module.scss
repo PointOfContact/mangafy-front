@@ -89,6 +89,12 @@
       color: $black;
       padding-left: 13px;
       cursor: pointer;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      word-break: break-all;
+      -webkit-box-orient: vertical;
+      line-height: 41px;
+      overflow: hidden;
     }
     .copy {
       width: 40px;
