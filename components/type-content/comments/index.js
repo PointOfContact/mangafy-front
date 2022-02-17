@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 
 import { Comment, List, Form, Input } from 'antd';
 import client from 'api/client';
+import SvgTopArrow from 'components/icon/TopArrow';
 import Imgix from 'components/imgix';
 import Avatar from 'components/ui-elements/avatar';
-import LargeButton from 'components/ui-elements/large-button';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import moment from 'moment';
 import Link from 'next/link';
@@ -25,29 +25,31 @@ const CommentList = ({ comments }) => {
       dataSource={com}
       itemLayout="horizontal"
       renderItem={(commentItem) => (
-        <Comment
-          datetime={moment(commentItem.createdAt).format('lll')}
-          {...commentItem}
-          author={commentItem?.authorInfo?.name}
-          avatar={
-            commentItem.authorInfo && (
-              <Link href={`/profile/${commentItem.authorInfo?._id}`}>
-                <a>
-                  {commentItem.authorInfo?.avatar ? (
-                    <Imgix
-                      width={40}
-                      height={40}
-                      src={client.UPLOAD_URL + commentItem.authorInfo?.avatar}
-                      alt="MangaFy avatar"
-                    />
-                  ) : (
-                    <Avatar text={commentItem?.authorInfo?.name} size={40} />
-                  )}
-                </a>
-              </Link>
-            )
-          }
-        />
+        <>
+          <Comment
+            {...commentItem}
+            author={commentItem?.authorInfo?.name}
+            avatar={
+              commentItem.authorInfo && (
+                <Link href={`/profile/${commentItem.authorInfo?._id}`}>
+                  <a>
+                    {commentItem.authorInfo?.avatar ? (
+                      <Imgix
+                        width={40}
+                        height={40}
+                        src={client.UPLOAD_URL + commentItem.authorInfo?.avatar}
+                        alt="MangaFy avatar"
+                      />
+                    ) : (
+                      <Avatar text={commentItem?.authorInfo?.name} size={40} />
+                    )}
+                  </a>
+                </Link>
+              )
+            }
+          />
+          <span className={styles.dataTime}>{moment(commentItem.createdAt).format('lll')}</span>
+        </>
       )}
     />
   );
@@ -67,21 +69,28 @@ const Editor = ({ onSubmit, submitting, user, postId }) => {
         form.resetFields();
         onSubmit(e.comment);
       }}>
-      <Form.Item
-        name={'comment'}
-        rules={[
-          {
-            required: true,
-            validator: async (_, names) => {
-              if (names.trim().length < 1) {
-                return Promise.reject(new Error('Length must be at least 2 characters long'));
-              }
+      <div className={styles.inputContainer}>
+        <Form.Item
+          name={'comment'}
+          rules={[
+            {
+              required: true,
+              validator: async (_, names) => {
+                if (names.trim().length < 1) {
+                  return Promise.reject(new Error('Length must be at least 2 characters long'));
+                }
+              },
+              message: 'Length must be at least 2 characters long',
             },
-            message: 'Length must be at least 2 characters long',
-          },
-        ]}>
-        <TextArea autoSize={{ minRows: 1, maxRows: 7 }} />
-      </Form.Item>
+          ]}>
+          <TextArea placeholder="Comment" autoSize={{ minRows: 1, maxRows: 7 }} />
+        </Form.Item>
+        <div className={styles.submitButton}>
+          <button htmlType="submit" loading={submitting}>
+            <SvgTopArrow />
+          </button>
+        </div>
+      </div>
       <Form.Item>
         {!user && (
           <Link href={`/sign-in?postId=${postId}`}>
@@ -92,12 +101,12 @@ const Editor = ({ onSubmit, submitting, user, postId }) => {
             </a>
           </Link>
         )}
-        <LargeButton
+        {/* <LargeButton
           id="AddACommentBtnId"
           htmlType="submit"
           loading={submitting}
           text="Add Comment"
-        />
+        /> */}
       </Form.Item>
     </Form>
   );
@@ -179,35 +188,36 @@ export const Comments = ({ commentsData, postId, user, setCommentsData }) => {
 
   return (
     <>
-      {comments.length > 0 && (
-        <div className="commentsBlock">
-          <CommentList comments={comments} />
-        </div>
-      )}
       <Comment
         className={'manga-story-comments'}
-        author={user && user.name}
-        avatar={
-          user && (
-            <>
-              {user.avatar ? (
-                <Imgix
-                  width={52}
-                  height={52}
-                  src={client.UPLOAD_URL + user.avatar}
-                  alt="MangaFy avatar"
-                />
-              ) : (
-                <Avatar text={user.name} size={52} />
-              )}
-            </>
-          )
-        }
+        // author={user && user.name}
+        // avatar={
+        //   user && (
+        //     <>
+        //       {user.avatar ? (
+        //         <Imgix
+        //           width={52}
+        //           height={52}
+        //           src={client.UPLOAD_URL + user.avatar}
+        //           alt="MangaFy avatar"
+        //         />
+        //       ) : (
+        //         <Avatar text={user.name} size={52} />
+        //       )}
+        //     </>
+        //   )
+        // }
         content={
           <Editor onSubmit={handleSubmit} submitting={submitting} user={user} postId={postId} />
         }
       />
       {errMessage && <p>{errMessage}</p>}
+      <br />
+      {comments.length > 0 && (
+        <div className="commentsBlock">
+          <CommentList comments={comments} />
+        </div>
+      )}
     </>
   );
 };
