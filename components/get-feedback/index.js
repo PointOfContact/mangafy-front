@@ -163,7 +163,7 @@ const GetFeedback = ({
         }}
         footer={null}>
         <div className={styles.titleContainer}>
-          <h1 className={styles.titleNewPost}>{edit ? 'Edit Post' : 'New Post'}</h1>
+          <h1 className={styles.titleNewPost}>{edit ? 'Edit Post' : 'Create Post'}</h1>
           <div className={styles.border}></div>
         </div>
         <div className={styles.container} onClick={(e) => e.stopPropagation()}>
@@ -189,7 +189,7 @@ const GetFeedback = ({
           <PrimaryButton
             className={styles.createPost}
             loading={uploadLoading}
-            text="Create Post"
+            text={edit ? 'Save' : 'Create Post'}
             onClick={(e) => {
               Router.push('/feed', undefined, { scroll: false });
               onSubmit(e);

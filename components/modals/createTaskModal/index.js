@@ -287,7 +287,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
                       {
                         validator: async (_, amount) => {
                           if (amount === null) {
-                            return Promise.reject(new Error('Budget field is required'));
+                            return Promise.reject(new Error('All budget are allowed.'));
                           }
                           if (+amount === 0) {
                             return Promise.reject(new Error("This field value shouldn't be 0"));

@@ -10,22 +10,26 @@
   margin: 0 5px;
   cursor: pointer;
 }
-.editPostItems {
-  display: block;
-  margin-bottom: 10px;
-  color: $gray85;
-  cursor: pointer;
-  svg {
-    margin-right: 10px;
-    path {
-      fill: $gray85;
+.postEdit{
+  min-width: 180px;
+  margin: 0;
+  .editPostItems {
+    display: block;
+    color: $gray85;
+    cursor: pointer;
+    svg {
+      margin-right: 10px;
+      path {
+        fill: $gray85;
+      }
     }
-  }
-  &:hover {
-    color: $black;
-    svg path {
-      fill: $black;
+    &:hover {
+      color: $black;
+      svg path {
+        fill: $black;
+      }
     }
+   
   }
- 
 }
+
