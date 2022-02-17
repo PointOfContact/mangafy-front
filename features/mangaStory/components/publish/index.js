@@ -7,8 +7,10 @@ import client from 'api/client';
 import SvgCopy from 'components/icon/Copy';
 import { ShareButtons } from 'components/share';
 import copy from 'copy-to-clipboard';
+import { EVENTS } from 'helpers/amplitudeEvents';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
+import myAmplitude from 'utils/amplitude';
 
 import styles from './styles.module.scss';
 
@@ -46,6 +48,36 @@ const Publish = ({ baseData, storyBoard, chapters }) => {
   useEffect(() => {
     setIfExistPublishedChapter(chapters?.filter((val) => val.published).length);
   }, [chapters]);
+
+  const clickProtectSell = () => {
+    const eventData = [
+      {
+        event_type: EVENTS.PROTECT_AND_SELL,
+        event_properties: { mangaStoryId: baseData._id },
+      },
+    ];
+    myAmplitude(eventData);
+  };
+
+  const clickPrintSell = () => {
+    const eventData = [
+      {
+        event_type: EVENTS.PRINT_AND_SELL,
+        event_properties: { mangaStoryId: baseData._id },
+      },
+    ];
+    myAmplitude(eventData);
+  };
+
+  const clickMerchSell = () => {
+    const eventData = [
+      {
+        event_type: EVENTS.MERCH_MAKER,
+        event_properties: { mangaStoryId: baseData._id },
+      },
+    ];
+    myAmplitude(eventData);
+  };
 
   return (
     <div className={styles.containerPublish}>
@@ -85,22 +117,36 @@ const Publish = ({ baseData, storyBoard, chapters }) => {
             baseData?.title
           }${publishImage()}`}>
           <a className={!ifExistPublishedChapter && styles.postManga} target="_blank">
-            <h4>MangaFY</h4>
-            <p>Publish on MangaFY!</p>
+            <h4>Post on MangaFY</h4>
+            <p>The MangaFY feed will show your chapter >></p>
           </a>
         </Link>
-        <Link href="https://www.webtoons.com/">
+        <Link
+          href="https://form.typeform.com/to/UX99IGQe?typeform-source=trello.com"
+          onClick={clickProtectSell}>
+          <a target="_blank">
+            <h4>Protect and Sell</h4>
+            <p>Protect and sell your unique webcomics assets >></p>
+          </a>
+        </Link>
+        <Link href="https://form.typeform.com/to/DsN42GSD?typeform-source=trello.com">
+          <a target="_blank" onClick={clickPrintSell}>
+            <h4>Print and Sell</h4>
+            <p>Print and sell high quality printed >></p>
+          </a>
+        </Link>
+        <Link href="https://form.typeform.com/to/g0fkj5fs?typeform-source=trello.com">
+          <a target="_blank" onClick={clickMerchSell}>
+            <h4>Merch Maker</h4>
+            <p>Create branded merch for your fans with merch maker >></p>
+          </a>
+        </Link>
+        {/* <Link href="https://tapas.io/">
           <a>
-            <h4>Webtoon</h4>
-            <p>Upload to webtoon</p>
+            <h4>Boost your story</h4>
+            <p>Grow your fanbase with real, targeted followers >></p>
           </a>
-        </Link>
-        <Link href="https://tapas.io/">
-          <a>
-            <h4>Tapas</h4>
-            <p>Publish on Tapas</p>
-          </a>
-        </Link>
+        </Link> */}
       </div>
     </div>
   );
@@ -109,7 +155,11 @@ const Publish = ({ baseData, storyBoard, chapters }) => {
 Publish.propTypes = {
   baseData: PropTypes.object.isRequired,
   storyBoard: PropTypes.object.isRequired,
-  chapters: PropTypes.array.isRequired,
+  chapters: PropTypes.array,
+};
+
+Publish.defaultProps = {
+  chapters: [],
 };
 
 export default Publish;

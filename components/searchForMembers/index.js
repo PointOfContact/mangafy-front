@@ -55,6 +55,8 @@ const SearchForMembers = (props) => {
 
   const handleCompasitionClick = (keys) => {
     const parsed = qs.parse(location.search);
+    parsed.page = 1;
+
     if (keys && keys.includes('all')) {
       delete parsed.types;
       Router.push(
@@ -76,6 +78,7 @@ const SearchForMembers = (props) => {
   };
   const handleGenresClick = (keys) => {
     const parsed = qs.parse(location.search);
+    parsed.page = 1;
     if (keys && keys.includes('all')) {
       delete parsed.genres;
       Router.push(

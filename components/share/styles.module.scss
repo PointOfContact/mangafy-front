@@ -9,16 +9,13 @@
     flex-direction: column !important;
   }
   .copy {
-    width: 32px !important;
-    height: 32px !important;
-    border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #405f8f;
     svg {
-      margin-top: -1px;
-      margin-left: 1px;
+      path{
+        fill: #666262;
+      }
     }
   }
   .text {

@@ -120,7 +120,7 @@ const Chapter = ({ storyBoard, setStoryBoard, chapters, setChapters, user, baseD
 Chapter.propTypes = {
   storyBoard: PropTypes.object.isRequired,
   setStoryBoard: PropTypes.func.isRequired,
-  chapters: PropTypes.array.isRequired,
+  chapters: PropTypes.array,
   setChapters: PropTypes.func.isRequired,
   user: PropTypes.object,
   baseData: PropTypes.object.isRequired,
@@ -128,6 +128,7 @@ Chapter.propTypes = {
 
 Chapter.defaultProps = {
   user: {},
+  chapters: [],
 };
 
 export default Chapter;

@@ -44,6 +44,7 @@ const ModalCreatePage = ({
   const ifUpgrade = !title?.length;
 
   useEffect(() => {
+    setImgLoad(false);
     if (visibleModal) {
       setTitle(pageItem?.value?.title);
       setCharacterArray(pageItem?.value?.characterArray);
@@ -263,9 +264,15 @@ const ModalCreatePage = ({
               }
             />
           )}
-          <PrimaryButton className={styles.saveButton} htmlType="submit" text="Save" />
+          <PrimaryButton
+            loading={imgLoad}
+            className={styles.saveButton}
+            htmlType="submit"
+            text="Save"
+          />
           {ifUpgrade && (
             <PrimaryButton
+              loading={imgLoad}
               className={styles.newPage}
               isWhite={true}
               htmlType="submit"

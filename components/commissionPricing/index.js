@@ -175,10 +175,12 @@ export const CommissionPricing = ({ id, user }) => {
                   />
                 </div>
               )} */}
-              <div className={styles.title}>
-                <p>What services do you provide</p>
-                <p>Price</p>
-              </div>
+              {ifMyProfile && (
+                <div className={styles.title}>
+                  <p>What services do you provide</p>
+                  <p>Price</p>
+                </div>
+              )}
               {pricingList.map((field, index) => (
                 <>
                   <Space

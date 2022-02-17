@@ -21,7 +21,6 @@
     margin: 0 15px;
     margin-bottom: 31px;
     transition: 0.5s;
-    position: relative;
     overflow: hidden;
     &:hover {
       filter: drop-shadow(0px 0px 18px rgba(123, 101, 243, 0.2));
@@ -45,7 +44,6 @@
     width: 100%;
     overflow: hidden;
     display: inline-flex;
-    align-items: center;
     justify-content: space-between;
   }
   &__img {
@@ -129,6 +127,7 @@
   }
   &__descr {
     color: $grey;
+    height: 60px;
     font-size: 15px;
     line-height: 20px;
     margin-bottom: 10px;
@@ -140,15 +139,24 @@
     -webkit-box-orient: vertical;
   }
   &__footer{
-    position: absolute;
     bottom: 14px;
-    width: 90%;
   }
   &__bot {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
     justify-content: space-between;
+    & > div{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: $black;
+      font-size: 15px;
+      line-height: 20px;
+      & > div {
+        margin-left: 5px;
+      }
+    }
   }
   &__publish {
     display: flex;
@@ -157,7 +165,11 @@
     font-weight: 500;
     font-size: 15px;
     line-height: 20px;
-    svg {
+    span{
+      margin-left: 5px;
+      color: $gray85;
+    }
+    svg {  
       margin-right: 7px;
     }
   }
@@ -181,13 +193,12 @@
 }
 
 .language {
-  display: flex;
-  align-items: center;
   svg {
     margin-top: 8px;
   }
   p {
     margin: 0;
+    margin-top: 4px;
     font-style: normal;
     font-weight: normal;
     font-size: 10px;
@@ -214,6 +225,7 @@
 .participantsContainer{
   display: flex;
   align-items: center;
+  height: 40px;
   span{
     font-style: normal;
     font-weight: 500;

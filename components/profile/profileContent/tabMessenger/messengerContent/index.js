@@ -130,6 +130,13 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
       getMessages(conversationId);
     }, 3000);
     scrollToBottom();
+    const allPhotos = document.querySelectorAll(
+      '#message-content > div > div > div > div > div > div img'
+    );
+    // set title attribute on all message photo
+    allPhotos.forEach((val, i) => {
+      val.setAttribute('title', messageList[i].user[0].name);
+    });
   }, [conversationId]);
 
   useEffect(() => () => clearInterval(interval), []);

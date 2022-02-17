@@ -33,7 +33,7 @@ const menuGenresOptions = (genres = [], handleMenuClick) => (
 );
 
 const artistOptions = (userTypes) => {
-  const userTupe = userTypes.map((type) => <Option key={type.key}>{type.value}</Option>);
+  const userTupe = userTypes.map((type) => <Option key={type.value}>{type.value}</Option>);
   const all = [<Option key="all">All Artist Types</Option>];
   return all.concat(userTupe);
 };
@@ -47,6 +47,7 @@ const SearchForCollaborations = (props) => {
     selectedTypes = [],
     userTypes = [],
   } = props;
+
   const searchAPI = (search) => {
     const parsed = qs.parse(location.search);
     parsed.page = 1;
@@ -66,6 +67,8 @@ const SearchForCollaborations = (props) => {
 
   const handleArtistClick = (keys) => {
     const parsed = qs.parse(location.search);
+    parsed.page = 1;
+
     if (keys && keys.includes('all')) {
       delete parsed.types;
       Router.push(
@@ -77,6 +80,7 @@ const SearchForCollaborations = (props) => {
       );
       return;
     }
+
     Router.push(
       LinkCreator.toQuery({ ...parsed, types: keys }, '/collaborations'),
       LinkCreator.toQuery({ ...parsed, types: keys }, '/collaborations'),
@@ -88,6 +92,7 @@ const SearchForCollaborations = (props) => {
 
   const handleCompasitionClick = (keys) => {
     const parsed = qs.parse(location.search);
+
     if (keys && keys.includes('all')) {
       delete parsed.compensationModel;
       Router.push(
@@ -107,8 +112,12 @@ const SearchForCollaborations = (props) => {
       }
     );
   };
+
   const handleGenresClick = (keys) => {
     const parsed = qs.parse(location.search);
+
+    parsed.page = 1;
+
     if (keys && keys.includes('all')) {
       delete parsed.genres;
       Router.push(
@@ -120,6 +129,7 @@ const SearchForCollaborations = (props) => {
       );
       return;
     }
+
     Router.push(
       LinkCreator.toQuery({ ...parsed, genres: keys }, '/collaborations'),
       LinkCreator.toQuery({ ...parsed, genres: keys }, '/collaborations'),
@@ -221,17 +231,18 @@ const SearchForCollaborations = (props) => {
 };
 
 SearchForCollaborations.propTypes = {
-  selectedCompensationModel: PropTypes.string,
+  selectedCompensationModel: PropTypes.array,
   selectedGenres: PropTypes.array,
-  genres: PropTypes.array.isRequired,
+  genres: PropTypes.array,
   search: PropTypes.string,
   selectedTypes: PropTypes.array,
   userTypes: PropTypes.array,
 };
 
 SearchForCollaborations.defaultProps = {
-  selectedCompensationModel: null,
+  selectedCompensationModel: [],
   selectedGenres: [],
+  genres: [],
   search: '',
   selectedTypes: [],
   userTypes: [],

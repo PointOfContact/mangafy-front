@@ -44,15 +44,15 @@ const Share = ({ shareUrl, storyBoard }) => {
         <a href="#">
           <Tooltip placement="topLeft" title={copyText}>
             <span
-              className={storyBoard ? styles.copySB : styles.copy}
+              className={styles.copy}
               onMouseOut={() => setCopyText('Copy to clipboard')}
               onClick={() => {
                 setCopyText('Copied');
                 copy(shareUrl);
               }}>
               <SvgCopy
-                width={storyBoard ? '18px' : '13px'}
-                height={storyBoard ? '18px' : '13px'}
+                width={storyBoard ? '33px' : '24px'}
+                height={storyBoard ? '33px' : '24px'}
                 alt="mangaFy copy icon"
               />
             </span>

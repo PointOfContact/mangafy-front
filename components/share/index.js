@@ -4,13 +4,13 @@ import { Tooltip } from 'antd';
 import cn from 'classnames';
 import SvgCopy from 'components/icon/Copy';
 import SvgFacebook from 'components/icon/Facebook';
+import SvgTelegram from 'components/icon/Telegram';
 import SvgTwitter from 'components/icon/Twitter';
 import SvgWhatsapp from 'components/icon/Whatsapp';
 import copy from 'copy-to-clipboard';
 import PropTypes from 'prop-types';
 import {
   FacebookShareButton,
-  TelegramIcon,
   TelegramShareButton,
   TwitterShareButton,
   WhatsappShareButton,
@@ -38,7 +38,7 @@ export const ShareButtons = ({ className, shareUrl, text, onClick, showTitle }) 
         </li>
         <li onClick={onClick}>
           <TelegramShareButton title="Mangafy-Club" url={shareUrl}>
-            <TelegramIcon size={32} round={true} />
+            <SvgTelegram size={32} height="32px" />
           </TelegramShareButton>
           {showTitle && <p className={styles.titleIcon}>Telegram</p>}
         </li>
@@ -57,7 +57,7 @@ export const ShareButtons = ({ className, shareUrl, text, onClick, showTitle }) 
                 setCopyText('Copied');
                 copy(shareUrl);
               }}>
-              <SvgCopy width="18px" height="18px" alt="mangaFy copy icon" />
+              <SvgCopy width="32px" height="32px" alt="mangaFy copy icon" />
             </span>
           </Tooltip>
           {showTitle && <p className={styles.titleIcon}>Copy</p>}
