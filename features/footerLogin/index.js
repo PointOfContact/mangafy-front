@@ -51,12 +51,13 @@ const FooterLogin = ({ user, cookieVisibility }) => {
 };
 
 FooterLogin.propTypes = {
-  user: PropTypes.object.isRequired,
+  user: PropTypes.object,
   cookieVisibility: PropTypes.bool,
 };
 
 FooterLogin.defaultProps = {
   cookieVisibility: true,
+  user: {},
 };
 
 export default React.memo(FooterLogin);
