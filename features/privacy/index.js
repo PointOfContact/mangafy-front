@@ -47,7 +47,7 @@ const Privacy = (props) => {
           },
         ]}
       />
-      <ButtonToTop />
+      <ButtonToTop user={user} />
       <main className="main_back_2">
         <div className={'wrapper'}>
           <div className={styles.terms_page}>

@@ -420,7 +420,7 @@ const MangaView = ({
           <FooterPolicy />
         </div>
       </div>
-      <ButtonToTop />
+      <ButtonToTop user={user} />
     </>
   );
 };

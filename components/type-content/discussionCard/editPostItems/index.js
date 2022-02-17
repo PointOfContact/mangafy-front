@@ -146,7 +146,7 @@ EditPostItems.propTypes = {
   id: PropTypes.string.isRequired,
   discussions: PropTypes.array.isRequired,
   setDiscussions: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
+  user: PropTypes.object,
   userId: PropTypes.string.isRequired,
   img: PropTypes.string.isRequired,
   currentSubTitle: PropTypes.string.isRequired,
@@ -157,6 +157,7 @@ EditPostItems.propTypes = {
 
 EditPostItems.defaultProps = {
   currentSubTitle: '',
+  user: {},
   className: {},
 };
 

@@ -205,7 +205,7 @@ const GetFeedback = ({
 
 GetFeedback.propTypes = {
   isPage: PropTypes.object,
-  user: PropTypes.object.isRequired,
+  user: PropTypes.object,
   setIsModalVisible: PropTypes.func,
   sendEvent: PropTypes.func,
   isModalVisible: PropTypes.bool,
@@ -222,6 +222,7 @@ GetFeedback.defaultProps = {
   isModalVisible: false,
   sendEvent: () => {},
   edit: false,
+  user: {},
   postId: '',
   img: '',
   currentSubTitle: '',
