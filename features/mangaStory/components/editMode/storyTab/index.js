@@ -65,7 +65,11 @@ const StoryTab = ({
       )}
       <div>
         <h2 className={styles.storyTabTitle}>Project Description</h2>
-        <pre>{story}</pre>
+        <pre
+          dangerouslySetInnerHTML={{
+            __html: story,
+          }}
+        />
       </div>
       <div>
         {isOwn ? (

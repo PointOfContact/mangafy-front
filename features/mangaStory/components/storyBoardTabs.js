@@ -237,7 +237,7 @@ const StoryBoardTabs = ({
 
   useEffect(() => {
     setIsShowAnimation(true);
-    const pageNumber = !!storyBoard?.mangaUrls?.length ? '4' : '5';
+    const pageNumber = !!storyBoard?.mangaUrls?.length ? 5 : 4;
     let myEvent = '';
     const { page } = query;
 

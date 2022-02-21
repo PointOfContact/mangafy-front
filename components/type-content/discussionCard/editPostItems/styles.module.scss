@@ -3,7 +3,9 @@
 .editPost {
   display: flex;
   flex-direction: column;
-  margin-bottom: 10px;
+  & > span {
+    margin: 2px 0;
+  }
 }
 .shareUrl{
   font-size: 25px;
@@ -15,6 +17,7 @@
   margin: 0;
   .editPostItems {
     display: block;
+    margin: 0;
     color: $gray85;
     cursor: pointer;
     svg {
@@ -29,7 +32,6 @@
         fill: $black;
       }
     }
-   
   }
 }
 

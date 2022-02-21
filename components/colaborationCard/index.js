@@ -17,13 +17,8 @@ const ColaborationCards = ({ label, client }) => {
   const [createdDate, setCreatedDate] = useState('');
 
   useEffect(() => {
-    const date = new Date(label.createdAt);
-    const year = date.getFullYear();
-    let month = date.getMonth().toString();
-    month = month.length < 2 ? `0${month}` : month;
-    let day = date.getDay().toString();
-    day = day.length < 2 ? `0${day}` : day;
-    setCreatedDate(`${year}-${month}-${day}`);
+    const date = label.createdAt.substring(0, 10);
+    setCreatedDate(date);
   }, []);
 
   useEffect(() => {
@@ -93,14 +88,17 @@ const ColaborationCards = ({ label, client }) => {
           </div>
         </div>
         <p className={styles.colabName}>{label.title}</p>
-        <div className={styles.colabWrap__descr}>{label.story}</div>
+        <div
+          className={styles.colabWrap__descr}
+          dangerouslySetInnerHTML={{
+            __html: label.story,
+          }}
+        />
         <div className={styles.colabWrap__footer}>
           <div className={styles.participantsContainer}>
             {participantsInfo}
-            {label?.participentsInfo?.length ? (
+            {!!label?.participentsInfo?.length && (
               <span>{label?.participentsInfo?.length} participants</span>
-            ) : (
-              ''
             )}
           </div>
           <div className={styles.colabWrap__bot}>
@@ -118,7 +116,7 @@ const ColaborationCards = ({ label, client }) => {
               <СardGenres
                 title={'More Types'}
                 subTitle={'💪 fan of all types'}
-                genres={label?.searchingFor?.map((val) => ({ name: val }))}
+                genres={!!label?.projectType && [label?.projectType].map((val) => ({ name: val }))}
                 limit={2}
               />
             </div>
