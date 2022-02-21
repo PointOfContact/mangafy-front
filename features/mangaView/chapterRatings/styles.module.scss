@@ -1,0 +1,32 @@
+@import '../../../styles/variables.scss';
+
+.footerRatings {
+  display: none;
+  @include media-sm {
+    display: flex;
+    position: absolute;
+    left: 10px;
+    .chapterRating {
+      display: flex;
+      margin-right: 10px;
+      color: white;
+      font-size: $text4;
+      svg {
+        margin-right: 5px;
+        path {
+          fill: white;
+        }
+      }
+      .viewCount {
+        span {
+          color: $black;
+        }
+      }
+    }
+  }
+  .likeItem {
+    path {
+      fill: $red !important;
+    }
+  }
+}
