@@ -9,6 +9,7 @@ import { Comments } from 'components/comments';
 import DeleteProjectModal from 'components/deleteProjectModal';
 import Footer from 'components/footer';
 import FooterPolicy from 'components/footer-policy';
+import { deleteTagsFromString } from 'components/gallery/utils';
 import Header from 'components/header';
 import ButtonToTop from 'components/ui-elements/button-toTop';
 import FooterLogin from 'features/footerLogin';
@@ -192,16 +193,30 @@ const MangeStory = (props) => {
     setCollabActiveTab(activeKey);
   };
 
+  const description = (desc, story) => {
+    story = deleteTagsFromString(story);
+    let decResult = '';
+    if (desc) {
+      if (story) {
+        decResult = desc + story;
+      }
+      decResult = desc;
+    } else if (story) {
+      decResult = story;
+    }
+    return decResult;
+  };
+
   return (
     <div className="story_page">
       <NextSeo
         title={baseData?.title}
-        description={baseData?.description + baseData?.story}
+        description={description(baseData?.description, baseData?.story)}
         canonical={`${client.API_ENDPOINT}/manga-story/${baseData?._id}`}
         openGraph={{
           url: `${client.API_ENDPOINT}/manga-story/${baseData?._id}`,
           title: baseData?.title,
-          description: baseData?.description + baseData?.story,
+          description: description(baseData?.description, baseData?.story),
           type: 'article',
           images: [
             {

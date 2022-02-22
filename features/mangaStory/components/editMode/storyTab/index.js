@@ -12,6 +12,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 
+import { deleteTagsFromString } from '../../../../../components/gallery/utils';
 import BuyBubbleTea from '../../../../../components/ui-elements/buyBubbleTea';
 import Tasks from '../../tasks/index';
 import ParticipantCard from './participantCard';
@@ -65,11 +66,7 @@ const StoryTab = ({
       )}
       <div>
         <h2 className={styles.storyTabTitle}>Project Description</h2>
-        <pre
-          dangerouslySetInnerHTML={{
-            __html: story,
-          }}
-        />
+        <pre>{deleteTagsFromString(story)}</pre>
       </div>
       <div>
         {isOwn ? (

@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Tooltip } from 'antd';
 import cn from 'classnames';
+import { deleteTagsFromString } from 'components/gallery/utils';
 import Imgix from 'components/imgix';
 import Avatar from 'components/ui-elements/avatar';
 import Link from 'next/link';
@@ -27,12 +28,9 @@ const MangeStoryCard = ({ mangaStories, setMangaStories, client, user }) =>
                   setMangaStories={setMangaStories}
                 />
               </div>
-              <div
-                className={styles.description}
-                dangerouslySetInnerHTML={{
-                  __html: label.story,
-                }}
-              />
+              <div className={styles.description}>
+                <p>{deleteTagsFromString(label.story)}</p>
+              </div>
               <div>
                 {label.author === user?._id && (
                   <div className={cn(styles.type, styles.isOwn)}>Own</div>

@@ -97,6 +97,8 @@ const adaptedDataImages = (images, res) => {
   return [res, ...imgs];
 };
 
+const deleteTagsFromString = (string) => string?.replace(/<\/?[^>]+(>|$)/g, '');
+
 const beforeGalleryUpload = (
   file,
   setShowUploadList,
@@ -268,5 +270,6 @@ export {
   getShortStorys,
   createGallery,
   editGallery,
+  deleteTagsFromString,
   socials,
 };
