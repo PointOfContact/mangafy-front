@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { notification, Tooltip } from 'antd';
+import { notification } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
 import { Comments } from 'components/comments';
@@ -8,7 +8,6 @@ import FooterPolicy from 'components/footer-policy';
 import SvgHeart from 'components/icon/Heart';
 import Imgix from 'components/imgix';
 import { ShareButtons } from 'components/share';
-import Avatar from 'components/ui-elements/avatar';
 import ButtonToTop from 'components/ui-elements/button-toTop';
 import BuyBubbleTea from 'components/ui-elements/buyBubbleTea';
 import Pagination from 'components/ui-elements/pagination';
@@ -22,6 +21,9 @@ import PropTypes from 'prop-types';
 import myAmplitude from 'utils/amplitude';
 import getDeviceId from 'utils/deviceId';
 
+import ChapterRatings from './chapterRatings';
+import createChapterItems from './createChapterItems';
+import createParticipantItems from './createParticipantItems';
 import styles from './styles.module.scss';
 import ViewHeader from './viewHeader';
 
@@ -64,6 +66,7 @@ const MangaView = ({
       setAlreadyLiked(liked);
       setLike(true);
     } else {
+      setAlreadyLiked(liked);
       setLike(false);
     }
   };
@@ -71,6 +74,7 @@ const MangaView = ({
   useEffect(() => {
     setCountLike(chapter?.like);
     alreadyLikedChapter();
+    createChapterItems(chapters, chapter, setChapterItems, currentChapter, setCurrentChapter);
   }, [currentChapterNumber, chapter]);
 
   useEffect(() => {
@@ -93,8 +97,7 @@ const MangaView = ({
     ];
 
     myAmplitude(data);
-    createParticipantItems();
-    createChapterItems();
+    createParticipantItems(participants, setParticipantItems);
     getDeviceId(setDeviceId);
   }, []);
 
@@ -128,70 +131,6 @@ const MangaView = ({
       },
     });
   }, [currentChapter, deviceId]);
-
-  const createParticipantItems = () => {
-    const items = participants.map(
-      (value, index) =>
-        index < 6 && (
-          <Tooltip key={value._id + index} placement="top" title={value.name} arrowPointAtCenter>
-            <div className={styles.participantsItem}>
-              <Link href={`/profile/${value._id}`}>
-                <a>
-                  {value.avatar ? (
-                    <Imgix
-                      width={40}
-                      height={40}
-                      src={client.UPLOAD_URL + value.avatar}
-                      alt={'MangaFy participants image'}
-                    />
-                  ) : (
-                    <Avatar className={styles.defaultAvatar} text={value.name} size={69} />
-                  )}
-                </a>
-              </Link>
-            </div>
-          </Tooltip>
-        )
-    );
-    setParticipantItems(items);
-  };
-
-  const createChapterItems = () => {
-    const items = chapters?.map((value, index) => {
-      const type = value.cover.slice(-3);
-      const ifPdf = type === 'pdf' || type === '{DF';
-      const activeChapter = index + 1 === currentChapter;
-      return (
-        <div
-          key={value._id + index}
-          className={cn(styles.itemChapters, activeChapter && styles.activeChapter)}
-          onClick={() => {
-            const dataEvent = [
-              {
-                event_type: EVENTS.CHOOSE_VIEW_CHAPTER,
-                event_properties: { chapter },
-              },
-            ];
-            myAmplitude(dataEvent);
-            setCurrentChapter(index + 1);
-          }}>
-          {ifPdf ? (
-            <PDFViewer url={client.UPLOAD_URL + value.cover} />
-          ) : (
-            <Imgix
-              width={100}
-              height={100}
-              src={client.UPLOAD_URL + value.cover}
-              alt="MangaFy chapter image"
-            />
-          )}
-          <p>CH {index + 1}</p>
-          <div className={styles.opacity} />
-        </div>
-      );
-    });
-    setChapterItems(items);
-  };
 
   const shareUrl = !!getNameViewUrl
     ? `https://${getNameViewUrl}.mangafy.club`
@@ -261,25 +200,6 @@ const MangaView = ({
         });
     });
   };
-
-  const chapterRatings = (
-    <div className={styles.footerRatings}>
-      <div className={styles.chapterRating}>
-        <SvgHeart
-          className={like && styles.likeItem}
-          onClick={likeChapter}
-          width={20}
-          height={20}
-        />
-        {!!countLike ? `${countLike}` : ''}
-      </div>
-      <div className={styles.chapterRating}>
-        <p className={styles.viewCount}>
-          <span>Views</span> {!!chapter?.view ? chapter?.view : ''}
-        </p>
-      </div>
-    </div>
-  );
 
   return (
     <>
@@ -389,7 +309,12 @@ const MangaView = ({
         <div className={styles.footer}>
           <div className={styles.chaptersItems}>{chapterItems}</div>
           <div className={styles.paginationContainer}>
-            {chapterRatings}
+            <ChapterRatings
+              chapter={chapter}
+              like={like}
+              likeChapter={likeChapter}
+              countLike={countLike}
+            />
             <Pagination
               currentNumber={currentChapter}
               setCurrentNumber={setCurrentChapter}

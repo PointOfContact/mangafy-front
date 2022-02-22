@@ -1,0 +1,20 @@
+@import '../../../styles/variables.scss';
+
+.participantsItem {
+  margin-right: -15px;
+  &:nth-child(2) {
+    margin-left: 10px !important;
+  }
+  img {
+    border: 1px solid $grayBG !important;
+    border-radius: 50%;
+  }
+}
+
+.defaultAvatar {
+  width: 42px !important;
+  height: 42px !important;
+  font-size: $text3 !important;
+  border: 1px solid;
+  position: relative;
+}

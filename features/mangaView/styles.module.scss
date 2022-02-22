@@ -105,13 +105,6 @@ $subLineAlpha: 0.5;
       margin-bottom: 20px;
     }
   }
-  .defaultAvatar {
-    width: 42px !important;
-    height: 42px !important;
-    font-size: $text3 !important;
-    border: 1px solid;
-    position: relative;
-  }
   .shareTitle {
     height: 53px;
     margin-bottom: 16px;
@@ -183,7 +176,7 @@ $subLineAlpha: 0.5;
     }
     @include media-sm {
       padding: 5px 10px;
-      background: #777199;
+      background: #706a95;
     }
     &::-webkit-scrollbar {
       height: 8px;
@@ -202,71 +195,6 @@ $subLineAlpha: 0.5;
 
     &::-webkit-scrollbar-thumb:hover {
       background: $primaryDark;
-    }
-    .itemChapters {
-      position: relative;
-      min-width: 80px;
-      max-width: 80px;
-      margin: 10px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      cursor: pointer;
-      &:hover {
-        .opacity {
-          background: #21212100;
-        }
-      }
-      @include media-sm {
-        position: relative;
-        min-width: 50px;
-        max-width: 50px;
-        height: 50px;
-        margin: 0;
-        margin-left: 5px;
-      }
-      div {
-        height: 80px;
-        overflow: hidden;
-        @include media-sm {
-          height: 50px;
-        }
-      }
-      p {
-        text-align: center;
-        color: white;
-        margin: 0;
-        @include media-sm {
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          top: 0;
-          z-index: 5;
-        }
-      }
-      img {
-        object-fit: cover;
-      }
-    }
-    .activeChapter {
-      p {
-        color: $black;
-        @include media-sm {
-          color: white;
-        }
-      }
-      .opacity {
-        background: #00000000;
-      }
-    }
-    .opacity {
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      background: #00000096;
     }
   }
   .shareDescription {
@@ -309,31 +237,6 @@ $subLineAlpha: 0.5;
       }
     }
   }
-  .footerRatings{
-    display: none;
-    @include media-sm{
-      display: flex;
-      position: absolute;
-      left: 10px;
-      .chapterRating{
-        display: flex;
-        margin-right: 10px;
-        color: white;
-        font-size: $text4;
-        svg {
-          margin-right: 5px;
-          path{
-            fill: white;
-          }
-        }
-        .viewCount{
-          span{
-            color: $black;
-          }
-        }
-      }
-    }
-  }
   .userData {
     height: 40px;
     display: flex;
@@ -356,16 +259,6 @@ $subLineAlpha: 0.5;
         color: $avatar_outline;
         margin-left: 5px;
         margin-top: 2px;
-      }
-    }
-    .participantsItem {
-      margin-right: -15px;
-      &:nth-child(2) {
-        margin-left: 10px !important;
-      }
-      img {
-        border: 1px solid $grayBG !important;
-        border-radius: 50%;
       }
     }
   }
