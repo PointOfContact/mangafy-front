@@ -27,9 +27,12 @@ const MangeStoryCard = ({ mangaStories, setMangaStories, client, user }) =>
                   setMangaStories={setMangaStories}
                 />
               </div>
-              <div className={styles.description}>
-                <p>{label.story}</p>
-              </div>
+              <div
+                className={styles.description}
+                dangerouslySetInnerHTML={{
+                  __html: label.story,
+                }}
+              />
               <div>
                 {label.author === user?._id && (
                   <div className={cn(styles.type, styles.isOwn)}>Own</div>

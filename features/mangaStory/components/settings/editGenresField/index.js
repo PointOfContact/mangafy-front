@@ -77,7 +77,7 @@ const EditGenresField = ({
   const changeSelectedGenre = (genresIds) => {
     const data = { ...baseData, genresIds };
     sendEvent(EVENTS.EDIT_PROJECT_GENRES, 'genres', genresIds);
-    saveMangaStoryData(data, 'genresIds');
+    saveMangaStoryData(data, {}, 'genresIds');
   };
 
   const setMangaPhoto = (e, image) => {
