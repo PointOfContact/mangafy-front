@@ -190,6 +190,12 @@ body {
   }
 }
 
+.ant-form-item-explain,
+.ant-form-item-explain-error {
+  position: absolute;
+  top: 100%;
+}
+
 .galere_modal {
   top: 0px !important;
   height: 100vh;
