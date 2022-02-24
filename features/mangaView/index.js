@@ -103,8 +103,8 @@ const MangaView = ({
 
   useEffect(() => {
     const getCurrentMangaUrls = !!chapter?.mangaUrls ? chapter?.mangaUrls : [];
-    const chapterImages = getCurrentMangaUrls.map((value) => {
-      const imgType = !!value.imageUrl ? value.imageUrl.slice(-3) : value.slice(-3);
+    const chapterImages = getCurrentMangaUrls?.map((value) => {
+      const imgType = !!value.imageUrl ? value.imageUrl?.slice(-3) : value?.slice(-3);
       const ifPdf = imgType === 'pdf' || imgType === 'PDF';
 
       return (

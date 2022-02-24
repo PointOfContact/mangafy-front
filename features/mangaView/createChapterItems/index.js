@@ -21,7 +21,7 @@ const createChapterItems = (
   setCurrentChapter
 ) => {
   const items = chapters?.map((value, index) => {
-    const type = value.cover.slice(-3);
+    const type = value?.cover?.slice(-3);
     const ifPdf = type === 'pdf' || type === '{DF';
     const activeChapter = index + 1 === currentChapter;
     return (
