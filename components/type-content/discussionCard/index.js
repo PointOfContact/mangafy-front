@@ -122,7 +122,13 @@ const DiscussionCard = (props) => {
           <div className={styles.bgImg}>
             {img &&
               (ifVideo ? (
-                <video controls="true" autoPlay muted loop playsInline>
+                <video
+                  controls="true"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  poster="https://mangafy.club/api/v2/uploads/1645708912743-980848197-istockphoto-1017890344-170667a.jpg">
                   <source src={`${client.UPLOAD_URL + img}`} type="video/mp4" />
                 </video>
               ) : ifPdf ? (
