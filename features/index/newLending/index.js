@@ -257,14 +257,14 @@ const NewLending = ({ user }) => {
   return (
     <>
       <NextSeo
-        title="MangaFY – From story buidling to a full digital release."
-        description="The digital hub designed to help you produce your very owm comic or manga. From story buidling to a full digital release."
+        title="Creating webcomics alone is tough"
+        description="MangaFY Community Collaboration Platform. To create and promote webcomics, you need more than one person, you need a team and everyone does their job."
         canonical="https://www.mangafy.club"
         openGraph={{
           url: 'https://www.mangafy.club',
-          title: 'MangaFY – From story buidling to a full digital release.',
+          title: 'Creating webcomics alone is tough',
           description:
-            'The digital hub designed to help you produce your very owm comic or manga. From story buidling to a full digital release.',
+            'MangaFY Community Collaboration Platform. To create and promote webcomics, you need more than one person, you need a team and everyone does their job.',
           type: 'article',
           images: [
             {
@@ -283,6 +283,7 @@ const NewLending = ({ user }) => {
         }}
       />
       <Head>
+        <title>Creating webcomics alone is tough</title>
         <link
           href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;900&display=swap"
           rel="stylesheet"
