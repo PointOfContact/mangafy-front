@@ -1151,6 +1151,7 @@ body::-webkit-scrollbar-thumb {
 .main__icons .img2.lightning {
   -webkit-animation-duration: 3s;
   animation-duration: 3s;
+  width: 100%;
 }
 .main__icons .ico1 {
   position: absolute;
@@ -1940,7 +1941,8 @@ body::-webkit-scrollbar-thumb {
 }
 @media (max-width: 767px) {
   .colab__wrap .ico2 {
-    bottom: -30px;
+    width: 130%;
+    left: -17%;
   }
 }
 .colab__ttl {
@@ -2767,6 +2769,21 @@ body::-webkit-scrollbar-thumb {
 .join__right .ico.lightning {
   -webkit-animation-duration: 3s;
   animation-duration: 3s;
+  width: 200%;
+}
+@media (max-width: 767px) {
+  .join__right .ico.lightning {
+    width: 160%;
+    top: -136px;
+    right: -16px;
+  }
+}
+@media (max-width: 480px) {
+  .join__right .ico.lightning {
+    width: 150%;
+    top: 0px;
+    right: -15px;
+  }
 }
 .join__right .img {
   position: relative;
