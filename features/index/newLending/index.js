@@ -823,14 +823,14 @@ const NewLending = ({ user }) => {
                   <div className="who-are-you__top">
                     <div className="creating__ttl" data-aos="fade-up" data-aos-delay="300">
                       <span className="line">
-                        <b>WHO</b>
+                        <b>WHO </b>
                       </span>
-                      are
+                       are
                       <br />
                       you?
                     </div>
                     <div className="platform__text" data-aos="fade-up" data-aos-delay="500">
-                      As with most creative endeavors creating comics can be a singular task, but to
+                      As with most creative endeavors creating webcomics can be a singular task, but to
                       truly create enough content it’s best when you have a team working together.
                     </div>
                   </div>
