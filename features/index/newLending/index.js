@@ -547,7 +547,7 @@ const NewLending = ({ user }) => {
                   <div className="platform__content">
                     <div className="creating__ttl" data-aos="fade-up" data-aos-delay="100">
                       <span className="line">
-                        <b>MASHU</b>
+                        <b>MangaFY</b>
                       </span>
                       Community Collaboration Platform
                     </div>
@@ -641,7 +641,7 @@ const NewLending = ({ user }) => {
                     Collaborative creating is a solution for modern webcomics creation culture
                   </div>
                   <div className="colab__subttl" data-aos="fade-up" data-aos-delay="300">
-                    Here’s what you can do with <b>MASHU</b>
+                    Here’s what you can do with <b>MangaFY</b>
                   </div>
                   <div className="colab__nav">
                     <div className="colab__nav-item active">
@@ -916,9 +916,9 @@ const NewLending = ({ user }) => {
                       </a>
                     </div>
                     <div className="who-are-you__descr-item" data-card="artist">
-                      <div className="ttl">ARTIST</div>
+                      <div className="ttl">Illustrator</div>
                       <div className="text">
-                        If there is only one artist credited on a comic book, there’s a good chance
+                        If there is only one artist credited on a webcomic book, there’s a good chance
                         that they did the pencils, inks, colours, letters (the definitions of all of
                         those can be found below) etc. Typically in the credits of a book,
                         especially superhero comics, you’ll see a number of creators credited.
@@ -931,7 +931,7 @@ const NewLending = ({ user }) => {
                       <div className="ttl">Promoter</div>
                       <div className="text">
                         Works with colleagues, can develop the social media strategy introducing new
-                        and innovative ways of working to deliver a first-className social media
+                        and innovative ways of working to deliver a first-class social media
                         output. You will be responsible for managing Social channels to communicate
                         with fans across multiple social platforms to engage people and raise funds
                         for new story.
@@ -941,7 +941,7 @@ const NewLending = ({ user }) => {
                       </a>
                     </div>
                     <div className="who-are-you__descr-item" data-card="editor">
-                      <div className="ttl">EDITOR</div>
+                      <div className="ttl">Editor</div>
                       <div className="text">
                         The editor is responsible for a lot of webcomics. In addition to normal
                         things like checking for any spelling/grammar errors, the editor is also
@@ -979,7 +979,7 @@ const NewLending = ({ user }) => {
                         <b>Join</b>
                       </span>
                       <br />
-                      the MASHU big family
+                      the MangaFY big family
                     </div>
                     <a href="#" className="platform__btn">
                       Request early access{' '}
