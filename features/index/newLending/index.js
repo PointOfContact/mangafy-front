@@ -323,7 +323,7 @@ const NewLending = ({ user }) => {
                 <img src="lendingImages/dist/mob-ico.png" alt="MangaFy landing image" />
               </div>
               <div className="mob-mnu__topline">
-                <a href="#" className="header__logo">
+                <a href="https://mangafy.club/feed" className="header__logo">
                   <img src="lendingImages/dist/logo.png" alt="MangaFy landing image" />
                 </a>
                 <div className="mob-mnu__close">
@@ -343,13 +343,13 @@ const NewLending = ({ user }) => {
                     Features
                   </a>
                   <div className="social">
-                    <a href="#" className="social__item">
+                    <a href="https://www.facebook.com/mangafyy" className="social__item">
                       <img src="lendingImages/dist/soc-ico1.png" alt="MangaFy landing image" />
                     </a>
-                    <a href="#" className="social__item">
+                    <a href="https://twitter.com/be_mangafy" className="social__item">
                       <img src="lendingImages/dist/soc-ico2.png" alt="MangaFy landing image" />
                     </a>
-                    <a href="#" className="social__item">
+                    <a href="https://www.instagram.com/be.mangafy/" className="social__item">
                       <img src="lendingImages/dist/soc-ico3.png" alt="MangaFy landing image" />
                     </a>
                   </div>
@@ -359,7 +359,7 @@ const NewLending = ({ user }) => {
             <div className="main">
               <header className="header">
                 <div className="header__wrap">
-                  <a href="#" className="header__logo">
+                  <a href="https://mangafy.club/feed" className="header__logo">
                     <img src="lendingImages/dist/logo.svg" alt="MangaFy landing image" />
                   </a>
                   <ul className="nav">
@@ -829,13 +829,14 @@ const NewLending = ({ user }) => {
                       <span className="line">
                         <b>WHO </b>
                       </span>
-                       are
+                      are
                       <br />
                       you?
                     </div>
                     <div className="platform__text" data-aos="fade-up" data-aos-delay="500">
-                      As with most creative endeavors creating webcomics can be a singular task, but to
-                      truly create enough content it’s best when you have a team working together.
+                      As with most creative endeavors creating webcomics can be a singular task, but
+                      to truly create enough content it’s best when you have a team working
+                      together.
                     </div>
                   </div>
                   <div className="who-are-you__slider">
