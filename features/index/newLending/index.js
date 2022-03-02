@@ -778,7 +778,7 @@ const NewLending = ({ user }) => {
                         feedback and follow your dream
                       </div>
                       <div className="img">
-                        <img src="lendingImages/create.png" alt="MangaFy landing image" />
+                        <img src="lendingImages/setting.png" alt="MangaFy landing image" />
                       </div>
                     </div>
                     <div className="colab__tab">
@@ -798,7 +798,7 @@ const NewLending = ({ user }) => {
                         on meaningful tasks.
                       </div>
                       <div className="img">
-                        <img src="lendingImages/setting.png" alt="MangaFy landing image" />
+                        <img src="lendingImages/create.png " alt="MangaFy landing image" />
                       </div>
                     </div>
                     <div className="colab__tab">
@@ -986,8 +986,12 @@ const NewLending = ({ user }) => {
                       <br />
                       the MangaFY big family
                     </div>
-                    <a href="https://discord.com/invite/NYtkaaeqwS" className="platform__btn">
-                      Request early access
+                    <a
+                      href="https://discord.com/invite/NYtkaaeqwS"
+                      target={'_blank'}
+                      className="platform__btn"
+                      rel="noreferrer">
+                      Join Discord
                     </a>
                   </div>
                   <div className="join__right">

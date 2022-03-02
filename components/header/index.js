@@ -50,6 +50,7 @@ const Header = ({ user, path, setShowModalEdit }) => {
   const [isOpen, handleMenuOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
+  const [showNotificationModal, setShowNotificationModal] = useState(false);
   const [createProjectModal, showCreateProjectModal] = useState(false);
   const [notificationsCount, setNotificationsCount] = useState(0);
   const [unreadNotificationsId, setUnreadNotificationsId] = useState([]);
@@ -191,6 +192,7 @@ const Header = ({ user, path, setShowModalEdit }) => {
                     <Popover
                       overlayClassName={styles.popover}
                       placement="bottom"
+                      visible={showNotificationModal}
                       content={
                         <MenuNotificationsBox
                           user={user}
@@ -200,7 +202,11 @@ const Header = ({ user, path, setShowModalEdit }) => {
                         />
                       }
                       trigger="click">
-                      <Badge count={notificationsCount}>
+                      <Badge
+                        count={notificationsCount}
+                        onClick={() => {
+                          setShowNotificationModal(!showNotificationModal);
+                        }}>
                         <SvgBell width="23px" height="23px" />
                       </Badge>
                     </Popover>
@@ -332,6 +338,8 @@ const Header = ({ user, path, setShowModalEdit }) => {
             user={user}
             setShowModal={setShowModal}
             handleMenuOpen={handleMenuOpen}
+            showCreateProjectModal={showCreateProjectModal}
+            setShowNotificationModal={setShowNotificationModal}
           />
         )}
         {user?._id && showWarning && (
