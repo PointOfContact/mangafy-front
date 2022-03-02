@@ -53,6 +53,7 @@
        margin: 0;
       & > div > div:last-child{
         text-align: start;
+        top: 70%;
       }
      }
     @include media-sm {
