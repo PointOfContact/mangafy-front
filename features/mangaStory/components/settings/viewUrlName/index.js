@@ -34,7 +34,6 @@ const ViewUrlName = ({ baseData, onChangeSingleField, sendEvent, storyBoard }) =
 
   const onChange = (e) => {
     const targetValue = e.target.value;
-    e.target.value = e.target.value === 'Fan page' ? 'Custom subdomain' : 'Standard domain';
     onChangeSingleField(e, true, (err) => {
       setErrorMessage(err);
     }) &&
@@ -56,7 +55,7 @@ const ViewUrlName = ({ baseData, onChangeSingleField, sendEvent, storyBoard }) =
     )
   );
 
-  const ifCustomSubdomain = value === 'Fan page';
+  const ifCustomSubdomain = value === 'Custom subdomain';
 
   return (
     <div ref={ref} className={styles.viewLink}>
@@ -75,7 +74,7 @@ const ViewUrlName = ({ baseData, onChangeSingleField, sendEvent, storyBoard }) =
         onChange={onChange}
         value={value || 'Standard domain'}
         className={cn(styles.radioButton, !ifCustomSubdomain && styles.custom)}>
-        <Radio value={'Fan page'}>
+        <Radio value={'Custom subdomain'}>
           {!ifCustomSubdomain && 'Fan page'}
           {ifCustomSubdomain && (
             <>

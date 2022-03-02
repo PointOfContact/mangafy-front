@@ -34,8 +34,9 @@ export default function TypePage({
   const [query, serQuery] = useState([]);
 
   useEffect(() => {
+    const existTypes = ['Profile', 'Manga', 'Task'];
     const types = ['Posts', 'Published', 'Proposals'].map((value, index) => (
-      <Option className={styles.optionItem} key={value + index} value={value}>
+      <Option className={styles.optionItem} key={value + index} value={existTypes[index]}>
         {value}
       </Option>
     ));
@@ -85,9 +86,11 @@ export default function TypePage({
 
   const chooseType = async (type) => {
     let queryData = '';
+
     type.forEach((element, index) => {
       !!index ? (queryData += `&type=${element}`) : (queryData += `?type=${element}`);
     });
+
     router.push(queryData, undefined, { shallow: false, scroll: false });
   };
 

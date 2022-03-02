@@ -48,6 +48,7 @@ const MangaView = ({
   const [currentChapter, setCurrentChapter] = useState(currentChapterNumber || 1);
   const chapter = chapters[currentChapter - 1];
   const [images, setImages] = useState([]);
+  const [disabledLike, setDisabledLike] = useState(false);
   const [countLike, setCountLike] = useState(chapter?.like);
   const [like, setLike] = useState(false);
   const [alreadyLiked, setAlreadyLiked] = useState(false);
@@ -177,10 +178,12 @@ const MangaView = ({
   };
 
   const likeChapter = () => {
+    if (disabledLike) return;
+
     const jwt = client.getCookie('feathers-jwt');
 
     const data = returnLikedData();
-
+    setDisabledLike(true);
     import('api/restClient').then((m) => {
       m.default
         .service('/api/v2/chapter-like')
@@ -189,6 +192,7 @@ const MangaView = ({
           mode: 'no-cors',
         })
         .then(() => {
+          setDisabledLike(false);
           changeStateLiked();
         })
         .catch((err) => {
