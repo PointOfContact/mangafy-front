@@ -254,21 +254,22 @@ const NewLending = ({ user }) => {
       },
     ]);
   }, [loadedScriptsCount]);
+
   return (
     <>
       <NextSeo
         title="Creating webcomics alone is tough"
         description="MangaFY Community Collaboration Platform. To create and promote webcomics, you need more than one person, you need a team and everyone does their job."
-        canonical="https://www.mangafy.club"
+        canonical="https://mangafy.club/feed"
         openGraph={{
-          url: 'https://www.mangafy.club',
+          url: 'https://mangafy.club/feed',
           title: 'Creating webcomics alone is tough',
           description:
             'MangaFY Community Collaboration Platform. To create and promote webcomics, you need more than one person, you need a team and everyone does their job.',
           type: 'article',
           images: [
             {
-              url: 'https://i.postimg.cc/cCy8qTg7/manga.jpg',
+              url: 'https://mangafy.club/api/v2/uploads/1646134866432-334418070-metaData.png',
               width: 800,
               height: 600,
               alt: 'Manga Story Image',
@@ -296,6 +297,9 @@ const NewLending = ({ user }) => {
           onLoad="this.rel='stylesheet'"
           media="all"
         />
+
+        <link rel="icon" type="image/x-icon" href="lendingImages/favicon.png" />
+
         <script
           onLoad="window.scriptLoad()"
           src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
@@ -316,11 +320,11 @@ const NewLending = ({ user }) => {
             <a className="button-to-top"> </a>
             <div className="mob-mnu">
               <div className="ico">
-                <img src="lendingImages/dist/mob-ico.png" alt="MangaFy lending image" />
+                <img src="lendingImages/dist/mob-ico.png" alt="MangaFy landing image" />
               </div>
               <div className="mob-mnu__topline">
-                <a href="#" className="header__logo">
-                  <img src="lendingImages/dist/logo.png" alt="MangaFy lending image" />
+                <a href="https://mangafy.club/feed" className="header__logo">
+                  <img src="lendingImages/dist/logo.png" alt="MangaFy landing image" />
                 </a>
                 <div className="mob-mnu__close">
                   <div className="bar"></div>
@@ -339,14 +343,14 @@ const NewLending = ({ user }) => {
                     Features
                   </a>
                   <div className="social">
-                    <a href="#" className="social__item">
-                      <img src="lendingImages/dist/soc-ico1.png" alt="MangaFy lending image" />
+                    <a href="https://www.facebook.com/mangafyy" className="social__item">
+                      <img src="lendingImages/dist/soc-ico1.png" alt="MangaFy landing image" />
                     </a>
-                    <a href="#" className="social__item">
-                      <img src="lendingImages/dist/soc-ico2.png" alt="MangaFy lending image" />
+                    <a href="https://twitter.com/be_mangafy" className="social__item">
+                      <img src="lendingImages/dist/soc-ico2.png" alt="MangaFy landing image" />
                     </a>
-                    <a href="#" className="social__item">
-                      <img src="lendingImages/dist/soc-ico3.png" alt="MangaFy lending image" />
+                    <a href="https://www.instagram.com/be.mangafy/" className="social__item">
+                      <img src="lendingImages/dist/soc-ico3.png" alt="MangaFy landing image" />
                     </a>
                   </div>
                 </div>
@@ -355,8 +359,8 @@ const NewLending = ({ user }) => {
             <div className="main">
               <header className="header">
                 <div className="header__wrap">
-                  <a href="#" className="header__logo">
-                    <img src="lendingImages/dist/logo.svg" alt="MangaFy lending image" />
+                  <a href="https://mangafy.club/feed" className="header__logo">
+                    <img src="lendingImages/dist/logo.svg" alt="MangaFy landing image" />
                   </a>
                   <ul className="nav">
                     <li>
@@ -375,7 +379,7 @@ const NewLending = ({ user }) => {
                       </a>
                     </li>
                   </ul>
-                  <a href="#" className="btn-access">
+                  <a href="https://mangafy.club/sign-in" className="btn-access">
                     Request early access
                   </a>
                   <div className="mob-mnu-btn">
@@ -395,7 +399,7 @@ const NewLending = ({ user }) => {
                     loop="infinity"
                     truespeed="200"
                     scrolldelay="30">
-                    <img src="lendingImages/dist/anim-text1.svg" alt="MangaFy lending image" />
+                    <img src="lendingImages/dist/anim-text1.svg" alt="MangaFy landing image" />
                   </marquee>
                 </div>
                 <div className="line">
@@ -406,7 +410,7 @@ const NewLending = ({ user }) => {
                     truespeed="200"
                     scrolldelay="30"
                     direction="right">
-                    <img src="lendingImages/dist/anim-text1.svg" alt="MangaFy lending image" />
+                    <img src="lendingImages/dist/anim-text1.svg" alt="MangaFy landing image" />
                   </marquee>
                 </div>
                 <div className="line">
@@ -416,47 +420,47 @@ const NewLending = ({ user }) => {
                     loop="infinity"
                     truespeed="200"
                     scrolldelay="20">
-                    <img src="lendingImages/dist/anim-text1.svg" alt="MangaFy lending image" />
+                    <img src="lendingImages/dist/anim-text1.svg" alt="MangaFy landing image" />
                   </marquee>
                 </div>
               </div>
               <div className="main__wrapper">
                 <div className="main__wrap">
                   <div className="main__logo">
-                    <img src="lendingImages/dist/main-logo2.svg" alt="MangaFy lending image" />
+                    <img src="lendingImages/dist/main-logo2.svg" alt="MangaFy landing image" />
                   </div>
                   <div className="main__icons">
                     <div className="circle"></div>
                     <div className="img1">
-                      <img src="lendingImages/dist/main-ico1.png" alt="MangaFy lending image" />
+                      <img src="lendingImages/dist/main-ico1.png" alt="MangaFy landing image" />
                     </div>
                     <div className="img2 lightning">
                       <img
                         src="lendingImages/dist/main-lightning.png"
-                        alt="MangaFy lending image"
+                        alt="MangaFy landing image"
                       />
                     </div>
                     <div className="ico1" data-aos="zoom-in-up" data-aos-duration="1000">
-                      <img src="lendingImages/dist/main-hero1.png" alt="MangaFy lending image" />
+                      <img src="lendingImages/dist/main-hero1.png" alt="MangaFy landing image" />
                     </div>
                     <div
                       className="ico2"
                       data-aos="fade-down-right"
                       data-aos-duration="3000"
                       data-aos-delay="300">
-                      <img src="lendingImages/dist/main-hero2.png" alt="MangaFy lending image" />
+                      <img src="lendingImages/dist/main-hero2.png" alt="MangaFy landing image" />
                     </div>
                     <div
                       className="ico3"
                       data-aos="fade-down-left"
                       data-aos-duration="2000"
                       data-aos-delay="500">
-                      <img src="lendingImages/dist/main-hero3.png" alt="MangaFy lending image" />
+                      <img src="lendingImages/dist/main-hero3.png" alt="MangaFy landing image" />
                     </div>
                   </div>
                   <div className="main__bot">
                     <div className="main__text">Community Collaboration Platform</div>
-                    <a href="#" className="main__btn">
+                    <a href="https://mangafy.club/sign-in" className="main__btn">
                       Request early access
                     </a>
                   </div>
@@ -523,7 +527,7 @@ const NewLending = ({ user }) => {
                   </div>
                   <div className="creating__right">
                     <div className="creating__mask">
-                      <img src="lendingImages/dist/creating-bg1.png" alt="MangaFy lending image" />
+                      <img src="lendingImages/dist/creating-bg1.png" alt="MangaFy landing image" />
                     </div>
                     <div className="creating__video">
                       <video
@@ -557,8 +561,8 @@ const NewLending = ({ user }) => {
                       webcomics, you need more than one person, you need a team and everyone does
                       their job.
                     </div>
-                    <a href="#" className="platform__btn">
-                      Request early access{' '}
+                    <a href="https://mangafy.club/sign-in" className="platform__btn">
+                      Request early access
                     </a>
                   </div>
                   <div className="platform__scheme">
@@ -580,7 +584,7 @@ const NewLending = ({ user }) => {
                           type="image/svg+xml"
                           data="lendingImages/dist/cube1.svg"></object>
                       </div>
-                      <img src="lendingImages/dist/cube-img1.svg" alt="MangaFy lending image" />
+                      <img src="lendingImages/dist/cube-img1.svg" alt="MangaFy landing image" />
                     </div>
                     <div className="item it2">
                       <div className="cube">
@@ -589,7 +593,7 @@ const NewLending = ({ user }) => {
                           type="image/svg+xml"
                           data="lendingImages/dist/cube2.svg"></object>
                       </div>
-                      <img src="lendingImages/dist/cube-img2.svg" alt="MangaFy lending image" />
+                      <img src="lendingImages/dist/cube-img2.svg" alt="MangaFy landing image" />
                     </div>
                     <div className="item it3">
                       <div className="cube">
@@ -598,7 +602,7 @@ const NewLending = ({ user }) => {
                           type="image/svg+xml"
                           data="lendingImages/dist/cube3.svg"></object>
                       </div>
-                      <img src="lendingImages/dist/cube-img3.svg" alt="MangaFy lending image" />
+                      <img src="lendingImages/dist/cube-img3.svg" alt="MangaFy landing image" />
                     </div>
                     <div className="item it4">
                       <div className="cube">
@@ -607,7 +611,7 @@ const NewLending = ({ user }) => {
                           type="image/svg+xml"
                           data="lendingImages/dist/cube4.svg"></object>
                       </div>
-                      <img src="lendingImages/dist/cube-img4.svg" alt="MangaFy lending image" />
+                      <img src="lendingImages/dist/cube-img4.svg" alt="MangaFy landing image" />
                     </div>
                     <div className="item it5">
                       <div className="cube">
@@ -616,7 +620,7 @@ const NewLending = ({ user }) => {
                           type="image/svg+xml"
                           data="lendingImages/dist/cube5.svg"></object>
                       </div>
-                      <img src="lendingImages/dist/cube-img5.svg" alt="MangaFy lending image" />
+                      <img src="lendingImages/dist/cube-img5.svg" alt="MangaFy landing image" />
                     </div>
                     <div className="item it6">
                       <div className="cube">
@@ -625,7 +629,7 @@ const NewLending = ({ user }) => {
                           type="image/svg+xml"
                           data="lendingImages/dist/cube6.svg"></object>
                       </div>
-                      <img src="lendingImages/dist/cube-img6.svg" alt="MangaFy lending image" />
+                      <img src="lendingImages/dist/cube-img6.svg" alt="MangaFy landing image" />
                     </div>
                   </div>
                 </div>
@@ -635,7 +639,7 @@ const NewLending = ({ user }) => {
               <div className="container">
                 <div className="colab__wrap">
                   <div className="ico2 lightning">
-                    <img src="lendingImages/dist/lightning.png" alt="MangaFy lending image" />
+                    <img src="lendingImages/dist/lightning.png" alt="MangaFy landing image" />
                   </div>
                   <div className="colab__ttl" data-aos="fade-up">
                     Collaborative creating is a solution for modern webcomics creation culture
@@ -774,7 +778,7 @@ const NewLending = ({ user }) => {
                         feedback and follow your dream
                       </div>
                       <div className="img">
-                        <img src="lendingImages/dist/tab-img1.svg" alt="MangaFy lending image" />
+                        <img src="lendingImages/create.png" alt="MangaFy landing image" />
                       </div>
                     </div>
                     <div className="colab__tab">
@@ -784,7 +788,7 @@ const NewLending = ({ user }) => {
                         new ideas.
                       </div>
                       <div className="img">
-                        <img src="lendingImages/dist/tab-img1.svg" alt="MangaFy lending image" />
+                        <img src="lendingImages/users.png" alt="MangaFy landing image" />
                       </div>
                     </div>
                     <div className="colab__tab">
@@ -794,7 +798,7 @@ const NewLending = ({ user }) => {
                         on meaningful tasks.
                       </div>
                       <div className="img">
-                        <img src="lendingImages/dist/tab-img1.svg" alt="MangaFy lending image" />
+                        <img src="lendingImages/setting.png" alt="MangaFy landing image" />
                       </div>
                     </div>
                     <div className="colab__tab">
@@ -803,7 +807,7 @@ const NewLending = ({ user }) => {
                         Monetize It.
                       </div>
                       <div className="img">
-                        <img src="lendingImages/dist/tab-img1.svg" alt="MangaFy lending image" />
+                        <img src="lendingImages/storyBoard.png" alt="MangaFy landing image" />
                       </div>
                     </div>
                   </div>
@@ -812,7 +816,7 @@ const NewLending = ({ user }) => {
                     data-aos="fade-down-left"
                     data-aos-duration="2500"
                     data-aos-delay="500">
-                    <img src="lendingImages/dist/colab-girl.png" alt="MangaFy lending image" />
+                    <img src="lendingImages/dist/colab-girl.png" alt="MangaFy landing image" />
                   </div>
                 </div>
               </div>
@@ -825,73 +829,74 @@ const NewLending = ({ user }) => {
                       <span className="line">
                         <b>WHO </b>
                       </span>
-                       are
+                      are
                       <br />
                       you?
                     </div>
                     <div className="platform__text" data-aos="fade-up" data-aos-delay="500">
-                      As with most creative endeavors creating webcomics can be a singular task, but to
-                      truly create enough content it’s best when you have a team working together.
+                      As with most creative endeavors creating webcomics can be a singular task, but
+                      to truly create enough content it’s best when you have a team working
+                      together.
                     </div>
                   </div>
                   <div className="who-are-you__slider">
                     <div className="slider-item" data-card="writer">
                       <div className="sqr">
-                        <img src="lendingImages/dist/sqr-ico1.png" alt="MangaFy lending image" />
+                        <img src="lendingImages/dist/sqr-ico1.png" alt="MangaFy landing image" />
                       </div>
                       <div className="border"></div>
                       <div className="img tr-deley-1">
                         <img
                           src="lendingImages/dist/slider-item1.png"
-                          alt="MangaFy lending image"
+                          alt="MangaFy landing image"
                         />
                       </div>
                     </div>
                     <div className="slider-item" data-card="artist">
                       <div className="sqr">
-                        <img src="lendingImages/dist/sqr-ico2.png" alt="MangaFy lending image" />
+                        <img src="lendingImages/dist/sqr-ico2.png" alt="MangaFy landing image" />
                       </div>
                       <div className="border"></div>
                       <div className="img tr-deley-2">
                         <img
                           src="lendingImages/dist/slider-item2.png"
-                          alt="MangaFy lending image"
+                          alt="MangaFy landing image"
                         />
                       </div>
                     </div>
                     <div className="slider-item" data-card="promoter">
                       <div className="sqr">
-                        <img src="lendingImages/dist/sqr-ico3.png" alt="MangaFy lending image" />
+                        <img src="lendingImages/dist/sqr-ico3.png" alt="MangaFy landing image" />
                       </div>
                       <div className="border"></div>
                       <div className="img tr-deley-3">
                         <img
                           src="lendingImages/dist/slider-item3.png"
-                          alt="MangaFy lending image"
+                          alt="MangaFy landing image"
                         />
                       </div>
                     </div>
                     <div className="slider-item" data-card="editor">
                       <div className="sqr">
-                        <img src="lendingImages/dist/sqr-ico4.png" alt="MangaFy lending image" />
+                        <img src="lendingImages/dist/sqr-ico4.png" alt="MangaFy landing image" />
                       </div>
                       <div className="border"></div>
                       <div className="img tr-deley-4">
                         <img
                           src="lendingImages/dist/slider-item4.png"
-                          alt="MangaFy lending image"
+                          alt="MangaFy landing image"
                         />
                       </div>
                     </div>
                     <div className="slider-item" data-card="beta-reader">
                       <div className="sqr">
-                        <img src="lendingImages/dist/sqr-ico5.png" alt="MangaFy lending image" />
+                        <img src="lendingImages/dist/sqr-ico5.png" alt="MangaFy landing image" />
                       </div>
                       <div className="border"></div>
                       <div className="img tr-deley-5">
                         <img
                           src="lendingImages/dist/slider-item5.png"
-                          alt="MangaFy lending image"
+                          alt="MangaFy landing image"
                         />
                       </div>
                     </div>
@@ -911,19 +916,19 @@ const NewLending = ({ user }) => {
                         tell the story effectively. In addition to creating the world for the
                         artist, the writer provides feedback to help bring their vision to life.
                       </div>
-                      <a href="#" className="btn-req">
+                      <a href="https://mangafy.club/sign-in" className="btn-req">
                         <div className="wrap">Request early access</div>
                       </a>
                     </div>
                     <div className="who-are-you__descr-item" data-card="artist">
                       <div className="ttl">Illustrator</div>
                       <div className="text">
-                        If there is only one artist credited on a webcomic book, there’s a good chance
-                        that they did the pencils, inks, colours, letters (the definitions of all of
-                        those can be found below) etc. Typically in the credits of a book,
+                        If there is only one artist credited on a webcomic book, there’s a good
+                        chance that they did the pencils, inks, colours, letters (the definitions of
+                        all of those can be found below) etc. Typically in the credits of a book,
                         especially superhero comics, you’ll see a number of creators credited.
                       </div>
-                      <a href="#" className="btn-req">
+                      <a href="https://mangafy.club/sign-in" className="btn-req">
                         <div className="wrap">Request early access</div>
                       </a>
                     </div>
@@ -931,12 +936,12 @@ const NewLending = ({ user }) => {
                       <div className="ttl">Promoter</div>
                       <div className="text">
                         Works with colleagues, can develop the social media strategy introducing new
-                        and innovative ways of working to deliver a first-class social media
-                        output. You will be responsible for managing Social channels to communicate
-                        with fans across multiple social platforms to engage people and raise funds
-                        for new story.
+                        and innovative ways of working to deliver a first-class social media output.
+                        You will be responsible for managing Social channels to communicate with
+                        fans across multiple social platforms to engage people and raise funds for
+                        new story.
                       </div>
-                      <a href="#" className="btn-req">
+                      <a href="https://mangafy.club/sign-in" className="btn-req">
                         <div className="wrap">Request early access</div>
                       </a>
                     </div>
@@ -949,7 +954,7 @@ const NewLending = ({ user }) => {
                         colors, and letters, getting the book off to life, and keeping a schedule
                         for the entire team.
                       </div>
-                      <a href="#" className="btn-req">
+                      <a href="https://mangafy.club/sign-in" className="btn-req">
                         <div className="wrap">Request early access</div>
                       </a>
                     </div>
@@ -962,7 +967,7 @@ const NewLending = ({ user }) => {
                         worked for months or years on your manuscript. You&apos;ve gone through it
                         yourself and done some edits.
                       </div>
-                      <a href="#" className="btn-req">
+                      <a href="https://mangafy.club/sign-in" className="btn-req">
                         <div className="wrap">Request early access</div>
                       </a>
                     </div>
@@ -981,15 +986,15 @@ const NewLending = ({ user }) => {
                       <br />
                       the MangaFY big family
                     </div>
-                    <a href="#" className="platform__btn">
-                      Request early access{' '}
+                    <a href="https://discord.com/invite/NYtkaaeqwS" className="platform__btn">
+                      Request early access
                     </a>
                   </div>
                   <div className="join__right">
                     <div className="ico lightning">
                       <img
                         src="lendingImages/dist/join-lightning.png"
-                        alt="MangaFy lending image"
+                        alt="MangaFy landing image"
                       />
                     </div>
                     <div
@@ -997,7 +1002,7 @@ const NewLending = ({ user }) => {
                       data-aos="fade-zoom-in"
                       data-aos-duration="3000"
                       data-aos-delay="500">
-                      <img src="lendingImages/dist/join-ico1.png" alt="MangaFy lending image" />
+                      <img src="lendingImages/dist/join-ico1.png" alt="MangaFy landing image" />
                     </div>
                   </div>
                 </div>
@@ -1011,14 +1016,14 @@ const NewLending = ({ user }) => {
                       <b>Join our community.</b> Let’s create a future of remote work together
                     </div>
                     <div className="social">
-                      <a href="#" className="social__item">
-                        <img src="lendingImages/dist/soc-ico1.png" alt="MangaFy lending image" />
+                      <a href="https://www.facebook.com/mangafyy" className="social__item">
+                        <img src="lendingImages/dist/soc-ico1.png" alt="MangaFy landing image" />
                       </a>
-                      <a href="#" className="social__item">
-                        <img src="lendingImages/dist/soc-ico2.png" alt="MangaFy lending image" />
+                      <a href="https://twitter.com/be_mangafy" className="social__item">
+                        <img src="lendingImages/dist/soc-ico2.png" alt="MangaFy landing image" />
                       </a>
-                      <a href="#" className="social__item">
-                        <img src="lendingImages/dist/soc-ico3.png" alt="MangaFy lending image" />
+                      <a href="https://www.instagram.com/be.mangafy/" className="social__item">
+                        <img src="lendingImages/dist/soc-ico3.png" alt="MangaFy landing image" />
                       </a>
                     </div>
                   </div>
@@ -1039,13 +1044,15 @@ const NewLending = ({ user }) => {
                       </svg>
                     </div>
                     <div className="footer__nav">
-                      <a href="#" className="footer__nav-item">
+                      <a href="https://mangafy.club/privacy-policy" className="footer__nav-item">
                         Privacy Policy
                       </a>
-                      <a href="#" className="footer__nav-item">
+                      <a href="https://mangafy.club/terms" className="footer__nav-item">
                         Terms and Conditions
                       </a>
-                      <a href="#" className="footer__nav-item">
+                      <a
+                        href="https://form.typeform.com/to/bAv7ReI7?typeform-source=trello.com"
+                        className="footer__nav-item">
                         Contact us
                       </a>
                     </div>

@@ -77,82 +77,82 @@ body {
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: transparent;
 }
-/* hr {
-    margin: 1rem 0;
-    color: inherit;
-    background-color: currentColor;
-    border: 0;
-    opacity: 0.25;
-  }
-  hr:not([size]) {
-    height: 1px;
-  }
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    margin-top: 0;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-    line-height: 1.2;
-  }
+hr {
+  margin: 1rem 0;
+  color: inherit;
+  background-color: currentColor;
+  border: 0;
+  opacity: 0.25;
+}
+hr:not([size]) {
+  height: 1px;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+h1 {
+  font-size: calc(1.375rem + 1.5vw);
+}
+@media (min-width: 1200px) {
   h1 {
-    font-size: calc(1.375rem + 1.5vw);
+    font-size: 2.5rem;
   }
-  @media (min-width: 1200px) {
-    h1 {
-      font-size: 2.5rem;
-    }
-  }
+}
+h2 {
+  font-size: calc(1.325rem + 0.9vw);
+}
+@media (min-width: 1200px) {
   h2 {
-    font-size: calc(1.325rem + 0.9vw);
+    font-size: 2rem;
   }
-  @media (min-width: 1200px) {
-    h2 {
-      font-size: 2rem;
-    }
-  }
+}
+h3 {
+  font-size: calc(1.3rem + 0.6vw);
+}
+@media (min-width: 1200px) {
   h3 {
-    font-size: calc(1.3rem + 0.6vw);
+    font-size: 1.75rem;
   }
-  @media (min-width: 1200px) {
-    h3 {
-      font-size: 1.75rem;
-    }
-  }
+}
+h4 {
+  font-size: calc(1.275rem + 0.3vw);
+}
+@media (min-width: 1200px) {
   h4 {
-    font-size: calc(1.275rem + 0.3vw);
+    font-size: 1.5rem;
   }
-  @media (min-width: 1200px) {
-    h4 {
-      font-size: 1.5rem;
-    }
-  }
-  h5 {
-    font-size: 1.25rem;
-  }
-  h6 {
-    font-size: 1rem;
-  }
-  p {
-    margin-top: 0;
-    margin-bottom: 1rem;
-  } */
-/* abbr[data-bs-original-title],
-  abbr[title] {
-    -webkit-text-decoration: underline dotted;
-    text-decoration: underline dotted;
-    cursor: help;
-    -webkit-text-decoration-skip-ink: none;
-    text-decoration-skip-ink: none;
-  } */
-/* address {
-    margin-bottom: 1rem;
-    font-style: normal;
-    line-height: inherit;
-  } */
+}
+h5 {
+  font-size: 1.25rem;
+}
+h6 {
+  font-size: 1rem;
+}
+p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+abbr[data-bs-original-title],
+abbr[title] {
+  -webkit-text-decoration: underline dotted;
+  text-decoration: underline dotted;
+  cursor: help;
+  -webkit-text-decoration-skip-ink: none;
+  text-decoration-skip-ink: none;
+}
+address {
+  margin-bottom: 1rem;
+  font-style: normal;
+  line-height: inherit;
+}
 ol,
 ul {
   padding-left: 2rem;
@@ -235,6 +235,11 @@ pre code {
   font-size: inherit;
   color: inherit;
   word-break: normal;
+}
+div,
+b,
+span {
+  font-family: inherit;
 }
 code {
   font-size: 0.875em;
@@ -429,12 +434,7 @@ progress {
   font-weight: 700;
   src: url(./fonts/roboto-bold-webfont.woff2) format('woff2');
 }
-@font-face {
-  font-family: roboto-oh5;
-  font-style: italic;
-  font-weight: 700;
-  src: url(./fonts/roboto-bolditalic-webfont.woff2) format('woff2');
-}
+
 ::-webkit-input-placeholder {
   color: #666;
 }
@@ -907,7 +907,7 @@ body::-webkit-scrollbar-thumb {
   padding-right: 40px;
 }
 .nav li:last-child {
-  margin-ight: 0;
+  margin-right: 0;
   padding-right: 0;
   border-right: none;
 }
@@ -1488,6 +1488,9 @@ body::-webkit-scrollbar-thumb {
     font-size: 37px;
   }
 }
+.line {
+  margin-right: 15px;
+}
 .creating__ttl .line {
   display: inline-block;
   position: relative;
@@ -1531,7 +1534,7 @@ body::-webkit-scrollbar-thumb {
 .creating__cards-item {
   width: 100%;
   max-width: 236px;
-  min-height: 254px;
+  height: 254px;
   border-radius: 10px;
   background: -o-linear-gradient(311.45deg, #7b65f3 23.45%, #03ffc2 100%);
   background: linear-gradient(138.55deg, #7b65f3 23.45%, #03ffc2 100%);
@@ -1596,6 +1599,15 @@ body::-webkit-scrollbar-thumb {
   width: 100%;
   height: 100%;
   z-index: 2;
+}
+
+@media (max-width: 480px) {
+  .creating__mask {
+    width: 102%;
+    height: 102%;
+    left: -3px;
+    top: -3px;
+  }
 }
 .creating__mask img {
   max-width: 100%;
@@ -2316,10 +2328,14 @@ body::-webkit-scrollbar-thumb {
 }
 .who-are-you__wrap {
   width: 100%;
-  overflow: hidden;
 }
 .who-are-you__wrap .progress {
   display: none;
+}
+@media (max-width: 1199px) {
+  .who-are-you__wrap {
+    overflow: hidden;
+  }
 }
 @media (max-width: 767px) {
   .who-are-you__wrap .progress {
