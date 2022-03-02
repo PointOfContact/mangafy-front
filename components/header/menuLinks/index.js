@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import cn from 'classnames';
-import ModalCreateProject from 'components/modalCreateProject';
 import PrimaryButton from 'components/ui-elements/button';
 import { removeAllStorage } from 'helpers/shared';
 import Link from 'next/link';
@@ -10,8 +9,14 @@ import PropTypes from 'prop-types';
 
 import styles from '../styles.module.scss';
 
-const MenuLinks = ({ isOpen, user, setShowModal, handleMenuOpen }) => {
-  const [createProjectModal, showCreateProjectModal] = useState(false);
+const MenuLinks = ({
+  isOpen,
+  user,
+  setShowModal,
+  handleMenuOpen,
+  showCreateProjectModal,
+  setShowNotificationModal,
+}) => {
   const initialLinks = [
     // {
     //   text: 'About Us',
@@ -61,11 +66,14 @@ const MenuLinks = ({ isOpen, user, setShowModal, handleMenuOpen }) => {
                     </a>
                   </Link>
                 </li>
-                <li className={styles.menu_item}>
+                <li
+                  className={styles.menu_item}
+                  onClick={() => {
+                    handleMenuOpen(false);
+                    showCreateProjectModal(true);
+                  }}>
                   <a>
-                    <span className={styles.iconText} onClick={() => showCreateProjectModal(true)}>
-                      ✏️
-                    </span>
+                    <span className={styles.iconText}>✏️</span>
                     Create a collab
                   </a>
                 </li>
@@ -85,12 +93,15 @@ const MenuLinks = ({ isOpen, user, setShowModal, handleMenuOpen }) => {
                 {/* <li className={styles.menu_item}>
                     <Link href="/collaborations?compensationModel=paid">Work Availability</Link>
                   </li> */}
-                <li className={styles.menu_item}>
-                  <Link href={`/profile/${user?._id}`}>
-                    <a>
-                      <span className={styles.iconText}>💡</span>My Notifications
-                    </a>
-                  </Link>
+                <li
+                  className={styles.menu_item}
+                  onClick={() => {
+                    handleMenuOpen(true);
+                    setShowNotificationModal(true);
+                  }}>
+                  <a>
+                    <span className={styles.iconText}>💡</span>My Notifications
+                  </a>
                 </li>
                 {/* <li className={styles.menu_item}>
                     <Link href="/settings">Account settings</Link>
@@ -138,11 +149,14 @@ const MenuLinks = ({ isOpen, user, setShowModal, handleMenuOpen }) => {
                     </a>
                   </Link>
                 </li>
-                <li className={styles.menu_item}>
+                <li
+                  className={styles.menu_item}
+                  onClick={() => {
+                    handleMenuOpen(false);
+                    showCreateProjectModal(true);
+                  }}>
                   <a>
-                    <span className={styles.iconText} onClick={() => showCreateProjectModal(true)}>
-                      ✏️
-                    </span>
+                    <span className={styles.iconText}>✏️</span>
                     Create a collab
                   </a>
                 </li>
@@ -190,11 +204,6 @@ const MenuLinks = ({ isOpen, user, setShowModal, handleMenuOpen }) => {
           </div> */}
         </div>
       </div>
-      <ModalCreateProject
-        createProjectModal={createProjectModal}
-        showCreateProjectModal={showCreateProjectModal}
-        user={user}
-      />
     </div>
   );
 };
@@ -204,6 +213,8 @@ MenuLinks.propTypes = {
   user: PropTypes.object.isRequired,
   setShowModal: PropTypes.func,
   handleMenuOpen: PropTypes.func,
+  showCreateProjectModal: PropTypes.func.isRequired,
+  setShowNotificationModal: PropTypes.func.isRequired,
 };
 
 MenuLinks.defaultProps = {

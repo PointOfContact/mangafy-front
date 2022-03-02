@@ -71,7 +71,7 @@ const ModalCreateProject = ({ createProjectModal, showCreateProjectModal, user }
     title?.trim()?.length < 2 &&
     change && (
       <p className={cn(styles.error, className)}>
-        You need a unique title that fits your webcomic and makes a wow effect{' '}
+        You need a unique title that fits your webcomic and makes a wow effect
       </p>
     );
 
