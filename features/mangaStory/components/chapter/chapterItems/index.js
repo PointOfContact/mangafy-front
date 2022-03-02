@@ -17,12 +17,17 @@ const ChapterItems = ({ chapters, setChapters, storyBoard, setStoryBoard, user, 
   const [pageItem, setPageItem] = useState({});
   const [edit, setEdit] = useState('');
   const [modalTitle, setModalTitle] = useState('Create page');
+  const [chapterListVisible, setChapterListVisible] = useState({});
 
   return (
     <div className={styles.container}>
       {chapters?.map((value, index) => (
         <div key={value._id} className={styles.chapterItem}>
-          <div className={styles.addPageContainer}>
+          <div
+            className={styles.addPageContainer}
+            onMouseLeave={() => {
+              setChapterListVisible({ state: false, _id: value?._id });
+            }}>
             <div className={styles.addPage}>
               {value.chapterImg && (
                 <Imgix
@@ -62,6 +67,8 @@ const ChapterItems = ({ chapters, setChapters, storyBoard, setStoryBoard, user, 
                 pages={value.pages}
                 user={user}
                 baseData={baseData}
+                chapterListVisible={chapterListVisible}
+                setChapterListVisible={setChapterListVisible}
               />
             </div>
           </div>
