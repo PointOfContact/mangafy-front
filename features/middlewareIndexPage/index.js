@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Landing from 'features/index';
+import NewLending from 'features/index/newLending';
 import MangaView from 'features/mangaView';
 import PropTypes from 'prop-types';
 
@@ -28,7 +28,7 @@ const MiddlewareIndexPage = ({
       getNameViewUrl={getNameViewUrl}
     />
   ) : (
-    <Landing user={user} />
+    <NewLending user={user} />
   );
 
 MiddlewareIndexPage.propTypes = {
