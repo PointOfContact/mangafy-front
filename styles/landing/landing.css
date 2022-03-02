@@ -236,7 +236,9 @@ pre code {
   color: inherit;
   word-break: normal;
 }
-div, b, span{
+div,
+b,
+span {
   font-family: inherit;
 }
 code {
@@ -1486,7 +1488,7 @@ body::-webkit-scrollbar-thumb {
     font-size: 37px;
   }
 }
-.line{
+.line {
   margin-right: 15px;
 }
 .creating__ttl .line {
@@ -1600,7 +1602,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 @media (max-width: 480px) {
-  .creating__mask  {
+  .creating__mask {
     width: 102%;
     height: 102%;
     left: -3px;
@@ -2326,10 +2328,14 @@ body::-webkit-scrollbar-thumb {
 }
 .who-are-you__wrap {
   width: 100%;
-  overflow: hidden;
 }
 .who-are-you__wrap .progress {
   display: none;
+}
+@media (max-width: 1199px) {
+  .who-are-you__wrap {
+    overflow: hidden;
+  }
 }
 @media (max-width: 767px) {
   .who-are-you__wrap .progress {
