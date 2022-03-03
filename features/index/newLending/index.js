@@ -130,7 +130,7 @@ const NewLending = ({ user }) => {
               duration: 200,
               animTimingFunction: Vivus.EASE,
             });
-          $('.who-are-you__slider').slick(
+          $('.who-are-you__slider')?.slick(
             (i(
               (e = {
                 slidesToShow: 1,

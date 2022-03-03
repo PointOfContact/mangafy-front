@@ -154,7 +154,7 @@ address {
   line-height: inherit;
 }
 ol,
-ul {
+.main-wrapper ul {
   padding-left: 2rem;
 }
 dl,
@@ -205,8 +205,8 @@ sup {
 }
 a {
   color: #0d6efd;
-  text-decoration: underline;
 }
+
 a:hover {
   color: #0a58ca;
 }
@@ -236,10 +236,13 @@ pre code {
   color: inherit;
   word-break: normal;
 }
-div,
-b,
-span {
-  font-family: inherit;
+.main-wrapper div,
+.main-wrapper b,
+.main-wrapper span {
+  font-family: 'Montserrat';
+}
+a {
+  text-decoration: none;
 }
 code {
   font-size: 0.875em;
@@ -2821,7 +2824,7 @@ body::-webkit-scrollbar-thumb {
     width: 100%;
   }
 }
-.footer {
+.main-wrapper .footer {
   min-height: 335px;
   background-image: url(./images/footer-bg.png);
   background-position: top center;
@@ -2968,6 +2971,9 @@ body::-webkit-scrollbar-thumb {
     -ms-flex-order: 2;
     order: 2;
   }
+}
+.footer__made > svg {
+   margin-left: 10px;
 }
 .footer__nav {
   display: -webkit-box;

@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React, { useEffect, useState } from 'react';
 
 import { notification } from 'antd';
@@ -32,9 +33,23 @@ export default function LandingNew(props) {
   } = props;
 
   const [selectedPost, setSelectedPost] = useState(false);
+  const [ogImage, setOgImage] = useState(getCurrentPostData);
   const [likesData, setLikesData] = useState([]);
 
   const ifOpenNewTab = !!getCurrentPostData;
+
+  useEffect(() => {
+    const ifTypeVideo = getCurrentPostData?.imageUrl?.includes('.mp4');
+
+    const image = ifTypeVideo
+      ? 'https://mangafy.club/api/v2/uploads/1645708912743-980848197-istockphoto-1017890344-170667a.jpg'
+      : getCurrentPostData
+      ? client.UPLOAD_URL + getCurrentPostData.imageUrl
+      : `https://i.postimg.cc/cCy8qTg7/manga.jpg`;
+
+    setOgImage(image);
+  }, [getCurrentPostData]);
+
   const [showModal, changeShowModal] = useState(ifOpenNewTab);
 
   useEffect(() => {
@@ -91,9 +106,7 @@ export default function LandingNew(props) {
             : 'The digital hub designed to help you produce your very owm comic or manga. From story buidling to a full digital release.',
           images: [
             {
-              url: getCurrentPostData
-                ? client.UPLOAD_URL + getCurrentPostData.imageUrl
-                : `https://mangafy.club/api/v2/uploads/1646134866432-334418070-metaData.png`,
+              url: ogImage,
               width: 800,
               height: 600,
               alt: 'manga',

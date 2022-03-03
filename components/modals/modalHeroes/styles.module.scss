@@ -36,7 +36,7 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
   @include media-xs {
     width: 95% !important;
     max-width: 95% !important;
-    margin-top: 0 !important;
+    margin-top: 40px !important;
   }
   & > div {
     border-radius: 5px;
