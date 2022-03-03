@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import React, { useCallback, useState } from 'react';
 
 import client from 'api/client';
@@ -100,7 +101,8 @@ const MenuNotificationsBox = ({
   };
 
   const makeAllRead = () => {
-    setNotificationsCount(notificationsCount - 10);
+    notificationsCount = notificationsCount < 10 ? 0 : notificationsCount - 10;
+    setNotificationsCount(notificationsCount);
     patchNotification(unreadNotificationsId.map(({ _id }) => _id));
   };
 
