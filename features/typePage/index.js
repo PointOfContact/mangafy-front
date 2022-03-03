@@ -93,7 +93,7 @@ export default function LandingNew(props) {
             {
               url: getCurrentPostData
                 ? client.UPLOAD_URL + getCurrentPostData.imageUrl
-                : `https://i.postimg.cc/cCy8qTg7/manga.jpg`,
+                : `https://mangafy.club/api/v2/uploads/1646134866432-334418070-metaData.png`,
               width: 800,
               height: 600,
               alt: 'manga',

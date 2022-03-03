@@ -260,9 +260,9 @@ const NewLending = ({ user }) => {
       <NextSeo
         title="Creating webcomics alone is tough"
         description="MangaFY Community Collaboration Platform. To create and promote webcomics, you need more than one person, you need a team and everyone does their job."
-        canonical="https://mangafy.club/feed"
+        canonical="https://mangafy.club"
         openGraph={{
-          url: 'https://mangafy.club/feed',
+          url: 'https://mangafy.club',
           title: 'Creating webcomics alone is tough',
           description:
             'MangaFY Community Collaboration Platform. To create and promote webcomics, you need more than one person, you need a team and everyone does their job.',
