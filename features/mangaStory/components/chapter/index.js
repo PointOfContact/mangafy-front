@@ -52,21 +52,7 @@ const Chapter = ({ storyBoard, setStoryBoard, chapters, setChapters, user, baseD
   };
 
   return (
-    <div className={styles.container}>
-      {/* <div className={styles.selectContainer}>
-        <PrimaryButton className={styles.published} isWhite={true} text={'Published'} />
-        <PrimaryButton isWhite={true} text={'Last modified'} />
-      </div> */}
-      {
-        <ChapterItems
-          chapters={chapters}
-          setChapters={setChapters}
-          storyBoard={storyBoard}
-          setStoryBoard={setStoryBoard}
-          user={user}
-          baseData={baseData}
-        />
-      }
+    <>
       <div className={styles.addChaptersContainer}>
         {createChapter ? (
           <Form
@@ -113,7 +99,21 @@ const Chapter = ({ storyBoard, setStoryBoard, chapters, setChapters, user, baseD
           </div>
         )}
       </div>
-    </div>
+      <div className={styles.container}>
+        {/* <div className={styles.selectContainer}>
+        <PrimaryButton className={styles.published} isWhite={true} text={'Published'} />
+        <PrimaryButton isWhite={true} text={'Last modified'} />
+      </div> */}
+        <ChapterItems
+          chapters={chapters}
+          setChapters={setChapters}
+          storyBoard={storyBoard}
+          setStoryBoard={setStoryBoard}
+          user={user}
+          baseData={baseData}
+        />
+      </div>
+    </>
   );
 };
 
