@@ -15,42 +15,42 @@ const AnimePlatform = ({ user }) => {
     {
       key: '1',
       img: 'Artists1.webp',
-      title: 'Grow As an Artist',
+      title: 'Place for creators',
       description:
-        'Connect with an active community of aspiring and freelance artists (inc. writers, illustrators, editors, inkers, etc.), and get direct content and tutorials from self-published professionals. ',
+        'Fans around the world want to read graphic novels, and artists, writers, editors, and translators all contribute to the magic.',
     },
     {
       key: '2',
       img: 'NovelType.webp',
-      title: 'Discover The Power of Collaboration',
+      title: 'Creating webcomics alone is tough',
       width: 170,
       description:
-        "Don't let the Skill Gap bite you -  collaborate with fellow artists at MangaFY.",
+        'To create and promote webcomics, you need more than one person, you need a team and everyone does their job.',
     },
     {
       key: '3',
       img: 'Cycle1.webp',
-      title: 'Manage Your Comic',
+      title: 'Manage your production',
       width: 157,
-      description:
-        "Simplify the comic production process via our platform's tools to manage tasks, organize time, and team collaboration communication.",
+      description: "Manage Your Workflows With Collaboration Apps Customized to Your Team's Needs.",
     },
     {
       key: '4',
       img: 'Publish.webp',
-      title: 'Ready, Set - Publish!',
+      title: 'When ready, show to world',
       width: 154,
       description:
-        "Start monetizing with exclusive benefits via MangaFY's direct self-publishing platform partners.",
+        'Create a space unique to your early fans and collaborators to get webcomics feedback and follow your dream',
     },
   ];
 
   return (
     <div className={'container'}>
       <div className={styles.animePlatform}>
-        <h3 className={styles.title}>The Next-Generation Self-Production Platform</h3>
+        <h3 className={styles.title}>Create Better, Together.</h3>
         <p className={styles.info}>
-          Collaborate, Produce, and Self-publish your story as a Manga or Comics with MangaFY
+          Start your webcomics project project now. Collaborate, Produce, and Self-publish your
+          story with MangaFY
         </p>
         <Row
           gutter={[
