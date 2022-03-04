@@ -59,7 +59,7 @@ const DiscussionCard = (props) => {
       LinkCreator.toQuery({ ...parsed, postId }, '/feed'),
       {
         scroll: false,
-        shallow: true,
+        shallow: false,
       }
     );
     const data = {
