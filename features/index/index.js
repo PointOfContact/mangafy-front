@@ -23,7 +23,7 @@ const Landing = ({ user }) => (
         type: 'article',
         images: [
           {
-            url: 'https://i.postimg.cc/cCy8qTg7/manga.jpg',
+            url: 'https://mangafy.club/api/v2/uploads/1646134866432-334418070-metaData.png',
             width: 800,
             height: 600,
             alt: 'Manga Story Image',
