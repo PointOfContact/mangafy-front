@@ -151,11 +151,11 @@ ChapterFooter.propTypes = {
   chapters: PropTypes.array.isRequired,
   setEdit: PropTypes.func.isRequired,
   storyBoard: PropTypes.object.isRequired,
-  setStoryBoard: PropTypes.object.isRequired,
+  setStoryBoard: PropTypes.func.isRequired,
   pages: PropTypes.array.isRequired,
   user: PropTypes.object,
   baseData: PropTypes.object.isRequired,
-  chapterListVisible: PropTypes.func.isRequired,
+  chapterListVisible: PropTypes.object.isRequired,
   setChapterListVisible: PropTypes.func.isRequired,
 };
 

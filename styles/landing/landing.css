@@ -510,19 +510,19 @@ body::-webkit-scrollbar-thumb {
   padding-left: 15px;
 }
 @media (max-width: 1199px) {
-  .container {
+  .main-wrapper .container {
     width: 992px;
   }
 }
 @media (max-width: 991px) {
-  .container {
+  .main-wrapper .container {
     width: 100%;
     padding-right: 30px;
     padding-left: 30px;
   }
 }
 @media (max-width: 767px) {
-  .container {
+  .main-wrapper .container {
     padding-right: 15px;
     padding-left: 15px;
   }
