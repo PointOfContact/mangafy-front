@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Row } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
-import ColaborationCard from 'components/colaborationCard';
+import CollaborationCards from 'components/colaborationCard';
 import CollaborationsHeader from 'components/collaborationsHeader';
 import Footer from 'components/footer';
 import FooterPolicy from 'components/footer-policy';
@@ -113,7 +113,7 @@ const Collaborations = (props) => {
                       </div>
                       {mangaStories &&
                         mangaStories.map((label) => (
-                          <ColaborationCard key={label._id} label={label} client={client} />
+                          <CollaborationCards key={label._id} label={label} client={client} />
                         ))}
                     </div>
                   </div>

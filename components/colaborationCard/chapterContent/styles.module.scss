@@ -1,0 +1,17 @@
+@import '../../../styles/variables.scss';
+
+.colabWrap__publish {
+  display: flex;
+  align-items: center;
+  color: $black;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 20px;
+  span {
+    margin-left: 5px;
+    color: $gray85;
+  }
+  svg {
+    margin-right: 7px;
+  }
+}

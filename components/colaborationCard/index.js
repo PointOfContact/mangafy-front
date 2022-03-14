@@ -9,24 +9,17 @@ import Link from 'next/link';
 import PropTypes from 'prop-types';
 import myAmplitude from 'utils/amplitude';
 
+import ChapterContent from './chapterContent';
 import styles from './styles.module.scss';
 
-const ColaborationCards = ({ label, client }) => {
+const CollaborationCards = ({ label, client }) => {
   const [participantsInfo, setParticipantsInfo] = useState([]);
-  const [publishChapter, setPublishChapter] = useState(false);
   const [createdDate, setCreatedDate] = useState('');
 
   useEffect(() => {
     const date = label.createdAt.substring(0, 10);
     setCreatedDate(date);
   }, []);
-
-  useEffect(() => {
-    const publishedChapter = label?.storyBoards?.data[0]?.chapters?.filter(
-      (value) => value.published
-    );
-    setPublishChapter(publishedChapter);
-  }, [label]);
 
   useEffect(() => {
     const participants = label.participentsInfo.map((value, index) => {
@@ -112,7 +105,7 @@ const ColaborationCards = ({ label, client }) => {
               />
             </div>
             <div>
-              Types:
+              Goal:
               <СardGenres
                 title={'More Types'}
                 subTitle={'💪 fan of all types'}
@@ -121,18 +114,15 @@ const ColaborationCards = ({ label, client }) => {
               />
             </div>
           </div>
-          <div className={styles.colabWrap__publish}>
-            Chapter:
-            <span>{!!publishChapter.length ? publishChapter.length : 'Coming soon…'}</span>
-          </div>
+          <ChapterContent label={label} />
         </div>
       </a>
     </Link>
   );
 };
 
-ColaborationCards.propTypes = {
+CollaborationCards.propTypes = {
   label: PropTypes.object.isRequired,
   client: PropTypes.object.isRequired,
 };
-export default ColaborationCards;
+export default CollaborationCards;

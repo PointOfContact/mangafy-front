@@ -32,6 +32,8 @@ const HeroUpload = ({
   const [img, setImg] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [fileList, setFileList] = useState(img || []);
+  // const [uploadProgress, setOnUploadProgress] = useState('');
+  // const [uploadTimer, setOnUploadTimer] = useState('');
   const imgType = mangaUrl?.slice(-3);
   const ifPdf = imgType === 'pdf' || imgType === 'PDF';
   const ifUploadVideo = uploadVideo
@@ -87,23 +89,34 @@ const HeroUpload = ({
       });
       return;
     }
+
     const isJpgOrPng =
       file.type === 'image/jpeg' ||
       file.type === 'image/png' ||
       file.type === 'application/pdf' ||
       file.type === 'image/jpg' ||
       file.type === 'video/mp4';
+
     if (!isJpgOrPng) {
       openNotification('error', ifUploadVideo);
     }
+
     const isLt2M = file.size / 1024 / 1024 < 50;
+
     if (!isLt2M) {
       message.error();
       openNotification('error', 'Image must smaller than 50MB!');
     }
 
     if (isJpgOrPng && isLt2M) {
-      beforeUploadFromAMZ(file, setUploadCallback, setImgLoad);
+      beforeUploadFromAMZ(
+        file,
+        setUploadCallback,
+        setImgLoad,
+        () => {}
+        // setOnUploadProgress,
+        // setOnUploadTimer
+      );
       sendEvent(EVENTS.CHANGE_BOARD_CHARACTER, {
         hero,
         type: hero.type,
@@ -139,6 +152,24 @@ const HeroUpload = ({
 
   return (
     <div className={cn('primary_upload hero_upload', styles.primary_upload)}>
+      {/* {!!uploadProgress && (
+        <div className={styles.uploadProgress}>
+          <div className={styles.opacity} style={{ width: `${uploadProgress}%` }} />
+          <div>
+            {uploadProgress < 100 ? (
+              <pre className={styles.uploadData}>
+                {uploadProgress && `${uploadProgress}% . `}
+                <span>{uploadTimer}</span>
+              </pre>
+            ) : (
+              <span>✔</span>
+            )}
+            <div className={styles.progressWrapper}>
+              <div style={{ width: `${uploadProgress}%` }} />
+            </div>
+          </div>
+        </div>
+      )} */}
       <Upload
         disabled={disabled}
         accept="image/jpg, image/png, application/pdf, image/jpeg, video/mp4"
