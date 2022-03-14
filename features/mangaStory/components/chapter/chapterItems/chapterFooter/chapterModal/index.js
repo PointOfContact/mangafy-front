@@ -22,6 +22,7 @@ const ChapterModal = ({
   chapters,
   storyBoard,
   beforeUploadFromAMZ,
+  mangaUrl,
 }) => {
   const [indexChapterView, setIndexChapterView] = useState(1);
 
@@ -47,7 +48,7 @@ const ChapterModal = ({
     const data = {
       storyBoard: storyBoard?._id,
       title: 'Untitled page',
-      order: value?.pages?.length + 1,
+      order: count || value?.pages?.length + 1,
       imageUrl: e,
       chapterId: value?._id,
     };
@@ -172,6 +173,7 @@ ChapterModal.propTypes = {
   chapters: PropTypes.array,
   storyBoard: PropTypes.object,
   beforeUploadFromAMZ: PropTypes.func.isRequired,
+  mangaUrl: PropTypes.string.isRequired,
 };
 
 ChapterModal.defaultProps = {
