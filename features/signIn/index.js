@@ -80,12 +80,12 @@ const Login = ({ user }) => {
                 <div className={styles.content}>
                   <div className={styles.box__title_wrap}>
                     <div className={styles.box__title}>
-                      <h2 className={styles.box__title_text}>Log in to MangaFY</h2>
+                      <h2 className={styles.box__title_text}>Hello again!</h2>
                     </div>
                     <div className={styles.box__hr}></div>
                     <div className={styles.box__description}>
                       <p className={styles.box__description_text}>
-                        We look forward seeing your artistic growth
+                        <span className={styles.blue}>Wellcome</span> back you’re been missed!
                       </p>
                     </div>
                     <div className={styles.box__hr}></div>

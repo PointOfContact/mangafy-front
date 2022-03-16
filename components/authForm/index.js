@@ -34,6 +34,22 @@ const AuthForm = ({
         <div className={styles.login_form}>
           {!isLogin ? (
             <div className="input_login">
+              <div className={styles.select}>
+                <PrimarySelect
+                  // mode="multiple"
+                  // isMulti={true}
+                  className={styles.select_login}
+                  label="I'm a"
+                  id="type"
+                  name="type"
+                  onChange={onChange}
+                  isLinear={true}
+                  isFullWidth={true}
+                  placeholder="Your Profession"
+                  value={type || undefined}
+                  options={userTypes}
+                />
+              </div>
               <Form.Item
                 className={styles.name}
                 name={['user', 'name']}
@@ -59,26 +75,10 @@ const AuthForm = ({
                   id="name"
                   isLinear={true}
                   isFullWidth={true}
-                  placeholder={'Your name'}
+                  placeholder={'Name'}
                   name="name"
                 />
               </Form.Item>
-              <div className={styles.select}>
-                <PrimarySelect
-                  // mode="multiple"
-                  // isMulti={true}
-                  className={styles.select_login}
-                  label="I'm a"
-                  id="type"
-                  name="type"
-                  onChange={onChange}
-                  isLinear={true}
-                  isFullWidth={true}
-                  placeholder="Your Profession"
-                  value={type || undefined}
-                  options={userTypes}
-                />
-              </div>
             </div>
           ) : null}
 
@@ -133,7 +133,7 @@ const AuthForm = ({
               type="password"
               isLinear={true}
               isFullWidth={true}
-              placeholder={'Password'}
+              placeholder={isLogin ? 'Password' : 'Password 8+ characters'}
               name="password"
               onChange={() => {
                 setState({
@@ -147,7 +147,7 @@ const AuthForm = ({
           {isLogin && (
             <div className={styles.forgot_password}>
               <Link href="/forgot-password">
-                <a>Forgot your password?</a>
+                <a>Recovery Password</a>
               </Link>
             </div>
           )}
@@ -170,7 +170,7 @@ const AuthForm = ({
                 loading={loading}
                 disabled={loading}
                 htmlType="submit"
-                text={<p style={{ margin: 0 }}>Let&apos;s rock!</p>}
+                text={<p style={{ margin: 0 }}>Get started now</p>}
                 id="signUpBtnId"
               />
             ) : (
@@ -178,7 +178,7 @@ const AuthForm = ({
                 className={styles.button_submit}
                 htmlType="submit"
                 loading={loading}
-                text={'Start your Journey'}
+                text={'Sign in'}
                 id="signInBtnId"
               />
             )}
@@ -196,6 +196,9 @@ const AuthForm = ({
             </div>
           </div>
           <div className={styles.social_login}>
+            <div className={styles.orLarge}>
+              <span>or Sign up with:</span>
+            </div>
             <Link href="/api/v2/auth/google">
               <a>
                 <span className={cn(styles.google_btn, styles.btn)}>
@@ -220,9 +223,11 @@ const AuthForm = ({
             </div>
             {isLogin && (
               <div className={styles.new_account}>
-                <span>No account yet ?</span>
+                <span>
+                  New to <span className={styles.blue}>MangaFY?</span>
+                </span>
                 <Link href="/sign-up">
-                  <a>Start your journey</a>
+                  <a>Sign up</a>
                 </Link>
               </div>
             )}
