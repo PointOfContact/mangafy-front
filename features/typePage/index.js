@@ -35,22 +35,20 @@ export default function LandingNew(props) {
   const [selectedPost, setSelectedPost] = useState(false);
   const [ogImage, setOgImage] = useState(getCurrentPostData);
   const [likesData, setLikesData] = useState([]);
-
   const ifOpenNewTab = !!getCurrentPostData;
+  const [showModal, changeShowModal] = useState(ifOpenNewTab);
 
   useEffect(() => {
     const ifTypeVideo = getCurrentPostData?.imageUrl?.includes('.mp4');
 
-    const image = ifTypeVideo
+    const image = !!ifTypeVideo
       ? 'https://mangafy.club/api/v2/uploads/1645708912743-980848197-istockphoto-1017890344-170667a.jpg'
-      : getCurrentPostData
+      : !!getCurrentPostData?.imageUrl
       ? client.UPLOAD_URL + getCurrentPostData.imageUrl
       : `https://i.postimg.cc/cCy8qTg7/manga.jpg`;
 
     setOgImage(image);
   }, [getCurrentPostData]);
-
-  const [showModal, changeShowModal] = useState(ifOpenNewTab);
 
   useEffect(() => {
     const { postId } = qs.parse(window.location.search);
