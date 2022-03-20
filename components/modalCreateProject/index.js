@@ -54,7 +54,7 @@ const ModalCreateProject = ({ createProjectModal, showCreateProjectModal, user }
         .catch((err) => {
           setLoading(false);
           if (err.message === 'jwt malformed') {
-            router.push('/sign-in');
+            router.push('/sign-in?page=feed?start=true');
           } else {
             notification.error({
               message: err.message,

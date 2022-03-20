@@ -60,6 +60,12 @@ const Header = ({ user, path, setShowModalEdit }) => {
   const ifNotData = !user?.content || !user?.name || !user?.genresIds?.length;
   const showWarning = !!user && router.query.editModal !== 'true' && ifNotData;
 
+  useEffect(() => {
+    if (router.query.start) {
+      showCreateProjectModal(true);
+    }
+  }, [router.query]);
+
   const getNotificationsCount = useCallback(() => {
     if (!user) return;
     findNotificationsCount(
