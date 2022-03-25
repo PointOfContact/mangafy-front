@@ -66,7 +66,7 @@ const Register = ({ user }) => {
 
     register(payload)
       .then(({ user: newUser }) => {
-        history.push(`/profile/${newUser?._id}?editModal=true`);
+        history.push(`/profile/${newUser?._id}?onBoarding=true`);
 
         setLoading(false);
         const data = [

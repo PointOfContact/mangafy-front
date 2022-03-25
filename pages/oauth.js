@@ -35,7 +35,7 @@ const OAuth = () => {
       const getLastLoginData = user.lastLoginDate.slice(0, -8);
       if (getCreateData === getLastLoginData) {
         data[0].event_type = EVENTS.SIGN_UP;
-        Router.push(`/profile/${user._id}?editModal=true`);
+        Router.push(`/profile/${user._id}?onBoarding=true`);
       } else {
         data[0].event_type = EVENTS.SIGN_IN;
         Router.push('/feed');

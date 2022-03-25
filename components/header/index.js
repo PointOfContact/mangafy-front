@@ -19,6 +19,7 @@ import PropTypes from 'prop-types';
 
 import MenuLinks from './menuLinks';
 import ModalInviteMembers from './modalInviteMembers';
+import OnBoradingModal from './onboradingModal';
 import styles from './styles.module.scss';
 
 const findNotificationsCount = (onSuccess, onFailure) => {
@@ -48,6 +49,7 @@ const findNotificationsCount = (onSuccess, onFailure) => {
 
 const Header = ({ user, path, setShowModalEdit }) => {
   const [isOpen, handleMenuOpen] = useState(false);
+  const [showOnBoardingModal, setShowOnBoardingModal] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
   const [showNotificationModal, setShowNotificationModal] = useState(false);
@@ -63,6 +65,9 @@ const Header = ({ user, path, setShowModalEdit }) => {
   useEffect(() => {
     if (router.query.start) {
       showCreateProjectModal(true);
+    }
+    if (router.query.onBoarding) {
+      setShowOnBoardingModal(true);
     }
   }, [router.query]);
 
@@ -356,6 +361,11 @@ const Header = ({ user, path, setShowModalEdit }) => {
       <ModalCreateProject
         createProjectModal={createProjectModal}
         showCreateProjectModal={showCreateProjectModal}
+        user={user}
+      />
+      <OnBoradingModal
+        showModal={showOnBoardingModal}
+        setShowModal={setShowOnBoardingModal}
         user={user}
       />
     </div>
