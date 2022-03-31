@@ -88,9 +88,10 @@ const ModalCreateProject = ({ createProjectModal, showCreateProjectModal, user }
       }}
       visible={createProjectModal}
       footer={null}>
-      <h1 className={styles.title}>Create webcomics project</h1>
+      <h1 className={styles.title}>Bring your creative project to life.</h1>
       <p className={styles.description}>
-        Collaborate, manage projects get donations, and reach new productivity peaks.
+        You can get your work on your fan's walls with a MangaFY project, whether you work alone or
+        with a team.
       </p>
       <div className={styles.containerCreateProject}>
         <PrimaryInput
@@ -100,8 +101,14 @@ const ModalCreateProject = ({ createProjectModal, showCreateProjectModal, user }
           placeholder="Project Name"
         />
         {errorMessage(styles.errorMobile)}
-        <Button loading={loading} onClick={() => title?.trim()?.length > 1 && createMangaStory()}>
-          Start my webcomics <SvgAllowLeft />
+        <Button
+          className={styles.button}
+          loading={loading}
+          onClick={() => title?.trim()?.length > 1 && createMangaStory()}>
+          <div className={styles.buttonContent}>
+            Start a project
+            <SvgAllowLeft />
+          </div>
         </Button>
       </div>
       {errorMessage()}

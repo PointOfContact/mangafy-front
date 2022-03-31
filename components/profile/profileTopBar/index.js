@@ -185,7 +185,7 @@ const ProfileTopBar = (props) => {
     setLikedUsers(profile?.likedUsers);
   }, [profile?.likedUsers]);
 
-  const colorTypes = ['#2f2ea6', '#20c000', '#fac448', '#2f2ea6'];
+  const colorTypes = ['#FEC447', '#7B65F3', '#91D3CB', '#ea5daf'];
 
   const getTypes = (array) =>
     array?.types?.slice(0, 4).map((value, i) => (
