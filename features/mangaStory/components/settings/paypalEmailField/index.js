@@ -36,13 +36,13 @@ const PaypalEmailField = ({
   return (
     <div className={styles.paypalEmail}>
       <div className={styles.titleContainer}>
-        <h2>Bubble Tea</h2>
+        <h2>Accept donation</h2>
         <div className={styles.betaButton}>Beta</div>
       </div>
-      <p>Receive micropayments from your fans</p>
-      <h3>Paypal Payment Pointer</h3>
+      <p>Set up Instant Payouts</p>
+      <h3>Enable Instant payouths via Paypal</h3>
       <PrimaryInput
-        placeholder="@paypal.contact"
+        placeholder="@paypal account"
         value={payPalEmail}
         onChange={(e) => {
           setTouchedPaypal(true);

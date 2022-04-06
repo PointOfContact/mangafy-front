@@ -57,7 +57,7 @@ const StoryTab = ({
     <div className={cn(styles.storyTab, isOwn && styles.isOwner)}>
       {isOwn && (
         <div>
-          <h1 className={styles.storyTabTitle}>My inspiration</h1>
+          <h1 className={styles.storyTabTitle}>My Goal</h1>
           <span className={styles.sub_info}>
             This is private text and is displayed only to the user
           </span>
@@ -72,10 +72,10 @@ const StoryTab = ({
         {isOwn ? (
           <div className={styles.containerTasks}>
             <div>
-              <h3 className={cn(styles.storyTabTitle, styles.participate)}>
-                On your way to producing your own story? Fantastic!
-              </h3>
-              <span className={styles.sub_info}>Add who you want to join your team and why</span>
+              <h3 className={cn(styles.storyTabTitle, styles.participate)}>Find a team</h3>
+              <span className={styles.sub_info}>
+                It takes more than one person to make an amazing webcomic.
+              </span>
               <Tasks
                 baseData={baseData}
                 isOwn={isOwn}

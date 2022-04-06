@@ -140,7 +140,7 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipant, showPayPalContent
         {isOwn && (
           <AddButton
             className={styles.createTaskMobileBut}
-            text={'Create a task'}
+            text={'Post a job'}
             onClick={() => {
               sendMiniJobEvent(EVENTS.MINI_JOB_OPEN_CREATE_MODAL);
               changeShowModal(true);
@@ -158,7 +158,7 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipant, showPayPalContent
                 sendEvent(EVENTS.OPEN_MODAL_REQUEST_TO_JOIN);
                 toTeam(null);
               }}
-              text="Contribute"
+              text="Join a team"
             />
           )}
           {taskItemsArray}
@@ -174,7 +174,7 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipant, showPayPalContent
                 setSelectedTask(null);
               }}
               className={showPayPalContent && styles.createTaskButton}
-              text="Create a task"
+              text="Post a job"
             />
           ) : (
             <>
@@ -184,7 +184,7 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipant, showPayPalContent
                     sendEvent(EVENTS.OPEN_MODAL_REQUEST_TO_JOIN);
                     toTeam(null);
                   }}
-                  text="Contribute"
+                  text="Join a team"
                 />
               )}
             </>

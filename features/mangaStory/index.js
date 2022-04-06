@@ -260,7 +260,7 @@ const MangeStory = (props) => {
             <div className="row">
               <div className={cn('col-lg-7 mangaStoriTopPanel', styles.story_page)}>
                 <Tabs activeKey={collabActiveTab} onChange={tabChange}>
-                  <TabPane tab="STORY" key="1" className="story">
+                  <TabPane tab={isOwn ? 'PREVIEW' : 'PROJECT'} key="1" className="story">
                     <EditMode
                       user={userData}
                       editMode={editMode}

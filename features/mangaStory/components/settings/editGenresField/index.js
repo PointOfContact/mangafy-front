@@ -98,10 +98,10 @@ const EditGenresField = ({
 
   return (
     <div className={styles.editTitle}>
-      <h2 className={styles.genresTitle}>General</h2>
-      <h3>Project Name</h3>
+      <h2 className={styles.genresTitle}>Basic</h2>
+      <h3>Project Title</h3>
       <PrimaryInput
-        placeholder="Project Name"
+        placeholder="Webtoonmania: Rising action"
         name="title"
         value={baseData?.title}
         onChange={(e) => {
@@ -121,25 +121,25 @@ const EditGenresField = ({
         showSearch
         defaultValue={baseData?.preferredLanguage}
         onChange={chooseLanguage}
-        placeholder={'Project Language'}
+        placeholder={'English'}
         className={styles.language}
         style={{ width: 200 }}>
         {countries}
       </Select>
-      <h3>Project Types</h3>
+      <h3>Project category</h3>
       <Select
         showSearch
         defaultValue={baseData?.projectType}
-        placeholder={'Project Types'}
+        placeholder={'Webtoon'}
         onChange={chooseTypes}
         className={styles.language}
         style={{ width: 200 }}>
         {projectType}
       </Select>
-      <h3>Project Description</h3>
+      <h3>Project Description*</h3>
       <TextEditor
         placeholder={
-          'Describe what your project is about: \n\nWhat we can improve: \n\nWhy:\n\nThe goal:'
+          "Tell people why they should be excited about your project.\n\nDescribe what you're creating, how you plan to make it happen,:\n\nWhy you care about it:\n\nThe goal and how you plan to make it happen:\n"
         }
         result={(e) => {
           const target = {
@@ -159,19 +159,19 @@ const EditGenresField = ({
       />
       {validationDesc && <p className={styles.error}>{validationDesc}</p>}
       <div className={styles.budgetContainer}>
-        <h3>Budget</h3>
+        <h3>Team</h3>
         <Radio.Group onChange={budgetChange} value={radioValue}>
           <Radio className={cn(styles.radio, radioValue === 'No' && styles.active)} value={'No'}>
-            No budget
+            Working alone
           </Radio>
           <Radio
             className={cn(styles.radio, radioValue === 'With' && styles.active)}
             value={'With'}>
-            With budget
+            Looking for collaboration
           </Radio>
         </Radio.Group>
       </div>
-      <h3>Tags</h3>
+      <h3>Choose a subcategory to help backers find your project.</h3>
       <PrimarySelect
         countLimit={true}
         mode="multiple"
@@ -183,7 +183,7 @@ const EditGenresField = ({
         options={genres}
         className={styles.option}
       />
-      <h3 className={styles.uploadCoverTitle}>Upload project cover</h3>
+      <h3 className={styles.uploadCoverTitle}>Upload project cover to represent your project</h3>
       <HeroUpload
         className={styles.imgPage}
         mangaUrl={imgId}
