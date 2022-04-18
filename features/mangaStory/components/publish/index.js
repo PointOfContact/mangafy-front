@@ -145,18 +145,12 @@ const Publish = ({ baseData, storyBoard, chapters }) => {
             <p>Print and sell high quality printed >></p>
           </a>
         </Link>
-        <Link href="https://form.typeform.com/to/A6LVTBcq">
-          <a target="_blank" onClick={clickShortComics}>
-            <h4>Short webcomics contest</h4>
-            <p>Submit your 5 page short webcomics</p>
-          </a>
-        </Link>
-        {/* <Link href="https://form.typeform.com/to/g0fkj5fs?typeform-source=trello.com">
+        <Link href="https://form.typeform.com/to/g0fkj5fs?typeform-source=trello.com">
           <a target="_blank" onClick={clickMerchSell}>
             <h4>Merch Maker</h4>
             <p>Create branded merch for your fans with merch maker >></p>
           </a>
-        </Link> */}
+        </Link>
 
         {/* <Link href="https://tapas.io/">
           <a>
