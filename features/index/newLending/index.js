@@ -380,7 +380,7 @@ const NewLending = ({ user }) => {
                     </li>
                   </ul>
                   <a href="https://mangafy.club/sign-in" className="btn-access">
-                    Request early access
+                    Login
                   </a>
                   <div className="mob-mnu-btn">
                     <div className="ico-menu">
@@ -461,7 +461,7 @@ const NewLending = ({ user }) => {
                   <div className="main__bot">
                     <div className="main__text">Community Collaboration Platform</div>
                     <a href="https://mangafy.club/sign-in" className="main__btn">
-                      Request early access
+                      Login
                     </a>
                   </div>
                 </div>
@@ -562,7 +562,7 @@ const NewLending = ({ user }) => {
                       their job.
                     </div>
                     <a href="https://mangafy.club/sign-in" className="platform__btn">
-                      Request early access
+                      Login
                     </a>
                   </div>
                   <div className="platform__scheme">
