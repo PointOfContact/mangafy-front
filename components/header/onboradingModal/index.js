@@ -70,7 +70,7 @@ const OnBoardingModal = ({ showModal, setShowModal, user }) => {
                 width={66}
                 height={66}
                 layout="fixed"
-                src="/img/pencil.png"
+                src="https://mangafy.club/img/pencil.png"
                 alt="MangaFy share"
               />
             </div>
@@ -91,7 +91,7 @@ const OnBoardingModal = ({ showModal, setShowModal, user }) => {
                 width={66}
                 height={66}
                 layout="fixed"
-                src="/img/todo.png"
+                src="https://mangafy.club/img/todo.png"
                 alt="MangaFy create"
               />
             </div>
@@ -111,7 +111,7 @@ const OnBoardingModal = ({ showModal, setShowModal, user }) => {
                 width={66}
                 height={66}
                 layout="fixed"
-                src="/img/folder.png"
+                src="https://mangafy.club/img/folder.png"
                 alt="MangaFy indtoduce"
               />
             </div>

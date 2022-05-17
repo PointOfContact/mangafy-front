@@ -46,14 +46,15 @@ const SearchForCollaborations = (props) => {
     selectedGenres = [],
     selectedTypes = [],
     userTypes = [],
+    pageUrl = '/collaborations',
   } = props;
 
   const searchAPI = (search) => {
     const parsed = qs.parse(location.search);
     parsed.page = 1;
     Router.push(
-      LinkCreator.toQuery({ ...parsed, search }, '/collaborations'),
-      LinkCreator.toQuery({ ...parsed, search }, '/collaborations'),
+      LinkCreator.toQuery({ ...parsed, search }, pageUrl),
+      LinkCreator.toQuery({ ...parsed, search }, pageUrl),
       {
         scroll: false,
       }
@@ -72,8 +73,8 @@ const SearchForCollaborations = (props) => {
     if (keys && keys.includes('all')) {
       delete parsed.types;
       Router.push(
-        LinkCreator.toQuery({ ...parsed }, '/collaborations'),
-        LinkCreator.toQuery({ ...parsed }, '/collaborations'),
+        LinkCreator.toQuery({ ...parsed }, pageUrl),
+        LinkCreator.toQuery({ ...parsed }, pageUrl),
         {
           scroll: false,
         }
@@ -82,8 +83,8 @@ const SearchForCollaborations = (props) => {
     }
 
     Router.push(
-      LinkCreator.toQuery({ ...parsed, types: keys }, '/collaborations'),
-      LinkCreator.toQuery({ ...parsed, types: keys }, '/collaborations'),
+      LinkCreator.toQuery({ ...parsed, types: keys }, pageUrl),
+      LinkCreator.toQuery({ ...parsed, types: keys }, pageUrl),
       {
         scroll: false,
       }
@@ -96,8 +97,8 @@ const SearchForCollaborations = (props) => {
     if (keys && keys.includes('all')) {
       delete parsed.compensationModel;
       Router.push(
-        LinkCreator.toQuery({ ...parsed }, '/collaborations'),
-        LinkCreator.toQuery({ ...parsed }, '/collaborations'),
+        LinkCreator.toQuery({ ...parsed }, pageUrl),
+        LinkCreator.toQuery({ ...parsed }, pageUrl),
         {
           scroll: false,
         }
@@ -105,8 +106,8 @@ const SearchForCollaborations = (props) => {
       return;
     }
     Router.push(
-      LinkCreator.toQuery({ ...parsed, compensationModel: keys }, '/collaborations'),
-      LinkCreator.toQuery({ ...parsed, compensationModel: keys }, '/collaborations'),
+      LinkCreator.toQuery({ ...parsed, compensationModel: keys }, pageUrl),
+      LinkCreator.toQuery({ ...parsed, compensationModel: keys }, pageUrl),
       {
         scroll: false,
       }
@@ -121,8 +122,8 @@ const SearchForCollaborations = (props) => {
     if (keys && keys.includes('all')) {
       delete parsed.genres;
       Router.push(
-        LinkCreator.toQuery({ ...parsed }, '/collaborations'),
-        LinkCreator.toQuery({ ...parsed }, '/collaborations'),
+        LinkCreator.toQuery({ ...parsed }, pageUrl),
+        LinkCreator.toQuery({ ...parsed }, pageUrl),
         {
           scroll: false,
         }
@@ -131,8 +132,8 @@ const SearchForCollaborations = (props) => {
     }
 
     Router.push(
-      LinkCreator.toQuery({ ...parsed, genres: keys }, '/collaborations'),
-      LinkCreator.toQuery({ ...parsed, genres: keys }, '/collaborations'),
+      LinkCreator.toQuery({ ...parsed, genres: keys }, pageUrl),
+      LinkCreator.toQuery({ ...parsed, genres: keys }, pageUrl),
       {
         scroll: false,
       }
@@ -237,6 +238,7 @@ SearchForCollaborations.propTypes = {
   search: PropTypes.string,
   selectedTypes: PropTypes.array,
   userTypes: PropTypes.array,
+  pageUrl: PropTypes.string,
 };
 
 SearchForCollaborations.defaultProps = {
@@ -246,6 +248,7 @@ SearchForCollaborations.defaultProps = {
   search: '',
   selectedTypes: [],
   userTypes: [],
+  pageUrl: '/collaborations',
 };
 
 export default SearchForCollaborations;

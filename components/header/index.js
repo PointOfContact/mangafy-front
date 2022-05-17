@@ -188,6 +188,15 @@ const Header = ({ user, path, setShowModalEdit }) => {
                   People
                 </a>
               </Link>
+              <Link href="/projects">
+                <a
+                  className={cn(
+                    styles.header__menu,
+                    router.pathname === '/projects' && styles.header__menu_active
+                  )}>
+                  Published works
+                </a>
+              </Link>
             </div>
             <div className={styles.header__rightNav}>
               {user?._id ? (
