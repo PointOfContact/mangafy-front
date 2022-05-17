@@ -59,7 +59,7 @@ const Collaborations = (props) => {
         description="At the heart of our vision – collaborations – allowing visionary of various roles to engage in a team effort to bring a story from uncertainty to digital life, with you – the artists – taking control of the production."
         canonical={`https://mangafy.club${pageUrl}`}
         openGraph={{
-          url: {`https://mangafy.club${pageUrl}`},
+          url: `https://mangafy.club${pageUrl}`,
           title: 'MangaFY - platform for community collaboration.',
           description:
             'At the heart of our vision – collaborations – allowing visionary of various roles to engage in a team effort to bring a story from uncertainty to digital life, with you – the artists – taking control of the production.',
