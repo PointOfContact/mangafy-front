@@ -58,7 +58,7 @@ const Preview = ({ uploadImages, storyBoardId, mangaStoryTitle }) => {
             images: [
               {
                 url: `${client.API_ENDPOINT}/api/v2/uploads/${
-                  clearPdf[0] ? clearPdf[0].url : 'http://mangafy.club/img/indexMobSec3.webp'
+                  clearPdf[0] ? clearPdf[0].url : 'https://mangafy.club/img/indexMobSec3.webp'
                 }`,
                 width: 800,
                 height: 600,

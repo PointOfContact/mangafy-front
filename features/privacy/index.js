@@ -19,15 +19,15 @@ const Privacy = (props) => {
       <NextSeo
         title="MangaFY Privacy Policy"
         description="MangaFY Privacy Policy"
-        canonical="http://mangafy.club"
+        canonical="https://mangafy.club/privacy-policy"
         openGraph={{
-          url: 'http://mangafy.club',
+          url: 'https://mangafy.club/privacy-policy',
           title: 'MangaFY Privacy Policy',
           description: 'MangaFY Privacy Policy',
           type: 'article',
           images: [
             {
-              url: 'http://mangafy.club/img/indexMobSec3.webp',
+              url: 'https://mangafy.club/img/indexMobSec3.webp',
               width: 800,
               height: 600,
               alt: 'Manga Story Image',

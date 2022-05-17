@@ -57,9 +57,9 @@ const Collaborations = (props) => {
       <NextSeo
         title="MangaFY - platform for community collaboration."
         description="At the heart of our vision – collaborations – allowing visionary of various roles to engage in a team effort to bring a story from uncertainty to digital life, with you – the artists – taking control of the production."
-        canonical="http://mangafy.club/collaborations"
+        canonical={`https://mangafy.club${pageUrl}`}
         openGraph={{
-          url: 'http://mangafy.club/collaborations',
+          url: {`https://mangafy.club${pageUrl}`},
           title: 'MangaFY - platform for community collaboration.',
           description:
             'At the heart of our vision – collaborations – allowing visionary of various roles to engage in a team effort to bring a story from uncertainty to digital life, with you – the artists – taking control of the production.',
@@ -137,7 +137,7 @@ const Collaborations = (props) => {
                       pageSize={11}
                       total={total}
                       current={current}
-                      prefix="collaborations"
+                      prefix={pageUrl === '/collaborations' ? 'collaborations' : 'projects'}
                     />
                   </div>
                 </div>

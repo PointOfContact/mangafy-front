@@ -17,13 +17,13 @@ const Terms = ({ user }) => (
       description="MangaFY Terms of Service"
       canonical=""
       openGraph={{
-        url: 'http://mangafy.club/terms',
+        url: 'https://mangafy.club/terms',
         title: 'MangaFY Terms of Service',
         description: 'MangaFY Terms of Service',
         type: 'article',
         images: [
           {
-            url: 'http://mangafy.club/img/indexMobSec3 .webp',
+            url: 'https://mangafy.club/img/indexMobSec3.webp',
             width: 800,
             height: 600,
             alt: '',

@@ -38,7 +38,7 @@ const Profiles = (props) => {
         additionalLinkTags={[
           {
             rel: 'icon',
-            href: 'http://mangafy.club/profiles',
+            href: 'https://mangafy.club/profiles',
           },
         ]}
       />

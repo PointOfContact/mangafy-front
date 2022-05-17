@@ -17,15 +17,15 @@ const Content = (props) => {
       <NextSeo
         title="MangaFY Content Policy"
         description="MangaFY Content Policy"
-        canonical="http://mangafy.club"
+        canonical="https://mangafy.club/content"
         openGraph={{
-          url: 'http://mangafy.club',
+          url: 'https://mangafy.club/content',
           title: 'MangaFY Content Policy',
           description: 'MangaFY Content Policy',
           type: 'article',
           images: [
             {
-              url: 'http://mangafy.club/img/indexMobSec3.webp',
+              url: 'https://mangafy.club/img/indexMobSec3.webp',
               width: 800,
               height: 600,
               alt: 'Manga Story Image',
