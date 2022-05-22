@@ -1,0 +1,16 @@
+version: "2"
+
+
+services:
+
+  app:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile.dev
+    image: mangafy/front
+    command: "npm run dev"
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    ports:
+      - 3000:3000
