@@ -194,7 +194,7 @@ const Header = ({ user, path, setShowModalEdit }) => {
                     styles.header__menu,
                     router.pathname === '/projects' && styles.header__menu_active
                   )}>
-                  Ongoing works
+                  Ongoing
                 </a>
               </Link>
             </div>
