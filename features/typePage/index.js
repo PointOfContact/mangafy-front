@@ -125,9 +125,9 @@ export default function LandingNew(props) {
         <div className={'content'}>
           <Header user={user} />
           <main className={styles.main}>
-            {!user && <AnimePlatform user={user} />}
+            {/* {!user && <AnimePlatform user={user} />} */}
             <BestProfileImages gallery={gallery} user={user} />
-            <TypePage
+            {/* <TypePage
               user={user}
               posts={posts}
               dailyWarmUps={dailyWarmUps}
@@ -135,7 +135,7 @@ export default function LandingNew(props) {
               collaborations={collaborations}
               selectedCategories={selectedCategories}
               selectedType={selectedType}
-            />
+            /> */}
           </main>
         </div>
         {selectedPost && (

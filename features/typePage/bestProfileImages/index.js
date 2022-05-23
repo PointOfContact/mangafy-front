@@ -15,7 +15,7 @@ const BestProfile = ({ gallery, user }) => {
   const [topGallery, setTopGallery] = useState(gallery);
 
   const adaptImages = (g) =>
-    g.map((item, index) => (
+  g.map((item, index) => (
       <div
         key={item._id}
         className={cn(styles.item, item?._id.slice(-3) === 'png' && styles.itemForPNG)}
@@ -39,7 +39,7 @@ const BestProfile = ({ gallery, user }) => {
         />
         <span className={styles.opacity}></span>
       </div>
-    ));
+  ));
 
   const [images, setImages] = useState(adaptImages(gallery));
 
