@@ -79,6 +79,16 @@ const Publish = ({ baseData, storyBoard, chapters }) => {
     myAmplitude(eventData);
   };
 
+  const clickShortComics = () => {
+    const eventData = [
+      {
+        event_type: EVENTS.SHORT_COMICS,
+        event_properties: { mangaStoryId: baseData._id },
+      },
+    ];
+    myAmplitude(eventData);
+  };
+
   return (
     <div className={styles.containerPublish}>
       {!ifExistPublishedChapter ? (
@@ -141,6 +151,7 @@ const Publish = ({ baseData, storyBoard, chapters }) => {
             <p>Create branded merch for your fans with merch maker >></p>
           </a>
         </Link>
+
         {/* <Link href="https://tapas.io/">
           <a>
             <h4>Boost your story</h4>

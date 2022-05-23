@@ -60,11 +60,11 @@ const ViewUrlName = ({ baseData, onChangeSingleField, sendEvent, storyBoard }) =
   return (
     <div ref={ref} className={styles.viewLink}>
       <div className={styles.titleContainer}>
-        <h2>Generate a personal page for your project</h2>
+        <h2>My webcomics page link</h2>
         <div className={styles.betaButton}>Beta</div>
       </div>
       <p>
-        Claim project name and give fans an easy-to remember web address for your Webcomics project
+        Claim project name and give fans an easy-to remember web adres for your Webcomics project
       </p>
 
       {ifCustomSubdomain && <p className={styles.customSubdomainTitle}> Fan page </p>}
@@ -123,7 +123,9 @@ const ViewUrlName = ({ baseData, onChangeSingleField, sendEvent, storyBoard }) =
         </Radio>
       </Radio.Group>
 
-      <h3 className={styles.getLink}>Get the link or share on social</h3>
+      <h3 className={styles.getLink}>
+        Customize your URL on MangaFY. Must only contain lowercase letters,numbers, and hyphens.
+      </h3>
       <div className={styles.copyView}>
         <div className={styles.viewUrl}>
           {ifCustomSubdomain

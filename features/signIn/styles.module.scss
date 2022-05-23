@@ -74,6 +74,9 @@
       margin-bottom: 0;
     }
     &_text {
+      .blue {
+        color: $primaryLight;
+      }
       font-size: $text3;
       line-height: 1.25;
       text-align: center;

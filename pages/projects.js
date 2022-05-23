@@ -18,7 +18,7 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
         createdAt: -1,
       },
       published: true,
-      popular: true,
+      publishedChapters: true,
     };
     if (genres && genres.length > 0) {
       genres = Array.isArray(genres) ? genres : [genres];
@@ -50,7 +50,7 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
 
     return {
       props: {
-        pageUrl: '/collaborations',
+        pageUrl: '/projects',
         user: user || store.user,
         search: search || '',
         genres: genresRes.data,
@@ -66,6 +66,7 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
     console.log('Error: collaboration.js', error);
     return {
       props: {
+        pageUrl: '/projects',
         user: user || store.user,
       },
     };

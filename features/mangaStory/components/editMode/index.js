@@ -38,7 +38,7 @@ const EditMode = ({
           <div>
             <div className={styles.containerEdit}>
               {showPayPalContent && (
-                <BuyBubbleTea payPalEmail={userData?.authorInfo?.payPalEmail} />
+                <BuyBubbleTea payPalEmail={baseData?.authorInfo?.payPalEmail} />
               )}
             </div>
           </div>

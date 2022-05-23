@@ -64,9 +64,9 @@ const DeleteProjectButton = ({ label, user, index, mangaStories, setMangaStories
             okText="Yes, delete it"
             onConfirm={confirmDelete}
             item={
-              <span>
+              <div style={{ paddingBottom: 5 }}>
                 <SvgDustbin width="14px" height="14px" />
-              </span>
+              </div>
             }
           />
         </span>

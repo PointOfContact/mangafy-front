@@ -65,6 +65,7 @@
       flex-direction: column;
     }
     input {
+      font-family: "Noto Sans JP", sans-serif;
       width: 378px;
       height: 44px;
       background-color: #ffffff;
@@ -156,5 +157,16 @@
         height: 13.12px;
       }
     }
+  }
+  .button {
+    background-color: #7B65F3 !important;
+    border-color: #7B65F3 !important;
+  }
+  .buttonContent {
+    padding-left: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
   }
 }

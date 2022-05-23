@@ -95,7 +95,7 @@ const TaskItems = ({
                     sendEvent(EVENTS.OPEN_MODAL_REQUEST_TO_JOIN);
                     toTeam(task);
                   }}
-                  text="Contribute"
+                  text="Join a team"
                 />
               )}
             </div>

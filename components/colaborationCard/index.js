@@ -12,7 +12,7 @@ import myAmplitude from 'utils/amplitude';
 import ChapterContent from './chapterContent';
 import styles from './styles.module.scss';
 
-const CollaborationCards = ({ label, client }) => {
+const CollaborationCards = ({ label, client, href }) => {
   const [participantsInfo, setParticipantsInfo] = useState([]);
   const [createdDate, setCreatedDate] = useState('');
 
@@ -51,7 +51,7 @@ const CollaborationCards = ({ label, client }) => {
   };
 
   return (
-    <Link href={`/manga-story/${label._id}`}>
+    <Link href={href || `/manga-story/${label._id}`}>
       <a className={styles.colabWrap__item} onClick={navigateToManga}>
         <div className={styles.colabWrap__top}>
           <div className={cn(styles.avatar__img, styles.avatar__imgOnline)}>
@@ -124,5 +124,9 @@ const CollaborationCards = ({ label, client }) => {
 CollaborationCards.propTypes = {
   label: PropTypes.object.isRequired,
   client: PropTypes.object.isRequired,
+  href: PropTypes.string,
+};
+CollaborationCards.defaultProps = {
+  href: null,
 };
 export default CollaborationCards;

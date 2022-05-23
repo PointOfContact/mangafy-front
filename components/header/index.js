@@ -19,6 +19,7 @@ import PropTypes from 'prop-types';
 
 import MenuLinks from './menuLinks';
 import ModalInviteMembers from './modalInviteMembers';
+import OnBoradingModal from './onboradingModal';
 import styles from './styles.module.scss';
 
 const findNotificationsCount = (onSuccess, onFailure) => {
@@ -48,6 +49,7 @@ const findNotificationsCount = (onSuccess, onFailure) => {
 
 const Header = ({ user, path, setShowModalEdit }) => {
   const [isOpen, handleMenuOpen] = useState(false);
+  const [showOnBoardingModal, setShowOnBoardingModal] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
   const [showNotificationModal, setShowNotificationModal] = useState(false);
@@ -59,6 +61,15 @@ const Header = ({ user, path, setShowModalEdit }) => {
   const ifMyProfile = user?._id && router?.query?.pid === user?._id;
   const ifNotData = !user?.content || !user?.name || !user?.genresIds?.length;
   const showWarning = !!user && router.query.editModal !== 'true' && ifNotData;
+
+  useEffect(() => {
+    if (router.query.start) {
+      showCreateProjectModal(true);
+    }
+    if (router.query.onBoarding) {
+      setShowOnBoardingModal(true);
+    }
+  }, [router.query]);
 
   const getNotificationsCount = useCallback(() => {
     if (!user) return;
@@ -175,6 +186,15 @@ const Header = ({ user, path, setShowModalEdit }) => {
                     router.pathname === '/profiles' && styles.header__menu_active
                   )}>
                   People
+                </a>
+              </Link>
+              <Link href="/projects">
+                <a
+                  className={cn(
+                    styles.header__menu,
+                    router.pathname === '/projects' && styles.header__menu_active
+                  )}>
+                  Ongoing
                 </a>
               </Link>
             </div>
@@ -350,6 +370,11 @@ const Header = ({ user, path, setShowModalEdit }) => {
       <ModalCreateProject
         createProjectModal={createProjectModal}
         showCreateProjectModal={showCreateProjectModal}
+        user={user}
+      />
+      <OnBoradingModal
+        showModal={showOnBoardingModal}
+        setShowModal={setShowOnBoardingModal}
         user={user}
       />
     </div>

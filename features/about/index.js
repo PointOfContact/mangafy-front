@@ -18,13 +18,13 @@ const About = (props) => {
         title="MangaFY About Policy"
         description="MangaFY About Policy"
         openGraph={{
-          url: 'http://mangafy.club',
+          url: 'https://mangafy.club/about',
           title: 'MangaFY About Policy',
           description: 'MangaFY About Policy',
           type: 'article',
           images: [
             {
-              url: 'http://mangafy.club/img/indexMobSec3.webp',
+              url: 'https://mangafy.club/img/indexMobSec3.webp',
               width: 800,
               height: 600,
               alt: 'Manga Story Image',

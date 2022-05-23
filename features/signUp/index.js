@@ -66,7 +66,7 @@ const Register = ({ user }) => {
 
     register(payload)
       .then(({ user: newUser }) => {
-        history.push(`/profile/${newUser?._id}?editModal=true`);
+        history.push(`/profile/${newUser?._id}?onBoarding=true`);
 
         setLoading(false);
         const data = [
@@ -110,7 +110,7 @@ const Register = ({ user }) => {
   return (
     <>
       <NextSeo
-        title="Welcome! - MangaFY Community"
+        title="Bring your ideas to life at MangaFY"
         description="MangaFY is a community of amazing webcomics and webtoon creators"
       />
       <ButtonToTop user={user} />
@@ -126,12 +126,15 @@ const Register = ({ user }) => {
                 <div className={styles.content}>
                   <div className={styles.box__title_wrap}>
                     <div className={styles.box__title}>
-                      <h2 className={styles.box__title_text}>Welcome! - MangaFY Community</h2>
+                      <h2 className={styles.box__title_text}>
+                        Bring your ideas to life at MangaFY
+                      </h2>
                     </div>
                     <div className={styles.box__hr}></div>
                     <div className={styles.box__description}>
                       <p className={styles.box__description_text}>
-                        MangaFY is a community of amazing webcomics and webtoon creators
+                        <span className={styles.blue}>MangaFY</span> is a space for webcomics
+                        creators.
                       </p>
                     </div>
                     <div className={styles.box__hr}></div>

@@ -38,6 +38,7 @@ const Collaborations = (props) => {
     selectedCompensationModel,
     search,
     selectedTypes,
+    pageUrl,
   } = props;
   const [createProjectModal, showCreateProjectModal] = useState(false);
 
@@ -56,9 +57,9 @@ const Collaborations = (props) => {
       <NextSeo
         title="MangaFY - platform for community collaboration."
         description="At the heart of our vision – collaborations – allowing visionary of various roles to engage in a team effort to bring a story from uncertainty to digital life, with you – the artists – taking control of the production."
-        canonical="http://mangafy.club/collaborations"
+        canonical={`https://mangafy.club${pageUrl}`}
         openGraph={{
-          url: 'http://mangafy.club/collaborations',
+          url: `https://mangafy.club${pageUrl}`,
           title: 'MangaFY - platform for community collaboration.',
           description:
             'At the heart of our vision – collaborations – allowing visionary of various roles to engage in a team effort to bring a story from uncertainty to digital life, with you – the artists – taking control of the production.',
@@ -91,6 +92,7 @@ const Collaborations = (props) => {
               selectedTypes={selectedTypes}
               userTypes={userTypes}
               search={search}
+              pageUrl={pageUrl}
             />
             <div className="container mangafy_container">
               <Row type="flux">
@@ -113,7 +115,16 @@ const Collaborations = (props) => {
                       </div>
                       {mangaStories &&
                         mangaStories.map((label) => (
-                          <CollaborationCards key={label._id} label={label} client={client} />
+                          <CollaborationCards
+                            href={
+                              pageUrl === '/collaborations'
+                                ? `/manga-story/${label._id}`
+                                : `/manga-view/${label?.storyBoards?.data[0]?._id}`
+                            }
+                            key={label._id}
+                            label={label}
+                            client={client}
+                          />
                         ))}
                     </div>
                   </div>
@@ -126,7 +137,7 @@ const Collaborations = (props) => {
                       pageSize={11}
                       total={total}
                       current={current}
-                      prefix="collaborations"
+                      prefix={pageUrl === '/collaborations' ? 'collaborations' : 'projects'}
                     />
                   </div>
                 </div>
@@ -164,6 +175,7 @@ Collaborations.propTypes = {
   selectedCompensationModel: PropTypes.array,
   search: PropTypes.string,
   selectedTypes: PropTypes.array,
+  pageUrl: PropTypes.string,
 };
 
 Collaborations.defaultProps = {
@@ -176,6 +188,7 @@ Collaborations.defaultProps = {
   total: 0,
   current: 0,
   genres: [],
+  pageUrl: '/collaborations',
 };
 
 export default Collaborations;

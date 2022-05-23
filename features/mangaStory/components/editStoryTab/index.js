@@ -9,7 +9,7 @@ import styles from './styles.module.scss';
 
 const EditStoryTab = ({ baseData, onChangeSingleField, cancelEditMode, saveMangaStoryData }) => (
   <div className={styles.container}>
-    <h2 className={styles.inspirationTitle}>My inspiration</h2>
+    <h2 className={styles.inspirationTitle}>My Goal</h2>
     <TextArea
       isFullWidth={true}
       placeholder="Type here..."

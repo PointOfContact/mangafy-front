@@ -99,16 +99,15 @@
     }
     .forgot_password {
       text-align: left;
-      font-size: 10px;
-      color: $gray85;
+      font-size: 15px;
+      color: $primaryLight;
       text-decoration: underline;
-      margin-top: 26px;
       margin-bottom: 48px;
       &:hover {
         color: $primaryDark;
       }
       a {
-        color: $gray85;
+        color: $primaryLight;
         @include media-sm {
           font-size: $text5;
         }
@@ -143,6 +142,16 @@
     button {
       font-size: 20px;
       margin: 0 auto;
+    }
+  }
+  .orLarge {
+    display: flex;
+    margin-bottom: 10px;
+    @include media-sm {
+      display: none;
+    }
+    span {
+      font-size: 10px;
     }
   }
   .or {
@@ -238,6 +247,9 @@
       text-decoration: underline;
       text-align: left;
       cursor: pointer;
+      a {
+        color: $gray85;
+      }
       &:hover {
         text-decoration: none;
       }
@@ -272,24 +284,28 @@
   display: flex;
   align-items: center;
   margin-top: 28px;
+  font-size: 20px;
   @include media-sm {
     margin-top: 15px;
   }
+  .blue {
+    color: $primaryDark;
+  }
   span {
-    font-size: 15px;
-    color: $gray85;
+    font-size: 20px;
+    color: $black;
     @include media-md {
-      font-size: 13px;
+      font-size: 16px;
     }
   }
   a {
-    color: $switchBg;
+    color: $black;
     font-size: 15px;
     text-decoration: underline;
     margin-left: 3px;
-    font-weight: 700;
+    font-weight: 400;
     @include media-md {
-      font-size: 13px;
+      font-size: 16px;
     }
     &:hover {
       text-decoration: none;

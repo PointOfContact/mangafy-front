@@ -4,7 +4,6 @@ import PrimaryButton from 'components/ui-elements/button';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 
-import CommunitySpotlightsCard from './communitySpotlightsCard';
 import HappeningCard from './happeningCard';
 import styles from './styles.module.scss';
 
@@ -49,7 +48,7 @@ const DiscussionLeftBar = (props) => {
             </div>
           </div>
 
-          <div className={styles.spotlight}>
+          {/* <div className={styles.spotlight}>
             <div className={styles.spotlightTitle}>Explore creators</div>
             <ul className={styles.spotlightList}>
               {communitySpotlights.map((community) => (
@@ -67,7 +66,7 @@ const DiscussionLeftBar = (props) => {
                 <PrimaryButton text="All Members" className={styles.more} />
               </a>
             </Link>
-          </div>
+          </div> */}
         </div>
       </div>
     </>

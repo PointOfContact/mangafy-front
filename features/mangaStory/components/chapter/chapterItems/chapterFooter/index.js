@@ -121,6 +121,7 @@ const ChapterFooter = ({
             chapters={chapters}
             storyBoard={storyBoard}
             beforeUploadFromAMZ={beforeUploadFromAMZ}
+            mangaUrl={mangaUrl}
           />
         }
         visible={chapterListVisible._id === value?._id && chapterListVisible.state}

@@ -294,7 +294,7 @@ const MangaView = ({
           <div className={styles.commentContainerMenu}>
             {payPalPublished && (
               <BuyBubbleTea
-                payPalEmail={userData.payPalEmail}
+                payPalEmail={userData[0].payPalEmail}
                 createAmplitude={true}
                 chapter={chapter}
                 mangaStoryId={mangaStoryId}
@@ -338,7 +338,7 @@ const MangaView = ({
             </div>
             {payPalPublished && (
               <BuyBubbleTea
-                payPalEmail={userData.payPalEmail}
+                payPalEmail={userData[0].payPalEmail}
                 createAmplitude={true}
                 chapter={chapter}
                 mangaStoryId={mangaStoryId}
