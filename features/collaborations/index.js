@@ -100,10 +100,11 @@ const Collaborations = (props) => {
                       <div className={cn(styles.PostColab)}>
                         <div className={cn(styles.PostColab__item)}>
                           <div className={cn(styles.PostColab__descr)}>
-                            Have an idea for a graphic novel or manga and looking for collaboration?
+                            Produce your story. <br />
+                            It's easiar than you think.
                           </div>
                           <PrimaryButton
-                            text="Post Collab"
+                            text="Let's do!"
                             className={cn(styles.PostColab__btn)}
                             onClick={() => {
                               showCreateProjectModal(true);

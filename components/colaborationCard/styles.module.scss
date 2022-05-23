@@ -9,15 +9,12 @@
 .colabWrap {
   &__item {
     display: flex;
-    flex-direction: column;
     align-items: flex-start;
     // width: 325px;
-    width: calc(25% - 30px);
-    min-height: 296px;
+    width: calc(33.33% - 30px);
     background: #ffffff;
     box-shadow: 0px 0px 18px rgba(0, 0, 0, 0.08);
     border-radius: 10px;
-    padding: 16px 18px;
     margin: 0 15px;
     margin-bottom: 31px;
     transition: 0.5s;
@@ -40,6 +37,32 @@
       margin-bottom: 15px;
     }
   }
+  
+  &__image {
+    width: 50%;
+  }
+
+  &__content {
+    width: 50%;
+    padding: 0 8px;
+
+    .colabName {
+      font-style: normal;
+      font-weight: bold;
+      font-size: $text3;
+      line-height: 25px;
+      color: $black;
+      margin: 0;
+      margin-top: 61px;
+      display: block;
+      width: 100%;
+      overflow: hidden;
+      size: 20px;
+    }
+
+
+  }
+
   &__top {
     width: 100%;
     overflow: hidden;
@@ -190,21 +213,6 @@
     line-height: 14px;
     color: $black;
   }
-}
-
-.colabName {
-  font-style: normal;
-  font-weight: bold;
-  font-size: $text3;
-  line-height: 25px;
-  color: $black;
-  margin: 0;
-  margin-top: 20px;
-  text-overflow: ellipsis;
-  display: block;
-  width: 100%;
-  white-space: nowrap;
-  overflow: hidden;
 }
 
 .participantsContainer{
