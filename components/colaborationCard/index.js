@@ -50,7 +50,11 @@ const CollaborationCards = ({ label, client }) => {
     <Link href={`/manga-story/${label._id}`}>
       <a className={styles.colabWrap__item} onClick={navigateToManga}>
         <div className={styles.colabWrap__image}>
-          <img src="/img/getmangaf/collabCardBg.svg" />
+          {
+            label.gallery.length > 0
+            ? <img src={label.gallery[0]} />
+            : <img src="/img/getmangaf/collabCardBg.svg" />
+          }
         </div>
         <div className={styles.colabWrap__content}>
           <div className={styles.colabName}>{label.title}</div>
