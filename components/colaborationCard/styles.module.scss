@@ -9,15 +9,11 @@
 .colabWrap {
   &__item {
     display: flex;
-    flex-direction: column;
     align-items: flex-start;
-    // width: 325px;
     width: calc(25% - 30px);
-    min-height: 296px;
     background: #ffffff;
     box-shadow: 0px 0px 18px rgba(0, 0, 0, 0.08);
     border-radius: 10px;
-    padding: 16px 18px;
     margin: 0 15px;
     margin-bottom: 31px;
     transition: 0.5s;
@@ -40,6 +36,37 @@
       margin-bottom: 15px;
     }
   }
+  
+  &__image {
+    width: 50%;
+  }
+
+  &__content {
+    width: 50%;
+    padding: 0 8px;
+    padding-top: 30px;
+    height: 100%;
+    position: relative;
+
+    .colabName {
+      font-style: normal;
+      font-weight: bold;
+      font-size: $text3;
+      line-height: 25px;
+      color: $black;
+      margin: 0;
+      display: block;
+      width: 100%;
+      overflow: hidden;
+      size: 20px;
+      text-overflow: ellipsis;
+      margin-bottom: 20px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+  }
+
   &__top {
     width: 100%;
     overflow: hidden;
@@ -87,35 +114,40 @@
       opacity: 1;
     }
   }
+
+  &__nameContainer {
+    position: absolute;
+    bottom: 20px;
+  }
+
   &__name {
     display: flex;
     flex-direction: column;
-    padding-left: 13px;
-    width: calc(100% - 117px);
+    width: calc(100% - 10px);
   }
   &__authorName {
     font-style: normal;
     font-weight: bold;
-    font-size: $text4;
-    line-height: 25px;
+    font-size: $text7;
+    line-height: 20px;
     color: $black;
     overflow: hidden;
-    line-height: 25px;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     margin: 0;
-    text-overflow: ellipsis;
     display: block;
-    overflow: hidden;
     white-space: nowrap;
     width: 100%;
+    color: $gray85;
+    font-weight: 500;
+    text-overflow: ellipsis;
   }
   &__personage {
     color: $gray85;
     font-style: normal;
     font-weight: 500;
-    font-size: $text4;
+    font-size: $text7;
     line-height: 20px;
     margin: 0;
   }
@@ -143,9 +175,9 @@
   }
   &__bot {
     display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    flex-direction: column;
+    
+    justify-content: start;
     & > div{
       display: flex;
       align-items: center;
@@ -153,9 +185,6 @@
       color: $black;
       font-size: 15px;
       line-height: 20px;
-      & > div {
-        margin-left: 5px;
-      }
     }
   }
   &__progress {
@@ -190,21 +219,6 @@
     line-height: 14px;
     color: $black;
   }
-}
-
-.colabName {
-  font-style: normal;
-  font-weight: bold;
-  font-size: $text3;
-  line-height: 25px;
-  color: $black;
-  margin: 0;
-  margin-top: 20px;
-  text-overflow: ellipsis;
-  display: block;
-  width: 100%;
-  white-space: nowrap;
-  overflow: hidden;
 }
 
 .participantsContainer{
