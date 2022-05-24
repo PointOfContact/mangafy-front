@@ -5,11 +5,17 @@
   align-items: center;
   color: $black;
   font-weight: 500;
-  font-size: 15px;
+  font-size: 10px;
   line-height: 20px;
+  font-weight: 700;
+  background-color: $primaryDark;
+  border: 1px solid $primaryDark;
+  border-radius: 13px;
+  color: $primaryBG;
+  padding: 0 12px;
   span {
     margin-left: 5px;
-    color: $gray85;
+    color: $primaryBG;
   }
   svg {
     margin-right: 7px;

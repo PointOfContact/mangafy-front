@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
-
 import СardGenres from 'components/card-genres';
 import Imgix from 'components/imgix';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import myAmplitude from 'utils/amplitude';
-
+import ChapterContent from './chapterContent';
 import styles from './styles.module.scss';
 
 const CollaborationCards = ({ label, client }) => {
@@ -54,93 +53,27 @@ const CollaborationCards = ({ label, client }) => {
           <img src="/img/getmangaf/collabCardBg.svg" />
         </div>
         <div className={styles.colabWrap__content}>
-          <p className={styles.colabName}>{label.title}</p>
+          <div className={styles.colabName}>{label.title}</div>
           <div className={styles.colabWrap__bot}>
             <div>
               <СardGenres
                 title={'More Genres'}
-                subTitle={'💪 fan of all genres'}
+                subTitle={'💪 all genres'}
                 genres={label.genres}
                 limit={2}
               />
             </div>
             <div>
-              <СardGenres
-                title={'More Types'}
-                subTitle={'💪 fan of all types'}
-                genres={!!label?.projectType && [label?.projectType].map((val) => ({ name: val }))}
-                limit={2}
-              />
+              <ChapterContent label={label} />
+            </div>
+            <div className={styles.colabWrap__nameContainer}>
+              <div className={styles.colabWrap__name}>
+                <p className={styles.colabWrap__personage}>by:</p> 
+                <p className={styles.colabWrap__authorName}>{label.authorInfo.name}</p>
+              </div>
             </div>
           </div>
         </div>
-
-        {/* <div className={styles.colabWrap__top}>
-          <div className={cn(styles.avatar__img, styles.avatar__imgOnline)}>
-            <div className={styles.avatar__avatar}>
-              {label.authorInfo.avatar ? (
-                <Imgix
-                  width={47}
-                  height={47}
-                  layout="fixed"
-                  src={client.UPLOAD_URL + label.authorInfo.avatar}
-                  alt="Manga story cover"
-                />
-              ) : (
-                <Avatar text={label.authorInfo.name} fontSize={20} />
-              )}
-            </div>
-          </div>
-          <div>
-            <img src="/img/getmangaf/collabCardBg.svg" />
-          </div>
-          <div className={styles.colabWrap__name}>
-            <p className={styles.colabWrap__authorName}>{label.authorInfo.name}</p>
-            <p className={styles.colabWrap__personage}>Creator</p>
-            {/* <div className={styles.colabWrap__authorDescr}>{label.searchingFor[0]}</div> */}
-        {/* </div>
-          <div className={styles.language}> */}
-        {/* <SVGEnglish width={26} height={26} /> */}
-        {/* <p>{label.preferredLanguage}</p>
-            <p>{createdDate}</p>
-          </div>
-        </div>
-        <p className={styles.colabName}>{label.title}</p>
-        <div
-          className={styles.colabWrap__descr}
-          dangerouslySetInnerHTML={{
-            __html: label.story,
-          }}
-        />
-        <div className={styles.colabWrap__footer}>
-          <div className={styles.participantsContainer}>
-            {participantsInfo}
-            {!!label?.participentsInfo?.length && (
-              <span>{label?.participentsInfo?.length} participants</span>
-            )}
-          </div>
-          <div className={styles.colabWrap__bot}>
-            <div>
-              Genres:
-              <СardGenres
-                title={'More Genres'}
-                subTitle={'💪 fan of all genres'}
-                genres={label.genres}
-                limit={2}
-              />
-            </div>
-            <div>
-              Goal:
-              <СardGenres
-                title={'More Types'}
-                subTitle={'💪 fan of all types'}
-                genres={!!label?.projectType && [label?.projectType].map((val) => ({ name: val }))}
-                limit={2}
-              />
-            </div>
-          </div>
-          <ChapterContent label={label} /> */}
-        {/* </div>  */}
       </a>
     </Link>
   );
