@@ -25,6 +25,7 @@
     }
     svg {
         height: inherit;
+        fill: $black;
     }
     &_active {
         svg {
@@ -158,11 +159,21 @@
     &_enabled {
         background: $primaryDark;
         color: $white;
+        display: flex;
+        align-items: center;
         &:hover {
             background: $primaryLight;
         }
         &:active {
             background: $primaryDark;
+        }
+        &:after  {
+            margin-left: 0.5em;
+            content: '';
+            height: 0.6em;
+            aspect-ratio: 1;
+            background: url('cross.svg');
+            background-size: contain;
         }
     }
     &_disabled {

@@ -7,30 +7,16 @@ import AwesomeDebouncePromise from 'awesome-debounce-promise';
 
 import styles from './styles.module.scss'
 
-const applyFilters = (filters) => {
-    const parsed = qs.parse(location.search);
-    parsed.page = 1;
-    Router.push(
-      LinkCreator.toQuery({ ...parsed, ...filters }, '/collaborations-temp'),
-      LinkCreator.toQuery({ ...parsed, ...filters }, '/collaborations-temp'),
-      {
-        scroll: false,
-      }
-    );
-};
-
 const pushQuery = (query) => {
-    console.log(query)
     Router.push(
-        LinkCreator.toQuery(query, '/collaborations-temp'),
-        LinkCreator.toQuery(query, '/collaborations-temp'),
+        LinkCreator.toQuery(query, Router.pathname),
+        LinkCreator.toQuery(query, Router.pathname),
         { scroll: false }
     );
 }
 
 const applyFilter = ({ type, value }) => {
     const parsed = qs.parse(location.search);
-    console.log(parsed);
     parsed.page = 1;
     switch (type) {
         case 'genre':
@@ -67,10 +53,12 @@ const applyFilter = ({ type, value }) => {
         case 'compensationModel':
             if (parsed.compensationModel === value) delete parsed.compensationModel;
             else parsed.compensationModel = value;
+            break;
     
         case 'search':
             if (!value) delete parsed.search;
             else parsed.search = value;
+            break;
 
         default:
             break;
@@ -90,9 +78,9 @@ const SearchForCollaboratorsNew = (props) => {
     const compensationModels = ['paid', 'collaboration']
 
     const [isOpened, setIsOpened] = useState('false');
-    const [currentContent, setCurrentContent] = useState('search');
+    const [currentContent, setCurrentContent] = useState(null);
 
-    let parsedCompensationModels = useMemo(() => compensationModels.map(model => {
+    let preparedCompensationModels = useMemo(() => compensationModels.map(model => {
         let selected = false;
         let disabled = false;
         if (selectedCompensationModel && selectedCompensationModel !== model) disabled = true;
@@ -105,7 +93,7 @@ const SearchForCollaboratorsNew = (props) => {
         }
     }), [selectedCompensationModel])
 
-    let parsedGenres = useMemo(() => genres.map(genre => {
+    let preparedGenres = useMemo(() => genres.map(genre => {
         let selected = false;
         if (typeof selectedGenres === 'string' && selectedGenres === genre._id) selected = true;
         else if (Array.isArray(selectedGenres) && selectedGenres.includes(genre._id)) selected = true;
@@ -117,7 +105,7 @@ const SearchForCollaboratorsNew = (props) => {
         }
     }), [genres]);
 
-    let parsedArtistTypes = useMemo(() => userTypes.map(type => {
+    let preparedArtistTypes = useMemo(() => userTypes.map(type => {
         let selected = false;
         if (typeof selectedTypes === 'string' && selectedTypes === type.key) selected = true;
         else if (Array.isArray(selectedTypes) && selectedTypes.includes(type.key)) selected = true;
@@ -195,13 +183,13 @@ const SearchForCollaboratorsNew = (props) => {
                 defaultValue={search}/>;
             break;
         case 'compensationModel':
-            currentActiveElement = <Options options={parsedCompensationModels} type='compensationModel'/>
+            currentActiveElement = <Options options={preparedCompensationModels} type='compensationModel'/>
             break;
         case 'artistType':
-            currentActiveElement = <Options options={parsedArtistTypes} type='artistType'/>
+            currentActiveElement = <Options options={preparedArtistTypes} type='artistType'/>
             break;
         case 'genre':
-            currentActiveElement = <Options options={parsedGenres} type='genre'/>
+            currentActiveElement = <Options options={preparedGenres} type='genre'/>
             break;
     
         default:
@@ -237,7 +225,6 @@ const Options = ({ isActive, options, type }) => {
 const Option = ({ option, type }) => {
 
     const clickHandler = () => {
-        // console.log({type, value: option.value})
         applyFilter({type, value: option.value});
     }
     const classes = [styles.option];
@@ -253,7 +240,6 @@ const Option = ({ option, type }) => {
 }
 
 const SelectedFilters = ({ selectedOptions }) => {
-    // console.log(Array.isArray(selectedOptions))
     const selectedOptionsElements = Array.isArray(selectedOptions) 
         ? selectedOptions.map(option => <Option value={option.title} option={option} type={option.type}/>)
         : [];
