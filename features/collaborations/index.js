@@ -10,7 +10,7 @@ import FooterPolicy from 'components/footer-policy';
 import Header from 'components/header';
 import ModalCreateProject from 'components/modalCreateProject';
 import Paginations from 'components/paginations';
-import SearchForCollaborations from 'components/searchForCollaborations';
+import SearchForCollaborationsNew from 'components/searchForCollaborationsNew';
 import PrimaryButton from 'components/ui-elements/button';
 import ButtonToTop from 'components/ui-elements/button-toTop';
 import FooterLogin from 'features/footerLogin';
@@ -85,7 +85,7 @@ const Collaborations = (props) => {
           <Header path="collaborations" user={user} />
           <main>
             <CollaborationsHeader user={user} />
-            <SearchForCollaborations
+            <SearchForCollaborationsNew
               genres={genres}
               selectedGenres={selectedGenres}
               selectedCompensationModel={selectedCompensationModel}
