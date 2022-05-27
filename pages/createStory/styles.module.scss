@@ -1,0 +1,106 @@
+@import '../../styles/variables.scss';
+
+.container {
+  height: 100vh;
+  padding: 0;
+  width: 1200px;
+  margin: 0 auto;
+  
+  @media #{$media-lg} {
+    width: 991px;
+  }
+  
+  @media #{$media-md} {
+    width: 767px;
+  }
+
+  .content {
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 641px;
+
+    .title {
+      font-weight: 700;
+      font-size: $h4;
+      line-height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 57px;
+
+      &_type {
+        font-size: 45px;
+        justify-content: flex-start;
+        margin-bottom: 30px;
+      }
+    }
+
+    .inputContainer {
+      display: flex;
+      align-items: center;
+      margin-top: 30px;
+
+      &_type {
+        margin-top: 47px;
+      }
+
+      .mangafyClub {
+        font-weight: 700;
+        font-size: $text1;
+        line-height: 32px;
+        color: $gray85;
+        margin-right: 36px;
+        margin-left: 18px;
+      }
+
+      .primaryInput {
+        font-style: normal;
+        font-weight: 700;
+        font-size: 25px;
+        line-height: 22px;
+        color: $black;
+        border: 1px solid $gray85;
+        box-sizing: border-box;
+        border-radius: 10px;
+        padding: 18px 24px;
+      
+        &::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+          color: $gray85;
+          opacity: 1; /* Firefox */
+        }
+        
+        &:-ms-input-placeholder { /* Internet Explorer 10-11 */
+          color: $gray85;
+        }
+        
+        &::-ms-input-placeholder { /* Microsoft Edge */
+          color: $gray85;
+        }
+      
+        &_story {
+          width: 217px;
+          height: 67px;
+        }
+      
+        &_type {
+          height: 54px;
+          margin-right: 17px;
+        }
+      }
+    }
+
+    .descr {
+      font-weight: 500;
+      font-size: $text3;
+      line-height: 32px;
+      align-items: center;
+      text-align: center;
+      
+      &_type {
+        text-align: left;
+      }
+    }
+  }
+}
