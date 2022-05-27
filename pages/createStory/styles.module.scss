@@ -3,8 +3,12 @@
 .container {
   height: 100vh;
   padding: 0;
-  width: 1200px;
+  width: 100%;
   margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
   
   @media #{$media-lg} {
     width: 991px;
@@ -15,10 +19,7 @@
   }
 
   .content {
-    position: absolute;
-    top: 35%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    padding-bottom: 30vh;
     width: 641px;
 
     .title {
@@ -35,6 +36,11 @@
         justify-content: flex-start;
         margin-bottom: 30px;
       }
+
+      &_skip {
+        margin-bottom: 14px;
+        justify-content: flex-start;
+      }
     }
 
     .inputContainer {
@@ -44,6 +50,33 @@
 
       &_type {
         margin-top: 47px;
+      }
+
+      &_skip {
+        margin-top: 27px;
+      }
+      
+      .selectType {
+        width: 400px;
+        margin-right: 17px;
+        color: $grey;
+        font-size: 24px;
+
+        & > div {
+          height: 54px;
+          padding: 8px;
+          border-radius: 10px !important;
+          border: 1px solid $gray85 !important;
+          color: $black;
+
+          input {
+            margin-top: 8px;
+          }
+        }
+
+        &:hover > div {
+          border-color: $grey;
+        }
       }
 
       .mangafyClub {
@@ -89,6 +122,18 @@
           margin-right: 17px;
         }
       }
+    }
+
+    .skip {
+      color: $primaryDark;
+      font-family: 'Noto Sans JP';
+      font-style: normal;
+      font-weight: 400;
+      font-size: $text2;
+      line-height: $text2;
+      position: absolute;
+      bottom: 36px;
+      right: 36px;
     }
 
     .descr {
