@@ -18,9 +18,26 @@
     width: 767px;
   }
 
+  &_basics {
+    width: auto;
+    padding: 0 20px;
+    height: auto;
+    min-height: 100vh;
+  }
+
   .content {
     padding-bottom: 30vh;
     width: 641px;
+
+    &_basics {
+      flex-grow: 1;
+      width: auto;
+      max-width: 909px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1em 0;
+    }
 
     .title {
       font-weight: 700;
@@ -41,6 +58,12 @@
         margin-bottom: 14px;
         justify-content: flex-start;
       }
+
+      &_basics {
+        height: auto;
+        font-size: 45px;
+        line-height: 50px;
+      }
     }
 
     .inputContainer {
@@ -54,6 +77,11 @@
 
       &_skip {
         margin-top: 27px;
+      }
+
+      &_basics {
+        flex-direction: column;
+        align-self: stretch;
       }
       
       .selectType {
@@ -121,6 +149,23 @@
           height: 54px;
           margin-right: 17px;
         }
+
+        &_basics {
+          width: 100%;
+          padding: 25px 32px;
+          font-size: 18px;
+          font-weight: normal;
+          margin-bottom: 36px;
+          &:focus::placeholder {
+            transition: 0.1s;
+            opacity: 0;
+          }
+        }
+      }
+
+      .textarea {
+        overflow-y: hidden;
+        resize: none;
       }
     }
 
@@ -146,6 +191,18 @@
       &_type {
         text-align: left;
       }
+
+      &_basics {
+        font-size: 18px;
+        max-width: 776px;
+        text-align: left;
+      }
+    }
+
+    .button {
+      &_basics {
+        align-self: flex-start;
+      } 
     }
   }
 }
