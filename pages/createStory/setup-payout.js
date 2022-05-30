@@ -7,19 +7,15 @@ const SetupPayout = () => {
     return (
         <div className={cn(styles.container)}>
             <div className={cn(styles.content)}>
-                <div className={cn(styles.title, styles.title_skip)}>Accept donations</div>
-                <div className={cn(styles.descr, styles.descr_type)}>Setup instant payouts to your paypal account</div>
-                <div className={cn(styles.inputContainer , styles.inputContainer_skip)}>
-                    <input type='text' className={cn(styles.primaryInput, styles.primaryInput_type)} placeholder='Your paypal account'></input>
+                <div className={cn(styles.title)}>Accept donations</div>
+                <div className={cn(styles.descr)}>Setup instant payouts to your paypal account</div>
+                <input type='text' className={cn(styles.input)} placeholder='Your paypal account'></input>
+                <div className={styles.buttons}>
                     <PrimaryButton
                         text="Let’s go"
-                        splitterStyle={{
-                            width: '143px',
-                            height: '54px',
-                        }}
-                        />
+                    />
                 </div>
-                <span className={cn(styles.skip)}>Skip for now</span>
+                <button className={cn(styles.skip)}>Skip for now</button>
             </div>
         </div>
     )

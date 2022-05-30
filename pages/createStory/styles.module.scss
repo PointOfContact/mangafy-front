@@ -1,151 +1,295 @@
 @import '../../styles/variables.scss';
 
 .container {
-  height: 100vh;
+  min-height: 100vh;
   padding: 0;
-  width: 100%;
-  margin: 0 auto;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   position: relative;
-  
-  @media #{$media-lg} {
-    width: 991px;
-  }
-  
-  @media #{$media-md} {
-    width: 767px;
-  }
-
+    
   .content {
-    padding-bottom: 30vh;
-    width: 641px;
+    max-width: 600px;
+    flex: 1 1 600px;
+    font-size: $text3;
+    @include media-sm {
+      font-size: $text4;
+      padding: 0 1em;
+    }
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 
     .title {
       font-weight: 700;
       font-size: $h4;
-      line-height: 32px;
+      line-height: 1.1em;
+      margin-bottom: 0.3em;
+    }
+    .descr {
+      margin-bottom: 2em;
+    }
+    .input {
+      color: $black;
+      border: 1px solid $gray85;
+      border-radius: 10px;
+      padding: 10px 20px;
+      transition: 0.2s;
+      &::placeholder {
+        transition: 0.2s;
+        color: $gray85;
+      }
+      &:focus {
+        border-color: $primaryDark;
+        &::placeholder {
+          opacity: 0;
+        }
+      }
+    }
+    .textarea {
+      overflow: hidden;
+      resize: none;
+    }
+    .select {
+      margin-bottom: 2em;
+      color: $black;
+      border: 1px solid $gray85;
+      border-radius: 10px;
+      padding: 10px 20px;
+      font-weight: normal;
+      font-size: inherit;
+      &:focus {
+        border-color: $primaryDark;
+      }
+    }
+    .multiselect {
+      width: 100%;
+    }
+    .createStoryForm {
+      align-self: stretch;
       display: flex;
       align-items: center;
-      justify-content: center;
-      height: 57px;
-
-      &_type {
-        font-size: 45px;
-        justify-content: flex-start;
-        margin-bottom: 30px;
+      // margin-bottom: 2em;
+      .input {
+        margin-right: 0.5em;
+        flex: 1 1 auto;
+        @include media-xs {
+          width: 200px;
+        }
+        &:focus~.mangafy {
+          transition: 0.2s;
+          color: $black;
+        }
       }
-
-      &_skip {
-        margin-bottom: 14px;
-        justify-content: flex-start;
+      .mangafy {
+        color: $gray85;
+      }
+    }
+    .basicsForm {
+      display: flex;
+      flex-direction: column;
+      align-self: stretch;
+      .input {
+        margin-bottom: 1em;
+      }
+    }
+    .signUpForm {
+      display: flex;
+      flex-direction: column;
+      width: max-content;
+      width: 100%;
+      margin-top: 0.8em;
+      .input {
+        margin-bottom: 0.5em;
+      }
+    }
+    .signUpWith {
+      margin-top: 1em;
+      &__label {
+        margin-bottom: 0.5em;
+      }
+      &__buttons {
+        display: flex;
+        .signUpButton:not(:last-child) {
+          margin-right: 0.5em;
+        }
+      }
+    }
+    .signUpButton {
+      padding: 10px 30px;
+      background: #fff;
+      border-radius: 5px;
+      border: 1px solid $gray85;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      &:active {
+        background: $white;
+        border-color: $primaryDark;
+        color: $primaryDark;
+      }
+      &:hover {
+        border-color: $primaryDark;
+        color: $primaryDark;
+      }
+      &_google:before {
+        content: url('./img/google-icon.svg');
+        width: 1em;
+        height: 1.4em;
+        margin-right: 0.5em;
+        // aspect-ratio: 1;
+      }
+      &_facebook:before {
+        content: url('./img/facebook-icon.svg');
+        width: 1.1em;
+        height: 1.3em;
+        margin-right: 0.5em;
+        aspect-ratio: 1;
       }
     }
 
-    .inputContainer {
+    .buttons {
+      margin-top: 1em;
+      align-self: stretch;
       display: flex;
-      align-items: center;
-      margin-top: 30px;
-
-      &_type {
-        margin-top: 47px;
+      // justify-content: flex-end;
+    }
+    .shareLabel {
+      display: flex;
+      align-items: stretch;
+      color: $primaryDark;
+    }
+    .copyButton {
+      margin-left: 1em;
+      width: 1.5em;
+      background-image: url('./img/copy-icon.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      cursor: pointer;
+      transition: 0.2s;
+      &:hover {
+        opacity: 0.8;
       }
-
-      &_skip {
-        margin-top: 27px;
+    }
+    .shareButton {
+      width: 40px;
+      height: 40px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      transition: 0.2;
+      &:hover {
+        opacity: 0.8;
       }
-      
-      .selectType {
-        width: 400px;
-        margin-right: 17px;
-        color: $grey;
-        font-size: 24px;
-
-        & > div {
-          height: 54px;
-          padding: 8px;
-          border-radius: 10px !important;
-          border: 1px solid $gray85 !important;
-          color: $black;
-
-          input {
-            margin-top: 8px;
-          }
-        }
-
-        &:hover > div {
-          border-color: $grey;
-        }
+      &_twitter {
+        background-image: url('./img/social-twitter.png');
       }
-
-      .mangafyClub {
-        font-weight: 700;
-        font-size: $text1;
-        line-height: 32px;
-        color: $gray85;
-        margin-right: 36px;
-        margin-left: 18px;
+      &_facebook {
+        background-image: url('./img/social-facebook.png');
       }
-
-      .primaryInput {
-        font-style: normal;
-        font-weight: 700;
-        font-size: 25px;
-        line-height: 22px;
-        color: $black;
-        border: 1px solid $gray85;
-        box-sizing: border-box;
-        border-radius: 10px;
-        padding: 18px 24px;
-      
-        &::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-          color: $gray85;
-          opacity: 1; /* Firefox */
-        }
-        
-        &:-ms-input-placeholder { /* Internet Explorer 10-11 */
-          color: $gray85;
-        }
-        
-        &::-ms-input-placeholder { /* Microsoft Edge */
-          color: $gray85;
-        }
-      
-        &_story {
-          width: 217px;
-          height: 67px;
-        }
-      
-        &_type {
-          height: 54px;
-          margin-right: 17px;
-        }
+      &_instagram {
+        background-image: url('./img/social-instagram.png');
+      }
+      &_whatsapp {
+        background-image: url('./img/social-whatsapp.png');
       }
     }
 
     .skip {
       color: $primaryDark;
-      font-family: 'Noto Sans JP';
-      font-style: normal;
-      font-weight: 400;
-      font-size: $text2;
-      line-height: $text2;
       position: absolute;
       bottom: 36px;
       right: 36px;
-    }
-
-    .descr {
-      font-weight: 500;
-      font-size: $text3;
-      line-height: 32px;
-      align-items: center;
-      text-align: center;
-      
-      &_type {
-        text-align: left;
+      &:hover {
+        text-decoration: underline;
       }
+    }
+  }
+}
+
+.multiSelect {
+  border: 1px solid $gray85;
+  border-radius: 10px;
+  padding: 10px 10px 0 10px;
+  transition: 0.2s;
+  color: $black;
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  &:focus {
+    border-color: $primaryDark;
+      &::placeholder {
+        opacity: 0;
+      }
+  }
+  &__input {
+    border: none;
+    padding: 0;
+    flex: 1 1 auto;
+    margin-bottom: 10px;
+    &::placeholder {
+      transition: 0.2s;
+      color: $gray85;
+    }
+    &:focus {
+      border-color: $primaryDark;
+      &::placeholder {
+        opacity: 0;
+      }
+    }
+  }
+  &__selected {
+    background: $primaryDark;
+    color: #fff;
+    border-radius: 20px;
+    padding: 0 0.7em 0 1em;
+    margin-right: 0.3em;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    &:after  {
+      margin-left: 0.5em;
+      content: '';
+      height: 0.6em;
+      aspect-ratio: 1;
+      background: url('./img/cross.svg');
+      background-size: contain;
+    }
+  }
+  &__options {
+    min-width: 40%;
+    @include media-sm {
+      min-width: 100%;
+    }
+    position: absolute;
+    top: 110%;
+    right: 0;
+    z-index: 1;
+    // transform: translate(-50%);
+    background: #fff;
+    border: 1px solid $white;
+    box-shadow: 5px 5px 20px rgba($color: $black, $alpha: 0.1);
+    border-radius: 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    transition: 0.1s;
+    max-height: 200px;
+    &_hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+  &__option {
+    &_active {
+      background: $white;
+      color: $primaryDark;
+    }
+    padding: 0.2em 0.6em;
+    cursor: pointer;
+    transition: 0.2s;
+    color: $gray85;
+    &:hover {
+      background: $white;
     }
   }
 }
