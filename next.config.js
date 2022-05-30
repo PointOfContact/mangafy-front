@@ -3,7 +3,6 @@
 // const withSourceMaps = require('@zeit/next-source-maps')();
 // const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
 const ImgixClient = require('@imgix/js-core');
-const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const withPlugins = require('next-compose-plugins');
 // const SentryWebpackPlugin = require('@sentry/webpack-plugin');
 const resolve = require('resolve');
@@ -61,11 +60,6 @@ const nextConfigs = {
   webpack(webpackConfig, options) {
     Object.assign(webpackConfig.resolve.alias, aliases);
 
-    webpackConfig.plugins.push(
-      new MomentLocalesPlugin({
-        localesToKeep: ['es-us'],
-      })
-    );
     // webpackConfig.plugins.push(new DuplicatePackageCheckerPlugin());
 
     if (options.defaultLoaders.babel.options.plugins === undefined) {
