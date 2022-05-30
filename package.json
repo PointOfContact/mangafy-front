@@ -34,7 +34,7 @@
     "@typeform/embed": "^1.35.1",
     "amplitude": "^5.2.0",
     "amplitude-js": "^8.13.1",
-    "antd": "^4.12.2",
+    "antd": "^4.20.7",
     "awesome-debounce-promise": "^2.1.0",
     "axios": "^0.27.2",
     "classnames": "^2.2.6",
