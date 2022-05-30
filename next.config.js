@@ -49,6 +49,7 @@ const nextConfigs = {
   // experimental: {
   //   scss: true,
   // },
+  reactStrictMode: true,
   images: {
     domains: ['mangafy.club', 'ui-avatars.com', 'mangafy.imgix.net'],
     loader: 'imgix',
