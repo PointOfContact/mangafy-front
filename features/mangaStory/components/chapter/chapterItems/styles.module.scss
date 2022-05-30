@@ -40,7 +40,7 @@
 .chapterItem {
   display: flex;
   margin-top: 40px;
-  align-items: end;
+  align-items: flex-end;
   @include media-sm {
     align-items: initial;
     flex-direction: column;
