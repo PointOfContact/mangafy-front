@@ -12,7 +12,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 });
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const withBabelMinify = require('next-babel-minify')({});
-const _imageConfig = require('next/dist/next-server/server/image-config');
+// const _imageConfig = require('next/dist/next-server/server/image-config');
 
 const path = require('path');
 
@@ -46,17 +46,17 @@ if (typeof require !== 'undefined') {
 }
 
 const nextConfigs = {
-  experimental: {
-    scss: true,
-  },
+  // experimental: {
+  //   scss: true,
+  // },
   images: {
     domains: ['mangafy.club', 'ui-avatars.com', 'mangafy.imgix.net'],
     loader: 'imgix',
     path: 'https://mangafy.imgix.net',
   },
-  future: {
-    webpack5: true,
-  },
+  // future: {
+  //   webpack5: true,
+  // },
   webpack(webpackConfig, options) {
     Object.assign(webpackConfig.resolve.alias, aliases);
 
@@ -203,8 +203,8 @@ const nextConfigs = {
   },
 };
 
-_imageConfig.imageConfigDefault.domains = ['mangafy.club', 'ui-avatars.com', 'mangafy.imgix.net'];
-_imageConfig.imageConfigDefault.loader = 'imgix';
-_imageConfig.imageConfigDefault.path = 'https://mangafy.imgix.net';
+// _imageConfig.imageConfigDefault.domains = ['mangafy.club', 'ui-avatars.com', 'mangafy.imgix.net'];
+// _imageConfig.imageConfigDefault.loader = 'imgix';
+// _imageConfig.imageConfigDefault.path = 'https://mangafy.imgix.net';
 
 module.exports = withPlugins([[withBundleAnalyzer], [withBabelMinify]], nextConfigs);
