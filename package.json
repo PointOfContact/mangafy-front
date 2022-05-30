@@ -31,7 +31,7 @@
     "@paypal/react-paypal-js": "^6.0.1",
     "@sentry/browser": "^5.30.0",
     "@sentry/node": "^5.30.0",
-    "@typeform/embed": "^0.34.6",
+    "@typeform/embed": "^1.35.1",
     "@umijs/hooks": "^1.9.3",
     "amplitude": "^5.1.4",
     "amplitude-js": "^8.13.1",
