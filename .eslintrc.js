@@ -19,7 +19,7 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
-    'airbnb-base',
+    // 'airbnb-base',
     'prettier',
     'prettier/react',
   ],
