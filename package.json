@@ -32,7 +32,7 @@
     "@sentry/browser": "^5.30.0",
     "@sentry/node": "^5.30.0",
     "@typeform/embed": "^1.35.1",
-    "amplitude": "^5.2.0",
+    "amplitude": "^6.0.0",
     "amplitude-js": "^8.13.1",
     "antd": "^4.20.7",
     "awesome-debounce-promise": "^2.1.0",
