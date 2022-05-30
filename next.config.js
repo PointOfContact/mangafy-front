@@ -10,7 +10,6 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const withBabelMinify = require('next-babel-minify')({});
 // const _imageConfig = require('next/dist/next-server/server/image-config');
 
 const path = require('path');
@@ -202,4 +201,4 @@ const nextConfigs = {
 // _imageConfig.imageConfigDefault.loader = 'imgix';
 // _imageConfig.imageConfigDefault.path = 'https://mangafy.imgix.net';
 
-module.exports = withPlugins([[withBundleAnalyzer], [withBabelMinify]], nextConfigs);
+module.exports = withPlugins([[withBundleAnalyzer]], nextConfigs);
