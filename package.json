@@ -32,7 +32,6 @@
     "@sentry/browser": "^5.30.0",
     "@sentry/node": "^5.30.0",
     "@typeform/embed": "^1.35.1",
-    "@umijs/hooks": "^1.9.3",
     "amplitude": "^5.2.0",
     "amplitude-js": "^8.13.1",
     "antd": "^4.12.2",

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 
-import { useClickAway } from '@umijs/hooks';
 import { notification } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
@@ -13,9 +12,9 @@ import styles from './styles.module.scss';
 const ProfileStages = ({ userData }) => {
   const [visible, setVisible] = useState(true);
   const [quests, setQuests] = useState([]);
-  const ref = useClickAway(() => {
-    setVisible(false);
-  });
+  // const ref = useClickAway(() => {
+  //   setVisible(false);
+  // });
   useEffect(() => {
     getAllQuests();
   }, [userData]);
