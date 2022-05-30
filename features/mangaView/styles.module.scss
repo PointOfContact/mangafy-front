@@ -1,4 +1,6 @@
+@use "sass:math";
 @import '../../styles/variables.scss';
+
 $borderColor: rgb(233, 232, 232);
 $trans: transparent;
 $block: #fffafa;
@@ -43,8 +45,12 @@ $subLineAlpha: 0.5;
     linear-gradient(90deg, $line 1px, $trans 1px), linear-gradient(90deg, $line 1px, $trans 1px),
     linear-gradient($trans 3px, $block 3px, $block $gridSize - 2, $trans $gridSize - 2),
     linear-gradient(90deg, $line 3px, $trans 3px, $trans $gridSize - 2, $line 3px $gridSize - 2);
-  background-size: $gridSize / $subdivisions $gridSize / $subdivisions, $gridSize $gridSize,
-    $gridSize / $subdivisions $gridSize / $subdivisions, $gridSize $gridSize, $gridSize $gridSize,
+  background-size:
+    math.div($gridSize, $subdivisions) math.div($gridSize, $subdivisions),
+    $gridSize $gridSize,
+    math.div($gridSize, $subdivisions) math.div($gridSize,$subdivisions),
+    $gridSize $gridSize,
+    $gridSize $gridSize,
     $gridSize $gridSize;
   .shareButPreview {
     margin-bottom: 20px;
