@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "ENVIRONMENT=envs/.env.development node server.js",
+    "dev": "ENVIRONMENT=envs/.env.development next dev",
     "build": "ENVIRONMENT=envs/.env.staging next build",
     "build:prod": "ENVIRONMENT=envs/.env.production next build",
     "start": "ENVIRONMENT=envs/.env.staging next start -p $PORT",
