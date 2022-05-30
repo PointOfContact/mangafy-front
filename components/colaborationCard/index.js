@@ -72,7 +72,7 @@ const CollaborationCards = ({ label, client, href }) => {
             </div>
             <div className={styles.colabWrap__nameContainer}>
               <div className={styles.colabWrap__name}>
-                <p className={styles.colabWrap__personage}>by:</p> 
+                <p className={styles.colabWrap__personage}>by:</p>
                 <p className={styles.colabWrap__authorName}>{label.authorInfo.name}</p>
               </div>
             </div>
