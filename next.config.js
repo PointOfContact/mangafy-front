@@ -9,7 +9,7 @@ const resolve = require('resolve');
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+// const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 // const _imageConfig = require('next/dist/next-server/server/image-config');
 
 const path = require('path');
@@ -65,41 +65,41 @@ const nextConfigs = {
   webpack(webpackConfig, options) {
     Object.assign(webpackConfig.resolve.alias, aliases);
 
-    if (options.defaultLoaders.babel.options.plugins === undefined) {
-      options.defaultLoaders.babel.options.plugins = [];
-    }
-    options.defaultLoaders.babel.options.plugins.push([
-      'import',
-      {
-        libraryName: 'antd',
-      },
-    ]);
+    // if (options.defaultLoaders.babel.options.plugins === undefined) {
+    //   options.defaultLoaders.babel.options.plugins = [];
+    // }
+    // options.defaultLoaders.babel.options.plugins.push([
+    //   'import',
+    //   {
+    //     libraryName: 'antd',
+    //   },
+    // ]);
 
-    webpackConfig.module.rules.push({
-      test: /\.(js|jsx)$/,
-      use: [options.defaultLoaders.babel],
-      exclude: /node_modules/,
-    });
+    // webpackConfig.module.rules.push({
+    //   test: /\.(js|jsx)$/,
+    //   use: [options.defaultLoaders.babel],
+    //   exclude: /node_modules/,
+    // });
 
-    webpackConfig.module.rules.push({
-      test: /\.(ts|tsx)$/,
-      include: Object.values(aliases),
-      use: [
-        {
-          ...options.defaultLoaders.babel,
-          options: {
-            ...options.defaultLoaders.babel.options,
-          },
-        },
-      ],
-      exclude: /node_modules/,
-    });
+    // webpackConfig.module.rules.push({
+    //   test: /\.(ts|tsx)$/,
+    //   include: Object.values(aliases),
+    //   use: [
+    //     {
+    //       ...options.defaultLoaders.babel,
+    //       options: {
+    //         ...options.defaultLoaders.babel.options,
+    //       },
+    //     },
+    //   ],
+    //   exclude: /node_modules/,
+    // });
 
-    webpackConfig.optimization.minimize = true;
-    webpackConfig.optimization.minimizer = [];
-    if (Array.isArray(webpackConfig.optimization.minimizer)) {
-      webpackConfig.optimization.minimizer.push(new CssMinimizerPlugin());
-    }
+    // webpackConfig.optimization.minimize = true;
+    // webpackConfig.optimization.minimizer = [];
+    // if (Array.isArray(webpackConfig.optimization.minimizer)) {
+    //   webpackConfig.optimization.minimizer.push(new CssMinimizerPlugin());
+    // }
 
     webpackConfig.module.rules.unshift({
       test: /pdf\.worker\.(min\.)?js/,
