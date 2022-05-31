@@ -11,13 +11,13 @@
     "start:prod": "ENVIRONMENT=envs/.env.production NODE_ENV=production next start -p 5050",
     "optimize-svg": "svgo --config=.svgo.yml -f ./public/icons",
     "convert-svg": "svgr -d ./components/icon ./public/icons && npm run format:icons",
-    "lint": "eslint --fix .",
+    "lint": "next lint",
     "format:icons": "prettier --write ./components/icon/*js --config ./.prettierrc",
     "format": "prettier --write . --config ./.prettierrc"
   },
   "engines": {
-    "npm": "6.x",
-    "node": "^12.0.0"
+    "npm": ">=6.x",
+    "node": "^18.x"
   },
   "plugins": [],
   "dependencies": {
@@ -68,18 +68,9 @@
   },
   "devDependencies": {
     "@svgr/cli": "^6.2.1",
-    "@typescript-eslint/eslint-plugin": "^4.15.0",
-    "babel-eslint": "^10.1.0",
     "css-minimizer-webpack-plugin": "^3.4.1",
-    "eslint": "^7.19.0",
-    "eslint-config-prettier": "^7.2.0",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-jsx-a11y": "^6.4.1",
-    "eslint-plugin-no-inline-styles": "^1.0.5",
-    "eslint-plugin-prettier": "^3.3.1",
-    "eslint-plugin-react": "^7.21.5",
-    "eslint-plugin-react-hooks": "^4.2.0",
-    "eslint-plugin-unused-imports": "^1.1.0",
+    "eslint": "^8.16.0",
+    "eslint-config-next": "12.1.6",
     "sass": "^1.32.6",
     "svgo": "^2.8.0",
     "webpack": "^5.24.3"

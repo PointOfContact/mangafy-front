@@ -47,6 +47,12 @@ const nextConfigs = {
   // experimental: {
   //   scss: true,
   // },
+  eslint: {
+    // Warning: This allows production builds to successfully complete even if
+    // your project has ESLint errors.
+    ignoreDuringBuilds: true,
+  },
+  swcMinify: true,
   reactStrictMode: true,
   images: {
     domains: ['mangafy.club', 'ui-avatars.com', 'mangafy.imgix.net'],
@@ -58,8 +64,6 @@ const nextConfigs = {
   // },
   webpack(webpackConfig, options) {
     Object.assign(webpackConfig.resolve.alias, aliases);
-
-    // webpackConfig.plugins.push(new DuplicatePackageCheckerPlugin());
 
     if (options.defaultLoaders.babel.options.plugins === undefined) {
       options.defaultLoaders.babel.options.plugins = [];
@@ -76,6 +80,7 @@ const nextConfigs = {
       use: [options.defaultLoaders.babel],
       exclude: /node_modules/,
     });
+
     webpackConfig.module.rules.push({
       test: /\.(ts|tsx)$/,
       include: Object.values(aliases),
