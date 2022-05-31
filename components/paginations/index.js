@@ -24,7 +24,7 @@ const Paginations = ({
 }) => {
   const getPageLink = (page) => {
     const parsed = qs.parse(window.location.search);
-    return `${prefix}/${LinkCreator.toQuery({ ...parsed, page })}`;
+    return `${prefix}${LinkCreator.toQuery({ ...parsed, page })}`;
   };
   return (
     <div className={'paginations'}>

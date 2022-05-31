@@ -13,6 +13,8 @@ const myLoader = ({ src, width, quality }) =>
     ? imgixClient.buildURL(src, { w: width, q: quality, auto: 'format', fit: 'max' })
     : src;
 
-const Imgix = (props) => <Image loader={myLoader} {...props} />;
+const optimized = process.env.NEXT_PUBLIC_GET_IMGIX === 'true'
+
+const Imgix = (props) => <Image loader={myLoader} {...props} unoptimized={!optimized} />;
 
 export default Imgix;

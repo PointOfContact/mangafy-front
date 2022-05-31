@@ -246,7 +246,7 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
       />
       <pre ref={messageListElement} className={styles.messageList} id="message-content">
         <MessageList
-          ref={messenger}
+          referance={messenger}
           className={styles.message_list}
           lockable={false}
           toBottomHeight={'100%'}

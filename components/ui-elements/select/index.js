@@ -40,7 +40,7 @@ function PrimarySelect({
         </Option>
       ))
     );
-  }, [optionsSelected, options]);
+  }, [optionsSelected, options, countLimit]);
 
   const handleChange = (arrayValues) => {
     setOptionsSelected(arrayValues);

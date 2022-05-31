@@ -9,7 +9,7 @@ import styles from './styles.module.scss';
 function PrimaryInput({ inputRef, className, isFullWidth, isLinear, isSmall, onChange, ...rest }) {
   return (
     <Input
-      ref={inputRef}
+      {...inputRef}
       className={cn(
         styles.primary_input,
         className,

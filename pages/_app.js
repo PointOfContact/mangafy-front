@@ -35,7 +35,7 @@ export default function MyApp({ Component, pageProps, err }) {
         console.log('visitorIdvisitorIdvisitorId', visitorId);
         initAmplitude(visitorId, pageProps?.user);
       });
-  }, []);
+  }, [pageProps?.user]);
 
   const router = useRouter();
 
@@ -70,7 +70,7 @@ export default function MyApp({ Component, pageProps, err }) {
       router.events.off('routeChangeStart', handleRouteChange);
       router.events.off('routeChangeComplete', handleRouteChangeComplete);
     };
-  }, []);
+  }, [router.events]);
 
   return (
     <>

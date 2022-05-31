@@ -9,7 +9,7 @@ const DeleteProject = ({ userId, mangaStoryId, setIsModalVisible }) => {
   const onSubmit = useCallback(async () => {
     Router.push(`/profile/${userId}`);
     setIsModalVisible(false);
-  }, []);
+  }, [userId]);
 
   useEffect(() => {
     import('@typeform/embed').then((typeformEmbed) => {
@@ -24,7 +24,7 @@ const DeleteProject = ({ userId, mangaStoryId, setIsModalVisible }) => {
         }
       );
     });
-  }, [typeformRef, onSubmit]);
+  }, [typeformRef, onSubmit, userId, mangaStoryId]);
 
   return <div ref={typeformRef} style={{ height: '100%', width: '100%' }} />;
 };

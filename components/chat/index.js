@@ -53,7 +53,7 @@ export const Chat = ({ mangaStory, user, isOwn, collabActiveTab }) => {
       // getRequest();
       getConversation();
     }
-  }, [collabActiveTab]);
+  }, [collabActiveTab, getConversation]);
 
   return (
     <div>
