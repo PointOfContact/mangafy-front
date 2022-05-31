@@ -90,7 +90,7 @@ const ModalCreateProject = ({ createProjectModal, showCreateProjectModal, user }
       footer={null}>
       <h1 className={styles.title}>Bring your creative project to life.</h1>
       <p className={styles.description}>
-        You can get your work on your fan's walls with a MangaFY project, whether you work alone or
+        You can get your work on your fan&apos;s walls with a MangaFY project, whether you work alone or
         with a team.
       </p>
       <div className={styles.containerCreateProject}>

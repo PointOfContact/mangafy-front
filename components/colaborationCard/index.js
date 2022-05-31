@@ -15,7 +15,7 @@ const CollaborationCards = ({ label, client, href }) => {
   useEffect(() => {
     const date = label.createdAt.substring(0, 10);
     setCreatedDate(date);
-  }, []);
+  }, [label.createdAt]);
 
   useEffect(() => {
     const participants = label.participentsInfo.map((value, index) => {
@@ -34,7 +34,7 @@ const CollaborationCards = ({ label, client, href }) => {
       return <></>;
     });
     setParticipantsInfo(participants);
-  }, [label.participentsInfo]);
+  }, [label.participentsInfo, client.UPLOAD_URL]);
 
   const navigateToManga = () => {
     const eventData = [
@@ -52,8 +52,8 @@ const CollaborationCards = ({ label, client, href }) => {
         <div className={styles.colabWrap__image}>
           {
             label.gallery.length > 0
-            ? <img src={label.gallery[0]} />
-            : <img src="/img/getmangaf/collabCardBg.svg" />
+            ? <img src={label.gallery[0]} alt="" />
+            : <img src="/img/getmangaf/collabCardBg.svg" alt="" />
           }
         </div>
         <div className={styles.colabWrap__content}>

@@ -22,7 +22,7 @@ export const ChooseLayout = ({ storyBoard, setStoryBoard }) => {
       },
       (err) => {}
     );
-  }, []);
+  }, [storyBoard?.layoutId]);
 
   const changeSelectedBoard = (id) => {
     const storys = layouts;

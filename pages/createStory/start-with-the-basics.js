@@ -3,7 +3,7 @@ import styles from './styles.module.scss';
 import cn from 'classnames';
 import PrimaryButton from 'components/ui-elements/button';
 
-export default () => {
+const StepperDomainName = () => {
 
     const textareaRef = useRef(null);
     const textareaAutoresize = () => {
@@ -20,8 +20,8 @@ export default () => {
                 <h4 className={cn(styles.title)}>Start with the basics</h4>
                 <p className={cn(styles.descr)}>Give your project a clear title and subtitle that will help people understand it quickly. The titles and subtitles will appear on your project and pre-launch pages.</p>
                 <div className={cn(styles.basicsForm)}>
-                    <input 
-                        type="text" 
+                    <input
+                        type="text"
                         className={cn(styles.input)}
                         placeholder='Series Title'/>
                     <textarea
@@ -40,3 +40,5 @@ export default () => {
         </div>
     )
 }
+
+export default StepperDomainName;

@@ -91,7 +91,7 @@ const SearchForCollaboratorsNew = (props) => {
             disabled,
             selected
         }
-    }), [selectedCompensationModel])
+    }), [compensationModels, selectedCompensationModel])
 
     let preparedGenres = useMemo(() => genres.map(genre => {
         let selected = false;
@@ -103,7 +103,7 @@ const SearchForCollaboratorsNew = (props) => {
             disabled: false,
             selected
         }
-    }), [genres]);
+    }), [genres, selectedGenres]);
 
     let preparedArtistTypes = useMemo(() => userTypes.map(type => {
         let selected = false;
@@ -115,7 +115,7 @@ const SearchForCollaboratorsNew = (props) => {
             disabled: false,
             selected
         }
-    }), [genres]);
+    }), [selectedTypes, userTypes]);
 
     const searchChangeHandler = (event) => {
         const value = event.target.value;
@@ -173,7 +173,7 @@ const SearchForCollaboratorsNew = (props) => {
 
         return selectedFilters;
 
-    }, [selectedCompensationModel, selectedGenres, selectedTypes])
+    }, [selectedCompensationModel, selectedGenres, selectedTypes, genres, userTypes])
 
     let currentActiveElement = null;
     switch (currentContent) {
