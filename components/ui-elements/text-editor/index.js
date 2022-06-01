@@ -1,12 +1,12 @@
 import React from 'react';
 
-import 'react-quill/dist/quill.snow.css';
+import '@bloogrox/react-quill/dist/quill.snow.css';
 import dynamic from 'next/dynamic';
 import PropTypes, { any } from 'prop-types';
 
 import styles from './styles.module.scss';
 
-const QuillNoSSRWrapper = dynamic(import('react-quill'), {
+const QuillNoSSRWrapper = dynamic(import('@bloogrox/react-quill'), {
   ssr: false,
   // eslint-disable-next-line react/display-name
   loading: () => <p>Loading ...</p>,

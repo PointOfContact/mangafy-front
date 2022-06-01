@@ -7,7 +7,7 @@ import * as Sentry from '@sentry/node';
 import { notification } from 'antd';
 import { DefaultSeo } from 'next-seo';
 import { useRouter } from 'next/router';
-import 'react-quill/dist/quill.snow.css';
+import '@bloogrox/react-quill/dist/quill.snow.css';
 import '../styles/landing/landing.css';
 
 import { initAmplitude } from '../utils/amplitude';

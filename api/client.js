@@ -2,8 +2,6 @@ import auth from '@feathersjs/authentication-client';
 import feathers from '@feathersjs/feathers';
 import rest from '@feathersjs/rest-client';
 
-const fetch = require('node-fetch');
-
 // import socketio from '@feathersjs/socketio-client';
 // import io from 'socket.io-client';
 
@@ -33,9 +31,7 @@ const restClient = rest(API_ENDPOINT);
 
 // const client = feathers().configure(socketio(socket)).configure(auth(options));
 
-const client = is_server()
-  ? feathers().configure(restClient.fetch(fetch)).configure(auth(options))
-  : feathers().configure(restClient.fetch(window.fetch)).configure(auth(options));
+const client = feathers().configure(restClient.fetch(fetch)).configure(auth(options));
 
 client.service('api/v2/users');
 client.service('/counters');
@@ -58,8 +54,4 @@ function getCookie(cname) {
     }
   }
   return '';
-}
-
-function is_server() {
-  return !(typeof window !== 'undefined' && window.document);
 }
