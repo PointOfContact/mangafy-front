@@ -1,5 +1,4 @@
 import '../styles/terms.module.scss';
-import '../styles/policy.css';
 
 import React, { Component } from 'react';
 import Link from 'next/link';
