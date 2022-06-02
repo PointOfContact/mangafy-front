@@ -38,6 +38,7 @@
   }
 
   &__image {
+    background: $primaryDark;
     width: 50%;
     height: 100%;
     img {
@@ -48,6 +49,8 @@
   }
 
   &__content {
+    display: flex;
+    flex-direction: column;
     width: 50%;
     padding: 0 8px;
     padding-top: 30px;
@@ -122,11 +125,11 @@
   }
 
   &__nameContainer {
-    position: absolute;
-    bottom: 20px;
+    margin: auto 0 20px 0;
   }
 
   &__name {
+    margin-top: 10px;
     display: flex;
     flex-direction: column;
     width: calc(100% - 10px);

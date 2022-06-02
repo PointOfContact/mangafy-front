@@ -58,13 +58,11 @@ const CollaborationCards = ({ label, client, href }) => {
     <Link href={href || `/manga-story/${label._id}`}>
       <a className={styles.colabWrap__item} onClick={navigateToManga}>
         <div className={styles.colabWrap__image}>
-          <img 
-            src={
-              mangaCover
-              ? client.UPLOAD_URL + mangaCover
-              : "/img/getmangaf/collabCardBg.svg"
-            }
-          />
+          {
+            mangaCover
+            ? <img src={client.UPLOAD_URL + mangaCover} />
+            : null
+          }
         </div>
         <div className={styles.colabWrap__content}>
           <div className={styles.colabName}>{label.title}</div>
@@ -80,13 +78,13 @@ const CollaborationCards = ({ label, client, href }) => {
             <div>
               <ChapterContent label={label} />
             </div>
+          </div>
             <div className={styles.colabWrap__nameContainer}>
               <div className={styles.colabWrap__name}>
-                <p className={styles.colabWrap__personage}>by:</p>
-                <p className={styles.colabWrap__authorName}>{label.authorInfo.name}</p>
+                <div className={styles.colabWrap__personage}>by:</div>
+                <div className={styles.colabWrap__authorName}>{label.authorInfo.name}</div>
               </div>
             </div>
-          </div>
         </div>
       </a>
     </Link>
