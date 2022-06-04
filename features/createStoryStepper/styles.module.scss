@@ -9,8 +9,8 @@
   position: relative;
     
   .content {
-    max-width: 600px;
-    flex: 1 1 600px;
+    max-width: 700px;
+    flex: 1 1 100%;
     font-size: $text3;
     @include media-sm {
       font-size: $text4;
@@ -45,6 +45,9 @@
           opacity: 0;
         }
       }
+      &_error {
+        border-color: $red;
+      }
     }
     .textarea {
       overflow: hidden;
@@ -60,6 +63,9 @@
       font-size: inherit;
       &:focus {
         border-color: $primaryDark;
+      }
+      &_error {
+        border-color: $red;
       }
     }
     .multiselect {
@@ -99,8 +105,14 @@
       width: max-content;
       width: 100%;
       margin-top: 0.8em;
-      .input {
-        margin-bottom: 0.5em;
+    }
+    .form {
+      width: 100%;
+      &_item {
+        width: 100%;
+      }
+      & .input {
+        width: 100%;
       }
     }
     .signUpWith {
@@ -123,6 +135,7 @@
       transition: 0.2s;
       display: flex;
       align-items: center;
+      color: $black;
       &:active {
         background: $white;
         border-color: $primaryDark;
@@ -132,19 +145,9 @@
         border-color: $primaryDark;
         color: $primaryDark;
       }
-      &_google:before {
-        content: url('./img/google-icon.svg');
-        width: 1em;
-        height: 1.4em;
+      *:first-child {
+        height: 1em;
         margin-right: 0.5em;
-        // aspect-ratio: 1;
-      }
-      &_facebook:before {
-        content: url('./img/facebook-icon.svg');
-        width: 1.1em;
-        height: 1.3em;
-        margin-right: 0.5em;
-        aspect-ratio: 1;
       }
     }
 
@@ -152,7 +155,7 @@
       margin-top: 1em;
       align-self: stretch;
       display: flex;
-      // justify-content: flex-end;
+      justify-content: space-between;
     }
     .shareLabel {
       display: flex;
@@ -161,14 +164,15 @@
     }
     .copyButton {
       margin-left: 1em;
-      width: 1.5em;
-      background-image: url('./img/copy-icon.png');
-      background-size: contain;
-      background-repeat: no-repeat;
+      height: 1em;
+      width: 1em;
       cursor: pointer;
       transition: 0.2s;
       &:hover {
         opacity: 0.8;
+      }
+      svg path {
+        fill: $grey;
       }
     }
     .shareButton {
@@ -194,6 +198,19 @@
       }
     }
 
+    .shareButtons {
+      margin-top: 1.5em;
+      li {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-right: 1em;
+        &:last-child {
+          display: none;
+        }
+      }
+    }
+
     .skip {
       color: $primaryDark;
       position: absolute;
@@ -203,93 +220,12 @@
         text-decoration: underline;
       }
     }
+
+    .button {
+      &_blackLoading > span > span > svg path {
+        fill: $black;
+      }
+    }
   }
 }
 
-.multiSelect {
-  border: 1px solid $gray85;
-  border-radius: 10px;
-  padding: 10px 10px 0 10px;
-  transition: 0.2s;
-  color: $black;
-  display: flex;
-  flex-wrap: wrap;
-  position: relative;
-  &:focus {
-    border-color: $primaryDark;
-      &::placeholder {
-        opacity: 0;
-      }
-  }
-  &__input {
-    border: none;
-    padding: 0;
-    flex: 1 1 auto;
-    margin-bottom: 10px;
-    &::placeholder {
-      transition: 0.2s;
-      color: $gray85;
-    }
-    &:focus {
-      border-color: $primaryDark;
-      &::placeholder {
-        opacity: 0;
-      }
-    }
-  }
-  &__selected {
-    background: $primaryDark;
-    color: #fff;
-    border-radius: 20px;
-    padding: 0 0.7em 0 1em;
-    margin-right: 0.3em;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    &:after  {
-      margin-left: 0.5em;
-      content: '';
-      height: 0.6em;
-      aspect-ratio: 1;
-      background: url('./img/cross.svg');
-      background-size: contain;
-    }
-  }
-  &__options {
-    min-width: 40%;
-    @include media-sm {
-      min-width: 100%;
-    }
-    position: absolute;
-    top: 110%;
-    right: 0;
-    z-index: 1;
-    // transform: translate(-50%);
-    background: #fff;
-    border: 1px solid $white;
-    box-shadow: 5px 5px 20px rgba($color: $black, $alpha: 0.1);
-    border-radius: 10px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    transition: 0.1s;
-    max-height: 200px;
-    &_hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
-  }
-  &__option {
-    &_active {
-      background: $white;
-      color: $primaryDark;
-    }
-    padding: 0.2em 0.6em;
-    cursor: pointer;
-    transition: 0.2s;
-    color: $gray85;
-    &:hover {
-      background: $white;
-    }
-  }
-}
