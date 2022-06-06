@@ -27,8 +27,7 @@ const BestProfile = ({ gallery, user }) => {
           priority={index <= 1}
           src={client.UPLOAD_URL + item?._id}
           alt="mangaFy gallery"
-          width={220}
-          height={220}
+          layout='fill'
         />
         <DescriptionBestProfile
           item={item}
