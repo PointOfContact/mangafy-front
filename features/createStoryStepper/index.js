@@ -64,15 +64,22 @@ const CreateStoryStepper = ({genres, path, user, query, jwt}) => {
     }
 
     function createStory() {
+        const data = {
+            title: storyInfo.projectName,
+            projectType: storyInfo.type,
+            story: storyInfo.seriesTitle,
+            description: storyInfo.seriesDescription,
+            genresIds: storyInfo.genres,
+            // published: true,
+            // payPalEmail: storyInfo.paypal
+        }
+        if (typeof storyInfo.projectName === 'string') {
+            data.typeUrlView = 'Custom subdomain';
+            data.viewUrlName = storyInfo.projectName.toLowerCase();
+        }
         client.service('/api/v2/manga-stories')
             .create(
-                {
-                    title: storyInfo.projectName,
-                    projectType: storyInfo.type,
-                    story: storyInfo.seriesTitle,
-                    description: storyInfo.seriesDescription,
-                    genresIds: storyInfo.genres,
-                },
+                data,
                 {
                     headers: { Authorization: `Bearer ${jwt}` },
                 }
@@ -135,6 +142,7 @@ const CreateStoryStepper = ({genres, path, user, query, jwt}) => {
     
         default:
             StepElement = CreateStory
+            setStep(0)
             break;
     }
 

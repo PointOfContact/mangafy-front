@@ -35,9 +35,9 @@ const SignUp = ({ storyInfo, goNext, goBack, setStoryInfo }) => {
     const [isEmailValid, setIsEmailValid] = useState(true);
     const [isPasswordValid, setIsPasswordValid] = useState(true);
 
-    const [nameError, setNameError] = useState(true);
-    const [emailError, setEmailError] = useState(true);
-    const [passwordError, setPasswordError] = useState(true);
+    const [nameError, setNameError] = useState(false);
+    const [emailError, setEmailError] = useState(false);
+    const [passwordError, setPasswordError] = useState(false);
 
     function nameChangeHandler() {
         if (!refs.name.current) return;
@@ -196,17 +196,17 @@ const SignUp = ({ storyInfo, goNext, goBack, setStoryInfo }) => {
                         </div>
                         <div className={styles.buttons}>
                             <PrimaryButton
+                                onClick={registerHandler}
+                                text="Create account"
+                                loading={loading === 'next'}
+                                disabled={loading === 'next'}
+                            />
+                            <PrimaryButton
                                 className={styles.button_blackLoading}
                                 onClick={() => {setLoading('prev'); goBack()}}
                                 text="Go back"
                                 loading={loading === 'prev'}
                                 isWhite={true}
-                            />
-                            <PrimaryButton
-                                onClick={registerHandler}
-                                text="Create account"
-                                loading={loading === 'next'}
-                                disabled={loading === 'next'}
                             />
                         </div>
                     </Form>

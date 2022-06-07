@@ -156,6 +156,7 @@
       align-self: stretch;
       display: flex;
       justify-content: space-between;
+      align-items: center;
     }
     .shareLabel {
       display: flex;
@@ -175,31 +176,10 @@
         fill: $grey;
       }
     }
-    .shareButton {
-      width: 40px;
-      height: 40px;
-      background-size: contain;
-      background-repeat: no-repeat;
-      transition: 0.2;
-      &:hover {
-        opacity: 0.8;
-      }
-      &_twitter {
-        background-image: url('./img/social-twitter.png');
-      }
-      &_facebook {
-        background-image: url('./img/social-facebook.png');
-      }
-      &_instagram {
-        background-image: url('./img/social-instagram.png');
-      }
-      &_whatsapp {
-        background-image: url('./img/social-whatsapp.png');
-      }
-    }
 
     .shareButtons {
-      margin-top: 1.5em;
+      margin-top: 1em;
+      margin-bottom: 1.5em;
       li {
         display: flex;
         flex-direction: column;
@@ -226,6 +206,20 @@
         fill: $black;
       }
     }
+  }
+}
+
+.toFeed {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 10%;
+  right: 10%;
+  path {
+    fill: $gray85;
+  }
+  :hover {
+    opacity: 0.9;
   }
 }
 
