@@ -29,12 +29,6 @@ const ShareStory = ({ link }) => {
               showTitle={true}
               className={styles.shareButtons}
             />
-            {/* <div className={styles.buttons}>
-              <button className={cn(styles.shareButton, styles.shareButton_facebook)}></button>
-              <button className={cn(styles.shareButton, styles.shareButton_twitter)}></button>
-              <button className={cn(styles.shareButton, styles.shareButton_instagram)}></button>
-              <button className={cn(styles.shareButton, styles.shareButton_whatsapp)}></button>
-            </div> */}
         </div>
     </div>
   )
