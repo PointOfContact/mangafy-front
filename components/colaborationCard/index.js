@@ -7,15 +7,23 @@ import PropTypes from 'prop-types';
 import myAmplitude from 'utils/amplitude';
 import ChapterContent from './chapterContent';
 import styles from './styles.module.scss';
+import client from 'api/client';
 
 const CollaborationCards = ({ label, client, href }) => {
   const [participantsInfo, setParticipantsInfo] = useState([]);
   const [createdDate, setCreatedDate] = useState('');
+  const [mangaCover, setMangaCover] = useState(null);
 
   useEffect(() => {
     const date = label.createdAt.substring(0, 10);
     setCreatedDate(date);
   }, [label.createdAt]);
+
+  useEffect(async () => {
+    const mangaInfo = await client.service('/api/v2/manga-stories').get(label._id);
+    const cover = mangaInfo.image;
+    setMangaCover(cover);
+  }, []);
 
   useEffect(() => {
     const participants = label.participentsInfo.map((value, index) => {
@@ -51,9 +59,9 @@ const CollaborationCards = ({ label, client, href }) => {
       <a className={styles.colabWrap__item} onClick={navigateToManga}>
         <div className={styles.colabWrap__image}>
           {
-            label.gallery.length > 0
-            ? <img src={label.gallery[0]} alt="" />
-            : <img src="/img/getmangaf/collabCardBg.svg" alt="" />
+            mangaCover
+            ? <img src={client.UPLOAD_URL + mangaCover} />
+            : null
           }
         </div>
         <div className={styles.colabWrap__content}>
@@ -70,13 +78,13 @@ const CollaborationCards = ({ label, client, href }) => {
             <div>
               <ChapterContent label={label} />
             </div>
+          </div>
             <div className={styles.colabWrap__nameContainer}>
               <div className={styles.colabWrap__name}>
-                <p className={styles.colabWrap__personage}>by:</p>
-                <p className={styles.colabWrap__authorName}>{label.authorInfo.name}</p>
+                <div className={styles.colabWrap__personage}>by:</div>
+                <div className={styles.colabWrap__authorName}>{label.authorInfo.name}</div>
               </div>
             </div>
-          </div>
         </div>
       </a>
     </Link>
