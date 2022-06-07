@@ -7,7 +7,7 @@
   justify-content: center;
   align-items: center;
   position: relative;
-    
+
   .content {
     max-width: 700px;
     flex: 1 1 100%;
@@ -173,28 +173,6 @@
       }
       svg path {
         fill: $grey;
-      }
-    }
-    .shareButton {
-      width: 40px;
-      height: 40px;
-      background-size: contain;
-      background-repeat: no-repeat;
-      transition: 0.2;
-      &:hover {
-        opacity: 0.8;
-      }
-      &_twitter {
-        background-image: url('./img/social-twitter.png');
-      }
-      &_facebook {
-        background-image: url('./img/social-facebook.png');
-      }
-      &_instagram {
-        background-image: url('./img/social-instagram.png');
-      }
-      &_whatsapp {
-        background-image: url('./img/social-whatsapp.png');
       }
     }
 
