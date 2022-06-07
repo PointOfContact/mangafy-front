@@ -7,7 +7,7 @@
   justify-content: center;
   align-items: center;
   position: relative;
-
+    
   .content {
     max-width: 700px;
     flex: 1 1 100%;
@@ -156,6 +156,7 @@
       align-self: stretch;
       display: flex;
       justify-content: space-between;
+      align-items: center;
     }
     .shareLabel {
       display: flex;
@@ -177,7 +178,8 @@
     }
 
     .shareButtons {
-      margin-top: 1.5em;
+      margin-top: 1em;
+      margin-bottom: 1.5em;
       li {
         display: flex;
         flex-direction: column;
@@ -207,3 +209,16 @@
   }
 }
 
+.toFeed {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 10%;
+  right: 10%;
+  path {
+    fill: $gray85;
+  }
+  :hover {
+    opacity: 0.9;
+  }
+}

@@ -76,16 +76,16 @@ const StartWithTheBasics = ({ storyInfo, goNext, goBack, setStoryInfo }) => {
                     </textarea>
                     <div className={styles.buttons}>
                         <PrimaryButton
+                            text="Let's go"
+                            onClick={nextHandler}
+                            loading={loading === 'next'}
+                        />
+                        <PrimaryButton
                             isWhite={true}
                             className={styles.button_blackLoading}
                             text="Go back"
                             onClick={ () => {setLoading('next'); goBack()} }
                             loading={loading === 'prev'}
-                        />
-                        <PrimaryButton
-                            text="Let's go"
-                            onClick={nextHandler}
-                            loading={loading === 'next'}
                         />
                     </div>
                 </div>
