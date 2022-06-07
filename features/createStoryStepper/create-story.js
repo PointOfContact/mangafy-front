@@ -25,6 +25,13 @@ const CreateStory = ({ storyInfo, goNext, setStoryInfo }) => {
             });
             setIsValid(false);
         }
+        else if (storyInfo.projectName?.length >= 20) {
+            notification.error({
+                message: 'Project name should be less than 20 characters',
+                placement: 'bottomLeft',
+            });
+            setIsValid(false);
+        }
         else {
             setLoading(true)
             goNext()

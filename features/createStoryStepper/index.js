@@ -10,6 +10,7 @@ import client from 'api/client'
 import { useRouter } from 'next/router';
 import { notification } from 'antd'
 import { findStoryBoard } from 'api/storyBoardClient';
+import mangaStoryAPI from 'features/mangaStory/mangaStoryAPI'
 
 const defaultStoryInfo = {
     projectName: null,
@@ -24,7 +25,7 @@ const CreateStoryStepper = ({genres, path, user, query, jwt}) => {
 
     const router = useRouter();
     const [link, setLink] = useState(null);
-    const [step, setStep] = useState(Number.parseInt(query.step));
+    const [step, setStep] = useState(Number.parseInt(query.step ? query.step : '0'));
     const [storyInfo, setStoryInfo] = useState(defaultStoryInfo);
 
     useEffect(() => {
@@ -75,16 +76,44 @@ const CreateStoryStepper = ({genres, path, user, query, jwt}) => {
                 },
                 {
                     headers: { Authorization: `Bearer ${jwt}` },
+                    mode: 'no-cors'
                 }
             )
             .then(async (createdStory) => {
-                console.log(createdStory)
                 localStorage.removeItem('newStoryInfo');
-                const mangaViewObj = findStoryBoard(
+                // Get storyBoard
+                findStoryBoard(
                     user._id,
                     createdStory._id,
-                    (res) => {
-                        setLink('https://mangafy.club/manga-view/'+res?.data[0]._id)
+                    (storyBoard) => {
+                        setLink('https://mangafy.club/manga-view/'+storyBoard?.data[0]._id)
+                        // Publish first chapter
+                        mangaStoryAPI.chapter.patch(
+                            storyBoard?.data[0]?.chapters[0]?._id,
+                            { published: true },
+                            async (data) => {
+                                console.log(data)
+                                // Publish story and set paypalPublished
+                                await client.service('/api/v2/manga-stories/').patch(
+                                    createdStory._id,
+                                    {
+                                        payPalPublished: true,
+                                        published: true,
+                                        typeUrlView: 'Custom subdomain',
+                                        viewUrlName: storyInfo.projectName.toLowerCase()
+                                    },
+                                    {
+                                        headers: { Authorization: `Bearer ${jwt}` },
+                                        mode: 'no-cors'
+                                    }
+                                );
+                                // Set paypal
+                                mangaStoryAPI.draft.saveUserDataByKey(storyInfo.paypal, user, () => {});
+                                toNextStep();
+                            },
+                            () => {},
+                            () => {}
+                        );
                     },
                     (err) => {
                         notification.error({
@@ -93,7 +122,6 @@ const CreateStoryStepper = ({genres, path, user, query, jwt}) => {
                         })
                     }
                 );
-                toNextStep()
             })
             .catch(err => {
                 notification.error({
@@ -135,6 +163,7 @@ const CreateStoryStepper = ({genres, path, user, query, jwt}) => {
     
         default:
             StepElement = CreateStory
+            setStep(0)
             break;
     }
 
