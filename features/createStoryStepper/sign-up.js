@@ -11,11 +11,9 @@ import { register } from 'store';
 import { notification, Form } from 'antd';
 import { userTypes } from 'helpers/constant';
 
-const SignUp = ({ storyInfo, goNext, goBack, setStoryInfo }) => {
+const SignUp = ({ storyInfo, goNext, goBack, setStoryInfo, loading, setLoading }) => {
 
     const router = useRouter();
-
-    const [loading, setLoading] = useState(null)
     const [registerInfo, setRegisterInfo] = useState({
         name: null,
         email: null,
@@ -84,18 +82,16 @@ const SignUp = ({ storyInfo, goNext, goBack, setStoryInfo }) => {
             message: passwordError,
             placement: 'bottomLeft',
         })
-        setLoading('next');
         register(registerInfo)
             .then(({ user: newUser }) => {
-                setLoading(false);
                 goNext();
             })
             .catch((error) => {
-                setLoading(false)
                 notification.error({
                     message: error.message,
                     placement: 'bottomLeft'
                 })
+                setLoading(null);
             });
     }
 
@@ -203,7 +199,7 @@ const SignUp = ({ storyInfo, goNext, goBack, setStoryInfo }) => {
                             />
                             <PrimaryButton
                                 className={styles.button_blackLoading}
-                                onClick={() => {setLoading('prev'); goBack()}}
+                                onClick={() => goBack()}
                                 text="Go back"
                                 loading={loading === 'prev'}
                                 isWhite={true}

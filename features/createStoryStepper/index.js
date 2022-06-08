@@ -27,6 +27,7 @@ const CreateStoryStepper = ({genres, path, user, query, jwt}) => {
     const [link, setLink] = useState(null);
     const [step, setStep] = useState(Number.parseInt(query.step ? query.step : '0'));
     const [storyInfo, setStoryInfo] = useState(defaultStoryInfo);
+    const [loading, setLoading] = useState(null);
 
     useEffect(() => {
         try {
@@ -46,6 +47,10 @@ const CreateStoryStepper = ({genres, path, user, query, jwt}) => {
         setStep(Number.parseInt(query.step));
     }, [query.step]);
 
+    useEffect(() => {
+        setLoading(null);
+    }, [step]);
+
     function toNextStep() {
         const prevStep = step;
         let nextStep = prevStep;
@@ -53,6 +58,7 @@ const CreateStoryStepper = ({genres, path, user, query, jwt}) => {
         if (user && prevStep === 3) nextStep = 5;
         else ++nextStep;
         router.push('/create-story/?step='+nextStep);
+        setLoading('next');
     }
 
     function toPrevStep() {
@@ -62,9 +68,11 @@ const CreateStoryStepper = ({genres, path, user, query, jwt}) => {
         if (user && prevStep === 5) nextStep = 3;
         else --nextStep;
         router.push('/create-story/?step='+nextStep);
+        setLoading('prev');
     }
 
     function createStory() {
+        setLoading('next')
         client.service('/api/v2/manga-stories')
             .create(
                 {
@@ -86,44 +94,45 @@ const CreateStoryStepper = ({genres, path, user, query, jwt}) => {
                     user._id,
                     createdStory._id,
                     (storyBoard) => {
-                        setLink('https://mangafy.club/manga-view/'+storyBoard?.data[0]._id)
-                        // Publish first chapter
+                        // Then publish first chapter
                         mangaStoryAPI.chapter.patch(
                             storyBoard?.data[0]?.chapters[0]?._id,
                             { published: true },
                             async (data) => {
-                                console.log(data)
-                                // Publish story and set paypalPublished
-                                await client.service('/api/v2/manga-stories/').patch(
-                                    createdStory._id,
-                                    {
-                                        payPalPublished: true,
-                                        published: true,
-                                        typeUrlView: 'Custom subdomain',
-                                        viewUrlName: storyInfo.projectName.toLowerCase()
-                                    },
-                                    {
-                                        headers: { Authorization: `Bearer ${jwt}` },
-                                        mode: 'no-cors'
-                                    }
-                                );
-                                // Set paypal
-                                mangaStoryAPI.draft.saveUserDataByKey(storyInfo.paypal, user, () => {});
-                                toNextStep();
+                                try {
+                                    // Then publish story, set subdomain and set paypalPublished
+                                    await client.service('/api/v2/manga-stories/').patch(
+                                        createdStory._id,
+                                        {
+                                            payPalPublished: true,
+                                            published: true,
+                                            typeUrlView: 'Custom subdomain',
+                                            viewUrlName: storyInfo.projectName
+                                        },
+                                        {
+                                            headers: { Authorization: `Bearer ${jwt}` },
+                                            mode: 'no-cors'
+                                        }
+                                    );
+                                    // Then set paypal email
+                                    mangaStoryAPI.draft.saveUserDataByKey(storyInfo.paypal, user, () => {});
+                                    setLink('https://'+storyInfo.projectName+'.mangafy.club/')
+                                    toNextStep();
+                                } catch (err) {
+                                    throw new Error(err)
+                                }
                             },
                             () => {},
                             () => {}
                         );
                     },
                     (err) => {
-                        notification.error({
-                            placement: 'bottomLeft',
-                            message: err.message
-                        })
+                        throw new Error(err)
                     }
                 );
             })
             .catch(err => {
+                setLoading(null);
                 notification.error({
                     placement: 'bottomLeft',
                     message: err.message
@@ -176,6 +185,8 @@ const CreateStoryStepper = ({genres, path, user, query, jwt}) => {
             setStoryInfo={(info) => setStoryInfo(info)}
             createStory={createStory}
             link={link}
+            loading={loading}
+            setLoading={value => setLoading(value)}
         />
     )
 }

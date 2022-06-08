@@ -5,9 +5,7 @@ import styles from './styles.module.scss'
 import PrimarySelect from 'components/ui-elements/select';
 import { notification } from 'antd';
 
-const selectGenre = ({ genres, storyInfo, goNext, goBack, setStoryInfo }) => {
-
-    const [loading, setLoading] = useState(null);
+const selectGenre = ({ genres, storyInfo, goNext, goBack, setStoryInfo, loading }) => {
 
     const options = [];
     if (genres && genres.length < 1) options = [{key: 0, value: 'Can not get genres types'}];
@@ -52,14 +50,14 @@ const selectGenre = ({ genres, storyInfo, goNext, goBack, setStoryInfo }) => {
                 <div className={styles.buttons}>
                     <PrimaryButton
                         text="Let’s go"
-                        onClick={() => {setLoading('next'); goNext()}}
+                        onClick={() => goNext()}
                         loading={loading === 'next'}
                     />
                     <PrimaryButton
                         isWhite={true}
                         className={styles.button_blackLoading}
                         text="Go back"
-                        onClick={() => {setLoading('prev'); goBack()}}
+                        onClick={() => goBack()}
                         loading={loading === 'prev'}
                     />
                 </div>
