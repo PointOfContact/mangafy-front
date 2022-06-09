@@ -7,9 +7,8 @@ import styles from './styles.module.scss';
 import cn from 'classnames';
 import { projectTypes } from 'helpers/constant';
 
-const CreateType = ({ storyInfo, goNext, goBack, setStoryInfo }) => {
+const CreateType = ({ storyInfo, goNext, goBack, setStoryInfo, loading }) => {
 
-    const [loading, setLoading] = useState(null);
     const [isValid, setIsValid] = useState(true);
 
     function selectChangeHandler(value) {
@@ -27,7 +26,6 @@ const CreateType = ({ storyInfo, goNext, goBack, setStoryInfo }) => {
             setIsValid(false);
         }
         else {
-            setLoading('next')
             goNext()
         }
     }
@@ -53,7 +51,7 @@ const CreateType = ({ storyInfo, goNext, goBack, setStoryInfo }) => {
                         isWhite={true}
                         className={styles.button_blackLoading}
                         text="Go back"
-                        onClick={() => {setLoading('prev'); goBack()}}
+                        onClick={() => goBack()}
                         loading={loading === 'prev'}
                     />
                 </div>

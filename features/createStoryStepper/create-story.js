@@ -5,16 +5,15 @@ import styles from './styles.module.scss';
 import cn from 'classnames';
 import { notification } from 'antd';
 
-const CreateStory = ({ storyInfo, goNext, setStoryInfo }) => {
+const CreateStory = ({ storyInfo, goNext, setStoryInfo, loading }) => {
 
-    const [loading, setLoading] = useState(false);
     const [isValid, setIsValid] = useState(true);
     const inputRef = useRef(null)
 
     function inputChangeHandler() {
         if (!inputRef.current) return;
         setIsValid(true);
-        setStoryInfo({ ...storyInfo, projectName: inputRef.current.value.trim()});
+        setStoryInfo({ ...storyInfo, projectName: inputRef.current.value.trim().toLowerCase()});
     }
 
     function nextHandler() {
@@ -25,7 +24,21 @@ const CreateStory = ({ storyInfo, goNext, setStoryInfo }) => {
             });
             setIsValid(false);
         }
-        else if (storyInfo.projectName?.length >= 20) {
+        else if (!storyInfo.projectName.match(/^[a-z]+$/)) {
+            notification.error({
+                message: 'Please enter corrent project name without spaces and numbers',
+                placement: 'bottomLeft',
+            });
+            setIsValid(false);
+        }
+        else if (storyInfo.projectName.length < 3) {
+            notification.error({
+                message: 'Project name should be more than 2 characters',
+                placement: 'bottomLeft',
+            });
+            setIsValid(false);
+        }
+        else if (storyInfo.projectName.length >= 20) {
             notification.error({
                 message: 'Project name should be less than 20 characters',
                 placement: 'bottomLeft',
@@ -33,7 +46,7 @@ const CreateStory = ({ storyInfo, goNext, setStoryInfo }) => {
             setIsValid(false);
         }
         else {
-            setLoading(true)
+            // setLoading(true)
             goNext()
         }
     }
@@ -58,7 +71,7 @@ const CreateStory = ({ storyInfo, goNext, setStoryInfo }) => {
                     <PrimaryButton
                         text="Let’s do it"
                         onClick={nextHandler}
-                        loading={loading}
+                        loading={loading === 'next'}
                     />
                 </div>
             </div>

@@ -20,19 +20,24 @@ const SetupPayout = ({ storyInfo, createStory, goBack, setStoryInfo }) => {
         if (!storyInfo.paypal) {
             setIsValid(false);
             notification.error({
-                message: 'Please enter your paypal or skip this step',
+                message: 'Please enter your paypal email or skip this step',
+                placement: 'bottomLeft',
+            });
+        }
+        else if (!storyInfo.paypal.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
+            setIsValid(false);
+            notification.error({
+                message: 'Please enter correct paypal email',
                 placement: 'bottomLeft',
             });
         }
         else {
-            setLoading('next')
             createStory()
         }
     }
 
     function skipHandler() {
         setStoryInfo({ ...storyInfo, paypal: inputRef.current?.value});
-        setLoading('next')
         createStory();
     }
 
@@ -58,7 +63,7 @@ const SetupPayout = ({ storyInfo, createStory, goBack, setStoryInfo }) => {
                         isWhite={true}
                         className={styles.button_blackLoading}
                         text="Go back"
-                        onClick={ () => {setLoading('prev'); goBack()} }
+                        onClick={ () => goBack() }
                         loading={loading === 'prev'}
                     />
                 </div>

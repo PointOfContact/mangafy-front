@@ -44,7 +44,6 @@ const StartWithTheBasics = ({ storyInfo, goNext, goBack, setStoryInfo }) => {
                 placement: 'bottomLeft',
             })
         }
-        setLoading('next')
         goNext();
     }
 
@@ -84,7 +83,7 @@ const StartWithTheBasics = ({ storyInfo, goNext, goBack, setStoryInfo }) => {
                             isWhite={true}
                             className={styles.button_blackLoading}
                             text="Go back"
-                            onClick={ () => {setLoading('next'); goBack()} }
+                            onClick={ () => goBack() }
                             loading={loading === 'prev'}
                         />
                     </div>
