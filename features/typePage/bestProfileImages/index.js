@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 
 import DescriptionBestProfile from './descriptionBestProfile';
 import ModalBestProfile from './modalBestProfile';
+import FilterNew from 'components/filterNew';
 import styles from './styles.module.scss';
 
 const BestProfile = ({ gallery, user }) => {
@@ -50,6 +51,10 @@ const BestProfile = ({ gallery, user }) => {
     <div className={styles.container}>
       <div className={styles.card_wrap}>
         <h2> &#x2606; New this Week </h2>
+        <FilterNew
+              genres='Genre'
+              search
+            />
         <div className={styles.imagesForMobile}>{images}</div>
         <div className={styles.imagesForDesktop}>{images}</div>
         <ModalBestProfile
