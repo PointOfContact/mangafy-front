@@ -10,7 +10,7 @@ import FooterPolicy from 'components/footer-policy';
 import Header from 'components/header';
 import ModalCreateProject from 'components/modalCreateProject';
 import Paginations from 'components/paginations';
-import SearchForCollaborationsNew from 'components/searchForCollaborationsNew';
+import FilterNew from 'components/filterNew';
 import PrimaryButton from 'components/ui-elements/button';
 import ButtonToTop from 'components/ui-elements/button-toTop';
 import FooterLogin from 'features/footerLogin';
@@ -85,16 +85,13 @@ const Collaborations = (props) => {
           <Header path="collaborations" user={user} />
           <main>
             <CollaborationsHeader user={user} />
-            <SearchForCollaborationsNew
-              genres={genres}
-              selectedGenres={selectedGenres}
-              selectedCompensationModel={selectedCompensationModel}
-              selectedTypes={selectedTypes}
-              userTypes={userTypes}
-              search={search}
-              pageUrl={pageUrl}
-            />
             <div className="container mangafy_container">
+              <FilterNew
+                category='Category'
+                genres='Genre'
+                compensationModel={props.hideCollabType ? null : 'Collab type'}
+                search
+              />
               <Row type="flux">
                 <div className={styles.colabCards}>
                   <div className={'container'}>

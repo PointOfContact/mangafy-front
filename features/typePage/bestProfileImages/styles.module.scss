@@ -80,6 +80,9 @@ $borderColor: rgb(233, 232, 232);
     background-size: 900px;
     cursor: pointer;
     z-index: 5;
+    img {
+      object-fit: cover;
+    }
     & > span {
       &:nth-child(2) {
         display: none;
@@ -168,6 +171,7 @@ $borderColor: rgb(233, 232, 232);
         }
       }
       span {
+        pointer-events: none;
         height: 100%;
         width: 100%;
       }

@@ -53,12 +53,20 @@
     margin: auto;
   }
 }
-
 .moduleGa {
   position: relative;
-  & > span {
+  display: flex;
+  flex-direction: column;
+  & > span:last-child {
+    position: relative !important;
+    flex-grow: 1;
+    img {
+      object-fit: contain;
+    }
+  }
+  & > span:first-child {
     width: 90%;
-    margin: auto;
+    align-self: center;
     margin-top: 10px !important;
     @include media-xs {
       border-radius: 0;
@@ -69,7 +77,7 @@
       margin: 2px !important;
     }
   }
-  & > span {
+  & > span:first-child {
     height: 60px;
     & > a {
       display: flex;

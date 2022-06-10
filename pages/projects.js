@@ -60,6 +60,7 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
         mangaStories: res.data,
         total: res.total,
         current: Math.ceil((res.skip - 1) / res.limit) + 1,
+        hideCollabType: true
       }, // will be passed to the page component as props
     };
   } catch (error) {

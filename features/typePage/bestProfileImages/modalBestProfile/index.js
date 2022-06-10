@@ -32,9 +32,12 @@ const ModalBestProfile = ({
           setStartIndex={setStartIndex}
         />
         <Imgix
-          layout="fill"
+          // layout="fill"
+          width='100%'
+          height='100%'
           src={`https://mangafy.club/api/v2/uploads/${item?._id}`}
           alt="mangaFy top gallery"
+          className={styles.modalImage}
         />
       </div>
     ),
