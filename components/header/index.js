@@ -310,11 +310,11 @@ const Header = ({ user, path, setShowModalEdit }) => {
                       Log in
                     </a>
                   </Link>
-                  <Link href="/sign-up">
+                  {/* <Link href="/sign-up">
                     <a className={styles.header__menu}>
                       <PrimaryButton className={styles.join} text="Join"></PrimaryButton>
                     </a>
-                  </Link>
+                  </Link> */}
                 </>
               )}
             </div>
@@ -339,16 +339,14 @@ const Header = ({ user, path, setShowModalEdit }) => {
                   }}
                 />
               )} */}
-              <PrimaryButton
-                text="Start a project"
-                className={styles.fullStartProject}
-                onClick={() => showCreateProjectModal(true)}
-              />
-              <PrimaryButton
-                text="Start"
-                className={styles.startProject}
-                onClick={() => showCreateProjectModal(true)}
-              />
+              {/* <PrimaryButton text="Start a project" className={styles.fullStartProject}> */}
+              <Link href="/create-story">
+                <a>
+                  <PrimaryButton text="Start a project" className={styles.fullStartProject} />
+                </a>
+              </Link>
+              {/* </PrimaryButton> */}
+              <PrimaryButton text="Start" className={styles.startProject} />
             </span>
           </div>
         </div>
