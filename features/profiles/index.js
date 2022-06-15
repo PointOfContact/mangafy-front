@@ -48,10 +48,9 @@ const Profiles = (props) => {
           <Header user={user} path="profiles" />
           <ProfilesHeader user={user} />
           <div className="container mangafy_container">
-          <FilterNew
-            types='Creators'
-            search
-          />
+            <div className="container">
+              <FilterNew types="Creators" search />
+            </div>
             <Row type="flux">
               <div className={styles.colabCards}>
                 <div className={'container'}>
