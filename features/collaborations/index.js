@@ -86,12 +86,14 @@ const Collaborations = (props) => {
           <main>
             <CollaborationsHeader user={user} />
             <div className="container mangafy_container">
-              <FilterNew
-                category='Category'
-                genres='Genre'
-                compensationModel={props.hideCollabType ? null : 'Collab type'}
-                search
-              />
+              <div className="container">
+                <FilterNew
+                  category="Category"
+                  genres="Genre"
+                  compensationModel={props.hideCollabType ? null : 'Collab type'}
+                  search
+                />
+              </div>
               <Row type="flux">
                 <div className={styles.colabCards}>
                   <div className={'container'}>
