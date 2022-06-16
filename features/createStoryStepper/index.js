@@ -29,13 +29,7 @@ const CreateStoryStepper = ({ genres, path, user, query, jwt }) => {
   const [loading, setLoading] = useState(null);
 
   useEffect(() => {
-    try {
-      const data = JSON.parse(localStorage.getItem('newStoryInfo'));
-      if (data) setStoryInfo(data);
-      else setStoryInfo(defaultStoryInfo);
-    } catch (err) {
-      setStoryInfo(defaultStoryInfo);
-    }
+    setStoryInfo(defaultStoryInfo);
   }, []);
 
   useEffect(() => {
@@ -43,8 +37,8 @@ const CreateStoryStepper = ({ genres, path, user, query, jwt }) => {
   }, [storyInfo]);
 
   useEffect(() => {
-    setStep(Number.parseInt(query.step));
-  }, [query.step]);
+    setStep(Number.parseInt(query?.step));
+  }, [query?.step]);
 
   useEffect(() => {
     setLoading(null);

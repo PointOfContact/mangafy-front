@@ -11,7 +11,6 @@ import MenuNotificationsBox from 'components/menu-notifications-box';
 import ModalCreateProject from 'components/modalCreateProject';
 import Avatar from 'components/ui-elements/avatar';
 import PrimaryButton from 'components/ui-elements/button';
-import WarningFillAllData from 'components/warningFillAllData';
 import { removeAllStorage } from 'helpers/shared';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -359,9 +358,6 @@ const Header = ({ user, path, setShowModalEdit }) => {
             showCreateProjectModal={showCreateProjectModal}
             setShowNotificationModal={setShowNotificationModal}
           />
-        )}
-        {user?._id && showWarning && (
-          <WarningFillAllData user={user} setShowModalEdit={setShowModalEdit} />
         )}
       </header>
       <ModalInviteMembers showModal={showModal} setShowModal={setShowModal} user={user} />
