@@ -339,13 +339,35 @@ const Header = ({ user, path, setShowModalEdit }) => {
                 />
               )} */}
               {/* <PrimaryButton text="Start a project" className={styles.fullStartProject}> */}
-              <Link href="/create-story">
-                <a>
-                  <PrimaryButton text="Start a project" className={styles.fullStartProject} />
-                </a>
-              </Link>
+              {user ? (
+                <>
+                  <PrimaryButton
+                    onClick={() => showCreateProjectModal(true)}
+                    text="Start a project"
+                    className={styles.fullStartProject}
+                  />
+                  <PrimaryButton
+                    onClick={() => showCreateProjectModal(true)}
+                    text="Start"
+                    className={styles.startProject}
+                  />
+                </>
+              ) : (
+                <>
+                  <Link href="/create-story">
+                    <a>
+                      <PrimaryButton text="Start a project" className={styles.fullStartProject} />
+                    </a>
+                  </Link>
+                  <Link href="/create-story">
+                    <a>
+                      <PrimaryButton text="Start" className={styles.startProject} />
+                    </a>
+                  </Link>
+                </>
+              )}
               {/* </PrimaryButton> */}
-              <PrimaryButton text="Start" className={styles.startProject} />
+              {/* <PrimaryButton text="Start" className={styles.startProject} /> */}
             </span>
           </div>
         </div>
