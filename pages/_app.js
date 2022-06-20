@@ -7,7 +7,7 @@ import * as Sentry from '@sentry/node';
 import { notification } from 'antd';
 import { DefaultSeo } from 'next-seo';
 import { useRouter } from 'next/router';
-import 'react-quill/dist/quill.snow.css';
+import '@bloogrox/react-quill/dist/quill.snow.css';
 import '../styles/landing/landing.css';
 
 import { initAmplitude } from '../utils/amplitude';
@@ -35,7 +35,7 @@ export default function MyApp({ Component, pageProps, err }) {
         console.log('visitorIdvisitorIdvisitorId', visitorId);
         initAmplitude(visitorId, pageProps?.user);
       });
-  }, []);
+  }, [pageProps?.user]);
 
   const router = useRouter();
 
@@ -70,7 +70,7 @@ export default function MyApp({ Component, pageProps, err }) {
       router.events.off('routeChangeStart', handleRouteChange);
       router.events.off('routeChangeComplete', handleRouteChangeComplete);
     };
-  }, []);
+  }, [router.events]);
 
   return (
     <>

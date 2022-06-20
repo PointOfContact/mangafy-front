@@ -1,0 +1,224 @@
+@import '../../styles/variables.scss';
+
+.container {
+  min-height: 100vh;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+    
+  .content {
+    max-width: 700px;
+    flex: 1 1 100%;
+    font-size: $text3;
+    @include media-sm {
+      font-size: $text4;
+      padding: 0 1em;
+    }
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    .title {
+      font-weight: 700;
+      font-size: $h4;
+      line-height: 1.1em;
+      margin-bottom: 0.3em;
+    }
+    .descr {
+      margin-bottom: 2em;
+    }
+    .input {
+      color: $black;
+      border: 1px solid $gray85;
+      border-radius: 10px;
+      padding: 10px 20px;
+      transition: 0.2s;
+      &::placeholder {
+        transition: 0.2s;
+        color: $gray85;
+      }
+      &:focus {
+        border-color: $primaryDark;
+        &::placeholder {
+          opacity: 0;
+        }
+      }
+      &_error {
+        border-color: $red;
+      }
+    }
+    .textarea {
+      overflow: hidden;
+      resize: none;
+    }
+    .select {
+      margin-bottom: 2em;
+      color: $black;
+      border: 1px solid $gray85;
+      border-radius: 10px;
+      padding: 10px 20px;
+      font-weight: normal;
+      font-size: inherit;
+      &:focus {
+        border-color: $primaryDark;
+      }
+      &_error {
+        border-color: $red;
+      }
+    }
+    .multiselect {
+      width: 100%;
+    }
+    .createStoryForm {
+      align-self: stretch;
+      display: flex;
+      align-items: center;
+      // margin-bottom: 2em;
+      .input {
+        margin-right: 0.5em;
+        flex: 1 1 auto;
+        @include media-xs {
+          width: 200px;
+        }
+        &:focus~.mangafy {
+          transition: 0.2s;
+          color: $black;
+        }
+      }
+      .mangafy {
+        color: $gray85;
+      }
+    }
+    .basicsForm {
+      display: flex;
+      flex-direction: column;
+      align-self: stretch;
+      .input {
+        margin-bottom: 1em;
+      }
+    }
+    .signUpForm {
+      display: flex;
+      flex-direction: column;
+      width: max-content;
+      width: 100%;
+      margin-top: 0.8em;
+    }
+    .form {
+      width: 100%;
+      &_item {
+        width: 100%;
+      }
+      & .input {
+        width: 100%;
+      }
+    }
+    .signUpWith {
+      margin-top: 1em;
+      &__label {
+        margin-bottom: 0.5em;
+      }
+      &__buttons {
+        display: flex;
+        .signUpButton:not(:last-child) {
+          margin-right: 0.5em;
+        }
+      }
+    }
+    .signUpButton {
+      padding: 10px 30px;
+      background: #fff;
+      border-radius: 5px;
+      border: 1px solid $gray85;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      color: $black;
+      &:active {
+        background: $white;
+        border-color: $primaryDark;
+        color: $primaryDark;
+      }
+      &:hover {
+        border-color: $primaryDark;
+        color: $primaryDark;
+      }
+      *:first-child {
+        height: 1em;
+        margin-right: 0.5em;
+      }
+    }
+
+    .buttons {
+      margin-top: 1em;
+      align-self: stretch;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .shareLabel {
+      display: flex;
+      align-items: stretch;
+      color: $primaryDark;
+    }
+    .copyButton {
+      margin-left: 1em;
+      height: 1em;
+      width: 1em;
+      cursor: pointer;
+      transition: 0.2s;
+      &:hover {
+        opacity: 0.8;
+      }
+      svg path {
+        fill: $grey;
+      }
+    }
+
+    .shareButtons {
+      margin-top: 1em;
+      margin-bottom: 1.5em;
+      li {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-right: 1em;
+        &:last-child {
+          display: none;
+        }
+      }
+    }
+
+    .skip {
+      color: $primaryDark;
+      position: absolute;
+      bottom: 36px;
+      right: 36px;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .button {
+      &_blackLoading > span > span > svg path {
+        fill: $black;
+      }
+    }
+  }
+}
+
+.toFeed {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 10%;
+  right: 10%;
+  path {
+    fill: $gray85;
+  }
+  :hover {
+    opacity: 0.9;
+  }
+}

@@ -12,7 +12,7 @@
 .colabWrap {
   display: flex;
   flex-wrap: wrap;
-  margin: 0 -45px;
+  margin: 0 -15px;
   @media (max-width: 991px) {
     justify-content: center;
   }
@@ -25,7 +25,6 @@
   align-items: flex-start;
   // width: 325px;
   width: calc(25% - 30px);
-  min-height: 296px;
   background: #ffffff;
   box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.08);
   border-radius: 10px;
@@ -53,7 +52,7 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: flex-start;
     justify-content: center;
     background-color: #fafafa;
     padding: 30px;
@@ -62,8 +61,8 @@
     color: $black;
     font-style: normal;
     font-weight: bold;
-    font-size: $text4;
-    line-height: 20px;
+    font-size: $text3;
+    line-height: 25px;
     text-align: initial;
     margin-bottom: 19px;
   }
@@ -98,3 +97,5 @@
   margin-top: 70px;
   margin-bottom: 100px;
 }
+
+

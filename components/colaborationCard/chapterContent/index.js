@@ -18,15 +18,14 @@ const ChapterContent = ({ label }) => {
           e.stopPropagation();
         }}>
         <div className={styles.colabWrap__publish}>
-          Chapter:
+          Chapter
           <span>{publishedChapter.length}</span>
         </div>
       </a>
     </Link>
   ) : (
     <div className={styles.colabWrap__publish}>
-      Chapter:
-      <span>Coming soon…</span>
+      Coming soon
     </div>
   );
 };

@@ -10,7 +10,7 @@ import FooterPolicy from 'components/footer-policy';
 import Header from 'components/header';
 import ModalCreateProject from 'components/modalCreateProject';
 import Paginations from 'components/paginations';
-import SearchForCollaborations from 'components/searchForCollaborations';
+import FilterNew from 'components/filterNew';
 import PrimaryButton from 'components/ui-elements/button';
 import ButtonToTop from 'components/ui-elements/button-toTop';
 import FooterLogin from 'features/footerLogin';
@@ -85,16 +85,15 @@ const Collaborations = (props) => {
           <Header path="collaborations" user={user} />
           <main>
             <CollaborationsHeader user={user} />
-            <SearchForCollaborations
-              genres={genres}
-              selectedGenres={selectedGenres}
-              selectedCompensationModel={selectedCompensationModel}
-              selectedTypes={selectedTypes}
-              userTypes={userTypes}
-              search={search}
-              pageUrl={pageUrl}
-            />
             <div className="container mangafy_container">
+              <div className="container">
+                <FilterNew
+                  category="Category"
+                  genres="Genre"
+                  compensationModel={props.hideCollabType ? null : 'Collab type'}
+                  search
+                />
+              </div>
               <Row type="flux">
                 <div className={styles.colabCards}>
                   <div className={'container'}>
@@ -102,10 +101,11 @@ const Collaborations = (props) => {
                       <div className={cn(styles.PostColab)}>
                         <div className={cn(styles.PostColab__item)}>
                           <div className={cn(styles.PostColab__descr)}>
-                            Have an idea for a graphic novel or manga and looking for collaboration?
+                            Produce your story. <br />
+                            It's easiar than you think.
                           </div>
                           <PrimaryButton
-                            text="Post Collab"
+                            text="Let's do!"
                             className={cn(styles.PostColab__btn)}
                             onClick={() => {
                               showCreateProjectModal(true);

@@ -10,8 +10,10 @@
 
 .ButtonPurple {
   &:nth-child(4n + 1) {
-    background: $primaryDark;
-    border: 1px solid $primaryLight;
+    color: $blackCard;
+    size: 10px;
+    font-weight: 700;
+    border: 1px solid $yellow;
   }
   &:nth-child(4n + 2) {
     background: $orangeDark;

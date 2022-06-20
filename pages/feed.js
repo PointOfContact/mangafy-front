@@ -10,7 +10,7 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
     const { query } = context;
     const selectedCategories = query.categories || null;
     const selectedType = query.compensationModel || null;
-    const gallery = await client.service('/api/v2/gallery').find({ query: { count: 8 } });
+    const gallery = await client.service('/api/v2/gallery').find({ query: { count: 20 } });
     let queryPosts;
     if (!!query.type) {
       let type;

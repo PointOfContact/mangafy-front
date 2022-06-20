@@ -9,7 +9,7 @@ import ModalCreateProject from 'components/modalCreateProject';
 import Paginations from 'components/paginations';
 import ProfilesCard from 'components/profilesCard';
 import ProfilesHeader from 'components/profilesHeader';
-import SearchForMembers from 'components/searchForMembers';
+import FilterNew from 'components/filterNew';
 import PrimaryButton from 'components/ui-elements/button';
 import ButtonToTop from 'components/ui-elements/button-toTop';
 import FooterLogin from 'features/footerLogin';
@@ -47,14 +47,10 @@ const Profiles = (props) => {
         <main className="main_back_2">
           <Header user={user} path="profiles" />
           <ProfilesHeader user={user} />
-          <SearchForMembers
-            genres={genres}
-            search={search}
-            selectedTypes={selectedTypes}
-            selectedGenres={selectedGenres}
-            userTypes={userTypes}
-          />
           <div className="container mangafy_container">
+            <div className="container">
+              <FilterNew types="Creators" search />
+            </div>
             <Row type="flux">
               <div className={styles.colabCards}>
                 <div className={'container'}>

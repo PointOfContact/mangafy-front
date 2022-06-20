@@ -56,7 +56,7 @@ const СardGenres = ({ title, subTitle, genres, limit }) => {
   genres: PropTypes.array,
   limit: PropTypes.number,
   title: PropTypes.string,
-  subTitle: '',
+  subTitle: PropTypes.string,
 };
 
 СardGenres.defaultProps = {

@@ -1,6 +1,7 @@
 import '../styles/terms.module.scss';
 
 import React, { Component } from 'react';
+import Link from 'next/link';
 
 import { NextSeo } from 'next-seo';
 
@@ -20,11 +21,12 @@ class Rules extends Component {
         />
         <div className="terms">
           <header id="header" className="gnb" style={{ backgroundColor: 'rgb(123, 100, 242)' }}>
-            <a className="MangaFY-logo" href="/">
-              MangaFY
-            </a>
+            <Link href="/">
+              <a className="MangaFY-logo">
+                MangaFY
+              </a>
+            </Link>
           </header>
-          <link rel="stylesheet" href="styles/policy.css" />
           <div className="wrap" data-sticky-wrap>
             <section className="about" style={{ marginTop: '70px' }}>
               <div className="block" style={{ fontSize: '24px' }}>
@@ -134,19 +136,27 @@ class Rules extends Component {
                 MangaFY , Inc. © 2020. All rights reserved.
               </span>
               <span>
-                <a href="/rules">Community Guidelines</a>
+                <Link href="/rules">
+                  <a>Community Guidelines</a>
+                </Link>
               </span>
               <span>/</span>
               <span>
-                <a href="/content">Content</a>
+                <Link href="/content">
+                  <a>Content</a>
+                </Link>
               </span>
               <span>/</span>
               <span>
-                <a href="/terms">Terms</a>
+                <Link href="/terms">
+                <a>Terms</a>
+                </Link>
               </span>
               <span>/</span>
               <span>
-                <a href="/privac-policy">Privacy Policy</a>
+                <Link href="/privac-policy">
+                  <a>Privacy Policy</a>
+                </Link>
               </span>
             </div>
             <div className="footer-right">

@@ -43,7 +43,7 @@ const ModalComponent = ({
         </Option>
       ))
     );
-  }, [chooseCharacter]);
+  }, [chooseCharacter, heroItems]);
 
   const changeSelectedHero = (value) => {
     setChooseCharacter(value);

@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 
 import DescriptionBestProfile from './descriptionBestProfile';
 import ModalBestProfile from './modalBestProfile';
+import FilterNew from 'components/filterNew';
 import styles from './styles.module.scss';
 
 const BestProfile = ({ gallery, user }) => {
@@ -15,7 +16,7 @@ const BestProfile = ({ gallery, user }) => {
   const [topGallery, setTopGallery] = useState(gallery);
 
   const adaptImages = (g) =>
-    g.map((item, index) => (
+  g.map((item, index) => (
       <div
         key={item._id}
         className={cn(styles.item, item?._id.slice(-3) === 'png' && styles.itemForPNG)}
@@ -27,8 +28,7 @@ const BestProfile = ({ gallery, user }) => {
           priority={index <= 1}
           src={client.UPLOAD_URL + item?._id}
           alt="mangaFy gallery"
-          width={220}
-          height={220}
+          layout='fill'
         />
         <DescriptionBestProfile
           item={item}
@@ -39,7 +39,7 @@ const BestProfile = ({ gallery, user }) => {
         />
         <span className={styles.opacity}></span>
       </div>
-    ));
+  ));
 
   const [images, setImages] = useState(adaptImages(gallery));
 
@@ -51,6 +51,10 @@ const BestProfile = ({ gallery, user }) => {
     <div className={styles.container}>
       <div className={styles.card_wrap}>
         <h2> &#x2606; New this Week </h2>
+        <FilterNew
+              genres='Genre'
+              search
+            />
         <div className={styles.imagesForMobile}>{images}</div>
         <div className={styles.imagesForDesktop}>{images}</div>
         <ModalBestProfile

@@ -14,7 +14,7 @@ import styles from './styles.module.scss';
 const { Option } = Select;
 
 const menuOptions = (handleCompasitionClick) => [
-  <Option key="all">Doesn't matter</Option>,
+  <Option key="all">Doesn&#39;t matter</Option>,
   <Option key="collaboration">Joint Collab</Option>,
   <Option key="paid">Paid Collab</Option>,
 ];

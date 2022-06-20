@@ -35,7 +35,7 @@ const ModalScript = ({
     setText('');
     setTitleError('');
     setLoading(false);
-  }, [valuesField]);
+  }, [valuesField, setLoading]);
 
   useEffect(() => {
     form.setFieldsValue({
