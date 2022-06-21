@@ -4,9 +4,9 @@ import styles from './styles.module.scss'
 import cn from 'classnames'
 import { notification } from 'antd'
 
-const SetupPayout = ({ storyInfo, createStory, goBack, setStoryInfo }) => {
+const SetupPayout = ({ storyInfo, createStory, goBack, setStoryInfo, loading }) => {
 
-    const [loading, setLoading] = useState(null);
+    // const [loading, setLoading] = useState(null);
     const [isValid, setIsValid] = useState(true);
     const inputRef = useRef(null)
 
@@ -37,6 +37,7 @@ const SetupPayout = ({ storyInfo, createStory, goBack, setStoryInfo }) => {
     }
 
     function skipHandler() {
+        // setLoading('next')
         setStoryInfo({ ...storyInfo, paypal: inputRef.current?.value});
         createStory();
     }
@@ -63,7 +64,7 @@ const SetupPayout = ({ storyInfo, createStory, goBack, setStoryInfo }) => {
                         isWhite={true}
                         className={styles.button_blackLoading}
                         text="Go back"
-                        onClick={ () => goBack() }
+                        onClick={ () => {goBack()} }
                         loading={loading === 'prev'}
                     />
                 </div>

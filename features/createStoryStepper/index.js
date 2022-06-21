@@ -7,6 +7,7 @@ import SignUp from './sign-up';
 import SetupPayout from './setup-payout';
 import ShareStory from './share-story';
 import client from 'api/client';
+import { LinkCreator } from 'utils/linkCreator';
 import { useRouter } from 'next/router';
 import { notification } from 'antd';
 import { findStoryBoard } from 'api/storyBoardClient';
@@ -23,44 +24,53 @@ const defaultStoryInfo = {
 
 const CreateStoryStepper = ({ genres, path, user, query, jwt }) => {
   const router = useRouter();
-  const [link, setLink] = useState(null);
-  const [step, setStep] = useState(Number.parseInt(query?.step ? query.step : '0'));
-  const [storyInfo, setStoryInfo] = useState(defaultStoryInfo);
+  const [storyInfo, setStoryInfo] = useState({...router.query} || defaultStoryInfo);
   const [loading, setLoading] = useState(null);
 
-  useEffect(() => {
-    setStoryInfo(defaultStoryInfo);
-  }, []);
+  // useEffect(() => {
+  //   if (!router.query?.step && (router.query?.step !== 0)) {
+  //     pushQuery({...storyInfo, step: 0});
+  //   }
+  // }, []);
 
   useEffect(() => {
-    localStorage.setItem('newStoryInfo', JSON.stringify(storyInfo));
-  }, [storyInfo]);
+    pushQuery(storyInfo);
+  }, [storyInfo.step]);
 
   useEffect(() => {
-    setStep(Number.parseInt(query?.step));
-  }, [query?.step]);
-
-  useEffect(() => {
+    setStoryInfo({...router.query})
     setLoading(null);
-  }, [step]);
+  }, [router.query]);
+
+  const pushQuery = (query) => {
+    router.push(
+      LinkCreator.toQuery(query, router.pathname),
+      LinkCreator.toQuery(query, router.pathname),
+      { scroll: false }
+    );
+  };
 
   function toNextStep() {
-    const prevStep = step;
+    const prevStep = Number.parseInt(router.query?.step);
     let nextStep = prevStep;
-    if (prevStep >= 6) nextStep = 6;
-    if (user && prevStep === 3) nextStep = 5;
+    if (prevStep < 0) nextStep = 0;
+    else if (prevStep >= 6) nextStep = 6;
+    else if (user && prevStep === 3) nextStep = 5;
     else ++nextStep;
-    router.push('/create-story/?step=' + nextStep);
+    console.log(prevStep, nextStep)
+    // router.push('/create-story/?step=' + nextStep);
+    setStoryInfo({...storyInfo, step: nextStep || 1})
     setLoading('next');
   }
 
   function toPrevStep() {
-    const prevStep = step;
+    const prevStep = Number.parseInt(router.query?.step) || -1;
     let nextStep = prevStep;
-    if (prevStep <= 0) nextStep = 0;
-    if (user && prevStep === 5) nextStep = 3;
+    if (prevStep > 6) nextStep = 6;
+    else if (prevStep <= 0) nextStep = 0;
+    else if (user && prevStep === 5) nextStep = 3;
     else --nextStep;
-    router.push('/create-story/?step=' + nextStep);
+    setStoryInfo({...storyInfo, step: nextStep})
     setLoading('prev');
   }
 
@@ -74,7 +84,7 @@ const CreateStoryStepper = ({ genres, path, user, query, jwt }) => {
           projectType: storyInfo.type,
           story: storyInfo.seriesTitle,
           description: storyInfo.seriesDescription,
-          genresIds: storyInfo.genres,
+          genresIds: Array.isArray(storyInfo.genres) ? storyInfo.genres : (storyInfo.genres ? [storyInfo.genres] : []),
         },
         {
           headers: { Authorization: `Bearer ${jwt}` },
@@ -109,11 +119,17 @@ const CreateStoryStepper = ({ genres, path, user, query, jwt }) => {
                     }
                   );
                   // Then set paypal email
-                  mangaStoryAPI.draft.saveUserDataByKey(storyInfo.paypal, user, () => {});
-                  setLink('https://' + storyInfo.projectName + '.mangafy.club/');
-                  toNextStep();
+                  if (storyInfo.paypal) mangaStoryAPI.draft.saveUserDataByKey(storyInfo.paypal, user, () => {});
+                  // setLink('https://' + storyInfo.projectName + '.mangafy.club/');
+                  // setCreatorLink('/manga-story/' + createdStory._id);
+                  setLoading('next');
+                  pushQuery({step: 6, link: ('https://' + storyInfo.projectName + '.mangafy.club/'), creatorlink: ('/manga-story/' + createdStory._id)});
                 } catch (err) {
-                  throw new Error(err);
+                  setLoading(null)
+                  notification.error({
+                    placement: 'bottomLeft',
+                    message: err.message,
+                  });
                 }
               },
               () => {},
@@ -121,7 +137,10 @@ const CreateStoryStepper = ({ genres, path, user, query, jwt }) => {
             );
           },
           (err) => {
-            throw new Error(err);
+            notification.error({
+              placement: 'bottomLeft',
+              message: err.message,
+            });
           }
         );
       })
@@ -135,7 +154,7 @@ const CreateStoryStepper = ({ genres, path, user, query, jwt }) => {
   }
 
   let StepElement;
-  switch (step) {
+  switch (Number.parseInt(router.query?.step)) {
     case 0:
       StepElement = CreateStory;
       break;
@@ -166,19 +185,17 @@ const CreateStoryStepper = ({ genres, path, user, query, jwt }) => {
 
     default:
       StepElement = CreateStory;
-      setStep(0);
       break;
   }
 
   return (
     <StepElement
-      genres={genres.data}
+      genres={genres?.data}
       storyInfo={storyInfo}
       goNext={() => toNextStep()}
       goBack={() => toPrevStep()}
       setStoryInfo={(info) => setStoryInfo(info)}
       createStory={createStory}
-      link={link}
       loading={loading}
       setLoading={(value) => setLoading(value)}
     />
