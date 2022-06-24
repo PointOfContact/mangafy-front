@@ -4,8 +4,9 @@ import React, { useRef, useState } from 'react';
 import styles from './styles.module.scss';
 import cn from 'classnames';
 import { notification } from 'antd';
+import client from 'api/client';
 
-const CreateStory = ({ storyInfo, goNext, setStoryInfo, loading }) => {
+const CreateStory = ({ storyInfo, goNext, setStoryInfo, loading, setLoading }) => {
 
     const [isValid, setIsValid] = useState(true);
     const inputRef = useRef(null)
@@ -17,11 +18,13 @@ const CreateStory = ({ storyInfo, goNext, setStoryInfo, loading }) => {
     }
 
     function nextHandler() {
+        setLoading('next')
         if (!storyInfo.projectName) {
             notification.error({
                 message: 'Please enter the name of your project',
                 placement: 'bottomLeft',
             });
+            setLoading(null)
             setIsValid(false);
         }
         else if (!storyInfo.projectName.match(/^[a-z]+$/)) {
@@ -29,6 +32,7 @@ const CreateStory = ({ storyInfo, goNext, setStoryInfo, loading }) => {
                 message: 'Please enter corrent project name without spaces and numbers',
                 placement: 'bottomLeft',
             });
+            setLoading(null)
             setIsValid(false);
         }
         else if (storyInfo.projectName.length < 3) {
@@ -36,6 +40,7 @@ const CreateStory = ({ storyInfo, goNext, setStoryInfo, loading }) => {
                 message: 'Project name should be more than 2 characters',
                 placement: 'bottomLeft',
             });
+            setLoading(null)
             setIsValid(false);
         }
         else if (storyInfo.projectName.length >= 20) {
@@ -43,11 +48,29 @@ const CreateStory = ({ storyInfo, goNext, setStoryInfo, loading }) => {
                 message: 'Project name should be less than 20 characters',
                 placement: 'bottomLeft',
             });
+            setLoading(null)
             setIsValid(false);
         }
         else {
-            // setLoading(true)
-            goNext()
+            client
+                .service('/api/v2/manga-stories')
+                .find({
+                    query: {
+                        title: storyInfo.projectName
+                    }
+                })
+                .then(stories => {
+                    if (stories.data.length > 0) {
+                        notification.error({
+                            message: 'This title is already taken',
+                            placement: 'bottomLeft'
+                        })
+                        setLoading(null);
+                    } else {
+                        goNext()
+                    }
+                });
+            // goNext()
         }
     }
 
