@@ -88,7 +88,7 @@ const Collaborations = (props) => {
             <div className="container mangafy_container">
               <div className="container">
                 <FilterNew
-                  category="Category"
+                  // category="Category"
                   genres="Genre"
                   compensationModel={props.hideCollabType ? null : 'Collab type'}
                   search
