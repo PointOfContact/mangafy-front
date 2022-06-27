@@ -9,7 +9,7 @@ import FooterPolicy from 'components/footer-policy';
 import Header from 'components/header';
 import ModalDiscussion from 'components/modals/discussion';
 import ButtonToTop from 'components/ui-elements/button-toTop';
-import FooterLogin from 'features/footerLogin';
+// import FooterLogin from 'features/footerLogin';
 import { NextSeo } from 'next-seo';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
@@ -146,7 +146,7 @@ export default function LandingNew(props) {
         )}
         <Footer user={user} />
         <FooterPolicy />
-        <FooterLogin user={user} />
+        {/* <FooterLogin user={user} /> */}
         <FeedCreateButton user={user} />
       </div>
     </>
