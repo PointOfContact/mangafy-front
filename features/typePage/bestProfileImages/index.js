@@ -51,7 +51,7 @@ const BestProfile = ({ gallery, user }) => {
     <div className={styles.container}>
       <div className={styles.card_wrap}>
         <h2> Explore the best of MangaFY </h2>
-        <FilterNew genres="Genre" search />
+        {/* <FilterNew genres="Genre" search /> */}
         <div className={styles.imagesForMobile}>{images}</div>
         <div className={styles.imagesForDesktop}>{images}</div>
         <ModalBestProfile
