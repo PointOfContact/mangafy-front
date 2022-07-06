@@ -8,15 +8,15 @@ import Footer from 'components/footer';
 import FooterPolicy from 'components/footer-policy';
 import Header from 'components/header';
 import ModalDiscussion from 'components/modals/discussion';
-import TypePage from 'components/type-content';
 import ButtonToTop from 'components/ui-elements/button-toTop';
-import FooterLogin from 'features/footerLogin';
+// import FooterLogin from 'features/footerLogin';
 import { NextSeo } from 'next-seo';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
 import * as qs from 'query-string';
 
 import BestProfileImages from './bestProfileImages';
+import FeedCreateButton from 'components/FeedCreateButton';
 import styles from './styles.module.scss';
 
 export default function LandingNew(props) {
@@ -125,17 +125,7 @@ export default function LandingNew(props) {
         <div className={'content'}>
           <Header user={user} />
           <main className={styles.main}>
-            {/* {!user && <AnimePlatform user={user} />} */}
             <BestProfileImages gallery={gallery} user={user} />
-            {/* <TypePage
-              user={user}
-              posts={posts}
-              dailyWarmUps={dailyWarmUps}
-              members={members}
-              collaborations={collaborations}
-              selectedCategories={selectedCategories}
-              selectedType={selectedType}
-            /> */}
           </main>
         </div>
         {selectedPost && (
@@ -156,7 +146,8 @@ export default function LandingNew(props) {
         )}
         <Footer user={user} />
         <FooterPolicy />
-        <FooterLogin user={user} />
+        {/* <FooterLogin user={user} /> */}
+        <FeedCreateButton user={user} />
       </div>
     </>
   );
