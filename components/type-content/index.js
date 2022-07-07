@@ -30,6 +30,7 @@ export default function TypePage({
   const [more, setMore] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [option, setOption] = useState([]);
+  const [postElements, setPostElements] = useState([]);
   const [infiniteScroll, setInfiniteScroll] = useState(false);
   const [query, serQuery] = useState([]);
 
@@ -96,27 +97,30 @@ export default function TypePage({
 
   const defaultValue = typeof query === 'string' ? [query] : query;
 
-  const postElements = discussions.map((item, i) => (
-    <DiscussionCard
-      key={item._id + i}
-      id={item._id}
-      logo={item.logoUrl}
-      title={item.title}
-      type={item.type}
-      categories={item.categories}
-      img={item.imageUrl}
-      subTitle={item.subTitle}
-      url={item.button?.navigateTo}
-      btnText={item.button?.title}
-      user={user}
-      commentsCount={item.commentsCount}
-      likesCount={item.likesCount}
-      logoNavigate={item.logoNavigate}
-      userId={item.userId}
-      discussions={discussions}
-      setDiscussions={setDiscussions}
-    />
-  ));
+  useEffect(() => {
+    const items = discussions.map((item, i) => (
+      <DiscussionCard
+        key={item._id + i}
+        id={item._id}
+        logo={item.logoUrl}
+        title={item.title}
+        type={item.type}
+        categories={item.categories}
+        img={item.imageUrl}
+        subTitle={item.subTitle}
+        url={item.button?.navigateTo}
+        btnText={item.button?.title}
+        user={user}
+        commentsCount={item.commentsCount}
+        likesCount={item.likesCount}
+        logoNavigate={item.logoNavigate}
+        userId={item.userId}
+        discussions={discussions}
+        setDiscussions={setDiscussions}
+      />
+    ));
+    setPostElements(items);
+  }, [discussions]);
 
   const infiniteScrollComponent = () =>
     infiniteScroll ? (

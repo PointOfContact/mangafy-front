@@ -17,20 +17,17 @@ const Idea = ({ storyBoard, user }) => {
 
   const handleTextChange = (e) => {
     setIdea(e);
-  };
 
-  const onBlur = (type = 'desc') => {
-    if (!idea.trim().length) return;
-
+    const type = 'desc';
     const data = {
-      event_type: type === 'title' ? EVENTS.CHANGE_BOARD_TITLE : EVENTS.CHANGE_BOARD_DESCRIPTION,
+      event_type: EVENTS.CHANGE_BOARD_DESCRIPTION,
       event_properties: { storyBoardId: storyBoard._id },
     };
     myAmplitude(data);
 
     patchStoryBoard(
       storyBoard?._id,
-      { idea },
+      { idea: e },
       () => {},
       () => {}
     );
@@ -43,9 +40,8 @@ const Idea = ({ storyBoard, user }) => {
         placeholder="The plot is what happens in a story. However, it is not simply a sequence of events. You want a lot of dialogue and large, easily recognizable moments. Come up with a short story idea that would work well visually and start typing..."
         result={handleTextChange}
         value={idea}
-        disabled={idea?.length >= 1000}
         maxLength={10}
-        onBlur={onBlur}
+        s
       />
     </div>
   );
