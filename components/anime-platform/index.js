@@ -49,8 +49,8 @@ const AnimePlatform = ({ user }) => {
       <div className={styles.animePlatform}>
         <h3 className={styles.title}>Create Better, Together.</h3>
         <p className={styles.info}>
-          Start your webcomics project project now. Collaborate, Produce, and Self-publish your
-          story with MangaFY
+          Start your webcomics project now. Collaborate, Produce, and Self-publish your story with
+          MangaFY
         </p>
         <Row
           gutter={[

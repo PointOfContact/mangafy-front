@@ -219,6 +219,7 @@ const ModalDiscussion = ({
                       subTitle={subTitle}
                       categories={categories}
                       className={styles.shareIcon}
+                      changeRouter={false}
                     />
                     <Popover
                       placement="bottomRight"
@@ -296,7 +297,7 @@ ModalDiscussion.propTypes = {
   discussions: PropTypes.array,
   setDiscussions: PropTypes.func,
   likesData: PropTypes.array.isRequired,
-  setLikesData: PropTypes.array.isRequired,
+  setLikesData: PropTypes.func.isRequired,
 };
 
 ModalDiscussion.defaultProps = {

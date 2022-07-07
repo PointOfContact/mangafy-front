@@ -10,6 +10,7 @@ import SvgShare from 'components/icon/Share';
 import Popconfirm from 'components/popconfirm';
 import { ShareButtons } from 'components/share';
 import { EVENTS } from 'helpers/amplitudeEvents';
+import Router from 'next/router';
 import PropTypes from 'prop-types';
 import myAmplitude from 'utils/amplitude';
 
@@ -25,6 +26,7 @@ const EditPostItems = ({
   subTitle,
   categories,
   className,
+  changeRouter,
 }) => {
   const [visibleEditModal, visibleEditPostModal] = useState(false);
   const [showShareIcon, setShowShareIcon] = useState(false);
@@ -104,6 +106,8 @@ const EditPostItems = ({
               onClick={(e) => {
                 e.stopPropagation();
                 setShowShareIcon(true);
+                changeRouter &&
+                  Router.push(`/feed?postId=${id}`, undefined, { scroll: false, shallow: false });
               }}>
               <SvgShare width="15" height="15" />
               Share
@@ -152,13 +156,15 @@ EditPostItems.propTypes = {
   currentSubTitle: PropTypes.string.isRequired,
   subTitle: PropTypes.string.isRequired,
   categories: PropTypes.array.isRequired,
-  className: PropTypes.object,
+  className: PropTypes.string,
+  changeRouter: PropTypes.bool,
 };
 
 EditPostItems.defaultProps = {
   currentSubTitle: '',
   user: {},
-  className: {},
+  className: '',
+  changeRouter: true,
 };
 
 export default EditPostItems;
