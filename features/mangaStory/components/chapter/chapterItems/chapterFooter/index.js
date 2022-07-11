@@ -139,6 +139,7 @@ const ChapterFooter = ({
           setOpenPublishedModal={setOpenPublishedModal}
           setIsModalVisible={setIsModalVisible}
           baseData={baseData}
+          storyBoard={storyBoard}
         />
       )}
     </div>

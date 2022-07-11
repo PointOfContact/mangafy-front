@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
-const ChapterTitle = ({ value, chapters, setChapters, edit, setEdit, index }) => {
+const ChapterTitle = ({ value, chapters, storyBoard, setChapters, edit, setEdit, index }) => {
   const [mouseOut, onMouseOut] = useState(false);
   const [editName, setEditName] = useState(value?.title);
   const validate = editName?.trim()?.length < 2;
@@ -34,7 +34,7 @@ const ChapterTitle = ({ value, chapters, setChapters, edit, setEdit, index }) =>
       setChapters
     );
   };
-
+  console.log(storyBoard?._id, 555);
   return (
     <div className={styles.titleContainer}>
       {edit === value?._id ? (
@@ -94,9 +94,14 @@ ChapterTitle.propTypes = {
   value: PropTypes.object.isRequired,
   chapters: PropTypes.array.isRequired,
   setChapters: PropTypes.func.isRequired,
+  storyBoard: PropTypes.object,
   edit: PropTypes.string.isRequired,
   setEdit: PropTypes.func.isRequired,
   index: PropTypes.number.isRequired,
+};
+
+ChapterTitle.defaultProps = {
+  storyBoard: {},
 };
 
 export default ChapterTitle;

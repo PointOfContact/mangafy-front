@@ -15,10 +15,10 @@ const ModalPublishedChapter = ({
   setOpenPublishedModal,
   setIsModalVisible,
   baseData,
+  storyBoard,
 }) => {
   const [copyText, setCopyText] = useState('Copy to clipboard');
-
-  const link = `https://mangafy.club/manga-story/${baseData._id}?tab=create&page=publish`;
+  const link = `https://mangafy.club/manga-view/${storyBoard?._id}`;
 
   return (
     <Modal
@@ -53,9 +53,7 @@ const ModalPublishedChapter = ({
           </Tooltip>
         </div>
         <div className={styles.shareUrlContainer}>
-          <ShareButtons
-            shareUrl={`https://mangafy.club/manga-story/${baseData._id}?tab=create&page=chapters`}
-          />
+          <ShareButtons shareUrl={link} />
           <p
             onClick={() => {
               window.open(`/manga-story/${baseData._id}?tab=settings`, '_self');
@@ -76,6 +74,11 @@ ModalPublishedChapter.propTypes = {
   setOpenPublishedModal: PropTypes.func.isRequired,
   setIsModalVisible: PropTypes.func.isRequired,
   baseData: PropTypes.object.isRequired,
+  storyBoard: PropTypes.object,
+};
+
+ModalPublishedChapter.defaultProps = {
+  storyBoard: {},
 };
 
 export default ModalPublishedChapter;

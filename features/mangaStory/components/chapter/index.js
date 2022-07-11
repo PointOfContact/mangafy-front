@@ -19,7 +19,7 @@ const Chapter = ({ storyBoard, setStoryBoard, chapters, setChapters, user, baseD
 
   useEffect(() => {
     createChapter &&
-      inputRef.current.focus({
+      inputRef?.current?.focus({
         cursor: 'end',
       });
     setOnBlur(false);
