@@ -657,9 +657,9 @@ const NewLending = ({ user }) => {
                          .a856e830-e619-44cf-b1c0-e687401a9f1c {
                           fill: none;
                           stroke: #000;
-                          stroke-linecap: round;
+                          strokeLinecap: round;
                           stroke-linejoin: round;
-                          stroke-width: 2px;
+                          strokeWidth: 2px;
                         }
                         `}
                             </style>
@@ -688,9 +688,9 @@ const NewLending = ({ user }) => {
                               {` .b67fb6ee-66c1-43cb-8347-2c1bc26b78ed {
                             fill: none;
                             stroke: #000;
-                            stroke-linecap: round;
+                            strokeLinecap: round;
                             stroke-linejoin: round;
-                            stroke-width: 2px;
+                            strokeWidth: 2px;
                           }`}
                             </style>
                           </defs>
@@ -714,9 +714,9 @@ const NewLending = ({ user }) => {
                               {`  .ad1a81ee-041c-477f-8b66-0db94ba0917d {
                             fill: none;
                             stroke: #000;
-                            stroke-linecap: round;
+                            strokeLinecap: round;
                             stroke-linejoin: round;
-                            stroke-width: 2px;
+                            strokeWidth: 2px;
                           }`}
                             </style>
                           </defs>
@@ -740,9 +740,9 @@ const NewLending = ({ user }) => {
                               {` .beae5df7-356b-442d-bd00-d017682c326a {
                             fill: none;
                             stroke: #000;
-                            stroke-linecap: round;
+                            strokeLinecap: round;
                             stroke-linejoin: round;
-                            stroke-width: 2px;
+                            strokeWidth: 2px;
                           }`}
                             </style>
                           </defs>

@@ -1,0 +1,138 @@
+@import '../../styles/variables.scss';
+
+
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    box-shadow: $bigShadow;
+    padding: 15px 50px;
+    font-size: 15px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    height: 24px;
+    width: auto;
+    cursor: pointer;
+    > svg {
+        height: 100%;
+        * {
+            fill: $pink
+        }
+    }
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+
+    &__avatar {
+        display: flex;
+        height: 42px;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        cursor: pointer;
+        border: solid 2px $pink;
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+    &__buttons {
+        @include media-sm {
+            display: none;
+        }
+        display: flex;
+        & > *:not(:last-child) {
+            margin-right: 15px;
+        }
+    }
+    
+    &__dropdowns {
+        @include media-sm {
+            display: none;
+        }
+        display: flex;
+        & > *:not(:last-child) {
+            margin-right: 20px;
+        }
+        margin-right: 30px;
+        :global {
+            .ant-dropdown-open {
+                svg {
+                    transform: rotate(-180deg);
+                }
+            }
+        }
+    }
+
+    &__dropdown {
+        cursor: pointer;
+        color: #3e3e3e;
+        transition: 0.2s;
+        &Arrow {
+            transition: 0.2s;
+            height: 1em;
+        }
+        :hover {
+            color: #4e4e4e;
+        }
+        &Item {
+            display: flex;
+            padding: 15px;
+            align-items: center;
+        }
+        &Icon {
+            height: 24px;
+            aspect-ratio: 1;
+            margin-right: 1em;
+            &_avatar {
+                height: 42px;
+            }
+        }
+        &Content {
+            display: flex;
+            flex-direction: column;
+        }
+        &Title {
+            font-size: 15px;
+            font-weight: 700;
+            line-height: 1em;
+            margin-bottom: 0.5em;
+            &_titleOnly {
+                margin-bottom: 0;
+            }
+        }
+        &Subtitle {
+            font-size: 12px;
+            color: #757575;
+            line-height: 1em;
+        }
+    }
+    // mobile menu for header
+    &_mobile {
+        display: none;
+        @include media-sm {
+            display: block;
+        }
+        border-radius: 3em;
+        padding: 8px 10px;
+        background: #fff;
+        border: 1px solid $pink;
+        &:hover {
+            background: rgb(255, 250, 255);
+        }
+        &:active {
+            background: rgb(245, 235, 245);
+        }
+        &__icon {
+            width: 24px;
+            aspect-ratio: 1;}
+    }
+}
