@@ -63,13 +63,15 @@ const ProfileTopBar = (props) => {
   const history = useRouter();
 
   useEffect(() => {
-    setUserTypes(
-      userTypes?.map((item) => (
+    const types = userTypes?.map((item) => {
+      return (
         <Option key={item.key} value={item.key}>
           {item.value}
         </Option>
-      ))
-    );
+      );
+    });
+
+    setUserTypes(types);
   }, []);
 
   const sendInvites = () => {
@@ -254,15 +256,13 @@ const ProfileTopBar = (props) => {
                     />
                   </div>
                 ) : (
-                  <>
-                    <Follow
-                      count={likedUsers?.length}
-                      profile={profile}
-                      user={user}
-                      likedUsers={likedUsers}
-                      setLikedUsers={setLikedUsers}
-                    />
-                  </>
+                  <Follow
+                    count={likedUsers?.length}
+                    profile={profile}
+                    user={user}
+                    likedUsers={likedUsers}
+                    setLikedUsers={setLikedUsers}
+                  />
                 )}
               </>
             ) : (
@@ -338,7 +338,7 @@ const ProfileTopBar = (props) => {
                   isActive
                   isRound
                   disabled={false}
-                  onClick={() => changeBio()}
+                  onClick={changeBio}
                 />
               </div>
             )}
