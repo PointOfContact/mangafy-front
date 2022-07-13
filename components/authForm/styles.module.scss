@@ -57,7 +57,8 @@
         max-height: 47px;
         & > div {
           & > div {
-            top: 64%;
+            top: 0.1em;
+            width: max-content;
           }
           &:last-child {
             text-align: start;
