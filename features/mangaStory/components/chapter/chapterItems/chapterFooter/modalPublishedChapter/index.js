@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+import client from 'api/client';
 import { Modal, Tooltip } from 'antd';
 import SvgClose from 'components/icon/Close';
 import SvgCopy from 'components/icon/Copy';
@@ -15,10 +16,11 @@ const ModalPublishedChapter = ({
   setOpenPublishedModal,
   setIsModalVisible,
   baseData,
+  storyBoard,
 }) => {
   const [copyText, setCopyText] = useState('Copy to clipboard');
 
-  const link = `https://mangafy.club/manga-story/${baseData._id}?tab=create&page=publish`;
+  const link = client.API_ENDPOINT + `/manga-view/${storyBoard._id}`;
 
   return (
     <Modal
@@ -53,12 +55,10 @@ const ModalPublishedChapter = ({
           </Tooltip>
         </div>
         <div className={styles.shareUrlContainer}>
-          <ShareButtons
-            shareUrl={`https://mangafy.club/manga-story/${baseData._id}?tab=create&page=chapters`}
-          />
+          <ShareButtons shareUrl={link} />
           <p
             onClick={() => {
-              window.open(`/manga-story/${baseData._id}?tab=settings`, '_self');
+              window.open(link, '_self');
               setIsModalVisible(false);
               setOpenPublishedModal(false);
             }}>
