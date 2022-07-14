@@ -79,7 +79,7 @@ export default {
     },
   },
   collab: {
-    patchCollab: (newBaseData) => {
+    patchCollab: (newBaseData, callback = (data) => {}) => {
       const jwt = client.getCookie('feathers-jwt');
       import('api/restClient').then((m) => {
         m.default
@@ -89,6 +89,7 @@ export default {
           })
           .then((res) => {
             console.log(res, 'ewsssssssss');
+            callback(res);
           })
           .catch((err) => {
             notification.error({
