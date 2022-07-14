@@ -20,44 +20,72 @@ const DescriptionBestProfile = ({
   ifModal,
   setStartIndex,
 }) => {
-  const isLiked = (userId) => !!item?.galleryLikedUsers?.find((value) => value === userId);
-
-  const onLikeGallery = (galleryId, userId, likedUserId) => {
-    !!user
-      ? likeGallery(galleryId, userId)
-          .then(() => {
-            setTopGallery(
-              topGallery.map((value, index) => {
-                if (value._id === galleryId) {
-                  setStartIndex(index);
-                  return {
-                    ...value,
-                    // add new like user id
-                    galleryLikedUsers: [...value.galleryLikedUsers, likedUserId],
-                    // add like
-                    likeCount: item?.likeCount + 1,
-                  };
-                }
-                return value;
-              })
-            );
-          })
-          .catch((err) => {
-            notification.error({
-              message: err.message,
-              placement: 'bottomLeft',
-            });
-          })
-      : Router.push('/sign-in');
+  const isLiked = (userId) => {
+    const liked = !!item?.galleryLikedUsers?.find((value) => value === userId);
+    console.log(item?.galleryLikedUsers);
+    console.log(liked);
+    return liked;
   };
 
-  const handleEvent = (e) => {
-    e.stopPropagation();
+  const onLikeGallery = (galleryId, userId, likedUserId) => {
+    if (!user) return Router.push('/sign-in');
+    if (!isLiked(user?._id)) {
+      likeGallery(galleryId, userId)
+        .then(() => {
+          setTopGallery(
+            topGallery.map((value, index) => {
+              if (value._id === galleryId) {
+                setStartIndex(index);
+                return {
+                  ...value,
+                  // add new like user id
+                  galleryLikedUsers: [...value.galleryLikedUsers, likedUserId],
+                  // add like
+                  likeCount: item?.likeCount + 1,
+                };
+              }
+              return value;
+            })
+          );
+        })
+        .catch((err) => {
+          notification.error({
+            message: err.message,
+            placement: 'bottomLeft',
+          });
+        });
+    } else {
+      // There should be 'unLike' functionality but it can't be done yet
+      likeGallery(galleryId, userId)
+        .then(() => {
+          setTopGallery(
+            topGallery.map((value, index) => {
+              if (value._id === galleryId) {
+                setStartIndex(index);
+                return {
+                  ...value,
+                  // remove user id
+                  galleryLikedUsers: value.galleryLikedUsers.filter((id) => id !== likedUserId),
+                  // remove like
+                  likeCount: item?.likeCount - 1,
+                };
+              }
+              return value;
+            })
+          );
+        })
+        .catch((err) => {
+          notification.error({
+            message: err.message,
+            placement: 'bottomLeft',
+          });
+        });
+    }
   };
 
   return (
     <>
-      <span className={styles.descriptionContent} onClick={(e) => handleEvent(e)}>
+      <span className={styles.descriptionContent}>
         <Link href={`/profile/${item.userId}`}>
           <a className={styles.avatarData}>
             {ifModal && (
@@ -85,7 +113,7 @@ const DescriptionBestProfile = ({
             height="20px"
             onClick={(e) => {
               e.stopPropagation();
-              !isLiked(user?._id) && onLikeGallery(item?._id, item?.userId, user?._id);
+              onLikeGallery(item?._id, item?.userId, user?._id);
             }}
             className={user && isLiked(user?._id) && styles.isLiked}
           />

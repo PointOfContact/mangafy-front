@@ -170,8 +170,8 @@ $borderColor: rgb(233, 232, 232);
           }
         }
       }
-      span {
-        pointer-events: none;
+      > span {
+        // pointer-events: none;
         height: 100%;
         width: 100%;
       }
