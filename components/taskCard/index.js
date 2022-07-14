@@ -7,14 +7,21 @@ import Heart from 'components/icon/new/Heart';
 import Clock from 'components/icon/new/Clock';
 import Button from 'components/ui-new/Button';
 import client from 'api/client';
+import Dollar from 'components/icon/new/Dollar';
 
 const index = ({ card }) => {
   let text = card.subTitle?.length > 200 ? card.subTitle.substr(0, 200) + '...' : card.subTitle;
   const title = card.type;
-  const time = new Date(new Date() - new Date(card.createdAt)).getHours();
-  console.log(time);
+
+  const time = Math.floor((new Date() - new Date(card.createdAt)) / 1000 / 60 / 60);
+  let timeMeasure = 'hours';
+  if (time > 23) time = Math.floor(time / 24);
+  timeMeasure = 'days';
+  if (time > 6) time = Math.floor(time / 7);
+  timeMeasure = 'weeks';
+
   const author = card.title;
-  const price = '-';
+  const budget = parseBudget(card.categories);
   const authorImage = card.logoUrl;
   return (
     <div className={styles.card}>
@@ -28,7 +35,7 @@ const index = ({ card }) => {
           <div>{author}</div>
         </div>
         <div className={styles.card__time}>
-          {time + ' hours ago'}
+          {`${time} ${timeMeasure} ago`}
           <Clock color="#C3BAFA" />
         </div>
       </div>
@@ -36,10 +43,28 @@ const index = ({ card }) => {
         <Button sm={1} iconRight={1} rounded={1} icon={<Heart color="#fff" />}>
           Apply
         </Button>
-        <div className={styles.card__collab}>{price + ' $'}</div>
+        {budget ? (
+          <div className={styles.card__collab}>
+            {budget + ' USD'}
+            <Dollar color={'#C3BAFA'} className={styles.card__dollar} />
+          </div>
+        ) : (
+          <div className={styles.card__collab}>
+            Collab
+            <Cherry color={'#C3BAFA'} />
+          </div>
+        )}
       </div>
     </div>
   );
 };
+
+function parseBudget(tags) {
+  if (!Array.isArray(tags)) return;
+  if (tags.length === 0) return;
+  const budget = tags.filter((tag) => tag.includes('$'));
+  if (budget.length === 0) return;
+  return budget[0].slice(1, -1);
+}
 
 export default index;

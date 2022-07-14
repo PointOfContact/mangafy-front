@@ -144,6 +144,7 @@ async function getCards(limit = 30, skip = 0) {
           createdAt: -1,
         },
         $skip: skip,
+        // postType: 'Task',
       },
     });
     return posts.data;
