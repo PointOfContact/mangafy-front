@@ -39,6 +39,10 @@ const Settings = ({
     collabRef.current.checked = baseData?.published;
   }, []);
 
+  function isReadyToPublish() {
+    return !(!baseData.story || baseData.story === '<p><br></p>' || !baseData.image);
+  }
+
   const patchStory = (data) =>
     mangaStoryAPI?.hiderCollab?.patchStory(data, setBaseData, userData, baseData, openNotification);
 
@@ -93,6 +97,7 @@ const Settings = ({
       <div className={styles.container}>
         <EditGenresField
           baseData={baseData}
+          setBaseData={setBaseData}
           userData={userData}
           sendEvent={sendEvent}
           genresEnums={genres}
@@ -103,19 +108,29 @@ const Settings = ({
       <div className={styles.container}>
         <div className={styles.publicProject}>
           <h2>Make visible</h2>
+          Visible projects will only show general information about your project (inc. what you
           <p>
-            Visible projects will only show general information about your project (inc. what you
             look for, and what you aim to work on without disclosing anything else). In draft mode,
             you go off-grid and need to invite collaborations manually, while the member you invite
-            sees nothing.
           </p>
+          sees nothing.
           <div className={styles.toggleStylesMakeVisible}>
             <span className={styles.toggleTitle}>Invisible</span>
-            <ToggleSwitch
-              className={styles.toggle}
-              onChange={() => onPublish()}
-              inputRef={collabRef}
-            />
+            <span
+              onClick={() => {
+                if (!isReadyToPublish() && !baseData.published)
+                  openNotification(
+                    'error',
+                    'Please add a description and a cover before publishing your project'
+                  );
+              }}>
+              <ToggleSwitch
+                className={styles.toggle}
+                onChange={() => onPublish()}
+                inputRef={collabRef}
+                disabled={!isReadyToPublish() && !baseData.published}
+              />
+            </span>
             <span className={styles.toggleTitle}>Visible</span>
           </div>
         </div>

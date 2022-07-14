@@ -18,6 +18,7 @@ const { TextArea } = Input;
 
 const EditGenresField = ({
   baseData,
+  setBaseData,
   onChangeSingleField,
   saveMangaStoryData,
   genresEnums,
@@ -82,7 +83,7 @@ const EditGenresField = ({
 
   const setMangaPhoto = (e, image) => {
     const data = { ...baseData, image };
-    mangaStoryAPI.collab.patchCollab(data);
+    mangaStoryAPI.collab.patchCollab(data, setBaseData);
   };
 
   const budgetChange = (e) => {
