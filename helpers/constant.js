@@ -91,6 +91,22 @@ export const userTypes = [
     key: 'mentorship',
     value: 'Mentorship',
   },
+  {
+    key: 'beta_reader',
+    value: 'Beta Reader',
+  },
+  {
+    key: 'illustrator',
+    value: 'Illustrator',
+  },
+  {
+    key: 'producer',
+    value: 'Producer',
+  },
+  {
+    key: 'sponsor',
+    value: 'Sponsor',
+  },
 ];
 
 export const allCollaborations = [
@@ -140,6 +156,9 @@ export const userTypesEnums = {
   illustrator: 'Illustrator',
   storyteller: 'Storyteller',
   world_builder: 'World builder',
+  beta_reader: 'Beta Reader',
+  producer: 'Producer',
+  sponsor: 'Sponsor',
   new: 'New',
 };
 
