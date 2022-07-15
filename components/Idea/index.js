@@ -41,7 +41,7 @@ const Idea = ({ storyBoard, user }) => {
         result={handleTextChange}
         value={idea}
         maxLength={10}
-        s
+        className={styles.textEditor}
       />
     </div>
   );

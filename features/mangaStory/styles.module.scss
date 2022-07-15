@@ -2,6 +2,18 @@
 $borderColor: #f0f0f0;
 $colorAllBorder: rgba(33, 33, 33, 0.07);
 
+.workspaceLink {
+  color: $gray85;
+  font-size: 18px;
+  &_link {
+    display: inline;
+    color: $gray85;
+    &:hover {
+      color: darken($gray85, 10);
+      text-decoration: underline $primaryLight;
+    }
+  }
+}
 .tabWrap {
   padding: 30px;
   min-height: 520px;
@@ -61,11 +73,16 @@ $colorAllBorder: rgba(33, 33, 33, 0.07);
   }
 }
 .pageWrap {
-  max-width: 1602px;
-  margin-left: auto;
-  margin-right: auto;
+  max-width: none;
+  padding: 0 10px;
+  transition: 0.3s;
+  :global {
+    .container, .row{
+      max-width: none;
+    }
+  }
   section > div {
-    max-width: 1600px;
+    // max-width: 1600px;
     padding-left: 0;
     padding-right: 0;
     box-sizing: border-box;
@@ -357,4 +374,11 @@ $colorAllBorder: rgba(33, 33, 33, 0.07);
 .section {
   max-width: 1600px;
   padding: 0;
+}
+.tabsAlignRight {
+  :global {
+    .ant-tabs-nav-wrap {
+      justify-content: flex-end !important;
+    }
+  }
 }
