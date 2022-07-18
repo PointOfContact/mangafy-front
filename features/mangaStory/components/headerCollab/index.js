@@ -9,7 +9,7 @@ import styles from './styles.module.scss';
 const { info } = Modal;
 
 const HeaderCollab = ({
-  // isOwn,
+  isOwn,
   // user,
   // mangaStory,
   // openNotification,
@@ -109,6 +109,7 @@ const HeaderCollab = ({
             <div
               className={cn(
                 styles.storyTabContent,
+                isOwn && styles.storyTabContent_smallManrgin,
                 // editTitle && styles.containerInput,
                 ifCreatePage && styles.storyTabCreate
               )}>

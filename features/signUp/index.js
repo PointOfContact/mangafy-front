@@ -102,7 +102,7 @@ const Register = ({ user }) => {
         setLoading(false);
         setState({
           ...state,
-          errorMessage: error.message,
+          errorMessage: error.errors[Object.keys(error.errors)[0]],
         });
       });
   };

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+import client from 'api/client';
 import { Modal, Tooltip } from 'antd';
 import SvgClose from 'components/icon/Close';
 import SvgCopy from 'components/icon/Copy';
@@ -56,7 +57,7 @@ const ModalPublishedChapter = ({
           <ShareButtons shareUrl={link} />
           <p
             onClick={() => {
-              window.open(`/manga-story/${baseData._id}?tab=settings`, '_self');
+              window.open(link, '_self');
               setIsModalVisible(false);
               setOpenPublishedModal(false);
             }}>

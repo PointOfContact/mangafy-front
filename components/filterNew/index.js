@@ -85,7 +85,7 @@ const FilterNew = (props) => {
         // console.log(filter)
         // console.log(query[filter])
         // console.log(filtersOptions[filter])
-        if (query[filter] && filtersOptions[filter].length > 0) {
+        if (query[filter] && filtersOptions[filter]?.length > 0) {
           if (!Array.isArray(query[filter])) query[filter] = [query[filter]];
           newSelectedOptions = newSelectedOptions.concat(
             query[filter].map((queryProp) => {
@@ -201,8 +201,10 @@ const SelectedFilters = ({ selectedOptions }) => {
     <div className={styles.isSelected}>
       {selectedOptionsElements.length > 0 ? (
         <>
-          <div className={styles.selectedLabel}>Selected options: </div>
-          <div className={styles.selected}>{selectedOptionsElements}</div>
+          <div className={styles.selected}>
+            <div className={styles.selectedLabel}>Selected: </div>
+            {selectedOptionsElements}
+          </div>
         </>
       ) : null}
     </div>

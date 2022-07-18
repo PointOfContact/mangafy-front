@@ -104,7 +104,11 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
     .radio > span:first-child {
       border: 1px solid $black;
       border-radius: 50px;
+      padding: 3px;
       &::after {
+        border: none;
+      }
+      & > input {
         border: none;
       }
       & > span {
@@ -121,8 +125,11 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
         color: $gray85;
        
       }
-    }
+    } 
     .active > span:first-child {
+      & > span {
+        background: $primaryDark;
+      }
       & > span::after {
         width: 20px;
         height: 20px;

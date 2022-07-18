@@ -16,6 +16,7 @@ import FooterLogin from 'features/footerLogin';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { NextSeo } from 'next-seo';
 import Router, { useRouter } from 'next/router';
+import Link from 'next/link';
 import PropTypes from 'prop-types';
 import myAmplitude from 'utils/amplitude';
 
@@ -24,6 +25,7 @@ import HeaderCollab from './components/headerCollab';
 import Settings from './components/settings';
 import StoryBoardTabs from './components/storyBoardTabs';
 import styles from './styles.module.scss';
+import PrimaryButton from 'components/ui-elements/button';
 
 const { TabPane } = Tabs;
 const tabsArray = ['', 'story', 'create', 'comments', 'team_chat', 'settings'];
@@ -207,6 +209,21 @@ const MangeStory = (props) => {
     return decResult;
   };
 
+  const slot = isOwn && {
+    left: (
+      <div className={styles.workspaceLink}>
+        <Link href={'/profile/' + user._id}>
+          <a className={styles.workspaceLink_link}>
+            {'My workspace'}
+            {/* <PrimaryButton text="Back to profile" isRound /> */}
+          </a>
+        </Link>
+        <span>{' / '}</span>
+        <span>{baseData.title}</span>
+      </div>
+    ),
+  };
+
   return (
     <div className="story_page">
       <NextSeo
@@ -238,28 +255,37 @@ const MangeStory = (props) => {
       />
       <ButtonToTop user={user} />
       <main className="main_back_2" style={{ background: '#fafafa' }}>
-        <Header path="mangaStory" user={userData} />
-        <div className={cn(styles.pageWrap, 'manga-story-page')}>
-          <HeaderCollab
-            isOwn={isOwn}
-            user={user}
-            mangaStory={mangaStory}
-            openNotification={openNotification}
-            originUrl={originUrl}
-            baseData={baseData}
-            setBaseData={setBaseData}
-            onChangeSingleField={onChangeSingleField}
-            // editTitle={editTitle}
-            collabActiveTab={collabActiveTab}
-            stage={stage}
-            canEdit={canEdit}
-            // setEditTitle={setEditTitle}
-            saveMangaStoryData={saveMangaStoryData}
-          />
+        {!isOwn && <Header path="mangaStory" user={userData} />}
+        <div
+          className={cn(
+            styles.pageWrap,
+            'manga-story-page'
+            // collabActiveTab === '2' && styles.pageWrap_movedUp
+          )}>
+          {!isOwn && (
+            <HeaderCollab
+              isOwn={isOwn}
+              user={user}
+              mangaStory={mangaStory}
+              openNotification={openNotification}
+              originUrl={originUrl}
+              baseData={baseData}
+              setBaseData={setBaseData}
+              onChangeSingleField={onChangeSingleField}
+              collabActiveTab={collabActiveTab}
+              stage={stage}
+              canEdit={canEdit}
+              saveMangaStoryData={saveMangaStoryData}
+            />
+          )}
           <section className={cn(`container mobile_full_content mobile_top_round`, styles.section)}>
             <div className="row">
-              <div className={cn('col-lg-7 mangaStoriTopPanel', styles.story_page)}>
-                <Tabs activeKey={collabActiveTab} onChange={tabChange}>
+              <div className={cn('col-lg-7 mangaStoriTopPanel', isOwn && styles.tabsAlignRight)}>
+                <Tabs
+                  activeKey={collabActiveTab}
+                  onChange={tabChange}
+                  tabBarExtraContent={slot}
+                  right>
                   <TabPane tab={isOwn ? 'PREVIEW' : 'PROJECT'} key="1" className="story">
                     <EditMode
                       user={userData}

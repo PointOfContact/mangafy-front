@@ -21,3 +21,10 @@
     font-size: 25px;
   }
 }
+.textEditor {
+  > *:last-child {
+    > *:first-child {
+      min-height: calc(100vh - 300px);
+    }
+}
+}

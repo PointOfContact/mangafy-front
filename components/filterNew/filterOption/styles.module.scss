@@ -2,8 +2,10 @@
 
 
 .option {
-    font-size: 14px;
-    color: $primaryDark;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.5em;
+    color: #000;
     border: 1px $primaryDark solid;
     padding: 0.2em 0.7em;
     border-radius: 20px;
@@ -30,14 +32,14 @@
         &:active {
             background: $primaryDark;
         }
-        &:after  {
-            margin-left: 0.5em;
-            content: '';
-            height: 0.6em;
-            aspect-ratio: 1;
-            background: url('cross.svg');
-            background-size: contain;
-        }
+        // &:after  {
+        //     margin-left: 0.5em;
+        //     content: '';
+        //     height: 0.6em;
+        //     aspect-ratio: 1;
+        //     background: url('cross.svg');
+        //     background-size: contain;
+        // }
     }
     &_disabled {
         cursor: default;
