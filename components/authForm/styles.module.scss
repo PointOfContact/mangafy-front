@@ -59,6 +59,9 @@
           & > div {
             top: 0.1em;
             width: max-content;
+            @include media-sm {
+              font-size: 12px;
+            }
           }
           &:last-child {
             text-align: start;
