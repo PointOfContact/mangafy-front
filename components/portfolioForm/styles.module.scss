@@ -1,0 +1,30 @@
+@import '../../styles/variables.scss';
+
+.form {
+    display: flex;
+    flex-direction: column;
+    &__title {
+        font-weight: 700;
+        font-size: 30px;
+        line-height: 30px;
+        padding-bottom: 0.5em;
+        margin-bottom: 0.5em;
+        border-bottom: 1px solid #F0F0F0;
+        &~div {
+            margin: 0 0 1em 0;
+        }
+    }
+    &__subtitle {
+        font-weight: 400;
+        font-size: 22px;
+        line-height: 35px;
+    }
+    input, textarea {
+        margin-bottom: 1em;
+    }
+    &__submit {
+        align-self: center;
+        padding-left: 3em;
+        padding-right: 3em;
+    }
+}

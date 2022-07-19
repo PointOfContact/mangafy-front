@@ -16,6 +16,8 @@ import ShortStory from './shortStory';
 import { ShowGalleryModal } from './showGalleryModal';
 import styles from './styles.module.scss';
 import { getShortStorys, beforeGalleryUpload } from './utils';
+import PortfolioForm from 'components/portfolioForm';
+import Button from 'components/ui-new/Button';
 
 const queue = new Queue({
   concurrent: 1,
@@ -200,13 +202,22 @@ export const Gallery = (props) => {
 
   return (
     <div>
+      <Button
+        onClick={async () => {
+          const posts = await client
+            .service('api/v2/posts?postType=Profile&logoNavigate=/profile/' + user._id)
+            .find({});
+          console.log(posts);
+        }}
+      />
       {showGallery && (
         <ShowGalleryModal {...{ startIndex, images, handleCancel, isModalVisible }} />
       )}
       {createGalleryModal && (
-        <HtmlGalleryModal
-          gallery={selectedGallery}
-          {...{ setImages, images, user, handleCancel, isModalVisible }}
+        <PortfolioForm
+          isModalVisible={createGalleryModal}
+          setIsModalVisible={setCreateGalleryModal}
+          user={user}
         />
       )}
       <div className={styles.headerPortfolio}>
@@ -220,7 +231,7 @@ export const Gallery = (props) => {
                 setCreateGalleryModal(true);
                 setIsModalVisible(true);
               }}>
-              <AddButton width="25px" height="25px" text={'Share stories'} />
+              <AddButton width="25px" height="25px" text={'Add work'} />
             </span>
             {/* )}
             <div onClick={() => setIsShowAdd(!isShowAdd)}>

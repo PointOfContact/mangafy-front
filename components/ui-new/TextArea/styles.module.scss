@@ -1,0 +1,32 @@
+@import '../../../styles/variables.scss';
+
+.textarea {
+    border: 1px solid rgb(193, 193, 193);
+    border-radius: 5px;
+    padding: 0.8em 1em;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 20px;
+    transition: 0.2s;
+    resize: none;
+    height: inherit;
+    overflow-y: hidden;
+    min-width: 0;
+    max-width: none;
+    &.sm {
+        padding: 0.5em 0.7em;
+    }
+    &.error {
+        border-color: $red;
+    }
+    &::placeholder {
+        transition: 0.2s;
+        color: #858585;
+    }
+    &:focus {
+        border-color: $primaryDark;
+        &::placeholder {
+            opacity: 0;
+        }
+    }
+}
