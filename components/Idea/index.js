@@ -21,14 +21,15 @@ const Idea = ({ storyBoard, user }) => {
     else setSavingStatus('saved');
   }, [storyBoard]);
 
-  const savePlotDebounced = useCallback(AwesomeDebouncePromise(savePlot, 600), []);
+  const savePlotDebounced = useCallback(AwesomeDebouncePromise(savePlot, 600), [storyBoard, user]);
 
   const handleTextChange = async (plot) => {
-    // console.log('Text changed');
-    if (!storyBoard?._id) return;
-    setSavingStatus('saving');
-    setIdea(plot);
-    await savePlotDebounced(plot);
+    console.log('Text changed');
+    if (storyBoard._id && user._id) {
+      setIdea(plot);
+      setSavingStatus('saving');
+      await savePlotDebounced(plot);
+    }
   };
 
   function savePlot(plot) {
@@ -41,7 +42,7 @@ const Idea = ({ storyBoard, user }) => {
     myAmplitude(data);
 
     const jwt = client.getCookie('feathers-jwt');
-    const promise = client
+    client
       .service('/api/v2/story-boards')
       .patch(
         storyBoard?._id,
@@ -52,16 +53,14 @@ const Idea = ({ storyBoard, user }) => {
         }
       )
       .then((res) => {
+        // console.log('Plot saved');
         setSavingStatus('saved');
-        // notification.success({
-        //   message: 'Your plot was succesfully saved',
-        //   placement: 'bottomLeft',
-        // });
       })
       .catch((err) => {
-        setSavingStatus('error');
+        setSavingStatus('ooops, something went wrong');
         console.log('!!! Error while saving plot:');
         console.log(err);
+        // throw err;
         notification.error({
           message: 'Failed to save the plot, please try again',
           placement: 'bottomLeft',
@@ -78,7 +77,7 @@ const Idea = ({ storyBoard, user }) => {
             styles.savingStatus,
             savingStatus === 'saved' && styles.savingStatus_green,
             savingStatus === 'saving' && styles.savingStatus_yellow,
-            savingStatus === 'error' && styles.savingStatus_red
+            savingStatus === 'ooops, something went wrong' && styles.savingStatus_red
           )}>
           {savingStatus}
         </div>
