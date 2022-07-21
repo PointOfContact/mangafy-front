@@ -109,13 +109,13 @@ const ChatCard = ({
             <div className={styles.name_special}>
               <div>
                 <h4>{senderInfo && senderInfo?.name}</h4>
-                {characterType && <p>{senderInfo && characterType}</p>}
+                {/* {characterType && <p>{senderInfo && characterType}</p>} */}
                 <p className={styles.messages}>{messages && messages.content}</p>
               </div>
             </div>
           </div>
           <span className={styles.dateBar}>
-            {messages?.createdAt && format(messages?.createdAt)}
+            {messages?.createdAt && myformat(messages?.createdAt)}
           </span>
         </div>
         {isOwn && !isInvite && !isInvite && status === 'new' && (
@@ -185,3 +185,10 @@ ChatCard.defaultProps = {
 };
 
 export default ChatCard;
+
+function myformat(date) {
+  const inHours = (new Date() - new Date(date)) / 1000 / 60 / 60;
+  if (inHours < 24) return date.slice(-13, -8);
+  if (inHours / 24 < 7) return new Date(date).toLocaleString('en-US', { weekday: 'short' });
+  return new Date(date).toLocaleDateString();
+}

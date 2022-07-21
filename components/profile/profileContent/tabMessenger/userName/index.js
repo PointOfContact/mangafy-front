@@ -7,8 +7,9 @@ import Link from 'next/link';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
+import client from 'api/client';
 
-const UserName = ({ selectedRequest, mobile, setShowMessageMobile }) => {
+const UserName = ({ selectedRequest, mobile, setShowMessageMobile, user }) => {
   const ifNotImage = selectedRequest?.av?.slice(-9) === 'undefined';
 
   const getPath = () => {
@@ -27,12 +28,37 @@ const UserName = ({ selectedRequest, mobile, setShowMessageMobile }) => {
     return '';
   };
 
+  let participants = selectedRequest.participentsInfo.filter((p) => !!p);
+  if (participants.length > 4) {
+    participants = participants.slice(0, 4);
+    participants.push({
+      name: '…',
+    });
+  }
+  const participantsElements =
+    participants.length > 1 // Change to 1
+      ? participants
+          // .filter((pi) => pi?._id !== user?._id)
+          .map((pi) => (
+            <div className={styles.participants__avatar}>
+              <img
+                src={
+                  pi?.avatar
+                    ? client.UPLOAD_URL + pi?.avatar
+                    : `https://ui-avatars.com/api/?background=9A87FE&name=${pi?.name}&rounded=true&color=ffffff`
+                }
+                alt="user avatar"
+              />
+            </div>
+          ))
+      : null;
+
   return (
     <div className={mobile ? styles.containerMobile : styles.container}>
       <SvgLeftArrow width={24} height={24} onClick={() => setShowMessageMobile(false)} />
       {!!Object.values(selectedRequest).length && (
         <div className={styles.userName}>
-          {getPath() ? (
+          {/* {getPath() ? (
             <>
               <Link href={getPath()}>
                 <a>
@@ -59,21 +85,23 @@ const UserName = ({ selectedRequest, mobile, setShowMessageMobile }) => {
             </>
           ) : (
             <a>{selectedRequest.name}</a>
-          )}
+          )} */}
+          <div className={styles.participants}>{participantsElements}</div>
           <div className={styles.description}>
             <Link href={getPath()}>
               <a>{selectedRequest.name}</a>
             </Link>
-            {selectedRequest.isTeamChat && selectedRequest.rid && (
+            {/* {selectedRequest.isTeamChat && selectedRequest.rid && (
               // <Popover
               //   placement="bottomLeft"
               //   title={'Members'}
               //   content={members(selectedRequest.participentsInfo)}
               //   trigger="click">
 
-              <p className={styles.members}>{selectedRequest?.participentsInfo?.length} members </p>
+              <p className={styles.lastSeen}> Last seen 1 month ago </p>
+              // <p className={styles.members}>{selectedRequest?.participentsInfo?.length} members </p>
               // </Popover>
-            )}
+            )} */}
           </div>
         </div>
       )}

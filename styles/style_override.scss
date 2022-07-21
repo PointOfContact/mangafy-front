@@ -1427,21 +1427,21 @@ img.rot4 {
     padding: 0 !important;
   }
 }
-.rce-mbox {
-  max-width: calc(100% - 90px);
-  background: $primaryBG !important;
-  color: $black;
-  padding: 15px !important;
-  margin-bottom: 20px !important;
-  left: 50px !important;
-  border-radius: 23px 23px 23px 0 !important;
-  svg {
-    left: -14px;
-    path {
-      fill: $primaryBG !important;
-    }
-  }
-}
+// .rce-mbox {
+//   max-width: calc(100% - 90px);
+//   background: $primaryBG !important;
+//   color: $black;
+//   padding: 15px !important;
+//   margin-bottom: 20px !important;
+//   left: 50px !important;
+//   border-radius: 23px 23px 23px 0 !important;
+//   svg {
+//     left: -14px;
+//     path {
+//       fill: $primaryBG !important;
+//     }
+//   }
+// }
 
 .tooltip {
   z-index: 2000000;
@@ -1451,47 +1451,47 @@ img.rot4 {
   }
 }
 
-.rce-mbox.rce-mbox-right {
-  background: $primaryBG !important;
-  color: $black;
-  padding: 15px !important;
-  margin-bottom: 20px !important;
-  margin-right: 80px !important;
-  max-width: calc(100% - 150px);
-  border-radius: 23px 23px 0 23px !important;
-  svg {
-    bottom: 0;
-    top: unset;
-    left: unset !important;
-    right: -14px !important;
-    transform: rotateZ(270deg);
-    path {
-      fill: $primaryBG !important;
-    }
-  }
-}
+// .rce-mbox.rce-mbox-right {
+//   background: $primaryBG !important;
+//   color: $black;
+//   padding: 15px !important;
+//   margin-bottom: 20px !important;
+//   margin-right: 80px !important;
+//   max-width: calc(100% - 150px);
+//   border-radius: 23px 23px 0 23px !important;
+//   svg {
+//     bottom: 0;
+//     top: unset;
+//     left: unset !important;
+//     right: -14px !important;
+//     transform: rotateZ(270deg);
+//     path {
+//       fill: $primaryBG !important;
+//     }
+//   }
+// }
 
-.rce-mbox-time.non-copiable:before {
-  position: relative;
-  color: $primaryDark;
-  top: 10px;
-}
+// .rce-mbox-time.non-copiable:before {
+//   position: relative;
+//   color: $primaryDark;
+//   top: 10px;
+// }
 
-.rce-avatar-container.default {
-  position: absolute !important;
-  left: -63px;
-  top: -8px;
-  overflow: hidden;
-  border-radius: 40px;
-  width: 49px !important;
-  height: 49px !important;
-}
+// .rce-avatar-container.default {
+//   position: absolute !important;
+//   left: -63px;
+//   top: -8px;
+//   overflow: hidden;
+//   border-radius: 40px;
+//   width: 49px !important;
+//   height: 49px !important;
+// }
 
-.rce-mbox-left-notch {
-  top: auto !important;
-  bottom: 0 !important;
-  transform: rotate(90deg);
-}
+// .rce-mbox-left-notch {
+//   top: auto !important;
+//   bottom: 0 !important;
+//   transform: rotate(90deg);
+// }
 
 .ant-modal-close {
   svg {

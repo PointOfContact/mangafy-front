@@ -37,7 +37,7 @@ const MessengerList = ({
   );
 
   return (
-    <div className="row">
+    <div className={'row ' + styles.row}>
       <div className={styles.container}>
         <div className={styles.messenger}>
           {newRes?.map((r) => (
