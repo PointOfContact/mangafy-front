@@ -24,7 +24,6 @@ const Idea = ({ storyBoard, user }) => {
   const savePlotDebounced = useCallback(AwesomeDebouncePromise(savePlot, 600), [storyBoard, user]);
 
   const handleTextChange = async (plot) => {
-    console.log('Text changed');
     if (storyBoard._id && user._id) {
       setIdea(plot);
       setSavingStatus('saving');
@@ -33,7 +32,6 @@ const Idea = ({ storyBoard, user }) => {
   };
 
   function savePlot(plot) {
-    // console.log('... Saving plot: ' + plot);
     const type = 'desc';
     const data = {
       event_type: EVENTS.CHANGE_BOARD_DESCRIPTION,
@@ -53,14 +51,10 @@ const Idea = ({ storyBoard, user }) => {
         }
       )
       .then((res) => {
-        // console.log('Plot saved');
         setSavingStatus('saved');
       })
       .catch((err) => {
         setSavingStatus('ooops, something went wrong');
-        console.log('!!! Error while saving plot:');
-        console.log(err);
-        // throw err;
         notification.error({
           message: 'Failed to save the plot, please try again',
           placement: 'bottomLeft',
