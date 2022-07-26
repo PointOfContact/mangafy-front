@@ -58,8 +58,10 @@ const messageItems = (data, participants, setRequestStatus, user, setMessageItem
     } else {
       avatar = `https://ui-avatars.com/api/?background=9A87FE&name=${part?.name}&rounded=true&color=ffffff`;
     }
-    item.position = user._id === item.senderId ? 'left' : 'right';
+    item.position = user._id === item.senderId ? 'right' : 'left';
     item.type = 'text';
+    item.notch = false;
+    item.title = user._id === item.senderId ? null : part.name;
     // eslint-disable-next-line no-nested-ternary
     item.text = item.joinMangaStoryRequest?.length ? (
       <div className={styles.name}>
@@ -71,7 +73,7 @@ const messageItems = (data, participants, setRequestStatus, user, setMessageItem
             if (item.status[0]?.read || !item.status.length) return;
             patchMessageStatus(item);
           }}
-          className={cn(styles.messText, !item.status[0]?.read && styles.unreadMessage)}
+          className={cn(styles.messText, !item.status[0]?.read && 'unreadMessage')}
           dangerouslySetInnerHTML={{
             __html: item.content,
           }}></div>
@@ -117,15 +119,23 @@ const messageItems = (data, participants, setRequestStatus, user, setMessageItem
           if (item.status[0]?.read || !item.status.length) return;
           patchMessageStatus(item);
         }}
-        className={cn(styles.messText, !item.status[0]?.read && styles.unreadMessage)}
+        className={cn(styles.messText, !item.status[0]?.read && 'unreadMessage')}
         dangerouslySetInnerHTML={{
           __html: item.content,
         }}></div>
     );
-    item.date = moment(item.createdAt).toDate();
-    item.avatar = avatar;
+    const date = item.createdAt;
+    item.dateString = myformat(date);
+    item.avatar = user._id === item.senderId ? null : avatar;
   });
   return data.reverse();
 };
 
 export default messageItems;
+
+function myformat(date) {
+  const inHours = (new Date() - new Date(date)) / 1000 / 60 / 60;
+  if (inHours < 24) return date.slice(-13, -8);
+  if (inHours / 24 < 7) return new Date(date).toLocaleString('en-US', { weekday: 'short' });
+  return new Date(date).toLocaleDateString();
+}
