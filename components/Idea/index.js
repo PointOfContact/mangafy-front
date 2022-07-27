@@ -35,7 +35,6 @@ const Idea = ({ storyBoard, user }) => {
 
   return (
     <div className={styles.idea__container}>
-      <h2 className={styles.title}>Plot</h2>
       <TextEditor
         placeholder="The plot is what happens in a story. However, it is not simply a sequence of events. You want a lot of dialogue and large, easily recognizable moments. Come up with a short story idea that would work well visually and start typing..."
         result={handleTextChange}

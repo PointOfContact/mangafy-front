@@ -2,23 +2,12 @@
 
 .idea {
   &__container {
-    background-color: #ffffff;
+    // background-color: #ffffff;
     width: 100%;
     height: 100%;
-    padding: 10px;
-    margin-top: 20px;
-    margin-bottom: 40px;
-  }
-}
-.title {
-  font-style: normal;
-  font-weight: bold;
-  font-size: 30px;
-  line-height: 43px;
-  color: $black;
-  margin-bottom: 30px;
-  @include media-sm{
-    font-size: 25px;
+    // padding: 10px;
+    // margin-top: 20px;
+    // margin-bottom: 40px;
   }
 }
 .textEditor {

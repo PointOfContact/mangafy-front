@@ -5,6 +5,7 @@ $colorAllBorder: rgba(33, 33, 33, 0.07);
 .workspaceLink {
   color: $gray85;
   font-size: 18px;
+  margin-bottom: 30px;
   &_link {
     display: inline;
     color: $gray85;
@@ -15,7 +16,6 @@ $colorAllBorder: rgba(33, 33, 33, 0.07);
   }
 }
 .tabWrap {
-  padding: 30px;
   min-height: 520px;
   p:last-child {
     margin-bottom: 5px;
@@ -73,16 +73,19 @@ $colorAllBorder: rgba(33, 33, 33, 0.07);
   }
 }
 .pageWrap {
-  max-width: none;
+  max-width: 1100px;
+  margin: 0 auto;
+  margin-top: 1em;
   padding: 0 10px;
   transition: 0.3s;
+  padding-left: 75px !important;
+  font-family: 'Noto Sans JP', sans-serif;
   :global {
     .container, .row{
       max-width: none;
     }
   }
   section > div {
-    // max-width: 1600px;
     padding-left: 0;
     padding-right: 0;
     box-sizing: border-box;
@@ -322,34 +325,6 @@ $colorAllBorder: rgba(33, 33, 33, 0.07);
     margin-bottom: 15px;
   }
 }
-// .showAnimation {
-//   opacity: 0;
-//   position: absolute;
-//   width: 100%;
-//   height: 100%;
-//   background-image: url('/img/anima.gif');
-//   -webkit-animation: anima 3s ease-out;
-//   -moz-animation: anima 3s ease-out;
-//   -o-animation: anima 3s ease-out;
-//   animation: anima 3s ease-out;
-
-//   @keyframes anima {
-//     0% {
-//       display: none;
-//       opacity: 1;
-//     }
-
-//     1% {
-//       display: block;
-//       opacity: 1;
-//     }
-
-//     100% {
-//       display: block;
-//       opacity: 0;
-//     }
-//   }
-// }
 .tab {
   display: flex;
   align-items: center;
@@ -372,8 +347,13 @@ $colorAllBorder: rgba(33, 33, 33, 0.07);
   }
 }
 .section {
-  max-width: 1600px;
   padding: 0;
+}
+.sectionTitle {
+  font-size: 30px;
+  font-weight: 700;
+  text-transform: capitalize;
+  margin-bottom: 1em;
 }
 .tabsAlignRight {
   :global {
