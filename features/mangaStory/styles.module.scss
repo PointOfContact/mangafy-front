@@ -78,8 +78,10 @@ $colorAllBorder: rgba(33, 33, 33, 0.07);
   margin-top: 1em;
   padding: 0 10px;
   transition: 0.3s;
-  padding-left: 75px !important;
   font-family: 'Noto Sans JP', sans-serif;
+  &_desktop {
+    padding-left: 75px !important;
+  }
   :global {
     .container, .row{
       max-width: none;
@@ -354,6 +356,20 @@ $colorAllBorder: rgba(33, 33, 33, 0.07);
   font-weight: 700;
   text-transform: capitalize;
   margin-bottom: 1em;
+  display: flex;
+  align-items: center;
+  span {
+    display: flex;
+    align-items: center;
+    margin-left: 0.6em;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.8;
+    }
+    svg {
+      height: 0.6em;
+    }
+  }
 }
 .tabsAlignRight {
   :global {

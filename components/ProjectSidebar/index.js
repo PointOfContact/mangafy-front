@@ -13,6 +13,7 @@ import Episodes from 'components/icon/new/Episodes';
 import Message from 'components/icon/new/Message';
 import Message2 from 'components/icon/new/Message2';
 import Settings from 'components/icon/new/Settings';
+import Planet from 'components/icon/new/Planet';
 
 const ProjectSidebar = ({ tabs, activeTab, setActiveTab }) => {
   const [isCollapsed, setIsCollapsed] = useState(true);
@@ -64,6 +65,15 @@ const ProjectSidebar = ({ tabs, activeTab, setActiveTab }) => {
           collapsed={isCollapsed}
           isActive={activeTab === tabs.EPISODES}
           icon={<Episodes color="#D01E8E" />}>
+          Episodes
+        </SidebarTab>
+        <SidebarTab
+          onClick={() => {
+            setActiveTab(tabs.PUBLISH);
+          }}
+          collapsed={isCollapsed}
+          isActive={activeTab === tabs.PUBLISH}
+          icon={<Planet bold color="#D01E8E" />}>
           Episodes
         </SidebarTab>
         <SidebarTab

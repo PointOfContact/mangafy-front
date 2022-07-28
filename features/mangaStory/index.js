@@ -32,6 +32,10 @@ import Chapter from './components/chapter';
 import DragDrop from './components/dragDrop';
 import Preview from './components/preview';
 import Publish from './components/publish';
+import ProjectMobileMenu from 'components/ProjectMobileMenu';
+import Edit from 'components/icon/new/Edit';
+import Edit2 from 'components/icon/new/Edit2';
+import Planet from 'components/icon/new/Planet';
 
 const tabs = {
   DETAILS: 'details',
@@ -41,6 +45,7 @@ const tabs = {
   COMMENTS: 'comments',
   MESSAGES: 'messages',
   SETTINGS: 'settings',
+  PUBLISH: 'publish',
 };
 
 const MangeStory = (props) => {
@@ -64,6 +69,7 @@ const MangeStory = (props) => {
   const [canEdit] = useState(isOwn);
   const router = useRouter();
   const [chapters, setChapters] = useState([]);
+  const [isMobile, setIsMobile] = useState(false);
 
   const routerBasePath = `/manga-story/${baseData?._id}?tab=`;
   const [storyBoard, setStoryBoard] = useState({
@@ -84,7 +90,14 @@ const MangeStory = (props) => {
 
   const [activeTab, setActiveTab] = useState(tabs.DETAILS);
 
+  const onResize = () => {
+    console.log(window.innerWidth);
+    if (window.innerWidth < 568) setIsMobile(true);
+    else setIsMobile(false);
+  };
+
   useEffect(() => {
+    window.addEventListener('resize', onResize);
     const data = {
       event_type: EVENTS.OPENED_MANGA_STORY,
       event_properties: {
@@ -95,6 +108,10 @@ const MangeStory = (props) => {
 
     setActiveTab(router.query.tab || tabs.DETAILS);
     myAmplitude(data);
+    if (window.innerWidth < 568) setIsMobile(true);
+    return () => {
+      window.removeEventListener('resize', onResize);
+    };
   }, []);
 
   useEffect(() => {
@@ -156,7 +173,7 @@ const MangeStory = (props) => {
     const { name, value } = target;
     const data = { ...baseData, [name]: value };
     setBaseData(data);
-    setEditMode(true);
+    // setEditMode(true);
     changeCollabData && saveMangaStoryData(data, reject, name);
   };
 
@@ -224,7 +241,18 @@ const MangeStory = (props) => {
           <span>{baseData.title}</span>
           <span>{' / ' + activeTab}</span>
         </div>
-        <h2 className={styles.sectionTitle}>{activeTab}</h2>
+        <h2 className={styles.sectionTitle}>
+          {activeTab}
+          {activeTab === tabs.DETAILS && !editMode && (
+            <span
+              onClick={() => {
+                console.log('sadf');
+                setEditMode(true);
+              }}>
+              <Edit2 color="#777" />
+            </span>
+          )}
+        </h2>
       </>
     );
   };
@@ -258,11 +286,17 @@ const MangeStory = (props) => {
           cardType: 'summary_large_image',
         }}
       />
-      {isOwn && <ProjectSidebar tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />}
+      {isOwn &&
+        (isMobile ? (
+          <ProjectMobileMenu tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
+        ) : (
+          <ProjectSidebar tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
+        ))}
       <ButtonToTop user={user} />
       <main className="main_back_2" style={{ background: '#fafafa' }}>
         {!isOwn && <Header path="mangaStory" user={userData} />}
-        <div className={cn(styles.pageWrap, 'manga-story-page')}>
+        <div
+          className={cn(styles.pageWrap, !isMobile && styles.pageWrap_desktop, 'manga-story-page')}>
           {isOwn ? (
             <ProjectHeader />
           ) : (
@@ -316,6 +350,9 @@ const MangeStory = (props) => {
                 user={user}
                 baseData={baseData}
               />
+            )}
+            {activeTab === tabs.PUBLISH && (
+              <Publish baseData={baseData} storyBoard={storyBoard} chapters={chapters} />
             )}
             {activeTab === tabs.COMMENTS && (
               <Comments
