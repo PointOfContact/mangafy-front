@@ -20,6 +20,7 @@ import { patchRequest } from '../../../../../api/joinMangaStoryRequestClient';
 import UserName from '../userName';
 import messageItems from './messageItems';
 import styles from './styles.module.scss';
+import Send from 'components/icon/new/Send';
 
 let interval;
 const onAccept = (event, id, status) => {
@@ -239,12 +240,14 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
 
   return (
     <div className={styles.chatContainer}>
-      {selectedRequest.participentsInfo && <UserName selectedRequest={selectedRequest} />}
-      <Imgix
+      {selectedRequest.participentsInfo && (
+        <UserName selectedRequest={selectedRequest} user={user} />
+      )}
+      {/* <Imgix
         layout="fill"
         src={'https://mangafy.club/img/messbg.png'}
         alt="MangaFy message background"
-      />
+      /> */}
       <pre ref={messageListElement} className={styles.messageList} id="message-content">
         <MessageList
           referance={messenger}
@@ -277,23 +280,30 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
             <p className={messageError ? styles.messageError : styles.notError}>{messageError}</p>
             {/* <img src={'/img/smileMessage.png'} alt="smile" /> */}
           </div>
-          <span className={styles.sendMessage}>
-            {!!user?.mangaStories?.data?.length && !selectedRequest.isTeamChat && (
+          {/* <span className={styles.sendMessage}> */}
+          {/* {!!user?.mangaStories?.data?.length && !selectedRequest.isTeamChat && (
               <PrimaryButton
                 isActive={true}
                 text="INVITE"
                 className={styles.inviteButton}
                 onClick={() => sendMessage(true)}
               />
-            )}
-            <PrimaryButton
+            )} */}
+          {/* <PrimaryButton
               className={styles.sendButton}
               text="SEND"
               onClick={() => {
                 sendMessage(false);
               }}
-            />
-          </span>
+            /> */}
+          {/* </span> */}
+          <button
+            className={styles.sendButton}
+            onClick={() => {
+              sendMessage(false);
+            }}>
+            <Send color={'#8E8E93'} />
+          </button>
         </div>
       )}
       <ModalInvites

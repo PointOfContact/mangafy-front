@@ -23,8 +23,8 @@ const MessageHeaderAvatar = ({ senderInfo, isTeamChat }) => (
         <Imgix
           className="avatar"
           layout="fixed"
-          width={51}
-          height={51}
+          width={48}
+          height={48}
           src={'https://mangafy.club/img/mangastory.webp'}
           alt="MangaFy avatar"
         />

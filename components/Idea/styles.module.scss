@@ -1,6 +1,12 @@
 @import '../../styles/variables.scss';
 
 .idea {
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+  }
   &__container {
     // background-color: #ffffff;
     width: 100%;
@@ -10,10 +16,37 @@
     // margin-bottom: 40px;
   }
 }
+.title {
+  position: relative;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 30px;
+  line-height: 43px;
+  color: $black;
+  margin: 0 0.4em 0 0;
+  @include media-sm{
+    font-size: 25px;
+  }
+}
 .textEditor {
   > *:last-child {
     > *:first-child {
       min-height: calc(100vh - 300px);
     }
+  }
 }
+.savingStatus {
+  font-size: 15px;
+  font-weight: 400;
+  color: $gray85;
+  text-transform: capitalize;
+  &_green {
+    color: rgb(52, 194, 97)
+  }
+  &_yellow {
+    color: rgb(194, 185, 52)
+  }
+  &_red {
+    color: rgb(194, 52, 52)
+  }
 }
