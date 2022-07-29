@@ -2,12 +2,12 @@
 
 .isOwner {
   @include media-md {
-    margin-top: 60px;
+    // margin-top: 60px;
   }
 }
 
 .storyTab {
-  font-family: Noto Sans JP;
+  // font-family: Noto Sans JP;
   width: 70%;
   @include media-md {
     width: 60%;
@@ -43,7 +43,7 @@
     font-weight: 700;
     line-height: 35px;
     margin-bottom: 6px;
-    font-family: Noto Sans JP;
+    // font-family: Noto Sans JP;
     @include media-sm {
       font-size: 15px;
       line-height: 20px;
@@ -55,8 +55,8 @@
   pre {
     white-space: pre-wrap;
     color: #858585;
-    font-size: 20px;
-    font-family: Noto Sans JP;
+    font-size: 16px;
+    font-family: inherit;
     margin-bottom: 45px;
     overflow: hidden;
     @include media-sm {

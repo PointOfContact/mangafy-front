@@ -116,7 +116,7 @@ const Publish = ({ baseData, storyBoard, chapters }) => {
         </div>
         <div className={styles.shareContainer}>
           <ShareButtons className={styles.share} shareUrl={link} showTitle={true} />
-          <a href={`/manga-story/${baseData?._id}?tab=settings&active=domain`} target="_self">
+          <a href={`/manga-story/${baseData?._id}`} target="_self">
             Customize link
           </a>
         </div>
@@ -151,13 +151,6 @@ const Publish = ({ baseData, storyBoard, chapters }) => {
             <p>Create branded merch for your fans with merch maker >></p>
           </a>
         </Link>
-
-        {/* <Link href="https://tapas.io/">
-          <a>
-            <h4>Boost your story</h4>
-            <p>Grow your fanbase with real, targeted followers >></p>
-          </a>
-        </Link> */}
       </div>
     </div>
   );

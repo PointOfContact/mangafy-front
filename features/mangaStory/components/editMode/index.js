@@ -22,7 +22,6 @@ const EditMode = ({
   userData,
 }) => (
   <div className={styles.tabWrap}>
-    {/* <StoryTab baseData={baseData} /> */}
     <p>
       {!editMode ? (
         <div>

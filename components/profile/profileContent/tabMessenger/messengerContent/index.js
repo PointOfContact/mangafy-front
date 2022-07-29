@@ -45,7 +45,8 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
 
   const scrollToBottom = () => {
     setTimeout(() => {
-      messageListElement.current.scrollTop = messageListElement.current.scrollHeight;
+      if (messageListElement.current)
+        messageListElement.current.scrollTop = messageListElement.current?.scrollHeight;
     }, 0);
   };
 
