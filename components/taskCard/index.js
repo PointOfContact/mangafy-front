@@ -10,18 +10,23 @@ import client from 'api/client';
 import Dollar from 'components/icon/new/Dollar';
 
 const index = ({ card }) => {
-  let text = card.subTitle?.length > 200 ? card.subTitle.substr(0, 200) + '...' : card.subTitle;
-  const title = card.type;
+  // let text = card.subTitle?.length > 200 ? card.subTitle.substr(0, 200) + '...' : card.subTitle;
+  let text = card.text?.length > 200 ? card.text.substr(0, 200) + '...' : card.text;
+  // const title = card.type;
+  const title = card.title;
 
-  const time = Math.floor((new Date() - new Date(card.createdAt)) / 1000 / 60 / 60);
+  const time = card.time;
+  // const time = Math.floor((new Date() - new Date(card.createdAt)) / 1000 / 60 / 60);
   let timeMeasure = 'hours';
-  if (time > 23) time = Math.floor(time / 24);
-  timeMeasure = 'days';
-  if (time > 6) time = Math.floor(time / 7);
-  timeMeasure = 'weeks';
+  // if (time > 23) time = Math.floor(time / 24);
+  // timeMeasure = 'days';
+  // if (time > 6) time = Math.floor(time / 7);
+  // timeMeasure = 'weeks';
 
-  const author = card.title;
-  const budget = parseBudget(card.categories);
+  // const author = card.title;
+  const author = card.author;
+  // const budget = parseBudget(card.categories);
+  const budget = card.price || null;
   const authorImage = card.logoUrl;
   return (
     <div className={styles.card}>
