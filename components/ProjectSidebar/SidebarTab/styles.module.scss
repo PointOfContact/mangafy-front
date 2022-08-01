@@ -1,0 +1,45 @@
+@import '../../../styles/variables.scss';
+
+.tab {
+    display: flex;
+    align-items: center;
+
+    color: #121219;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+
+    border-radius: 5em;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: 0.2s;
+
+    &:hover {
+        background: #00000007;
+    }
+    &:active {
+        background: #678ce71a;
+    }
+    
+    &_active {
+        background: #2D68FE1A;
+        color: #9A87FE;
+    }
+
+    & > svg {
+        margin-right: 15px;
+        height: 20px;
+        aspect-ratio: 1;
+    }
+    
+    &_collapsed {
+        justify-content: center;
+        & > svg {
+            margin-right: 0;
+        }
+        & > .text {
+            opacity: 0;
+            width: 0;
+        }
+    }
+}

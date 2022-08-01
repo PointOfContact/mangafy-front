@@ -14,7 +14,7 @@ import styles from './styles.module.scss';
 const MangeStoryCard = ({ mangaStories, setMangaStories, client, user }) =>
   mangaStories?.map((label, index) => (
     <>
-      <Link key={label._id} href={`/manga-story/${label._id}?tab=story`}>
+      <Link key={label._id} href={`/manga-story/${label._id}`}>
         <a>
           <div className={styles.mangeStoryCard}>
             <div>

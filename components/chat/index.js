@@ -49,11 +49,8 @@ export const Chat = ({ mangaStory, user, isOwn, collabActiveTab }) => {
     });
   };
   useEffect(() => {
-    if (collabActiveTab === '4') {
-      // getRequest();
-      getConversation();
-    }
-  }, [collabActiveTab]);
+    getConversation();
+  }, []);
 
   return (
     <div>
