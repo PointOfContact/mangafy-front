@@ -10,17 +10,25 @@ import Image from 'next/image';
 import client from 'api/client';
 
 const PublishedCard = ({ card }) => {
-  const image = card.imageUrl;
-  const title = '-';
-  const text = card.subTitle;
-  const author = card.title;
-  const authorImage = card.logoUrl;
-  const { likesCount, commentsCount } = card;
+  // const image = card.imageUrl;
+  // const title = '-';
+  // const text = card.subTitle;
+  // const author = card.title;
+  // const authorImage = card.logoUrl;
+  // const { likesCount, commentsCount } = card;
+  const image = card.image;
+  const title = card.title;
+  const text = card.text;
+  const author = card.author;
+  const authorImage = '';
+  const likesCount = card.likes;
+  const commentsCount = card.comments;
   return (
     <div className={styles.card}>
       {image ? (
         <div className={styles.card__image}>
-          <img src={client.UPLOAD_URL + image} alt="post image" />
+          {/* <img src={client.UPLOAD_URL + image} alt="post image" /> */}
+          <img src={image} alt="post image" />
           {/* <Image src={image} width={100} height={100} /> */}
         </div>
       ) : (

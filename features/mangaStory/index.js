@@ -222,6 +222,7 @@ const MangeStory = (props) => {
       <div className={styles.workspaceLink}>
         <Link href={'/profile/' + user._id}>
           <a className={styles.workspaceLink_link}>{'My workspace'}</a>
+
         </Link>
         <span>{' / '}</span>
         <span>{baseData.title}</span>
@@ -313,6 +314,7 @@ const MangeStory = (props) => {
               saveMangaStoryData={saveMangaStoryData}
             />
           )}
+
           <section className={cn(`container mobile_full_content`, styles.section)}>
             {activeTab === tabs.DETAILS && (
               <EditMode
