@@ -62,7 +62,7 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
 
   const handleChange = (e) => {
     // eslint-disable-next-line no-shadow
-    const { value } = e.target;
+    const value = e.target.innerText;
     setValue(value);
     value.length >= maxLength
       ? setMessageError(`The character limit for a message is ${maxLength} characters.`)
@@ -269,14 +269,26 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
       {!selectedRequest?.isArchive && (
         <div className={styles.chatBlock2}>
           <div className={styles.messageInput}>
-            <TextArea
+            {/* <TextArea
               maxLength={490}
               placeholder="Type your message..."
               value={value}
               onChange={handleChange}
               // onKeyPress={handleKeyPressSend}
               className={styles.textarea_text}
-            />
+            /> */}
+            {/* <textarea
+              className={styles.textarea}
+              onInput={(e) => {
+                e.target.style.height = 'auto';
+                e.target.style.height = e.target.scrollHeight + 'px';
+              }}
+            /> */}
+            {/* <div class={styles['chat-wrapper']}> */}
+            <div class={styles['message-wrapper']}>
+              <div class={styles['message-text']} contentEditable onInput={handleChange}></div>
+            </div>
+            {/* </div> */}
             <p className={messageError ? styles.messageError : styles.notError}>{messageError}</p>
             {/* <img src={'/img/smileMessage.png'} alt="smile" /> */}
           </div>
