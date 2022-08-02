@@ -91,7 +91,6 @@ const MangeStory = (props) => {
   const [activeTab, setActiveTab] = useState(tabs.DETAILS);
 
   const onResize = () => {
-    console.log(window.innerWidth);
     if (window.innerWidth < 568) setIsMobile(true);
     else setIsMobile(false);
   };
