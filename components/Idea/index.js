@@ -64,17 +64,14 @@ const Idea = ({ storyBoard, user }) => {
 
   return (
     <div className={styles.idea__container}>
-      <div className={styles.idea__header}>
-        <h2 className={styles.title}>Plot</h2>
-        <div
-          className={cn(
-            styles.savingStatus,
-            savingStatus === 'saved' && styles.savingStatus_green,
-            savingStatus === 'saving' && styles.savingStatus_yellow,
-            savingStatus === 'ooops, something went wrong' && styles.savingStatus_red
-          )}>
-          {savingStatus}
-        </div>
+      <div
+        className={cn(
+          styles.savingStatus,
+          savingStatus === 'saved' && styles.savingStatus_green,
+          savingStatus === 'saving' && styles.savingStatus_yellow,
+          savingStatus === 'ooops, something went wrong' && styles.savingStatus_red
+        )}>
+        {savingStatus}
       </div>
       <TextEditor
         placeholder="The plot is what happens in a story. However, it is not simply a sequence of events. You want a lot of dialogue and large, easily recognizable moments. Come up with a short story idea that would work well visually and start typing..."
