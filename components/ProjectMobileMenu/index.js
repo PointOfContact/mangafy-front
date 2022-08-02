@@ -12,7 +12,7 @@ import Settings from 'components/icon/new/Settings';
 import Planet from 'components/icon/new/Planet';
 
 const ProjectMobileMenu = ({ tabs, activeTab, setActiveTab }) => {
-  const [dropdown, setDropdown] = useState(true);
+  const [dropdown, setDropdown] = useState(false);
 
   return (
     <div className={styles.menu}>
