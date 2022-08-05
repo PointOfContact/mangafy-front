@@ -87,36 +87,9 @@ const FeedNew = (props) => {
           cardType: 'summary_large_image',
         }}
       />
-      <div>
+      <div className={styles.pageContent}>
         {/* header */}
         <HeaderNew user={user} />
-        {/* <Button
-          onClick={async () => {
-            const queryPosts = {
-              $limit: 400,
-              $sort: {
-                createdAt: -1,
-              },
-            };
-            const posts = await client.service('/api/v2/posts').find({ query: queryPosts });
-            console.log(posts);
-            // const typesOnly = posts.data.map((post) => post.postType);
-            // console.log(new Set(typesOnly));
-
-            // const data = {
-            //   title: 'PostTitle',
-            //   subTitle: 'PostSubTitle',
-            //   type: 'artist',
-            //   logoUrl: 'ef607cf420e522f650ed0f7785af5109a3173ef4a4f90d076b24ee5e4c773401.png',
-            //   postType: 'Post',
-            // };
-            // const posts = await client.service('/api/v2/posts').create(data, {
-            //   headers: { Authorization: `Bearer ${jwt}` },
-            //   mode: 'no-cors',
-            // });
-          }}>
-          Fetch
-        </Button> */}
         <div className={styles.feed}>
           <button
             onClick={async () => {
@@ -127,11 +100,12 @@ const FeedNew = (props) => {
                   $sort: {
                     createdAt: -1,
                   },
-                  $skip: 20,
-                  // postType: 'Profile',
+                  // $skip: 20,
+                  postType: 'Shot',
                 },
               });
-              console.log(posts.data.filter((post) => post.postType === 'Profile'));
+              console.log(posts);
+              // console.log(posts.data.filter((post) => post.postType === 'Profile'));
             }}>
             fetch
           </button>

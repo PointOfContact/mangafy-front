@@ -260,7 +260,7 @@ const FiltersInput = ({ filterClickHandler, currentContent, filters }) => {
 const SearchInput = ({ isActive, searchChangeHandler, defaultValue }) => {
   return (
     <div className={cn(styles.search)} onChange={searchChangeHandler}>
-      <input type="text" placeholder="Search for collaborators" defaultValue={defaultValue} />
+      <input type="text" placeholder="Search" defaultValue={defaultValue} />
     </div>
   );
 };
