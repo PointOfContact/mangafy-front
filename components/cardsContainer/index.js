@@ -4,15 +4,15 @@ import { Col, Row } from 'antd';
 import Logo from 'components/icon/new/Logo';
 import Close from 'components/icon/new/Close';
 import client from 'api/client';
-import PublishedCard from 'components/publishedCard';
+import PublishedCard from 'components/feedCards/PublishedCard';
 import ArrowDown2 from 'components/icon/new/ArrowDown2';
 
-import PostCard from 'components/postCard';
-import TaskCard from 'components/taskCard';
-import CollabCard from 'components/collabCard';
-import ProfileCard from 'components/profileCard';
-import PortfolioWorkCard from 'components/portfolioWorkCard';
-import PortfolioCard from 'components/portfolioCard';
+// import PostCard from 'components/postCard';
+import TaskCard from 'components/feedCards/TaskCard';
+// import CollabCard from 'components/collabCard';
+// import ProfileCard from 'components/profileCard';
+import PortfolioCard from 'components/feedCards/PortfolioCard';
+import ShotCard from 'components/feedCards/ShotCard';
 
 const testCards = [
   {
@@ -90,9 +90,9 @@ const testCards = [
     id: 2,
     title: 'Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.',
     postType: 'Post',
-    image: 'img/feedTemp/cover.png',
+    image: 'img/feedTemp/wide_cover.jpg',
     text: 'Lorem ipsum dolor',
-    author: 'John Doe',
+    author: 'John Doeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
     likes: 145,
     comments: 123,
   },
@@ -152,7 +152,7 @@ const testCards = [
     postType: 'Manga',
     image: 'img/feedTemp/cover.png',
     text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus, sint. Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus, sint.',
-    author: '1 2 3 4 5 6 7 8',
+    author: '1 2 3 4 5 6 7 8 addsssssssssssssssssssssssssssssssssddddddddddd',
     likes: 145,
     comments: 123,
   },
@@ -196,15 +196,6 @@ const CardsContainer = ({ columns = 3, cards = testCards, user }) => {
   function WelcomeCard(props) {
     return (
       <div className={styles.welcomeCard}>
-        <button
-          onClick={async () => {
-            console.log(testCards);
-            console.log(cardsElements);
-            console.log(makeCardsElements(testCards));
-            setCardsElements(makeCardsElements(testCards));
-          }}>
-          fetch
-        </button>
         <div className={styles.welcomeCard__logo}>
           <Logo color="#fff" />
         </div>
@@ -278,17 +269,17 @@ const CardsContainer = ({ columns = 3, cards = testCards, user }) => {
   return (
     <>
       <Row align="top" gutter={20} style={{ marginTop: '1.5em' }}>
-        <Col ref={firstColRef} span={24 / columns}>
+        <Col ref={firstColRef} span={24 / columns} className={styles.col}>
           {user && welcomeCardVisible ? <WelcomeCard /> : null}
           {firstCol}
         </Col>
         {columns > 1 ? (
-          <Col ref={secondColRef} span={24 / columns}>
+          <Col ref={secondColRef} span={24 / columns} className={styles.col}>
             {secondCol}
           </Col>
         ) : null}
         {columns > 2 ? (
-          <Col ref={thirdColRef} span={24 / columns}>
+          <Col ref={thirdColRef} span={24 / columns} className={styles.col}>
             {thirdCol}
           </Col>
         ) : null}
@@ -304,7 +295,7 @@ function makeCardsElements(newCards = []) {
     if (card.postType === 'Task' || card.postType === 'Collab')
       return <TaskCard key={card.id} card={card} />;
     else if (card.postType === 'Manga') return <PublishedCard key={card.id} card={card} />;
-    else if (card.postType === 'Post') return <PortfolioWorkCard key={card.id} card={card} />;
+    else if (card.postType === 'Post') return <ShotCard key={card.id} card={card} />;
     else if (card.postType === 'Portfolio') return <PortfolioCard key={card.id} card={card} />;
   });
 }
