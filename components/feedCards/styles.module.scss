@@ -19,6 +19,14 @@
 }
 
 .modal {
+    a {
+        font-weight: 600;
+        display: inline;
+        color: $primaryDark;
+        &:hover {
+            color: $pink;
+        }
+    }
     :global {
         .ant-modal-content {
             border-radius: 8px;

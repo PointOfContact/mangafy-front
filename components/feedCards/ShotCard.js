@@ -11,6 +11,7 @@ import Heart from 'components/icon/new/Heart';
 import Close from 'components/icon/new/Close';
 import { Modal } from 'antd';
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
+import { highlightURLs } from 'helpers/shared';
 
 const ShotCard = ({ card }) => {
   // const image = card.imageUrl;
@@ -63,7 +64,11 @@ const ShotCard = ({ card }) => {
           <div className={styles.modal__title}>{title}</div>
           <div className={styles.modal__content}>
             <img src={image} alt="shot image" />
-            {text && <div className={styles.modal__text}>{text}</div>}
+            {text && (
+              <div
+                className={styles.modal__text}
+                dangerouslySetInnerHTML={{ __html: highlightURLs(text) }}></div>
+            )}
           </div>
           <FeedCardLine />
           <div className={styles.modal__footer}>

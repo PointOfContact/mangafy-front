@@ -9,6 +9,7 @@ import { Modal } from 'antd';
 import Close from 'components/icon/new/Close';
 import Heart from 'components/icon/new/Heart';
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
+import { highlightURLs } from 'helpers/shared';
 
 const PublishedCard = ({ card }) => {
   // const image = card.imageUrl;
@@ -24,6 +25,9 @@ const PublishedCard = ({ card }) => {
   const avatar = '';
   const likes = card.likes;
   const comments = card.comments;
+
+  console.log(text);
+  console.log(highlightURLs(text));
 
   const [modal, setModal] = useState(false);
 
@@ -61,7 +65,11 @@ const PublishedCard = ({ card }) => {
           <div className={styles.modal__title}>{title}</div>
           <div className={styles.modal__content}>
             <img src={image} alt="shot image" />
-            {text && <div className={styles.modal__text}>{text}</div>}
+            {text && (
+              <div
+                className={styles.modal__text}
+                dangerouslySetInnerHTML={{ __html: highlightURLs(text) }}></div>
+            )}
           </div>
           <FeedCardLine />
           <div className={styles.modal__footer}>
