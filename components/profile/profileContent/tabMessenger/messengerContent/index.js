@@ -269,46 +269,15 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
       {!selectedRequest?.isArchive && (
         <div className={styles.chatBlock2}>
           <div className={styles.messageInput}>
-            {/* <TextArea
-              maxLength={490}
-              placeholder="Type your message..."
-              value={value}
-              onChange={handleChange}
-              // onKeyPress={handleKeyPressSend}
-              className={styles.textarea_text}
-            /> */}
-            {/* <textarea
-              className={styles.textarea}
-              onInput={(e) => {
-                e.target.style.height = 'auto';
-                e.target.style.height = e.target.scrollHeight + 'px';
-              }}
-            /> */}
-            {/* <div class={styles['chat-wrapper']}> */}
             <div class={styles['message-wrapper']}>
-              <div class={styles['message-text']} contentEditable onInput={handleChange}></div>
+              <div
+                class={styles['message-text']}
+                contentEditable
+                onInput={handleChange}
+                placeholder="asdas"></div>
             </div>
-            {/* </div> */}
             <p className={messageError ? styles.messageError : styles.notError}>{messageError}</p>
-            {/* <img src={'/img/smileMessage.png'} alt="smile" /> */}
           </div>
-          {/* <span className={styles.sendMessage}> */}
-          {/* {!!user?.mangaStories?.data?.length && !selectedRequest.isTeamChat && (
-              <PrimaryButton
-                isActive={true}
-                text="INVITE"
-                className={styles.inviteButton}
-                onClick={() => sendMessage(true)}
-              />
-            )} */}
-          {/* <PrimaryButton
-              className={styles.sendButton}
-              text="SEND"
-              onClick={() => {
-                sendMessage(false);
-              }}
-            /> */}
-          {/* </span> */}
           <button
             className={styles.sendButton}
             onClick={() => {
