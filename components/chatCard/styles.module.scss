@@ -47,8 +47,8 @@
   }
 
   &::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 2px $black;
-    background-color: $black;
+    box-shadow: inset 0 0 2px $greyWhite;
+    background-color: $greyWhite;
     border-radius: 0;
   }
 
@@ -76,7 +76,7 @@
 .message_community {
   position: relative;
   border-bottom: 1px solid rgba(33, 33, 33, 0.07);
-  padding: 15px 20px 15px 20px;
+  padding: 12px 16px;
   background-color: $primaryBG;
   width: 95%;
   display: flex;
@@ -89,16 +89,19 @@
     display: flex;
     justify-content: space-between;
     .dateBar{
-      font-size: 10px;
-      color: $primaryDark;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 16px;
+      color: #707991;
       position: absolute;
-      left: 72%; 
-      @include media-sm{
-        left: 85%; 
-      }
-      @include media-xs{
-        left: 80%; 
-      }
+      right: 16px;
+      // left: 72%; 
+      // @include media-sm{
+      //   left: 85%; 
+      // }
+      // @include media-xs{
+      //   left: 80%; 
+      // }
     }
   }
   .messages {
@@ -184,13 +187,8 @@
 }
 
 .isSmall {
-  height: 107px;
-  @include media-sm{
-    height: 95px;
-  }
   .message_community {
     width: 100%;
-    height: 100%;
     @include media-sm {
       padding: 10px;
       text-align: center;
@@ -222,8 +220,9 @@
       }
       h4 {
         max-width: 64%;
-        font-size: $text4;
-        line-height: 21px;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 20px;
         text-align: initial;
         word-break: break-all;
         overflow: hidden;
@@ -233,8 +232,10 @@
       }
       p {
         max-width: 85%;
-        font-size: $text5;
+        font-weight: 400;
+        font-size: 14px;
         line-height: 18px;
+        color: #707991;
         padding-bottom: 1px;
         margin: 0;
         margin-top: 4px;
@@ -264,6 +265,6 @@
 
 .selected {
   .message_community {
-    background-color: #d8edff;
+    background-color: #F5F5F5;
   }
 }

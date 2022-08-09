@@ -41,6 +41,16 @@ const Chapter = ({ storyBoard, setStoryBoard, chapters, setChapters, user, baseD
       setOnBlur(true);
       return;
     }
+
+    console.log({
+      chapterName,
+      storyBoard,
+      chapters,
+      setCreateChapter,
+      setChapters,
+      chapterNumber: (chapters.length || 0) + 1,
+    });
+
     mangaStoryAPI.chapter.create(
       chapterName,
       storyBoard,
@@ -100,10 +110,6 @@ const Chapter = ({ storyBoard, setStoryBoard, chapters, setChapters, user, baseD
         )}
       </div>
       <div className={styles.container}>
-        {/* <div className={styles.selectContainer}>
-        <PrimaryButton className={styles.published} isWhite={true} text={'Published'} />
-        <PrimaryButton isWhite={true} text={'Last modified'} />
-      </div> */}
         <ChapterItems
           chapters={chapters}
           setChapters={setChapters}

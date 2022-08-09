@@ -5,12 +5,13 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
 
 .container {
   width: 100%;
-  padding: 20px 30px 0 30px;
+  padding: 0 30px ;
   margin-bottom: 20px;
-  border: 1px solid $gray85;
+  // border: 1px solid $gray85;
+  border-bottom: 2px solid rgb(224, 224, 224);
   box-sizing: border-box;
-  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.04);
-  border-radius: 10px;
+  // box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.04);
+  // border-radius: 10px;
   .titleView {
     display: flex;
     justify-content: space-between;

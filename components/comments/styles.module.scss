@@ -38,6 +38,18 @@
   &::-webkit-scrollbar-thumb:hover {
     background: #555; 
   }
+
+  :global {
+    .ant-comment-content-detail {
+      div {
+        padding: 0 10px 0 0;
+        white-space: normal;
+        * {
+          white-space: normal;
+        }
+      }
+    }
+  }
 }
 .commentError {
   color: rgb(228, 47, 47);
@@ -53,4 +65,7 @@
 }
 .notError {
   display: none;
+}
+.notOwnCommentsTitle {
+  margin-top: 1em;
 }

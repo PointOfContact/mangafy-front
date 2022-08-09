@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
-import { Tabs, notification } from 'antd';
+import { notification } from 'antd';
 import client from 'api/client';
 import { findStoryBoard } from 'api/storyBoardClient';
 import cn from 'classnames';
@@ -23,12 +23,30 @@ import myAmplitude from 'utils/amplitude';
 import EditMode from './components/editMode';
 import HeaderCollab from './components/headerCollab';
 import Settings from './components/settings';
-import StoryBoardTabs from './components/storyBoardTabs';
 import styles from './styles.module.scss';
-import PrimaryButton from 'components/ui-elements/button';
+import ProjectSidebar from 'components/ProjectSidebar';
 
-const { TabPane } = Tabs;
-const tabsArray = ['', 'story', 'create', 'comments', 'team_chat', 'settings'];
+import Hero from 'components/Hero';
+import Idea from 'components/Idea';
+import Chapter from './components/chapter';
+import DragDrop from './components/dragDrop';
+import Preview from './components/preview';
+import Publish from './components/publish';
+import ProjectMobileMenu from 'components/ProjectMobileMenu';
+import Edit from 'components/icon/new/Edit';
+import Edit2 from 'components/icon/new/Edit2';
+import Planet from 'components/icon/new/Planet';
+
+const tabs = {
+  DETAILS: 'details',
+  PLOT: 'plot',
+  ASSETS: 'assets',
+  EPISODES: 'episodes',
+  COMMENTS: 'comments',
+  MESSAGES: 'messages',
+  SETTINGS: 'settings',
+  PUBLISH: 'publish',
+};
 
 const MangeStory = (props) => {
   const {
@@ -50,11 +68,8 @@ const MangeStory = (props) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [canEdit] = useState(isOwn);
   const router = useRouter();
-  const pathPage = router.query.page || 'plot';
-  const [currentPage, setCurrentPage] = useState(pathPage);
-  const [collabActiveTab, setCollabActiveTab] = useState('1');
-  const { manga } = router.query;
-  const ifCreatedManga = manga === 'create';
+  const [chapters, setChapters] = useState([]);
+  const [isMobile, setIsMobile] = useState(false);
 
   const routerBasePath = `/manga-story/${baseData?._id}?tab=`;
   const [storyBoard, setStoryBoard] = useState({
@@ -70,30 +85,18 @@ const MangeStory = (props) => {
   });
 
   useEffect(() => {
-    const { tab } = router.query;
+    setChapters(storyBoard?.chapters);
+  }, [storyBoard]);
 
-    switch (tab) {
-      case 'story':
-        setCollabActiveTab('1');
-        break;
-      case 'create':
-        setCollabActiveTab('2');
-        break;
-      case 'comments':
-        setCollabActiveTab('3');
-        break;
-      case 'team_chat':
-        user
-          ? setCollabActiveTab('4')
-          : Router.push(`/sign-in?page=manga-story/${mangaStory._id}?tab=team_chat`);
-        break;
-      case 'settings':
-        setCollabActiveTab('5');
-        break;
-      default:
-        break;
-    }
+  const [activeTab, setActiveTab] = useState(tabs.DETAILS);
 
+  const onResize = () => {
+    if (window.innerWidth < 568) setIsMobile(true);
+    else setIsMobile(false);
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', onResize);
     const data = {
       event_type: EVENTS.OPENED_MANGA_STORY,
       event_properties: {
@@ -102,8 +105,17 @@ const MangeStory = (props) => {
       },
     };
 
+    setActiveTab(router.query.tab || tabs.DETAILS);
     myAmplitude(data);
+    if (window.innerWidth < 568) setIsMobile(true);
+    return () => {
+      window.removeEventListener('resize', onResize);
+    };
   }, []);
+
+  useEffect(() => {
+    router.push(`/manga-story/${mangaStory._id}?tab=${activeTab}`);
+  }, [activeTab]);
 
   const openNotification = (type, message, description = '') => {
     notification[type]({
@@ -126,6 +138,10 @@ const MangeStory = (props) => {
       }
     );
   }, [userData, mangaStory?._id]);
+
+  useEffect(() => {
+    getStoryBoard();
+  }, [user, getStoryBoard]);
 
   const saveMangaStoryData = (newBaseData, reject = () => {}, ...keys) => {
     const data = {};
@@ -156,7 +172,7 @@ const MangeStory = (props) => {
     const { name, value } = target;
     const data = { ...baseData, [name]: value };
     setBaseData(data);
-    setEditMode(true);
+    // setEditMode(true);
     changeCollabData && saveMangaStoryData(data, reject, name);
   };
 
@@ -187,14 +203,6 @@ const MangeStory = (props) => {
     });
   };
 
-  const tabChange = (activeKey) => {
-    const ifCreate = activeKey === '2' ? `&page=${currentPage}` : '';
-    const path = `${routerBasePath}${tabsArray[activeKey]}${ifCreate}`;
-    Router.push(path, undefined, { shallow: true });
-
-    setCollabActiveTab(activeKey);
-  };
-
   const description = (desc, story) => {
     story = deleteTagsFromString(story);
     let decResult = '';
@@ -213,15 +221,40 @@ const MangeStory = (props) => {
     left: (
       <div className={styles.workspaceLink}>
         <Link href={'/profile/' + user._id}>
-          <a className={styles.workspaceLink_link}>
-            {'My workspace'}
-            {/* <PrimaryButton text="Back to profile" isRound /> */}
-          </a>
+          <a className={styles.workspaceLink_link}>{'My workspace'}</a>
+
         </Link>
         <span>{' / '}</span>
         <span>{baseData.title}</span>
       </div>
     ),
+  };
+
+  const ProjectHeader = () => {
+    return (
+      <>
+        <div className={styles.workspaceLink}>
+          <Link href={'/profile/' + user._id}>
+            <a className={styles.workspaceLink_link}>{'My workspace'}</a>
+          </Link>
+          <span>{' / '}</span>
+          <span>{baseData.title}</span>
+          <span>{' / ' + activeTab}</span>
+        </div>
+        <h2 className={styles.sectionTitle}>
+          {activeTab}
+          {activeTab === tabs.DETAILS && !editMode && (
+            <span
+              onClick={() => {
+                console.log('sadf');
+                setEditMode(true);
+              }}>
+              <Edit2 color="#777" />
+            </span>
+          )}
+        </h2>
+      </>
+    );
   };
 
   return (
@@ -253,16 +286,20 @@ const MangeStory = (props) => {
           cardType: 'summary_large_image',
         }}
       />
+      {isOwn &&
+        (isMobile ? (
+          <ProjectMobileMenu tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
+        ) : (
+          <ProjectSidebar tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
+        ))}
       <ButtonToTop user={user} />
       <main className="main_back_2" style={{ background: '#fafafa' }}>
         {!isOwn && <Header path="mangaStory" user={userData} />}
         <div
-          className={cn(
-            styles.pageWrap,
-            'manga-story-page'
-            // collabActiveTab === '2' && styles.pageWrap_movedUp
-          )}>
-          {!isOwn && (
+          className={cn(styles.pageWrap, !isMobile && styles.pageWrap_desktop, 'manga-story-page')}>
+          {isOwn ? (
+            <ProjectHeader />
+          ) : (
             <HeaderCollab
               isOwn={isOwn}
               user={user}
@@ -272,113 +309,89 @@ const MangeStory = (props) => {
               baseData={baseData}
               setBaseData={setBaseData}
               onChangeSingleField={onChangeSingleField}
-              collabActiveTab={collabActiveTab}
               stage={stage}
               canEdit={canEdit}
               saveMangaStoryData={saveMangaStoryData}
             />
           )}
-          <section className={cn(`container mobile_full_content mobile_top_round`, styles.section)}>
-            <div className="row">
-              <div className={cn('col-lg-7 mangaStoriTopPanel', isOwn && styles.tabsAlignRight)}>
-                <Tabs
-                  activeKey={collabActiveTab}
-                  onChange={tabChange}
-                  tabBarExtraContent={slot}
-                  right>
-                  <TabPane tab={isOwn ? 'PREVIEW' : 'PROJECT'} key="1" className="story">
-                    <EditMode
-                      user={userData}
-                      editMode={editMode}
-                      baseData={baseData}
-                      isOwn={isOwn}
-                      setBaseData={setBaseData}
-                      setEditMode={setEditMode}
-                      canEdit={canEdit}
-                      isParticipant={isParticipant}
-                      onChangeSingleField={onChangeSingleField}
-                      cancelEditMode={cancelEditMode}
-                      saveMangaStoryData={saveMangaStoryData}
-                      userData={userData}
-                      showPayPalContent={showPayPalContent}
-                    />
-                  </TabPane>
-                  {(isOwn || hasStoryBoardPermision) && (
-                    <TabPane
-                      tab={
-                        <p className={cn(styles.create, ifCreatedManga && styles.create_animation)}>
-                          CREATE
-                        </p>
-                      }
-                      key="2"
-                      className="story">
-                      <StoryBoardTabs
-                        setStage={setStage}
-                        user={userData}
-                        openNotification={openNotification}
-                        originUrl={originUrl}
-                        participentsInfo={baseData.participentsInfo}
-                        baseData={baseData}
-                        setBaseData={setBaseData}
-                        storyBoard={storyBoard}
-                        getStoryBoard={getStoryBoard}
-                        setStoryBoard={setStoryBoard}
-                        setCurrentPage={setCurrentPage}
-                      />
-                    </TabPane>
-                  )}
-                  <TabPane tab="COMMENTS" key="3">
-                    <div className={styles.tabWrap}>
-                      <Comments
-                        commentsData={comments}
-                        isOwn={isOwn}
-                        mangaStory={baseData}
-                        user={userData}
-                      />
-                    </div>
-                  </TabPane>
-                  {userData &&
-                    (baseData?.participentsInfo?.find((item) => item._id === userData?._id) ||
-                      baseData?.author === userData?._id) && (
-                      <TabPane tab="TEAM CHAT" key="4">
-                        <div className={styles.tabWrap}>
-                          <Chat
-                            mangaStory={baseData}
-                            user={userData}
-                            isOwn={isOwn}
-                            collabActiveTab={collabActiveTab}
-                          />
-                        </div>
-                      </TabPane>
-                    )}
-                  {userData &&
-                    isOwn &&
-                    (baseData?.participentsInfo?.find((item) => item._id === userData?._id) ||
-                      baseData?.author === userData?._id) && (
-                      <TabPane tab="SETTINGS" key="5">
-                        <div className={styles.tabWrap}>
-                          <Settings
-                            baseData={baseData}
-                            genres={genres}
-                            onChangeSingleField={onChangeSingleField}
-                            saveMangaStoryData={saveMangaStoryData}
-                            getStoryBoard={getStoryBoard}
-                            setBaseData={setBaseData}
-                            openNotification={openNotification}
-                            originUrl={originUrl}
-                            userData={userData}
-                            setUserData={setUserData}
-                            showPayPalContent={showPayPalContent}
-                            setShowPayPalContent={setShowPayPalContent}
-                            confirmDelete={confirmDelete}
-                            storyBoard={storyBoard}
-                          />
-                        </div>
-                      </TabPane>
-                    )}
-                </Tabs>
-              </div>
-            </div>
+
+          <section className={cn(`container mobile_full_content`, styles.section)}>
+            {activeTab === tabs.DETAILS && (
+              <EditMode
+                user={userData}
+                editMode={editMode}
+                baseData={baseData}
+                isOwn={isOwn}
+                setBaseData={setBaseData}
+                setEditMode={setEditMode}
+                canEdit={canEdit}
+                isParticipant={isParticipant}
+                onChangeSingleField={onChangeSingleField}
+                cancelEditMode={cancelEditMode}
+                saveMangaStoryData={saveMangaStoryData}
+                userData={userData}
+                showPayPalContent={showPayPalContent}
+              />
+            )}
+            {activeTab === tabs.PLOT && <Idea storyBoard={storyBoard} user={user} />}
+            {activeTab === tabs.ASSETS && (
+              <Hero
+                storyBoard={storyBoard}
+                setStoryBoard={setStoryBoard}
+                getStoryBoard={getStoryBoard}
+                user={user}
+              />
+            )}
+            {activeTab === tabs.EPISODES && (
+              <Chapter
+                storyBoard={storyBoard}
+                setStoryBoard={setStoryBoard}
+                chapters={storyBoard?.chapters}
+                setChapters={() => {}}
+                user={user}
+                baseData={baseData}
+              />
+            )}
+            {activeTab === tabs.PUBLISH && (
+              <Publish baseData={baseData} storyBoard={storyBoard} chapters={chapters} />
+            )}
+            {activeTab === tabs.COMMENTS && (
+              <Comments
+                commentsData={comments}
+                isOwn={isOwn}
+                mangaStory={baseData}
+                user={userData}
+              />
+            )}
+            {activeTab === tabs.MESSAGES && (
+              <Chat mangaStory={baseData} user={userData} isOwn={isOwn} />
+            )}
+            {activeTab === tabs.SETTINGS && (
+              <Settings
+                baseData={baseData}
+                genres={genres}
+                onChangeSingleField={onChangeSingleField}
+                saveMangaStoryData={saveMangaStoryData}
+                getStoryBoard={getStoryBoard}
+                setBaseData={setBaseData}
+                openNotification={openNotification}
+                originUrl={originUrl}
+                userData={userData}
+                setUserData={setUserData}
+                showPayPalContent={showPayPalContent}
+                setShowPayPalContent={setShowPayPalContent}
+                confirmDelete={confirmDelete}
+                storyBoard={storyBoard}
+              />
+            )}
+            {!isOwn && (
+              <Comments
+                commentsData={comments}
+                isOwn={isOwn}
+                mangaStory={baseData}
+                user={userData}
+              />
+            )}
           </section>
           <section>
             {/* <BannerSection

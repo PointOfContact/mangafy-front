@@ -20,6 +20,7 @@ import { patchRequest } from '../../../../../api/joinMangaStoryRequestClient';
 import UserName from '../userName';
 import messageItems from './messageItems';
 import styles from './styles.module.scss';
+import Send from 'components/icon/new/Send';
 
 let interval;
 const onAccept = (event, id, status) => {
@@ -44,7 +45,8 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
 
   const scrollToBottom = () => {
     setTimeout(() => {
-      messageListElement.current.scrollTop = messageListElement.current.scrollHeight;
+      if (messageListElement.current)
+        messageListElement.current.scrollTop = messageListElement.current?.scrollHeight;
     }, 0);
   };
 
@@ -60,7 +62,7 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
 
   const handleChange = (e) => {
     // eslint-disable-next-line no-shadow
-    const { value } = e.target;
+    const value = e.target.innerText;
     setValue(value);
     value.length >= maxLength
       ? setMessageError(`The character limit for a message is ${maxLength} characters.`)
@@ -238,12 +240,14 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
 
   return (
     <div className={styles.chatContainer}>
-      {selectedRequest.participentsInfo && <UserName selectedRequest={selectedRequest} />}
-      <Imgix
+      {selectedRequest.participentsInfo && (
+        <UserName selectedRequest={selectedRequest} user={user} />
+      )}
+      {/* <Imgix
         layout="fill"
         src={'https://mangafy.club/img/messbg.png'}
         alt="MangaFy message background"
-      />
+      /> */}
       <pre ref={messageListElement} className={styles.messageList} id="message-content">
         <MessageList
           referance={messenger}
@@ -265,34 +269,22 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
       {!selectedRequest?.isArchive && (
         <div className={styles.chatBlock2}>
           <div className={styles.messageInput}>
-            <TextArea
-              maxLength={490}
-              placeholder="Type your message..."
-              value={value}
-              onChange={handleChange}
-              // onKeyPress={handleKeyPressSend}
-              className={styles.textarea_text}
-            />
+            <div class={styles['message-wrapper']}>
+              <div
+                class={styles['message-text']}
+                contentEditable
+                onInput={handleChange}
+                placeholder="asdas"></div>
+            </div>
             <p className={messageError ? styles.messageError : styles.notError}>{messageError}</p>
-            {/* <img src={'/img/smileMessage.png'} alt="smile" /> */}
           </div>
-          <span className={styles.sendMessage}>
-            {!!user?.mangaStories?.data?.length && !selectedRequest.isTeamChat && (
-              <PrimaryButton
-                isActive={true}
-                text="INVITE"
-                className={styles.inviteButton}
-                onClick={() => sendMessage(true)}
-              />
-            )}
-            <PrimaryButton
-              className={styles.sendButton}
-              text="SEND"
-              onClick={() => {
-                sendMessage(false);
-              }}
-            />
-          </span>
+          <button
+            className={styles.sendButton}
+            onClick={() => {
+              sendMessage(false);
+            }}>
+            <Send color={'#8E8E93'} />
+          </button>
         </div>
       )}
       <ModalInvites
