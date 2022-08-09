@@ -90,6 +90,27 @@
             margin-left: 0.4em;
             height: 1.4em;
         }
+        &_liked {
+            & > svg {
+                animation: spin .6s forwards;
+                transition-timing-function: ease-in-out;
+                opacity: 1;
+                fill: rgb(255, 35, 145);
+                stroke: rgb(190, 7, 78);
+    
+                @keyframes spin {
+                    0% {
+                      transform: scale(1);
+                    }
+                    33% {
+                      transform: scale(1.3);
+                    }
+                    100% {
+                      transform: scale(1);
+                    }
+                  }
+            }
+        }
     }
     &__followers {
         margin-left: auto;
