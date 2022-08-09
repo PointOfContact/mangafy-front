@@ -53,7 +53,7 @@ export const Chat = ({ mangaStory, user, isOwn, collabActiveTab }) => {
   }, []);
 
   return (
-    <div>
+    <div className={styles.chat}>
       <div className={styles.participents}>
         {[user].concat(conversation?.participentsInfo || []).map(
           ({ avatar, name }, index) =>
