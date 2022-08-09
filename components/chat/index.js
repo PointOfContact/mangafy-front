@@ -49,14 +49,11 @@ export const Chat = ({ mangaStory, user, isOwn, collabActiveTab }) => {
     });
   };
   useEffect(() => {
-    if (collabActiveTab === '4') {
-      // getRequest();
-      getConversation();
-    }
-  }, [collabActiveTab, getConversation]);
+    getConversation();
+  }, []);
 
   return (
-    <div>
+    <div className={styles.chat}>
       <div className={styles.participents}>
         {[user].concat(conversation?.participentsInfo || []).map(
           ({ avatar, name }, index) =>
@@ -65,8 +62,8 @@ export const Chat = ({ mangaStory, user, isOwn, collabActiveTab }) => {
                 <div className={styles.participentInfo}>
                   {avatar ? (
                     <Imgix
-                      width={65}
-                      height={65}
+                      width={24}
+                      height={24}
                       src={client.UPLOAD_URL + avatar}
                       alt="Picture of the user"
                     />

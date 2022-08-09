@@ -52,16 +52,6 @@ const StoryBoardTabs = ({
   const [isShowAnimation, setIsShowAnimation] = useState(false);
   const routerBasePath = `/manga-story/${baseData?._id}?tab=create&page=`;
   const imageType = zoomImageUrl?.slice(-3) === 'pdf' || zoomImageUrl?.slice(-3) === 'PDF';
-  // const [storyBoard, setStoryBoard] = useState({
-  //   idea: {
-  //     title: '',
-  //     text: '',
-  //   },
-  //   pages: [],
-  //   heroes: [],
-  //   author: [],
-  //   layouts: [],
-  // });
 
   useEffect(() => {
     setChapters(storyBoard?.chapters);
@@ -76,163 +66,39 @@ const StoryBoardTabs = ({
       case '1':
         setStage({
           tab,
-          // title: 'THE SETTING',
-          // description:
-          //   "Every good story begins with an idea. This part should include your story's concept, genre, and synopsis.",
         });
         break;
       case '2':
         setStage({
           tab,
-          // title: 'BUILD YOUR CHARACTERS',
-          // description:
-          //   'To get the reader engaged we need to build an awesome cast and world. Define your characters to kick off your tale.',
         });
         break;
-      // case '3':
-      //   setStage({
-      //     tab,
-      //     title: 'SCRIPT',
-      //     description:
-      //       'Add full comic and manga script pages for an Arc, volume, or a full graphic novel',
-      //   });
-      //   break;
       case '3':
         setStage({
           tab,
-          // title: 'CREATE_SCRIPT',
-          // description:
-          //   'Add full comic and manga script pages for an Arc, volume, or a full graphic novel',
         });
         break;
-      // case '4':
-      //   setStage({
-      //     tab,
-      //     title: 'DIGITAL ILLUSTRATION',
-      //     description:
-      //       'Got the story and plot down, now bring life to your characters and add visualization (characters, strips, pages, etc.)',
-      //   });
-      //   break;
       case '4':
         setStage({
           tab,
-          // title: 'UPLOAD YOUR DIGITAL WORK',
-          // description:
-          //   'Upload illustration and exchange work files with your team - all in one hosting place.',
         });
         break;
       case '5':
         setStage({
           tab,
-          // title: 'PUBLISH',
-          // description:
-          //   "Congratulations! you finalized your volume, arc or novel and now it's time to publish. Select one of MangaFY's self-publishing partners and start monetizing",
         });
         break;
       default:
         setStage({
           tab,
-          // title: 'THE SETTING',
-          // description:
-          //   'Every good story begins with an idea. This part should include the concept, location, and synopses',
         });
     }
   };
-
-  // const showModal = () => {
-  //   document.body.classList.add('body_remove_scroll');
-  //   setIsModalVisible(true);
-  // };
-
-  // const handleCancelModal = () => {
-  //   document.body.classList.remove('body_remove_scroll');
-  //   setIsModalVisible(false);
-  // };
-
-  // const renderNavigationButtons = (disableNextBtn = false) => (
-  //   <div className={styles.actionButtons}>
-  //     <div>
-  //       {+storyBoardActiveTab > 1 && (
-  //         <Button
-  //           id="StoryBoardBacktBtnId"
-  //           type="primary"
-  //           className={styles.back}
-  //           onClick={clickBack}>
-  //           Back
-  //         </Button>
-  //       )}
-  //       {+storyBoardActiveTab < 6 && (
-  //         <Button
-  //           id="StoryBoardNextBtnId"
-  //           disabled={disableNextBtn}
-  //           type="primary"
-  //           onClick={clickNext}>
-  //           Next {+storyBoardActiveTab + 1}
-  //         </Button>
-  //       )}
-  //     </div>
-  //     <p className={styles.see_more}>Use more features in the desktop version</p>
-  //   </div>
-  // );
-  // const clickBack = () => {
-  //   setIsShowAnimation(false);
-  //   const nextTab = +storyBoardActiveTab - 1;
-  //   setStoryBoardActiveTab(nextTab);
-  // };
-
-  // const clickNext = () => {
-  //   let myEvent = '';
-  //   switch (storyBoardActiveTab.toString()) {
-  //     case '1':
-  //       myEvent = EVENTS.PILOT_COMPLETED;
-  //       break;
-  //     case '2':
-  //       myEvent = EVENTS.CHARACTERS_COMPLETED;
-  //       break;
-  //     case '3':
-  //       // myEvent = EVENTS.PAGES_COMPLETED;
-  //       myEvent = EVENTS.PROJECT_CHAPTER;
-  //       break;
-  //     // case '4':
-  //     //   myEvent = EVENTS.TEMPLATES_COMPLETED;
-  //     //   break;
-  //     case '4':
-  //       myEvent = EVENTS.PROJECT_UPLOADED;
-  //       break;
-  //     case '5':
-  //       myEvent = EVENTS.PROJECT_PUBLISHED;
-  //       break;
-  //     default:
-  //   }
-
-  //   const data = [
-  //     {
-  //       event_type: myEvent,
-  //       user_id: user._id,
-  //       user_properties: {
-  //         ...user,
-  //       },
-  //     },
-  //   ];
-  //   myAmplitude(data);
-  //   setIsShowAnimation(true);
-  //   setTimeout(() => {
-  //     setIsShowAnimation(false);
-  //   }, 3000);
-  //   const nextTab = +storyBoardActiveTab + 1;
-  //   setStoryBoardActiveTab(nextTab);
-  // };
 
   useEffect(() => {
     getStoryBoard();
   }, [user, getStoryBoard]);
 
-  // const onUploadSuccess = () => {
-  //   setTimeout(() => {
-  //     setStoryBoardActiveTab(6);
-  //     showModal();
-  //   }, 2000);
-  // };
   const query = qs.parse(location.search);
 
   useEffect(() => {
@@ -250,9 +116,6 @@ const StoryBoardTabs = ({
         myEvent = EVENTS.CHARACTERS_COMPLETED;
         setStoryBoardActiveTab('2');
         break;
-      // case 'project-scripts':
-      //   setStoryBoardActiveTab('3');
-      //   break;
       case 'chapters':
         myEvent = EVENTS.PROJECT_CHAPTER;
         setStoryBoardActiveTab('3');
@@ -300,21 +163,6 @@ const StoryBoardTabs = ({
       .catch((err) => err);
   };
 
-  // const addNewButtons = (
-  //   <div className={styles.addNewButtons}>
-  //     <FindPartner participentsInfo={participentsInfo} />
-  //     <PrimaryButton
-  //       onClick={() => changeShowTaskModal(true)}
-  //       className={styles.addTask}
-  //       text="Add a task"
-  //       isPlump={true}
-  //       isActive={true}
-  //       items={[]}
-  //       suffix={<SvgAdd2 width="25px" height="25px" />}
-  //     />
-  //   </div>
-  // );
-
   const tabsOnChange = (activeKey) => {
     Router.push(`${routerBasePath}${pageArray[activeKey]}`, undefined, { shallow: true });
     setCurrentPage(pageArray[activeKey]);
@@ -339,9 +187,7 @@ const StoryBoardTabs = ({
           }
           key={1}>
           <div className={styles.tabContent}>
-            {/* {addNewButtons} */}
             <Idea storyBoard={storyBoard} user={user} />
-            {/* {renderNavigationButtons(!(storyBoard?.idea?.title && storyBoard?.idea?.text))} */}
           </div>
         </TabPane>
         <TabPane
@@ -353,36 +199,15 @@ const StoryBoardTabs = ({
           }
           key={2}>
           <div className={styles.tabContent}>
-            {/* {addNewButtons} */}
             <Hero
               storyBoard={storyBoard}
               setStoryBoard={setStoryBoard}
               getStoryBoard={getStoryBoard}
               user={user}
             />
-            {/* {renderNavigationButtons()} */}
           </div>
         </TabPane>
-        {/* <TabPane
-          tab={
-            <span>
-              <DocumentsSvg width="25px" />
-            </span>
-          }
-          key={3}>
-          {isShowAnimation && <span className={styles.showAnimation}></span>}
-          <div className={styles.tabContent}>
-            {addNewButtons}
-            <ProjectScripts
-              pages={storyBoard?.pages}
-              storyBoardId={storyBoard?._id}
-              storyBoard={storyBoard}
-              setStoryBoard={setStoryBoard}
-              user={user}
-            />
-            {renderNavigationButtons(!storyBoard?.pages?.length)}
-          </div>
-        </TabPane> */}
+
         <TabPane
           tab={
             <span className={cn(styles.chapterIcon, styles.tab)}>
@@ -400,23 +225,9 @@ const StoryBoardTabs = ({
             baseData={baseData}
           />
         </TabPane>
-        {/* <TabPane
-          tab={
-            <span>
-              <ComicBookSvg width="25px" />
-            </span>
-          }
-          key={4}>
-          {isShowAnimation && <span className={styles.showAnimation}></span>}
-          <div className={styles.tabContent}>
-            {addNewButtons}
-            <ChooseLayout storyBoard={storyBoard} setStoryBoard={setStoryBoard} />
-            {renderNavigationButtons(!storyBoard?.layoutId)}
-          </div>
-        </TabPane> */}
+
         {!!storyBoard?.mangaUrls?.length && (
           <TabPane
-            // disabled={!storyBoard?.layoutId}
             tab={
               <span className={styles.tab}>
                 <PencilCaseSvg width="25px" />
@@ -425,7 +236,6 @@ const StoryBoardTabs = ({
             }
             key={4}>
             <div className={styles.tabContent}>
-              {/* {addNewButtons} */}
               <div className={styles.uploadPhotoContainer}>
                 <div className={styles.uploadListContainer}>
                   <div className={styles.card_wrap}>
@@ -473,23 +283,9 @@ const StoryBoardTabs = ({
                   />
                 </div>
               </div>
-              {/* {renderNavigationButtons(!uploadImages.length)} */}
             </div>
           </TabPane>
         )}
-        )
-        {/* <TabPane
-        tab={
-          <span>
-            <EditSvg height="25px" />
-          </span>
-        }
-        key={6}>
-        <div className={styles.tabContent}>
-          <ModalSuccess />
-          {renderNavigationButtons()}
-        </div>
-      </TabPane> */}
         <TabPane
           tab={
             <span className={styles.tab}>
@@ -497,17 +293,9 @@ const StoryBoardTabs = ({
               <p>Publish</p>
             </span>
           }
-          // disabled={!storyBoard?.mangaUrl}
           key={storyBoard?.mangaUrls?.length ? 5 : 4}>
           {isShowAnimation && <span className={styles.showAnimation}></span>}
           <div className={styles.tabContent}>
-            {/* {addNewButtons} */}
-            {/* {isModalVisible ? (
-              <ModalSuccess isModalVisible={isModalVisible} handleCancelModal={handleCancelModal} />
-            ) : (
-              <ShareStoryBoard user={user} shareUrl={originUrl} />
-            )} */}
-            {/* {renderNavigationButtons()} */}
             <Publish baseData={baseData} storyBoard={storyBoard} chapters={chapters} />
           </div>
         </TabPane>

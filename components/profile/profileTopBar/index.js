@@ -302,7 +302,7 @@ const ProfileTopBar = (props) => {
                   ) : null}
                 </div>
                 <Link
-                  href="/contact-us"
+                  href="https://my.forms.app/form/62f2035a2b6a8726fe83de5a"
                   onClick={() => {
                     const event = {
                       event_type: EVENTS.DELETE_ACCOUNT,

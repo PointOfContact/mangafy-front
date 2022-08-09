@@ -67,7 +67,7 @@ app.prepare().then(() => {
     } else {
       handle(req, res, parsedUrl);
     }
-  }).listen(3000, (err) => {
+  }).listen(process.env.PORT || 3000, (err) => {
     if (err) {
       console.log('Err in server.js:', err);
       throw err;
