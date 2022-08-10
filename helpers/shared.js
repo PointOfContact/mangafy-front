@@ -107,3 +107,11 @@ export const removeAllStorage = () => {
   removeCookies();
   window.location.href = '/sign-in';
 };
+
+export function highlightURLs(text) {
+  let urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi;
+  let scriptRegex = /<script[\s\S]*?>[\s\S]*?<\/script>/;
+  return text.replace(scriptRegex, '').replace(urlRegex, function (url) {
+    return '<a href="' + url + '">' + url + '</a>';
+  });
+}

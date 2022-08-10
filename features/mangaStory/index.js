@@ -222,7 +222,6 @@ const MangeStory = (props) => {
       <div className={styles.workspaceLink}>
         <Link href={'/profile/' + user._id}>
           <a className={styles.workspaceLink_link}>{'My workspace'}</a>
-
         </Link>
         <span>{' / '}</span>
         <span>{baseData.title}</span>
@@ -286,7 +285,7 @@ const MangeStory = (props) => {
           cardType: 'summary_large_image',
         }}
       />
-      {isOwn &&
+      {(isOwn || isParticipant) &&
         (isMobile ? (
           <ProjectMobileMenu tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
         ) : (
@@ -294,7 +293,7 @@ const MangeStory = (props) => {
         ))}
       <ButtonToTop user={user} />
       <main className="main_back_2" style={{ background: '#fafafa' }}>
-        {!isOwn && <Header path="mangaStory" user={userData} />}
+        {!(isOwn || isParticipant) && <Header path="mangaStory" user={userData} />}
         <div
           className={cn(styles.pageWrap, !isMobile && styles.pageWrap_desktop, 'manga-story-page')}>
           {isOwn ? (
