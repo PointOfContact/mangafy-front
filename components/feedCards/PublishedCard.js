@@ -10,6 +10,7 @@ import Close from 'components/icon/new/Close';
 import Heart from 'components/icon/new/Heart';
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import { highlightURLs } from 'helpers/shared';
+import cn from 'classnames';
 
 const PublishedCard = ({ card }) => {
   // const image = card.imageUrl;
@@ -30,6 +31,7 @@ const PublishedCard = ({ card }) => {
   console.log(highlightURLs(text));
 
   const [modal, setModal] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
 
   const debouncedMouseEventHandler = useCallback(
     AwesomeDebouncePromise(mouseEventHandler, 200),
@@ -46,10 +48,14 @@ const PublishedCard = ({ card }) => {
 
   function mouseEventHandler(type) {
     if (type === 'doubleClick') {
-      // Like function here
+      like();
     } else {
       setModal(!modal);
     }
+  }
+
+  function like() {
+    setIsLiked((oldIsLiked) => !oldIsLiked);
   }
 
   return (
@@ -77,7 +83,9 @@ const PublishedCard = ({ card }) => {
               <img src={avatar || 'img/feedTemp/avatar.png'} alt="user avatar" />
             </div>
             <div className={styles.modal__author}>{author}</div>
-            <div className={styles.modal__likes}>
+            <div
+              className={cn(styles.modal__likes, isLiked && styles.modal__likes_liked)}
+              onClick={like}>
               {likes}
               <Heart />
             </div>
@@ -89,7 +97,13 @@ const PublishedCard = ({ card }) => {
         <div className={styles.card__content}>
           <FeedCardText title={title} description={text} />
           <FeedCardLine />
-          <FeedCardShotFooter author={author} comments={comments} likes={likes} />
+          <FeedCardShotFooter
+            author={author}
+            comments={comments}
+            likes={likes}
+            isLiked={isLiked}
+            setIsLiked={setIsLiked}
+          />
         </div>
       </div>
     </>

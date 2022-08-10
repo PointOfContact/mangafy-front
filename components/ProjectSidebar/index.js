@@ -14,6 +14,7 @@ import Message from 'components/icon/new/Message';
 import Message2 from 'components/icon/new/Message2';
 import Settings from 'components/icon/new/Settings';
 import Planet from 'components/icon/new/Planet';
+import Link from 'next/link';
 
 const ProjectSidebar = ({ tabs, activeTab, setActiveTab }) => {
   const [isCollapsed, setIsCollapsed] = useState(true);
@@ -27,9 +28,11 @@ const ProjectSidebar = ({ tabs, activeTab, setActiveTab }) => {
       <div className={styles.arrowButton} onClick={toggleCollapsed}>
         <ArrowDown2 color="#000" bold />
       </div>
-      <div className={styles.logo}>
-        {isCollapsed ? <LogoSmall color="#03FFC2" /> : <Logo color="#03FFC2" />}
-      </div>
+      <Link href="/feed">
+        <a className={styles.logo}>
+          {isCollapsed ? <LogoSmall color="#03FFC2" /> : <Logo color="#03FFC2" />}
+        </a>
+      </Link>
       <div className={styles.tabs}>
         <SidebarTab
           onClick={() => {

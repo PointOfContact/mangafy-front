@@ -16,7 +16,7 @@ import ShotCard from 'components/feedCards/ShotCard';
 
 const testCards = [
   {
-    id: 11,
+    id: 1,
     title: 'Lorem, ipsum 1.',
     postType: 'Task',
     text: 'Lorem ipsum dolor https://google.com sit amet consectetur <script>alert("test")</script> adipisicing elit. Doloribus, sint.',
@@ -27,7 +27,7 @@ const testCards = [
     comments: 123,
   },
   {
-    id: 12,
+    id: 2,
     title: 'Lorem, ipsum 2.',
     postType: 'Task',
     text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus, sint.',
@@ -38,7 +38,7 @@ const testCards = [
     comments: 123,
   },
   {
-    id: 13,
+    id: 3,
     title: 'Lorem, ipsum 3.',
     postType: 'Task',
     author: 'John Doe',
@@ -48,7 +48,7 @@ const testCards = [
     comments: 123,
   },
   {
-    id: 8,
+    id: 4,
     title: 'Lorem, ipsum coll.',
     postType: 'Collab',
     text: 'Lorem ipsum https://google.com dolor sit amet consectetur adipisicing elit. Doloribus, sint.',
@@ -58,7 +58,7 @@ const testCards = [
     comments: 123,
   },
   {
-    id: 9,
+    id: 5,
     title: 'Lorem, ipsum coll 2.',
     postType: 'Collab',
     text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus, sint.',
@@ -68,7 +68,7 @@ const testCards = [
     comments: 123,
   },
   {
-    id: 10,
+    id: 6,
     title: 'Lorem, ipsum.',
     postType: 'Collab',
     author: 'John Doe',
@@ -77,7 +77,7 @@ const testCards = [
     comments: 123,
   },
   {
-    id: 1,
+    id: 7,
     title: 'Lorem, ipsum.',
     postType: 'Post',
     image: 'img/feedTemp/cover.png',
@@ -87,7 +87,7 @@ const testCards = [
     comments: 123,
   },
   {
-    id: 2,
+    id: 8,
     title: 'Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.',
     postType: 'Post',
     image: 'img/feedTemp/wide_cover.jpg',
@@ -97,7 +97,7 @@ const testCards = [
     comments: 123,
   },
   {
-    id: 3,
+    id: 9,
     title: 'Lorem, ipsum dolor.',
     postType: 'Post',
     image: 'img/feedTemp/cover.png',
@@ -107,7 +107,7 @@ const testCards = [
     comments: 123,
   },
   {
-    id: 8,
+    id: 10,
     title: 'Lorem, ipsum dolor.',
     postType: 'Post',
     // image: '/1500/300',
@@ -117,7 +117,7 @@ const testCards = [
     comments: 123,
   },
   {
-    id: 4,
+    id: 11,
     title: 'Some title',
     postType: 'Post',
     image: 'img/feedTemp/cover.png',
@@ -127,7 +127,7 @@ const testCards = [
     comments: 123,
   },
   {
-    id: 5,
+    id: 12,
     title: 'Looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong name',
     postType: 'Portfolio',
     images: ['img/feedTemp/cover.png', 'img/feedTemp/cover.png', 'img/feedTemp/cover.png'],
@@ -137,8 +137,8 @@ const testCards = [
     comments: 123,
   },
   {
-    id: 6,
-    title: 'Manga',
+    id: 13,
+    title: 'Title of the card',
     postType: 'Manga',
     image: 'img/feedTemp/wide_cover.jpg',
     text: 'Manga Lorem ipsum dolor sit amet https://google.com consectetur adipisicing elit. Doloribus, sint.',
@@ -147,7 +147,7 @@ const testCards = [
     comments: 123,
   },
   {
-    id: 7,
+    id: 14,
     title: 'Title of the card',
     postType: 'Manga',
     image: 'img/feedTemp/cover.png',
@@ -157,7 +157,7 @@ const testCards = [
     comments: 123,
   },
   {
-    id: 7,
+    id: 15,
     title: 'Title of the card',
     postType: 'Portfolio',
     images: ['img/feedTemp/cover.png', 'img/feedTemp/cover.png', 'img/feedTemp/cover.png'],

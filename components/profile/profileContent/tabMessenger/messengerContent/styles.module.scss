@@ -418,6 +418,10 @@ $arrowSize: 11px;
         align-content: center;
         outline: none;
         overflow: hidden;
+        &:empty:before {
+          content: 'Start typing...';
+          color: #828282;
+        }
       }
   
       .message-wrapper {
