@@ -77,7 +77,7 @@ const ProjectSidebar = ({ tabs, activeTab, setActiveTab }) => {
           collapsed={isCollapsed}
           isActive={activeTab === tabs.PUBLISH}
           icon={<Planet bold color="#D01E8E" />}>
-          Episodes
+          Publish
         </SidebarTab>
         <SidebarTab
           onClick={() => {
