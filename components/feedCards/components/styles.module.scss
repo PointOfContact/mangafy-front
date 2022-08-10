@@ -33,6 +33,14 @@
     // margin-bottom: 10px;
     font-size: 15px;
     overflow-wrap: break-word;
+    a {
+        font-weight: 600;
+        display: inline;
+        color: $primaryDark;
+        &:hover {
+            color: $pink;
+        }
+    }
 }
 
 .feedCardShotFooter {
@@ -130,6 +138,14 @@
     }
     &__description {
         font-size: 15px;
+        a {
+            font-weight: 600;
+            display: inline;
+            color: rgb(255, 220, 62);
+            &:hover {
+                color: rgb(253, 246, 211);
+            }
+        }
     }
 }
 
