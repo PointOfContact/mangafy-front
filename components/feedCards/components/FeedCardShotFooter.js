@@ -3,14 +3,18 @@ import styles from './styles.module.scss';
 import Comment from 'components/icon/new/Comment';
 import Star from 'components/icon/new/Star';
 import cn from 'classnames';
+import client from 'api/client';
+import Link from 'next/link';
 
-const FeedCardShotFooter = ({ author, avatar, comments, likes, isLiked, setIsLiked }) => {
+const FeedCardShotFooter = ({ authorId, author, avatar, comments, likes, isLiked, like }) => {
   return (
     <div className={styles.feedCardShotFooter}>
-      <div className={styles.feedCardShotFooter__author}>
-        <img src={avatar ? client.UPLOAD_URL + avatar : 'img/feedTemp/avatar.png'} />
-        <div>{author}</div>
-      </div>
+      <Link href={'/profile/' + authorId}>
+        <a className={styles.feedCardShotFooter__author}>
+          <img src={avatar ? client.UPLOAD_URL + avatar : 'img/feedTemp/avatar.png'} />
+          <div>{author}</div>
+        </a>
+      </Link>
       <div className={styles.feedCardShotFooter__comments}>
         {comments} <Comment />
       </div>
@@ -21,9 +25,9 @@ const FeedCardShotFooter = ({ author, avatar, comments, likes, isLiked, setIsLik
         )}
         onClick={(e) => {
           e.stopPropagation();
-          setIsLiked((oldLiked) => !oldLiked);
+          like();
         }}>
-        {likes} <Star />
+        {likes || 0} <Star />
       </div>
     </div>
   );

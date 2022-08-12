@@ -7,13 +7,11 @@ import { store } from 'store';
 export default withAuthComponent(FeedNew);
 export const getServerSideProps = withAuthServerSideProps(async (context, user = null, jwt) => {
   try {
-    const { query } = context;
     const queryPosts = {
-      $limit: 30,
+      $limit: 20,
       $sort: {
         createdAt: -1,
       },
-      postType: 'Portfolio',
     };
 
     const posts = await client.service('/api/v2/posts').find({ query: queryPosts });
@@ -21,7 +19,7 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
     return {
       props: {
         user,
-        posts,
+        posts: posts.data,
         jwt,
       },
     };
