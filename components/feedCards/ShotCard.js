@@ -56,35 +56,25 @@ const ShotCard = ({ card, user }) => {
   }
 
   function like() {
-    if (!isLiked) {
-      likeShot(card._id, card.authorId)
-        .then((res) => {
-          console.log('Liked: ');
-          console.log(res);
+    likeShot(card._id, card.authorId)
+      .then((res) => {
+        console.log('Like: ');
+        console.log(res);
+        if (!isLiked) {
           if (Array.isArray(card.likedUsers)) {
             card.likedUsers.push(res);
           } else {
             card.likedUsers = [res];
           }
           setIsLiked(true);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else {
-      notification.error({ message: 'You cant unlike posts yet', placement: 'bottomLeft' });
-      // const likeId = card.likedUsers.filter((like) => like.likedUserId === user._id)[0]._id;
-      // unlikeShot(likeId)
-      //   .then((res) => {
-      //     console.log('Unliked: ' + res);
-      //     console.log(res);
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //   });
-      // card.likedUsers = card.likedUsers.filter((like) => like.likedUserId !== user._id);
-      // setIsLiked(false);
-    }
+        } else {
+          card.likedUsers = card.likedUsers.filter((like) => like.likedUserId !== user._id);
+          setIsLiked(false);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   useEffect(() => {}, [card.likedUsers]);
