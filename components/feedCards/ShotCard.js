@@ -13,24 +13,26 @@ import { Modal } from 'antd';
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import { highlightURLs } from 'helpers/shared';
 import cn from 'classnames';
+import { likeShot } from 'components/gallery/utils';
+import { notification } from 'antd';
+import Link from 'next/link';
 
-const ShotCard = ({ card }) => {
-  // const image = card.imageUrl;
-  // const text = card.subTitle;
-  // const author = card.title;
-  // const avatar = card.logoUrl;
-  // const likes = card.likesCount;
-  // const comments = card.commentsCount;
-  const title = card.title;
+const ShotCard = ({ card, user }) => {
   const image = card.image;
-  const text = card.text;
-  const author = card.author;
-  const avatar = '';
-  const likes = card.likes;
-  const comments = card.comments;
+  const author = card.authorInfo[0].name;
+  const avatar = card.authorInfo[0].avatar;
+  const likes = card.likedUsers.length;
+  const comments = card.comments.data.length;
+  const title = card.title;
+
+  let text = card.description;
 
   const [modal, setModal] = useState(false);
-  const [isLiked, setIsLiked] = useState(false);
+  const [isLiked, setIsLiked] = useState(
+    Array.isArray(card.likedUsers)
+      ? card.likedUsers.map((obj) => obj.likedUserId).includes(user._id)
+      : false
+  );
 
   const debouncedMouseEventHandler = useCallback(
     AwesomeDebouncePromise(mouseEventHandler, 200),
@@ -54,8 +56,38 @@ const ShotCard = ({ card }) => {
   }
 
   function like() {
-    setIsLiked((oldIsLiked) => !oldIsLiked);
+    if (!isLiked) {
+      likeShot(card._id, card.authorId)
+        .then((res) => {
+          console.log('Liked: ');
+          console.log(res);
+          if (Array.isArray(card.likedUsers)) {
+            card.likedUsers.push(res);
+          } else {
+            card.likedUsers = [res];
+          }
+          setIsLiked(true);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      notification.error({ message: 'You cant unlike posts yet', placement: 'bottomLeft' });
+      // const likeId = card.likedUsers.filter((like) => like.likedUserId === user._id)[0]._id;
+      // unlikeShot(likeId)
+      //   .then((res) => {
+      //     console.log('Unliked: ' + res);
+      //     console.log(res);
+      //   })
+      //   .catch((err) => {
+      //     console.log(err);
+      //   });
+      // card.likedUsers = card.likedUsers.filter((like) => like.likedUserId !== user._id);
+      // setIsLiked(false);
+    }
   }
+
+  useEffect(() => {}, [card.likedUsers]);
 
   return (
     <>
@@ -69,7 +101,7 @@ const ShotCard = ({ card }) => {
           footer={null}>
           <div className={styles.modal__title}>{title}</div>
           <div className={styles.modal__content}>
-            <img src={image} alt="shot image" />
+            {image && <img src={image} alt="shot image" />}
             {text && (
               <div
                 className={styles.modal__text}
@@ -78,10 +110,17 @@ const ShotCard = ({ card }) => {
           </div>
           <FeedCardLine />
           <div className={styles.modal__footer}>
-            <div className={styles.modal__avatar}>
-              <img src={avatar || 'img/feedTemp/avatar.png'} alt="user avatar" />
-            </div>
-            <div className={styles.modal__author}>{author}</div>
+            <Link href={'/profile/' + card.authorId}>
+              <a className={styles.modal__authorInfo}>
+                <div className={styles.modal__avatar}>
+                  <img
+                    src={avatar ? client.UPLOAD_URL + avatar : 'img/feedTemp/avatar.png'}
+                    alt="user avatar"
+                  />
+                </div>
+                <div className={styles.modal__author}>{author}</div>
+              </a>
+            </Link>
             <div
               className={cn(styles.modal__likes, isLiked && styles.modal__likes_liked)}
               onClick={like}>
@@ -95,14 +134,21 @@ const ShotCard = ({ card }) => {
       <div className={styles.card} onClick={handleClick} onDoubleClick={handleDoubleClick}>
         {image && <FeedCardImage image={image} />}
         <div className={styles.card__content}>
-          <FeedCardText title={title} description={text} />
+          {text && (
+            <FeedCardText
+              title={title}
+              description={text.length > 200 ? text.slice(0, 200) + ' ...' : text}
+            />
+          )}
           <FeedCardLine />
           <FeedCardShotFooter
+            authorId={card.authorId}
             author={author}
+            avatar={avatar}
             comments={comments}
             likes={likes}
+            like={like}
             isLiked={isLiked}
-            setIsLiked={setIsLiked}
           />
         </div>
       </div>

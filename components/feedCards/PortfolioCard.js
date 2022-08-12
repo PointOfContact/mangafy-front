@@ -11,13 +11,13 @@ import Close from 'components/icon/new/Close';
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import Button from 'components/ui-new/Button';
 import FeedCardLine from './components/FeedCardLine';
+import Link from 'next/link';
 
 const PortfolioWorkCard = ({ card }) => {
-  const images = card.images;
-  const text = card.text;
-  const author = card.author;
-  const avatar = '';
-  const followers = card.likes;
+  const images = card.gallery;
+  const author = card.name;
+  const avatar = card.avatar;
+  const followers = card.likedUsers.length;
 
   const [modal, setModal] = useState(false);
 
@@ -54,16 +54,23 @@ const PortfolioWorkCard = ({ card }) => {
           footer={null}>
           <div className={styles.modal__title}>{author}</div>
           <div className={styles.modal__content}>
-            <img src={images[0]} alt="shot image" />
-            <img src={images[1]} alt="shot image" />
-            <img src={images[2]} alt="shot image" />
+            <img src={client.UPLOAD_URL + images[0]} alt="shot image" />
+            <img src={client.UPLOAD_URL + images[1]} alt="shot image" />
+            <img src={client.UPLOAD_URL + images[2]} alt="shot image" />
           </div>
           <FeedCardLine />
           <div className={styles.modal__footer}>
-            <div className={styles.modal__avatar}>
-              <img src={avatar || 'img/feedTemp/avatar.png'} alt="user avatar" />
-            </div>
-            <div className={styles.modal__author}>{author}</div>
+            <Link href={'/profile/' + card._id}>
+              <a className={styles.modal__author}>
+                <div className={styles.modal__avatar}>
+                  <img
+                    src={avatar ? client.UPLOAD_URL + avatar : 'img/feedTemp/avatar.png'}
+                    alt="user avatar"
+                  />
+                </div>
+                {author}
+              </a>
+            </Link>
             <div className={styles.modal__followers}>
               {followers} followers
               <Button sm rounded>
@@ -75,7 +82,12 @@ const PortfolioWorkCard = ({ card }) => {
       )}
       <div className={styles.card} onClick={handleClick} onDoubleClick={handleDoubleClick}>
         {images.length > 2 && <FeedCardImages images={images} />}
-        <FeedCardPortfolioFooter author={author} avatar={avatar} followers={followers} />
+        <FeedCardPortfolioFooter
+          authorId={card._id}
+          author={author}
+          avatar={avatar}
+          followers={followers}
+        />
       </div>
     </>
   );
