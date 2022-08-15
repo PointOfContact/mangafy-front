@@ -19,8 +19,9 @@ import Clock from 'components/icon/new/Clock';
 import Dollar from 'components/icon/new/Dollar';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { notification } from 'antd';
 
-const TaskCard = ({ card }) => {
+const TaskCard = ({ card, user }) => {
   const router = useRouter();
   let text = card.description;
   const title = card.lookingFor;
@@ -56,6 +57,15 @@ const TaskCard = ({ card }) => {
       // Like function here
     } else {
       setModal(!modal);
+    }
+  }
+
+  function onApply(e) {
+    if (user) {
+      e.stopPropagation();
+      router.push('/manga-story/' + card.mangaStoryId);
+    } else {
+      notification.error({ message: 'Please log in to apply tasks', placement: 'bottomLeft' });
     }
   }
 
@@ -102,10 +112,7 @@ const TaskCard = ({ card }) => {
               iconRight={1}
               rounded={1}
               icon={<Heart color="#fff" />}
-              onClick={(e) => {
-                e.stopPropagation();
-                router.push('/manga-story/' + card.mangaStoryId);
-              }}>
+              onClick={onApply}>
               Apply
             </Button>
           </div>
@@ -127,7 +134,7 @@ const TaskCard = ({ card }) => {
             timeMeasure={timeMeasure}
           />
           <FeedCardLine />
-          <FeedCardTaskFooter budget={budget} mangaId={card.mangaStoryId} />
+          <FeedCardTaskFooter budget={budget} mangaId={card.mangaStoryId} onApply={onApply} />
         </div>
       </div>
     </>

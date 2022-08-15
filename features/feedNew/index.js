@@ -65,9 +65,9 @@ const FeedNew = (props) => {
     if (shouldFetchCards) {
       updateCards(cardsElements, isLastRequest, false, postType);
     }
-    console.log(
-      `[${new Date().toLocaleTimeString()}:${new Date().getMilliseconds()}] shouldFetchCards changed to ${shouldFetchCards}`
-    );
+    // console.log(
+    //   `[${new Date().toLocaleTimeString()}:${new Date().getMilliseconds()}] shouldFetchCards changed to ${shouldFetchCards}`
+    // );
 
     return () => {
       isLastRequest[0] = false;
@@ -94,17 +94,17 @@ const FeedNew = (props) => {
         break;
     }
     setPostType(type);
-    console.log(
-      `[${new Date().toLocaleTimeString()}:${new Date().getMilliseconds()}] activeTab changed to ${activeTab}`
-    );
+    // console.log(
+    //   `[${new Date().toLocaleTimeString()}:${new Date().getMilliseconds()}] activeTab changed to ${activeTab}`
+    // );
   }, [activeTab]);
 
   useEffect(() => {
     let isLastRequest = [true];
     updateCards(cardsElements, isLastRequest, true, postType);
-    console.log(
-      `[${new Date().toLocaleTimeString()}:${new Date().getMilliseconds()}] postType changed to ${postType}`
-    );
+    // console.log(
+    //   `[${new Date().toLocaleTimeString()}:${new Date().getMilliseconds()}] postType changed to ${postType}`
+    // );
 
     return () => {
       isLastRequest[0] = false;
@@ -112,17 +112,17 @@ const FeedNew = (props) => {
   }, [postType]);
 
   function onPageEnd() {
-    console.log(
-      `[${new Date().toLocaleTimeString()}:${new Date().getMilliseconds()}] Page end triggered`
-    );
+    // console.log(
+    //   `[${new Date().toLocaleTimeString()}:${new Date().getMilliseconds()}] Page end triggered`
+    // );
     setShouldFetchCards(true);
   }
 
   function clearCardsElements() {
     setCardsElements([]);
-    console.log(
-      `[${new Date().toLocaleTimeString()}:${new Date().getMilliseconds()}] Card elements cleaned`
-    );
+    // console.log(
+    //   `[${new Date().toLocaleTimeString()}:${new Date().getMilliseconds()}] Card elements cleaned`
+    // );
   }
 
   async function updateCards(cards, isLastRequest, shouldCleanCards, type) {
@@ -186,10 +186,9 @@ const FeedNew = (props) => {
   }
 
   function makeCardsElements(newCards = []) {
-    console.log(newCards);
     return newCards.map((card) => {
       if (card.postType === 'Task' || card.postType === 'Collab')
-        return <TaskCard key={card._id} card={card} />;
+        return <TaskCard key={card._id} card={card} user={user} />;
       else if (card.postType === 'Project') return <PublishedCard key={card._id} card={card} />;
       else if (card.postType === 'Portfolio')
         return <ShotCard key={card._id} card={card} user={user} />;
