@@ -14,6 +14,7 @@ import cn from 'classnames';
 import client from 'api/client';
 import { notification } from 'antd';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const PublishedCard = ({ card }) => {
   const image = card.image;
@@ -26,6 +27,7 @@ const PublishedCard = ({ card }) => {
 
   const [modal, setModal] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
+  const router = useRouter();
 
   const debouncedMouseEventHandler = useCallback(
     AwesomeDebouncePromise(mouseEventHandler, 200),
@@ -44,7 +46,7 @@ const PublishedCard = ({ card }) => {
     if (type === 'doubleClick') {
       like();
     } else {
-      setModal(!modal);
+      router.push(card.button.navigateTo);
     }
   }
 

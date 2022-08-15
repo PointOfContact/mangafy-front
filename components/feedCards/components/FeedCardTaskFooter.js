@@ -4,10 +4,8 @@ import Button from 'components/ui-new/Button';
 import Heart from 'components/icon/new/Heart';
 import Dollar from 'components/icon/new/Dollar';
 import Cherry from 'components/icon/new/Cherry';
-import { useRouter } from 'next/router';
 
-const FeedCardTaskFooter = ({ budget, mangaId }) => {
-  const router = useRouter();
+const FeedCardTaskFooter = ({ budget, mangaId, onApply }) => {
   return (
     <div className={styles.feedCardTaskFooter}>
       <Button
@@ -15,10 +13,7 @@ const FeedCardTaskFooter = ({ budget, mangaId }) => {
         iconRight={1}
         rounded={1}
         icon={<Heart color="#fff" />}
-        onClick={(e) => {
-          e.stopPropagation();
-          router.push('/manga-story/' + mangaId);
-        }}>
+        onClick={(e) => onApply(e)}>
         Apply
       </Button>
       {budget ? (

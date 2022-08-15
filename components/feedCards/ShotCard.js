@@ -30,7 +30,7 @@ const ShotCard = ({ card, user }) => {
   const [modal, setModal] = useState(false);
   const [isLiked, setIsLiked] = useState(
     Array.isArray(card.likedUsers)
-      ? card.likedUsers.map((obj) => obj.likedUserId).includes(user._id)
+      ? card.likedUsers.map((obj) => obj.likedUserId).includes(user?._id)
       : false
   );
 
@@ -68,12 +68,16 @@ const ShotCard = ({ card, user }) => {
           }
           setIsLiked(true);
         } else {
-          card.likedUsers = card.likedUsers.filter((like) => like.likedUserId !== user._id);
+          card.likedUsers = card.likedUsers.filter((like) => like.likedUserId !== user?._id);
           setIsLiked(false);
         }
       })
       .catch((err) => {
-        console.log(err);
+        if (err.code === 401)
+          notification.error({ message: 'Please log in to like Shots', placement: 'bottomLeft' });
+        else {
+          console.log(err);
+        }
       });
   }
 
