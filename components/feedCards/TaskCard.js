@@ -17,26 +17,25 @@ import Button from 'components/ui-new/Button';
 import Heart from 'components/icon/new/Heart';
 import Clock from 'components/icon/new/Clock';
 import Dollar from 'components/icon/new/Dollar';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { notification } from 'antd';
 
-const TaskCard = ({ card }) => {
-  // let text = card.subTitle?.length > 200 ? card.subTitle.substr(0, 200) + '...' : card.subTitle;
-  let text = card.text?.length > 200 ? card.text.substr(0, 200) + '...' : card.text;
-  // const title = card.type;
-  const title = card.title;
+const TaskCard = ({ card, user }) => {
+  const router = useRouter();
+  let text = card.description;
+  const title = card.lookingFor;
 
-  const time = card.time;
-  // const time = Math.floor((new Date() - new Date(card.createdAt)) / 1000 / 60 / 60);
+  let time = Math.floor((new Date() - new Date(card.createdAt)) / 1000 / 60 / 60);
   let timeMeasure = 'hours';
-  // if (time > 23) time = Math.floor(time / 24);
-  // timeMeasure = 'days';
-  // if (time > 6) time = Math.floor(time / 7);
-  // timeMeasure = 'weeks';
+  if (time > 23) time = Math.floor(time / 24);
+  timeMeasure = 'days';
+  if (time > 6) time = Math.floor(time / 7);
+  timeMeasure = 'weeks';
 
-  // const author = card.title;
-  const author = card.author;
-  // const budget = parseBudget(card.categories);
-  const budget = card.price || null;
-  const avatar = card.logoUrl;
+  const author = card.authorInfo.name;
+  const budget = card.amount || null;
+  const avatar = card.authorInfo.avatar;
 
   const [modal, setModal] = useState(false);
 
@@ -58,6 +57,15 @@ const TaskCard = ({ card }) => {
       // Like function here
     } else {
       setModal(!modal);
+    }
+  }
+
+  function onApply(e) {
+    if (user) {
+      e.stopPropagation();
+      router.push('/manga-story/' + card.mangaStoryId);
+    } else {
+      notification.error({ message: 'Please log in to apply tasks', placement: 'bottomLeft' });
     }
   }
 
@@ -84,31 +92,49 @@ const TaskCard = ({ card }) => {
           </div>
           <FeedCardLine />
           <div className={styles.modal__footer}>
-            <div className={styles.modal__avatar}>
-              <img src={avatar || 'img/feedTemp/avatar.png'} alt="user avatar" />
-            </div>
-            <div className={styles.modal__author}>{author}</div>
+            <Link href={'/profile/' + card.authorInfo._id}>
+              <a className={styles.modal__authorInfo}>
+                <div className={styles.modal__avatar}>
+                  <img
+                    src={avatar ? client.UPLOAD_URL + avatar : 'img/feedTemp/avatar.png'}
+                    alt="user avatar"
+                  />
+                </div>
+                <div className={styles.modal__author}>{author}</div>
+              </a>
+            </Link>
             <div className={styles.modal__budget}>
               {budget + ' USD'}
               <Dollar color={'#C3BAFA'} />
             </div>
-            <Button sm={1} iconRight={1} rounded={1} icon={<Heart color="#fff" />}>
+            <Button
+              sm={1}
+              iconRight={1}
+              rounded={1}
+              icon={<Heart color="#fff" />}
+              onClick={onApply}>
               Apply
             </Button>
           </div>
         </Modal>
       )}
       <div className={styles.card} onClick={handleClick} onDoubleClick={handleDoubleClick}>
-        <FeedCardTaskContent title={title} description={text} />
+        {text && (
+          <FeedCardTaskContent
+            title={title}
+            description={text.length > 200 ? text.slice(0, 200) + ' ...' : text}
+          />
+        )}
         <div className={styles.card__content}>
           <FeedCardTaskAuthorAndTime
+            authorId={card.authorInfo._id}
             author={author}
             avatar={avatar}
             time={time}
             timeMeasure={timeMeasure}
           />
           <FeedCardLine />
-          <FeedCardTaskFooter budget={budget} />
+          <FeedCardTaskFooter budget={budget} mangaId={card.mangaStoryId} onApply={onApply} />
         </div>
       </div>
     </>

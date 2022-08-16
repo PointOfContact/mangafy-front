@@ -1,13 +1,17 @@
 import React from 'react';
 import styles from './styles.module.scss';
 import Clock from 'components/icon/new/Clock';
+import client from 'api/client';
+import Link from 'next/link';
 
-const FeedCardTaskAuthorAndTime = ({ author, avatar, time, timeMeasure }) => {
+const FeedCardTaskAuthorAndTime = ({ authorId, author, avatar, time, timeMeasure }) => {
   return (
     <div className={styles.feedCardTaskAuthorAndTime}>
       <div className={styles.feedCardTaskAuthorAndTime__author}>
         <img src={avatar ? client.UPLOAD_URL + avatar : 'img/feedTemp/avatar.png'} />
-        <div>{author}</div>
+        <Link href={'/profile/' + authorId}>
+          <a>{author}</a>
+        </Link>
       </div>
       <div className={styles.feedCardTaskAuthorAndTime__time}>
         {`${time} ${timeMeasure} ago`}

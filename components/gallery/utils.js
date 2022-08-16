@@ -36,6 +36,24 @@ const likeGallery = (galleryId, userId) => {
   );
 };
 
+const likeShot = (portfolioId, userId) => {
+  const data = { userId, portfolioId };
+  const jwt = client.getCookie('feathers-jwt');
+  return client.service('/api/v2/portfolio-like').create(data, {
+    headers: { Authorization: `Bearer ${jwt}` },
+    mode: 'no-cors',
+  });
+};
+
+// const unlikeShot = (portfolioId) => {
+//   console.log(portfolioId);
+//   const jwt = client.getCookie('feathers-jwt');
+//   return client.service('/api/v2/portfolio-like').remove(portfolioId, {
+//     headers: { Authorization: `Bearer ${jwt}` },
+//     mode: 'no-cors',
+//   });
+// };
+
 const removeImg = (images, _id, fromPath, userData) => {
   const newImages = images.filter(
     (item) =>
@@ -262,6 +280,7 @@ const socials = [
 
 export {
   likeGallery,
+  likeShot,
   removeImg,
   removeShortStory,
   prepareDataImages,

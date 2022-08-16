@@ -21,7 +21,8 @@ const Button = (props) => {
         outline ? styles.button_outline : styles.button_solid,
         iconRight ? styles['button_icon-right'] : null,
         pink ? styles.button_pink : null
-      )}>
+      )}
+      onClick={props.onClick}>
       {props.icon}
       {props.children}
     </button>
