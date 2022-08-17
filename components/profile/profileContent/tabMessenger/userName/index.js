@@ -28,15 +28,15 @@ const UserName = ({ selectedRequest, mobile, setShowMessageMobile, user }) => {
     return '';
   };
 
-  let participants = selectedRequest.participentsInfo.filter((p) => !!p);
-  if (participants.length > 4) {
+  let participants = selectedRequest.participentsInfo?.filter((p) => !!p);
+  if (participants?.length > 4) {
     participants = participants.slice(0, 4);
     participants.push({
       name: '…',
     });
   }
   const participantsElements =
-    participants.length > 1 // Change to 1
+    participants?.length > 1 // Change to 1
       ? participants
           // .filter((pi) => pi?._id !== user?._id)
           .map((pi) => (

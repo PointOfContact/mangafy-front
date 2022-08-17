@@ -192,7 +192,8 @@ const FeedNew = (props) => {
       else if (card.postType === 'Project') return <PublishedCard key={card._id} card={card} />;
       else if (card.postType === 'Portfolio')
         return <ShotCard key={card._id} card={card} user={user} />;
-      else if (card.postType === 'Profile') return <PortfolioCard key={card._id} card={card} />;
+      else if (card.postType === 'Profile')
+        return <PortfolioCard key={card._id} card={card} user={user} />;
     });
   }
 
