@@ -67,16 +67,16 @@ export const Gallery = (props) => {
       if (fromPath === 'users') {
         userData &&
           (userData.gallery.forEach((item) => {
-            if (item?.slice(-3) === 'pdf' || item?.slice(-3) === 'PDF') {
+            if (item?.image.slice(-3) === 'pdf' || item?.image.slice(-3) === 'PDF') {
               data.push({
-                original: client.UPLOAD_URL + item,
+                original: client.UPLOAD_URL + item.image,
                 _id: item,
                 // eslint-disable-next-line react/display-name
                 renderItem: () => <PDFViewer url={client.UPLOAD_URL + item} />,
               });
             } else {
               data.push({
-                original: client.UPLOAD_URL + item,
+                original: client.UPLOAD_URL + item.image,
                 _id: item,
               });
             }
@@ -120,16 +120,16 @@ export const Gallery = (props) => {
     } else {
       profile &&
         (profile.gallery.forEach((item) => {
-          if (item?.slice(-3) === 'pdf' || item?.slice(-3) === 'PDF') {
+          if (item?.image.slice(-3) === 'pdf' || item?.image.slice(-3) === 'PDF') {
             data.push({
-              original: client.UPLOAD_URL + item,
+              original: client.UPLOAD_URL + item.image,
               _id: item,
               // eslint-disable-next-line react/display-name
-              renderItem: () => <PDFViewer url={client.UPLOAD_URL + item} />,
+              renderItem: () => <PDFViewer url={client.UPLOAD_URL + item.image} />,
             });
           } else {
             data.push({
-              original: client.UPLOAD_URL + item,
+              original: client.UPLOAD_URL + item.image,
               _id: item,
             });
           }

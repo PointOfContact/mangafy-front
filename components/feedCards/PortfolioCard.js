@@ -20,6 +20,7 @@ const PortfolioWorkCard = ({ card }) => {
   const followers = card.likedUsers.length;
 
   const [modal, setModal] = useState(false);
+  const [isFollowed, setIsFollowed] = useState(card.likedUsers?.includes(user._id));
 
   const debouncedMouseEventHandler = useCallback(
     AwesomeDebouncePromise(mouseEventHandler, 200),
