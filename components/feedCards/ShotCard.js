@@ -14,20 +14,15 @@ import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import { highlightURLs } from 'helpers/shared';
 import cn from 'classnames';
 
-const ShotCard = ({ card }) => {
-  // const image = card.imageUrl;
-  // const text = card.subTitle;
-  // const author = card.title;
-  // const avatar = card.logoUrl;
-  // const likes = card.likesCount;
-  // const comments = card.commentsCount;
-  const title = card.title;
+const ShotCard = ({ card, user }) => {
   const image = card.image;
-  const text = card.text;
-  const author = card.author;
-  const avatar = '';
-  const likes = card.likes;
-  const comments = card.comments;
+  const author = card.authorInfo[0].name;
+  const avatar = card.authorInfo[0].avatar;
+  const likes = card.likedUsers.length;
+  const comments = card.comments.data.length;
+  const title = card.title;
+
+  let text = card.description;
 
   const [modal, setModal] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
