@@ -26,7 +26,7 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
           $limit: 1000,
         },
       });
-      isParticipant = user && res.participents.includes(user._id);
+      isParticipant = user && res.participents.some((value) => value._id === user._id);
       if (isParticipant) {
         storyBoard = await client.service('/api/v2/story-boards').find({
           query: {
