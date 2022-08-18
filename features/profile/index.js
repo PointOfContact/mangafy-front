@@ -56,7 +56,7 @@ const Profile = (props) => {
   const genres = userGenres.map((item) => item.value);
 
   const gallerys = profile?.gallery
-    .filter((item) => !(item?.slice(-3) === 'pdf' || item?.slice(-3) === 'PDF'))
+    .filter((item) => !(item?.image.slice(-3) === 'pdf' || item?.image.slice(-3) === 'PDF'))
     .map((gallery) => ({
       url: `https://mangafy.club/api/v2/uploads/${gallery}`,
       width: 800,
