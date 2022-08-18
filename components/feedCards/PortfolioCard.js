@@ -12,19 +12,78 @@ import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import Button from 'components/ui-new/Button';
 import FeedCardLine from './components/FeedCardLine';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
-const PortfolioWorkCard = ({ card }) => {
+const PortfolioWorkCard = ({ card, user }) => {
   const images = card.gallery;
   const author = card.name;
   const avatar = card.avatar;
   const followers = card.likedUsers.length;
+  const router = useRouter();
 
   const [modal, setModal] = useState(false);
+  const [isFollowed, setIsFollowed] = useState(card.likedUsers?.includes(user._id));
 
-  const debouncedMouseEventHandler = useCallback(
-    AwesomeDebouncePromise(mouseEventHandler, 200),
-    []
-  );
+  const debouncedMouseEventHandler = useCallback(AwesomeDebouncePromise(mouseEventHandler, 200), [
+    isFollowed,
+  ]);
+
+  const followUser = (userId) => {
+    if (user) {
+      const data = { userId };
+      const jwt = client.getCookie('feathers-jwt');
+      return import('api/restClient').then((m) =>
+        m.default
+          .service(`/api/v2/likes`)
+          .create(data, {
+            headers: { Authorization: `Bearer ${jwt}` },
+            mode: 'no-cors',
+          })
+          .then((res) => onFollowUser(res))
+          .catch((err) => console.log(err))
+      );
+    } else {
+      router.push('/sign-in?page=feed');
+    }
+  };
+
+  const unFollowUser = (userId) => {
+    if (user) {
+      const jwt = client.getCookie('feathers-jwt');
+      return import('api/restClient').then((m) =>
+        m.default
+          .service(`/api/v2/likes`)
+          .remove(userId, {
+            headers: { Authorization: `Bearer ${jwt}` },
+            mode: 'no-cors',
+          })
+          .then((res) => onUnFollowUser(res))
+          .catch((err) => console.log(err))
+      );
+    } else {
+      router.push('/sign-in?page=feed');
+    }
+  };
+
+  function onFollowUser(res) {
+    card.likedUsers.push(user._id);
+    setIsFollowed(true);
+  }
+
+  function onUnFollowUser(res) {
+    card.likedUsers = card.likedUsers.filter((userId) => userId !== user._id);
+    setIsFollowed(false);
+  }
+
+  function like() {
+    console.log(isFollowed);
+    console.log('like');
+    if (isFollowed) {
+      unFollowUser(card._id);
+    } else {
+      followUser(card._id);
+    }
+  }
 
   function handleDoubleClick() {
     debouncedMouseEventHandler('doubleClick');
@@ -36,15 +95,15 @@ const PortfolioWorkCard = ({ card }) => {
 
   function mouseEventHandler(type) {
     if (type === 'doubleClick') {
-      // Like function here
+      like();
     } else {
-      setModal(!modal);
+      router.push(`/profile/${card._id}`);
     }
   }
 
   return (
     <>
-      {modal && (
+      {/* {modal && (
         <Modal
           visible={modal}
           onCancel={() => setModal(false)}
@@ -73,13 +132,20 @@ const PortfolioWorkCard = ({ card }) => {
             </Link>
             <div className={styles.modal__followers}>
               {followers} followers
-              <Button sm rounded>
-                Follow
+              <Button
+                sm
+                rounded
+                outline={isFollowed}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  like();
+                }}>
+                {isFollowed ? 'Unfollow' : 'Follow'}
               </Button>
             </div>
           </div>
         </Modal>
-      )}
+      )} */}
       <div className={styles.card} onClick={handleClick} onDoubleClick={handleDoubleClick}>
         {images.length > 2 && <FeedCardImages images={images} />}
         <FeedCardPortfolioFooter
@@ -87,6 +153,8 @@ const PortfolioWorkCard = ({ card }) => {
           author={author}
           avatar={avatar}
           followers={followers}
+          isFollowed={isFollowed}
+          like={() => like()}
         />
       </div>
     </>
