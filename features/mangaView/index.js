@@ -73,6 +73,10 @@ const MangaView = ({
   };
 
   useEffect(() => {
+    if (chapters?.length == 0) return router.push(`/manga-story/${mangaStoryId}`);
+  }, []);
+
+  useEffect(() => {
     setCountLike(chapter?.like);
     alreadyLikedChapter();
     createChapterItems(chapters, chapter, setChapterItems, currentChapter, setCurrentChapter);

@@ -22,7 +22,7 @@ const PortfolioWorkCard = ({ card, user }) => {
   const router = useRouter();
 
   const [modal, setModal] = useState(false);
-  const [isFollowed, setIsFollowed] = useState(card.likedUsers?.includes(user._id));
+  const [isFollowed, setIsFollowed] = useState(card.likedUsers?.includes(user?._id));
 
   const debouncedMouseEventHandler = useCallback(AwesomeDebouncePromise(mouseEventHandler, 200), [
     isFollowed,
