@@ -27,11 +27,20 @@ const TaskCard = ({ card, user }) => {
   const title = card.lookingFor;
 
   let time = Math.floor((new Date() - new Date(card.createdAt)) / 1000 / 60 / 60);
-  let timeMeasure = 'hours';
-  if (time > 23) time = Math.floor(time / 24);
-  timeMeasure = 'days';
-  if (time > 6) time = Math.floor(time / 7);
-  timeMeasure = 'weeks';
+  let timeMeasure = '';
+  if (time > 1) {
+    timeMeasure = 'hours';
+  } else {
+    time = 'Less than an hour';
+  }
+  if (time > 24) {
+    time = Math.floor(time / 24);
+    timeMeasure = 'days';
+  }
+  if (time > 7) {
+    time = Math.floor(time / 7);
+    timeMeasure = 'weeks';
+  }
 
   const author = card.authorInfo.name;
   const budget = card.amount || null;
@@ -54,7 +63,8 @@ const TaskCard = ({ card, user }) => {
 
   function mouseEventHandler(type) {
     if (type === 'doubleClick') {
-      // Like function here
+      // Double click function here
+      router.push(`/manga-story/${card.mangaStoryId}?tab=details&task=${card._id}`);
     } else {
       setModal(!modal);
     }
@@ -63,7 +73,7 @@ const TaskCard = ({ card, user }) => {
   function onApply(e) {
     if (user) {
       e.stopPropagation();
-      router.push('/manga-story/' + card.mangaStoryId);
+      router.push(`/manga-story/${card.mangaStoryId}?tab=details&task=${card._id}`);
     } else {
       notification.error({ message: 'Please log in to apply tasks', placement: 'bottomLeft' });
     }

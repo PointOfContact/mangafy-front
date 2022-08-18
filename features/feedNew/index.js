@@ -85,7 +85,7 @@ const FeedNew = (props) => {
         type = 'Portfolio';
         break;
 
-      case 'jobs':
+      case 'tasks':
         type = 'Task';
         break;
 
@@ -192,7 +192,8 @@ const FeedNew = (props) => {
       else if (card.postType === 'Project') return <PublishedCard key={card._id} card={card} />;
       else if (card.postType === 'Portfolio')
         return <ShotCard key={card._id} card={card} user={user} />;
-      else if (card.postType === 'Profile') return <PortfolioCard key={card._id} card={card} />;
+      else if (card.postType === 'Profile')
+        return <PortfolioCard key={card._id} card={card} user={user} />;
     });
   }
 
@@ -251,7 +252,7 @@ const FeedNew = (props) => {
                 <TabPane tab="Shots" key="shots"></TabPane>
                 <TabPane tab="Projects" key="projects"></TabPane>
                 <TabPane tab="People" key="people"></TabPane>
-                <TabPane tab="Jobs" key="jobs"></TabPane>
+                <TabPane tab="Tasks" key="tasks"></TabPane>
               </Tabs>
               {/* <FilterNew genres="Genres" search /> */}
               <CardsContainer

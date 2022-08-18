@@ -20,6 +20,7 @@ import Mountain from 'components/icon/new/Mountain';
 import File from 'components/icon/new/File';
 import Star from 'components/icon/new/Star';
 import { removeAllStorage } from 'helpers/shared';
+import SignOut from 'components/icon/new/SignOut';
 
 const HeaderNew = ({ user }) => {
   const router = useRouter();
@@ -49,9 +50,6 @@ const HeaderNew = ({ user }) => {
     if (user) {
       sendEvent(EVENTS.OPEN_CREATE_NEW_POST_MODAL);
       setIsModalVisible(true);
-    } else {
-      sendEvent(EVENTS.UNAUTHORIZED_CREATE_NEW_POST);
-      router.push('/sign-in?page=get-feedback', undefined, { scroll: false });
     }
   }
 
@@ -87,7 +85,7 @@ const HeaderNew = ({ user }) => {
       label: user ? (
         <div className={styles.nav__dropdownItem} onClick={createPostHandler}>
           <div className={styles.nav__dropdownIcon}>
-            <Edit2 color="#D01E8E" bold={1} />
+            <Edit2 color="#D01E8E" bold />
           </div>
           <div className={styles.nav__dropdownContent}>
             <div className={styles.nav__dropdownTitle}>Post</div>
@@ -96,9 +94,9 @@ const HeaderNew = ({ user }) => {
         </div>
       ) : (
         <Link href={'/sign-in?page=feed'}>
-          <a className={styles.nav__dropdownItem} onClick={createPostHandler}>
+          <a className={styles.nav__dropdownItem}>
             <div className={styles.nav__dropdownIcon}>
-              <Edit2 color="#D01E8E" bold={1} />
+              <Edit2 color="#D01E8E" bold />
             </div>
             <div className={styles.nav__dropdownContent}>
               <div className={styles.nav__dropdownTitle}>Post</div>
@@ -110,56 +108,56 @@ const HeaderNew = ({ user }) => {
     },
   ];
 
-  const exploreMenuOptions = [
-    {
-      key: 'explore-1',
-      label: (
-        <Link href="/feedNew?tab=people">
-          <a className={styles.nav__dropdownItem}>
-            <div className={styles.nav__dropdownIcon}>
-              <CircleUser color="#D01E8E" bold={1} />
-            </div>
-            <div className={styles.nav__dropdownContent}>
-              <div className={styles.nav__dropdownTitle}>People</div>
-              <div className={styles.nav__dropdownSubtitle}>It All Starts With Them.</div>
-            </div>
-          </a>
-        </Link>
-      ),
-    },
-    {
-      key: 'explore-2',
-      label: (
-        <Link href="/feedNew?tab=projects">
-          <a className={styles.nav__dropdownItem}>
-            <div className={styles.nav__dropdownIcon}>
-              <File color="#D01E8E" bold={1} />
-            </div>
-            <div className={styles.nav__dropdownContent}>
-              <div className={styles.nav__dropdownTitle}>Projects</div>
-              <div className={styles.nav__dropdownSubtitle}>Work in Progress</div>
-            </div>
-          </a>
-        </Link>
-      ),
-    },
-    {
-      key: 'explore-3',
-      label: (
-        <Link href="/feedNew?tab=published">
-          <a className={styles.nav__dropdownItem}>
-            <div className={styles.nav__dropdownIcon}>
-              <Mountain color="#D01E8E" bold={1} />
-            </div>
-            <div className={styles.nav__dropdownContent}>
-              <div className={styles.nav__dropdownTitle}>Ongoing</div>
-              <div className={styles.nav__dropdownSubtitle}>Published Projects</div>
-            </div>
-          </a>
-        </Link>
-      ),
-    },
-  ];
+  // const exploreMenuOptions = [
+  //   {
+  //     key: 'explore-1',
+  //     label: (
+  //       <Link href="/feed?tab=people">
+  //         <a className={styles.nav__dropdownItem}>
+  //           <div className={styles.nav__dropdownIcon}>
+  //             <CircleUser color="#D01E8E" bold={1} />
+  //           </div>
+  //           <div className={styles.nav__dropdownContent}>
+  //             <div className={styles.nav__dropdownTitle}>People</div>
+  //             <div className={styles.nav__dropdownSubtitle}>It All Starts With Them.</div>
+  //           </div>
+  //         </a>
+  //       </Link>
+  //     ),
+  //   },
+  //   {
+  //     key: 'explore-2',
+  //     label: (
+  //       <Link href="/feed?tab=projects">
+  //         <a className={styles.nav__dropdownItem}>
+  //           <div className={styles.nav__dropdownIcon}>
+  //             <File color="#D01E8E" bold={1} />
+  //           </div>
+  //           <div className={styles.nav__dropdownContent}>
+  //             <div className={styles.nav__dropdownTitle}>Projects</div>
+  //             <div className={styles.nav__dropdownSubtitle}>Work in Progress</div>
+  //           </div>
+  //         </a>
+  //       </Link>
+  //     ),
+  //   },
+  //   {
+  //     key: 'explore-3',
+  //     label: (
+  //       <Link href="/feed?tab=published">
+  //         <a className={styles.nav__dropdownItem}>
+  //           <div className={styles.nav__dropdownIcon}>
+  //             <Mountain color="#D01E8E" bold={1} />
+  //           </div>
+  //           <div className={styles.nav__dropdownContent}>
+  //             <div className={styles.nav__dropdownTitle}>Ongoing</div>
+  //             <div className={styles.nav__dropdownSubtitle}>Published Projects</div>
+  //           </div>
+  //         </a>
+  //       </Link>
+  //     ),
+  //   },
+  // ];
 
   const profileMenuOptions = [
     {
@@ -183,7 +181,7 @@ const HeaderNew = ({ user }) => {
     {
       key: 'profile-2',
       label: (
-        <Link href={'/profile/' + user?._id + '#projects'}>
+        <Link href={'/profile/' + user?._id + '?active=projects'}>
           <a className={styles.nav__dropdownItem}>
             <div className={styles.nav__dropdownIcon}>
               <File color="#D01E8E" bold={1} />
@@ -201,7 +199,7 @@ const HeaderNew = ({ user }) => {
       label: (
         <div className={styles.nav__dropdownItem} onClick={removeAllStorage}>
           <div className={styles.nav__dropdownIcon}>
-            <Mountain color="#D01E8E" bold={1} />
+            <SignOut color="#D01E8E" bold />
           </div>
           <div className={styles.nav__dropdownContent}>
             <div className={styles.nav__dropdownTitle}>Sign Out</div>
@@ -250,7 +248,7 @@ const HeaderNew = ({ user }) => {
   ];
 
   const createMenu = <Menu items={createMenuOptions} />;
-  const exploreMenu = <Menu items={exploreMenuOptions} />;
+  // const exploreMenu = <Menu items={exploreMenuOptions} />;
 
   const mobileMenu = (
     <Menu
@@ -267,12 +265,12 @@ const HeaderNew = ({ user }) => {
           label: 'Create',
           children: createMenuOptions,
         },
-        {
-          key: '3',
-          type: 'group',
-          label: 'Explore',
-          children: exploreMenuOptions,
-        },
+        // {
+        //   key: '3',
+        //   type: 'group',
+        //   label: 'Explore',
+        //   children: exploreMenuOptions,
+        // },
       ]}
     />
   );
@@ -289,7 +287,7 @@ const HeaderNew = ({ user }) => {
         </Link>
         <div className={styles.nav}>
           <div className={styles.nav__dropdowns}>
-            <Dropdown
+            {/* <Dropdown
               arrow
               placement="bottom"
               overlay={exploreMenu}
@@ -299,7 +297,7 @@ const HeaderNew = ({ user }) => {
                 <ArrowDown2 className={styles.nav__dropdownArrow} />
                 Explore
               </Space>
-            </Dropdown>
+            </Dropdown> */}
             <Dropdown
               arrow
               placement="bottom"
@@ -375,6 +373,7 @@ const HeaderNew = ({ user }) => {
         setIsModalVisible={setIsModalVisible}
         sendEvent={sendEvent}
       />
+      {/* <CreateShotModal /> */}
       {/* Create project modal */}
       <ModalCreateProject
         createProjectModal={isCreateProjectModalVisible}
