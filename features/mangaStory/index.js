@@ -114,7 +114,10 @@ const MangeStory = (props) => {
   }, []);
 
   useEffect(() => {
-    router.push(`/manga-story/${mangaStory._id}?tab=${activeTab}`);
+    router.push(
+      `/manga-story/${mangaStory._id}?tab=${activeTab}` +
+        (router.query?.task ? `&task=${router.query.task}` : '')
+    );
   }, [activeTab]);
 
   const openNotification = (type, message, description = '') => {

@@ -5,10 +5,15 @@ import Heart from 'components/icon/new/Heart';
 import Dollar from 'components/icon/new/Dollar';
 import Cherry from 'components/icon/new/Cherry';
 
-const FeedCardTaskFooter = ({ budget }) => {
+const FeedCardTaskFooter = ({ budget, mangaId, onApply }) => {
   return (
     <div className={styles.feedCardTaskFooter}>
-      <Button sm={1} iconRight={1} rounded={1} icon={<Heart color="#fff" />}>
+      <Button
+        sm={1}
+        iconRight={1}
+        rounded={1}
+        icon={<Heart color="#fff" />}
+        onClick={(e) => onApply(e)}>
         Apply
       </Button>
       {budget ? (

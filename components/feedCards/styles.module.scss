@@ -5,6 +5,7 @@
     border-radius: 5px;
     overflow: hidden;
     box-shadow: $smallShadow;
+    border: 1px solid rgba($color: #C3BAFA, $alpha: 0.2);
     cursor: pointer;
     transition: 0.2s;
     &__content {
@@ -59,13 +60,21 @@
         align-items: center;
     }
 
+    &__authorInfo {
+        display: flex !important;
+        align-items: center;
+    }
+
     &__author {
+        display: flex !important;
+        align-items: center;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
         font-weight: 700;
         font-size: 15px;
         margin-right: 2em;
+        color: $black !important;
     }
 
     &__avatar {
@@ -78,6 +87,7 @@
         img {
             width: 100%;
             height: 100%;
+            object-fit: cover;
         }
     }
 

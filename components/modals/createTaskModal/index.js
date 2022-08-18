@@ -91,7 +91,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
   };
 
   const createTask = async () => {
-    if (!+amount && !(rewardType === 'Collaboration' || rewardType === 'RevenueSplit')) return;
+    if (!+amount) return;
 
     const data = {
       mangaStoryId: baseData._id,
@@ -100,7 +100,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
       rewardType,
     };
 
-    if (!(rewardType === 'Collaboration' || rewardType === 'RevenueSplit')) data.amount = amount;
+    if (rewardType !== 'Free') data.amount = amount;
 
     const jwt = client.getCookie('feathers-jwt');
     const { default: api } = await import('api/restClient');
@@ -135,7 +135,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
   };
 
   const editTask = async () => {
-    if (!+amount && !(rewardType === 'Collaboration' || rewardType === 'RevenueSplit')) return;
+    if (!+amount) return;
 
     const jwt = client.getCookie('feathers-jwt');
     const { default: api } = await import('api/restClient');
@@ -145,9 +145,10 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
       description: text,
       status: taskType,
       rewardType,
+      amount: null,
     };
 
-    if (!(rewardType === 'Collaboration' || rewardType === 'RevenueSplit')) data.amount = amount;
+    if (rewardType !== 'Free') data.amount = amount;
 
     api
       .service('/api/v2/tasks')
@@ -277,7 +278,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
                 placeholder="Choose the type of collaboration"
               />
             </Form.Item>
-            {!(rewardType === 'Collaboration' || rewardType === 'RevenueSplit') && (
+            {rewardType !== 'Free' && (
               <div className={styles.value}>
                 <div>
                   <h2>Budget</h2>
@@ -286,9 +287,6 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
                     rules={[
                       {
                         validator: async (_, amount) => {
-                          if (rewardType === 'Collaboration' || rewardType === 'RevenueSplit') {
-                            return true;
-                          }
                           if (amount === null) {
                             return Promise.reject(new Error('All budget are allowed.'));
                           }

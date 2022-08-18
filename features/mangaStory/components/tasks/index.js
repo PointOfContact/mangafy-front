@@ -20,6 +20,13 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipant, showPayPalContent
   const [selectedTask, setSelectedTask] = useState(null);
   const [taskItemsArray, setTaskItemsArray] = useState(null);
 
+  // useEffect(() => {
+  //   const task = taskList.find((task) => task._id === openedTask);
+  //   console.log(openedTask);
+  //   console.log(task);
+  //   if (task) toTeam(task);
+  // }, []);
+
   useEffect(() => {
     const taskItemsArray = [];
     taskList.forEach((task) => {

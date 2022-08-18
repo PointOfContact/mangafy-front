@@ -4,12 +4,18 @@
 
 .header {
     display: flex;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
     justify-content: space-between;
     align-items: center;
     background: #fff;
     box-shadow: $bigShadow;
     padding: 15px 50px;
     font-size: 15px;
+    @include media-sm {
+        padding: 15px 15px;
+    }
 }
 
 .logo {

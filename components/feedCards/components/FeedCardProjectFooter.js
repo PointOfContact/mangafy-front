@@ -6,7 +6,7 @@ import cn from 'classnames';
 import client from 'api/client';
 import Link from 'next/link';
 
-const FeedCardShotFooter = ({ authorId, author, avatar, comments, likes, isLiked, like }) => {
+const FeedCardProjectFooter = ({ authorId, author, avatar, comments, likes, isLiked, like }) => {
   return (
     <div className={styles.feedCardShotFooter}>
       <Link href={'/profile/' + authorId}>
@@ -15,9 +15,9 @@ const FeedCardShotFooter = ({ authorId, author, avatar, comments, likes, isLiked
           <div>{author}</div>
         </a>
       </Link>
-      {/* <div className={styles.feedCardShotFooter__comments}>
+      <div className={styles.feedCardShotFooter__comments}>
         {comments} <Comment />
-      </div> */}
+      </div>
       <div
         className={cn(
           styles.feedCardShotFooter__stars,
@@ -33,4 +33,4 @@ const FeedCardShotFooter = ({ authorId, author, avatar, comments, likes, isLiked
   );
 };
 
-export default FeedCardShotFooter;
+export default FeedCardProjectFooter;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Popover, Tooltip } from 'antd';
 import client from 'api/client';
@@ -53,6 +53,13 @@ const StoryTab = ({
     }
   };
 
+  useEffect(() => {
+    if (Array.isArray(baseData.tasks) && !isOwn) {
+      const task = baseData.tasks.find((task) => task._id === history.query?.task);
+      if (task) toTeam();
+    }
+  }, []);
+
   return (
     <div className={cn(styles.storyTab, isOwn && styles.isOwner)}>
       {isOwn && (
@@ -84,6 +91,7 @@ const StoryTab = ({
                 isParticipant={isParticipant}
                 showImage={true}
                 showPayPalContent={showPayPalContent}
+                // openedTask={history.query?.task}
               />
             </div>
           </div>
@@ -101,6 +109,7 @@ const StoryTab = ({
               toTeam={toTeam}
               isParticipant={isParticipant}
               showPayPalContent={showPayPalContent}
+              // openedTask={history.query?.task}
             />
           </>
         )}
