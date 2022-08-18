@@ -3,7 +3,6 @@ import React, { useState, useCallback } from 'react';
 import styles from './styles.module.scss';
 import FeedCardImage from 'components/feedCards/components/FeedCardImage';
 import FeedCardText from 'components/feedCards/components/FeedCardText';
-import FeedCardShotFooter from './components/FeedCardShotFooter';
 import FeedCardLine from './components/FeedCardLine';
 import { Modal } from 'antd';
 import Close from 'components/icon/new/Close';
@@ -15,6 +14,7 @@ import client from 'api/client';
 import { notification } from 'antd';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import FeedCardProjectFooter from './components/FeedCardProjectFooter';
 
 const PublishedCard = ({ card }) => {
   const image = card.image;
@@ -132,7 +132,7 @@ const PublishedCard = ({ card }) => {
             />
           )}
           <FeedCardLine />
-          <FeedCardShotFooter
+          <FeedCardProjectFooter
             authorId={card.author}
             avatar={avatar}
             author={author}
