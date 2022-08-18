@@ -85,7 +85,7 @@ const FeedNew = (props) => {
         type = 'Portfolio';
         break;
 
-      case 'jobs':
+      case 'tasks':
         type = 'Task';
         break;
 
@@ -251,7 +251,7 @@ const FeedNew = (props) => {
                 <TabPane tab="Shots" key="shots"></TabPane>
                 <TabPane tab="Projects" key="projects"></TabPane>
                 <TabPane tab="People" key="people"></TabPane>
-                <TabPane tab="Jobs" key="jobs"></TabPane>
+                <TabPane tab="Tasks" key="tasks"></TabPane>
               </Tabs>
               {/* <FilterNew genres="Genres" search /> */}
               <CardsContainer

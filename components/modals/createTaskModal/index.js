@@ -91,8 +91,6 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
   };
 
   const createTask = async () => {
-    if (!+amount) return;
-
     const data = {
       mangaStoryId: baseData._id,
       lookingFor,
@@ -100,7 +98,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
       rewardType,
     };
 
-    if (rewardType !== 'Free') data.amount = amount;
+    if (rewardType !== 'Collaboration') data.amount = amount;
 
     const jwt = client.getCookie('feathers-jwt');
     const { default: api } = await import('api/restClient');
@@ -135,7 +133,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
   };
 
   const editTask = async () => {
-    if (!+amount) return;
+    // if (!+amount) return;
 
     const jwt = client.getCookie('feathers-jwt');
     const { default: api } = await import('api/restClient');
@@ -145,9 +143,10 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
       description: text,
       status: taskType,
       rewardType,
+      amount: null,
     };
 
-    if (rewardType !== 'Free') data.amount = amount;
+    if (rewardType !== 'Collaboration') data.amount = amount;
 
     api
       .service('/api/v2/tasks')
@@ -277,24 +276,27 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
                 placeholder="Choose the type of collaboration"
               />
             </Form.Item>
-            {rewardType !== 'Free' && (
+            {rewardType !== 'Collaboration' && (
               <div className={styles.value}>
                 <div>
                   <h2>Budget</h2>
                   <Form.Item
                     name="amount"
-                    rules={[
-                      {
-                        validator: async (_, amount) => {
-                          if (amount === null) {
-                            return Promise.reject(new Error('All budget are allowed.'));
-                          }
-                          if (+amount === 0) {
-                            return Promise.reject(new Error("This field value shouldn't be 0"));
-                          }
-                        },
-                      },
-                    ]}>
+                    // rules={
+                    //   [
+                    //     {
+                    //       validator: async (_, amount) => {
+                    //         if (amount === null) {
+                    //           return Promise.reject(new Error('All budget are allowed.'));
+                    //         }
+                    //         if (+amount === 0) {
+                    //           return Promise.reject(new Error("This field value shouldn't be 0"));
+                    //         }
+                    //       },
+                    //     },
+                    //   ]
+                    // }
+                  >
                     <PrimaryInput
                       type="number"
                       isFullWidth={true}
