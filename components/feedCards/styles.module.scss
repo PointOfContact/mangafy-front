@@ -5,6 +5,7 @@
     border-radius: 5px;
     overflow: hidden;
     box-shadow: $smallShadow;
+    border: 1px solid rgba($color: #C3BAFA, $alpha: 0.2);
     cursor: pointer;
     transition: 0.2s;
     &__content {

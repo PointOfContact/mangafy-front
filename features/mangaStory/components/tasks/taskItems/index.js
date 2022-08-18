@@ -52,7 +52,11 @@ const TaskItems = ({
             {task?.rewardType && (
               <ButtonColab
                 className={cn(styles.ButtonPurple, styles.rewardType)}
-                text={task.rewardType === 'Free' ? 'Free' : `${task?.amount || task?.maxValue} $`}
+                text={
+                  task.rewardType === 'Collaboration'
+                    ? 'Collaboration'
+                    : `${task?.amount || task?.maxValue} $`
+                }
               />
             )}
             <div className={styles.description}>-{task.description}</div>
