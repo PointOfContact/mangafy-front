@@ -1,0 +1,29 @@
+@import '../../../styles/variables.scss';
+
+.input {
+    border-radius: 5px;
+    border: 1px solid #d9d9d9;
+    padding: 0.3em 0.8em;
+    font-size: 24px;
+
+    &:focus {
+        border-color: $primaryDark;
+    }
+
+    &::placeholder {
+        color: #d9d9d9;
+        font-size: inherit;
+    }
+
+    &_sm {
+        font-size: 18px;
+    }
+
+    &_error {
+        border-color: $red;
+    }
+
+    &_fullWidth {
+        width: 100%;
+    }
+}
