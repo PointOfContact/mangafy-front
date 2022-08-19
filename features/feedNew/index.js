@@ -39,7 +39,9 @@ const FeedNew = (props) => {
     setScreenWidth(window.innerWidth);
   }
 
-  // const debouncedUpdateCards = useCallback(AwesomeDebouncePromise(updateCards, 200), []);
+  // Debug: find repeating card's ids
+  // const [cardsLog, setCardsLog] = useState({});
+  //
 
   const [activeTab, setActiveTab] = useState('recent');
   const [cardsElements, setCardsElements] = useState(makeCardsElements(posts));
@@ -179,6 +181,22 @@ const FeedNew = (props) => {
       //     postType || 'Recent'
       //   } cards`
       // );
+
+      // Debug: find repeating card's ids
+      // if (skip === 0) setCardsLog({});
+      // posts.data.forEach((card) => {
+      //   if (card.postType === 'Portfolio') {
+      //     setCardsLog((oldLog) => {
+      //       if (oldLog[card._id]) {
+      //         return { ...oldLog, [card._id]: [...oldLog[card._id], card] };
+      //       } else {
+      //         return { ...oldLog, [card._id]: [card] };
+      //       }
+      //     });
+      //   }
+      // });
+      //
+
       return posts.data;
     } catch (error) {
       console.log(error);
@@ -191,11 +209,21 @@ const FeedNew = (props) => {
         return <TaskCard key={card._id} card={card} user={user} />;
       else if (card.postType === 'Project') return <PublishedCard key={card._id} card={card} />;
       else if (card.postType === 'Portfolio')
-        return <ShotCard key={card._id} card={card} user={user} />;
+        return <ShotCard key={card.image?._id || card._id} card={card} user={user} />;
       else if (card.postType === 'Profile')
         return <PortfolioCard key={card._id} card={card} user={user} />;
     });
   }
+
+  // Debug: find repeating card's ids
+  // console.log('New render');
+  // for (const id in cardsLog) {
+  //   if (Object.hasOwnProperty.call(cardsLog, id)) {
+  //     const cards = cardsLog[id];
+  //     if (cards.length > 1) console.log(cards);
+  //   }
+  // }
+  //
 
   return (
     <>
