@@ -16,6 +16,7 @@ import ShortStory from './shortStory';
 import { ShowGalleryModal } from './showGalleryModal';
 import styles from './styles.module.scss';
 import { getShortStorys, beforeGalleryUpload } from './utils';
+import CreateShotModal from 'components/CreateShotModal';
 
 const queue = new Queue({
   concurrent: 1,
@@ -204,39 +205,20 @@ export const Gallery = (props) => {
         <ShowGalleryModal {...{ startIndex, images, handleCancel, isModalVisible }} />
       )}
       {createGalleryModal && (
-        <HtmlGalleryModal
-          gallery={selectedGallery}
-          {...{ setImages, images, user, handleCancel, isModalVisible }}
-        />
+        <CreateShotModal isVisible={createGalleryModal} setIsVisible={setCreateGalleryModal} />
       )}
       <div className={styles.headerPortfolio}>
         <h4 className={styles.title}>{title}</h4>
         {canEditInit && (
           <Col className={styles.img_add_button}>
-            {/* {isShowAdd && ( */}
             <span
               className={styles.uploadText}
               onClick={() => {
                 setCreateGalleryModal(true);
                 setIsModalVisible(true);
               }}>
-              <AddButton width="25px" height="25px" text={'Share stories'} />
+              <AddButton width="25px" height="25px" text={'Add a work'} />
             </span>
-            {/* )}
-            <div onClick={() => setIsShowAdd(!isShowAdd)}>
-              <AddButton text={!isShowAdd && 'Add'} />
-            </div>
-            {isShowAdd && ( */}
-            <span className={styles.uploadFile}>
-              <Upload
-                beforeUpload={onBeforeGalleryUpload}
-                showUploadList={false}
-                multiple={true}
-                accept="image/jpg, image/png, application/pdf, image/jpeg ">
-                <AddButton width="25px" height="25px" text={'Upload illustrations'} />
-              </Upload>
-            </span>
-            {/* )} */}
           </Col>
         )}
       </div>

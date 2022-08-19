@@ -18,7 +18,7 @@ import { notification } from 'antd';
 import Link from 'next/link';
 
 const ShotCard = ({ card, user }) => {
-  const image = card.image ? client.UPLOAD_URL + card.image.image : null;
+  const image = card.image.image || card.image;
   const author = card.authorInfo[0].name;
   const avatar = card.authorInfo[0].avatar;
   const likes = card.likedUsers.length;
@@ -56,7 +56,8 @@ const ShotCard = ({ card, user }) => {
   }
 
   function like() {
-    likeShot(card._id, card.authorId)
+    console.log(card._id, card.authorInfo[0]._id);
+    likeShot(card._id, card.authorInfo[0]._id)
       .then((res) => {
         console.log('Like: ');
         console.log(res);
@@ -75,6 +76,8 @@ const ShotCard = ({ card, user }) => {
       .catch((err) => {
         if (err.code === 401)
           notification.error({ message: 'Please log in to like Shots', placement: 'bottomLeft' });
+        else if (err.message === 'You can not like yourself')
+          notification.error({ message: 'You can not like yourself', placement: 'bottomLeft' });
         else {
           console.log(err);
         }
@@ -95,7 +98,7 @@ const ShotCard = ({ card, user }) => {
           footer={null}>
           <div className={styles.modal__title}>{title}</div>
           <div className={styles.modal__content}>
-            {image && <img src={image} alt="shot image" />}
+            {image && <img src={client.UPLOAD_URL + image} alt="shot image" />}
             {text && (
               <div
                 className={styles.modal__text}
@@ -126,7 +129,7 @@ const ShotCard = ({ card, user }) => {
       )}
 
       <div className={styles.card} onClick={handleClick} onDoubleClick={handleDoubleClick}>
-        {image && <FeedCardImage image={image} />}
+        {image && <FeedCardImage image={client.UPLOAD_URL + image} />}
         <div className={styles.card__content}>
           {text && (
             <FeedCardText

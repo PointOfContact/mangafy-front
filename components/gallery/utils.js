@@ -38,6 +38,7 @@ const likeGallery = (galleryId, userId) => {
 
 const likeShot = (portfolioId, userId) => {
   const data = { userId, portfolioId };
+  console.log(data);
   const jwt = client.getCookie('feathers-jwt');
   return client.service('/api/v2/portfolio-like').create(data, {
     headers: { Authorization: `Bearer ${jwt}` },
