@@ -11,7 +11,7 @@ import ArrowDown2 from 'components/icon/new/ArrowDown2';
 import Button from 'components/ui-new/Button';
 import Link from 'next/link';
 import client from 'api/client';
-import GetFeedback from 'components/get-feedback';
+import CreateShotModal from 'components/CreateShotModal';
 import myAmplitude from 'utils/amplitude';
 import ModalCreateProject from 'components/modalCreateProject';
 import { useRouter } from 'next/router';
@@ -24,7 +24,7 @@ import SignOut from 'components/icon/new/SignOut';
 
 const HeaderNew = ({ user }) => {
   const router = useRouter();
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isCreateShotModalVisible, setIsCreateShotModalVisible] = useState(false);
   const [isCreateProjectModalVisible, setIsCreateProjectModalVisible] = useState(false);
 
   const sendEvent = (event_type, post = 'New') => {
@@ -49,7 +49,7 @@ const HeaderNew = ({ user }) => {
   function createPostHandler() {
     if (user) {
       sendEvent(EVENTS.OPEN_CREATE_NEW_POST_MODAL);
-      setIsModalVisible(true);
+      setIsCreateShotModalVisible(true);
     }
   }
 
@@ -88,7 +88,7 @@ const HeaderNew = ({ user }) => {
             <Edit2 color="#D01E8E" bold />
           </div>
           <div className={styles.nav__dropdownContent}>
-            <div className={styles.nav__dropdownTitle}>Post</div>
+            <div className={styles.nav__dropdownTitle}>Shot</div>
             <div className={styles.nav__dropdownSubtitle}>Your Work in Progress</div>
           </div>
         </div>
@@ -367,11 +367,16 @@ const HeaderNew = ({ user }) => {
         </div>
       </header>
       {/* Create post modal */}
-      <GetFeedback
+      {/* <GetFeedback
         user={user}
-        isModalVisible={isModalVisible}
-        setIsModalVisible={setIsModalVisible}
+        isCreateShotModalVisible={isCreateShotModalVisible}
+        setIsCreateShotModalVisible={setIsCreateShotModalVisible}
         sendEvent={sendEvent}
+      /> */}
+      <CreateShotModal
+        isVisible={isCreateShotModalVisible}
+        setIsVisible={setIsCreateShotModalVisible}
+        user={user}
       />
       {/* <CreateShotModal /> */}
       {/* Create project modal */}
