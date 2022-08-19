@@ -18,7 +18,7 @@ import { notification } from 'antd';
 import Link from 'next/link';
 
 const ShotCard = ({ card, user }) => {
-  const image = card.image;
+  const image = card.image ? client.UPLOAD_URL + card.image.image : null;
   const author = card.authorInfo[0].name;
   const avatar = card.authorInfo[0].avatar;
   const likes = card.likedUsers.length;
