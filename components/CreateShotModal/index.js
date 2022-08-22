@@ -9,7 +9,7 @@ import Button from 'components/ui-new/Button';
 import { notification } from 'antd';
 import client from 'api/client';
 
-const CreateShotModal = ({ isVisible, setIsVisible }) => {
+const CreateShotModal = ({ isVisible, setIsVisible, galleryImages, setGalleryImages }) => {
   const [title, setTitle] = useState('');
   const [image, setImage] = useState('');
   const [description, setDescription] = useState('');
@@ -46,7 +46,7 @@ const CreateShotModal = ({ isVisible, setIsVisible }) => {
   function onSubmit() {
     const validation = validate();
     setErrors(validation);
-    if (validation) {
+    if (validation.title) {
       for (const error in validation) {
         validation[error] &&
           notification.error({ message: validation[error], placement: 'bottomLeft' });
@@ -54,7 +54,7 @@ const CreateShotModal = ({ isVisible, setIsVisible }) => {
     } else {
       createShot(title, description, image)
         .then((res) => {
-          console.log(res);
+          !!galleryImages && setGalleryImages([...galleryImages, res]);
           setIsVisible(false);
         })
         .catch((err) => {

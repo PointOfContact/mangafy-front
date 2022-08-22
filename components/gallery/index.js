@@ -205,7 +205,12 @@ export const Gallery = (props) => {
         <ShowGalleryModal {...{ startIndex, images, handleCancel, isModalVisible }} />
       )}
       {createGalleryModal && (
-        <CreateShotModal isVisible={createGalleryModal} setIsVisible={setCreateGalleryModal} />
+        <CreateShotModal
+          isVisible={createGalleryModal}
+          setIsVisible={setCreateGalleryModal}
+          galleryImages={images}
+          setGalleryImages={setImages}
+        />
       )}
       <div className={styles.headerPortfolio}>
         <h4 className={styles.title}>{title}</h4>
