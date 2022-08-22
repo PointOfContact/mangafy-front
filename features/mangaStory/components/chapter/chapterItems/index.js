@@ -84,6 +84,7 @@ const ChapterItems = ({ chapters, setChapters, storyBoard, setStoryBoard, user, 
               chapterIndex={index}
               setChapters={setChapters}
               chapters={chapters}
+              mangaId={baseData._id}
             />
           </div>
         </div>

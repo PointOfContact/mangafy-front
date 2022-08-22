@@ -44,6 +44,7 @@ const ProjectScripts = ({ pages, storyBoardId, storyBoard, setStoryBoard, user }
   const removeScript = (index) => {
     deletePage(
       scripts[index]._id,
+      storyBoard.mangaStoryId,
       () => {
         const items = [...scripts];
         items.splice(index, 1);
@@ -91,7 +92,7 @@ const ProjectScripts = ({ pages, storyBoardId, storyBoard, setStoryBoard, user }
         delete dataToSave?.newCreated;
         dataToSave.order = index + 1;
         dataToSave.storyBoard = storyBoardId;
-
+        dataToSave.mangaStoryId = storyBoard.mangaStoryId;
         createPage(
           dataToSave,
           (res) => {

@@ -174,12 +174,15 @@ const patchPage = (pageId, data, onSuccess, onFailure) => {
   });
 };
 
-const deletePage = (pageId, onSuccess, onFailure) => {
+const deletePage = (pageId, mangaStoryId, onSuccess, onFailure) => {
   const jwt = client.getCookie('feathers-jwt');
   import('./restClient').then((m) => {
     m.default
       .service('/api/v2/pages')
       .remove(pageId, {
+        query: {
+          mangaStoryId,
+        },
         headers: { Authorization: `Bearer ${jwt}` },
         mode: 'no-cors',
       })

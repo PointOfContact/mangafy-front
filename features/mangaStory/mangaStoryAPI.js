@@ -163,6 +163,7 @@ export default {
         title: chapterName,
         order: lengthChapters,
         storyBoardId: storyBoard?._id,
+        mangaStoryId: storyBoard.mangaStoryId,
       };
 
       const jwt = client.getCookie('feathers-jwt');
@@ -231,6 +232,9 @@ export default {
         m.default
           .service('/api/v2/chapters')
           .remove(chapterId, {
+            query: {
+              mangaStoryId: storyBoard.mangaStoryId,
+            },
             headers: { Authorization: `Bearer ${jwt}` },
             mode: 'no-cors',
           })
@@ -326,13 +330,15 @@ export default {
           });
       });
     },
-    deletePage: (index, chapters, setChapters, pageItem, setVisibleModal) => {
+    deletePage: (index, chapters, setChapters, pageItem, setVisibleModal, mangaId) => {
       const jwt = client.getCookie('feathers-jwt');
-
       import('api/restClient').then((m) => {
         m.default
           .service('api/v2/pages')
           .remove(pageItem?.value?._id, {
+            query: {
+              mangaStoryId: mangaId,
+            },
             headers: { Authorization: `Bearer ${jwt}` },
             mode: `no-cors`,
           })

@@ -28,13 +28,13 @@ const ChapterTitle = ({ value, chapters, storyBoard, setChapters, edit, setEdit,
     }
     mangaStoryAPI.chapter.patch(
       value?._id,
-      { title: editName },
+      { title: editName, mangaStoryId: storyBoard.mangaStoryId },
       upgradeChapterData,
       setEdit,
       setChapters
     );
   };
-  console.log(storyBoard?._id, 555);
+
   return (
     <div className={styles.titleContainer}>
       {edit === value?._id ? (
@@ -62,7 +62,7 @@ const ChapterTitle = ({ value, chapters, storyBoard, setChapters, edit, setEdit,
                     ? setEdit('')
                     : mangaStoryAPI.chapter.patch(
                         value?._id,
-                        { title: editName },
+                        { title: editName, mangaStoryId: storyBoard.mangaStoryId },
                         upgradeChapterData,
                         setEdit,
                         setChapters

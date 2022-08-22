@@ -19,6 +19,7 @@ const Pages = ({
   chapterIndex,
   setChapters,
   chapters,
+  mangaId,
 }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [currentImg, setCurrentImg] = useState('');
@@ -66,7 +67,10 @@ const Pages = ({
     source.order = middleNumber(result?.destination?.index, source?.order);
 
     // save page order
-    patchPage({ value: source, index: result?.source?.index }, { order: source.order });
+    patchPage(
+      { value: source, index: result?.source?.index },
+      { order: source.order, mangaStoryId: mangaId }
+    );
 
     // replace pages positions
     const [reorderedItem] = arrayPage.splice(result.source.index, 1);
@@ -95,6 +99,7 @@ const Pages = ({
                 chapters={chapters}
                 setCurrentImg={setCurrentImg}
                 setIsModalVisible={setIsModalVisible}
+                mangaId={mangaId}
               />
               {provided.placeholder}
             </ul>
@@ -121,6 +126,7 @@ Pages.propTypes = {
   setChapters: PropTypes.func,
   chapterIndex: PropTypes.number,
   chapters: PropTypes.array,
+  mangaId: PropTypes.string.isRequired,
 };
 
 Pages.defaultProps = {

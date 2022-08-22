@@ -112,6 +112,7 @@ const ModalCreatePage = ({
       characterArray: newCharacterArray,
       imageUrl: imgId,
       chapterId: newChapter || chapterItem?.value?._id,
+      mangaStoryId: storyBoard.mangaStoryId,
     };
 
     if (ifEdit) {
@@ -145,7 +146,8 @@ const ModalCreatePage = ({
       chapters,
       setChapters,
       pageItem,
-      setVisibleModal
+      setVisibleModal,
+      storyBoard.mangaStoryId
     );
   };
 
