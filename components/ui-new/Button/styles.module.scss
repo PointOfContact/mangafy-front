@@ -2,12 +2,22 @@
 
 .button {
     display: flex;
+    justify-content: center;
     align-items: center;
     flex-wrap: nowrap;
     transition: 0.2s;
 
     padding: 10px 24px;
-    font-size: 15px;
+    font-size: 18px;
+
+    &_bold {
+        font-weight: bold;
+    }
+
+    &_fullWidth {
+        width: 100%;
+    }
+
     &_sm {
         padding: 5px 12px;
         font-size: 12px;

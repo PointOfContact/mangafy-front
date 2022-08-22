@@ -13,6 +13,7 @@ import myAmplitude from 'utils/amplitude';
 
 import SelectTags from './selectTags';
 import styles from './styles.module.scss';
+import PrimaryInput from 'components/ui-elements/input';
 
 const GetFeedback = ({
   user,
@@ -26,6 +27,7 @@ const GetFeedback = ({
   currentSubTitle,
   categories,
 }) => {
+  const [title, setTitle] = useState('');
   const [imageUrl, setImgId] = useState('');
   const [subTitle, setSubTitle] = useState('');
   const [viewUrl, setViewUrl] = useState('');
@@ -167,6 +169,8 @@ const GetFeedback = ({
           <div className={styles.border}></div>
         </div>
         <div className={styles.container} onClick={(e) => e.stopPropagation()}>
+          <h2>Title</h2>
+          <PrimaryInput isFullWidth onChange={(text) => setTitle(text)} />
           <h2>Upload image or video</h2>
           <HeroUpload
             text="Drag or browse your art to start uploading"
@@ -176,7 +180,7 @@ const GetFeedback = ({
             uploadVideo={true}
             setUploadLoading={setUploadLoading}
           />
-          <h2>Add to your post</h2>
+          <h2>Add description to your shot</h2>
           <TextArea
             placeholder="Write a caption..."
             value={subTitle}
