@@ -102,6 +102,7 @@ const CreateStoryStepper = ({ genres, path, user, query, jwt }) => {
                       published: true,
                       typeUrlView: 'Custom subdomain',
                       viewUrlName: storyInfo.projectName,
+                      mangaStoryId: storyBoard.mangaStoryId,
                     },
                     {
                       headers: { Authorization: `Bearer ${jwt}` },

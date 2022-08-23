@@ -34,6 +34,7 @@ export default {
     leaveManga: (mangaStory, showBubble) => {
       const data = {};
       data.payPalPublished = showBubble;
+      data.mangaStoryId = mangaStory._id;
       const jwt = client.getCookie('feathers-jwt');
       return import('api/restClient').then((m) =>
         m.default
@@ -69,6 +70,7 @@ export default {
           baseData._id,
           {
             image,
+            mangaStoryId: baseData._id,
           },
           options
         );
@@ -102,6 +104,7 @@ export default {
   },
   hiderCollab: {
     patchStory: (data, setBaseData, user, baseData, openNotification) => {
+      data.mangaStoryId = baseData.mangaStoryId;
       const jwt = client.getCookie('feathers-jwt');
       return import('api/restClient').then((m) =>
         m.default
@@ -128,10 +131,11 @@ export default {
   },
 
   storyTab: {
-    leaveManga: (participantId, _id, setBaseData, history, user, setParticipantsData) => {
+    leaveManga: (participantId, _id, setBaseData, history, user, setParticipantsData, baseData) => {
       const data = {
         participantId,
       };
+      data.mangaStoryId = baseData._id;
       const jwt = client.getCookie('feathers-jwt');
       return import('api/restClient').then((m) =>
         m.default

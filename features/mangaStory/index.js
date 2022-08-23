@@ -152,6 +152,8 @@ const MangeStory = (props) => {
       data[item] = newBaseData[item];
     });
 
+    data.mangaStoryId = baseData._id;
+
     const jwt = client.getCookie('feathers-jwt');
     import('api/restClient').then((m) => {
       m.default
@@ -189,6 +191,9 @@ const MangeStory = (props) => {
       m.default
         .service('/api/v2/manga-stories')
         .remove(mangaId, {
+          query: {
+            mangaStoryId: baseData._id,
+          },
           headers: { Authorization: `Bearer ${jwt}` },
           mode: 'no-cors',
         })

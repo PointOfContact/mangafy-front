@@ -82,7 +82,7 @@ const EditGenresField = ({
   };
 
   const setMangaPhoto = (e, image) => {
-    const data = { ...baseData, image };
+    const data = { ...baseData, image, mangaStoryId: baseData._id };
     mangaStoryAPI.collab.patchCollab(data, setBaseData);
   };
 

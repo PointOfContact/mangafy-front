@@ -41,7 +41,8 @@ const StoryTab = ({
       setBaseData,
       history,
       user,
-      setParticipantsData
+      setParticipantsData,
+      baseData
     );
 
   const toTeam = (task) => {

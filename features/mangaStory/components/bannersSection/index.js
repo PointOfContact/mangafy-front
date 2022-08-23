@@ -47,6 +47,7 @@ const BannerSection = ({
       baseData._id,
       {
         image,
+        mangaStoryId: baseData._id,
       },
       options
     );
