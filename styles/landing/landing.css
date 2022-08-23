@@ -484,7 +484,6 @@ body {
   font-family: Montserrat, sans-serif;
   line-height: 1.65;
   color: #333;
-  min-width: 375px;
   position: relative;
   overflow-x: hidden;
   height: unset;
