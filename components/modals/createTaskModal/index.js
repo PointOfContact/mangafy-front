@@ -145,6 +145,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
       description: text,
       status: taskType,
       rewardType,
+      mangaStoryId: baseData._id,
       amount: null,
     };
 

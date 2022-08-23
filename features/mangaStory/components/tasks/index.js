@@ -72,6 +72,9 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipant, showPayPalContent
     api
       .service('/api/v2/tasks')
       .remove(taskId, {
+        query: {
+          mangaStoryId: baseData._id,
+        },
         headers: { Authorization: `Bearer ${jwt}` },
         mode: 'no-cors',
       })

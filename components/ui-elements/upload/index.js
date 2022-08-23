@@ -36,6 +36,7 @@ const PrimaryUpload = ({
   setIfUploadImg,
   uploadText,
   className,
+  mangaStoryId,
 }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalContent, setIsModalContent] = useState('');
@@ -65,6 +66,7 @@ const PrimaryUpload = ({
         storyBoardId,
         {
           mangaUrls: [...sb.mangaUrls, fileName],
+          mangaStoryId: mangaStoryId,
         },
         (response) => {
           setStoryBoard(response);
@@ -216,6 +218,7 @@ PrimaryUpload.propTypes = {
   setIfUploadImg: PropTypes.func,
   uploadText: PropTypes.string,
   className: PropTypes.object,
+  mangaStoryId: PropTypes.string,
 };
 
 PrimaryUpload.defaultProps = {
@@ -228,6 +231,7 @@ PrimaryUpload.defaultProps = {
   setIfUploadImg: () => {},
   uploadText: '',
   className: {},
+  mangaStoryId: '',
 };
 
 export default PrimaryUpload;
