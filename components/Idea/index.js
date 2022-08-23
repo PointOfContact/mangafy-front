@@ -44,7 +44,7 @@ const Idea = ({ storyBoard, user }) => {
       .service('/api/v2/story-boards')
       .patch(
         storyBoard?._id,
-        { idea: plot },
+        { idea: plot, mangaStoryId: storyBoard.mangaStoryId },
         {
           headers: { Authorization: `Bearer ${jwt}` },
           mode: 'no-cors',

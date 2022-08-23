@@ -46,6 +46,7 @@ const Hero = ({ storyBoard, setStoryBoard, getStoryBoard, user }) => {
       allowComponentCreate: true,
       allowBackgroundCreate: true,
     };
+
     storyBoard?.heroes?.forEach((hero) => {
       if (hero.name === '') {
         switch (hero.type) {
@@ -102,7 +103,7 @@ const Hero = ({ storyBoard, setStoryBoard, getStoryBoard, user }) => {
   const confirmDelete = (hero) => {
     const getLastCreateHeroId = storyBoard?.heroes[storyBoard?.heroes?.length - 1]?._id;
     const heroId = !!hero?._id ? hero?._id : getLastCreateHeroId;
-    deleteHero(heroId, getStoryBoard, getStoryBoard);
+    deleteHero(heroId, getStoryBoard, getStoryBoard, storyBoard?.mangaStoryId);
     changeShowModalHeroes(false);
     changeShowModal(false);
     // upgrade all
@@ -143,6 +144,7 @@ const Hero = ({ storyBoard, setStoryBoard, getStoryBoard, user }) => {
       appearance: '',
       imageUrl: '',
       storyBoard: storyBoard?._id,
+      mangaStoryId: storyBoard.mangaStoryId,
       type,
     };
     changeHero(newHero, type);
@@ -260,6 +262,7 @@ const Hero = ({ storyBoard, setStoryBoard, getStoryBoard, user }) => {
         heroItems={getLists(HeroTypes.personage)}
         onChangeHeroLogic={onChangeHeroLogic}
         sendEvent={sendEvent}
+        mangaStoryId={storyBoard.mangaStoryId}
       />
       <ModalHeroes
         changeShowModalHeroes={changeShowModalHeroes}
@@ -274,6 +277,7 @@ const Hero = ({ storyBoard, setStoryBoard, getStoryBoard, user }) => {
         componentNames={componentNames}
         clickDelete={clickDeleteHero}
         sendEvent={sendEvent}
+        mangaStoryId={storyBoard.mangaStoryId}
       />
     </div>
   );

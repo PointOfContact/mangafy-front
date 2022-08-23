@@ -64,7 +64,7 @@ const ChapterFooter = ({
 
     await mangaStoryAPI.chapter.patch(
       value?._id,
-      { published: publishedValue },
+      { published: publishedValue, mangaStoryId: storyBoard.mangaStoryId },
       upgradeChapterData,
       () => {},
       setChapters

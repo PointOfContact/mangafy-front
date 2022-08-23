@@ -273,6 +273,7 @@ const StoryBoardTabs = ({
                     showText={false}
                     className={styles.upload}
                     ifUploadImg={ifUploadImg}
+                    mangaStoryId={baseData._id}
                     setIfUploadImg={setIfUploadImg}
                   />
                   <ShowImgModal

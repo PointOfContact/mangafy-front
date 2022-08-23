@@ -38,6 +38,7 @@ const DragDrop = ({
       storyBoard?._id,
       {
         mangaUrls: [...storyBoard.mangaUrls],
+        mangaStoryId: storyBoard.mangaStoryId,
       },
       (response) => {
         setStoryBoard(response);
@@ -114,6 +115,7 @@ const DragDrop = ({
       storyBoard?._id,
       {
         mangaUrls: data,
+        mangaStoryId: storyBoard.mangaStoryId,
       },
       (res) => {
         setStoryBoard(res);

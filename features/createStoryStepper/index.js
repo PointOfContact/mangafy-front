@@ -91,7 +91,7 @@ const CreateStoryStepper = ({ genres, path, user, query, jwt }) => {
             // Then publish first chapter
             mangaStoryAPI.chapter.patch(
               storyBoard?.data[0]?.chapters[0]?._id,
-              { published: true },
+              { published: true, mangaStoryId: storyBoard.mangaStoryId },
               async (data) => {
                 try {
                   // Then publish story, set subdomain and set paypalPublished
