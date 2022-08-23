@@ -10,7 +10,7 @@ import DeleteProjectModal from 'components/deleteProjectModal';
 import Footer from 'components/footer';
 import FooterPolicy from 'components/footer-policy';
 import { deleteTagsFromString } from 'components/gallery/utils';
-import Header from 'components/header';
+import HeaderNew from 'components/headerNew';
 import ButtonToTop from 'components/ui-elements/button-toTop';
 import FooterLogin from 'features/footerLogin';
 import { EVENTS } from 'helpers/amplitudeEvents';
@@ -296,7 +296,7 @@ const MangeStory = (props) => {
         ))}
       <ButtonToTop user={user} />
       <main className="main_back_2" style={{ background: '#fafafa' }}>
-        {!(isOwn || isParticipant) && <Header path="mangaStory" user={userData} />}
+        {!(isOwn || isParticipant) && <HeaderNew user={userData} />}
         <div
           className={cn(styles.pageWrap, !isMobile && styles.pageWrap_desktop, 'manga-story-page')}>
           {isOwn ? (

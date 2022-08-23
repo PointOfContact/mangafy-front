@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Footer from 'components/footer';
-import Header from 'components/header';
+import HeaderNew from 'components/headerNew';
 import Imgix from 'components/imgix';
 import LargeButton from 'components/ui-elements/large-button';
 import FooterLogin from 'features/footerLogin';
@@ -15,7 +15,7 @@ const AccessDenied = ({ user }) => (
   <div className="">
     <NextSeo title="Access Denied" description="Sorry, this confidential information is private" />
     <main>
-      <Header user={user} path="comming-soon" />
+      <HeaderNew user={user} />
       <div className={styles.error_page}>
         <div className={styles.page_inner}>
           <Imgix

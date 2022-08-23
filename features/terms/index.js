@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Footer from 'components/footer';
-import Header from 'components/header';
+import HeaderNew from 'components/headerNew';
 import Imgix from 'components/imgix';
 import ButtonToTop from 'components/ui-elements/button-toTop';
 import FooterLogin from 'features/footerLogin';
@@ -40,7 +40,7 @@ const Terms = ({ user }) => (
     <ButtonToTop user={user} />
     <div className={'wrapper'}>
       <div className={'content'}>
-        <Header path="terms" user={user} />
+        <HeaderNew path="terms" user={user} />
         <main>
           <div className={styles.terms_page}>
             <div className={styles.title_section}>
