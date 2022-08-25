@@ -77,14 +77,6 @@ const TaskItems = ({
               cancelText="No">
               <SvgDustbin white="22px" height="22px" />
             </Popconfirm>
-            <PrimaryButton
-              onClick={() => {
-                router.push(getFeedLink(task), getFeedLinkAS(task), { shallow: false });
-              }}
-              isActive={true}
-              className={styles.postTask}
-              text="Post Task"
-            />
           </div>
         ) : (
           task.status !== 'Hired' && (
