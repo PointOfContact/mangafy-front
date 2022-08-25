@@ -36,6 +36,9 @@ import ProjectMobileMenu from 'components/ProjectMobileMenu';
 import Edit from 'components/icon/new/Edit';
 import Edit2 from 'components/icon/new/Edit2';
 import Planet from 'components/icon/new/Planet';
+import Button from 'components/ui-new/Button';
+import ArrowDown2 from 'components/icon/new/ArrowDown2';
+import ArrowDown from 'components/icon/new/ArrowDown';
 
 const tabs = {
   DETAILS: 'details',
@@ -241,12 +244,20 @@ const MangeStory = (props) => {
     return (
       <>
         <div className={styles.workspaceLink}>
+          <Link href="/feed">
+            <a>
+              <Button outline sm rounded color="#000" icon={<ArrowDown color="#000" />} iconRight>
+                Back to feed
+              </Button>
+            </a>
+          </Link>
           <Link href={'/profile/' + user._id}>
             <a className={styles.workspaceLink_link}>{'My workspace'}</a>
           </Link>
-          <span>{' / '}</span>
+          <span>&nbsp;/&nbsp;</span>
           <span>{baseData.title}</span>
-          <span>{' / ' + activeTab}</span>
+          <span>&nbsp;/&nbsp;</span>
+          <span>{activeTab}</span>
         </div>
         <h2 className={styles.sectionTitle}>
           {activeTab}
