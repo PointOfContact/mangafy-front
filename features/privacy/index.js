@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Footer from 'components/footer';
-import Header from 'components/header';
+import HeaderNew from 'components/headerNew';
 import Imgix from 'components/imgix';
 import ButtonToTop from 'components/ui-elements/button-toTop';
 import FooterLogin from 'features/footerLogin';
@@ -51,7 +51,7 @@ const Privacy = (props) => {
       <main className="main_back_2">
         <div className={'wrapper'}>
           <div className={styles.terms_page}>
-            <Header path="privacy" user={user} />
+            <HeaderNew user={user} />
             <main>
               <div className={styles.privacy_page}>
                 <div className={styles.title_section}>

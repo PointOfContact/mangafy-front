@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Footer from 'components/footer';
-import Header from 'components/header';
+import HeaderNew from 'components/headerNew';
 import Imgix from 'components/imgix';
 import FooterLogin from 'features/footerLogin';
 import { NextSeo } from 'next-seo';
@@ -46,7 +46,7 @@ const Content = (props) => {
         ]}
       />
       <main className="main_back_2">
-        <Header path="myProfile" user={user} />
+        <HeaderNew user={user} />
         <div className={styles.content_page}>
           <div className={styles.title_section}>
             <div className={styles.title_inner}>

@@ -5,7 +5,7 @@ import client from 'api/client';
 import cn from 'classnames';
 import Footer from 'components/footer';
 import FooterPolicy from 'components/footer-policy';
-import Header from 'components/header';
+import HeaderNew from 'components/headerNew';
 import ProfileContent from 'components/profile/profileContent';
 import ProfileOpenCollabs from 'components/profile/profileOpenCollabs';
 import ProfileTopBar from 'components/profile/profileTopBar';
@@ -168,7 +168,7 @@ const Profile = (props) => {
       <ButtonToTop user={user} />
       <div className={'wrapper'}>
         <div className={'content'}>
-          <Header path="profile" user={user} setShowModalEdit={setShowModalEdit} />
+          <HeaderNew user={user} />
           <main>
             <section className={cn(styles.container)}>
               <div className="container">

@@ -7,7 +7,7 @@ import CollaborationCards from 'components/colaborationCard';
 import CollaborationsHeader from 'components/collaborationsHeader';
 import Footer from 'components/footer';
 import FooterPolicy from 'components/footer-policy';
-import Header from 'components/header';
+import HeaderNew from 'components/headerNew';
 import ModalCreateProject from 'components/modalCreateProject';
 import Paginations from 'components/paginations';
 import FilterNew from 'components/filterNew';
@@ -82,7 +82,7 @@ const Collaborations = (props) => {
       <ButtonToTop user={user} />
       <div className={styles.hidden}>
         <div className={'content'}>
-          <Header path="collaborations" user={user} />
+          <HeaderNew user={user} />
           <main>
             <CollaborationsHeader user={user} />
             <div className="container mangafy_container">

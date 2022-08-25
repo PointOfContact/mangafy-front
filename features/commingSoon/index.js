@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Footer from 'components/footer';
-import Header from 'components/header';
+import HeaderNew from 'components/headerNew';
 import Imgix from 'components/imgix';
 import LargeButton from 'components/ui-elements/large-button';
 import FooterLogin from 'features/footerLogin';
@@ -27,7 +27,7 @@ const CommingSoon = (props) => {
       />
 
       <main>
-        <Header path="error" user={user} />
+        <HeaderNew user={user} />
         <div className={styles.comming_page}>
           <div className={styles.page_inner}>
             <Imgix

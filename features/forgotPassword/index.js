@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 
 import { Modal } from 'antd';
 import FooterPolicy from 'components/footer-policy';
-import Header from 'components/header';
+import HeaderNew from 'components/headerNew';
 import Imgix from 'components/imgix';
 import LoginFooter from 'components/loginFooter';
 import PrimaryInput from 'components/ui-elements/input';
@@ -96,7 +96,7 @@ const ForgotPassword = () => {
 
   return (
     <div className={styles.forgot_password}>
-      <Header />
+      <HeaderNew user={user} />
       <Head></Head>
       <div className={styles.forgot_password_content}>
         <Imgix

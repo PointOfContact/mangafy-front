@@ -2,7 +2,7 @@ import React from 'react';
 
 import Footer from 'components/footer';
 import FooterPolicy from 'components/footer-policy';
-import Header from 'components/header';
+import HeaderNew from 'components/headerNew';
 import ButtonToTop from 'components/ui-elements/button-toTop';
 import FooterLogin from 'features/footerLogin';
 import Home from 'features/index/home';
@@ -40,7 +40,7 @@ const Landing = ({ user }) => (
     <ButtonToTop user={user} />
     <div className={'wrapper'}>
       <div className={'content'}>
-        <Header path="" user={user} />
+        <HeaderNew user={user} />
         <main style={{ overflowX: 'hidden' }}>
           <Home />
         </main>
