@@ -96,7 +96,8 @@ const ForgotPassword = () => {
 
   return (
     <div className={styles.forgot_password}>
-      <HeaderNew user={user} />
+      {/* user not found */}
+      {/* <HeaderNew user={user} /> */}
       <Head></Head>
       <div className={styles.forgot_password_content}>
         <Imgix
