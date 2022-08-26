@@ -3,7 +3,7 @@ import React from 'react';
 import cn from 'classnames';
 import Footer from 'components/footer';
 import FooterPolicy from 'components/footer-policy';
-import Header from 'components/header';
+import HeaderNew from 'components/headerNew';
 import Imgix from 'components/imgix';
 import FooterLogin from 'features/footerLogin';
 import Link from 'next/link';
@@ -14,7 +14,7 @@ const pageStart = ({ user }) => (
   <>
     <div className={'wrapper'}>
       <div className={'content'}>
-        <Header path="" user={user} />
+        <HeaderNew user={user} />
         <div className={styles.pageStarted}>
           <Imgix
             layout="fill"

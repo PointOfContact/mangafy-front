@@ -38,6 +38,7 @@ const ChapterModal = ({
   const uploadImage = (e) => {
     const data = {
       chapterImg: e,
+      mangaStoryId: storyBoard.mangaStoryId,
     };
     mangaStoryAPI.chapter.patch(value._id, data, upgradeChapterData, setEdit, setChapters);
   };
@@ -51,6 +52,7 @@ const ChapterModal = ({
       order: count || value?.pages?.length + 1,
       imageUrl: e,
       chapterId: value?._id,
+      mangaStoryId: storyBoard.mangaStoryId,
     };
 
     mangaStoryAPI.pages.createPage(index, chapters, setChapters, () => {}, data);

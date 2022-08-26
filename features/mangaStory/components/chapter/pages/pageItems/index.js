@@ -26,6 +26,7 @@ const PageItems = ({
   chapters,
   setCurrentImg,
   setIsModalVisible,
+  mangaId,
 }) =>
   arrayPage?.map((value, index) => {
     const ifPdf = value?.imageUrl?.slice(-3) === 'pdf' || arrayPage?.imageUrl?.slice(-3) === 'PDF';
@@ -58,6 +59,7 @@ const PageItems = ({
                   chapterItem={{ value: chapterItem, index: chapterIndex }}
                   setChapters={setChapters}
                   chapters={chapters}
+                  mangaId={mangaId}
                 />
               </div>
               {!!value?.imageUrl && (
@@ -97,6 +99,7 @@ PageItems.propTypes = {
   chapters: PropTypes.array.isRequired,
   setCurrentImg: PropTypes.func.isRequired,
   setIsModalVisible: PropTypes.func.isRequired,
+  mangaId: PropTypes.string.isRequired,
 };
 
 export default PageItems;

@@ -2,7 +2,7 @@ import React from 'react';
 
 import Footer from 'components/footer';
 import FooterPolicy from 'components/footer-policy';
-import Header from 'components/header';
+import HeaderNew from 'components/headerNew';
 import Imgix from 'components/imgix';
 import { ShareButtons } from 'components/share';
 import ButtonToTop from 'components/ui-elements/button-toTop';
@@ -45,7 +45,7 @@ const MangaSpeechBasic = ({ user }) => (
     <ButtonToTop user={user} />
     <div className={'wrapper'}>
       <div className={'content'}>
-        <Header user={user} />
+        <HeaderNew user={user} />
         <div className={styles.content}>
           <h1 className={styles.pageTitle}>Manga Speech Basic</h1>
           <div className={styles.share}>

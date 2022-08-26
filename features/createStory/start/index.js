@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useCallback, useState } from 'react';
 
 import { notification } from 'antd';
 import Footer from 'components/footer';
-import Header from 'components/header';
+import HeaderNew from 'components/headerNew';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { NextSeo } from 'next-seo';
 import Router from 'next/router';
@@ -103,7 +103,7 @@ const Start = ({ genres, jwt, user }) => {
         }}
       />
       <div>
-        <Header path="create-a-story/start" user={user} />
+        <HeaderNew user={user} />
         {closeTypeForm && <div ref={typeformRef} style={{ height: '100vh', width: '100%' }}></div>}
         <Footer user={user} />
       </div>

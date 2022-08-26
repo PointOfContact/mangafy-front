@@ -3,9 +3,17 @@ $borderColor: #f0f0f0;
 $colorAllBorder: rgba(33, 33, 33, 0.07);
 
 .workspaceLink {
+  display: flex;
+  align-items: center;
   color: $gray85;
   font-size: 18px;
   margin-bottom: 30px;
+  & > a > button {
+    margin-right: 1em;
+    & > svg {
+      transform: rotate(90deg);
+    }
+  }
   &_link {
     display: inline;
     color: $gray85;

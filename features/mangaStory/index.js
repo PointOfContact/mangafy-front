@@ -10,7 +10,7 @@ import DeleteProjectModal from 'components/deleteProjectModal';
 import Footer from 'components/footer';
 import FooterPolicy from 'components/footer-policy';
 import { deleteTagsFromString } from 'components/gallery/utils';
-import Header from 'components/header';
+import HeaderNew from 'components/headerNew';
 import ButtonToTop from 'components/ui-elements/button-toTop';
 import FooterLogin from 'features/footerLogin';
 import { EVENTS } from 'helpers/amplitudeEvents';
@@ -36,6 +36,9 @@ import ProjectMobileMenu from 'components/ProjectMobileMenu';
 import Edit from 'components/icon/new/Edit';
 import Edit2 from 'components/icon/new/Edit2';
 import Planet from 'components/icon/new/Planet';
+import Button from 'components/ui-new/Button';
+import ArrowDown2 from 'components/icon/new/ArrowDown2';
+import ArrowDown from 'components/icon/new/ArrowDown';
 
 const tabs = {
   DETAILS: 'details',
@@ -152,6 +155,8 @@ const MangeStory = (props) => {
       data[item] = newBaseData[item];
     });
 
+    data.mangaStoryId = baseData._id;
+
     const jwt = client.getCookie('feathers-jwt');
     import('api/restClient').then((m) => {
       m.default
@@ -189,6 +194,9 @@ const MangeStory = (props) => {
       m.default
         .service('/api/v2/manga-stories')
         .remove(mangaId, {
+          query: {
+            mangaStoryId: baseData._id,
+          },
           headers: { Authorization: `Bearer ${jwt}` },
           mode: 'no-cors',
         })
@@ -236,12 +244,20 @@ const MangeStory = (props) => {
     return (
       <>
         <div className={styles.workspaceLink}>
+          <Link href="/feed">
+            <a>
+              <Button outline sm rounded color="#000" icon={<ArrowDown color="#000" />} iconRight>
+                Back to feed
+              </Button>
+            </a>
+          </Link>
           <Link href={'/profile/' + user._id}>
             <a className={styles.workspaceLink_link}>{'My workspace'}</a>
           </Link>
-          <span>{' / '}</span>
+          <span>&nbsp;/&nbsp;</span>
           <span>{baseData.title}</span>
-          <span>{' / ' + activeTab}</span>
+          <span>&nbsp;/&nbsp;</span>
+          <span>{activeTab}</span>
         </div>
         <h2 className={styles.sectionTitle}>
           {activeTab}
@@ -296,7 +312,7 @@ const MangeStory = (props) => {
         ))}
       <ButtonToTop user={user} />
       <main className="main_back_2" style={{ background: '#fafafa' }}>
-        {!(isOwn || isParticipant) && <Header path="mangaStory" user={userData} />}
+        {!(isOwn || isParticipant) && <HeaderNew user={userData} />}
         <div
           className={cn(styles.pageWrap, !isMobile && styles.pageWrap_desktop, 'manga-story-page')}>
           {isOwn ? (

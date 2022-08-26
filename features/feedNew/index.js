@@ -248,24 +248,6 @@ const FeedNew = (props) => {
       />
       <div className={styles.pageContent}>
         <HeaderNew user={user} />
-        {/* <button
-          onClick={async () => {
-            // const posts = await getCards();
-            const posts = await client.service('/api/v2/posts').find({
-              query: {
-                $limit: 300,
-                $sort: {
-                  createdAt: -1,
-                },
-                postType: 'Task',
-                // $skip: 20,
-              },
-            });
-            // console.log(new Set(posts.data.map((post) => post.postType)));
-            console.log(posts.data.filter((post) => post.rewardType !== 'Collaboration'));
-          }}>
-          fetch
-        </button> */}
         <div className={styles.feed}>
           <Row className={styles.feedContent}>
             <Col span={24} className={styles.filter}>

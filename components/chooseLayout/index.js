@@ -33,7 +33,7 @@ export const ChooseLayout = ({ storyBoard, setStoryBoard }) => {
     newItems[id].selected = true;
     patchStoryBoard(
       storyBoard._id,
-      { layoutId: newItems[id]._id },
+      { layoutId: newItems[id]._id, mangaStoryId: storyBoard.mangaStoryId },
       (res) => {
         setLayouts(newItems);
         setStoryBoard({

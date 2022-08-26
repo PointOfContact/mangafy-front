@@ -1,6 +1,21 @@
 @import '../../styles/variables.scss';
 
+.popover {
+    position: fixed;
+    z-index: 1111;
+}
 
+.notification {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-right: 20px;
+    &:hover {
+        path {
+        fill: $primaryDark;
+        }
+    }
+}
 
 .header {
     display: flex;
@@ -42,6 +57,7 @@
         height: 42px;
         aspect-ratio: 1;
         border-radius: 50%;
+        overflow: hidden;
         cursor: pointer;
         border: solid 2px $pink;
         img {

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useCallback } from 'react';
 
 import Footer from 'components/footer';
-import Header from 'components/header';
+import HeaderNew from 'components/headerNew';
 import FooterLogin from 'features/footerLogin';
 import { NextSeo } from 'next-seo';
 import Router from 'next/router';
@@ -30,7 +30,7 @@ const Start = ({ user }) => {
       <NextSeo title="Support" description="Contact us, and I'm sure we will find a solution" />
 
       <div>
-        <Header path="contact-us" user={user} />
+        <HeaderNew path="contact-us" user={user} />
         <div ref={typeformRef} style={{ height: '100vh', width: '100%' }}></div>
         <Footer user={user} />
         <FooterLogin user={user} />

@@ -192,8 +192,12 @@ body {
 
 .ant-form-item-explain,
 .ant-form-item-explain-error {
+  font-size: 12px;
   position: absolute;
-  top: 100%;
+  top: -0.4em;
+}
+.ant-input-status-error {
+  margin-top: 12px !important;
 }
 
 .galere_modal {

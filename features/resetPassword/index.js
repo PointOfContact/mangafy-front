@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { notification } from 'antd';
 import FooterPolicy from 'components/footer-policy';
-import Header from 'components/header';
+import HeaderNew from 'components/headerNew';
 import Imgix from 'components/imgix';
 import LoginFooter from 'components/loginFooter';
 import PrimaryInput from 'components/ui-elements/input';
@@ -12,7 +12,7 @@ import Router from 'next/router';
 
 import styles from './styles.module.scss';
 
-const ResetPassword = () => {
+const ResetPassword = ({ user }) => {
   const [password, setPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
 
@@ -84,7 +84,6 @@ const ResetPassword = () => {
 
   return (
     <div className={styles.forgot_password}>
-      <Header />
       <Head></Head>
       <div className={styles.forgot_password_content}>
         <Imgix

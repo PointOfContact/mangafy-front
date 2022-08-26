@@ -24,6 +24,7 @@ const ModalComponent = ({
   confirmDelete,
   onChangeHeroLogic,
   sendEvent,
+  mangaStoryId,
 }) => {
   const [name, setName] = useState('');
   const [heroType, setHeroType] = useState({});
@@ -123,6 +124,7 @@ const ModalComponent = ({
       description,
       imageUrl: imgId,
       characterArray: chooseCharacter,
+      mangaStoryId,
     };
     onChangeHeroLogic(newHero, hero, newCreated, setIdCardHero, idCardHero);
   };
@@ -303,6 +305,7 @@ ModalComponent.propTypes = {
   confirmDelete: PropTypes.func,
   onChangeHeroLogic: PropTypes.func.isRequired,
   sendEvent: PropTypes.func.isRequired,
+  mangaStoryId: PropTypes.string,
 };
 
 ModalComponent.defaultProps = {
@@ -312,6 +315,7 @@ ModalComponent.defaultProps = {
   setEdit: () => {},
   heroItems: [],
   confirmDelete: () => {},
+  mangaStoryId: '',
 };
 
 export default ModalComponent;

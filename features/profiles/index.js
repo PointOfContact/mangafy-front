@@ -4,7 +4,7 @@ import { Row } from 'antd';
 import cn from 'classnames';
 import Footer from 'components/footer';
 import FooterPolicy from 'components/footer-policy';
-import Header from 'components/header';
+import HeaderNew from 'components/headerNew';
 import ModalCreateProject from 'components/modalCreateProject';
 import Paginations from 'components/paginations';
 import ProfilesCard from 'components/profilesCard';
@@ -45,7 +45,7 @@ const Profiles = (props) => {
       <ButtonToTop user={user} />
       <div className={styles.hidden}>
         <main className="main_back_2">
-          <Header user={user} path="profiles" />
+          <HeaderNew user={user} />
           <ProfilesHeader user={user} />
           <div className="container mangafy_container">
             <div className="container">

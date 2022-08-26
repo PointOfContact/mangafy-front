@@ -28,6 +28,7 @@ const ModalHeroes = ({
   setEdit,
   componentNames,
   clickDelete,
+  mangaStoryId,
 }) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
@@ -80,6 +81,7 @@ const ModalHeroes = ({
       heroType: selectData(e.heroType),
       quality: selectData(e.quality),
       imageUrl: imgId,
+      mangaStoryId,
     };
     onChangeHeroLogic(newHero, hero, newCreated, setIdCardHero, idCardHero);
   };
@@ -346,6 +348,7 @@ ModalHeroes.propTypes = {
   componentNames: PropTypes.array,
   clickDelete: PropTypes.func,
   sendEvent: PropTypes.func.isRequired,
+  mangaStoryId: PropTypes.string,
 };
 
 ModalHeroes.defaultProps = {
@@ -355,6 +358,7 @@ ModalHeroes.defaultProps = {
   setEdit: () => {},
   componentNames: [],
   clickDelete: () => {},
+  mangaStoryId: '',
 };
 
 export default ModalHeroes;

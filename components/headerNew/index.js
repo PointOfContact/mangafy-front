@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './styles.module.scss';
 import cn from 'classnames';
-import { Dropdown, Menu, Space, DownOutlined } from 'antd';
+import { Dropdown, Menu, Space, DownOutlined, Avatar, Popover, Badge } from 'antd';
 import CircleUser from 'components/icon/new/CircleUser';
 import NewFile from 'components/icon/new/NewFile';
 import Edit2 from 'components/icon/new/Edit2';
@@ -21,11 +21,18 @@ import File from 'components/icon/new/File';
 import Star from 'components/icon/new/Star';
 import { removeAllStorage } from 'helpers/shared';
 import SignOut from 'components/icon/new/SignOut';
+import MenuNotificationsBox from 'components/menu-notifications-box';
+import SvgBell from 'components/icon/Bell';
+import MenuMobilePopover from 'components/menu-mobile-popover';
 
 const HeaderNew = ({ user }) => {
   const router = useRouter();
   const [isCreateShotModalVisible, setIsCreateShotModalVisible] = useState(false);
   const [isCreateProjectModalVisible, setIsCreateProjectModalVisible] = useState(false);
+  const [showNotification, setShowNotification] = useState(false);
+  const [showNotificationModal, setShowNotificationModal] = useState(false);
+  const [unreadNotificationsId, setUnreadNotificationsId] = useState([]);
+  const [notificationsCount, setNotificationsCount] = useState(0);
 
   const sendEvent = (event_type, post = 'New') => {
     const eventData = [
@@ -313,27 +320,50 @@ const HeaderNew = ({ user }) => {
           <div className={styles.nav__buttons}>
             {user ? (
               <>
-                <Link href={'/profile/' + user?._id + '#projects'}>
+                <Link href={'/profile/' + user?._id + '?active=projects'}>
                   <a>
                     <Button rounded={1} outline={1} pink={1}>
                       My projects
                     </Button>
                   </a>
                 </Link>
+                <span className={styles.notification}>
+                  <Popover
+                    overlayClassName={styles.popover}
+                    placement="bottom"
+                    visible={showNotificationModal}
+                    content={
+                      <MenuNotificationsBox
+                        user={user}
+                        unreadNotificationsId={unreadNotificationsId}
+                        notificationsCount={notificationsCount}
+                        setNotificationsCount={setNotificationsCount}
+                      />
+                    }
+                    trigger="click">
+                    <Badge
+                      count={notificationsCount}
+                      onClick={() => {
+                        setShowNotificationModal(!showNotificationModal);
+                      }}>
+                      <SvgBell width="23px" height="23px" />
+                    </Badge>
+                  </Popover>
+                </span>
                 <Dropdown
                   arrow
-                  // placement="bottom"
                   overlay={profileMenu}
                   className={styles.nav__dropdown}
                   trigger="click">
                   <Space>
                     <div className={styles.nav__avatar}>
-                      <img
-                        src={
-                          user.avatar ? client.UPLOAD_URL + user.avatar : 'img/feedTemp/avatar.png'
-                        }
-                        alt="Profile avatar"
-                      />
+                      {user.avatar ? (
+                        <img src={client.UPLOAD_URL + user.avatar} alt="Profile avatar" />
+                      ) : (
+                        <Avatar size={38} style={{ backgroundColor: '#7b65f3', color: '#ffffff' }}>
+                          {user.name[0]}
+                        </Avatar>
+                      )}
                     </div>
                   </Space>
                 </Dropdown>
@@ -342,14 +372,14 @@ const HeaderNew = ({ user }) => {
               <>
                 <Link href={'/sign-up?page=feed'}>
                   <a>
-                    <Button rounded={1} outline={1} pink={1}>
+                    <Button rounded outline pink>
                       Join
                     </Button>
                   </a>
                 </Link>
                 <Link href={'/sign-in?page=feed'}>
                   <a>
-                    <Button rounded={1} pink={1}>
+                    <Button rounded pink>
                       Log in
                     </Button>
                   </a>
@@ -366,20 +396,11 @@ const HeaderNew = ({ user }) => {
           </button>
         </div>
       </header>
-      {/* Create post modal */}
-      {/* <GetFeedback
-        user={user}
-        isCreateShotModalVisible={isCreateShotModalVisible}
-        setIsCreateShotModalVisible={setIsCreateShotModalVisible}
-        sendEvent={sendEvent}
-      /> */}
       <CreateShotModal
         isVisible={isCreateShotModalVisible}
         setIsVisible={setIsCreateShotModalVisible}
         user={user}
       />
-      {/* <CreateShotModal /> */}
-      {/* Create project modal */}
       <ModalCreateProject
         createProjectModal={isCreateProjectModalVisible}
         showCreateProjectModal={setIsCreateProjectModalVisible}

@@ -6,7 +6,7 @@ import client from 'api/client';
 import AnimePlatform from 'components/anime-platform';
 import Footer from 'components/footer';
 import FooterPolicy from 'components/footer-policy';
-import Header from 'components/header';
+import HeaderNew from 'components/headerNew';
 import ModalDiscussion from 'components/modals/discussion';
 import ButtonToTop from 'components/ui-elements/button-toTop';
 // import FooterLogin from 'features/footerLogin';
@@ -121,7 +121,7 @@ export default function LandingNew(props) {
       <ButtonToTop user={user} />
       <div className={'wrapper'}>
         <div className={'content'}>
-          <Header user={user} />
+          <HeaderNew user={user} />
           <main className={styles.main}>
             <BestProfileImages gallery={gallery} user={user} />
           </main>

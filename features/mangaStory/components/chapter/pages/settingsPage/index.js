@@ -15,6 +15,7 @@ const SettingsPage = ({
   chapterItem,
   setChapters,
   chapters,
+  mangaId,
 }) => {
   const handleClick = (e) => {
     e.stopPropagation();
@@ -26,7 +27,8 @@ const SettingsPage = ({
       chapters,
       setChapters,
       page,
-      setVisibleModal
+      setVisibleModal,
+      mangaId
     );
   };
 

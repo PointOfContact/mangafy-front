@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import cn from 'classnames';
 import AuthForm from 'components/authForm';
-import Header from 'components/header';
+import HeaderNew from 'components/headerNew';
 import Imgix from 'components/imgix';
 import ButtonToTop from 'components/ui-elements/button-toTop';
 import { EVENTS } from 'helpers/amplitudeEvents';
@@ -119,7 +119,7 @@ const Register = ({ user }) => {
       </div>
       <div className={'wrapper'}>
         <div className={'content'}>
-          <Header user={user} path="sign-up" />
+          <HeaderNew user={user} />
           <main className={cn(styles.box, styles.boxBg)}>
             <div className={cn(styles.container, 'container')}>
               <div className={styles.box__wrapper}>

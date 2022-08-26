@@ -72,6 +72,9 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipant, showPayPalContent
     api
       .service('/api/v2/tasks')
       .remove(taskId, {
+        query: {
+          mangaStoryId: baseData._id,
+        },
         headers: { Authorization: `Bearer ${jwt}` },
         mode: 'no-cors',
       })
@@ -147,7 +150,7 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipant, showPayPalContent
         {isOwn && (
           <AddButton
             className={styles.createTaskMobileBut}
-            text={'Post a job'}
+            text={'Post a task'}
             onClick={() => {
               sendMiniJobEvent(EVENTS.MINI_JOB_OPEN_CREATE_MODAL);
               changeShowModal(true);
@@ -181,7 +184,7 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipant, showPayPalContent
                 setSelectedTask(null);
               }}
               className={showPayPalContent && styles.createTaskButton}
-              text="Post a job"
+              text="Post a task"
             />
           ) : (
             <>

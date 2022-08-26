@@ -32,6 +32,9 @@ const DeleteProjectButton = ({ label, user, index, mangaStories, setMangaStories
       m.default
         .service('/api/v2/manga-stories')
         .remove(mangaStory._id, {
+          query: {
+            mangaStoryId: mangaStory._id,
+          },
           headers: { Authorization: `Bearer ${jwt}` },
           mode: 'no-cors',
         })

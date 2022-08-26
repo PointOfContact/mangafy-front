@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { Switch } from 'antd';
 import Footer from 'components/footer';
-import Header from 'components/header';
+import HeaderNew from 'components/headerNew';
 import BlackVector from 'components/icon/BlackVector';
 import WhiteVector from 'components/icon/WhiteVector';
 import Imgix from 'components/imgix';
@@ -57,7 +57,7 @@ const Pricing = (props) => {
         description="PRO account removes all restrictions and makes MangaFY an ultimate tool for dailiy conscious planning of your next great IP."
       />
       <main className="main_back_2">
-        <Header path="pricing" user={user} />
+        <HeaderNew user={user} />
         <div className={styles.pricing_page}>
           <div className={styles.banner_section}>
             <span
