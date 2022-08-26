@@ -5,7 +5,6 @@ import React from 'react';
 import styles from './styles.module.scss';
 
 function FeedCardImage({ image }) {
-  console.log(image);
   return (
     <div className={styles.feedCardImage}>
       <Imgix
