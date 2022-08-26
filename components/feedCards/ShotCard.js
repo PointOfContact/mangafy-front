@@ -56,11 +56,8 @@ const ShotCard = ({ card, user }) => {
   }
 
   function like() {
-    console.log(card._id, card.authorInfo[0]._id);
     likeShot(card._id, card.authorInfo[0]._id)
       .then((res) => {
-        console.log('Like: ');
-        console.log(res);
         if (!isLiked) {
           if (Array.isArray(card.likedUsers)) {
             card.likedUsers.push(res);
