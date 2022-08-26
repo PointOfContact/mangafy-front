@@ -1,15 +1,21 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import styles from './styles.module.scss';
 import cn from 'classnames';
 
 const Textarea = ({ sm, full, className, onChange, placeholder, err, defaultValue }) => {
-  function onInput(e) {
-    e.target.style.height = 'auto';
-    e.target.style.height = e.target.scrollHeight + 2 + 'px';
+  const textareaRef = useRef(null);
+  function onInput() {
+    if (!textareaRef.current) return;
+    textareaRef.current.style.height = 'auto';
+    textareaRef.current.style.height = textareaRef.current?.scrollHeight + 2 + 'px';
   }
+  useEffect(() => {
+    onInput();
+  }, [textareaRef.current]);
 
   return (
     <textarea
+      ref={textareaRef}
       placeholder={placeholder}
       type="text"
       className={cn(
@@ -20,7 +26,7 @@ const Textarea = ({ sm, full, className, onChange, placeholder, err, defaultValu
         err && styles.textarea_error
       )}
       onInput={(e) => {
-        onInput(e);
+        onInput();
         if (onChange) {
           onChange(e.target.value);
         }

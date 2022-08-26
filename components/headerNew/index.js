@@ -106,7 +106,7 @@ const HeaderNew = ({ user }) => {
               <Edit2 color="#D01E8E" bold />
             </div>
             <div className={styles.nav__dropdownContent}>
-              <div className={styles.nav__dropdownTitle}>Post</div>
+              <div className={styles.nav__dropdownTitle}>Shot</div>
               <div className={styles.nav__dropdownSubtitle}>Your Work in Progress</div>
             </div>
           </a>

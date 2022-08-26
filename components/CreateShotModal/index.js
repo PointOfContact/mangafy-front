@@ -8,12 +8,14 @@ import Textarea from 'components/ui-new/Textarea';
 import Button from 'components/ui-new/Button';
 import { notification } from 'antd';
 import client from 'api/client';
+import SelectTags from 'components/selectTags';
 
 const CreateShotModal = ({ isVisible, setIsVisible }) => {
   const [title, setTitle] = useState('');
   const [image, setImage] = useState('');
   const [description, setDescription] = useState('');
   const [errors, setErrors] = useState({ title: '', description: '', image: '' });
+  const [selectedTags, setSelectedTags] = useState([]);
 
   useEffect(() => {
     setErrors((oldErrors) => ({
@@ -46,15 +48,18 @@ const CreateShotModal = ({ isVisible, setIsVisible }) => {
   function onSubmit() {
     const validation = validate();
     setErrors(validation);
-    if (validation) {
+    if (
+      validation.titleError ||
+      validation.descriptionError ||
+      validation.imageAndDescriptionError
+    ) {
       for (const error in validation) {
         validation[error] &&
           notification.error({ message: validation[error], placement: 'bottomLeft' });
       }
     } else {
-      createShot(title, description, image)
+      createShot(title, description, image, selectedTags)
         .then((res) => {
-          console.log(res);
           setIsVisible(false);
         })
         .catch((err) => {
@@ -66,7 +71,7 @@ const CreateShotModal = ({ isVisible, setIsVisible }) => {
   if (!isVisible) return <></>;
   return (
     <Modal
-      title="Create a new shot"
+      title="What are your working on?"
       visible={isVisible}
       onCancel={() => {
         setIsVisible(false);
@@ -74,27 +79,39 @@ const CreateShotModal = ({ isVisible, setIsVisible }) => {
       wrapClassName={styles.modal}
       closeIcon={<Close className={styles.modal__close} />}
       footer={null}>
-      <h2>Title</h2>
+      <h2>Shot</h2>
       <Input
         err={errors.titleError}
-        placeholder="Write a title"
+        placeholder="Give me a name"
         sm
         full
+        rounded
         onChange={(text) => setTitle(text)}
       />
-      <h2>Add an image</h2>
-      <HeroUpload setImgId={setImage} />
-      <h2>And / or a description</h2>
+
+      <h2>More details</h2>
       <Textarea
-        placeholder="Write a description to your shot"
+        placeholder="Write what went int this shot, and anything else you'd like to mention. It could be your memo, a synopsis, or just a short story. "
         err={errors.descriptionError}
         sm
         full
         onChange={(text) => setDescription(text)}
       />
-      <Button smooth full onClick={onSubmit}>
-        Create shot
-      </Button>
+
+      <h2>Upload your design (if you have)</h2>
+      <HeroUpload setImgId={setImage} />
+
+      <h2>Upload your design (if you have)</h2>
+      <SelectTags onChange={setSelectedTags} className={styles.modal__tags} />
+
+      <div className={styles.modal__buttons}>
+        <Button rounded pink md onClick={onSubmit}>
+          Publish now
+        </Button>
+        <Button rounded pink outline md onClick={() => setIsVisible(false)}>
+          Cancel
+        </Button>
+      </div>
     </Modal>
   );
 };
@@ -122,10 +139,11 @@ function validateImageAndDescription(image, description) {
   return '';
 }
 
-function createShot(title, description, image) {
+function createShot(title, description, image, tags) {
   const data = { title };
   if (description) data.description = description;
   if (image) data.image = image;
+  if (tags.length > 0) data.tags = tags;
   return client.service('/api/v2/short-stories').create(data, {
     headers: {
       Authorization: 'Bearer ' + client.getCookie('feathers-jwt'),
