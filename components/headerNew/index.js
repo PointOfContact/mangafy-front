@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import styles from './styles.module.scss';
 import cn from 'classnames';
 import { Dropdown, Menu, Space, DownOutlined, Avatar, Popover, Badge } from 'antd';
@@ -25,6 +25,31 @@ import MenuNotificationsBox from 'components/menu-notifications-box';
 import SvgBell from 'components/icon/Bell';
 import MenuMobilePopover from 'components/menu-mobile-popover';
 
+const findNotificationsCount = (onSuccess, onFailure) => {
+  const jwt = client.getCookie('feathers-jwt');
+  import('../../api/restClient').then((m) => {
+    m.default
+      .service('/api/v2/notifications')
+      .find({
+        query: {
+          $limit: 0,
+          $sort: {
+            createdAt: -1,
+          },
+          unread: true,
+        },
+        headers: { Authorization: `Bearer ${jwt}` },
+      })
+      .then((res) => {
+        onSuccess(res);
+      })
+      .catch((err) => {
+        onFailure(err);
+        return err;
+      });
+  });
+};
+
 const HeaderNew = ({ user }) => {
   const router = useRouter();
   const [isCreateShotModalVisible, setIsCreateShotModalVisible] = useState(false);
@@ -33,7 +58,6 @@ const HeaderNew = ({ user }) => {
   const [showNotificationModal, setShowNotificationModal] = useState(false);
   const [unreadNotificationsId, setUnreadNotificationsId] = useState([]);
   const [notificationsCount, setNotificationsCount] = useState(0);
-
   const sendEvent = (event_type, post = 'New') => {
     const eventData = [
       {
@@ -43,6 +67,23 @@ const HeaderNew = ({ user }) => {
     ];
     myAmplitude(eventData);
   };
+
+  const getNotificationsCount = useCallback(() => {
+    if (!user) return;
+    findNotificationsCount(
+      (res) => {
+        setUnreadNotificationsId(res.data);
+        setNotificationsCount(res.total);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }, [user]);
+
+  useEffect(() => {
+    getNotificationsCount();
+  }, [user]);
 
   function createProjectHandler() {
     if (user) {
