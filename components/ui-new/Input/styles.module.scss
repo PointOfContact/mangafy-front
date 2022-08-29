@@ -1,22 +1,24 @@
 @import '../../../styles/variables.scss';
 
 .input {
-    border-radius: 5px;
-    border: 1px solid #d9d9d9;
-    padding: 0.3em 0.8em;
-    font-size: 24px;
+    border-radius: 15px;
+    border: 1px solid #848484;
+    padding: 0.6em 1.2em;
+    font-size: 20px;
+    
 
     &:focus {
         border-color: $primaryDark;
     }
 
     &::placeholder {
-        color: #d9d9d9;
-        font-size: inherit;
+        font-weight: 500;
+        font-size: 12px;
+        color: #858585;
     }
 
     &_sm {
-        font-size: 18px;
+        font-size: 12px;
     }
 
     &_error {
@@ -25,5 +27,9 @@
 
     &_fullWidth {
         width: 100%;
+    }
+
+    &_rounded {
+        border-radius: 5em;
     }
 }

@@ -5,23 +5,26 @@
         .ant-modal-content {
             border-radius: 10px;
             overflow: hidden;
+            padding: 10px;
         }
         .primary_upload {
             margin: 0 0 1em 0;
         }
         .ant-modal-title {
-            font-size: 24px;
-            font-weight: bold;
+            font-weight: 700;
+            font-size: 30px;
         }
     }
 
     h2 {
-        font-size: 24px;
-        margin-bottom: 0.5em;
+        font-weight: 700;
+        font-size: 15px;
+        margin-bottom: 0.7em;
+        color: #848484;
     }
 
     input, textarea {
-        margin-bottom: 1em;
+        margin-bottom: 1.5em;
     }
 
     &__close {
@@ -40,5 +43,15 @@
     }
     &__upload {
         margin: 0;
+    }
+
+    &__tags {
+        margin-bottom: 1.5em;
+    }
+
+    &__buttons {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
 }
