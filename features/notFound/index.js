@@ -31,7 +31,7 @@ const Error = () => (
             We searched high and low but couldn't find what you are looking for.
             <br /> Not to worry! Let's find a better place for you to go
           </div>
-          <Link href="/">
+          <Link href="/feed">
             <a>
               <LargeButton className={styles.btn__submit} text="MangaFY Home" />
             </a>
