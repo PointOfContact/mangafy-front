@@ -18,7 +18,8 @@ const Participents = ({ participantsData, author, user, isOwn }) => {
     if (ifExistAuthor) {
       setParticipants(participantsData);
     } else {
-      const members = participantsData.push(author);
+      const members = participantsData.slice();
+      members.push(author);
       setParticipants(members);
     }
   }, [participantsData]);
