@@ -10,7 +10,7 @@ import { notification } from 'antd';
 import client from 'api/client';
 import SelectTags from 'components/selectTags';
 
-const CreateShotModal = ({ isVisible, setIsVisible }) => {
+const CreateShotModal = ({ isVisible, setIsVisible, galleryImages, setGalleryImages }) => {
   const [title, setTitle] = useState('');
   const [image, setImage] = useState('');
   const [description, setDescription] = useState('');
@@ -48,11 +48,7 @@ const CreateShotModal = ({ isVisible, setIsVisible }) => {
   function onSubmit() {
     const validation = validate();
     setErrors(validation);
-    if (
-      validation.titleError ||
-      validation.descriptionError ||
-      validation.imageAndDescriptionError
-    ) {
+    if (validation) {
       for (const error in validation) {
         validation[error] &&
           notification.error({ message: validation[error], placement: 'bottomLeft' });
