@@ -10,7 +10,7 @@ import { notification } from 'antd';
 import client from 'api/client';
 import SelectTags from 'components/selectTags';
 
-const CreateShotModal = ({ isVisible, setIsVisible, galleryImages, setGalleryImages }) => {
+const CreateShotModal = ({ isVisible, setIsVisible, onUpload }) => {
   const [title, setTitle] = useState('');
   const [image, setImage] = useState('');
   const [description, setDescription] = useState('');
@@ -56,10 +56,13 @@ const CreateShotModal = ({ isVisible, setIsVisible, galleryImages, setGalleryIma
     } else {
       createShot(title, description, image, selectedTags)
         .then((res) => {
+          if (onUpload) {
+            onUpload(res);
+          }
           setIsVisible(false);
         })
         .catch((err) => {
-          notification.error;
+          notification.error({ message: err.message, placement: 'bottomLeft' });
         });
     }
   }
@@ -97,7 +100,7 @@ const CreateShotModal = ({ isVisible, setIsVisible, galleryImages, setGalleryIma
       <h2>Upload your design (if you have)</h2>
       <HeroUpload setImgId={setImage} />
 
-      <h2>Upload your design (if you have)</h2>
+      <h2>Tags</h2>
       <SelectTags onChange={setSelectedTags} className={styles.modal__tags} />
 
       <div className={styles.modal__buttons}>
