@@ -48,7 +48,11 @@ const CreateShotModal = ({ isVisible, setIsVisible, onUpload }) => {
   function onSubmit() {
     const validation = validate();
     setErrors(validation);
-    if (validation) {
+    if (
+      validation.titleError ||
+      validation.imageAndDescriptionError ||
+      validation.descriptionError
+    ) {
       for (const error in validation) {
         validation[error] &&
           notification.error({ message: validation[error], placement: 'bottomLeft' });
@@ -147,5 +151,6 @@ function createShot(title, description, image, tags) {
     headers: {
       Authorization: 'Bearer ' + client.getCookie('feathers-jwt'),
     },
+    mode: 'no-cors',
   });
 }
