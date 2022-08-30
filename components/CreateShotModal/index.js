@@ -151,5 +151,6 @@ function createShot(title, description, image, tags) {
     headers: {
       Authorization: 'Bearer ' + client.getCookie('feathers-jwt'),
     },
+    mode: 'no-cors',
   });
 }
