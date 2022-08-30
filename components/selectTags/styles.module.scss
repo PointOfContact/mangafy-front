@@ -20,7 +20,7 @@
         span {
             color: $pink;
             cursor: pointer;
-            &:after {
+            &:not(:last-child):after {
                 content: ', ';
             }
         }

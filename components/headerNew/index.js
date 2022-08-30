@@ -440,7 +440,9 @@ const HeaderNew = ({ user }) => {
       <CreateShotModal
         isVisible={isCreateShotModalVisible}
         setIsVisible={setIsCreateShotModalVisible}
-        user={user}
+        onUpload={() => {
+          router.reload();
+        }}
       />
       <ModalCreateProject
         createProjectModal={isCreateProjectModalVisible}

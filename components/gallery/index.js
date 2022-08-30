@@ -62,6 +62,10 @@ export const Gallery = (props) => {
   }, [ifMyProfile]);
 
   useEffect(() => {
+    updateShots();
+  }, [canEdit, fromPath, mangaStoriesMyProfile, profile, userData]);
+
+  function updateShots() {
     const data = [];
     let textData = [];
     if (canEdit) {
@@ -151,7 +155,7 @@ export const Gallery = (props) => {
           }
         ));
     }
-  }, [canEdit, fromPath, mangaStoriesMyProfile, profile, userData]);
+  }
 
   const showModal = () => {
     document.body.classList.add('body_remove_scroll');
@@ -208,8 +212,7 @@ export const Gallery = (props) => {
         <CreateShotModal
           isVisible={createGalleryModal}
           setIsVisible={setCreateGalleryModal}
-          galleryImages={images}
-          setGalleryImages={setImages}
+          onUpload={() => updateShots()}
         />
       )}
       <div className={styles.headerPortfolio}>

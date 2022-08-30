@@ -15,7 +15,7 @@ import PropTypes from 'prop-types';
 import { deleteTagsFromString } from '../../../../../components/gallery/utils';
 import BuyBubbleTea from '../../../../../components/ui-elements/buyBubbleTea';
 import Tasks from '../../tasks/index';
-import ParticipantCard from './participantCard';
+import Participants from './participents';
 import styles from './styles.module.scss';
 
 const StoryTab = ({
@@ -122,50 +122,16 @@ const StoryTab = ({
         <Link href={`/profile/${author}`}>
           <a>
             <span className={styles.storyKey}>Owner | </span>
-            <span className={styles.storyValue}> {authorInfo.name}</span>
+            <span className={styles.storyValue}>{authorInfo.name}</span>
           </a>
         </Link>
         <div className={styles.participants}>
-          {[authorInfo]
-            .concat(participantsData)
-            .map(({ avatar, name, _id, type, types }, index) => (
-              <Popover
-                key={_id}
-                placement="bottomLeft"
-                title={''}
-                content={
-                  <ParticipantCard
-                    isOwn={isOwn}
-                    avatar={avatar}
-                    name={name}
-                    id={_id}
-                    type={type}
-                    types={types}
-                    leaveManga={() => leaveManga(_id)}
-                    user={user}
-                    author={author}
-                  />
-                }
-                trigger="click">
-                {index < 6 && (
-                  <Tooltip placement="topLeft" title={name} arrowPointAtCenter>
-                    <div className={styles.participantInfo}>
-                      {avatar ? (
-                        <Imgix
-                          className={styles.participantImage}
-                          width={65}
-                          height={65}
-                          src={client.UPLOAD_URL + avatar}
-                          alt="MangaFy picture of the user"
-                        />
-                      ) : (
-                        <Avatar text={name} size={69} />
-                      )}
-                    </div>
-                  </Tooltip>
-                )}
-              </Popover>
-            ))}
+          <Participants
+            participantsData={participantsData}
+            author={authorInfo}
+            user={user}
+            isOwn={isOwn}
+          />
           <ShowSomeData
             participantsData={participantsData}
             size={40}
