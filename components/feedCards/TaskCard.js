@@ -97,7 +97,6 @@ const TaskCard = ({ card, user }) => {
             {title}
           </div>
           <div className={styles.modal__content}>
-            {/* <img src={image} alt="shot image" /> */}
             {text && <div className={styles.modal__text}>{text}</div>}
           </div>
           <FeedCardLine />

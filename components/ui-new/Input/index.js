@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './styles.module.scss';
 import cn from 'classnames';
 
-const Input = ({ sm, full, err, onChange, className, placeholder, defaultValue }) => {
+const Input = ({ sm, full, err, onChange, className, placeholder, defaultValue, rounded }) => {
   return (
     <input
       placeholder={placeholder}
@@ -12,7 +12,8 @@ const Input = ({ sm, full, err, onChange, className, placeholder, defaultValue }
         className,
         sm && styles.input_sm,
         full && styles.input_fullWidth,
-        err && styles.input_error
+        err && styles.input_error,
+        rounded && styles.input_rounded
       )}
       onInput={onChange ? (e) => onChange(e.target.value) : null}
       defaultValue={defaultValue}

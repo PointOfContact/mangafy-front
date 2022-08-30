@@ -94,6 +94,10 @@ const FeedNew = (props) => {
       case 'projects':
         type = 'Project';
         break;
+
+      case 'ongoing':
+        type = 'Ongoing';
+        break;
     }
     setPostType(type);
     // console.log(
@@ -207,7 +211,8 @@ const FeedNew = (props) => {
     return newCards.map((card) => {
       if (card.postType === 'Task' || card.postType === 'Collab')
         return <TaskCard key={card._id} card={card} user={user} />;
-      else if (card.postType === 'Project') return <PublishedCard key={card._id} card={card} />;
+      else if (card.postType === 'Project' || card.postType === 'Ongoing')
+        return <PublishedCard key={card._id} card={card} />;
       else if (card.postType === 'Portfolio')
         return <ShotCard key={card.image?._id || card._id} card={card} user={user} />;
       else if (card.postType === 'Profile')
@@ -261,6 +266,7 @@ const FeedNew = (props) => {
                 <TabPane tab="Recent" key="recent"></TabPane>
                 <TabPane tab="Shots" key="shots"></TabPane>
                 <TabPane tab="Projects" key="projects"></TabPane>
+                <TabPane tab="Ongoing" key="ongoing"></TabPane>
                 <TabPane tab="People" key="people"></TabPane>
                 <TabPane tab="Tasks" key="tasks"></TabPane>
               </Tabs>
