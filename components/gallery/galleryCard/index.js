@@ -122,6 +122,7 @@ const GalleryCard = ({
     setCreateGalleryModal(true);
     setIsModalVisible(true);
   };
+
   return (
     <div>
       <div
@@ -165,13 +166,11 @@ const GalleryCard = ({
               onClick={() =>
                 !isLiked(galleryItem?._id, user?._id) &&
                 !canEdit &&
-                onLikeGallery(galleryItem?._id.image, userData?._id, user?._id)
+                onLikeGallery(galleryItem?.image, userData?._id, user?._id)
               }
-              className={(user && isLiked(galleryItem?._id.image, user?._id) && styles.liked) || ''}
+              className={(user && isLiked(galleryItem?.image, user?._id) && styles.liked) || ''}
             />
-            <span>
-              {!!getLikesCount(galleryItem?._id) && getLikesCount(galleryItem?._id.image)}
-            </span>
+            <span>{!!getLikesCount(galleryItem?._id) && getLikesCount(galleryItem?.image)}</span>
           </span>
         )}
 
@@ -181,7 +180,7 @@ const GalleryCard = ({
           galleryItem?.renderItem ? (
             type === 'pdf' || type === 'PDF' ? (
               <span className={styles.pdf}>
-                <PDFViewer url={client.UPLOAD_URL + galleryItem?._id.image} />
+                <PDFViewer url={client.UPLOAD_URL + galleryItem?.image} />
               </span>
             ) : (
               <div className={styles.textContent}>
@@ -192,7 +191,7 @@ const GalleryCard = ({
           ) : (
             <Imgix
               layout="fill"
-              src={client.UPLOAD_URL + galleryItem?._id?.image}
+              src={client.UPLOAD_URL + galleryItem?.image}
               alt="MangaFy galere"
             />
           )

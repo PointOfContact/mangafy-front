@@ -112,8 +112,7 @@ const adaptedDataImages = (images, res) => {
         (item._id && !item.renderItem)
     )
     .map((item) => item._id);
-
-  return [res, ...imgs];
+  return [{ image: res }, ...imgs];
 };
 
 const deleteTagsFromString = (string) => string?.replace(/<\/?[^>]+(>|$)/g, '');

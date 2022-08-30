@@ -48,11 +48,7 @@ const CreateShotModal = ({ isVisible, setIsVisible, onUpload }) => {
   function onSubmit() {
     const validation = validate();
     setErrors(validation);
-    if (
-      validation.titleError ||
-      validation.descriptionError ||
-      validation.imageAndDescriptionError
-    ) {
+    if (validation) {
       for (const error in validation) {
         validation[error] &&
           notification.error({ message: validation[error], placement: 'bottomLeft' });
