@@ -25,7 +25,6 @@ const PublishedCard = ({ card }) => {
   const likes = card.likedUsers.length;
   const comments = card.comments.total;
 
-  const [modal, setModal] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const router = useRouter();
 
@@ -46,7 +45,9 @@ const PublishedCard = ({ card }) => {
     if (type === 'doubleClick') {
       like();
     } else {
-      router.push(card.button.navigateTo);
+      router.push(
+        card.postType === 'Ongoing' ? card.button.navigateTo : `/manga-story/${card._id}`
+      );
     }
   }
 
@@ -82,68 +83,27 @@ const PublishedCard = ({ card }) => {
   }
 
   return (
-    <>
-      {modal && (
-        <Modal
-          visible={modal}
-          onCancel={() => setModal(false)}
-          style={{ top: 50 }}
-          wrapClassName={styles.modal}
-          closeIcon={<Close className={styles.modal__close} />}
-          footer={null}>
-          <div className={styles.modal__title}>{title}</div>
-          <div className={styles.modal__content}>
-            {image && <img src={client.UPLOAD_URL + image} alt="shot image" />}
-            {text && (
-              <div
-                className={styles.modal__text}
-                dangerouslySetInnerHTML={{ __html: highlightURLs(text) }}></div>
-            )}
-          </div>
-          <FeedCardLine />
-          <div className={styles.modal__footer}>
-            <Link href={'/profile/' + card.author}>
-              <a className={styles.modal__authorInfo}>
-                <div className={styles.modal__avatar}>
-                  <img
-                    src={avatar ? client.UPLOAD_URL + avatar : 'img/feedTemp/avatar.png'}
-                    alt="user avatar"
-                  />
-                </div>
-                <div className={styles.modal__author}>{author}</div>
-              </a>
-            </Link>
-            <div
-              className={cn(styles.modal__likes, isLiked && styles.modal__likes_liked)}
-              onClick={like}>
-              {likes}
-              <Heart />
-            </div>
-          </div>
-        </Modal>
-      )}
-      <div className={styles.card} onClick={handleClick} onDoubleClick={handleDoubleClick}>
-        {image && <FeedCardImage image={client.UPLOAD_URL + image} />}
-        <div className={styles.card__content}>
-          {text && (
-            <FeedCardText
-              title={title}
-              description={text.length > 200 ? text.slice(0, 200) + ' ...' : text}
-            />
-          )}
-          <FeedCardLine />
-          <FeedCardProjectFooter
-            authorId={card.author}
-            avatar={avatar}
-            author={author}
-            comments={comments}
-            likes={likes}
-            like={like}
-            isLiked={isLiked}
+    <div className={styles.card} onClick={handleClick} onDoubleClick={handleDoubleClick}>
+      {image && <FeedCardImage image={client.UPLOAD_URL + image} />}
+      <div className={styles.card__content}>
+        {text && (
+          <FeedCardText
+            title={title}
+            description={text.length > 200 ? text.slice(0, 200) + ' ...' : text}
           />
-        </div>
+        )}
+        <FeedCardLine />
+        <FeedCardProjectFooter
+          authorId={card.author}
+          avatar={avatar}
+          author={author}
+          comments={comments}
+          likes={likes}
+          like={like}
+          isLiked={isLiked}
+        />
       </div>
-    </>
+    </div>
   );
 };
 
