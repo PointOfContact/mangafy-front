@@ -213,6 +213,7 @@ export const Gallery = (props) => {
           isVisible={createGalleryModal}
           setIsVisible={setCreateGalleryModal}
           onUpload={() => updateShots()}
+          shotToEdit={selectedGallery}
         />
       )}
       <div className={styles.headerPortfolio}>

@@ -10,12 +10,12 @@ import { notification } from 'antd';
 import client from 'api/client';
 import SelectTags from 'components/selectTags';
 
-const CreateShotModal = ({ isVisible, setIsVisible, onUpload }) => {
-  const [title, setTitle] = useState('');
-  const [image, setImage] = useState('');
-  const [description, setDescription] = useState('');
+const CreateShotModal = ({ isVisible, setIsVisible, shotToEdit }) => {
+  const [title, setTitle] = useState(shotToEdit?.title || '');
+  const [image, setImage] = useState(shotToEdit?._id.image || shotToEdit?.image || '');
+  const [description, setDescription] = useState(shotToEdit?.description || '');
   const [errors, setErrors] = useState({ title: '', description: '', image: '' });
-  const [selectedTags, setSelectedTags] = useState([]);
+  const [selectedTags, setSelectedTags] = useState(shotToEdit?.tags);
 
   useEffect(() => {
     setErrors((oldErrors) => ({
@@ -90,6 +90,7 @@ const CreateShotModal = ({ isVisible, setIsVisible, onUpload }) => {
         full
         rounded
         onChange={(text) => setTitle(text)}
+        defaultValue={title}
       />
 
       <h2>More details</h2>
@@ -99,13 +100,18 @@ const CreateShotModal = ({ isVisible, setIsVisible, onUpload }) => {
         sm
         full
         onChange={(text) => setDescription(text)}
+        defaultValue={description}
       />
 
       <h2>Upload your design (if you have)</h2>
       <HeroUpload setImgId={setImage} />
 
       <h2>Tags</h2>
-      <SelectTags onChange={setSelectedTags} className={styles.modal__tags} />
+      <SelectTags
+        onChange={setSelectedTags}
+        className={styles.modal__tags}
+        defaultSelectedTags={shotToEdit?.tags}
+      />
 
       <div className={styles.modal__buttons}>
         <Button rounded pink md onClick={onSubmit}>
