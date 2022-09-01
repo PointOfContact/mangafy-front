@@ -18,7 +18,7 @@ const PortfolioWorkCard = ({ card, user }) => {
   const images = card.gallery;
   const author = card.name;
   const avatar = card.avatar;
-  const followers = card.likedUsers.length;
+  const followers = card.likedUsers?.length;
   const router = useRouter();
 
   const [modal, setModal] = useState(false);

@@ -20,7 +20,6 @@ const { TextArea } = Input;
 
 const CommentList = ({ comments }) => {
   const com = comments.map((val) => ({ ...val, content: wrapUrls(val.content) }));
-
   return (
     <>
       <List
@@ -30,9 +29,9 @@ const CommentList = ({ comments }) => {
           <Comment
             datetime={moment(commentItem.createdAt)?.format('MMMM Do YYYY, h:mm:ss a')}
             {...commentItem}
-            author={commentItem.senderInfo[0] && commentItem.senderInfo[0].name}
+            author={commentItem.authorInfo[0] && commentItem.senderInfo[0].name}
             avatar={
-              commentItem.senderInfo[0] && (
+              commentItem.authorInfo[0] && (
                 <>
                   {commentItem.senderInfo[0].avatar ? (
                     <Link href={`/profile/${commentItem.senderId}`}>

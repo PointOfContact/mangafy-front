@@ -9,7 +9,7 @@ import Link from 'next/link';
 import styles from './styles.module.scss';
 
 const createParticipantItems = (participants, setParticipantItems) => {
-  const items = participants.map(
+  const items = participants?.map(
     (value, index) =>
       index < 6 && (
         <Tooltip key={value._id + index} placement="top" title={value.name} arrowPointAtCenter>
