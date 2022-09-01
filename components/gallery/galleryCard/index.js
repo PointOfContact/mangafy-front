@@ -161,7 +161,7 @@ const GalleryCard = ({
           </>
         )}
 
-        {!canEdit && (
+        {!canEdit && Object.keys(galleryItem).length > 2 && (
           <span className={styles.heart}>
             <SvgHeart
               width="18px"

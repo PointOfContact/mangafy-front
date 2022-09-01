@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Modal from 'antd/lib/modal/Modal';
 import cn from 'classnames';
@@ -8,17 +8,11 @@ import ImageGallery from 'react-image-gallery';
 
 import styles from './style.module.scss';
 import client from 'api/client';
+import ShotComments from 'components/shotComments';
 
-export const ShowGalleryModal = ({ startIndex, images, handleCancel, isModalVisible }) => {
-  // const preparedImages = images.map((img) => {
-  //   return {
-  //     title: img.title,
-  //     description: img.description,
-  //     image: img._id._image || img._image,
-  //   };
-  // });
-
+export const ShowGalleryModal = ({ startIndex, images, handleCancel, isModalVisible, user }) => {
   const image = {
+    id: images[startIndex]._id._id || images[startIndex]._id,
     title: images[startIndex].title,
     description: images[startIndex].description,
     image: images[startIndex]._id.image || images[startIndex].image,
@@ -33,17 +27,14 @@ export const ShowGalleryModal = ({ startIndex, images, handleCancel, isModalVisi
         onCancel={handleCancel}
         closeIcon={<SvgClose />}
         visible={isModalVisible}>
-        <div>
-          {image.title && <div className={styles.modal__title}>{image.title}</div>}
-          {image.description && (
-            <div className={styles.modal__description}>{image.description}</div>
-          )}
-          {image.image && (
-            <div className={styles.modal__image}>
-              <img src={client.UPLOAD_URL + image.image} alt="gallery image" />
-            </div>
-          )}
-        </div>
+        {image.title && <div className={styles.modal__title}>{image.title}</div>}
+        {image.description && <div className={styles.modal__description}>{image.description}</div>}
+        {image.image && (
+          <div className={styles.modal__image}>
+            <img src={client.UPLOAD_URL + image.image} alt="gallery image" />
+          </div>
+        )}
+        <ShotComments shotId={image.id} user={user} />
       </Modal>
     </div>
   );

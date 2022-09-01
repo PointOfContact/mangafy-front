@@ -10,7 +10,7 @@ import { notification } from 'antd';
 import client from 'api/client';
 import SelectTags from 'components/selectTags';
 
-const CreateShotModal = ({ isVisible, setIsVisible, shotToEdit }) => {
+const CreateShotModal = ({ isVisible, setIsVisible, shotToEdit, setSelectedGallery }) => {
   const [title, setTitle] = useState(shotToEdit?.title || '');
   const [image, setImage] = useState(shotToEdit?._id.image || shotToEdit?.image || '');
   const [description, setDescription] = useState(shotToEdit?.description || '');
@@ -58,16 +58,20 @@ const CreateShotModal = ({ isVisible, setIsVisible, shotToEdit }) => {
           notification.error({ message: validation[error], placement: 'bottomLeft' });
       }
     } else {
-      createShot(title, description, image, selectedTags)
-        .then((res) => {
-          if (onUpload) {
-            onUpload(res);
-          }
-          setIsVisible(false);
-        })
-        .catch((err) => {
-          notification.error({ message: err.message, placement: 'bottomLeft' });
-        });
+      if (!shotToEdit) {
+        createShot(title, description, image, selectedTags)
+          .then((res) => {
+            if (onUpload) {
+              onUpload(res);
+            }
+            setIsVisible(false);
+          })
+          .catch((err) => {
+            notification.error({ message: err.message, placement: 'bottomLeft' });
+          });
+      } else {
+        editShot(shotToEdit._id._id || shotToEdit._id, title, description, image, selectedTags);
+      }
     }
   }
 
@@ -77,6 +81,7 @@ const CreateShotModal = ({ isVisible, setIsVisible, shotToEdit }) => {
       title="What are your working on?"
       visible={isVisible}
       onCancel={() => {
+        setSelectedGallery(null);
         setIsVisible(false);
       }}
       wrapClassName={styles.modal}
@@ -104,7 +109,7 @@ const CreateShotModal = ({ isVisible, setIsVisible, shotToEdit }) => {
       />
 
       <h2>Upload your design (if you have)</h2>
-      <HeroUpload setImgId={setImage} />
+      <HeroUpload setImgId={setImage} mangaUrl={image} />
 
       <h2>Tags</h2>
       <SelectTags
@@ -115,7 +120,7 @@ const CreateShotModal = ({ isVisible, setIsVisible, shotToEdit }) => {
 
       <div className={styles.modal__buttons}>
         <Button rounded pink md onClick={onSubmit}>
-          Publish now
+          {shotToEdit ? 'Apply' : 'Publish now'}
         </Button>
         <Button rounded pink outline md onClick={() => setIsVisible(false)}>
           Cancel
@@ -154,6 +159,19 @@ function createShot(title, description, image, tags) {
   if (image) data.image = image;
   if (tags.length > 0) data.tags = tags;
   return client.service('/api/v2/short-stories').create(data, {
+    headers: {
+      Authorization: 'Bearer ' + client.getCookie('feathers-jwt'),
+    },
+    mode: 'no-cors',
+  });
+}
+
+function editShot(shotId, title, description, image, tags) {
+  const data = { title };
+  if (description) data.description = description;
+  if (image) data.image = image;
+  if (tags.length > 0) data.tags = tags;
+  return client.service('/api/v2/short-stories').patch(shotId, data, {
     headers: {
       Authorization: 'Bearer ' + client.getCookie('feathers-jwt'),
     },
