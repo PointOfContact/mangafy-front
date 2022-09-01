@@ -22,7 +22,7 @@ const PublishedCard = ({ card }) => {
   let text = card.story;
   const author = card.authorInfo.name;
   const avatar = card.authorInfo.avatar;
-  const likes = card.likedUsers.length;
+  const likes = card.likedUsers?.length;
   const comments = card.comments.total;
 
   const [isLiked, setIsLiked] = useState(false);
