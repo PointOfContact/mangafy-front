@@ -17,13 +17,13 @@ import { useRouter } from 'next/router';
 import FeedCardProjectFooter from './components/FeedCardProjectFooter';
 
 const PublishedCard = ({ card }) => {
-  const image = card.image;
+  const image = card.image || card.chapterImg;
   const title = card.title;
   let text = card.story;
-  const author = card.authorInfo.name;
-  const avatar = card.authorInfo.avatar;
-  const likes = card.likedUsers.length;
-  const comments = card.comments.total;
+  const author = card.authorInfo?.name;
+  const avatar = card.authorInfo?.avatar;
+  const likes = card.likedUsers?.length || card.likes;
+  const comments = card.comments?.total;
 
   const [isLiked, setIsLiked] = useState(false);
   const router = useRouter();
@@ -86,12 +86,10 @@ const PublishedCard = ({ card }) => {
     <div className={styles.card} onClick={handleClick} onDoubleClick={handleDoubleClick}>
       {image && <FeedCardImage image={client.UPLOAD_URL + image} />}
       <div className={styles.card__content}>
-        {text && (
-          <FeedCardText
-            title={title}
-            description={text.length > 200 ? text.slice(0, 200) + ' ...' : text}
-          />
-        )}
+        <FeedCardText
+          title={title}
+          description={text && text.length > 200 ? text.slice(0, 200) + ' ...' : text}
+        />
         <FeedCardLine />
         <FeedCardProjectFooter
           authorId={card.author}
