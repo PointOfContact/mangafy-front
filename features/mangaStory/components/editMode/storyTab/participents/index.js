@@ -11,7 +11,6 @@ import client from 'api/client';
 
 const Participents = ({ participantsData, author, user, isOwn }) => {
   const [participants, setParticipants] = useState([]);
-
   useEffect(() => {
     const ifExistAuthor = participantsData.some((value) => value._id === author._id);
 
@@ -23,7 +22,7 @@ const Participents = ({ participantsData, author, user, isOwn }) => {
     }
   }, [participantsData]);
 
-  return participants.map(({ avatar, name, _id, type, types }, index) => (
+  return participants?.map(({ avatar, name, _id, type, types }, index) => (
     <Popover
       key={_id}
       placement="bottomLeft"
