@@ -1,0 +1,70 @@
+@import '../../styles//variables.scss';
+
+
+.title {
+    font-size: 24px;
+    font-weight: bold;
+}
+.comments {
+    display: flex;
+    flex-direction: column;
+    &__title {
+        font-size: 24px;
+        font-weight: bold;
+        margin: 10px 0;
+    }
+    &__input {
+        display: flex;
+        width: 100%;
+        input {
+            flex-grow: 1;
+            margin-right: 1em;
+        }
+    }
+}
+
+.comment {
+    margin-bottom: 20px;
+    position: relative;
+    &__body {
+        display: flex;
+        align-items: center;
+    }
+    &__avatar {
+        margin-right: 10px;
+    }
+    &__author {
+        font-size: 16px;
+        line-height: 1em;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+    &__text {
+        font-size: 14px;
+        line-height: 1.2;
+    }
+    &__time {
+        font-size: 12px;
+        color: rgba($color: #000000, $alpha: 0.5);
+        margin-bottom: 5px;
+    }
+    &__delete {
+        position: absolute;
+        top: 50%;
+        right: 0;
+        opacity: 0;
+        pointer-events: none;
+        transition: 0.2s;
+        svg {
+            cursor: pointer;
+            height: 18px;
+            width: 18px;
+        }
+    }
+    &:hover {
+        .comment__delete {
+            opacity: 1;
+            pointer-events: all;
+        }
+    }
+}

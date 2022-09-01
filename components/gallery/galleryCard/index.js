@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import { notification, Popconfirm } from 'antd';
 import client from 'api/client';
@@ -13,7 +13,7 @@ import router from 'next/router';
 import PropTypes from 'prop-types';
 import myAmplitude from 'utils/amplitude';
 
-import { likeGallery, removeImg, prepareDataImages, removeShortStory } from '../utils';
+import { likeGallery, removeImg, prepareDataImages, removeShortStory, likeShot } from '../utils';
 import styles from './style.module.scss';
 
 const PDFViewer = dynamic(() => import('components/pdfViewer'), {
@@ -38,8 +38,13 @@ const GalleryCard = ({
   profileId,
 }) => {
   const ifNotStories = galleryItem?.original;
-  const getTypeImg = ifNotStories && galleryItem?._id.image?.slice(-3);
+  const getTypeImg = ifNotStories && image?.slice(-3);
   const type = getTypeImg;
+  const [isLiked, setIsLiked] = useState(
+    Array.isArray(galleryItem.likedUsers)
+      ? galleryItem.likedUsers.map((obj) => obj.likedUserId).includes(user?._id)
+      : false
+  );
 
   const getLikesCount = useCallback(
     (galleryId) =>
@@ -47,73 +52,68 @@ const GalleryCard = ({
     [userData?.galleryLikedUsers]
   );
 
-  const isLiked = useCallback(
-    (galleryId, userId) =>
-      !!userData?.galleryLikedUsers?.find(
-        (item) => galleryId === item.galleryId && item.likedUserId === userId
-      ),
-    [userData?.galleryLikedUsers]
-  );
-
   const onLikeGallery = (galleryId, userId, likedUserId) => {
     user
-      ? likeGallery(galleryId, userId)
-          .then(() => {
-            const data = {
-              event_type: EVENTS.LIKE_PORTFOLIO,
-              event_properties: { galleryId, profileId },
-            };
-            myAmplitude(data);
-
-            setUserData({
-              ...userData,
-              galleryLikedUsers: [
-                ...(userData?.galleryLikedUsers || []),
-                {
-                  galleryId,
-                  likedUserId,
-                },
-              ],
-            });
+      ? likeShot(galleryItem._id._id || galleryItem._id, router.query.pid)
+          .then((res) => {
+            if (!isLiked) {
+              if (Array.isArray(galleryItem.likedUsers)) {
+                galleryItem.likedUsers.push(res);
+              } else {
+                galleryItem.likedUsers = [res];
+              }
+              setIsLiked(true);
+            } else {
+              galleryItem.likedUsers = galleryItem.likedUsers?.filter(
+                (like) => like.likedUserId !== user?._id
+              );
+              setIsLiked(false);
+            }
           })
           .catch((err) => {
-            notification.error({
-              message: err.message,
-              placement: 'bottomLeft',
-            });
+            if (err.code === 401)
+              notification.error({
+                message: 'Please log in to like Shots',
+                placement: 'bottomLeft',
+              });
+            else if (err.message === 'You can not like yourself')
+              notification.error({ message: 'You can not like yourself', placement: 'bottomLeft' });
+            else {
+              console.log(err);
+            }
           })
       : router.push('/sign-in');
   };
 
   const onRemoveImg = (e, _id) => {
     e.stopPropagation();
-    if (!galleryItem.renderItem || (galleryItem.renderItem && (type === 'pdf' || type === 'PDF'))) {
-      removeImg(images, _id, fromPath, userData)
-        .then((res) => {
-          setUserData(res);
-          setImages(prepareDataImages(res.gallery));
-        })
-        .catch((err) => {
-          notification.error({
-            message: err.message,
-            placement: 'bottomLeft',
-          });
+    // if (!!image || (!image && (type === 'pdf' || type === 'PDF'))) {
+    //   removeImg(images, _id, fromPath, userData)
+    //     .then((res) => {
+    //       setUserData(res);
+    //       setImages(prepareDataImages(res.gallery));
+    //     })
+    //     .catch((err) => {
+    //       notification.error({
+    //         message: err.message,
+    //         placement: 'bottomLeft',
+    //       });
+    //     });
+    // } else {
+    removeShortStory(
+      _id,
+      (res) => {
+        const newImages = images.filter((item) => item._id !== res._id);
+        setImages(newImages);
+      },
+      (err) => {
+        notification.error({
+          message: err.message,
+          placement: 'bottomLeft',
         });
-    } else {
-      removeShortStory(
-        _id,
-        (res) => {
-          const newImages = images.filter((item) => item._id !== res._id);
-          setImages(newImages);
-        },
-        (err) => {
-          notification.error({
-            message: err.message,
-            placement: 'bottomLeft',
-          });
-        }
-      );
-    }
+      }
+    );
+    // }
   };
 
   const onEditImg = (e) => {
@@ -123,13 +123,15 @@ const GalleryCard = ({
     setIsModalVisible(true);
   };
 
+  const image = galleryItem?._id.image || galleryItem?.image;
+
   return (
     <div>
       <div
         key={index}
         className={cd(
           styles.galleryImg,
-          galleryItem.renderItem && type !== 'pdf' && type !== 'PDF' && styles.typeRender
+          !image && type !== 'pdf' && type !== 'PDF' && styles.typeRender
         )}>
         {canEditInit && (
           <>
@@ -148,7 +150,7 @@ const GalleryCard = ({
                 <SvgDustbin width="18px" />
               </span>
             </Popconfirm>
-            {galleryItem.renderItem && type !== 'pdf' && type !== 'PDF' && (
+            {canEdit && (
               <span
                 onClick={(e) => onEditImg(e, galleryItem?._id)}
                 className={styles.edit}
@@ -158,42 +160,43 @@ const GalleryCard = ({
             )}
           </>
         )}
-        {(!galleryItem.renderItem || type === 'pdf' || type === 'PDF') && (
+
+        {!canEdit && Object.keys(galleryItem).length > 2 && (
           <span className={styles.heart}>
             <SvgHeart
               width="18px"
               height="16px"
-              onClick={() =>
-                !isLiked(galleryItem?._id, user?._id) &&
-                !canEdit &&
-                onLikeGallery(galleryItem?.image, userData?._id, user?._id)
-              }
-              className={(user && isLiked(galleryItem?.image, user?._id) && styles.liked) || ''}
+              onClick={() => !canEdit && onLikeGallery(image, userData?._id, user?._id)}
+              className={(user && isLiked && styles.liked) || ''}
             />
-            <span>{!!getLikesCount(galleryItem?._id) && getLikesCount(galleryItem?.image)}</span>
+            <span>{!!getLikesCount(galleryItem?._id) && getLikesCount(image)}</span>
           </span>
         )}
 
         <div className={styles.filter} onClick={(e) => gallerySet(e, index)}></div>
         {
           // eslint-disable-next-line no-nested-ternary
-          galleryItem?.renderItem ? (
-            type === 'pdf' || type === 'PDF' ? (
-              <span className={styles.pdf}>
-                <PDFViewer url={client.UPLOAD_URL + galleryItem?.image} />
-              </span>
-            ) : (
-              <div className={styles.textContent}>
-                <h3>{galleryItem?.title}</h3>
-                <p>{galleryItem?.description}</p>
-              </div>
-            )
+          // galleryItem?.renderItem ? (
+          //  type === 'pdf' || type === 'PDF' ? (
+          //     <span className={styles.pdf}>
+          //       <PDFViewer url={client.UPLOAD_URL + image} />
+          //     </span>
+          //   ) : (
+          //     <div className={styles.textContent}>
+          //       <h3>{galleryItem?.title}</h3>
+          //       <p>{galleryItem?.description}</p>
+          //     </div>
+          //   )
+          // ) : (
+          //   <Imgix layout="fill" src={client.UPLOAD_URL + image} alt="MangaFy galere" />
+          // )
+          image ? (
+            <Imgix layout="fill" src={client.UPLOAD_URL + image} alt="MangaFy galere" />
           ) : (
-            <Imgix
-              layout="fill"
-              src={client.UPLOAD_URL + galleryItem?.image}
-              alt="MangaFy galere"
-            />
+            <div className={styles.textContent}>
+              <h3>{galleryItem?.title}</h3>
+              <p>{galleryItem?.description}</p>
+            </div>
           )
         }
       </div>

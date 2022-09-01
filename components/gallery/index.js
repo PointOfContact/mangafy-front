@@ -206,13 +206,15 @@ export const Gallery = (props) => {
   return (
     <div>
       {showGallery && (
-        <ShowGalleryModal {...{ startIndex, images, handleCancel, isModalVisible }} />
+        <ShowGalleryModal {...{ startIndex, images, handleCancel, isModalVisible, user }} />
       )}
       {createGalleryModal && (
         <CreateShotModal
           isVisible={createGalleryModal}
           setIsVisible={setCreateGalleryModal}
           onUpload={() => updateShots()}
+          shotToEdit={selectedGallery}
+          setSelectedGallery={setSelectedGallery}
         />
       )}
       <div className={styles.headerPortfolio}>
