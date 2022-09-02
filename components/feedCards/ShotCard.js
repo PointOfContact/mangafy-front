@@ -20,6 +20,7 @@ import Link from 'next/link';
 const ShotCard = ({ card, user }) => {
   const image = card.image.image || card.image;
   const author = card.authorInfo[0].name;
+  const authorId = card.authorInfo[0]._id;
   const avatar = card.authorInfo[0].avatar;
   const likes = card.likedUsers?.length;
   const comments = card.comments.data.length;
@@ -136,7 +137,7 @@ const ShotCard = ({ card, user }) => {
           )}
           <FeedCardLine />
           <FeedCardShotFooter
-            authorId={card.authorId}
+            authorId={authorId}
             author={author}
             avatar={avatar}
             comments={comments}
