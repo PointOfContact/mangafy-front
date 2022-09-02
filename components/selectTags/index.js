@@ -5,8 +5,8 @@ import cn from 'classnames';
 
 const suggestedTags = ['manga', 'short story', 'webtoon', 'character'];
 
-const SelectTags = ({ className, onChange }) => {
-  const [selectedTags, setSelectedTags] = useState([]);
+const SelectTags = ({ className, onChange, defaultSelectedTags }) => {
+  const [selectedTags, setSelectedTags] = useState(defaultSelectedTags || []);
   const [newTag, setNewTag] = useState('');
 
   function onInput(e) {
