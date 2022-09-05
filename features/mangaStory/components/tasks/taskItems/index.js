@@ -35,7 +35,7 @@ const TaskItems = ({
   const getFeedLinkAS = (taskItem) =>
     `${client.API_ENDPOINT}/feed?postType=Task&&pid=${
       baseData?._id
-    }&text=${taskItem.description.slice(-10)}&lookingFor=${taskItem?.lookingFor}&title=${
+    }&text=${taskItem.description?.slice(-10)}&lookingFor=${taskItem?.lookingFor}&title=${
       baseData?.title
     }${taskItem?.amount ? `&money=${taskItem?.amount}` : ''}`;
 

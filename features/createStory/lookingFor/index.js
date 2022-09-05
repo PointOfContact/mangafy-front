@@ -90,7 +90,7 @@ const LookingFor = ({ user }) => {
                 <div className="row col_padding">
                   <div className="col-lg-6 col-md-6 col-sm-6 col-6">
                     <ul className="collaboratChoose">
-                      {checkboxes.slice(0, 6).map((label, index) => (
+                      {checkboxes?.slice(0, 6).map((label, index) => (
                         <li>
                           <Checkbox checked={label.checked} onClick={() => onChangeCheckBox(index)}>
                             {label.label}
@@ -101,7 +101,7 @@ const LookingFor = ({ user }) => {
                   </div>
                   <div className="col-lg-6 col-md-6 col-sm-6 col-6">
                     <ul className="collaboratChoose">
-                      {checkboxes.slice(6).map((label, index) => (
+                      {checkboxes?.slice(6).map((label, index) => (
                         <li>
                           <Checkbox
                             onClick={() => onChangeCheckBox(index + 6)}

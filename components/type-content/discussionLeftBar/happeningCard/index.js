@@ -9,7 +9,7 @@ import styles from './styles.module.scss';
 
 const HappeningCard = (props) => {
   const { id, img, title } = props;
-  const titleChars = title.slice(0, 2);
+  const titleChars = title?.slice(0, 2);
 
   return (
     <>

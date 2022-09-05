@@ -31,8 +31,8 @@ const OAuth = () => {
         },
       ];
       myAmplitude(data);
-      const getCreateData = user.createdAt.slice(0, -8);
-      const getLastLoginData = user.lastLoginDate.slice(0, -8);
+      const getCreateData = user.createdAt?.slice(0, -8);
+      const getLastLoginData = user.lastLoginDate?.slice(0, -8);
       if (getCreateData === getLastLoginData) {
         data[0].event_type = EVENTS.SIGN_UP;
         Router.push(`/profile/${user._id}?onBoarding=true`);

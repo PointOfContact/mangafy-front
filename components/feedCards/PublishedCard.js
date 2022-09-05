@@ -88,7 +88,7 @@ const PublishedCard = ({ card }) => {
       <div className={styles.card__content}>
         <FeedCardText
           title={title}
-          description={text && text.length > 200 ? text.slice(0, 200) + ' ...' : text}
+          description={text && text.length > 200 ? text?.slice(0, 200) + ' ...' : text}
         />
         <FeedCardLine />
         <FeedCardProjectFooter

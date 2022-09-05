@@ -132,7 +132,7 @@ const ShotCard = ({ card, user }) => {
           {text && (
             <FeedCardText
               title={title}
-              description={text.length > 200 ? text.slice(0, 200) + ' ...' : text}
+              description={text.length > 200 ? text?.slice(0, 200) + ' ...' : text}
             />
           )}
           <FeedCardLine />

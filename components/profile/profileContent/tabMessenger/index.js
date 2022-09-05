@@ -22,7 +22,7 @@ const TabMessenger = (props) => {
   const [noRequest, setNoRequest] = useState(false);
   const router = useRouter();
   const [showMessageMobile, setShowMessageMobile] = useState(!!router.query.conversation);
-
+  console.log(10);
   const openNotification = (type, message) => {
     notification[type]({
       message,
@@ -84,6 +84,7 @@ const TabMessenger = (props) => {
               ?.reverse();
             setArcRequests(false);
           }
+
           if (newRequests.length) {
             const getExistData = newRequests.filter((value) => !!value.senderInfo);
             setRequests(getExistData);

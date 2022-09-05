@@ -72,7 +72,7 @@ export const Gallery = (props) => {
       if (fromPath === 'users') {
         userData &&
           (userData.gallery.forEach((item) => {
-            if (item?.image.slice(-3) === 'pdf' || item?.image.slice(-3) === 'PDF') {
+            if (item?.image?.slice(-3) === 'pdf' || item?.image?.slice(-3) === 'PDF') {
               data.push({
                 original: client.UPLOAD_URL + item.image,
                 _id: item,
@@ -125,7 +125,7 @@ export const Gallery = (props) => {
     } else {
       profile &&
         (profile.gallery.forEach((item) => {
-          if (item?.image.slice(-3) === 'pdf' || item?.image.slice(-3) === 'PDF') {
+          if (item?.image?.slice(-3) === 'pdf' || item?.image?.slice(-3) === 'PDF') {
             data.push({
               original: client.UPLOAD_URL + item.image,
               _id: item,

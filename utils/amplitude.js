@@ -15,7 +15,7 @@ const getUTMData = () => {
       const lastIndex =
         search.indexOf('&', firstIndex) === -1 ? href.length : search.indexOf('&', firstIndex);
 
-      const queryValue = search.slice(firstIndex + query.length + 1, lastIndex);
+      const queryValue = search?.slice(firstIndex + query.length + 1, lastIndex);
 
       if (queryValue) {
         utmData[query] = queryValue;

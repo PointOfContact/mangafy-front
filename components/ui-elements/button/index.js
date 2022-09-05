@@ -53,7 +53,7 @@ const PrimaryButton = ({
         ) : (
           <>
             <div className={styles.main} style={{ width: `${(limit + 1) * 17 + 10}px` }}>
-              {items.slice(0, limit).map((item, index) => (
+              {items?.slice(0, limit).map((item, index) => (
                 <div key={index} className={styles.users_img} style={{ left: `${index * 17}px` }}>
                   {item}
                 </div>

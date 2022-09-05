@@ -19,7 +19,7 @@ const BestProfile = ({ gallery, user }) => {
     g.map((item, index) => (
       <div
         key={item._id}
-        className={cn(styles.item, item?._id.slice(-3) === 'png' && styles.itemForPNG)}
+        className={cn(styles.item, item?._id?.slice(-3) === 'png' && styles.itemForPNG)}
         onClick={() => {
           setShowModal(true);
           setStartIndex(index);

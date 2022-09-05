@@ -47,7 +47,7 @@ const ChangeYourAvatar = ({
   const saveButton = () => {
     setIsModalVisible(false);
     const getLastIndexOfType = currentImg.indexOf(';');
-    const type = currentImg.slice(5, getLastIndexOfType);
+    const type = currentImg?.slice(5, getLastIndexOfType);
     const file = {
       type,
       size: sizeImg,
