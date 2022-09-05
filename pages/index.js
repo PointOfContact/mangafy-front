@@ -7,27 +7,27 @@ export default withAuthComponent(MiddlewareIndexPage);
 
 export const getServerSideProps = withAuthServerSideProps(async (context, user = null, jwt) => {
   const viewUrlName = context?.req?.headers?.host;
-  console.log('viewUrlName', viewUrlName);
-  const getNameViewUrl = !!viewUrlName && viewUrlName.split('.')[0];
-  console.log('getNameViewUrl', getNameViewUrl);
+  const checkDomainForView = !!viewUrlName && viewUrlName.split('.').length >= 3;
+  const getNameViewUrl = checkDomainForView;
 
   if (!getNameViewUrl) {
-    return {
-      props: {
-        user: user || store.user,
-      },
-    };
+    context.res.writeHead(301, {
+      Location: `https://mangafy.club/feed`,
+    });
+    context.res.end();
+    // return {
+    //   props: {
+    //     user: user || store.user,
+    //   },
+    // };
   }
 
   try {
     const mangaView = await client.service('/api/v2/manga-view').get(getNameViewUrl);
 
-    console.log('mangaView', mangaView);
-    console.log('process.env', process.env);
-
     if (!mangaView?.storyBoardId && process.env.NEXT_PUBLIC_REDIRECT_ENABLED) {
       context.res.writeHead(301, {
-        Location: 'https://mangafy.club',
+        Location: 'https://mangafy.club/feed',
       });
       context.res.end();
       return {
