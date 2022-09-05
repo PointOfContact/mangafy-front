@@ -7,9 +7,10 @@ export default withAuthComponent(MiddlewareIndexPage);
 
 export const getServerSideProps = withAuthServerSideProps(async (context, user = null, jwt) => {
   const viewUrlName = context?.req?.headers?.host;
-  const checkDomainForView = !!viewUrlName && viewUrlName.split('.').length >= 3;
+  const splitDomin = viewUrlName?.split('.');
+  const checkDomainForView = splitDomin.length >= 2 && splitDomin[0];
   const getNameViewUrl = checkDomainForView;
-
+  console.log(getNameViewUrl, 'getNameViewUrl');
   if (!getNameViewUrl) {
     context.res.writeHead(301, {
       Location: `https://mangafy.club/feed`,
