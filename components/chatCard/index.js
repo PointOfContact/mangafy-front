@@ -188,7 +188,7 @@ export default ChatCard;
 
 function myformat(date) {
   const inHours = (new Date() - new Date(date)) / 1000 / 60 / 60;
-  if (inHours < 24) return date.slice(-13, -8);
+  if (inHours < 24) return date?.slice(-13, -8);
   if (inHours / 24 < 7) return new Date(date).toLocaleString('en-US', { weekday: 'short' });
   return new Date(date).toLocaleDateString();
 }
