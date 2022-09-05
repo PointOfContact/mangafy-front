@@ -10,7 +10,7 @@ import { notification } from 'antd';
 import client from 'api/client';
 import SelectTags from 'components/selectTags';
 
-const CreateShotModal = ({ isVisible, setIsVisible, shotToEdit, setSelectedGallery }) => {
+const CreateShotModal = ({ isVisible, setIsVisible, shotToEdit, setSelectedGallery, onUpload }) => {
   const [title, setTitle] = useState(shotToEdit?.title || '');
   const [image, setImage] = useState(shotToEdit?._id.image || shotToEdit?.image || '');
   const [description, setDescription] = useState(shotToEdit?.description || '');
