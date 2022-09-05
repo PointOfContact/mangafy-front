@@ -105,7 +105,7 @@ const ShotCard = ({ card, user }) => {
           </div>
           <FeedCardLine />
           <div className={styles.modal__footer}>
-            <Link href={'/profile/' + card.authorId}>
+            <Link href={'/profile/' + authorId}>
               <a className={styles.modal__authorInfo}>
                 <div className={styles.modal__avatar}>
                   <img
