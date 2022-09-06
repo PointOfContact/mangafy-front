@@ -248,7 +248,7 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
         alt="MangaFy message background"
       /> */}
       <pre ref={messageListElement} className={styles.messageList} id="message-content">
-        {/* <MessageList
+        <MessageList
           referance={messenger}
           className={styles.message_list}
           lockable={false}
@@ -263,7 +263,7 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
               }
             }
           }}
-        /> */}
+        />
       </pre>
       {!selectedRequest?.isArchive && (
         <div className={styles.chatBlock2}>
