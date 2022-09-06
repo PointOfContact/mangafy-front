@@ -117,20 +117,20 @@ const TabMessenger = (props) => {
 
   return (
     <div>
-      {/* <h2 className={cn(styles.title)}>Messenger</h2>
+      <h2 className={cn(styles.title)}>Messenger</h2>
       {noRequest ? (
         <NoRequest />
       ) : (
-        <div className={cn(styles.messenger_tab)}> */}
-      {/* <SearchInput mobile={true} /> */}
-      {/* {showMessageMobile && (
+        <div className={cn(styles.messenger_tab)}>
+          {/* <SearchInput mobile={true} /> */}
+          {showMessageMobile && (
             <UserName
               selectedRequest={selectedRequest}
               mobile={true}
               setShowMessageMobile={setShowMessageMobile}
             />
           )}
-          <div className={styles.content}>
+          {/* <div className={styles.content}>
             <div
               className={cn(
                 showMessageMobile && styles.messenger_list_mobile,
@@ -160,9 +160,9 @@ const TabMessenger = (props) => {
                 setSelectedRequest={setSelectedRequest}
               />
             </div>
-          </div>
+          </div> */}
         </div>
-      )} */}
+      )}
     </div>
   );
 };
