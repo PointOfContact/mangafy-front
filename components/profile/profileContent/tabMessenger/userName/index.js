@@ -36,7 +36,7 @@ const UserName = ({ selectedRequest, mobile, setShowMessageMobile, user }) => {
     });
   }
 
-  const participantsElements = null;
+  const participantsElements = [];
 
   return (
     <div className={mobile ? styles.containerMobile : styles.container}>
