@@ -21,13 +21,47 @@ const TabMessenger = (props) => {
   const [selectedRequest, setSelectedRequest] = useState({});
   const [noRequest, setNoRequest] = useState(false);
   const router = useRouter();
-  const [showMessageMobile, setShowMessageMobile] = useState(!!router.query.conversation);
+  console.log(!!router.query.conversation, 10);
+  const [showMessageMobile, setShowMessageMobile] = useState();
   const openNotification = (type, message) => {
     notification[type]({
       message,
       placement: 'bottomLeft',
     });
   };
+
+  const messageData = (item) => {
+    const messageData = {
+      _id: item._id,
+      createdAt: item.createdAt || new Date(0),
+      isTeamChat: !!item.mangaStoryId,
+      conversations: [{ _id: item._id }],
+      participents: item.participents,
+      senderInfo:
+        (item.mangaStoryTitle && {
+          name: item.mangaStoryTitle,
+          avatar: item.mangaStoryImage,
+        }) ||
+        item.participentsInfo[0],
+      messages: item.lastMessage,
+    };
+
+    if (item.mangaStoryId) messageData.mangaStoryId = item.mangaStoryId;
+    if (item.mangaStoryAuthor)
+      messageData.mangaStoryAuthor = [item.mangaStoryAuthor, ...item.participentsInfo];
+    return messageData;
+  };
+
+  const getNewSelectedRequest = (item) => ({
+    rid: item?._id,
+    mangaStoryId: item?.mangaStoryId,
+    isTeamChat: !!item?.isTeamChat,
+    name: item?.senderInfo?.name,
+    av: client.UPLOAD_URL + item?.senderInfo.avatar || '',
+    profileId: item?.senderInfo?._id,
+    isArchive: !!item?.joinMangaStoryRequestId,
+    participentsInfo: item?.participentsInfo,
+  });
 
   const getConversation = (isArchive = true) => {
     const jwt = client.getCookie('feathers-jwt');
@@ -43,56 +77,11 @@ const TabMessenger = (props) => {
           if (isArchive) {
             newRequests = res
               .filter((i) => !i.joinMangaStoryRequestId)
-              .map((item) => {
-                const messageData = {
-                  _id: item._id,
-                  createdAt: item.createdAt || new Date(0),
-                  isTeamChat: !!item.mangaStoryId,
-                  conversations: [{ _id: item._id }],
-                  participents: item.participents,
-                  senderInfo:
-                    (item.mangaStoryTitle && {
-                      name: item.mangaStoryTitle,
-                      avatar: item.mangaStoryImage,
-                    }) ||
-                    item.participentsInfo[0],
-                  messages: item.lastMessage,
-                };
-
-                if (item.mangaStoryId) messageData.mangaStoryId = item.mangaStoryId;
-                if (item.mangaStoryAuthor)
-                  messageData.mangaStoryAuthor = [item.mangaStoryAuthor, ...item.participentsInfo];
-
-                return messageData;
-              })
+              .map(messageData)
               ?.reverse();
             if (newRequests.length === res.length && showArchive) setShowArchive(false);
           } else {
-            newRequests = res
-              .map((item) => {
-                const messageData = {
-                  _id: item._id,
-                  createdAt: item.createdAt || new Date(0),
-                  isTeamChat: !!item.mangaStoryId,
-                  conversations: [{ _id: item._id }],
-                  participents: item.participents,
-                  joinMangaStoryRequestId: item.joinMangaStoryRequestId,
-                  senderInfo:
-                    (item.mangaStoryTitle && {
-                      name: item.mangaStoryTitle,
-                      avatar: item.mangaStoryImage,
-                    }) ||
-                    item.participentsInfo[0],
-                  messages: item.lastMessage,
-                };
-
-                if (item.mangaStoryId) messageData.mangaStoryId = item.mangaStoryId;
-                if (item.mangaStoryAuthor)
-                  messageData.mangaStoryAuthor = [item.mangaStoryAuthor, ...item.participentsInfo];
-
-                return messageData;
-              })
-              ?.reverse();
+            newRequests = res.map(messageData)?.reverse();
             setArcRequests(false);
           }
 
@@ -102,32 +91,13 @@ const TabMessenger = (props) => {
             const { conversation } = qs.parse(window.location.search);
             const thisConv = newRequests.find((r) => r._id === conversation);
             let newSelectedRequest;
-
             if (thisConv) {
-              newSelectedRequest = {
-                rid: thisConv?._id,
-                mangaStoryId: thisConv?.mangaStoryId,
-                isTeamChat: !!thisConv?.isTeamChat,
-                conversationId:
-                  thisConv?.conversations[0]?._id || newRequests[0]?.conversations[0]?._id,
-                name: thisConv?.senderInfo?.name,
-                av: client.UPLOAD_URL + thisConv?.senderInfo.avatar || '',
-                profileId: thisConv?.senderInfo?._id,
-                isArchive: !!thisConv?.joinMangaStoryRequestId,
-                participentsInfo: thisConv?.participentsInfo,
-              };
+              newSelectedRequest = getNewSelectedRequest(thisConv);
+              newSelectedRequest.conversationId =
+                thisConv?.conversations[0]?._id || newRequests[0]?.conversations[0]?._id;
             } else {
-              newSelectedRequest = {
-                rid: newRequests[0]?._id,
-                mangaStoryId: newRequests[0]?.mangaStoryId,
-                conversationId: newRequests[0]?.conversations[0]?._id,
-                name: newRequests[0]?.senderInfo?.name,
-                av: client.UPLOAD_URL + newRequests[0]?.senderInfo?.avatar || '',
-                profileId: newRequests[0]?.senderInfo?._id,
-                isTeamChat: newRequests[0]?.isTeamChat,
-                isArchive: !!newRequests[0]?.joinMangaStoryRequestId,
-                participentsInfo: newRequests[0]?.participentsInfo,
-              };
+              newSelectedRequest = getNewSelectedRequest(thisConv);
+              newSelectedRequest.conversationId = newRequests[0]?.conversations[0]?._id;
             }
             setSelectedRequest(newSelectedRequest);
           } else {
@@ -142,17 +112,18 @@ const TabMessenger = (props) => {
 
   useEffect(() => {
     getConversation();
+    setShowMessageMobile(!!router.query.conversation);
   }, []);
 
   return (
     <div>
-      {/* <h2 className={cn(styles.title)}>Messenger</h2> */}
+      {/* <h2 className={cn(styles.title)}>Messenger</h2>
       {noRequest ? (
         <NoRequest />
       ) : (
-        <div className={cn(styles.messenger_tab)}>
-          {/* <SearchInput mobile={true} /> */}
-          {showMessageMobile && (
+        <div className={cn(styles.messenger_tab)}> */}
+      {/* <SearchInput mobile={true} /> */}
+      {/* {showMessageMobile && (
             <UserName
               selectedRequest={selectedRequest}
               mobile={true}
@@ -191,7 +162,7 @@ const TabMessenger = (props) => {
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 };
