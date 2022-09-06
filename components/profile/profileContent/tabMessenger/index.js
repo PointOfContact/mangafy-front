@@ -123,14 +123,14 @@ const TabMessenger = (props) => {
       ) : (
         <div className={cn(styles.messenger_tab)}>
           {/* <SearchInput mobile={true} /> */}
-          {showMessageMobile && (
+          {/* {showMessageMobile && (
             <UserName
               selectedRequest={selectedRequest}
               mobile={true}
               setShowMessageMobile={setShowMessageMobile}
             />
-          )}
-          {/* <div className={styles.content}>
+          )} */}
+          <div className={styles.content}>
             <div
               className={cn(
                 showMessageMobile && styles.messenger_list_mobile,
@@ -160,7 +160,7 @@ const TabMessenger = (props) => {
                 setSelectedRequest={setSelectedRequest}
               />
             </div>
-          </div> */}
+          </div>
         </div>
       )}
     </div>
