@@ -131,7 +131,7 @@ const TaskCard = ({ card, user }) => {
         {text && (
           <FeedCardTaskContent
             title={title}
-            description={text.length > 200 ? text.slice(0, 200) + ' ...' : text}
+            description={text.length > 200 ? text?.slice(0, 200) + ' ...' : text}
           />
         )}
         <div className={styles.card__content}>
@@ -155,7 +155,7 @@ function parseBudget(tags) {
   if (tags.length === 0) return;
   const budget = tags.filter((tag) => tag.includes('$'));
   if (budget.length === 0) return;
-  return budget[0].slice(1, -1);
+  return budget[0]?.slice(1, -1);
 }
 
 export default TaskCard;

@@ -16,7 +16,7 @@ const SelectTags = ({ className, onChange, defaultSelectedTags }) => {
   function pushTag(tag) {
     if (!tag) return;
     setSelectedTags((oldTags) => {
-      const newTags = oldTags.slice();
+      const newTags = oldTags?.slice();
       newTags.push(tag);
       return newTags;
     });
@@ -24,7 +24,7 @@ const SelectTags = ({ className, onChange, defaultSelectedTags }) => {
 
   function popTag() {
     setSelectedTags((oldTags) => {
-      const newTags = oldTags.slice();
+      const newTags = oldTags?.slice();
       newTags.pop();
       return newTags;
     });
@@ -63,7 +63,7 @@ const SelectTags = ({ className, onChange, defaultSelectedTags }) => {
         <input
           className={styles.select__input}
           placeholder={'Input any tags'}
-          contenteditable="true"
+          contentEditable="true"
           onKeyDown={keyPressHandler}
           onInput={onInput}></input>
       </div>

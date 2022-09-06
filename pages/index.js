@@ -5,13 +5,29 @@ import { store } from 'store';
 
 export default withAuthComponent(MiddlewareIndexPage);
 
+const getViewUrlName = (host) => {
+  const splitDomin = host?.split('.');
+  let arrayLength;
+  switch (process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT) {
+    case 'development':
+      arrayLength = 1;
+      break;
+    case 'staging':
+      arrayLength = 3;
+      break;
+    default:
+      arrayLength = 2;
+      break;
+  }
+  const viewUrlName = splitDomin.length > arrayLength && splitDomin[0];
+  return viewUrlName;
+};
+
 export const getServerSideProps = withAuthServerSideProps(async (context, user = null, jwt) => {
-  const viewUrlName = context?.req?.headers?.host;
-  const splitDomin = viewUrlName?.split('.');
-  const checkDomainForView = splitDomin.length >= 2 && splitDomin[0];
-  const getNameViewUrl = checkDomainForView;
-  console.log(getNameViewUrl, 'getNameViewUrl');
-  if (!getNameViewUrl) {
+  const host = context?.req?.headers?.host;
+  const viewUrlName = getViewUrlName(host);
+
+  if (!viewUrlName) {
     context.res.writeHead(301, {
       Location: `https://mangafy.club/feed`,
     });
@@ -22,9 +38,8 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
     //   },
     // };
   }
-
   try {
-    const mangaView = await client.service('/api/v2/manga-view').get(getNameViewUrl);
+    const mangaView = await client.service('/api/v2/manga-view').get(viewUrlName);
 
     if (!mangaView?.storyBoardId && process.env.NEXT_PUBLIC_REDIRECT_ENABLED) {
       context.res.writeHead(301, {
@@ -40,7 +55,7 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
       props: {
         user: user || store.user,
         ...mangaView,
-        getNameViewUrl,
+        viewUrlName,
       },
     };
   } catch (error) {

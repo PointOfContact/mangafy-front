@@ -58,7 +58,7 @@ const DiscussionRightBar = ({ dailyWarmUps, user }) => {
         <div className={styles.dailyWarmUps}>
           <div className={styles.dailyWarmUps_Top}>
             <div className={styles.date}>
-              {new Date().toGMTString().split(' ').slice(0, 3).join(' ')}
+              {new Date().toGMTString().split(' ')?.slice(0, 3).join(' ')}
             </div>
             <div className={styles.dialyTitle}>
               <SvgBulbColored width="15px" height="15px" />

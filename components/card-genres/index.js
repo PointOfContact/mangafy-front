@@ -10,7 +10,7 @@ import styles from './styles.module.scss';
 const СardGenres = ({ title, subTitle, genres, limit }) => {
   const genresContent = () => (
     <div>
-      {genres.slice(limit - 1).map((item) => (
+      {genres?.slice(limit - 1).map((item) => (
         <p key={item._id}>{item.name}</p>
       ))}
     </div>
@@ -27,7 +27,7 @@ const СardGenres = ({ title, subTitle, genres, limit }) => {
               ))
             ) : (
               <>
-                {genres.slice(0, limit - 1).map((item) => (
+                {genres?.slice(0, limit - 1).map((item) => (
                   <ButtonColab
                     key={item._id}
                     className={cn(styles.ButtonPurple)}

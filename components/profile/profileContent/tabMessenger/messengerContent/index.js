@@ -237,7 +237,6 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
       });
     }
   }, [messageList.length]);
-
   return (
     <div className={styles.chatContainer}>
       {selectedRequest.participentsInfo && (
@@ -269,9 +268,9 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
       {!selectedRequest?.isArchive && (
         <div className={styles.chatBlock2}>
           <div className={styles.messageInput}>
-            <div class={styles['message-wrapper']}>
+            <div className={styles['message-wrapper']}>
               <div
-                class={styles['message-text']}
+                className={styles['message-text']}
                 contentEditable
                 onInput={handleChange}
                 placeholder="asdas"></div>

@@ -10,7 +10,7 @@ import styles from './styles.module.scss';
 import client from 'api/client';
 
 const UserName = ({ selectedRequest, mobile, setShowMessageMobile, user }) => {
-  const ifNotImage = selectedRequest?.av?.slice(-9) === 'undefined';
+  // const ifNotImage = selectedRequest?.av?.slice(-9) === 'undefined';
 
   const getPath = () => {
     if (selectedRequest?.participentsInfo) {
@@ -30,17 +30,18 @@ const UserName = ({ selectedRequest, mobile, setShowMessageMobile, user }) => {
 
   let participants = selectedRequest.participentsInfo?.filter((p) => !!p);
   if (participants?.length > 4) {
-    participants = participants.slice(0, 4);
+    participants = participants ? participants?.slice(0, 4) : [];
     participants.push({
       name: '…',
     });
   }
+
   const participantsElements =
     participants?.length > 1 // Change to 1
       ? participants
           // .filter((pi) => pi?._id !== user?._id)
-          .map((pi) => (
-            <div className={styles.participants__avatar}>
+          .map((pi, index) => (
+            <div key={pi.name + index} className={styles.participants__avatar}>
               <img
                 src={
                   pi?.avatar

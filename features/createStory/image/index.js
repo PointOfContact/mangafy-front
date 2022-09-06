@@ -86,7 +86,7 @@ const Introduce = ({ user }) => {
   const propsImg = {
     onRemove: (file) => {
       const index = fileList.indexOf(file);
-      const newFileList = fileList.slice();
+      const newFileList = fileList?.slice();
       newFileList.splice(index, 1);
       changeFileList(newFileList);
     },

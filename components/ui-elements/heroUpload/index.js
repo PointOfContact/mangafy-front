@@ -81,7 +81,7 @@ const HeroUpload = ({
   };
 
   const beforeUpload = (file) => {
-    const type = file.type.slice(-3) === 'mp4';
+    const type = file.type?.slice(-3) === 'mp4';
     if (notUploadVideo && type) {
       notification.error({
         message: 'mp4 file not support',
