@@ -27,14 +27,15 @@ const UserName = ({ selectedRequest, mobile, setShowMessageMobile, user }) => {
     }
     return '';
   };
-  console.log(selectedRequest, 'participants');
-  let participants = selectedRequest.participentsInfo?.filter((p) => !!p);
-  if (participants?.length > 4) {
-    participants = participants?.slice(0, 4);
-    participants.push({
-      name: '…',
-    });
-  }
+  // console.log(selectedRequest, 'participants');
+  let participants = [];
+  // let participants = selectedRequest.participentsInfo?.filter((p) => !!p);
+  // if (participants?.length > 4) {
+  //   participants = participants ? participants?.slice(0, 4) : [];
+  //   participants.push({
+  //     name: '…',
+  //   });
+  // }
 
   const participantsElements =
     participants?.length > 1 // Change to 1
