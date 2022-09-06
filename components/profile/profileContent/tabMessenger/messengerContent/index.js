@@ -237,7 +237,6 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
       });
     }
   }, [messageList.length]);
-  console.log(11);
   return (
     <div className={styles.chatContainer}>
       {selectedRequest.participentsInfo && (

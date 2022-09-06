@@ -22,7 +22,6 @@ const TabMessenger = (props) => {
   const [noRequest, setNoRequest] = useState(false);
   const router = useRouter();
   const [showMessageMobile, setShowMessageMobile] = useState(!!router.query.conversation);
-  console.log(10);
   const openNotification = (type, message) => {
     notification[type]({
       message,
@@ -44,43 +43,55 @@ const TabMessenger = (props) => {
           if (isArchive) {
             newRequests = res
               .filter((i) => !i.joinMangaStoryRequestId)
-              .map((item) => ({
-                _id: item._id,
-                createdAt: item.createdAt || new Date(0),
-                mangaStoryId: item.mangaStoryId,
-                isTeamChat: !!item.mangaStoryId,
-                conversations: [{ _id: item._id }],
-                participents: item.participents,
-                participentsInfo: [item.mangaStoryAuthor, ...item.participentsInfo],
-                senderInfo:
-                  (item.mangaStoryTitle && {
-                    name: item.mangaStoryTitle,
-                    avatar: item.mangaStoryImage,
-                  }) ||
-                  item.participentsInfo[0],
-                messages: item.lastMessage,
-              }))
+              .map((item) => {
+                const messageData = {
+                  _id: item._id,
+                  createdAt: item.createdAt || new Date(0),
+                  isTeamChat: !!item.mangaStoryId,
+                  conversations: [{ _id: item._id }],
+                  participents: item.participents,
+                  senderInfo:
+                    (item.mangaStoryTitle && {
+                      name: item.mangaStoryTitle,
+                      avatar: item.mangaStoryImage,
+                    }) ||
+                    item.participentsInfo[0],
+                  messages: item.lastMessage,
+                };
+
+                if (item.mangaStoryId) messageData.mangaStoryId = item.mangaStoryId;
+                if (item.mangaStoryAuthor)
+                  messageData.mangaStoryAuthor = [item.mangaStoryAuthor, ...item.participentsInfo];
+
+                return messageData;
+              })
               ?.reverse();
             if (newRequests.length === res.length && showArchive) setShowArchive(false);
           } else {
             newRequests = res
-              .map((item) => ({
-                _id: item._id,
-                createdAt: item.createdAt || new Date(0),
-                mangaStoryId: item.mangaStoryId,
-                isTeamChat: !!item.mangaStoryId,
-                conversations: [{ _id: item._id }],
-                participents: item.participents,
-                joinMangaStoryRequestId: item.joinMangaStoryRequestId,
-                participentsInfo: [item.mangaStoryAuthor, ...item.participentsInfo],
-                senderInfo:
-                  (item.mangaStoryTitle && {
-                    name: item.mangaStoryTitle,
-                    avatar: item.mangaStoryImage,
-                  }) ||
-                  item.participentsInfo[0],
-                messages: item.lastMessage,
-              }))
+              .map((item) => {
+                const messageData = {
+                  _id: item._id,
+                  createdAt: item.createdAt || new Date(0),
+                  isTeamChat: !!item.mangaStoryId,
+                  conversations: [{ _id: item._id }],
+                  participents: item.participents,
+                  joinMangaStoryRequestId: item.joinMangaStoryRequestId,
+                  senderInfo:
+                    (item.mangaStoryTitle && {
+                      name: item.mangaStoryTitle,
+                      avatar: item.mangaStoryImage,
+                    }) ||
+                    item.participentsInfo[0],
+                  messages: item.lastMessage,
+                };
+
+                if (item.mangaStoryId) messageData.mangaStoryId = item.mangaStoryId;
+                if (item.mangaStoryAuthor)
+                  messageData.mangaStoryAuthor = [item.mangaStoryAuthor, ...item.participentsInfo];
+
+                return messageData;
+              })
               ?.reverse();
             setArcRequests(false);
           }
