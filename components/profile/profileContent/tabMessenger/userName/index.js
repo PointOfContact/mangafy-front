@@ -87,7 +87,7 @@ const UserName = ({ selectedRequest, mobile, setShowMessageMobile, user }) => {
           ) : (
             <a>{selectedRequest.name}</a>
           )} */}
-          {/* <div className={styles.participants}>{participantsElements}</div> */}
+          <div className={styles.participants}>{participantsElements}</div>
           <div className={styles.description}>
             <Link href={getPath()}>
               <a>{selectedRequest.name}</a>
