@@ -56,10 +56,10 @@ const UserName = ({ selectedRequest, mobile, setShowMessageMobile, user }) => {
 
   return (
     <div className={mobile ? styles.containerMobile : styles.container}>
-      {/* <SvgLeftArrow width={24} height={24} onClick={() => setShowMessageMobile(false)} />
+      <SvgLeftArrow width={24} height={24} onClick={() => setShowMessageMobile(false)} />
       {!!Object.values(selectedRequest).length && (
-        <div className={styles.userName}> */}
-      {/* {getPath() ? (
+        <div className={styles.userName}>
+          {/* {getPath() ? (
             <>
               <Link href={getPath()}>
                 <a>
@@ -87,12 +87,12 @@ const UserName = ({ selectedRequest, mobile, setShowMessageMobile, user }) => {
           ) : (
             <a>{selectedRequest.name}</a>
           )} */}
-      {/* <div className={styles.participants}>{participantsElements}</div>
-          <div className={styles.description}>
+          {/* <div className={styles.participants}>{participantsElements}</div> */}
+          {/* <div className={styles.description}>
             <Link href={getPath()}>
               <a>{selectedRequest.name}</a>
             </Link> */}
-      {/* {selectedRequest.isTeamChat && selectedRequest.rid && (
+          {/* {selectedRequest.isTeamChat && selectedRequest.rid && (
               // <Popover
               //   placement="bottomLeft"
               //   title={'Members'}
@@ -103,9 +103,9 @@ const UserName = ({ selectedRequest, mobile, setShowMessageMobile, user }) => {
               // <p className={styles.members}>{selectedRequest?.participentsInfo?.length} members </p>
               // </Popover>
             )} */}
-      {/* </div>
+          {/* </div> */}
         </div>
-      )} */}
+      )}
     </div>
   );
 };
