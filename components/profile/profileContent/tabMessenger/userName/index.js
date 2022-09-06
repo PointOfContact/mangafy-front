@@ -36,7 +36,23 @@ const UserName = ({ selectedRequest, mobile, setShowMessageMobile, user }) => {
     });
   }
 
-  const participantsElements = [];
+  const participantsElements =
+    participants?.length > 1 // Change to 1
+      ? participants
+          // .filter((pi) => pi?._id !== user?._id)
+          .map((pi, index) => (
+            <div key={pi.name + index} className={styles.participants__avatar}>
+              <img
+                src={
+                  pi?.avatar
+                    ? client.UPLOAD_URL + pi?.avatar
+                    : `https://ui-avatars.com/api/?background=9A87FE&name=${pi?.name}&rounded=true&color=ffffff`
+                }
+                alt="user avatar"
+              />
+            </div>
+          ))
+      : null;
 
   return (
     <div className={mobile ? styles.containerMobile : styles.container}>
@@ -71,7 +87,7 @@ const UserName = ({ selectedRequest, mobile, setShowMessageMobile, user }) => {
           ) : (
             <a>{selectedRequest.name}</a>
           )} */}
-          <div className={styles.participants}>{null}</div>
+          {/* <div className={styles.participants}>{participantsElements}</div> */}
           <div className={styles.description}>
             <Link href={getPath()}>
               <a>{selectedRequest.name}</a>
