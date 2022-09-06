@@ -88,11 +88,11 @@ const UserName = ({ selectedRequest, mobile, setShowMessageMobile, user }) => {
             <a>{selectedRequest.name}</a>
           )} */}
           {/* <div className={styles.participants}>{participantsElements}</div> */}
-          <div className={styles.description}>
+          {/* <div className={styles.description}>
             <Link href={getPath()}>
               <a>{selectedRequest.name}</a>
-            </Link>
-            {/* {selectedRequest.isTeamChat && selectedRequest.rid && (
+            </Link> */}
+          {/* {selectedRequest.isTeamChat && selectedRequest.rid && (
               // <Popover
               //   placement="bottomLeft"
               //   title={'Members'}
@@ -103,8 +103,8 @@ const UserName = ({ selectedRequest, mobile, setShowMessageMobile, user }) => {
               // <p className={styles.members}>{selectedRequest?.participentsInfo?.length} members </p>
               // </Popover>
             )} */}
-          </div>
         </div>
+        // </div>
       )}
     </div>
   );
