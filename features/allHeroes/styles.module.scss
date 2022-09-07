@@ -1,0 +1,33 @@
+@import '../../styles/variables.scss';
+
+.container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  .content {
+    width: 25%;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 5px;
+    box-shadow: $bigShadow;
+    h3, p {
+        word-wrap: break-word;
+        color: $black;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+    img {
+      object-fit: cover;
+      border-radius: 5px;
+    }
+  }
+  .center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+.title {
+  text-align: center;
+  margin: 10px;
+}
