@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import styles from './styles.module.scss';
 import cn from 'classnames';
-import { Dropdown, Menu, Space, DownOutlined, Avatar, Popover, Badge } from 'antd';
+import { Dropdown, Menu, Space, DownOutlined, Popover, Badge } from 'antd';
 import CircleUser from 'components/icon/new/CircleUser';
 import NewFile from 'components/icon/new/NewFile';
 import Edit2 from 'components/icon/new/Edit2';
@@ -24,6 +24,7 @@ import SignOut from 'components/icon/new/SignOut';
 import MenuNotificationsBox from 'components/menu-notifications-box';
 import SvgBell from 'components/icon/Bell';
 import MenuMobilePopover from 'components/menu-mobile-popover';
+import Avatar from 'components/Avatar';
 
 const findNotificationsCount = (onSuccess, onFailure) => {
   const jwt = client.getCookie('feathers-jwt');
@@ -398,13 +399,14 @@ const HeaderNew = ({ user }) => {
                   trigger="click">
                   <Space>
                     <div className={styles.nav__avatar}>
-                      {user.avatar ? (
+                      {/* {user.avatar ? (
                         <img src={client.UPLOAD_URL + user.avatar} alt="Profile avatar" />
                       ) : (
                         <Avatar size={38} style={{ backgroundColor: '#7b65f3', color: '#ffffff' }}>
                           {user.name[0]}
                         </Avatar>
-                      )}
+                      )} */}
+                      <Avatar size={38} image={user?.avatar} text={user?.name[0]} />
                     </div>
                   </Space>
                 </Dropdown>

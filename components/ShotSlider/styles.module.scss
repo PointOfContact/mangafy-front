@@ -1,0 +1,80 @@
+@import '../../styles/variables.scss';
+
+.moreShots {
+    background: #fff;
+
+    &__title {
+        font-weight: 700;
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    &__container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+}
+
+.slider {
+    display: flex;
+
+    &__arrow {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 3px;
+        cursor: pointer;
+        // @include media-xs {
+        //     display: none;
+        // }
+
+        > svg {
+            height: 32px;
+            width: 32px;
+        }
+
+        &:first-child {
+            margin-right: 10px;
+            svg {
+                transform: rotate(90deg);
+            }
+        }
+
+        &:last-child {
+            margin-left: 10px;
+            svg {
+                transform: rotate(-90deg);
+            }
+        }
+
+        &:hover {
+            opacity: 0.8;
+        }
+
+        &:active {
+            opacity: 0.5;
+        }
+    }
+
+    &__content {
+        display: flex;
+        flex: 1 1 auto;
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+
+    &__item {
+        flex: 0 0 auto;
+        margin: 0 5px;
+        height: 100px;
+        width: 100px;
+        img {
+            border-radius: 50%;
+        }
+
+        &_active{
+            border: 2px solid $pink;
+            border-radius: 50%;
+        }
+    }
+}
