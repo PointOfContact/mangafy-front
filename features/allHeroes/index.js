@@ -3,13 +3,12 @@ import Imgix from 'components/imgix';
 import client from 'api/client';
 import styles from './styles.module.scss';
 import cn from 'classnames';
+import PropTypes from 'prop-types';
 
 const AllHeroes = ({ data }) => {
   const [personages, setPersonage] = useState([]);
   const [components, setComponent] = useState([]);
   const [backgrounds, setBackground] = useState([]);
-
-  console.log(data, 'data');
 
   useEffect(() => {
     const personages = data.heroes.filter((item) => item.type === 'personage');
@@ -55,6 +54,10 @@ const AllHeroes = ({ data }) => {
       {ui(backgrounds)}
     </div>
   );
+};
+
+AllHeroes.propTypes = {
+  data: PropTypes.object.isRequired,
 };
 
 export default AllHeroes;
