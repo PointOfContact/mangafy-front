@@ -9,7 +9,7 @@ const AllHeroes = ({ data }) => {
   const [personages, setPersonage] = useState([]);
   const [components, setComponent] = useState([]);
   const [backgrounds, setBackground] = useState([]);
-
+  console.log(data, 'data');
   useEffect(() => {
     const personages = data.heroes.filter((item) => item.type === 'personage');
     const components = data.heroes.filter((item) => item.type === 'component');
@@ -46,7 +46,7 @@ const AllHeroes = ({ data }) => {
 
   return (
     <div>
-      <h2 className={styles.title}>Personages</h2>
+      <h2 className={styles.title}>Characters</h2>
       {ui(personages)}
       <h2 className={styles.title}>Components</h2>
       {ui(components)}
