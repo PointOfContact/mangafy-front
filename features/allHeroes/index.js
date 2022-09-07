@@ -9,7 +9,7 @@ const AllHeroes = ({ data }) => {
   const [personages, setPersonage] = useState([]);
   const [components, setComponent] = useState([]);
   const [backgrounds, setBackground] = useState([]);
-  console.log(data, 'data');
+
   useEffect(() => {
     const personages = data.heroes.filter((item) => item.type === 'personage');
     const components = data.heroes.filter((item) => item.type === 'component');
