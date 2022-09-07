@@ -10,6 +10,9 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
         $limit: 10000,
       },
     });
+
+    console.log(res.data, 777);
+
     return {
       // props: {
       user,
