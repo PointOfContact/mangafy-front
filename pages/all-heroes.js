@@ -11,13 +11,11 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
       },
     });
 
-    console.log(res.data, 777);
-
     return {
-      props: {
-        user,
-        heroes: res.data,
-      }, // will be passed to the page component as props
+      // props: {
+      user,
+      heroes: res.data,
+      // }, // will be passed to the page component as props
     };
   } catch (error) {
     console.log('Error: access-denied.js', error);
