@@ -8,12 +8,8 @@
 }
 
 // .feedCardImage {
-//     position: relative;
-//     width: 100% !important;
-//     // margin-bottom: 20px;
-//     background: $primaryDark;
-//     & > img {
-//         width: 100%;
+//     overflow: hidden;
+//     img {
 //         max-height: 500px;
 //         object-fit: cover;
 //     }
@@ -222,7 +218,6 @@
     position: relative;
     width: 100% !important;
     margin-bottom: 20px;
-    background: $primaryDark;
     min-height: 100px;
     display: grid;
     grid-template-columns: 50% 50%;

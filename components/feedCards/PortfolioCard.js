@@ -52,49 +52,6 @@ const PortfolioWorkCard = ({ card, user }) => {
 
   return (
     <>
-      {/* {modal && (
-        <Modal
-          visible={modal}
-          onCancel={() => setModal(false)}
-          style={{ top: 50 }}
-          wrapClassName={styles.modal}
-          closeIcon={<Close className={styles.modal__close} />}
-          footer={null}>
-          <div className={styles.modal__title}>{author}</div>
-          <div className={styles.modal__content}>
-            <img src={client.UPLOAD_URL + images[0]} alt="shot image" />
-            <img src={client.UPLOAD_URL + images[1]} alt="shot image" />
-            <img src={client.UPLOAD_URL + images[2]} alt="shot image" />
-          </div>
-          <FeedCardLine />
-          <div className={styles.modal__footer}>
-            <Link href={'/profile/' + card._id}>
-              <a className={styles.modal__author}>
-                <div className={styles.modal__avatar}>
-                  <img
-                    src={avatar ? client.UPLOAD_URL + avatar : 'img/feedTemp/avatar.png'}
-                    alt="user avatar"
-                  />
-                </div>
-                {author}
-              </a>
-            </Link>
-            <div className={styles.modal__followers}>
-              {followers} followers
-              <Button
-                sm
-                rounded
-                outline={isFollowed}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  like();
-                }}>
-                {isFollowed ? 'Unfollow' : 'Follow'}
-              </Button>
-            </div>
-          </div>
-        </Modal>
-      )} */}
       <div className={styles.card} onClick={handleClick} onDoubleClick={handleDoubleClick}>
         {images.length > 2 && <FeedCardImages images={images} />}
         <FeedCardPortfolioFooter

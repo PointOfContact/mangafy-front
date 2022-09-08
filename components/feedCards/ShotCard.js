@@ -129,13 +129,13 @@ const ShotCard = ({ card, user }) => {
       <div className={styles.card} onClick={handleClick} onDoubleClick={handleDoubleClick}>
         {image && <FeedCardImage image={client.UPLOAD_URL + image} />}
         <div className={styles.card__content}>
-          {text && (
+          {(title || text) && (
             <FeedCardText
               title={title}
               description={text.length > 200 ? text?.slice(0, 200) + ' ...' : text}
             />
           )}
-          <FeedCardLine />
+          {(title || text) && <FeedCardLine />}
           <FeedCardShotFooter
             authorId={authorId}
             author={author}
