@@ -467,3 +467,22 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
     font-size: 12px;
   }
 }
+
+.savingStatus {
+  height: 0;
+  transform: translateY(-2em);
+  font-size: 16px !important;
+  justify-content: end;
+
+  &_saved {
+    color: rgb(52, 194, 97);
+  }
+
+  &_saving {
+    color: rgb(194, 185, 52);
+  }
+
+  &_error {
+    color: rgb(194, 52, 52);
+  }
+}

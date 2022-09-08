@@ -29,6 +29,7 @@ const Settings = ({
   setShowPayPalContent,
   confirmDelete,
   storyBoard,
+  user,
 }) => {
   const collabRef = useRef();
   const [isModalVisible, setIsModalVisible] = useState(false);
