@@ -51,7 +51,7 @@ const FeedNew = (props) => {
 
   useEffect(async () => {
     if (!(posts && posts.length > 0)) {
-      const posts = await getCards(20, 0);
+      const posts = await getCards(10, 0);
       setCardsElements(makeCardsElements(posts));
     }
 
@@ -133,7 +133,7 @@ const FeedNew = (props) => {
 
   async function updateCards(cards, isLastRequest, shouldCleanCards, type) {
     try {
-      const newCards = await getCards(40, shouldCleanCards ? 0 : cards.length, type);
+      const newCards = await getCards(10, shouldCleanCards ? 0 : cards.length, type);
       const newCardsElements = makeCardsElements(newCards);
       if (!newCardsElements[newCardsElements.length - 1]) setEndOfCardsReached(true);
       if (!isLastRequest[0]) {
@@ -161,7 +161,7 @@ const FeedNew = (props) => {
     }
   }
 
-  async function getCards(limit = 20, skip = 0, postType) {
+  async function getCards(limit = 10, skip = 0, postType) {
     const query = {
       $limit: limit,
       $sort: {
