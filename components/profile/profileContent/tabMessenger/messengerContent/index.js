@@ -252,7 +252,7 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
           referance={messenger}
           className={styles.message_list}
           lockable={false}
-          toBottomHeight={'100%'}
+          toBottomHeight="100%"
           dataSource={messageList}
           onClick={(messData, index, e) => {
             if (e.target.classList.contains('rce-avatar')) {

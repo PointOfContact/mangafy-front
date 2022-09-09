@@ -230,6 +230,8 @@ const FeedNew = (props) => {
   // }
   //
 
+  console.log(101);
+
   return (
     <>
       <NextSeo
