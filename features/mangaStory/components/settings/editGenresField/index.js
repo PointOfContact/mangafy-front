@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 
-import { Input, Select, Radio } from 'antd';
+import { Input, Select, Radio, notification } from 'antd';
 import cn from 'classnames';
 import HeroUpload from 'components/ui-elements/heroUpload';
 import PrimaryInput from 'components/ui-elements/input';
@@ -9,9 +9,12 @@ import TextEditor from 'components/ui-elements/text-editor';
 import mangaStoryAPI from 'features/mangaStory/mangaStoryAPI';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { COUNTRIES, projectTypes } from 'helpers/constant';
+import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import PropTypes from 'prop-types';
+import myAmplitude from 'utils/amplitude';
 
 import styles from '../styles.module.scss';
+import client from 'api/client';
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -23,6 +26,7 @@ const EditGenresField = ({
   saveMangaStoryData,
   genresEnums,
   sendEvent,
+  userData,
 }) => {
   const [countries, setCountries] = useState([]);
   const [validationTitle, setValidationTitle] = useState('');
@@ -96,6 +100,63 @@ const EditGenresField = ({
 
     saveMangaStoryData(data, () => {}, 'budget');
   };
+  const [description, setDescription] = useState(baseData?.story);
+  const [savingStatus, setSavingStatus] = useState('loading');
+
+  useEffect(() => {
+    setDescription(baseData?.story);
+    if (!baseData?._id) setSavingStatus('loading');
+    else setSavingStatus('saved');
+  }, [baseData]);
+
+  const saveDescriptionDebounced = useCallback(AwesomeDebouncePromise(saveDescription, 600), [
+    baseData,
+    userData,
+  ]);
+  const onChangeSingleFieldDebounced = useCallback(
+    AwesomeDebouncePromise(onChangeSingleField, 600),
+    [baseData, userData]
+  );
+
+  const handleTextChange = async (text) => {
+    if (baseData._id && userData._id) {
+      setDescription(text);
+      setSavingStatus('saving');
+      await saveDescriptionDebounced(text);
+    }
+  };
+
+  function saveDescription(text) {
+    const type = 'desc';
+    const data = {
+      event_type: EVENTS.CHANGE_BOARD_DESCRIPTION,
+      event_properties: { storyBoardId: baseData._id },
+    };
+    myAmplitude(data);
+
+    const jwt = client.getCookie('feathers-jwt');
+    client
+      .service('/api/v2/manga-stories')
+      .patch(
+        baseData?._id,
+        { story: text, mangaStoryId: baseData.mangaStoryId },
+        {
+          headers: { Authorization: `Bearer ${jwt}` },
+          mode: 'no-cors',
+        }
+      )
+      .then((res) => {
+        setSavingStatus('saved');
+        setBaseData(res);
+      })
+      .catch((err) => {
+        setSavingStatus('ooops, something went wrong');
+        notification.error({
+          message: 'Failed to save the description, please try again',
+          placement: 'bottomLeft',
+        });
+      });
+  }
 
   return (
     <div className={styles.editTitle}>
@@ -104,17 +165,17 @@ const EditGenresField = ({
       <PrimaryInput
         placeholder="Webtoonmania: Rising action"
         name="title"
-        value={baseData?.title}
+        defaultValue={baseData?.title}
         onChange={(e) => {
-          onChangeSingleField(e);
+          onChangeSingleFieldDebounced(e);
         }}
-        onBlur={() => {
-          baseData?.title?.trim().length > 1
-            ? (saveMangaStoryData(baseData, 'title'),
-              sendEvent(EVENTS.EDIT_PROJECT_TITLE, 'title', baseData.title),
-              setValidationTitle(''))
-            : setValidationTitle('Wait. wait! Add name to your next bestseller!');
-        }}
+        // onBlur={() => {
+        //   baseData?.title?.trim().length > 1
+        //     ? (saveMangaStoryData(baseData, 'title'),
+        //       sendEvent(EVENTS.EDIT_PROJECT_TITLE, 'title', baseData.title),
+        //       setValidationTitle(''))
+        //     : setValidationTitle('Wait. wait! Add name to your next bestseller!');
+        // }}
       />
       {validationTitle && <p className={styles.error}>{validationTitle}</p>}
       <h3>Project Language</h3>
@@ -138,25 +199,35 @@ const EditGenresField = ({
         {projectType}
       </Select>
       <h3>Project Description*</h3>
+      <p
+        className={cn(
+          styles.savingStatus,
+          savingStatus === 'saved' && styles.savingStatus_saved,
+          savingStatus === 'saving' && styles.savingStatus_saving,
+          savingStatus === 'error' && styles.savingStatus_error
+        )}>
+        {savingStatus}
+      </p>
       <TextEditor
         placeholder={
           "Tell people why they should be excited about your project.\n\nDescribe what you're creating, how you plan to make it happen,:\n\nWhy you care about it:\n\nThe goal and how you plan to make it happen:\n"
         }
-        result={(e) => {
-          const target = {
-            name: 'story',
-            value: e,
-          };
-          onChangeSingleField({ target });
-        }}
-        value={baseData?.story}
-        onBlur={() => {
-          baseData?.story?.trim()
-            ? (saveMangaStoryData(baseData, () => {}, 'story'),
-              sendEvent(EVENTS.EDIT_PROJECT_STORY, 'story', baseData.story),
-              setValidationDesc(''))
-            : setValidationDesc('Wait. wait! Add description to your next bestseller!');
-        }}
+        // result={(e) => {
+        //   const target = {
+        //     name: 'story',
+        //     value: e,
+        //   };
+        //   onChangeSingleField({ target });
+        // }}
+        result={handleTextChange}
+        value={description}
+        // onBlur={() => {
+        //   baseData?.story?.trim()
+        //     ? (saveMangaStoryData(baseData, () => {}, 'story'),
+        //       sendEvent(EVENTS.EDIT_PROJECT_STORY, 'story', baseData.story),
+        //       setValidationDesc(''))
+        //     : setValidationDesc('Wait. wait! Add description to your next bestseller!');
+        // }}
       />
       {validationDesc && <p className={styles.error}>{validationDesc}</p>}
       <div className={styles.budgetContainer}>
