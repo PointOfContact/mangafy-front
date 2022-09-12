@@ -116,7 +116,7 @@ const Publish = ({ baseData, storyBoard, chapters }) => {
         </div>
         <div className={styles.shareContainer}>
           <ShareButtons className={styles.share} shareUrl={link} showTitle={true} />
-          <a href={`/manga-story/${baseData?._id}`} target="_self">
+          <a href={`/manga-story/${baseData?._id}?tab=settings`} target="_self">
             Customize link
           </a>
         </div>

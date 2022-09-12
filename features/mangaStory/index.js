@@ -91,7 +91,7 @@ const MangeStory = (props) => {
     setChapters(storyBoard?.chapters);
   }, [storyBoard]);
 
-  const [activeTab, setActiveTab] = useState(tabs.DETAILS);
+  const [activeTab, setActiveTab] = useState('');
 
   const onResize = () => {
     if (window.innerWidth < 568) setIsMobile(true);
@@ -107,7 +107,6 @@ const MangeStory = (props) => {
         mangaStoryId: baseData._id,
       },
     };
-
     setActiveTab(router.query.tab || tabs.DETAILS);
     myAmplitude(data);
     if (window.innerWidth < 568) setIsMobile(true);
