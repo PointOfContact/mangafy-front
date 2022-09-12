@@ -30,7 +30,6 @@ const onAccept = (event, id, status) => {
 
 let convId = '';
 let totalMess = 0;
-const maxLength = 490;
 
 const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests, setRequests }) => {
   const [messageList, setMessageList] = useState([]);
@@ -64,9 +63,7 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
     // eslint-disable-next-line no-shadow
     const value = e.target.innerText;
     setValue(value);
-    value.length >= maxLength
-      ? setMessageError(`The character limit for a message is ${maxLength} characters.`)
-      : setMessageError('');
+    setMessageError('');
   };
 
   const openNotification = (type, message) => {
