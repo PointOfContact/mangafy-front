@@ -68,9 +68,7 @@ const Editor = ({ onChange, onSubmit, submitting, value, user, mangaStory }) => 
   const commentChange = (e) => {
     // eslint-disable-next-line no-shadow
     onChange(e);
-    e.target.value.length >= 490
-      ? setCommentError(`Comment max length 490 symbols`)
-      : setCommentError('');
+    setCommentError('');
   };
 
   return (
@@ -78,7 +76,6 @@ const Editor = ({ onChange, onSubmit, submitting, value, user, mangaStory }) => 
       <Form.Item>
         <TextArea
           className={styles.commentInput}
-          maxLength={490}
           rows={4}
           onChange={commentChange}
           value={value}
