@@ -58,7 +58,7 @@
         & > div {
           & > div {
             top: 0.1em;
-            width: max-content;
+            // width: max-content;
             @include media-sm {
               font-size: 12px;
             }
