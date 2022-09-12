@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { NextSeo } from 'next-seo';
 import styles from './styles.module.scss';
 import cn from 'classnames';
-import { Col, Row, Carousel, Tabs } from 'antd';
+import { Col, Row, Carousel, Tabs, notification } from 'antd';
 import client from 'api/client';
 import { useRouter } from 'next/router';
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
@@ -26,6 +26,10 @@ import TaskCard from 'components/feedCards/TaskCard';
 import PortfolioCard from 'components/feedCards/PortfolioCard';
 import ShotCard from 'components/feedCards/ShotCard';
 import PublishedCard from 'components/feedCards/PublishedCard';
+import CreateShotModal from 'components/CreateShotModal';
+import { removeShortStory } from 'components/gallery/utils';
+import myAmplitude from 'utils/amplitude';
+import { EVENTS } from 'helpers/amplitudeEvents';
 
 const FeedNew = (props) => {
   const { jwt, user, posts } = props;
@@ -39,15 +43,14 @@ const FeedNew = (props) => {
     setScreenWidth(window.innerWidth);
   }
 
-  // Debug: find repeating card's ids
-  // const [cardsLog, setCardsLog] = useState({});
-  //
-
   const [activeTab, setActiveTab] = useState('recent');
   const [cardsElements, setCardsElements] = useState(makeCardsElements(posts));
   const [shouldFetchCards, setShouldFetchCards] = useState(false);
   const [endOfCardsReached, setEndOfCardsReached] = useState(false);
   const [postType, setPostType] = useState(null);
+
+  const [shotModalVisible, setShotModalVisible] = useState(false);
+  const [shotToEdit, setShotToEdit] = useState(null);
 
   useEffect(async () => {
     if (!(posts && posts.length > 0)) {
@@ -67,9 +70,6 @@ const FeedNew = (props) => {
     if (shouldFetchCards) {
       updateCards(cardsElements, isLastRequest, false, postType);
     }
-    // console.log(
-    //   `[${new Date().toLocaleTimeString()}:${new Date().getMilliseconds()}] shouldFetchCards changed to ${shouldFetchCards}`
-    // );
 
     return () => {
       isLastRequest[0] = false;
@@ -100,17 +100,11 @@ const FeedNew = (props) => {
         break;
     }
     setPostType(type);
-    // console.log(
-    //   `[${new Date().toLocaleTimeString()}:${new Date().getMilliseconds()}] activeTab changed to ${activeTab}`
-    // );
   }, [activeTab]);
 
   useEffect(() => {
     let isLastRequest = [true];
     updateCards(cardsElements, isLastRequest, true, postType);
-    // console.log(
-    //   `[${new Date().toLocaleTimeString()}:${new Date().getMilliseconds()}] postType changed to ${postType}`
-    // );
 
     return () => {
       isLastRequest[0] = false;
@@ -118,17 +112,11 @@ const FeedNew = (props) => {
   }, [postType]);
 
   function onPageEnd() {
-    // console.log(
-    //   `[${new Date().toLocaleTimeString()}:${new Date().getMilliseconds()}] Page end triggered`
-    // );
     setShouldFetchCards(true);
   }
 
   function clearCardsElements() {
     setCardsElements([]);
-    // console.log(
-    //   `[${new Date().toLocaleTimeString()}:${new Date().getMilliseconds()}] Card elements cleaned`
-    // );
   }
 
   async function updateCards(cards, isLastRequest, shouldCleanCards, type) {
@@ -137,9 +125,6 @@ const FeedNew = (props) => {
       const newCardsElements = makeCardsElements(newCards);
       if (!newCardsElements[newCardsElements.length - 1]) setEndOfCardsReached(true);
       if (!isLastRequest[0]) {
-        // console.log(
-        //   `[${new Date().toLocaleTimeString()}:${new Date().getMilliseconds()}] - Request ${type} was rejected`
-        // );
         return;
       }
 
@@ -147,9 +132,6 @@ const FeedNew = (props) => {
         setShouldFetchCards(false);
         setEndOfCardsReached(newCards?.length > 0 ? false : true);
         if (shouldCleanCards) {
-          // console.log(
-          //   `[${new Date().toLocaleTimeString()}:${new Date().getMilliseconds()}] = Card elements cleaned`
-          // );
           return newCardsElements;
         } else {
           return [...oldCardsElements, ...newCardsElements];
@@ -172,34 +154,9 @@ const FeedNew = (props) => {
     if (postType) query.postType = postType;
 
     try {
-      // console.log(
-      //   `[${new Date().toLocaleTimeString()}:${new Date().getMilliseconds()}] Fetching ${
-      //     postType || 'Recent'
-      //   } cards`
-      // );
       const posts = await client.service('/api/v2/posts').find({
         query,
       });
-      // console.log(
-      //   `[${new Date().toLocaleTimeString()}:${new Date().getMilliseconds()}] Fetch ended ${
-      //     postType || 'Recent'
-      //   } cards`
-      // );
-
-      // Debug: find repeating card's ids
-      // if (skip === 0) setCardsLog({});
-      // posts.data.forEach((card) => {
-      //   if (card.postType === 'Portfolio') {
-      //     setCardsLog((oldLog) => {
-      //       if (oldLog[card._id]) {
-      //         return { ...oldLog, [card._id]: [...oldLog[card._id], card] };
-      //       } else {
-      //         return { ...oldLog, [card._id]: [card] };
-      //       }
-      //     });
-      //   }
-      // });
-      //
 
       return posts.data;
     } catch (error) {
@@ -207,14 +164,44 @@ const FeedNew = (props) => {
     }
   }
 
+  function editShot(shot) {
+    console.log(shot);
+    setShotToEdit(shot);
+    setShotModalVisible(true);
+  }
+
+  function deleteShot(_id) {
+    removeShortStory(
+      _id,
+      (res) => {
+        myAmplitude(EVENTS.DELETE_SHOT);
+        updateCards(cardsElements, [true], true, postType);
+      },
+      (err) => {
+        notification.error({
+          message: err.message,
+          placement: 'bottomLeft',
+        });
+      }
+    );
+  }
+
   function makeCardsElements(newCards = []) {
     return newCards.map((card) => {
       if (card.postType === 'Task' || card.postType === 'Collab')
         return <TaskCard key={card._id} card={card} user={user} />;
       else if (card.postType === 'Project' || card.postType === 'Ongoing')
-        return <PublishedCard key={card._id} card={card} />;
+        return <PublishedCard key={card._id} card={card} user={user} />;
       else if (card.postType === 'Portfolio')
-        return <ShotCard key={card.image?._id || card._id} card={card} user={user} />;
+        return (
+          <ShotCard
+            key={card.image?._id || card._id}
+            card={card}
+            user={user}
+            editShot={editShot}
+            deleteShot={deleteShot}
+          />
+        );
       else if (card.postType === 'Profile')
         return <PortfolioCard key={card._id} card={card} user={user} />;
     });
@@ -232,6 +219,15 @@ const FeedNew = (props) => {
 
   return (
     <>
+      <CreateShotModal
+        isVisible={shotModalVisible}
+        setIsVisible={setShotModalVisible}
+        shotToEdit={shotToEdit}
+        setSelectedGallery={setShotToEdit}
+        onUpload={() => {
+          updateCards(cardsElements, [true], true, postType);
+        }}
+      />
       <NextSeo
         title={'MangaFY – From story buidling to a full digital release.'}
         description={

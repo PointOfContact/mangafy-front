@@ -16,7 +16,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import FeedCardProjectFooter from './components/FeedCardProjectFooter';
 
-const PublishedCard = ({ card }) => {
+const PublishedCard = ({ card, user }) => {
   const image = card.image || card.chapterImg;
   const title = card.title;
   let text = card.story;
@@ -84,7 +84,15 @@ const PublishedCard = ({ card }) => {
 
   return (
     <div className={styles.card} onClick={handleClick} onDoubleClick={handleDoubleClick}>
-      {image && <FeedCardImage image={client.UPLOAD_URL + image} />}
+      {image && (
+        <FeedCardImage
+          image={client.UPLOAD_URL + image}
+          isOwned={card.author === user?._id}
+          shareUrl={'/shot/' + card._id}
+          mangaId={card._id}
+          mangaUrl={card.button.navigateTo}
+        />
+      )}
       <div className={styles.card__content}>
         <FeedCardText
           title={title}

@@ -7,13 +7,75 @@
     margin-bottom: 15px;
 }
 
-// .feedCardImage {
-//     overflow: hidden;
-//     img {
-//         max-height: 500px;
-//         object-fit: cover;
-//     }
-// }
+.feedCardImage {
+    position: relative;
+    
+    &:hover > .share__hover {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    
+}
+
+.share {
+    &__hover {
+        position: absolute;
+        transition: 0.5s;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.527);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    &__buttons {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+        > *:first-child {
+            margin-bottom: 10px;
+            svg {
+                height: 1.4em;
+            }
+        }
+    }
+
+    &__shareButtons {
+        opacity: 0;
+        border-radius: 15px;
+        background: rgba(255, 255, 255, 0.781);
+        transition: 0.2s;
+        padding: 0 10px 10px 10px;
+        position: absolute;
+        top: 50%;
+        pointer-events: none;
+        
+        &_active {
+        top: 100%;
+        opacity: 1;
+            pointer-events: auto;
+        }
+    }
+}
+
+.feedCardText {
+    position: relative;
+
+    > .share__hover {
+        margin: -15px;
+    }
+    &:hover > .share__hover {
+        opacity: 1;
+        pointer-events: auto;
+    }
+}
 
 .feedCardTitle {
     // padding: 0 15px;
@@ -233,6 +295,8 @@
     & > span:last-child {
         grid-column: span 2;
     }
+
+    
 }
 
 .feedCardPortfolioFooter {
