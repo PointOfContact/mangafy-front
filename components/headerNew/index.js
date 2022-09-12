@@ -333,6 +333,7 @@ const HeaderNew = ({ user }) => {
             <Logo />
           </a>
         </Link>
+
         <div className={styles.nav}>
           <div className={styles.nav__dropdowns}>
             {/* <Dropdown
@@ -358,6 +359,7 @@ const HeaderNew = ({ user }) => {
               </Space>
             </Dropdown>
           </div>
+
           <div className={styles.nav__buttons}>
             {user ? (
               <>
@@ -391,6 +393,7 @@ const HeaderNew = ({ user }) => {
                     </Badge>
                   </Popover>
                 </span>
+
                 <Dropdown
                   arrow
                   overlay={profileMenu}
@@ -428,6 +431,30 @@ const HeaderNew = ({ user }) => {
               </>
             )}
           </div>
+
+          <span className={cn(styles.notification, styles.notification_mobile)}>
+            <Popover
+              overlayClassName={styles.popover}
+              placement="bottom"
+              visible={showNotificationModal}
+              content={
+                <MenuNotificationsBox
+                  user={user}
+                  unreadNotificationsId={unreadNotificationsId}
+                  notificationsCount={notificationsCount}
+                  setNotificationsCount={setNotificationsCount}
+                />
+              }
+              trigger="click">
+              <Badge
+                count={notificationsCount}
+                onClick={() => {
+                  setShowNotificationModal(!showNotificationModal);
+                }}>
+                <SvgBell width="23px" height="23px" />
+              </Badge>
+            </Popover>
+          </span>
           <button className={cn(styles.nav_mobile)}>
             <Dropdown arrow placement="bottomRight" overlay={mobileMenu} trigger="click">
               <Space>
