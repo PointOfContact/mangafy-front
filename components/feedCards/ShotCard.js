@@ -18,7 +18,7 @@ import { notification } from 'antd';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-const ShotCard = ({ card, user }) => {
+const ShotCard = ({ card, user, editShot, deleteShot }) => {
   const image = card.image.image || card.image;
   const author = card.authorInfo[0].name;
   const authorId = card.authorInfo[0]._id;
@@ -129,12 +129,23 @@ const ShotCard = ({ card, user }) => {
       )}
 
       <div className={styles.card} onClick={handleClick} onDoubleClick={handleDoubleClick}>
-        {image && <FeedCardImage image={client.UPLOAD_URL + image} />}
+        {image && (
+          <FeedCardImage
+            image={client.UPLOAD_URL + image}
+            isOwned={authorId === user?._id}
+            shareUrl={'/shot/' + card._id}
+            onEdit={() => editShot(card)}
+            onDelete={() => deleteShot(card._id)}
+          />
+        )}
         <div className={styles.card__content}>
           {(title || text) && (
             <FeedCardText
               title={title}
               description={text.length > 200 ? text?.slice(0, 200) + ' ...' : text}
+              isOwned={authorId === user?._id}
+              shareUrl={'/shot/' + card._id}
+              textOnly={!image}
             />
           )}
           {(title || text) && <FeedCardLine />}

@@ -40,6 +40,13 @@ const CreateShotModal = ({ isVisible, setIsVisible, shotToEdit, setSelectedGalle
     }));
   }, [image]);
 
+  useEffect(() => {
+    setTitle(shotToEdit?.title || '');
+    setImage(shotToEdit?._id.image || shotToEdit?.image || '');
+    setDescription(shotToEdit?.description || '');
+    setSelectedTags(shotToEdit?.tags);
+  }, [shotToEdit]);
+
   function validate() {
     const titleError = validateTitle(title);
     const imageAndDescriptionError = validateImageAndDescription(image, description);
