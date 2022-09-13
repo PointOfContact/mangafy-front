@@ -16,6 +16,7 @@ import cn from 'classnames';
 import { likeShot } from 'components/gallery/utils';
 import { notification } from 'antd';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const ShotCard = ({ card, user }) => {
   const image = card.image.image || card.image;
@@ -25,6 +26,7 @@ const ShotCard = ({ card, user }) => {
   const likes = card.likedUsers?.length;
   const comments = card.comments.data.length;
   const title = card.title;
+  const router = useRouter();
 
   let text = card.description;
 
@@ -52,7 +54,7 @@ const ShotCard = ({ card, user }) => {
     if (type === 'doubleClick') {
       like();
     } else {
-      setModal(!modal);
+      router.push(`/shot/${card._id}`);
     }
   }
 

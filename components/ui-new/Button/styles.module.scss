@@ -87,4 +87,9 @@
             background: darken($pink, 5%);
         }
     }
+    &_noText {
+        svg {
+            margin: 0;
+        }
+    }
 }
