@@ -41,6 +41,7 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
   const messageListElement = useRef(null);
   const messenger = useRef(null);
   const { conversationId, profileId } = selectedRequest;
+  const inputRef = useRef(null);
 
   const scrollToBottom = () => {
     setTimeout(() => {
@@ -163,6 +164,9 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
           });
       });
     }
+    if (inputRef.current) {
+      inputRef.current.innerText = '';
+    }
   };
 
   // const handleKeyPressSend = (event) => {
@@ -270,7 +274,7 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
                 className={styles['message-text']}
                 contentEditable
                 onInput={handleChange}
-                placeholder="asdas"></div>
+                ref={inputRef}></div>
             </div>
             <p className={messageError ? styles.messageError : styles.notError}>{messageError}</p>
           </div>

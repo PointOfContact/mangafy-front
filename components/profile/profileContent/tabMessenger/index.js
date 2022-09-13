@@ -117,7 +117,7 @@ const TabMessenger = (props) => {
 
   return (
     <div>
-      <h2 className={cn(styles.title)}>Messenger</h2>
+      {/* <h2 className={cn(styles.title)}>Messenger</h2> */}
       {noRequest ? (
         <NoRequest />
       ) : (
