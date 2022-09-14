@@ -15,7 +15,7 @@ const ShotSlider = ({ shot, allShots }) => {
 
   const shotsElements = allShots?.map((sh) => {
     return (
-      <Link href={'/shot/' + sh._id}>
+      <Link key={sh._id} href={'/shot/' + sh._id}>
         <a
           ref={sh._id === shot._id ? activeShotRef : null}
           className={cn(styles.slider__item, sh._id === shot._id && styles.slider__item_active)}

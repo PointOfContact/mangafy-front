@@ -7,10 +7,9 @@ import Link from 'next/link';
 import ArrowDown2 from 'components/icon/new/ArrowDown2';
 import cn from 'classnames';
 import Avatar from 'components/Avatar';
-import { followUser, unFollowUser } from 'helpers/shared';
 import { notification } from 'antd';
 
-const ShotHeader = ({ user, shot, className, allShots, isOwn, isSubscribed, setIsSubscribed }) => {
+const ShotHeader = ({ user, shot, className, allShots, isOwn, isSubscribed, subscribe }) => {
   function getActiveShotIndex() {
     return allShots.findIndex((s) => s._id === shot._id);
   }
@@ -30,28 +29,6 @@ const ShotHeader = ({ user, shot, className, allShots, isOwn, isSubscribed, setI
       return null;
     } else {
       return allShots[index + 1];
-    }
-  }
-
-  function subscribeHandler() {
-    if (!user) {
-      notification.error({
-        placement: 'bottomLeft',
-        message: 'You need to be logged in to follow a user',
-      });
-    }
-    if (!isSubscribed) {
-      followUser(shot.authorId)
-        .then(() => {
-          setIsSubscribed(true);
-        })
-        .catch((err) => console.log(err));
-    } else {
-      unFollowUser(shot.authorId)
-        .then(() => {
-          setIsSubscribed(false);
-        })
-        .catch((err) => console.log(err));
     }
   }
 
@@ -76,7 +53,7 @@ const ShotHeader = ({ user, shot, className, allShots, isOwn, isSubscribed, setI
               {!isOwn && (
                 <>
                   <span>{' | '}</span>
-                  <button className={styles.header__subscribe} onClick={subscribeHandler}>
+                  <button className={styles.header__subscribe} onClick={subscribe}>
                     {isSubscribed ? 'Unfollow' : 'Follow'}
                   </button>
                 </>
@@ -106,13 +83,17 @@ const ShotHeader = ({ user, shot, className, allShots, isOwn, isSubscribed, setI
 
       <div className={styles.header__mobileArrowsAndTip}>
         <div className={cn(styles.header__arrows, styles.header__arrows_mobile)}>
-          <button>
-            <ArrowDown2 />
-          </button>
-          #4
-          <button>
-            <ArrowDown2 />
-          </button>
+          <Link href={'/shot/' + prevShotId}>
+            <a className={cn(styles.header__arrow, !prevShotId && styles.header__arrow_disabled)}>
+              <ArrowDown2 />
+            </a>
+          </Link>
+          #{getActiveShotIndex() + 1}
+          <Link href={'/shot/' + nextShotId}>
+            <a className={cn(styles.header__arrow, !nextShotId && styles.header__arrow_disabled)}>
+              <ArrowDown2 />
+            </a>
+          </Link>
         </div>
         {/* <Button rounded pink sm className={cn(styles.header__tip, styles.header__tip_mobile)}>
           Tip
