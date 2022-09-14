@@ -1,6 +1,6 @@
 @import '../../styles/variables.scss';
 
-$sidebarWidth: 300px;
+$sidebarWidth: 400px;
 
 
 .shotPage {
@@ -26,4 +26,17 @@ $sidebarWidth: 300px;
         padding-right: $sidebarWidth;
     }
 
+    &__shareModal {
+        :global {
+            .ant-modal-content {
+                border-radius: 15px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                overflow: hidden;
+            }
+            .ant-modal-title {
+                font-size: 24px;
+                font-weight: 800;
+            }
+        }
+    }
 }

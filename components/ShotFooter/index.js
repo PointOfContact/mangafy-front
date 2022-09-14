@@ -11,7 +11,7 @@ import { ShareButtons } from 'components/share';
 import cn from 'classnames';
 import Avatar from 'components/Avatar';
 import { notification } from 'antd';
-import { followUser, unFollowUser } from 'helpers/shared';
+import ShotComments from 'components/shotComments';
 
 const ShotFooter = ({
   user,
@@ -19,9 +19,11 @@ const ShotFooter = ({
   className,
   isOwn,
   isSubscribed,
-  setIsSubscribed,
   like,
   isLiked,
+  toggleComments,
+  subscribe,
+  updateShotInfo,
 }) => {
   function subscribeHandler() {
     if (!user) {
@@ -46,8 +48,12 @@ const ShotFooter = ({
   }
 
   return (
-    <div className={cn(styles.footer, className)}>
+    <div name="footer" className={cn(styles.footer, className)}>
       <div className={styles.footer__container}>
+        <div className={styles.footer__mobileComments}>
+          <div className={styles.footer__mobileCommentsHeader}>Feedback</div>
+          <ShotComments shotId={shot._id} user={user} onUpload={updateShotInfo} />
+        </div>
         <div className={styles.footer__author}>
           <div className={styles.footer__image}>
             <Avatar image={shot?.authorInfo?.avatar} text={shot?.authorInfo?.name[0]} size={80} />
@@ -63,7 +69,7 @@ const ShotFooter = ({
               {!isOwn && (
                 <>
                   <span>{' | '}</span>
-                  <button className={styles.footer__subscribe} onClick={subscribeHandler}>
+                  <button className={styles.footer__subscribe} onClick={subscribe}>
                     {isSubscribed ? 'Unfollow' : 'Follow'}
                   </button>
                 </>
@@ -74,21 +80,26 @@ const ShotFooter = ({
         Share this series and show support for the creator!
         <div className={styles.footer__buttonsAndLinks}>
           <div className={styles.footer__buttons}>
-            {/* <Button sm rounded outline iconRight icon={<Comment color="#7B65F3" />}>
-              99
-            </Button> */}
-            {!isOwn && (
-              <Button
-                sm
-                rounded
-                outline
-                icon={<Fire color="#7B65F3" />}
-                onClick={like}
-                iconRight
-                className={cn(styles.footer__like, isLiked && styles.footer__like_active)}>
-                {shot.likedUsers.length || 0}
-              </Button>
-            )}
+            <Button
+              onClick={toggleComments}
+              className={styles.footer__commentButton}
+              sm
+              rounded
+              outline
+              iconRight
+              icon={<Comment color="#7B65F3" />}>
+              {shot?.comments?.total || 0}
+            </Button>
+            <Button
+              sm
+              rounded
+              outline
+              icon={<Fire color="#7B65F3" />}
+              onClick={like}
+              iconRight
+              className={cn(styles.footer__like, isLiked && styles.footer__like_active)}>
+              {shot.likedUsers?.length || 0}
+            </Button>
           </div>
           <ShareButtons shareUrl={client.API_ENDPOINT + '/shot/' + shot._id} />
         </div>
