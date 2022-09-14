@@ -3,6 +3,7 @@ import Imgix from 'components/imgix';
 import client from 'api/client';
 import styles from './styles.module.scss';
 import cn from 'classnames';
+import PropTypes from 'prop-types';
 
 const AllHeroes = ({ data }) => {
   const [personages, setPersonage] = useState([]);
@@ -45,7 +46,7 @@ const AllHeroes = ({ data }) => {
 
   return (
     <div>
-      <h2 className={styles.title}>Personages</h2>
+      <h2 className={styles.title}>Characters</h2>
       {ui(personages)}
       <h2 className={styles.title}>Components</h2>
       {ui(components)}
@@ -53,6 +54,10 @@ const AllHeroes = ({ data }) => {
       {ui(backgrounds)}
     </div>
   );
+};
+
+AllHeroes.propTypes = {
+  data: PropTypes.object.isRequired,
 };
 
 export default AllHeroes;

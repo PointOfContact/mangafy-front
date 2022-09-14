@@ -20,9 +20,9 @@ import { useRouter } from 'next/router';
 
 const ShotCard = ({ card, user }) => {
   const image = card.image.image || card.image;
-  const author = card.authorInfo[0].name;
-  const authorId = card.authorInfo[0]._id;
-  const avatar = card.authorInfo[0].avatar;
+  const author = card.authorInfo.name;
+  const authorId = card.authorInfo._id;
+  const avatar = card.authorInfo.avatar;
   const likes = card.likedUsers?.length;
   const comments = card.comments.data.length;
   const title = card.title;
