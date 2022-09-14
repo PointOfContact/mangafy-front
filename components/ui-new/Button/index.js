@@ -17,7 +17,7 @@ const Button = (props) => {
         pink ? styles.button_pink : null,
         full && styles.button_fullWidth,
         bold && styles.button_bold,
-        !props.children && styles.button_noText,
+        !props.children && props.children !== 0 && styles.button_noText,
         className
       )}
       onClick={props.onClick}

@@ -83,6 +83,7 @@
             padding: 10px 20px;
             
             svg {
+                // margin-left: 10px;
                 height: 20px;
             }
 
@@ -98,12 +99,31 @@
         }
     }
 
+    &__commentButton {
+        @include media-md {
+            display: none;
+        }
+    }
+
     &__like {
         &_active {
-            background: rgb(255, 255, 255);
             svg {
-                fill: rgb(235, 155, 52);
+                stroke:rgb(233, 33, 33);
+                fill: rgb(255, 197, 36);
             }
+        }
+    }
+
+    &__mobileComments {
+        width: 100%;
+        display: none;
+        margin-bottom: 2em;
+        @include media-md {
+            display: block;
+        }
+        &Header {
+            font-size: 30px;
+            font-weight: 800;
         }
     }
 }

@@ -7,7 +7,7 @@ export default withAuthComponent(ShotPage);
 
 export const getServerSideProps = withAuthServerSideProps(async (context, user = store.user) => {
   let shot = null;
-  let comments = null;
+  // let comments = null;
   let allShots = null;
   let author = null;
 
@@ -20,9 +20,9 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
         .find({ query: { postType: 'Portfolio', _id: context.params.shotId, $limit: 1 } });
     }
 
-    comments = await client
-      .service('/api/v2/portfolio-comment')
-      .find({ query: { portfolioId: context.params.shotId, $limit: 100 } });
+    // comments = await client
+    //   .service('/api/v2/portfolio-comment')
+    //   .find({ query: { portfolioId: context.params.shotId, $limit: 100 } });
     allShots = await client
       .service('/api/v2/short-stories')
       .find({ query: { authorId: shot.authorId, $limit: 20 } });
@@ -40,10 +40,10 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
   return {
     props: {
       user: user,
-      shot: shot,
-      author: author,
+      serverSideShot: shot,
+      serverSideAuthor: author,
+      // serverSideComments: comments,
       allShots: allShots?.data || [],
-      comments: comments?.data || [],
     },
   };
 });
