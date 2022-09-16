@@ -156,7 +156,7 @@ const MenuNotificationsBox = ({
                 description={notification.description}
                 createdAt={notification.createdAt}
                 verified={!!notification?.read_by?.find((id) => id.readerId === user._id)}
-                profileId={notification.meta.params.userId}
+                profileId={notification.meta.params?.userId}
                 patchNotification={patchNotification}
                 _id={notification._id}
                 navigateTo={notification.meta.navigateTo}

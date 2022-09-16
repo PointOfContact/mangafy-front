@@ -348,7 +348,6 @@ const MangeStory = (props) => {
                 saveMangaStoryData={saveMangaStoryData}
                 userData={userData}
                 showPayPalContent={showPayPalContent}
-                user={user}
               />
             )}
             {activeTab === tabs.PLOT && <Idea storyBoard={storyBoard} user={user} />}

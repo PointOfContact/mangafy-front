@@ -5,19 +5,21 @@ import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
-const Avatar = ({ text, className, onClick, size, fontSize, ...rest }) => (
-  <div
-    {...rest}
-    style={{
-      fontSize: `${fontSize || size / 2 || 20}px`,
-      width: size || '100%',
-      height: size || '100%',
-    }}
-    className={cn(styles.avatar, className)}
-    onClick={onClick}>
-    {text && text[0]}
-  </div>
-);
+const Avatar = ({ text, className, onClick, size, fontSize, ...rest }) => {
+  return (
+    <div
+      {...rest}
+      style={{
+        fontSize: `${fontSize || size / 2 || 20}px`,
+        width: size || '100%',
+        height: size || '100%',
+      }}
+      className={cn(styles.avatar, className)}
+      onClick={onClick}>
+      {text && text[0]}
+    </div>
+  );
+};
 
 Avatar.propTypes = {
   className: PropTypes.string,
