@@ -48,7 +48,6 @@ const ShotFooter = ({
     }
   }
 
-  console.log(!shot.isOld);
   return (
     <div name="footer" className={cn(styles.footer, className)}>
       <div className={styles.footer__container}>

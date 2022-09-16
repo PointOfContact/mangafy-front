@@ -51,8 +51,6 @@ const shotPage = ({ user, allShots, serverSideShot, serverSideAuthor }) => {
 
   async function updateShotInfo() {
     const newShot = await getShotInfo(router.query.shotId, router.query.galleryId);
-
-    console.log(newShot);
     if (!router.query.galleryId) {
       setShot(newShot);
     } else {
@@ -63,8 +61,6 @@ const shotPage = ({ user, allShots, serverSideShot, serverSideAuthor }) => {
   async function updateAuthorInfo() {
     try {
       const newAuthor = await client.service('/api/v2/users').get(author?._id);
-      console.log('New authorInfo');
-      console.log(newAuthor);
       setAuthor(newAuthor);
     } catch (error) {
       console.log(error);
@@ -194,7 +190,5 @@ async function getShotInfo(shotId, galleryId) {
     });
     newShot.isOld = true;
   }
-  console.log('New shot:');
-  console.log(newShot);
   return newShot;
 }
