@@ -59,7 +59,7 @@ const ShotCard = ({ card, user, editShot, deleteShot }) => {
   }
 
   function like() {
-    likeShot(card._id, card.authorInfo[0]._id)
+    likeShot(card._id, card.authorInfo._id)
       .then((res) => {
         if (!isLiked) {
           if (Array.isArray(card.likedUsers)) {
