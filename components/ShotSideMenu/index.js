@@ -1,12 +1,12 @@
 import Avatar from 'components/Avatar';
 import Comment from 'components/icon/new/Comment';
 import Fire from 'components/icon/new/Fire';
-import Send from 'components/icon/new/Send';
 import Button from 'components/ui-new/Button';
 import React, { useState, useRef, useEffect } from 'react';
 import styles from './styles.module.scss';
 import cn from 'classnames';
 import ShotComments from 'components/shotComments';
+import Share from 'components/icon/new/Share';
 
 const ShotSideMenu = ({
   shot,
@@ -18,6 +18,7 @@ const ShotSideMenu = ({
   updateShotInfo,
   comments,
   setIsShareModalOpened,
+  isOld,
 }) => {
   const commentsRef = useRef(null);
   // const [commentsCount, setCommentsCount] = useState(0);
@@ -53,20 +54,22 @@ const ShotSideMenu = ({
             icon={<Comment color="#7B65F3" />}>
             {shot?.comments?.total || 0}
           </Button>
+          {!isOld && (
+            <Button
+              className={isLiked && styles.menu__like_active}
+              onClick={like}
+              rounded
+              outline
+              iconRight
+              icon={<Fire color="#7B65F3" />}>
+              {shot?.likedUsers?.length || 0}
+            </Button>
+          )}
           <Button
-            className={isLiked && styles.menu__like_active}
-            onClick={like}
             rounded
             outline
             iconRight
-            icon={<Fire color="#7B65F3" />}>
-            {shot?.likedUsers?.length || 0}
-          </Button>
-          <Button
-            rounded
-            outline
-            iconRight
-            icon={<Send color="#7B65F3" />}
+            icon={<Share color="#7B65F3" />}
             onClick={() => setIsShareModalOpened(true)}
           />
         </div>

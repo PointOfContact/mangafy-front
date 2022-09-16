@@ -11,14 +11,16 @@ import { likeShot } from 'components/gallery/utils';
 import notification from 'antd/lib/notification';
 import ShotSideMenu from 'components/ShotSideMenu';
 import cn from 'classnames';
-import { followUser, unFollowUser } from 'helpers/shared';
+import { buildShotURL, followUser, unFollowUser } from 'helpers/shared';
 import { Modal } from 'antd';
 import { ShareButtons } from 'components/share';
 
 const shotPage = ({ user, allShots, serverSideShot, serverSideAuthor }) => {
   const router = useRouter();
 
-  const [shot, setShot] = useState(serverSideShot);
+  const [shot, setShot] = useState(
+    serverSideShot?.isOld ? prepareOldShot(serverSideShot) : serverSideShot
+  );
   const [author, setAuthor] = useState(serverSideAuthor);
 
   const [isSubscribed, setIsSubscribed] = useState(author?.likedUsers?.includes(user?._id));
@@ -38,7 +40,7 @@ const shotPage = ({ user, allShots, serverSideShot, serverSideAuthor }) => {
 
   useEffect(() => {
     updateShotInfo();
-  }, [router.query.shotId]);
+  }, [router.query.shotId, router.query.galleryId]);
 
   const [areCommentsOpened, setAreCommentsOpened] = useState(false);
   function toggleComments() {
@@ -47,26 +49,26 @@ const shotPage = ({ user, allShots, serverSideShot, serverSideAuthor }) => {
 
   const [isShareModalOpened, setIsShareModalOpened] = useState(false);
 
-  function updateShotInfo() {
-    // update shot
-    client
-      .service('/api/v2/short-stories')
-      .get(router.query.shotId)
-      .then((res) => {
-        console.log('New shot:');
-        console.log(res);
-        setShot(res);
-      })
-      .catch((err) => console.log(err));
-    // update author
-    client
-      .service('/api/v2/users')
-      .get(author._id)
-      .then((res) => {
-        console.log(res);
-        setAuthor(res);
-      })
-      .catch((err) => console.log(err));
+  async function updateShotInfo() {
+    const newShot = await getShotInfo(router.query.shotId, router.query.galleryId);
+
+    console.log(newShot);
+    if (!router.query.galleryId) {
+      setShot(newShot);
+    } else {
+      setShot(prepareOldShot(newShot));
+    }
+  }
+
+  async function updateAuthorInfo() {
+    try {
+      const newAuthor = await client.service('/api/v2/users').get(author?._id);
+      console.log('New authorInfo');
+      console.log(newAuthor);
+      setAuthor(newAuthor);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   function like() {
@@ -93,15 +95,17 @@ const shotPage = ({ user, allShots, serverSideShot, serverSideAuthor }) => {
       });
     }
     if (!isSubscribed) {
-      followUser(shot.authorId)
+      followUser(author?._id)
         .then(() => {
           updateShotInfo();
+          updateAuthorInfo();
         })
         .catch((err) => console.log(err));
     } else {
-      unFollowUser(shot.authorId)
+      unFollowUser(author?._id)
         .then(() => {
           updateShotInfo();
+          updateAuthorInfo();
         })
         .catch((err) => console.log(err));
     }
@@ -120,7 +124,11 @@ const shotPage = ({ user, allShots, serverSideShot, serverSideAuthor }) => {
           centered
           footer={null}
           wrapClassName={styles.shotPage__shareModal}>
-          <ShareButtons shareUrl={client.API_ENDPOINT + '/shot/' + shot._id} />
+          <ShareButtons
+            shareUrl={
+              client.API_ENDPOINT + buildShotURL(shot?._id, shot?.isOld ? author?._id : null)
+            }
+          />
         </Modal>
         <ShotSideMenu
           shot={shot}
@@ -131,6 +139,7 @@ const shotPage = ({ user, allShots, serverSideShot, serverSideAuthor }) => {
           like={like}
           updateShotInfo={updateShotInfo}
           setIsShareModalOpened={setIsShareModalOpened}
+          isOld={shot?.isOld}
         />
         <ShotHeader
           user={user}
@@ -153,6 +162,7 @@ const shotPage = ({ user, allShots, serverSideShot, serverSideAuthor }) => {
           like={() => like()}
           toggleComments={toggleComments}
           updateShotInfo={updateShotInfo}
+          shareUrl={client.API_ENDPOINT + buildShotURL(shot?._id, shot?.isOld ? author?._id : null)}
         />
         <ShotSlider shot={shot} allShots={allShots} />
       </div>
@@ -161,3 +171,30 @@ const shotPage = ({ user, allShots, serverSideShot, serverSideAuthor }) => {
 };
 
 export default shotPage;
+
+function prepareOldShot(old) {
+  const newShot = { ...old };
+  newShot._id = old?.image?._id;
+  newShot.image = old?.image?.image;
+  if (Array.isArray(old?.authorInfo)) {
+    newShot.authorInfo = old?.authorInfo[0];
+  }
+  return newShot;
+}
+
+async function getShotInfo(shotId, galleryId) {
+  let newShot = null;
+  if (!galleryId) {
+    // update shot (new)
+    newShot = await client.service('/api/v2/short-stories').get(shotId);
+  } else {
+    // update shot (old)
+    newShot = await client.service(`/api/v2/posts`).get(shotId, {
+      query: { postType: 'Portfolio', galleryId: galleryId },
+    });
+    newShot.isOld = true;
+  }
+  console.log('New shot:');
+  console.log(newShot);
+  return newShot;
+}

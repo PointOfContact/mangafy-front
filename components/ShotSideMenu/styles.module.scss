@@ -21,6 +21,8 @@
 
     &__avatar {
         margin-bottom: 10px;
+        border-radius: 50%;
+        overflow: hidden;
     }
 
     &__buttons {

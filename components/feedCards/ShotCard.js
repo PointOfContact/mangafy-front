@@ -11,7 +11,7 @@ import Heart from 'components/icon/new/Heart';
 import Close from 'components/icon/new/Close';
 import { Modal } from 'antd';
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
-import { highlightURLs } from 'helpers/shared';
+import { buildShotURL, highlightURLs } from 'helpers/shared';
 import cn from 'classnames';
 import { likeShot } from 'components/gallery/utils';
 import { notification } from 'antd';
@@ -19,12 +19,12 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 const ShotCard = ({ card, user, editShot, deleteShot }) => {
-  const image = card.image.image || card.image;
-  const author = card.authorInfo[0].name;
-  const authorId = card.authorInfo[0]._id;
-  const avatar = card.authorInfo[0].avatar;
+  const image = card.image?.image || card.image;
+  const author = card.authorInfo?.name;
+  const authorId = card.authorInfo?._id;
+  const avatar = card.authorInfo?.avatar;
   const likes = card.likedUsers?.length;
-  const comments = card.comments.data.length;
+  const comments = card.comments?.data?.length;
   const title = card.title;
   const router = useRouter();
 
@@ -54,12 +54,16 @@ const ShotCard = ({ card, user, editShot, deleteShot }) => {
     if (type === 'doubleClick') {
       like();
     } else {
-      router.push(`/shot/${card._id}`);
+      if (card?.image?._id) {
+        router.push(buildShotURL(card.image._id, card._id));
+      } else {
+        router.push(`/shot/${card._id}`);
+      }
     }
   }
 
   function like() {
-    likeShot(card._id, card.authorInfo[0]._id)
+    likeShot(card._id, card.authorInfo._id)
       .then((res) => {
         if (!isLiked) {
           if (Array.isArray(card.likedUsers)) {
@@ -88,46 +92,6 @@ const ShotCard = ({ card, user, editShot, deleteShot }) => {
 
   return (
     <>
-      {modal && (
-        <Modal
-          visible={modal}
-          onCancel={() => setModal(false)}
-          style={{ top: 50 }}
-          wrapClassName={styles.modal}
-          closeIcon={<Close className={styles.modal__close} />}
-          footer={null}>
-          <div className={styles.modal__title}>{title}</div>
-          <div className={styles.modal__content}>
-            {image && <img src={client.UPLOAD_URL + image} alt="shot image" />}
-            {text && (
-              <div
-                className={styles.modal__text}
-                dangerouslySetInnerHTML={{ __html: highlightURLs(text) }}></div>
-            )}
-          </div>
-          <FeedCardLine />
-          <div className={styles.modal__footer}>
-            <Link href={'/profile/' + authorId}>
-              <a className={styles.modal__authorInfo}>
-                <div className={styles.modal__avatar}>
-                  <img
-                    src={avatar ? client.UPLOAD_URL + avatar : 'img/feedTemp/avatar.png'}
-                    alt="user avatar"
-                  />
-                </div>
-                <div className={styles.modal__author}>{author}</div>
-              </a>
-            </Link>
-            <div
-              className={cn(styles.modal__likes, isLiked && styles.modal__likes_liked)}
-              onClick={like}>
-              {likes}
-              <Heart />
-            </div>
-          </div>
-        </Modal>
-      )}
-
       <div className={styles.card} onClick={handleClick} onDoubleClick={handleDoubleClick}>
         {image && (
           <FeedCardImage

@@ -6,6 +6,7 @@ import styles from './styles.module.scss';
 import { Avatar } from 'antd';
 import cn from 'classnames';
 import Link from 'next/link';
+import { buildShotURL } from 'helpers/shared';
 
 const sliderItemWidth = 100;
 
@@ -15,7 +16,7 @@ const ShotSlider = ({ shot, allShots }) => {
 
   const shotsElements = allShots?.map((sh) => {
     return (
-      <Link key={sh._id} href={'/shot/' + sh._id}>
+      <Link key={sh._id} href={sh.isOld ? buildShotURL(sh._id, sh.authorId) : '/shot/' + sh._id}>
         <a
           ref={sh._id === shot._id ? activeShotRef : null}
           className={cn(styles.slider__item, sh._id === shot._id && styles.slider__item_active)}

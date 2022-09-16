@@ -24,6 +24,7 @@ const ShotFooter = ({
   toggleComments,
   subscribe,
   updateShotInfo,
+  shareUrl,
 }) => {
   function subscribeHandler() {
     if (!user) {
@@ -47,6 +48,7 @@ const ShotFooter = ({
     }
   }
 
+  console.log(!shot.isOld);
   return (
     <div name="footer" className={cn(styles.footer, className)}>
       <div className={styles.footer__container}>
@@ -60,15 +62,21 @@ const ShotFooter = ({
           </div>
 
           <div className={styles.footer__info}>
-            <div className={styles.footer__title}>{shot?.title}</div>
+            <div className={styles.footer__title}>
+              {shot?.isOld ? shot?.authorInfo?.name : shot?.title}
+            </div>
 
             <div className={styles.footer__subtitle}>
-              <Link href={'/profile/' + shot?.authorInfo?._id}>
-                <a className={styles.footer__name}>{shot?.authorInfo?.name}</a>
-              </Link>
+              {!shot?.isOld && (
+                <>
+                  <Link href={'/profile/' + shot?.authorInfo?._id}>
+                    <a className={styles.footer__name}>{shot?.authorInfo?.name}</a>
+                  </Link>
+                  <span>{' | '}</span>
+                </>
+              )}
               {!isOwn && (
                 <>
-                  <span>{' | '}</span>
                   <button className={styles.footer__subscribe} onClick={subscribe}>
                     {isSubscribed ? 'Unfollow' : 'Follow'}
                   </button>
@@ -90,18 +98,20 @@ const ShotFooter = ({
               icon={<Comment color="#7B65F3" />}>
               {shot?.comments?.total || 0}
             </Button>
-            <Button
-              sm
-              rounded
-              outline
-              icon={<Fire color="#7B65F3" />}
-              onClick={like}
-              iconRight
-              className={cn(styles.footer__like, isLiked && styles.footer__like_active)}>
-              {shot.likedUsers?.length || 0}
-            </Button>
+            {!shot.isOld && (
+              <Button
+                sm
+                rounded
+                outline
+                icon={<Fire color="#7B65F3" />}
+                onClick={like}
+                iconRight
+                className={cn(styles.footer__like, isLiked && styles.footer__like_active)}>
+                {shot.likedUsers?.length || 0}
+              </Button>
+            )}
           </div>
-          <ShareButtons shareUrl={client.API_ENDPOINT + '/shot/' + shot._id} />
+          <ShareButtons shareUrl={shareUrl} />
         </div>
       </div>
     </div>
