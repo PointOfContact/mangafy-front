@@ -150,6 +150,7 @@ const ShotCard = ({ card, user, editShot, deleteShot }) => {
           )}
           {(title || text) && <FeedCardLine />}
           <FeedCardShotFooter
+            card={card}
             authorId={authorId}
             author={author}
             avatar={avatar}

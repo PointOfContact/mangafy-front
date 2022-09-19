@@ -12,6 +12,7 @@ import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import Button from 'components/ui-new/Button';
 import FeedCardLine from './components/FeedCardLine';
 import Link from 'next/link';
+import { followUser, unFollowUser } from 'helpers/shared';
 import { useRouter } from 'next/router';
 
 const PortfolioWorkCard = ({ card, user }) => {
@@ -47,6 +48,28 @@ const PortfolioWorkCard = ({ card, user }) => {
       like();
     } else {
       router.push(`/profile/${card._id}`);
+    }
+  }
+
+  function like(params) {
+    if (!user) {
+      notification.error({
+        placement: 'bottomLeft',
+        message: 'You need to be logged in to follow a user',
+      });
+    }
+    if (!isFollowed) {
+      followUser(card._id)
+        .then(() => {
+          setIsFollowed(true);
+        })
+        .catch((err) => console.log(err));
+    } else {
+      unFollowUser(card._id)
+        .then(() => {
+          setIsFollowed(false);
+        })
+        .catch((err) => console.log(err));
     }
   }
 
