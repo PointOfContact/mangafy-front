@@ -136,3 +136,10 @@ export const unFollowUser = (userId) => {
     })
   );
 };
+
+export function buildShotURL(shotId, authorId) {
+  if (authorId) {
+    return `/shot/${authorId}?galleryId=${shotId}`;
+  }
+  return `/shot/${shotId}`;
+}

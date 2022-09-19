@@ -7,28 +7,35 @@ export default withAuthComponent(ShotPage);
 
 export const getServerSideProps = withAuthServerSideProps(async (context, user = store.user) => {
   let shot = null;
-  // let comments = null;
   let allShots = null;
   let author = null;
 
   try {
     try {
+      // try to get shot from short-stories
       shot = await client.service(`/api/v2/short-stories`).get(context.params.shotId);
     } catch {
-      shot = await client
-        .service(`/api/v2/posts`)
-        .find({ query: { postType: 'Portfolio', _id: context.params.shotId, $limit: 1 } });
+      // if shot is not found, try to get it from posts (old shots)
+      shot = await client.service(`/api/v2/posts`).get(context.params.shotId, {
+        query: { postType: 'Portfolio', galleryId: context.query.galleryId },
+      });
+      shot.idOld = true;
     }
 
-    // comments = await client
-    //   .service('/api/v2/portfolio-comment')
-    //   .find({ query: { portfolioId: context.params.shotId, $limit: 100 } });
-    allShots = await client
+    if (!shot.isOld) {
+      author = await client.service('/api/v2/users').get(shot.authorInfo._id);
+    } else {
+      // in old shots, authorId is shotId
+      author = await client.service('/api/v2/users').get(shot._id);
+    }
+
+    allShots = author?.gallery.map((item) => ({ ...item, isOld: true, authorId: author._id }));
+    const allNewShots = await client
       .service('/api/v2/short-stories')
-      .find({ query: { authorId: shot.authorId, $limit: 20 } });
-    author = await client.service('/api/v2/users').get(shot.authorId);
+      .find({ query: { authorId: author._id } });
+    allShots = allShots.concat(allNewShots.data || []);
   } catch (err) {
-    console.log('Shot page error: ', err);
+    console.log('!!! Shot page error: ', err);
     if (context.res) {
       context.res.writeHead(302, {
         Location: '/404',
@@ -39,11 +46,10 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
 
   return {
     props: {
-      user: user,
+      user,
       serverSideShot: shot,
       serverSideAuthor: author,
-      // serverSideComments: comments,
-      allShots: allShots?.data || [],
+      allShots: allShots,
     },
   };
 });

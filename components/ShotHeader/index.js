@@ -8,6 +8,7 @@ import ArrowDown2 from 'components/icon/new/ArrowDown2';
 import cn from 'classnames';
 import Avatar from 'components/Avatar';
 import { notification } from 'antd';
+import { buildShotURL } from 'helpers/shared';
 
 const ShotHeader = ({ user, shot, className, allShots, isOwn, isSubscribed, subscribe }) => {
   function getActiveShotIndex() {
@@ -32,8 +33,8 @@ const ShotHeader = ({ user, shot, className, allShots, isOwn, isSubscribed, subs
     }
   }
 
-  const prevShotId = getPrevShot()?._id;
-  const nextShotId = getNextShot()?._id;
+  const prevShot = getPrevShot();
+  const nextShot = getNextShot();
 
   return (
     <div className={className}>
@@ -44,15 +45,21 @@ const ShotHeader = ({ user, shot, className, allShots, isOwn, isSubscribed, subs
           </div>
 
           <div className={styles.header__info}>
-            <div className={styles.header__title}>{shot?.title}</div>
+            <div className={styles.header__title}>
+              {shot?.isOld ? shot?.authorInfo?.name : shot?.title}
+            </div>
 
             <div className={styles.header__subtitle}>
-              <Link href={'/profile/' + shot?.authorInfo?._id}>
-                <a className={styles.header__author}>{shot?.authorInfo?.name}</a>
-              </Link>
+              {!shot?.isOld && (
+                <>
+                  <Link href={'/profile/' + shot?.authorInfo?._id}>
+                    <a className={styles.header__author}>{shot?.authorInfo?.name}</a>
+                  </Link>
+                  <span>{' | '}</span>
+                </>
+              )}
               {!isOwn && (
                 <>
-                  <span>{' | '}</span>
                   <button className={styles.header__subscribe} onClick={subscribe}>
                     {isSubscribed ? 'Unfollow' : 'Follow'}
                   </button>
@@ -63,14 +70,24 @@ const ShotHeader = ({ user, shot, className, allShots, isOwn, isSubscribed, subs
         </div>
 
         <div className={styles.header__arrows}>
-          <Link href={'/shot/' + prevShotId}>
-            <a className={cn(styles.header__arrow, !prevShotId && styles.header__arrow_disabled)}>
+          <Link
+            href={
+              prevShot?.isOld
+                ? buildShotURL(prevShot?._id, prevShot?.authorId)
+                : '/shot/' + prevShot?._id
+            }>
+            <a className={cn(styles.header__arrow, !prevShot && styles.header__arrow_disabled)}>
               <ArrowDown2 />
             </a>
           </Link>
           #{getActiveShotIndex() + 1}
-          <Link href={'/shot/' + nextShotId}>
-            <a className={cn(styles.header__arrow, !nextShotId && styles.header__arrow_disabled)}>
+          <Link
+            href={
+              nextShot?.isOld
+                ? buildShotURL(nextShot?._id, nextShot?.authorId)
+                : '/shot/' + nextShot?._id
+            }>
+            <a className={cn(styles.header__arrow, !nextShot && styles.header__arrow_disabled)}>
               <ArrowDown2 />
             </a>
           </Link>
@@ -83,14 +100,24 @@ const ShotHeader = ({ user, shot, className, allShots, isOwn, isSubscribed, subs
 
       <div className={styles.header__mobileArrowsAndTip}>
         <div className={cn(styles.header__arrows, styles.header__arrows_mobile)}>
-          <Link href={'/shot/' + prevShotId}>
-            <a className={cn(styles.header__arrow, !prevShotId && styles.header__arrow_disabled)}>
+          <Link
+            href={
+              prevShot?.isOld
+                ? buildShotURL(prevShot?._id, prevShot?.authorId)
+                : '/shot/' + prevShot?._id
+            }>
+            <a className={cn(styles.header__arrow, !prevShot && styles.header__arrow_disabled)}>
               <ArrowDown2 />
             </a>
           </Link>
           #{getActiveShotIndex() + 1}
-          <Link href={'/shot/' + nextShotId}>
-            <a className={cn(styles.header__arrow, !nextShotId && styles.header__arrow_disabled)}>
+          <Link
+            href={
+              nextShot?.isOld
+                ? buildShotURL(nextShot?._id, nextShot?.authorId)
+                : '/shot/' + nextShot?._id
+            }>
+            <a className={cn(styles.header__arrow, !nextShot && styles.header__arrow_disabled)}>
               <ArrowDown2 />
             </a>
           </Link>
