@@ -194,9 +194,6 @@ const MangeStory = (props) => {
       m.default
         .service('/api/v2/manga-stories')
         .remove(mangaId, {
-          query: {
-            mangaStoryId: baseData._id,
-          },
           headers: { Authorization: `Bearer ${jwt}` },
           mode: 'no-cors',
         })
