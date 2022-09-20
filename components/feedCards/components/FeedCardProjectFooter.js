@@ -18,7 +18,7 @@ const FeedCardProjectFooter = ({ authorId, author, avatar, comments, likes, isLi
       <div className={styles.feedCardShotFooter__comments}>
         {comments} <Comment />
       </div>
-      <div
+      {/* <div
         className={cn(
           styles.feedCardShotFooter__stars,
           isLiked && styles.feedCardShotFooter__stars_liked
@@ -28,7 +28,7 @@ const FeedCardProjectFooter = ({ authorId, author, avatar, comments, likes, isLi
           like();
         }}>
         {likes || 0} <Star />
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -6,7 +6,7 @@ import cn from 'classnames';
 import client from 'api/client';
 import Link from 'next/link';
 
-const FeedCardShotFooter = ({ authorId, author, avatar, comments, likes, isLiked, like }) => {
+const FeedCardShotFooter = ({ card, authorId, author, avatar, comments, likes, isLiked, like }) => {
   return (
     <div className={styles.feedCardShotFooter}>
       <Link href={'/profile/' + authorId}>
@@ -18,17 +18,19 @@ const FeedCardShotFooter = ({ authorId, author, avatar, comments, likes, isLiked
       {/* <div className={styles.feedCardShotFooter__comments}>
         {comments} <Comment />
       </div> */}
-      <div
-        className={cn(
-          styles.feedCardShotFooter__stars,
-          isLiked && styles.feedCardShotFooter__stars_liked
-        )}
-        onClick={(e) => {
-          e.stopPropagation();
-          like();
-        }}>
-        {likes || 0} <Star />
-      </div>
+      {card.title && (
+        <div
+          className={cn(
+            styles.feedCardShotFooter__stars,
+            isLiked && styles.feedCardShotFooter__stars_liked
+          )}
+          onClick={(e) => {
+            e.stopPropagation();
+            like();
+          }}>
+          {likes || 0} <Star />
+        </div>
+      )}
     </div>
   );
 };
