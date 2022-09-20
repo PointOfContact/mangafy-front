@@ -11,7 +11,7 @@ const TabStory = (props) => {
   return (
     <div className={styles.content_tab_profile_2}>
       <Gallery
-        title="Previous works"
+        title="Shots"
         fromPath="users"
         {...{
           user,

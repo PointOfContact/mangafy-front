@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Modal from 'antd/lib/modal/Modal';
 import cn from 'classnames';
@@ -9,13 +9,57 @@ import ImageGallery from 'react-image-gallery';
 import styles from './style.module.scss';
 import client from 'api/client';
 import ShotComments from 'components/shotComments';
+import ResponsiveImgix from 'components/imgix/responsiveImgix';
+import Heart from 'components/icon/new/Heart';
+import { notification } from 'antd';
+import { likeShot } from '../utils';
 
-export const ShowGalleryModal = ({ startIndex, images, handleCancel, isModalVisible, user }) => {
+export const ShowGalleryModal = ({
+  startIndex,
+  images,
+  handleCancel,
+  isModalVisible,
+  user,
+  authorId,
+  updateShots,
+}) => {
   const image = {
     id: images[startIndex]._id._id || images[startIndex]._id,
     title: images[startIndex].title,
     description: images[startIndex].description,
     image: images[startIndex]._id.image || images[startIndex].image,
+    likedUsers: images[startIndex]?.likedUsers || [],
+  };
+
+  // const [isLiked, setIsLiked] = useState(
+  //   image.likedUsers?.some((user) => user.likedUserId === user._id)
+  // );
+
+  // useEffect(() => {
+  //   setIsLiked(image.likedUsers?.some((user) => user.likedUserId === user._id));
+  // }, [image]);
+
+  const isLiked = image.likedUsers?.some((us) => us.likedUserId === user._id);
+
+  const onLikeGallery = (galleryId, authorId, likedUserId) => {
+    user
+      ? likeShot(galleryId, authorId)
+          .then((res) => {
+            updateShots();
+          })
+          .catch((err) => {
+            if (err.code === 401)
+              notification.error({
+                message: 'Please log in to like Shots',
+                placement: 'bottomLeft',
+              });
+            else if (err.message === 'You can not like yourself')
+              notification.error({ message: 'You can not like yourself', placement: 'bottomLeft' });
+            else {
+              console.log(err);
+            }
+          })
+      : router.push('/sign-in');
   };
 
   return (
@@ -31,7 +75,13 @@ export const ShowGalleryModal = ({ startIndex, images, handleCancel, isModalVisi
         {image.description && <div className={styles.modal__description}>{image.description}</div>}
         {image.image && (
           <div className={styles.modal__image}>
-            <img src={client.UPLOAD_URL + image.image} alt="gallery image" />
+            <div
+              className={cn(styles.modal__like, isLiked && styles.modal__like_active)}
+              onClick={() => onLikeGallery(image.id, authorId, user?._id)}>
+              {image.likedUsers.length}
+              <Heart color="#fff" />
+            </div>
+            <ResponsiveImgix src={client.UPLOAD_URL + image.image} />
           </div>
         )}
         <ShotComments shotId={image.id} user={user} />
