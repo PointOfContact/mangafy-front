@@ -72,7 +72,7 @@ function FeedCardImage({ image, isOwned, shareUrl, onEdit, onDelete, mangaId, ma
                 styles.share__shareButtons,
                 areShareButtonsVisible && styles.share__shareButtons_active
               )}
-              shareUrl={mangaUrl}
+              shareUrl={shareUrl || mangaUrl}
               onClick={(e) => {
                 e.stopPropagation();
               }}

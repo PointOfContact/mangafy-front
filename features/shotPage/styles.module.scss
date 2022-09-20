@@ -17,6 +17,10 @@ $sidebarWidth: 400px;
     &__body {
         max-width: 1200px;
         margin: 0 auto;
+
+        > span:not(:last-child) {
+            margin-bottom: 20px !important;
+        }
     }
 
     &__shifted {
