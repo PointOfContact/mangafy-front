@@ -25,7 +25,6 @@ const MangaSideMenu = ({
   updateComments,
   isParticipant,
 }) => {
-  const author = authors[0];
   const commentsRef = useRef(null);
   // const [commentsCount, setCommentsCount] = useState(0);
 
@@ -47,8 +46,8 @@ const MangaSideMenu = ({
       <div className={cn(styles.menu, areCommentsOpened && styles.menu_withOpenedComments)}>
         <Avatar
           size={60}
-          image={author?.avatar}
-          text={author?.name[0]}
+          image={authors[0]?.avatar}
+          text={authors[0]?.name[0]}
           className={styles.menu__avatar}
         />
         <div className={styles.menu__buttons}>

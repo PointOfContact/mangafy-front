@@ -31,7 +31,6 @@ const MangaFooter = ({
   comments,
   isParticipant,
 }) => {
-  const author = authors[0];
   return (
     <div name="footer" className={cn(styles.footer, className)}>
       <div className={styles.footer__container}>
@@ -49,15 +48,15 @@ const MangaFooter = ({
         </div>
         <div className={styles.footer__author}>
           <div className={styles.footer__image}>
-            <Avatar image={author?.avatar} text={author?.name} size={80} />
+            <Avatar image={authors[0]?.avatar} text={authors[0]?.name} size={80} />
           </div>
 
           <div className={styles.footer__info}>
             <div className={styles.footer__title}>{manga?.mangaStoryTitle}</div>
 
             <div className={styles.footer__subtitle}>
-              <Link href={'/profile/' + author?._id}>
-                <a className={styles.footer__authorLink}>{author?.name}</a>
+              <Link href={'/profile/' + authors[0]?._id}>
+                <a className={styles.footer__authorLink}>{authors[0]?.name}</a>
               </Link>
               {/* {authors.length === 1 && (
                 <> */}

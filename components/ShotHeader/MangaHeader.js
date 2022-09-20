@@ -11,7 +11,6 @@ import { notification } from 'antd';
 import { buildShotURL } from 'helpers/shared';
 
 const MangaHeader = ({ user, manga, className, authors, subscribe, isOwn, activeChapterIndex }) => {
-  const author = authors[0];
   const prevChapterIndex = activeChapterIndex === 0 ? null : activeChapterIndex - 1;
   const nextChapterIndex =
     activeChapterIndex === manga.chapters.length ? null : activeChapterIndex + 1;
@@ -21,15 +20,15 @@ const MangaHeader = ({ user, manga, className, authors, subscribe, isOwn, active
       <div className={styles.header}>
         <div className={styles.header__shot}>
           <div className={styles.header__image}>
-            <Avatar image={author?.avatar} text={author?.name} size={80} />
+            <Avatar image={authors[0]?.avatar} text={authors[0]?.name} size={80} />
           </div>
 
           <div className={styles.header__info}>
             <div className={styles.header__title}>{manga?.mangaStoryTitle}</div>
 
             <div className={styles.header__subtitle}>
-              <Link href={'/profile/' + author?._id}>
-                <a className={styles.header__author}>{author?.name}</a>
+              <Link href={'/profile/' + authors[0]?._id}>
+                <a className={styles.header__author}>{authors[0]?.name}</a>
               </Link>
               {/* {authors.length === 1 && (
                 <> */}
@@ -38,7 +37,7 @@ const MangaHeader = ({ user, manga, className, authors, subscribe, isOwn, active
                   <span>{' | '}</span>
                   <button
                     className={styles.header__subscribe}
-                    onClick={() => subscribe(author._id)}>
+                    onClick={() => subscribe(authors[0]._id)}>
                     {authors[0].isFollowed ? 'Unfollow' : 'Follow'}
                   </button>
                 </>
