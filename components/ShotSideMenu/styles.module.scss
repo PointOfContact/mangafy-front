@@ -1,0 +1,81 @@
+@import '../../styles/variables.scss';
+
+.menu {
+    position: fixed;
+    top: 0;
+    right: 15px;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: 0.2s;
+
+    &_withOpenedComments {
+        transform: translateX(130%);
+    }
+
+    @include media-md {
+        display: none;
+    }
+
+    &__avatar {
+        margin-bottom: 10px;
+        border-radius: 50%;
+        overflow: hidden;
+    }
+
+    &__buttons {
+        display: flex;
+        flex-direction: column;
+
+        button {
+            font-size: 12px;
+            padding: 5px 10px;
+            align-self: stretch;
+
+            &:not(last-child) {
+                margin-bottom: 5px;
+            }
+    
+            svg {
+                height: 20px;
+            }
+        }
+    }
+
+    &__like {
+        &_active {
+            svg {
+                stroke:rgb(233, 33, 33);
+                fill: rgb(255, 197, 36);
+            }
+        }
+    }
+}
+
+.sideComments {
+    background: #fff;
+    box-shadow: $bigShadow;
+    z-index: 1;
+    position: fixed;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    overflow: auto;
+    width: 400px;
+    padding: 100px 20px 20px;
+    transform: translateX(100%);
+    transition: 0.5s;
+    &_opened {
+        transform: translateX(0);
+    }
+
+    @include media-md {
+        display: none;
+    }
+    &__header {
+        font-size: 30px;
+        font-weight: 800;
+    }
+}

@@ -8,7 +8,7 @@ export default withAuthComponent(FeedNew);
 export const getServerSideProps = withAuthServerSideProps(async (context, user = null, jwt) => {
   try {
     const queryPosts = {
-      $limit: 20,
+      $limit: 10,
       $sort: {
         createdAt: -1,
       },

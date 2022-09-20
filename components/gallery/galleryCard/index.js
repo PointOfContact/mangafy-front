@@ -104,6 +104,7 @@ const GalleryCard = ({
       _id,
       (res) => {
         const newImages = images.filter((item) => item._id !== res._id);
+        myAmplitude(EVENTS.DELETE_SHOT);
         setImages(newImages);
       },
       (err) => {

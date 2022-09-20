@@ -32,9 +32,6 @@ const DeleteProjectButton = ({ label, user, index, mangaStories, setMangaStories
       m.default
         .service('/api/v2/manga-stories')
         .remove(mangaStory._id, {
-          query: {
-            mangaStoryId: mangaStory._id,
-          },
           headers: { Authorization: `Bearer ${jwt}` },
           mode: 'no-cors',
         })
@@ -55,9 +52,7 @@ const DeleteProjectButton = ({ label, user, index, mangaStories, setMangaStories
 
   return (
     label.author === user?._id && (
-      <div
-        onClick={(e) => handleClick(e)}
-        className={cn(styles.deleteCard, styles.deleteCardMobile)}>
+      <div onClick={handleClick} className={cn(styles.deleteCard, styles.deleteCardMobile)}>
         <span>
           <Popconfirm
             overlayClassName={styles.popConfirm}
