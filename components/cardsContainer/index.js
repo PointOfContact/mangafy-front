@@ -8,6 +8,33 @@ import { useRouter } from 'next/router';
 
 import ArrowDown2 from 'components/icon/new/ArrowDown2';
 
+const placeholderData = [
+  {
+    id: 1,
+    height: 400,
+  },
+  {
+    id: 2,
+    height: 300,
+  },
+  {
+    id: 3,
+    height: 350,
+  },
+  {
+    id: 4,
+    height: 300,
+  },
+  {
+    id: 5,
+    height: 400,
+  },
+  {
+    id: 6,
+    height: 350,
+  },
+];
+
 const CardsContainer = ({ columns = 3, cardsElements = [], user, onPageEnd }) => {
   const router = useRouter();
   const [firstColRef, secondColRef, thirdColRef] = [useRef(null), useRef(null), useRef(null)];
@@ -64,13 +91,6 @@ const CardsContainer = ({ columns = 3, cardsElements = [], user, onPageEnd }) =>
   }
 
   useEffect(async () => {
-    // let newCards = cards ? cards.slice() : [];
-    // if (newCards.length === 0) newCards = await getCards(type, 40, 0);
-    // console.log(`(${type}): First render: newCards`);
-    // console.log(newCards);
-    // const newCardsElements = makeCardsElements(newCards);
-    // setCardsElements((oldCardsElements) => [...oldCardsElements, ...newCardsElements]);
-
     if (!localStorage.getItem('welcomeCardClosed')) setWelcomeCardVisible(true);
 
     window.addEventListener('scroll', onScroll);
@@ -82,15 +102,23 @@ const CardsContainer = ({ columns = 3, cardsElements = [], user, onPageEnd }) =>
   const [firstCol, secondCol, thirdCol] = [[], [], []];
 
   let colToPush = 1;
-  for (let i = 0; i < cardsElements.length; i++) {
-    if (cardsElements[i]) {
-      if (colToPush === 1) firstCol.push(cardsElements[i]);
-      if (colToPush === 2) secondCol.push(cardsElements[i]);
-      if (colToPush === 3) thirdCol.push(cardsElements[i]);
+  let elements = cardsElements;
+  if (cardsElements.length === 0)
+    elements = placeholderData
+      .sort(() => (Math.random() > 0.5 ? 1 : -1))
+      .map((card) => (
+        <div key={card.id} style={{ height: card.height }} className={styles.placeholder}></div>
+      ));
+  for (let i = 0; i < elements.length; i++) {
+    if (elements[i]) {
+      if (colToPush === 1) firstCol.push(elements[i]);
+      if (colToPush === 2) secondCol.push(elements[i]);
+      if (colToPush === 3) thirdCol.push(elements[i]);
       if (colToPush >= columns) colToPush = 1;
       else colToPush++;
     }
   }
+  console.log(firstCol, secondCol, thirdCol);
 
   return (
     <>
