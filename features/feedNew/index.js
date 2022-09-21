@@ -166,7 +166,6 @@ const FeedNew = (props) => {
   }
 
   function editShot(shot) {
-    console.log(shot);
     setShotToEdit(shot);
     setShotModalVisible(true);
   }

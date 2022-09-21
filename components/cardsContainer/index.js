@@ -118,7 +118,6 @@ const CardsContainer = ({ columns = 3, cardsElements = [], user, onPageEnd }) =>
       else colToPush++;
     }
   }
-  console.log(firstCol, secondCol, thirdCol);
 
   return (
     <>
