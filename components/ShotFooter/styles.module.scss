@@ -20,6 +20,17 @@
         margin-bottom: 30px;
     }
 
+    &__authorLink {
+        display: inline;
+        color: #000;
+        &:hover {
+            color: rgb(36, 36, 36);
+        }
+        &:active {
+            color: rgb(63, 63, 63);
+        }
+    }
+
     &__image {
         position: relative;
         border-radius: 50%;
@@ -79,7 +90,7 @@
         @include media-sm {
             margin-bottom: 10px;
         }
-        > button {
+        > button, > a > button {
             padding: 10px 20px;
             
             svg {
@@ -97,6 +108,7 @@
                 }
             }
         }
+
     }
 
     &__commentButton {

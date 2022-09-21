@@ -24,6 +24,10 @@ const PublishedCard = ({ card, user }) => {
   const avatar = card.authorInfo?.avatar;
   const likes = card.likedUsers?.length || card?.likes || card?.like;
   const comments = card.comments?.total;
+  const mangaUrl =
+    card.postType === 'Ongoing'
+      ? card.button.navigateTo + '?chapter=' + card?.order
+      : `/manga-story/${card._id}`;
 
   const [isLiked, setIsLiked] = useState(card?.likedUsers?.includes(user?.id));
   const router = useRouter();
@@ -45,9 +49,7 @@ const PublishedCard = ({ card, user }) => {
     if (type === 'doubleClick') {
       like();
     } else {
-      router.push(
-        card.postType === 'Ongoing' ? card.button.navigateTo : `/manga-story/${card._id}`
-      );
+      router.push(mangaUrl);
     }
   }
 
@@ -124,9 +126,8 @@ const PublishedCard = ({ card, user }) => {
         <FeedCardImage
           image={client.UPLOAD_URL + image}
           isOwned={card.author === user?._id}
-          shareUrl={'/shot/' + card._id}
           mangaId={card._id}
-          mangaUrl={card.button.navigateTo}
+          mangaUrl={mangaUrl}
         />
       )}
       <div className={styles.card__content}>

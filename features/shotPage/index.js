@@ -1,6 +1,6 @@
 import client from 'api/client';
 import HeaderNew from 'components/headerNew';
-import Reactt, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styles from './styles.module.scss';
 import { useRouter } from 'next/router';
 import ShotHeader from 'components/ShotHeader';
