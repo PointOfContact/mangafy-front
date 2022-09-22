@@ -120,6 +120,7 @@ const FeedNew = (props) => {
   }
 
   async function updateCards(cards, isLastRequest, shouldCleanCards, type) {
+    setCardsElements([]);
     try {
       const newCards = await getCards(10, shouldCleanCards ? 0 : cards.length, type);
       const newCardsElements = makeCardsElements(newCards);
@@ -165,7 +166,6 @@ const FeedNew = (props) => {
   }
 
   function editShot(shot) {
-    console.log(shot);
     setShotToEdit(shot);
     setShotModalVisible(true);
   }
@@ -251,6 +251,13 @@ const FeedNew = (props) => {
         <HeaderNew user={user} />
         <div className={styles.feed}>
           <Row className={styles.feedContent}>
+            <div className={styles.feed__info}>
+              <h1 className={styles.feed__title}>Explore the MangaFY - collaboration platform</h1>
+              <div className={styles.feed__description}>
+                A constructive and inclusive platform for webtoon and webcomics creators. MangaFY is
+                a space for webcomics creators.
+              </div>
+            </div>
             <Col span={24} className={styles.filter}>
               <Tabs
                 tabBarGutter={30}
@@ -269,6 +276,7 @@ const FeedNew = (props) => {
               {/* <FilterNew genres="Genres" search /> */}
               <CardsContainer
                 cardsElements={cardsElements || []}
+                // cardsElements={[]}
                 columns={screenWidth >= 1000 ? 3 : screenWidth >= 700 ? 2 : 1}
                 user={user}
                 activeTab={activeTab}

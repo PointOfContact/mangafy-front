@@ -87,3 +87,29 @@
         margin-bottom: 20px;
     }
 }
+
+.placeholder {
+    box-shadow: $bigShadow;
+    overflow: hidden;
+    position: relative;
+    border-radius: 10px;
+    background: rgb(214, 214, 214);
+    &::before {
+        content: '';
+        width: 80%;
+        height: 200%;
+        transform: translateY(-30%) rotate(30deg);
+        background: linear-gradient(90deg, #ffffff00, rgb(236, 236, 236), #ffffff00);
+        position: absolute;
+        animation: loading 1s infinite;
+    }
+}
+
+@keyframes loading {
+    0%{
+        left: -100%;
+      }
+    100%{
+        left: 150%
+    }
+}
