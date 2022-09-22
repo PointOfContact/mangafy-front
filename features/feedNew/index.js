@@ -99,6 +99,7 @@ const FeedNew = (props) => {
         type = 'Ongoing';
         break;
     }
+    clearCardsElements();
     setPostType(type);
   }, [activeTab]);
 
@@ -120,7 +121,6 @@ const FeedNew = (props) => {
   }
 
   async function updateCards(cards, isLastRequest, shouldCleanCards, type) {
-    setCardsElements([]);
     try {
       const newCards = await getCards(10, shouldCleanCards ? 0 : cards.length, type);
       const newCardsElements = makeCardsElements(newCards);
