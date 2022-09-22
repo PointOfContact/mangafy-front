@@ -125,7 +125,11 @@ const PublishedCard = ({ card, user }) => {
       {image && (
         <FeedCardImage
           image={client.UPLOAD_URL + image}
-          isOwned={card.author === user?._id}
+          isOwned={
+            card.postType === 'Ongoing'
+              ? card.authorInfo?._id === user?._id
+              : card.author === user?._id
+          }
           mangaId={card._id}
           mangaUrl={mangaUrl}
         />
