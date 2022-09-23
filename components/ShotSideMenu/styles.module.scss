@@ -10,6 +10,7 @@
     justify-content: center;
     align-items: center;
     transition: 0.2s;
+    z-index: 5;
 
     &_withOpenedComments {
         transform: translateX(130%);
@@ -29,7 +30,7 @@
         display: flex;
         flex-direction: column;
 
-        button {
+        button{
             font-size: 12px;
             padding: 5px 10px;
             align-self: stretch;
@@ -40,6 +41,13 @@
     
             svg {
                 height: 20px;
+            }
+        }
+
+        a {
+            display: block;
+            button {
+                width: 100%;
             }
         }
     }

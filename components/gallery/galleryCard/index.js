@@ -36,15 +36,15 @@ const GalleryCard = ({
   setCreateGalleryModal,
   setIsModalVisible,
   profileId,
+  updateShots,
 }) => {
   const ifNotStories = galleryItem?.original;
   const getTypeImg = ifNotStories && image?.slice(-3);
   const type = getTypeImg;
-  const [isLiked, setIsLiked] = useState(
-    Array.isArray(galleryItem.likedUsers)
-      ? galleryItem.likedUsers.map((obj) => obj.likedUserId).includes(user?._id)
-      : false
-  );
+
+  const isLiked = Array.isArray(galleryItem.likedUsers)
+    ? galleryItem.likedUsers.map((obj) => obj.likedUserId).includes(user?._id)
+    : false;
 
   const getLikesCount = useCallback(
     (galleryId) =>
@@ -56,19 +56,7 @@ const GalleryCard = ({
     user
       ? likeShot(galleryItem._id._id || galleryItem._id, router.query.pid)
           .then((res) => {
-            if (!isLiked) {
-              if (Array.isArray(galleryItem.likedUsers)) {
-                galleryItem.likedUsers.push(res);
-              } else {
-                galleryItem.likedUsers = [res];
-              }
-              setIsLiked(true);
-            } else {
-              galleryItem.likedUsers = galleryItem.likedUsers?.filter(
-                (like) => like.likedUserId !== user?._id
-              );
-              setIsLiked(false);
-            }
+            updateShots();
           })
           .catch((err) => {
             if (err.code === 401)

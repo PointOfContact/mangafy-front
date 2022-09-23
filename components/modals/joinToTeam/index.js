@@ -161,7 +161,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, selectedTask, user }
                 changeJoinAs(e.joinAs);
                 createRequest(e.plan, e.yourseld, e.joinAs);
               }}>
-              <h2>Iroduce yourseld *</h2>
+              <h2>Introduce yourself *</h2>
               <Form.Item
                 name="yourseld"
                 rules={[

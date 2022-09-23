@@ -203,10 +203,16 @@ export const Gallery = (props) => {
     ]);
   };
 
+  console.log(userData._id);
+
   return (
     <div>
       {showGallery && (
-        <ShowGalleryModal {...{ startIndex, images, handleCancel, isModalVisible, user }} />
+        <ShowGalleryModal
+          authorId={userData?._id}
+          updateShots={updateShots}
+          {...{ startIndex, images, handleCancel, isModalVisible, user }}
+        />
       )}
       {createGalleryModal && (
         <CreateShotModal
@@ -251,6 +257,7 @@ export const Gallery = (props) => {
             setIsModalVisible={setIsModalVisible}
             onBeforeGalleryUpload={onBeforeGalleryUpload}
             showUploadList={showUploadList}
+            updateShots={updateShots}
           />
         </Col>
       </Row>

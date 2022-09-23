@@ -24,6 +24,7 @@ const CreatePreviousWorks = ({
   onBeforeGalleryUpload,
   showUploadList,
   profile,
+  updateShots,
 }) => (
   <div className={styles.imagesBlock}>
     {images?.length ? (
@@ -31,6 +32,7 @@ const CreatePreviousWorks = ({
         <GalleryCard
           key={index}
           profileId={profile?.Id}
+          updateShots={updateShots}
           {...{
             index,
             canEdit,
