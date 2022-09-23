@@ -54,31 +54,30 @@ function FeedCardImage({ image, isOwned, shareUrl, onEdit, onDelete, mangaId, ma
         loading="lazy"
       />
       <div className={styles.share__hover}>
-        {!isOwned ? (
-          <div className={styles.share__buttons}>
-            <Button
-              rounded
-              pink
-              iconRight
-              icon={<Share color="#fff" />}
-              onClick={(e) => {
-                e.stopPropagation();
-                setAreShareButtonsVisible((old) => !old);
-              }}>
-              Share
-            </Button>
-            <ShareButtons
-              className={cn(
-                styles.share__shareButtons,
-                areShareButtonsVisible && styles.share__shareButtons_active
-              )}
-              shareUrl={shareUrl || mangaUrl}
-              onClick={(e) => {
-                e.stopPropagation();
-              }}
-            />
-          </div>
-        ) : (
+        <div className={styles.share__buttons}>
+          <Button
+            rounded
+            pink
+            iconRight
+            icon={<Share color="#fff" />}
+            onClick={(e) => {
+              e.stopPropagation();
+              setAreShareButtonsVisible((old) => !old);
+            }}>
+            Share
+          </Button>
+          <ShareButtons
+            className={cn(
+              styles.share__shareButtons,
+              areShareButtonsVisible && styles.share__shareButtons_active
+            )}
+            shareUrl={shareUrl || mangaUrl}
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          />
+        </div>
+        {isOwned && (
           <div className={styles.share__buttons}>
             {mangaId ? (
               <Link href={'/manga-story/' + mangaId}>
