@@ -53,7 +53,7 @@ function FeedCardImage({ image, isOwned, shareUrl, onEdit, onDelete, mangaId, ma
         })}
         loading="lazy"
       />
-      <div className={styles.share__hover}>
+      <div className={cn(styles.share__hover, isTouchDevice() && styles.share__hover_disabled)}>
         <div className={styles.share__buttons}>
           <Button
             rounded
@@ -122,3 +122,10 @@ function FeedCardImage({ image, isOwned, shareUrl, onEdit, onDelete, mangaId, ma
 }
 
 export default FeedCardImage;
+
+function isTouchDevice() {
+  if (typeof window === 'undefined') {
+    return false;
+  }
+  return 'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
+}
