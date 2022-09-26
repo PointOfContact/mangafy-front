@@ -27,7 +27,7 @@ const MangaView = ({
   const [comments, setComments] = useState(serverSideComments);
 
   const [isLiked, setIsLiked] = useState(
-    serverSideManga.chapters[serverSideChapter - 1]?.likedUsers?.some((obj) => {
+    serverSideManga?.chapters[serverSideChapter - 1]?.likedUsers?.some((obj) => {
       return obj === user?._id;
     })
   );
@@ -170,6 +170,7 @@ const MangaView = ({
 
   const isOwn = authors && authors[0]?._id === user?._id;
   const isParticipant = authors && authors.some((author) => author?._id === user?._id);
+
   return (
     <>
       <HeaderNew user={user} />
