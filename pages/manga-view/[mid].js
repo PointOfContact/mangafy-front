@@ -15,11 +15,8 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
         storyBoardId: context.params.mid,
       },
     });
-    if (
-      !context.query.chapter ||
-      context.query.chapter < 1 ||
-      context.query.chapter > manga.chapters.length
-    ) {
+
+    if (context.query.chapter > manga.chapters.length || !manga.chapters.length) {
       context.res.writeHead(302, {
         Location: '/404',
       });
@@ -43,11 +40,12 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
   } catch (error) {
     console.log('Error: manga-view.js', error);
   }
+
   return {
     props: {
       user,
       serverSideAuthors: authors,
-      serverSideChapter: context.query.chapter,
+      serverSideChapter: context.query.chapter || 1,
       serverSideManga: manga,
       serverSideComments: comments,
     },

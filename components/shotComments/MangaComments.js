@@ -56,7 +56,7 @@ const MangaComments = ({ manga, user, onUpload, className, comments }) => {
     clearInput();
     const jwt = client.getCookie('feathers-jwt');
     client
-      .service('/api/v2/comments')
+      .service('/api/v2/comments?page=mangaView')
       .create(
         {
           content: newComment,
