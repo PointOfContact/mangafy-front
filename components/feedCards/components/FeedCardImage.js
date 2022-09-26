@@ -53,32 +53,31 @@ function FeedCardImage({ image, isOwned, shareUrl, onEdit, onDelete, mangaId, ma
         })}
         loading="lazy"
       />
-      <div className={styles.share__hover}>
-        {!isOwned ? (
-          <div className={styles.share__buttons}>
-            <Button
-              rounded
-              pink
-              iconRight
-              icon={<Share color="#fff" />}
-              onClick={(e) => {
-                e.stopPropagation();
-                setAreShareButtonsVisible((old) => !old);
-              }}>
-              Share
-            </Button>
-            <ShareButtons
-              className={cn(
-                styles.share__shareButtons,
-                areShareButtonsVisible && styles.share__shareButtons_active
-              )}
-              shareUrl={shareUrl || mangaUrl}
-              onClick={(e) => {
-                e.stopPropagation();
-              }}
-            />
-          </div>
-        ) : (
+      <div className={cn(styles.share__hover, isTouchDevice() && styles.share__hover_disabled)}>
+        <div className={styles.share__buttons}>
+          <Button
+            rounded
+            pink
+            iconRight
+            icon={<Share color="#fff" />}
+            onClick={(e) => {
+              e.stopPropagation();
+              setAreShareButtonsVisible((old) => !old);
+            }}>
+            Share
+          </Button>
+          <ShareButtons
+            className={cn(
+              styles.share__shareButtons,
+              areShareButtonsVisible && styles.share__shareButtons_active
+            )}
+            shareUrl={shareUrl || mangaUrl}
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          />
+        </div>
+        {isOwned && (
           <div className={styles.share__buttons}>
             {mangaId ? (
               <Link href={'/manga-story/' + mangaId}>
@@ -123,3 +122,10 @@ function FeedCardImage({ image, isOwned, shareUrl, onEdit, onDelete, mangaId, ma
 }
 
 export default FeedCardImage;
+
+function isTouchDevice() {
+  if (typeof window === 'undefined') {
+    return false;
+  }
+  return 'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
+}
