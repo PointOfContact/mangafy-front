@@ -1,0 +1,130 @@
+@import '../../styles/variables.scss';
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &__shot {
+        display: flex;
+        align-items: center;
+    }
+
+    &__image {
+        position: relative;
+        border-radius: 50%;
+        overflow: hidden;
+        height: 80px;
+        width: 80px;
+        flex: 0 0 auto;
+        margin-right: 20px;
+    }
+
+    &__title {
+        font-weight: 800;
+        font-size: 30px;
+        line-height: 1em;
+        margin-bottom: 5px;
+    }
+
+    &__subtitle {
+        font-weight: 700;
+        font-size: 15px;
+    }
+
+    &__author {
+        display: inline;
+        color: #000;
+        &:hover {
+            color: rgb(36, 36, 36);
+        }
+        &:active {
+            color: rgb(63, 63, 63);
+        }
+    }
+
+    &__subscribe {
+        color: $pink;
+        cursor: pointer;
+        &:hover {
+            color: lighten($pink, 10%);
+        }
+        &:active {
+            color: lighten($pink, 25%);
+        }
+    }
+
+    &__arrows {
+        display: flex;
+        align-items: center;
+        font-weight: 400;
+        font-size: 22px;
+        color: #757575;
+            @include media-sm {
+                display: none;
+            }
+
+        
+
+        &_mobile {
+            display: none;
+            justify-content: center;
+            @include media-sm {
+                display: flex;
+            }
+        }
+    }
+
+    &__tip {
+        display: flex;
+        @include media-sm {
+            display: none;
+        }
+        &_mobile {
+            display: none;
+            @include media-sm {
+                display: flex;
+            }
+        }
+    }
+
+    &__mobileArrowsAndTip {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        @include media-sm {
+            margin-top: 20px;
+        }
+    }
+
+    &__arrow {
+        &:first-child {
+            transform: rotate(90deg);
+            margin-right: 10px;
+        }
+        &:last-child {
+            transform: rotate(-90deg);
+            margin-left: 10px;
+        }
+        svg {
+            height: 1.2em;
+            stroke: #000;
+            cursor: pointer;
+            
+
+            &:hover {
+                stroke: lighten(#000, 20%);
+            }
+            &:active {
+                stroke: lighten(#000, 30%);
+            }
+        }
+        &_disabled {
+            svg {
+                stroke: lighten(#000, 50%);
+                cursor: default;
+            }
+            pointer-events: none;
+        }
+    }
+}

@@ -15,6 +15,13 @@
         fill: $primaryDark;
         }
     }
+
+    &_mobile {
+        display: none;
+        @include media-sm {
+            display: flex;
+        }
+    }
 }
 
 .header {

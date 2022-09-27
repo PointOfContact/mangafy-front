@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import { Comment, List, Form, Input } from 'antd';
 import client from 'api/client';
@@ -20,39 +20,40 @@ const { TextArea } = Input;
 
 const CommentList = ({ comments }) => {
   const com = comments.map((val) => ({ ...val, content: wrapUrls(val.content) }));
+
   return (
     <>
       <List
         dataSource={com}
         itemLayout="horizontal"
-        renderItem={(commentItem) => (
-          <Comment
-            datetime={moment(commentItem.createdAt)?.format('MMMM Do YYYY, h:mm:ss a')}
-            {...commentItem}
-            author={commentItem.authorInfo[0] && commentItem.senderInfo[0].name}
-            avatar={
-              commentItem.authorInfo[0] && (
-                <>
-                  {commentItem.senderInfo[0].avatar ? (
-                    <Link href={`/profile/${commentItem.senderId}`}>
-                      <a>
-                        <Imgix
-                          width={40}
-                          height={40}
-                          src={client.UPLOAD_URL + commentItem.senderInfo[0].avatar}
-                          alt={'MangaFy avatar'}
-                        />
-                      </a>
-                    </Link>
-                  ) : (
-                    <Avatar text={commentItem?.senderInfo[0]?.name} size={40} />
-                  )}
-                </>
-              )
-            }
-            content={<div dangerouslySetInnerHTML={{ __html: commentItem.content }} />}
-          />
-        )}
+        renderItem={(commentItem) => {
+          const userName = commentItem.authorInfo?.name || commentItem.senderInfo?.name;
+          const userAvatar = commentItem.authorInfo?.avatar || commentItem.senderInfo?.avatar;
+          return (
+            <Comment
+              datetime={moment(commentItem.createdAt)?.format('MMMM Do YYYY, h:mm:ss a')}
+              {...commentItem}
+              author={commentItem.authorInfo && userName}
+              avatar={
+                userAvatar ? (
+                  <Link href={`/profile/${commentItem.senderId}`}>
+                    <a>
+                      <Imgix
+                        width={40}
+                        height={40}
+                        src={client.UPLOAD_URL + userAvatar}
+                        alt={'MangaFy avatar'}
+                      />
+                    </a>
+                  </Link>
+                ) : (
+                  <Avatar text={userName} size={40} />
+                )
+              }
+              content={<div dangerouslySetInnerHTML={{ __html: commentItem.content }} />}
+            />
+          );
+        }}
       />
     </>
   );
@@ -62,29 +63,18 @@ CommentList.propTypes = {
   comments: PropTypes.array.isRequired,
 };
 
-const Editor = ({ onChange, onSubmit, submitting, value, user, mangaStory }) => {
-  const [commentError, setCommentError] = useState('');
-
-  const commentChange = (e) => {
-    // eslint-disable-next-line no-shadow
-    onChange(e);
-    e.target.value.length >= 490
-      ? setCommentError(`Comment max length 490 symbols`)
-      : setCommentError('');
-  };
-
+const Editor = ({ onChange, onSubmit, submitting, value, user, mangaStory, error }) => {
   return (
     <>
       <Form.Item>
         <TextArea
           className={styles.commentInput}
-          maxLength={490}
           rows={4}
-          onChange={commentChange}
+          onChange={onChange}
           value={value}
           placeholder="Ask a creator"
         />
-        <p className={commentError ? styles.commentError : styles.notError}>{commentError}</p>
+        <p className={error ? styles.commentError : styles.noError}>{error}</p>
       </Form.Item>
       <Form.Item>
         <>
@@ -115,6 +105,7 @@ Editor.propTypes = {
   onSubmit: PropTypes.func,
   value: PropTypes.any,
   submitting: PropTypes.bool,
+  error: PropTypes.string,
 };
 
 Editor.defaultProps = {
@@ -123,6 +114,7 @@ Editor.defaultProps = {
   value: null,
   submitting: null,
   user: null,
+  error: '',
 };
 
 export const Comments = ({ commentsData, mangaStory, user, viewPage, chapter, isOwn }) => {
@@ -152,7 +144,7 @@ export const Comments = ({ commentsData, mangaStory, user, viewPage, chapter, is
     const jwt = client.getCookie('feathers-jwt');
     import('api/restClient').then((m) => {
       m.default
-        .service('/api/v2/comments')
+        .service('/api/v2/comments?page=mangaVisew')
         .create(
           {
             content: value,
@@ -164,13 +156,14 @@ export const Comments = ({ commentsData, mangaStory, user, viewPage, chapter, is
           }
         )
         .then((res) => {
-          res.senderInfo = [{ _id: '', name: user.name, avatar: user.avatar }];
+          res.senderInfo = { _id: '', name: user.name, avatar: user.avatar };
           res.avatar = client.UPLOAD_URL + user.avatar;
           res.datetime = moment().format('MMMM Do YYYY, h:mm:ss a');
           res.author = user.name;
-          const newCommentsData = [...comments, { ...res }];
+          const newCommentsData = [{ ...res }, ...comments];
           setComments(newCommentsData);
           setSubmitting(false);
+          setErrMessage('');
           setValue('');
           const eventData = [
             {
@@ -231,10 +224,10 @@ export const Comments = ({ commentsData, mangaStory, user, viewPage, chapter, is
             mangaStory={mangaStory}
             value={value}
             user={user}
+            error={errMessage}
           />
         }
       />
-      {errMessage && <p>{errMessage}</p>}
     </>
   );
 };

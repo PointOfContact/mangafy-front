@@ -91,7 +91,7 @@ const MangeStory = (props) => {
     setChapters(storyBoard?.chapters);
   }, [storyBoard]);
 
-  const [activeTab, setActiveTab] = useState(tabs.DETAILS);
+  const [activeTab, setActiveTab] = useState('');
 
   const onResize = () => {
     if (window.innerWidth < 568) setIsMobile(true);
@@ -107,7 +107,6 @@ const MangeStory = (props) => {
         mangaStoryId: baseData._id,
       },
     };
-
     setActiveTab(router.query.tab || tabs.DETAILS);
     myAmplitude(data);
     if (window.innerWidth < 568) setIsMobile(true);
@@ -171,17 +170,18 @@ const MangeStory = (props) => {
         })
         .catch((err) => {
           reject(err.message);
+          console.log(err);
           // openNotification('error', err.message);
         });
     });
   };
 
-  const onChangeSingleField = ({ target }, changeCollabData = false, reject = () => {}) => {
+  const onChangeSingleField = ({ target }, reject = () => {}) => {
     const { name, value } = target;
     const data = { ...baseData, [name]: value };
     setBaseData(data);
     // setEditMode(true);
-    changeCollabData && saveMangaStoryData(data, reject, name);
+    saveMangaStoryData(data, reject, name);
   };
 
   const cancelEditMode = () => {
@@ -194,9 +194,6 @@ const MangeStory = (props) => {
       m.default
         .service('/api/v2/manga-stories')
         .remove(mangaId, {
-          query: {
-            mangaStoryId: baseData._id,
-          },
           headers: { Authorization: `Bearer ${jwt}` },
           mode: 'no-cors',
         })
@@ -264,7 +261,6 @@ const MangeStory = (props) => {
           {activeTab === tabs.DETAILS && !editMode && (
             <span
               onClick={() => {
-                console.log('sadf');
                 setEditMode(true);
               }}>
               <Edit2 color="#777" />

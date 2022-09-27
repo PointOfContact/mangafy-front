@@ -30,7 +30,6 @@ const onAccept = (event, id, status) => {
 
 let convId = '';
 let totalMess = 0;
-const maxLength = 490;
 
 const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests, setRequests }) => {
   const [messageList, setMessageList] = useState([]);
@@ -42,6 +41,7 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
   const messageListElement = useRef(null);
   const messenger = useRef(null);
   const { conversationId, profileId } = selectedRequest;
+  const inputRef = useRef(null);
 
   const scrollToBottom = () => {
     setTimeout(() => {
@@ -64,9 +64,7 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
     // eslint-disable-next-line no-shadow
     const value = e.target.innerText;
     setValue(value);
-    value.length >= maxLength
-      ? setMessageError(`The character limit for a message is ${maxLength} characters.`)
-      : setMessageError('');
+    setMessageError('');
   };
 
   const openNotification = (type, message) => {
@@ -165,6 +163,9 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
             openNotification('error', err.message);
           });
       });
+    }
+    if (inputRef.current) {
+      inputRef.current.innerText = '';
     }
   };
 
@@ -273,7 +274,7 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
                 className={styles['message-text']}
                 contentEditable
                 onInput={handleChange}
-                placeholder="asdas"></div>
+                ref={inputRef}></div>
             </div>
             <p className={messageError ? styles.messageError : styles.notError}>{messageError}</p>
           </div>

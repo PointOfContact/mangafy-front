@@ -1,0 +1,46 @@
+@import '../../styles/variables.scss';
+
+$sidebarWidth: 400px;
+
+
+.shotPage {
+    padding: 0 10px;
+    background: #FAFAFA;
+    transition: 0.5s;
+
+    &__header {
+        max-width: 1200px;
+        padding-top: 35px;
+        margin: 0 auto 30px;
+    }
+
+    &__body {
+        max-width: 1200px;
+        margin: 0 auto;
+
+        > span:not(:last-child) {
+            margin-bottom: 20px !important;
+        }
+    }
+
+    &__shifted {
+        @include media-md {
+            padding-right: 10px;
+        }
+        padding-right: $sidebarWidth;
+    }
+
+    &__shareModal {
+        :global {
+            .ant-modal-content {
+                border-radius: 15px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                overflow: hidden;
+            }
+            .ant-modal-title {
+                font-size: 24px;
+                font-weight: 800;
+            }
+        }
+    }
+}

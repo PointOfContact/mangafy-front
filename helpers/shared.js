@@ -115,3 +115,31 @@ export function highlightURLs(text) {
     return '<a href="' + url + '">' + url + '</a>';
   });
 }
+
+export const followUser = (userId) => {
+  const data = { userId };
+  const jwt = client.getCookie('feathers-jwt');
+  return import('api/restClient').then((m) =>
+    m.default.service(`/api/v2/likes`).create(data, {
+      headers: { Authorization: `Bearer ${jwt}` },
+      mode: 'no-cors',
+    })
+  );
+};
+
+export const unFollowUser = (userId) => {
+  const jwt = client.getCookie('feathers-jwt');
+  return import('api/restClient').then((m) =>
+    m.default.service(`/api/v2/likes`).remove(userId, {
+      headers: { Authorization: `Bearer ${jwt}` },
+      mode: 'no-cors',
+    })
+  );
+};
+
+export function buildShotURL(shotId, authorId) {
+  if (authorId) {
+    return `/shot/${authorId}?galleryId=${shotId}`;
+  }
+  return `/shot/${shotId}`;
+}

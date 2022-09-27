@@ -1,0 +1,141 @@
+@import '../../styles/variables.scss';
+
+.footer {
+    background: #fff;
+    
+    &__container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-weight: 400;
+        font-size: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 30px 0;
+    }
+
+    &__author {
+        display: flex;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    &__authorLink {
+        display: inline;
+        color: #000;
+        &:hover {
+            color: rgb(36, 36, 36);
+        }
+        &:active {
+            color: rgb(63, 63, 63);
+        }
+    }
+
+    &__image {
+        position: relative;
+        border-radius: 50%;
+        overflow: hidden;
+        height: 80px;
+        width: 80px;
+        flex: 0 0 auto;
+        margin-right: 20px;
+    }
+
+    &__title {
+        font-weight: 800;
+        font-size: 30px;
+        margin-bottom: 5px;
+        line-height: 1em;
+    }
+
+    &__subtitle {
+        font-weight: 700;
+        font-size: 15px;
+    }
+
+    &__name {
+        display: inline;
+        color: #000;
+        &:hover {
+            color: rgb(36, 36, 36);
+        }
+        &:active {
+            color: rgb(63, 63, 63);
+        }
+    }
+
+    &__subscribe {
+        color: $pink;
+        cursor: pointer;
+        &:hover {
+            color: lighten($pink, 10%);
+        }
+        &:active {
+            color: lighten($pink, 25%);
+        }
+    }
+
+    &__buttonsAndLinks {
+        display: flex;
+        align-items: center;
+        margin-top: 20px;
+        @include media-sm {
+            flex-direction: column;
+        }
+    }
+
+    &__buttons {
+        display: flex;
+        align-items: center;
+        @include media-sm {
+            margin-bottom: 10px;
+        }
+        > button, > a > button {
+            padding: 10px 20px;
+            
+            svg {
+                // margin-left: 10px;
+                height: 20px;
+            }
+
+            &:not(:last-child) {
+                margin-right: 5px;
+            }
+            &:last-child {
+                margin-right: 20px;
+                @include media-sm {
+                    margin-right: 0;
+                }
+            }
+        }
+
+    }
+
+    &__commentButton {
+        @include media-md {
+            display: none;
+        }
+    }
+
+    &__like {
+        &_active {
+            svg {
+                stroke:rgb(233, 33, 33);
+                fill: rgb(255, 197, 36);
+            }
+        }
+    }
+
+    &__mobileComments {
+        width: 100%;
+        display: none;
+        margin-bottom: 2em;
+        @include media-md {
+            display: block;
+        }
+        &Header {
+            font-size: 30px;
+            font-weight: 800;
+        }
+    }
+}

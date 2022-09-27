@@ -17,6 +17,10 @@ import {
 } from 'react-share';
 
 import styles from './styles.module.scss';
+import Facebook from 'components/icon/new/Facebook';
+import Twitter from 'components/icon/new/Twitter';
+import Telegram from 'components/icon/new/Telegram';
+import Whatsapp from 'components/icon/new/Whatsapp';
 
 export const ShareButtons = ({ className, shareUrl, text, onClick, showTitle }) => {
   const [copyText, setCopyText] = useState('Copy to clipboard');
@@ -26,25 +30,25 @@ export const ShareButtons = ({ className, shareUrl, text, onClick, showTitle }) 
       <ul>
         <li onClick={onClick}>
           <FacebookShareButton title="Mangafy-Club" url={shareUrl}>
-            <SvgFacebook width="32px" height="32px" />
+            <Facebook size={30} />
           </FacebookShareButton>
           {showTitle && <p className={styles.titleIcon}>Facebook</p>}
         </li>
         <li onClick={onClick}>
           <TwitterShareButton title="Mangafy-Club" url={shareUrl}>
-            <SvgTwitter width="32px" height="32px" />
+            <Twitter size={30} />
           </TwitterShareButton>
           {showTitle && <p className={styles.titleIcon}>Twitter</p>}
         </li>
         <li onClick={onClick}>
           <TelegramShareButton title="Mangafy-Club" url={shareUrl}>
-            <SvgTelegram size={32} height="32px" />
+            <Telegram size={30} />
           </TelegramShareButton>
           {showTitle && <p className={styles.titleIcon}>Telegram</p>}
         </li>
         <li onClick={onClick}>
           <WhatsappShareButton title="Mangafy-Club" url={shareUrl}>
-            <SvgWhatsapp width="32px" height="32px" />
+            <Whatsapp size={30} />
           </WhatsappShareButton>
           {showTitle && <p className={styles.titleIcon}>Whatsapp</p>}
         </li>
@@ -57,7 +61,7 @@ export const ShareButtons = ({ className, shareUrl, text, onClick, showTitle }) 
                 setCopyText('Copied');
                 copy(shareUrl);
               }}>
-              <SvgCopy width="32px" height="32px" alt="mangaFy copy icon" />
+              <SvgCopy width="28px" height="28px" alt="mangaFy copy icon" />
             </span>
           </Tooltip>
           {showTitle && <p className={styles.titleIcon}>Copy</p>}

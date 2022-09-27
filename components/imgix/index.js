@@ -9,12 +9,20 @@ const imgixClient = new ImgixClient({
 });
 
 const myLoader = ({ src, width, quality }) =>
-  process.env.NEXT_PUBLIC_GET_IMGIX === 'true'
-    ? imgixClient.buildURL(src, { w: width, q: quality, auto: 'format', fit: 'max' })
-    : src;
+  // process.env.NEXT_PUBLIC_GET_IMGIX === 'true'
+  //   ? imgixClient.buildURL(src, { w: width, q: quality, auto: 'format', fit: 'max' })
+  //   : src;
+  imgixClient.buildURL(src, {
+    w: width,
+    q: quality,
+    auto: 'format',
+    fit: 'min',
+  });
 
-const optimized = process.env.NEXT_PUBLIC_GET_IMGIX === 'true';
+// const optimized = process.env.NEXT_PUBLIC_GET_IMGIX === 'true';
+const optimized = true;
 
 const Imgix = (props) => <Image loader={myLoader} {...props} unoptimized={!optimized} />;
 
 export default Imgix;
+export { imgixClient };

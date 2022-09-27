@@ -9,6 +9,8 @@ import Button from 'components/ui-new/Button';
 import { notification } from 'antd';
 import client from 'api/client';
 import SelectTags from 'components/selectTags';
+import { EVENTS } from 'helpers/amplitudeEvents';
+import myAmplitude from 'utils/amplitude';
 
 const CreateShotModal = ({ isVisible, setIsVisible, shotToEdit, setSelectedGallery, onUpload }) => {
   const [title, setTitle] = useState(shotToEdit?.title || '');
@@ -37,6 +39,13 @@ const CreateShotModal = ({ isVisible, setIsVisible, shotToEdit, setSelectedGalle
       imageError: '',
     }));
   }, [image]);
+
+  useEffect(() => {
+    setTitle(shotToEdit?.title || '');
+    setImage(shotToEdit?._id.image || shotToEdit?.image || '');
+    setDescription(shotToEdit?.description || '');
+    setSelectedTags(shotToEdit?.tags);
+  }, [shotToEdit]);
 
   function validate() {
     const titleError = validateTitle(title);
@@ -70,7 +79,16 @@ const CreateShotModal = ({ isVisible, setIsVisible, shotToEdit, setSelectedGalle
             notification.error({ message: err.message, placement: 'bottomLeft' });
           });
       } else {
-        editShot(shotToEdit._id._id || shotToEdit._id, title, description, image, selectedTags);
+        editShot(shotToEdit._id._id || shotToEdit._id, title, description, image, selectedTags)
+          .then((res) => {
+            if (onUpload) {
+              onUpload(res);
+            }
+            setIsVisible(false);
+          })
+          .catch((err) => {
+            notification.error({ message: err.message, placement: 'bottomLeft' });
+          });
       }
     }
   }

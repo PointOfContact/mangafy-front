@@ -12,6 +12,7 @@ import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import Button from 'components/ui-new/Button';
 import FeedCardLine from './components/FeedCardLine';
 import Link from 'next/link';
+import { followUser, unFollowUser } from 'helpers/shared';
 import { useRouter } from 'next/router';
 
 const PortfolioWorkCard = ({ card, user }) => {
@@ -50,51 +51,30 @@ const PortfolioWorkCard = ({ card, user }) => {
     }
   }
 
+  function like(params) {
+    if (!user) {
+      notification.error({
+        placement: 'bottomLeft',
+        message: 'You need to be logged in to follow a user',
+      });
+    }
+    if (!isFollowed) {
+      followUser(card._id)
+        .then(() => {
+          setIsFollowed(true);
+        })
+        .catch((err) => console.log(err));
+    } else {
+      unFollowUser(card._id)
+        .then(() => {
+          setIsFollowed(false);
+        })
+        .catch((err) => console.log(err));
+    }
+  }
+
   return (
     <>
-      {/* {modal && (
-        <Modal
-          visible={modal}
-          onCancel={() => setModal(false)}
-          style={{ top: 50 }}
-          wrapClassName={styles.modal}
-          closeIcon={<Close className={styles.modal__close} />}
-          footer={null}>
-          <div className={styles.modal__title}>{author}</div>
-          <div className={styles.modal__content}>
-            <img src={client.UPLOAD_URL + images[0]} alt="shot image" />
-            <img src={client.UPLOAD_URL + images[1]} alt="shot image" />
-            <img src={client.UPLOAD_URL + images[2]} alt="shot image" />
-          </div>
-          <FeedCardLine />
-          <div className={styles.modal__footer}>
-            <Link href={'/profile/' + card._id}>
-              <a className={styles.modal__author}>
-                <div className={styles.modal__avatar}>
-                  <img
-                    src={avatar ? client.UPLOAD_URL + avatar : 'img/feedTemp/avatar.png'}
-                    alt="user avatar"
-                  />
-                </div>
-                {author}
-              </a>
-            </Link>
-            <div className={styles.modal__followers}>
-              {followers} followers
-              <Button
-                sm
-                rounded
-                outline={isFollowed}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  like();
-                }}>
-                {isFollowed ? 'Unfollow' : 'Follow'}
-              </Button>
-            </div>
-          </div>
-        </Modal>
-      )} */}
       <div className={styles.card} onClick={handleClick} onDoubleClick={handleDoubleClick}>
         {images.length > 2 && <FeedCardImages images={images} />}
         <FeedCardPortfolioFooter
