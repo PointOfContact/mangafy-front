@@ -175,7 +175,7 @@ function createShot(title, description, image, tags) {
   const data = { title };
   if (description) data.description = description;
   if (image) data.image = image;
-  if (tags.length > 0) data.tags = tags;
+  if (tags?.length > 0) data.tags = tags;
   return client
     .service('/api/v2/short-stories')
     .create(data, {
@@ -193,7 +193,7 @@ function editShot(shotId, title, description, image, tags) {
   const data = { title };
   if (description) data.description = description;
   if (image) data.image = image;
-  if (tags.length > 0) data.tags = tags;
+  if (tags?.length > 0) data.tags = tags;
   return client
     .service('/api/v2/short-stories')
     .patch(shotId, data, {
