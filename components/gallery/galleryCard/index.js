@@ -96,10 +96,13 @@ const GalleryCard = ({
         setImages(newImages);
       },
       (err) => {
-        notification.error({
-          message: err.message,
-          placement: 'bottomLeft',
-        });
+        const newImages = images.filter((item) => item._id !== _id);
+        setImages(newImages);
+        if (err.name !== 'NotFound')
+          notification.error({
+            message: err.message,
+            placement: 'bottomLeft',
+          });
       }
     );
     // }
