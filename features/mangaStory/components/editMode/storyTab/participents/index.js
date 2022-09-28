@@ -9,7 +9,7 @@ import ParticipantCard from '../participantCard';
 import styles from './styles.module.scss';
 import client from 'api/client';
 
-const Participents = ({ participantsData, author, user, isOwn }) => {
+const Participents = ({ participantsData, author, leaveManga, user, isOwn }) => {
   const [participants, setParticipants] = useState([]);
   useEffect(() => {
     const ifExistAuthor = participantsData.some((value) => value._id === author._id);
@@ -35,7 +35,7 @@ const Participents = ({ participantsData, author, user, isOwn }) => {
           id={_id}
           type={type}
           types={types}
-          leaveManga={() => leaveManga(_id)}
+          leaveManga={leaveManga}
           user={user}
           author={author}
         />
@@ -64,6 +64,7 @@ const Participents = ({ participantsData, author, user, isOwn }) => {
 Participents.postTypes = {
   participantInfo: PropTypes.array.isRequired,
   author: PropTypes.object,
+  leaveManga: PropTypes.func.isRequired,
   user: PropTypes.object,
   isOwn: PropTypes.bool,
 };
