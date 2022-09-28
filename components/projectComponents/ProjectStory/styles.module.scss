@@ -1,0 +1,41 @@
+@import '../../../styles/variables.scss';
+
+.story {
+
+
+    &__title {
+        font-weight: 800;
+        font-size: 30px;
+    }
+
+    &__description {
+        font-weight: 400;
+        font-size: 22px;
+        margin-bottom: 20px;
+    }
+
+    &__genres {
+        font-weight: 600;
+        font-size: 22px;
+
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        row-gap: 5px;
+    }
+
+    &__genre {
+        font-weight: 400;
+        font-size: 15px;
+        color: #fff;
+
+        margin-right: 5px;
+        padding: 3px 8px;
+        border-radius: 5em;
+        background: $primaryDark;
+        
+        &:first-child {
+            margin-left: 10px;
+        }
+    }
+}

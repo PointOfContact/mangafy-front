@@ -4,6 +4,7 @@ import MangaStory from 'features/mangaStory';
 import { store } from 'store';
 
 export default withAuthComponent(MangaStory);
+
 export const getServerSideProps = withAuthServerSideProps(async (context, user = null, jwt) => {
   try {
     user = user || store.user;

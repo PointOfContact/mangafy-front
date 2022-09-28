@@ -1,0 +1,35 @@
+@import '../../../styles/variables.scss';
+
+.subscribe {
+    display: flex;
+    border-radius: 5em;
+    background: #E5E5E5;
+    width: 100%;
+    grid-template-columns: 1fr 1fr;
+
+    &__input {
+        min-width: 0;
+        flex: 1 1 auto;
+        font-family: sans-serif;
+        border: none;
+        background: transparent;
+        margin-left: 1em;
+    }
+
+    button {
+        flex: 0 0 auto;
+        flex-shrink: 0;
+        font-weight: 900;
+        font-size: 15px;
+        line-height: 22px;
+    }
+}
+
+.unsubscribe {
+    color: #888888;
+    font-size: 16px;
+    cursor: pointer;
+    &:hover {
+        text-decoration: underline;
+    }
+}

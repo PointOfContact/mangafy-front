@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './styles.module.scss';
-import { highlightURLs } from 'helpers/shared';
+import { formatHtml } from 'helpers/shared';
 
 const FeedCardTaskContent = ({ title, description }) => {
   return (
@@ -9,7 +9,7 @@ const FeedCardTaskContent = ({ title, description }) => {
       {description && (
         <div
           className={styles.feedCardTaskContent__description}
-          dangerouslySetInnerHTML={{ __html: highlightURLs(description) }}></div>
+          dangerouslySetInnerHTML={{ __html: formatHtml(description) }}></div>
       )}
     </div>
   );
