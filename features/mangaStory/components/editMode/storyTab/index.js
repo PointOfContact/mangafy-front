@@ -129,6 +129,7 @@ const StoryTab = ({
           <Participants
             participantsData={participantsData}
             author={authorInfo}
+            leaveManga={leaveManga}
             user={user}
             isOwn={isOwn}
           />

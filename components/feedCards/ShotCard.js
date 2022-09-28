@@ -97,7 +97,7 @@ const ShotCard = ({ card, user, editShot, deleteShot }) => {
           <FeedCardImage
             image={client.UPLOAD_URL + image}
             isOwned={authorId === user?._id}
-            shareUrl={'/shot/' + card._id}
+            shareUrl={client.API_ENDPOINT + '/shot/' + card._id}
             onEdit={() => editShot(card)}
             onDelete={() => deleteShot(card._id)}
           />
