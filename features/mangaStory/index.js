@@ -360,8 +360,8 @@ const MangeStory = (props) => {
               <Chapter
                 storyBoard={storyBoard}
                 setStoryBoard={setStoryBoard}
-                chapters={storyBoard?.chapters}
-                setChapters={() => {}}
+                chapters={chapters}
+                setChapters={setChapters}
                 user={user}
                 baseData={baseData}
               />
