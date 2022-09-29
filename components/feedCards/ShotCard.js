@@ -11,7 +11,7 @@ import Heart from 'components/icon/new/Heart';
 import Close from 'components/icon/new/Close';
 import { Modal } from 'antd';
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
-import { buildShotURL, highlightURLs } from 'helpers/shared';
+import { buildShotURL, formatHtml } from 'helpers/shared';
 import cn from 'classnames';
 import { likeShot } from 'components/gallery/utils';
 import { notification } from 'antd';

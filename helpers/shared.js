@@ -108,12 +108,16 @@ export const removeAllStorage = () => {
   window.location.href = '/sign-in';
 };
 
-export function highlightURLs(text) {
+export function formatHtml(text, highlightUrls = true) {
   let urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi;
   let scriptRegex = /<script[\s\S]*?>[\s\S]*?<\/script>/;
-  return text.replace(scriptRegex, '').replace(urlRegex, function (url) {
-    return '<a href="' + url + '">' + url + '</a>';
-  });
+  text?.replace(scriptRegex, '');
+  if (highlightUrls) {
+    text?.replace(urlRegex, function (url) {
+      return '<a href="' + url + '">' + url + '</a>';
+    });
+  }
+  return text;
 }
 
 export const followUser = (userId) => {
@@ -142,4 +146,55 @@ export function buildShotURL(shotId, authorId) {
     return `/shot/${authorId}?galleryId=${shotId}`;
   }
   return `/shot/${shotId}`;
+}
+
+export function likeChapter(ownerId, chapterId, likedUserId, participants, isLiked) {
+  const data = {
+    ownerId,
+    chapterId,
+    likedUserId,
+    participants,
+  };
+
+  if (isLiked) {
+    data.like = 'decrement';
+  } else {
+    data.like = 'increment';
+  }
+
+  const jwt = client.getCookie('feathers-jwt');
+
+  return client
+    .service('/api/v2/chapter-like')
+    .create(data, {
+      headers: { Authorization: `Bearer ${jwt}` },
+      mode: 'no-cors',
+    })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+}
+
+export async function subscribeToProject(mangaStoryId, userId, email) {
+  const jwt = client.getCookie('feathers-jwt');
+
+  return client.service('/api/v2/manga-subscribe').create(
+    { mangaStoryId, userId, email },
+    {
+      headers: { Authorization: `Bearer ${jwt}` },
+      mode: 'no-cors',
+    }
+  );
+}
+
+export async function unSubscribeOfProject(subscriptionId) {
+  const jwt = client.getCookie('feathers-jwt');
+
+  return client.service('/api/v2/manga-subscribe').remove(subscriptionId, {
+    headers: { Authorization: `Bearer ${jwt}` },
+    mode: 'no-cors',
+  });
 }

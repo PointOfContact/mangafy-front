@@ -1,0 +1,138 @@
+@import '../../../styles/variables.scss';
+
+.chapters {
+    @include media-md {
+        display: none;
+    }
+
+    &_mobile {
+        display: none;
+        margin-bottom: 30px;
+        @include media-md {
+            display: block;
+        }
+    }
+
+    a {
+        color: inherit;
+        text-decoration: inherit;
+    }
+
+    &__chapter {
+        &:not(:last-child) {
+            margin-bottom: 10px;
+        }
+        display: grid;
+        align-items: center;
+        grid-template-columns: 70px auto 1fr;
+        grid-template-rows: auto;
+        gap: 5px 15px;
+        grid-template-areas: 
+            "cover title info"
+            "cover subtitle info";
+
+        @include media-sm {
+            grid-template-columns: 70px auto;
+            grid-template-areas: 
+                "cover title"
+                "cover info";
+        }
+
+        border-radius: 10px;
+        padding: 10px;
+        &:hover {
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.034);
+        }
+
+        &_disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+    }
+
+    &__cover {
+        height: 70px;
+        width: 70px;
+        grid-area: cover;
+        filter: drop-shadow($smallShadow);
+    }
+
+    &__info {
+        grid-area: info;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        @include media-sm {
+            justify-content: flex-start;
+        }
+    }
+
+    &__title {
+        font-weight: 800;
+        font-size: 30px;
+        white-space: nowrap;
+        line-height: 1em;
+        @include media-sm {
+            font-size: 20px;
+        }
+        grid-area: title;
+        // justify-content: end;
+    }
+
+    &__subtitle {
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 1em;
+        grid-area: subtitle;
+        @include media-sm {
+            display: none;
+        }
+    }
+
+    &__date {
+        font-weight: 400;
+        font-size: 12px;
+        color: #858585;
+        grid-area: date;
+        margin: 0 15px 0 0;
+        @include media-sm {
+            order: 3;
+            margin: 0 0 0 15px;
+        }
+    }
+
+    &__comments {
+        grid-area: comments;
+    }
+
+    &__likes {
+        margin-left: 15px;
+        grid-area: likes;
+        svg {
+            transition: 0.2s;
+        }
+        &:hover {
+            svg {
+                stroke: $primaryDark;
+            }
+        }
+        &_liked {
+            svg {
+                stroke: rgb(201, 71, 20);
+                fill: rgb(255, 194, 114)
+            }
+        }
+    }
+
+    &__comments, &__likes {
+        font-weight: 800;
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        svg {
+            margin-left: 5px;
+            height: 25px;
+        }
+    }
+}
