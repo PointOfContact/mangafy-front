@@ -6,6 +6,8 @@ import ProjectMembers from '../ProjectMembers';
 import ProjectJobs from '../ProjectJobs';
 import ProjectChapters from '../ProjectChapters';
 import SubscribeField from '../SubscribeField';
+import myAmplitude from 'utils/amplitude';
+import { EVENTS } from 'helpers/amplitudeEvents';
 
 const ProjectInfo = ({
   className,
@@ -39,8 +41,24 @@ const ProjectInfo = ({
         subscribe={subscribe}
         unsubscribe={unsubscribe}
       />
-      <div className={cn(styles.info__title, styles.info__title_mobile)}>Chapters</div>
-      <div className={cn(styles.info__line, styles.info__line_mobile)}></div>
+      {project?.authorInfo?.payPalEmail && (
+        <a
+          onClick={() => {
+            myAmplitude([
+              {
+                event_type: EVENTS.SUPPORT_LINK_CLICKED,
+                event_properties: {
+                  author_id: project?.authorInfo?._id,
+                  supporter_id: user?._id,
+                },
+              },
+            ]);
+          }}
+          className={styles.info__support}
+          href={`https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=${project?.authorInfo?.payPalEmail}&item_name=Friends+of+the+Park&item_number=Fall+Cleanup+Campaign&currency_code=USD`}>
+          Support
+        </a>
+      )}
       <ProjectChapters
         className={styles.project__chapters}
         project={project}
@@ -51,7 +69,7 @@ const ProjectInfo = ({
       <div className={styles.info__title}>Members</div>
       <div className={styles.info__line}></div>
       <ProjectMembers className={styles.info__members} project={project} />
-      <div className={styles.info__title}>Jobs</div>
+      <div className={styles.info__title}>Tasks</div>
       <div className={styles.info__line}></div>
       <ProjectJobs className={styles.info__jobs} project={project} user={user} />
     </div>

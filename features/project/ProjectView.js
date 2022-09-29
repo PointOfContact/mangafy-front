@@ -10,6 +10,9 @@ import styles from './styles.module.scss';
 import { ShareButtons } from 'components/share';
 import ShareModal from 'components/modals/shareModal';
 import { subscribeToProject, unSubscribeOfProject } from 'helpers/shared';
+import notification from 'antd/lib/notification';
+import myAmplitude from 'utils/amplitude';
+import { EVENTS } from 'helpers/amplitudeEvents';
 
 const ProjectView = ({ ssProject, ssComments, user }) => {
   const [project, setProject] = useState(ssProject);
@@ -26,8 +29,8 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
   function subscribe(email) {
     if (!user) {
       notification.error({
-        message: 'Error',
-        description: 'You need to be logged in to subscribe to projects',
+        message: 'You need to be logged in to subscribe to projects',
+        placement: 'bottomLeft',
       });
       return;
     }
@@ -35,6 +38,19 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
     return subscribeToProject(project._id, user._id, email)
       .then((res) => {
         updateProjectInfo();
+        notification.success({
+          message: 'You have successfully subscribed to this project',
+          placement: 'bottomLeft',
+        });
+        myAmplitude([
+          {
+            event_type: EVENTS.SUBSCRIBE_TO_PROJECT,
+            event_properties: {
+              project_id: project?._id,
+              subscribed_user: user?._id,
+            },
+          },
+        ]);
       })
       .catch((err) => console.log(err));
   }
@@ -43,10 +59,18 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
     return unSubscribeOfProject(subscription?._id)
       .then((res) => {
         console.log(res);
+        notification.warning({
+          message: 'You have unsubscribed from this project',
+          placement: 'bottomLeft',
+        });
         updateProjectInfo();
       })
       .catch((err) => {
         console.log(err);
+        notification.warning({
+          message: 'You have successfully unsubscribed from this project',
+          placement: 'bottomLeft',
+        });
         updateProjectInfo();
       });
   }

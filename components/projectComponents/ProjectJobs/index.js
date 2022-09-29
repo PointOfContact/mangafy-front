@@ -5,10 +5,24 @@ import Button from 'components/ui-new/Button';
 import Tasks from 'features/mangaStory/components/tasks';
 import ModalStart from 'components/modals/joinToTeam';
 import Flash from 'components/icon/new/Flash';
+import myAmplitude from 'utils/amplitude';
+import { EVENTS } from 'helpers/amplitudeEvents';
 
 const ProjectJobs = ({ className, project, user }) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
+
+  function onApplyButtonClick(taskId) {
+    myAmplitude([
+      {
+        event_type: EVENTS.TASK_APPLY_BUTTON_CLICKED,
+        event_properties: {
+          task_id: taskId,
+          subscribed_user: user?._id,
+        },
+      },
+    ]);
+  }
 
   return (
     <>
@@ -29,6 +43,7 @@ const ProjectJobs = ({ className, project, user }) => {
                 onClick={() => {
                   setSelectedTask(task);
                   setShowModal(true);
+                  onApplyButtonClick(task._id);
                 }}>
                 Apply
               </Button>

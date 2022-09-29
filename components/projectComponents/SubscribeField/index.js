@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import styles from './styles.module.scss';
 import notification from 'antd/lib/notification';
 import cn from 'classnames';
+import Check from 'components/icon/new/Check';
 
 const SubscribeField = ({ className, subscription, subscribe, unsubscribe }) => {
   const [email, setEmail] = useState('');
@@ -19,21 +20,27 @@ const SubscribeField = ({ className, subscription, subscribe, unsubscribe }) => 
     if (!validateEmail(email)) {
       return notification.error({ message: 'Please enter valid email', placement: 'bottomLeft' });
     }
-    if (subscription) {
-      //   unsubscribe(subscription._id);
-    } else {
-      subscribe(email);
-    }
+    subscribe(email);
   }
 
   return (
-    <>
+    <div className={className}>
       {subscription ? (
-        <div className={cn(className, styles.unsubscribe)} onClick={unsubscribe}>
-          unsubscribe
-        </div>
+        <Button
+          pink
+          outline
+          rounded
+          icon={
+            <Check
+              color=" #848484
+"
+            />
+          }
+          className={styles.unsubscribe}
+          onClick={unsubscribe}
+        />
       ) : (
-        <div className={cn(className, styles.subscribe)}>
+        <div className={styles.subscribe}>
           <input
             onKeyUp={onInput}
             className={styles.subscribe__input}
@@ -45,7 +52,7 @@ const SubscribeField = ({ className, subscription, subscribe, unsubscribe }) => 
           </Button>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

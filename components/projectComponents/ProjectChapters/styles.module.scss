@@ -4,6 +4,12 @@
     @include media-md {
         display: none;
     }
+    
+    &__sectionTitle {
+        font-weight: 800;
+        font-size: 30px;
+        margin-bottom: 15px;
+    }
 
     &_mobile {
         display: none;
@@ -134,5 +140,29 @@
             margin-left: 5px;
             height: 25px;
         }
+    }
+}
+
+.noChapters {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border: 1px solid #848484;
+    border-radius: 30px;
+    min-height: 160px;
+    padding: 30px 20px;
+
+    &__text {
+        font-weight: 700;
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+
+    &__btns {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
     }
 }
