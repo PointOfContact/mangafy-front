@@ -31,4 +31,22 @@
     &__nojob {
         color: #858585;
     }
+
+    &__empty {
+        font-weight: 700;
+        font-size: 15px;
+        line-height: 18px;
+        border: 1px solid #848484;
+        border-radius: 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        text-align: center;
+
+        button {
+            margin-top: 15px;
+        }
+    }
 }

@@ -27,6 +27,21 @@ const ProjectJobs = ({ className, project, user }) => {
   return (
     <>
       <div className={cn(className, styles.jobs)}>
+        {project?.tasks?.length === 0 && (
+          <div className={styles.jobs__empty}>
+            No tasks are open at the moment... Interested in joining our journey?
+            <Button
+              md
+              rounded
+              pink
+              onClick={() => {
+                setSelectedTask({});
+                setShowModal(true);
+              }}>
+              Offer your service
+            </Button>
+          </div>
+        )}
         {project?.tasks.map((task) => (
           <div className={styles.jobs__job}>
             <div className={styles.jobs__info}>
@@ -50,8 +65,6 @@ const ProjectJobs = ({ className, project, user }) => {
             </div>
           </div>
         ))}
-
-        {project?.tasks.length === 0 && <div className={styles.jobs__nojob}>No jobs yet</div>}
       </div>
       <ModalStart
         user={user}
