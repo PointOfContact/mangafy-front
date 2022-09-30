@@ -27,7 +27,7 @@ const ResponsiveImgix = ({ src }) => {
         <Imgix
           src={src}
           width={300}
-          height={imgHeight > 600 ? 600 : imgHeight}
+          height={imgHeight}
           quality={75}
           layout="responsive"
           objectFit="cover"
