@@ -41,7 +41,7 @@ const ProjectInfo = ({
         subscribe={subscribe}
         unsubscribe={unsubscribe}
       />
-      {project?.authorInfo?.payPalEmail && (
+      {!!project?.authorInfo?.payPalEmail && (
         <a
           onClick={() => {
             myAmplitude([

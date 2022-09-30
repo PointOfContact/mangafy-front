@@ -45,7 +45,7 @@ const ProjectChapters = ({ className, project, updateProjectInfo, user, isMobile
             <Button outline rounded pink sm>
               Subscribe
             </Button>
-            {project?.authorInfo?.payPalEmail && (
+            {!!project?.authorInfo?.payPalEmail && (
               <a
                 onClick={() => {
                   myAmplitude([
