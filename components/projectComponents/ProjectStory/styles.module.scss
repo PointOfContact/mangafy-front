@@ -10,13 +10,26 @@
 
     &__description {
         font-weight: 400;
-        font-size: 22px;
-        margin-bottom: 20px;
+        font-size: 15px;
+    }
+
+    &__more {
+        font-weight: 400;
+        font-size: 15px;
+        color: $primaryDark;
+        cursor: pointer;
+        &:hover {
+            color: $primaryLight;
+        }
+        &:active {
+            color: $primaryDark;
+        }
     }
 
     &__genres {
+        margin-top: 20px;
         font-weight: 600;
-        font-size: 22px;
+        font-size: 15px;
 
         display: flex;
         align-items: center;
@@ -30,9 +43,10 @@
         color: #fff;
 
         margin-right: 5px;
-        padding: 3px 8px;
+        padding: 1px 10px;
         border-radius: 5em;
         background: $primaryDark;
+        text-transform: lowercase;
         
         &:first-child {
             margin-left: 10px;

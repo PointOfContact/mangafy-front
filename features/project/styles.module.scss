@@ -5,6 +5,7 @@
     &__container {
         margin: 20px auto 0;
         max-width: 1400px;
+        padding: 10px;
     }
     
     &__cover {
@@ -24,7 +25,7 @@
     }
     
     &__content {
-        padding: 10px;
+        
         display: flex;
         @include media-md {
             flex-direction: column;

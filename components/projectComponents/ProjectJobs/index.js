@@ -5,14 +5,43 @@ import Button from 'components/ui-new/Button';
 import Tasks from 'features/mangaStory/components/tasks';
 import ModalStart from 'components/modals/joinToTeam';
 import Flash from 'components/icon/new/Flash';
+import myAmplitude from 'utils/amplitude';
+import { EVENTS } from 'helpers/amplitudeEvents';
 
 const ProjectJobs = ({ className, project, user }) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
 
+  function onApplyButtonClick(taskId) {
+    myAmplitude([
+      {
+        event_type: EVENTS.TASK_APPLY_BUTTON_CLICKED,
+        event_properties: {
+          task_id: taskId,
+          subscribed_user: user?._id,
+        },
+      },
+    ]);
+  }
+
   return (
     <>
       <div className={cn(className, styles.jobs)}>
+        {project?.tasks?.length === 0 && (
+          <div className={styles.jobs__empty}>
+            No tasks are open at the moment... Interested in joining our journey?
+            <Button
+              md
+              rounded
+              pink
+              onClick={() => {
+                setSelectedTask({});
+                setShowModal(true);
+              }}>
+              Offer your service
+            </Button>
+          </div>
+        )}
         {project?.tasks.map((task) => (
           <div className={styles.jobs__job}>
             <div className={styles.jobs__info}>
@@ -29,14 +58,13 @@ const ProjectJobs = ({ className, project, user }) => {
                 onClick={() => {
                   setSelectedTask(task);
                   setShowModal(true);
+                  onApplyButtonClick(task._id);
                 }}>
                 Apply
               </Button>
             </div>
           </div>
         ))}
-
-        {project?.tasks.length === 0 && <div className={styles.jobs__nojob}>No jobs yet</div>}
       </div>
       <ModalStart
         user={user}

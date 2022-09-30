@@ -9,6 +9,9 @@ import Avatar from 'components/Avatar';
 import Link from 'next/link';
 import { likeChapter } from 'helpers/shared';
 import { notification } from 'antd';
+import Button from 'components/ui-new/Button';
+import myAmplitude from 'utils/amplitude';
+import { EVENTS } from 'helpers/amplitudeEvents';
 
 const ProjectChapters = ({ className, project, updateProjectInfo, user, isMobile }) => {
   const chapters = project?.storyBoards?.data[0]?.chapters.filter((ch) => ch.published);
@@ -32,6 +35,38 @@ const ProjectChapters = ({ className, project, updateProjectInfo, user, isMobile
   }
   return (
     <div className={cn(className, styles.chapters, isMobile && styles.chapters_mobile)}>
+      <div className={cn(styles.chapters__sectionTitle)}>Episodes</div>
+      {chapters?.length === 0 && (
+        <div className={styles.noChapters}>
+          <div className={styles.noChapters__text}>
+            Episode 1 in progress... In the meantime, you can support us!{' '}
+          </div>
+          <div className={styles.noChapters__btns}>
+            <Button outline rounded pink sm>
+              Subscribe
+            </Button>
+            {!!project?.authorInfo?.payPalEmail && (
+              <a
+                onClick={() => {
+                  myAmplitude([
+                    {
+                      event_type: EVENTS.SUPPORT_LINK_CLICKED,
+                      event_properties: {
+                        author_id: project?.authorInfo?._id,
+                        supporter_id: user?._id,
+                      },
+                    },
+                  ]);
+                }}
+                href={`https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=${project?.authorInfo?.payPalEmail}&item_name=Friends+of+the+Park&item_number=Fall+Cleanup+Campaign&currency_code=USD`}>
+                <Button sm pink rounded>
+                  Support
+                </Button>
+              </a>
+            )}
+          </div>
+        </div>
+      )}
       {chapters?.map((chapter) => (
         <Link
           href={

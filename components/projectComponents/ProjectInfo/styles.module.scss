@@ -12,11 +12,11 @@
     }
 
     &__story {
-        margin-bottom: 20px;
+        margin-bottom: 30px;
     }
 
     &__subscribe {
-        margin-bottom: 20px;
+        margin-bottom: 30px;
     }
 
     &__title {
@@ -49,6 +49,15 @@
 
     &__jobs {
         margin: 20px 0 30px;
+    }
+
+    &__support {
+        font-weight: 700;
+        font-size: 15px;
+        color: #D01E8E;
+        &:hover {
+            color: #e237a3;
+        }
     }
 }
 
