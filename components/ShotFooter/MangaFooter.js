@@ -13,6 +13,7 @@ import Avatar from 'components/Avatar';
 import { notification } from 'antd';
 import MangaComments from 'components/shotComments/MangaComments';
 import Edit from 'components/icon/new/Edit';
+import ShotAndMangaTitle from 'components/ShotAndMangaTitle';
 
 const MangaFooter = ({
   user,
@@ -46,20 +47,13 @@ const MangaFooter = ({
             }}
           />
         </div>
-        <div className={styles.footer__author}>
-          <div className={styles.footer__image}>
-            <Avatar image={authors[0]?.avatar} text={authors[0]?.name} size={80} />
-          </div>
-
-          <div className={styles.footer__info}>
+        {/* <div className={styles.footer__info}>
             <div className={styles.footer__title}>{manga?.mangaStoryTitle}</div>
 
             <div className={styles.footer__subtitle}>
               <Link href={'/profile/' + authors[0]?._id}>
                 <a className={styles.footer__authorLink}>{authors[0]?.name}</a>
               </Link>
-              {/* {authors.length === 1 && (
-                <> */}
               {!isOwn && (
                 <>
                   <span>{' | '}</span>
@@ -70,11 +64,16 @@ const MangaFooter = ({
                   </button>
                 </>
               )}
-              {/* </>
-              )} */}
             </div>
-          </div>
-        </div>
+          </div> */}
+        <ShotAndMangaTitle
+          className={styles.footer__info}
+          title={manga?.mangaStoryTitle}
+          link={'/project/' + manga?.mangaStoryId}
+          author={authors[0]}
+          isOwn={isOwn}
+          subscribe={subscribe}
+        />
         Share this series and show support for the creator!
         <div className={styles.footer__buttonsAndLinks}>
           <div className={styles.footer__buttons}>

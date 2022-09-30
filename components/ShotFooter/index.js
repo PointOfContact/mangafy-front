@@ -12,6 +12,7 @@ import cn from 'classnames';
 import Avatar from 'components/Avatar';
 import { notification } from 'antd';
 import ShotComments from 'components/shotComments';
+import ShotAndMangaTitle from 'components/ShotAndMangaTitle';
 
 const ShotFooter = ({
   user,
@@ -33,35 +34,13 @@ const ShotFooter = ({
           <div className={styles.footer__mobileCommentsHeader}>Feedback</div>
           <ShotComments shotId={shot._id} user={user} onUpload={updateShotInfo} />
         </div>
-        <div className={styles.footer__author}>
-          <div className={styles.footer__image}>
-            <Avatar image={shot?.authorInfo?.avatar} text={shot?.authorInfo?.name[0]} size={80} />
-          </div>
-
-          <div className={styles.footer__info}>
-            <div className={styles.footer__title}>
-              {shot?.isOld ? shot?.authorInfo?.name : shot?.title}
-            </div>
-
-            <div className={styles.footer__subtitle}>
-              {!shot?.isOld && (
-                <>
-                  <Link href={'/profile/' + shot?.authorInfo?._id}>
-                    <a className={styles.footer__name}>{shot?.authorInfo?.name}</a>
-                  </Link>
-                  <span>{' | '}</span>
-                </>
-              )}
-              {!isOwn && (
-                <>
-                  <button className={styles.footer__subscribe} onClick={subscribe}>
-                    {isSubscribed ? 'Unfollow' : 'Follow'}
-                  </button>
-                </>
-              )}
-            </div>
-          </div>
-        </div>
+        <ShotAndMangaTitle
+          title={shot?.isOld ? shot?.authorInfo?.name : shot?.title}
+          link={'/profile/' + shot?.authorInfo._id}
+          author={{ ...shot?.authorInfo, isFollowed: isSubscribed }}
+          isOwn={isOwn}
+          subscribe={subscribe}
+        />
         Share this series and show support for the creator!
         <div className={styles.footer__buttonsAndLinks}>
           <div className={styles.footer__buttons}>

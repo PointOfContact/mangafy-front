@@ -9,6 +9,7 @@ import cn from 'classnames';
 import Avatar from 'components/Avatar';
 import { notification } from 'antd';
 import { buildShotURL } from 'helpers/shared';
+import ShotAndMangaTitle from 'components/ShotAndMangaTitle';
 
 const ShotHeader = ({ user, shot, className, allShots, isOwn, isSubscribed, subscribe }) => {
   function getActiveShotIndex() {
@@ -39,7 +40,7 @@ const ShotHeader = ({ user, shot, className, allShots, isOwn, isSubscribed, subs
   return (
     <div className={className}>
       <div className={styles.header}>
-        <div className={styles.header__shot}>
+        {/* <div className={styles.header__shot}>
           <div className={styles.header__image}>
             <Avatar image={shot?.authorInfo?.avatar} text={shot?.authorInfo?.name[0]} size={80} />
           </div>
@@ -67,7 +68,14 @@ const ShotHeader = ({ user, shot, className, allShots, isOwn, isSubscribed, subs
               )}
             </div>
           </div>
-        </div>
+        </div> */}
+        <ShotAndMangaTitle
+          title={shot?.isOld ? shot?.authorInfo?.name : shot?.title}
+          link={'/profile/' + shot?.authorInfo._id}
+          author={{ ...shot?.authorInfo, isFollowed: isSubscribed }}
+          isOwn={isOwn}
+          subscribe={subscribe}
+        />
 
         <div className={styles.header__arrows}>
           <Link
