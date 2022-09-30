@@ -1,0 +1,77 @@
+@import '../../../styles/variables.scss';
+
+.info {
+
+    &__rates {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        @include media-xs {
+            justify-content: space-between;
+        }
+    }
+
+    &__story {
+        margin-bottom: 30px;
+    }
+
+    &__subscribe {
+        margin-bottom: 30px;
+    }
+
+    &__title {
+        font-weight: 800;
+        font-size: 30px;
+
+        &_mobile {
+            display: none;
+            @include media-md {
+                display: block;
+            }
+        }
+    }
+
+    &__line {
+        width: 100%;
+        height: 1px;
+        background: #E5E5E5;
+        &_mobile {
+            display: none;
+            @include media-md {
+                display: block;
+            }
+        }
+    }
+
+    &__members {
+        margin: 20px 0 30px;
+    }
+
+    &__jobs {
+        margin: 20px 0 30px;
+    }
+
+    &__support {
+        font-weight: 700;
+        font-size: 15px;
+        color: #D01E8E;
+        &:hover {
+            color: #e237a3;
+        }
+    }
+}
+
+.rate {
+    margin-right: 4em;
+
+    &__title {
+        font-weight: 500;
+        font-size: 12px;
+        color: #D1D1D1;
+    }
+
+    &__value {
+        font-weight: 700;
+        font-size: 15px;
+    }
+}

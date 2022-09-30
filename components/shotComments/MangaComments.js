@@ -10,7 +10,7 @@ import Send from 'components/icon/new/Send';
 import Avatar from 'components/Avatar';
 import cn from 'classnames';
 
-const MangaComments = ({ manga, user, onUpload, className, comments }) => {
+const MangaComments = ({ manga, user, onUpload, className, comments = [] }) => {
   //   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
   const inputRef = useRef(null);
