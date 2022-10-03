@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 import styles from './styles.module.scss';
 import cn from 'classnames';
 import Comment from 'components/icon/new/Comment';
@@ -16,9 +16,15 @@ import { EVENTS } from 'helpers/amplitudeEvents';
 const ProjectChapters = ({ className, project, updateProjectInfo, user, isMobile }) => {
   const chapters = project?.storyBoards?.data[0]?.chapters.filter((ch) => ch.published);
 
+  const isLiked = useCallback(
+    (chapter) => {
+      return chapter?.likedUsers?.some((likedUser) => likedUser === user?._id);
+    },
+    [chapters]
+  );
+
   function onLike(chapter) {
     const chapterId = chapter._id;
-    const isLiked = chapter?.likedUsers?.some((likedUser) => likedUser === user?._id);
 
     if (!user) {
       notification.error({
@@ -27,12 +33,21 @@ const ProjectChapters = ({ className, project, updateProjectInfo, user, isMobile
       });
       return;
     }
-    likeChapter(project.author, chapterId, user._id, project.participents, isLiked)
+
+    likeChapter(project.author, chapterId, user._id, project.participents, isLiked(chapter))
       .then((res) => {
         updateProjectInfo();
+        const eventData = [
+          {
+            event_type: EVENTS.LIKE_EPISODES,
+            event_properties: { inviteRequestId: id },
+          },
+        ];
+        myAmplitude(eventData);
       })
       .catch((err) => console.log(err));
   }
+
   return (
     <div className={cn(className, styles.chapters, isMobile && styles.chapters_mobile)}>
       <div className={cn(styles.chapters__sectionTitle)}>Episodes</div>
@@ -69,6 +84,7 @@ const ProjectChapters = ({ className, project, updateProjectInfo, user, isMobile
       )}
       {chapters?.map((chapter) => (
         <Link
+          key={chapter._id}
           href={
             client.API_ENDPOINT +
             '/manga-view/' +
@@ -104,11 +120,11 @@ const ProjectChapters = ({ className, project, updateProjectInfo, user, isMobile
                 <div
                   className={cn(
                     styles.chapters__likes,
-                    chapter?.likedUsers?.some((likedUser) => likedUser === user?._id) &&
-                      styles.chapters__likes_liked
+                    isLiked(chapter) && styles.chapters__likes_liked
                   )}
                   onClick={(e) => {
                     e.preventDefault();
+                    console.log(100);
                     onLike(chapter);
                   }}>
                   {chapter.likedUsers.length} <Fire color="#C3BAFA" />
