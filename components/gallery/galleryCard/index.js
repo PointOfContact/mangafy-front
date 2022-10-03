@@ -56,6 +56,17 @@ const GalleryCard = ({
     user
       ? likeShot(galleryItem._id._id || galleryItem._id, router.query.pid)
           .then((res) => {
+            const eventData = [
+              {
+                event_type: EVENTS.LIKE_SHOT,
+                event_properties: {
+                  shotId: res.portfolioId,
+                  shotTitle: galleryItem.title,
+                  from: 'Profile page',
+                },
+              },
+            ];
+            myAmplitude(eventData);
             updateShots();
           })
           .catch((err) => {
@@ -125,7 +136,7 @@ const GalleryCard = ({
           styles.galleryImg,
           !image && type !== 'pdf' && type !== 'PDF' && styles.typeRender
         )}>
-        {canEditInit && (
+        {!!canEditInit && (
           <>
             <Popconfirm
               title={
