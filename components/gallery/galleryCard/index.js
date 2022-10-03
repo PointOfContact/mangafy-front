@@ -56,6 +56,17 @@ const GalleryCard = ({
     user
       ? likeShot(galleryItem._id._id || galleryItem._id, router.query.pid)
           .then((res) => {
+            const eventData = [
+              {
+                event_type: EVENTS.LIKE_SHOT,
+                event_properties: {
+                  shotId: res.portfolioId,
+                  shotTitle: galleryItem.title,
+                  from: 'Profile page',
+                },
+              },
+            ];
+            myAmplitude(eventData);
             updateShots();
           })
           .catch((err) => {
@@ -96,10 +107,13 @@ const GalleryCard = ({
         setImages(newImages);
       },
       (err) => {
-        notification.error({
-          message: err.message,
-          placement: 'bottomLeft',
-        });
+        const newImages = images.filter((item) => item._id !== _id);
+        setImages(newImages);
+        if (err.name !== 'NotFound')
+          notification.error({
+            message: err.message,
+            placement: 'bottomLeft',
+          });
       }
     );
     // }
@@ -122,7 +136,7 @@ const GalleryCard = ({
           styles.galleryImg,
           !image && type !== 'pdf' && type !== 'PDF' && styles.typeRender
         )}>
-        {canEditInit && (
+        {!!canEditInit && (
           <>
             <Popconfirm
               title={

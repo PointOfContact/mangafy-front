@@ -61,6 +61,7 @@ const shotPage = ({ user, allShots, serverSideShot, serverSideAuthor }) => {
   async function updateAuthorInfo() {
     try {
       const newAuthor = await client.service('/api/v2/users').get(author?._id);
+      console.log(newAuthor);
       setAuthor(newAuthor);
     } catch (error) {
       console.log(error);
@@ -96,14 +97,20 @@ const shotPage = ({ user, allShots, serverSideShot, serverSideAuthor }) => {
           updateShotInfo();
           updateAuthorInfo();
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          updateShotInfo();
+          console.log(err);
+        });
     } else {
       unFollowUser(author?._id)
         .then(() => {
           updateShotInfo();
           updateAuthorInfo();
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          updateAuthorInfo();
+          console.log(err);
+        });
     }
   }
 

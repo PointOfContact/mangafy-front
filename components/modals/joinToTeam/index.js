@@ -15,8 +15,15 @@ import styles from './styles.module.scss';
 
 const { TextArea } = Input;
 
+const MyCheckboxes = userTypes.map((item) => ({
+  key: item.value,
+  value: item.value,
+}));
+
 const ModalStart = ({ changeShowModal, showModal, baseData, selectedTask, user }) => {
-  const [joinAs, changeJoinAs] = useState('Writer');
+  const [joinAs, changeJoinAs] = useState('');
+
+  const defaultJoinAs = MyCheckboxes.find((role) => role.value === selectedTask?.lookingFor)?.value;
   const [form] = Form.useForm();
 
   const handleCancel = () => {
@@ -125,11 +132,6 @@ const ModalStart = ({ changeShowModal, showModal, baseData, selectedTask, user }
     }
   };
 
-  const MyCheckboxes = userTypes.map((item) => ({
-    key: item.value,
-    value: item.value,
-  }));
-
   return (
     <Modal
       className={styles.modal}
@@ -202,7 +204,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, selectedTask, user }
                   showSearch
                   className={styles.modalSelect}
                   options={MyCheckboxes}
-                  value={joinAs}
+                  defaultValue={defaultJoinAs}
                 />
               </Form.Item>
               <h2>Action</h2>

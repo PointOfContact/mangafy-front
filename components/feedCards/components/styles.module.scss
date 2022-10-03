@@ -32,6 +32,10 @@
         justify-content: center;
         opacity: 0;
         pointer-events: none;
+
+        &_disabled {
+            display: none;
+        }
     }
 
     &__buttons {

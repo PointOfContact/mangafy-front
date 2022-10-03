@@ -8,7 +8,7 @@ import { Modal } from 'antd';
 import Close from 'components/icon/new/Close';
 import Heart from 'components/icon/new/Heart';
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
-import { highlightURLs } from 'helpers/shared';
+import { formatHtml } from 'helpers/shared';
 import cn from 'classnames';
 import client from 'api/client';
 import { notification } from 'antd';
@@ -27,7 +27,7 @@ const PublishedCard = ({ card, user }) => {
   const mangaUrl =
     card.postType === 'Ongoing'
       ? card.button.navigateTo + '?chapter=' + card?.order
-      : `/manga-story/${card._id}`;
+      : `/project/${card._id}`;
 
   const [isLiked, setIsLiked] = useState(card?.likedUsers?.includes(user?.id));
   const router = useRouter();
@@ -131,7 +131,7 @@ const PublishedCard = ({ card, user }) => {
               : card.author === user?._id
           }
           mangaId={card._id}
-          mangaUrl={mangaUrl}
+          mangaUrl={client.API_ENDPOINT + mangaUrl}
         />
       )}
       <div className={styles.card__content}>

@@ -11,12 +11,14 @@ import Heart from 'components/icon/new/Heart';
 import Close from 'components/icon/new/Close';
 import { Modal } from 'antd';
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
-import { buildShotURL, highlightURLs } from 'helpers/shared';
+import { buildShotURL, formatHtml } from 'helpers/shared';
 import cn from 'classnames';
 import { likeShot } from 'components/gallery/utils';
 import { notification } from 'antd';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import myAmplitude from 'utils/amplitude';
+import { EVENTS } from 'helpers/amplitudeEvents';
 
 const ShotCard = ({ card, user, editShot, deleteShot }) => {
   const image = card.image?.image || card.image;
@@ -62,10 +64,21 @@ const ShotCard = ({ card, user, editShot, deleteShot }) => {
     }
   }
 
+  function amplitude(event_type, shotId) {
+    const eventData = [
+      {
+        event_type,
+        event_properties: { shotId, shotTitle: title, from: 'Feed page' },
+      },
+    ];
+    myAmplitude(eventData);
+  }
+
   function like() {
     likeShot(card._id, card.authorInfo._id)
       .then((res) => {
         if (!isLiked) {
+          amplitude(EVENTS.DELETE_LIKE_SHOT, res.portfolioId);
           if (Array.isArray(card.likedUsers)) {
             card.likedUsers.push(res);
           } else {
@@ -73,6 +86,7 @@ const ShotCard = ({ card, user, editShot, deleteShot }) => {
           }
           setIsLiked(true);
         } else {
+          amplitude(EVENTS.LIKE_SHOT, res.portfolioId);
           card.likedUsers = card.likedUsers.filter((like) => like.likedUserId !== user?._id);
           setIsLiked(false);
         }
@@ -97,7 +111,7 @@ const ShotCard = ({ card, user, editShot, deleteShot }) => {
           <FeedCardImage
             image={client.UPLOAD_URL + image}
             isOwned={authorId === user?._id}
-            shareUrl={'/shot/' + card._id}
+            shareUrl={client.API_ENDPOINT + '/shot/' + card._id}
             onEdit={() => editShot(card)}
             onDelete={() => deleteShot(card._id)}
           />

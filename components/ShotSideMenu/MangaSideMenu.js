@@ -59,15 +59,17 @@ const MangaSideMenu = ({
             icon={<Comment color="#7B65F3" />}>
             {comments?.total || 0}
           </Button>
-          <Button
-            className={isLiked && styles.menu__like_active}
-            onClick={like}
-            rounded
-            outline
-            iconRight
-            icon={<Fire color="#7B65F3" />}>
-            {chapter?.like || 0}
-          </Button>
+          {like && (
+            <Button
+              className={isLiked && styles.menu__like_active}
+              onClick={like}
+              rounded
+              outline
+              iconRight
+              icon={<Fire color="#7B65F3" />}>
+              {chapter?.like || 0}
+            </Button>
+          )}
           <Button
             rounded
             outline

@@ -3,7 +3,7 @@ import client from 'api/client';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import myAmplitude from 'utils/amplitude';
 
-export default {
+const API = {
   draft: {
     saveUserDataByKey: (email, user, setUserData) => {
       const data = {};
@@ -362,3 +362,5 @@ export default {
     },
   },
 };
+
+export default API;

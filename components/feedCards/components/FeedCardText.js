@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './styles.module.scss';
 import cn from 'classnames';
-import { highlightURLs } from 'helpers/shared';
+import { formatHtml } from 'helpers/shared';
 import Button from 'components/ui-new/Button';
 import Share from 'components/icon/new/Share';
 import { ShareButtons } from 'components/share';
@@ -19,7 +19,7 @@ const FeedCardText = ({ title, description, className, isOwned, shareUrl, textOn
       {description && (
         <div
           className={styles.feedCardDescription}
-          dangerouslySetInnerHTML={{ __html: highlightURLs(description) }}></div>
+          dangerouslySetInnerHTML={{ __html: formatHtml(description) }}></div>
       )}
       {textOnly && (
         <div className={styles.share__hover}>

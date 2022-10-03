@@ -10,7 +10,7 @@ import Send from 'components/icon/new/Send';
 import Avatar from 'components/Avatar';
 import cn from 'classnames';
 
-const MangaComments = ({ manga, user, onUpload, className, comments }) => {
+const MangaComments = ({ manga, user, onUpload, className, comments = [] }) => {
   //   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
   const inputRef = useRef(null);
@@ -56,7 +56,7 @@ const MangaComments = ({ manga, user, onUpload, className, comments }) => {
     clearInput();
     const jwt = client.getCookie('feathers-jwt');
     client
-      .service('/api/v2/comments')
+      .service('/api/v2/comments?page=mangaView')
       .create(
         {
           content: newComment,
