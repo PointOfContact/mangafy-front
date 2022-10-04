@@ -30,15 +30,12 @@ const SubscribeField = ({ className, subscription, subscribe, unsubscribe }) => 
           pink
           outline
           rounded
-          icon={
-            <Check
-              color=" #848484
-"
-            />
-          }
+          iconRight
+          icon={<Check bold />}
           className={styles.unsubscribe}
-          onClick={unsubscribe}
-        />
+          onClick={unsubscribe}>
+          Subscribed
+        </Button>
       ) : (
         <div className={styles.subscribe}>
           <input

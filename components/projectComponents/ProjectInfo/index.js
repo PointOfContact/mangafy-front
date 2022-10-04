@@ -8,6 +8,7 @@ import ProjectChapters from '../ProjectChapters';
 import SubscribeField from '../SubscribeField';
 import myAmplitude from 'utils/amplitude';
 import { EVENTS } from 'helpers/amplitudeEvents';
+import Diamond from 'components/icon/new/Diamond';
 
 const ProjectInfo = ({
   className,
@@ -57,6 +58,7 @@ const ProjectInfo = ({
           className={styles.info__support}
           href={`https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=${project?.authorInfo?.payPalEmail}&item_name=Friends+of+the+Park&item_number=Fall+Cleanup+Campaign&currency_code=USD`}>
           Support
+          <Diamond />
         </a>
       )}
       <ProjectChapters

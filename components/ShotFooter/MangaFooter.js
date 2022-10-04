@@ -31,21 +31,14 @@ const MangaFooter = ({
   shareUrl,
   comments,
   isParticipant,
+  createComment,
 }) => {
   return (
     <div name="footer" className={cn(styles.footer, className)}>
       <div className={styles.footer__container}>
         <div className={styles.footer__mobileComments}>
           <div className={styles.footer__mobileCommentsHeader}>Feedback</div>
-          <MangaComments
-            manga={manga}
-            user={user}
-            comments={comments.data}
-            onUpload={() => {
-              updateComments();
-              updateMangaInfo();
-            }}
-          />
+          <MangaComments manga={manga} comments={comments.data} createComment={createComment} />
         </div>
         {/* <div className={styles.footer__info}>
             <div className={styles.footer__title}>{manga?.mangaStoryTitle}</div>

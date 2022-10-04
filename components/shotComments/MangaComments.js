@@ -10,7 +10,7 @@ import Send from 'components/icon/new/Send';
 import Avatar from 'components/Avatar';
 import cn from 'classnames';
 
-const MangaComments = ({ manga, user, onUpload, className, comments = [] }) => {
+const MangaComments = ({ className, comments = [], createComment }) => {
   //   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
   const inputRef = useRef(null);
@@ -45,7 +45,7 @@ const MangaComments = ({ manga, user, onUpload, className, comments = [] }) => {
     setNewComment(value);
   }
 
-  function createComment() {
+  function onSubmit() {
     if (newComment.length < 3) {
       return notification.error({
         message: 'Comment must be at least 3 characters',
@@ -53,61 +53,47 @@ const MangaComments = ({ manga, user, onUpload, className, comments = [] }) => {
       });
     }
 
+    createComment(newComment);
+
     clearInput();
-    const jwt = client.getCookie('feathers-jwt');
-    client
-      .service('/api/v2/comments?page=mangaView')
-      .create(
-        {
-          content: newComment,
-          mangaStoryId: manga.mangaStoryId,
-        },
-        {
-          headers: { Authorization: `Bearer ${jwt}` },
-          mode: 'no-cors',
-        }
-      )
-      .then((res) => {
-        onUpload && onUpload();
-      })
-      .catch((err) => {
-        notification.error({
-          message: err.message,
-          placement: 'bottomLeft',
-        });
-        console.log(err);
-      });
   }
 
-  const commentsElements = comments.map((comment) => (
-    <div className={styles.comment} key={comment._id}>
-      <div className={styles.comment__body}>
-        <div className={styles.comment__avatar}>
-          {/* {comment.authorInfo?.avatar ? (
-            <Imgix width={48} height={48} src={client.UPLOAD_URL + comment.authorInfo?.avatar} />
-          ) : (
-            <Avatar size={48} style={{ background: '#7b65f3', color: '#fff' }}>
-              {comment.authorInfo?.name[0]}
-            </Avatar>
-          )} */}
-          <Avatar size={48} image={comment.authorInfo?.avatar} text={comment.authorInfo?.name[0]} />
-        </div>
-        <div className={styles.comment__content}>
-          <div className={styles.comment__author}>{comment.authorInfo?.name}</div>
-          <div className={styles.comment__text}>{comment.content}</div>
-          <div className={styles.comment__time}>
-            {new Date(comment.createdAt).toLocaleDateString()}
+  let commentsElements = [];
+  if (Array.isArray(comments)) {
+    commentsElements = comments?.map((comment) => (
+      <div className={styles.comment} key={comment._id}>
+        <div className={styles.comment__body}>
+          <div className={styles.comment__avatar}>
+            {/* {comment.authorInfo?.avatar ? (
+              <Imgix width={48} height={48} src={client.UPLOAD_URL + comment.authorInfo?.avatar} />
+            ) : (
+                <Avatar size={48} style={{ background: '#7b65f3', color: '#fff' }}>
+                  {comment.authorInfo?.name[0]}
+                </Avatar>
+            )} */}
+            <Avatar
+              size={48}
+              image={comment.authorInfo?.avatar}
+              text={comment.authorInfo?.name[0]}
+            />
           </div>
-        </div>
+          <div className={styles.comment__content}>
+            <div className={styles.comment__author}>{comment.authorInfo?.name}</div>
+            <div className={styles.comment__text}>{comment.content}</div>
+            <div className={styles.comment__time}>
+              {new Date(comment.createdAt).toLocaleDateString()}
+            </div>
+          </div>
 
-        {/* {comment.authorInfo._id === user._id && (
-          <div className={styles.comment__delete} onClick={() => deleteComment(comment._id)}>
-            <Close color="#f00" />
-          </div>
+          {/* {comment.authorInfo._id === user._id && (
+            <div className={styles.comment__delete} onClick={() => deleteComment(comment._id)}>
+              <Close color="#f00" />
+            </div>
         )} */}
+        </div>
       </div>
-    </div>
-  ));
+    ));
+  }
 
   return (
     <div className={cn(styles.comments, className)}>
@@ -120,7 +106,7 @@ const MangaComments = ({ manga, user, onUpload, className, comments = [] }) => {
             ref={inputRef}></div>
         </div>
         {/* <p className={messageError ? styles.messageError : styles.notError}>{messageError}</p> */}
-        <button className={styles.comments__sendButton} onClick={createComment}>
+        <button className={styles.comments__sendButton} onClick={onSubmit}>
           <Send color={'#8E8E93'} />
         </button>
 

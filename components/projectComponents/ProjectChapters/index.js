@@ -12,8 +12,16 @@ import { notification } from 'antd';
 import Button from 'components/ui-new/Button';
 import myAmplitude from 'utils/amplitude';
 import { EVENTS } from 'helpers/amplitudeEvents';
+import Diamond from 'components/icon/new/Diamond';
 
-const ProjectChapters = ({ className, project, updateProjectInfo, user, isMobile }) => {
+const ProjectChapters = ({
+  className,
+  project,
+  updateProjectInfo,
+  user,
+  isMobile,
+  onCommentClick,
+}) => {
   const chapters = project?.storyBoards?.data[0]?.chapters.filter((ch) => ch.published);
 
   const isLiked = useCallback(
@@ -40,12 +48,13 @@ const ProjectChapters = ({ className, project, updateProjectInfo, user, isMobile
         const eventData = [
           {
             event_type: EVENTS.LIKE_EPISODES,
-            event_properties: { inviteRequestId: id },
           },
         ];
         myAmplitude(eventData);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   return (
@@ -74,7 +83,7 @@ const ProjectChapters = ({ className, project, updateProjectInfo, user, isMobile
                   ]);
                 }}
                 href={`https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=${project?.authorInfo?.payPalEmail}&item_name=Friends+of+the+Park&item_number=Fall+Cleanup+Campaign&currency_code=USD`}>
-                <Button sm pink rounded>
+                <Button sm pink rounded iconRight icon={<Diamond color="#fff" />}>
                   Support
                 </Button>
               </a>
@@ -111,11 +120,16 @@ const ProjectChapters = ({ className, project, updateProjectInfo, user, isMobile
             <div className={styles.chapters__subtitle}>Chapter {chapter.order}</div>
             <div className={styles.chapters__info}>
               {/* <div className={styles.chapters__date}>20.06.2022</div> */}
-              {/* {chapter.comments && (
-                <div className={styles.chapters__comments}>
-                  {chapter.comments.total} <Comment color="#C3BAFA" />
-                </div>
-              )} */}
+              {/* {chapter.comments && ( */}
+              <div
+                className={styles.chapters__comments}
+                onClick={(e) => {
+                  e.preventDefault();
+                  onCommentClick(chapter._id);
+                }}>
+                {chapter.comment?.length} <Comment color="#C3BAFA" />
+              </div>
+              {/* )} */}
               {chapter.likedUsers && (
                 <div
                   className={cn(
@@ -124,7 +138,6 @@ const ProjectChapters = ({ className, project, updateProjectInfo, user, isMobile
                   )}
                   onClick={(e) => {
                     e.preventDefault();
-                    console.log(100);
                     onLike(chapter);
                   }}>
                   {chapter.likedUsers.length} <Fire color="#C3BAFA" />

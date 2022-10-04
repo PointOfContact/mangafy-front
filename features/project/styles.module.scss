@@ -5,7 +5,15 @@
     &__container {
         margin: 20px auto 0;
         max-width: 1400px;
-        padding: 10px;
+        padding: 10px 90px;
+
+        @include media-md {
+            padding: 10px 60px;
+        }
+
+        @include media-sm {
+            padding: 10px;
+        }
     }
     
     &__cover {

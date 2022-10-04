@@ -9,17 +9,39 @@ import React, { useState, useEffect } from 'react';
 import styles from './styles.module.scss';
 import { ShareButtons } from 'components/share';
 import ShareModal from 'components/modals/shareModal';
-import { subscribeToProject, unSubscribeOfProject } from 'helpers/shared';
+import {
+  createChapterComment,
+  createComment,
+  subscribeToProject,
+  unSubscribeOfProject,
+} from 'helpers/shared';
 import notification from 'antd/lib/notification';
 import myAmplitude from 'utils/amplitude';
 import { EVENTS } from 'helpers/amplitudeEvents';
+import FeedCreateButton from 'components/FeedCreateButton';
 
 const ProjectView = ({ ssProject, ssComments, user }) => {
   const [project, setProject] = useState(ssProject);
   const [comments, setComments] = useState(ssComments);
+  const [chapterComments, setChapterComments] = useState({ data: [] });
 
+  const [currentChapterId, setCurrentChapterId] = useState(null);
   const [areCommentsOpened, setAreCommentsOpened] = useState(false);
   const [isShareModalOpened, setIsShareModalOpened] = useState(false);
+
+  useEffect(() => {
+    if (currentChapterId) {
+      updateChapterCommentsInfo();
+    } else {
+      updateCommentsInfo();
+    }
+  }, [currentChapterId]);
+
+  useEffect(() => {
+    if (!areCommentsOpened) {
+      setCurrentChapterId(null);
+    }
+  }, [areCommentsOpened]);
 
   const isParticipant = project?.participents?.includes(user?._id);
   const isOwner = project?.author === user?._id;
@@ -56,9 +78,8 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
   }
 
   function unsubscribe() {
-    return unSubscribeOfProject(subscription?._id)
+    return unSubscribeOfProject(subscription?._id, project?._id)
       .then((res) => {
-        console.log(res);
         notification.warning({
           message: 'You have unsubscribed from this project',
           placement: 'bottomLeft',
@@ -101,6 +122,60 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
       .catch((err) => console.log(err));
   }
 
+  function updateChapterCommentsInfo() {
+    const jwt = client.getCookie('feathers-jwt');
+    client
+      .service('/api/v2/comment-chapter')
+      .find({
+        query: {
+          chapterId: currentChapterId,
+          $sort: { createdAt: -1 },
+          $limit: 1000,
+        },
+        headers: { Authorization: `Bearer ${jwt}` },
+        mode: 'no-cors',
+      })
+      .then((res) => {
+        setChapterComments(res);
+      })
+      .catch((err) => console.log(err));
+  }
+
+  function createProjectComment(text) {
+    if (!user) {
+      notification.error({
+        message: 'You need to be logged in to comment',
+        placement: 'bottomLeft',
+      });
+      return;
+    }
+    createComment(text, project?._id)
+      .then((res) => {
+        updateCommentsInfo();
+      })
+      .catch((err) => console.log(err));
+  }
+
+  function createCommentChapter(text) {
+    if (!user) {
+      notification.error({
+        message: 'You need to be logged in to comment',
+        placement: 'bottomLeft',
+      });
+      return;
+    }
+    createChapterComment(text, currentChapterId, user?._id)
+      .then((res) => {
+        updateChapterCommentsInfo();
+      })
+      .catch((err) => console.log(err));
+  }
+
+  function onCommentClick(chapterId) {
+    setCurrentChapterId(chapterId);
+    setAreCommentsOpened(true);
+  }
+
   return (
     <div className={styles.project}>
       <HeaderNew user={user} />
@@ -125,13 +200,13 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
             project={project}
             updateProjectInfo={updateProjectInfo}
             user={user}
+            onCommentClick={onCommentClick}
           />
           <div className={styles.project__comments}>
             <MangaComments
               manga={project?.storyBoards.data[0]}
-              user={user}
-              onUpload={updateCommentsInfo}
               comments={comments.data}
+              createComment={createProjectComment}
             />
           </div>
         </div>
@@ -142,11 +217,10 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
         areCommentsOpened={areCommentsOpened}
         setAreCommentsOpened={setAreCommentsOpened}
         user={user}
-        updateMangaInfo={updateProjectInfo}
         setIsShareModalOpened={setIsShareModalOpened}
         authors={[project?.authorInfo]}
-        comments={comments}
-        updateComments={updateCommentsInfo}
+        comments={currentChapterId ? chapterComments : comments}
+        createComment={currentChapterId ? createCommentChapter : createProjectComment}
         isParticipant={isParticipant || isOwner}
       />
 

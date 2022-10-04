@@ -2,6 +2,18 @@
 
 .moreShots {
     background: #fff;
+    margin: 0 -90px;
+    padding: 0 90px;
+
+    @include media-md {
+        margin: 0 -60px;
+        padding: 0 60px;
+    }
+
+    @include media-sm {
+        margin: 0;
+        padding: 0;
+    }
 
     &__title {
         font-weight: 700;
@@ -12,6 +24,7 @@
     &__container {
         max-width: 1200px;
         margin: 0 auto;
+        
     }
 }
 
