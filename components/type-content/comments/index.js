@@ -14,6 +14,7 @@ import PropTypes from 'prop-types';
 import myAmplitude from 'utils/amplitude';
 
 import styles from './styles.module.scss';
+import { GrammarlyEditorPlugin } from '@grammarly/editor-sdk-react';
 
 const { TextArea } = Input;
 
@@ -72,21 +73,23 @@ const Editor = ({ onSubmit, submitting, user, postId }) => {
         onSubmit(e.comment);
       }}>
       <div className={styles.inputContainer}>
-        <Form.Item
-          name={'comment'}
-          rules={[
-            {
-              required: true,
-              validator: async (_, names) => {
-                if (names.trim().length < 2) {
-                  return Promise.reject(new Error('Length must be at least 2 characters long'));
-                }
+        <GrammarlyEditorPlugin clientId={`${process.env.NEXT_PUBLIC_GRAMMARLY_ID}`}>
+          <Form.Item
+            name={'comment'}
+            rules={[
+              {
+                required: true,
+                validator: async (_, names) => {
+                  if (names.trim().length < 2) {
+                    return Promise.reject(new Error('Length must be at least 2 characters long'));
+                  }
+                },
+                message: 'Length must be at least 2 characters long',
               },
-              message: 'Length must be at least 2 characters long',
-            },
-          ]}>
-          <TextArea placeholder="Comment" autoSize={{ minRows: 1, maxRows: 7 }} />
-        </Form.Item>
+            ]}>
+            <TextArea placeholder="Comment" autoSize={{ minRows: 1, maxRows: 7 }} />
+          </Form.Item>
+        </GrammarlyEditorPlugin>
         <div className={styles.submitButton}>
           <button htmlType="submit" loading={submitting}>
             <SvgTopArrow />

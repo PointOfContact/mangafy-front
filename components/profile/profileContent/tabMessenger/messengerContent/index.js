@@ -21,6 +21,7 @@ import UserName from '../userName';
 import messageItems from './messageItems';
 import styles from './styles.module.scss';
 import Send from 'components/icon/new/Send';
+import { GrammarlyEditorPlugin } from '@grammarly/editor-sdk-react';
 
 let interval;
 const onAccept = (event, id, status) => {
@@ -274,7 +275,8 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
                 className={styles['message-text']}
                 contentEditable
                 onInput={handleChange}
-                ref={inputRef}></div>
+                ref={inputRef}
+              />
             </div>
             <p className={messageError ? styles.messageError : styles.notError}>{messageError}</p>
           </div>

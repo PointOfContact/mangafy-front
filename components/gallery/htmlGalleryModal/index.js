@@ -13,6 +13,7 @@ import myAmplitude from 'utils/amplitude';
 import ShortStory from '../shortStory';
 import { editGallery, createGallery } from '../utils';
 import styles from './style.module.scss';
+import { GrammarlyEditorPlugin } from '@grammarly/editor-sdk-react';
 
 const HtmlGalleryModal = ({ gallery, setImages, images, handleCancel, isModalVisible, user }) => {
   const [text, changeText] = useState('');
@@ -168,12 +169,14 @@ const HtmlGalleryModal = ({ gallery, setImages, images, handleCancel, isModalVis
                   message: 'Remove whitespaces',
                 },
               ]}>
-              <TextArea
-                placeholder=""
-                value={title}
-                onChange={handleChangeText}
-                className={styles.modalTexarea}
-              />
+              <GrammarlyEditorPlugin clientId={`${process.env.NEXT_PUBLIC_GRAMMARLY_ID}`}>
+                <TextArea
+                  placeholder=""
+                  value={title}
+                  onChange={handleChangeText}
+                  className={styles.modalTexarea}
+                />
+              </GrammarlyEditorPlugin>
             </Form.Item>
 
             <div className="modal_select_btn">

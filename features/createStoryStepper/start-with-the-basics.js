@@ -3,6 +3,7 @@ import styles from './styles.module.scss';
 import cn from 'classnames';
 import PrimaryButton from 'components/ui-elements/button';
 import { notification } from 'antd';
+import { GrammarlyEditorPlugin } from '@grammarly/editor-sdk-react';
 
 const StartWithTheBasics = ({ storyInfo, goNext, goBack, setStoryInfo }) => {
   const [loading, setLoading] = useState(null);
@@ -68,15 +69,18 @@ const StartWithTheBasics = ({ storyInfo, goNext, goBack, setStoryInfo }) => {
             placeholder="Series Title"
             defaultValue={storyInfo.seriesTitle}
           />
-          <textarea
-            ref={textareaRef}
-            className={cn(styles.input, styles.textarea, !isTextareaValid && styles.input_error)}
-            placeholder="State what your project is, and what makes it unique. Avoid using all caps or exclamation points. Be honest and transparent"
-            onChange={() => {
-              textareaAutoresize();
-              textareaChangeHandler();
-            }}
-            defaultValue={storyInfo.seriesDescription}></textarea>
+          <GrammarlyEditorPlugin clientId={`${process.env.NEXT_PUBLIC_GRAMMARLY_ID}`}>
+            <textarea
+              ref={textareaRef}
+              className={cn(styles.input, styles.textarea, !isTextareaValid && styles.input_error)}
+              placeholder="State what your project is, and what makes it unique. Avoid using all caps or exclamation points. Be honest and transparent"
+              onChange={() => {
+                textareaAutoresize();
+                textareaChangeHandler();
+              }}
+              defaultValue={storyInfo.seriesDescription}
+            />
+          </GrammarlyEditorPlugin>
           <div className={styles.buttons}>
             <PrimaryButton text="Let's go" onClick={nextHandler} loading={loading === 'next'} />
             <PrimaryButton

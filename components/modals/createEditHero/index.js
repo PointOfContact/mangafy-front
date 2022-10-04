@@ -11,6 +11,7 @@ import PropTypes from 'prop-types';
 
 import HeroUpload from '../../ui-elements/heroUpload';
 import styles from './styles.module.scss';
+import { GrammarlyEditorPlugin } from '@grammarly/editor-sdk-react';
 
 const { Option } = Select;
 
@@ -229,25 +230,27 @@ const ModalComponent = ({
                   </>
                 )}
                 <h3>{titles.inputDesc}</h3>
-                <Form.Item name="description">
-                  <TextArea
-                    disabled={!name.trim()}
-                    placeholder={titles.description}
-                    className={styles.modalTexArea}
-                    isFullWidth={true}
-                    isLinear={true}
-                    autoSize={{ minRows: 1, maxRows: 8 }}
-                    onChange={(e) => setDescription(e.target.value)}
-                    onBlur={() => {
-                      onChangeHero({});
-                      sendEvent(EVENTS[`CHANGE_BOARD_${heroType.event}`], {
-                        [`${heroType.type}`]: hero,
-                        changed: 'Description',
-                        description,
-                      });
-                    }}
-                  />
-                </Form.Item>
+                <GrammarlyEditorPlugin clientId={`${process.env.NEXT_PUBLIC_GRAMMARLY_ID}`}>
+                  <Form.Item name="description">
+                    <TextArea
+                      disabled={!name.trim()}
+                      placeholder={titles.description}
+                      className={styles.modalTexArea}
+                      isFullWidth={true}
+                      isLinear={true}
+                      autoSize={{ minRows: 1, maxRows: 8 }}
+                      onChange={(e) => setDescription(e.target.value)}
+                      onBlur={() => {
+                        onChangeHero({});
+                        sendEvent(EVENTS[`CHANGE_BOARD_${heroType.event}`], {
+                          [`${heroType.type}`]: hero,
+                          changed: 'Description',
+                          description,
+                        });
+                      }}
+                    />
+                  </Form.Item>
+                </GrammarlyEditorPlugin>
                 <h3>{titles.uploadTitle}</h3>
                 <div className={cn('modal_select_btn', styles.submitButton)}>
                   <HeroUpload

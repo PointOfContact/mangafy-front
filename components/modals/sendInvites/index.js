@@ -11,6 +11,7 @@ import PropTypes from 'prop-types';
 import myAmplitude from 'utils/amplitude';
 
 import styles from './styles.module.scss';
+import { GrammarlyEditorPlugin } from '@grammarly/editor-sdk-react';
 
 const { TextArea } = Input;
 
@@ -192,25 +193,26 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
                 </>
               )}
               <h2>Your message</h2>
-              <Form.Item
-                hasFeedback
-                name="text"
-                rules={[
-                  {
-                    required: true,
-                    message: 'Text is required',
-                  },
-                ]}>
-                <TextArea
-                  placeholder="Please write a personal message to the team leader explaining why you are a good fit"
-                  value={text}
-                  onChange={handleChangeText}
-                  type="text"
-                  autoSize={{ minRows: 3, maxRows: 3 }}
-                  className={styles.modalTexarea}
-                />
-              </Form.Item>
-
+              <GrammarlyEditorPlugin clientId={`${process.env.NEXT_PUBLIC_GRAMMARLY_ID}`}>
+                <Form.Item
+                  hasFeedback
+                  name="text"
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Text is required',
+                    },
+                  ]}>
+                  <TextArea
+                    placeholder="Please write a personal message to the team leader explaining why you are a good fit"
+                    value={text}
+                    onChange={handleChangeText}
+                    type="text"
+                    autoSize={{ minRows: 3, maxRows: 3 }}
+                    className={styles.modalTexarea}
+                  />
+                </Form.Item>
+              </GrammarlyEditorPlugin>
               <div className="modal_select_btn">
                 <Form.Item>
                   <PrimaryButton

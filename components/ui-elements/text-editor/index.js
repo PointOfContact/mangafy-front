@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 import PropTypes, { any } from 'prop-types';
 
 import styles from './styles.module.scss';
+import { GrammarlyEditorPlugin } from '@grammarly/editor-sdk-react';
 
 const QuillNoSSRWrapper = dynamic(import('@bloogrox/react-quill'), {
   ssr: false,
@@ -42,20 +43,21 @@ const modules = {
   },
   clipboard: { matchVisual: false },
 };
-
 const TextEditor = ({ placeholder, result, disabled, value, onBlur, ...res }) => (
-  <QuillNoSSRWrapper
-    placeholder={placeholder}
-    className={styles.textEditor}
-    onChange={(e) => result(e)}
-    onBlur={onBlur}
-    modules={modules}
-    formats={formats}
-    theme="snow"
-    readOnly={disabled}
-    value={value}
-    {...res}
-  />
+  <GrammarlyEditorPlugin clientId={`${process.env.NEXT_PUBLIC_GRAMMARLY_ID}`}>
+    <QuillNoSSRWrapper
+      placeholder={placeholder}
+      className={styles.textEditor}
+      onChange={(e) => result(e)}
+      onBlur={onBlur}
+      modules={modules}
+      formats={formats}
+      theme="snow"
+      readOnly={disabled}
+      value={value}
+      {...res}
+    />
+  </GrammarlyEditorPlugin>
 );
 
 TextEditor.propTypes = {
