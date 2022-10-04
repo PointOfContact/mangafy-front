@@ -15,6 +15,7 @@ import PropTypes from 'prop-types';
 import myAmplitude from 'utils/amplitude';
 
 import styles from './styles.module.scss';
+import { GrammarlyEditorPlugin } from '@grammarly/editor-sdk-react';
 
 const { TextArea } = Input;
 
@@ -66,16 +67,18 @@ CommentList.propTypes = {
 const Editor = ({ onChange, onSubmit, submitting, value, user, mangaStory, error }) => {
   return (
     <>
-      <Form.Item>
-        <TextArea
-          className={styles.commentInput}
-          rows={4}
-          onChange={onChange}
-          value={value}
-          placeholder="Ask a creator"
-        />
-        <p className={error ? styles.commentError : styles.noError}>{error}</p>
-      </Form.Item>
+      <GrammarlyEditorPlugin clientId={`${process.env.NEXT_PUBLIC_GRAMMARLY_ID}`}>
+        <Form.Item>
+          <TextArea
+            className={styles.commentInput}
+            rows={4}
+            onChange={onChange}
+            value={value}
+            placeholder="Ask a creator"
+          />
+          <p className={error ? styles.commentError : styles.noError}>{error}</p>
+        </Form.Item>
+      </GrammarlyEditorPlugin>
       <Form.Item>
         <>
           {!user && (

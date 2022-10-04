@@ -14,6 +14,7 @@ import PropTypes from 'prop-types';
 
 import HeroUpload from '../../ui-elements/heroUpload';
 import styles from './styles.module.scss';
+import { Grammarly, GrammarlyEditorPlugin } from '@grammarly/editor-sdk-react';
 
 const { Option } = Select;
 
@@ -143,6 +144,7 @@ const ModalHeroes = ({
             <div className={cn('col-lg-12', 'select_modal', styles.selectModal)}>
               <Form form={form} name="tasks" preserve={false} onFinish={onFinish}>
                 <h3 className={styles.title}>Character name</h3>
+
                 <Form.Item
                   name="name"
                   rules={[
@@ -173,6 +175,7 @@ const ModalHeroes = ({
                     isLinear={true}
                   />
                 </Form.Item>
+
                 <h3 className={styles.title}>Character development</h3>
                 <div className={styles.chooseTypes}>
                   <Form.Item name="quality">
@@ -224,49 +227,56 @@ const ModalHeroes = ({
                   </span>
                 </div>
                 <h3 className={styles.title}>Personality and Backstory</h3>
-                <Form.Item
-                  name="description"
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Description is required',
-                    },
-                  ]}>
-                  <TextArea
-                    placeholder={
-                      'Personality is a description of how character acts, behaves, or reacts.'
-                    }
-                    className={styles.modalTexArea}
-                    isFullWidth={true}
-                    isLinear={true}
-                    onChange={(e) => {
-                      setDescription(e.target.value);
-                    }}
-                    autoSize={{ minRows: 1, maxRows: 4 }}
-                  />
-                </Form.Item>
-                <h3 className={styles.title}>Appearance and Powers</h3>
-                <Form.Item
-                  name="appearance"
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Appearance is required',
-                    },
-                  ]}>
-                  <TextArea
-                    placeholder={
-                      'Another thing to take notice of is the type of person they are,  their appearance and powers.'
-                    }
-                    className={styles.modalTexArea}
-                    isFullWidth={true}
-                    onChange={(e) => {
-                      setAppearance(e.target.value);
-                    }}
-                    isLinear={true}
-                    autoSize={{ minRows: 1, maxRows: 4 }}
-                  />
-                </Form.Item>
+                <Grammarly clientId={`${process.env.NEXT_PUBLIC_GRAMMARLY_ID}`}>
+                  <GrammarlyEditorPlugin>
+                    <Form.Item
+                      name="description"
+                      rules={[
+                        {
+                          required: true,
+                          message: 'Description is required',
+                        },
+                      ]}>
+                      <TextArea
+                        placeholder={
+                          'Personality is a description of how character acts, behaves, or reacts.'
+                        }
+                        className={styles.modalTexArea}
+                        isFullWidth={true}
+                        isLinear={true}
+                        onChange={(e) => {
+                          setDescription(e.target.value);
+                        }}
+                        autoSize={{ minRows: 1, maxRows: 4 }}
+                      />
+                    </Form.Item>
+                  </GrammarlyEditorPlugin>
+                  <h3 className={styles.title}>Appearance and Powers</h3>
+                  <GrammarlyEditorPlugin>
+                    <Form.Item
+                      name="appearance"
+                      rules={[
+                        {
+                          required: true,
+                          message: 'Appearance is required',
+                        },
+                      ]}>
+                      <TextArea
+                        placeholder={
+                          'Another thing to take notice of is the type of person they are,  their appearance and powers.'
+                        }
+                        className={styles.modalTexArea}
+                        isFullWidth={true}
+                        onChange={(e) => {
+                          setAppearance(e.target.value);
+                        }}
+                        isLinear={true}
+                        autoSize={{ minRows: 1, maxRows: 4 }}
+                      />
+                    </Form.Item>
+                  </GrammarlyEditorPlugin>
+                </Grammarly>
+
                 <div className={styles.attachmentContainer}>
                   <h3 className={cn(styles.title, styles.attachmentTitle)}>
                     Upload your character

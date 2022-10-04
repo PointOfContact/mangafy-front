@@ -6,6 +6,7 @@ import cn from 'classnames';
 import PropTypes from 'prop-types';
 
 import styles from '../styles.module.scss';
+import { GrammarlyEditorPlugin } from '@grammarly/editor-sdk-react';
 
 const { TextArea } = Input;
 
@@ -21,23 +22,25 @@ const EditContent = ({ profile, storyEditMode, ifMyProfile, userData, setUserDat
         <div className={styles.text}>
           {storyEditMode ? (
             <>
-              <TextArea
-                autoSize={{ minRows: 3, maxRows: 10 }}
-                placeholder="Type here..."
-                value={userData.content}
-                onChange={(e) => {
-                  setTouchInput(true);
-                  setUserData({
-                    ...userData,
-                    content: e.target.value,
-                  });
-                }}
-                required
-                type="text"
-                minLength={10}
-                maxLength={1000}
-                className={styles.textarea_text}
-              />
+              <GrammarlyEditorPlugin clientId={`${process.env.NEXT_PUBLIC_GRAMMARLY_ID}`}>
+                <TextArea
+                  autoSize={{ minRows: 3, maxRows: 10 }}
+                  placeholder="Type here..."
+                  value={userData.content}
+                  onChange={(e) => {
+                    setTouchInput(true);
+                    setUserData({
+                      ...userData,
+                      content: e.target.value,
+                    });
+                  }}
+                  required
+                  type="text"
+                  minLength={10}
+                  maxLength={1000}
+                  className={styles.textarea_text}
+                />
+              </GrammarlyEditorPlugin>
               {ifBioLengthSmall && (
                 <p className={styles.errorBio}>This field data should be minimum 3 character</p>
               )}
