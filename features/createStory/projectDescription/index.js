@@ -9,6 +9,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import myAmplitude from 'utils/amplitude';
+import { GrammarlyEditorPlugin } from '@grammarly/editor-sdk-react';
 
 const { TextArea } = Input;
 
@@ -68,17 +69,19 @@ const ProjectDescription = ({ user }) => {
                 </p>
               </div>
               <Tooltip title="Minimum length is 30,maximum is 500." placement="bottom">
-                <TextArea
-                  autoSize={{ minRows: 3, maxRows: 5 }}
-                  value={input}
-                  placeholder="Describe what you're are looking for, why you care about it, how you plan to make it happen, and who you are. Your description should tell backers everything they need to know."
-                  onChange={handleInput}
-                  required
-                  type="text"
-                  minLength={30}
-                  maxLength={500}
-                  className="textarea_text"
-                />
+                <GrammarlyEditorPlugin clientId={`${process.env.NEXT_PUBLIC_GRAMMARLY_ID}`}>
+                  <TextArea
+                    autoSize={{ minRows: 3, maxRows: 5 }}
+                    value={input}
+                    placeholder="Describe what you're are looking for, why you care about it, how you plan to make it happen, and who you are. Your description should tell backers everything they need to know."
+                    onChange={handleInput}
+                    required
+                    type="text"
+                    minLength={30}
+                    maxLength={500}
+                    className="textarea_text"
+                  />
+                </GrammarlyEditorPlugin>
               </Tooltip>
               <div className="next_prev">
                 <Link href="/create-a-story/project-title">

@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import myAmplitude from 'utils/amplitude';
 
 import styles from './styles.module.scss';
+import { GrammarlyEditorPlugin } from '@grammarly/editor-sdk-react';
 
 const { TextArea } = Input;
 
@@ -54,11 +55,13 @@ const BuyBubbleTea = ({ payPalEmail, createAmplitude, chapter, mangaStoryId, use
             </Radio.Group>
           </div>
           <div className={styles.description}>
-            <TextArea
-              value={valueDescription}
-              onChange={onChangeDescription}
-              placeholder="Say something nice... (optional)"
-            />
+            <GrammarlyEditorPlugin clientId={`${process.env.NEXT_PUBLIC_GRAMMARLY_ID}`}>
+              <TextArea
+                value={valueDescription}
+                onChange={onChangeDescription}
+                placeholder="Say something nice... (optional)"
+              />
+            </GrammarlyEditorPlugin>
           </div>
           <div className={styles.messagePrivate}>
             <Checkbox onChange={onChangeCheckbox}>Make this message private</Checkbox>

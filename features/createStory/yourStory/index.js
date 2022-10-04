@@ -12,6 +12,7 @@ import PropTypes from 'prop-types';
 import myAmplitude from 'utils/amplitude';
 
 import styles from './styles.module.scss';
+import { GrammarlyEditorPlugin } from '@grammarly/editor-sdk-react';
 
 const { TextArea } = Input;
 
@@ -72,17 +73,19 @@ const ProjectStory = ({ user }) => {
                 </p>
               </div>
               <Tooltip title="Minimum length is 10,maximum is 50." placement="bottom">
-                <TextArea
-                  autoSize={{ minRows: 3, maxRows: 10 }}
-                  placeholder="Tell the community, in short, about your project, share your inspiration, story, and setting and outline your collaboration goals."
-                  value={input}
-                  onChange={handleInput}
-                  required
-                  type="text"
-                  minLength={10}
-                  maxLength={50}
-                  className="textarea_text"
-                />
+                <GrammarlyEditorPlugin clientId={`${process.env.NEXT_PUBLIC_GRAMMARLY_ID}`}>
+                  <TextArea
+                    autoSize={{ minRows: 3, maxRows: 10 }}
+                    placeholder="Tell the community, in short, about your project, share your inspiration, story, and setting and outline your collaboration goals."
+                    value={input}
+                    onChange={handleInput}
+                    required
+                    type="text"
+                    minLength={10}
+                    maxLength={50}
+                    className="textarea_text"
+                  />
+                </GrammarlyEditorPlugin>
               </Tooltip>
 
               <div className="next_prev">

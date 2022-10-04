@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import myAmplitude from 'utils/amplitude';
 
 import styles from './styles.module.scss';
+import { GrammarlyEditorPlugin } from '@grammarly/editor-sdk-react';
 
 const { Option } = Select;
 
@@ -82,18 +83,20 @@ const ContentEditUser = ({
             editModalSide={false}
           /> */}
         <h3>About Me</h3>
-        <TextArea
-          className={styles.aboutMe}
-          value={userData.content}
-          onBlur={() => sendEvent(EVENTS.ADDED_BIO, { content: userData.content })}
-          onChange={(e) => {
-            setUserData({
-              ...userData,
-              content: e.target.value,
-            });
-          }}
-          placeholder="Tell your story, what are you creating? A comic book Manga or maybe a whole novella, we're very interested!"
-        />
+        <GrammarlyEditorPlugin clientId={`${process.env.NEXT_PUBLIC_GRAMMARLY_ID}`}>
+          <TextArea
+            className={styles.aboutMe}
+            value={userData.content}
+            onBlur={() => sendEvent(EVENTS.ADDED_BIO, { content: userData.content })}
+            onChange={(e) => {
+              setUserData({
+                ...userData,
+                content: e.target.value,
+              });
+            }}
+            placeholder="Tell your story, what are you creating? A comic book Manga or maybe a whole novella, we're very interested!"
+          />
+        </GrammarlyEditorPlugin>
         {errorAboutMe && (
           <p className={styles.errorAboutMe}> Text length should be minimum 3 characters </p>
         )}

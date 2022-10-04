@@ -11,6 +11,7 @@ import client from 'api/client';
 import SelectTags from 'components/selectTags';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import myAmplitude from 'utils/amplitude';
+import { GrammarlyEditorPlugin } from '@grammarly/editor-sdk-react';
 
 const CreateShotModal = ({ isVisible, setIsVisible, shotToEdit, setSelectedGallery, onUpload }) => {
   const [title, setTitle] = useState(shotToEdit?.title || '');
@@ -117,15 +118,16 @@ const CreateShotModal = ({ isVisible, setIsVisible, shotToEdit, setSelectedGalle
       />
 
       <h2>More details</h2>
-      <Textarea
-        placeholder="Write what went int this shot, and anything else you'd like to mention. It could be your memo, a synopsis, or just a short story. "
-        err={errors.descriptionError}
-        sm
-        full
-        onChange={(text) => setDescription(text)}
-        defaultValue={description}
-      />
-
+      <GrammarlyEditorPlugin clientId={`${process.env.NEXT_PUBLIC_GRAMMARLY_ID}`}>
+        <Textarea
+          placeholder="Write what went int this shot, and anything else you'd like to mention. It could be your memo, a synopsis, or just a short story. "
+          err={errors.descriptionError}
+          sm
+          full
+          onChange={(text) => setDescription(text)}
+          defaultValue={description}
+        />
+      </GrammarlyEditorPlugin>
       <h2>Upload your design (if you have)</h2>
       <HeroUpload setImgId={setImage} mangaUrl={image} />
 

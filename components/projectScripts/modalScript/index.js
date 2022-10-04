@@ -12,6 +12,7 @@ import PrimaryInput from 'components/ui-elements/input';
 import PropTypes from 'prop-types';
 
 import styles from '../styles.module.scss';
+import { GrammarlyEditorPlugin } from '@grammarly/editor-sdk-react';
 
 const ModalScript = ({
   visibleModal,
@@ -113,18 +114,20 @@ const ModalScript = ({
         <div className={styles.borderTitle} />
         <div className={styles.descriptionPage}>
           <p>Panel {modalIndex + 1}</p>
-          <Form.Item name="text">
-            <TextArea
-              className={styles.textareaPage}
-              autoSize={true}
-              maxLength={100000}
-              maxrows={5000}
-              onBlur={(e) => setText({ value: e.target.value, type: 'text' })}
-              placeholder="Add a panel: Exact panel layout Is usually left to the artist,
+          <GrammarlyEditorPlugin clientId={`${process.env.NEXT_PUBLIC_GRAMMARLY_ID}`}>
+            <Form.Item name="text">
+              <TextArea
+                className={styles.textareaPage}
+                autoSize={true}
+                maxLength={100000}
+                maxrows={5000}
+                onBlur={(e) => setText({ value: e.target.value, type: 'text' })}
+                placeholder="Add a panel: Exact panel layout Is usually left to the artist,
                but if you want to have something specific in mind, put it in your description.
                Dialogues: Charackets speaking from off-panel are indicated this way"
-            />
-          </Form.Item>
+              />
+            </Form.Item>
+          </GrammarlyEditorPlugin>
         </div>
       </Form>
       <div className={styles.addPageButtonContainer}>

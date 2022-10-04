@@ -14,6 +14,7 @@ import myAmplitude from 'utils/amplitude';
 import SelectTags from './selectTags';
 import styles from './styles.module.scss';
 import PrimaryInput from 'components/ui-elements/input';
+import { GrammarlyEditorPlugin } from '@grammarly/editor-sdk-react';
 
 const GetFeedback = ({
   user,
@@ -181,12 +182,14 @@ const GetFeedback = ({
             setUploadLoading={setUploadLoading}
           />
           <h2>Add description to your shot</h2>
-          <TextArea
-            placeholder="Write a caption..."
-            value={subTitle}
-            onChange={(e) => setSubTitle(e.target.value)}
-            className={styles.modalTextarea}
-          />
+          <GrammarlyEditorPlugin clientId={`${process.env.NEXT_PUBLIC_GRAMMARLY_ID}`}>
+            <TextArea
+              placeholder="Write a caption..."
+              value={subTitle}
+              onChange={(e) => setSubTitle(e.target.value)}
+              className={styles.modalTextarea}
+            />
+          </GrammarlyEditorPlugin>
           {validation && <p className={styles.error}>{validation}</p>}
           <h2>Global tags</h2>
           <SelectTags selectedTags={selectedTags} setSelectedTags={setSelectedTags} />
