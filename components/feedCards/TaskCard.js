@@ -112,18 +112,20 @@ const TaskCard = ({ card, user }) => {
                 <div className={styles.modal__author}>{author}</div>
               </a>
             </Link>
-            <div className={styles.modal__budget}>
-              {budget + ' USD'}
-              <Dollar color={'#C3BAFA'} />
+            <div className={styles.modal__budgetAndApply}>
+              <div className={styles.modal__budget}>
+                {budget + ' USD'}
+                <Dollar color={'#C3BAFA'} />
+              </div>
+              <Button
+                sm={1}
+                iconRight={1}
+                rounded={1}
+                icon={<Heart color="#fff" />}
+                onClick={onApply}>
+                Apply
+              </Button>
             </div>
-            <Button
-              sm={1}
-              iconRight={1}
-              rounded={1}
-              icon={<Heart color="#fff" />}
-              onClick={onApply}>
-              Apply
-            </Button>
           </div>
         </Modal>
       )}
