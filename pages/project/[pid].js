@@ -69,7 +69,6 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user) 
     };
   } catch (error) {
     console.log('Error: manga-story.js', error);
-
     //   if (error.code === 403) {
     //     context.res.writeHead(302, {
     //       Location: '/access-denied',
