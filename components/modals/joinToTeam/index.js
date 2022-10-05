@@ -12,6 +12,7 @@ import PropTypes from 'prop-types';
 import myAmplitude from 'utils/amplitude';
 
 import styles from './styles.module.scss';
+import { GrammarlyEditorPlugin } from '@grammarly/editor-sdk-react';
 
 const { TextArea } = Input;
 
@@ -164,40 +165,43 @@ const ModalStart = ({ changeShowModal, showModal, baseData, selectedTask, user }
                 createRequest(e.plan, e.yourseld, e.joinAs);
               }}>
               <h2>Introduce yourself *</h2>
-              <Form.Item
-                name="yourseld"
-                rules={[
-                  {
-                    required: true,
-                    message: 'This field is required',
-                  },
-                ]}>
-                <TextArea
-                  placeholder="Please introduce yourself and share why you think you are the best choice for this project."
-                  type="text"
-                  minLength={10}
-                  maxLength={1000}
-                  className={styles.modalTexarea}
-                />
-              </Form.Item>
+              <GrammarlyEditorPlugin clientId={`${process.env.NEXT_PUBLIC_GRAMMARLY_ID}`}>
+                <Form.Item
+                  name="yourseld"
+                  rules={[
+                    {
+                      required: true,
+                      message: 'This field is required',
+                    },
+                  ]}>
+                  <TextArea
+                    placeholder="Please introduce yourself and share why you think you are the best choice for this project."
+                    type="text"
+                    minLength={10}
+                    maxLength={1000}
+                    className={styles.modalTexarea}
+                  />
+                </Form.Item>
+              </GrammarlyEditorPlugin>
               <h2>Your plan *</h2>
-              <Form.Item
-                name="plan"
-                rules={[
-                  {
-                    required: true,
-                    message: 'This field is required',
-                  },
-                ]}>
-                <TextArea
-                  placeholder="This project will take longer than 1 month, please share your full plan including milestones and incremental progress you will be able to submit"
-                  type="text"
-                  minLength={10}
-                  maxLength={1000}
-                  className={styles.modalTexarea}
-                />
-              </Form.Item>
-
+              <GrammarlyEditorPlugin clientId={`${process.env.NEXT_PUBLIC_GRAMMARLY_ID}`}>
+                <Form.Item
+                  name="plan"
+                  rules={[
+                    {
+                      required: true,
+                      message: 'This field is required',
+                    },
+                  ]}>
+                  <TextArea
+                    placeholder="This project will take longer than 1 month, please share your full plan including milestones and incremental progress you will be able to submit"
+                    type="text"
+                    minLength={10}
+                    maxLength={1000}
+                    className={styles.modalTexarea}
+                  />
+                </Form.Item>
+              </GrammarlyEditorPlugin>
               <h2>Join as *</h2>
               <Form.Item name="joinAs">
                 <PrimarySelect

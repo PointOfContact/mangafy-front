@@ -14,6 +14,7 @@ import PropTypes from 'prop-types';
 import myAmplitude from 'utils/amplitude';
 
 import styles from './styles.module.scss';
+import { GrammarlyEditorPlugin } from '@grammarly/editor-sdk-react';
 
 const { TextArea } = Input;
 
@@ -311,23 +312,25 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
               </div>
             )}
             <h2>Your brief is on its way</h2>
-            <Form.Item
-              name="text"
-              rules={[
-                {
-                  required: true,
-                  message: "Try to explain what you're looking for",
-                },
-              ]}>
-              <TextArea
-                autoSize={{ minRows: 3, maxRows: 10 }}
-                placeholder={placeholder}
-                value={text}
-                onChange={handleChangeText}
-                onBlur={() => sendEvent(EVENTS.ADDED_TASK_DESCRIPTION)}
-                className={styles.modalTexArea}
-              />
-            </Form.Item>
+            <GrammarlyEditorPlugin clientId={`${process.env.NEXT_PUBLIC_GRAMMARLY_ID}`}>
+              <Form.Item
+                name="text"
+                rules={[
+                  {
+                    required: true,
+                    message: "Try to explain what you're looking for",
+                  },
+                ]}>
+                <TextArea
+                  autoSize={{ minRows: 3, maxRows: 10 }}
+                  placeholder={placeholder}
+                  value={text}
+                  onChange={handleChangeText}
+                  onBlur={() => sendEvent(EVENTS.ADDED_TASK_DESCRIPTION)}
+                  className={styles.modalTexArea}
+                />
+              </Form.Item>
+            </GrammarlyEditorPlugin>
             {task && (
               <>
                 <h2>Status</h2>

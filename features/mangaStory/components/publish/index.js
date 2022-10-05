@@ -128,7 +128,7 @@ const Publish = ({ baseData, storyBoard, chapters }) => {
           }${publishImage()}`}>
           <a className={!ifExistPublishedChapter && styles.postManga} target="_blank">
             <h4>Post on MangaFY</h4>
-            <p>The MangaFY feed will show your chapter >></p>
+            <p>The MangaFY feed will show your chapter &gt;&gt;</p>
           </a>
         </Link>
         <Link
@@ -136,19 +136,19 @@ const Publish = ({ baseData, storyBoard, chapters }) => {
           onClick={clickProtectSell}>
           <a target="_blank">
             <h4>Protect and Sell</h4>
-            <p>Protect and sell your unique webcomics assets >></p>
+            <p>Protect and sell your unique webcomics assets &gt;&gt;</p>
           </a>
         </Link>
         <Link href="https://form.typeform.com/to/DsN42GSD?typeform-source=trello.com">
           <a target="_blank" onClick={clickPrintSell}>
             <h4>Print and Sell</h4>
-            <p>Print and sell high quality printed >></p>
+            <p>Print and sell high quality printed &gt;&gt;</p>
           </a>
         </Link>
         <Link href="https://form.typeform.com/to/g0fkj5fs?typeform-source=trello.com">
           <a target="_blank" onClick={clickMerchSell}>
             <h4>Merch Maker</h4>
-            <p>Create branded merch for your fans with merch maker >></p>
+            <p>Create branded merch for your fans with merch maker &gt;&gt;</p>
           </a>
         </Link>
       </div>
