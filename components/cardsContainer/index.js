@@ -35,7 +35,13 @@ const placeholderData = [
   },
 ];
 
-const CardsContainer = ({ columns = 3, cardsElements = [], user, onPageEnd }) => {
+const CardsContainer = ({
+  columns = 3,
+  cardsElements = [],
+  user,
+  onPageEnd,
+  openCreateShotModal,
+}) => {
   const router = useRouter();
   const [firstColRef, secondColRef, thirdColRef] = [useRef(null), useRef(null), useRef(null)];
   const [welcomeCardVisible, setWelcomeCardVisible] = useState(false);
@@ -58,7 +64,7 @@ const CardsContainer = ({ columns = 3, cardsElements = [], user, onPageEnd }) =>
     }
   }
 
-  function WelcomeCard(props) {
+  function WelcomeCard({ openCreateShotModal }) {
     return (
       <div className={styles.welcomeCard}>
         <div className={styles.welcomeCard__logo}>
@@ -69,18 +75,19 @@ const CardsContainer = ({ columns = 3, cardsElements = [], user, onPageEnd }) =>
         <div className={styles.welcomeCard__buttons}>
           <div
             className={styles.welcomeCard__button}
-            onClick={() => router.push('/profile/' + user._id + '?active=project')}>
-            <div>Create a task</div> <ArrowDown2 color="#fff" />
+            onClick={() => router.push('/profile/' + user._id + '?active=project&createProject')}>
+            <div>Time to start your project!</div> <ArrowDown2 color="#fff" />
           </div>
           <div
             className={styles.welcomeCard__button}
-            onClick={() => router.push('/profile/' + user._id + '?active=project')}>
-            <div>Create your next bestseller</div> <ArrowDown2 color="#fff" />
+            // onClick={() => router.push('/profile/' + user._id + '?active=project')}
+            onClick={() => openCreateShotModal()}>
+            <div>Share your work in progress</div> <ArrowDown2 color="#fff" />
           </div>
           <div
             className={styles.welcomeCard__button}
             onClick={() => router.push('/profile/' + user._id)}>
-            <div>Customise your portfolio</div> <ArrowDown2 color="#fff" />
+            <div>Customize your profile</div> <ArrowDown2 color="#fff" />
           </div>
         </div>
         <div className={styles.welcomeCard__close} onClick={closeWelcomeCard}>
@@ -123,7 +130,9 @@ const CardsContainer = ({ columns = 3, cardsElements = [], user, onPageEnd }) =>
     <>
       <Row align="top" gutter={20} style={{ marginTop: '1.5em' }}>
         <Col ref={firstColRef} span={24 / columns} className={styles.col}>
-          {user && welcomeCardVisible ? <WelcomeCard /> : null}
+          {user && welcomeCardVisible ? (
+            <WelcomeCard openCreateShotModal={openCreateShotModal} />
+          ) : null}
           {firstCol}
         </Col>
         {columns > 1 ? (

@@ -21,6 +21,7 @@ import myAmplitude from 'utils/amplitude';
 import styles from './styles.module.scss';
 
 const Profile = (props) => {
+  const router = useRouter();
   const { user, profile, userProfile, originUrl } = props;
   const ifMyProfile = user?._id === profile?._id;
   const mangaStoriesMyProfile = userProfile?.mangaStories?.data;
@@ -31,7 +32,6 @@ const Profile = (props) => {
   const [editMode, setEditMode] = useState(false);
   const [loadingImg, setLoadingImg] = useState(false);
   const [storyEditMode, setStoryEditMode] = useState(false);
-  const router = useRouter();
   const ifOwner = user?._id === router.query.pid;
   const [showModalEdit, setShowModalEdit] = useState(ifOwner && router.query.editModal === 'true');
   const [errMessage, setErrMessage] = useState('');

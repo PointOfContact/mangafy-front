@@ -14,6 +14,7 @@ import styles from './styles.module.scss';
 const { Content } = Layout;
 
 const ProfileOpenCollabs = (props) => {
+  const router = useRouter();
   const {
     total,
     mangaStories,
@@ -24,8 +25,9 @@ const ProfileOpenCollabs = (props) => {
     ifMyProfile,
   } = props;
 
-  const [createProjectModal, showCreateProjectModal] = useState(false);
-  const router = useRouter();
+  const [createProjectModal, showCreateProjectModal] = useState(
+    router.query.hasOwnProperty('createProject')
+  );
   const ref = useRef(null);
 
   useEffect(() => {
