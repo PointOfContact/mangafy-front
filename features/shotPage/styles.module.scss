@@ -4,7 +4,15 @@ $sidebarWidth: 400px;
 
 
 .shotPage {
-    padding: 0 10px;
+    padding: 10px 90px;
+
+        @include media-md {
+            padding: 10px 60px;
+        }
+
+        @include media-sm {
+            padding: 0px 10px;
+        }
     background: #FAFAFA;
     transition: 0.5s;
 
@@ -42,5 +50,21 @@ $sidebarWidth: 400px;
                 font-weight: 800;
             }
         }
+    }
+
+    &__footer, &__slider {
+        margin: 0px -90px;
+        padding: 20px 90px;
+
+        @include media-md {
+            margin: 0px -60px;
+            padding: 20px 60px;
+        }
+
+        @include media-sm {
+            margin: 0px -10px;
+            padding: 20px 10px;
+        }
+
     }
 }

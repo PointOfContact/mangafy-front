@@ -156,6 +156,7 @@ const shotPage = ({ user, allShots, serverSideShot, serverSideAuthor }) => {
         />
         <ShotBody shot={shot} className={styles.shotPage__body} />
         <ShotFooter
+          className={styles.shotPage__footer}
           user={user}
           shot={shot}
           isOwn={isOwn}
@@ -167,7 +168,7 @@ const shotPage = ({ user, allShots, serverSideShot, serverSideAuthor }) => {
           updateShotInfo={updateShotInfo}
           shareUrl={client.API_ENDPOINT + buildShotURL(shot?._id, shot?.isOld ? author?._id : null)}
         />
-        <ShotSlider shot={shot} allShots={allShots} />
+        <ShotSlider className={styles.shotPage__slider} shot={shot} allShots={allShots} />
       </div>
     </>
   );

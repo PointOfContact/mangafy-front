@@ -28,5 +28,9 @@
 .unsubscribe {
     padding: 0.5em 2em;
     margin-bottom: 20px;
+    svg {
+        height: 1.1em;
+        stroke: $pink;
+    }
 }
 

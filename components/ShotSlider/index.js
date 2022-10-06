@@ -10,7 +10,7 @@ import { buildShotURL } from 'helpers/shared';
 
 const sliderItemWidth = 100;
 
-const ShotSlider = ({ shot, allShots }) => {
+const ShotSlider = ({ className, shot, allShots }) => {
   const sliderRef = useRef(null);
   const activeShotRef = useRef(null);
 
@@ -67,7 +67,7 @@ const ShotSlider = ({ shot, allShots }) => {
   });
 
   return (
-    <div className={styles.moreShots}>
+    <div className={cn(className, styles.moreShots)}>
       <div className={styles.moreShots__container}>
         <div className={styles.moreShots__title}>More shots from {shot?.authorInfo?.name}</div>
         <div className={styles.slider}>

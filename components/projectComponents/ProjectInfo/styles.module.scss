@@ -58,6 +58,12 @@
         &:hover {
             color: #e237a3;
         }
+
+        svg {
+            margin-left: 5px;
+            height: 1.2em;
+            fill: $pink;
+        }
     }
 }
 

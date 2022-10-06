@@ -190,11 +190,41 @@ export async function subscribeToProject(mangaStoryId, userId, email) {
   );
 }
 
-export async function unSubscribeOfProject(subscriptionId) {
+export async function unSubscribeOfProject(subscriptionId, mangaStoryId) {
   const jwt = client.getCookie('feathers-jwt');
 
   return client.service('/api/v2/manga-subscribe').remove(subscriptionId, {
+    query: { mangaStoryId },
     headers: { Authorization: `Bearer ${jwt}` },
     mode: 'no-cors',
   });
+}
+
+export async function createComment(content, projectId) {
+  const jwt = client.getCookie('feathers-jwt');
+  return client.service('/api/v2/comments?page=mangaView').create(
+    {
+      content,
+      mangaStoryId: projectId,
+    },
+    {
+      headers: { Authorization: `Bearer ${jwt}` },
+      mode: 'no-cors',
+    }
+  );
+}
+
+export async function createChapterComment(content, chapterId, senderId) {
+  const jwt = client.getCookie('feathers-jwt');
+  return client.service('/api/v2/comment-chapter').create(
+    {
+      content,
+      chapterId,
+      senderId,
+    },
+    {
+      headers: { Authorization: `Bearer ${jwt}` },
+      mode: 'no-cors',
+    }
+  );
 }
