@@ -61,7 +61,7 @@ const messageItems = (data, participants, setRequestStatus, user, setMessageItem
     item.position = user._id === item.senderId ? 'right' : 'left';
     item.type = 'text';
     item.notch = false;
-    item.title = user._id === item.senderId ? null : part.name;
+    item.title = user._id === item.senderId ? null : part?.name;
     // eslint-disable-next-line no-nested-ternary
     item.text = item.joinMangaStoryRequest?.length ? (
       <div className={styles.name}>
