@@ -200,28 +200,27 @@ const API = {
       });
     },
 
-    patch: (chapterId, data, upgradeChapterData, setEdit, setChapters) => {
+    patch: (chapterId, data, upgradeChapterData, setEdit, setChapters, onUpload) => {
       const jwt = client.getCookie('feathers-jwt');
 
-      import('api/restClient').then((m) => {
-        m.default
-          .service('/api/v2/chapters')
-          .patch(chapterId, data, {
-            headers: { Authorization: `Bearer ${jwt}` },
-            mode: 'no-cors',
-          })
-          .then((res) => {
-            setEdit('');
-            setChapters(upgradeChapterData(res, res._id));
-          })
-          .catch((err) => {
-            notification.error({
-              message: err.message,
-              placement: 'bottomLeft',
-            });
-            return err;
+      return client
+        .service('/api/v2/chapters')
+        .patch(chapterId, data, {
+          headers: { Authorization: `Bearer ${jwt}` },
+          mode: 'no-cors',
+        })
+        .then((res) => {
+          setEdit('');
+          setChapters(upgradeChapterData(res, res._id));
+          onUpload && onUpload(res);
+        })
+        .catch((err) => {
+          notification.error({
+            message: err.message,
+            placement: 'bottomLeft',
           });
-      });
+          return err;
+        });
     },
 
     delete: (chapterId, index, chapters, setChapters, storyBoard) => {
