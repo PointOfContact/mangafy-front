@@ -130,7 +130,7 @@ const CardsContainer = ({
     <>
       <Row align="top" gutter={20} style={{ marginTop: '1.5em' }}>
         <Col ref={firstColRef} span={24 / columns} className={styles.col}>
-          {user && welcomeCardVisible ? (
+          {!!user && !!welcomeCardVisible ? (
             <WelcomeCard openCreateShotModal={openCreateShotModal} />
           ) : null}
           {firstCol}
