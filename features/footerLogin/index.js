@@ -27,7 +27,8 @@ const FooterLogin = ({ user, cookieVisibility }) => {
       <div className={styles.containerFooterLogin}>
         <div className={styles.footerLogin}>
           <p className={styles.fullDesc}>
-            Join our vivid creator community, Get Inspired, Produce your graphic novel
+            Sign in to upload art and host graphic novel projects You'll also be able to like ats,
+            leave comments and follow creators
           </p>
           <div className={styles.containerButton}>
             <Link href="/sign-in">
