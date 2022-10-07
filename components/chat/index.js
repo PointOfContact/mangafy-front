@@ -40,7 +40,7 @@ export const Chat = ({ mangaStory, user, isOwn, collabActiveTab }) => {
           setConversation(res[0] || {});
           setSelectedRequest({
             isTeamChat: true,
-            conversationId: res[0]._id,
+            conversationId: res[0]?._id,
           });
         })
         .catch((err) => {
