@@ -19,13 +19,13 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import myAmplitude from 'utils/amplitude';
 import { EVENTS } from 'helpers/amplitudeEvents';
+import { debounce } from 'throttle-debounce';
 
 const ShotCard = ({ card, user, editShot, deleteShot }) => {
   const image = card.image?.image || card.image;
   const author = card.authorInfo?.name;
   const authorId = card.authorInfo?._id;
   const avatar = card.authorInfo?.avatar;
-  const likes = card.likedUsers?.length;
   const comments = card.comments?.data?.length;
   const title = card.title;
   const router = useRouter();
@@ -33,11 +33,9 @@ const ShotCard = ({ card, user, editShot, deleteShot }) => {
   let text = card.description;
 
   const [modal, setModal] = useState(false);
-  const [isLiked, setIsLiked] = useState(
-    Array.isArray(card.likedUsers)
-      ? card.likedUsers.map((obj) => obj.likedUserId).includes(user?._id)
-      : false
-  );
+  const [likes, setLikes] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
 
   const debouncedMouseEventHandler = useCallback(
     AwesomeDebouncePromise(mouseEventHandler, 200),
@@ -74,24 +72,31 @@ const ShotCard = ({ card, user, editShot, deleteShot }) => {
     myAmplitude(eventData);
   }
 
-  function like() {
+  useEffect(() => {
+    if (loading) {
+      if (isLiked) {
+        setLikes(likes - 1);
+        setIsLiked(false);
+      } else {
+        setLikes(likes + 1);
+        setIsLiked(true);
+      }
+    }
+  }, [loading]);
+
+  function likeFeedShot() {
+    setLoading(true);
     likeShot(card._id, card.authorInfo._id)
       .then((res) => {
-        if (!isLiked) {
-          amplitude(EVENTS.DELETE_LIKE_SHOT, res.portfolioId);
-          if (Array.isArray(card.likedUsers)) {
-            card.likedUsers.push(res);
-          } else {
-            card.likedUsers = [res];
-          }
-          setIsLiked(true);
-        } else {
+        setLoading(false);
+        if (isLiked) {
           amplitude(EVENTS.LIKE_SHOT, res.portfolioId);
-          card.likedUsers = card.likedUsers.filter((like) => like.likedUserId !== user?._id);
-          setIsLiked(false);
+        } else {
+          amplitude(EVENTS.DELETE_LIKE_SHOT, res.portfolioId);
         }
       })
       .catch((err) => {
+        setLoading(false);
         if (err.code === 401)
           notification.error({ message: 'Please log in to like Shots', placement: 'bottomLeft' });
         else if (err.message === 'You can not like yourself')
@@ -102,7 +107,15 @@ const ShotCard = ({ card, user, editShot, deleteShot }) => {
       });
   }
 
-  useEffect(() => {}, [card.likedUsers]);
+  const like = debounce(500, likeFeedShot);
+
+  useEffect(() => {
+    const isLiked = Array.isArray(card.likedUsers)
+      ? card.likedUsers.map((obj) => obj.likedUserId).includes(user?._id)
+      : false;
+    setIsLiked(isLiked);
+    setLikes(card.likedUsers?.length);
+  }, []);
 
   return (
     <>
@@ -135,6 +148,7 @@ const ShotCard = ({ card, user, editShot, deleteShot }) => {
             comments={comments}
             likes={likes}
             like={like}
+            loading={loading}
             isLiked={isLiked}
           />
         </div>
