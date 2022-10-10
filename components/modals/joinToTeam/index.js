@@ -41,8 +41,8 @@ const ModalStart = ({ changeShowModal, showModal, baseData, selectedTask, user }
       .create(
         {
           content: message || 'Hi',
-          conversationId: conv?._id || conversation._id,
-          joinMangaStoryRequestId: mangaStoryRequest._id,
+          conversationId: conv?._id || conversation?._id,
+          joinMangaStoryRequestId: mangaStoryRequest?._id,
         },
         {
           headers,
@@ -99,9 +99,8 @@ const ModalStart = ({ changeShowModal, showModal, baseData, selectedTask, user }
         headers: { Authorization: `Bearer ${jwt}` },
       });
 
-      const conv = isConv?.data?.find(
-        (item) => !item.joinMangaStoryRequestId && !item.mangaStoryId
-      );
+      const isConvData = isConv.data || isConv;
+      const conv = isConvData?.find((item) => !item.joinMangaStoryRequestId && !item.mangaStoryId);
 
       let conversation;
 
@@ -115,6 +114,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, selectedTask, user }
           }
         );
       }
+
       sendMessage(plan, conv, conversation, mangaStoryRequest, headers, restClient);
       sendMessage(yourself, conv, conversation, mangaStoryRequest, headers, restClient);
       return;
@@ -162,7 +162,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, selectedTask, user }
               name="taskRequest"
               onFinish={(e) => {
                 changeJoinAs(e.joinAs);
-                createRequest(e.plan, e.yourseld, e.joinAs);
+                createRequest(e.plan, e.yourseld, e.joinAs || 'Writer');
               }}>
               <h2>Introduce yourself *</h2>
               <GrammarlyEditorPlugin clientId={`${process.env.NEXT_PUBLIC_GRAMMARLY_ID}`}>
