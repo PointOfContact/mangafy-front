@@ -9,21 +9,22 @@ import Share from 'components/icon/new/Share';
 import MangaComments from 'components/shotComments/MangaComments';
 import Edit from 'components/icon/new/Edit';
 import Link from 'next/link';
+import Diamond from 'components/icon/new/Diamond';
 
 const MangaSideMenu = ({
   manga,
   chapter,
   setAreCommentsOpened,
   areCommentsOpened,
+  setCurrentChapterId,
   user,
   isLiked,
   like,
-  updateMangaInfo,
   comments,
   setIsShareModalOpened,
   authors,
-  updateComments,
   isParticipant,
+  createComment,
 }) => {
   const commentsRef = useRef(null);
   // const [commentsCount, setCommentsCount] = useState(0);
@@ -70,6 +71,14 @@ const MangaSideMenu = ({
               {chapter?.like || 0}
             </Button>
           )}
+          {authors[0]?.payPalEmail && (
+            <Link
+              href={`https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=${authors[0]?.payPalEmail}&item_name=Friends+of+the+Park&item_number=Fall+Cleanup+Campaign&currency_code=USD`}>
+              <a>
+                <Button rounded outline iconRight icon={<Diamond color="#7B65F3" />}></Button>
+              </a>
+            </Link>
+          )}
           <Button
             rounded
             outline
@@ -90,15 +99,7 @@ const MangaSideMenu = ({
         ref={commentsRef}
         className={cn(styles.sideComments, areCommentsOpened && styles.sideComments_opened)}>
         <div className={styles.sideComments__header}>Feedback</div>
-        <MangaComments
-          manga={manga}
-          user={user}
-          comments={comments.data}
-          onUpload={() => {
-            updateComments();
-            updateMangaInfo();
-          }}
-        />
+        <MangaComments manga={manga} comments={comments.data} createComment={createComment} />
       </div>
     </>
   );

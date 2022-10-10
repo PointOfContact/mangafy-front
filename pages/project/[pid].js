@@ -53,33 +53,21 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user) 
         user,
         ssProject,
         ssComments,
-        // genres: genres.data.map((g) => ({ value: g.name, _id: g._id })),
-        // path: context.req.url,
-        // user,
-        // mangaStory: res,
-        // requests: requests.data,
-        // pid: context.params.pid,
-        // comments: comments.data,
-        // isOwn: user && user._id === res.authorInfo._id,
-        // isParticipant,
-        // hasStoryBoardPermision,
-        // storyBoard,
-        // originUrl: `https://mangafy.club/manga-story/${context.params.pid}`,
       },
     };
   } catch (error) {
     console.log('Error: manga-story.js', error);
 
-    //   if (error.code === 403) {
-    //     context.res.writeHead(302, {
-    //       Location: '/access-denied',
-    //     });
-    //     context.res.end();
-    //   } else if (context.res) {
-    //     context.res.writeHead(302, {
-    //       Location: '/404',
-    //     });
-    //     context.res.end();
-    //   }
+    if (error.code === 403) {
+      context.res.writeHead(302, {
+        Location: '/access-denied',
+      });
+      context.res.end();
+    } else if (context.res) {
+      context.res.writeHead(302, {
+        Location: '/404',
+      });
+      context.res.end();
+    }
   }
 });

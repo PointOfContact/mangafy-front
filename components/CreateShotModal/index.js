@@ -13,7 +13,13 @@ import { EVENTS } from 'helpers/amplitudeEvents';
 import myAmplitude from 'utils/amplitude';
 import { GrammarlyEditorPlugin } from '@grammarly/editor-sdk-react';
 
-const CreateShotModal = ({ isVisible, setIsVisible, shotToEdit, setSelectedGallery, onUpload }) => {
+const CreateShotModal = ({
+  isVisible,
+  setIsVisible,
+  shotToEdit,
+  setSelectedGallery = () => {},
+  onUpload,
+}) => {
   const [title, setTitle] = useState(shotToEdit?.title || '');
   const [image, setImage] = useState(shotToEdit?._id.image || shotToEdit?.image || '');
   const [description, setDescription] = useState(shotToEdit?.description || '');

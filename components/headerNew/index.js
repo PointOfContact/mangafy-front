@@ -221,7 +221,6 @@ const HeaderNew = ({ user }) => {
               <div className={cn(styles.nav__dropdownTitle, styles.nav__dropdownTitle_titleOnly)}>
                 MangaFY Profile
               </div>
-              {/* <div className={styles.nav__dropdownSubtitle}>subtitle</div> */}
             </div>
           </a>
         </Link>
@@ -434,29 +433,31 @@ const HeaderNew = ({ user }) => {
             )}
           </div>
 
-          <span className={cn(styles.notification, styles.notification_mobile)}>
-            <Popover
-              overlayClassName={styles.popover}
-              placement="bottom"
-              visible={showNotificationModal}
-              content={
-                <MenuNotificationsBox
-                  user={user}
-                  unreadNotificationsId={unreadNotificationsId}
-                  notificationsCount={notificationsCount}
-                  setNotificationsCount={setNotificationsCount}
-                />
-              }
-              trigger="click">
-              <Badge
-                count={notificationsCount}
-                onClick={() => {
-                  setShowNotificationModal(!showNotificationModal);
-                }}>
-                <SvgBell width="23px" height="23px" />
-              </Badge>
-            </Popover>
-          </span>
+          {user && (
+            <span className={cn(styles.notification, styles.notification_mobile)}>
+              <Popover
+                overlayClassName={styles.popover}
+                placement="bottom"
+                visible={showNotificationModal}
+                content={
+                  <MenuNotificationsBox
+                    user={user}
+                    unreadNotificationsId={unreadNotificationsId}
+                    notificationsCount={notificationsCount}
+                    setNotificationsCount={setNotificationsCount}
+                  />
+                }
+                trigger="click">
+                <Badge
+                  count={notificationsCount}
+                  onClick={() => {
+                    setShowNotificationModal(!showNotificationModal);
+                  }}>
+                  <SvgBell width="23px" height="23px" />
+                </Badge>
+              </Popover>
+            </span>
+          )}
           <button className={cn(styles.nav_mobile)}>
             <Dropdown arrow placement="bottomRight" overlay={mobileMenu} trigger="click">
               <Space>

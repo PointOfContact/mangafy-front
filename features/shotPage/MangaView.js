@@ -5,7 +5,7 @@ import styles from './styles.module.scss';
 import { useRouter } from 'next/router';
 import notification from 'antd/lib/notification';
 import cn from 'classnames';
-import { followUser, unFollowUser } from 'helpers/shared';
+import { createChapterComment, followUser, unFollowUser } from 'helpers/shared';
 import { Modal } from 'antd';
 import { ShareButtons } from 'components/share';
 import MangaHeader from 'components/ShotHeader/MangaHeader';
@@ -70,6 +70,7 @@ const MangaView = ({
         return obj === user?._id;
       })
     );
+    updateChapterCommentsInfo();
   }, [manga]);
 
   useEffect(() => {
@@ -155,17 +156,38 @@ const MangaView = ({
     }
   }
 
-  function updateComments() {
+  function updateChapterCommentsInfo() {
+    const jwt = client.getCookie('feathers-jwt');
     client
-      .service('/api/v2/comments')
+      .service('/api/v2/comment-chapter')
       .find({
         query: {
-          mangaStoryId: manga?.mangaStoryId,
+          chapterId: manga?.chapters[activeChapterIndex - 1]?._id,
           $sort: { createdAt: -1 },
           $limit: 1000,
         },
+        headers: { Authorization: `Bearer ${jwt}` },
+        mode: 'no-cors',
       })
-      .then((res) => setComments(res));
+      .then((res) => {
+        setComments(res);
+      })
+      .catch((err) => console.log(err));
+  }
+
+  function createCommentChapter(text) {
+    if (!user) {
+      notification.error({
+        message: 'You need to be logged in to comment',
+        placement: 'bottomLeft',
+      });
+      return;
+    }
+    createChapterComment(text, manga?.chapters[activeChapterIndex - 1]?._id, user?._id)
+      .then((res) => {
+        updateChapterCommentsInfo();
+      })
+      .catch((err) => console.log(err));
   }
 
   const isOwn = authors && authors[0]?._id === user?._id;
@@ -199,7 +221,7 @@ const MangaView = ({
           setIsShareModalOpened={setIsShareModalOpened}
           authors={authors}
           comments={comments}
-          updateComments={updateComments}
+          createComment={createCommentChapter}
           chapter={manga?.chapters[activeChapterIndex - 1]}
           isParticipant={isParticipant}
         />
@@ -228,12 +250,13 @@ const MangaView = ({
           isLiked={isLiked}
           like={like}
           toggleComments={toggleComments}
-          updateComments={updateComments}
+          updateComments={updateChapterCommentsInfo}
           updateMangaInfo={updateMangaInfo}
           isParticipant={isParticipant}
           shareUrl={
             client.API_ENDPOINT + '/manga-view/' + manga?.id + '?chapter=' + activeChapterIndex
           }
+          createComment={createCommentChapter}
         />
         <MangaSlider manga={manga} activeChapterIndex={activeChapterIndex} />
       </div>

@@ -23,13 +23,16 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
       context.res.end();
     }
 
-    comments = await client.service('/api/v2/comments').find({
-      query: {
-        mangaStoryId: manga.mangaStoryId,
-        $sort: { createdAt: -1 },
-        $limit: 1000,
-      },
-    });
+    // const jwt = client.getCookie('feathers-jwt');
+    // comments = await client.service('/api/v2/comment-chapter').find({
+    //   query: {
+    //     chapterId: context.query.chapter - 1 || 0,
+    //     $sort: { createdAt: -1 },
+    //     $limit: 1000,
+    //   },
+    //   headers: { Authorization: `Bearer ${jwt}` },
+    //   mode: 'no-cors',
+    // });
 
     authors = await Promise.all(
       manga.userData.map((item) => client.service('/api/v2/users').get(item._id))
@@ -47,7 +50,7 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
       serverSideAuthors: authors,
       serverSideChapter: context.query.chapter || 1,
       serverSideManga: manga,
-      serverSideComments: comments,
+      serverSideComments: comments || { data: [] },
     },
   };
 });

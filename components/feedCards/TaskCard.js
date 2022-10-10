@@ -42,9 +42,9 @@ const TaskCard = ({ card, user }) => {
     timeMeasure = 'weeks';
   }
 
-  const author = card.authorInfo.name;
+  const author = card.authorInfo?.name;
   const budget = card.amount || null;
-  const avatar = card.authorInfo.avatar;
+  const avatar = card.authorInfo?.avatar;
 
   const [modal, setModal] = useState(false);
 
@@ -101,7 +101,7 @@ const TaskCard = ({ card, user }) => {
           </div>
           <FeedCardLine />
           <div className={styles.modal__footer}>
-            <Link href={'/profile/' + card.authorInfo._id}>
+            <Link href={'/profile/' + card.authorInfo?._id}>
               <a className={styles.modal__authorInfo}>
                 <div className={styles.modal__avatar}>
                   <img
@@ -138,7 +138,7 @@ const TaskCard = ({ card, user }) => {
         )}
         <div className={styles.card__content}>
           <FeedCardTaskAuthorAndTime
-            authorId={card.authorInfo._id}
+            authorId={card.authorInfo?._id}
             author={author}
             avatar={avatar}
             time={time}
