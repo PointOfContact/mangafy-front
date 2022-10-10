@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, useRef } from 'react';
 import styles from './styles.module.scss';
 import cn from 'classnames';
 import { Dropdown, Menu, Space, DownOutlined, Popover, Badge } from 'antd';
@@ -325,6 +325,29 @@ const HeaderNew = ({ user }) => {
 
   const profileMenu = <Menu items={profileMenuOptions} />;
 
+  const notificationsRef = useRef(null);
+  const notificationsMobileRef = useRef(null);
+
+  function onClick(e) {
+    if (
+      notificationsRef.current &&
+      !(
+        notificationsRef.current?.contains(e.target) ||
+        notificationsMobileRef.current?.contains(e.target)
+      ) &&
+      !e.target.closest('.ant-popover')
+    ) {
+      setShowNotificationModal(false);
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener('click', onClick);
+    return () => {
+      window.removeEventListener('click', onClick);
+    };
+  }, []);
+
   return (
     <>
       <header className={styles.header}>
@@ -370,7 +393,7 @@ const HeaderNew = ({ user }) => {
                     </Button>
                   </a>
                 </Link>
-                <span className={styles.notification}>
+                <span className={styles.notification} ref={notificationsRef}>
                   <Popover
                     overlayClassName={styles.popover}
                     placement="bottom"
@@ -434,7 +457,9 @@ const HeaderNew = ({ user }) => {
           </div>
 
           {user && (
-            <span className={cn(styles.notification, styles.notification_mobile)}>
+            <span
+              className={cn(styles.notification, styles.notification_mobile)}
+              ref={notificationsMobileRef}>
               <Popover
                 overlayClassName={styles.popover}
                 placement="bottom"
