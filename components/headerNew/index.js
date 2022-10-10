@@ -396,7 +396,7 @@ const HeaderNew = ({ user }) => {
                 <span className={styles.notification} ref={notificationsRef}>
                   <Popover
                     overlayClassName={styles.popover}
-                    placement="bottom"
+                    placement="bottomRight"
                     visible={showNotificationModal}
                     content={
                       <MenuNotificationsBox
@@ -462,7 +462,7 @@ const HeaderNew = ({ user }) => {
               ref={notificationsMobileRef}>
               <Popover
                 overlayClassName={styles.popover}
-                placement="bottom"
+                placement="bottomRight"
                 visible={showNotificationModal}
                 content={
                   <MenuNotificationsBox
