@@ -283,7 +283,6 @@ const FeedNew = (props) => {
                 onPageEnd={onPageEnd}
                 shouldFetchCards={shouldFetchCards}
               />
-              {endOfCardsReached && <p>There is no more cards</p>}
             </Col>
           </Row>
         </div>
