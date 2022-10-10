@@ -109,12 +109,12 @@ const Settings = ({
       <div className={styles.container}>
         <div className={styles.publicProject}>
           <h2>Make visible</h2>
-          Visible projects will only show general information about your project (inc. what you
           <p>
+            Visible projects will only show general information about your project (inc. what you
             look for, and what you aim to work on without disclosing anything else). In draft mode,
             you go off-grid and need to invite collaborations manually, while the member you invite
+            sees nothing.
           </p>
-          sees nothing.
           <div className={styles.toggleStylesMakeVisible}>
             <span className={styles.toggleTitle}>Invisible</span>
             <span
