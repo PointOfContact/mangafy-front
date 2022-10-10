@@ -282,6 +282,7 @@ const FeedNew = (props) => {
                 activeTab={activeTab}
                 onPageEnd={onPageEnd}
                 shouldFetchCards={shouldFetchCards}
+                openCreateShotModal={() => setShotModalVisible(true)}
               />
             </Col>
           </Row>
