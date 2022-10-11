@@ -398,14 +398,14 @@ const MangeStory = (props) => {
                 storyBoard={storyBoard}
               />
             )}
-            {!isOwn && (
+            {/* {!isOwn && (
               <Comments
                 commentsData={comments}
                 isOwn={isOwn}
                 mangaStory={baseData}
                 user={userData}
               />
-            )}
+            )} */}
           </section>
           <section>
             {/* <BannerSection

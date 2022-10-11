@@ -127,10 +127,7 @@ const ProfileTopBar = (props) => {
           .service('/api/v2/conversations')
           .find({
             query: {
-              $or: [
-                { participents: [user._id, profile._id] },
-                { participents: [profile._id, user._id] },
-              ],
+              $and: [{ participents: user._id }, { participents: profile._id }],
             },
             headers: { Authorization: `Bearer ${jwt}` },
           })

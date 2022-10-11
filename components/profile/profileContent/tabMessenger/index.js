@@ -21,7 +21,6 @@ const TabMessenger = (props) => {
   const [selectedRequest, setSelectedRequest] = useState({});
   const [noRequest, setNoRequest] = useState(false);
   const router = useRouter();
-  console.log(!!router.query.conversation, 10);
   const [showMessageMobile, setShowMessageMobile] = useState();
   const openNotification = (type, message) => {
     notification[type]({
@@ -37,12 +36,7 @@ const TabMessenger = (props) => {
       isTeamChat: !!item.mangaStoryId,
       conversations: [{ _id: item._id }],
       participents: item.participents,
-      senderInfo:
-        (item.mangaStoryTitle && {
-          name: item.mangaStoryTitle,
-          avatar: item.mangaStoryImage,
-        }) ||
-        item.participentsInfo[0],
+      dialogUser: item.dialogUser,
       messages: item.lastMessage,
     };
 
@@ -56,9 +50,9 @@ const TabMessenger = (props) => {
     rid: item?._id,
     mangaStoryId: item?.mangaStoryId,
     isTeamChat: !!item?.isTeamChat,
-    name: item?.senderInfo?.name,
-    av: client.UPLOAD_URL + item?.senderInfo.avatar || '',
-    profileId: item?.senderInfo?._id,
+    name: item?.dialogUser?.name,
+    av: client.UPLOAD_URL + item?.dialogUser.avatar || '',
+    profileId: item?.dialogUser?._id,
     isArchive: !!item?.joinMangaStoryRequestId,
     participentsInfo: item?.participentsInfo,
   });
@@ -68,6 +62,7 @@ const TabMessenger = (props) => {
     const options = {
       headers: { Authorization: `Bearer ${jwt}` },
     };
+
     import('api/restClient').then((m) => {
       m.default
         .service('/api/v2/conversations')
@@ -75,8 +70,9 @@ const TabMessenger = (props) => {
         .then((res) => {
           let newRequests;
           if (isArchive) {
-            newRequests = res
-              .filter((i) => !i.joinMangaStoryRequestId)
+            const data = res.data || res;
+            newRequests = data
+              ?.filter((i) => !i.joinMangaStoryRequestId)
               .map(messageData)
               ?.reverse();
             if (newRequests.length === res.length && showArchive) setShowArchive(false);
@@ -86,7 +82,7 @@ const TabMessenger = (props) => {
           }
 
           if (newRequests.length) {
-            const getExistData = newRequests.filter((value) => !!value.senderInfo);
+            const getExistData = newRequests.filter((value) => !!value.dialogUser);
             setRequests(getExistData);
             const { conversation } = qs.parse(window.location.search);
             const thisConv = newRequests.find((r) => r._id === conversation);

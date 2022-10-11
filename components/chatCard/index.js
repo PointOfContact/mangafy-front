@@ -26,7 +26,7 @@ const ChatCard = ({
   rid,
   isInvite,
   messages,
-  senderInfo,
+  dialogUser,
   conversations,
   isSmall,
   status,
@@ -87,7 +87,7 @@ const ChatCard = ({
       });
   };
 
-  const characterType = userTypesEnums[senderInfo?.types?.length && senderInfo?.types[0]];
+  const characterType = userTypesEnums[dialogUser?.types?.length && dialogUser?.types[0]];
 
   return (
     <div
@@ -98,18 +98,18 @@ const ChatCard = ({
         selectedRequest?.rid === rid && styles.selected
       )}
       onClick={(e) => {
-        showMessages(e, senderInfo);
+        showMessages(e, dialogUser);
         setShowMessageMobile(true);
       }}
       data-id={conversations[0] && conversations[0]._id}>
       <div className={cn(styles.message_community, 'row')}>
         <div className={styles.mess_content}>
           <div className={cn(styles.title_block)}>
-            <MessageHeaderAvatar senderInfo={senderInfo} isTeamChat={isTeamChat} />
+            <MessageHeaderAvatar dialogUser={dialogUser} isTeamChat={isTeamChat} />
             <div className={styles.name_special}>
               <div>
-                <h4>{senderInfo && senderInfo?.name}</h4>
-                {/* {characterType && <p>{senderInfo && characterType}</p>} */}
+                <h4>{dialogUser && dialogUser?.name}</h4>
+                {/* {characterType && <p>{dialogUser && characterType}</p>} */}
                 <p className={styles.messages}>{messages && messages.content}</p>
               </div>
             </div>
@@ -156,7 +156,7 @@ ChatCard.propTypes = {
   rid: PropTypes.string.isRequired,
   isInvite: PropTypes.bool,
   messages: PropTypes.object,
-  senderInfo: PropTypes.object.isRequired,
+  dialogUser: PropTypes.object.isRequired,
   conversations: PropTypes.array,
   setAv: PropTypes.func,
   isSmall: PropTypes.bool.isRequired,

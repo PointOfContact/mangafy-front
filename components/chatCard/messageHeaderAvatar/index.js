@@ -7,15 +7,15 @@ import PropTypes from 'prop-types';
 
 import styles from '../styles.module.scss';
 
-const MessageHeaderAvatar = ({ senderInfo, isTeamChat }) => (
+const MessageHeaderAvatar = ({ dialogUser, isTeamChat }) => (
   <div className={styles.avatar}>
-    {senderInfo.avatar ? (
+    {dialogUser.avatar ? (
       <Imgix
         className="avatar"
         layout="fixed"
         width={51}
         height={51}
-        src={client.UPLOAD_URL + senderInfo.avatar}
+        src={client.UPLOAD_URL + dialogUser.avatar}
         alt="MangaFy avatar"
       />
     ) : (
@@ -29,14 +29,14 @@ const MessageHeaderAvatar = ({ senderInfo, isTeamChat }) => (
           alt="MangaFy avatar"
         />
       )) || (
-        <Avatar text={senderInfo.name} className={styles.avatarName} fontSize={50} size={'51px'} />
+        <Avatar text={dialogUser.name} className={styles.avatarName} fontSize={50} size={'51px'} />
       )
     )}
   </div>
 );
 
 MessageHeaderAvatar.propTypes = {
-  senderInfo: PropTypes.object.isRequired,
+  dialogUser: PropTypes.object.isRequired,
   isTeamChat: PropTypes.bool.isRequired,
 };
 
