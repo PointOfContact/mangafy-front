@@ -398,29 +398,8 @@ const MangeStory = (props) => {
                 storyBoard={storyBoard}
               />
             )}
-            {/* {!isOwn && (
-              <Comments
-                commentsData={comments}
-                isOwn={isOwn}
-                mangaStory={baseData}
-                user={userData}
-              />
-            )} */}
           </section>
-          <section>
-            {/* <BannerSection
-              originUrl={originUrl}
-              canEdit={canEdit}
-              baseData={baseData}
-              editMode={editMode}
-              genres={genres}
-              saveMangaStoryData={saveMangaStoryData}
-              setBaseData={setBaseData}
-              openNotification={openNotification}
-              isOwn={isOwn}
-              user={userData}
-            /> */}
-          </section>
+          <section></section>
         </div>
         {!userData && <Footer user={user} />}
         {!userData && <FooterPolicy />}
