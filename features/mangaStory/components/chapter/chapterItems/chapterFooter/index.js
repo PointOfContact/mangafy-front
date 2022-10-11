@@ -36,6 +36,8 @@ const ChapterFooter = ({
   const publishedRef = useRef(null);
   const [deviceId, setDeviceId] = useState('');
 
+  const hasPages = value?.pages?.some((item) => !!item.imageUrl);
+
   useEffect(() => {
     publishedRef.current.checked = value?.published;
     getDeviceId(setDeviceId);
@@ -52,9 +54,9 @@ const ChapterFooter = ({
   }, [publish]);
 
   useEffect(() => {
-    setMangaUrl(value?.pages?.some((item) => !!item.imageUrl === true));
+    setMangaUrl();
     setPublish(value.published);
-    if (value.published && !value?.pages?.some((item) => !!item.imageUrl)) {
+    if (value.published && !hasPages) {
       publishedRef.current.checked = false;
       setPublish(false);
       publishedChapter();
@@ -68,9 +70,7 @@ const ChapterFooter = ({
     const publishedValue = publishedRef.current.checked;
     setPublish(publishedValue);
 
-    console.log(publishedValue);
-
-    if (publishedValue && !value?.pages?.some((item) => !!item.imageUrl)) {
+    if (publishedValue && !hasPages) {
       publishedRef.current.checked = false;
       setPublish(false);
       return notification.error({
