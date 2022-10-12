@@ -21,6 +21,7 @@ const ProjectChapters = ({
   user,
   isMobile,
   onCommentClick,
+  setIsSignInModalOpened,
 }) => {
   const chapters = project?.storyBoards?.data[0]?.chapters.filter((ch) => ch.published);
 
@@ -35,10 +36,7 @@ const ProjectChapters = ({
     const chapterId = chapter._id;
 
     if (!user) {
-      notification.error({
-        message: 'Error',
-        description: 'You need to be logged in to like chapters',
-      });
+      setIsSignInModalOpened(true);
       return;
     }
 

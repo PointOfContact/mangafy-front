@@ -15,7 +15,7 @@ import { EVENTS } from 'helpers/amplitudeEvents';
 import myAmplitude, { setUser } from 'utils/amplitude';
 import { login } from 'store';
 
-export const SignInModal = ({ title, visible, setVisible }) => {
+export const SignInModal = ({ page, title, visible, setVisible }) => {
   const [error, setError] = React.useState('');
   const [loading, setLoading] = React.useState(false);
   const [loginError, setLoginError] = React.useState('');
@@ -24,10 +24,6 @@ export const SignInModal = ({ title, visible, setVisible }) => {
   function submitHandler(e) {
     e.preventDefault();
     setError('');
-
-    const page = qs.parse(window.location.search).page
-      ? decodeURIComponent(qs.parse(window.location.search).page)
-      : '';
 
     const payload = {
       email: e.target.login.value,

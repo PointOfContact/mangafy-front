@@ -19,6 +19,7 @@ import notification from 'antd/lib/notification';
 import myAmplitude from 'utils/amplitude';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import FeedCreateButton from 'components/FeedCreateButton';
+import { SignInModal } from 'components/modals/SignInModal';
 
 const ProjectView = ({ ssProject, ssComments, user }) => {
   const [project, setProject] = useState(ssProject);
@@ -28,6 +29,7 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
   const [currentChapterId, setCurrentChapterId] = useState(null);
   const [areCommentsOpened, setAreCommentsOpened] = useState(false);
   const [isShareModalOpened, setIsShareModalOpened] = useState(false);
+  const [isSignInModalOpened, setIsSignInModalOpened] = useState(false);
 
   useEffect(() => {
     if (currentChapterId) {
@@ -143,10 +145,11 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
 
   function createProjectComment(text) {
     if (!user) {
-      notification.error({
-        message: 'You need to be logged in to comment',
-        placement: 'bottomLeft',
-      });
+      setIsSignInModalOpened(true);
+      // notification.error({
+      //   message: 'You need to be logged in to comment',
+      //   placement: 'bottomLeft',
+      // });
       return;
     }
     createComment(text, project?._id)
@@ -158,10 +161,11 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
 
   function createCommentChapter(text) {
     if (!user) {
-      notification.error({
-        message: 'You need to be logged in to comment',
-        placement: 'bottomLeft',
-      });
+      setIsSignInModalOpened(true);
+      // notification.error({
+      //   message: 'You need to be logged in to comment',
+      //   placement: 'bottomLeft',
+      // });
       return;
     }
     createChapterComment(text, currentChapterId, user?._id)
@@ -178,6 +182,12 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
 
   return (
     <div className={styles.project}>
+      <SignInModal
+        title={'Sign in to like or comment'}
+        page={'/project/' + project?._id}
+        visible={isSignInModalOpened}
+        setVisible={setIsSignInModalOpened}
+      />
       <HeaderNew user={user} />
       <div className={styles.project__container}>
         {project?.image && (
@@ -201,6 +211,7 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
             updateProjectInfo={updateProjectInfo}
             user={user}
             onCommentClick={onCommentClick}
+            setIsSignInModalOpened={setIsSignInModalOpened}
           />
           <div className={styles.project__comments}>
             <MangaComments
