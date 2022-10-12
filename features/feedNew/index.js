@@ -30,6 +30,7 @@ import CreateShotModal from 'components/CreateShotModal';
 import { removeShortStory } from 'components/gallery/utils';
 import myAmplitude from 'utils/amplitude';
 import { EVENTS } from 'helpers/amplitudeEvents';
+import { SignInModal } from 'components/modals/SignInModal';
 
 const FeedNew = (props) => {
   const { jwt, user, posts } = props;
@@ -50,6 +51,7 @@ const FeedNew = (props) => {
   const [postType, setPostType] = useState(null);
 
   const [shotModalVisible, setShotModalVisible] = useState(false);
+  const [signInModalVisible, setSignInModalVisible] = useState(false);
   const [shotToEdit, setShotToEdit] = useState(null);
 
   useEffect(async () => {
@@ -200,6 +202,7 @@ const FeedNew = (props) => {
             user={user}
             editShot={editShot}
             deleteShot={deleteShot}
+            setShowSignInModal={(visible) => setSignInModalVisible(visible)}
           />
         );
       else if (card.postType === 'Profile')
@@ -207,18 +210,13 @@ const FeedNew = (props) => {
     });
   }
 
-  // Debug: find repeating card's ids
-  // console.log('New render');
-  // for (const id in cardsLog) {
-  //   if (Object.hasOwnProperty.call(cardsLog, id)) {
-  //     const cards = cardsLog[id];
-  //     if (cards.length > 1) console.log(cards);
-  //   }
-  // }
-  //
-
   return (
     <>
+      <SignInModal
+        title={'Like this post?'}
+        visible={signInModalVisible}
+        setVisible={setSignInModalVisible}
+      />
       <CreateShotModal
         isVisible={shotModalVisible}
         setIsVisible={setShotModalVisible}
@@ -273,10 +271,8 @@ const FeedNew = (props) => {
                 <TabPane tab="People" key="people"></TabPane>
                 <TabPane tab="Tasks" key="tasks"></TabPane>
               </Tabs>
-              {/* <FilterNew genres="Genres" search /> */}
               <CardsContainer
                 cardsElements={cardsElements || []}
-                // cardsElements={[]}
                 columns={screenWidth >= 1000 ? 3 : screenWidth >= 700 ? 2 : 1}
                 user={user}
                 activeTab={activeTab}
