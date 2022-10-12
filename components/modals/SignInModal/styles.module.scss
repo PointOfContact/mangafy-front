@@ -79,6 +79,16 @@
             color: $pink;
         }
     }
+    &__orSignUp {
+        font-weight: 400;
+        font-size: 12px;
+        color: #848484;
+        margin-bottom: 20px !important;
+        text-align: center;
+        &:hover {
+            color: $pink;
+        }
+    }
     &__privacyPolicy {
         font-weight: 400;
         font-size: 12px;

@@ -127,6 +127,9 @@ export const SignInModal = ({ page, title, visible, setVisible }) => {
           <Button full rounded pink disabled={loading}>
             Login
           </Button>
+          <Link href={'/sign-up'}>
+            <a className={styles.modal__orSignUp}>Or sign up</a>
+          </Link>
           <Link href={'/terms'}>
             <a className={styles.modal__privacyPolicy}>
               By continuing, you agree to the MangaFY site T&C and Privacy Policy.
