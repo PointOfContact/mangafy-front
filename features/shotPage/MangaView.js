@@ -14,6 +14,7 @@ import MangaFooter from 'components/ShotFooter/MangaFooter';
 import MangaSlider from 'components/ShotSlider/MangaSlider';
 import MangaSideMenu from 'components/ShotSideMenu/MangaSideMenu';
 import { viewChapterFun } from 'utils';
+import { EVENTS } from 'helpers/amplitudeEvents';
 
 const MangaView = ({
   user,
@@ -34,6 +35,7 @@ const MangaView = ({
   );
 
   const [manga, setManga] = useState(serverSideManga);
+  const chapter = manga?.chapters[activeChapterIndex - 1];
 
   const [areCommentsOpened, setAreCommentsOpened] = useState(false);
   function toggleComments() {
@@ -103,7 +105,7 @@ const MangaView = ({
 
     const data = {
       ownerId: authors[0]._id,
-      chapterId: manga?.chapters[activeChapterIndex - 1]?._id,
+      chapterId: chapter?._id,
       likedUserId: user._id,
       participants: manga?.participants,
     };
@@ -122,7 +124,18 @@ const MangaView = ({
         headers: { Authorization: `Bearer ${jwt}` },
         mode: 'no-cors',
       })
-      .then(() => {
+      .then((res) => {
+        const eventData = [
+          {
+            event_type: EVENTS.EPISODE_LIKE,
+            event_properties: {
+              chapterID: chapter?._id,
+              title: title,
+              from: 'Manga View page',
+            },
+          },
+        ];
+        myAmplitude(eventData);
         updateMangaInfo();
       })
       .catch((err) => {
@@ -164,7 +177,7 @@ const MangaView = ({
       .service('/api/v2/comment-chapter')
       .find({
         query: {
-          chapterId: manga?.chapters[activeChapterIndex - 1]?._id,
+          chapterId: chapter?._id,
           $sort: { createdAt: -1 },
           $limit: 1000,
         },
@@ -185,7 +198,7 @@ const MangaView = ({
       });
       return;
     }
-    createChapterComment(text, manga?.chapters[activeChapterIndex - 1]?._id, user?._id)
+    createChapterComment(text, chapter?._id, user?._id)
       .then((res) => {
         updateChapterCommentsInfo();
       })
@@ -224,7 +237,7 @@ const MangaView = ({
           authors={authors}
           comments={comments}
           createComment={createCommentChapter}
-          chapter={manga?.chapters[activeChapterIndex - 1]}
+          chapter={chapter}
           isParticipant={isParticipant}
         />
         <MangaHeader
@@ -237,12 +250,9 @@ const MangaView = ({
           isOwn={isOwn}
           activeChapterIndex={activeChapterIndex}
         />
-        <MangaBody
-          images={manga?.chapters[activeChapterIndex - 1]?.mangaUrls}
-          className={styles.shotPage__body}
-        />
+        <MangaBody images={chapter?.mangaUrls} className={styles.shotPage__body} />
         <MangaFooter
-          chapter={manga?.chapters[activeChapterIndex - 1]}
+          chapter={chapter}
           manga={manga}
           user={user}
           isOwn={isOwn}
