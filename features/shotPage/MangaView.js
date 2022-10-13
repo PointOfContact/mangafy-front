@@ -13,6 +13,7 @@ import MangaBody from 'components/ShotBody/MangaBody';
 import MangaFooter from 'components/ShotFooter/MangaFooter';
 import MangaSlider from 'components/ShotSlider/MangaSlider';
 import MangaSideMenu from 'components/ShotSideMenu/MangaSideMenu';
+import { viewChapterFun } from 'utils';
 
 const MangaView = ({
   user,
@@ -88,6 +89,7 @@ const MangaView = ({
       setActiveChapterIndex(1);
       setActiveChapterIndex(+router.query.chapter || 1);
     }
+    viewChapterFun(user, manga.chapters[serverSideChapter - 1]);
   }, [router.query.chapter]);
 
   function like() {

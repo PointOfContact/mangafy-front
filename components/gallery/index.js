@@ -203,8 +203,6 @@ export const Gallery = (props) => {
     ]);
   };
 
-  console.log(userData._id);
-
   return (
     <div>
       {showGallery && (

@@ -19,6 +19,7 @@ import notification from 'antd/lib/notification';
 import myAmplitude from 'utils/amplitude';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import FeedCreateButton from 'components/FeedCreateButton';
+import { viewMangaFun } from 'utils';
 
 const ProjectView = ({ ssProject, ssComments, user }) => {
   const [project, setProject] = useState(ssProject);
@@ -28,6 +29,10 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
   const [currentChapterId, setCurrentChapterId] = useState(null);
   const [areCommentsOpened, setAreCommentsOpened] = useState(false);
   const [isShareModalOpened, setIsShareModalOpened] = useState(false);
+
+  useEffect(() => {
+    viewMangaFun(user, project.viewManga, project._id);
+  }, []);
 
   useEffect(() => {
     if (currentChapterId) {
