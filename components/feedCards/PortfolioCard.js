@@ -76,7 +76,7 @@ const PortfolioWorkCard = ({ card, user }) => {
   return (
     <>
       <div className={styles.card} onClick={handleClick} onDoubleClick={handleDoubleClick}>
-        {images.length > 2 && <FeedCardImages images={images} />}
+        {images.length > 0 && <FeedCardImages images={images} />}
         <FeedCardPortfolioFooter
           authorId={card._id}
           author={author}
