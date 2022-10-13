@@ -286,21 +286,28 @@
     margin-bottom: 20px;
     min-height: 100px;
     display: grid;
-    grid-template-columns: 50% 50%;
-    grid-template-rows:  repeat(2, 200px);
+    &_1 {
+        grid-template-columns: 100%;
+        grid-template-rows: 400px;
+    }
+    &_2 {
+        grid-template-columns: 50% 50%;
+        grid-template-rows: 400px;
+    }
+    &_3 {
+        grid-template-columns: 50% 50%;
+        grid-template-rows:  repeat(2, 200px);
 
+        & > span:last-child {
+            grid-column: span 2;
+        }
+    }
     & > span {
         position: relative !important;
         object-fit: cover !important;
         width: 100% !important;
         height: 100% !important;
     }
-
-    & > span:last-child {
-        grid-column: span 2;
-    }
-
-    
 }
 
 .feedCardPortfolioFooter {
