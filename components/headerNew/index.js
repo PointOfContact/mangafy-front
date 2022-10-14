@@ -219,9 +219,8 @@ const HeaderNew = ({ user }) => {
               <Star color="#D01E8E" bold={1} />
             </div>
             <div className={styles.nav__dropdownContent}>
-              <div className={cn(styles.nav__dropdownTitle, styles.nav__dropdownTitle_titleOnly)}>
-                MangaFY Profile
-              </div>
+              <div className={styles.nav__dropdownTitle}>MangaFY Profile</div>
+              <div className={styles.nav__dropdownSubtitle}>Set up your profile</div>
             </div>
           </a>
         </Link>
@@ -251,8 +250,9 @@ const HeaderNew = ({ user }) => {
             <SignOut color="#D01E8E" bold />
           </div>
           <div className={styles.nav__dropdownContent}>
-            <div className={styles.nav__dropdownTitle}>Sign Out</div>
-            <div className={styles.nav__dropdownSubtitle}>Published Projects</div>
+            <div className={cn(styles.nav__dropdownTitle, styles.nav__dropdownTitle_titleOnly)}>
+              Sign Out
+            </div>
           </div>
         </div>
       ),
