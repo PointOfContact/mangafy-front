@@ -282,8 +282,8 @@ const FeedNew = (props) => {
                 activeTab={activeTab}
                 onPageEnd={onPageEnd}
                 shouldFetchCards={shouldFetchCards}
+                openCreateShotModal={() => setShotModalVisible(true)}
               />
-              {endOfCardsReached && <p>There is no more cards</p>}
             </Col>
           </Row>
         </div>

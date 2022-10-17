@@ -200,7 +200,13 @@ const API = {
       });
     },
 
-    patch: (chapterId, data, upgradeChapterData, setEdit, setChapters, onUpload) => {
+    patch: (
+      chapterId,
+      data,
+      upgradeChapterData = () => {},
+      setEdit = () => {},
+      setChapters = () => {}
+    ) => {
       const jwt = client.getCookie('feathers-jwt');
 
       return client

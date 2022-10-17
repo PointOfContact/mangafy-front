@@ -9,15 +9,15 @@ const imgixClient = new ImgixClient({
 });
 
 const myLoader = ({ src, width, quality }) =>
-  // process.env.NEXT_PUBLIC_GET_IMGIX === 'true'
-  //   ? imgixClient.buildURL(src, { w: width, q: quality, auto: 'format', fit: 'max' })
-  //   : src;
-  imgixClient.buildURL(src, {
-    w: width,
-    q: quality,
-    auto: 'format',
-    fit: 'min',
-  });
+  process.env.NEXT_PUBLIC_GET_IMGIX === 'true'
+    ? imgixClient.buildURL(src, { w: width, q: quality, auto: 'format', fit: 'max' })
+    : src;
+// imgixClient.buildURL(src, {
+//   w: width,
+//   q: quality,
+//   auto: 'format',
+//   fit: 'min',
+// });
 
 // const optimized = process.env.NEXT_PUBLIC_GET_IMGIX === 'true';
 const optimized = true;

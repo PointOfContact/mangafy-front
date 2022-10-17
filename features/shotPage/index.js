@@ -14,13 +14,15 @@ import cn from 'classnames';
 import { buildShotURL, followUser, unFollowUser } from 'helpers/shared';
 import { Modal } from 'antd';
 import { ShareButtons } from 'components/share';
+import { viewShot } from 'utils';
 
-const shotPage = ({ user, allShots, serverSideShot, serverSideAuthor }) => {
+const ShotPage = ({ user, allShots, serverSideShot, serverSideAuthor }) => {
   const router = useRouter();
 
   const [shot, setShot] = useState(
     serverSideShot?.isOld ? prepareOldShot(serverSideShot) : serverSideShot
   );
+
   const [author, setAuthor] = useState(serverSideAuthor);
 
   const [isSubscribed, setIsSubscribed] = useState(author?.likedUsers?.includes(user?._id));
@@ -29,6 +31,11 @@ const shotPage = ({ user, allShots, serverSideShot, serverSideAuthor }) => {
       return obj.likedUserId === user?._id;
     })
   );
+
+  useEffect(() => {
+    console.log(shot, 'shot');
+    viewShot(user, shot);
+  }, []);
 
   useEffect(() => {
     setIsLiked(!!shot?.likedUsers?.find((obj) => obj.likedUserId === user?._id));
@@ -174,7 +181,7 @@ const shotPage = ({ user, allShots, serverSideShot, serverSideAuthor }) => {
   );
 };
 
-export default shotPage;
+export default ShotPage;
 
 function prepareOldShot(old) {
   const newShot = { ...old };

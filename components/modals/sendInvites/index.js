@@ -102,6 +102,7 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
       changeShowModal(false);
     } catch (error) {
       openNotification('error', 'Failed to invite');
+      setLoading(false);
     }
   };
 
