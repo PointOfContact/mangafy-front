@@ -28,6 +28,7 @@ const ShotSlider = ({ className, shot, allShots }) => {
               {sh?.title?.length > 8 ? sh?.title?.slice(0, 8) + '...' : sh?.title}
             </Avatar>
           )}
+          {/* {sh?.title && <div className={styles.slider__itemTitle}>{sh?.title}</div>} */}
         </a>
       </Link>
     );

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 
 import Modal from 'antd/lib/modal/Modal';
@@ -12,7 +13,9 @@ import ShotComments from 'components/shotComments';
 import ResponsiveImgix from 'components/imgix/responsiveImgix';
 import Heart from 'components/icon/new/Heart';
 import { notification } from 'antd';
-import { likeShot } from '../utils';
+import { editGallery, likeShot } from '../utils';
+import getDeviceId from 'utils/deviceId';
+import { viewShot } from 'utils';
 
 export const ShowGalleryModal = ({
   startIndex,
@@ -24,11 +27,14 @@ export const ShowGalleryModal = ({
   updateShots,
 }) => {
   const image = {
-    id: images[startIndex]._id._id || images[startIndex]._id,
+    _id: images[startIndex]._id._id || images[startIndex]._id,
     title: images[startIndex].title,
     description: images[startIndex].description,
     image: images[startIndex]._id.image || images[startIndex].image,
     likedUsers: images[startIndex]?.likedUsers || [],
+    viewerId: images[startIndex]?.viewerId,
+    view: images[startIndex]?.view,
+    authorId: images[startIndex]?.authorId,
   };
 
   // const [isLiked, setIsLiked] = useState(
@@ -62,6 +68,10 @@ export const ShowGalleryModal = ({
       : router.push('/sign-in');
   };
 
+  useEffect(() => {
+    viewShot(user, image);
+  }, []);
+
   return (
     <div>
       <Modal
@@ -77,14 +87,14 @@ export const ShowGalleryModal = ({
           <div className={styles.modal__image}>
             <div
               className={cn(styles.modal__like, isLiked && styles.modal__like_active)}
-              onClick={() => onLikeGallery(image.id, authorId, user?._id)}>
+              onClick={() => onLikeGallery(image._id, authorId, user?._id)}>
               {image.likedUsers.length}
               <Heart color="#fff" />
             </div>
             <ResponsiveImgix src={client.UPLOAD_URL + image.image} />
           </div>
         )}
-        <ShotComments shotId={image.id} user={user} />
+        <ShotComments shotId={image._id} user={user} />
       </Modal>
     </div>
   );

@@ -57,6 +57,7 @@ const HeaderNew = ({ user }) => {
   const [isCreateProjectModalVisible, setIsCreateProjectModalVisible] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
   const [showNotificationModal, setShowNotificationModal] = useState(false);
+  const [showNotificationModalMobile, setShowNotificationModalMobile] = useState(false);
   const [unreadNotificationsId, setUnreadNotificationsId] = useState([]);
   const [notificationsCount, setNotificationsCount] = useState(0);
   const sendEvent = (event_type, post = 'New') => {
@@ -218,9 +219,8 @@ const HeaderNew = ({ user }) => {
               <Star color="#D01E8E" bold={1} />
             </div>
             <div className={styles.nav__dropdownContent}>
-              <div className={cn(styles.nav__dropdownTitle, styles.nav__dropdownTitle_titleOnly)}>
-                MangaFY Profile
-              </div>
+              <div className={styles.nav__dropdownTitle}>MangaFY Profile</div>
+              <div className={styles.nav__dropdownSubtitle}>Set up your profile</div>
             </div>
           </a>
         </Link>
@@ -250,8 +250,9 @@ const HeaderNew = ({ user }) => {
             <SignOut color="#D01E8E" bold />
           </div>
           <div className={styles.nav__dropdownContent}>
-            <div className={styles.nav__dropdownTitle}>Sign Out</div>
-            <div className={styles.nav__dropdownSubtitle}>Published Projects</div>
+            <div className={cn(styles.nav__dropdownTitle, styles.nav__dropdownTitle_titleOnly)}>
+              Sign Out
+            </div>
           </div>
         </div>
       ),
@@ -373,7 +374,7 @@ const HeaderNew = ({ user }) => {
                 <span className={styles.notification}>
                   <Popover
                     overlayClassName={styles.popover}
-                    placement="bottom"
+                    placement="bottomRight"
                     visible={showNotificationModal}
                     content={
                       <MenuNotificationsBox
@@ -383,6 +384,7 @@ const HeaderNew = ({ user }) => {
                         setNotificationsCount={setNotificationsCount}
                       />
                     }
+                    onVisibleChange={(visible) => setShowNotificationModal(!showNotificationModal)}
                     trigger="click">
                     <Badge
                       count={notificationsCount}
@@ -438,7 +440,10 @@ const HeaderNew = ({ user }) => {
               <Popover
                 overlayClassName={styles.popover}
                 placement="bottom"
-                visible={showNotificationModal}
+                onVisibleChange={(visible) =>
+                  setShowNotificationModalMobile(!showNotificationModalMobile)
+                }
+                visible={showNotificationModalMobile}
                 content={
                   <MenuNotificationsBox
                     user={user}
@@ -451,13 +456,14 @@ const HeaderNew = ({ user }) => {
                 <Badge
                   count={notificationsCount}
                   onClick={() => {
-                    setShowNotificationModal(!showNotificationModal);
+                    setShowNotificationModalMobile(!showNotificationModalMobile);
                   }}>
                   <SvgBell width="23px" height="23px" />
                 </Badge>
               </Popover>
             </span>
           )}
+
           <button className={cn(styles.nav_mobile)}>
             <Dropdown arrow placement="bottomRight" overlay={mobileMenu} trigger="click">
               <Space>

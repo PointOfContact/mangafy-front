@@ -45,12 +45,14 @@ const MangaSideMenu = ({
   return (
     <>
       <div className={cn(styles.menu, areCommentsOpened && styles.menu_withOpenedComments)}>
-        <Avatar
-          size={60}
-          image={authors[0]?.avatar}
-          text={authors[0]?.name[0]}
-          className={styles.menu__avatar}
-        />
+        {!!authors[0] && (
+          <Avatar
+            size={60}
+            image={authors[0]?.avatar}
+            text={authors[0]?.name[0]}
+            className={styles.menu__avatar}
+          />
+        )}
         <div className={styles.menu__buttons}>
           <Button
             onClick={() => setAreCommentsOpened(!areCommentsOpened)}

@@ -50,7 +50,7 @@ export default async function myAmplitude(eventData) {
         setSeveralProperty();
       }
     } catch (error) {
-      console.log(error, 'amplitude.error()', 55555555);
+      console.log(error, 'amplitude.error()');
       // TODO: add sentry
     }
   } else {
@@ -60,7 +60,6 @@ export default async function myAmplitude(eventData) {
         ...eventData,
       },
     ];
-
     try {
       await amplitude.getInstance().logEvent(eventData.event_type, defaultEventData);
       setSeveralProperty();

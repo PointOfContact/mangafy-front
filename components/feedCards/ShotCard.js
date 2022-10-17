@@ -90,9 +90,9 @@ const ShotCard = ({ card, user, editShot, deleteShot }) => {
       .then((res) => {
         setLoading(false);
         if (isLiked) {
-          amplitude(EVENTS.LIKE_SHOT, res.portfolioId);
-        } else {
           amplitude(EVENTS.DELETE_LIKE_SHOT, res.portfolioId);
+        } else {
+          amplitude(EVENTS.LIKE_SHOT, res.portfolioId);
         }
       })
       .catch((err) => {
