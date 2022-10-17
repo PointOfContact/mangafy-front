@@ -30,6 +30,7 @@ const MangaSlider = ({ manga, activeChapterIndex }) => {
               {ch?.title?.length > 8 ? ch?.title?.slice(0, 8) + '...' : ch?.title}
             </Avatar>
           )}
+          <div className={styles.slider__itemTitle}>Chapter {ch.order}</div>
         </a>
       </Link>
     );
@@ -71,7 +72,7 @@ const MangaSlider = ({ manga, activeChapterIndex }) => {
   return (
     <div className={styles.moreShots}>
       <div className={styles.moreShots__container}>
-        <div className={styles.moreShots__title}>More shots from {manga?.authorInfo?.name}</div>
+        <div className={styles.moreShots__title}>All chapters:</div>
         <div className={styles.slider}>
           <div className={styles.slider__arrow} onClick={scrollLeft}>
             <ArrowDown2 />

@@ -209,6 +209,21 @@ const createGallery = async (data, onSuccess, onFailure) => {
     });
 };
 
+const viewManga = async (viewId, data, onSuccess) => {
+  const jwt = client.getCookie('feathers-jwt');
+  const { default: api } = await import('api/restClient');
+  api
+    .service('/api/v2/view-manga')
+    .patch(viewId, data, {
+      headers: { Authorization: `Bearer ${jwt}` },
+    })
+    .then(onSuccess)
+    .catch((err) => {
+      onFailure(err);
+      return err;
+    });
+};
+
 const editGallery = async (galleryId, data, onSuccess, onFailure) => {
   const jwt = client.getCookie('feathers-jwt');
   const { default: api } = await import('api/restClient');
@@ -288,6 +303,7 @@ export {
   getShortStorys,
   createGallery,
   editGallery,
+  viewManga,
   deleteTagsFromString,
   socials,
 };

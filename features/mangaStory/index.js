@@ -9,7 +9,7 @@ import { Comments } from 'components/comments';
 import DeleteProjectModal from 'components/deleteProjectModal';
 import Footer from 'components/footer';
 import FooterPolicy from 'components/footer-policy';
-import { deleteTagsFromString } from 'components/gallery/utils';
+import { deleteTagsFromString, viewManga } from 'components/gallery/utils';
 import HeaderNew from 'components/headerNew';
 import ButtonToTop from 'components/ui-elements/button-toTop';
 import FooterLogin from 'features/footerLogin';
@@ -39,6 +39,8 @@ import Planet from 'components/icon/new/Planet';
 import Button from 'components/ui-new/Button';
 import ArrowDown2 from 'components/icon/new/ArrowDown2';
 import ArrowDown from 'components/icon/new/ArrowDown';
+import getDeviceId from 'utils/deviceId';
+import { viewMangaFun } from 'utils';
 
 const tabs = {
   DETAILS: 'details',
@@ -108,6 +110,7 @@ const MangeStory = (props) => {
       },
     };
     setActiveTab(router.query.tab || tabs.DETAILS);
+    viewMangaFun(user, baseData.viewManga, baseData._id);
     myAmplitude(data);
     if (window.innerWidth < 568) setIsMobile(true);
     return () => {

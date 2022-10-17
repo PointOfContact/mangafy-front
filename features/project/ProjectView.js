@@ -20,6 +20,7 @@ import myAmplitude from 'utils/amplitude';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import FeedCreateButton from 'components/FeedCreateButton';
 import { SignInModal } from 'components/modals/SignInModal';
+import { viewMangaFun } from 'utils';
 
 const ProjectView = ({ ssProject, ssComments, user }) => {
   const [project, setProject] = useState(ssProject);
@@ -30,6 +31,10 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
   const [areCommentsOpened, setAreCommentsOpened] = useState(false);
   const [isShareModalOpened, setIsShareModalOpened] = useState(false);
   const [isSignInModalOpened, setIsSignInModalOpened] = useState(false);
+
+  useEffect(() => {
+    viewMangaFun(user, project.viewManga, project._id);
+  }, []);
 
   useEffect(() => {
     if (currentChapterId) {

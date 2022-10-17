@@ -95,9 +95,9 @@ const ShotCard = ({ card, user, editShot, deleteShot, setShowSignInModal }) => {
       .then((res) => {
         setLoading({ isLoading: false, error: false });
         if (isLiked) {
-          amplitude(EVENTS.LIKE_SHOT, res.portfolioId);
-        } else {
           amplitude(EVENTS.DELETE_LIKE_SHOT, res.portfolioId);
+        } else {
+          amplitude(EVENTS.LIKE_SHOT, res.portfolioId);
         }
       })
       .catch((err) => {

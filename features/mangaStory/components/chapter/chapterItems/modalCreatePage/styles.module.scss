@@ -150,6 +150,11 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
     .deletePage {
       margin-top: 29px;
       & > div > div > div {
+        :global {
+          .ant-form-item-control-input-content {
+            display: flex;
+          }
+        }
         display: flex;
         justify-content: center;
         .deleteCard {
