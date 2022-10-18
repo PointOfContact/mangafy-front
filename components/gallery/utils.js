@@ -209,7 +209,7 @@ const createGallery = async (data, onSuccess, onFailure = () => {}) => {
     });
 };
 
-const viewManga = async (viewId, data, onSuccess, onFailure = () => {}) => {
+const viewManga = async (viewId, data, onSuccess = () => {}, onFailure = () => {}) => {
   const jwt = client.getCookie('feathers-jwt');
   const { default: api } = await import('api/restClient');
   api
@@ -217,9 +217,14 @@ const viewManga = async (viewId, data, onSuccess, onFailure = () => {}) => {
     .patch(viewId, data, {
       headers: { Authorization: `Bearer ${jwt}` },
     })
-    .then(onSuccess)
+    .then(() => {
+      console.log('View success');
+      onSuccess();
+    })
     .catch((err) => {
       onFailure(err);
+      console.log('View error');
+      console.log(err);
       return err;
     });
 };
