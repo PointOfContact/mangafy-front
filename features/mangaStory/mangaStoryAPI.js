@@ -221,10 +221,12 @@ const API = {
             setChapters(upgradeChapterData(res, res._id));
           })
           .catch((err) => {
-            notification.error({
-              message: err.message,
-              placement: 'bottomLeft',
-            });
+            if (!err.message === 'jwt expired') {
+              notification.error({
+                message: err.message,
+                placement: 'bottomLeft',
+              });
+            }
             return err;
           });
       });

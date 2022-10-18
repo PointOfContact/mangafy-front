@@ -1,7 +1,7 @@
 import client from 'api/client';
 import Imgix from 'components/imgix';
 import Button from 'components/ui-new/Button';
-import React from 'react';
+import React, { useMemo } from 'react';
 import styles from './styles.module.scss';
 import Link from 'next/link';
 import ArrowDown2 from 'components/icon/new/ArrowDown2';
@@ -14,6 +14,11 @@ const MangaHeader = ({ user, manga, className, authors, subscribe, isOwn, active
   const prevChapterIndex = activeChapterIndex === 0 ? null : activeChapterIndex - 1;
   const nextChapterIndex =
     activeChapterIndex === manga.chapters.length ? null : activeChapterIndex + 1;
+
+  const chapterCount = useMemo(() => {
+    const publishedData = manga.chapters.filter((item) => item.published);
+    return publishedData.length;
+  }, [manga.chapters]);
 
   return (
     <div className={className}>
@@ -36,7 +41,7 @@ const MangaHeader = ({ user, manga, className, authors, subscribe, isOwn, active
               <ArrowDown2 />
             </a>
           </Link>
-          #{activeChapterIndex}
+          #{chapterCount}
           <Link href={'/manga-view/' + manga.id + '?chapter=' + nextChapterIndex}>
             <a
               className={cn(
