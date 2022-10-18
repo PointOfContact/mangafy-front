@@ -197,7 +197,7 @@ const AuthForm = ({
           </div>
           <div className={styles.social_login}>
             <div className={styles.orLarge}>
-              <span>or Sign up with:</span>
+              <span>or Sign in with:</span>
             </div>
             <Link href="/api/v2/auth/google">
               <a>
