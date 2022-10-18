@@ -8,7 +8,7 @@ const MangaBody = ({ images, className }) => {
   return (
     <div className={cn(styles.body, className)}>
       {/* {shot.image && <ResponsiveImgix src={client.UPLOAD_URL + shot.image} />} */}
-      {images.map((image) => (
+      {images?.map((image) => (
         <ResponsiveImgix key={image} src={client.UPLOAD_URL + image} />
       ))}
     </div>

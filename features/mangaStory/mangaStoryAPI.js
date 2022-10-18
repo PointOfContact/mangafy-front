@@ -209,24 +209,27 @@ const API = {
     ) => {
       const jwt = client.getCookie('feathers-jwt');
 
-      return client
-        .service('/api/v2/chapters')
-        .patch(chapterId, data, {
-          headers: { Authorization: `Bearer ${jwt}` },
-          mode: 'no-cors',
-        })
-        .then((res) => {
-          setEdit('');
-          setChapters(upgradeChapterData(res, res._id));
-          onUpload && onUpload(res);
-        })
-        .catch((err) => {
-          notification.error({
-            message: err.message,
-            placement: 'bottomLeft',
+      import('api/restClient').then((m) => {
+        m.default
+          .service('/api/v2/chapters')
+          .patch(chapterId, data, {
+            headers: { Authorization: `Bearer ${jwt}` },
+            mode: 'no-cors',
+          })
+          .then((res) => {
+            setEdit('');
+            setChapters(upgradeChapterData(res, res._id));
+            onUpload && onUpload(res);
+          })
+          .catch((err) => {
+            if (!err.message === 'jwt expired') {
+              notification.error({
+                message: err.message,
+                placement: 'bottomLeft',
+              });
+            }
+            return err;
           });
-          return err;
-        });
     },
 
     delete: (chapterId, index, chapters, setChapters, storyBoard) => {

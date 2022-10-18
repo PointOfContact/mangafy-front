@@ -15,6 +15,7 @@ import MangaSlider from 'components/ShotSlider/MangaSlider';
 import MangaSideMenu from 'components/ShotSideMenu/MangaSideMenu';
 import { viewChapterFun } from 'utils';
 import { EVENTS } from 'helpers/amplitudeEvents';
+import myAmplitude from 'utils/amplitude';
 
 const MangaView = ({
   user,
@@ -28,11 +29,7 @@ const MangaView = ({
   const [authors, setAuthors] = useState(serverSideAuthors);
   const [comments, setComments] = useState(serverSideComments);
 
-  const [isLiked, setIsLiked] = useState(
-    serverSideManga?.chapters[serverSideChapter - 1]?.likedUsers?.some((obj) => {
-      return obj === user?._id;
-    })
-  );
+  const [isLiked, setIsLiked] = useState(false);
 
   const [manga, setManga] = useState(serverSideManga);
   const chapter = manga?.chapters[activeChapterIndex - 1];
@@ -130,7 +127,7 @@ const MangaView = ({
             event_type: EVENTS.EPISODE_LIKE,
             event_properties: {
               chapterID: chapter?._id,
-              title: title,
+              title: chapter.title,
               from: 'Manga View page',
             },
           },

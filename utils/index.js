@@ -26,7 +26,7 @@ export const viewChapterFun = async (user, data) => {
   const userId = user?._id || (await getDeviceId(() => {}));
   const existUser = data?.viewDeviceUnique.some((value) => String(value) === String(userId));
   const view = data?.view + 1;
-  const changeData = { view, storyBoardId: data.storyBoardId };
+  const changeData = { view, storyBoardId: data?.storyBoardId };
   if (!existUser) changeData.viewDeviceUnique = [...data?.viewDeviceUnique, userId];
   API.chapter.patch(data._id, changeData);
 };
