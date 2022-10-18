@@ -15,6 +15,7 @@ import MangaSlider from 'components/ShotSlider/MangaSlider';
 import MangaSideMenu from 'components/ShotSideMenu/MangaSideMenu';
 import { viewChapterFun } from 'utils';
 import { EVENTS } from 'helpers/amplitudeEvents';
+import myAmplitude from 'utils/amplitude';
 
 const MangaView = ({
   user,
@@ -130,7 +131,7 @@ const MangaView = ({
             event_type: EVENTS.EPISODE_LIKE,
             event_properties: {
               chapterID: chapter?._id,
-              title: title,
+              title: chapter.title,
               from: 'Manga View page',
             },
           },
