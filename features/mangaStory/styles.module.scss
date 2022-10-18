@@ -4,6 +4,7 @@ $colorAllBorder: rgba(33, 33, 33, 0.07);
 
 .workspaceLink {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   color: $gray85;
   font-size: 18px;
@@ -389,4 +390,11 @@ $colorAllBorder: rgba(33, 33, 33, 0.07);
       justify-content: flex-end !important;
     }
   }
+}
+
+.main {
+  transition: 0.2s;
+}
+.sidebarCollapsed {
+  margin-left: 240px;
 }
