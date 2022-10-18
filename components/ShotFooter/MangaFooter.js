@@ -88,7 +88,7 @@ const MangaFooter = ({
               onClick={like}
               iconRight
               className={cn(styles.footer__like, isLiked && styles.footer__like_active)}>
-              {chapter.like || 0}
+              {chapter?.like || 0}
             </Button>
             {isParticipant && (
               <Link href={'/manga-story/' + manga.mangaStoryId}>

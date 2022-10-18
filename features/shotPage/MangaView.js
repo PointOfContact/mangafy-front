@@ -29,11 +29,7 @@ const MangaView = ({
   const [authors, setAuthors] = useState(serverSideAuthors);
   const [comments, setComments] = useState(serverSideComments);
 
-  const [isLiked, setIsLiked] = useState(
-    serverSideManga?.chapters[serverSideChapter - 1]?.likedUsers?.some((obj) => {
-      return obj === user?._id;
-    })
-  );
+  const [isLiked, setIsLiked] = useState(false);
 
   const [manga, setManga] = useState(serverSideManga);
   const chapter = manga?.chapters[activeChapterIndex - 1];

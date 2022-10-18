@@ -16,7 +16,7 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
       },
     });
 
-    if (context.query.chapter > manga.chapters.length || !manga.chapters.length) {
+    if (!manga.chapters.length) {
       context.res.writeHead(302, {
         Location: '/404',
       });
