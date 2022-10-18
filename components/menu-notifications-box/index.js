@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
-const patchUnreadNotificationsId = (newUnreadNotificationsId, onSuccess, onFailure) => {
+const patchUnreadNotificationsId = (newUnreadNotificationsId, onSuccess, onFailure = () => {}) => {
   const jwt = client.getCookie('feathers-jwt');
   import('../../api/restClient').then((m) => {
     m.default
@@ -35,7 +35,7 @@ const patchUnreadNotificationsId = (newUnreadNotificationsId, onSuccess, onFailu
   });
 };
 
-const findNotifications = (limit, onSuccess, onFailure) => {
+const findNotifications = (limit, onSuccess, onFailure = () => {}) => {
   const jwt = client.getCookie('feathers-jwt');
   import('../../api/restClient').then((m) => {
     m.default
