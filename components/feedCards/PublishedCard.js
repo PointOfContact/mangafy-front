@@ -148,6 +148,7 @@ const PublishedCard = ({ card, user }) => {
           likes={likes}
           like={like}
           isLiked={isLiked}
+          views={card.view}
         />
       </div>
     </div>

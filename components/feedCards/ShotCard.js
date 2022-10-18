@@ -22,6 +22,7 @@ import { EVENTS } from 'helpers/amplitudeEvents';
 import { debounce } from 'throttle-debounce';
 
 const ShotCard = ({ card, user, editShot, deleteShot }) => {
+  console.log(card);
   const image = card.image?.image || card.image;
   const author = card.authorInfo?.name;
   const authorId = card.authorInfo?._id;
