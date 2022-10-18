@@ -219,7 +219,9 @@ const viewManga = async (viewId, data, onSuccess) => {
     })
     .then(onSuccess)
     .catch((err) => {
-      onFailure(err);
+      if (typeof onFailure === 'function') {
+        onFailure(err);
+      }
       return err;
     });
 };

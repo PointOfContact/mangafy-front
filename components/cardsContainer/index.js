@@ -36,6 +36,7 @@ const placeholderData = [
 ];
 
 const CardsContainer = ({
+  error,
   columns = 3,
   cardsElements = [],
   user,
@@ -110,7 +111,7 @@ const CardsContainer = ({
 
   let colToPush = 1;
   let elements = cardsElements;
-  if (cardsElements.length === 0)
+  if (cardsElements.length === 0 && !error)
     elements = placeholderData
       .sort(() => (Math.random() > 0.5 ? 1 : -1))
       .map((card) => (
@@ -124,6 +125,13 @@ const CardsContainer = ({
       if (colToPush >= columns) colToPush = 1;
       else colToPush++;
     }
+  }
+
+  console.log(cardsElements.length);
+  console.log(error);
+
+  if (cardsElements.length === 0 && error) {
+    return <div className={styles.error}>{/* Place for error placeholder */}</div>;
   }
 
   return (
@@ -146,6 +154,7 @@ const CardsContainer = ({
           </Col>
         ) : null}
       </Row>
+      {!!error && <div className={styles.error}>{/* Place for error placeholder */}</div>}
     </>
   );
 };
