@@ -19,7 +19,6 @@ export const viewShot = async (user, data) => {
 
 export const viewMangaFun = async (user, data, mangaStoryId) => {
   const changeData = await logickView(user, data, mangaStoryId, 'mangaStoryId');
-  console.log(changeData);
   viewManga(data._id, changeData);
 };
 

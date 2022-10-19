@@ -218,13 +218,10 @@ const viewManga = async (viewId, data, onSuccess = () => {}, onFailure = () => {
       headers: { Authorization: `Bearer ${jwt}` },
     })
     .then(() => {
-      console.log('View success');
       onSuccess();
     })
     .catch((err) => {
       onFailure(err);
-      console.log('View error');
-      console.log(err);
       return err;
     });
 };
