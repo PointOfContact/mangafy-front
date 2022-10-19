@@ -127,9 +127,6 @@ const CardsContainer = ({
     }
   }
 
-  console.log(cardsElements.length);
-  console.log(error);
-
   if (cardsElements.length === 0 && error) {
     return <div className={styles.error}>{/* Place for error placeholder */}</div>;
   }

@@ -40,49 +40,48 @@ const FilterNew = ({ activeTab, filters, onChange }) => {
     else setCurrentContent(filterName);
   };
 
-  let currentContentElement = null;
-  switch (currentContent) {
-    case 'search':
-      const searchFilter = selectedOptions.find((op) => op.inQuery === 'search');
-      currentContentElement = (
-        <SearchInput
-          searchChangeHandler={debouncedSearchChangeHandler}
-          defaultValue={searchFilter?.value || ''}
-        />
-      );
-      break;
-    case null:
-      break;
-    default:
-      const currentFilter = filters.find((f) => f.title === currentContent);
-      if (currentFilter) {
-        currentContentElement = (
-          <Options
-            inQuery={currentFilter.inQuery}
-            applyFilter={applyFilter}
-            options={currentFilter?.options.map((option) => {
-              let isSelected = false;
-              if (
-                selectedOptions.find((so) => {
-                  return so.inQuery === option.inQuery && so.value === option.value;
-                })
-              )
-                isSelected = true;
-              let isDisabled = false;
-
-              // A place for checking isDisabled conditions
-
-              return {
-                ...option,
-                isSelected,
-                isDisabled,
-              };
-            })}
+  const currentContentElement = useMemo(() => {
+    let newCurrentContentElement = null;
+    switch (currentContent) {
+      case 'search':
+        const searchFilter = selectedOptions.find((op) => op.inQuery === 'search');
+        newCurrentContentElement = (
+          <SearchInput
+            searchChangeHandler={debouncedSearchChangeHandler}
+            defaultValue={searchFilter?.value || ''}
           />
         );
-      }
-      break;
-  }
+        break;
+      case null:
+        break;
+      default:
+        const currentFilter = filters.find((f) => f.title === currentContent);
+        if (currentFilter) {
+          newCurrentContentElement = (
+            <Options
+              inQuery={currentFilter.inQuery}
+              applyFilter={applyFilter}
+              options={currentFilter?.options.map((option) => {
+                const isSelected = selectedOptions.find((so) => {
+                  return so.inQuery === option.inQuery && so.value === option.value;
+                });
+                let isDisabled = false;
+
+                // A place for checking isDisabled conditions
+
+                return {
+                  ...option,
+                  isSelected,
+                  isDisabled,
+                };
+              })}
+            />
+          );
+        }
+        break;
+    }
+    return newCurrentContentElement;
+  }, [currentContent, selectedOptions, filters]);
 
   function applyFilter({ inQuery, value, title }) {
     setSelectedOptions((prev) => {

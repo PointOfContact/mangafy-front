@@ -163,7 +163,6 @@ const FeedNew = (props) => {
       const newCards = await getCards(10, shouldCleanCards ? 0 : cards.length, type);
       const newCardsElements = makeCardsElements(newCards);
       if (newCardsElements.length === 0) setError('There is no cards for this filters');
-      console.log(newCardsElements);
       if (!newCardsElements[newCardsElements.length - 1]) setEndOfCardsReached(true);
       if (!isLastRequest[0]) {
         return;
@@ -248,15 +247,6 @@ const FeedNew = (props) => {
         return <PortfolioCard key={card._id} card={card} user={user} />;
     });
   }
-
-  // Debug: find repeating card's ids
-  // console.log('New render');
-  // for (const id in cardsLog) {
-  //   if (Object.hasOwnProperty.call(cardsLog, id)) {
-  //     const cards = cardsLog[id];
-  //     if (cards.length > 1) console.log(cards);
-  //   }
-  // }
 
   return (
     <>
