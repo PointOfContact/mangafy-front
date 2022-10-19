@@ -1,6 +1,6 @@
 import client from './client';
 
-const findStoryBoard = (userId, mangaStoryId, onSuccess, onFailure) => {
+const findStoryBoard = (userId, mangaStoryId, onSuccess, onFailure = () => {}) => {
   const jwt = client.getCookie('feathers-jwt');
   import('./restClient').then((m) => {
     m.default
@@ -21,7 +21,7 @@ const findStoryBoard = (userId, mangaStoryId, onSuccess, onFailure) => {
   });
 };
 
-const patchStoryBoard = (storyBoardId, data, onSuccess, onFailure) => {
+const patchStoryBoard = (storyBoardId, data, onSuccess, onFailure = () => {}) => {
   const jwt = client.getCookie('feathers-jwt');
   import('./restClient').then((m) => {
     m.default
@@ -40,7 +40,7 @@ const patchStoryBoard = (storyBoardId, data, onSuccess, onFailure) => {
   });
 };
 
-const findLayouts = (onSuccess, onFailure) => {
+const findLayouts = (onSuccess, onFailure = () => {}) => {
   const jwt = client.getCookie('feathers-jwt');
   import('./restClient').then((m) => {
     m.default
@@ -58,7 +58,7 @@ const findLayouts = (onSuccess, onFailure) => {
   });
 };
 
-const createHero = (data, onSuccess, onFailure) => {
+const createHero = (data, onSuccess, onFailure = () => {}) => {
   const jwt = client.getCookie('feathers-jwt');
   import('./restClient').then((m) => {
     m.default
@@ -77,7 +77,7 @@ const createHero = (data, onSuccess, onFailure) => {
   });
 };
 
-const patchHero = (heroId, data, onSuccess, onFailure) => {
+const patchHero = (heroId, data, onSuccess, onFailure = () => {}) => {
   const jwt = client.getCookie('feathers-jwt');
   import('./restClient').then((m) => {
     m.default
@@ -96,7 +96,7 @@ const patchHero = (heroId, data, onSuccess, onFailure) => {
   });
 };
 
-const deleteHero = (heroId, onSuccess, onFailure, mangaStoryId) => {
+const deleteHero = (heroId, onSuccess, onFailure = () => {}, mangaStoryId) => {
   const jwt = client.getCookie('feathers-jwt');
   import('./restClient').then((m) => {
     m.default
@@ -118,7 +118,7 @@ const deleteHero = (heroId, onSuccess, onFailure, mangaStoryId) => {
   });
 };
 
-const getPages = (storyBoardId, data, onSuccess, onFailure) => {
+const getPages = (storyBoardId, data, onSuccess, onFailure = () => {}) => {
   const jwt = client.getCookie('feathers-jwt');
   import('./restClient').then((m) => {
     m.default
@@ -139,7 +139,7 @@ const getPages = (storyBoardId, data, onSuccess, onFailure) => {
   });
 };
 
-const createPage = (data, onSuccess, onFailure) => {
+const createPage = (data, onSuccess, onFailure = () => {}) => {
   const jwt = client.getCookie('feathers-jwt');
   import('./restClient').then((m) => {
     m.default
@@ -158,7 +158,7 @@ const createPage = (data, onSuccess, onFailure) => {
   });
 };
 
-const patchPage = (pageId, data, onSuccess, onFailure) => {
+const patchPage = (pageId, data, onSuccess, onFailure = () => {}) => {
   const jwt = client.getCookie('feathers-jwt');
   import('./restClient').then((m) => {
     m.default
@@ -177,7 +177,7 @@ const patchPage = (pageId, data, onSuccess, onFailure) => {
   });
 };
 
-const deletePage = (pageId, mangaStoryId, onSuccess, onFailure) => {
+const deletePage = (pageId, mangaStoryId, onSuccess, onFailure = () => {}) => {
   const jwt = client.getCookie('feathers-jwt');
   import('./restClient').then((m) => {
     m.default
@@ -199,7 +199,7 @@ const deletePage = (pageId, mangaStoryId, onSuccess, onFailure) => {
   });
 };
 
-const uploadFile = (uri, onSuccess, onFailure) => {
+const uploadFile = (uri, onSuccess, onFailure = () => {}) => {
   const jwt = client.getCookie('feathers-jwt');
   import('api/restClient').then((m) => {
     m.default

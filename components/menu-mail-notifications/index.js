@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
-const setMailNotification = (id, type, onSuccess, onFailure) => {
+const setMailNotification = (id, type, onSuccess, onFailure = () => {}) => {
   const jwt = client.getCookie('feathers-jwt');
   import('api/restClient').then((m) => {
     m.default

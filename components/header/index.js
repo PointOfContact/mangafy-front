@@ -21,7 +21,7 @@ import ModalInviteMembers from './modalInviteMembers';
 import OnBoradingModal from './onboradingModal';
 import styles from './styles.module.scss';
 
-const findNotificationsCount = (onSuccess, onFailure) => {
+const findNotificationsCount = (onSuccess, onFailure = () => {}) => {
   const jwt = client.getCookie('feathers-jwt');
   import('../../api/restClient').then((m) => {
     m.default

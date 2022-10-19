@@ -26,7 +26,7 @@ import SvgBell from 'components/icon/Bell';
 import MenuMobilePopover from 'components/menu-mobile-popover';
 import Avatar from 'components/Avatar';
 
-const findNotificationsCount = (onSuccess, onFailure) => {
+const findNotificationsCount = (onSuccess, onFailure = () => {}) => {
   const jwt = client.getCookie('feathers-jwt');
   import('../../api/restClient').then((m) => {
     m.default
