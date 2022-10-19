@@ -1,6 +1,6 @@
 import Logo from 'components/icon/new/Logo';
 import Star from 'components/icon/new/Star';
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import SidebarTab from './SidebarTab';
 import styles from './styles.module.scss';
 import cn from 'classnames';
@@ -16,16 +16,37 @@ import Settings from 'components/icon/new/Settings';
 import Planet from 'components/icon/new/Planet';
 import Link from 'next/link';
 
-const ProjectSidebar = ({ tabs, activeTab, setActiveTab }) => {
+const ProjectSidebar = ({ tabs, activeTab, setActiveTab, onCollapsedChange }) => {
   const [isCollapsed, setIsCollapsed] = useState(true);
+  const sidebarRef = useRef(null);
 
-  function toggleCollapsed() {
+  useEffect(() => {
+    if (typeof onCollapsedChange === 'function') {
+      onCollapsedChange(isCollapsed);
+    }
+  }, [isCollapsed]);
+
+  function toggleCollapsed(e) {
+    e.stopPropagation();
     setIsCollapsed(!isCollapsed);
   }
 
+  function handleClickOutside(event) {
+    if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
+      setIsCollapsed(true);
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div className={cn(styles.sidebar, isCollapsed && styles.sidebar_collapsed)}>
-      <div className={styles.arrowButton} onClick={toggleCollapsed}>
+    <div ref={sidebarRef} className={cn(styles.sidebar, isCollapsed && styles.sidebar_collapsed)}>
+      <div className={styles.arrowButton} onClick={(e) => toggleCollapsed(e)}>
         <ArrowDown2 color="#000" bold />
       </div>
       <Link href="/feed">

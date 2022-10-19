@@ -75,6 +75,11 @@ const MangeStory = (props) => {
   const router = useRouter();
   const [chapters, setChapters] = useState([]);
   const [isMobile, setIsMobile] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(true);
+
+  useEffect(() => {
+    setSidebarCollapsed(true);
+  }, [isMobile]);
 
   const routerBasePath = `/manga-story/${baseData?._id}?tab=`;
   const [storyBoard, setStoryBoard] = useState({
@@ -96,7 +101,7 @@ const MangeStory = (props) => {
   const [activeTab, setActiveTab] = useState('');
 
   const onResize = () => {
-    if (window.innerWidth < 568) setIsMobile(true);
+    if (window.innerWidth < 1000) setIsMobile(true);
     else setIsMobile(false);
   };
 
@@ -275,7 +280,7 @@ const MangeStory = (props) => {
   };
 
   return (
-    <div className="story_page">
+    <div className={'story_page'}>
       <NextSeo
         title={baseData?.title}
         description={description(baseData?.description, baseData?.story)}
@@ -307,10 +312,17 @@ const MangeStory = (props) => {
         (isMobile ? (
           <ProjectMobileMenu tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
         ) : (
-          <ProjectSidebar tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
+          <ProjectSidebar
+            onCollapsedChange={(coll) => setSidebarCollapsed(coll)}
+            tabs={tabs}
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+          />
         ))}
       <ButtonToTop user={user} />
-      <main className="main_back_2" style={{ background: '#fafafa' }}>
+      <main
+        className={cn('main_back_2', styles.main, !sidebarCollapsed && styles.sidebarCollapsed)}
+        style={{ background: '#fafafa' }}>
         {!(isOwn || isParticipant) && <HeaderNew user={userData} />}
         <div
           className={cn(styles.pageWrap, !isMobile && styles.pageWrap_desktop, 'manga-story-page')}>
