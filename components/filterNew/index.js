@@ -13,154 +13,107 @@ import client from 'api/client';
 import styles from './styles.module.scss';
 import { parse } from 'cookie';
 
-const FilterNew = (props) => {
-  const router = useRouter();
-
-  const [filtersOptions, setFiltersOptions] = useState({
-    genres: [],
-    compensationModel: [],
-    types: [],
-    category: [],
-  });
-
-  useEffect(() => {
-    getFilterOptions();
-  }, []);
-
+const FilterNew = ({ activeTab, filters, onChange }) => {
   const [currentContent, setCurrentContent] = useState(null);
   const [selectedOptions, setSelectedOptions] = useState([]);
 
   useEffect(() => {
-    parseSelectedOptions();
-  }, [router.query, filtersOptions]);
-
-  async function getFilterOptions() {
-    const newFilterOptions = {
-      genres: [],
-      compensationModel: [],
-      types: [],
-      category: [],
-    };
-
-    if (props.genres) {
-      try {
-        newFilterOptions.genres = (await client.service('/api/v2/genres').find()).data.map(
-          (genre) => ({
-            title: genre.name,
-            value: genre._id,
-            type: 'genres',
-          })
-        );
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    if (props.compensationModel)
-      newFilterOptions.compensationModel = [
-        { title: 'Collaboration', value: 'collaboration', type: 'compensationModel' },
-        { title: 'Paid', value: 'paid', type: 'compensationModel' },
-      ];
-    if (props.types)
-      newFilterOptions.types = userTypes.map((type) => ({
-        title: type.value,
-        value: type.key,
-        type: 'types',
-      }));
-    if (props.category)
-      newFilterOptions.category = projectTypes.map((pt) => ({
-        title: pt,
-        value: pt,
-        type: 'category',
-      }));
-    setFiltersOptions(newFilterOptions);
-  }
-
-  function parseSelectedOptions() {
-    const query = router.query;
-    const newSelectedOptions = [];
-
-    for (const filter in query) {
-      if (filter !== 'search' && filter !== 'page') {
-        // console.log(query)
-        // console.log(filter)
-        // console.log(query[filter])
-        // console.log(filtersOptions[filter])
-        if (query[filter] && filtersOptions[filter]?.length > 0) {
-          if (!Array.isArray(query[filter])) query[filter] = [query[filter]];
-          newSelectedOptions = newSelectedOptions.concat(
-            query[filter].map((queryProp) => {
-              const filterOption = filtersOptions[filter].find(
-                (option) => option.value === queryProp
-              );
-              return {
-                type: filterOption.type,
-                title: filterOption.title,
-                value: filterOption.value,
-                isDisabled: false,
-                isSelected: true,
-              };
-            })
-          );
-        }
-      }
-    }
-
-    setSelectedOptions(newSelectedOptions);
-  }
+    setSelectedOptions([]);
+    setCurrentContent(null);
+  }, [activeTab]);
 
   const searchChangeHandler = (event) => {
     const value = event.target.value;
     applyFilter({
-      type: 'search',
+      inQuery: 'search',
       value,
+      title: 'Search',
     });
   };
+
+  const debouncedSearchChangeHandler = useMemo(() => {
+    return AwesomeDebouncePromise(searchChangeHandler, 500);
+  }, []);
 
   const filterClickHandler = (filterName) => {
     if (filterName === currentContent) setCurrentContent(null);
     else setCurrentContent(filterName);
   };
 
-  let currentContentElement = null;
-  switch (currentContent) {
-    case 'search':
-      currentContentElement = (
-        <SearchInput
-          searchChangeHandler={searchChangeHandler}
-          defaultValue={Router.query?.search}
-        />
-      );
-      break;
-    case null:
-      break;
-    default:
-      console.log(currentContent);
-      currentContentElement = (
-        <Options
-          options={filtersOptions[currentContent].map((option) => {
-            let isSelected = false;
-            // console.log('Option')
-            // console.log(option)
-            if (
-              selectedOptions.find((so) => {
-                return so.type === option.type && so.value === option.value;
-              })
-            )
-              isSelected = true;
-            let isDisabled = false;
+  const currentContentElement = useMemo(() => {
+    let newCurrentContentElement = null;
+    switch (currentContent) {
+      case 'search':
+        const searchFilter = selectedOptions.find((op) => op.inQuery === 'search');
+        newCurrentContentElement = (
+          <SearchInput
+            searchChangeHandler={debouncedSearchChangeHandler}
+            defaultValue={searchFilter?.value || ''}
+          />
+        );
+        break;
+      case null:
+        break;
+      default:
+        const currentFilter = filters.find((f) => f.title === currentContent);
+        if (currentFilter) {
+          newCurrentContentElement = (
+            <Options
+              inQuery={currentFilter.inQuery}
+              applyFilter={applyFilter}
+              options={currentFilter?.options.map((option) => {
+                const isSelected = selectedOptions.find((so) => {
+                  return so.inQuery === option.inQuery && so.value === option.value;
+                });
+                let isDisabled = false;
 
-            // A place for checking isDisabled conditions
+                // A place for checking isDisabled conditions
 
-            return {
-              ...option,
-              isSelected,
-              isDisabled,
-            };
-          })}
-          type={currentContent}
-        />
-      );
-      break;
+                return {
+                  ...option,
+                  isSelected,
+                  isDisabled,
+                };
+              })}
+            />
+          );
+        }
+        break;
+    }
+    return newCurrentContentElement;
+  }, [currentContent, selectedOptions, filters]);
+
+  function applyFilter({ inQuery, value, title }) {
+    setSelectedOptions((prev) => {
+      const newSelectedOptions = [...prev];
+      if (inQuery === 'search') {
+        if (value) {
+          const searchOption = newSelectedOptions.find((so) => so.inQuery === 'search');
+          if (searchOption) searchOption.value = value;
+          else newSelectedOptions.push({ inQuery: 'search', value, title: 'Search' });
+        } else {
+          const searchOptionIndex = newSelectedOptions.findIndex((so) => so.inQuery === 'search');
+          if (searchOptionIndex !== -1) newSelectedOptions.splice(searchOptionIndex, 1);
+        }
+      } else {
+        const optionIndex = newSelectedOptions.findIndex(
+          (option) => option.inQuery === inQuery && option.value === value
+        );
+        if (optionIndex !== -1) {
+          newSelectedOptions.splice(optionIndex, 1);
+        } else {
+          newSelectedOptions.push({
+            inQuery,
+            value,
+            title,
+            isDisabled: false,
+            isSelected: true,
+          });
+        }
+      }
+      onChange(newSelectedOptions);
+      return newSelectedOptions;
+    });
   }
 
   return (
@@ -168,20 +121,25 @@ const FilterNew = (props) => {
       <FiltersInput
         currentContent={currentContent}
         filterClickHandler={(filterType) => filterClickHandler(filterType)}
-        filters={props}
+        filters={filters}
       />
       {currentContentElement}
-      <SelectedFilters selectedOptions={selectedOptions} />
+      <SelectedFilters applyFilter={applyFilter} selectedOptions={selectedOptions} />
     </div>
   );
 };
 
-const Options = ({ options }) => {
+const Options = ({ applyFilter, options, inQuery }) => {
   return (
     <div className={cn(styles.options)}>
       {options.length > 0 ? (
         options.map((option) => (
-          <Option applyFilter={(args) => applyFilter(args)} option={option} key={option.value} />
+          <Option
+            inQuery={inQuery}
+            applyFilter={(args) => applyFilter(args)}
+            option={option}
+            key={option.value}
+          />
         ))
       ) : (
         <p className={styles.noOptions}>There is no options yet</p>
@@ -190,11 +148,18 @@ const Options = ({ options }) => {
   );
 };
 
-const SelectedFilters = ({ selectedOptions }) => {
+const SelectedFilters = ({ applyFilter, selectedOptions }) => {
   const selectedOptionsElements = Array.isArray(selectedOptions)
-    ? selectedOptions.map((option) => (
-        <Option applyFilter={(args) => applyFilter(args)} option={option} key={option.value} />
-      ))
+    ? selectedOptions
+        .filter((option) => option.inQuery !== 'search')
+        .map((option) => (
+          <Option
+            inQuery={option.inQuery}
+            applyFilter={(args) => applyFilter(args)}
+            option={option}
+            key={option.value}
+          />
+        ))
     : [];
 
   return (
@@ -213,22 +178,26 @@ const SelectedFilters = ({ selectedOptions }) => {
 
 const FiltersInput = ({ filterClickHandler, currentContent, filters }) => {
   const filtersElements = [];
-  for (const filter in filters) {
-    if (filters[filter] && filter !== 'search') {
+  const searchVisible = filters.some((f) => f.title === 'Search');
+  filters.forEach((filter) => {
+    if (filter.title !== 'Search') {
       filtersElements.push(
         <div
-          key={filter}
-          className={cn(styles.filter, currentContent === filter ? styles.filter_active : null)}
-          onClick={() => filterClickHandler(filter)}>
-          {filters[filter]}
+          key={filter.title}
+          className={cn(
+            styles.filter,
+            currentContent === filter.title ? styles.filter_active : null
+          )}
+          onClick={() => filterClickHandler(filter.title)}>
+          {filter.title}
           <SvgBottomArrow />
         </div>
       );
     }
-  }
+  });
   return (
     <div className={styles.searchAndFilters}>
-      {filters.search ? (
+      {searchVisible ? (
         <div
           className={cn(
             styles.searchFilterMobile,
@@ -240,7 +209,7 @@ const FiltersInput = ({ filterClickHandler, currentContent, filters }) => {
       ) : null}
       <div className={styles.filters}>
         {filtersElements}
-        {filters.search ? (
+        {searchVisible ? (
           <div
             className={cn(
               styles.filter,
@@ -263,36 +232,6 @@ const SearchInput = ({ isActive, searchChangeHandler, defaultValue }) => {
       <input type="text" placeholder="Search" defaultValue={defaultValue} />
     </div>
   );
-};
-
-const pushQuery = (query) => {
-  Router.push(
-    LinkCreator.toQuery(query, Router.pathname),
-    LinkCreator.toQuery(query, Router.pathname),
-    { scroll: false }
-  );
-};
-
-const applyFilter = ({ type, value }) => {
-  const parsed = qs.parse(location.search);
-  parsed.page = 1;
-  switch (type) {
-    case 'search':
-      if (!value) delete parsed.search;
-      else parsed.search = value;
-      break;
-
-    default:
-      if (!parsed[type]) parsed[type] = [value];
-      else {
-        if (!Array.isArray(parsed[type])) parsed[type] = [parsed[type]];
-        if (parsed[type].includes(value)) {
-          parsed[type] = parsed[type].filter((option) => option !== value);
-        } else parsed[type].push(value);
-      }
-      break;
-  }
-  pushQuery(parsed);
 };
 
 export default FilterNew;
