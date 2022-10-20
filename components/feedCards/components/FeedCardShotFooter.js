@@ -5,8 +5,19 @@ import Star from 'components/icon/new/Star';
 import cn from 'classnames';
 import client from 'api/client';
 import Link from 'next/link';
+import Eye from 'components/icon/new/Eye';
 
-const FeedCardShotFooter = ({ card, authorId, author, avatar, comments, likes, isLiked, like }) => {
+const FeedCardShotFooter = ({
+  card,
+  authorId,
+  author,
+  avatar,
+  comments,
+  likes,
+  isLiked,
+  like,
+  views,
+}) => {
   return (
     <div className={styles.feedCardShotFooter}>
       <Link href={'/profile/' + authorId}>
@@ -15,9 +26,17 @@ const FeedCardShotFooter = ({ card, authorId, author, avatar, comments, likes, i
           <div>{author}</div>
         </a>
       </Link>
-      {/* <div className={styles.feedCardShotFooter__comments}>
-        {comments} <Comment />
-      </div> */}
+      <div className={styles.feedCardShotFooter__comments}>
+        {card.comments?.total} <Comment />
+      </div>
+      <div
+        className={styles.feedCardShotFooter__views}
+        onClick={(e) => {
+          e.stopPropagation();
+          like();
+        }}>
+        {card.view || 0} <Eye />
+      </div>
       {card.title && (
         <div
           className={cn(

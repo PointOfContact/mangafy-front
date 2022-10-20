@@ -11,7 +11,7 @@ const ChapterContent = ({ label }) => {
   );
 
   return publishedChapter.length ? (
-    <Link href={`/manga-view/${label?.storyBoards?.data[0]?._id}`}>
+    <Link href={`/project/view/${label?.storyBoards?.data[0]?._id}`}>
       <a
         target={'_blank'}
         onClick={(e) => {
@@ -24,9 +24,7 @@ const ChapterContent = ({ label }) => {
       </a>
     </Link>
   ) : (
-    <div className={styles.colabWrap__publish}>
-      Coming soon
-    </div>
+    <div className={styles.colabWrap__publish}>Coming soon</div>
   );
 };
 

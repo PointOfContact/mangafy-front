@@ -20,9 +20,7 @@ const Publish = ({ baseData, storyBoard, chapters }) => {
   const [ifExistPublishedChapter, setIfExistPublishedChapter] = useState(0);
   const ifCustomSubdomain = baseData?.typeUrlView === 'Custom subdomain';
 
-  const link = ifCustomSubdomain
-    ? `https://${!!viewUrlName ? viewUrlName : '?'}.mangafy.club`
-    : `${client.API_ENDPOINT}/manga-view/${storyBoard?._id}`;
+  const link = `${client.API_ENDPOINT}/project/production/${baseData._id}`;
 
   const publishImage = () => {
     if (baseData?.image) {
@@ -116,7 +114,7 @@ const Publish = ({ baseData, storyBoard, chapters }) => {
         </div>
         <div className={styles.shareContainer}>
           <ShareButtons className={styles.share} shareUrl={link} showTitle={true} />
-          <a href={`/manga-story/${baseData?._id}?tab=settings`} target="_self">
+          <a href={`/project/production/${baseData?._id}?tab=settings`} target="_self">
             Customize link
           </a>
         </div>

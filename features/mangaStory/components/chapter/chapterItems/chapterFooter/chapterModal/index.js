@@ -117,7 +117,7 @@ const ChapterModal = ({
   return (
     <div className={styles.menuChapter}>
       {!!showView && (
-        <Link href={`/manga-view/${storyBoard?._id}?chapter=${indexChapterView}`}>
+        <Link href={`/project/view/${storyBoard?._id}?chapter=${indexChapterView}`}>
           <a onClick={viewClick} target="_blank">
             View
           </a>

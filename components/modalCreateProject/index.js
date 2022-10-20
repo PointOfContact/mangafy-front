@@ -43,10 +43,10 @@ const ModalCreateProject = ({ createProjectModal, showCreateProjectModal, user }
           showCreateProjectModal(false);
           setLoading(false);
           await myAmplitude(dataEvent);
-          if (router.router.pathname === '/manga-story/[pid]') {
-            window.open(`/manga-story/${res._id}?tab=settings&manga=create`, '_self');
+          if (router.router.pathname === '/project/production/[pid]') {
+            window.open(`/project/production/${res._id}?tab=settings&manga=create`, '_self');
           } else {
-            router.push(`/manga-story/${res._id}?tab=settings&manga=create`, undefined, {
+            router.push(`/project/production/${res._id}?tab=settings&manga=create`, undefined, {
               shallow: false,
             });
           }
@@ -90,8 +90,8 @@ const ModalCreateProject = ({ createProjectModal, showCreateProjectModal, user }
       footer={null}>
       <h1 className={styles.title}>Bring your creative project to life.</h1>
       <p className={styles.description}>
-        You can get your work on your fan&apos;s walls with a MangaFY project, whether you work alone or
-        with a team.
+        You can get your work on your fan&apos;s walls with a MangaFY project, whether you work
+        alone or with a team.
       </p>
       <div className={styles.containerCreateProject}>
         <PrimaryInput

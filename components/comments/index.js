@@ -136,7 +136,7 @@ export const Comments = ({ commentsData, mangaStory, user, viewPage, chapter, is
 
   const handleSubmit = () => {
     if (!user) {
-      Router.push(`/sign-in?page=manga-story/${mangaStory._id}?tab=comments`);
+      Router.push(`/sign-in?page=project/production/${mangaStory._id}?tab=comments`);
     }
 
     if (!value.trim() || !user) {

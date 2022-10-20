@@ -60,7 +60,7 @@ const GetFeedback = ({
       setIsModalVisible(true);
       setImgId(image);
       setSubTitle(title);
-      setViewUrl(`/manga-view/${pid}`);
+      setViewUrl(`/project/view/${pid}`);
     } else if (postType === 'Task' && !edit) {
       setIsModalVisible(true);
       setSubTitle(`Looking For - ${lookingFor}, ${text}`);
