@@ -25,7 +25,6 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
   const [project, setProject] = useState(ssProject);
   const [comments, setComments] = useState(ssComments);
   const [chapterComments, setChapterComments] = useState({ data: [] });
-
   const [currentChapterId, setCurrentChapterId] = useState(null);
   const [areCommentsOpened, setAreCommentsOpened] = useState(false);
   const [isShareModalOpened, setIsShareModalOpened] = useState(false);

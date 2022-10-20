@@ -65,7 +65,7 @@ const GetFeedback = ({
       setIsModalVisible(true);
       setSubTitle(`Looking For - ${lookingFor}, ${text}`);
       !!money && setSelectedTags([`#${money}$`]);
-      setViewUrl(`manga-story/${pid}?tab=story`);
+      setViewUrl(`project/production/${pid}?tab=story`);
     } else {
       setImgId(img);
       setSelectedTags(categories);

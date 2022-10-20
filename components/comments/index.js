@@ -82,7 +82,7 @@ const Editor = ({ onChange, onSubmit, submitting, value, user, mangaStory, error
       <Form.Item>
         <>
           {!user && (
-            <Link href={`/sign-in?page=manga-story/${mangaStory._id}?tab=comments`}>
+            <Link href={`/sign-in?page=project/production/${mangaStory._id}?tab=comments`}>
               <h2 className={styles.loginText}>
                 Please <span>login</span> to add comments
               </h2>

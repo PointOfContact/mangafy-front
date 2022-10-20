@@ -13,7 +13,7 @@ const ProjectStory = ({ className, project }) => {
       <div
         className={styles.story__description}
         dangerouslySetInnerHTML={{
-          __html: formatHtml(showMore ? project?.story : project?.story.slice(0, 400), false),
+          __html: formatHtml(showMore ? project?.story : project?.story?.slice(0, 400), false),
         }}></div>
       {isMoreThan200 && (
         <div className={styles.story__more} onClick={() => setShowMore(!showMore)}>

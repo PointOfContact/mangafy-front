@@ -44,7 +44,7 @@ const MangaView = ({
   payPalPublished,
 }) => {
   const router = useRouter();
-  const currentChapterNumber = +router.query.chapter;
+  const currentChapterNumber = +router.query.onoging;
   const [currentChapter, setCurrentChapter] = useState(currentChapterNumber || 1);
   const chapter = chapters[currentChapter - 1];
   const [images, setImages] = useState([]);
@@ -121,7 +121,7 @@ const MangaView = ({
 
     setImages(chapterImages);
     if (!getNameViewUrl) {
-      router.push(`/project/view/${storyBoardId}?chapter=${currentChapter}`, undefined, {
+      router.push(`/project/view/${storyBoardId}?ongoing=${currentChapter}`, undefined, {
         shallow: false,
       });
     }
@@ -135,7 +135,7 @@ const MangaView = ({
 
   const shareUrl = !!getNameViewUrl
     ? `https://${getNameViewUrl}.mangafy.club`
-    : `https://mangafy.club/project/view/${storyBoardId}?chapter=${currentChapter}`;
+    : `https://mangafy.club/project/view/${storyBoardId}?ongoing=${currentChapter}`;
 
   const shareClick = () => {
     const dataEvent = [
