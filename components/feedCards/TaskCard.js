@@ -64,7 +64,7 @@ const TaskCard = ({ card, user }) => {
   function mouseEventHandler(type) {
     if (type === 'doubleClick') {
       // Double click function here
-      router.push(`/manga-story/${card.mangaStoryId}?tab=details&task=${card._id}`);
+      router.push(`/project/production/${card.mangaStoryId}?tab=details&task=${card._id}`);
     } else {
       setModal(!modal);
     }
@@ -73,7 +73,7 @@ const TaskCard = ({ card, user }) => {
   function onApply(e) {
     if (user) {
       e.stopPropagation();
-      router.push(`/manga-story/${card.mangaStoryId}?tab=details&task=${card._id}`);
+      router.push(`/project/production/${card.mangaStoryId}?tab=details&task=${card._id}`);
     } else {
       notification.error({ message: 'Please log in to apply tasks', placement: 'bottomLeft' });
     }

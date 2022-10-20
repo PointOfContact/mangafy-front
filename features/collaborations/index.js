@@ -118,8 +118,8 @@ const Collaborations = (props) => {
                           <CollaborationCards
                             href={
                               pageUrl === '/collaborations'
-                                ? `/manga-story/${label._id}`
-                                : `/manga-view/${label?.storyBoards?.data[0]?._id}`
+                                ? `/project/production/${label._id}`
+                                : `/project/view/${label?.storyBoards?.data[0]?._id}`
                             }
                             key={label._id}
                             label={label}

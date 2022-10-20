@@ -18,7 +18,7 @@ const PopoverCard = (props) => {
       content={
         <ul className="like_like">
           <li>
-            <a href={`/manga-story/${props.id}`}>
+            <a href={`/project/production/${props.id}`}>
               Join &nbsp;
               <SvgLink width="8px" height="8px" />
             </a>

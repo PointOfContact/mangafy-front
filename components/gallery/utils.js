@@ -2,7 +2,7 @@ import { notification } from 'antd';
 import client from 'api/client';
 import beforeUploadFromAMZ from 'utils/upload';
 
-const getShortStorys = (authorId, onSuccess, onFailure) => {
+const getShortStorys = (authorId, onSuccess, onFailure = () => {}) => {
   const jwt = client.getCookie('feathers-jwt');
   import('../../api/restClient').then((m) => {
     m.default
@@ -71,7 +71,7 @@ const removeImg = (images, _id, fromPath, userData) => {
   );
 };
 
-const removeShortStory = (shortStoryId, onSuccess, onFailure) => {
+const removeShortStory = (shortStoryId, onSuccess, onFailure = () => {}) => {
   const jwt = client.getCookie('feathers-jwt');
 
   return import('api/restClient').then((m) =>
@@ -194,7 +194,7 @@ const beforeGalleryUpload = (
     }
   });
 
-const createGallery = async (data, onSuccess, onFailure) => {
+const createGallery = async (data, onSuccess, onFailure = () => {}) => {
   const jwt = client.getCookie('feathers-jwt');
   const { default: api } = await import('api/restClient');
   api
@@ -209,7 +209,7 @@ const createGallery = async (data, onSuccess, onFailure) => {
     });
 };
 
-const viewManga = async (viewId, data, onSuccess) => {
+const viewManga = async (viewId, data, onSuccess = () => {}, onFailure = () => {}) => {
   const jwt = client.getCookie('feathers-jwt');
   const { default: api } = await import('api/restClient');
   api
@@ -217,14 +217,18 @@ const viewManga = async (viewId, data, onSuccess) => {
     .patch(viewId, data, {
       headers: { Authorization: `Bearer ${jwt}` },
     })
-    .then(onSuccess)
+    .then(() => {
+      onSuccess();
+    })
     .catch((err) => {
-      onFailure(err);
+      if (typeof onFailure === 'function') {
+        onFailure(err);
+      }
       return err;
     });
 };
 
-const editGallery = async (galleryId, data, onSuccess, onFailure) => {
+const editGallery = async (galleryId, data, onSuccess, onFailure = () => {}) => {
   const jwt = client.getCookie('feathers-jwt');
   const { default: api } = await import('api/restClient');
   api

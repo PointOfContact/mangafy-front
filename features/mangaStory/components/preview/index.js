@@ -27,7 +27,7 @@ const Preview = ({ uploadImages, storyBoardId, mangaStoryTitle }) => {
       <p className={styles.shareTitle}>Share</p>
       <ShareButtons
         className={styles.shareButPreview}
-        shareUrl={`${client.API_ENDPOINT}/manga-view/${storyBoardId}`}
+        shareUrl={`${client.API_ENDPOINT}/project/view/${storyBoardId}`}
       />
     </div>
   );
@@ -48,9 +48,9 @@ const Preview = ({ uploadImages, storyBoardId, mangaStoryTitle }) => {
           title={`MangaFY is happy to introduce my latest graphic novel project, entitled manga view.`}
           description="MangaFY is an easy to use application that features tools for
                    authors who wish to create manga and comics for digital publication"
-          canonical={`${client.API_ENDPOINT}/manga-view/${storyBoardId}`}
+          canonical={`${client.API_ENDPOINT}/project/view/${storyBoardId}`}
           openGraph={{
-            url: `${client.API_ENDPOINT}/manga-view/${storyBoardId}`,
+            url: `${client.API_ENDPOINT}/project/view/${storyBoardId}`,
             title: `MangaFY is happy to introduce my latest graphic novel project, entitled manga view.`,
             description:
               'MangaFY is an easy to use application that features tools for ' +

@@ -60,12 +60,12 @@ const GetFeedback = ({
       setIsModalVisible(true);
       setImgId(image);
       setSubTitle(title);
-      setViewUrl(`/manga-view/${pid}`);
+      setViewUrl(`/project/view/${pid}`);
     } else if (postType === 'Task' && !edit) {
       setIsModalVisible(true);
       setSubTitle(`Looking For - ${lookingFor}, ${text}`);
       !!money && setSelectedTags([`#${money}$`]);
-      setViewUrl(`manga-story/${pid}?tab=story`);
+      setViewUrl(`project/production/${pid}?tab=story`);
     } else {
       setImgId(img);
       setSelectedTags(categories);

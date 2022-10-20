@@ -10,7 +10,7 @@ const CopyInput = ({ white, copyUrl, copyLink }) => {
   const [copyText, setCopyText] = useState('Copy to clipboard');
   return (
     <div className={cn(styles.copyContainer, white && styles.whiteContainer)}>
-      <div className={styles.copy}>{`https://mangafy.club/${copyUrl}`}</div>
+      <div className={styles.copy}>{copyUrl}</div>
       <Tooltip placement="topLeft" title={copyText}>
         <button
           className={cn(styles.copyButton, white && styles.whiteButton)}

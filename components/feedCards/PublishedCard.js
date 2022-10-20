@@ -26,7 +26,7 @@ const PublishedCard = ({ card, user }) => {
   const comments = card.comments?.total;
   const mangaUrl =
     card.postType === 'Ongoing'
-      ? card.button.navigateTo + '?chapter=' + card?.order
+      ? card.button.navigateTo + '?ongoing=' + card?.order
       : `/project/${card._id}`;
 
   const [isLiked, setIsLiked] = useState(card?.likedUsers?.includes(user?.id));
@@ -148,6 +148,7 @@ const PublishedCard = ({ card, user }) => {
           likes={likes}
           like={like}
           isLiked={isLiked}
+          views={card.viewManga?.view}
         />
       </div>
     </div>

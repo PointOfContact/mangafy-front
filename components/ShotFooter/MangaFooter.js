@@ -88,10 +88,10 @@ const MangaFooter = ({
               onClick={like}
               iconRight
               className={cn(styles.footer__like, isLiked && styles.footer__like_active)}>
-              {chapter.like || 0}
+              {chapter?.like || 0}
             </Button>
             {isParticipant && (
-              <Link href={'/manga-story/' + manga.mangaStoryId}>
+              <Link href={'/project/production/' + manga.mangaStoryId}>
                 <a>
                   <Button rounded outline iconRight icon={<Edit color="#7B65F3" />} />
                 </a>

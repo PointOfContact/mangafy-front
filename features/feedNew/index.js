@@ -31,9 +31,42 @@ import { removeShortStory } from 'components/gallery/utils';
 import myAmplitude from 'utils/amplitude';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { SignInModal } from 'components/modals/SignInModal';
+import { projectTypes, userTypes } from 'helpers/constant';
 
 const FeedNew = (props) => {
-  const { jwt, user, posts } = props;
+  const { jwt, user, posts, genres } = props;
+
+  const filterTypes = {
+    recent: [{ title: 'Search', inQuery: 'search' }],
+    people: [
+      { title: 'Search', inQuery: 'search' },
+      { title: 'Genres', inQuery: 'genresIds', options: genres },
+      {
+        title: 'Role',
+        inQuery: 'types',
+        options: userTypes.map((type) => ({ title: type.value, value: type.key })),
+      },
+    ],
+    shots: [{ title: 'Search', inQuery: 'search' }],
+    tasks: [
+      { title: 'Search', inQuery: 'search' },
+      {
+        title: 'Looking for',
+        inQuery: 'types',
+        options: userTypes.map((type) => ({ title: type.value, value: type.value })),
+      },
+    ],
+    projects: [
+      { title: 'Search', inQuery: 'search' },
+      { title: 'Genres', inQuery: 'genresIds', options: genres },
+      {
+        title: 'Looking for',
+        inQuery: 'searchingFor',
+        options: userTypes.map((type) => ({ title: type.value, value: type.value })),
+      },
+    ],
+    ongoing: [{ title: 'Search', inQuery: 'search' }],
+  };
 
   const router = useRouter();
   const defaultActiveTab = router.query?.tab || 'recent';
@@ -49,10 +82,13 @@ const FeedNew = (props) => {
   const [shouldFetchCards, setShouldFetchCards] = useState(false);
   const [endOfCardsReached, setEndOfCardsReached] = useState(false);
   const [postType, setPostType] = useState(null);
+  const [error, setError] = useState(null);
 
   const [shotModalVisible, setShotModalVisible] = useState(false);
   const [signInModalVisible, setSignInModalVisible] = useState(false);
   const [shotToEdit, setShotToEdit] = useState(null);
+
+  const [activeFilters, setActiveFilters] = useState({});
 
   useEffect(async () => {
     if (!(posts && posts.length > 0)) {
@@ -103,6 +139,7 @@ const FeedNew = (props) => {
     }
     clearCardsElements();
     setPostType(type);
+    setActiveFilters({});
   }, [activeTab]);
 
   useEffect(() => {
@@ -112,7 +149,7 @@ const FeedNew = (props) => {
     return () => {
       isLastRequest[0] = false;
     };
-  }, [postType]);
+  }, [postType, activeFilters]);
 
   function onPageEnd() {
     setShouldFetchCards(true);
@@ -123,9 +160,11 @@ const FeedNew = (props) => {
   }
 
   async function updateCards(cards, isLastRequest, shouldCleanCards, type) {
+    setError(null);
     try {
       const newCards = await getCards(10, shouldCleanCards ? 0 : cards.length, type);
       const newCardsElements = makeCardsElements(newCards);
+      if (newCardsElements.length === 0) setError('There is no cards for this filters');
       if (!newCardsElements[newCardsElements.length - 1]) setEndOfCardsReached(true);
       if (!isLastRequest[0]) {
         return;
@@ -141,6 +180,7 @@ const FeedNew = (props) => {
         }
       });
     } catch (error) {
+      setError('Something went wrong');
       setEndOfCardsReached(true);
       console.log(error);
     }
@@ -153,6 +193,7 @@ const FeedNew = (props) => {
         createdAt: -1,
       },
       $skip: skip,
+      ...activeFilters,
     };
     if (postType) query.postType = postType;
 
@@ -271,8 +312,14 @@ const FeedNew = (props) => {
                 <TabPane tab="People" key="people"></TabPane>
                 <TabPane tab="Tasks" key="tasks"></TabPane>
               </Tabs>
+              <FilterNew
+                activeTab={activeTab}
+                onChange={(filters) => setActiveFilters(createFiltersQuery(filters))}
+                filters={filterTypes[activeTab]}
+              />
               <CardsContainer
-                cardsElements={cardsElements || []}
+                cardsElements={cardsElements}
+                error={error}
                 columns={screenWidth >= 1000 ? 3 : screenWidth >= 700 ? 2 : 1}
                 user={user}
                 activeTab={activeTab}
@@ -290,3 +337,16 @@ const FeedNew = (props) => {
 };
 
 export default FeedNew;
+
+function createFiltersQuery(selectedFilters) {
+  const query = {};
+  if (!selectedFilters || selectedFilters.length === 0) return query;
+  selectedFilters.forEach((filter) => {
+    if (query[filter.inQuery]) {
+      query[filter.inQuery].push(filter.value);
+    } else {
+      query[filter.inQuery] = [filter.value];
+    }
+  });
+  return query;
+}

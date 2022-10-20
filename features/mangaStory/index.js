@@ -75,8 +75,13 @@ const MangeStory = (props) => {
   const router = useRouter();
   const [chapters, setChapters] = useState([]);
   const [isMobile, setIsMobile] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(true);
 
-  const routerBasePath = `/manga-story/${baseData?._id}?tab=`;
+  useEffect(() => {
+    setSidebarCollapsed(true);
+  }, [isMobile]);
+
+  const routerBasePath = `/project/production/${baseData?._id}?tab=`;
   const [storyBoard, setStoryBoard] = useState({
     idea: {
       title: '',
@@ -96,7 +101,7 @@ const MangeStory = (props) => {
   const [activeTab, setActiveTab] = useState('');
 
   const onResize = () => {
-    if (window.innerWidth < 568) setIsMobile(true);
+    if (window.innerWidth < 1000) setIsMobile(true);
     else setIsMobile(false);
   };
 
@@ -120,7 +125,7 @@ const MangeStory = (props) => {
 
   useEffect(() => {
     router.push(
-      `/manga-story/${mangaStory._id}?tab=${activeTab}` +
+      `/project/production/${mangaStory._id}?tab=${activeTab}` +
         (router.query?.task ? `&task=${router.query.task}` : '')
     );
   }, [activeTab]);
@@ -275,13 +280,13 @@ const MangeStory = (props) => {
   };
 
   return (
-    <div className="story_page">
+    <div className={'story_page'}>
       <NextSeo
         title={baseData?.title}
         description={description(baseData?.description, baseData?.story)}
-        canonical={`${client.API_ENDPOINT}/manga-story/${baseData?._id}`}
+        canonical={`${client.API_ENDPOINT}/project/production/${baseData?._id}`}
         openGraph={{
-          url: `${client.API_ENDPOINT}/manga-story/${baseData?._id}`,
+          url: `${client.API_ENDPOINT}/project/production/${baseData?._id}`,
           title: baseData?.title,
           description: description(baseData?.description, baseData?.story),
           type: 'article',
@@ -307,10 +312,17 @@ const MangeStory = (props) => {
         (isMobile ? (
           <ProjectMobileMenu tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
         ) : (
-          <ProjectSidebar tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
+          <ProjectSidebar
+            onCollapsedChange={(coll) => setSidebarCollapsed(coll)}
+            tabs={tabs}
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+          />
         ))}
       <ButtonToTop user={user} />
-      <main className="main_back_2" style={{ background: '#fafafa' }}>
+      <main
+        className={cn('main_back_2', styles.main, !sidebarCollapsed && styles.sidebarCollapsed)}
+        style={{ background: '#fafafa' }}>
         {!(isOwn || isParticipant) && <HeaderNew user={userData} />}
         <div
           className={cn(styles.pageWrap, !isMobile && styles.pageWrap_desktop, 'manga-story-page')}>

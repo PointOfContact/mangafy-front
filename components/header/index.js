@@ -21,7 +21,7 @@ import ModalInviteMembers from './modalInviteMembers';
 import OnBoradingModal from './onboradingModal';
 import styles from './styles.module.scss';
 
-const findNotificationsCount = (onSuccess, onFailure) => {
+const findNotificationsCount = (onSuccess, onFailure = () => {}) => {
   const jwt = client.getCookie('feathers-jwt');
   import('../../api/restClient').then((m) => {
     m.default
@@ -120,7 +120,7 @@ const Header = ({ user, path, setShowModalEdit }) => {
   useEffect(() => {
     const el = document.querySelector('.menubar');
     const headerCont = document.querySelector('.headerCont');
-    router.pathname === '/manga-story/[pid]' && el.classList.add(styles.header__fixed);
+    router.pathname === '/project/production/[pid]' && el.classList.add(styles.header__fixed);
     headerCont.style.height = '94px';
     setChangeHeaderSize(true);
   }, [router.pathname]);

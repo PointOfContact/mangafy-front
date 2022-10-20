@@ -94,7 +94,7 @@ const ProjectChapters = ({
           key={chapter._id}
           href={
             client.API_ENDPOINT +
-            '/manga-view/' +
+            '/project/view/' +
             project.storyBoards.data[0]._id +
             '?chapter=' +
             chapter.order

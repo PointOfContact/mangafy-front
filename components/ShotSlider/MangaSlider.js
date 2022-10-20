@@ -16,23 +16,25 @@ const MangaSlider = ({ manga, activeChapterIndex }) => {
 
   const shotsElements = manga?.chapters?.map((ch, i) => {
     return (
-      <Link key={i} href={'/manga-view/' + manga?.id + '?chapter=' + (i + 1)}>
-        <a
-          ref={i + 1 === activeChapterIndex ? activeChapterRef : null}
-          className={cn(
-            styles.slider__item,
-            i + 1 === activeChapterIndex && styles.slider__item_active
-          )}>
-          {ch?.cover ? (
-            <Imgix width={96} height={96} objectFit="cover" src={client.UPLOAD_URL + ch?.cover} />
-          ) : (
-            <Avatar size={96} style={{ background: '#7B65F3', color: '#fff' }}>
-              {ch?.title?.length > 8 ? ch?.title?.slice(0, 8) + '...' : ch?.title}
-            </Avatar>
-          )}
-          <div className={styles.slider__itemTitle}>Chapter {ch.order}</div>
-        </a>
-      </Link>
+      ch.published && (
+        <Link key={i} href={'/manga-view/' + manga?.id + '?ongoing=' + (i + 1)}>
+          <a
+            ref={i + 1 === activeChapterIndex ? activeChapterRef : null}
+            className={cn(
+              styles.slider__item,
+              i + 1 === activeChapterIndex && styles.slider__item_active
+            )}>
+            {ch?.cover ? (
+              <Imgix width={96} height={96} objectFit="cover" src={client.UPLOAD_URL + ch?.cover} />
+            ) : (
+              <Avatar size={96} style={{ background: '#7B65F3', color: '#fff' }}>
+                {ch?.title?.length > 8 ? ch?.title?.slice(0, 8) + '...' : ch?.title}
+              </Avatar>
+            )}
+            <div className={styles.slider__itemTitle}>Chapter {ch.order}</div>
+          </a>
+        </Link>
+      )
     );
   });
 
