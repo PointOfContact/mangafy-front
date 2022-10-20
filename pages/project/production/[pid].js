@@ -51,7 +51,7 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
         isParticipant,
         hasStoryBoardPermision,
         storyBoard,
-        originUrl: `https://mangafy.club/manga-story/${context.params.pid}`,
+        originUrl: `https://mangafy.club/project/${context.params.pid}`,
       }, // will be passed to the page component as props
     };
   } catch (error) {

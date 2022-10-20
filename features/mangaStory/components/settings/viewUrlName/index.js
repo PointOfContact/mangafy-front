@@ -56,6 +56,9 @@ const ViewUrlName = ({ baseData, onChangeSingleField, sendEvent, storyBoard }) =
   );
 
   const ifCustomSubdomain = value === 'Custom subdomain';
+  const url = ifCustomSubdomain
+    ? `https://${!!viewUrlName ? viewUrlName : '?'}.mangafy.club`
+    : `https://mangafy.club/project/view/${storyBoard?._id}`;
 
   return (
     <div ref={ref} className={styles.viewLink}>
@@ -127,22 +130,14 @@ const ViewUrlName = ({ baseData, onChangeSingleField, sendEvent, storyBoard }) =
         Customize your URL on MangaFY. Must only contain lowercase letters,numbers, and hyphens.
       </h3>
       <div className={styles.copyView}>
-        <div className={styles.viewUrl}>
-          {ifCustomSubdomain
-            ? `https://${!!viewUrlName ? viewUrlName : '?'}.mangafy.club`
-            : `https://mangafy.club/manga-view/${storyBoard?._id}`}
-        </div>
+        <div className={styles.viewUrl}>{url}</div>
 
         <Tooltip placement="topLeft" title={copyText}>
           <div
             className={styles.copy}
             onClick={() => {
               setCopyText('Copied');
-              copy(
-                ifCustomSubdomain
-                  ? `https://${!!viewUrlName ? viewUrlName : '?'}.mangafy.club`
-                  : `https://mangafy.club/manga-view/${storyBoard?._id}`
-              );
+              copy(url);
             }}
             onMouseOut={() => setCopyText('Copy to clipboard')}>
             <SvgCopy width="18px" height="18px" alt="mangaFy copy icon" />

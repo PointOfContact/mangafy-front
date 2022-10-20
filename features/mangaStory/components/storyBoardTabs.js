@@ -50,7 +50,7 @@ const StoryBoardTabs = ({
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [chapters, setChapters] = useState(storyBoard?.chapters);
   const [isShowAnimation, setIsShowAnimation] = useState(false);
-  const routerBasePath = `/manga-story/${baseData?._id}?tab=create&page=`;
+  const routerBasePath = `/project/production/${baseData?._id}?tab=create&page=`;
   const imageType = zoomImageUrl?.slice(-3) === 'pdf' || zoomImageUrl?.slice(-3) === 'PDF';
 
   useEffect(() => {

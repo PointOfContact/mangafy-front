@@ -218,7 +218,7 @@ const MangaView = ({
           wrapClassName={styles.shotPage__shareModal}>
           <ShareButtons
             shareUrl={
-              client.API_ENDPOINT + '/manga-view/' + manga?.id + '?chapter=' + activeChapterIndex
+              client.API_ENDPOINT + '/project/view/' + manga?.id + '?chapter=' + activeChapterIndex
             }
           />
         </Modal>
@@ -263,7 +263,7 @@ const MangaView = ({
           updateMangaInfo={updateMangaInfo}
           isParticipant={isParticipant}
           shareUrl={
-            client.API_ENDPOINT + '/manga-view/' + manga?.id + '?chapter=' + activeChapterIndex
+            client.API_ENDPOINT + '/project/view/' + manga?.id + '?chapter=' + activeChapterIndex
           }
           createComment={createCommentChapter}
         />

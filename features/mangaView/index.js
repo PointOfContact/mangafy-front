@@ -121,7 +121,7 @@ const MangaView = ({
 
     setImages(chapterImages);
     if (!getNameViewUrl) {
-      router.push(`/manga-view/${storyBoardId}?chapter=${currentChapter}`, undefined, {
+      router.push(`/project/view/${storyBoardId}?chapter=${currentChapter}`, undefined, {
         shallow: false,
       });
     }
@@ -135,7 +135,7 @@ const MangaView = ({
 
   const shareUrl = !!getNameViewUrl
     ? `https://${getNameViewUrl}.mangafy.club`
-    : `https://mangafy.club/manga-view/${storyBoardId}?chapter=${currentChapter}`;
+    : `https://mangafy.club/project/view/${storyBoardId}?chapter=${currentChapter}`;
 
   const shareClick = () => {
     const dataEvent = [
@@ -210,7 +210,7 @@ const MangaView = ({
       <NextSeo
         title={`MangaFY - Collaborate, Create and Publish`}
         description={`${mangaStoryTitle}`}
-        canonical={`https://mangafy.club/manga-view/${storyBoardId}`}
+        canonical={`https://mangafy.club/project/view/${storyBoardId}`}
         openGraph={{
           type: 'Mangafy-story',
           url: shareUrl,

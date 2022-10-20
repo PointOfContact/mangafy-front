@@ -14,9 +14,10 @@ const MangaHeader = ({ user, manga, className, authors, subscribe, isOwn, active
   const prevChapterIndex = activeChapterIndex === 0 ? null : activeChapterIndex - 1;
   const nextChapterIndex =
     activeChapterIndex === manga.chapters.length ? null : activeChapterIndex + 1;
-
   const chapterCount = useMemo(() => {
-    const publishedData = manga.chapters.filter((item) => item.published);
+    const publishedData = manga.chapters.filter((item) => {
+      return item.published && item.deletedAt === '1969-12-31T23:59:59.999Z';
+    });
     return publishedData.length;
   }, [manga.chapters]);
 
@@ -32,7 +33,7 @@ const MangaHeader = ({ user, manga, className, authors, subscribe, isOwn, active
         />
 
         <div className={styles.header__arrows}>
-          <Link href={'/manga-view/' + manga.id + '?chapter=' + prevChapterIndex}>
+          <Link href={'/project/view/' + manga.id + '?chapter=' + prevChapterIndex}>
             <a
               className={cn(
                 styles.header__arrow,
@@ -42,7 +43,7 @@ const MangaHeader = ({ user, manga, className, authors, subscribe, isOwn, active
             </a>
           </Link>
           #{chapterCount}
-          <Link href={'/manga-view/' + manga.id + '?chapter=' + nextChapterIndex}>
+          <Link href={'/project/view/' + manga.id + '?chapter=' + nextChapterIndex}>
             <a
               className={cn(
                 styles.header__arrow,
@@ -60,7 +61,7 @@ const MangaHeader = ({ user, manga, className, authors, subscribe, isOwn, active
 
       <div className={styles.header__mobileArrowsAndTip}>
         <div className={cn(styles.header__arrows, styles.header__arrows_mobile)}>
-          <Link href={'/manga-view/' + manga.id + '?chapter=' + prevChapterIndex}>
+          <Link href={'/project/view/' + manga.id + '?chapter=' + prevChapterIndex}>
             <a
               className={cn(
                 styles.header__arrow,
@@ -70,7 +71,7 @@ const MangaHeader = ({ user, manga, className, authors, subscribe, isOwn, active
             </a>
           </Link>
           #{activeChapterIndex}
-          <Link href={'/manga-view/' + manga.id + '?chapter=' + nextChapterIndex}>
+          <Link href={'/project/view/' + manga.id + '?chapter=' + nextChapterIndex}>
             <a
               className={cn(
                 styles.header__arrow,
