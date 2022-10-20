@@ -80,7 +80,7 @@ function FeedCardImage({ image, isOwned, shareUrl, onEdit, onDelete, mangaId, ma
         {isOwned && (
           <div className={styles.share__buttons}>
             {mangaId ? (
-              <Link href={'/manga-story/' + mangaId}>
+              <Link href={'/project/production/' + mangaId}>
                 <a>
                   <Button rounded pink iconRight icon={<Edit color="#fff" />}>
                     Edit

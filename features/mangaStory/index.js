@@ -81,7 +81,7 @@ const MangeStory = (props) => {
     setSidebarCollapsed(true);
   }, [isMobile]);
 
-  const routerBasePath = `/manga-story/${baseData?._id}?tab=`;
+  const routerBasePath = `/project/production/${baseData?._id}?tab=`;
   const [storyBoard, setStoryBoard] = useState({
     idea: {
       title: '',
@@ -125,7 +125,7 @@ const MangeStory = (props) => {
 
   useEffect(() => {
     router.push(
-      `/manga-story/${mangaStory._id}?tab=${activeTab}` +
+      `/project/production/${mangaStory._id}?tab=${activeTab}` +
         (router.query?.task ? `&task=${router.query.task}` : '')
     );
   }, [activeTab]);
@@ -284,9 +284,9 @@ const MangeStory = (props) => {
       <NextSeo
         title={baseData?.title}
         description={description(baseData?.description, baseData?.story)}
-        canonical={`${client.API_ENDPOINT}/manga-story/${baseData?._id}`}
+        canonical={`${client.API_ENDPOINT}/project/production/${baseData?._id}`}
         openGraph={{
-          url: `${client.API_ENDPOINT}/manga-story/${baseData?._id}`,
+          url: `${client.API_ENDPOINT}/project/production/${baseData?._id}`,
           title: baseData?.title,
           description: description(baseData?.description, baseData?.story),
           type: 'article',

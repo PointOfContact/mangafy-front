@@ -19,7 +19,7 @@ const ModalPublishedChapter = ({
   storyBoard,
 }) => {
   const [copyText, setCopyText] = useState('Copy to clipboard');
-  const link = `https://mangafy.club/manga-view/${storyBoard?._id}`;
+  const link = `https://mangafy.club/project/view/${storyBoard?._id}`;
 
   return (
     <Modal

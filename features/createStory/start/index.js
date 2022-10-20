@@ -45,7 +45,7 @@ const Start = ({ genres, jwt, user }) => {
         };
         amplitude(data);
         // eslint- disable-next-line no-underscore-dangle
-        Router.push(`/manga-story/${response._id}`);
+        Router.push(`/project/production/${response._id}`);
 
         setTimeout(() => {
           setCloseTypeForm(false);

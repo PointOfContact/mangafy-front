@@ -50,7 +50,7 @@ const StoryTab = ({
       changeShowModal(true);
       setSelectedTask(task);
     } else {
-      history.push(`/sign-in?page=manga-story/${_id}`);
+      history.push(`/sign-in?page=project/production/${_id}`);
     }
   };
 
