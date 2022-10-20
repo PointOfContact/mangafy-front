@@ -17,7 +17,7 @@ const MangaSlider = ({ manga, activeChapterIndex }) => {
   const shotsElements = manga?.chapters?.map((ch, i) => {
     return (
       ch.published && (
-        <Link key={i} href={'/project/view/' + manga?.id + '?chapter=' + (i + 1)}>
+        <Link key={i} href={'/manga-view/' + manga?.id + '?ongoing=' + (i + 1)}>
           <a
             ref={i + 1 === activeChapterIndex ? activeChapterRef : null}
             className={cn(
