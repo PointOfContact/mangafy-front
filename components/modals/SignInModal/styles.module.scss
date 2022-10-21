@@ -1,0 +1,100 @@
+@import '../../../styles/variables.scss';
+
+.modal {
+    border-radius: 20px;
+    overflow: hidden;
+    padding: 0;
+    --fontSize: 16px;
+
+    :global {
+        .ant-modal-body {
+            padding: 50px;
+            @include media-xs {
+                padding: 20px;
+            }
+        }
+    }
+
+    &__title {
+        font-weight: 700;
+        font-size: 30px;
+        line-height: 35px;
+        color: #000000;
+        margin-bottom: 20px;
+    }
+    &__subtitle {
+        margin-bottom: 30px;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 23px;
+        color: #7C65F3;
+    }
+    &__loginWith {
+        margin-bottom: 30px;
+        *:not(:last-child) {
+            margin-bottom: 10px;
+        }
+        @include media-xs {
+            * {
+                font-size: 16px;
+            }
+        }
+    }
+    &__orLine {
+        display: flex;
+        align-items: center;
+        color:  #949494;
+        margin-bottom: 30px;
+        &:before {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid  #F0F0F0;
+            margin-right: 30px;
+        }
+        &:after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid  #F0F0F0;
+            margin-left: 30px;
+        }
+    }
+    &__loginForm {
+        *:not(:last-child) {
+            margin-bottom: 10px;
+        }
+        @include media-xs {
+            * {
+                font-size: 16px;
+            }
+        }
+    }
+    &__forgotPassword {
+        display: block;
+        float: left;
+        font-weight: 400;
+        font-size: 12px;
+        color: #848484;
+        margin-bottom: 30px !important;
+        &:hover {
+            color: $pink;
+        }
+    }
+    &__orSignUp {
+        font-weight: 400;
+        font-size: 12px;
+        color: #848484;
+        margin-bottom: 20px !important;
+        text-align: center;
+        &:hover {
+            color: $pink;
+        }
+    }
+    &__privacyPolicy {
+        font-weight: 400;
+        font-size: 12px;
+        color: #848484;
+        &:hover {
+            color: $pink;
+        }
+    }
+}

@@ -3,7 +3,20 @@ import cn from 'classnames';
 import styles from './styles.module.scss';
 
 const Button = (props) => {
-  const { sm, md, rounded, smooth, outline, iconRight, pink, full, bold, color, className } = props;
+  const {
+    sm,
+    md,
+    rounded,
+    smooth,
+    outline,
+    iconRight,
+    pink,
+    full,
+    bold,
+    color,
+    className,
+    disabled,
+  } = props;
   return (
     <button
       className={cn(
@@ -18,7 +31,8 @@ const Button = (props) => {
         full && styles.button_fullWidth,
         bold && styles.button_bold,
         !props.children && props.children !== 0 && styles.button_noText,
-        className
+        className,
+        disabled && styles.button_disabled
       )}
       onClick={props.onClick}
       style={{ color }}>

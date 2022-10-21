@@ -30,6 +30,7 @@ import CreateShotModal from 'components/CreateShotModal';
 import { removeShortStory } from 'components/gallery/utils';
 import myAmplitude from 'utils/amplitude';
 import { EVENTS } from 'helpers/amplitudeEvents';
+import { SignInModal } from 'components/modals/SignInModal';
 import { projectTypes, userTypes } from 'helpers/constant';
 
 const FeedNew = (props) => {
@@ -84,6 +85,7 @@ const FeedNew = (props) => {
   const [error, setError] = useState(null);
 
   const [shotModalVisible, setShotModalVisible] = useState(false);
+  const [signInModalVisible, setSignInModalVisible] = useState(false);
   const [shotToEdit, setShotToEdit] = useState(null);
 
   const [activeFilters, setActiveFilters] = useState({});
@@ -241,6 +243,7 @@ const FeedNew = (props) => {
             user={user}
             editShot={editShot}
             deleteShot={deleteShot}
+            setShowSignInModal={(visible) => setSignInModalVisible(visible)}
           />
         );
       else if (card.postType === 'Profile')
@@ -250,6 +253,11 @@ const FeedNew = (props) => {
 
   return (
     <>
+      <SignInModal
+        title={'Like this post?'}
+        visible={signInModalVisible}
+        setVisible={setSignInModalVisible}
+      />
       <CreateShotModal
         isVisible={shotModalVisible}
         setIsVisible={setShotModalVisible}
