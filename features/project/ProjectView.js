@@ -147,37 +147,58 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
       .catch((err) => console.log(err));
   }
 
-  function createProjectComment(text) {
+  function createChapterOrProjectComment(text, commentType) {
     if (!user) {
       setIsSignInModalOpened(true);
-      // notification.error({
-      //   message: 'You need to be logged in to comment',
-      //   placement: 'bottomLeft',
-      // });
       return;
     }
-    createComment(text, project?._id)
-      .then((res) => {
-        updateCommentsInfo();
-      })
-      .catch((err) => console.log(err));
+    if (commentType === 'chapter') {
+      createChapterComment(text, currentChapterId, user?._id)
+        .then((res) => {
+          updateChapterCommentsInfo();
+        })
+        .catch((err) => console.log(err));
+    }
+    if (commentType === 'project') {
+      createComment(text, project?._id)
+        .then((res) => {
+          updateCommentsInfo();
+        })
+        .catch((err) => console.log(err));
+    }
   }
 
-  function createCommentChapter(text) {
-    if (!user) {
-      setIsSignInModalOpened(true);
-      // notification.error({
-      //   message: 'You need to be logged in to comment',
-      //   placement: 'bottomLeft',
-      // });
-      return;
-    }
-    createChapterComment(text, currentChapterId, user?._id)
-      .then((res) => {
-        updateChapterCommentsInfo();
-      })
-      .catch((err) => console.log(err));
-  }
+  // function createProjectComment(text) {
+  //   if (!user) {
+  //     setIsSignInModalOpened(true);
+  //     // notification.error({
+  //     //   message: 'You need to be logged in to comment',
+  //     //   placement: 'bottomLeft',
+  //     // });
+  //     return;
+  //   }
+  //   createComment(text, project?._id)
+  //     .then((res) => {
+  //       updateCommentsInfo();
+  //     })
+  //     .catch((err) => console.log(err));
+  // }
+
+  // function createCommentChapter(text) {
+  //   if (!user) {
+  //     setIsSignInModalOpened(true);
+  //     // notification.error({
+  //     //   message: 'You need to be logged in to comment',
+  //     //   placement: 'bottomLeft',
+  //     // });
+  //     return;
+  //   }
+  //   createChapterComment(text, currentChapterId, user?._id)
+  //     .then((res) => {
+  //       updateChapterCommentsInfo();
+  //     })
+  //     .catch((err) => console.log(err));
+  // }
 
   function onCommentClick(chapterId) {
     setCurrentChapterId(chapterId);
@@ -221,7 +242,7 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
             <MangaComments
               manga={project?.storyBoards.data[0]}
               comments={comments.data}
-              createComment={createProjectComment}
+              createComment={(text) => createChapterOrProjectComment(text, 'project')}
             />
           </div>
         </div>
@@ -235,7 +256,9 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
         setIsShareModalOpened={setIsShareModalOpened}
         authors={[project?.authorInfo]}
         comments={currentChapterId ? chapterComments : comments}
-        createComment={currentChapterId ? createCommentChapter : createProjectComment}
+        createComment={(text) =>
+          createChapterOrProjectComment(text, currentChapterId ? 'chapter' : 'project')
+        }
         isParticipant={isParticipant || isOwner}
       />
 
