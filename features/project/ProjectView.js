@@ -168,38 +168,6 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
     }
   }
 
-  // function createProjectComment(text) {
-  //   if (!user) {
-  //     setIsSignInModalOpened(true);
-  //     // notification.error({
-  //     //   message: 'You need to be logged in to comment',
-  //     //   placement: 'bottomLeft',
-  //     // });
-  //     return;
-  //   }
-  //   createComment(text, project?._id)
-  //     .then((res) => {
-  //       updateCommentsInfo();
-  //     })
-  //     .catch((err) => console.log(err));
-  // }
-
-  // function createCommentChapter(text) {
-  //   if (!user) {
-  //     setIsSignInModalOpened(true);
-  //     // notification.error({
-  //     //   message: 'You need to be logged in to comment',
-  //     //   placement: 'bottomLeft',
-  //     // });
-  //     return;
-  //   }
-  //   createChapterComment(text, currentChapterId, user?._id)
-  //     .then((res) => {
-  //       updateChapterCommentsInfo();
-  //     })
-  //     .catch((err) => console.log(err));
-  // }
-
   function onCommentClick(chapterId) {
     setCurrentChapterId(chapterId);
     setAreCommentsOpened(true);
