@@ -73,7 +73,6 @@ const ShotCard = ({ card, user, editShot, deleteShot, setShowSignInModal }) => {
   }
 
   useEffect(() => {
-    console.log(loading);
     if (!loading.isLoading && !loading.error) {
       if (isLiked) {
         setLikes(likes - 1);
