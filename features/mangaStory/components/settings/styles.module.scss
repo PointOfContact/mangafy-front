@@ -5,7 +5,7 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
 
 .container {
   width: 100%;
-  padding: 0 30px ;
+  padding: 0 30px;
   margin-bottom: 20px;
   // border: 1px solid $gray85;
   border-bottom: 2px solid rgb(224, 224, 224);
@@ -93,14 +93,15 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
     display: flex;
     align-items: center;
     margin: 20px 0;
-    @include media-md{
+    @include media-md {
       display: block;
     }
-    h3, .radio{
+    h3,
+    .radio {
       margin-right: 66px;
-      @include media-md{
+      @include media-md {
         margin-right: 30px;
-      } 
+      }
     }
     .radio > span:first-child {
       border: 1px solid $black;
@@ -124,9 +125,8 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
         font-size: clamp(1rem, 1vw, 1.4rem);
         line-height: 26px;
         color: $gray85;
-       
       }
-    } 
+    }
     .active > span:first-child {
       & > span {
         background: $primaryDark;
@@ -138,75 +138,75 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
         border-radius: 50%;
         margin-left: -5px;
         margin-top: -5px;
-      } 
-    }
-  }
-  .radioButton {
-    display: flex;
-    flex-direction: column;
-    margin-top: 14px;
-    label {
-      display: flex;
-      align-items: center;
-      height: 44px;
-      margin-bottom: 10px;
-      input {
-        margin-bottom: 10px;
-      }
-      span {
-        font-style: normal;
-        font-weight: normal;
-        font-size: 20px;
-        line-height: 29px;
-        & > span {
-          border-color: $black !important;
-          box-shadow: 0 0 0 3px white !important;
-          margin-bottom: 7px;
-          &::after {
-            width: 14px !important;
-            height: 14.5px !important;
-            top: 0 !important;
-            left: 0 !important;
-            background-color: white !important;
-            border: 2.5px solid black !important;
-          }
-        }
-      }
-    }
-    .error {
-      margin: 0;
-      color: $red;
-      font-size: 16px;
-      line-height: 20px;
-      margin-left: 24px;
-      @include media-sm {
-        font-size: $text5;
       }
     }
   }
-  .customSubdomainTitle {
-    font-style: normal;
-    font-weight: normal;
-    font-size: 20px;
-    line-height: 29px;
-    margin-left: 24px;
-    margin-top: 10px;
-    margin-bottom: -5px;
-  }
-  .custom {
-    label {
-      margin-bottom: 0;
-      &:last-child {
-        margin-top: 0px;
-      }
-      input {
-        margin-bottom: 0px;
-      }
-    }
-  }
-  .getLink {
-    margin-top: 20px;
-  }
+  // .radioButton {
+  //   display: flex;
+  //   flex-direction: column;
+  //   margin-top: 14px;
+  //   label {
+  //     display: flex;
+  //     align-items: center;
+  //     height: 44px;
+  //     margin-bottom: 10px;
+  //     input {
+  //       margin-bottom: 10px;
+  //     }
+  //     span {
+  //       font-style: normal;
+  //       font-weight: normal;
+  //       font-size: 20px;
+  //       line-height: 29px;
+  //       & > span {
+  //         border-color: $black !important;
+  //         box-shadow: 0 0 0 3px white !important;
+  //         margin-bottom: 7px;
+  //         &::after {
+  //           width: 14px !important;
+  //           height: 14.5px !important;
+  //           top: 0 !important;
+  //           left: 0 !important;
+  //           background-color: white !important;
+  //           border: 2.5px solid black !important;
+  //         }
+  //       }
+  //     }
+  //   }
+  //   .error {
+  //     margin: 0;
+  //     color: $red;
+  //     font-size: 16px;
+  //     line-height: 20px;
+  //     margin-left: 24px;
+  //     @include media-sm {
+  //       font-size: $text5;
+  //     }
+  //   }
+  // }
+  // .customSubdomainTitle {
+  //   font-style: normal;
+  //   font-weight: normal;
+  //   font-size: 20px;
+  //   line-height: 29px;
+  //   margin-left: 24px;
+  //   margin-top: 10px;
+  //   margin-bottom: -5px;
+  // }
+  // .custom {
+  //   label {
+  //     margin-bottom: 0;
+  //     &:last-child {
+  //       margin-top: 0px;
+  //     }
+  //     input {
+  //       margin-bottom: 0px;
+  //     }
+  //   }
+  // }
+  // .getLink {
+  //   margin-top: 20px;
+  // }
   .dangerZone {
     font-style: normal;
     font-weight: 900;
@@ -217,6 +217,7 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
   .viewUrlName {
     max-width: 300px;
     cursor: pointer;
+    margin-bottom: 10px;
     &::placeholder {
       font-style: normal;
       font-weight: normal;
@@ -320,7 +321,8 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
   .copyView {
     display: flex;
     align-items: center;
-    margin-bottom: 45px;
+    margin-bottom: 10px;
+    margin-top: 10px;
     .viewUrl {
       max-width: 920px;
       height: 44px;
@@ -338,6 +340,9 @@ $colors: ($primaryDark, $orangeDark, $avatar_outline, $secondaryDark);
       padding-left: 13px;
       line-height: 1.4;
       cursor: pointer;
+    }
+    svg{
+      margin-left: 10px;
     }
   }
   .copy {
