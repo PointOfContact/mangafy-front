@@ -16,6 +16,7 @@ const Button = (props) => {
     color,
     className,
     disabled,
+    loading,
   } = props;
   return (
     <button
@@ -31,8 +32,9 @@ const Button = (props) => {
         full && styles.button_fullWidth,
         bold && styles.button_bold,
         !props.children && props.children !== 0 && styles.button_noText,
-        className,
-        disabled && styles.button_disabled
+        loading && styles.button_disabled,
+        loading && styles.button_loading,
+        className
       )}
       onClick={props.onClick}
       style={{ color }}>

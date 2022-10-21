@@ -1,0 +1,125 @@
+import React, { useState } from 'react';
+
+import cn from 'classnames';
+import AuthForm from 'components/authForm';
+import HeaderNew from 'components/headerNew';
+import Imgix from 'components/imgix';
+import ButtonToTop from 'components/ui-elements/button-toTop';
+import { EVENTS } from 'helpers/amplitudeEvents';
+import { NextSeo } from 'next-seo';
+import PropTypes from 'prop-types';
+import * as qs from 'query-string';
+import { login } from 'store';
+import myAmplitude, { setUser } from 'utils/amplitude';
+
+import styles from './styles.module.scss';
+
+const Login = ({ user }) => {
+  const defaultState = {
+    email: '',
+    password: '',
+    errorMessage: '',
+  };
+  const [state, setState] = useState(defaultState);
+  const [loading, setLoading] = useState(false);
+  const { email, password, errorMessage } = state;
+
+  const handleLoginSubmit = (e) => {
+    setState({
+      ...state,
+      errorMessage: '',
+    });
+
+    const page = qs.parse(window.location.search).page
+      ? decodeURIComponent(qs.parse(window.location.search).page)
+      : '';
+
+    const payload = {
+      email: e.user.email,
+      password: e.user.password,
+      page,
+    };
+
+    setLoading(true);
+    login(payload)
+      .then((newUser) => {
+        const data = [
+          {
+            event_type: EVENTS.SIGN_IN,
+            event_properties: { strategy: 'local', userData: newUser, type: EVENTS.SIGN_IN },
+          },
+        ];
+        setUser(newUser);
+        myAmplitude(data);
+      })
+      .catch((err) => {
+        setLoading(false);
+        setState({
+          ...state,
+          errorMessage: err.message,
+        });
+      });
+  };
+
+  return (
+    <>
+      <NextSeo
+        title="Make the most of your talent!"
+        description="Sign in to get your personalized page and start connecting with graphic novel enthusiasts"
+      />
+      <ButtonToTop user={user} />
+      <div className={styles.bg}>
+        <Imgix layout="fill" src={'https://mangafy.club/img/login-bg.webp'} />
+      </div>
+      <div className={'wrapper'}>
+        <div className={'content'}>
+          <HeaderNew user={user} />
+          <main className={cn(styles.box, styles.boxBg)}>
+            <div className={cn(styles.container, 'container')}>
+              <div className={styles.box__wrapper}>
+                <div className={styles.content}>
+                  <div className={styles.box__title_wrap}>
+                    <div className={styles.box__title}>
+                      <h2 className={styles.box__title_text}>Hello again!</h2>
+                    </div>
+                    <div className={styles.box__hr}></div>
+                    <div className={styles.box__description}>
+                      <p className={styles.box__description_text}>
+                        <span className={styles.blue}>Wellcome</span> back you’re been missed!
+                      </p>
+                    </div>
+                    <div className={styles.box__hr}></div>
+                  </div>
+                  <div className={styles.box__form}>
+                    <AuthForm
+                      {...{
+                        email,
+                        password,
+                        errorMessage,
+                        onSubmit: handleLoginSubmit,
+                        isLogin: true,
+                        loading,
+                        setState,
+                        state,
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </main>
+        </div>
+      </div>
+    </>
+  );
+};
+
+Login.propTypes = {
+  user: PropTypes.object,
+};
+
+Login.defaultProps = {
+  user: null,
+};
+
+export default Login;
