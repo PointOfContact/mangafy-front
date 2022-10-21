@@ -12,6 +12,7 @@ import beforeUploadFromAMZ from 'utils/upload';
 
 import ChapterModal from './chapterModal';
 import ModalPublishedChapter from './modalPublishedChapter';
+import { notification } from 'antd';
 import styles from './styles.module.scss';
 
 const ChapterFooter = ({
@@ -35,6 +36,11 @@ const ChapterFooter = ({
   const publishedRef = useRef(null);
   const [deviceId, setDeviceId] = useState('');
 
+  const hasPages = useMemo(
+    value?.pages?.some((item) => !!item.imageUrl),
+    [value]
+  );
+
   useEffect(() => {
     publishedRef.current.checked = value?.published;
     getDeviceId(setDeviceId);
@@ -51,8 +57,13 @@ const ChapterFooter = ({
   }, [publish]);
 
   useEffect(() => {
-    setMangaUrl(value?.pages?.some((item) => !!item.imageUrl === true));
+    setMangaUrl();
     setPublish(value.published);
+    if (value.published && !hasPages) {
+      publishedRef.current.checked = false;
+      setPublish(false);
+      publishedChapter();
+    }
   }, [chapters]);
 
   const upgradeChapterData = (item, resultId) =>
@@ -62,38 +73,48 @@ const ChapterFooter = ({
     const publishedValue = publishedRef.current.checked;
     setPublish(publishedValue);
 
+    if (publishedValue && !hasPages) {
+      publishedRef.current.checked = false;
+      setPublish(false);
+      return notification.error({
+        message: 'Please upload at least one page before publishing',
+        placement: 'bottomLeft',
+      });
+    }
+
     await mangaStoryAPI.chapter.patch(
       value?._id,
       { published: publishedValue, mangaStoryId: storyBoard.mangaStoryId },
       upgradeChapterData,
       () => {},
-      setChapters
-    );
+      setChapters,
+      (res) => {
+        const dataEvent = [
+          {
+            event_properties: { chapter: value },
+          },
+        ];
 
-    const dataEvent = [
-      {
-        event_properties: { chapter: value },
-      },
-    ];
+        if (res.published) {
+          setIsModalVisible(true);
+          dataEvent[0].event_type = EVENTS.PUBLISHED_CHAPTER;
+        } else {
+          dataEvent[0].event_type = EVENTS.DRAFT_CHAPTER;
+        }
 
-    if (publishedValue) {
-      setIsModalVisible(true);
-      dataEvent[0].event_type = EVENTS.PUBLISHED_CHAPTER;
-    } else {
-      dataEvent[0].event_type = EVENTS.DRAFT_CHAPTER;
-    }
+        myAmplitude(dataEvent);
 
-    myAmplitude(dataEvent);
+        const updateChapter = chapters.map((val, i) => {
+          if (i === index) {
+            val.published = publishedValue;
+            return val;
+          }
+          return val;
+        });
 
-    const updateChapter = chapters.map((val, i) => {
-      if (i === index) {
-        val.published = publishedValue;
-        return val;
+        setStoryBoard({ ...storyBoard, chapters: updateChapter });
       }
-      return val;
-    });
-
-    setStoryBoard({ ...storyBoard, chapters: updateChapter });
+    );
   };
 
   return (

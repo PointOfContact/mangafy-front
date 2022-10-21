@@ -219,6 +219,7 @@ const API = {
           .then((res) => {
             setEdit('');
             setChapters(upgradeChapterData(res, res._id));
+            onUpload && onUpload(res);
           })
           .catch((err) => {
             if (!err.message === 'jwt expired') {
@@ -229,7 +230,6 @@ const API = {
             }
             return err;
           });
-      });
     },
 
     delete: (chapterId, index, chapters, setChapters, storyBoard) => {
