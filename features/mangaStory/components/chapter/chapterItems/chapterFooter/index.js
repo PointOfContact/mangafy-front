@@ -36,7 +36,10 @@ const ChapterFooter = ({
   const publishedRef = useRef(null);
   const [deviceId, setDeviceId] = useState('');
 
-  const hasPages = value?.pages?.some((item) => !!item.imageUrl);
+  const hasPages = useMemo(
+    value?.pages?.some((item) => !!item.imageUrl),
+    [value]
+  );
 
   useEffect(() => {
     publishedRef.current.checked = value?.published;
