@@ -27,7 +27,7 @@ const SignUp = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState(userTypes[0].value);
+  const [role, setRole] = useState(userTypes[0].key);
 
   const [nameError, setNameError] = useState(null);
   const [emailError, setEmailError] = useState(null);
@@ -74,7 +74,7 @@ const SignUp = () => {
     setLoading(true);
     register(payload)
       .then(({ user: newUser }) => {
-        history.push(`/profile/${newUser?._id}?onBoarding=true`);
+        router.push(`/profile/${newUser?._id}?onBoarding=true`);
 
         setLoading(false);
         const data = [

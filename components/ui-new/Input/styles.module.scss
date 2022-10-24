@@ -56,11 +56,9 @@
         opacity: 1;
         transform: translateY(0);
     }
-<<<<<<< HEAD
-
     &_pink:focus {
         border-color: $pink;
-=======
+    }
 }
 
 .select {
@@ -76,6 +74,5 @@
 
     &__dropdown {
         border-radius: 15px;
->>>>>>> 8f4ee030 (Commit for rebase)
     }
 }

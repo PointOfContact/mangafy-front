@@ -17,24 +17,6 @@ const Select = ({
 }) => {
   return (
     <div className={cn(className, styles.input__container)}>
-      {/* <select
-        placeholder={placeholder}
-        className={cn(
-          styles.input,
-          sm && styles.input_sm,
-          full && styles.input_fullWidth,
-          err && styles.input_red,
-          typeof err === 'string' && styles.input_error,
-          rounded && styles.input_rounded,
-          styles.select
-        )}
-        onInput={onChange ? (e) => onChange(e.target.value) : null}
-        defaultValue={defaultValue || options[0].key}>
-        {options.map((option) => (
-          <option value={option.key}>{option.value}</option>
-        ))}
-      </select> */}
-
       <AntdSelect
         defaultValue={defaultValue}
         placeholder={placeholder}

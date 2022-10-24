@@ -230,6 +230,7 @@ const API = {
             }
             return err;
           });
+      });
     },
 
     delete: (chapterId, index, chapters, setChapters, storyBoard) => {

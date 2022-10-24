@@ -1,6 +1,7 @@
 import React from 'react';
 import cn from 'classnames';
 import styles from './styles.module.scss';
+import Loader from '../Loader';
 
 const Button = (props) => {
   const {
@@ -32,7 +33,7 @@ const Button = (props) => {
         full && styles.button_fullWidth,
         bold && styles.button_bold,
         !props.children && props.children !== 0 && styles.button_noText,
-        loading && styles.button_disabled,
+        (loading || disabled) && styles.button_disabled,
         loading && styles.button_loading,
         className
       )}
@@ -40,6 +41,7 @@ const Button = (props) => {
       style={{ color }}>
       {props.icon}
       {props.children}
+      <Loader className={styles.button__loader} />
     </button>
   );
 };
