@@ -129,4 +129,33 @@
         color: #1A1A1A;
     }
 
+    &__password {
+        position: relative;
+        margin-bottom: 30px !important;
+    }
+
+    &__showPassword {
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        svg {
+            height: 1.3em;
+            margin-left: 0.5em;
+            opacity: 0.5;
+        }
+        &:hover {
+            cursor: pointer;
+            svg {
+                opacity: 0.6;
+            }
+        }
+        &:active {
+            svg {
+                opacity: 0.7;
+            }
+        }
+    }
+
+
 }

@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import styles from './styles.module.scss';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import cn from 'classnames';
 
 import HeaderNew from 'components/headerNew';
 import SvgGoogle from 'components/icon/Google';
@@ -18,6 +19,7 @@ import { register } from 'store';
 import { validateEmail, validatePassword, validateName } from 'helpers/shared';
 import Select from 'components/ui-new/Input/Select';
 import { userTypes } from 'helpers/constant';
+import Eye from 'components/icon/new/Eye';
 
 const SignUp = () => {
   const router = useRouter();
@@ -34,6 +36,7 @@ const SignUp = () => {
   const [passwordError, setPasswordError] = useState(null);
 
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleNameChange = (name) => {
     const error = validateName(name);
@@ -51,6 +54,10 @@ const SignUp = () => {
     const error = validatePassword(pass);
     setPasswordError(error);
     setPassword(pass);
+  };
+
+  const handleShowPasswordClick = () => {
+    setShowPassword(!showPassword);
   };
 
   const handleSubmit = (e) => {
@@ -168,16 +175,20 @@ const SignUp = () => {
               onChange={setRole}
               defaultValue={role}
             />
-            <Input
-              className={styles.loginPage__input}
-              err={passwordError}
-              onChange={handlePasswordChange}
-              pink
-              full
-              rounded
-              type="password"
-              placeholder="Password"
-            />
+            <div className={cn(styles.loginPage__input, styles.loginPage__password)}>
+              <Input
+                err={passwordError}
+                onChange={handlePasswordChange}
+                pink
+                full
+                rounded
+                type={showPassword ? 'password' : 'text'}
+                placeholder="Password"
+              />
+              <div className={styles.loginPage__showPassword} onClick={handleShowPasswordClick}>
+                <Eye />
+              </div>
+            </div>
             <Button loading={loading} pink full rounded>
               Sign up
             </Button>
