@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import styles from './styles.module.scss';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -11,40 +11,88 @@ import Facebook from 'components/icon/new/Facebook';
 import Input from 'components/ui-new/Input';
 import Imgix from 'components/imgix';
 
-const SignIn = () => {
-  const router = useRouter();
-  const page = router.query.page || 'feed';
+import { EVENTS } from 'helpers/amplitudeEvents';
+import myAmplitude, { setUser } from 'utils/amplitude';
+import { notification } from 'antd';
+import { register } from 'store';
+import { validateEmail, validatePassword, validateName } from 'helpers/shared';
+import Select from 'components/ui-new/Input/Select';
+import { userTypes } from 'helpers/constant';
 
-  const [login, setLogin] = useState('');
+const SignUp = () => {
+  const router = useRouter();
+  const page = useMemo(() => router.query.page || 'feed', [router.query.page]);
+  const inviteId = useMemo(() => router.query.inviteId, [router.query.inviteId]);
+
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [loginError, setLoginError] = useState(null);
+  const [role, setRole] = useState(userTypes[0].value);
+
+  const [nameError, setNameError] = useState(null);
+  const [emailError, setEmailError] = useState(null);
   const [passwordError, setPasswordError] = useState(null);
+
   const [loading, setLoading] = useState(false);
 
-  // handle login input
-  const handleLoginChange = (email) => {
-    const error = validateEmail(email);
-    setLoginError(error);
-    setLogin(email);
+  const handleNameChange = (name) => {
+    const error = validateName(name);
+    setNameError(error);
+    setName(name);
   };
 
-  // handle password input
+  const handleLoginChange = (email) => {
+    const error = validateEmail(email);
+    setEmailError(error);
+    setEmail(email);
+  };
+
   const handlePasswordChange = (pass) => {
     const error = validatePassword(pass);
     setPasswordError(error);
     setPassword(pass);
   };
 
-  // handle submit
   const handleSubmit = (e) => {
     e.preventDefault();
-    const loginError = validateEmail(login);
+    const loginError = validateEmail(email);
     const passwordError = validatePassword(password);
-    setLoginError(loginError);
+    const nameError = validateName(name);
+    setEmailError(loginError);
     setPasswordError(passwordError);
-    if (!loginError && !passwordError) {
-      console.log('Submit');
-    }
+    setNameError(nameError);
+    if (loginError || passwordError || nameError) return;
+
+    const payload = {
+      name,
+      type: role,
+      email,
+      password,
+      inviteId,
+    };
+
+    setLoading(true);
+    register(payload)
+      .then(({ user: newUser }) => {
+        history.push(`/profile/${newUser?._id}?onBoarding=true`);
+
+        setLoading(false);
+        const data = [
+          {
+            event_type: EVENTS.SIGN_UP,
+            event_properties: { strategy: 'local', userData: newUser },
+          },
+        ];
+        setUser(newUser);
+        myAmplitude(data);
+      })
+      .catch((error) => {
+        setLoading(false);
+        notification.error({
+          message: error.message,
+          placement: 'bottomLeft',
+        });
+      });
   };
 
   return (
@@ -58,10 +106,8 @@ const SignIn = () => {
           </a>
         </Link>
         <div className={styles.loginPage__container}>
-          <div className={styles.loginPage__title}>Sing in to MangaFY</div>
-          <div className={styles.loginPage__subTitle}>
-            MangaFY is a space for webcomics creators.
-          </div>
+          <div className={styles.loginPage__title}>Welcome to MangaFY</div>
+          <div className={styles.loginPage__subTitle}>Let’s begin the adventure</div>
           <div className={styles.loginPage__signInWith}>
             <Link href={'/api/v2/auth/google?page=' + page}>
               <a>
@@ -72,7 +118,7 @@ const SignIn = () => {
                   outline
                   icon={<SvgGoogle />}
                   className={styles.loginPage__signInWith}>
-                  Sign in with Google
+                  Sign up with Google
                 </Button>
               </a>
             </Link>
@@ -85,7 +131,7 @@ const SignIn = () => {
                   outline
                   icon={<Facebook />}
                   className={styles.loginPage__signInWith}>
-                  Sign in with Facebook
+                  Sign up with Facebook
                 </Button>
               </a>
             </Link>
@@ -94,8 +140,16 @@ const SignIn = () => {
           <form onSubmit={handleSubmit} className={styles.loginPage__form}>
             <Input
               className={styles.loginPage__input}
-              err={loginError}
-              type="email"
+              err={nameError}
+              onChange={handleNameChange}
+              pink
+              full
+              rounded
+              placeholder="Name"
+            />
+            <Input
+              className={styles.loginPage__input}
+              err={emailError}
               onChange={handleLoginChange}
               pink
               full
@@ -103,10 +157,20 @@ const SignIn = () => {
               type="email"
               placeholder="Email"
             />
+            <div className={styles.loginPage__iAm}>I'm a</div>
+            <Select
+              className={styles.loginPage__input}
+              pink
+              full
+              rounded
+              options={userTypes}
+              placeholder="Role"
+              onChange={setRole}
+              defaultValue={role}
+            />
             <Input
               className={styles.loginPage__input}
               err={passwordError}
-              type="password"
               onChange={handlePasswordChange}
               pink
               full
@@ -114,11 +178,8 @@ const SignIn = () => {
               type="password"
               placeholder="Password"
             />
-            <Link href="forgot-password">
-              <a className={styles.loginPage__forgotPassword}>Forgot your password?</a>
-            </Link>
-            <Button loading pink full rounded>
-              Sign in
+            <Button loading={loading} pink full rounded>
+              Sign up
             </Button>
           </form>
           <Link href="terms">
@@ -132,23 +193,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
-
-function validateEmail(email) {
-  if (email.length === 0) {
-    return 'Email is required';
-  }
-  const re = /\S+@\S+\.\S+/;
-  if (!re.test(email)) {
-    return 'Invalid email';
-  }
-}
-
-function validatePassword(password) {
-  if (password.length === 0) {
-    return 'Password is required';
-  }
-  if (password.length < 2) {
-    return 'Password should be at least 2 characters length';
-  }
-}
+export default SignUp;

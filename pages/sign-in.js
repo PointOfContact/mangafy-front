@@ -1,3 +1,3 @@
-import Login from 'features/signIn';
+import SignIn from 'features/signIn/SignIn';
 
-export default Login;
+export default SignIn;
