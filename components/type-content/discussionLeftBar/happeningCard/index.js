@@ -13,7 +13,7 @@ const HappeningCard = (props) => {
 
   return (
     <>
-      <Link href={`/project/production/${id}`}>
+      <Link href={`/project/production/${id}?tab=details`}>
         <a className={styles.href}>
           <li className={styles.tagsListItem}>
             <div className={styles.tagsDescr}>
