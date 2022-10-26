@@ -3,6 +3,7 @@ import React from 'react';
 import styles from './styles.module.scss';
 import cn from 'classnames';
 import ResponsiveImgix from 'components/imgix/responsiveImgix';
+import { myLoader } from 'components/imgix';
 
 const MangaBody = ({ images, className }) => {
   const a = myLoader(client.UPLOAD_URL + images[0], 20, 1);
