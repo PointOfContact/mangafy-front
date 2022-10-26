@@ -181,13 +181,11 @@ export function likeChapter(ownerId, chapterId, likedUserId, participants, isLik
 export async function subscribeToProject(mangaStoryId, userId, email) {
   const jwt = client.getCookie('feathers-jwt');
 
-  return client.service('/api/v2/manga-subscribe').create(
-    { mangaStoryId, userId, email },
-    {
-      headers: { Authorization: `Bearer ${jwt}` },
-      mode: 'no-cors',
-    }
-  );
+  const payload = { mangaStoryId, email, userId };
+
+  return client.service('/api/v2/manga-subscribe').create(payload, {
+    mode: 'no-cors',
+  });
 }
 
 export async function unSubscribeOfProject(subscriptionId, mangaStoryId) {
@@ -195,7 +193,6 @@ export async function unSubscribeOfProject(subscriptionId, mangaStoryId) {
 
   return client.service('/api/v2/manga-subscribe').remove(subscriptionId, {
     query: { mangaStoryId },
-    headers: { Authorization: `Bearer ${jwt}` },
     mode: 'no-cors',
   });
 }
