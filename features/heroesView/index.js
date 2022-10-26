@@ -12,7 +12,7 @@ const HeroesView = ({ user, heroes }) => {
         title="MangaFY heroe"
         description="MangaFY heroe cards"
         openGraph={{
-          url: `${client.API_ENDPOINT}/heroes/${heroes._id}`,
+          url: `${client.API_ENDPOINT}/heroes/${heroes?._id}`,
           title: 'MangaFY heroe',
           description: 'MangaFY heroe cards',
           type: 'article',

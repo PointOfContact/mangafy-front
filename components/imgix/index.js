@@ -8,7 +8,7 @@ const imgixClient = new ImgixClient({
   secureURLToken: 'sppKpgrGRXTc2EEK',
 });
 
-const myLoader = ({ src, width, quality }) =>
+export const myLoader = ({ src, width, quality }) =>
   process.env.NEXT_PUBLIC_GET_IMGIX === 'true'
     ? imgixClient.buildURL(src, { w: width, q: quality, auto: 'format', fit: 'max' })
     : src;
