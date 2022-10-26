@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 
 import { Popover } from 'antd';
 import SvgMobileMenu from 'components/icon/MobileMenu';
@@ -36,10 +36,7 @@ const ChapterFooter = ({
   const publishedRef = useRef(null);
   const [deviceId, setDeviceId] = useState('');
 
-  const hasPages = useMemo(
-    value?.pages?.some((item) => !!item.imageUrl),
-    [value]
-  );
+  const hasPages = useMemo(() => value?.pages?.some((item) => !!item.imageUrl), [value]);
 
   useEffect(() => {
     publishedRef.current.checked = value?.published;
