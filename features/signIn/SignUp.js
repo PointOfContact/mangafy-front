@@ -23,8 +23,8 @@ import Eye from 'components/icon/new/Eye';
 
 const SignUp = () => {
   const router = useRouter();
-  const page = useMemo(() => router.query.page || 'feed', [router.query.page]);
-  const inviteId = useMemo(() => router.query.inviteId, [router.query.inviteId]);
+  const page = router.query.page || 'feed';
+  const inviteId = router.query.inviteId;
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
