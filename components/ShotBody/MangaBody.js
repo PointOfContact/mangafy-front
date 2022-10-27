@@ -17,7 +17,7 @@ const MangaBody = ({ images, className }) => {
           key={image + index}
           moveType="drag"
           fullscreenOnMobile
-          zoomScale={2}
+          zoomScale={1.5}
           hideHint
           src={client.UPLOAD_URL + image}
         />
