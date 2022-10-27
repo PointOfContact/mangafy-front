@@ -11,6 +11,7 @@ import { EVENTS } from 'helpers/amplitudeEvents';
 import Diamond from 'components/icon/new/Diamond';
 
 const ProjectInfo = ({
+  isOwner,
   className,
   project,
   user,
@@ -37,6 +38,7 @@ const ProjectInfo = ({
       </div>
       <ProjectStory className={styles.info__story} project={project} />
       <SubscribeField
+        user={user}
         className={styles.info__subscribe}
         subscription={subscription}
         subscribe={subscribe}
@@ -73,7 +75,7 @@ const ProjectInfo = ({
       <ProjectMembers className={styles.info__members} project={project} />
       <div className={styles.info__title}>Tasks</div>
       <div className={styles.info__line}></div>
-      <ProjectJobs className={styles.info__jobs} project={project} user={user} />
+      <ProjectJobs className={styles.info__jobs} project={project} user={user} isOwner={isOwner} />
     </div>
   );
 };

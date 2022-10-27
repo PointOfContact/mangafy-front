@@ -92,4 +92,9 @@
             margin: 0;
         }
     }
+
+    &_disabled {
+        opacity: 0.5;
+        pointer-events: none;
+    }
 }

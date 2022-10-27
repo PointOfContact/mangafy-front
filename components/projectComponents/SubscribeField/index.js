@@ -5,7 +5,7 @@ import notification from 'antd/lib/notification';
 import cn from 'classnames';
 import Check from 'components/icon/new/Check';
 
-const SubscribeField = ({ className, subscription, subscribe, unsubscribe }) => {
+const SubscribeField = ({ user, className, subscription, subscribe, unsubscribe }) => {
   const [email, setEmail] = useState('');
 
   function onInput(e) {
@@ -17,10 +17,11 @@ const SubscribeField = ({ className, subscription, subscribe, unsubscribe }) => 
   }
 
   function onSubscribe() {
-    if (!validateEmail(email)) {
+    const emailToSubscribe = email || user?.email;
+    if (!validateEmail(emailToSubscribe)) {
       return notification.error({ message: 'Please enter valid email', placement: 'bottomLeft' });
     }
-    subscribe(email);
+    subscribe(emailToSubscribe);
   }
 
   return (
@@ -35,6 +36,10 @@ const SubscribeField = ({ className, subscription, subscribe, unsubscribe }) => 
           className={styles.unsubscribe}
           onClick={unsubscribe}>
           Subscribed
+        </Button>
+      ) : user ? (
+        <Button pink rounded onClick={onSubscribe}>
+          Subscribe
         </Button>
       ) : (
         <div className={styles.subscribe}>

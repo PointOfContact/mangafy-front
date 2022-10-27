@@ -9,6 +9,15 @@
         font-weight: 800;
         font-size: 30px;
         margin-bottom: 15px;
+        display: flex;
+    }
+
+    &__edit {
+        margin-left: auto;
+    }
+
+    &__preview {
+        margin-left: 10px;
     }
 
     &_mobile {

@@ -1,5 +1,5 @@
 /* eslint-disable no-nested-ternary */
-import React from 'react';
+import React, { useState } from 'react';
 
 import client from 'api/client';
 import SvgChange from 'components/icon/Change';
@@ -10,8 +10,14 @@ import PropTypes from 'prop-types';
 import download from 'utils/downloadImages';
 
 import styles from './styles.module.scss';
+import { Modal, Popover } from 'antd';
+import SvgClose from 'components/icon/Close';
+import ShareComponent from 'components/ui-elements/share';
+import { Share } from 'components/icon';
+import { ShareButtons } from 'components/share';
 
 const EditCard = ({ confirmDelete, editCard, hero, setEdit, componentNames, clickDelete }) => {
+  const [visibleModal, setVisibleModal] = useState(false);
   const handleClick = (e) => {
     e.stopPropagation();
   };
@@ -28,7 +34,6 @@ const EditCard = ({ confirmDelete, editCard, hero, setEdit, componentNames, clic
       <div onClick={(handleClick, editCard, setEdit(true))} className={styles.editCard}>
         <SvgChange width="9px" height="11px" />
       </div>
-
       <div
         onClick={handleClick}
         className={styles.loadImage}
@@ -57,6 +62,28 @@ const EditCard = ({ confirmDelete, editCard, hero, setEdit, componentNames, clic
             </span>
           }
         />
+      </div>
+      <div
+        onClick={(e) => {
+          e.stopPropagation();
+          setVisibleModal(true);
+        }}
+        className={styles.editCard}>
+        <Popover
+          placement="topLeft"
+          content={
+            <ShareButtons
+              onClick={(e) => {
+                e.stopPropagation();
+                setVisibleModal(false);
+              }}
+              shareUrl={client.API_ENDPOINT + `/heroes/${hero?._id}`}
+              text=""
+            />
+          }
+          trigger="click">
+          <Share width={10} height={10} color="#7B65F3" />
+        </Popover>
       </div>
     </div>
   );

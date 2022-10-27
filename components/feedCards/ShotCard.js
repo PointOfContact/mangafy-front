@@ -21,7 +21,7 @@ import myAmplitude from 'utils/amplitude';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { debounce } from 'throttle-debounce';
 
-const ShotCard = ({ card, user, editShot, deleteShot }) => {
+const ShotCard = ({ card, user, editShot, deleteShot, setShowSignInModal }) => {
   const image = card.image?.image || card.image;
   const author = card.authorInfo?.name;
   const authorId = card.authorInfo?._id;
@@ -34,7 +34,7 @@ const ShotCard = ({ card, user, editShot, deleteShot }) => {
 
   const [modal, setModal] = useState(false);
   const [likes, setLikes] = useState(0);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState({ isLoading: false, error: false });
   const [isLiked, setIsLiked] = useState(false);
 
   const debouncedMouseEventHandler = useCallback(
@@ -73,7 +73,7 @@ const ShotCard = ({ card, user, editShot, deleteShot }) => {
   }
 
   useEffect(() => {
-    if (loading) {
+    if (!loading.isLoading && !loading.error) {
       if (isLiked) {
         setLikes(likes - 1);
         setIsLiked(false);
@@ -85,10 +85,14 @@ const ShotCard = ({ card, user, editShot, deleteShot }) => {
   }, [loading]);
 
   function likeFeedShot() {
-    setLoading(true);
+    if (!user) {
+      setShowSignInModal(true);
+      return;
+    }
+    setLoading({ isLoading: true, error: false });
     likeShot(card._id, card.authorInfo._id)
       .then((res) => {
-        setLoading(false);
+        setLoading({ isLoading: false, error: false });
         if (isLiked) {
           amplitude(EVENTS.DELETE_LIKE_SHOT, res.portfolioId);
         } else {
@@ -96,9 +100,9 @@ const ShotCard = ({ card, user, editShot, deleteShot }) => {
         }
       })
       .catch((err) => {
-        setLoading(false);
+        setLoading({ isLoading: false, error: true });
         if (err.code === 401)
-          notification.error({ message: 'Please log in to like Shots', placement: 'bottomLeft' });
+          notification.error({ message: 'Please log in to like shots', placement: 'bottomLeft' });
         else if (err.message === 'You can not like yourself')
           notification.error({ message: 'You can not like yourself', placement: 'bottomLeft' });
         else {
@@ -148,7 +152,7 @@ const ShotCard = ({ card, user, editShot, deleteShot }) => {
             comments={comments}
             likes={likes}
             like={like}
-            loading={loading}
+            loading={loading.isLoading}
             isLiked={isLiked}
           />
         </div>

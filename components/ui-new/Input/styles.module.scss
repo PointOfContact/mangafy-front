@@ -13,7 +13,7 @@
 
     &::placeholder {
         font-weight: 500;
-        font-size: 12px;
+        font-size: inherit;
         color: #858585;
     }
 
@@ -31,5 +31,9 @@
 
     &_rounded {
         border-radius: 5em;
+    }
+
+    &_pink:focus {
+        border-color: $pink;
     }
 }

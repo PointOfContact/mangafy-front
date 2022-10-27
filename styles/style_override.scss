@@ -15,7 +15,23 @@ body {
   margin-left: auto;
   margin-right: auto;
 }
-
+.iiz__close {
+  border-radius: 50% !important;
+  background-color: $black !important;
+  &:hover {
+    background-color: $grayBG !important;
+    background-image: linear-gradient($black, $black), linear-gradient($black, $black) !important;
+  }
+  &::before {
+    width: 20px !important;
+    height: 20px !important;
+    background-image: linear-gradient($white, $white), linear-gradient($white, $white) !important;
+  }
+}
+.iiz__btn {
+  width: 35px !important;
+  height: 35px !important;
+}
 .ant-tabs-content-holder {
   padding: 15px 0;
   @include media-sm {
@@ -1614,5 +1630,5 @@ img.rot4 {
 .ant-dropdown-menu-item-group-title {
   font-weight: 700;
   font-size: 22px;
-  color: #D4D4D4;
+  color: #d4d4d4;
 }

@@ -19,7 +19,9 @@ import notification from 'antd/lib/notification';
 import myAmplitude from 'utils/amplitude';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import FeedCreateButton from 'components/FeedCreateButton';
+import { SignInModal } from 'components/modals/SignInModal';
 import { viewMangaFun } from 'utils';
+import getDeviceId from 'utils/deviceId';
 
 const ProjectView = ({ ssProject, ssComments, user }) => {
   const [project, setProject] = useState(ssProject);
@@ -28,9 +30,12 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
   const [currentChapterId, setCurrentChapterId] = useState(null);
   const [areCommentsOpened, setAreCommentsOpened] = useState(false);
   const [isShareModalOpened, setIsShareModalOpened] = useState(false);
+  const [isSignInModalOpened, setIsSignInModalOpened] = useState(false);
+  const [deviceId, setDeviceId] = useState(null);
 
   useEffect(() => {
     viewMangaFun(user, project.viewManga, project._id);
+    getDeviceId(setDeviceId);
   }, []);
 
   useEffect(() => {
@@ -50,18 +55,12 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
   const isParticipant = project?.participents?.includes(user?._id);
   const isOwner = project?.author === user?._id;
 
-  const subscription = project?.subscribers?.find((sb) => sb.userId === user?._id);
+  const subscription = project?.subscribers?.find(
+    (sb) => sb.userId === user?._id || sb.userId === deviceId
+  );
 
   function subscribe(email) {
-    if (!user) {
-      notification.error({
-        message: 'You need to be logged in to subscribe to projects',
-        placement: 'bottomLeft',
-      });
-      return;
-    }
-
-    return subscribeToProject(project._id, user._id, email)
+    return subscribeToProject(project._id, user?._id || deviceId, email)
       .then((res) => {
         updateProjectInfo();
         notification.success({
@@ -145,34 +144,25 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
       .catch((err) => console.log(err));
   }
 
-  function createProjectComment(text) {
+  function createChapterOrProjectComment(text, commentType) {
     if (!user) {
-      notification.error({
-        message: 'You need to be logged in to comment',
-        placement: 'bottomLeft',
-      });
+      setIsSignInModalOpened(true);
       return;
     }
-    createComment(text, project?._id)
-      .then((res) => {
-        updateCommentsInfo();
-      })
-      .catch((err) => console.log(err));
-  }
-
-  function createCommentChapter(text) {
-    if (!user) {
-      notification.error({
-        message: 'You need to be logged in to comment',
-        placement: 'bottomLeft',
-      });
-      return;
+    if (commentType === 'chapter') {
+      createChapterComment(text, currentChapterId, user?._id)
+        .then((res) => {
+          updateChapterCommentsInfo();
+        })
+        .catch((err) => console.log(err));
     }
-    createChapterComment(text, currentChapterId, user?._id)
-      .then((res) => {
-        updateChapterCommentsInfo();
-      })
-      .catch((err) => console.log(err));
+    if (commentType === 'project') {
+      createComment(text, project?._id)
+        .then((res) => {
+          updateCommentsInfo();
+        })
+        .catch((err) => console.log(err));
+    }
   }
 
   function onCommentClick(chapterId) {
@@ -182,6 +172,12 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
 
   return (
     <div className={styles.project}>
+      <SignInModal
+        title={'Sign in to like or comment'}
+        page={'/project/' + project?._id}
+        visible={isSignInModalOpened}
+        setVisible={setIsSignInModalOpened}
+      />
       <HeaderNew user={user} />
       <div className={styles.project__container}>
         {project?.image && (
@@ -198,19 +194,23 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
             subscribe={subscribe}
             unsubscribe={unsubscribe}
             subscription={subscription}
+            isOwner={isOwner}
           />
           <ProjectChapters
+            isParticipant={isParticipant}
+            isOwner={isOwner}
             className={styles.project__chapters}
             project={project}
             updateProjectInfo={updateProjectInfo}
             user={user}
             onCommentClick={onCommentClick}
+            setIsSignInModalOpened={setIsSignInModalOpened}
           />
           <div className={styles.project__comments}>
             <MangaComments
               manga={project?.storyBoards.data[0]}
               comments={comments.data}
-              createComment={createProjectComment}
+              createComment={(text) => createChapterOrProjectComment(text, 'project')}
             />
           </div>
         </div>
@@ -224,7 +224,9 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
         setIsShareModalOpened={setIsShareModalOpened}
         authors={[project?.authorInfo]}
         comments={currentChapterId ? chapterComments : comments}
-        createComment={currentChapterId ? createCommentChapter : createProjectComment}
+        createComment={(text) =>
+          createChapterOrProjectComment(text, currentChapterId ? 'chapter' : 'project')
+        }
         isParticipant={isParticipant || isOwner}
       />
 
