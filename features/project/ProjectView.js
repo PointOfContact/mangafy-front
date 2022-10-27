@@ -21,6 +21,7 @@ import { EVENTS } from 'helpers/amplitudeEvents';
 import FeedCreateButton from 'components/FeedCreateButton';
 import { SignInModal } from 'components/modals/SignInModal';
 import { viewMangaFun } from 'utils';
+import getDeviceId from 'utils/deviceId';
 
 const ProjectView = ({ ssProject, ssComments, user }) => {
   const [project, setProject] = useState(ssProject);
@@ -30,9 +31,11 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
   const [areCommentsOpened, setAreCommentsOpened] = useState(false);
   const [isShareModalOpened, setIsShareModalOpened] = useState(false);
   const [isSignInModalOpened, setIsSignInModalOpened] = useState(false);
+  const [deviceId, setDeviceId] = useState(null);
 
   useEffect(() => {
     viewMangaFun(user, project.viewManga, project._id);
+    getDeviceId(setDeviceId);
   }, []);
 
   useEffect(() => {
@@ -52,18 +55,12 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
   const isParticipant = project?.participents?.includes(user?._id);
   const isOwner = project?.author === user?._id;
 
-  const subscription = project?.subscribers?.find((sb) => sb.userId === user?._id);
+  const subscription = project?.subscribers?.find(
+    (sb) => sb.userId === user?._id || sb.userId === deviceId
+  );
 
   function subscribe(email) {
-    if (!user) {
-      notification.error({
-        message: 'You need to be logged in to subscribe to projects',
-        placement: 'bottomLeft',
-      });
-      return;
-    }
-
-    return subscribeToProject(project._id, user._id, email)
+    return subscribeToProject(project._id, user?._id || deviceId, email)
       .then((res) => {
         updateProjectInfo();
         notification.success({
@@ -197,8 +194,11 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
             subscribe={subscribe}
             unsubscribe={unsubscribe}
             subscription={subscription}
+            isOwner={isOwner}
           />
           <ProjectChapters
+            isParticipant={isParticipant}
+            isOwner={isOwner}
             className={styles.project__chapters}
             project={project}
             updateProjectInfo={updateProjectInfo}

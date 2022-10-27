@@ -7,8 +7,9 @@ import ModalStart from 'components/modals/joinToTeam';
 import Flash from 'components/icon/new/Flash';
 import myAmplitude from 'utils/amplitude';
 import { EVENTS } from 'helpers/amplitudeEvents';
+import Link from 'next/link';
 
-const ProjectJobs = ({ className, project, user }) => {
+const ProjectJobs = ({ className, project, user, isOwner }) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
 
@@ -29,17 +30,32 @@ const ProjectJobs = ({ className, project, user }) => {
       <div className={cn(className, styles.jobs)}>
         {project?.tasks?.length === 0 && (
           <div className={styles.jobs__empty}>
-            No tasks are open at the moment... Interested in joining our journey?
-            <Button
-              md
-              rounded
-              pink
-              onClick={() => {
-                setSelectedTask({});
-                setShowModal(true);
-              }}>
-              Offer your service
-            </Button>
+            {isOwner ? (
+              <>
+                Need help with your project?
+                <Link href={'/project/production/' + project._id + '?tab=details&createTask'}>
+                  <a>
+                    <Button md rounded pink>
+                      Post a Task
+                    </Button>
+                  </a>
+                </Link>
+              </>
+            ) : (
+              <>
+                No tasks are open at the moment... Interested in joining our journey?
+                <Button
+                  md
+                  rounded
+                  pink
+                  onClick={() => {
+                    setSelectedTask({});
+                    setShowModal(true);
+                  }}>
+                  Offer your service
+                </Button>
+              </>
+            )}
           </div>
         )}
         {project?.tasks.map((task) => (
