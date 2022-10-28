@@ -97,4 +97,19 @@
         opacity: 0.5;
         pointer-events: none;
     }
+
+    &__loader {
+        transition: 0.2s;
+        width: 0;
+        opacity: 0;
+        margin-left: 0;
+    }
+
+    &_loading {
+        .button__loader {
+            width: 1em;
+            opacity: 1;
+            margin-left: 1em;
+        }
+    }
 }

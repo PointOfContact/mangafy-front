@@ -16,7 +16,7 @@ import Settings from 'components/icon/new/Settings';
 import Planet from 'components/icon/new/Planet';
 import Link from 'next/link';
 
-const ProjectSidebar = ({ tabs, activeTab, setActiveTab, onCollapsedChange }) => {
+const ProjectSidebar = ({ tabs, activeTab, setActiveTab, onCollapsedChange, routerBasePath }) => {
   const [isCollapsed, setIsCollapsed] = useState(true);
   const sidebarRef = useRef(null);
 
@@ -55,80 +55,112 @@ const ProjectSidebar = ({ tabs, activeTab, setActiveTab, onCollapsedChange }) =>
         </a>
       </Link>
       <div className={styles.tabs}>
-        <SidebarTab
-          onClick={() => {
-            setActiveTab(tabs.DETAILS);
-          }}
-          collapsed={isCollapsed}
-          isActive={activeTab === tabs.DETAILS}
-          icon={<Home color="#D01E8E" />}>
-          Details
-        </SidebarTab>
-        <SidebarTab
-          onClick={() => {
-            setActiveTab(tabs.PLOT);
-          }}
-          collapsed={isCollapsed}
-          isActive={activeTab === tabs.PLOT}
-          icon={<Edit bold color="#D01E8E" />}>
-          Plot
-        </SidebarTab>
-        <SidebarTab
-          onClick={() => {
-            setActiveTab(tabs.ASSETS);
-          }}
-          collapsed={isCollapsed}
-          isActive={activeTab === tabs.ASSETS}
-          icon={<Box bold color="#D01E8E" />}>
-          Assets
-        </SidebarTab>
-        <SidebarTab
-          onClick={() => {
-            setActiveTab(tabs.EPISODES);
-          }}
-          collapsed={isCollapsed}
-          isActive={activeTab === tabs.EPISODES}
-          icon={<Episodes color="#D01E8E" />}>
-          Episodes
-        </SidebarTab>
-        <SidebarTab
-          onClick={() => {
-            setActiveTab(tabs.PUBLISH);
-          }}
-          collapsed={isCollapsed}
-          isActive={activeTab === tabs.PUBLISH}
-          icon={<Planet bold color="#D01E8E" />}>
-          Publish
-        </SidebarTab>
-        <SidebarTab
-          onClick={() => {
-            setActiveTab(tabs.COMMENTS);
-          }}
-          collapsed={isCollapsed}
-          isActive={activeTab === tabs.COMMENTS}
-          icon={<Message bold color="#D01E8E" />}>
-          Comments
-        </SidebarTab>
+        <Link href={routerBasePath + 'details'}>
+          <a>
+            <SidebarTab
+              // onClick={() => {
+              //   setActiveTab(tabs.DETAILS);
+              // }}
+              collapsed={isCollapsed}
+              isActive={activeTab === tabs.DETAILS}
+              icon={<Home color="#D01E8E" />}>
+              Details
+            </SidebarTab>
+          </a>
+        </Link>
+        <Link href={routerBasePath + 'plot'}>
+          <a>
+            <SidebarTab
+              // onClick={() => {
+              //   setActiveTab(tabs.PLOT);
+              // }}
+              collapsed={isCollapsed}
+              isActive={activeTab === tabs.PLOT}
+              icon={<Edit bold color="#D01E8E" />}>
+              Plot
+            </SidebarTab>
+          </a>
+        </Link>
+        <Link href={routerBasePath + 'assets'}>
+          <a>
+            <SidebarTab
+              // onClick={() => {
+              //   setActiveTab(tabs.ASSETS);
+              // }}
+              collapsed={isCollapsed}
+              isActive={activeTab === tabs.ASSETS}
+              icon={<Box bold color="#D01E8E" />}>
+              Assets
+            </SidebarTab>
+          </a>
+        </Link>
+        <Link href={routerBasePath + 'episodes'}>
+          <a>
+            <SidebarTab
+              // onClick={() => {
+              //   setActiveTab(tabs.EPISODES);
+              // }}
+              collapsed={isCollapsed}
+              isActive={activeTab === tabs.EPISODES}
+              icon={<Episodes color="#D01E8E" />}>
+              Episodes
+            </SidebarTab>
+          </a>
+        </Link>
+        <Link href={routerBasePath + 'publish'}>
+          <a>
+            <SidebarTab
+              // onClick={() => {
+              //   setActiveTab(tabs.PUBLISH);
+              // }}
+              collapsed={isCollapsed}
+              isActive={activeTab === tabs.PUBLISH}
+              icon={<Planet bold color="#D01E8E" />}>
+              Publish
+            </SidebarTab>
+          </a>
+        </Link>
+        <Link href={routerBasePath + 'comments'}>
+          <a>
+            <SidebarTab
+              // onClick={() => {
+              //   setActiveTab(tabs.COMMENTS);
+              // }}
+              collapsed={isCollapsed}
+              isActive={activeTab === tabs.COMMENTS}
+              icon={<Message bold color="#D01E8E" />}>
+              Comments
+            </SidebarTab>
+          </a>
+        </Link>
       </div>
       <div className={styles.additionalTabs}>
-        <SidebarTab
-          onClick={() => {
-            setActiveTab(tabs.MESSAGES);
-          }}
-          collapsed={isCollapsed}
-          isActive={activeTab === tabs.MESSAGES}
-          icon={<Message2 color="#D01E8E" />}>
-          Messages
-        </SidebarTab>
-        <SidebarTab
-          onClick={() => {
-            setActiveTab(tabs.SETTINGS);
-          }}
-          collapsed={isCollapsed}
-          isActive={activeTab === tabs.SETTINGS}
-          icon={<Settings color="#D01E8E" />}>
-          Settings
-        </SidebarTab>
+        <Link href={routerBasePath + 'messages'}>
+          <a>
+            <SidebarTab
+              // onClick={() => {
+              //   setActiveTab(tabs.MESSAGES);
+              // }}
+              collapsed={isCollapsed}
+              isActive={activeTab === tabs.MESSAGES}
+              icon={<Message2 color="#D01E8E" />}>
+              Messages
+            </SidebarTab>
+          </a>
+        </Link>
+        <Link href={routerBasePath + 'settings'}>
+          <a>
+            <SidebarTab
+              // onClick={() => {
+              //   setActiveTab(tabs.SETTINGS);
+              // }}
+              collapsed={isCollapsed}
+              isActive={activeTab === tabs.SETTINGS}
+              icon={<Settings color="#D01E8E" />}>
+              Settings
+            </SidebarTab>
+          </a>
+        </Link>
       </div>
     </div>
   );

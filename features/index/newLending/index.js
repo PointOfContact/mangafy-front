@@ -1,5 +1,8 @@
+/* eslint-disable @next/next/no-img-element */
+/* eslint-disable react/no-unknown-property */
+/* eslint-disable @next/next/no-page-custom-font */
+/* eslint-disable @next/next/no-sync-scripts */
 /* eslint-disable react/jsx-no-duplicate-props */
-/* eslint-disable unused-imports/no-unused-vars */
 /* eslint-disable no-return-assign */
 /* eslint-disable func-names */
 /* eslint-disable no-unused-vars */
@@ -35,7 +38,7 @@ const NewLending = ({ user }) => {
       function i(o) {
         if (n[o]) return n[o].exports;
         const t = (n[o] = { i: o, l: !1, exports: {} });
-        return e[o].call(t.exports, t, t.exports, i), (t.l = !0), t.exports;
+        return e[o]?.call(t.exports, t, t.exports, i), (t.l = !0), t.exports;
       }
       (i.m = e),
         (i.c = n),
