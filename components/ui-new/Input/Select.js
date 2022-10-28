@@ -1,28 +1,25 @@
 import React from 'react';
 import styles from './styles.module.scss';
 import cn from 'classnames';
+import { Select as AntdSelect } from 'antd';
+const { Option } = AntdSelect;
 
-const Input = ({
-  type,
-  name,
+const Select = ({
   sm,
   full,
   err,
-  pink,
   onChange,
   className,
   placeholder,
   defaultValue,
   rounded,
-  onBlur,
+  options,
 }) => {
   return (
     <div className={cn(className, styles.input__container)}>
-      <input
-        onBlur={onBlur}
-        name={name}
+      <AntdSelect
+        defaultValue={defaultValue}
         placeholder={placeholder}
-        type={type || 'text'}
         className={cn(
           styles.input,
           sm && styles.input_sm,
@@ -30,13 +27,19 @@ const Input = ({
           err && styles.input_red,
           typeof err === 'string' && styles.input_error,
           rounded && styles.input_rounded,
-          pink && styles.input_pink
+          styles.select
         )}
-        onInput={onChange ? (e) => onChange(e.target.value) : null}
-        defaultValue={defaultValue}></input>
+        dropdownClassName={styles.select__dropdown}
+        onChange={onChange}>
+        {options.map((option) => (
+          <Option value={option.key}>{option.value}</Option>
+        ))}
+      </AntdSelect>
+
+      <div className={styles.select__arrow}></div>
       {typeof err === 'string' && <div className={styles.input__error}>{err}</div>}
     </div>
   );
 };
 
-export default Input;
+export default Select;

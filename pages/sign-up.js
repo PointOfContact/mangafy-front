@@ -1,3 +1,3 @@
-import Register from 'features/signUp';
+import SignUp from 'features/signIn/SignUp';
 
-export default Register;
+export default SignUp;

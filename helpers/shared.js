@@ -225,3 +225,31 @@ export async function createChapterComment(content, chapterId, senderId) {
     }
   );
 }
+
+export function validateEmail(email) {
+  if (email.length === 0) {
+    return 'Email is required';
+  }
+  const re = /\S+@\S+\.\S+/;
+  if (!re.test(email)) {
+    return 'Invalid email';
+  }
+}
+
+export function validatePassword(password) {
+  if (password.length === 0) {
+    return 'Password is required';
+  }
+  if (password.length < 2) {
+    return 'Password should be at least 2 characters length';
+  }
+}
+
+export function validateName(name) {
+  if (name.length === 0) {
+    return 'Name is required';
+  }
+  if (name.length < 2) {
+    return 'Name should be at least 2 characters length';
+  }
+}

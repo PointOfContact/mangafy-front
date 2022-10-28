@@ -109,8 +109,6 @@ const Login = ({ user }) => {
             </div>
           </main>
         </div>
-        {/* <LoginFooter acaunt={false} />
-        <FooterPolicy /> */}
       </div>
     </>
   );
