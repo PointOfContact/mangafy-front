@@ -21,7 +21,7 @@ const UserName = ({ selectedRequest, mobile, setShowMessageMobile, user }) => {
       const collabsId = selectedRequest.mangaStoryId;
 
       const url = selectedRequest.isTeamChat
-        ? collabsId && `/project/production/${collabsId}`
+        ? collabsId && `/project/production/${collabsId}?tab=details`
         : `/profile/${userId}`;
       return url;
     }

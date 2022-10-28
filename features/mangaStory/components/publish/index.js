@@ -20,7 +20,7 @@ const Publish = ({ baseData, storyBoard, chapters }) => {
   const [ifExistPublishedChapter, setIfExistPublishedChapter] = useState(0);
   const ifCustomSubdomain = baseData?.typeUrlView === 'Custom subdomain';
 
-  const link = `${client.API_ENDPOINT}/project/production/${baseData._id}`;
+  const link = `${client.API_ENDPOINT}/project/production/${baseData._id}?tab=details`;
 
   const publishImage = () => {
     if (baseData?.image) {

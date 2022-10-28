@@ -98,6 +98,10 @@ const MangeStory = (props) => {
     setChapters(storyBoard?.chapters);
   }, [storyBoard]);
 
+  useEffect(() => {
+    setActiveTab(router.query?.tab || tabs.DETAILS);
+  }, [router.query?.tab]);
+
   const [activeTab, setActiveTab] = useState('');
 
   const onResize = () => {
@@ -310,9 +314,15 @@ const MangeStory = (props) => {
       />
       {(isOwn || isParticipant) &&
         (isMobile ? (
-          <ProjectMobileMenu tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
+          <ProjectMobileMenu
+            routerBasePath={routerBasePath}
+            tabs={tabs}
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+          />
         ) : (
           <ProjectSidebar
+            routerBasePath={routerBasePath}
             onCollapsedChange={(coll) => setSidebarCollapsed(coll)}
             tabs={tabs}
             activeTab={activeTab}
