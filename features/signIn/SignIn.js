@@ -16,6 +16,7 @@ import myAmplitude, { setUser } from 'utils/amplitude';
 import { notification } from 'antd';
 import { login } from 'store';
 import { validateEmail, validatePassword } from 'helpers/shared';
+import client from 'api/client';
 
 const SignIn = () => {
   const router = useRouter();
@@ -82,7 +83,11 @@ const SignIn = () => {
       <div className={styles.loginPage}>
         <Link href="https://kidofdarkness.mangafy.club">
           <a className={styles.loginPage__weeklyArt}>
-            <Imgix layout="fill" objectFit="cover" src={'img/loginCover.jpg'} />
+            <Imgix
+              layout="fill"
+              objectFit="cover"
+              src={client.UPLOAD_URL + '1666953835431-807741514-loginCover.jpg'}
+            />
             <div className={styles.loginPage__author}>Read: Kid of darkness. Agony</div>
           </a>
         </Link>
@@ -129,7 +134,6 @@ const SignIn = () => {
               pink
               full
               rounded
-              type="email"
               placeholder="Email"
             />
             <Input
@@ -140,7 +144,6 @@ const SignIn = () => {
               pink
               full
               rounded
-              type="password"
               placeholder="Password"
             />
             <Link href="forgot-password">
