@@ -16,6 +16,7 @@ import MangaSideMenu from 'components/ShotSideMenu/MangaSideMenu';
 import { viewChapterFun } from 'utils';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import myAmplitude from 'utils/amplitude';
+import SvgReadBookIcon from 'components/icon/ReadBookIcon';
 
 const MangaView = ({
   user,
@@ -28,6 +29,7 @@ const MangaView = ({
   const [activeChapterIndex, setActiveChapterIndex] = useState(+router.query.chapter || 1);
   const [authors, setAuthors] = useState(serverSideAuthors);
   const [comments, setComments] = useState(serverSideComments);
+  const [readStyle, setReadStyle] = useState(false);
 
   const [isLiked, setIsLiked] = useState(false);
 
@@ -215,8 +217,7 @@ const MangaView = ({
           onCancel={() => setIsShareModalOpened(false)}
           centered
           footer={null}
-          wrapClassName={styles.shotPage__shareModal}
-        >
+          wrapClassName={styles.shotPage__shareModal}>
           <ShareButtons
             shareUrl={
               client.API_ENDPOINT + '/project/view/' + manga?.id + '?ongoing=' + activeChapterIndex
@@ -248,8 +249,23 @@ const MangaView = ({
           isOwn={isOwn}
           activeChapterIndex={activeChapterIndex}
         />
-        <MangaBody images={chapter?.mangaUrls} className={styles.shotPage__body} />
-        <div className={styles.choozeReadType}>sss</div>
+        <MangaBody
+          images={chapter?.mangaUrls}
+          readStyle={readStyle}
+          className={styles.shotPage__body}
+        />
+        <div className={styles.choozeReadType}>
+          <div
+            className={cn(styles.listIcon, styles.readIcons, !readStyle && styles.activePage)}
+            onClick={() => setReadStyle(false)}
+          />
+          <SvgReadBookIcon
+            className={cn(styles.readIcons, readStyle && styles.activeBooke)}
+            width={24}
+            height={24}
+            onClick={() => setReadStyle(true)}
+          />
+        </div>
         <MangaFooter
           chapter={chapter}
           manga={manga}

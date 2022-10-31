@@ -9,7 +9,37 @@ $sidebarWidth: 400px;
   align-items: center;
   justify-content: center;
   background-color: $black;
+  margin-top: 20px;
+  .readIcons {
+    margin: 0 10px;
+    path {
+      fill: $grey;
+    }
+    &:hover {
+      path {
+        fill: white;
+      }
+    }
+  }
+  .listIcon {
+    width: 20px;
+    height: 24px;
+    border: 2px solid $grey;
+    border-radius: 4px;
+    &:hover {
+      border: 2px solid white;
+    }
+  }
+  .activeBooke {
+    path {
+      fill: white;
+    }
+  }
+  .activePage {
+    border: 2px solid white;
+  }
 }
+
 .shotPage {
   padding: 10px 90px;
 

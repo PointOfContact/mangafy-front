@@ -69,8 +69,7 @@ const AuthForm = ({
                       }
                     },
                   },
-                ]}
-              >
+                ]}>
                 <PrimaryInput
                   className={styles.input_login}
                   id="name"
@@ -95,8 +94,7 @@ const AuthForm = ({
                 type: 'email',
                 message: 'Invalid email address.',
               },
-            ]}
-          >
+            ]}>
             <PrimaryInput
               id="email"
               isLinear={true}
@@ -129,8 +127,7 @@ const AuthForm = ({
                   }
                 },
               },
-            ]}
-          >
+            ]}>
             <PrimaryInput
               id="password"
               type="password"

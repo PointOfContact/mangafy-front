@@ -117,7 +117,6 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  border: 1px solid black;
   @include media-sm {
     text-align: center;
     height: 160px;

@@ -1,0 +1,14 @@
+@import '../../../styles/variables.scss';
+
+.containerImage {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.pageCount {
+  background-color: white;
+  padding: 10px;
+  box-sizing: border-box;
+  margin: 0;
+  font-weight: 700;
+}
