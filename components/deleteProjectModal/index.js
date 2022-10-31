@@ -17,12 +17,14 @@ const DeleteProjectModal = ({ user, mangaStory, isModalVisible, setIsModalVisibl
         onClick={(e) => {
           e.stopPropagation();
           setIsModalVisible(false);
-        }}>
+        }}
+      >
         <SvgClose />
       </span>
     }
     visible={isModalVisible}
-    footer={null}>
+    footer={null}
+  >
     <DeleteProject
       userId={user?._id}
       mangaStoryId={mangaStory?._id}

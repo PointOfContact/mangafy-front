@@ -13,7 +13,8 @@ const FeedCardTaskFooter = ({ budget, mangaId, onApply }) => {
         iconRight={1}
         rounded={1}
         icon={<Heart color="#fff" />}
-        onClick={(e) => onApply(e)}>
+        onClick={(e) => onApply(e)}
+      >
         Apply
       </Button>
       {budget ? (

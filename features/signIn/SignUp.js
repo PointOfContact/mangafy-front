@@ -124,7 +124,8 @@ const SignUp = () => {
                   rounded
                   outline
                   icon={<SvgGoogle />}
-                  className={styles.loginPage__signInWith}>
+                  className={styles.loginPage__signInWith}
+                >
                   Sign up with Google
                 </Button>
               </a>
@@ -137,7 +138,8 @@ const SignUp = () => {
                   rounded
                   outline
                   icon={<Facebook />}
-                  className={styles.loginPage__signInWith}>
+                  className={styles.loginPage__signInWith}
+                >
                   Sign up with Facebook
                 </Button>
               </a>

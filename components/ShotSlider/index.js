@@ -20,7 +20,8 @@ const ShotSlider = ({ className, shot, allShots }) => {
         <a
           ref={sh._id === shot._id ? activeShotRef : null}
           className={cn(styles.slider__item, sh._id === shot._id && styles.slider__item_active)}
-          key={sh._id}>
+          key={sh._id}
+        >
           {sh?.image ? (
             <Imgix width={96} height={96} objectFit="cover" src={client.UPLOAD_URL + sh?.image} />
           ) : (

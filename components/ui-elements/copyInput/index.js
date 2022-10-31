@@ -20,7 +20,8 @@ const CopyInput = ({ white, copyUrl, copyLink }) => {
           }}
           onMouseOut={() => {
             setCopyText('Copy to clipboard');
-          }}>
+          }}
+        >
           Copy
         </button>
       </Tooltip>

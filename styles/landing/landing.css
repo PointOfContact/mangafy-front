@@ -2972,7 +2972,7 @@ body::-webkit-scrollbar-thumb {
   }
 }
 .footer__made > svg {
-   margin-left: 10px;
+  margin-left: 10px;
 }
 .footer__nav {
   display: -webkit-box;

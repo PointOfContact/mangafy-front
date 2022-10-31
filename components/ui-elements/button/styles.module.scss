@@ -1,4 +1,4 @@
-@import "../../../styles/variables.scss";
+@import '../../../styles/variables.scss';
 
 .primary_button {
   transition: 0.5s;
@@ -28,15 +28,15 @@
     transition: 0.5s;
     box-shadow: 0px 0px 20px $primaryDark;
     border: 1px solid $primaryLight;
-    background: $primaryDark ;
+    background: $primaryDark;
     color: white;
   }
 
   &:focus {
     outline: none;
-    background: $primaryDark ;
-    color: white ;
-    border: 1px solid $primaryLight ;
+    background: $primaryDark;
+    color: white;
+    border: 1px solid $primaryLight;
   }
 
   svg {
@@ -97,11 +97,11 @@
   }
 }
 
-.white{
+.white {
   background: white;
   color: $black;
-  &:hover{
-    background: white ;
+  &:hover {
+    background: white;
     color: #302f2f;
     border-color: #735eda;
     box-shadow: 0px 0px 20px white;
@@ -113,12 +113,12 @@
   }
 }
 
-.red{
+.red {
   background: $red;
   color: white;
   border: 1px solid $red;
-  &:hover{
-    background: $red ;
+  &:hover {
+    background: $red;
     color: white;
     border-color: $red;
     box-shadow: 0px 0px 20px $red;

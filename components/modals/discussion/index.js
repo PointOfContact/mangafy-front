@@ -182,7 +182,8 @@ const ModalDiscussion = ({
         </span>
       }
       okText="Send"
-      onCancel={handleCancel}>
+      onCancel={handleCancel}
+    >
       <div className={styles.modalContent}>
         <div className="container">
           <div className="ant-row">
@@ -227,7 +228,8 @@ const ModalDiscussion = ({
                       content={
                         <ShareButtons shareUrl={`${client.API_ENDPOINT}${router.asPath}`} text="" />
                       }
-                      trigger="click">
+                      trigger="click"
+                    >
                       <SvgShare className={styles.iconShare} width="20px" height="20px" />
                     </Popover>
                   </div>
@@ -241,7 +243,8 @@ const ModalDiscussion = ({
                         muted
                         loop
                         playsInline
-                        poster="https://mangafy.club/api/v2/uploads/1645708912743-980848197-istockphoto-1017890344-170667a.jpg">
+                        poster="https://mangafy.club/api/v2/uploads/1645708912743-980848197-istockphoto-1017890344-170667a.jpg"
+                      >
                         <source src={`${client.UPLOAD_URL + img}`} type="video/mp4" />
                       </video>
                     ) : ifPdf ? (

@@ -17,7 +17,8 @@ export const ShareButtonsColored = ({ shareUrl, text }) => (
           quote={'Mangafy-Club'}
           title="Mangafy-Club"
           url={shareUrl}
-          className={styles.box__list_button}>
+          className={styles.box__list_button}
+        >
           <SvgFacebook width="34" height="33" />
         </FacebookShareButton>
       </li>
@@ -26,7 +27,8 @@ export const ShareButtonsColored = ({ shareUrl, text }) => (
           quote={'Mangafy-Club'}
           title="Mangafy-Club"
           url={shareUrl}
-          className={styles.box__list_button}>
+          className={styles.box__list_button}
+        >
           <SvgTwitter width="34" height="33" />
         </TwitterShareButton>
       </li>
@@ -35,7 +37,8 @@ export const ShareButtonsColored = ({ shareUrl, text }) => (
           quote={'Mangafy-Club'}
           title="Mangafy-Club"
           url={shareUrl}
-          className={styles.box__list_button}>
+          className={styles.box__list_button}
+        >
           <SvgShareColored width="34" height="33" />
         </WhatsappShareButton>
       </li>

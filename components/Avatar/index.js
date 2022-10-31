@@ -14,7 +14,8 @@ const Avatar = ({ image, text, size, className, borderRadius }) => {
         flex: '0 0 auto',
         borderRadius: borderRadius || '50%',
         overflow: 'hidden',
-      }}>
+      }}
+    >
       {image ? (
         <Imgix layout="fill" objectFit="cover" src={client.UPLOAD_URL + image} />
       ) : (
@@ -25,7 +26,8 @@ const Avatar = ({ image, text, size, className, borderRadius }) => {
             background: '#7B65F3',
             color: '#fff',
             'font-size': size * 0.6 + 'px',
-          }}>
+          }}
+        >
           {text}
         </AntAvatar>
       )}

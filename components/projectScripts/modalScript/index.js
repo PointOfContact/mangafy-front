@@ -81,11 +81,13 @@ const ModalScript = ({
       }}
       closeIcon={<SvgClose width={19.85} height={19.85} />}
       visible={visibleModal}
-      footer={null}>
+      footer={null}
+    >
       <Form
         form={form}
         name="basic"
-        initialValues={{ title: valuesField.title, text: valuesField.text }}>
+        initialValues={{ title: valuesField.title, text: valuesField.text }}
+      >
         <Form.Item className={styles.titlePage} name="title">
           {!showTitleInput ? (
             <PrimaryInput

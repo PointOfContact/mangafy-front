@@ -86,7 +86,8 @@ const Pages = ({
             <ul
               className={styles.containerPage}
               {...provided.droppableProps}
-              ref={provided.innerRef}>
+              ref={provided.innerRef}
+            >
               <PageItems
                 arrayPage={arrayPage}
                 setModalTitle={setModalTitle}

@@ -7,7 +7,8 @@ const Mountain = (props) => {
       className={props.className}
       viewBox="0 0 24 24"
       fill="none"
-      xmlns="http://www.w3.org/2000/svg">
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <path
         d="M2.75 14L10.5875 3.23432C11.1521 2.45877 12.0536 2 13.0129 2H13.0688C14.0134 2 14.9029 2.44495 15.4694 3.20089L21.25 10.9143"
         stroke={props.color || '#121219'}

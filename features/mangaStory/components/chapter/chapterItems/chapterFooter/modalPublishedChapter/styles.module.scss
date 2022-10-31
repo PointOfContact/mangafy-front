@@ -80,9 +80,9 @@
         line-height: 41px;
         overflow: hidden;
         @include media-sm {
-            font-size: $text5;
-            line-height: 20px;
-          }
+          font-size: $text5;
+          line-height: 20px;
+        }
       }
       .copy {
         width: 40px;

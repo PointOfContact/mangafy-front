@@ -1,57 +1,58 @@
 @import '../../styles/variables';
 
 .modal {
-    :global {
-        .ant-modal-content {
-            border-radius: 10px;
-            overflow: hidden;
-            padding: 10px;
-        }
-        .primary_upload {
-            margin: 0 0 1em 0;
-        }
-        .ant-modal-title {
-            font-weight: 700;
-            font-size: 30px;
-        }
+  :global {
+    .ant-modal-content {
+      border-radius: 10px;
+      overflow: hidden;
+      padding: 10px;
     }
+    .primary_upload {
+      margin: 0 0 1em 0;
+    }
+    .ant-modal-title {
+      font-weight: 700;
+      font-size: 30px;
+    }
+  }
 
-    h2 {
-        font-weight: 700;
-        font-size: 15px;
-        margin-bottom: 0.7em;
-        color: #848484;
-    }
+  h2 {
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 0.7em;
+    color: #848484;
+  }
 
-    input, textarea {
-        margin-bottom: 1.5em;
-    }
+  input,
+  textarea {
+    margin-bottom: 1.5em;
+  }
 
-    &__close {
-        cursor: pointer;
-        transition: 0.2s;
-        &:hover {
-            path {
-                stroke: $primaryDark;
-            }
-        }
-        &:active {
-            path {
-                stroke: darken($primaryDark, 10%);
-            }
-        }
+  &__close {
+    cursor: pointer;
+    transition: 0.2s;
+    &:hover {
+      path {
+        stroke: $primaryDark;
+      }
     }
-    &__upload {
-        margin: 0;
+    &:active {
+      path {
+        stroke: darken($primaryDark, 10%);
+      }
     }
+  }
+  &__upload {
+    margin: 0;
+  }
 
-    &__tags {
-        margin-bottom: 1.5em;
-    }
+  &__tags {
+    margin-bottom: 1.5em;
+  }
 
-    &__buttons {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
+  &__buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 }

@@ -185,7 +185,8 @@ const EditGenresField = ({
         onChange={chooseLanguage}
         placeholder={'English'}
         className={styles.language}
-        style={{ width: 200 }}>
+        style={{ width: 200 }}
+      >
         {countries}
       </Select>
       <h3>Project category</h3>
@@ -195,7 +196,8 @@ const EditGenresField = ({
         placeholder={'Webtoon'}
         onChange={chooseTypes}
         className={styles.language}
-        style={{ width: 200 }}>
+        style={{ width: 200 }}
+      >
         {projectType}
       </Select>
       <h3>Project Description*</h3>
@@ -205,7 +207,8 @@ const EditGenresField = ({
           savingStatus === 'saved' && styles.savingStatus_saved,
           savingStatus === 'saving' && styles.savingStatus_saving,
           savingStatus === 'error' && styles.savingStatus_error
-        )}>
+        )}
+      >
         {savingStatus}
       </p>
       <TextEditor
@@ -238,7 +241,8 @@ const EditGenresField = ({
           </Radio>
           <Radio
             className={cn(styles.radio, radioValue === 'With' && styles.active)}
-            value={'With'}>
+            value={'With'}
+          >
             Looking for collaboration
           </Radio>
         </Radio.Group>

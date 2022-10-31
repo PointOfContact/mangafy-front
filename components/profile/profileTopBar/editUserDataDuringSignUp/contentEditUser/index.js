@@ -62,7 +62,8 @@ const ContentEditUser = ({
             value={userData.types}
             style={{ width: '100%' }}
             onBlur={() => sendEvent(EVENTS.ADDED_USER_TYPES, { types: userData.types })}
-            onChange={(value) => setUserData({ ...userData, types: value })}>
+            onChange={(value) => setUserData({ ...userData, types: value })}
+          >
             {userTypes.map((item) => (
               <Option key={item.key} value={item.key}>
                 {item.value}

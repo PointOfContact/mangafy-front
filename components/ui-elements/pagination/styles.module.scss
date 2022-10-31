@@ -4,7 +4,7 @@
   display: flex;
   align-items: center;
   margin-right: 200px;
-  @include media-md{
+  @include media-md {
     width: 100%;
     justify-content: center;
   }

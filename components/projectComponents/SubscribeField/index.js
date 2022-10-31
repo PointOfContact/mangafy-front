@@ -34,7 +34,8 @@ const SubscribeField = ({ user, className, subscription, subscribe, unsubscribe 
           iconRight
           icon={<Check bold />}
           className={styles.unsubscribe}
-          onClick={unsubscribe}>
+          onClick={unsubscribe}
+        >
           Subscribed
         </Button>
       ) : user ? (

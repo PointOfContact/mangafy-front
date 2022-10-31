@@ -83,7 +83,8 @@ const ChangeYourAvatar = ({
             <PrimaryButton onClick={cancelButton} isWhite={true} text={'Cancel'} />
             <PrimaryButton onClick={!disabledButton && saveButton} text={'Save'} />
           </div>,
-        ]}>
+        ]}
+      >
         <ChangeAvatar
           imageWidth={250}
           imageHeight={250}

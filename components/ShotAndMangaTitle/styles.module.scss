@@ -1,57 +1,56 @@
 @import '../../styles/variables.scss';
 
 .header {
+  &__container {
+    display: flex;
+    align-items: center;
+  }
 
-    &__container {
-        display: flex;
-        align-items: center;
-    }
+  &__image {
+    position: relative;
+    border-radius: 50%;
+    overflow: hidden;
+    height: 80px;
+    width: 80px;
+    flex: 0 0 auto;
+    margin-right: 20px;
+  }
 
-    &__image {
-        position: relative;
-        border-radius: 50%;
-        overflow: hidden;
-        height: 80px;
-        width: 80px;
-        flex: 0 0 auto;
-        margin-right: 20px;
+  &__title {
+    font-weight: 800;
+    font-size: 30px;
+    line-height: 1em;
+    margin-bottom: 5px;
+    color: inherit;
+    &:hover {
+      color: rgb(82, 82, 82);
     }
+  }
 
-    &__title {
-        font-weight: 800;
-        font-size: 30px;
-        line-height: 1em;
-        margin-bottom: 5px;
-        color: inherit;
-        &:hover {
-            color: rgb(82, 82, 82);
-        }
-    }
+  &__subtitle {
+    font-weight: 700;
+    font-size: 15px;
+  }
 
-    &__subtitle {
-        font-weight: 700;
-        font-size: 15px;
+  &__author {
+    display: inline;
+    color: #000;
+    &:hover {
+      color: rgb(36, 36, 36);
     }
+    &:active {
+      color: rgb(63, 63, 63);
+    }
+  }
 
-    &__author {
-        display: inline;
-        color: #000;
-        &:hover {
-            color: rgb(36, 36, 36);
-        }
-        &:active {
-            color: rgb(63, 63, 63);
-        }
+  &__subscribe {
+    color: $pink;
+    cursor: pointer;
+    &:hover {
+      color: lighten($pink, 10%);
     }
-
-    &__subscribe {
-        color: $pink;
-        cursor: pointer;
-        &:hover {
-            color: lighten($pink, 10%);
-        }
-        &:active {
-            color: lighten($pink, 25%);
-        }
+    &:active {
+      color: lighten($pink, 25%);
     }
+  }
 }

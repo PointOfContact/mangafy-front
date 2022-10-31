@@ -69,14 +69,16 @@ const DragDrop = ({
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
-          className={styles.uploadList}>
+          className={styles.uploadList}
+        >
           <div className={styles.uploadListTitle}>Page {index + 1}</div>
           <div
             className={styles.uploadPhoto}
             onClick={() => {
               setZoomImageUrl(client.UPLOAD_URL + value.uid);
               setIsModalVisible(!isModalVisible);
-            }}>
+            }}
+          >
             {setImage(index, value.uid)}
           </div>
           <Popconfirm
@@ -88,7 +90,8 @@ const DragDrop = ({
               confirmDelete(index);
             }}
             okText="Yes"
-            cancelText="No">
+            cancelText="No"
+          >
             <span className={styles.deleteCard}>
               <SvgDelete width="12px" height="12px" />
             </span>

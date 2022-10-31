@@ -95,14 +95,16 @@ const ModalInviteMembers = ({ showModal, setShowModal, user }) => {
           <SvgClose height="18px" width="18px" />
         </span>
       }
-      footer={[]}>
+      footer={[]}
+    >
       <div className={styles.inputContainer}>
         <p>Email addresses:</p>
         <Form
           name="dynamic_form_item"
           form={form}
           initialValues={{ emails: [''] }}
-          onFinish={sendInvite}>
+          onFinish={sendInvite}
+        >
           <Form.List name="emails">
             {(fields, { add, remove }) => (
               <>
@@ -117,7 +119,8 @@ const ModalInviteMembers = ({ showModal, setShowModal, user }) => {
                           message: 'Email is not a valid email!',
                         },
                       ]}
-                      noStyle>
+                      noStyle
+                    >
                       <PrimaryInput
                         validateStatus="error"
                         className={styles.input}

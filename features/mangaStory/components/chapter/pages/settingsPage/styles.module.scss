@@ -32,7 +32,7 @@
   .deleteCard {
     cursor: pointer;
   }
-  span{
+  span {
     width: 28px;
     height: 28px;
     display: flex;
@@ -42,8 +42,8 @@
   }
 }
 
-.popConfirm{
-  & > div div div > div{
+.popConfirm {
+  & > div div div > div {
     width: 220px;
   }
 }

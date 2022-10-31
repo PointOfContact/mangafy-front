@@ -46,7 +46,8 @@ const ProfileOpenCollabs = (props) => {
             styles.my_portfolio,
             styles.portfolio_new,
             'mobile_full_content mobile_top_round mobile_linear'
-          )}>
+          )}
+        >
           <h2 className={styles.title}>Projects</h2>
           <Row>
             <Col xs={{ span: 23 }} md={{ span: 22 }} xl={{ span: 22 }} xxl={{ span: 22 }}>
@@ -65,7 +66,8 @@ const ProfileOpenCollabs = (props) => {
                 md={{ span: 2 }}
                 xl={{ span: 2 }}
                 xxl={{ span: 2 }}
-                className={styles.add_button}>
+                className={styles.add_button}
+              >
                 <AddButton onClick={() => showCreateProjectModal(true)} />
               </Col>
             )}

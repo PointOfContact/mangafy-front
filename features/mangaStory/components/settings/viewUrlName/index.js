@@ -97,7 +97,8 @@ const ViewUrlName = ({ baseData, onChangeSingleField, sendEvent, storyBoard }) =
                 setCopyText('Copied');
                 copy(copyUrl);
               }}
-              onMouseOut={() => setCopyText('Copy to clipboard')}>
+              onMouseOut={() => setCopyText('Copy to clipboard')}
+            >
               <SvgCopy width="18px" height="18px" alt="mangaFy copy icon" />
             </div>
           </Tooltip>

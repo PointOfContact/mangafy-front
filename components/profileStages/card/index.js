@@ -16,7 +16,8 @@ const Quest = ({ point, status, title, description, navUrl }) => (
           status === 'WAIT' && styles.wait,
           status === 'FINISH' && styles.finish,
           status === 'PROCESS' && styles.process
-        )}>
+        )}
+      >
         <div className={styles.point}>
           <Imgix layout="fill" src="https://mangafy.club/img/point.png" alt="MangaFy point" />
           {point && <span>{point}</span>}

@@ -32,7 +32,8 @@ export default class MyDocument extends Document {
           <script
             dangerouslySetInnerHTML={{
               __html: newLocal,
-            }}></script>
+            }}
+          ></script>
         </Head>
         <body>
           {/*Google Tag Manager (noscript)*/}
@@ -40,7 +41,8 @@ export default class MyDocument extends Document {
             dangerouslySetInnerHTML={{
               __html: `<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P6RRF46"
               height="0" width="0" style="display:none;visibility:hidden"></iframe>`,
-            }}></noscript>
+            }}
+          ></noscript>
           {/* End Google Tag Manager (noscript) */}
           <Main />
           <NextScript />

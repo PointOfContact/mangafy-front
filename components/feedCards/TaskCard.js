@@ -88,7 +88,8 @@ const TaskCard = ({ card, user }) => {
           style={{ top: 50 }}
           wrapClassName={styles.modal}
           closeIcon={<Close className={styles.modal__close} />}
-          footer={null}>
+          footer={null}
+        >
           <div className={styles.modal__title}>
             <div className={styles.modal__time}>
               <Clock color="#C3BAFA" />
@@ -122,7 +123,8 @@ const TaskCard = ({ card, user }) => {
                 iconRight={1}
                 rounded={1}
                 icon={<Heart color="#fff" />}
-                onClick={onApply}>
+                onClick={onApply}
+              >
                 Apply
               </Button>
             </div>

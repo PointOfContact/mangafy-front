@@ -143,7 +143,8 @@ const ChapterFooter = ({
           />
         }
         visible={chapterListVisible._id === value?._id && chapterListVisible.state}
-        trigger="click">
+        trigger="click"
+      >
         <SvgMobileMenu
           onClick={() => setChapterListVisible({ state: true, _id: value?._id })}
           width="20px"

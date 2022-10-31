@@ -24,7 +24,7 @@
         width: 100%;
       }
     }
-    .messenger_list_mobile{
+    .messenger_list_mobile {
       @include media-sm {
         display: none;
       }
@@ -37,7 +37,7 @@
         display: none;
       }
     }
-    .messenger_content_mobile{
+    .messenger_content_mobile {
       @include media-sm {
         display: block;
       }

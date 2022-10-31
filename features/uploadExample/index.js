@@ -63,7 +63,8 @@ const UploadExample = () => {
         beforeUpload={beforeGalleryUpload}
         showUploadList={false}
         multiple={true}
-        accept="image/jpg, image/png, application/pdf, image/jpeg ">
+        accept="image/jpg, image/png, application/pdf, image/jpeg "
+      >
         <AddButton width="25px" height="25px" text={'Upload illustrations'} />
       </Upload>
       {resultImg && <img src={client.UPLOAD_URL + resultImg} />}

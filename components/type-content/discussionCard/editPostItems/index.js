@@ -108,7 +108,8 @@ const EditPostItems = ({
                 setShowShareIcon(true);
                 changeRouter &&
                   Router.push(`/feed?postId=${id}`, undefined, { scroll: false, shallow: false });
-              }}>
+              }}
+            >
               <SvgShare width="15" height="15" />
               Share
             </li>
@@ -127,7 +128,8 @@ const EditPostItems = ({
             )}
           </ul>
         }
-        trigger="click">
+        trigger="click"
+      >
         <span className={cn(styles.shareUrl, className)} onClick={() => setVisibleSettings(true)}>
           ...
         </span>

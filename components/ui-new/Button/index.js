@@ -38,7 +38,8 @@ const Button = (props) => {
         className
       )}
       onClick={props.onClick}
-      style={{ color }}>
+      style={{ color }}
+    >
       {props.icon}
       {props.children}
       <Loader className={styles.button__loader} />

@@ -218,12 +218,14 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
           onClick={(e) => {
             e.stopPropagation();
             changeShowModal(false);
-          }}>
+          }}
+        >
           <SvgClose />
         </span>
       }
       okText="Send"
-      onCancel={handleCancel}>
+      onCancel={handleCancel}
+    >
       <div className={cn(styles.content, 'row')}>
         <div className="col-lg-12 select_modal">
           <Form
@@ -238,7 +240,8 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
               taskType,
               rewardType,
               amount,
-            }}>
+            }}
+          >
             <h2>What roles is this project likely to require?</h2>
             <Form.Item
               name="lookingFor"
@@ -247,7 +250,8 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
                   required: true,
                   message: "Don't work on webcomics alone, find a partner",
                 },
-              ]}>
+              ]}
+            >
               <PrimarySelect
                 showSearch
                 className={cn(styles.selectDef, !lookingFor && styles.select)}
@@ -266,7 +270,8 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
                   required: true,
                   message: 'Choose reward type to engage more creators',
                 },
-              ]}>
+              ]}
+            >
               <PrimarySelect
                 showSearch
                 bordered={false}
@@ -297,7 +302,8 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
                           }
                         },
                       },
-                    ]}>
+                    ]}
+                  >
                     <PrimaryInput
                       type="number"
                       isFullWidth={true}
@@ -320,7 +326,8 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
                     required: true,
                     message: "Try to explain what you're looking for",
                   },
-                ]}>
+                ]}
+              >
                 <TextArea
                   autoSize={{ minRows: 3, maxRows: 10 }}
                   placeholder={placeholder}
@@ -341,7 +348,8 @@ const ModalStart = ({ changeShowModal, showModal, baseData, task, updateTasks, u
                       required: true,
                       message: 'Type is required',
                     },
-                  ]}>
+                  ]}
+                >
                   <PrimarySelect
                     showSearch
                     className={cn(styles.selectDef, !taskType && styles.select)}

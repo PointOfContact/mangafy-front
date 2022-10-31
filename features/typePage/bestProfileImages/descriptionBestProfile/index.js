@@ -107,7 +107,8 @@ const DescriptionBestProfile = ({
         <span
           className={
             likeModalContainerStyle ? styles.likeModalContainerStyle : styles.likeContainer
-          }>
+          }
+        >
           <SvgHeart
             width="20px"
             height="20px"

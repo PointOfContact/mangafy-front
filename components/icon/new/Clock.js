@@ -8,7 +8,8 @@ const Clock = (props) => {
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      stroke={props.color || '#121219'}>
+      stroke={props.color || '#121219'}
+    >
       <path
         d="M12 7.13513V12L15.2432 15.2432"
         strokeWidth={strokeWidth}

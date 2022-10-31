@@ -14,7 +14,8 @@ const Featured = () => {
           autoplaySpeed={6000}
           draggable={true}
           speed={1000}
-          easing="ease-in-out">
+          easing="ease-in-out"
+        >
           <div className={styles.featuredCollabs}>
             <div className={styles.featuredCollabs__bg}>
               <img src="img/feedTemp/cover.png" />

@@ -276,7 +276,8 @@ const GetMangafyd = (props) => {
                 {packages.map((pac) => (
                   <div
                     key={pac._id}
-                    className={`section7__box ${selectedPackage?._id === pac?._id && 'active'}`}>
+                    className={`section7__box ${selectedPackage?._id === pac?._id && 'active'}`}
+                  >
                     <div id="container2" className="twentytwenty-container2 my-container2">
                       {/* Изображение "ДО" */}
                       <img src={pac.img1} />
@@ -294,7 +295,8 @@ const GetMangafyd = (props) => {
                           e.preventDefault();
                           setSelectedPackage(pac);
                         }}
-                        className="section7__btn">
+                        className="section7__btn"
+                      >
                         {pac.btnText}
                       </a>
                     </div>
@@ -339,7 +341,8 @@ const GetMangafyd = (props) => {
                     height={13}
                     viewBox="0 0 13 13"
                     fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
                     <path
                       d="M9.54688 0.761719C8.84145 0.761719 8.1947 0.985258 7.62463 1.42614C7.07809 1.84882 6.71422 2.38718 6.5 2.77865C6.28578 2.38715 5.92191 1.84882 5.37537 1.42614C4.8053 0.985258 4.15855 0.761719 3.45312 0.761719C1.48454 0.761719 0 2.37192 0 4.50719C0 6.81403 1.85207 8.39234 4.65585 10.7817C5.13198 11.1874 5.67166 11.6474 6.23259 12.1379C6.30652 12.2026 6.40148 12.2383 6.5 12.2383C6.59852 12.2383 6.69348 12.2026 6.76741 12.1379C7.32839 11.6473 7.86805 11.1874 8.34445 10.7814C11.1479 8.39234 13 6.81403 13 4.50719C13 2.37192 11.5155 0.761719 9.54688 0.761719Z"
                       fill="#7B65F3"

@@ -51,7 +51,8 @@ const ProjectJobs = ({ className, project, user, isOwner }) => {
                   onClick={() => {
                     setSelectedTask({});
                     setShowModal(true);
-                  }}>
+                  }}
+                >
                   Offer your service
                 </Button>
               </>
@@ -75,7 +76,8 @@ const ProjectJobs = ({ className, project, user, isOwner }) => {
                   setSelectedTask(task);
                   setShowModal(true);
                   onApplyButtonClick(task._id);
-                }}>
+                }}
+              >
                 Apply
               </Button>
             </div>

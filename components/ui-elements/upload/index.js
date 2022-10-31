@@ -149,7 +149,8 @@ const PrimaryUpload = ({
         onPreview={onPreview}
         disabled={ifUploadImg}
         showUploadList={false}
-        multiple={true}>
+        multiple={true}
+      >
         <div className={styles.content}>
           <div className={styles.types}>
             <SvgImage width="23px" height="23px" />
@@ -159,7 +160,8 @@ const PrimaryUpload = ({
             className={cn(
               styles.descriptionDef,
               !showText && fileList.length && styles.description
-            )}>
+            )}
+          >
             <span className="desc">
               {ifUploadImg ? (
                 <Spin className={styles.spin} size="large" tip="Loading..."></Spin>
@@ -200,7 +202,8 @@ const PrimaryUpload = ({
         zIndex={20000}
         onCancel={() => setIsModalVisible(false)}
         closeIcon={<SvgClose />}
-        visible={isModalVisible}>
+        visible={isModalVisible}
+      >
         <div className={styles.modalContent}>{modalContent}</div>
       </Modal>
     </div>

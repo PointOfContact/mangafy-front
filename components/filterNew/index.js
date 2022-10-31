@@ -188,7 +188,8 @@ const FiltersInput = ({ filterClickHandler, currentContent, filters }) => {
             styles.filter,
             currentContent === filter.title ? styles.filter_active : null
           )}
-          onClick={() => filterClickHandler(filter.title)}>
+          onClick={() => filterClickHandler(filter.title)}
+        >
           {filter.title}
           <SvgBottomArrow />
         </div>
@@ -203,7 +204,8 @@ const FiltersInput = ({ filterClickHandler, currentContent, filters }) => {
             styles.searchFilterMobile,
             currentContent === 'search' ? styles.searchFilterMobile_active : null
           )}
-          onClick={() => filterClickHandler('search')}>
+          onClick={() => filterClickHandler('search')}
+        >
           <SvgSearch />
         </div>
       ) : null}
@@ -216,7 +218,8 @@ const FiltersInput = ({ filterClickHandler, currentContent, filters }) => {
               styles.filter_search,
               currentContent === 'search' ? styles.filter_active : null
             )}
-            onClick={() => filterClickHandler('search')}>
+            onClick={() => filterClickHandler('search')}
+          >
             Search
             <SvgBottomArrow />
           </div>

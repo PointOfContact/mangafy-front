@@ -14,7 +14,8 @@ const Loading = ({ loading }) => (
     zIndex={1000000}
     centered={true}
     footer={null}
-    closable={false}>
+    closable={false}
+  >
     <Spin className={styles.spin} size="large" tip="Loading..."></Spin>
   </Modal>
 );

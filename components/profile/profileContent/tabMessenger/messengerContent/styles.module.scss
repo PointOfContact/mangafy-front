@@ -93,9 +93,10 @@ $arrowSize: 11px;
           margin-bottom: 10px;
         }
       }
-      .rce-mbox-right-notch, .rce-mbox-left-notch {
+      .rce-mbox-right-notch,
+      .rce-mbox-left-notch {
         box-shadow: none;
-        fill: #007AFF;
+        fill: #007aff;
         path {
           filter: none;
         }
@@ -111,8 +112,8 @@ $arrowSize: 11px;
         margin-left: $arrowSize;
         min-width: 100px;
         padding: 10px;
-        color: #2C2C2E;
-        background: #F2F2F7;
+        color: #2c2c2e;
+        background: #f2f2f7;
         border-radius: 0 6px 6px 6px;
         position: relative;
         &:after {
@@ -123,7 +124,7 @@ $arrowSize: 11px;
           position: absolute;
           width: 0;
           height: 0;
-          border: solid #F2F2F7 8px;
+          border: solid #f2f2f7 8px;
           border-bottom: solid transparent 8px;
           border-left: solid transparent 8px;
           top: 0;
@@ -144,7 +145,7 @@ $arrowSize: 11px;
             margin-left: 0;
             margin-right: $arrowSize;
             border-radius: 6px 0 6px 6px;
-            background: #007AFF;
+            background: #007aff;
             color: #fff;
             & > div:last-child {
               margin-top: 0;
@@ -155,9 +156,9 @@ $arrowSize: 11px;
               // position: absolute;
               // width: 0;
               // height: 0;
-              border: solid #007AFF 8px;
+              border: solid #007aff 8px;
               border-bottom: solid transparent 8px;
-              border-left: solid #007AFF 8px;
+              border-left: solid #007aff 8px;
               border-right: solid transparent 8px;
               top: 0;
               left: auto;
@@ -170,7 +171,7 @@ $arrowSize: 11px;
         margin-bottom: 0;
         align-items: start;
         & > span {
-          color: #2C2C2E;
+          color: #2c2c2e;
           font-weight: 600;
           font-size: 14px;
           line-height: 18px;
@@ -410,7 +411,7 @@ $arrowSize: 11px;
           // margin: 20px 28px 17px 28px;
         }
       }
-  
+
       .message-text {
         min-height: 1em; /* prevent height collapsing when there is no text */
         max-height: 97px;
@@ -424,7 +425,7 @@ $arrowSize: 11px;
           color: #828282;
         }
       }
-  
+
       .message-wrapper {
         width: 100%;
         // border: 1px solid #e4e7ec;
@@ -504,7 +505,7 @@ $arrowSize: 11px;
   height: 24px;
   width: 24px;
   align-self: center;
-  margin: 5px 10px ;
+  margin: 5px 10px;
   // svg {
   //   height: 100%;
   //   width: 100%;
@@ -540,24 +541,24 @@ $arrowSize: 11px;
 }
 
 // .messText {
-  // max-width: 226px;
-  // font-weight: normal;
-  // font-size: 16px;
-  // line-height: 18px;
-  // margin-bottom: 15px;
-  // a {
-  //   cursor: pointer;
-  //   font-weight: lighter;
-  //   color: #0358a6;
-  //   font-weight: lighter;
-  //   &:hover {
-  //     text-decoration: underline;
-  //   }
-  // }
-  // @include media-sm {
-  //   width: 173px;
-  //   font-size: 14px;
-  // }
+// max-width: 226px;
+// font-weight: normal;
+// font-size: 16px;
+// line-height: 18px;
+// margin-bottom: 15px;
+// a {
+//   cursor: pointer;
+//   font-weight: lighter;
+//   color: #0358a6;
+//   font-weight: lighter;
+//   &:hover {
+//     text-decoration: underline;
+//   }
+// }
+// @include media-sm {
+//   width: 173px;
+//   font-size: 14px;
+// }
 // }
 
 // .unreadMessage{

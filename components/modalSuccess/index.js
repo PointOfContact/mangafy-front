@@ -21,7 +21,8 @@ export const ModalSuccess = ({ isModalVisible, handleCancelModal }) => (
           <SvgClose height="18px" width="18px" />
         </div>
       }
-      onCancel={handleCancelModal}>
+      onCancel={handleCancelModal}
+    >
       <div className="content">
         <div className="anima">
           <img src="/img/anima.gif" alt="MangaFy anima" />

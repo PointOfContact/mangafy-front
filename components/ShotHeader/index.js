@@ -83,7 +83,8 @@ const ShotHeader = ({ user, shot, className, allShots, isOwn, isSubscribed, subs
               prevShot?.isOld
                 ? buildShotURL(prevShot?._id, prevShot?.authorId)
                 : '/shot/' + prevShot?._id
-            }>
+            }
+          >
             <a className={cn(styles.header__arrow, !prevShot && styles.header__arrow_disabled)}>
               <ArrowDown2 />
             </a>
@@ -94,7 +95,8 @@ const ShotHeader = ({ user, shot, className, allShots, isOwn, isSubscribed, subs
               nextShot?.isOld
                 ? buildShotURL(nextShot?._id, nextShot?.authorId)
                 : '/shot/' + nextShot?._id
-            }>
+            }
+          >
             <a className={cn(styles.header__arrow, !nextShot && styles.header__arrow_disabled)}>
               <ArrowDown2 />
             </a>
@@ -113,7 +115,8 @@ const ShotHeader = ({ user, shot, className, allShots, isOwn, isSubscribed, subs
               prevShot?.isOld
                 ? buildShotURL(prevShot?._id, prevShot?.authorId)
                 : '/shot/' + prevShot?._id
-            }>
+            }
+          >
             <a className={cn(styles.header__arrow, !prevShot && styles.header__arrow_disabled)}>
               <ArrowDown2 />
             </a>
@@ -124,7 +127,8 @@ const ShotHeader = ({ user, shot, className, allShots, isOwn, isSubscribed, subs
               nextShot?.isOld
                 ? buildShotURL(nextShot?._id, nextShot?.authorId)
                 : '/shot/' + nextShot?._id
-            }>
+            }
+          >
             <a className={cn(styles.header__arrow, !nextShot && styles.header__arrow_disabled)}>
               <ArrowDown2 />
             </a>

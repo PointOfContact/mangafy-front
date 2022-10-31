@@ -98,7 +98,8 @@ const MenuNotificationsItem = ({
         <Tooltip
           overlayClassName={cn(styles.tooltip, 'tooltip')}
           placement="leftTop"
-          title="Mark as read">
+          title="Mark as read"
+        >
           <button className={styles.isVerifiedBtn} onClick={addUnreadNotificationsId}></button>
         </Tooltip>
         <div>

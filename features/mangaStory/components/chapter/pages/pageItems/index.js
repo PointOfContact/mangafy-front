@@ -45,7 +45,8 @@ const PageItems = ({
                   setModalTitle('Edit page');
                   setPageItem({ value, index });
                   setChapterItem({ value: chapterItem, index: chapterIndex });
-                }}>
+                }}
+              >
                 <h2>{value.title}</h2>
                 <p
                   dangerouslySetInnerHTML={{ __html: value.text }}
@@ -67,7 +68,8 @@ const PageItems = ({
                   className={styles.pageImage}
                   onClick={() =>
                     !!value?.imageUrl && (setIsModalVisible(true), setCurrentImg(image))
-                  }>
+                  }
+                >
                   {ifPdf ? (
                     <PDFViewer url={image} />
                   ) : (

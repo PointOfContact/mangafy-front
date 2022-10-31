@@ -304,7 +304,8 @@ const FeedNew = (props) => {
                 defaultActiveKey={defaultActiveTab}
                 tabPosition="top"
                 moreIcon={null}
-                onChange={(tab) => setActiveTab(tab)}>
+                onChange={(tab) => setActiveTab(tab)}
+              >
                 <TabPane tab="Recent" key="recent"></TabPane>
                 <TabPane tab="Shots" key="shots"></TabPane>
                 <TabPane tab="Projects" key="projects"></TabPane>

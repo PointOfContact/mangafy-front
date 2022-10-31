@@ -19,7 +19,8 @@ const MangeStoryCard = ({ mangaStories, setMangaStories, client, user }) =>
         label.author === user?._id
           ? `/project/production/${label._id}?tab=details`
           : `/project/${label._id}`
-      }>
+      }
+    >
       <a>
         <div className={styles.mangeStoryCard}>
           <div>

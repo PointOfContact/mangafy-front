@@ -1,6 +1,6 @@
 @import '../../../../styles/variables.scss';
-.href{
-  &:hover{
+.href {
+  &:hover {
     background-color: rgba(255, 255, 255, 0.5);
   }
 }
@@ -125,7 +125,7 @@
     }
   }
 }
-.defStyle{
+.defStyle {
   width: 37px;
   height: 43px;
   text-transform: uppercase;

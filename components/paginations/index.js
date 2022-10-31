@@ -64,7 +64,8 @@ const Paginations = ({
                 <Link
                   href={getPageLink(
                     current + 5 <= total / pageSize ? current + 5 : Math.ceil(total / pageSize)
-                  )}>
+                  )}
+                >
                   <a>{originalElement}</a>
                 </Link>
               );

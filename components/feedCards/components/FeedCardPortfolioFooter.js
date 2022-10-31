@@ -22,7 +22,8 @@ const FeedCardPortfolioFooter = ({ authorId, author, avatar, followers, isFollow
           e.stopPropagation();
           like();
         }}
-        outline={isFollowed}>
+        outline={isFollowed}
+      >
         {isFollowed ? 'Unfollow' : 'Follow'}
       </Button>
     </div>

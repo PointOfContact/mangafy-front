@@ -71,7 +71,8 @@ const MenuLinks = ({
                   onClick={() => {
                     handleMenuOpen(false);
                     showCreateProjectModal(true);
-                  }}>
+                  }}
+                >
                   <a>
                     <span className={styles.iconText}>✏️</span>
                     Create a collab
@@ -98,7 +99,8 @@ const MenuLinks = ({
                   onClick={() => {
                     handleMenuOpen(true);
                     setShowNotificationModal(true);
-                  }}>
+                  }}
+                >
                   <a>
                     <span className={styles.iconText}>💡</span>My Notifications
                   </a>
@@ -154,7 +156,8 @@ const MenuLinks = ({
                   onClick={() => {
                     handleMenuOpen(false);
                     showCreateProjectModal(true);
-                  }}>
+                  }}
+                >
                   <a>
                     <span className={styles.iconText}>✏️</span>
                     Create a collab
@@ -183,7 +186,8 @@ const MenuLinks = ({
                   onClick={() => {
                     handleMenuOpen(false);
                     setShowModal(true);
-                  }}>
+                  }}
+                >
                   <span className={styles.iconText}>👐</span>Invite friends
                 </div>
               </li>

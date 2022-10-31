@@ -73,7 +73,8 @@ const EditPopup = ({ fieldName, onChange, closePopup, save, saveClose, baseData 
                 style={{ width: '100%' }}
                 name={fieldName}
                 showSearch
-                getPopupContainer={() => document.getElementById('preferredLanguage')}>
+                getPopupContainer={() => document.getElementById('preferredLanguage')}
+              >
                 {filteredOptions.map((item) => (
                   <Option key={item} value={item}>
                     {item}
@@ -99,7 +100,8 @@ const EditPopup = ({ fieldName, onChange, closePopup, save, saveClose, baseData 
                           onClick={onChange}
                           name="searchingFor"
                           value={item.key}
-                          key={item.key}>
+                          key={item.key}
+                        >
                           {item.value}
                         </Checkbox>
                       </li>
@@ -121,14 +123,16 @@ const EditPopup = ({ fieldName, onChange, closePopup, save, saveClose, baseData 
                 value={value}
                 defaultValue="notPaid"
                 name="compensation"
-                onChange={onChange}>
+                onChange={onChange}
+              >
                 <div className="row">
                   <div className="col-lg-12">
                     <Radio
                       value="paid"
                       onClick={() => {
                         toggleFieldRange(true);
-                      }}>
+                      }}
+                    >
                       I'm ready to pay for tasks
                     </Radio>
                   </div>
@@ -137,7 +141,8 @@ const EditPopup = ({ fieldName, onChange, closePopup, save, saveClose, baseData 
                       value="collaboration"
                       onClick={() => {
                         toggleFieldRange(false);
-                      }}>
+                      }}
+                    >
                       I'm looking for mutually beneficial
                     </Radio>
                   </div>

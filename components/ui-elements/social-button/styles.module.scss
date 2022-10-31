@@ -1,10 +1,10 @@
 @import '../../../styles/variables.scss';
 
-.social_button{
+.social_button {
   display: inline-block;
-  &:hover{
-    svg{
-      path{
+  &:hover {
+    svg {
+      path {
         fill: $primaryDark;
       }
     }

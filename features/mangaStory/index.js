@@ -274,7 +274,8 @@ const MangeStory = (props) => {
             <span
               onClick={() => {
                 setEditMode(true);
-              }}>
+              }}
+            >
               <Edit2 color="#777" />
             </span>
           )}
@@ -332,10 +333,12 @@ const MangeStory = (props) => {
       <ButtonToTop user={user} />
       <main
         className={cn('main_back_2', styles.main, !sidebarCollapsed && styles.sidebarCollapsed)}
-        style={{ background: '#fafafa' }}>
+        style={{ background: '#fafafa' }}
+      >
         {!(isOwn || isParticipant) && <HeaderNew user={userData} />}
         <div
-          className={cn(styles.pageWrap, !isMobile && styles.pageWrap_desktop, 'manga-story-page')}>
+          className={cn(styles.pageWrap, !isMobile && styles.pageWrap_desktop, 'manga-story-page')}
+        >
           {isOwn ? (
             <ProjectHeader />
           ) : (

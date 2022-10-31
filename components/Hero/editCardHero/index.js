@@ -38,11 +38,13 @@ const EditCard = ({ confirmDelete, editCard, hero, setEdit, componentNames, clic
         onClick={handleClick}
         className={styles.loadImage}
         title={!!hero?.imageUrl?.length ? '' : 'image not available'}
-        style={{ cursor: !!hero?.imageUrl?.length ? 'pointer' : 'not-allowed' }}>
+        style={{ cursor: !!hero?.imageUrl?.length ? 'pointer' : 'not-allowed' }}
+      >
         <span
           onClick={() =>
             !!hero?.imageUrl?.length && download(client.UPLOAD_URL + hero?.imageUrl, hero?.name)
-          }>
+          }
+        >
           <SvgExport width="11px" height="9px" />
         </span>
       </div>
@@ -68,7 +70,8 @@ const EditCard = ({ confirmDelete, editCard, hero, setEdit, componentNames, clic
           e.stopPropagation();
           setVisibleModal(true);
         }}
-        className={styles.editCard}>
+        className={styles.editCard}
+      >
         <Popover
           placement="topLeft"
           content={
@@ -81,7 +84,8 @@ const EditCard = ({ confirmDelete, editCard, hero, setEdit, componentNames, clic
               text=""
             />
           }
-          trigger="click">
+          trigger="click"
+        >
           <Share width={10} height={10} color="#7B65F3" />
         </Popover>
       </div>

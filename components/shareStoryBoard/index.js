@@ -27,7 +27,8 @@ export const ShareStoryBoard = ({ shareUrl, user }) => {
             onClick={setAmplitude}
             href="https://mangacat.io?utm_source=mangafy.club"
             target="_blank"
-            rel="noreferrer">
+            rel="noreferrer"
+          >
             <img src="/img/MangaCatButton.png" alt="MangaFy cat button" />
           </a>
           <p>
@@ -56,7 +57,8 @@ export const ShareStoryBoard = ({ shareUrl, user }) => {
             onClick={setAmplitude}
             href="https://mangacat.io?utm_source=mangafy.club"
             target="_blank"
-            rel="noreferrer">
+            rel="noreferrer"
+          >
             <img src="/img/MangaCatButton.png" alt="MangaFy cat button" />
           </a>
           <p>

@@ -1,29 +1,24 @@
-import client from 'api/client';
-import React, { useEffect, useRef, useState } from 'react';
+/* eslint-disable react/display-name */
+import React, { useState } from 'react';
 import styles from './styles.module.scss';
-import cn from 'classnames';
-import ResponsiveImgix from 'components/imgix/responsiveImgix';
-import 'react-inner-image-zoom/lib/InnerImageZoom/styles.css';
-import InnerImageZoom from 'react-inner-image-zoom';
-import reactImageSize from 'react-image-size';
-import { imgixClient } from 'components/imgix';
+import PropTypes from 'prop-types';
+import ViewScroll from './ViewScroll';
+import BookView from './BookView';
 
-const MangaBody = ({ images, className }) => {
-  return (
-    <div className={cn(styles.body, className)}>
-      {/* {shot.image && <ResponsiveImgix src={client.UPLOAD_URL + shot.image} />} */}
-      {images?.map((image, index) => (
-        <InnerImageZoom
-          key={image + index}
-          moveType="drag"
-          fullscreenOnMobile
-          zoomScale={1.5}
-          hideHint
-          src={client.UPLOAD_URL + image}
-        />
-      ))}
-    </div>
-  );
+const MangaBody = ({ images, className, readStyle }) => {
+  const [ref, setRef] = useState();
+
+  return readStyle ? <BookView images={images} /> : <ViewScroll images={images} />;
+};
+
+MangaBody.propTypes = {
+  images: PropTypes.array.isRequired,
+  className: PropTypes.string,
+  readStyle: PropTypes.bool.isRequired,
+};
+
+MangaBody.defaultProps = {
+  className: '',
 };
 
 export default MangaBody;

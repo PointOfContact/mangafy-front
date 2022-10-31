@@ -73,7 +73,8 @@ const Lenguage = ({ user }) => {
                   placeholder="Inserted are removed"
                   value={selectedItems}
                   onChange={handleChange}
-                  style={{ width: '100%' }}>
+                  style={{ width: '100%' }}
+                >
                   {filteredOptions.map((item) => (
                     <Select.Option key={item} value={item}>
                       {item}
@@ -98,7 +99,8 @@ const Lenguage = ({ user }) => {
                       className="title_but"
                       loading={loadings[0]}
                       disabled={!selectedItems}
-                      onClick={() => enterLoading(0)}>
+                      onClick={() => enterLoading(0)}
+                    >
                       <span>Next</span>
                       <SvgRightArrow width="13.503px" height="23.619px" />
                     </Button>

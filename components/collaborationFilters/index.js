@@ -13,12 +13,14 @@ const CollaborationFilters = ({}) => (
         <div className={styles.box__wrapper}>
           <button
             id="collaborationFilterId"
-            className={cn(styles.box__toggle, styles.box__toggle_active)}>
+            className={cn(styles.box__toggle, styles.box__toggle_active)}
+          >
             <SvgFiltr width="22" height="16" />
           </button>
           <button
             id="collaborationFilterAllId"
-            className={cn(styles.box__all, styles.box__all_active)}>
+            className={cn(styles.box__all, styles.box__all_active)}
+          >
             All
           </button>
           <div className={styles.box__title}>

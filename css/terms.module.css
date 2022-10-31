@@ -1,6 +1,6 @@
 .terms * {
   -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .terms body {
@@ -10,7 +10,7 @@
 }
 
 .terms body {
-  font-family: "Noto Sans JP", sans-serif;
+  font-family: 'Noto Sans JP', sans-serif;
   font-size: 17px;
   line-height: 28px;
 }

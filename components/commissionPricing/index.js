@@ -192,7 +192,8 @@ export const CommissionPricing = ({ id, user }) => {
                       position: 'relative',
                       marginBottom: 15,
                     }}
-                    align="start">
+                    align="start"
+                  >
                     <span className={styles.grupe}>
                       <Input
                         disabled={!ifMyProfile}

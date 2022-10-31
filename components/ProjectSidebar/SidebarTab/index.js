@@ -7,7 +7,8 @@ const SidebarTab = ({ children, isActive, icon, collapsed, onClick }) => {
   return (
     <div
       onClick={onClick}
-      className={cn(styles.tab, isActive && styles.tab_active, collapsed && styles.tab_collapsed)}>
+      className={cn(styles.tab, isActive && styles.tab_active, collapsed && styles.tab_collapsed)}
+    >
       {icon}
       <span className={styles.text}>{children}</span>
     </div>

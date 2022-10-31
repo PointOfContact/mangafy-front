@@ -128,7 +128,8 @@ export default function TypePage({
         className={styles.postItems}
         dataLength={discussions.length}
         next={showMore}
-        hasMore={true}>
+        hasMore={true}
+      >
         {postElements}
       </InfiniteScroll>
     ) : (
@@ -158,7 +159,8 @@ export default function TypePage({
                       value={defaultValue}
                       onChange={chooseType}
                       dropdownClassName="select-filter"
-                      className={cn(styles.box__nav_selectDef, 'select-filter')}>
+                      className={cn(styles.box__nav_selectDef, 'select-filter')}
+                    >
                       {option}
                     </Select>
                   </div>

@@ -39,7 +39,8 @@ const ParticipantCard = ({ isOwn, avatar, name, id, type, types, leaveManga, use
               <p
                 onClick={() => {
                   leaveManga(id);
-                }}>
+                }}
+              >
                 Remove participant
               </p>
             </div>
@@ -49,7 +50,8 @@ const ParticipantCard = ({ isOwn, avatar, name, id, type, types, leaveManga, use
               className={styles.out}
               onClick={() => {
                 leaveManga(user?._id);
-              }}>
+              }}
+            >
               Leave Manga-Story
             </p>
           )}

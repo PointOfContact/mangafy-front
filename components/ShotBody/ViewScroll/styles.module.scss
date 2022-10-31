@@ -1,0 +1,35 @@
+@import '../../../styles/variables.scss';
+
+.body {
+  display: flex;
+  flex-direction: column;
+  figure {
+    & > div {
+      display: flex;
+      justify-content: center;
+    }
+  }
+  span {
+    width: 100%;
+    border-radius: 10px;
+  }
+
+  &__text {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 50px 0;
+    @include media-sm {
+      padding: 20px 0;
+    }
+  }
+
+  &__title {
+    font-weight: 700;
+    font-size: 30px;
+  }
+
+  &__description {
+    font-weight: 400;
+    font-size: 20px;
+  }
+}

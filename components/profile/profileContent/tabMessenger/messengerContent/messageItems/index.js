@@ -14,7 +14,8 @@ const messageItems = (data, participants, setRequestStatus, user, setMessageItem
   const joinMangaStoryRequest = (item, text, type, className) =>
     item.joinMangaStoryRequest[0].status === type && (
       <span
-        className={cn(styles.status, item.joinMangaStoryRequest[0].status === type && className)}>
+        className={cn(styles.status, item.joinMangaStoryRequest[0].status === type && className)}
+      >
         {text}
       </span>
     );
@@ -76,7 +77,8 @@ const messageItems = (data, participants, setRequestStatus, user, setMessageItem
           className={cn(styles.messText, !item.status[0]?.read && 'unreadMessage')}
           dangerouslySetInnerHTML={{
             __html: item.content,
-          }}></div>
+          }}
+        ></div>
         <div className={styles.statusContainer}>
           {item.joinMangaStoryRequest[0].status === 'new' && (
             <span className={styles.status}> Pending invite </span>
@@ -122,7 +124,8 @@ const messageItems = (data, participants, setRequestStatus, user, setMessageItem
         className={cn(styles.messText, !item.status[0]?.read && 'unreadMessage')}
         dangerouslySetInnerHTML={{
           __html: item.content,
-        }}></div>
+        }}
+      ></div>
     );
     const date = item.createdAt;
     item.dateString = myformat(date);

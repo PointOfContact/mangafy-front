@@ -93,7 +93,8 @@ const SearchForDiscussions = (props) => {
               value={selectedCategories || []}
               onChange={handleCategoriesClick}
               dropdownClassName="select-filter"
-              className={cn(styles.box__nav_select, 'select-filter')}>
+              className={cn(styles.box__nav_select, 'select-filter')}
+            >
               {menuCategoriesOptions(categories)}
             </Select>
             <Select
@@ -105,7 +106,8 @@ const SearchForDiscussions = (props) => {
               defaultValue={selectedType}
               onChange={handleCompasitionClick}
               dropdownClassName="select-filter"
-              className={cn(styles.box__nav_select, 'select-filter')}>
+              className={cn(styles.box__nav_select, 'select-filter')}
+            >
               {menuOptions(handleCompasitionClick)}
             </Select>
           </div>

@@ -21,7 +21,8 @@ const Pagination = ({ currentNumber, setCurrentNumber, data, user }) => {
           dataEvent.event_properties = { chapter: data[currentNumber - 1] };
           myAmplitude(dataEvent);
           setCurrentNumber(currentNumber - 1);
-        }}>
+        }}
+      >
         <SvgLeftArrow width="14" height="14" />
       </div>
       <p className={styles.currentChapter}># {currentNumber}</p>
@@ -32,7 +33,8 @@ const Pagination = ({ currentNumber, setCurrentNumber, data, user }) => {
           dataEvent.event_properties = { chapter: data[currentNumber + 2] };
           myAmplitude(dataEvent);
           setCurrentNumber(currentNumber + 1);
-        }}>
+        }}
+      >
         <SvgRightArrow width="14" height="14" />
       </div>
     </div>

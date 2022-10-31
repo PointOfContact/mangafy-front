@@ -9,7 +9,8 @@ const ArrowDown = (props) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       stroke={props.color || '#121219'}
-      strokeWidth={strokeWidth}>
+      strokeWidth={strokeWidth}
+    >
       <path
         d="M12 3V21M12 21L19.5 14M12 21L4.5 14"
         stroke-linecap="round"

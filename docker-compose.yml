@@ -1,14 +1,12 @@
-version: "2"
-
+version: '2'
 
 services:
-
   app:
     build:
       context: .
       dockerfile: ./docker/Dockerfile.dev
     image: mangafy/front
-    command: "npm run dev"
+    command: 'npm run dev'
     volumes:
       - ./:/app
       - /app/node_modules

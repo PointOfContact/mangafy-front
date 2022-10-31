@@ -56,7 +56,8 @@ const AnimePlatform = ({ user }) => {
           gutter={[
             { xs: 20, sm: 30, md: 40, lg: 60 },
             { xs: 20, sm: 40, md: 10, lg: 10 },
-          ]}>
+          ]}
+        >
           {platforms.map((platform) => (
             <AnimePlatformCard
               key={platform.key}

@@ -14,12 +14,14 @@ const ButtonToggle = ({ onText, offText, className, onChange, isChecked, size, i
           width: `${(size * 128) / 100}px`,
           height: `${(size * 48) / 100}px`,
         }}
-        className="toggle-box">
+        className="toggle-box"
+      >
         <div
           style={{
             transform: `scale(${size / 100})`,
           }}
-          className={styles.toggle_wrapper}>
+          className={styles.toggle_wrapper}
+        >
           <div className={cn(styles.toggle, styles.dog_rollover)}>
             <input
               className={styles.doggo}

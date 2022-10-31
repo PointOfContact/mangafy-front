@@ -27,7 +27,8 @@ const AddHeroCard = ({
       onClick={() => {
         setEdit(false);
         addHero(heroTypes);
-      }}>
+      }}
+    >
       <SvgAdd2 width="31px" height="31px" />
       <p className={styles.addButtonText}>{title}</p>
     </div>

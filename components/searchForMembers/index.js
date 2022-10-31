@@ -120,7 +120,8 @@ const SearchForMembers = (props) => {
               <button
                 id="searchForMembersSubmitId"
                 type="submit"
-                className={styles.box__search_submit}>
+                className={styles.box__search_submit}
+              >
                 <SvgSearch width="22" height="22" />
               </button>
             </form>
@@ -134,7 +135,8 @@ const SearchForMembers = (props) => {
                 defaultValue={selectedTypes}
                 onChange={handleCompasitionClick}
                 dropdownClassName="select-filter"
-                className={cn(styles.box__nav_selectDef, 'select-filter')}>
+                className={cn(styles.box__nav_selectDef, 'select-filter')}
+              >
                 {menuOptions(userTypes, handleCompasitionClick)}
               </Select>
               <Select
@@ -153,7 +155,8 @@ const SearchForMembers = (props) => {
                   styles.box__nav_selectDef,
                   !selectedGenres?.length && styles.box__nav_select,
                   'select-filter'
-                )}>
+                )}
+              >
                 {menuGenresOptions(genres)}
               </Select>
             </div>

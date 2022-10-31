@@ -1,68 +1,68 @@
 @import '../../../styles/variables.scss';
 
 .participantItemsContainer {
-    min-width: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 5px 0;
-    p {
-      margin: 0;
-    }
-    .participantDelete {
-      width: 25px;
-      height: 25px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid $primaryDark;
-      border-radius: 50%;
-      path {
-        fill: $primaryDark;
-      }
-      &:hover {
-        background: $primaryDark;
-        border-radius: 50%;
-        path {
-          fill: white;
-        }
-      }
-    }
-    .participantData {
-      margin: 0 5px;
-      min-width: 120px;
-      max-width: 120px;
-      .participantName {
-        font-weight: bold;
-        color: $black;
-        text-overflow: ellipsis;
-        display: block;
-        white-space: nowrap;
-        overflow: hidden;
-      }
-      .participantType {
-        color: $gray85;
-      }
-    }
-    .participantImage{
-        border-radius: 50%;
-    }
-  }
-
-  .participantsCount {
-    width: 55px;
-    height: 40px;
-    background: $primaryDark;
+  min-width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 5px 0;
+  p {
     margin: 0;
-    font-size: $text3;
-    margin-left: 5px;
+  }
+  .participantDelete {
+    width: 25px;
+    height: 25px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white !important;
-    cursor: pointer;
-    border-radius: 20px;
-    @include media-sm {
-      height: 34px;
+    border: 1px solid $primaryDark;
+    border-radius: 50%;
+    path {
+      fill: $primaryDark;
+    }
+    &:hover {
+      background: $primaryDark;
+      border-radius: 50%;
+      path {
+        fill: white;
+      }
     }
   }
+  .participantData {
+    margin: 0 5px;
+    min-width: 120px;
+    max-width: 120px;
+    .participantName {
+      font-weight: bold;
+      color: $black;
+      text-overflow: ellipsis;
+      display: block;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+    .participantType {
+      color: $gray85;
+    }
+  }
+  .participantImage {
+    border-radius: 50%;
+  }
+}
+
+.participantsCount {
+  width: 55px;
+  height: 40px;
+  background: $primaryDark;
+  margin: 0;
+  font-size: $text3;
+  margin-left: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white !important;
+  cursor: pointer;
+  border-radius: 20px;
+  @include media-sm {
+    height: 34px;
+  }
+}

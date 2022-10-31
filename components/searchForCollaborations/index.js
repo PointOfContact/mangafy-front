@@ -161,7 +161,8 @@ const SearchForCollaborations = (props) => {
               <button
                 id="searchForCollaborationSubmitId"
                 type="submit"
-                className={styles.box__search_submit}>
+                className={styles.box__search_submit}
+              >
                 <SvgSearch width="22" height="22" />
               </button>
             </form>
@@ -179,7 +180,8 @@ const SearchForCollaborations = (props) => {
                   styles.box__nav_selectDef,
                   !selectedCompensationModel?.length && styles.box__nav_select,
                   'select-filter'
-                )}>
+                )}
+              >
                 {menuOptions(handleCompasitionClick)}
               </Select>
               <Select
@@ -198,7 +200,8 @@ const SearchForCollaborations = (props) => {
                   styles.box__nav_selectDef,
                   !selectedTypes?.length && styles.box__nav_select,
                   'select-filter'
-                )}>
+                )}
+              >
                 {artistOptions(userTypes)}
               </Select>
               <div className={styles.allGenres} id="area">
@@ -219,7 +222,8 @@ const SearchForCollaborations = (props) => {
                     styles.box__nav_selectDef,
                     !selectedGenres?.length && styles.box__nav_select,
                     'select-filter'
-                  )}>
+                  )}
+                >
                   {menuGenresOptions(genres)}
                 </Select>
               </div>

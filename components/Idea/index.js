@@ -70,7 +70,8 @@ const Idea = ({ storyBoard, user }) => {
           savingStatus === 'saved' && styles.savingStatus_green,
           savingStatus === 'saving' && styles.savingStatus_yellow,
           savingStatus === 'ooops, something went wrong' && styles.savingStatus_red
-        )}>
+        )}
+      >
         {savingStatus}
       </div>
       <TextEditor

@@ -125,8 +125,8 @@
     margin-left: auto;
     display: flex;
     align-items: center;
-    @include media-sm{
-      margin-left: 0
+    @include media-sm {
+      margin-left: 0;
     }
   }
   &__menu {
@@ -238,7 +238,7 @@
     display: none;
     @include media-sm {
       display: block;
-      background-color: #FAFAFA;
+      background-color: #fafafa;
       display: flex;
       flex-direction: column;
       align-items: center;

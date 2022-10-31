@@ -27,7 +27,8 @@ function SelectFilter({
         onChange={onChange}
         id={id}
         dropdownClassName={'select-filter'}
-        {...rest}>
+        {...rest}
+      >
         {options.map((item) => (
           <Option key={item.key} value={item.key}>
             {item.value}

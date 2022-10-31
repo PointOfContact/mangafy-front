@@ -122,7 +122,8 @@ const SignUp = ({ storyInfo, goNext, goBack, setStoryInfo, loading, setLoading }
                     setNameError(null);
                   },
                 },
-              ]}>
+              ]}
+            >
               <input
                 ref={refs.name}
                 type="text"
@@ -130,7 +131,8 @@ const SignUp = ({ storyInfo, goNext, goBack, setStoryInfo, loading, setLoading }
                 placeholder="Your dream name"
                 onChange={nameChangeHandler}
                 onBlur={nameBlurHandler}
-                name="name"></input>
+                name="name"
+              ></input>
             </Form.Item>
             <Form.Item
               className={styles.form_item}
@@ -147,7 +149,8 @@ const SignUp = ({ storyInfo, goNext, goBack, setStoryInfo, loading, setLoading }
                   type: 'email',
                   message: () => setEmailError('Please input correct email'),
                 },
-              ]}>
+              ]}
+            >
               <input
                 ref={refs.email}
                 type="text"
@@ -155,7 +158,8 @@ const SignUp = ({ storyInfo, goNext, goBack, setStoryInfo, loading, setLoading }
                 placeholder="Your email"
                 onChange={emailChangeHandler}
                 name="email"
-                onBlur={emailBlurHandler}></input>
+                onBlur={emailBlurHandler}
+              ></input>
             </Form.Item>
             <Form.Item
               className={styles.form_item}
@@ -172,7 +176,8 @@ const SignUp = ({ storyInfo, goNext, goBack, setStoryInfo, loading, setLoading }
                     setPasswordError(null);
                   },
                 },
-              ]}>
+              ]}
+            >
               <input
                 ref={refs.password}
                 type="password"
@@ -180,7 +185,8 @@ const SignUp = ({ storyInfo, goNext, goBack, setStoryInfo, loading, setLoading }
                 placeholder="Password"
                 onChange={passwordChangeHandler}
                 onBlur={passwordBlurHandler}
-                name="password"></input>
+                name="password"
+              ></input>
             </Form.Item>
           </div>
           <div className={styles.buttons}>

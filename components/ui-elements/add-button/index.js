@@ -27,7 +27,8 @@ const AddButton = ({
       className
     )}
     onClick={onClick}
-    disabled={disabled}>
+    disabled={disabled}
+  >
     <span>{text}</span>
     {svg || <SvgPrimaryAdd width={width} height={height} />}
   </div>

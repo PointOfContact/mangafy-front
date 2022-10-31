@@ -38,7 +38,8 @@ const MangaHeader = ({ user, manga, className, authors, subscribe, isOwn, active
               className={cn(
                 styles.header__arrow,
                 !prevChapterIndex && styles.header__arrow_disabled
-              )}>
+              )}
+            >
               <ArrowDown2 />
             </a>
           </Link>
@@ -48,7 +49,8 @@ const MangaHeader = ({ user, manga, className, authors, subscribe, isOwn, active
               className={cn(
                 styles.header__arrow,
                 !nextChapterIndex && styles.header__arrow_disabled
-              )}>
+              )}
+            >
               <ArrowDown2 />
             </a>
           </Link>
@@ -66,7 +68,8 @@ const MangaHeader = ({ user, manga, className, authors, subscribe, isOwn, active
               className={cn(
                 styles.header__arrow,
                 !prevChapterIndex && styles.header__arrow_disabled
-              )}>
+              )}
+            >
               <ArrowDown2 />
             </a>
           </Link>
@@ -76,7 +79,8 @@ const MangaHeader = ({ user, manga, className, authors, subscribe, isOwn, active
               className={cn(
                 styles.header__arrow,
                 !nextChapterIndex && styles.header__arrow_disabled
-              )}>
+              )}
+            >
               <ArrowDown2 />
             </a>
           </Link>

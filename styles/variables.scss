@@ -9,7 +9,7 @@ $silver: #d3d3d3;
 $white: #f3f3f3;
 $grey: #7b7b7b;
 $feedGrey: #a7a7a7;
-$greyWhite: #EDEDED;
+$greyWhite: #ededed;
 $primaryBG: #ffffff;
 $grayBG: #f3f3f3;
 $avatar_outline: #20c000;
@@ -22,8 +22,16 @@ $yellow: #fec447;
 $pink: #d11e8e;
 $redpink: #f06067;
 $primaryShadow: 0px 0px 20px rgba(123, 101, 243, 0.27);
-$bigShadow: 0 0 27px rgba($color: #1f1f1f, $alpha: 0.08);
-$smallShadow: 2px 2px 6px rgba($color: #1f1f1f, $alpha: 0.12);
+$bigShadow: 0 0 27px
+  rgba(
+    $color: #1f1f1f,
+    $alpha: 0.08,
+  );
+$smallShadow: 2px 2px 6px
+  rgba(
+    $color: #1f1f1f,
+    $alpha: 0.12,
+  );
 
 $h1: 55px;
 $h2: 50px;
@@ -75,4 +83,3 @@ $media-xl: 'screen and (min-width: 1200px)';
     @content;
   }
 }
-

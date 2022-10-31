@@ -111,7 +111,8 @@ const CreateShotModal = ({
       }}
       wrapClassName={styles.modal}
       closeIcon={<Close className={styles.modal__close} />}
-      footer={null}>
+      footer={null}
+    >
       <h2>Shot</h2>
       <Input
         err={errors.titleError}

@@ -124,7 +124,8 @@ const HtmlGalleryModal = ({ gallery, setImages, images, handleCancel, isModalVis
         zIndex={200000000}
         onCancel={handleCancel}
         closeIcon={<SvgClose />}
-        visible={isModalVisible}>
+        visible={isModalVisible}
+      >
         <div>
           <Form
             name="tasks"
@@ -135,7 +136,8 @@ const HtmlGalleryModal = ({ gallery, setImages, images, handleCancel, isModalVis
             initialValues={{
               title,
               text,
-            }}>
+            }}
+          >
             <h2>Title</h2>
             <Form.Item
               name="title"
@@ -148,7 +150,8 @@ const HtmlGalleryModal = ({ gallery, setImages, images, handleCancel, isModalVis
                   pattern: /^[^\s]+(\s+[^\s]+)*$/,
                   message: 'Remove whitespaces',
                 },
-              ]}>
+              ]}
+            >
               <PrimaryInput
                 placeholder=""
                 value={text}
@@ -168,7 +171,8 @@ const HtmlGalleryModal = ({ gallery, setImages, images, handleCancel, isModalVis
                   pattern: /^[^\s]+(\s+[^\s]+)*$/,
                   message: 'Remove whitespaces',
                 },
-              ]}>
+              ]}
+            >
               <GrammarlyEditorPlugin clientId={`${process.env.NEXT_PUBLIC_GRAMMARLY_ID}`}>
                 <TextArea
                   placeholder=""
