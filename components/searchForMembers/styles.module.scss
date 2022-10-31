@@ -222,10 +222,10 @@
         max-width: 360px;
         flex-wrap: nowrap;
         overflow-x: auto;
-        @include media-sm{
+        @include media-sm {
           max-width: 100%;
         }
-        & > div{
+        & > div {
           margin-bottom: 5px;
         }
       }
@@ -242,7 +242,7 @@
         }
       }
     }
-    &_select{
+    &_select {
       & > div {
         & > div {
           overflow-x: unset;

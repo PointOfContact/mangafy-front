@@ -34,7 +34,8 @@ const ChooseLayoutCard = ({
         isActive && styles.active,
         isFullWidth && styles.full_width
       )}
-      onClick={onClick}>
+      onClick={onClick}
+    >
       {isActive && <WhiteChecked className={styles.checked} width="31px" height="31px" />}
       <div className={styles.img}>
         <Imgix

@@ -7,7 +7,7 @@
   width: 100%;
   max-width: 300px;
   min-width: 300px;
-  @include media-sm{
+  @include media-sm {
     max-width: 230px;
     min-width: 230px;
   }

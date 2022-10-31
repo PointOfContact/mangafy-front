@@ -7,7 +7,8 @@ const Comment = (props) => {
       className={props.className}
       viewBox="0 0 24 24"
       fill="none"
-      xmlns="http://www.w3.org/2000/svg">
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <path
         d="M21.5 12C21.5 6.75329 17.2467 2.5 12 2.5C6.75329 2.5 2.5 6.75329 2.5 12V20.6909C2.5 21.0626 2.8912 21.3044 3.22365 21.1381L6.29907 19.6C7.88699 20.793 9.86093 21.5 12 21.5C17.2467 21.5 21.5 17.2467 21.5 12Z"
         stroke={props.color || '#121219'}

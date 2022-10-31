@@ -6,10 +6,11 @@
   em {
     font: revert;
   }
-  u, s {
+  u,
+  s {
     text-decoration: revert;
   }
-  div{
+  div {
     border: none !important;
   }
   & > div {

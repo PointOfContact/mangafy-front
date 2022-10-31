@@ -144,7 +144,8 @@ const ModalComponent = ({
       }
       okText="Send"
       destroyOnClose
-      onCancel={handleCancel}>
+      onCancel={handleCancel}
+    >
       <div className={styles.border} />
       <div className={cn('container', styles.container)}>
         <div className={styles.board} />
@@ -160,7 +161,8 @@ const ModalComponent = ({
                   description,
                   imageUrl: '',
                   chooseCharacter,
-                }}>
+                }}
+              >
                 <h3>{titles.inputTitle}</h3>
                 <Form.Item
                   name="name"
@@ -172,7 +174,8 @@ const ModalComponent = ({
                         }
                       },
                     },
-                  ]}>
+                  ]}
+                >
                   <PrimaryInput
                     placeholder={titles.firstInput}
                     isFullWidth={true}
@@ -223,7 +226,8 @@ const ModalComponent = ({
                             ? option.label.toLowerCase().includes(inputValue.toLowerCase())
                             : true
                         }
-                        className={styles.option}>
+                        className={styles.option}
+                      >
                         {options}
                       </Select>
                     </Form.Item>

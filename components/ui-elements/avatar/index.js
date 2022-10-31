@@ -15,7 +15,8 @@ const Avatar = ({ text, className, onClick, size, fontSize, ...rest }) => {
         height: size || '100%',
       }}
       className={cn(styles.avatar, className)}
-      onClick={onClick}>
+      onClick={onClick}
+    >
       {text && text[0]}
     </div>
   );

@@ -60,7 +60,8 @@ const HeroCard = ({
         onClick={() => {
           setEdit(true);
           changeHero(hero, hero?.type);
-        }}>
+        }}
+      >
         <div className={styles.hero__text__row}>
           <h3>{hero?.name}</h3>
         </div>

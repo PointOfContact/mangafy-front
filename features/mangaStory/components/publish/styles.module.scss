@@ -55,18 +55,18 @@
       }
     }
   }
-  .publishedMessage{
+  .publishedMessage {
     margin-bottom: 20px;
     font-style: normal;
     font-weight: normal;
     font-size: $text3;
     line-height: 24px;
     color: $primaryDark;
-    @include media-sm{
+    @include media-sm {
       font-size: $text4;
     }
   }
-  .postManga{
+  .postManga {
     pointer-events: none;
     opacity: 0.5;
   }

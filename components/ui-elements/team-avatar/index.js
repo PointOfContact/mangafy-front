@@ -64,7 +64,8 @@ const TeamAvatar = ({ users, className, onClick, size, fontSize, ...rest }) => {
         width: size || '100%',
         height: size || '100%',
       }}
-      onClick={onClick}>
+      onClick={onClick}
+    >
       {users.length === 1 && oneUser()}
       {users.length === 2 && twoUser()}
       {/* {users.length === 3 && treeUser()}

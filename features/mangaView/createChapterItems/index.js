@@ -37,7 +37,8 @@ const createChapterItems = (
           ];
           myAmplitude(dataEvent);
           setCurrentChapter(index + 1);
-        }}>
+        }}
+      >
         {ifPdf ? (
           <PDFViewer url={client.UPLOAD_URL + value.cover} />
         ) : (

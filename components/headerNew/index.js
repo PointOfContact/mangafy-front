@@ -353,7 +353,8 @@ const HeaderNew = ({ user }) => {
               placement="bottom"
               overlay={createMenu}
               className={styles.nav__dropdown}
-              trigger="click">
+              trigger="click"
+            >
               <Space>
                 <ArrowDown2 className={styles.nav__dropdownArrow} />
                 Create
@@ -385,12 +386,14 @@ const HeaderNew = ({ user }) => {
                       />
                     }
                     onVisibleChange={(visible) => setShowNotificationModal(!showNotificationModal)}
-                    trigger="click">
+                    trigger="click"
+                  >
                     <Badge
                       count={notificationsCount}
                       onClick={() => {
                         setShowNotificationModal(!showNotificationModal);
-                      }}>
+                      }}
+                    >
                       <SvgBell width="23px" height="23px" />
                     </Badge>
                   </Popover>
@@ -400,7 +403,8 @@ const HeaderNew = ({ user }) => {
                   arrow
                   overlay={profileMenu}
                   className={styles.nav__dropdown}
-                  trigger="click">
+                  trigger="click"
+                >
                   <Space>
                     <div className={styles.nav__avatar}>
                       {/* {user.avatar ? (
@@ -452,12 +456,14 @@ const HeaderNew = ({ user }) => {
                     setNotificationsCount={setNotificationsCount}
                   />
                 }
-                trigger="click">
+                trigger="click"
+              >
                 <Badge
                   count={notificationsCount}
                   onClick={() => {
                     setShowNotificationModalMobile(!showNotificationModalMobile);
-                  }}>
+                  }}
+                >
                   <SvgBell width="23px" height="23px" />
                 </Badge>
               </Popover>

@@ -13,7 +13,7 @@
     justify-content: center;
     align-items: center;
     svg {
-      path{
+      path {
         fill: #666262;
       }
     }
@@ -42,10 +42,10 @@
         line-height: 40px;
         color: $gray85;
         margin: 0;
-        &:hover{
-          color: $black;       
+        &:hover {
+          color: $black;
         }
-        @include media-sm{
+        @include media-sm {
           font-size: 11px;
         }
       }

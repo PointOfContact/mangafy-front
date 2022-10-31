@@ -46,7 +46,8 @@ const FeedCreateButton = ({ user }) => {
             }
             setAreOptionsVisible(false);
           }}
-          className={cn(styles.option, styles.option_post)}>
+          className={cn(styles.option, styles.option_post)}
+        >
           Create a post
         </button>
         <button
@@ -60,14 +61,16 @@ const FeedCreateButton = ({ user }) => {
             }
             setAreOptionsVisible(false);
           }}
-          className={cn(styles.option, styles.option_project)}>
+          className={cn(styles.option, styles.option_project)}
+        >
           <SvgCopy /> Create a project
         </button>
       </div>
       {/* Plus icon */}
       <div
         className={cn(styles.plus, areOptionsVisible && styles.plus_active)}
-        onClick={() => setAreOptionsVisible((oldState) => !oldState)}>
+        onClick={() => setAreOptionsVisible((oldState) => !oldState)}
+      >
         <SvgAdd2 />
       </div>
       {/* Create post modal */}

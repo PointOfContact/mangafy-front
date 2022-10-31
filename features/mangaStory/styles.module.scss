@@ -94,12 +94,12 @@ $colorAllBorder: rgba(33, 33, 33, 0.07);
     padding-bottom: 0px;
   }
   :global {
-    .container, .row{
+    .container,
+    .row {
       max-width: none;
     }
   }
   section > div {
-
     padding-left: 0;
     padding-right: 0;
     box-sizing: border-box;

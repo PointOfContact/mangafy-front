@@ -1,76 +1,76 @@
 @import '../../styles/variables.scss';
 
 .card {
-    background: #fff;
-    border-radius: 5px;
+  background: #fff;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: $smallShadow;
+  &:not(:last-child) {
+    margin-bottom: 30px;
+  }
+  &__content {
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    background: $primaryDark;
+    padding: 15px;
+    margin-bottom: 20px;
+
+    &_collab {
+      margin-bottom: 0;
+    }
+    &Title {
+      font-weight: 800;
+      font-size: 30px;
+    }
+    &Text {
+      font-size: 15px;
+    }
+  }
+  &__footer {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    margin: 0 15px;
+    padding: 15px 0;
+    border-top: 1px solid $greyWhite;
+  }
+  &__collab {
+    margin-left: auto;
+    font-weight: 700;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    & > svg {
+      margin-left: 0.7em;
+      height: 24px;
+      aspect-ratio: 1;
+    }
+  }
+  &__author {
+    & > *:last-child {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
     overflow: hidden;
-    box-shadow: $smallShadow;
-    &:not(:last-child) {
-        margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    flex: 1 1 auto;
+    margin-right: 1em;
+    & > img {
+      margin-right: 0.5em;
+      height: 2em;
+      aspect-ratio: 1;
     }
-    &__content {
-        min-height: 200px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        color: #fff;
-        background: $primaryDark;
-        padding: 15px;
-        margin-bottom: 20px;
-        
-        &_collab {
-            margin-bottom: 0;
-        }
-        &Title {
-            font-weight: 800;
-            font-size: 30px;
-        }
-        &Text {
-            font-size: 15px;
-        }
+  }
+  &__time {
+    svg {
+      height: 20px;
+      margin-left: 0.5em;
     }
-    &__footer {
-        display: flex;
-        align-items: center;
-        font-size: 12px;
-        margin: 0 15px;
-        padding: 15px 0;
-        border-top: 1px solid $greyWhite;
-    }
-    &__collab {
-        margin-left: auto;
-        font-weight: 700;
-        font-size: 15px;
-        display: flex;
-        align-items: center;
-        & > svg {
-            margin-left: 0.7em;
-            height: 24px;
-            aspect-ratio: 1;
-        }
-    }
-    &__author {
-        & > *:last-child {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        overflow: hidden;
-        display: flex;
-        align-items: center;
-        flex: 1 1 auto;
-        margin-right: 1em;
-        & > img {
-            margin-right: 0.5em;
-            height: 2em;
-            aspect-ratio: 1;
-        }
-    }
-    &__time {
-        svg {
-            height: 20px;
-            margin-left: 0.5em;
-        }
-    }
+  }
 }

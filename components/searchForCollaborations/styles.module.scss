@@ -252,11 +252,11 @@
         }
       }
     }
-    &_select{
+    &_select {
       & > div {
         & > div {
           overflow-y: clip;
-          @include media-md{
+          @include media-md {
             width: -webkit-fill-available !important;
           }
         }

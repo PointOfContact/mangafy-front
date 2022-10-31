@@ -39,7 +39,8 @@ const PrimaryButton = ({
     )}
     onClick={onClick}
     style={splitterStyle || {}}
-    disabled={disabled}>
+    disabled={disabled}
+  >
     {items?.length ? (
       <>
         {items?.length <= limit + 1 ? (

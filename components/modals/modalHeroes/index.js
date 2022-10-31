@@ -136,7 +136,8 @@ const ModalHeroes = ({
       onCancel={() => {
         setEdit(false);
         changeShowModalHeroes(false);
-      }}>
+      }}
+    >
       <div className={cn('container', styles.container)}>
         <div className={cn(styles.inputContainer)}>
           <div className="row">
@@ -163,7 +164,8 @@ const ModalHeroes = ({
                         }
                       },
                     },
-                  ]}>
+                  ]}
+                >
                   <PrimaryInput
                     className={styles.nameInput}
                     inputRef={inputRef}
@@ -189,7 +191,8 @@ const ModalHeroes = ({
                       placeholder="By the role they play in a narrative"
                       style={{ width: '100%' }}
                       defaultValue={quality}
-                      onFocus={() => setSearchQualityIcon(true)}>
+                      onFocus={() => setSearchQualityIcon(true)}
+                    >
                       {heroQualityArray}
                     </Select>
                   </Form.Item>
@@ -214,7 +217,8 @@ const ModalHeroes = ({
                       bordered={false}
                       placeholder="By examining how they change  over the course"
                       onFocus={() => setSearchTypesIcon(true)}
-                      defaultValue={heroType}>
+                      defaultValue={heroType}
+                    >
                       {heroTypesArray}
                     </Select>
                   </Form.Item>
@@ -236,7 +240,8 @@ const ModalHeroes = ({
                           required: true,
                           message: 'Description is required',
                         },
-                      ]}>
+                      ]}
+                    >
                       <TextArea
                         placeholder={
                           'Personality is a description of how character acts, behaves, or reacts.'
@@ -260,7 +265,8 @@ const ModalHeroes = ({
                           required: true,
                           message: 'Appearance is required',
                         },
-                      ]}>
+                      ]}
+                    >
                       <TextArea
                         placeholder={
                           'Another thing to take notice of is the type of person they are,  their appearance and powers.'
@@ -286,7 +292,8 @@ const ModalHeroes = ({
                       onClick={() => {
                         onChangeHero({}, '');
                         setImgId('');
-                      }}>
+                      }}
+                    >
                       Delete
                     </span>
                   )}

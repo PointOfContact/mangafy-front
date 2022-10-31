@@ -74,7 +74,8 @@ const TaskItems = ({
               title="You want to delete this task?"
               onConfirm={() => deleteTask(baseData._id, task._id)}
               okText="Yes"
-              cancelText="No">
+              cancelText="No"
+            >
               <SvgDustbin white="22px" height="22px" />
             </Popconfirm>
           </div>

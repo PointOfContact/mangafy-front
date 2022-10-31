@@ -11,7 +11,8 @@ const LargeButton = ({ text, disabled, className, onClick, isFullWidth, ...rest 
     {...rest}
     className={cn(styles.large_primary_button, className, isFullWidth && styles.full_width)}
     onClick={onClick}
-    disabled={disabled}>
+    disabled={disabled}
+  >
     {text}
   </Button>
 );

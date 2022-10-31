@@ -146,12 +146,14 @@ const ModalStart = ({ changeShowModal, showModal, baseData, selectedTask, user }
           onClick={(e) => {
             e.stopPropagation();
             changeShowModal(false);
-          }}>
+          }}
+        >
           <SvgClose />
         </span>
       }
       okText="Send"
-      onCancel={handleCancel}>
+      onCancel={handleCancel}
+    >
       <div className={styles.border} />
       <div className={cn('container', styles.container)}>
         <div className="row">
@@ -163,7 +165,8 @@ const ModalStart = ({ changeShowModal, showModal, baseData, selectedTask, user }
               onFinish={(e) => {
                 changeJoinAs(e.joinAs);
                 createRequest(e.plan, e.yourseld, e.joinAs || 'Writer');
-              }}>
+              }}
+            >
               <h2>Introduce yourself *</h2>
               <GrammarlyEditorPlugin clientId={`${process.env.NEXT_PUBLIC_GRAMMARLY_ID}`}>
                 <Form.Item
@@ -173,7 +176,8 @@ const ModalStart = ({ changeShowModal, showModal, baseData, selectedTask, user }
                       required: true,
                       message: 'This field is required',
                     },
-                  ]}>
+                  ]}
+                >
                   <TextArea
                     placeholder="Please introduce yourself and share why you think you are the best choice for this project."
                     type="text"
@@ -192,7 +196,8 @@ const ModalStart = ({ changeShowModal, showModal, baseData, selectedTask, user }
                       required: true,
                       message: 'This field is required',
                     },
-                  ]}>
+                  ]}
+                >
                   <TextArea
                     placeholder="This project will take longer than 1 month, please share your full plan including milestones and incremental progress you will be able to submit"
                     type="text"

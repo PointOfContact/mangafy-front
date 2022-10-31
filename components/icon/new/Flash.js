@@ -8,7 +8,8 @@ const Flash = (props) => {
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      stroke={props.color || '#121219'}>
+      stroke={props.color || '#121219'}
+    >
       <path
         d="M14 10.2093V2.30749C14 1.84868 13.4337 1.63212 13.1276 1.97386L3.74679 12.4454C3.45831 12.7675 3.68687 13.2791 4.11921 13.2791H10"
         strokeWidth={strokeWidth}

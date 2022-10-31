@@ -49,7 +49,8 @@ const Share = ({ shareUrl, storyBoard }) => {
               onClick={() => {
                 setCopyText('Copied');
                 copy(shareUrl);
-              }}>
+              }}
+            >
               <SvgCopy
                 width={storyBoard ? '33px' : '24px'}
                 height={storyBoard ? '33px' : '24px'}

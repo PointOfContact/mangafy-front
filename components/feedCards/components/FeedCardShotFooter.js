@@ -34,7 +34,8 @@ const FeedCardShotFooter = ({
         onClick={(e) => {
           e.stopPropagation();
           like();
-        }}>
+        }}
+      >
         {card.view || 0} <Eye />
       </div>
       {card.title && (
@@ -46,7 +47,8 @@ const FeedCardShotFooter = ({
           onClick={(e) => {
             e.stopPropagation();
             like();
-          }}>
+          }}
+        >
           {likes || 0} <Star />
         </div>
       )}

@@ -40,7 +40,7 @@
     }
   }
 }
-.spin{
+.spin {
   width: 30%;
   height: 100%;
   display: -webkit-flex;
@@ -54,7 +54,7 @@
   justify-content: center;
   margin-left: 15px;
   position: absolute;
-  span{
+  span {
     margin-right: 8px;
   }
 }
@@ -146,12 +146,12 @@
     font-size: 15px;
     line-height: 20px;
   }
-  & > div{
+  & > div {
     display: flex;
     align-items: center;
     margin-right: 20px;
   }
-  .edit{
+  .edit {
     @include media-lg {
       margin-top: 20px;
     }
@@ -170,7 +170,7 @@
         width: auto;
         margin-right: 20px;
       }
-      p{
+      p {
         font-weight: 500;
         font-size: 12px;
         line-height: 17px;

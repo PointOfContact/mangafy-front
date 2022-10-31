@@ -1,40 +1,40 @@
 @import '../../styles/variables.scss';
 
 .avatar {
-    &__img {
-        width: 104px;
-        height: 104px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-        &:before {
-            content: "";
-            width: 104px;
-            height: 104px;
-            background-image: url(../../public/img/green-eclips.svg);
-            background-size: cover;
-            position: absolute;
-            left: 0;
-            top: 0;
-        }
-        &Online {
-            &:before {
-                background-image: url(../../public/img/green-eclips-online.svg);
-            }
-        }
+  &__img {
+    width: 104px;
+    height: 104px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    &:before {
+      content: '';
+      width: 104px;
+      height: 104px;
+      background-image: url(../../public/img/green-eclips.svg);
+      background-size: cover;
+      position: absolute;
+      left: 0;
+      top: 0;
     }
-    &__avatar {
-        width: 104px;
-        height: 104px;
-        overflow: hidden;
-        // padding: 3px;
-        border-radius: 50%;
-        img {
-            object-fit: cover;
-            width: 104px;
-            height: 104px;
-        }
+    &Online {
+      &:before {
+        background-image: url(../../public/img/green-eclips-online.svg);
+      }
     }
+  }
+  &__avatar {
+    width: 104px;
+    height: 104px;
+    overflow: hidden;
+    // padding: 3px;
+    border-radius: 50%;
+    img {
+      object-fit: cover;
+      width: 104px;
+      height: 104px;
+    }
+  }
 }

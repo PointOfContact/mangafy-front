@@ -70,7 +70,8 @@ const Chapter = ({ storyBoard, setStoryBoard, chapters, setChapters, user, baseD
             initialValues={{
               chapterName: 'Untitled Chapter',
             }}
-            onFinish={onFinish}>
+            onFinish={onFinish}
+          >
             <Form.Item name="chapterName">
               <PrimaryInput
                 inputRef={inputRef}
@@ -103,7 +104,8 @@ const Chapter = ({ storyBoard, setStoryBoard, chapters, setChapters, user, baseD
             onClick={() => {
               setCreateChapter(true);
               setChapterName(`Untitled Chapter`);
-            }}>
+            }}
+          >
             <SvgAdd width={50} height={50} />
             Add Chapter
           </div>

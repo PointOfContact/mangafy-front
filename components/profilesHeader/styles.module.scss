@@ -16,8 +16,8 @@
   }
   & > div > img {
     height: 312px !important;
-    @include media-sm{
-    height: 329px !important;
+    @include media-sm {
+      height: 329px !important;
     }
   }
   &__container {

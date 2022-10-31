@@ -284,7 +284,8 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
             className={styles.sendButton}
             onClick={() => {
               sendMessage(false);
-            }}>
+            }}
+          >
             <Send color={'#8E8E93'} />
           </button>
         </div>

@@ -69,7 +69,8 @@ const MessengerList = ({
           className={styles.archive}
           onClick={() => {
             getConversation(false);
-          }}>
+          }}
+        >
           <span className={styles.showAllMessages}>Show all messages</span>
           <span className={styles.showAll}>Show all</span>
         </div>

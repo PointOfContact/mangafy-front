@@ -124,7 +124,8 @@ const Settings = ({
                     'error',
                     'Please add a description and a cover before publishing your project'
                   );
-              }}>
+              }}
+            >
               <ToggleSwitch
                 className={styles.toggle}
                 onChange={() => onPublish()}

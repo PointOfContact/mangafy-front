@@ -1,115 +1,115 @@
-@import '../../styles/variables.scss';  
+@import '../../styles/variables.scss';
 .welcomeCard {
-    position: relative;
-    color: #fff;
+  position: relative;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  background-color: $primaryDark;
+  border-radius: 5px;
+  padding: 25px;
+  margin-bottom: 30px;
+  background-image: url('./images/welcomeBg.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  &__logo {
+    margin-bottom: 25px;
+    width: 50%;
+  }
+  &__title {
+    font-weight: 800;
+    font-size: 30px;
+    line-height: 1.1em;
+    margin-bottom: 15px;
+  }
+  &__text {
+    margin-bottom: 15px;
+    line-height: 1em;
+    font-weight: 700;
+    font-size: 16px;
+  }
+  &__button {
     display: flex;
-    flex-direction: column;
-    background-color: $primaryDark;
-    border-radius: 5px;
-    padding: 25px;
-    margin-bottom: 30px;
-    background-image: url('./images/welcomeBg.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    &__logo {
-        margin-bottom: 25px;
-        width: 50%;
+    // justify-content: space-between;
+    background: rgba($color: #fff, $alpha: 0.2);
+    font-weight: 700;
+    font-size: 15px;
+    padding: 10px 15px;
+    border-radius: 6px;
+    transition: 0.2s;
+    cursor: pointer;
+    &:not(:last-child) {
+      margin-bottom: 8px;
     }
-    &__title {
-        font-weight: 800;
-        font-size: 30px;
-        line-height: 1.1em;
-        margin-bottom: 15px;
+    &:hover {
+      background: rgba($color: #fff, $alpha: 0.3);
     }
-    &__text {
-        margin-bottom: 15px;
-        line-height: 1em;
-        font-weight: 700;
-        font-size: 16px;
+    &:active {
+      background: rgba($color: #fff, $alpha: 0.4);
     }
-    &__button {
-        display: flex;
-        // justify-content: space-between;
-        background: rgba($color: #fff, $alpha: 0.2);
-        font-weight: 700;
-        font-size: 15px;
-        padding: 10px 15px;
-        border-radius: 6px;
-        transition: 0.2s;
-        cursor: pointer;
-        &:not(:last-child) {
-            margin-bottom: 8px;
-        }
-        &:hover {
-            background: rgba($color: #fff, $alpha: 0.3);
-        }
-        &:active {
-            background: rgba($color: #fff, $alpha: 0.4);
-        }
-        > svg {
-            margin-left: auto;
-            height: 1.5em;
-            transform: rotate(-90deg);
-        }
-        &:nth-child(0n + 1):before {
-            content: '😎';
-            margin-right: 1em;
-        }
-        &:nth-child(0n + 2):before {
-            content: '💎';
-            margin-right: 1em;
-        }
-        &:nth-child(0n + 3):before {
-            content: '💫';
-            margin-right: 1em;
-        }
+    > svg {
+      margin-left: auto;
+      height: 1.5em;
+      transform: rotate(-90deg);
     }
-    &__close {
-        position: absolute;
-        top: 25px;
-        right: 25px;
-        cursor: pointer;
-        &:hover {
-            opacity: 0.8;
-        }
-        &:active {
-            opacity: 0.6;
-        }
-        > svg {
-            height: 24px;
-            aspect-ratio: 1;
-        }
+    &:nth-child(0n + 1):before {
+      content: '😎';
+      margin-right: 1em;
     }
+    &:nth-child(0n + 2):before {
+      content: '💎';
+      margin-right: 1em;
+    }
+    &:nth-child(0n + 3):before {
+      content: '💫';
+      margin-right: 1em;
+    }
+  }
+  &__close {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.8;
+    }
+    &:active {
+      opacity: 0.6;
+    }
+    > svg {
+      height: 24px;
+      aspect-ratio: 1;
+    }
+  }
 }
 
 .col {
-    & > *:not(:last-child) {
-        margin-bottom: 20px;
-    }
+  & > *:not(:last-child) {
+    margin-bottom: 20px;
+  }
 }
 
 .placeholder {
-    box-shadow: $bigShadow;
-    overflow: hidden;
-    position: relative;
-    border-radius: 10px;
-    background: rgb(214, 214, 214);
-    &::before {
-        content: '';
-        width: 80%;
-        height: 200%;
-        transform: translateY(-30%) rotate(30deg);
-        background: linear-gradient(90deg, #ffffff00, rgb(236, 236, 236), #ffffff00);
-        position: absolute;
-        animation: loading 1s infinite;
-    }
+  box-shadow: $bigShadow;
+  overflow: hidden;
+  position: relative;
+  border-radius: 10px;
+  background: rgb(214, 214, 214);
+  &::before {
+    content: '';
+    width: 80%;
+    height: 200%;
+    transform: translateY(-30%) rotate(30deg);
+    background: linear-gradient(90deg, #ffffff00, rgb(236, 236, 236), #ffffff00);
+    position: absolute;
+    animation: loading 1s infinite;
+  }
 }
 
 @keyframes loading {
-    0%{
-        left: -100%;
-      }
-    100%{
-        left: 150%
-    }
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 150%;
+  }
 }

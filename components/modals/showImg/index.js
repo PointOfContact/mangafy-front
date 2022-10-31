@@ -27,7 +27,8 @@ const ShowImgModal = ({ setIsModalVisible, isModalVisible, img, imageType }) => 
           <SvgClose />
         </span>
       }
-      visible={isModalVisible}>
+      visible={isModalVisible}
+    >
       {imgTypeVideo ? (
         <video
           controls="true"
@@ -35,7 +36,8 @@ const ShowImgModal = ({ setIsModalVisible, isModalVisible, img, imageType }) => 
           muted
           loop
           playsInline
-          poster="https://mangafy.club/api/v2/uploads/1645708912743-980848197-istockphoto-1017890344-170667a.jpg">
+          poster="https://mangafy.club/api/v2/uploads/1645708912743-980848197-istockphoto-1017890344-170667a.jpg"
+        >
           <source src={img} type="video/mp4" />
         </video>
       ) : imageType ? (

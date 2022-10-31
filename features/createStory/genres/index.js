@@ -111,7 +111,8 @@ const MangaGenres = (props) => {
                       className="title_but"
                       loading={loadings[0]}
                       disabled={!enabled}
-                      onClick={() => enterLoading(0)}>
+                      onClick={() => enterLoading(0)}
+                    >
                       <span>Next</span>
                       <SvgRightArrow width="13.503px" height="23.619px" />
                     </Button>

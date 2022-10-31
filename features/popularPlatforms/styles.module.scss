@@ -13,10 +13,10 @@
     display: inline-block;
     margin-left: auto;
     @include media-sm {
-      div{
+      div {
         flex-direction: row !important;
       }
-      margin:auto
+      margin: auto;
     }
   }
 }
@@ -53,7 +53,7 @@
     font-size: 1.9rem;
     margin-top: 1.5rem;
   }
-  h3{
+  h3 {
     font-size: 1.3rem;
   }
   .pageTitle {
@@ -65,10 +65,10 @@
       margin-bottom: 0.75rem;
     }
   }
-  .italic{
+  .italic {
     font-style: italic;
   }
-  .href{
+  .href {
     color: gray;
   }
 }

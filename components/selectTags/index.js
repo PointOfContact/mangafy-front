@@ -65,7 +65,8 @@ const SelectTags = ({ className, onChange, defaultSelectedTags }) => {
           placeholder={'Input any tags'}
           contentEditable="true"
           onKeyDown={keyPressHandler}
-          onInput={onInput}></input>
+          onInput={onInput}
+        ></input>
       </div>
       <div className={styles.select__suggested}>Suggested: {suggestedTagsElements}</div>
     </div>

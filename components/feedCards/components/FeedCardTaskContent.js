@@ -9,7 +9,8 @@ const FeedCardTaskContent = ({ title, description }) => {
       {description && (
         <div
           className={styles.feedCardTaskContent__description}
-          dangerouslySetInnerHTML={{ __html: formatHtml(description) }}></div>
+          dangerouslySetInnerHTML={{ __html: formatHtml(description) }}
+        ></div>
       )}
     </div>
   );

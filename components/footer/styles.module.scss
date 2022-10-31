@@ -19,7 +19,7 @@
       min-width: 215px;
       justify-content: flex-start;
     }
-    @include media-sm{
+    @include media-sm {
       flex-wrap: wrap;
     }
   }

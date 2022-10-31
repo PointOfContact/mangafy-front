@@ -1,26 +1,26 @@
 @import '../../../styles/variables.scss';
 @import '../styles.module.scss';
 
-@mixin container{
-    min-height: 325px;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    border-right: 1px solid $borderColor;
+@mixin container {
+  min-height: 325px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-right: 1px solid $borderColor;
 }
 
-.containerMin{
+.containerMin {
   min-width: 185px;
-  @include media-lg{
+  @include media-lg {
     max-width: 188px;
     min-width: 137px;
   }
 
-  @include media-md{
+  @include media-md {
     min-width: 156px;
   }
 
-  @include media-sm{
+  @include media-sm {
     width: 138px;
     min-width: 125px;
   }
@@ -28,7 +28,7 @@
   @include container;
 }
 
-.containerMax{
+.containerMax {
   max-width: 353px;
   min-width: 137px;
   @include media-lg {
@@ -52,7 +52,7 @@
   overflow-x: auto;
   white-space: nowrap;
   padding: 20px 7px;
-  border-top: 1px solid $borderColor; 
+  border-top: 1px solid $borderColor;
   @include media-sm {
     padding: 5px 10px;
   }
@@ -78,7 +78,7 @@
     background: $primaryDark;
   }
 
-  .cont{
+  .cont {
     display: flex;
     flex-direction: column;
     @include media-xs {
@@ -88,7 +88,7 @@
   }
 }
 
-.cardName{
+.cardName {
   width: 100%;
   text-align: center;
   padding: 10px 0;
@@ -97,7 +97,7 @@
   & > div {
     display: none;
   }
-  @include media-xs{
+  @include media-xs {
     display: flex;
     align-items: center;
     justify-content: space-around;

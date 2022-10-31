@@ -19,7 +19,8 @@ const EditCard = ({ confirm, modalIndex, showModalScript }) => {
           handleClick(e);
           showModalScript(true);
         }}
-        className={styles.editScript}>
+        className={styles.editScript}
+      >
         <SvgChange />
       </div>
       <div onClick={handleClick}>

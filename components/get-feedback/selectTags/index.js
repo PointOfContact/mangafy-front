@@ -41,7 +41,8 @@ const SelectTags = ({ selectedTags, setSelectedTags }) => {
         onClose={(e) => {
           e.preventDefault();
           handleClose(tag);
-        }}>
+        }}
+      >
         {tag}
       </Tag>
     );
@@ -68,7 +69,8 @@ const SelectTags = ({ selectedTags, setSelectedTags }) => {
             },
           }}
           leave={{ opacity: 0, width: 0, scale: 0, duration: 200 }}
-          appear={false}>
+          appear={false}
+        >
           {tagChild}
         </TweenOneGroup>
       </div>

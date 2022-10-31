@@ -80,7 +80,8 @@ export const SignInModal = ({ page, title, visible, setVisible }) => {
       className={styles.modal}
       visible={visible}
       onCancel={() => setVisible(false)}
-      footer={null}>
+      footer={null}
+    >
       <div className={styles.modal__title}>{title}</div>
       <div className={styles.modal__subtitle}>Sign in to make your opinion count</div>
       <div>

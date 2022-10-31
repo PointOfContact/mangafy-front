@@ -31,7 +31,8 @@ const ShareProfile = ({ ifMyProfile, originUrl, profile, user, sendInvites, send
             overlayClassName={styles.popover}
             placement={width < 768 ? 'bottom' : 'left'}
             content={'Share'}
-            trigger="hover">
+            trigger="hover"
+          >
             <div className={styles.svgBg} onClick={() => sendEvent(EVENTS.SHARED_MY_ACCOUNT)}>
               <Share shareUrl={originUrl} />
             </div>
@@ -47,7 +48,8 @@ const ShareProfile = ({ ifMyProfile, originUrl, profile, user, sendInvites, send
             overlayClassName={styles.popover}
             placement={width < 768 ? 'bottom' : 'left'}
             content={'Share'}
-            trigger="hover">
+            trigger="hover"
+          >
             <div className={styles.svgBg} onClick={() => sendEvent(EVENTS.SHARED_ANOTHER_ACCOUNT)}>
               <Share shareUrl={originUrl} />
             </div>
@@ -63,7 +65,8 @@ const ShareProfile = ({ ifMyProfile, originUrl, profile, user, sendInvites, send
                 overlayClassName={styles.popover}
                 placement={width < 768 ? 'bottom' : 'left'}
                 content={'Collab'}
-                trigger="hover">
+                trigger="hover"
+              >
                 <div onClick={sendInvites} className={styles.svgBg}>
                   <SvgHand width="19px" height="19px" />
                 </div>
@@ -76,13 +79,15 @@ const ShareProfile = ({ ifMyProfile, originUrl, profile, user, sendInvites, send
               overlayClassName={styles.popover}
               placement={width < 768 ? 'bottom' : 'left'}
               content={'Messenger'}
-              trigger="hover">
+              trigger="hover"
+            >
               <div
                 onClick={(e) => {
                   sendMessage(e);
                   sendEvent(EVENTS.MESSAGED_ACCOUNT);
                 }}
-                className={styles.svgBg}>
+                className={styles.svgBg}
+              >
                 <SvgChat width="19px" height="19px" />
               </div>
             </Popover>

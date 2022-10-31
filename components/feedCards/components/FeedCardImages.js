@@ -12,7 +12,8 @@ const FeedCardImages = ({ images }) => {
         images.length === 1 && styles.feedCardImages_1,
         images.length === 2 && styles.feedCardImages_2,
         images.length > 2 && styles.feedCardImages_3
-      )}>
+      )}
+    >
       <Imgix
         src={client.UPLOAD_URL + images[0].image}
         layout="fill"

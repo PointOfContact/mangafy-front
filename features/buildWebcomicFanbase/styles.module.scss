@@ -13,10 +13,10 @@
     display: inline-block;
     margin-left: auto;
     @include media-sm {
-      div{
+      div {
         flex-direction: row !important;
       }
-      margin:auto
+      margin: auto;
     }
   }
 }
@@ -62,10 +62,10 @@
       margin-bottom: 0.75rem;
     }
   }
-  .italic{
+  .italic {
     font-style: italic;
   }
-  .href{
+  .href {
     color: gray;
   }
 }
@@ -75,7 +75,7 @@
   border-bottom: 1px solid rgb(192, 187, 187);
   display: flex;
   align-items: center;
-  span{
+  span {
     font-size: 50px;
     margin-top: 16px;
   }

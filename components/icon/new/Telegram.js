@@ -7,7 +7,8 @@ const Telegram = ({ size }) => {
       height={size || '24px'}
       viewBox="0 0 180 180"
       fill="none"
-      xmlns="http://www.w3.org/2000/svg">
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <path
         d="M90 4.62573e-06C40.2947 4.62573e-06 0 40.3 0 90.0067C0 139.7 40.2947 180.007 90 180.007C139.705 180.007 180 139.7 180 90.0067C180 40.3 139.705 4.62573e-06 90 4.62573e-06"
         fill="#010201"

@@ -164,7 +164,8 @@ const ProjectScripts = ({ pages, storyBoardId, storyBoard, setStoryBoard, user }
           className={cn(
             ifCreateScript(script) ? styles.script : styles.scriptDef,
             index + 1 === scripts.length && styles.disabled
-          )}>
+          )}
+        >
           <div className={styles.content}>
             <div className={styles.pageCount}>Page {index + 1}</div>
             <div className={styles.text}>
@@ -174,7 +175,8 @@ const ProjectScripts = ({ pages, storyBoardId, storyBoard, setStoryBoard, user }
                 }
                 onClick={() => {
                   clickScript(index, script);
-                }}>
+                }}
+              >
                 {ifCreateScript(script) ? (
                   <>
                     <h4 className={styles.title}>{script.title}</h4>

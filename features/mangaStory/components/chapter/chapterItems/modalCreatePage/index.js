@@ -168,13 +168,15 @@ const ModalCreatePage = ({
           onClick={() => {
             setVisibleModal(false);
           }}
-          className={styles.close}>
+          className={styles.close}
+        >
           <SvgClose />
         </span>
       }
       title={<h2 className={styles.titlePage}>{modalTitle}</h2>}
       visible={visibleModal}
-      footer={null}>
+      footer={null}
+    >
       <div className={styles.border} />
       <Form name="createPage" form={form} onFinish={(e) => request(e)}>
         <h3>Page beats</h3>
@@ -191,7 +193,8 @@ const ModalCreatePage = ({
                 }
               },
             },
-          ]}>
+          ]}
+        >
           <PrimaryInput
             maxLength={100}
             className={styles.namePage}
@@ -214,7 +217,8 @@ const ModalCreatePage = ({
             placeholder={'Link characters to page'}
             filterOption={(inputValue, option) =>
               inputValue ? option.label.toLowerCase().includes(inputValue.toLowerCase()) : true
-            }>
+            }
+          >
             {options}
           </Select>
         </Form.Item>
@@ -231,7 +235,8 @@ const ModalCreatePage = ({
                 }}
                 filterOption={(inputValue, option) =>
                   inputValue ? option.label.toLowerCase().includes(inputValue.toLowerCase()) : true
-                }>
+                }
+              >
                 {chooseChapterArray}
               </Select>
             </Form.Item>

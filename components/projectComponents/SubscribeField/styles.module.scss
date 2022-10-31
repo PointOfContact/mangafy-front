@@ -1,36 +1,35 @@
 @import '../../../styles/variables.scss';
 
 .subscribe {
-    display: flex;
-    border-radius: 5em;
-    background: #E5E5E5;
-    width: 100%;
-    grid-template-columns: 1fr 1fr;
+  display: flex;
+  border-radius: 5em;
+  background: #e5e5e5;
+  width: 100%;
+  grid-template-columns: 1fr 1fr;
 
-    &__input {
-        min-width: 0;
-        flex: 1 1 auto;
-        font-family: sans-serif;
-        border: none;
-        background: transparent;
-        margin-left: 1em;
-    }
+  &__input {
+    min-width: 0;
+    flex: 1 1 auto;
+    font-family: sans-serif;
+    border: none;
+    background: transparent;
+    margin-left: 1em;
+  }
 
-    button {
-        flex: 0 0 auto;
-        flex-shrink: 0;
-        font-weight: 900;
-        font-size: 15px;
-        line-height: 22px;
-    }
+  button {
+    flex: 0 0 auto;
+    flex-shrink: 0;
+    font-weight: 900;
+    font-size: 15px;
+    line-height: 22px;
+  }
 }
 
 .unsubscribe {
-    padding: 0.5em 2em;
-    margin-bottom: 20px;
-    svg {
-        height: 1.1em;
-        stroke: $pink;
-    }
+  padding: 0.5em 2em;
+  margin-bottom: 20px;
+  svg {
+    height: 1.1em;
+    stroke: $pink;
+  }
 }
-

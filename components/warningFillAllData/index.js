@@ -18,7 +18,8 @@ const WarningFillAllData = ({ user, setShowModalEdit }) => {
             setShowModalEdit(true);
             router.push(`/profile/${user?._id}?editModal=true`, undefined, { shallow: true });
           }}
-          className={styles.outLine}>
+          className={styles.outLine}
+        >
           here.
         </span>
       </p>

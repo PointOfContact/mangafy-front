@@ -22,9 +22,7 @@ class Rules extends Component {
         <div className="terms">
           <header id="header" className="gnb" style={{ backgroundColor: 'rgb(123, 100, 242)' }}>
             <Link href="/">
-              <a className="MangaFY-logo">
-                MangaFY
-              </a>
+              <a className="MangaFY-logo">MangaFY</a>
             </Link>
           </header>
           <div className="wrap" data-sticky-wrap>
@@ -149,7 +147,7 @@ class Rules extends Component {
               <span>/</span>
               <span>
                 <Link href="/terms">
-                <a>Terms</a>
+                  <a>Terms</a>
                 </Link>
               </span>
               <span>/</span>
@@ -164,14 +162,16 @@ class Rules extends Component {
                 className="link"
                 target="_blank"
                 href="https://mangafy.herokuapp.com/sign-a"
-                rel="noreferrer">
+                rel="noreferrer"
+              >
                 Write on MangaFY
               </a>{' '}
               <a
                 className="link icon"
                 target="_blank"
                 href="https://www.facebook.com/mangafyy"
-                rel="noreferrer">
+                rel="noreferrer"
+              >
                 {' '}
                 <i className="fa fa-facebook" aria-hidden="true" />
               </a>
@@ -179,7 +179,8 @@ class Rules extends Component {
                 className="link icon"
                 target="_blank"
                 href="https://twitter.com/Mangafy1"
-                rel="noreferrer">
+                rel="noreferrer"
+              >
                 {' '}
                 <i className="fa fa-twitter" aria-hidden="true" />
               </a>
@@ -187,7 +188,8 @@ class Rules extends Component {
                 className="link icon"
                 target="_blank"
                 href="//instagram.com/MangaFYfiction/"
-                rel="noreferrer">
+                rel="noreferrer"
+              >
                 <i className="fa fa-instagram" aria-hidden="true" />
               </a>
               <a className="link icon" target="_blank" href="//blog.MangaFY.club/" rel="noreferrer">

@@ -40,7 +40,8 @@ const Participents = ({ participantsData, author, leaveManga, user, isOwn }) => 
           author={author}
         />
       }
-      trigger="click">
+      trigger="click"
+    >
       {index < 6 && (
         <Tooltip placement="topLeft" title={name} arrowPointAtCenter>
           <div className={styles.participantInfo}>

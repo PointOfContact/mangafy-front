@@ -69,7 +69,8 @@ const BuyBubbleTea = ({ payPalEmail, createAmplitude, chapter, mangaStoryId, use
           <a
             target="_blank"
             rel="noreferrer"
-            href={`https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=${payPalEmail}&item_name=Friends+of+the+Park&item_number=Fall+Cleanup+Campaign&amount=${valueRadio}&currency_code=USD`}>
+            href={`https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=${payPalEmail}&item_name=Friends+of+the+Park&item_number=Fall+Cleanup+Campaign&amount=${valueRadio}&currency_code=USD`}
+          >
             <PrimaryButton text={`Support ($${valueRadio})`} onClick={setAmplitude} />
           </a>
         </div>

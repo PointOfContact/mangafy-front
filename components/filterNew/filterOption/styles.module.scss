@@ -1,50 +1,49 @@
 @import '../../../styles/variables.scss';
 
-
 .option {
-    font-size: 12px;
-    font-weight: 700;
-    line-height: 1.5em;
-    color: #000;
-    border: 1px $primaryDark solid;
-    padding: 0.2em 0.7em;
-    border-radius: 20px;
-    margin-bottom: 0.5em;
-    cursor: pointer;
-    transition: 0.1s;
-    &:not(:last-child) {
-        margin-right: 0.3em;
-    }
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.5em;
+  color: #000;
+  border: 1px $primaryDark solid;
+  padding: 0.2em 0.7em;
+  border-radius: 20px;
+  margin-bottom: 0.5em;
+  cursor: pointer;
+  transition: 0.1s;
+  &:not(:last-child) {
+    margin-right: 0.3em;
+  }
+  &:hover {
+    background: $white;
+  }
+  &:active {
+    background: white;
+  }
+  &_enabled {
+    background: $primaryDark;
+    color: $white;
+    display: flex;
+    align-items: center;
     &:hover {
-        background: $white;
+      background: $primaryLight;
     }
     &:active {
-        background: white;
+      background: $primaryDark;
     }
-    &_enabled {
-        background: $primaryDark;
-        color: $white;
-        display: flex;
-        align-items: center;
-        &:hover {
-            background: $primaryLight;
-        }
-        &:active {
-            background: $primaryDark;
-        }
-        // &:after  {
-        //     margin-left: 0.5em;
-        //     content: '';
-        //     height: 0.6em;
-        //     aspect-ratio: 1;
-        //     background: url('cross.svg');
-        //     background-size: contain;
-        // }
-    }
-    &_disabled {
-        cursor: default;
-        opacity: 0.5;
-        border-color: $grey;
-        color: $grey;
-    }
+    // &:after  {
+    //     margin-left: 0.5em;
+    //     content: '';
+    //     height: 0.6em;
+    //     aspect-ratio: 1;
+    //     background: url('cross.svg');
+    //     background-size: contain;
+    // }
+  }
+  &_disabled {
+    cursor: default;
+    opacity: 0.5;
+    border-color: $grey;
+    color: $grey;
+  }
 }

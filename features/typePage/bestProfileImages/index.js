@@ -23,7 +23,8 @@ const BestProfile = ({ gallery, user }) => {
         onClick={() => {
           setShowModal(true);
           setStartIndex(index);
-        }}>
+        }}
+      >
         <Imgix
           priority={index <= 1}
           src={client.UPLOAD_URL + item?._id}

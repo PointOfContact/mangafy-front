@@ -131,7 +131,8 @@ const TabMessenger = (props) => {
               className={cn(
                 showMessageMobile && styles.messenger_list_mobile,
                 styles.messenger_list
-              )}>
+              )}
+            >
               <MessengerList
                 user={user}
                 arcRequests={arcRequests}
@@ -147,7 +148,8 @@ const TabMessenger = (props) => {
               className={cn(
                 showMessageMobile && styles.messenger_content_mobile,
                 styles.messenger_content
-              )}>
+              )}
+            >
               <MessengerContent
                 user={user}
                 selectedRequest={selectedRequest}

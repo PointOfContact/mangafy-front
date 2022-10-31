@@ -127,7 +127,8 @@ const ChapterModal = ({
         onClick={() => {
           setEdit(value._id);
           setChapterListVisible({ state: false, _id: value?._id });
-        }}>
+        }}
+      >
         Rename
       </p>
       <p onClick={addPages}>
@@ -137,7 +138,8 @@ const ChapterModal = ({
           className={cn('avatar-uploader', styles.upload)}
           multiple
           showUploadList={false}
-          beforeUpload={(file, fileList) => beforeUpload(pages, file, fileList, createPage)}>
+          beforeUpload={(file, fileList) => beforeUpload(pages, file, fileList, createPage)}
+        >
           Upload pages
         </Upload>
       </p>
@@ -147,7 +149,8 @@ const ChapterModal = ({
           listType="picture-card"
           className={cn('avatar-uploader', styles.upload)}
           showUploadList={false}
-          beforeUpload={(file, fileList) => beforeUpload(pages, file, fileList, uploadImage)}>
+          beforeUpload={(file, fileList) => beforeUpload(pages, file, fileList, uploadImage)}
+        >
           Upload cover
         </Upload>
       </p>

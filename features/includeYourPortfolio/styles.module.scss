@@ -13,10 +13,10 @@
     display: inline-block;
     margin-left: auto;
     @include media-sm {
-      div{
+      div {
         flex-direction: row !important;
       }
-      margin:auto
+      margin: auto;
     }
   }
 }

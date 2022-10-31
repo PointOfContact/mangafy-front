@@ -56,7 +56,8 @@ const OnBoardingModal = ({ showModal, setShowModal, user }) => {
       }}
       className={styles.modal}
       footer={null}
-      visible={showModal}>
+      visible={showModal}
+    >
       <div className={styles.content}>
         <div className={styles.title}>Bring your ideas to life at MangaFY</div>
         <div className={styles.subtitle}>
@@ -82,7 +83,8 @@ const OnBoardingModal = ({ showModal, setShowModal, user }) => {
             <PrimaryButton
               onClick={onPost}
               className={styles.button}
-              text="Post your art"></PrimaryButton>
+              text="Post your art"
+            ></PrimaryButton>
           </div>
 
           <div className={styles.card}>
@@ -102,7 +104,8 @@ const OnBoardingModal = ({ showModal, setShowModal, user }) => {
             <PrimaryButton
               onClick={onStart}
               className={styles.button}
-              text="Start now"></PrimaryButton>
+              text="Start now"
+            ></PrimaryButton>
           </div>
 
           <div className={styles.card}>
@@ -123,7 +126,8 @@ const OnBoardingModal = ({ showModal, setShowModal, user }) => {
             <PrimaryButton
               onClick={onPortfolio}
               className={styles.button}
-              text="Indroduce"></PrimaryButton>
+              text="Indroduce"
+            ></PrimaryButton>
           </div>
         </div>
       </div>

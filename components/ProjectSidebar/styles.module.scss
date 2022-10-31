@@ -5,93 +5,93 @@ $collapsedWidth: 65px;
 $arrowButtonOffset: 10px;
 
 .sidebar {
-    z-index: 50;
-    position: fixed;
-    overflow-y: auto;
-    overflow-x: hidden;
-    width: $width;
-    height: 100vh;
-    padding: 30px 25px;
+  z-index: 50;
+  position: fixed;
+  overflow-y: auto;
+  overflow-x: hidden;
+  width: $width;
+  height: 100vh;
+  padding: 30px 25px;
 
-    background: #fff;
-    box-shadow: $bigShadow;
-    transition: 0.4s;
+  background: #fff;
+  box-shadow: $bigShadow;
+  transition: 0.4s;
 
-    &_collapsed {
-        width: $collapsedWidth;
-        padding: 30px 5px;
-        .logo {
-            height: 30px;
-            margin-top: 4px;
-            margin-bottom: 36px;
-        }
-        .arrowButton {
-            left: calc($collapsedWidth + $arrowButtonOffset);
-            transform: rotate(-180deg);
-            box-shadow: -2px -2px 6px rgba($color: #1f1f1f, $alpha: 0.12);
-        }
+  &_collapsed {
+    width: $collapsedWidth;
+    padding: 30px 5px;
+    .logo {
+      height: 30px;
+      margin-top: 4px;
+      margin-bottom: 36px;
     }
-    
-    &::-webkit-scrollbar {
-        width: 4px;
-        background: rgb(241, 241, 241);
+    .arrowButton {
+      left: calc($collapsedWidth + $arrowButtonOffset);
+      transform: rotate(-180deg);
+      box-shadow: -2px -2px 6px rgba($color: #1f1f1f, $alpha: 0.12);
     }
-    &::-webkit-scrollbar-thumb {
-        background: $primaryLight;
-    }
+  }
+
+  &::-webkit-scrollbar {
+    width: 4px;
+    background: rgb(241, 241, 241);
+  }
+  &::-webkit-scrollbar-thumb {
+    background: $primaryLight;
+  }
 }
 
 .logo {
-    display: flex;
-    justify-content: center;
-    height: 40px;
-    margin-bottom: 30px;
-    & > svg {
-        height: 100%;
-    }
+  display: flex;
+  justify-content: center;
+  height: 40px;
+  margin-bottom: 30px;
+  & > svg {
+    height: 100%;
+  }
 }
 
 .tabs {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 15px;
-    & > *:not(:last-child) {
-        margin-bottom: 8px;
-    }
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+  & > *:not(:last-child) {
+    margin-bottom: 8px;
+  }
 }
 
 .additionalTabs {
-    display: flex;
-    flex-direction: column;
-    padding-top:  15px;
-    border-top: 1px solid #D9D9D9;   
-    & > *:not(:last-child) {
-        margin-bottom: 8px;
-    }
+  display: flex;
+  flex-direction: column;
+  padding-top: 15px;
+  border-top: 1px solid #d9d9d9;
+  & > *:not(:last-child) {
+    margin-bottom: 8px;
+  }
 }
 
 .arrowButton {
-    background: #fff;
-    z-index: 100;
-    position: fixed;
-    top: $arrowButtonOffset;
-    left: calc($width + $arrowButtonOffset);
-    
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    
-    box-shadow: 2px 2px 6px rgba($color: #1f1f1f, $alpha: 0.12);
-    cursor: pointer;
-    transition: 0.4s;
-    
-    & > svg {
-        transform: rotate(90deg);
-        height: 15px;
-        width: 15px;
-    }
+  background: #fff;
+  z-index: 100;
+  position: fixed;
+  top: $arrowButtonOffset;
+  left: calc($width + $arrowButtonOffset);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+
+  box-shadow: 2px 2px 6px rgba($color: #1f1f1f, $alpha: 0.12);
+  cursor: pointer;
+  transition: 0.4s;
+
+  & > svg {
+    transform: rotate(90deg);
+    height: 15px;
+    width: 15px;
+  }
 }

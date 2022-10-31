@@ -181,7 +181,8 @@ const HeroUpload = ({
           onChangeHero({}, '');
           setImgId('');
         }}
-        onPreview={onPreview}>
+        onPreview={onPreview}
+      >
         {fileList.length < 1 && (
           <div className={cn(styles.content, className)}>
             <div className={styles.types}>

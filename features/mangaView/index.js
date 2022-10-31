@@ -265,7 +265,8 @@ const MangaView = ({
           <div className={styles.shareContainer}>
             <div
               className={cn(styles.chapterRating, like && styles.likeItem)}
-              onClick={likeChapter}>
+              onClick={likeChapter}
+            >
               <SvgHeart width={20} height={20} />
               {!!countLike ? `${countLike} Likes` : 'Like'}
             </div>

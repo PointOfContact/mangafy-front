@@ -27,7 +27,8 @@ const ChapterItems = ({ chapters, setChapters, storyBoard, setStoryBoard, user, 
             className={styles.addPageContainer}
             onMouseLeave={() => {
               setChapterListVisible({ state: false, _id: value?._id });
-            }}>
+            }}
+          >
             <div className={styles.addPage}>
               {value.chapterImg && (
                 <Imgix
@@ -53,7 +54,8 @@ const ChapterItems = ({ chapters, setChapters, storyBoard, setStoryBoard, user, 
                   setChapterItem({ value, index });
                   setModalTitle('Create page');
                   setPageItem({});
-                }}>
+                }}
+              >
                 <SvgAdd width={50} height={50} />
                 <h4>New Page</h4>
               </div>

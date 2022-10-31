@@ -96,7 +96,8 @@ const BannerSection = ({
           className={styles.uploadContainer}
           disabled={loading}
           beforeUpload={beforeUpload}
-          fileList={[]}>
+          fileList={[]}
+        >
           <div className={!baseData.image ? styles.bannerDefault : styles.banner}>
             {loading ? (
               <Spin className={styles.spin} size="large" tip="Loading..."></Spin>

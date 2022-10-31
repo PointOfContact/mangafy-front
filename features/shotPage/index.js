@@ -133,7 +133,8 @@ const ShotPage = ({ user, allShots, serverSideShot, serverSideAuthor }) => {
           onCancel={() => setIsShareModalOpened(false)}
           centered
           footer={null}
-          wrapClassName={styles.shotPage__shareModal}>
+          wrapClassName={styles.shotPage__shareModal}
+        >
           <ShareButtons
             shareUrl={
               client.API_ENDPOINT + buildShotURL(shot?._id, shot?.isOld ? author?._id : null)

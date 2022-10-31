@@ -62,10 +62,12 @@ const Pricing = (props) => {
           <div className={styles.banner_section}>
             <span
               className={styles.banner_web}
-              style={{ backgroundImage: "url('./img/banner1.webp')" }}></span>
+              style={{ backgroundImage: "url('./img/banner1.webp')" }}
+            ></span>
             <span
               className={styles.banner_mobile}
-              style={{ backgroundImage: "url('./img/banner_mobile.webp')" }}></span>
+              style={{ backgroundImage: "url('./img/banner_mobile.webp')" }}
+            ></span>
           </div>
           <div className={styles.pricing_inner}>
             <div className={styles.info_section}>
@@ -151,7 +153,8 @@ const Pricing = (props) => {
                     <div className={styles.container}>
                       <div
                         className={styles.wrap}
-                        style={{ transform: `translateY(${-15 + personal1 * -50}px)` }}>
+                        style={{ transform: `translateY(${-15 + personal1 * -50}px)` }}
+                      >
                         <span className={styles.digit}>0</span>
                         <span className={styles.digit}>1</span>
                         <span className={styles.digit}>2</span>
@@ -167,7 +170,8 @@ const Pricing = (props) => {
                     <div className={styles.container}>
                       <div
                         className={styles.wrap}
-                        style={{ transform: `translateY(${-15 + personal2 * -50}px)` }}>
+                        style={{ transform: `translateY(${-15 + personal2 * -50}px)` }}
+                      >
                         <span className={styles.digit}>0</span>
                         <span className={styles.digit}>1</span>
                         <span className={styles.digit}>2</span>
@@ -184,7 +188,8 @@ const Pricing = (props) => {
                       <div className={styles.container}>
                         <div
                           className={styles.wrap}
-                          style={{ transform: `translateY(${-15 + personal3 * -50}px)` }}>
+                          style={{ transform: `translateY(${-15 + personal3 * -50}px)` }}
+                        >
                           <span className={styles.digit}>0</span>
                           <span className={styles.digit}>1</span>
                           <span className={styles.digit}>2</span>
@@ -208,11 +213,13 @@ const Pricing = (props) => {
                     <input
                       type="hidden"
                       name="cancel_return"
-                      value={`${originUrl}?paypal_cancel=true`}></input>
+                      value={`${originUrl}?paypal_cancel=true`}
+                    ></input>
                     <input
                       type="hidden"
                       name="return"
-                      value={`${originUrl}?paypal_success=true`}></input>
+                      value={`${originUrl}?paypal_success=true`}
+                    ></input>
                     <input type="hidden" name="custom" value={user?._id}></input>
                     <input type="hidden" name="hosted_button_id" value="JURZNUSJ8HLJJ" />
                     <LargeButton
@@ -285,7 +292,8 @@ const Pricing = (props) => {
                     <div className={styles.container}>
                       <div
                         className={styles.wrap}
-                        style={{ transform: `translateY(${-15 + plus1 * -50}px)` }}>
+                        style={{ transform: `translateY(${-15 + plus1 * -50}px)` }}
+                      >
                         <span className={styles.digit}>0</span>
                         <span className={styles.digit}>1</span>
                         <span className={styles.digit}>2</span>
@@ -301,7 +309,8 @@ const Pricing = (props) => {
                     <div className={styles.container}>
                       <div
                         className={styles.wrap}
-                        style={{ transform: `translateY(${-15 + plus2 * -50}px)` }}>
+                        style={{ transform: `translateY(${-15 + plus2 * -50}px)` }}
+                      >
                         <span className={styles.digit}>0</span>
                         <span className={styles.digit}>1</span>
                         <span className={styles.digit}>2</span>
@@ -318,7 +327,8 @@ const Pricing = (props) => {
                       <div className={styles.container}>
                         <div
                           className={styles.wrap}
-                          style={{ transform: `translateY(${-15 + plus3 * -50}px)` }}>
+                          style={{ transform: `translateY(${-15 + plus3 * -50}px)` }}
+                        >
                           <span className={styles.digit}>0</span>
                           <span className={styles.digit}>1</span>
                           <span className={styles.digit}>2</span>
@@ -344,11 +354,13 @@ const Pricing = (props) => {
                     <input
                       type="hidden"
                       name="cancel_return"
-                      value={`${originUrl}?paypal_cancel=true`}></input>
+                      value={`${originUrl}?paypal_cancel=true`}
+                    ></input>
                     <input
                       type="hidden"
                       name="return"
-                      value={`${originUrl}?paypal_success=true`}></input>
+                      value={`${originUrl}?paypal_success=true`}
+                    ></input>
                     <input type="hidden" name="custom" value={user?._id}></input>
                     <input type="hidden" name="hosted_button_id" value="JURZNUSJ8HLJJ" />
                     <LargeButton

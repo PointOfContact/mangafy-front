@@ -24,7 +24,7 @@
     font-size: $text4;
     line-height: 24px;
     color: $black;
-    @include media-md{
+    @include media-md {
       font-size: $text5;
       position: static;
       margin-bottom: 5px;
@@ -39,7 +39,7 @@
       font-size: $text4;
       line-height: 24px;
       color: $black;
-      @include media-md{
+      @include media-md {
         font-size: $text5;
       }
     }

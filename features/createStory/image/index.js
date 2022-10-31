@@ -159,7 +159,8 @@ const Introduce = ({ user }) => {
                       type="primary"
                       loading={loadings[2]}
                       onClick={publish}
-                      className="title_but">
+                      className="title_but"
+                    >
                       Publish!
                     </Button>
                   ) : (

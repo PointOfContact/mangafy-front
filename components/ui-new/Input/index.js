@@ -33,7 +33,8 @@ const Input = ({
           pink && styles.input_pink
         )}
         onInput={onChange ? (e) => onChange(e.target.value) : null}
-        defaultValue={defaultValue}></input>
+        defaultValue={defaultValue}
+      ></input>
       {typeof err === 'string' && <div className={styles.input__error}>{err}</div>}
     </div>
   );

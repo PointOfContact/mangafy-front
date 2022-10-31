@@ -10,7 +10,8 @@ const ShotModal = ({ card, user, isVisible, setModal }) => {
       style={{ top: 80 }}
       wrapClassName={styles.modal__wrap}
       // closeIcon={<Close className={styles.modal__close} />}
-      footer={null}>
+      footer={null}
+    >
       sfad
     </Modal>
   );

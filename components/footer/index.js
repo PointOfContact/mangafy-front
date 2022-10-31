@@ -41,21 +41,24 @@ const Footer = ({ user }) => {
                   href="https://www.facebook.com/mangafyy"
                   target="_blank"
                   rel="noreferrer"
-                  className={styles.footer__socBtn}>
+                  className={styles.footer__socBtn}
+                >
                   <SvgFacebook width="25px" height="25px" />
                 </a>
                 <a
                   href="https://twitter.com/be_mangafy"
                   target="_blank"
                   rel="noreferrer"
-                  className={styles.footer__socBtn}>
+                  className={styles.footer__socBtn}
+                >
                   <SvgTwitter width="25px" height="25px" />
                 </a>
                 <a
                   href="https://www.instagram.com/be.mangafy/"
                   target="_blank"
                   rel="noreferrer"
-                  className={styles.footer__socBtn}>
+                  className={styles.footer__socBtn}
+                >
                   <SvgInstagram width="25px" height="25px" />
                 </a>
               </div>

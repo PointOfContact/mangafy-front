@@ -401,7 +401,8 @@ const NewLending = ({ user }) => {
                     weight="150"
                     loop="infinity"
                     truespeed="200"
-                    scrolldelay="30">
+                    scrolldelay="30"
+                  >
                     <img src="lendingImages/dist/anim-text1.svg" alt="MangaFy landing image" />
                   </marquee>
                 </div>
@@ -412,7 +413,8 @@ const NewLending = ({ user }) => {
                     loop="infinity"
                     truespeed="200"
                     scrolldelay="30"
-                    direction="right">
+                    direction="right"
+                  >
                     <img src="lendingImages/dist/anim-text1.svg" alt="MangaFy landing image" />
                   </marquee>
                 </div>
@@ -422,7 +424,8 @@ const NewLending = ({ user }) => {
                     weight="150"
                     loop="infinity"
                     truespeed="200"
-                    scrolldelay="20">
+                    scrolldelay="20"
+                  >
                     <img src="lendingImages/dist/anim-text1.svg" alt="MangaFy landing image" />
                   </marquee>
                 </div>
@@ -450,14 +453,16 @@ const NewLending = ({ user }) => {
                       className="ico2"
                       data-aos="fade-down-right"
                       data-aos-duration="3000"
-                      data-aos-delay="300">
+                      data-aos-delay="300"
+                    >
                       <img src="lendingImages/dist/main-hero2.png" alt="MangaFy landing image" />
                     </div>
                     <div
                       className="ico3"
                       data-aos="fade-down-left"
                       data-aos-duration="2000"
-                      data-aos-delay="500">
+                      data-aos-delay="500"
+                    >
                       <img src="lendingImages/dist/main-hero3.png" alt="MangaFy landing image" />
                     </div>
                   </div>
@@ -478,7 +483,8 @@ const NewLending = ({ user }) => {
                       className="creating__ttl"
                       data-aos="fade-up"
                       data-aos-delay="100"
-                      data-aos-offset="300">
+                      data-aos-offset="300"
+                    >
                       <span className="line">
                         <b>Creating</b>
                       </span>
@@ -488,7 +494,8 @@ const NewLending = ({ user }) => {
                       <div
                         className="creating__cards-item"
                         data-aos="fade-right"
-                        data-aos-delay="500">
+                        data-aos-delay="500"
+                      >
                         <div className="wrap">
                           <div className="ttl">No time for art</div>
                           <div className="tetx">
@@ -500,7 +507,8 @@ const NewLending = ({ user }) => {
                       <div
                         className="creating__cards-item"
                         data-aos="fade-right"
-                        data-aos-delay="600">
+                        data-aos-delay="600"
+                      >
                         <div className="wrap">
                           <div className="ttl">Hard to organize</div>
                           <div className="tetx">
@@ -512,7 +520,8 @@ const NewLending = ({ user }) => {
                       <div
                         className="creating__cards-item"
                         data-aos="fade-right"
-                        data-aos-delay="700">
+                        data-aos-delay="700"
+                      >
                         <div className="wrap">
                           <div className="ttl">Lack of skills</div>
                           <div className="tetx">
@@ -526,7 +535,8 @@ const NewLending = ({ user }) => {
                       className="progress progress-creating"
                       role="progressbar"
                       aria-valuemin="0"
-                      aria-valuemax="100"></div>
+                      aria-valuemax="100"
+                    ></div>
                   </div>
                   <div className="creating__right">
                     <div className="creating__mask">
@@ -540,7 +550,8 @@ const NewLending = ({ user }) => {
                         autoPlay
                         loop
                         playsinline
-                        muted>
+                        muted
+                      >
                         <source src="lendingImages/dist/video.mp4" type="video/mp4" />
                       </video>
                     </div>
@@ -572,20 +583,23 @@ const NewLending = ({ user }) => {
                     <div className="center">
                       <object
                         type="image/svg+xml"
-                        data="lendingImages/dist/platform-cube-ico.svg"></object>
+                        data="lendingImages/dist/platform-cube-ico.svg"
+                      ></object>
                     </div>
                     <div className="line">
                       <object
                         id="anim-svg-cube"
                         type="image/svg+xml"
-                        data="lendingImages/dist/cube-bg.svg"></object>
+                        data="lendingImages/dist/cube-bg.svg"
+                      ></object>
                     </div>
                     <div className="item it1">
                       <div className="cube">
                         <object
                           id="anim-cube-1"
                           type="image/svg+xml"
-                          data="lendingImages/dist/cube1.svg"></object>
+                          data="lendingImages/dist/cube1.svg"
+                        ></object>
                       </div>
                       <img src="lendingImages/dist/cube-img1.svg" alt="MangaFy landing image" />
                     </div>
@@ -594,7 +608,8 @@ const NewLending = ({ user }) => {
                         <object
                           id="anim-cube-2"
                           type="image/svg+xml"
-                          data="lendingImages/dist/cube2.svg"></object>
+                          data="lendingImages/dist/cube2.svg"
+                        ></object>
                       </div>
                       <img src="lendingImages/dist/cube-img2.svg" alt="MangaFy landing image" />
                     </div>
@@ -603,7 +618,8 @@ const NewLending = ({ user }) => {
                         <object
                           id="anim-cube-3"
                           type="image/svg+xml"
-                          data="lendingImages/dist/cube3.svg"></object>
+                          data="lendingImages/dist/cube3.svg"
+                        ></object>
                       </div>
                       <img src="lendingImages/dist/cube-img3.svg" alt="MangaFy landing image" />
                     </div>
@@ -612,7 +628,8 @@ const NewLending = ({ user }) => {
                         <object
                           id="anim-cube-4"
                           type="image/svg+xml"
-                          data="lendingImages/dist/cube4.svg"></object>
+                          data="lendingImages/dist/cube4.svg"
+                        ></object>
                       </div>
                       <img src="lendingImages/dist/cube-img4.svg" alt="MangaFy landing image" />
                     </div>
@@ -621,7 +638,8 @@ const NewLending = ({ user }) => {
                         <object
                           id="anim-cube-5"
                           type="image/svg+xml"
-                          data="lendingImages/dist/cube5.svg"></object>
+                          data="lendingImages/dist/cube5.svg"
+                        ></object>
                       </div>
                       <img src="lendingImages/dist/cube-img5.svg" alt="MangaFy landing image" />
                     </div>
@@ -630,7 +648,8 @@ const NewLending = ({ user }) => {
                         <object
                           id="anim-cube-6"
                           type="image/svg+xml"
-                          data="lendingImages/dist/cube6.svg"></object>
+                          data="lendingImages/dist/cube6.svg"
+                        ></object>
                       </div>
                       <img src="lendingImages/dist/cube-img6.svg" alt="MangaFy landing image" />
                     </div>
@@ -773,7 +792,8 @@ const NewLending = ({ user }) => {
                     className="progress progress-nav"
                     role="progressbar"
                     aria-valuemin="0"
-                    aria-valuemax="100"></div>
+                    aria-valuemax="100"
+                  ></div>
                   <div className="colab__tabs">
                     <div className="colab__tab">
                       <div className="text">
@@ -818,7 +838,8 @@ const NewLending = ({ user }) => {
                     className="ico1"
                     data-aos="fade-down-left"
                     data-aos-duration="2500"
-                    data-aos-delay="500">
+                    data-aos-delay="500"
+                  >
                     <img src="lendingImages/dist/colab-girl.png" alt="MangaFy landing image" />
                   </div>
                 </div>
@@ -908,7 +929,8 @@ const NewLending = ({ user }) => {
                     className="progress"
                     role="progressbar"
                     aria-valuemin="0"
-                    aria-valuemax="100"></div>
+                    aria-valuemax="100"
+                  ></div>
                   <div className="who-are-you__descr">
                     <div className="who-are-you__descr-item active" data-card="writer">
                       <div className="ttl">Writer</div>
@@ -993,7 +1015,8 @@ const NewLending = ({ user }) => {
                       href="https://discord.com/invite/NYtkaaeqwS"
                       target={'_blank'}
                       className="platform__btn"
-                      rel="noreferrer">
+                      rel="noreferrer"
+                    >
                       Join Discord
                     </a>
                   </div>
@@ -1008,7 +1031,8 @@ const NewLending = ({ user }) => {
                       className="img"
                       data-aos="fade-zoom-in"
                       data-aos-duration="3000"
-                      data-aos-delay="500">
+                      data-aos-delay="500"
+                    >
                       <img src="lendingImages/dist/join-ico1.png" alt="MangaFy landing image" />
                     </div>
                   </div>
@@ -1044,10 +1068,12 @@ const NewLending = ({ user }) => {
                         height="13"
                         viewBox="0 0 13 13"
                         fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
                         <path
                           d="M9.54688 0.761719C8.84145 0.761719 8.1947 0.985258 7.62463 1.42614C7.07809 1.84882 6.71422 2.38718 6.5 2.77865C6.28578 2.38715 5.92191 1.84882 5.37537 1.42614C4.8053 0.985258 4.15855 0.761719 3.45312 0.761719C1.48454 0.761719 0 2.37192 0 4.50719C0 6.81403 1.85207 8.39234 4.65585 10.7817C5.13198 11.1874 5.67166 11.6474 6.23259 12.1379C6.30652 12.2026 6.40148 12.2383 6.5 12.2383C6.59852 12.2383 6.69348 12.2026 6.76741 12.1379C7.32839 11.6473 7.86805 11.1874 8.34445 10.7814C11.1479 8.39234 13 6.81403 13 4.50719C13 2.37192 11.5155 0.761719 9.54688 0.761719Z"
-                          fill="#fff"></path>
+                          fill="#fff"
+                        ></path>
                       </svg>
                     </div>
                     <div className="footer__nav">
@@ -1059,7 +1085,8 @@ const NewLending = ({ user }) => {
                       </a>
                       <a
                         href="https://form.typeform.com/to/bAv7ReI7?typeform-source=trello.com"
-                        className="footer__nav-item">
+                        className="footer__nav-item"
+                      >
                         Contact us
                       </a>
                     </div>

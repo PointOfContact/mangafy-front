@@ -80,14 +80,16 @@ export const ShowGalleryModal = ({
         zIndex={200000000}
         onCancel={handleCancel}
         closeIcon={<SvgClose />}
-        visible={isModalVisible}>
+        visible={isModalVisible}
+      >
         {image.title && <div className={styles.modal__title}>{image.title}</div>}
         {image.description && <div className={styles.modal__description}>{image.description}</div>}
         {image.image && (
           <div className={styles.modal__image}>
             <div
               className={cn(styles.modal__like, isLiked && styles.modal__like_active)}
-              onClick={() => onLikeGallery(image._id, authorId, user?._id)}>
+              onClick={() => onLikeGallery(image._id, authorId, user?._id)}
+            >
               {image.likedUsers.length}
               <Heart color="#fff" />
             </div>

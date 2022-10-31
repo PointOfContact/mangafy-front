@@ -19,7 +19,8 @@ const FeedCardText = ({ title, description, className, isOwned, shareUrl, textOn
       {description && (
         <div
           className={styles.feedCardDescription}
-          dangerouslySetInnerHTML={{ __html: formatHtml(description) }}></div>
+          dangerouslySetInnerHTML={{ __html: formatHtml(description) }}
+        ></div>
       )}
       {textOnly && (
         <div className={styles.share__hover}>
@@ -33,7 +34,8 @@ const FeedCardText = ({ title, description, className, isOwned, shareUrl, textOn
                 onClick={(e) => {
                   e.stopPropagation();
                   setAreShareButtonsVisible((old) => !old);
-                }}>
+                }}
+              >
                 Share
               </Button>
               <ShareButtons

@@ -33,8 +33,8 @@ const ModalBestProfile = ({
         />
         <Imgix
           // layout="fill"
-          width='100%'
-          height='100%'
+          width="100%"
+          height="100%"
           src={`https://mangafy.club/api/v2/uploads/${item?._id}`}
           alt="mangaFy top gallery"
           className={styles.modalImage}
@@ -55,7 +55,8 @@ const ModalBestProfile = ({
           <SvgClose />
         </span>
       }
-      okText="Send">
+      okText="Send"
+    >
       <div className={styles.container}>
         <ImageGallery
           lazyLoad={false}

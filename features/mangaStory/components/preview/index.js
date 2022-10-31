@@ -43,7 +43,8 @@ const Preview = ({ uploadImages, storyBoardId, mangaStoryTitle }) => {
         }
         visible={showPreviewModal}
         onCancel={() => setShowPreviewModal(false)}
-        footer={[]}>
+        footer={[]}
+      >
         <NextSeo
           title={`MangaFY is happy to introduce my latest graphic novel project, entitled manga view.`}
           description="MangaFY is an easy to use application that features tools for

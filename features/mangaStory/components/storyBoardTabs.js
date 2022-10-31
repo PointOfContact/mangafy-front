@@ -177,7 +177,8 @@ const StoryBoardTabs = ({
         className={`${styles.storyBoardTab} storyBoardTabs`}
         type="line"
         onChange={tabsOnChange}
-        tabPosition={width < 992 ? 'bottom' : 'left'}>
+        tabPosition={width < 992 ? 'bottom' : 'left'}
+      >
         <TabPane
           tab={
             <span className={styles.tab}>
@@ -185,7 +186,8 @@ const StoryBoardTabs = ({
               <p>Plot</p>
             </span>
           }
-          key={1}>
+          key={1}
+        >
           <div className={styles.tabContent}>
             <Idea storyBoard={storyBoard} user={user} />
           </div>
@@ -197,7 +199,8 @@ const StoryBoardTabs = ({
               <p>Characters</p>
             </span>
           }
-          key={2}>
+          key={2}
+        >
           <div className={styles.tabContent}>
             <Hero
               storyBoard={storyBoard}
@@ -215,7 +218,8 @@ const StoryBoardTabs = ({
               <p>Chapters</p>
             </span>
           }
-          key={3}>
+          key={3}
+        >
           <Chapter
             storyBoard={storyBoard}
             setStoryBoard={setStoryBoard}
@@ -234,7 +238,8 @@ const StoryBoardTabs = ({
                 <p>Upload</p>
               </span>
             }
-            key={4}>
+            key={4}
+          >
             <div className={styles.tabContent}>
               <div className={styles.uploadPhotoContainer}>
                 <div className={styles.uploadListContainer}>
@@ -256,7 +261,8 @@ const StoryBoardTabs = ({
                 <div
                   className={
                     !!uploadImages.length ? styles.uploadContainerDef : styles.uploadContainer
-                  }>
+                  }
+                >
                   {!!uploadImages.length && (
                     <Preview
                       uploadImages={uploadImages}
@@ -294,7 +300,8 @@ const StoryBoardTabs = ({
               <p>Publish</p>
             </span>
           }
-          key={storyBoard?.mangaUrls?.length ? 5 : 4}>
+          key={storyBoard?.mangaUrls?.length ? 5 : 4}
+        >
           {isShowAnimation && <span className={styles.showAnimation}></span>}
           <div className={styles.tabContent}>
             <Publish baseData={baseData} storyBoard={storyBoard} chapters={chapters} />

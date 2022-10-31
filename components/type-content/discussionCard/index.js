@@ -96,10 +96,8 @@ const DiscussionCard = (props) => {
                 {categories?.map((categorie) => (
                   <li key={categorie} className={styles.projectsForYou_Category_List_Item}>
                     <div
-                      className={cn(
-                        styles.projectsForYou_Category_List_Circle,
-                        styles.circle
-                      )}></div>
+                      className={cn(styles.projectsForYou_Category_List_Circle, styles.circle)}
+                    ></div>
                     <div className={styles.projectsForYou_Category_List_Text}>{categorie}</div>
                   </li>
                 ))}
@@ -118,7 +116,8 @@ const DiscussionCard = (props) => {
           />
         </div>
         <div
-          className={cn(!img && styles.projectsForYou_mainImg, styles.projectsForYou_mainImgDef)}>
+          className={cn(!img && styles.projectsForYou_mainImg, styles.projectsForYou_mainImgDef)}
+        >
           <div className={styles.bgImg}>
             {img &&
               (ifVideo ? (
@@ -128,7 +127,8 @@ const DiscussionCard = (props) => {
                   muted
                   loop
                   playsInline
-                  poster="https://mangafy.club/api/v2/uploads/1645708912743-980848197-istockphoto-1017890344-170667a.jpg">
+                  poster="https://mangafy.club/api/v2/uploads/1645708912743-980848197-istockphoto-1017890344-170667a.jpg"
+                >
                   <source src={`${client.UPLOAD_URL + img}`} type="video/mp4" />
                 </video>
               ) : ifPdf ? (
@@ -159,7 +159,8 @@ const DiscussionCard = (props) => {
 
         <div
           className={cn(!img && styles.projectsForYou_botDesc, styles.projectsForYou_botDescDef)}
-          onClick={() => openPost(id)}>
+          onClick={() => openPost(id)}
+        >
           <span
             dangerouslySetInnerHTML={{
               __html: wrapUrls(subTitle),
@@ -167,7 +168,8 @@ const DiscussionCard = (props) => {
           />
           <div
             className={cn(!img && styles.containerButton, styles.containerButtonDef)}
-            onClick={(e) => e.stopPropagation()}>
+            onClick={(e) => e.stopPropagation()}
+          >
             {!img && !!categories[0] && (
               <div className={cn(!img && styles.cat, styles.catDef)}>
                 <span>{categories[0]}</span>

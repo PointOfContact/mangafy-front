@@ -1,9 +1,9 @@
 @import '../../../../styles/variables.scss';
 @mixin title {
-    font-weight: bold;
-    font-size: 20px;
-    line-height: 35px;
-    color: $black;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 35px;
+  color: $black;
 }
 .container {
   max-width: 811px;
@@ -13,7 +13,7 @@
     @include title;
     margin-bottom: 15px;
   }
-  .inspirationTitle{
+  .inspirationTitle {
     @include title;
     margin-bottom: 7px;
   }
@@ -58,7 +58,7 @@
   .save {
     width: 142px;
     height: 46px;
-    background: #9A87FE;
+    background: #9a87fe;
     color: white;
     border-radius: 5px;
     font-weight: 900;

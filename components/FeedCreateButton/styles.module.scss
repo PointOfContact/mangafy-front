@@ -1,92 +1,94 @@
 @import '../../styles/variables.scss';
 .feedCreateButton {
-    z-index: 6;
-    bottom: 2em;
-    right: 2em;
-    position: fixed;
-    cursor: pointer;
-    filter: drop-shadow(2px 2px 4px #0000003f);
+  z-index: 6;
+  bottom: 2em;
+  right: 2em;
+  position: fixed;
+  cursor: pointer;
+  filter: drop-shadow(2px 2px 4px #0000003f);
 }
 .plus {
+  & > svg {
+    path {
+      transition: 0.1s;
+      fill: $black;
+    }
+    width: 4.625em;
+    height: 4.625em;
+  }
+  &:hover {
     & > svg {
-        path {
-            transition: 0.1s;
-            fill: $black;
-        }
-        width: 4.625em;
-        height: 4.625em;
+      path {
+        fill: #3a3a3a;
+      }
+      width: 4.625em;
+      height: 4.625em;
     }
-    &:hover {
-        & > svg {
-            path {
-                fill: #3a3a3a;
-            }
-            width: 4.625em;
-            height: 4.625em;
-        }
+  }
+  &:active,
+  &_active,
+  &_active:hover {
+    & > svg {
+      path {
+        fill: $primaryDark;
+      }
+      width: 4.625em;
+      height: 4.625em;
     }
-    &:active, &_active, &_active:hover {
-        & >svg {
-            path {
-                fill: $primaryDark;
-            }
-            width: 4.625em;
-            height: 4.625em;
-        }
-    }
+  }
 }
 .options {
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translate(-90%, -50%);
-    opacity: 0;
-    transition: 0.2s;
-    pointer-events: none;
-    &_active {
-        pointer-events: auto;
-        opacity: 1;
-        transform: translate(-100%, -50%);
-    }
-    width: max-content;
-    display: flex;
-    flex-direction: column;
-    background: $white;
-    background: #FFFFFF;
-    border: 1px solid #858585;
-    border-radius: 10px;
-    padding: 11px;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translate(-90%, -50%);
+  opacity: 0;
+  transition: 0.2s;
+  pointer-events: none;
+  &_active {
+    pointer-events: auto;
+    opacity: 1;
+    transform: translate(-100%, -50%);
+  }
+  width: max-content;
+  display: flex;
+  flex-direction: column;
+  background: $white;
+  background: #ffffff;
+  border: 1px solid #858585;
+  border-radius: 10px;
+  padding: 11px;
 }
 .option {
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  font-size: 25px;
+  font-weight: 700;
+  padding: 0 0.5em;
+  &_post:before {
     display: flex;
     align-items: center;
-    border-radius: 5px;
-    font-size: 25px;
-    font-weight: 700;
-    padding: 0 0.5em;
-    &_post:before {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 1em;
-        width: 1em;
-        margin-right: 0.5em;
-        content: '+';
+    justify-content: center;
+    height: 1em;
+    width: 1em;
+    margin-right: 0.5em;
+    content: '+';
+  }
+  &_project {
+    & > svg {
+      height: 1em;
+      width: 1em;
+      margin-right: 0.5em;
+      path {
+        fill: $black;
+      }
     }
-    &_project {
-        & > svg {
-            height: 1em;
-            width: 1em;
-            margin-right: 0.5em;
-            path {
-                fill: $black;
-            }
-        }
-    }
-    &:hover {
-        background: rgba($color: $black, $alpha: 0.15);
-    }
-    &:active {
-        background: rgba($color: $black, $alpha: 0.05);
-    }
+  }
+  &:hover {
+    background: rgba($color: $black, $alpha: 0.15);
+  }
+  &:active {
+    background: rgba($color: $black, $alpha: 0.05);
+  }
 }

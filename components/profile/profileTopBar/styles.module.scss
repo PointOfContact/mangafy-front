@@ -134,7 +134,7 @@
     }
   }
   .info_profile {
-    @include media-sm{
+    @include media-sm {
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -144,7 +144,7 @@
       display: flex;
       margin: 5px 0 10px 0;
       flex-wrap: wrap;
-      @include media-sm{
+      @include media-sm {
         justify-content: center;
         max-width: 300px;
       }
@@ -156,10 +156,10 @@
         padding: 6px 16px;
         border-radius: 14px;
         color: white;
-        @include media-md{
+        @include media-md {
           font-size: 16px;
         }
-        @include media-md{
+        @include media-md {
           margin-right: 0;
           margin: 4px;
         }

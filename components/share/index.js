@@ -60,7 +60,8 @@ export const ShareButtons = ({ className, shareUrl, text, onClick, showTitle }) 
               onClick={() => {
                 setCopyText('Copied');
                 copy(shareUrl);
-              }}>
+              }}
+            >
               <SvgCopy width="28px" height="28px" alt="mangaFy copy icon" />
             </span>
           </Tooltip>

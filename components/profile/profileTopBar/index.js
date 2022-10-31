@@ -291,7 +291,8 @@ const ProfileTopBar = (props) => {
                     value={userData.types}
                     dropdownMatchSelectWidth={false}
                     style={{ width: '100%' }}
-                    onChange={(value) => setUserData({ ...userData, types: value })}>
+                    onChange={(value) => setUserData({ ...userData, types: value })}
+                  >
                     {userTypesOptions}
                   </Select>
                   {!(userData?.types?.length && userData?.types[0]) ? (
@@ -305,7 +306,8 @@ const ProfileTopBar = (props) => {
                       event_type: EVENTS.DELETE_ACCOUNT,
                     };
                     myAmplitude(event);
-                  }}>
+                  }}
+                >
                   <a>
                     <div className={styles.deleteAccount}>
                       <SvgDustbin width="20px" height="20px" />

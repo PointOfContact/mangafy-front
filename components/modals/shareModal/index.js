@@ -12,7 +12,8 @@ const ShareModal = ({ isShareModalOpened, setIsShareModalOpened, shareUrl }) => 
       onCancel={() => setIsShareModalOpened(false)}
       centered
       footer={null}
-      wrapClassName={styles.shareModal}>
+      wrapClassName={styles.shareModal}
+    >
       <ShareButtons shareUrl={shareUrl} />
     </Modal>
   );

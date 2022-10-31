@@ -215,7 +215,8 @@ const MangaView = ({
           onCancel={() => setIsShareModalOpened(false)}
           centered
           footer={null}
-          wrapClassName={styles.shotPage__shareModal}>
+          wrapClassName={styles.shotPage__shareModal}
+        >
           <ShareButtons
             shareUrl={
               client.API_ENDPOINT + '/project/view/' + manga?.id + '?ongoing=' + activeChapterIndex
@@ -248,6 +249,7 @@ const MangaView = ({
           activeChapterIndex={activeChapterIndex}
         />
         <MangaBody images={chapter?.mangaUrls} className={styles.shotPage__body} />
+        <div className={styles.choozeReadType}>sss</div>
         <MangaFooter
           chapter={chapter}
           manga={manga}

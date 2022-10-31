@@ -17,7 +17,8 @@ function Popconfirm({ className, title, onConfirm, onCancel, okText, cancelText,
         onCancel={onCancel}
         okText={okText}
         cancelText={cancelText}
-        {...rest}>
+        {...rest}
+      >
         {item}
       </AntPopConfirm>
     </span>

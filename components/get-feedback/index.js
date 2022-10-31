@@ -164,7 +164,8 @@ const GetFeedback = ({
         onCancel={() => {
           setIsModalVisible(false);
         }}
-        footer={null}>
+        footer={null}
+      >
         <div className={styles.titleContainer}>
           <h1 className={styles.titleNewPost}>{edit ? 'Edit Post' : 'Create Post'}</h1>
           <div className={styles.border}></div>

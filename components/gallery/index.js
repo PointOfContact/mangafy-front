@@ -230,7 +230,8 @@ export const Gallery = (props) => {
               onClick={() => {
                 setCreateGalleryModal(true);
                 setIsModalVisible(true);
-              }}>
+              }}
+            >
               <AddButton width="25px" height="25px" text={'Add a work'} />
             </span>
           </Col>

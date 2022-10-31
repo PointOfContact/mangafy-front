@@ -105,7 +105,8 @@ const LookingFor = ({ user }) => {
                         <li>
                           <Checkbox
                             onClick={() => onChangeCheckBox(index + 6)}
-                            checked={label.checked}>
+                            checked={label.checked}
+                          >
                             {label.label}
                           </Checkbox>
                         </li>
@@ -121,7 +122,8 @@ const LookingFor = ({ user }) => {
                   <Button
                     id="lookingForPrevBtnId"
                     className="title_but_prev "
-                    onClick={() => showCreateProjectModal(true)}>
+                    onClick={() => showCreateProjectModal(true)}
+                  >
                     <SvgLeftArrow width="13.503px" height="23.619px" />
                     <span> Previous</span>
                   </Button>
@@ -133,7 +135,8 @@ const LookingFor = ({ user }) => {
                         type="primary"
                         className="title_but btn_next"
                         loading={loadings[0]}
-                        onClick={() => enterLoading(0)}>
+                        onClick={() => enterLoading(0)}
+                      >
                         <span>Next</span>
                         <SvgRightArrow width="13.503px" height="23.619px" />
                       </Button>

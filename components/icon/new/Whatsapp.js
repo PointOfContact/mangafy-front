@@ -7,7 +7,8 @@ const Whatsapp = ({ size }) => {
       height={size || '24px'}
       viewBox="0 0 180 180"
       fill="none"
-      xmlns="http://www.w3.org/2000/svg">
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <path
         d="M180 90C180 139.705 139.705 180 90.0001 180C40.2947 180 0 139.705 0 90C0 40.2933 40.2947 -9.38773e-06 90.0001 -9.38773e-06C139.705 -9.38773e-06 180 40.2933 180 90Z"
         fill="#010201"
