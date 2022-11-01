@@ -1,0 +1,99 @@
+@import '../../styles/variables.scss';
+
+.projects {
+    &__container {
+        max-width: 1200px;
+        margin: 0 auto;
+        transition: 0.4s;
+        &_withProjectOpened {
+            padding-right: 460px;
+            @include media-sm {
+                padding-right: 0;
+            }
+            .projects {
+                &__create, &__projects {
+                    display: grid;
+                    grid-template-columns: repeat(3, 1fr);
+                    grid-gap: 20px;
+                    @include media-lg {
+                        grid-template-columns: repeat(2, 1fr);
+                    }
+                }
+                &__create {
+                    @include media-md {
+                        grid-template-columns: repeat(1, 1fr);
+                    }
+                }
+            }
+        }
+    }
+
+    &__all {
+        padding: 15px;
+    }
+
+    &__project {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 450px;
+        @include media-sm {
+            width: 320px;
+            width: 100%;
+        }
+    }
+
+    &__header {
+        display: flex;
+        align-items: center;
+        font-weight: 700;
+        font-size: 30px;
+        margin-bottom: 30px;
+    }
+
+    &__back {
+        margin-right: 15px;
+    }
+
+    &__create, &__projects {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-gap: 20px;
+        @include media-lg {
+            grid-template-columns: repeat(3, 1fr);
+        }
+        @include media-md {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    &__create {
+        @include media-sm {
+            grid-template-columns: repeat(1, 1fr);
+        }
+    }
+
+    &__create {
+        margin-bottom: 30px;
+    }
+
+    &__createEmpty {
+        display: flex;
+        align-items: center;
+        background: $primaryDark;
+        border-radius: 20px;
+        font-size: 20px;
+        font-weight: 700;
+        padding: 20px;
+        color: #fff;
+        svg {
+            margin-left: auto;
+            height: 2em;
+            path {
+                fill: #fff;
+            }
+        }
+    }
+    
+}
