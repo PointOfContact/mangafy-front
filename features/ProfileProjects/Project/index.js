@@ -1,10 +1,14 @@
 import client from 'api/client';
 import Avatar from 'components/Avatar';
 import Imgix from 'components/imgix';
-import React from 'react';
+import React, { useMemo } from 'react';
+import { countPages, getEditedDate } from '../helpers';
 import styles from './styles.module.scss';
 
 const Project = ({ setOpenedProject, setIsOpened, project }) => {
+  const pagesCount = useMemo(() => countPages(project), [project]);
+  const editedDate = useMemo(() => getEditedDate(project), [project]);
+
   return (
     <div
       className={styles.project}
@@ -20,8 +24,10 @@ const Project = ({ setOpenedProject, setIsOpened, project }) => {
           <div className={styles.project__noImage}>{project?.title}</div>
         )}
       </div>
-      <div className={styles.project__title}> Project Title</div>
-      <div className={styles.project__description}>Project Description</div>
+      <div className={styles.project__title}>{project?.title}</div>
+      <div className={styles.project__description}>
+        Edited {editedDate} | {pagesCount} pages
+      </div>
     </div>
   );
 };

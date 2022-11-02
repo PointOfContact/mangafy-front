@@ -32,6 +32,26 @@
         padding: 15px;
     }
 
+    &__noProjects {
+        padding-top: 20px;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        grid-column: 1 / -1;
+        &Title {
+            font-weight: 800;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        &Subtitle {
+            font-weight: 400;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+    }
+
     &__project {
         position: fixed;
         top: 0;
@@ -93,6 +113,15 @@
             path {
                 fill: #fff;
             }
+        }
+
+        transition: 0.2s;
+        cursor: pointer;
+        &:hover {
+            background: darken($primaryDark, 5%);
+        }
+        &:active {
+            background: lighten($primaryDark, 5%);
         }
     }
     

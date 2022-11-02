@@ -8,6 +8,14 @@ export default withAuthComponent(ProfileProjects);
 export const getServerSideProps = withAuthServerSideProps(async (context, user = null) => {
   try {
     const profile = await client.service('/api/v2/users').get(context.params.pid);
+
+    if (profile._id !== user._id) {
+      context.res.writeHead(302, {
+        Location: '/profile/' + profile._id,
+      });
+      context.res.end();
+    }
+
     return {
       props: {
         user: user || store.user,

@@ -9,10 +9,13 @@ import { Add2 } from 'components/icon';
 import Project from './Project';
 import cn from 'classnames';
 import OpenedProject from './OpenedProject';
+import ModalCreateProject from 'components/modalCreateProject';
+import client from 'api/client';
 
 const ProfileProjects = ({ user, profile }) => {
   const [openedProject, setOpenedProject] = useState(null);
   const [isOpened, setIsOpened] = useState(false);
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
   const [profileInfo, setProfileInfo] = useState(profile);
 
@@ -34,6 +37,15 @@ const ProfileProjects = ({ user, profile }) => {
       ));
     }
   }, [profileInfo]);
+
+  async function updateProjectsInfo() {
+    try {
+      const profile = await client.service('/api/v2/users').get(profileInfo?._id || profile?._id);
+      setProfileInfo(profile);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <div className={styles.projects}>
@@ -60,20 +72,46 @@ const ProfileProjects = ({ user, profile }) => {
             </Link>
             Projects
           </div>
-          <div className={styles.projects__create}>
-            <div className={styles.projects__createEmpty}>
-              Create
-              <Add2 />
+          {!!projectsElements?.length && (
+            <div className={styles.projects__create}>
+              <div
+                className={styles.projects__createEmpty}
+                onClick={() => setIsCreateModalOpen(true)}>
+                Create
+                <Add2 />
+              </div>
             </div>
+          )}
+          <div className={styles.projects__projects}>
+            {projectsElements?.length ? (
+              projectsElements
+            ) : (
+              <div className={styles.projects__noProjects}>
+                <div className={styles.projects__noProjectsTitle}>Start your first project</div>
+                <div className={styles.projects__noProjectsSubtitle}>
+                  MangaFY connects everyone in the production process so teams can deliver better
+                  novels, faster.
+                </div>
+                <Button md pink rounded onClick={() => setIsCreateModalOpen(true)}>
+                  Upload
+                </Button>
+              </div>
+            )}
           </div>
-          <div className={styles.projects__projects}>{projectsElements}</div>
         </div>
         <OpenedProject
+          user={user}
           isOpened={isOpened}
           setIsOpened={setIsOpened}
           setProject={setOpenedProject}
           project={openedProject}
           className={styles.projects__project}
+          updateProjectsInfo={updateProjectsInfo}
+        />
+        <ModalCreateProject
+          createProjectModal={isCreateModalOpen}
+          showCreateProjectModal={setIsCreateModalOpen}
+          user={user}
         />
       </div>
     </div>
