@@ -75,6 +75,7 @@ body {
 .stf__wrapper {
   padding-bottom: 0% !important;
   .stf__block {
+    overflow: hidden;
     height: 70vh !important;
     position: relative !important;
     .stf__item {
