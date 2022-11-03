@@ -32,14 +32,13 @@ const MangaHeader = ({ user, manga, className, authors, subscribe, isOwn, active
           subscribe={subscribe}
         />
 
-        <div className={styles.header__arrows}>
+        {/* <div className={styles.header__arrows}>
           <Link href={'/project/view/' + manga.id + '?ongoing=' + prevChapterIndex}>
             <a
               className={cn(
                 styles.header__arrow,
                 !prevChapterIndex && styles.header__arrow_disabled
-              )}
-            >
+              )}>
               <ArrowDown2 />
             </a>
           </Link>
@@ -49,12 +48,11 @@ const MangaHeader = ({ user, manga, className, authors, subscribe, isOwn, active
               className={cn(
                 styles.header__arrow,
                 !nextChapterIndex && styles.header__arrow_disabled
-              )}
-            >
+              )}>
               <ArrowDown2 />
             </a>
           </Link>
-        </div>
+        </div> */}
 
         {/* <Button rounded pink className={styles.header__tip}>
           Tip
@@ -68,8 +66,7 @@ const MangaHeader = ({ user, manga, className, authors, subscribe, isOwn, active
               className={cn(
                 styles.header__arrow,
                 !prevChapterIndex && styles.header__arrow_disabled
-              )}
-            >
+              )}>
               <ArrowDown2 />
             </a>
           </Link>
@@ -79,8 +76,7 @@ const MangaHeader = ({ user, manga, className, authors, subscribe, isOwn, active
               className={cn(
                 styles.header__arrow,
                 !nextChapterIndex && styles.header__arrow_disabled
-              )}
-            >
+              )}>
               <ArrowDown2 />
             </a>
           </Link>
