@@ -229,7 +229,7 @@ const HeaderNew = ({ user }) => {
     {
       key: 'profile-2',
       label: (
-        <Link href={'/profile/' + user?._id + '?active=projects'}>
+        <Link href={'/profile/' + user?._id + '/projects'}>
           <a className={styles.nav__dropdownItem}>
             <div className={styles.nav__dropdownIcon}>
               <File color="#D01E8E" bold={1} />
@@ -353,8 +353,7 @@ const HeaderNew = ({ user }) => {
               placement="bottom"
               overlay={createMenu}
               className={styles.nav__dropdown}
-              trigger="click"
-            >
+              trigger="click">
               <Space>
                 <ArrowDown2 className={styles.nav__dropdownArrow} />
                 Create
@@ -365,7 +364,7 @@ const HeaderNew = ({ user }) => {
           <div className={styles.nav__buttons}>
             {user ? (
               <>
-                <Link href={'/profile/' + user?._id + '?active=projects'}>
+                <Link href={'/profile/' + user?._id + '/projects'}>
                   <a>
                     <Button rounded={1} outline={1} pink={1}>
                       My projects
@@ -386,14 +385,12 @@ const HeaderNew = ({ user }) => {
                       />
                     }
                     onVisibleChange={(visible) => setShowNotificationModal(!showNotificationModal)}
-                    trigger="click"
-                  >
+                    trigger="click">
                     <Badge
                       count={notificationsCount}
                       onClick={() => {
                         setShowNotificationModal(!showNotificationModal);
-                      }}
-                    >
+                      }}>
                       <SvgBell width="23px" height="23px" />
                     </Badge>
                   </Popover>
@@ -403,8 +400,7 @@ const HeaderNew = ({ user }) => {
                   arrow
                   overlay={profileMenu}
                   className={styles.nav__dropdown}
-                  trigger="click"
-                >
+                  trigger="click">
                   <Space>
                     <div className={styles.nav__avatar}>
                       {/* {user.avatar ? (
@@ -456,14 +452,12 @@ const HeaderNew = ({ user }) => {
                     setNotificationsCount={setNotificationsCount}
                   />
                 }
-                trigger="click"
-              >
+                trigger="click">
                 <Badge
                   count={notificationsCount}
                   onClick={() => {
                     setShowNotificationModalMobile(!showNotificationModalMobile);
-                  }}
-                >
+                  }}>
                   <SvgBell width="23px" height="23px" />
                 </Badge>
               </Popover>

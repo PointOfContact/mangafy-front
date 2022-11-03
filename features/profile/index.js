@@ -225,7 +225,7 @@ const Profile = (props) => {
                 />
               </div>
             </section>
-            <section>
+            {/* <section>
               <div className={cn(styles.container, 'container')}>
                 <ProfileOpenCollabs
                   {...{
@@ -239,7 +239,7 @@ const Profile = (props) => {
                   }}
                 />
               </div>
-            </section>
+            </section> */}
           </main>
         </div>
         {!user && <Footer user={user} />}

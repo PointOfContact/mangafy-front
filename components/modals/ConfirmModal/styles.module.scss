@@ -1,0 +1,37 @@
+@import '../../../styles/variables.scss';
+
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.body {
+    &__title {
+        font-size: 24px;
+        font-weight: 500;
+        color: #000;
+    }
+    &__description {
+        font-size: 16px;
+        color: #848484;
+        margin-top: 10px;
+    }
+}
+
+.modal {
+    :global {
+        .ant-modal {
+            border-radius: 15px;
+            overflow: hidden;
+            padding: 0;
+        }
+        .ant-modal-footer {
+            border: none;
+        }
+        .ant-modal-body {
+            padding-top: 15px;
+            padding-bottom: 10px;
+        }
+    }
+}
