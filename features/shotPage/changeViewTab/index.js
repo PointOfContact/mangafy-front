@@ -10,12 +10,11 @@ import { useRouter } from 'next/router';
 
 const ChangeViewTab = ({ conutPage, chapter, refBook, readStyle, setConutPage, setReadStyle }) => {
   const router = useRouter();
+  const mangaUrlsLength = chapter?.mangaUrls.length;
   const onClickLeftArrow = async (e) => {
     e.stopPropagation();
     if (readStyle) {
-      refBook.current.pageFlip().flipPrev();
-      if (conutPage !== 1) setConutPage(conutPage - 2);
-      return;
+      return refBook.current.pageFlip().flipPrev();
     }
     if (conutPage !== 1) {
       document.body.style.position = 'fixed';
@@ -27,15 +26,9 @@ const ChangeViewTab = ({ conutPage, chapter, refBook, readStyle, setConutPage, s
   const onClickRightArrow = async (e) => {
     e.stopPropagation();
     if (readStyle) {
-      refBook.current.pageFlip().flipNext();
-      const lengthType = chapter?.mangaUrls.length % 2;
-      const plusNumber = lengthType
-        ? conutPage !== chapter?.mangaUrls.length
-        : conutPage !== chapter?.mangaUrls.length - 1;
-      if (plusNumber) setConutPage(conutPage + 2);
-      return;
+      return refBook.current.pageFlip().flipNext();
     }
-    const plusNumber = conutPage !== chapter?.mangaUrls.length;
+    const plusNumber = conutPage !== mangaUrlsLength;
     if (plusNumber) {
       document.body.style.position = 'fixed';
       router.push(`#page${conutPage + 1}`);
@@ -48,11 +41,17 @@ const ChangeViewTab = ({ conutPage, chapter, refBook, readStyle, setConutPage, s
     setConutPage(1);
   };
 
+  const countPage = readStyle
+    ? mangaUrlsLength % 2
+      ? mangaUrlsLength + 1
+      : mangaUrlsLength
+    : mangaUrlsLength;
+
   return (
     <div className={styles.choozeReadType}>
       <div className={styles.arrowsContainer}>
         <SvgLeftArrow onClick={onClickLeftArrow} width={24} height={24} />
-        <p>{`${conutPage} of ${chapter?.mangaUrls.length}`}</p>
+        <p>{`${conutPage} of ${countPage}`}</p>
         <SvgRightArrow onClick={onClickRightArrow} width={24} height={24} />
       </div>
       <div

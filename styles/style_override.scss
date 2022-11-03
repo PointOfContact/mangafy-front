@@ -52,7 +52,6 @@ body {
   }
 }
 .iiz--drag {
-  // width: 100% !important;
   height: 100% !important;
   display: flex !important;
   justify-content: center;
@@ -65,21 +64,18 @@ body {
     height: 100% !important;
   }
 }
-.iiz__img {
-  width: 40% !important;
-  @include media-lg {
-    width: auto !important;
-    height: auto !important;
-  }
-}
 .stf__wrapper {
   padding-bottom: 0% !important;
   .stf__block {
     overflow: hidden;
-    height: 70vh !important;
+    height: 80vh !important;
     position: relative !important;
+    @include media-sm {
+      height: 68.5vh !important;
+    }
     .stf__item {
       top: 0 !important;
+      border-radius: 0;
     }
   }
 }

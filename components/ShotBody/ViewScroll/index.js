@@ -18,9 +18,9 @@ const ViewScroll = ({ images, className }) => {
       {images?.map((image, index) => (
         <div id={`page${index + 1}`} key={image + index}>
           <InnerImageZoom
-            moveType="drag"
+            moveType="pan"
             fullscreenOnMobile
-            zoomScale={0.5}
+            zoomScale={1}
             hideHint
             src={client.UPLOAD_URL + image}
           />
