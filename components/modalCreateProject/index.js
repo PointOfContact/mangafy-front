@@ -87,8 +87,7 @@ const ModalCreateProject = ({ createProjectModal, showCreateProjectModal, user }
         showCreateProjectModal(false);
       }}
       visible={createProjectModal}
-      footer={null}
-    >
+      footer={null}>
       <h1 className={styles.title}>Bring your creative project to life.</h1>
       <p className={styles.description}>
         You can get your work on your fan&apos;s walls with a MangaFY project, whether you work
@@ -105,8 +104,7 @@ const ModalCreateProject = ({ createProjectModal, showCreateProjectModal, user }
         <Button
           className={styles.button}
           loading={loading}
-          onClick={() => title?.trim()?.length > 1 && createMangaStory()}
-        >
+          onClick={() => title?.trim()?.length > 1 && createMangaStory()}>
           <div className={styles.buttonContent}>
             Start a project
             <SvgAllowLeft />
