@@ -77,8 +77,7 @@ const MangaFooter = ({
               rounded
               outline
               iconRight
-              icon={<Comment color="#7B65F3" />}
-            >
+              icon={<Comment color="#7B65F3" />}>
               {comments?.total || 0}
             </Button>
             <Button
@@ -88,8 +87,7 @@ const MangaFooter = ({
               icon={<Fire color="#7B65F3" />}
               onClick={like}
               iconRight
-              className={cn(styles.footer__like, isLiked && styles.footer__like_active)}
-            >
+              className={cn(styles.footer__like, isLiked && styles.footer__like_active)}>
               {chapter?.like || 0}
             </Button>
             {isParticipant && (

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import client from 'api/client';
 import HeaderNew from 'components/headerNew';
 import React, { useState, useRef, useEffect } from 'react';
@@ -17,6 +18,10 @@ import { viewChapterFun } from 'utils';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import myAmplitude from 'utils/amplitude';
 import SvgReadBookIcon from 'components/icon/ReadBookIcon';
+import SvgRightArrow from 'components/icon/RightArrow';
+import SvgLeftArrow from 'components/icon/LeftArrow';
+import reactImageSize from 'react-image-size';
+import ChangeViewTab from './changeViewTab';
 
 const MangaView = ({
   user,
@@ -26,10 +31,13 @@ const MangaView = ({
   serverSideChapter,
 }) => {
   const router = useRouter();
+  const refBook = useRef(null);
   const [activeChapterIndex, setActiveChapterIndex] = useState(+router.query.chapter || 1);
   const [authors, setAuthors] = useState(serverSideAuthors);
   const [comments, setComments] = useState(serverSideComments);
   const [readStyle, setReadStyle] = useState(false);
+  const [conutPage, setConutPage] = useState(1);
+  const [imagesHeight, setImagesHeight] = useState([]);
 
   const [isLiked, setIsLiked] = useState(false);
 
@@ -75,9 +83,15 @@ const MangaView = ({
     updateChapterCommentsInfo();
   }, [manga]);
 
-  useEffect(() => {
+  useEffect(async () => {
     updateMangaInfo();
     updateAuthorsInfo();
+    const imagesHeights = [''];
+    for (const image of chapter?.mangaUrls) {
+      const { height } = await reactImageSize(client.UPLOAD_URL + image);
+      imagesHeights.push(height);
+    }
+    setImagesHeight(imagesHeights);
   }, [router.query.mid]);
 
   useEffect(() => {
@@ -252,20 +266,18 @@ const MangaView = ({
         <MangaBody
           images={chapter?.mangaUrls}
           readStyle={readStyle}
+          refBook={refBook}
+          setConutPage={setConutPage}
           className={styles.shotPage__body}
         />
-        <div className={styles.choozeReadType}>
-          <div
-            className={cn(styles.listIcon, styles.readIcons, !readStyle && styles.activePage)}
-            onClick={() => setReadStyle(false)}
-          />
-          <SvgReadBookIcon
-            className={cn(styles.readIcons, readStyle && styles.activeBooke)}
-            width={24}
-            height={24}
-            onClick={() => setReadStyle(true)}
-          />
-        </div>
+        <ChangeViewTab
+          conutPage={conutPage}
+          chapter={chapter}
+          refBook={refBook}
+          readStyle={readStyle}
+          setConutPage={setConutPage}
+          setReadStyle={setReadStyle}
+        />
         <MangaFooter
           chapter={chapter}
           manga={manga}

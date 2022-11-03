@@ -6,11 +6,29 @@ import Imgix from 'components/imgix';
 import HTMLFlipBook from 'react-pageflip';
 import styles from './styles.module.scss';
 import client from 'api/client';
+import { useEffect, useRef, useState } from 'react';
 
-const BookView = ({ images }) => {
+const BookView = ({ images, setRef, refBook, setConutPage }) => {
+  const [imagesArray, setImagesArray] = useState(images);
+
+  useEffect(() => {
+    const imagesLength = images.length % 2;
+    if (imagesLength) {
+      return setImagesArray([...images, '1667401070487-396290380-ssss.jpg']);
+    }
+    setImagesArray(images);
+  }, []);
+
   return (
-    <HTMLFlipBook width={800} height={800} maxWidth={1200} size="stretch">
-      {images?.map((image, index) => (
+    <HTMLFlipBook
+      ref={refBook}
+      width={700}
+      height={700}
+      maxWidth={1200}
+      size="stretch"
+      onFlip={({ data }) => setConutPage(data + 1)}
+      showCover={false}>
+      {imagesArray?.map((image, index) => (
         <div key={image + index}>
           <p className={styles.pageCount} style={{ textAlign: index % 2 ? 'end' : 'left' }}>
             {index + 1}
@@ -26,6 +44,13 @@ const BookView = ({ images }) => {
 
 BookView.propTypes = {
   images: PropsTypes.array.isRequired,
+  setRef: PropsTypes.func.isRequired,
+  refBook: PropsTypes.object,
+  setConutPage: PropsTypes.func.isRequired,
+};
+
+BookView.defaultProps = {
+  refBook: null,
 };
 
 export default BookView;

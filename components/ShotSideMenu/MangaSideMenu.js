@@ -45,7 +45,7 @@ const MangaSideMenu = ({
   return (
     <>
       <div className={cn(styles.menu, areCommentsOpened && styles.menu_withOpenedComments)}>
-        {!!authors[0] && (
+        {!!authors && !!authors[0] && (
           <Avatar
             size={60}
             image={authors[0]?.avatar}
@@ -59,8 +59,7 @@ const MangaSideMenu = ({
             rounded
             outline
             iconRight
-            icon={<Comment color="#7B65F3" />}
-          >
+            icon={<Comment color="#7B65F3" />}>
             {comments?.total || 0}
           </Button>
           {like && (
@@ -70,15 +69,13 @@ const MangaSideMenu = ({
               rounded
               outline
               iconRight
-              icon={<Fire color="#7B65F3" />}
-            >
+              icon={<Fire color="#7B65F3" />}>
               {chapter?.like || 0}
             </Button>
           )}
-          {authors[0]?.payPalEmail && (
+          {!!authors && authors[0]?.payPalEmail && (
             <Link
-              href={`https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=${authors[0]?.payPalEmail}&item_name=Friends+of+the+Park&item_number=Fall+Cleanup+Campaign&currency_code=USD`}
-            >
+              href={`https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=${authors[0]?.payPalEmail}&item_name=Friends+of+the+Park&item_number=Fall+Cleanup+Campaign&currency_code=USD`}>
               <a>
                 <Button rounded outline iconRight icon={<Diamond color="#7B65F3" />}></Button>
               </a>
@@ -102,8 +99,7 @@ const MangaSideMenu = ({
       </div>
       <div
         ref={commentsRef}
-        className={cn(styles.sideComments, areCommentsOpened && styles.sideComments_opened)}
-      >
+        className={cn(styles.sideComments, areCommentsOpened && styles.sideComments_opened)}>
         <div className={styles.sideComments__header}>Feedback</div>
         <MangaComments manga={manga} comments={comments.data} createComment={createComment} />
       </div>
