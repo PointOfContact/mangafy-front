@@ -24,7 +24,7 @@ const BookView = ({ images, setRef, refBook, setConutPage }) => {
       ref={refBook}
       width={950}
       height={1100}
-      minWidth={339}
+      minWidth={320}
       maxWidth={1000}
       minHeight={420}
       maxHeight={1350}

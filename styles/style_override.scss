@@ -35,7 +35,9 @@ body {
 }
 
 .stf__item {
-  height: 100% !important;
+  @include media-sm-min {
+    height: 100% !important;
+  }
   box-shadow: $bigShadow;
   overflow: hidden;
   position: relative;
@@ -74,7 +76,9 @@ body {
       height: 68.5vh !important;
     }
     .stf__item {
-      top: 0 !important;
+      @include media-sm-min {
+        top: 0 !important;
+      }
       border-radius: 0;
     }
   }

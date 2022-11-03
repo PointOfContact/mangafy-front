@@ -63,6 +63,13 @@ $media-sm: 'screen and (max-width: 767px)';
   }
 }
 
+$media-sm-min: 'screen and (min-width: 767px)';
+@mixin media-sm-min {
+  @media #{$media-sm-min} {
+    @content;
+  }
+}
+
 $media-md: 'screen and (max-width: 991px)';
 @mixin media-md {
   @media #{$media-md} {
