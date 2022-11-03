@@ -10,7 +10,8 @@ import { useRouter } from 'next/router';
 
 const ChangeViewTab = ({ conutPage, chapter, refBook, readStyle, setConutPage, setReadStyle }) => {
   const router = useRouter();
-  const onClickLeftArrow = async () => {
+  const onClickLeftArrow = async (e) => {
+    e.stopPropagation();
     if (readStyle) {
       refBook.current.pageFlip().flipPrev();
       if (conutPage !== 1) setConutPage(conutPage - 2);
@@ -23,7 +24,8 @@ const ChangeViewTab = ({ conutPage, chapter, refBook, readStyle, setConutPage, s
     }
   };
 
-  const onClickRightArrow = async () => {
+  const onClickRightArrow = async (e) => {
+    e.stopPropagation();
     if (readStyle) {
       refBook.current.pageFlip().flipNext();
       const lengthType = chapter?.mangaUrls.length % 2;

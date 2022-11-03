@@ -22,9 +22,12 @@ const BookView = ({ images, setRef, refBook, setConutPage }) => {
   return (
     <HTMLFlipBook
       ref={refBook}
-      width={700}
+      width={550}
       height={700}
-      maxWidth={1200}
+      minWidth={315}
+      maxWidth={1000}
+      minHeight={420}
+      maxHeight={1350}
       size="stretch"
       onFlip={({ data }) => setConutPage(data + 1)}
       showCover={false}>

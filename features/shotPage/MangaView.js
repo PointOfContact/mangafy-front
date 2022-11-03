@@ -224,7 +224,11 @@ const MangaView = ({
   return (
     <>
       <HeaderNew user={user} />
-      <div className={cn(styles.shotPage, areCommentsOpened && styles.shotPage__shifted)}>
+      <div
+        onClick={() => {
+          document.body.style.position = 'initial';
+        }}
+        className={cn(styles.shotPage, areCommentsOpened && styles.shotPage__shifted)}>
         <Modal
           title="Share with your friends"
           visible={isShareModalOpened}

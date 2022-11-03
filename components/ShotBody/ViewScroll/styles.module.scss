@@ -24,22 +24,9 @@
   &::-webkit-scrollbar-thumb:hover {
     background: $primaryDark;
   }
-  @include media-sm {
-    max-height: 500px;
-  }
-  @include media-lg {
-    max-height: 550px;
-  }
   & > div {
     display: flex;
     justify-content: center;
-    // height:  650px;
-    // @include media-sm {
-    //   height: 500px;
-    // }
-    // @include media-lg {
-    //   height: 550px;
-    // }
   }
   figure {
     & > div {

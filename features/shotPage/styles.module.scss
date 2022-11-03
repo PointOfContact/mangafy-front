@@ -10,6 +10,7 @@ $sidebarWidth: 400px;
   }
 
   @include media-sm {
+    margin-top: 20px;
     padding: 0px 10px;
   }
   background: #fafafa;
@@ -19,6 +20,9 @@ $sidebarWidth: 400px;
     max-width: 1200px;
     padding-top: 35px;
     margin: 0 auto 30px;
+    @include media-md {
+      display: none;
+    }
   }
 
   &__body {

@@ -79,9 +79,6 @@ body {
     position: relative !important;
     .stf__item {
       top: 0 !important;
-      @include media-md {
-        width: 100% !important;
-      }
     }
   }
 }
