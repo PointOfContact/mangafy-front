@@ -11,6 +11,7 @@ import { EVENTS } from 'helpers/amplitudeEvents';
 import Diamond from 'components/icon/new/Diamond';
 import PrimaryButton from 'components/ui-elements/button';
 import { useAppContext } from 'context';
+import PledgeModal from 'components/modals/PlegeModal';
 
 const ProjectInfo = ({
   isOwner,
@@ -24,6 +25,8 @@ const ProjectInfo = ({
 }) => {
   const { cbInstance, openPlanModal } = useAppContext();
 
+  const [isPledgeModalOpen, setIsPledgeModalOpen] = React.useState(false);
+
   return (
     <div className={cn(className, styles.info)}>
       {project.planId && (
@@ -32,11 +35,8 @@ const ProjectInfo = ({
           onClick={() => openPlanModal(cbInstance, project.planId, project._id, user?.customerId)}
         />
       )}
+      <PledgeModal isOpen={isPledgeModalOpen} setIsOpen={setIsPledgeModalOpen} project={project} />
       <div className={styles.info__rates}>
-        {/* <div className={styles.rate}>
-          <div className={styles.rate__value}>4.345</div>
-          <div className={styles.rate__title}>likes</div>
-        </div> */}
         <div className={styles.rate}>
           <div className={styles.rate__value}>{project?.subscribers?.length}</div>
           <div className={styles.rate__title}>following</div>
@@ -48,6 +48,8 @@ const ProjectInfo = ({
       </div>
       <ProjectStory className={styles.info__story} project={project} />
       <SubscribeField
+        openPledgeModal={() => setIsPledgeModalOpen(true)}
+        payPalEmail={project?.authorInfo?.payPalEmail}
         user={user}
         className={styles.info__subscribe}
         subscription={subscription}

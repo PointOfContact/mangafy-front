@@ -24,6 +24,7 @@ import { SignInModal } from 'components/modals/SignInModal';
 import { viewMangaFun } from 'utils';
 import getDeviceId from 'utils/deviceId';
 import { NextSeo } from 'next-seo';
+import SubscribeField from 'components/projectComponents/SubscribeField';
 
 const ProjectView = ({ ssProject, ssComments, user }) => {
   const router = useRouter();
