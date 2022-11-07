@@ -75,4 +75,18 @@
       pointer-events: none;
     }
   }
+
+  &__close {
+    svg {
+      height: 24px;
+    }
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    &:active {
+      opacity: 0.5;
+    }
+  }
 }
