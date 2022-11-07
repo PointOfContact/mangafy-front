@@ -6,8 +6,17 @@ import PropsTypes from 'prop-types';
 import cn from 'classnames';
 import client from 'api/client';
 import { useEffect } from 'react';
+import { imgixClient, myLoader } from 'components/imgix';
 
 const ViewScroll = ({ images, className }) => {
+  const getImageFromImgix = (image) =>
+    imgixClient.buildURL('https://mangafy.club/api/v2/uploads/' + image, {
+      w: 600,
+      h: 800,
+      auto: 'format',
+      fit: 'cover',
+    });
+
   return (
     <div
       onMouseLeave={() => {
@@ -15,17 +24,20 @@ const ViewScroll = ({ images, className }) => {
       }}
       className={cn(styles.body, className)}>
       {/* {shot.image && <ResponsiveImgix src={client.UPLOAD_URL + shot.image} />} */}
-      {images?.map((image, index) => (
-        <div id={`page${index + 1}`} key={image + index}>
-          <InnerImageZoom
-            moveType="pan"
-            fullscreenOnMobile
-            zoomScale={1}
-            hideHint
-            src={client.UPLOAD_URL + image}
-          />
-        </div>
-      ))}
+      {images?.map((image, index) => {
+        const imageFromImgix = getImageFromImgix(image);
+        return (
+          <div id={`page${index + 1}`} key={image + index}>
+            <InnerImageZoom
+              moveType="pan"
+              fullscreenOnMobile
+              zoomScale={3}
+              hideHint
+              src={imageFromImgix}
+            />
+          </div>
+        );
+      })}
     </div>
   );
 };
