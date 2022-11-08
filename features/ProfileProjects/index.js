@@ -11,6 +11,7 @@ import cn from 'classnames';
 import OpenedProject from './OpenedProject';
 import ModalCreateProject from 'components/modalCreateProject';
 import client from 'api/client';
+import { NextSeo } from 'next-seo';
 
 const ProfileProjects = ({ user, profile }) => {
   const [openedProject, setOpenedProject] = useState(null);
@@ -49,6 +50,23 @@ const ProfileProjects = ({ user, profile }) => {
 
   return (
     <div className={styles.projects}>
+      <NextSeo
+        title={'My projects'}
+        description={'Here you can manage your projects'}
+        canonical={`${client.API_ENDPOINT}/shot/${profileInfo?._id}`}
+        openGraph={{
+          url: `${client.API_ENDPOINT}/shot/${profileInfo?._id}`,
+          title: 'My projects',
+          description: 'Here you can manage your projects',
+          type: 'article',
+          site_name: 'MangaFY',
+        }}
+        twitter={{
+          handle: '@handle',
+          site: '@site',
+          cardType: 'summary_large_image',
+        }}
+      />
       <HeaderNew user={user} />
       <div
         className={cn(
