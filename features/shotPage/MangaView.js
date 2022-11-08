@@ -273,15 +273,18 @@ const MangaView = ({
           refBook={refBook}
           setConutPage={setConutPage}
           className={styles.shotPage__body}
+          conutPage={conutPage}
+          chapter={chapter}
+          setReadStyle={setReadStyle}
         />
-        <ChangeViewTab
+        {/* <ChangeViewTab
           conutPage={conutPage}
           chapter={chapter}
           refBook={refBook}
           readStyle={readStyle}
           setConutPage={setConutPage}
           setReadStyle={setReadStyle}
-        />
+        /> */}
         <MangaFooter
           chapter={chapter}
           manga={manga}

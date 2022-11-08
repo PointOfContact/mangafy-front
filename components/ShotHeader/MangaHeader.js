@@ -9,6 +9,7 @@ import cn from 'classnames';
 import { notification } from 'antd';
 import { buildShotURL } from 'helpers/shared';
 import ShotAndMangaTitle from 'components/ShotAndMangaTitle';
+import Close from 'components/icon/new/Close';
 
 const MangaHeader = ({ user, manga, className, authors, subscribe, isOwn, activeChapterIndex }) => {
   const prevChapterIndex = activeChapterIndex === 0 ? null : activeChapterIndex - 1;
@@ -57,6 +58,13 @@ const MangaHeader = ({ user, manga, className, authors, subscribe, isOwn, active
         {/* <Button rounded pink className={styles.header__tip}>
           Tip
         </Button> */}
+        <div className={styles.header__close}>
+          <Link href={'/feed'}>
+            <a>
+              <Close />
+            </a>
+          </Link>
+        </div>
       </div>
 
       <div className={styles.header__mobileArrowsAndTip}>
