@@ -13,6 +13,7 @@ const ConfirmModal = ({
   onOk,
   cancelText = 'Cancel',
   onCancel,
+  children,
 }) => {
   function handleOk() {
     setIsOpen(false);
@@ -45,6 +46,7 @@ const ConfirmModal = ({
       footer={footerElement}>
       <div className={styles.body__title}>{question}</div>
       {!!description && <div className={styles.body__description}>{description}</div>}
+      {children}
     </Modal>
   );
 };

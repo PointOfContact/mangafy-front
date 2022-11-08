@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import styles from './styles.module.scss';
+import { useRouter } from 'next/router';
 
 import cn from 'classnames';
 import client from 'api/client';
@@ -39,7 +40,9 @@ const OpenedProject = ({
   setProject,
   updateProjectsInfo,
 }) => {
+  const router = useRouter();
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const [isGoToSettingsModalOpen, setIsGoToSettingsModalOpen] = useState(false);
   const [isConfirmDeleteOpen, setIsConfirmDeleteOpen] = useState(false);
 
   const isOwn = user?._id === project?.author;
@@ -116,6 +119,14 @@ const OpenedProject = ({
       });
   }
 
+  function shareHandler() {
+    if (project?.published) {
+      setIsShareModalOpen(true);
+    } else {
+      setIsGoToSettingsModalOpen(true);
+    }
+  }
+
   return (
     <div className={cn(className, styles.openedProject, isOpened && styles.openedProject_opened)}>
       <div className={styles.openedProject__container}>
@@ -130,18 +141,20 @@ const OpenedProject = ({
           )}
         </div>
         <div className={styles.openedProject__options}>
-          {/* <div className={styles.openedProject__option}>
-          <Eye />
-          Preview
-        </div> */}
-          <div className={styles.openedProject__option} onClick={() => setIsShareModalOpen(true)}>
+          <Link href={'/project/' + project?._id + '?preview'}>
+            <a className={styles.openedProject__option}>
+              <Eye />
+              Preview
+            </a>
+          </Link>
+          <div className={styles.openedProject__option} onClick={() => shareHandler()}>
             <Share />
             Share
           </div>
-          <Link href={'/project/production/' + project?._id}>
+          <Link href={'/project/' + project?._id}>
             <a className={styles.openedProject__option}>
               <Settings2 />
-              Settings
+              Edit
             </a>
           </Link>
           {isOwn && (
@@ -206,6 +219,18 @@ const OpenedProject = ({
         description="Be carefull, you won't be able to revert this!"
         okText={'Yes, delete it'}
         onOk={() => deleteProject(project?._id)}
+        cancelText={'Cancel'}
+        onCancel={() => {}}
+      />
+      <ConfirmModal
+        isOpen={isGoToSettingsModalOpen}
+        setIsOpen={setIsGoToSettingsModalOpen}
+        question={'Publish your project before sharing it'}
+        description='Please, go to the settings and set "Is visible" to "Visible"'
+        okText={'Go to settings'}
+        onOk={() => {
+          router.push('/project/production/' + project?._id + '?tab=settings#visible');
+        }}
         cancelText={'Cancel'}
         onCancel={() => {}}
       />

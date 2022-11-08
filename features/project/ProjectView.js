@@ -15,6 +15,7 @@ import {
   subscribeToProject,
   unSubscribeOfProject,
 } from 'helpers/shared';
+import { useRouter } from 'next/router';
 import notification from 'antd/lib/notification';
 import myAmplitude from 'utils/amplitude';
 import { EVENTS } from 'helpers/amplitudeEvents';
@@ -24,6 +25,7 @@ import { viewMangaFun } from 'utils';
 import getDeviceId from 'utils/deviceId';
 
 const ProjectView = ({ ssProject, ssComments, user }) => {
+  const router = useRouter();
   const [project, setProject] = useState(ssProject);
   const [comments, setComments] = useState(ssComments);
   const [chapterComments, setChapterComments] = useState({ data: [] });
@@ -52,8 +54,11 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
     }
   }, [areCommentsOpened]);
 
-  const isParticipant = project?.participents?.includes(user?._id);
-  const isOwner = project?.author === user?._id;
+  const previewMode = router.query.hasOwnProperty('preview');
+  const isParticipant = previewMode ? false : project?.participents?.includes(user?._id);
+  // const isParticipant = false;
+  const isOwner = previewMode ? false : project?.author === user?._id;
+  // const isOwner = false;
 
   const subscription = project?.subscribers?.find(
     (sb) => sb.userId === user?._id || sb.userId === deviceId
@@ -197,6 +202,7 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
             isOwner={isOwner}
           />
           <ProjectChapters
+            preview={previewMode}
             isParticipant={isParticipant}
             isOwner={isOwner}
             className={styles.project__chapters}
