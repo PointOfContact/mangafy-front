@@ -7,6 +7,8 @@ import styles from './styles.module.scss';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import OpenedBook from 'components/icon/new/OpenedBook';
+import Page from 'components/icon/new/Page';
 
 const ChangeViewTab = ({ conutPage, chapter, refBook, readStyle, setConutPage, setReadStyle }) => {
   const router = useRouter();
@@ -54,16 +56,15 @@ const ChangeViewTab = ({ conutPage, chapter, refBook, readStyle, setConutPage, s
         <p>{`${conutPage} of ${countPage}`}</p>
         <SvgRightArrow onClick={onClickRightArrow} width={24} height={24} />
       </div>
-      <div
-        className={cn(styles.listIcon, styles.readIcons, !readStyle && styles.activePage)}
-        onClick={() => chooseViewType(false)}
-      />
-      <SvgReadBookIcon
-        className={cn(styles.readIcons, readStyle && styles.activeBooke)}
-        width={24}
-        height={24}
-        onClick={() => chooseViewType(true)}
-      />
+      <div onClick={() => chooseViewType(false)}>
+        <Page color="#aaa" className={cn(styles.listIcon, !readStyle && styles.listIcon_active)} />
+      </div>
+      <div onClick={() => chooseViewType(true)}>
+        <OpenedBook
+          color="#aaa"
+          className={cn(styles.readIcon, readStyle && styles.readIcon_active)}
+        />
+      </div>
     </div>
   );
 };
