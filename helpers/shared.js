@@ -100,12 +100,12 @@ const removeCookies = () => {
   document.cookie = `${'feathers-jwt'}=;expires=${new Date(0).toUTCString()}`;
 };
 
-export const removeAllStorage = () => {
+export const removeAllStorage = (page) => {
   localStorage.clear();
   sessionStorage.clear();
   logout();
   removeCookies();
-  window.location.href = '/sign-in';
+  window.location.href = '/sign-in?page=' + page;
 };
 
 export function formatHtml(text, highlightUrls = true) {
