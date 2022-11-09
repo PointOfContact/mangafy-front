@@ -26,21 +26,7 @@ const TaskCard = ({ card, user }) => {
   let text = card.description;
   const title = card.lookingFor;
 
-  let time = Math.floor((new Date() - new Date(card.createdAt)) / 1000 / 60 / 60);
-  let timeMeasure = '';
-  if (time > 1) {
-    timeMeasure = 'hours';
-  } else {
-    time = 'Less than an hour';
-  }
-  if (time > 24) {
-    time = Math.floor(time / 24);
-    timeMeasure = 'days';
-  }
-  if (time > 7) {
-    time = Math.floor(time / 7);
-    timeMeasure = 'weeks';
-  }
+  let time = new Date(card.createdAt).toLocaleDateString();
 
   const author = card.authorInfo?.name;
   const budget = card.amount || null;
@@ -88,8 +74,7 @@ const TaskCard = ({ card, user }) => {
           style={{ top: 50 }}
           wrapClassName={styles.modal}
           closeIcon={<Close className={styles.modal__close} />}
-          footer={null}
-        >
+          footer={null}>
           <div className={styles.modal__title}>
             <div className={styles.modal__time}>
               <Clock color="#C3BAFA" />
@@ -123,8 +108,7 @@ const TaskCard = ({ card, user }) => {
                 iconRight={1}
                 rounded={1}
                 icon={<Heart color="#fff" />}
-                onClick={onApply}
-              >
+                onClick={onApply}>
                 Apply
               </Button>
             </div>
@@ -144,7 +128,6 @@ const TaskCard = ({ card, user }) => {
             author={author}
             avatar={avatar}
             time={time}
-            timeMeasure={timeMeasure}
           />
           <FeedCardLine />
           <FeedCardTaskFooter budget={budget} mangaId={card.mangaStoryId} onApply={onApply} />
