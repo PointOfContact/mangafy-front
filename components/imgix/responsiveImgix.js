@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Imgix, { imgixClient } from '.';
+import styles from './styles.module.scss';
 
 const ResponsiveImgix = ({ src }) => {
   const [json, setJson] = useState({});
@@ -24,16 +25,18 @@ const ResponsiveImgix = ({ src }) => {
   return (
     <>
       {json?.PixelHeight && (
-        <Imgix
-          src={src}
-          width={300}
-          height={imgHeight}
-          quality={75}
-          layout="responsive"
-          objectFit="cover"
-          alt="Shot"
-          loading="lazy"
-        />
+        <div className={styles.image} style={{ aspectRatio: `${300 / imgHeight}` }}>
+          <Imgix
+            src={src}
+            width={300}
+            height={imgHeight}
+            quality={75}
+            // layout="responsive"
+            objectFit="cover"
+            alt="Shot"
+            loading="lazy"
+          />
+        </div>
       )}
     </>
   );

@@ -4,7 +4,7 @@ import Clock from 'components/icon/new/Clock';
 import client from 'api/client';
 import Link from 'next/link';
 
-const FeedCardTaskAuthorAndTime = ({ authorId, author, avatar, time, timeMeasure }) => {
+const FeedCardTaskAuthorAndTime = ({ authorId, author, avatar, time }) => {
   return (
     <div className={styles.feedCardTaskAuthorAndTime}>
       <div className={styles.feedCardTaskAuthorAndTime__author}>
@@ -14,7 +14,7 @@ const FeedCardTaskAuthorAndTime = ({ authorId, author, avatar, time, timeMeasure
         </Link>
       </div>
       <div className={styles.feedCardTaskAuthorAndTime__time}>
-        {`${time} ${timeMeasure} ago`}
+        {`${time}`}
         <Clock color="#C3BAFA" />
       </div>
     </div>
