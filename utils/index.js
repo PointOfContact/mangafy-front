@@ -4,11 +4,13 @@ import getDeviceId from './deviceId';
 
 const logickView = async (user, data, id, key) => {
   const userId = user?._id || (await getDeviceId(() => {}));
-  const existUser = data?.viewerId.some((value) => String(value) === String(userId));
+  const existUser = data?.viewerId
+    ? data?.viewerId.some((value) => String(value) === String(userId))
+    : false;
   const view = data?.view + 1;
   const changeData = { view };
   changeData[key] = id;
-  if (!existUser) changeData.viewerId = [...data?.viewerId, userId];
+  if (!existUser && data?.viewerId) changeData.viewerId = [...data?.viewerId, userId];
   return changeData;
 };
 
