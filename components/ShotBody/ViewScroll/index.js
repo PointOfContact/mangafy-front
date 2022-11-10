@@ -11,8 +11,6 @@ import { imgixClient, myLoader } from 'components/imgix';
 const ViewScroll = ({ images, className }) => {
   const getImageFromImgix = (image) =>
     imgixClient.buildURL('https://mangafy.club/api/v2/uploads/' + image, {
-      w: 600,
-      h: 800,
       auto: 'format',
       fit: 'cover',
     });
@@ -31,7 +29,7 @@ const ViewScroll = ({ images, className }) => {
             <InnerImageZoom
               moveType="pan"
               fullscreenOnMobile
-              zoomScale={3}
+              zoomScale={1}
               hideHint
               src={imageFromImgix}
             />
