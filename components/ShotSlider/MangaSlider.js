@@ -11,20 +11,21 @@ import { buildShotURL } from 'helpers/shared';
 const sliderItemWidth = 100;
 
 const MangaSlider = ({ manga, activeChapterIndex }) => {
+  const containerRef = useRef(null);
   const sliderRef = useRef(null);
   const activeChapterRef = useRef(null);
 
-  const shotsElements = manga?.chapters?.map((ch, i) => {
-    return (
-      ch.published && (
+  const shotsElements = manga?.chapters
+    ?.filter((ch) => ch.published)
+    .map((ch, i) => {
+      return (
         <Link key={i} href={'/manga-view/' + manga?.id + '?ongoing=' + (i + 1)}>
           <a
             ref={i + 1 === activeChapterIndex ? activeChapterRef : null}
             className={cn(
               styles.slider__item,
               i + 1 === activeChapterIndex && styles.slider__item_active
-            )}
-          >
+            )}>
             {ch?.cover ? (
               <Imgix width={96} height={96} objectFit="cover" src={client.UPLOAD_URL + ch?.cover} />
             ) : (
@@ -35,9 +36,8 @@ const MangaSlider = ({ manga, activeChapterIndex }) => {
             <div className={styles.slider__itemTitle}>Chapter {ch.order}</div>
           </a>
         </Link>
-      )
-    );
-  });
+      );
+    });
 
   function scrollToActiveShot() {
     if (activeChapterRef.current && sliderRef.current) {
@@ -72,18 +72,25 @@ const MangaSlider = ({ manga, activeChapterIndex }) => {
     scrollToActiveShot();
   });
 
+  const hideArrows =
+    shotsElements?.length * (sliderItemWidth + 10) < containerRef.current?.clientWidth;
+
   return (
     <div className={styles.moreShots}>
       <div className={styles.moreShots__container}>
         <div className={styles.moreShots__title}>All chapters:</div>
-        <div className={styles.slider}>
-          <div className={styles.slider__arrow} onClick={scrollLeft}>
+        <div className={styles.slider} ref={containerRef}>
+          <div
+            className={cn(styles.slider__arrow, hideArrows && styles.slider__arrow_hidden)}
+            onClick={scrollLeft}>
             <ArrowDown2 />
           </div>
           <div className={styles.slider__content} ref={sliderRef}>
             {shotsElements}
           </div>
-          <div className={styles.slider__arrow} onClick={scrollRight}>
+          <div
+            className={cn(styles.slider__arrow, hideArrows && styles.slider__arrow_hidden)}
+            onClick={scrollRight}>
             <ArrowDown2 />
           </div>
         </div>
