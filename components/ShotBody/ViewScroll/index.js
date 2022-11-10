@@ -29,7 +29,7 @@ const ViewScroll = ({ images, className }) => {
             <InnerImageZoom
               moveType="pan"
               fullscreenOnMobile
-              zoomScale={1}
+              zoomScale={3.5}
               hideHint
               src={imageFromImgix}
             />
