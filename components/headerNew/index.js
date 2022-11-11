@@ -328,7 +328,6 @@ const HeaderNew = ({ user }) => {
   const profileMenu = <Menu items={profileMenuOptions} />;
 
   const page = router.asPath;
-  console.log(page);
 
   return (
     <>
