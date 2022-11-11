@@ -86,7 +86,7 @@ const SignIn = () => {
             <Imgix
               layout="fill"
               objectFit="cover"
-              src={client.UPLOAD_URL + '1666953835431-807741514-loginCover.jpg'}
+              src={client.API_ENDPOINT + '/img/loginCover.jpg'}
             />
             <div className={styles.loginPage__author}>Read: Kid of darkness. Agony</div>
           </a>
@@ -105,8 +105,7 @@ const SignIn = () => {
                   rounded
                   outline
                   icon={<SvgGoogle />}
-                  className={styles.loginPage__signInWith}
-                >
+                  className={styles.loginPage__signInWith}>
                   Sign in with Google
                 </Button>
               </a>
@@ -119,8 +118,7 @@ const SignIn = () => {
                   rounded
                   outline
                   icon={<Facebook />}
-                  className={styles.loginPage__signInWith}
-                >
+                  className={styles.loginPage__signInWith}>
                   Sign in with Facebook
                 </Button>
               </a>

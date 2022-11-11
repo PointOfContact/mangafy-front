@@ -72,7 +72,6 @@ const MangeStory = (props) => {
   const [showPayPalContent, setShowPayPalContent] = useState(baseData?.payPalPublished);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [canEdit] = useState(isOwn);
-  const router = useRouter();
   const [chapters, setChapters] = useState([]);
   const [isMobile, setIsMobile] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(true);
@@ -80,6 +79,14 @@ const MangeStory = (props) => {
   useEffect(() => {
     setSidebarCollapsed(true);
   }, [isMobile]);
+  const router = useRouter();
+
+  const hashPath = router.asPath.split('#')[1];
+  useEffect(() => {
+    if (hashPath) {
+      router.push('#' + hashPath);
+    }
+  }, [router.asPath]);
 
   const routerBasePath = `/project/production/${baseData?._id}?tab=`;
   const [storyBoard, setStoryBoard] = useState({
@@ -98,11 +105,11 @@ const MangeStory = (props) => {
     setChapters(storyBoard?.chapters);
   }, [storyBoard]);
 
-  useEffect(() => {
-    setActiveTab(router.query?.tab || tabs.DETAILS);
-  }, [router.query?.tab]);
-
   const [activeTab, setActiveTab] = useState('');
+
+  useEffect(() => {
+    setActiveTab(router.query.tab || tabs.DETAILS);
+  }, [router.query?.tab]);
 
   const onResize = () => {
     if (window.innerWidth < 1000) setIsMobile(true);
@@ -127,12 +134,12 @@ const MangeStory = (props) => {
     };
   }, []);
 
-  useEffect(() => {
-    router.push(
-      `/project/production/${mangaStory._id}?tab=${activeTab}` +
-        (router.query?.task ? `&task=${router.query.task}` : '')
-    );
-  }, [activeTab]);
+  // useEffect(() => {
+  //   router.push(
+  //     `/project/production/${mangaStory._id}?tab=${activeTab}` +
+  //       (router.query?.task ? `&task=${router.query.task}` : '')
+  //   );
+  // }, [activeTab]);
 
   const openNotification = (type, message, description = '') => {
     notification[type]({
@@ -274,8 +281,7 @@ const MangeStory = (props) => {
             <span
               onClick={() => {
                 setEditMode(true);
-              }}
-            >
+              }}>
               <Edit2 color="#777" />
             </span>
           )}
@@ -333,12 +339,10 @@ const MangeStory = (props) => {
       <ButtonToTop user={user} />
       <main
         className={cn('main_back_2', styles.main, !sidebarCollapsed && styles.sidebarCollapsed)}
-        style={{ background: '#fafafa' }}
-      >
+        style={{ background: '#fafafa' }}>
         {!(isOwn || isParticipant) && <HeaderNew user={userData} />}
         <div
-          className={cn(styles.pageWrap, !isMobile && styles.pageWrap_desktop, 'manga-story-page')}
-        >
+          className={cn(styles.pageWrap, !isMobile && styles.pageWrap_desktop, 'manga-story-page')}>
           {isOwn ? (
             <ProjectHeader />
           ) : (

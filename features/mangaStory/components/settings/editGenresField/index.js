@@ -159,7 +159,7 @@ const EditGenresField = ({
   }
 
   return (
-    <div className={styles.editTitle}>
+    <div className={styles.editTitle} id="basics">
       <h2 className={styles.genresTitle}>Basic</h2>
       <h3>Project Title</h3>
       <PrimaryInput
@@ -185,8 +185,7 @@ const EditGenresField = ({
         onChange={chooseLanguage}
         placeholder={'English'}
         className={styles.language}
-        style={{ width: 200 }}
-      >
+        style={{ width: 200 }}>
         {countries}
       </Select>
       <h3>Project category</h3>
@@ -196,8 +195,7 @@ const EditGenresField = ({
         placeholder={'Webtoon'}
         onChange={chooseTypes}
         className={styles.language}
-        style={{ width: 200 }}
-      >
+        style={{ width: 200 }}>
         {projectType}
       </Select>
       <h3>Project Description*</h3>
@@ -207,8 +205,7 @@ const EditGenresField = ({
           savingStatus === 'saved' && styles.savingStatus_saved,
           savingStatus === 'saving' && styles.savingStatus_saving,
           savingStatus === 'error' && styles.savingStatus_error
-        )}
-      >
+        )}>
         {savingStatus}
       </p>
       <TextEditor
@@ -241,13 +238,12 @@ const EditGenresField = ({
           </Radio>
           <Radio
             className={cn(styles.radio, radioValue === 'With' && styles.active)}
-            value={'With'}
-          >
+            value={'With'}>
             Looking for collaboration
           </Radio>
         </Radio.Group>
       </div>
-      <h3>Choose a subcategory to help backers find your project.</h3>
+      <h3 id="genres">Choose a subcategory to help backers find your project.</h3>
       <PrimarySelect
         countLimit={true}
         mode="multiple"

@@ -107,7 +107,7 @@ const Settings = ({
         />
       </div>
       <div className={styles.container}>
-        <div className={styles.publicProject}>
+        <div className={styles.publicProject} id="visible">
           <h2>Make visible</h2>
           <p>
             Visible projects will only show general information about your project (inc. what you
@@ -124,8 +124,7 @@ const Settings = ({
                     'error',
                     'Please add a description and a cover before publishing your project'
                   );
-              }}
-            >
+              }}>
               <ToggleSwitch
                 className={styles.toggle}
                 onChange={() => onPublish()}

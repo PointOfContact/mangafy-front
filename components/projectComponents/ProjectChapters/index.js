@@ -15,6 +15,7 @@ import { EVENTS } from 'helpers/amplitudeEvents';
 import Diamond from 'components/icon/new/Diamond';
 
 const ProjectChapters = ({
+  preview,
   isParticipant,
   isOwner,
   className,
@@ -60,12 +61,21 @@ const ProjectChapters = ({
   return (
     <div className={cn(className, styles.chapters, isMobile && styles.chapters_mobile)}>
       <div className={cn(styles.chapters__sectionTitle)}>
-        Episodes{' '}
+        Episodes
         {(isParticipant || isOwner) && (
           <Link href={'/project/production/' + project._id + '?tab=details'}>
             <a className={styles.chapters__edit}>
               <Button rounded pink>
                 Edit
+              </Button>
+            </a>
+          </Link>
+        )}
+        {preview && (
+          <Link href={'/profile/' + user?._id + '/projects'}>
+            <a className={styles.chapters__edit}>
+              <Button rounded pink>
+                Back to projects
               </Button>
             </a>
           </Link>
@@ -107,8 +117,7 @@ const ProjectChapters = ({
                         },
                       ]);
                     }}
-                    href={`https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=${project?.authorInfo?.payPalEmail}&item_name=Friends+of+the+Park&item_number=Fall+Cleanup+Campaign&currency_code=USD`}
-                  >
+                    href={`https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=${project?.authorInfo?.payPalEmail}&item_name=Friends+of+the+Park&item_number=Fall+Cleanup+Campaign&currency_code=USD`}>
                     <Button sm pink rounded iconRight icon={<Diamond color="#fff" />}>
                       Support
                     </Button>
@@ -128,15 +137,13 @@ const ProjectChapters = ({
             project.storyBoards.data[0]._id +
             '?chapter=' +
             chapter.order
-          }
-        >
+          }>
           <a
             key={chapter._id}
             className={cn(
               styles.chapters__chapter,
               !chapter.published && styles.chapters__chapter_disabled
-            )}
-          >
+            )}>
             <div className={styles.chapters__cover}>
               <Avatar
                 size={70}
@@ -153,8 +160,7 @@ const ProjectChapters = ({
                 onClick={(e) => {
                   e.preventDefault();
                   onCommentClick(chapter._id);
-                }}
-              >
+                }}>
                 {chapter.comment?.length} <Comment color="#C3BAFA" />
               </div>
               {chapter.likedUsers && (
@@ -166,8 +172,7 @@ const ProjectChapters = ({
                   onClick={(e) => {
                     e.preventDefault();
                     onLike(chapter);
-                  }}
-                >
+                  }}>
                   {chapter.likedUsers.length} <Fire color="#C3BAFA" />
                 </div>
               )}
