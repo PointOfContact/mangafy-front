@@ -219,12 +219,25 @@ const FeedNew = (props) => {
       (res) => {
         myAmplitude(EVENTS.DELETE_SHOT);
         updateCards(cardsElements, [true], true, postType);
-      },
-      (err) => {
-        notification.error({
-          message: err.message,
+        notification.success({
+          message: 'Shot deleted successfully!',
           placement: 'bottomLeft',
         });
+      },
+      (err) => {
+        if (err.code === 404) {
+          myAmplitude(EVENTS.DELETE_SHOT);
+          updateCards(cardsElements, [true], true, postType);
+          notification.success({
+            message: 'Shot deleted successfully!',
+            placement: 'bottomLeft',
+          });
+        } else {
+          notification.error({
+            message: err.message,
+            placement: 'bottomLeft',
+          });
+        }
       }
     );
   }
@@ -304,8 +317,7 @@ const FeedNew = (props) => {
                 defaultActiveKey={defaultActiveTab}
                 tabPosition="top"
                 moreIcon={null}
-                onChange={(tab) => setActiveTab(tab)}
-              >
+                onChange={(tab) => setActiveTab(tab)}>
                 <TabPane tab="Recent" key="recent"></TabPane>
                 <TabPane tab="Shots" key="shots"></TabPane>
                 <TabPane tab="Projects" key="projects"></TabPane>
