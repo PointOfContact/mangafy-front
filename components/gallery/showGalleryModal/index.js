@@ -28,8 +28,6 @@ export const ShowGalleryModal = ({
   authorId,
   updateShots,
 }) => {
-  const { cbInstance, openPlanModal } = useAppContext();
-
   const image = {
     _id: images[startIndex]._id._id || images[startIndex]._id,
     title: images[startIndex].title,
@@ -99,12 +97,6 @@ export const ShowGalleryModal = ({
             </div>
             <ResponsiveImgix src={client.UPLOAD_URL + image.image} />
           </div>
-        )}
-        {image.planId && (
-          <PrimaryButton
-            text="Suscribe"
-            onClick={() => openPlanModal(cbInstance, image.planId, image._id, user?.customerId)}
-          />
         )}
         <ShotComments shotId={image._id} user={user} />
       </Modal>
