@@ -51,8 +51,7 @@ const ShotFooter = ({
               rounded
               outline
               iconRight
-              icon={<Comment color="#7B65F3" />}
-            >
+              icon={<Comment color="#7B65F3" />}>
               {shot?.comments?.total || 0}
             </Button>
             {!shot.isOld && (
@@ -63,8 +62,7 @@ const ShotFooter = ({
                 icon={<Fire color="#7B65F3" />}
                 onClick={like}
                 iconRight
-                className={cn(styles.footer__like, isLiked && styles.footer__like_active)}
-              >
+                className={cn(styles.footer__like, isLiked && styles.footer__like_active)}>
                 {shot.likedUsers?.length || 0}
               </Button>
             )}

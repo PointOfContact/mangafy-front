@@ -23,8 +23,7 @@ const MangaSlider = ({ manga, activeChapterIndex }) => {
             className={cn(
               styles.slider__item,
               i + 1 === activeChapterIndex && styles.slider__item_active
-            )}
-          >
+            )}>
             {ch?.cover ? (
               <Imgix width={96} height={96} objectFit="cover" src={client.UPLOAD_URL + ch?.cover} />
             ) : (
