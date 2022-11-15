@@ -33,9 +33,10 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
     //   headers: { Authorization: `Bearer ${jwt}` },
     //   mode: 'no-cors',
     // });
-
     authors = await Promise.all(
-      manga.userData.map((item) => client.service('/api/v2/users').get(item._id))
+      manga.userData.map((item) => {
+        return client.service('/api/v2/users').get(item._id);
+      })
     );
     authors?.forEach((item) => {
       item.isFollowed = item.likedUsers?.includes(user?._id);
@@ -43,7 +44,6 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
   } catch (error) {
     console.log('Error: manga-view.js', error);
   }
-
   return {
     props: {
       user,

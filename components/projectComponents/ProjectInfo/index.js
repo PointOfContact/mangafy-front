@@ -9,6 +9,8 @@ import SubscribeField from '../SubscribeField';
 import myAmplitude from 'utils/amplitude';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import Diamond from 'components/icon/new/Diamond';
+import PrimaryButton from 'components/ui-elements/button';
+import { useAppContext } from 'context';
 
 const ProjectInfo = ({
   isOwner,
@@ -20,8 +22,16 @@ const ProjectInfo = ({
   unsubscribe,
   subscription,
 }) => {
+  const { cbInstance, openPlanModal } = useAppContext();
+
   return (
     <div className={cn(className, styles.info)}>
+      {project.planId && (
+        <PrimaryButton
+          text="Suscribe"
+          onClick={() => openPlanModal(cbInstance, project.planId, project._id, user?.customerId)}
+        />
+      )}
       <div className={styles.info__rates}>
         {/* <div className={styles.rate}>
           <div className={styles.rate__value}>4.345</div>
@@ -58,8 +68,7 @@ const ProjectInfo = ({
             ]);
           }}
           className={styles.info__support}
-          href={`https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=${project?.authorInfo?.payPalEmail}&item_name=Friends+of+the+Park&item_number=Fall+Cleanup+Campaign&currency_code=USD`}
-        >
+          href={`https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=${project?.authorInfo?.payPalEmail}&item_name=Friends+of+the+Park&item_number=Fall+Cleanup+Campaign&currency_code=USD`}>
           Support
           <Diamond />
         </a>
