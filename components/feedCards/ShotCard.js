@@ -141,6 +141,8 @@ const ShotCard = ({ card, user, editShot, deleteShot, setShowSignInModal }) => {
               isOwned={authorId === user?._id}
               shareUrl={'/shot/' + card._id}
               textOnly={!image}
+              onEdit={() => editShot(card)}
+              onDelete={() => deleteShot(card._id)}
             />
           )}
           {(title || text) && <FeedCardLine />}
