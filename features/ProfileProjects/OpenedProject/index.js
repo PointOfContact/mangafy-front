@@ -30,6 +30,7 @@ import File from 'components/icon/new/File';
 import Tag from 'components/icon/new/Tag';
 import Hierarchy from 'components/icon/new/Hierarchy';
 import Close from 'components/icon/new/Close';
+import Edit2 from 'components/icon/new/Edit2';
 
 const OpenedProject = ({
   user,
@@ -134,14 +135,19 @@ const OpenedProject = ({
           <File color={'#d11e8e'} className={styles.openedProject__sectionIcon} /> Project preview
         </div>
         <div className={styles.openedProject__cover}>
+          <Link href={'/project/production/' + project?._id + '?tab=settings#cover'}>
+            <a className={styles.openedProject__coverOverlay}>
+              Change cover <Edit2 color="#fff" />
+            </a>
+          </Link>
           {project?.image ? (
             <Imgix src={client.UPLOAD_URL + project?.image} objectFit="cover" layout="fill" />
           ) : (
-            <div className={styles.openedProject__noImage}>{project?.title}</div>
+            <div className={styles.openedProject__noImage}>Here can be your cover</div>
           )}
         </div>
         <div className={styles.openedProject__options}>
-          <Link href={'/project/' + project?._id + '?preview'}>
+          <Link href={'/project/' + project?._id}>
             <a className={styles.openedProject__option}>
               <Eye />
               Preview
@@ -167,28 +173,58 @@ const OpenedProject = ({
           )}
         </div>
         <div className={styles.openedProject__line}></div>
-        <div className={styles.openedProject__projectTitle}>{project?.title}</div>
+        <div className={styles.openedProject__projectTitle}>
+          {project?.title}
+          <Link href={'/project/production/' + project?._id + '?tab=settings#basics'}>
+            <a className={styles.openedProject__titleEdit}>
+              <Edit2 />
+            </a>
+          </Link>
+        </div>
         <div className={styles.openedProject__projectSubtitle}>
           Edited {editedDate} | Created {createdDate}
         </div>
         <div
           className={styles.openedProject__projectDescription}
           dangerouslySetInnerHTML={{ __html: formatHtml(project?.story) }}></div>
+        <Link href={'/project/production/' + project?._id + '?tab=settings#basics'}>
+          <a className={styles.openedProject__editLink}>Change here</a>
+        </Link>
         <div className={styles.openedProject__line}></div>
         <div className={styles.openedProject__sectionTitle}>
           <Tag color={'#d11e8e'} className={styles.openedProject__sectionIcon} /> Tags
         </div>
         <div className={styles.openedProject__tags}>
-          {project?.genres?.map((tag) => (
-            <div className={styles.openedProject__tag}>tag1</div>
-          ))}
+          {project?.genres?.length > 0 ? (
+            project?.genres?.map((tag) => <div className={styles.openedProject__tag}>tag1</div>)
+          ) : (
+            <>
+              Here can be your tags
+              <Link href={'/project/production/' + project?._id + '?tab=settings#genres'}>
+                <a className={styles.openedProject__editLink} style={{ marginLeft: 10 }}>
+                  Change here
+                </a>
+              </Link>
+            </>
+          )}
         </div>
         <div className={styles.openedProject__line}></div>
         <div className={styles.openedProject__sectionTitle}>
           <Hierarchy color={'#d11e8e'} className={styles.openedProject__sectionIcon} />
           Members
         </div>
-        <div className={styles.openedProject__members}>{authorsElements}</div>
+        <div className={styles.openedProject__members}>
+          {/* {authorsElements?.length > 1 ? ( */}
+          {authorsElements}
+          {/* ) : (
+            <>
+              Don’t work by yourself, invite your friends to join your team!
+              <Button full rounded pink>
+                invite
+              </Button>
+            </>
+          )} */}
+        </div>
         <div className={styles.openedProject__needHelp}>
           <div className={styles.openedProject__needHelpText}>
             <div className={styles.openedProject__needHelpTitle}>Need help?</div>
