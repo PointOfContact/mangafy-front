@@ -60,6 +60,7 @@ const HeaderNew = ({ user }) => {
   const [showNotificationModalMobile, setShowNotificationModalMobile] = useState(false);
   const [unreadNotificationsId, setUnreadNotificationsId] = useState([]);
   const [notificationsCount, setNotificationsCount] = useState(0);
+  const page = router.asPath;
 
   const sendEvent = (event_type, post = 'New') => {
     const eventData = [
@@ -326,8 +327,6 @@ const HeaderNew = ({ user }) => {
   );
 
   const profileMenu = <Menu items={profileMenuOptions} />;
-
-  const page = router.asPath;
 
   return (
     <>
