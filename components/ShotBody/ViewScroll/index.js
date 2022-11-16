@@ -5,17 +5,32 @@ import styles from './styles.module.scss';
 import PropsTypes from 'prop-types';
 import cn from 'classnames';
 import client from 'api/client';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { imgixClient, myLoader } from 'components/imgix';
 
 const ViewScroll = ({ images, className }) => {
-  const getImageFromImgix = (image) =>
-    imgixClient.buildURL('https://mangafy.club/api/v2/uploads/' + image, {
-      w: 600,
-      h: 800,
+  const [width, setWidth] = useState(false);
+  const [largeWidth, setLargeWidth] = useState(false);
+
+  const getImageFromImgix = (image, width) => {
+    //The shrinking number is the padding size from the image
+    let widthImage = width - 180;
+    if (width <= 991) {
+      widthImage = width - 120;
+    } else if (width <= 767) {
+      widthImage = width - 20;
+    }
+    return imgixClient.buildURL('https://mangafy.club/api/v2/uploads/' + image, {
+      width: widthImage,
       auto: 'format',
       fit: 'cover',
     });
+  };
+
+  useEffect(() => {
+    setWidth(window.innerWidth);
+    setLargeWidth(window.innerWidth + 200);
+  }, []);
 
   return (
     <div
@@ -24,20 +39,23 @@ const ViewScroll = ({ images, className }) => {
       }}
       className={cn(styles.body, className)}>
       {/* {shot.image && <ResponsiveImgix src={client.UPLOAD_URL + shot.image} />} */}
-      {images?.map((image, index) => {
-        const imageFromImgix = getImageFromImgix(image);
-        return (
-          <div id={`page${index + 1}`} key={image + index}>
-            <InnerImageZoom
-              moveType="pan"
-              fullscreenOnMobile
-              zoomScale={3}
-              hideHint
-              src={imageFromImgix}
-            />
-          </div>
-        );
-      })}
+      {width &&
+        images?.map((image, index) => {
+          const imageFromImgix = getImageFromImgix(image, width);
+          const largeImageFromImgix = getImageFromImgix(image, largeWidth);
+          return (
+            <div id={`page${index + 1}`} key={image + index}>
+              <InnerImageZoom
+                moveType="pan"
+                fullscreenOnMobile
+                // zoomScale={3.5}
+                hideHint
+                src={imageFromImgix}
+                zoomSrc={largeImageFromImgix}
+              />
+            </div>
+          );
+        })}
     </div>
   );
 };

@@ -23,6 +23,7 @@ import FeedCreateButton from 'components/FeedCreateButton';
 import { SignInModal } from 'components/modals/SignInModal';
 import { viewMangaFun } from 'utils';
 import getDeviceId from 'utils/deviceId';
+import { NextSeo } from 'next-seo';
 
 const ProjectView = ({ ssProject, ssComments, user }) => {
   const router = useRouter();
@@ -177,6 +178,23 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
 
   return (
     <div className={styles.project}>
+      <NextSeo
+        title={project?.title}
+        description={project?.story}
+        canonical={`${client.API_ENDPOINT}/project/${project?._id}`}
+        openGraph={{
+          url: `${client.API_ENDPOINT}/project/${project?._id}`,
+          title: project?.title,
+          description: project?.story,
+          type: 'article',
+          site_name: 'MangaFY',
+        }}
+        twitter={{
+          handle: '@handle',
+          site: '@site',
+          cardType: 'summary_large_image',
+        }}
+      />
       <SignInModal
         title={'Sign in to like or comment'}
         page={'/project/' + project?._id}

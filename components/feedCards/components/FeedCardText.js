@@ -8,7 +8,16 @@ import { ShareButtons } from 'components/share';
 import Edit from 'components/icon/new/Edit';
 import Close from 'components/icon/new/Close';
 
-const FeedCardText = ({ title, description, className, isOwned, shareUrl, textOnly }) => {
+const FeedCardText = ({
+  title,
+  description,
+  className,
+  isOwned,
+  shareUrl,
+  textOnly,
+  onEdit,
+  onDelete,
+}) => {
   const [areShareButtonsVisible, setAreShareButtonsVisible] = useState(false);
 
   return (
@@ -19,8 +28,7 @@ const FeedCardText = ({ title, description, className, isOwned, shareUrl, textOn
       {description && (
         <div
           className={styles.feedCardDescription}
-          dangerouslySetInnerHTML={{ __html: formatHtml(description) }}
-        ></div>
+          dangerouslySetInnerHTML={{ __html: formatHtml(description) }}></div>
       )}
       {textOnly && (
         <div className={styles.share__hover}>
@@ -34,8 +42,7 @@ const FeedCardText = ({ title, description, className, isOwned, shareUrl, textOn
                 onClick={(e) => {
                   e.stopPropagation();
                   setAreShareButtonsVisible((old) => !old);
-                }}
-              >
+                }}>
                 Share
               </Button>
               <ShareButtons
@@ -51,10 +58,27 @@ const FeedCardText = ({ title, description, className, isOwned, shareUrl, textOn
             </div>
           ) : (
             <div className={styles.share__buttons}>
-              <Button rounded pink iconRight icon={<Edit color="#fff" />}>
+              <Button
+                rounded
+                pink
+                iconRight
+                icon={<Edit color="#fff" />}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onEdit();
+                }}>
                 Edit
               </Button>
-              <Button outline rounded pink iconRight icon={<Close color="#d11e8e" />}>
+              <Button
+                outline
+                rounded
+                pink
+                iconRight
+                icon={<Close color="#d11e8e" />}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onDelete();
+                }}>
                 Delete
               </Button>
             </div>

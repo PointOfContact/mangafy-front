@@ -20,7 +20,7 @@ const MangaBody = ({
   return (
     <div className={styles.mangaBody}>
       {readStyle ? (
-        <BookView images={images} setRef={setRef} refBook={refBook} setConutPage={setConutPage} />
+        <BookView images={images} refBook={refBook} setConutPage={setConutPage} />
       ) : (
         <ViewScroll images={images} />
       )}

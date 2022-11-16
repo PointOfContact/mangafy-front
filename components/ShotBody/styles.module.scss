@@ -2,4 +2,11 @@
 
 .mangaBody {
     position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    filter: drop-shadow($smallShadow);
+    > *:first-child {
+        border-radius: 10px;
+    }
 }

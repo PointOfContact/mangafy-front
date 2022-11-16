@@ -22,6 +22,7 @@ import SvgRightArrow from 'components/icon/RightArrow';
 import SvgLeftArrow from 'components/icon/LeftArrow';
 import reactImageSize from 'react-image-size';
 import ChangeViewTab from './changeViewTab';
+import { NextSeo } from 'next-seo';
 
 const MangaView = ({
   user,
@@ -223,6 +224,23 @@ const MangaView = ({
 
   return (
     <>
+      <NextSeo
+        title={manga?.mangaStoryTitle}
+        description={`Read ${manga?.mangaStoryTitle} on MangaFY`}
+        canonical={`${client.API_ENDPOINT}/project/view/${manga?._id}`}
+        openGraph={{
+          url: `${client.API_ENDPOINT}/project/view/${manga?._id}`,
+          title: manga?.mangaStoryTitle,
+          description: `Read ${manga?.mangaStoryTitle} on MangaFY`,
+          type: 'article',
+          site_name: 'MangaFY',
+        }}
+        twitter={{
+          handle: '@handle',
+          site: '@site',
+          cardType: 'summary_large_image',
+        }}
+      />
       <HeaderNew user={user} />
       <div
         onClick={() => {

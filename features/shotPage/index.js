@@ -15,6 +15,7 @@ import { buildShotURL, followUser, unFollowUser } from 'helpers/shared';
 import { Modal } from 'antd';
 import { ShareButtons } from 'components/share';
 import { viewShot } from 'utils';
+import { NextSeo } from 'next-seo';
 
 const ShotPage = ({ user, allShots, serverSideShot, serverSideAuthor }) => {
   const router = useRouter();
@@ -124,6 +125,23 @@ const ShotPage = ({ user, allShots, serverSideShot, serverSideAuthor }) => {
 
   return (
     <>
+      <NextSeo
+        title={shot?.title}
+        description={shot?.description}
+        canonical={`${client.API_ENDPOINT}/shot/${shot?._id}`}
+        openGraph={{
+          url: `${client.API_ENDPOINT}/shot/${shot?._id}`,
+          title: shot?.title,
+          description: shot?.description,
+          type: 'article',
+          site_name: 'MangaFY',
+        }}
+        twitter={{
+          handle: '@handle',
+          site: '@site',
+          cardType: 'summary_large_image',
+        }}
+      />
       <HeaderNew user={user} />
       <div className={cn(styles.shotPage, areCommentsOpened && styles.shotPage__shifted)}>
         <Modal

@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-sync-scripts */
 /* eslint-disable class-methods-use-this */
 import React from 'react';
 import Script from 'next/script';
@@ -32,8 +33,8 @@ export default class MyDocument extends Document {
           <script
             dangerouslySetInnerHTML={{
               __html: newLocal,
-            }}
-          ></script>
+            }}></script>
+          <script src="https://js.chargebee.com/v2/chargebee.js"></script>
         </Head>
         <body>
           {/*Google Tag Manager (noscript)*/}
@@ -41,8 +42,7 @@ export default class MyDocument extends Document {
             dangerouslySetInnerHTML={{
               __html: `<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P6RRF46"
               height="0" width="0" style="display:none;visibility:hidden"></iframe>`,
-            }}
-          ></noscript>
+            }}></noscript>
           {/* End Google Tag Manager (noscript) */}
           <Main />
           <NextScript />

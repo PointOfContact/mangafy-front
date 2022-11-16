@@ -13,6 +13,8 @@ import Avatar from 'components/Avatar';
 import { notification } from 'antd';
 import ShotComments from 'components/shotComments';
 import ShotAndMangaTitle from 'components/ShotAndMangaTitle';
+import { useAppContext } from 'context';
+import PrimaryButton from 'components/ui-elements/button';
 
 const ShotFooter = ({
   user,
@@ -27,8 +29,16 @@ const ShotFooter = ({
   updateShotInfo,
   shareUrl,
 }) => {
+  const { cbInstance, openPlanModal } = useAppContext();
+
   return (
     <div name="footer" className={cn(styles.footer, className)}>
+      {shot.planId && (
+        <PrimaryButton
+          text="Suscribe"
+          onClick={() => openPlanModal(cbInstance, shot.planId, shot._id, user?.customerId)}
+        />
+      )}
       <div className={styles.footer__container}>
         <div className={styles.footer__mobileComments}>
           <div className={styles.footer__mobileCommentsHeader}>Feedback</div>
@@ -51,8 +61,7 @@ const ShotFooter = ({
               rounded
               outline
               iconRight
-              icon={<Comment color="#7B65F3" />}
-            >
+              icon={<Comment color="#7B65F3" />}>
               {shot?.comments?.total || 0}
             </Button>
             {!shot.isOld && (
@@ -63,8 +72,7 @@ const ShotFooter = ({
                 icon={<Fire color="#7B65F3" />}
                 onClick={like}
                 iconRight
-                className={cn(styles.footer__like, isLiked && styles.footer__like_active)}
-              >
+                className={cn(styles.footer__like, isLiked && styles.footer__like_active)}>
                 {shot.likedUsers?.length || 0}
               </Button>
             )}

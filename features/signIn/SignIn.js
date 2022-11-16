@@ -83,7 +83,11 @@ const SignIn = () => {
       <div className={styles.loginPage}>
         <Link href="https://kidofdarkness.mangafy.club">
           <a className={styles.loginPage__weeklyArt}>
-            <Imgix layout="fill" objectFit="cover" src={'img/loginCover.jpg'} />
+            <Imgix
+              layout="fill"
+              objectFit="cover"
+              src={client.API_ENDPOINT + '/img/loginCover.jpg'}
+            />
             <div className={styles.loginPage__author}>Read: Kid of darkness. Agony</div>
           </a>
         </Link>
