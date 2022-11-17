@@ -14,17 +14,18 @@ const ViewScroll = ({ images, className }) => {
 
   const getImageFromImgix = (image, width) => {
     //The shrinking number is the padding size from the image
-    let widthImage = width - 180;
-    if (width <= 991) {
-      widthImage = width - 120;
-    } else if (width <= 767) {
-      widthImage = width - 20;
-    }
-    return imgixClient.buildURL('https://mangafy.club/api/v2/uploads/' + image, {
-      width: widthImage,
+    const options = {
       auto: 'format',
       fit: 'cover',
-    });
+    };
+    options.width = width - 180;
+    if (width <= 767) {
+      delete options.width;
+    } else if (width <= 991) {
+      console.log(11);
+      options.width = width - 120;
+    }
+    return imgixClient.buildURL('https://mangafy.club/api/v2/uploads/' + image, options);
   };
 
   useEffect(() => {
