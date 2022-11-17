@@ -34,9 +34,9 @@ const ViewScroll = ({ images, className }) => {
 
   return (
     <div
-      onMouseLeave={() => {
-        document.body.style.position = 'initial';
-      }}
+      // onMouseLeave={() => {
+      //   document.body.style.position = 'initial';
+      // }}
       className={cn(styles.body, className)}>
       {/* {shot.image && <ResponsiveImgix src={client.UPLOAD_URL + shot.image} />} */}
       {width &&
