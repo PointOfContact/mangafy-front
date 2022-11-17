@@ -50,7 +50,7 @@ const ChangeViewTab = ({ conutPage, chapter, refBook, readStyle, setConutPage, s
     : mangaUrlsLength;
 
   return (
-    <div className={styles.choozeReadType}>
+    <div className={styles.chooseReadType}>
       <div className={styles.arrowsContainer}>
         <SvgLeftArrow onClick={onClickLeftArrow} width={24} height={24} />
         <p>{`${conutPage} of ${countPage}`}</p>

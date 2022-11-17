@@ -19,19 +19,19 @@ const MangaBody = ({
 }) => {
   return (
     <div className={styles.mangaBody}>
-      {readStyle ? (
+      {/* {readStyle ? (
         <BookView images={images} refBook={refBook} setConutPage={setConutPage} />
-      ) : (
-        <ViewScroll images={images} />
-      )}
-      <ChangeViewTab
+      ) : ( */}
+      <ViewScroll images={images} />
+      {/* )} */}
+      {/* <ChangeViewTab
         conutPage={conutPage}
         chapter={chapter}
         refBook={refBook}
         readStyle={readStyle}
         setConutPage={setConutPage}
         setReadStyle={setReadStyle}
-      />
+      /> */}
     </div>
   );
 };
