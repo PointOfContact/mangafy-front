@@ -34,7 +34,6 @@ const ShotPage = ({ user, allShots, serverSideShot, serverSideAuthor }) => {
   );
 
   useEffect(() => {
-    console.log(shot, 'shot');
     viewShot(user, shot);
   }, []);
 
