@@ -78,7 +78,7 @@ const TaskCard = ({ card, user }) => {
           <div className={styles.modal__title}>
             <div className={styles.modal__time}>
               <Clock color="#C3BAFA" />
-              {`${time} ${timeMeasure} ago`}
+              {`${time}`}
             </div>
             {title}
           </div>
