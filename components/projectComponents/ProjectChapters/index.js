@@ -15,7 +15,6 @@ import { EVENTS } from 'helpers/amplitudeEvents';
 import Diamond from 'components/icon/new/Diamond';
 
 const ProjectChapters = ({
-  preview,
   isParticipant,
   isOwner,
   className,
@@ -62,20 +61,20 @@ const ProjectChapters = ({
     <div className={cn(className, styles.chapters, isMobile && styles.chapters_mobile)}>
       <div className={cn(styles.chapters__sectionTitle)}>
         Episodes
-        {(isParticipant || isOwner) && (
-          <Link href={'/project/production/' + project._id + '?tab=details'}>
-            <a className={styles.chapters__edit}>
-              <Button rounded pink>
-                Edit
+        {isOwner && (
+          <Link href={'/profile/' + user?._id + '/projects'}>
+            <a className={styles.chapters__back}>
+              <Button rounded pink outline md>
+                Back
               </Button>
             </a>
           </Link>
         )}
-        {preview && (
-          <Link href={'/profile/' + user?._id + '/projects'}>
+        {(isParticipant || isOwner) && (
+          <Link href={'/project/production/' + project._id + '?tab=details'}>
             <a className={styles.chapters__edit}>
-              <Button rounded pink>
-                Back to projects
+              <Button rounded md>
+                Edit
               </Button>
             </a>
           </Link>
