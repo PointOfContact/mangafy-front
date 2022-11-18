@@ -108,8 +108,7 @@ const ShotComments = ({ shotId, user, onUpload, className }) => {
             className={styles.comments__inputText}
             contentEditable
             onInput={handleChange}
-            ref={inputRef}
-          ></div>
+            ref={inputRef}></div>
         </div>
         {/* <p className={messageError ? styles.messageError : styles.notError}>{messageError}</p> */}
         <button className={styles.comments__sendButton} onClick={createComment}>

@@ -11,6 +11,7 @@ import { buildShotURL } from 'helpers/shared';
 const sliderItemWidth = 100;
 
 const ShotSlider = ({ className, shot, allShots }) => {
+  const containerRef = useRef(null);
   const sliderRef = useRef(null);
   const activeShotRef = useRef(null);
 
@@ -20,8 +21,7 @@ const ShotSlider = ({ className, shot, allShots }) => {
         <a
           ref={sh._id === shot._id ? activeShotRef : null}
           className={cn(styles.slider__item, sh._id === shot._id && styles.slider__item_active)}
-          key={sh._id}
-        >
+          key={sh._id}>
           {sh?.image ? (
             <Imgix width={96} height={96} objectFit="cover" src={client.UPLOAD_URL + sh?.image} />
           ) : (
@@ -68,18 +68,24 @@ const ShotSlider = ({ className, shot, allShots }) => {
     scrollToActiveShot();
   });
 
+  const hideArrows = allShots?.length * (sliderItemWidth + 10) < containerRef.current?.clientWidth;
+
   return (
     <div className={cn(className, styles.moreShots)}>
       <div className={styles.moreShots__container}>
         <div className={styles.moreShots__title}>More shots from {shot?.authorInfo?.name}</div>
-        <div className={styles.slider}>
-          <div className={styles.slider__arrow} onClick={scrollLeft}>
+        <div className={styles.slider} ref={containerRef}>
+          <div
+            className={cn(styles.slider__arrow, hideArrows && styles.slider__arrow_hidden)}
+            onClick={scrollLeft}>
             <ArrowDown2 />
           </div>
           <div className={styles.slider__content} ref={sliderRef}>
             {shotsElements}
           </div>
-          <div className={styles.slider__arrow} onClick={scrollRight}>
+          <div
+            className={cn(styles.slider__arrow, hideArrows && styles.slider__arrow_hidden)}
+            onClick={scrollRight}>
             <ArrowDown2 />
           </div>
         </div>

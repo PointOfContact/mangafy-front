@@ -19,8 +19,9 @@
     font-weight: 700;
     font-size: 20px;
     margin-bottom: 10px;
+    text-align: center;
   }
-
+  
   &__container {
     max-width: 900px;
     margin: 0 auto;
@@ -29,6 +30,7 @@
 
 .slider {
   display: flex;
+  justify-content: center;
 
   &__arrow {
     display: flex;
@@ -36,9 +38,10 @@
     justify-content: center;
     padding: 0 3px;
     cursor: pointer;
-    // @include media-xs {
-    //     display: none;
-    // }
+
+    &_hidden {
+      display: none;
+    }
 
     > svg {
       height: 32px;
@@ -70,7 +73,7 @@
 
   &__content {
     display: flex;
-    flex: 1 1 auto;
+    // flex: 1 1 auto;
     overflow-x: auto;
     overflow-y: hidden;
     &::scrollbar {

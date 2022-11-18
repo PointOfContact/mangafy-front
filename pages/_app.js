@@ -11,6 +11,7 @@ import '@bloogrox/react-quill/dist/quill.snow.css';
 import '../styles/landing/landing.css';
 
 import { initAmplitude } from '../utils/amplitude';
+import AppWrapper from 'context';
 
 Sentry.init({
   enabled: process.env.NEXT_PUBLIC_SENTRY_ENABLED === 'true',
@@ -90,7 +91,9 @@ export default function MyApp({ Component, pageProps, err }) {
           cardType: 'summary_large_image',
         }}
       />
-      <Component {...pageProps} err={err} />
+      <AppWrapper>
+        <Component {...pageProps} err={err} />
+      </AppWrapper>
     </>
   );
 }

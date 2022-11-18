@@ -108,7 +108,11 @@ const SignUp = () => {
       <div className={styles.loginPage}>
         <Link href="https://kidofdarkness.mangafy.club">
           <a className={styles.loginPage__weeklyArt}>
-            <Imgix layout="fill" objectFit="cover" src={'img/loginCover.jpg'} />
+            <Imgix
+              layout="fill"
+              objectFit="cover"
+              src={client.API_ENDPOINT + '/img/loginCover.jpg'}
+            />
             <div className={styles.loginPage__author}>Read: Kid of darkness. Agony</div>
           </a>
         </Link>
@@ -124,8 +128,7 @@ const SignUp = () => {
                   rounded
                   outline
                   icon={<SvgGoogle />}
-                  className={styles.loginPage__signInWith}
-                >
+                  className={styles.loginPage__signInWith}>
                   Sign up with Google
                 </Button>
               </a>
@@ -138,8 +141,7 @@ const SignUp = () => {
                   rounded
                   outline
                   icon={<Facebook />}
-                  className={styles.loginPage__signInWith}
-                >
+                  className={styles.loginPage__signInWith}>
                   Sign up with Facebook
                 </Button>
               </a>

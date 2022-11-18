@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React from 'react';
 
 import { Modal } from 'antd';
@@ -18,8 +19,7 @@ const DraftCheckbox = ({ originUrl, isModalVisible, setIsModalVisible }) => (
         onClick={(e) => {
           e.stopPropagation();
           setIsModalVisible(false);
-        }}
-      >
+        }}>
         <SvgClose />
       </span>
     }
@@ -27,8 +27,7 @@ const DraftCheckbox = ({ originUrl, isModalVisible, setIsModalVisible }) => (
       setIsModalVisible(false);
     }}
     visible={isModalVisible}
-    footer={null}
-  >
+    footer={null}>
     <div className={styles.publishedModal}>
       <img width={113} height={113} src={'/img/ballons.webp'} alt={'mangafy ballons'} />
       <h2 className={styles.modalTitle}>Your project is live!</h2>

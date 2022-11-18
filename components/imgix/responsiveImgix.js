@@ -2,8 +2,14 @@ import React, { useState, useEffect } from 'react';
 import Imgix, { imgixClient } from '.';
 import styles from './styles.module.scss';
 
-const ResponsiveImgix = ({ src }) => {
+const ResponsiveImgix = ({ src, alt, onSizeLoaded }) => {
   const [json, setJson] = useState({});
+
+  useEffect(() => {
+    if (onSizeLoaded) {
+      onSizeLoaded(json?.PixelWidth, json?.PixelHeight);
+    }
+  }, [json]);
 
   useEffect(() => {
     fetch(
@@ -33,7 +39,7 @@ const ResponsiveImgix = ({ src }) => {
             quality={75}
             // layout="responsive"
             objectFit="cover"
-            alt="Shot"
+            alt={alt || 'image'}
             loading="lazy"
           />
         </div>

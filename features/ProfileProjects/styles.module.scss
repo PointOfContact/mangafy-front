@@ -74,6 +74,11 @@
 
     &__back {
         margin-right: 15px;
+        color: #000;
+        svg {
+            margin-top: 2px;
+            transform: rotate(90deg);
+        }
     }
 
     &__create, &__projects {

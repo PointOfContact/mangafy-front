@@ -35,14 +35,8 @@ body {
 }
 
 .stf__item {
-  @include media-sm-min {
-    height: 100% !important;
-  }
-  box-shadow: $bigShadow;
   overflow: hidden;
-  position: relative;
   border-radius: 10px;
-  background: rgb(214, 214, 214);
   &::before {
     content: '';
     width: 80%;
@@ -66,23 +60,23 @@ body {
     height: 100% !important;
   }
 }
-.stf__wrapper {
-  padding-bottom: 0% !important;
-  .stf__block {
-    overflow: hidden;
-    height: 80vh !important;
-    position: relative !important;
-    @include media-sm {
-      height: 68.5vh !important;
-    }
-    .stf__item {
-      @include media-sm-min {
-        top: 0 !important;
-      }
-      border-radius: 0;
-    }
-  }
-}
+// .stf__wrapper {
+//   padding-bottom: 0% !important;
+//   .stf__block {
+//     overflow: hidden;
+//     height: 80vh !important;
+//     position: relative !important;
+//     @include media-sm {
+//       height: 68.5vh !important;
+//     }
+//     .stf__item {
+//       @include media-sm-min {
+//         top: 0 !important;
+//       }
+//       border-radius: 0;
+//     }
+//   }
+// }
 .ant-tabs-content-holder {
   padding: 15px 0;
   @include media-sm {

@@ -255,7 +255,9 @@ const EditGenresField = ({
         options={genres}
         className={styles.option}
       />
-      <h3 className={styles.uploadCoverTitle}>Upload project cover to represent your project</h3>
+      <h3 id="cover" className={styles.uploadCoverTitle}>
+        Upload project cover to represent your project
+      </h3>
       <HeroUpload
         className={styles.imgPage}
         mangaUrl={imgId}

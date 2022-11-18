@@ -60,6 +60,8 @@ const HeaderNew = ({ user }) => {
   const [showNotificationModalMobile, setShowNotificationModalMobile] = useState(false);
   const [unreadNotificationsId, setUnreadNotificationsId] = useState([]);
   const [notificationsCount, setNotificationsCount] = useState(0);
+  const page = router.asPath;
+
   const sendEvent = (event_type, post = 'New') => {
     const eventData = [
       {
@@ -143,7 +145,7 @@ const HeaderNew = ({ user }) => {
           </div>
         </div>
       ) : (
-        <Link href={'/sign-in?page=feed'}>
+        <Link href={'/sign-in?page=' + page}>
           <a className={styles.nav__dropdownItem}>
             <div className={styles.nav__dropdownIcon}>
               <Edit2 color="#D01E8E" bold />
@@ -245,7 +247,7 @@ const HeaderNew = ({ user }) => {
     {
       key: 'profile-3',
       label: (
-        <div className={styles.nav__dropdownItem} onClick={removeAllStorage}>
+        <div className={styles.nav__dropdownItem} onClick={() => removeAllStorage(page)}>
           <div className={styles.nav__dropdownIcon}>
             <SignOut color="#D01E8E" bold />
           </div>
@@ -263,7 +265,7 @@ const HeaderNew = ({ user }) => {
     {
       key: 'login-1',
       label: (
-        <Link href={'/sign-up?page=feed'}>
+        <Link href={'/sign-up?page=' + page}>
           <a className={styles.nav__dropdownItem}>
             <div className={styles.nav__dropdownIcon}>
               <NewFile color="#D01E8E" bold={1} />
@@ -279,7 +281,7 @@ const HeaderNew = ({ user }) => {
     {
       key: 'login-2',
       label: (
-        <Link href={'/sign-in?page=feed'}>
+        <Link href={'/sign-in?page=' + page}>
           <a className={styles.nav__dropdownItem}>
             <div className={styles.nav__dropdownIcon}>
               <NewFile color="#D01E8E" bold={1} />
@@ -417,14 +419,14 @@ const HeaderNew = ({ user }) => {
               </>
             ) : (
               <>
-                <Link href={'/sign-up?page=feed'}>
+                <Link href={'/sign-up?page=' + page}>
                   <a>
                     <Button rounded outline pink>
                       Join
                     </Button>
                   </a>
                 </Link>
-                <Link href={'/sign-in?page=feed'}>
+                <Link href={'/sign-in?page=' + page}>
                   <a>
                     <Button rounded pink>
                       Log in
