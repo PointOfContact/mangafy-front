@@ -20,6 +20,7 @@ import { validateEmail, validatePassword, validateName } from 'helpers/shared';
 import Select from 'components/ui-new/Input/Select';
 import { userTypes } from 'helpers/constant';
 import Eye from 'components/icon/new/Eye';
+import client from 'api/client';
 
 const SignUp = () => {
   const router = useRouter();
