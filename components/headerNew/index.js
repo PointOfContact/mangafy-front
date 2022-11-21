@@ -237,7 +237,6 @@ const HeaderNew = ({ user }) => {
               <File color="#D01E8E" bold={1} />
             </div>
             <div className={styles.nav__dropdownContent}>
-              <div className={styles.nav__subscriptions}>Your subscriptions</div>
               <div className={styles.nav__dropdownTitle}>MangaFY Profile</div>
               <div className={styles.nav__dropdownSubtitle}>Set up your profile</div>
             </div>

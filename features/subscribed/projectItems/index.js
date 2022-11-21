@@ -12,7 +12,7 @@ import Fire from 'components/icon/new/Fire';
 import Diamond from 'components/icon/new/Diamond';
 
 const ProjectItems = ({ user, items }) => {
-  return items.map((value, index) => {
+  return items?.map((value, index) => {
     const image = value.image
       ? value.image
       : '1668779204772-748186457-Astro-Boy-manga-color-1280x720%201.png';
@@ -67,10 +67,11 @@ const ProjectItems = ({ user, items }) => {
 
 ProjectItems.propTypes = {
   user: PropTypes.object,
-  items: PropTypes.object.isRequired,
+  items: PropTypes.array,
 };
 ProjectItems.defaultProps = {
   user: {},
+  items: [],
 };
 
 export default ProjectItems;
