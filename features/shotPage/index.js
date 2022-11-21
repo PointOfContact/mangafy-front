@@ -16,6 +16,7 @@ import { Modal } from 'antd';
 import { ShareButtons } from 'components/share';
 import { viewShot } from 'utils';
 import { NextSeo } from 'next-seo';
+import { SignInModal } from 'components/modals/SignInModal';
 
 const ShotPage = ({ user, allShots, serverSideShot, serverSideAuthor }) => {
   const router = useRouter();
@@ -32,6 +33,8 @@ const ShotPage = ({ user, allShots, serverSideShot, serverSideAuthor }) => {
       return obj.likedUserId === user?._id;
     })
   );
+
+  const [isLoginModalVisible, setIsLoginModalVisible] = useState(false);
 
   useEffect(() => {
     viewShot(user, shot);
@@ -51,6 +54,10 @@ const ShotPage = ({ user, allShots, serverSideShot, serverSideAuthor }) => {
 
   const [areCommentsOpened, setAreCommentsOpened] = useState(false);
   function toggleComments() {
+    if (!user) {
+      setIsLoginModalVisible(true);
+      return;
+    }
     setAreCommentsOpened(!areCommentsOpened);
   }
 
@@ -76,6 +83,10 @@ const ShotPage = ({ user, allShots, serverSideShot, serverSideAuthor }) => {
   }
 
   function like() {
+    if (!user) {
+      setIsLoginModalVisible(true);
+      return;
+    }
     likeShot(shot._id, author._id)
       .then((res) => {
         updateShotInfo();
@@ -93,10 +104,8 @@ const ShotPage = ({ user, allShots, serverSideShot, serverSideAuthor }) => {
 
   function subscribe() {
     if (!user) {
-      notification.error({
-        placement: 'bottomLeft',
-        message: 'You need to be logged in to follow a user',
-      });
+      setIsLoginModalVisible(true);
+      return;
     }
     if (!isSubscribed) {
       followUser(author?._id)
@@ -167,6 +176,7 @@ const ShotPage = ({ user, allShots, serverSideShot, serverSideAuthor }) => {
           updateShotInfo={updateShotInfo}
           setIsShareModalOpened={setIsShareModalOpened}
           isOld={shot?.isOld}
+          setIsLoginModalVisible={setIsLoginModalVisible}
         />
         <ShotHeader
           user={user}
@@ -191,9 +201,16 @@ const ShotPage = ({ user, allShots, serverSideShot, serverSideAuthor }) => {
           toggleComments={toggleComments}
           updateShotInfo={updateShotInfo}
           shareUrl={client.API_ENDPOINT + buildShotURL(shot?._id, shot?.isOld ? author?._id : null)}
+          setIsLoginModalVisible={setIsLoginModalVisible}
         />
         <ShotSlider className={styles.shotPage__slider} shot={shot} allShots={allShots} />
       </div>
+      <SignInModal
+        page={'/shot/' + shot?._id}
+        title="Sign in"
+        visible={isLoginModalVisible}
+        setVisible={setIsLoginModalVisible}
+      />
     </>
   );
 };

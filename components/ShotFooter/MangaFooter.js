@@ -34,6 +34,7 @@ const MangaFooter = ({
   comments,
   isParticipant,
   createComment,
+  setIsLoginModalVisible,
 }) => {
   const { cbInstance, openPlanModal } = useAppContext();
 
@@ -50,25 +51,6 @@ const MangaFooter = ({
           <div className={styles.footer__mobileCommentsHeader}>Feedback</div>
           <MangaComments manga={manga} comments={comments.data} createComment={createComment} />
         </div>
-        {/* <div className={styles.footer__info}>
-            <div className={styles.footer__title}>{manga?.mangaStoryTitle}</div>
-
-            <div className={styles.footer__subtitle}>
-              <Link href={'/profile/' + authors[0]?._id}>
-                <a className={styles.footer__authorLink}>{authors[0]?.name}</a>
-              </Link>
-              {!isOwn && (
-                <>
-                  <span>{' | '}</span>
-                  <button
-                    className={styles.footer__subscribe}
-                    onClick={() => subscribe(authors[0]._id)}>
-                    {authors[0].isFollowed ? 'Unfollow' : 'Follow'}
-                  </button>
-                </>
-              )}
-            </div>
-          </div> */}
         <ShotAndMangaTitle
           className={styles.footer__info}
           title={manga?.mangaStoryTitle}
@@ -81,7 +63,13 @@ const MangaFooter = ({
         <div className={styles.footer__buttonsAndLinks}>
           <div className={styles.footer__buttons}>
             <Button
-              onClick={toggleComments}
+              onClick={() => {
+                if (!user) {
+                  setIsLoginModalVisible(true);
+                  return;
+                }
+                toggleComments();
+              }}
               className={styles.footer__commentButton}
               sm
               rounded
