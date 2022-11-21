@@ -45,6 +45,8 @@ export async function getUser(context) {
 
     // get the JWT (from cookie - set by previous login or server-side authentication) and use it to auth the API client
     const jwt = getServerCookie(req, FEATHERS_COOKIE); // getCookie('feathers-jwt', context.req.headers.cookie)
+    console.log('------------------ jwt ------------------');
+    console.log(jwt);
     return await authenticate(jwt);
   }
 

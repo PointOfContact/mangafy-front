@@ -29,26 +29,31 @@ const openPlanModal = (cbInstance, plan_id, item_id, customer_id) =>
           mode: 'no-cors',
         }
       );
+      // console.log(data.hosted_page);
       return data.hosted_page;
     },
     loaded: () => {
+      console.log('Loaded');
       // Optional
       // will be called once checkout page is loaded
     },
     error: (err) => {
-      console.log('🚀 ~ file: index.js ~ line 93 ~ ViewScroll ~ z', err);
+      console.log('Error: ', err);
       // Optional
       // will be called if the promise passed causes an error
     },
     step: (step) => {
+      console.log('Step: ' + step);
       // Optional
       // will be called for each step involved in the checkout process
     },
     success: (hostedPageId) => {
+      console.log('Success: ' + hostedPageId);
       // Optional
       // will be called when a successful checkout happens.
     },
     close: () => {
+      console.log('Close');
       // Optional
       // will be called when the user closes the checkout modal box
     },

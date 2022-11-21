@@ -23,19 +23,16 @@ const ProjectInfo = ({
   unsubscribe,
   subscription,
 }) => {
-  const { cbInstance, openPlanModal } = useAppContext();
-
   const [isPledgeModalOpen, setIsPledgeModalOpen] = React.useState(false);
 
   return (
     <div className={cn(className, styles.info)}>
-      {project.planId && (
-        <PrimaryButton
-          text="Suscribe"
-          onClick={() => openPlanModal(cbInstance, project.planId, project._id, user?.customerId)}
-        />
-      )}
-      <PledgeModal isOpen={isPledgeModalOpen} setIsOpen={setIsPledgeModalOpen} project={project} />
+      <PledgeModal
+        isOpen={isPledgeModalOpen}
+        setIsOpen={setIsPledgeModalOpen}
+        project={project}
+        user={user}
+      />
       <div className={styles.info__rates}>
         <div className={styles.rate}>
           <div className={styles.rate__value}>{project?.subscribers?.length}</div>
@@ -55,6 +52,7 @@ const ProjectInfo = ({
         subscription={subscription}
         subscribe={subscribe}
         unsubscribe={unsubscribe}
+        project={project}
       />
       {!!project?.authorInfo?.payPalEmail && (
         <a

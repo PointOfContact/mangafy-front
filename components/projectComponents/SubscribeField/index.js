@@ -34,6 +34,10 @@ const SubscribeField = ({
     subscribe(emailToSubscribe);
   }
 
+  function pledgeHandler() {
+    openPledgeModal();
+  }
+
   return (
     <div className={className}>
       <div className={styles.title}>Subscribe to my stories</div>
@@ -62,9 +66,11 @@ const SubscribeField = ({
             <Button pink rounded onClick={onSubscribe}>
               Subscribe
             </Button>
-            <Button rounded outline onClick={() => openPledgeModal()}>
-              Pledge
-            </Button>
+            {project.planId && (
+              <Button rounded outline onClick={() => openPledgeModal()}>
+                Pledge
+              </Button>
+            )}
           </>
         ) : (
           <div className={styles.subscribe}>
