@@ -10,7 +10,7 @@ import client from 'api/client';
 import { useRouter } from 'next/router';
 import { notification } from 'antd';
 import { findStoryBoard } from 'api/storyBoardClient';
-import mangaStoryAPI from 'features/mangaStory/mangaStoryAPI';
+import mangaStoryClient from 'api/mangaStoryClient';
 
 const defaultStoryInfo = {
   projectName: null,
@@ -89,7 +89,7 @@ const CreateStoryStepper = ({ genres, path, user, query, jwt }) => {
           createdStory._id,
           (storyBoard) => {
             // Then publish first chapter
-            mangaStoryAPI.chapter.patch(
+            mangaStoryClient.chapter.patch(
               storyBoard?.data[0]?.chapters[0]?._id,
               { published: true, mangaStoryId: storyBoard.mangaStoryId },
               async (data) => {
@@ -110,7 +110,7 @@ const CreateStoryStepper = ({ genres, path, user, query, jwt }) => {
                     }
                   );
                   // Then set paypal email
-                  mangaStoryAPI.draft.saveUserDataByKey(storyInfo.paypal, user, () => {});
+                  mangaStoryClient.draft.saveUserDataByKey(storyInfo.paypal, user, () => {});
                   setLink('https://' + storyInfo.projectName + '.mangafy.club/');
                   toNextStep();
                 } catch (err) {

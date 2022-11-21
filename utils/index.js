@@ -1,5 +1,5 @@
 import { editGallery, viewManga } from 'components/gallery/utils';
-import API from 'features/mangaStory/mangaStoryAPI';
+import API from 'api/mangaStoryClient';
 import getDeviceId from './deviceId';
 
 const logickView = async (user, data, id, key) => {

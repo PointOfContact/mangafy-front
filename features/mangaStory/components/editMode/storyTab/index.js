@@ -7,7 +7,7 @@ import Imgix from 'components/imgix';
 import Modal from 'components/modals/joinToTeam';
 import Avatar from 'components/ui-elements/avatar';
 import ShowSomeData from 'components/ui-elements/showSomeData';
-import mangaStoryAPI from 'features/mangaStory/mangaStoryAPI';
+import mangaStoryClient from 'api/mangaStoryClient';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
@@ -39,7 +39,7 @@ const StoryTab = ({
   }, []);
 
   const leaveManga = (participantId) =>
-    mangaStoryAPI.storyTab.leaveManga(
+    mangaStoryClient.storyTab.leaveManga(
       participantId,
       _id,
       setBaseData,
