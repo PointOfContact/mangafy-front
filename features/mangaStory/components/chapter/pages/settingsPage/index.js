@@ -2,7 +2,7 @@ import React from 'react';
 
 import SvgDelete from 'components/icon/Delete';
 import Popconfirm from 'components/popconfirm';
-import mangaStoryAPI from 'features/mangaStory/mangaStoryAPI';
+import mangaStoryClient from 'api/mangaStoryClient';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
@@ -22,7 +22,7 @@ const SettingsPage = ({
   };
 
   const confirmDelete = () => {
-    mangaStoryAPI.pages.deletePage(
+    mangaStoryClient.pages.deletePage(
       chapterItem?.index,
       chapters,
       setChapters,

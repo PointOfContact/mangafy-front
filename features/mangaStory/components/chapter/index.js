@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Form } from 'antd';
 import SvgAdd from 'components/icon/Add';
 import PrimaryInput from 'components/ui-elements/input';
-import mangaStoryAPI from 'features/mangaStory/mangaStoryAPI';
+import mangaStoryClient from 'api/mangaStoryClient';
 import PropTypes from 'prop-types';
 
 import ChapterItems from './chapterItems';
@@ -51,7 +51,7 @@ const Chapter = ({ storyBoard, setStoryBoard, chapters, setChapters, user, baseD
       chapterNumber: (chapters.length || 0) + 1,
     });
 
-    mangaStoryAPI.chapter.create(
+    mangaStoryClient.chapter.create(
       chapterName,
       storyBoard,
       chapters,
@@ -70,8 +70,7 @@ const Chapter = ({ storyBoard, setStoryBoard, chapters, setChapters, user, baseD
             initialValues={{
               chapterName: 'Untitled Chapter',
             }}
-            onFinish={onFinish}
-          >
+            onFinish={onFinish}>
             <Form.Item name="chapterName">
               <PrimaryInput
                 inputRef={inputRef}
@@ -85,7 +84,7 @@ const Chapter = ({ storyBoard, setStoryBoard, chapters, setChapters, user, baseD
                 onBlur={() => {
                   validateMin || validateMax
                     ? setCreateChapter(false)
-                    : mangaStoryAPI.chapter.create(
+                    : mangaStoryClient.chapter.create(
                         chapterName,
                         storyBoard,
                         chapters,
@@ -104,8 +103,7 @@ const Chapter = ({ storyBoard, setStoryBoard, chapters, setChapters, user, baseD
             onClick={() => {
               setCreateChapter(true);
               setChapterName(`Untitled Chapter`);
-            }}
-          >
+            }}>
             <SvgAdd width={50} height={50} />
             Add Chapter
           </div>

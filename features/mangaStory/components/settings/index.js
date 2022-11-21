@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import { findStoryBoard } from 'api/storyBoardClient';
 import ToggleSwitch from 'components/ui-elements/toggleSwitch';
-import mangaStoryAPI from 'features/mangaStory/mangaStoryAPI';
+import mangaStoryClient from 'api/mangaStoryClient';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import PropTypes from 'prop-types';
 import myAmplitude from 'utils/amplitude';
@@ -45,7 +45,13 @@ const Settings = ({
   }
 
   const patchStory = (data) =>
-    mangaStoryAPI?.hiderCollab?.patchStory(data, setBaseData, userData, baseData, openNotification);
+    mangaStoryClient?.hiderCollab?.patchStory(
+      data,
+      setBaseData,
+      userData,
+      baseData,
+      openNotification
+    );
 
   const onGoToPublic = () => {
     findStoryBoard(
@@ -69,11 +75,11 @@ const Settings = ({
         ...baseData,
         published: false,
       });
-      mangaStoryAPI.draft.leaveManga(baseData, false);
+      mangaStoryClient.draft.leaveManga(baseData, false);
       sendEvent(EVENTS.EDIT_PROJECT_PUBLISHED, 'published', false);
     } else {
       onGoToPublic(userData?._id, baseData?._id);
-      userData?.payPalEmail && mangaStoryAPI.draft.leaveManga(baseData, true);
+      userData?.payPalEmail && mangaStoryClient.draft.leaveManga(baseData, true);
       sendEvent(EVENTS.EDIT_PROJECT_PUBLISHED, 'published', true);
     }
   };

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { notification, Upload } from 'antd';
 import cn from 'classnames';
 import Popconfirm from 'components/popconfirm';
-import mangaStoryAPI from 'features/mangaStory/mangaStoryAPI';
+import mangaStoryClient from 'api/mangaStoryClient';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
@@ -40,7 +40,7 @@ const ChapterModal = ({
       chapterImg: e,
       mangaStoryId: storyBoard.mangaStoryId,
     };
-    mangaStoryAPI.chapter.patch(value._id, data, upgradeChapterData, setEdit, setChapters);
+    mangaStoryClient.chapter.patch(value._id, data, upgradeChapterData, setEdit, setChapters);
   };
 
   const createPage = (e, count) => {
@@ -55,7 +55,7 @@ const ChapterModal = ({
       mangaStoryId: storyBoard.mangaStoryId,
     };
 
-    mangaStoryAPI.pages.createPage(index, chapters, setChapters, () => {}, data);
+    mangaStoryClient.pages.createPage(index, chapters, setChapters, () => {}, data);
   };
 
   const addChapterCover = () => {
@@ -127,8 +127,7 @@ const ChapterModal = ({
         onClick={() => {
           setEdit(value._id);
           setChapterListVisible({ state: false, _id: value?._id });
-        }}
-      >
+        }}>
         Rename
       </p>
       <p onClick={addPages}>
@@ -138,8 +137,7 @@ const ChapterModal = ({
           className={cn('avatar-uploader', styles.upload)}
           multiple
           showUploadList={false}
-          beforeUpload={(file, fileList) => beforeUpload(pages, file, fileList, createPage)}
-        >
+          beforeUpload={(file, fileList) => beforeUpload(pages, file, fileList, createPage)}>
           Upload pages
         </Upload>
       </p>
@@ -149,8 +147,7 @@ const ChapterModal = ({
           listType="picture-card"
           className={cn('avatar-uploader', styles.upload)}
           showUploadList={false}
-          beforeUpload={(file, fileList) => beforeUpload(pages, file, fileList, uploadImage)}
-        >
+          beforeUpload={(file, fileList) => beforeUpload(pages, file, fileList, uploadImage)}>
           Upload cover
         </Upload>
       </p>
@@ -159,7 +156,7 @@ const ChapterModal = ({
         position={'right'}
         title="Are you sure to delete this chapter"
         onConfirm={() => {
-          mangaStoryAPI.chapter.delete(value._id, index, chapters, setChapters, storyBoard);
+          mangaStoryClient.chapter.delete(value._id, index, chapters, setChapters, storyBoard);
         }}
         item={<p>Delete</p>}
       />

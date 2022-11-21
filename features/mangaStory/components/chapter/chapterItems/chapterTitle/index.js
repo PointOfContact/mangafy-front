@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { Form } from 'antd';
 import PrimaryInput from 'components/ui-elements/input';
-import mangaStoryAPI from 'features/mangaStory/mangaStoryAPI';
+import mangaStoryClient from 'api/mangaStoryClient';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
@@ -26,7 +26,7 @@ const ChapterTitle = ({ value, chapters, storyBoard, setChapters, edit, setEdit,
       onMouseOut(true);
       return;
     }
-    mangaStoryAPI.chapter.patch(
+    mangaStoryClient.chapter.patch(
       value?._id,
       { title: editName, mangaStoryId: storyBoard.mangaStoryId },
       upgradeChapterData,
@@ -44,8 +44,7 @@ const ChapterTitle = ({ value, chapters, storyBoard, setChapters, edit, setEdit,
             onFinish={onFinish}
             initialValues={{
               title: value?.title,
-            }}
-          >
+            }}>
             <Form.Item name={'title'}>
               <PrimaryInput
                 value={editName}
@@ -61,7 +60,7 @@ const ChapterTitle = ({ value, chapters, storyBoard, setChapters, edit, setEdit,
                 onBlur={() => {
                   validate
                     ? setEdit('')
-                    : mangaStoryAPI.chapter.patch(
+                    : mangaStoryClient.chapter.patch(
                         value?._id,
                         { title: editName, mangaStoryId: storyBoard.mangaStoryId },
                         upgradeChapterData,
@@ -81,8 +80,7 @@ const ChapterTitle = ({ value, chapters, storyBoard, setChapters, edit, setEdit,
             onMouseOut(false);
             setEditName(value?.title);
           }}
-          className={styles.chapterName}
-        >
+          className={styles.chapterName}>
           <h2 className={styles.chapterTitle}>
             #{index + 1} | {value?.title}
           </h2>

@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState, useMemo } from 'react';
 import { Popover } from 'antd';
 import SvgMobileMenu from 'components/icon/MobileMenu';
 import ToggleSwitch from 'components/ui-elements/toggleSwitch';
-import mangaStoryAPI from 'features/mangaStory/mangaStoryAPI';
+import mangaStoryClient from 'api/mangaStoryClient';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import PropTypes from 'prop-types';
 import myAmplitude from 'utils/amplitude';
@@ -79,7 +79,7 @@ const ChapterFooter = ({
       });
     }
 
-    await mangaStoryAPI.chapter.patch(
+    await mangaStoryClient.chapter.patch(
       value?._id,
       { published: publishedValue, mangaStoryId: storyBoard.mangaStoryId },
       upgradeChapterData,
@@ -143,8 +143,7 @@ const ChapterFooter = ({
           />
         }
         visible={chapterListVisible._id === value?._id && chapterListVisible.state}
-        trigger="click"
-      >
+        trigger="click">
         <SvgMobileMenu
           onClick={() => setChapterListVisible({ state: true, _id: value?._id })}
           width="20px"
