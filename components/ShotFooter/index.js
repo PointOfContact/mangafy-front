@@ -28,6 +28,7 @@ const ShotFooter = ({
   subscribe,
   updateShotInfo,
   shareUrl,
+  setIsLoginModalVisible,
 }) => {
   const { cbInstance, openPlanModal } = useAppContext();
 
@@ -42,7 +43,12 @@ const ShotFooter = ({
       <div className={styles.footer__container}>
         <div className={styles.footer__mobileComments}>
           <div className={styles.footer__mobileCommentsHeader}>Feedback</div>
-          <ShotComments shotId={shot._id} user={user} onUpload={updateShotInfo} />
+          <ShotComments
+            shotId={shot._id}
+            user={user}
+            onUpload={updateShotInfo}
+            setIsLoginModalVisible={setIsLoginModalVisible}
+          />
         </div>
         <ShotAndMangaTitle
           title={shot?.isOld ? shot?.authorInfo?.name : shot?.title}

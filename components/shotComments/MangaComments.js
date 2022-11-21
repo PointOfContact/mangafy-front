@@ -52,8 +52,7 @@ const MangaComments = ({ className, comments = [], createComment }) => {
             className={styles.comments__inputText}
             contentEditable
             onInput={handleChange}
-            ref={inputRef}
-          ></div>
+            ref={inputRef}></div>
         </div>
         <button className={styles.comments__sendButton} onClick={onSubmit}>
           <Send color={'#8E8E93'} />

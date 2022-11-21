@@ -15,7 +15,7 @@ import Link from 'next/link';
 import { followUser, unFollowUser } from 'helpers/shared';
 import { useRouter } from 'next/router';
 
-const PortfolioWorkCard = ({ card, user }) => {
+const PortfolioWorkCard = ({ card, user, setShowLoginModal }) => {
   const images = card.gallery;
   const author = card.name;
   const avatar = card.avatar;
@@ -53,10 +53,7 @@ const PortfolioWorkCard = ({ card, user }) => {
 
   function like(params) {
     if (!user) {
-      notification.error({
-        placement: 'bottomLeft',
-        message: 'You need to be logged in to follow a user',
-      });
+      setShowLoginModal(true);
     }
     if (!isFollowed) {
       followUser(card._id)

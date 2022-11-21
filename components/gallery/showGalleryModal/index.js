@@ -18,6 +18,7 @@ import getDeviceId from 'utils/deviceId';
 import { viewShot } from 'utils';
 import PrimaryButton from 'components/ui-elements/button';
 import { useAppContext } from 'context';
+import { SignInModal } from 'components/modals/SignInModal';
 
 export const ShowGalleryModal = ({
   startIndex,
@@ -40,6 +41,8 @@ export const ShowGalleryModal = ({
     planId: images[startIndex]?.planId,
     chargebee: images[startIndex]?.chargebee,
   };
+
+  const [isLoginModalVisible, setIsLoginModalVisible] = useState(false);
 
   // const [isLiked, setIsLiked] = useState(
   //   image.likedUsers?.some((user) => user.likedUserId === user._id)
@@ -98,8 +101,16 @@ export const ShowGalleryModal = ({
             <ResponsiveImgix src={client.UPLOAD_URL + image.image} />
           </div>
         )}
-        <ShotComments shotId={image._id} user={user} />
+        <ShotComments
+          shotId={image._id}
+          user={user}
+          setIsLoginModalVisible={setIsLoginModalVisible}
+        />
       </Modal>
+      <SignInModal
+        title="Sign in"
+        visible={isLoginModalVisible}
+        setVisible={setIsLoginModalVisible}></SignInModal>
     </div>
   );
 };

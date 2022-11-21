@@ -261,6 +261,7 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
           createChapterOrProjectComment(text, currentChapterId ? 'chapter' : 'project')
         }
         isParticipant={isParticipant || isOwner}
+        setIsLoginModalVisible={setIsSignInModalOpened}
       />
 
       <ShareModal
