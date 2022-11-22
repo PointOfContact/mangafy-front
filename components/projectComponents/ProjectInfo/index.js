@@ -46,7 +46,7 @@ const ProjectInfo = ({
           <div className={styles.rate__title}>status</div>
         </div>
       </div>
-      <ProjectStory className={styles.info__story} project={project} />
+      <ProjectStory className={styles.info__story} project={project} user={user} />
       <SubscribeField
         user={user}
         className={styles.info__subscribe}
