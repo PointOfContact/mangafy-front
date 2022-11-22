@@ -6,19 +6,22 @@ import { formatHtml } from 'helpers/shared';
 import Link from 'next/link';
 import Edit2 from 'components/icon/new/Edit2';
 
-const ProjectStory = ({ className, project }) => {
+const ProjectStory = ({ className, project, user }) => {
   const isMoreThan200 = project?.story?.length > 200;
   const [showMore, setShowMore] = useState(false);
+  const ifAdmin = user._id === project.author;
 
   return (
     <div className={cn(className, styles.story)}>
       <div className={styles.story__title}>
         {project?.title}
-        <Link href={'/project/production/' + project._id + '?tab=settings#basics'}>
-          <a>
-            <Edit2 />
-          </a>
-        </Link>
+        {ifAdmin && (
+          <Link href={'/project/production/' + project._id + '?tab=settings#basics'}>
+            <a>
+              <Edit2 />
+            </a>
+          </Link>
+        )}
       </div>
       <div
         className={styles.story__description}
