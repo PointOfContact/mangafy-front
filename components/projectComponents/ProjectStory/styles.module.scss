@@ -29,15 +29,17 @@
     font-weight: 400;
     font-size: 15px;
     & > p {
-      overflow: hidden;
-      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
       word-break: normal;
+      -webkit-box-orient: vertical;
+      word-break: break-all;
+      overflow: hidden;
     }
   }
   &__showAll {
     & > p {
-      word-break: break-all;
-      text-overflow: clip;
+      -webkit-line-clamp: 50;
     }
   }
   &__more {
