@@ -21,10 +21,11 @@ const ProjectStory = ({ className, project }) => {
         </Link>
       </div>
       <div
-        className={styles.story__description}
+        className={cn(styles.story__description, showMore && styles.story__showAll)}
         dangerouslySetInnerHTML={{
           __html: formatHtml(showMore ? project?.story : project?.story?.slice(0, 400), false),
-        }}></div>
+        }}
+      />
       {isMoreThan200 && (
         <div className={styles.story__more} onClick={() => setShowMore(!showMore)}>
           {showMore ? 'Hide text' : 'Read more ...'}
@@ -32,8 +33,10 @@ const ProjectStory = ({ className, project }) => {
       )}
       <div className={styles.story__genres}>
         Genres:
-        {project?.genres?.map((genre) => (
-          <div className={styles.story__genre}>{genre.name}</div>
+        {project?.genres?.map((genre, index) => (
+          <div key={genre._id + index} className={styles.story__genre}>
+            {genre.name}
+          </div>
         ))}
         <Link href={'/project/production/' + project._id + '?tab=settings#genres'}>
           <a>

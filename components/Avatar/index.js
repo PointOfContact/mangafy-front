@@ -26,7 +26,7 @@ const Avatar = ({ image, text, size, className, borderRadius }) => {
             color: '#fff',
             'font-size': size * 0.6 + 'px',
           }}>
-          {text[0]}
+          {text && text[0]}
         </AntAvatar>
       )}
     </div>
