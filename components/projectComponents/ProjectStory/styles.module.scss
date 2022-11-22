@@ -25,12 +25,21 @@
       }
     }
   }
-
   &__description {
     font-weight: 400;
     font-size: 15px;
+    & > p {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      word-break: normal;
+    }
   }
-
+  &__showAll {
+    & > p {
+      word-break: break-all;
+      text-overflow: clip;
+    }
+  }
   &__more {
     font-weight: 400;
     font-size: 15px;
