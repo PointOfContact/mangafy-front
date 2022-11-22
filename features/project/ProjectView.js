@@ -175,6 +175,8 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
     setAreCommentsOpened(true);
   }
 
+  const ifAdmin = user._id === project.author;
+
   return (
     <div className={styles.project}>
       <NextSeo
@@ -204,17 +206,19 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
       <div className={styles.project__container}>
         {project?.image && (
           <div className={styles.project__cover}>
-            <div className={styles.project__coverOverlay}>
-              <div className={styles.project__coverTitle}>Set Cover Image</div>
-              Optimal dimensions 3200x410px
-              <Link href={'/project/production/' + project?._id + '?tab=settings#cover'}>
-                <a>
-                  <Button md rounded>
-                    Set image
-                  </Button>
-                </a>
-              </Link>
-            </div>
+            {ifAdmin && (
+              <div className={styles.project__coverOverlay}>
+                <div className={styles.project__coverTitle}>Set Cover Image</div>
+                Optimal dimensions 3200x410px
+                <Link href={'/project/production/' + project?._id + '?tab=settings#cover'}>
+                  <a>
+                    <Button md rounded>
+                      Set image
+                    </Button>
+                  </a>
+                </Link>
+              </div>
+            )}
             <Imgix layout="fill" objectFit="cover" src={client.UPLOAD_URL + project?.image} />
           </div>
         )}

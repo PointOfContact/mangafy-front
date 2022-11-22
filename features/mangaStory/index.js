@@ -188,7 +188,7 @@ const MangeStory = (props) => {
           setBaseData(res);
         })
         .catch((err) => {
-          reject(err.message);
+          // reject(err.message);
           console.log(err);
           // openNotification('error', err.message);
         });
