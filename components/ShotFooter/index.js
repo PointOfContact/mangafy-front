@@ -36,12 +36,12 @@ const ShotFooter = ({
 
   return (
     <div name="footer" className={cn(styles.footer, className)}>
-      {shot.planId && (
+      {/* {shot.planId && (
         <PrimaryButton
           text="Suscribe"
           onClick={() => openPlanModal(cbInstance, shot.planId, shot._id, user?.customerId)}
         />
-      )}
+      )} */}
       <div className={styles.footer__container}>
         <div className={styles.footer__mobileComments} id="comments">
           <div className={styles.footer__mobileCommentsHeader}>Feedback</div>
