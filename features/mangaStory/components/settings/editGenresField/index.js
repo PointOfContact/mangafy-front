@@ -133,13 +133,12 @@ const EditGenresField = ({
       event_properties: { storyBoardId: baseData._id },
     };
     myAmplitude(data);
-
     const jwt = client.getCookie('feathers-jwt');
     client
       .service('/api/v2/manga-stories')
       .patch(
         baseData?._id,
-        { story: text, mangaStoryId: baseData.mangaStoryId },
+        { story: text, mangaStoryId: baseData._id },
         {
           headers: { Authorization: `Bearer ${jwt}` },
           mode: 'no-cors',
