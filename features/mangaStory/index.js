@@ -261,7 +261,7 @@ const MangeStory = (props) => {
       <>
         <div className={styles.workspaceLink}>
           <Link href={'/profile/' + user._id + '/projects'}>
-            <a className={styles.workspaceLink_link}>{'My projects'}</a>
+            <a className={styles.workspaceLink_link}>My projects</a>
           </Link>
           <span>&nbsp;/&nbsp;</span>
           <span>{baseData.title}</span>
