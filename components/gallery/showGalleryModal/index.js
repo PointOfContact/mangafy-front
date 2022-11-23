@@ -52,7 +52,7 @@ export const ShowGalleryModal = ({
   //   setIsLiked(image.likedUsers?.some((user) => user.likedUserId === user._id));
   // }, [image]);
 
-  const isLiked = image.likedUsers?.some((us) => us.likedUserId === user._id);
+  const isLiked = image.likedUsers?.some((us) => us.likedUserId === user?._id);
 
   const onLikeGallery = (galleryId, authorId, likedUserId) => {
     user

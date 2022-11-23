@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import styles from './styles.module.scss';
 
 const TabStory = (props) => {
-  const { user, profile, ifMyProfile, mangaStories, mangaStoriesMyProfile } = props;
+  const { user, profile, ifMyProfile, mangaStories, mangaStoriesMyProfile, openLoginModal } = props;
   return (
     <div className={styles.content_tab_profile_2}>
       <Gallery
@@ -19,6 +19,7 @@ const TabStory = (props) => {
           mangaStories,
           ifMyProfile,
           mangaStoriesMyProfile,
+          openLoginModal,
         }}
       />
       <SocialLinks
