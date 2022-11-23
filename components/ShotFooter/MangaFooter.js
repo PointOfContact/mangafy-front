@@ -16,6 +16,7 @@ import Edit from 'components/icon/new/Edit';
 import ShotAndMangaTitle from 'components/ShotAndMangaTitle';
 import PrimaryButton from 'components/ui-elements/button';
 import { useAppContext } from 'context';
+import { useRouter } from 'next/router';
 
 const MangaFooter = ({
   user,
@@ -37,6 +38,7 @@ const MangaFooter = ({
   setIsLoginModalVisible,
 }) => {
   const { cbInstance, openPlanModal } = useAppContext();
+  const router = useRouter();
 
   return (
     <div name="footer" className={cn(styles.footer, className)}>
@@ -47,7 +49,7 @@ const MangaFooter = ({
         />
       )}
       <div className={styles.footer__container}>
-        <div className={styles.footer__mobileComments}>
+        <div className={styles.footer__mobileComments} id={'comments'}>
           <div className={styles.footer__mobileCommentsHeader}>Feedback</div>
           <MangaComments manga={manga} comments={comments.data} createComment={createComment} />
         </div>
@@ -78,6 +80,19 @@ const MangaFooter = ({
               icon={<Comment color="#7B65F3" />}>
               {comments?.total || 0}
             </Button>
+            <Link href="#comments">
+              <a>
+                <Button
+                  className={styles.footer__commentButtonMobile}
+                  sm
+                  rounded
+                  outline
+                  iconRight
+                  icon={<Comment color="#7B65F3" />}>
+                  {comments?.total || 0}
+                </Button>
+              </a>
+            </Link>
             <Button
               sm
               rounded
