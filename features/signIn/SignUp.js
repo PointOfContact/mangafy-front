@@ -24,7 +24,10 @@ import client from 'api/client';
 
 const SignUp = () => {
   const router = useRouter();
-  const page = router.query.page || 'feed';
+  let page = router.query.page || '';
+  if (page.includes('sign-in') || page.includes('sign-up')) {
+    page = '';
+  }
   const inviteId = router.query.inviteId;
 
   const [name, setName] = useState('');

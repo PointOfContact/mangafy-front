@@ -20,7 +20,10 @@ import client from 'api/client';
 
 const SignIn = () => {
   const router = useRouter();
-  const page = router.query.page || 'feed';
+  let page = router.query.page || '';
+  if (page.includes('sign-in') || page.includes('sign-up')) {
+    page = '';
+  }
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
