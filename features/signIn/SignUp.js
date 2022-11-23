@@ -20,6 +20,7 @@ import { validateEmail, validatePassword, validateName } from 'helpers/shared';
 import Select from 'components/ui-new/Input/Select';
 import { userTypes } from 'helpers/constant';
 import Eye from 'components/icon/new/Eye';
+import EyeClosed from 'components/icon/new/EyeClosed';
 import client from 'api/client';
 
 const SignUp = () => {
@@ -190,11 +191,11 @@ const SignUp = () => {
                 pink
                 full
                 rounded
-                type={showPassword ? 'password' : 'text'}
+                type={showPassword ? 'text' : 'password'}
                 placeholder="Password"
               />
               <div className={styles.loginPage__showPassword} onClick={handleShowPasswordClick}>
-                <Eye />
+                {showPassword ? <EyeClosed className={styles.loginPage__closedEye} /> : <Eye />}
               </div>
             </div>
             <Button loading={loading} pink full rounded>
