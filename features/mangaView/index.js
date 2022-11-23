@@ -60,7 +60,7 @@ const MangaView = ({
   const chapterImg = chapter?.chapterImg;
 
   const alreadyLikedChapter = () => {
-    const userId = !!user ? user._id : deviceId;
+    const userId = !!user ? user?._id : deviceId;
     const liked = chapter?.likedUsers?.some((value) => value === userId);
 
     if (liked) {
@@ -148,7 +148,7 @@ const MangaView = ({
   };
 
   const returnLikedData = () => {
-    const userId = !!user ? user._id : deviceId;
+    const userId = !!user ? user?._id : deviceId;
     const data = {
       ownerId: userData[0]._id,
       chapterId: chapter?._id,

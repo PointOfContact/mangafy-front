@@ -27,14 +27,14 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
           $limit: 1000,
         },
       });
-      isParticipant = user && res.participents.some((value) => value._id === user._id);
+      isParticipant = user && res.participents.some((value) => value._id === user?._id);
       if (isParticipant) {
         storyBoard = await client.service('/api/v2/story-boards').find({
           query: {
             mangaStoryId: res._id,
           },
         });
-        hasStoryBoardPermision = storyBoard?.data[0].permittedUsers.includes(user._id);
+        hasStoryBoardPermision = storyBoard?.data[0].permittedUsers.includes(user?._id);
       }
     }
 
@@ -47,7 +47,7 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
         requests: requests.data,
         pid: context.params.pid,
         comments: comments.data,
-        isOwn: user && user._id === res.authorInfo._id,
+        isOwn: user && user?._id === res.authorInfo._id,
         isParticipant,
         hasStoryBoardPermision,
         storyBoard,

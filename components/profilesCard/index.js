@@ -21,7 +21,7 @@ const ProfilesCard = ({ user, genres }) => {
     return <></>;
   }
   return (
-    <Link href={`/profile/${user._id}`}>
+    <Link href={`/profile/${user?._id}`}>
       <a className={styles.colabWrap__item}>
         <div className={styles.colabWrap__top}>
           <div className={cn(styles.avatar__img, styles.avatar__imgOnline)}>

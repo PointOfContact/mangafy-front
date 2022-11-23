@@ -258,8 +258,8 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
           dataSource={messageList}
           onClick={(messData, index, e) => {
             if (e.target.classList.contains('rce-avatar')) {
-              if (messData.senderId === user._id) {
-                Router.push(`/profile/${user._id}`);
+              if (messData.senderId === user?._id) {
+                Router.push(`/profile/${user?._id}`);
               } else {
                 Router.push(`/profile/${messData.senderId}`);
               }
@@ -284,8 +284,7 @@ const MessengerContent = ({ user, selectedRequest, setSelectedRequest, requests,
             className={styles.sendButton}
             onClick={() => {
               sendMessage(false);
-            }}
-          >
+            }}>
             <Send color={'#8E8E93'} />
           </button>
         </div>

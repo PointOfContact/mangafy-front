@@ -49,13 +49,13 @@ const Follow = ({ count, user, profile, likedUsers, setLikedUsers, openLoginModa
             event_type: EVENTS.FOLLOW_ACCOUNT,
             event_properties: {
               profileId: profile._id,
-              likedUsers: [...likedUsers, user._id],
+              likedUsers: [...likedUsers, user?._id],
               userId: user.id,
               userData: user,
             },
           };
           myAmplitude(data);
-          setLikedUsers([...likedUsers, user._id]);
+          setLikedUsers([...likedUsers, user?._id]);
         })
         .catch((err) => {
           notification.error({
@@ -73,13 +73,13 @@ const Follow = ({ count, user, profile, likedUsers, setLikedUsers, openLoginModa
     if (user) {
       unFollowUser(profile._id)
         .then(() => {
-          const newLikedUsers = likedUsers.filter((item) => item !== user._id);
+          const newLikedUsers = likedUsers.filter((item) => item !== user?._id);
           const data = {
             event_type: EVENTS.UNFOLLOW_ACCOUNT,
             event_properties: {
               profileId: profile._id,
-              likedUsers: [...likedUsers, user._id],
-              userId: user.id,
+              likedUsers: [...likedUsers, user?._id],
+              userId: user?.id,
               userData: user,
             },
           };
@@ -112,7 +112,7 @@ const Follow = ({ count, user, profile, likedUsers, setLikedUsers, openLoginModa
     e.preventDefault();
     if (user?._id && profile?._id && !isMe) {
       document.querySelectorAll(`.${styles.paw_button}`).forEach((elem) => {
-        if (likedUsers.includes(user._id)) {
+        if (likedUsers.includes(user?._id)) {
           onUnFollowUser();
           elem.classList.remove(styles.animation, styles.liked, styles.confetti);
         } else {

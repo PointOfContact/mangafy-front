@@ -79,7 +79,7 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
         isInvite: true,
         joinAs,
         senderId: profile._id,
-        userId: user._id,
+        userId: user?._id,
         text,
         taskId: task,
         setLoading,
@@ -91,7 +91,7 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
           event_properties: {
             mangaStoryId: story,
             profileId: profile._id,
-            userId: user._id,
+            userId: user?._id,
             text,
             joinAs,
             taskId: task,
@@ -129,8 +129,7 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
       visible={showModal}
       closeIcon={<SvgClose height="18px" width="18px" />}
       okText="Send"
-      onCancel={handleCancel}
-    >
+      onCancel={handleCancel}>
       <div className="container send_invite">
         <div className="row">
           <div className="col-lg-12 select_modal">
@@ -143,8 +142,7 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
                 story,
                 task,
                 text,
-              }}
-            >
+              }}>
               <h2>Join as</h2>
               <Form.Item
                 hasFeedback
@@ -154,8 +152,7 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
                     required: true,
                     message: 'Genre is required',
                   },
-                ]}
-              >
+                ]}>
                 <PrimarySelect
                   showSearch
                   className={styles.modalSelect}
@@ -173,8 +170,7 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
                     required: true,
                     message: 'Story is required',
                   },
-                ]}
-              >
+                ]}>
                 <PrimarySelect
                   showSearch
                   className={styles.modalSelect}
@@ -207,8 +203,7 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
                       required: true,
                       message: 'Text is required',
                     },
-                  ]}
-                >
+                  ]}>
                   <TextArea
                     placeholder="Please write a personal message to the team leader explaining why you are a good fit"
                     value={text}

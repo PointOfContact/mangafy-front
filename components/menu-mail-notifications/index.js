@@ -51,7 +51,7 @@ const MenuMailNotification = ({ user }) => {
   const changeMailNotification = (type) => {
     if (!user) return;
     setMailNotification(
-      user._id,
+      user?._id,
       type,
       () => {
         setSelectedItem(type);
@@ -70,8 +70,7 @@ const MenuMailNotification = ({ user }) => {
           className={cn(styles.dropItem, selectedItem === item.key && styles.selectId)}
           onClick={() => {
             changeMailNotification(item.key);
-          }}
-        >
+          }}>
           <p>{item.value}</p>
           <span>
             <SvgWhiteChecked width="25px" height="25px" />
@@ -97,8 +96,7 @@ const MenuMailNotification = ({ user }) => {
         placement="top"
         content={content}
         trigger="click"
-        overlayClassName={'mailNotificationSettingsPopover'}
-      >
+        overlayClassName={'mailNotificationSettingsPopover'}>
         <div className={styles.title}>Change the frequency of email alerts</div>
       </Popover>
     </>
