@@ -85,7 +85,7 @@ const CreateStoryStepper = ({ genres, path, user, query, jwt }) => {
         localStorage.removeItem('newStoryInfo');
         // Get storyBoard
         findStoryBoard(
-          user._id,
+          user?._id,
           createdStory._id,
           (storyBoard) => {
             // Then publish first chapter

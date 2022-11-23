@@ -145,7 +145,7 @@ const API = {
           })
           .then((res) => {
             setParticipantsData(res.participentsInfo);
-            if (participantId === user._id) {
+            if (participantId === user?._id) {
               history.push(`/collaborations`);
             } else {
               setBaseData(res);

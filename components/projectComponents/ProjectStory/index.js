@@ -9,14 +9,14 @@ import Edit2 from 'components/icon/new/Edit2';
 const ProjectStory = ({ className, project, user }) => {
   const isMoreThan200 = project?.story?.length > 200;
   const [showMore, setShowMore] = useState(false);
-  const ifAdmin = user._id === project.author;
+  const ifAdmin = user?._id === project.author;
 
   return (
     <div className={cn(className, styles.story)}>
       <div className={styles.story__title}>
         {project?.title}
         {ifAdmin && (
-          <Link href={'/project/production/' + project._id + '?tab=settings#basics'}>
+          <Link href={'/project/production/' + project?._id + '?tab=settings#basics'}>
             <a>
               <Edit2 />
             </a>
@@ -41,11 +41,13 @@ const ProjectStory = ({ className, project, user }) => {
             {genre.name}
           </div>
         ))}
-        <Link href={'/project/production/' + project._id + '?tab=settings#genres'}>
-          <a>
-            <Edit2 />
-          </a>
-        </Link>
+        {ifAdmin && (
+          <Link href={'/project/production/' + project?._id + '?tab=settings#genres'}>
+            <a>
+              <Edit2 />
+            </a>
+          </Link>
+        )}
       </div>
     </div>
   );

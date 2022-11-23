@@ -119,7 +119,7 @@ const EditSocial = ({ user, socialLinks, setSocialLinks, setUserData }) => {
     import('../../../api/restClient').then((m) => {
       m.default
         .service('/api/v2/users')
-        .patch(user._id, data, {
+        .patch(user?._id, data, {
           headers: { Authorization: `Bearer ${jwt}` },
           mode: 'no-cors',
         })
@@ -148,8 +148,7 @@ const EditSocial = ({ user, socialLinks, setSocialLinks, setUserData }) => {
         webtoons: getSocialLink('webtoons'),
         tapas: getSocialLink('tapas'),
         youtube: getSocialLink('youtube'),
-      }}
-    >
+      }}>
       <div className={styles.edit_social_content}>
         <ItemSocialLinks
           status={dribbbleStatus}
@@ -157,8 +156,7 @@ const EditSocial = ({ user, socialLinks, setSocialLinks, setUserData }) => {
           name={'dribbble'}
           urlName={'dribbble.com'}
           getSocialLink={getSocialLink}
-          updateSocialLink={updateSocialLink}
-        >
+          updateSocialLink={updateSocialLink}>
           <SvgBlackDribbble width="21px" height="21px" />
         </ItemSocialLinks>
         <ItemSocialLinks
@@ -167,8 +165,7 @@ const EditSocial = ({ user, socialLinks, setSocialLinks, setUserData }) => {
           name={'behance'}
           urlName={'behance.net'}
           getSocialLink={getSocialLink}
-          updateSocialLink={updateSocialLink}
-        >
+          updateSocialLink={updateSocialLink}>
           <SvgBlackBehance width="21px" height="21px" />
         </ItemSocialLinks>
         <ItemSocialLinks
@@ -177,8 +174,7 @@ const EditSocial = ({ user, socialLinks, setSocialLinks, setUserData }) => {
           name={'deviantart'}
           urlName={'deviantart.com'}
           getSocialLink={getSocialLink}
-          updateSocialLink={updateSocialLink}
-        >
+          updateSocialLink={updateSocialLink}>
           <SvgBlackDeviantart width="21px" height="21px" />
         </ItemSocialLinks>
         <ItemSocialLinks
@@ -187,8 +183,7 @@ const EditSocial = ({ user, socialLinks, setSocialLinks, setUserData }) => {
           name={'facebook'}
           urlName={'facebook.com'}
           getSocialLink={getSocialLink}
-          updateSocialLink={updateSocialLink}
-        >
+          updateSocialLink={updateSocialLink}>
           <SvgBlackFacebook width="21px" height="21px" />
         </ItemSocialLinks>
         <ItemSocialLinks
@@ -197,8 +192,7 @@ const EditSocial = ({ user, socialLinks, setSocialLinks, setUserData }) => {
           name={'twitter'}
           urlName={'twitter.com'}
           getSocialLink={getSocialLink}
-          updateSocialLink={updateSocialLink}
-        >
+          updateSocialLink={updateSocialLink}>
           <SvgBlackTwitter width="21px" height="21px" />
         </ItemSocialLinks>
         <ItemSocialLinks
@@ -207,8 +201,7 @@ const EditSocial = ({ user, socialLinks, setSocialLinks, setUserData }) => {
           name={'instagram'}
           urlName={'instagram.com'}
           getSocialLink={getSocialLink}
-          updateSocialLink={updateSocialLink}
-        >
+          updateSocialLink={updateSocialLink}>
           <SvgBlackInstagram width="21px" height="21px" />
         </ItemSocialLinks>
         <ItemSocialLinks
@@ -217,8 +210,7 @@ const EditSocial = ({ user, socialLinks, setSocialLinks, setUserData }) => {
           name={'patreon'}
           urlName={'patreon.com'}
           getSocialLink={getSocialLink}
-          updateSocialLink={updateSocialLink}
-        >
+          updateSocialLink={updateSocialLink}>
           <SvgBlackPatreon width="21px" height="21px" />
         </ItemSocialLinks>
         <ItemSocialLinks
@@ -227,8 +219,7 @@ const EditSocial = ({ user, socialLinks, setSocialLinks, setUserData }) => {
           name={'webtoons'}
           urlName={'webtoons.com'}
           getSocialLink={getSocialLink}
-          updateSocialLink={updateSocialLink}
-        >
+          updateSocialLink={updateSocialLink}>
           <SvgBlackWebtoon width="21px" height="21px" />
         </ItemSocialLinks>
         <ItemSocialLinks
@@ -237,8 +228,7 @@ const EditSocial = ({ user, socialLinks, setSocialLinks, setUserData }) => {
           name={'tiktok'}
           urlName={'tiktok.com'}
           getSocialLink={getSocialLink}
-          updateSocialLink={updateSocialLink}
-        >
+          updateSocialLink={updateSocialLink}>
           <SvgBlackTiktok width="21px" height="21px" />
         </ItemSocialLinks>
         <ItemSocialLinks
@@ -247,8 +237,7 @@ const EditSocial = ({ user, socialLinks, setSocialLinks, setUserData }) => {
           name={'tapas'}
           urlName={'tapas.io'}
           getSocialLink={getSocialLink}
-          updateSocialLink={updateSocialLink}
-        >
+          updateSocialLink={updateSocialLink}>
           <SvgBlackTapas width="21px" height="21px" />
         </ItemSocialLinks>
         <ItemSocialLinks
@@ -257,8 +246,7 @@ const EditSocial = ({ user, socialLinks, setSocialLinks, setUserData }) => {
           name={'youtube'}
           urlName={'youtube.com'}
           getSocialLink={getSocialLink}
-          updateSocialLink={updateSocialLink}
-        >
+          updateSocialLink={updateSocialLink}>
           <SvgYoutube width="21px" height="21px" />
         </ItemSocialLinks>
       </div>

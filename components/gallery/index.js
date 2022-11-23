@@ -41,7 +41,7 @@ export const Gallery = (props) => {
     canEditInit = false;
   } else if (!profile && user) {
     canEditInit = true;
-  } else if (profile._id === user._id) {
+  } else if (profile._id === user?._id) {
     canEditInit = true;
   }
 
@@ -230,8 +230,7 @@ export const Gallery = (props) => {
               onClick={() => {
                 setCreateGalleryModal(true);
                 setIsModalVisible(true);
-              }}
-            >
+              }}>
               <AddButton width="25px" height="25px" text={'Add a work'} />
             </span>
           </Col>

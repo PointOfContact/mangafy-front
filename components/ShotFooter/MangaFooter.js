@@ -40,12 +40,12 @@ const MangaFooter = ({
 
   return (
     <div name="footer" className={cn(styles.footer, className)}>
-      {chapter.planId && (
+      {/* {chapter.planId && (
         <PrimaryButton
           text="Suscribe"
           onClick={() => openPlanModal(cbInstance, chapter.planId, chapter._id, user?.customerId)}
         />
-      )}
+      )} */}
       <div className={styles.footer__container}>
         <div className={styles.footer__mobileComments}>
           <div className={styles.footer__mobileCommentsHeader}>Feedback</div>

@@ -43,7 +43,7 @@ const ProjectChapters = ({
       return;
     }
 
-    likeChapter(project.author, chapterId, user._id, project.participents, isLiked(chapter))
+    likeChapter(project.author, chapterId, user?._id, project.participents, isLiked(chapter))
       .then((res) => {
         updateProjectInfo();
         const eventData = [

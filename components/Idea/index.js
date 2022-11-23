@@ -24,7 +24,7 @@ const Idea = ({ storyBoard, user }) => {
   const savePlotDebounced = useCallback(AwesomeDebouncePromise(savePlot, 600), [storyBoard, user]);
 
   const handleTextChange = async (plot) => {
-    if (storyBoard._id && user._id) {
+    if (storyBoard._id && user?._id) {
       setIdea(plot);
       setSavingStatus('saving');
       await savePlotDebounced(plot);
@@ -70,8 +70,7 @@ const Idea = ({ storyBoard, user }) => {
           savingStatus === 'saved' && styles.savingStatus_green,
           savingStatus === 'saving' && styles.savingStatus_yellow,
           savingStatus === 'ooops, something went wrong' && styles.savingStatus_red
-        )}
-      >
+        )}>
         {savingStatus}
       </div>
       <TextEditor
