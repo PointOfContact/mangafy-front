@@ -69,7 +69,7 @@ const EditPostItems = ({
     });
   };
 
-  const editPostItems = user && userId && user._id === userId && (
+  const editPostItems = user && userId && user?._id === userId && (
     <div className={styles.editPost}>
       <p className={styles.editPostItems} onClick={editPost}>
         <SvgEdit width="15" height="15" />
@@ -108,8 +108,7 @@ const EditPostItems = ({
                 setShowShareIcon(true);
                 changeRouter &&
                   Router.push(`/feed?postId=${id}`, undefined, { scroll: false, shallow: false });
-              }}
-            >
+              }}>
               <SvgShare width="15" height="15" />
               Share
             </li>
@@ -128,8 +127,7 @@ const EditPostItems = ({
             )}
           </ul>
         }
-        trigger="click"
-      >
+        trigger="click">
         <span className={cn(styles.shareUrl, className)} onClick={() => setVisibleSettings(true)}>
           ...
         </span>

@@ -63,7 +63,7 @@ const PublishedCard = ({ card, user }) => {
     const data = {
       ownerId: card?.authorInfo?._id,
       chapterId: card?._id,
-      likedUserId: user._id,
+      likedUserId: user?._id,
       participants: [card?.authorInfo],
     };
     if (isLiked) {

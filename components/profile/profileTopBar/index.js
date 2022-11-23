@@ -109,7 +109,7 @@ const ProfileTopBar = (props) => {
               },
             ];
             myAmplitude(data);
-            history.push(`/profile/${user._id}?tab=messenger&conversation=${res._id}`);
+            history.push(`/profile/${user?._id}?tab=messenger&conversation=${res._id}`);
           })
           .catch((err) => {
             openNotification('error', err.message);
@@ -128,7 +128,7 @@ const ProfileTopBar = (props) => {
           .service('/api/v2/conversations')
           .find({
             query: {
-              $and: [{ participents: user._id }, { participents: profile._id }],
+              $and: [{ participents: user?._id }, { participents: profile._id }],
             },
             headers: { Authorization: `Bearer ${jwt}` },
           })
@@ -137,7 +137,7 @@ const ProfileTopBar = (props) => {
               (item) => !item.joinMangaStoryRequestId && !item.mangaStoryId
             );
             if (conv) {
-              history.push(`/profile/${user._id}?tab=messenger&conversation=${conv._id}`);
+              history.push(`/profile/${user?._id}?tab=messenger&conversation=${conv._id}`);
             } else {
               createConversation();
             }

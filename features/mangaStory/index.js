@@ -247,7 +247,7 @@ const MangeStory = (props) => {
   const slot = isOwn && {
     left: (
       <div className={styles.workspaceLink}>
-        <Link href={'/profile/' + user._id}>
+        <Link href={'/profile/' + user?._id}>
           <a className={styles.workspaceLink_link}>{'My workspace'}</a>
         </Link>
         <span>{' / '}</span>

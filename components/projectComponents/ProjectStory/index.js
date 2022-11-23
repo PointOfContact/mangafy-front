@@ -16,7 +16,7 @@ const ProjectStory = ({ className, project, user }) => {
       <div className={styles.story__title}>
         {project?.title}
         {ifAdmin && (
-          <Link href={'/project/production/' + project._id + '?tab=settings#basics'}>
+          <Link href={'/project/production/' + project?._id + '?tab=settings#basics'}>
             <a>
               <Edit2 />
             </a>
@@ -42,7 +42,7 @@ const ProjectStory = ({ className, project, user }) => {
           </div>
         ))}
         {ifAdmin && (
-          <Link href={'/project/production/' + project._id + '?tab=settings#genres'}>
+          <Link href={'/project/production/' + project?._id + '?tab=settings#genres'}>
             <a>
               <Edit2 />
             </a>

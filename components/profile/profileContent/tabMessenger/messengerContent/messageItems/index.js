@@ -14,8 +14,7 @@ const messageItems = (data, participants, setRequestStatus, user, setMessageItem
   const joinMangaStoryRequest = (item, text, type, className) =>
     item.joinMangaStoryRequest[0].status === type && (
       <span
-        className={cn(styles.status, item.joinMangaStoryRequest[0].status === type && className)}
-      >
+        className={cn(styles.status, item.joinMangaStoryRequest[0].status === type && className)}>
         {text}
       </span>
     );
@@ -59,10 +58,10 @@ const messageItems = (data, participants, setRequestStatus, user, setMessageItem
     } else {
       avatar = `https://ui-avatars.com/api/?background=9A87FE&name=${part?.name}&rounded=true&color=ffffff`;
     }
-    item.position = user._id === item.senderId ? 'right' : 'left';
+    item.position = user?._id === item.senderId ? 'right' : 'left';
     item.type = 'text';
     item.notch = false;
-    item.title = user._id === item.senderId ? null : part?.name;
+    item.title = user?._id === item.senderId ? null : part?.name;
     // eslint-disable-next-line no-nested-ternary
     item.text = item.joinMangaStoryRequest?.length ? (
       <div className={styles.name}>
@@ -77,8 +76,7 @@ const messageItems = (data, participants, setRequestStatus, user, setMessageItem
           className={cn(styles.messText, !item.status[0]?.read && 'unreadMessage')}
           dangerouslySetInnerHTML={{
             __html: item.content,
-          }}
-        ></div>
+          }}></div>
         <div className={styles.statusContainer}>
           {item.joinMangaStoryRequest[0].status === 'new' && (
             <span className={styles.status}> Pending invite </span>
@@ -86,9 +84,9 @@ const messageItems = (data, participants, setRequestStatus, user, setMessageItem
           {joinMangaStoryRequest(item, 'Accepted', 'accepted', styles.request_status_acp)}
           {joinMangaStoryRequest(item, 'Rejected', 'rejected', styles.request_status_rej)}
           {item.joinMangaStoryRequest[0].status === 'new' &&
-            ((user._id === item.joinMangaStoryRequest[0].mangaStory?.author &&
+            ((user?._id === item.joinMangaStoryRequest[0].mangaStory?.author &&
               !item.joinMangaStoryRequest[0].isInvite) ||
-              (user._id === item.joinMangaStoryRequest[0].senderId &&
+              (user?._id === item.joinMangaStoryRequest[0].senderId &&
                 item.joinMangaStoryRequest[0].isInvite)) && (
               <div className={cn(styles.div_button, 'buttonsProfile_styles')}>
                 <PrimaryButton
@@ -124,12 +122,11 @@ const messageItems = (data, participants, setRequestStatus, user, setMessageItem
         className={cn(styles.messText, !item.status[0]?.read && 'unreadMessage')}
         dangerouslySetInnerHTML={{
           __html: item.content,
-        }}
-      ></div>
+        }}></div>
     );
     const date = item.createdAt;
     item.dateString = myformat(date);
-    item.avatar = user._id === item.senderId ? null : avatar;
+    item.avatar = user?._id === item.senderId ? null : avatar;
   });
   return data.reverse();
 };

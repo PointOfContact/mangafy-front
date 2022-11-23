@@ -71,8 +71,7 @@ const Editor = ({ onSubmit, submitting, user, postId }) => {
       onFinish={(e) => {
         form.resetFields();
         onSubmit(e.comment);
-      }}
-    >
+      }}>
       <div className={styles.inputContainer}>
         <GrammarlyEditorPlugin clientId={`${process.env.NEXT_PUBLIC_GRAMMARLY_ID}`}>
           <Form.Item
@@ -87,8 +86,7 @@ const Editor = ({ onSubmit, submitting, user, postId }) => {
                 },
                 message: 'Length must be at least 2 characters long',
               },
-            ]}
-          >
+            ]}>
             <TextArea placeholder="Comment" autoSize={{ minRows: 1, maxRows: 7 }} />
           </Form.Item>
         </GrammarlyEditorPlugin>
@@ -169,7 +167,7 @@ export const Comments = ({ commentsData, postId, user, setCommentsData }) => {
           }
         )
         .then((res) => {
-          res.authorInfo = { _id: user._id, name: user.name, avatar: user.avatar };
+          res.authorInfo = { _id: user?._id, name: user.name, avatar: user.avatar };
           res.datetime = moment().format('MMMM Do YYYY, h:mm:ss a');
           const newCommentsData = [...comments, { ...res }];
           setCommentsData(newCommentsData);
