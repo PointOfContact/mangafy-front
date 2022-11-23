@@ -48,7 +48,7 @@ const Compensation = ({ user }) => {
       },
     };
     if (user) {
-      data.user_id = user._id;
+      data.user_id = user?._id;
       data.user_properties = user;
     } else {
       data.device_id = uuidv4();
@@ -141,8 +141,7 @@ const Compensation = ({ user }) => {
                           type="primary"
                           className="title_but"
                           loading={loadings[0]}
-                          onClick={() => enterLoading(0)}
-                        >
+                          onClick={() => enterLoading(0)}>
                           <span>Next</span>
                           <SvgRightArrow width="13.503px" height="23.619px" />
                         </Button>

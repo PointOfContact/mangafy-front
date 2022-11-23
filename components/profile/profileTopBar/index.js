@@ -108,7 +108,7 @@ const ProfileTopBar = (props) => {
               },
             ];
             myAmplitude(data);
-            history.push(`/profile/${user._id}?tab=messenger&conversation=${res._id}`);
+            history.push(`/profile/${user?._id}?tab=messenger&conversation=${res._id}`);
           })
           .catch((err) => {
             openNotification('error', err.message);
@@ -127,7 +127,7 @@ const ProfileTopBar = (props) => {
           .service('/api/v2/conversations')
           .find({
             query: {
-              $and: [{ participents: user._id }, { participents: profile._id }],
+              $and: [{ participents: user?._id }, { participents: profile._id }],
             },
             headers: { Authorization: `Bearer ${jwt}` },
           })
@@ -136,7 +136,7 @@ const ProfileTopBar = (props) => {
               (item) => !item.joinMangaStoryRequestId && !item.mangaStoryId
             );
             if (conv) {
-              history.push(`/profile/${user._id}?tab=messenger&conversation=${conv._id}`);
+              history.push(`/profile/${user?._id}?tab=messenger&conversation=${conv._id}`);
             } else {
               createConversation();
             }
@@ -291,8 +291,7 @@ const ProfileTopBar = (props) => {
                     value={userData.types}
                     dropdownMatchSelectWidth={false}
                     style={{ width: '100%' }}
-                    onChange={(value) => setUserData({ ...userData, types: value })}
-                  >
+                    onChange={(value) => setUserData({ ...userData, types: value })}>
                     {userTypesOptions}
                   </Select>
                   {!(userData?.types?.length && userData?.types[0]) ? (
@@ -306,8 +305,7 @@ const ProfileTopBar = (props) => {
                       event_type: EVENTS.DELETE_ACCOUNT,
                     };
                     myAmplitude(event);
-                  }}
-                >
+                  }}>
                   <a>
                     <div className={styles.deleteAccount}>
                       <SvgDustbin width="20px" height="20px" />

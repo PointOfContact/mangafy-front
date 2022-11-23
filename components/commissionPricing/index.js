@@ -21,7 +21,7 @@ export const CommissionPricing = ({ id, user }) => {
   const [inputValue, setInputValue] = useState(true);
   const [addMore, setAddMore] = useState(false);
   const ifMyProfile = id === user?._id;
-  const canEdit = !user ? false : id === user._id;
+  const canEdit = !user ? false : id === user?._id;
 
   const getPricing = () => {
     const jwt = client.getCookie('feathers-jwt');
@@ -192,8 +192,7 @@ export const CommissionPricing = ({ id, user }) => {
                       position: 'relative',
                       marginBottom: 15,
                     }}
-                    align="start"
-                  >
+                    align="start">
                     <span className={styles.grupe}>
                       <Input
                         disabled={!ifMyProfile}

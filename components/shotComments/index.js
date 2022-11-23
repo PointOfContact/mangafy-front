@@ -59,7 +59,7 @@ const ShotComments = ({ shotId, user, onUpload, className }) => {
         {
           portfolioId: shotId,
           content: newComment,
-          senderId: user._id,
+          senderId: user?._id,
         },
         {
           headers: { Authorization: `Bearer ${jwt}` },

@@ -9,7 +9,7 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
   try {
     const profile = await client.service('/api/v2/users').get(context.params.pid);
 
-    if (profile._id !== user._id) {
+    if (profile._id !== user?._id) {
       context.res.writeHead(302, {
         Location: '/profile/' + profile._id,
       });

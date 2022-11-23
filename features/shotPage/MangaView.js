@@ -120,7 +120,7 @@ const MangaView = ({
     const data = {
       ownerId: authors[0]._id,
       chapterId: chapter?._id,
-      likedUserId: user._id,
+      likedUserId: user?._id,
       participants: manga?.participants,
     };
 

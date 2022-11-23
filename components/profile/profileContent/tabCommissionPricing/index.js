@@ -11,7 +11,7 @@ const TabCommissionPricing = (props) => {
   return (
     <div className={styles.content_tab_profile_3}>
       <h3 className={styles.content_tab_profile_3__title}>Commission list</h3>
-      {user && user._id === profile?._id && (
+      {user && user?._id === profile?._id && (
         <p className={styles.content_tab_profile_3__sub_title}>
           You can manage your commission list by adding a description and price
         </p>
