@@ -23,6 +23,7 @@ import SvgLeftArrow from 'components/icon/LeftArrow';
 import reactImageSize from 'react-image-size';
 import ChangeViewTab from './changeViewTab';
 import { NextSeo } from 'next-seo';
+import { SignInModal } from 'components/modals/SignInModal';
 
 const MangaView = ({
   user,
@@ -47,10 +48,15 @@ const MangaView = ({
 
   const [areCommentsOpened, setAreCommentsOpened] = useState(false);
   function toggleComments() {
+    if (!user) {
+      setIsLoginModalVisible(true);
+      return;
+    }
     setAreCommentsOpened(!areCommentsOpened);
   }
 
   const [isShareModalOpened, setIsShareModalOpened] = useState(false);
+  const [isLoginModalVisible, setIsLoginModalVisible] = useState(false);
 
   async function updateMangaInfo() {
     const newManga = await client.service(`/api/v2/manga-view`).get(manga?.id, {
@@ -110,10 +116,7 @@ const MangaView = ({
 
   function like() {
     if (!user) {
-      notification.error({
-        message: 'Error',
-        description: 'You need to be logged in to like this shot',
-      });
+      setIsLoginModalVisible(true);
       return;
     }
 
@@ -163,10 +166,7 @@ const MangaView = ({
 
   function subscribe(authorId) {
     if (!user) {
-      notification.error({
-        placement: 'bottomLeft',
-        message: 'You need to be logged in to follow a user',
-      });
+      setIsLoginModalVisible(true);
     }
     if (!authors[0].isFollowed) {
       followUser(authorId)
@@ -206,10 +206,7 @@ const MangaView = ({
 
   function createCommentChapter(text) {
     if (!user) {
-      notification.error({
-        message: 'You need to be logged in to comment',
-        placement: 'bottomLeft',
-      });
+      setIsLoginModalVisible(true);
       return;
     }
     createChapterComment(text, chapter?._id, user?._id)
@@ -274,6 +271,7 @@ const MangaView = ({
           createComment={createCommentChapter}
           chapter={chapter}
           isParticipant={isParticipant}
+          setIsLoginModalVisible={setIsLoginModalVisible}
         />
         <MangaHeader
           user={user}
@@ -321,8 +319,14 @@ const MangaView = ({
             client.API_ENDPOINT + '/project/view/' + manga?.id + '?ongoing=' + activeChapterIndex
           }
           createComment={createCommentChapter}
+          setIsLoginModalVisible={setIsLoginModalVisible}
         />
         <MangaSlider manga={manga} activeChapterIndex={activeChapterIndex} />
+        <SignInModal
+          page={'/project/view/' + manga?.id}
+          title="Sign in"
+          visible={isLoginModalVisible}
+          setVisible={setIsLoginModalVisible}></SignInModal>
       </div>
     </>
   );

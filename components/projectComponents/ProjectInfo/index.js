@@ -43,7 +43,7 @@ const ProjectInfo = ({
           <div className={styles.rate__title}>status</div>
         </div>
       </div>
-      <ProjectStory className={styles.info__story} project={project} />
+      <ProjectStory className={styles.info__story} project={project} user={user} />
       <SubscribeField
         openPledgeModal={() => setIsPledgeModalOpen(true)}
         payPalEmail={project?.authorInfo?.payPalEmail}

@@ -41,6 +41,37 @@
         width: 100%;
         margin-bottom: 15px;
         position: relative;
+
+        &Overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.473);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            opacity: 0;
+            transition: 0.2s;
+            color: #fff;
+            &:visited {
+                color: #fff;
+            }
+            font-size: 16px;
+            svg {
+                height: 20px;
+                margin-left: 5px;
+            }
+        }
+
+        &:hover {
+            .openedProject__coverOverlay {
+                opacity: 1;
+            }
+        }
     }
 
     &__noImage {
@@ -95,6 +126,22 @@
         font-weight: 700;
         font-size: 20px;
         margin-bottom: 5px;
+        word-wrap: break-word;
+    }
+
+    &__titleEdit {
+        display: inline-block;
+        margin-left: 10px;
+        cursor: pointer;
+        opacity: 0.6;
+        transition: 0.2s;
+        > svg {
+            height: 20px;
+        }
+
+        &:hover {
+            opacity: 1;
+        }
     }
 
     &__projectSubtitle {
@@ -107,12 +154,15 @@
     &__projectDescription {
         font-weight: 400;
         font-size: 16px;
+        word-wrap: break-word;
     }
 
     &__tags {
         display: flex;
         align-items: center;
         flex-wrap: wrap;
+        font-weight: 400;
+        font-size: 16px;
 
         *:not(:last-child) {
             margin-right: 5px;
@@ -132,6 +182,9 @@
             margin-bottom: 10px;
         }
         margin-bottom: 30px;
+        button {
+            margin-top: 10px;
+        }
     }
 
     &__member {
@@ -222,6 +275,17 @@
             top: 102px;
             left: auto;
             right: 20px;
+        }
+    }
+
+    &__editLink {
+        color: $primaryDark;
+        font-weight: 400;
+        font-size: 16px;
+
+        &:hover {
+            color: $primaryDark;
+            text-decoration: underline;
         }
     }
 

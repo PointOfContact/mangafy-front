@@ -11,7 +11,7 @@ import PrimaryButton from 'components/ui-elements/button';
 import HeroUpload from 'components/ui-elements/heroUpload';
 import PrimaryInput from 'components/ui-elements/input';
 import TextEditor from 'components/ui-elements/text-editor';
-import mangaStoryAPI from 'features/mangaStory/mangaStoryAPI';
+import mangaStoryClient from 'api/mangaStoryClient';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
@@ -117,7 +117,7 @@ const ModalCreatePage = ({
 
     if (ifEdit) {
       delete data.storyBoard;
-      mangaStoryAPI.pages.patchPage(
+      mangaStoryClient.pages.patchPage(
         chapterItem?.index,
         pageItem,
         chapters,
@@ -130,7 +130,7 @@ const ModalCreatePage = ({
     } else {
       const orderNumber = pagesArray[pagesArray.length - 1]?.order + 1 || 1;
       data.order = orderNumber;
-      return mangaStoryAPI.pages.createPage(
+      return mangaStoryClient.pages.createPage(
         chapterItem?.index,
         chapters,
         setChapters,
@@ -141,7 +141,7 @@ const ModalCreatePage = ({
   };
 
   const confirmDelete = () => {
-    mangaStoryAPI.pages.deletePage(
+    mangaStoryClient.pages.deletePage(
       chapterItem?.index,
       chapters,
       setChapters,
@@ -168,15 +168,13 @@ const ModalCreatePage = ({
           onClick={() => {
             setVisibleModal(false);
           }}
-          className={styles.close}
-        >
+          className={styles.close}>
           <SvgClose />
         </span>
       }
       title={<h2 className={styles.titlePage}>{modalTitle}</h2>}
       visible={visibleModal}
-      footer={null}
-    >
+      footer={null}>
       <div className={styles.border} />
       <Form name="createPage" form={form} onFinish={(e) => request(e)}>
         <h3>Page beats</h3>
@@ -193,8 +191,7 @@ const ModalCreatePage = ({
                 }
               },
             },
-          ]}
-        >
+          ]}>
           <PrimaryInput
             maxLength={100}
             className={styles.namePage}
@@ -217,8 +214,7 @@ const ModalCreatePage = ({
             placeholder={'Link characters to page'}
             filterOption={(inputValue, option) =>
               inputValue ? option.label.toLowerCase().includes(inputValue.toLowerCase()) : true
-            }
-          >
+            }>
             {options}
           </Select>
         </Form.Item>
@@ -235,8 +231,7 @@ const ModalCreatePage = ({
                 }}
                 filterOption={(inputValue, option) =>
                   inputValue ? option.label.toLowerCase().includes(inputValue.toLowerCase()) : true
-                }
-              >
+                }>
                 {chooseChapterArray}
               </Select>
             </Form.Item>

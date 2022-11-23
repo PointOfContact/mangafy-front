@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 
 import ShowImgModal from 'components/modals/showImg';
-import mangaStoryAPI from 'features/mangaStory/mangaStoryAPI';
+import mangaStoryClient from 'api/mangaStoryClient';
 import PropTypes from 'prop-types';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
@@ -31,7 +31,7 @@ const Pages = ({
   }, [pages]);
 
   const patchPage = (pageItem, data) => {
-    mangaStoryAPI.pages.patchPage(
+    mangaStoryClient.pages.patchPage(
       chapterIndex,
       pageItem,
       chapters,
@@ -86,8 +86,7 @@ const Pages = ({
             <ul
               className={styles.containerPage}
               {...provided.droppableProps}
-              ref={provided.innerRef}
-            >
+              ref={provided.innerRef}>
               <PageItems
                 arrayPage={arrayPage}
                 setModalTitle={setModalTitle}

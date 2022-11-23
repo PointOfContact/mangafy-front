@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import PrimaryInput from 'components/ui-elements/input';
 import ToggleSwitch from 'components/ui-elements/toggleSwitch';
-import mangaStoryAPI from 'features/mangaStory/mangaStoryAPI';
+import mangaStoryClient from 'api/mangaStoryClient';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import PropTypes from 'prop-types';
 
@@ -26,7 +26,7 @@ const PaypalEmailField = ({
   }, []);
 
   const savePayPalEmail = (email) => {
-    mangaStoryAPI.draft.saveUserDataByKey(email, userData, setUserData);
+    mangaStoryClient.draft.saveUserDataByKey(email, userData, setUserData);
   };
 
   const regEmail = /\S+@\S+\.\S+/;

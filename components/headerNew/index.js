@@ -25,6 +25,7 @@ import MenuNotificationsBox from 'components/menu-notifications-box';
 import SvgBell from 'components/icon/Bell';
 import MenuMobilePopover from 'components/menu-mobile-popover';
 import Avatar from 'components/Avatar';
+import SvgProjectIcon from 'components/icon/ProjectIcon';
 
 const findNotificationsCount = (onSuccess, onFailure = () => {}) => {
   const jwt = client.getCookie('feathers-jwt');
@@ -213,12 +214,27 @@ const HeaderNew = ({ user }) => {
 
   const profileMenuOptions = [
     {
+      key: 'profile-4',
+      label: (
+        <Link href={'/subscribed/' + user?._id}>
+          <a className={styles.nav__dropdownItem}>
+            <div className={styles.nav__dropdownIcon}>
+              <Star color="#D01E8E" bold={1} />
+            </div>
+            <div className={styles.nav__dropdownContent}>
+              <div className={styles.nav__subscriptions}>Your subscriptions</div>
+            </div>
+          </a>
+        </Link>
+      ),
+    },
+    {
       key: 'profile-1',
       label: (
         <Link href={'/profile/' + user?._id}>
           <a className={styles.nav__dropdownItem}>
             <div className={styles.nav__dropdownIcon}>
-              <Star color="#D01E8E" bold={1} />
+              <File color="#D01E8E" bold={1} />
             </div>
             <div className={styles.nav__dropdownContent}>
               <div className={styles.nav__dropdownTitle}>MangaFY Profile</div>
@@ -234,7 +250,7 @@ const HeaderNew = ({ user }) => {
         <Link href={'/profile/' + user?._id + '/projects'}>
           <a className={styles.nav__dropdownItem}>
             <div className={styles.nav__dropdownIcon}>
-              <File color="#D01E8E" bold={1} />
+              <SvgProjectIcon color="#D01E8E" bold={1} />
             </div>
             <div className={styles.nav__dropdownContent}>
               <div className={styles.nav__dropdownTitle}>My Projects</div>

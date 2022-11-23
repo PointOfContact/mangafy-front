@@ -20,6 +20,7 @@ import { validateEmail, validatePassword, validateName } from 'helpers/shared';
 import Select from 'components/ui-new/Input/Select';
 import { userTypes } from 'helpers/constant';
 import Eye from 'components/icon/new/Eye';
+import client from 'api/client';
 
 const SignUp = () => {
   const router = useRouter();
@@ -108,7 +109,11 @@ const SignUp = () => {
       <div className={styles.loginPage}>
         <Link href="https://kidofdarkness.mangafy.club">
           <a className={styles.loginPage__weeklyArt}>
-            <Imgix layout="fill" objectFit="cover" src={'img/loginCover.jpg'} />
+            <Imgix
+              layout="fill"
+              objectFit="cover"
+              src={client.API_ENDPOINT + '/img/loginCover.jpg'}
+            />
             <div className={styles.loginPage__author}>Read: Kid of darkness. Agony</div>
           </a>
         </Link>
@@ -124,8 +129,7 @@ const SignUp = () => {
                   rounded
                   outline
                   icon={<SvgGoogle />}
-                  className={styles.loginPage__signInWith}
-                >
+                  className={styles.loginPage__signInWith}>
                   Sign up with Google
                 </Button>
               </a>
@@ -138,8 +142,7 @@ const SignUp = () => {
                   rounded
                   outline
                   icon={<Facebook />}
-                  className={styles.loginPage__signInWith}
-                >
+                  className={styles.loginPage__signInWith}>
                   Sign up with Facebook
                 </Button>
               </a>

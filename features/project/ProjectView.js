@@ -25,6 +25,8 @@ import { viewMangaFun } from 'utils';
 import getDeviceId from 'utils/deviceId';
 import { NextSeo } from 'next-seo';
 import SubscribeField from 'components/projectComponents/SubscribeField';
+import Link from 'next/link';
+import Button from 'components/ui-new/Button';
 
 const ProjectView = ({ ssProject, ssComments, user }) => {
   const router = useRouter();
@@ -56,11 +58,8 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
     }
   }, [areCommentsOpened]);
 
-  const previewMode = router.query.hasOwnProperty('preview');
-  const isParticipant = previewMode ? false : project?.participents?.includes(user?._id);
-  // const isParticipant = false;
-  const isOwner = previewMode ? false : project?.author === user?._id;
-  // const isOwner = false;
+  const isParticipant = project?.participents?.includes(user?._id);
+  const isOwner = project?.author === user?._id;
 
   const subscription = project?.subscribers?.find(
     (sb) => sb.userId === user?._id || sb.userId === deviceId
@@ -177,6 +176,8 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
     setAreCommentsOpened(true);
   }
 
+  const ifAdmin = user._id === project.author;
+
   return (
     <div className={styles.project}>
       <NextSeo
@@ -206,6 +207,19 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
       <div className={styles.project__container}>
         {project?.image && (
           <div className={styles.project__cover}>
+            {ifAdmin && (
+              <div className={styles.project__coverOverlay}>
+                <div className={styles.project__coverTitle}>Set Cover Image</div>
+                Optimal dimensions 3200x410px
+                <Link href={'/project/production/' + project?._id + '?tab=settings#cover'}>
+                  <a>
+                    <Button md rounded>
+                      Set image
+                    </Button>
+                  </a>
+                </Link>
+              </div>
+            )}
             <Imgix layout="fill" objectFit="cover" src={client.UPLOAD_URL + project?.image} />
           </div>
         )}
@@ -221,7 +235,6 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
             isOwner={isOwner}
           />
           <ProjectChapters
-            preview={previewMode}
             isParticipant={isParticipant}
             isOwner={isOwner}
             className={styles.project__chapters}
@@ -253,6 +266,7 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
           createChapterOrProjectComment(text, currentChapterId ? 'chapter' : 'project')
         }
         isParticipant={isParticipant || isOwner}
+        setIsLoginModalVisible={setIsSignInModalOpened}
       />
 
       <ShareModal

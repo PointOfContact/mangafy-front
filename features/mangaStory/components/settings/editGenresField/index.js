@@ -6,7 +6,7 @@ import HeroUpload from 'components/ui-elements/heroUpload';
 import PrimaryInput from 'components/ui-elements/input';
 import PrimarySelect from 'components/ui-elements/select';
 import TextEditor from 'components/ui-elements/text-editor';
-import mangaStoryAPI from 'features/mangaStory/mangaStoryAPI';
+import mangaStoryClient from 'api/mangaStoryClient';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { COUNTRIES, projectTypes } from 'helpers/constant';
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
@@ -87,7 +87,7 @@ const EditGenresField = ({
 
   const setMangaPhoto = (e, image) => {
     const data = { ...baseData, image, mangaStoryId: baseData._id };
-    mangaStoryAPI.collab.patchCollab(data, setBaseData);
+    mangaStoryClient.collab.patchCollab(data, setBaseData);
   };
 
   const budgetChange = (e) => {
@@ -133,13 +133,12 @@ const EditGenresField = ({
       event_properties: { storyBoardId: baseData._id },
     };
     myAmplitude(data);
-
     const jwt = client.getCookie('feathers-jwt');
     client
       .service('/api/v2/manga-stories')
       .patch(
         baseData?._id,
-        { story: text, mangaStoryId: baseData.mangaStoryId },
+        { story: text, mangaStoryId: baseData._id },
         {
           headers: { Authorization: `Bearer ${jwt}` },
           mode: 'no-cors',
@@ -255,7 +254,9 @@ const EditGenresField = ({
         options={genres}
         className={styles.option}
       />
-      <h3 className={styles.uploadCoverTitle}>Upload project cover to represent your project</h3>
+      <h3 id="cover" className={styles.uploadCoverTitle}>
+        Upload project cover to represent your project
+      </h3>
       <HeroUpload
         className={styles.imgPage}
         mangaUrl={imgId}

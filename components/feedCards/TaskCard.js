@@ -21,7 +21,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { notification } from 'antd';
 
-const TaskCard = ({ card, user }) => {
+const TaskCard = ({ card, user, setShowLoginModal }) => {
   const router = useRouter();
   let text = card.description;
   const title = card.lookingFor;
@@ -49,7 +49,6 @@ const TaskCard = ({ card, user }) => {
 
   function mouseEventHandler(type) {
     if (type === 'doubleClick') {
-      // Double click function here
       router.push(`/project/production/${card.mangaStoryId}?tab=details&task=${card._id}`);
     } else {
       setModal(!modal);
@@ -57,11 +56,11 @@ const TaskCard = ({ card, user }) => {
   }
 
   function onApply(e) {
+    e.stopPropagation();
     if (user) {
-      e.stopPropagation();
       router.push(`/project/production/${card.mangaStoryId}?tab=details&task=${card._id}`);
     } else {
-      notification.error({ message: 'Please log in to apply tasks', placement: 'bottomLeft' });
+      setShowLoginModal(true);
     }
   }
 
@@ -78,7 +77,7 @@ const TaskCard = ({ card, user }) => {
           <div className={styles.modal__title}>
             <div className={styles.modal__time}>
               <Clock color="#C3BAFA" />
-              {`${time} ${timeMeasure} ago`}
+              {`${time}`}
             </div>
             {title}
           </div>
