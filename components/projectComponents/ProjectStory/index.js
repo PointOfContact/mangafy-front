@@ -38,11 +38,13 @@ const ProjectStory = ({ className, project, user }) => {
         {project?.genres?.map((genre) => (
           <div className={styles.story__genre}>{genre.name}</div>
         ))}
-        <Link href={'/project/production/' + project._id + '?tab=settings#genres'}>
-          <a>
-            <Edit2 />
-          </a>
-        </Link>
+        {ifAdmin && (
+          <Link href={'/project/production/' + project._id + '?tab=settings#genres'}>
+            <a>
+              <Edit2 />
+            </a>
+          </Link>
+        )}
       </div>
     </div>
   );
