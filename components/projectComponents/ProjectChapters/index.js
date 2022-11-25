@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import styles from './styles.module.scss';
 import cn from 'classnames';
 import Imgix from 'components/imgix';
@@ -22,9 +22,10 @@ const ProjectChapters = ({
   isMobile,
   onCommentClick,
   setIsSignInModalOpened,
+  setOpenPaymentModal,
+  chapters,
+  subscribedProject,
 }) => {
-  const chapters = project?.storyBoards?.data[0]?.chapters.filter((ch) => ch.published);
-
   let hasPaidSubscription = false;
   // check for paid subscription will be here
 
@@ -56,15 +57,6 @@ const ProjectChapters = ({
       .catch((err) => {
         console.log(err);
       });
-  }
-
-  // blur all chapters except first if user has no paid subscription
-  if (!hasPaidSubscription) {
-    chapters.forEach((chapter, index) => {
-      if (index > 0) {
-        chapter.blur = true;
-      }
-    });
   }
 
   return (
@@ -137,9 +129,22 @@ const ProjectChapters = ({
           </div>
         </div>
       )}
-      {chapters?.map((chapter) => (
-        <Chapter project={project} chapter={chapter} isLiked={isLiked} />
-      ))}
+      {chapters?.map((chapter, index) => {
+        const subscribedChapter = chapter?.chargebee?.data?.some((val) => {
+          return val.userId === user?._id || val?.subscribed;
+        });
+        return (
+          <Chapter
+            key={chapter._id + index}
+            subscribedProject={subscribedProject}
+            project={project}
+            subscribedChapter={subscribedChapter}
+            chapter={chapter}
+            isLiked={isLiked}
+            setOpenPaymentModal={setOpenPaymentModal}
+          />
+        );
+      })}
     </div>
   );
 };

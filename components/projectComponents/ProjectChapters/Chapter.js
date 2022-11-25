@@ -10,32 +10,44 @@ import Comment from 'components/icon/new/Comment';
 import Button from 'components/ui-new/Button';
 import Lock from 'components/icon/new/Lock';
 
-const Chapter = ({ project, chapter, isLiked }) => {
-  if (chapter.blur) {
-    return (
-      <div className={styles.blur}>
-        <div className={styles.blur__container}>
-          <Lock className={styles.blur__lock} />
-          <div className={styles.blur__text}>To unlock this chapter, become a subscriber</div>
-          <Button rounded pink md>
-            Subscribe
-          </Button>
-        </div>
-        <div key={chapter._id} className={styles.chapters__chapter}>
-          <div className={styles.chapters__cover}>
-            <Avatar
-              size={70}
-              image={chapter.chapterImg}
-              text={chapter.title[0]}
-              borderRadius={10}
-            />
+const Chapter = ({
+  project,
+  subscribedChapter,
+  chapter,
+  isLiked,
+  subscribedProject,
+  setOpenPaymentModal,
+}) => {
+  const ifSubscribedProject = !subscribedProject && project.planId;
+  const ifSubscribedChapter = !subscribedChapter && chapter?.planId;
+
+  if (ifSubscribedProject) {
+    if (ifSubscribedChapter) {
+      return (
+        <div className={styles.blur}>
+          <div className={styles.blur__container}>
+            <Lock className={styles.blur__lock} />
+            <div className={styles.blur__text}>To unlock this chapter, become a subscriber</div>
+            <Button rounded pink md onClick={() => setOpenPaymentModal(chapter)}>
+              Subscribe
+            </Button>
           </div>
-          <div className={styles.chapters__title}>{chapter.title}</div>
-          <div className={styles.chapters__subtitle}>Chapter {chapter.order}</div>
-          <div className={styles.chapters__info}></div>
+          <div key={chapter._id} className={styles.chapters__chapter}>
+            <div className={styles.chapters__cover}>
+              <Avatar
+                size={70}
+                image={chapter.chapterImg}
+                text={chapter.title[0]}
+                borderRadius={10}
+              />
+            </div>
+            <div className={styles.chapters__title}>{chapter.title}</div>
+            <div className={styles.chapters__subtitle}>Chapter {chapter.order}</div>
+            <div className={styles.chapters__info}></div>
+          </div>
         </div>
-      </div>
-    );
+      );
+    }
   }
 
   return (

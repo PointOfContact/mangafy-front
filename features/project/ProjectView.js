@@ -24,24 +24,36 @@ import { SignInModal } from 'components/modals/SignInModal';
 import { viewMangaFun } from 'utils';
 import getDeviceId from 'utils/deviceId';
 import { NextSeo } from 'next-seo';
-import SubscribeField from 'components/projectComponents/SubscribeField';
 import Link from 'next/link';
 import Button from 'components/ui-new/Button';
+import PledgeModal from 'components/modals/PlegeModal';
 
 const ProjectView = ({ ssProject, ssComments, user }) => {
   const router = useRouter();
   const [project, setProject] = useState(ssProject);
+  const [chapters, setChapters] = useState([]);
+  const [subscribedProject, setSubscribedProject] = useState(false);
   const [comments, setComments] = useState(ssComments);
   const [chapterComments, setChapterComments] = useState({ data: [] });
   const [currentChapterId, setCurrentChapterId] = useState(null);
   const [areCommentsOpened, setAreCommentsOpened] = useState(false);
   const [isShareModalOpened, setIsShareModalOpened] = useState(false);
   const [isSignInModalOpened, setIsSignInModalOpened] = useState(false);
+  const [openPaymentModal, setOpenPaymentModal] = useState(false);
   const [deviceId, setDeviceId] = useState(null);
+
+  useEffect(() => {
+    const payed = project?.chargebee?.data?.some((value, index) => {
+      return value.userId === user?._id || value?.subscribed;
+    });
+    setSubscribedProject(payed);
+  }, [project]);
 
   useEffect(() => {
     viewMangaFun(user, project.viewManga, project._id);
     getDeviceId(setDeviceId);
+    const chapters = project?.storyBoards?.data[0]?.chapters.filter((ch) => ch.published);
+    setChapters(chapters);
   }, []);
 
   useEffect(() => {
@@ -228,21 +240,27 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
             className={styles.project__info}
             project={project}
             user={user}
+            subscribedProject={subscribedProject}
             updateProjectInfo={updateProjectInfo}
             subscribe={subscribe}
+            setOpenPaymentModal={setOpenPaymentModal}
             unsubscribe={unsubscribe}
             subscription={subscription}
             isOwner={isOwner}
+            chapters={chapters}
           />
           <ProjectChapters
             isParticipant={isParticipant}
             isOwner={isOwner}
             className={styles.project__chapters}
             project={project}
-            updateProjectInfo={updateProjectInfo}
             user={user}
+            subscribedProject={subscribedProject}
+            chapters={chapters}
+            updateProjectInfo={updateProjectInfo}
             onCommentClick={onCommentClick}
             setIsSignInModalOpened={setIsSignInModalOpened}
+            setOpenPaymentModal={setOpenPaymentModal}
           />
           <div className={styles.project__comments}>
             <MangaComments
@@ -268,11 +286,20 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
         isParticipant={isParticipant || isOwner}
         setIsLoginModalVisible={setIsSignInModalOpened}
       />
-
       <ShareModal
         isShareModalOpened={isShareModalOpened}
         setIsShareModalOpened={setIsShareModalOpened}
         shareUrl={client.API_ENDPOINT + '/project/' + project?._id}
+      />
+      <PledgeModal
+        isOpen={!!openPaymentModal}
+        setIsOpen={setOpenPaymentModal}
+        item={openPaymentModal}
+        setProject={setProject}
+        subscribeProject={subscribe}
+        setChapters={setChapters}
+        chapters={chapters}
+        user={user}
       />
     </div>
   );

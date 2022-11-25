@@ -15,6 +15,8 @@ const SubscribeField = ({
   subscribe,
   unsubscribe,
   mobile,
+  project,
+  subscribedProject,
 }) => {
   const [email, setEmail] = useState('');
 
@@ -32,10 +34,6 @@ const SubscribeField = ({
       return notification.error({ message: 'Please enter valid email', placement: 'bottomLeft' });
     }
     subscribe(emailToSubscribe);
-  }
-
-  function pledgeHandler() {
-    openPledgeModal();
   }
 
   return (
@@ -57,17 +55,19 @@ const SubscribeField = ({
               onClick={unsubscribe}>
               Subscribed
             </Button>
-            <Button rounded outline onClick={pledgeHandler}>
-              Pledge
-            </Button>
+            {project?.planId && (
+              <Button disabled={subscribedProject} rounded outline onClick={openPledgeModal}>
+                Pledge
+              </Button>
+            )}
           </>
         ) : user ? (
           <>
             <Button pink rounded onClick={onSubscribe}>
               Subscribe
             </Button>
-            {project.planId && (
-              <Button rounded outline onClick={() => openPledgeModal()}>
+            {project?.planId && (
+              <Button disabled={subscribedProject} rounded outline onClick={openPledgeModal}>
                 Pledge
               </Button>
             )}

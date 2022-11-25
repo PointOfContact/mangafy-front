@@ -14,8 +14,6 @@ import { notification } from 'antd';
 import MangaComments from 'components/shotComments/MangaComments';
 import Edit from 'components/icon/new/Edit';
 import ShotAndMangaTitle from 'components/ShotAndMangaTitle';
-import PrimaryButton from 'components/ui-elements/button';
-import { useAppContext } from 'context';
 
 const MangaFooter = ({
   user,
@@ -36,16 +34,8 @@ const MangaFooter = ({
   createComment,
   setIsLoginModalVisible,
 }) => {
-  const { cbInstance, openPlanModal } = useAppContext();
-
   return (
     <div name="footer" className={cn(styles.footer, className)}>
-      {/* {chapter.planId && (
-        <PrimaryButton
-          text="Suscribe"
-          onClick={() => openPlanModal(cbInstance, chapter.planId, chapter._id, user?.customerId)}
-        />
-      )} */}
       <div className={styles.footer__container}>
         <div className={styles.footer__mobileComments}>
           <div className={styles.footer__mobileCommentsHeader}>Feedback</div>

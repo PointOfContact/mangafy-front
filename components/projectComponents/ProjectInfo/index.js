@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import cn from 'classnames';
 import styles from './styles.module.scss';
 import ProjectStory from '../ProjectStory';
@@ -11,7 +11,6 @@ import { EVENTS } from 'helpers/amplitudeEvents';
 import Diamond from 'components/icon/new/Diamond';
 import PrimaryButton from 'components/ui-elements/button';
 import { useAppContext } from 'context';
-import PledgeModal from 'components/modals/PlegeModal';
 
 const ProjectInfo = ({
   isOwner,
@@ -22,17 +21,12 @@ const ProjectInfo = ({
   subscribe,
   unsubscribe,
   subscription,
+  chapters,
+  setOpenPaymentModal,
+  subscribedProject,
 }) => {
-  const [isPledgeModalOpen, setIsPledgeModalOpen] = React.useState(false);
-
   return (
     <div className={cn(className, styles.info)}>
-      <PledgeModal
-        isOpen={isPledgeModalOpen}
-        setIsOpen={setIsPledgeModalOpen}
-        project={project}
-        user={user}
-      />
       <div className={styles.info__rates}>
         <div className={styles.rate}>
           <div className={styles.rate__value}>{project?.subscribers?.length}</div>
@@ -45,9 +39,10 @@ const ProjectInfo = ({
       </div>
       <ProjectStory className={styles.info__story} project={project} user={user} />
       <SubscribeField
-        openPledgeModal={() => setIsPledgeModalOpen(true)}
+        openPledgeModal={() => setOpenPaymentModal(project)}
         payPalEmail={project?.authorInfo?.payPalEmail}
         user={user}
+        subscribedProject={subscribedProject}
         className={styles.info__subscribe}
         subscription={subscription}
         subscribe={subscribe}
@@ -78,7 +73,10 @@ const ProjectInfo = ({
         project={project}
         updateProjectInfo={updateProjectInfo}
         user={user}
+        subscribedProject={subscribedProject}
         isMobile={true}
+        chapters={chapters}
+        setOpenPaymentModal={setOpenPaymentModal}
       />
       <div className={styles.info__title}>Members</div>
       <div className={styles.info__line}></div>
