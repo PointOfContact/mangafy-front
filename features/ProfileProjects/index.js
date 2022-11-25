@@ -74,6 +74,7 @@ const ProfileProjects = ({ user, profile }) => {
           isOpened && styles.projects__container_withProjectOpened
         )}>
         <div className={styles.projects__all}>
+          Stories
           <div className={styles.projects__header}>
             <Link href={'/profile/' + profile._id}>
               <a>
@@ -110,8 +111,8 @@ const ProfileProjects = ({ user, profile }) => {
                   MangaFY connects everyone in the production process so teams can deliver better
                   novels, faster.
                 </div>
-                <Button md pink rounded onClick={() => setIsCreateModalOpen(true)}>
-                  Upload
+                <Button bold md pink rounded onClick={() => setIsCreateModalOpen(true)}>
+                  New project
                 </Button>
               </div>
             )}
