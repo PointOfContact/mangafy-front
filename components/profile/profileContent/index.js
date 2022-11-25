@@ -35,6 +35,7 @@ const ProfileContent = (props) => {
     genres,
     total,
     ifMyProfile,
+    openLoginModal,
   } = props;
 
   const sendEvent = (event) => {
@@ -96,6 +97,7 @@ const ProfileContent = (props) => {
             mangaStories,
             mangaStoriesMyProfile,
             ifMyProfile,
+            openLoginModal,
           }}
         />
       ),
@@ -133,8 +135,7 @@ const ProfileContent = (props) => {
         className={cn(
           styles.my_profile_tabs,
           'profile-content mobile_full_content mobile_top_round mobile_linear'
-        )}
-      >
+        )}>
         <Row>
           <Col span={24}>
             <Tabs
@@ -142,8 +143,7 @@ const ProfileContent = (props) => {
               onTabClick={(e) => {
                 setSelectIdTab(e);
                 sendEvent(e);
-              }}
-            >
+              }}>
               {tabPanels.map((tabPanel) => (
                 <TabPane tab={tabPanel.tab} key={tabPanel.key}>
                   {tabPanel.component}
