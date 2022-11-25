@@ -53,5 +53,20 @@
     padding: 0.5em 1em;
     margin-right: 0.5em;
     margin-bottom: 0.5em;
+    transition: 0.2s;
+    cursor: pointer;
+
+    &:hover {
+      background: lighten($pink, 5%);
+    }
+
+    &:active {
+      background: darken($pink, 5%);
+    }
+
+    svg {
+      height: 1em;
+      margin-left: 0.5em;
+    }
   }
 }
