@@ -31,6 +31,7 @@ import Tag from 'components/icon/new/Tag';
 import Hierarchy from 'components/icon/new/Hierarchy';
 import Close from 'components/icon/new/Close';
 import Edit2 from 'components/icon/new/Edit2';
+import Edit3 from 'components/icon/new/Edit3';
 
 const OpenedProject = ({
   user,
@@ -135,15 +136,24 @@ const OpenedProject = ({
           <File color={'#d11e8e'} className={styles.openedProject__sectionIcon} /> Project preview
         </div>
         <div className={styles.openedProject__cover}>
-          <Link href={'/project/production/' + project?._id + '?tab=settings#cover'}>
-            <a className={styles.openedProject__coverOverlay}>
-              Change cover <Edit2 color="#fff" />
-            </a>
-          </Link>
           {project?.image ? (
-            <Imgix src={client.UPLOAD_URL + project?.image} objectFit="cover" layout="fill" />
+            <>
+              <Link href={'/project/production/' + project?._id + '?tab=settings#cover'}>
+                <a className={styles.openedProject__coverOverlay}>
+                  <Edit3 color="#fff" />
+                </a>
+              </Link>
+              <Imgix src={client.UPLOAD_URL + project?.image} objectFit="cover" layout="fill" />
+            </>
           ) : (
-            <div className={styles.openedProject__noImage}>Here can be your cover</div>
+            <div className={styles.openedProject__noImage}>
+              Here can be your cover.
+              <Link href={'/project/production/' + project?._id + '?tab=settings#cover'}>
+                <a>
+                  Change cover <Edit2 color="#fff" />
+                </a>
+              </Link>
+            </div>
           )}
         </div>
         <div className={styles.openedProject__options}>

@@ -1,12 +1,14 @@
 @import '../../styles/variables.scss';
 
+$openProjectWidth: 450px;
+
 .projects {
     &__container {
         max-width: 1200px;
         margin: 0 auto;
         transition: 0.4s;
         &_withProjectOpened {
-            padding-right: 460px;
+            padding-right: calc($openProjectWidth + 10px);
             @include media-sm {
                 padding-right: 0;
             }
@@ -57,7 +59,7 @@
         top: 0;
         right: 0;
         bottom: 0;
-        width: 450px;
+        width: $openProjectWidth;
         @include media-sm {
             width: 320px;
             width: 100%;
