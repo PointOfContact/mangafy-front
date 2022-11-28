@@ -54,27 +54,20 @@ const CreatePreviousWorks = ({
     ) : (
       <div>
         {canEditInit ? (
-          <Upload
-            beforeUpload={onBeforeGalleryUpload}
-            showUploadList={showUploadList}
-            multiple={true}
-            accept="image/jpg, image/png, application/pdf, image/jpeg"
-          >
-            <Card
-              description="Do you not want <br/> to add a gallery?"
-              btnText=""
-              items={[
-                <Imgix
-                  key="1"
-                  width={124}
-                  height={140}
-                  layout="fixed"
-                  src="https://mangafy.club/img/noGalere.webp"
-                  alt="MangaFy no galere"
-                />,
-              ]}
-            />
-          </Upload>
+          <Card
+            description="Do you not want <br/> to add a gallery?"
+            btnText=""
+            items={[
+              <Imgix
+                key="1"
+                width={124}
+                height={140}
+                layout="fixed"
+                src="https://mangafy.club/img/noGalere.webp"
+                alt="MangaFy no galere"
+              />,
+            ]}
+          />
         ) : (
           <Card
             description="Sorry, but there is nothing <br/> here (("
