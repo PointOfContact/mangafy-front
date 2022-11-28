@@ -111,8 +111,7 @@ const CreateShotModal = ({
       }}
       wrapClassName={styles.modal}
       closeIcon={<Close className={styles.modal__close} />}
-      footer={null}
-    >
+      footer={null}>
       <h2>Shot</h2>
       <Input
         err={errors.titleError}
@@ -200,9 +199,9 @@ function createShot(title, description, image, tags) {
 
 function editShot(shotId, title, description, image, tags) {
   const data = { title };
-  if (description) data.description = description;
-  if (image) data.image = image;
-  if (tags?.length > 0) data.tags = tags;
+  data.description = description;
+  data.image = image;
+  data.tags = tags;
   return client
     .service('/api/v2/short-stories')
     .patch(shotId, data, {

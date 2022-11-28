@@ -115,12 +115,16 @@
       &:not(:last-child) {
         margin-right: 5px;
       }
-      &:last-child {
-        margin-right: 20px;
-        @include media-sm {
-          margin-right: 0;
-        }
-      }
+      // &:last-child {
+      //   margin-right: 20px;
+      //   @include media-sm {
+      //     margin-right: 0;
+      //   }
+      // }
+    }
+    margin-right: 20px;
+    @include media-sm {
+      margin-right: 0;
     }
   }
 
@@ -128,6 +132,14 @@
     @include media-md {
       display: none;
     }
+  }
+
+  &__commentButtonMobile {
+    display: none;
+      @include media-md {
+        display: flex;
+        margin-right: 5px;
+      }
   }
 
   &__like {

@@ -35,6 +35,7 @@ export const Gallery = (props) => {
     mangaStoriesMyProfile,
     fromPath = 'users',
     title = '',
+    openLoginModal,
   } = props;
   let canEditInit;
   if (!user) {
@@ -230,8 +231,7 @@ export const Gallery = (props) => {
               onClick={() => {
                 setCreateGalleryModal(true);
                 setIsModalVisible(true);
-              }}
-            >
+              }}>
               <AddButton width="25px" height="25px" text={'Add a work'} />
             </span>
           </Col>
@@ -257,6 +257,7 @@ export const Gallery = (props) => {
             onBeforeGalleryUpload={onBeforeGalleryUpload}
             showUploadList={showUploadList}
             updateShots={updateShots}
+            openLoginModal={openLoginModal}
           />
         </Col>
       </Row>
