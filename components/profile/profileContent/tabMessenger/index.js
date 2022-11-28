@@ -16,6 +16,7 @@ import UserName from './userName';
 const TabMessenger = (props) => {
   const { user } = props;
   const [requests, setRequests] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [arcRequests, setArcRequests] = useState(true);
   const [showArchive, setShowArchive] = useState(true);
   const [selectedRequest, setSelectedRequest] = useState({});
@@ -63,11 +64,13 @@ const TabMessenger = (props) => {
       headers: { Authorization: `Bearer ${jwt}` },
     };
 
+    setLoading(true);
     import('api/restClient').then((m) => {
       m.default
         .service('/api/v2/conversations')
         .find(options)
         .then((res) => {
+          setLoading(false);
           let newRequests;
           if (isArchive) {
             const data = res.data || res;
@@ -101,6 +104,7 @@ const TabMessenger = (props) => {
           }
         })
         .catch((err) => {
+          setLoading(false);
           openNotification('error', err.message);
         });
     });
@@ -113,54 +117,48 @@ const TabMessenger = (props) => {
 
   return (
     <div>
-      {/* <h2 className={cn(styles.title)}>Messenger</h2> */}
-      {noRequest ? (
-        <NoRequest />
-      ) : (
-        <div className={cn(styles.messenger_tab)}>
-          {/* <SearchInput mobile={true} /> */}
-          {showMessageMobile && (
-            <UserName
+      <div className={cn(styles.messenger_tab)}>
+        {/* <SearchInput mobile={true} /> */}
+        {showMessageMobile && (
+          <UserName
+            selectedRequest={selectedRequest}
+            mobile={true}
+            setShowMessageMobile={setShowMessageMobile}
+          />
+        )}
+        <div className={styles.content}>
+          <div
+            className={cn(
+              showMessageMobile && styles.messenger_list_mobile,
+              styles.messenger_list
+            )}>
+            <MessengerList
+              user={user}
+              arcRequests={arcRequests}
+              getConversation={getConversation}
+              showArchive={showArchive}
+              requests={requests}
               selectedRequest={selectedRequest}
-              mobile={true}
+              setSelectedRequest={setSelectedRequest}
               setShowMessageMobile={setShowMessageMobile}
+              loading={loading}
             />
-          )}
-          <div className={styles.content}>
-            <div
-              className={cn(
-                showMessageMobile && styles.messenger_list_mobile,
-                styles.messenger_list
-              )}
-            >
-              <MessengerList
-                user={user}
-                arcRequests={arcRequests}
-                getConversation={getConversation}
-                showArchive={showArchive}
-                requests={requests}
-                selectedRequest={selectedRequest}
-                setSelectedRequest={setSelectedRequest}
-                setShowMessageMobile={setShowMessageMobile}
-              />
-            </div>
-            <div
-              className={cn(
-                showMessageMobile && styles.messenger_content_mobile,
-                styles.messenger_content
-              )}
-            >
-              <MessengerContent
-                user={user}
-                selectedRequest={selectedRequest}
-                requests={requests}
-                setRequests={setRequests}
-                setSelectedRequest={setSelectedRequest}
-              />
-            </div>
+          </div>
+          <div
+            className={cn(
+              showMessageMobile && styles.messenger_content_mobile,
+              styles.messenger_content
+            )}>
+            <MessengerContent
+              user={user}
+              selectedRequest={selectedRequest}
+              requests={requests}
+              setRequests={setRequests}
+              setSelectedRequest={setSelectedRequest}
+            />
           </div>
         </div>
-      )}
+      </div>
     </div>
   );
 };

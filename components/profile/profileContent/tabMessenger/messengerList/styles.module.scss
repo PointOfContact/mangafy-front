@@ -227,3 +227,11 @@
   text-align: center;
   cursor: pointer;
 }
+
+.empty {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+  font-size: 20px;
+  color:rgb(94, 92, 92)
+}

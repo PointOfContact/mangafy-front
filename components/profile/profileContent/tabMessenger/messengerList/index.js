@@ -16,15 +16,20 @@ const MessengerList = ({
   getConversation,
   showArchive,
   setShowMessageMobile,
+  loading,
 }) => {
-  if (!requests?.length) {
+  if (loading) {
     return (
       <div className={styles.loading}>
-        <Skeleton loading={true} active avatar></Skeleton>
-        <Skeleton loading={true} active avatar></Skeleton>
-        <Skeleton loading={true} active avatar></Skeleton>
+        <Skeleton loading={loading} active avatar></Skeleton>
+        <Skeleton loading={loading} active avatar></Skeleton>
+        <Skeleton loading={loading} active avatar></Skeleton>
       </div>
     );
+  }
+
+  if (!requests.length) {
+    return <div className={styles.empty}>There is no messages yet...</div>;
   }
 
   const newRes = requests?.sort(
@@ -69,8 +74,7 @@ const MessengerList = ({
           className={styles.archive}
           onClick={() => {
             getConversation(false);
-          }}
-        >
+          }}>
           <span className={styles.showAllMessages}>Show all messages</span>
           <span className={styles.showAll}>Show all</span>
         </div>
