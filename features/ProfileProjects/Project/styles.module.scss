@@ -3,6 +3,7 @@
 .project {
     cursor: pointer;
     transition: 0.2s;
+    overflow: hidden;
 
     &:hover {
         transform: scale(1.01);
@@ -25,6 +26,7 @@
     &__title {
         font-weight: 700;
         font-size: 20px;
+        word-wrap: break-word;
     }
 
     &__subtitle {
@@ -34,6 +36,7 @@
 
     &__noImage {
         background: rgb(255, 255, 255);
+        padding: 10%;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -42,5 +45,9 @@
         font-size: 24px;
         border: 2px solid $primaryDark;
         border-radius: 30px;
+        p {
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
     }
 }
