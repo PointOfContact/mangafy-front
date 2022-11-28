@@ -167,7 +167,7 @@ const OpenedProject = ({
             <Share />
             Share
           </div>
-          <Link href={'/project/' + project?._id}>
+          <Link href={'/project/production/' + project?._id}>
             <a className={styles.openedProject__option}>
               <Settings2 />
               Edit
