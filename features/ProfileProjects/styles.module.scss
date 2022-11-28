@@ -10,21 +10,21 @@
             @include media-sm {
                 padding-right: 0;
             }
-            .projects {
-                &__create, &__projects {
-                    display: grid;
-                    grid-template-columns: repeat(3, 1fr);
-                    grid-gap: 20px;
-                    @include media-lg {
-                        grid-template-columns: repeat(2, 1fr);
-                    }
-                }
-                &__create {
-                    @include media-md {
-                        grid-template-columns: repeat(1, 1fr);
-                    }
-                }
-            }
+            // .projects {
+            //     &__create, &__projects {
+            //         display: grid;
+            //         grid-template-columns: repeat(3, 1fr);
+            //         grid-gap: 20px;
+            //         @include media-lg {
+            //             grid-template-columns: repeat(2, 1fr);
+            //         }
+            //     }
+            //     &__create {
+            //         @include media-md {
+            //             grid-template-columns: repeat(1, 1fr);
+            //         }
+            //     }
+            // }
         }
     }
 
