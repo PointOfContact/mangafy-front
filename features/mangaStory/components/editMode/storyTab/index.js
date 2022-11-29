@@ -34,10 +34,6 @@ const StoryTab = ({
   const [participantsData, setParticipantsData] = useState(participentsInfo);
   const history = useRouter();
 
-  useEffect(() => {
-    changeShowModal(history.query.hasOwnProperty('createTask'));
-  }, []);
-
   const leaveManga = (participantId) =>
     mangaStoryClient.storyTab.leaveManga(
       participantId,
