@@ -51,8 +51,7 @@ const ShotSideMenu = ({
             rounded
             outline
             iconRight
-            icon={<Comment color="#7B65F3" />}
-          >
+            icon={<Comment color="#7B65F3" />}>
             {shot?.comments?.total || 0}
           </Button>
           {!isOld && (
@@ -62,8 +61,7 @@ const ShotSideMenu = ({
               rounded
               outline
               iconRight
-              icon={<Fire color="#7B65F3" />}
-            >
+              icon={<Fire color="#7B65F3" />}>
               {shot?.likedUsers?.length || 0}
             </Button>
           )}
@@ -78,8 +76,7 @@ const ShotSideMenu = ({
       </div>
       <div
         ref={commentsRef}
-        className={cn(styles.sideComments, areCommentsOpened && styles.sideComments_opened)}
-      >
+        className={cn(styles.sideComments, areCommentsOpened && styles.sideComments_opened)}>
         <div className={styles.sideComments__header}>Feedback</div>
         <ShotComments shotId={shot._id} user={user} onUpload={updateShotInfo} />
       </div>
