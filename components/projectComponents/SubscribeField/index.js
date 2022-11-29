@@ -56,7 +56,11 @@ const SubscribeField = ({
               Subscribed
             </Button>
             {project?.planId && (
-              <Button disabled={subscribedProject} rounded outline onClick={openPledgeModal}>
+              <Button
+                disabled={subscribedProject || !user}
+                rounded
+                outline
+                onClick={openPledgeModal}>
                 Pledge
               </Button>
             )}
@@ -67,7 +71,11 @@ const SubscribeField = ({
               Subscribe
             </Button>
             {project?.planId && (
-              <Button disabled={subscribedProject} rounded outline onClick={openPledgeModal}>
+              <Button
+                disabled={subscribedProject || !user}
+                rounded
+                outline
+                onClick={openPledgeModal}>
                 Pledge
               </Button>
             )}

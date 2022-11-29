@@ -14,6 +14,7 @@ import { notification } from 'antd';
 import MangaComments from 'components/shotComments/MangaComments';
 import Edit from 'components/icon/new/Edit';
 import ShotAndMangaTitle from 'components/ShotAndMangaTitle';
+import Pledge from './pledge';
 
 const MangaFooter = ({
   user,
@@ -41,6 +42,7 @@ const MangaFooter = ({
           <div className={styles.footer__mobileCommentsHeader}>Feedback</div>
           <MangaComments manga={manga} comments={comments.data} createComment={createComment} />
         </div>
+        <Pledge item={chapter} image={chapter?.cover} user={user} />
         <ShotAndMangaTitle
           className={styles.footer__info}
           title={manga?.mangaStoryTitle}

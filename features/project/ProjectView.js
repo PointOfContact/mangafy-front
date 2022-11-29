@@ -296,7 +296,6 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
         setIsOpen={setOpenPaymentModal}
         item={openPaymentModal}
         setProject={setProject}
-        subscribeProject={subscribe}
         setChapters={setChapters}
         chapters={chapters}
         user={user}

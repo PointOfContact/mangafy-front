@@ -9,17 +9,7 @@ import PlanCard from './PlanCard';
 import Fire from 'components/icon/new/Fire';
 import { useAppContext } from 'context';
 
-const PledgeModal = ({
-  isOpen,
-  setIsOpen,
-  item,
-  user,
-  setProject,
-  setChapters,
-  subscribeProject,
-  subscribeChapter,
-  chapters,
-}) => {
+const PledgeModal = ({ isOpen, setIsOpen, item, user, setProject, setChapters, chapters }) => {
   const { cbInstance, openPlanModal } = useAppContext();
 
   const plans = [
@@ -42,7 +32,6 @@ const PledgeModal = ({
           userId: user?._id,
           subscribed: true,
         });
-        subscribeProject();
         setProject({ ...item });
       } else {
         const newChapters = chapters.map((val, index) => {
@@ -54,7 +43,6 @@ const PledgeModal = ({
           }
           return val;
         });
-        subscribeChapter();
         setChapters([...newChapters]);
       }
     };

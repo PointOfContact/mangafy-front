@@ -203,7 +203,12 @@ const ShotPage = ({ user, allShots, serverSideShot, serverSideAuthor }) => {
           shareUrl={client.API_ENDPOINT + buildShotURL(shot?._id, shot?.isOld ? author?._id : null)}
           setIsLoginModalVisible={setIsLoginModalVisible}
         />
-        <ShotSlider className={styles.shotPage__slider} shot={shot} allShots={allShots} />
+        <ShotSlider
+          className={styles.shotPage__slider}
+          shot={shot}
+          allShots={allShots}
+          user={user}
+        />
       </div>
       <SignInModal
         page={'/shot/' + shot?._id}

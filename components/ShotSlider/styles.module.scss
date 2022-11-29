@@ -21,13 +21,34 @@
     margin-bottom: 10px;
     text-align: center;
   }
-  
+
   &__container {
     max-width: 900px;
     margin: 0 auto;
   }
 }
-
+.ifBsMoney {
+  span {
+    border-radius: 50% !important;
+  }
+  img {
+    filter: blur(8px);
+  }
+}
+.blur {
+  overflow: hidden;
+  border-radius: 10px;
+  position: relative;
+  &__lock {
+    height: 24px;
+    position: absolute;
+  }
+}
+.imageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .slider {
   display: flex;
   justify-content: center;
@@ -88,19 +109,16 @@
     justify-content: center;
     flex-direction: column;
     width: 100px;
-
     img {
       height: 100px;
       width: 100px;
       border-radius: 50%;
     }
-
     &_active {
-      *:first-child {
-        border: 2px solid $primaryDark !important;
+      & > span{
+        border: 4px solid $primaryDark !important;
         border-radius: 50% !important;
       }
-
       .slider__itemTitle {
         color: $primaryDark;
       }

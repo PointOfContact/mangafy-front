@@ -13,6 +13,7 @@ import Avatar from 'components/Avatar';
 import { notification } from 'antd';
 import ShotComments from 'components/shotComments';
 import ShotAndMangaTitle from 'components/ShotAndMangaTitle';
+import Pledge from './pledge';
 
 const ShotFooter = ({
   user,
@@ -40,6 +41,7 @@ const ShotFooter = ({
             setIsLoginModalVisible={setIsLoginModalVisible}
           />
         </div>
+        <Pledge item={shot} image={shot?.image} user={user} />
         <ShotAndMangaTitle
           title={shot?.isOld ? shot?.authorInfo?.name : shot?.title}
           link={'/profile/' + shot?.authorInfo._id}

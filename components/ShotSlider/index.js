@@ -7,33 +7,15 @@ import { Avatar } from 'antd';
 import cn from 'classnames';
 import Link from 'next/link';
 import { buildShotURL } from 'helpers/shared';
+import Lock from 'components/icon/new/Lock';
+import ShotItems from './shotItems';
 
 const sliderItemWidth = 100;
 
-const ShotSlider = ({ className, shot, allShots }) => {
+const ShotSlider = ({ className, shot, allShots, user }) => {
   const containerRef = useRef(null);
   const sliderRef = useRef(null);
   const activeShotRef = useRef(null);
-
-  const shotsElements = allShots?.map((sh) => {
-    return (
-      <Link key={sh._id} href={sh.isOld ? buildShotURL(sh._id, sh.authorId) : '/shot/' + sh._id}>
-        <a
-          ref={sh._id === shot._id ? activeShotRef : null}
-          className={cn(styles.slider__item, sh._id === shot._id && styles.slider__item_active)}
-          key={sh._id}>
-          {sh?.image ? (
-            <Imgix width={96} height={96} objectFit="cover" src={client.UPLOAD_URL + sh?.image} />
-          ) : (
-            <Avatar size={96} style={{ background: '#7B65F3', color: '#fff' }}>
-              {sh?.title?.length > 8 ? sh?.title?.slice(0, 8) + '...' : sh?.title}
-            </Avatar>
-          )}
-          {/* {sh?.title && <div className={styles.slider__itemTitle}>{sh?.title}</div>} */}
-        </a>
-      </Link>
-    );
-  });
 
   function scrollToActiveShot() {
     if (activeShotRef.current && sliderRef.current) {
@@ -81,7 +63,7 @@ const ShotSlider = ({ className, shot, allShots }) => {
             <ArrowDown2 />
           </div>
           <div className={styles.slider__content} ref={sliderRef}>
-            {shotsElements}
+            <ShotItems shot={shot} user={user} allShots={allShots} activeShotRef={activeShotRef} />
           </div>
           <div
             className={cn(styles.slider__arrow, hideArrows && styles.slider__arrow_hidden)}

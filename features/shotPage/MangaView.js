@@ -34,15 +34,13 @@ const MangaView = ({
 }) => {
   const router = useRouter();
   const refBook = useRef(null);
-  const [activeChapterIndex, setActiveChapterIndex] = useState(+router.query.chapter || 1);
+  const [activeChapterIndex, setActiveChapterIndex] = useState(+router.query.ongoing || 1);
   const [authors, setAuthors] = useState(serverSideAuthors);
   const [comments, setComments] = useState(serverSideComments);
   const [readStyle, setReadStyle] = useState(false);
   const [conutPage, setConutPage] = useState(1);
   const [imagesHeight, setImagesHeight] = useState([]);
-
   const [isLiked, setIsLiked] = useState(false);
-
   const [manga, setManga] = useState(serverSideManga);
   const chapter = manga?.chapters[activeChapterIndex - 1];
 
@@ -89,6 +87,10 @@ const MangaView = ({
     );
     updateChapterCommentsInfo();
   }, [manga]);
+
+  useEffect(() => {
+    setActiveChapterIndex(+router.query.ongoing);
+  }, [router.query.ongoing]);
 
   useEffect(async () => {
     updateMangaInfo();
@@ -321,7 +323,7 @@ const MangaView = ({
           createComment={createCommentChapter}
           setIsLoginModalVisible={setIsLoginModalVisible}
         />
-        <MangaSlider manga={manga} activeChapterIndex={activeChapterIndex} />
+        <MangaSlider manga={manga} user={user} activeChapterIndex={activeChapterIndex} />
         <SignInModal
           page={'/project/view/' + manga?.id}
           title="Sign in"
