@@ -10,9 +10,9 @@ import { buildShotURL } from 'helpers/shared';
 import Lock from 'components/icon/new/Lock';
 import PropTypes from 'prop-types';
 
-const ShotItems = ({ allShots, user, activeShotRef, shot }) => {
+const ShotItems = ({ allShots, user, activeShotRef, shot, ifPayedShot }) => {
   return allShots?.map((sh) => {
-    const ifPayed = user?.chargebee?.data?.some((val) => val.itemId === sh._id);
+    const ifPayed = user?.chargebee?.data?.some((val) => val.itemId === sh._id || ifPayedShot);
 
     return !!sh?.planId && !ifPayed ? (
       <a

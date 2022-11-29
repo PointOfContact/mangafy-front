@@ -10,9 +10,16 @@ import { buildShotURL } from 'helpers/shared';
 import Lock from 'components/icon/new/Lock';
 import PropTypes from 'prop-types';
 
-const ChapterItems = ({ manga, activeChapterIndex, user, publishedChapters, activeChapterRef }) => {
+const ChapterItems = ({
+  manga,
+  activeChapterIndex,
+  user,
+  publishedChapters,
+  activeChapterRef,
+  ifPayedChapter,
+}) => {
   return publishedChapters.map((ch, i) => {
-    const ifPayed = user?.chargebee?.data?.some((val) => val.itemId === ch._id);
+    const ifPayed = user?.chargebee?.data?.some((val) => val.itemId === ch._id || ifPayedChapter);
     return !!ch?.planId && !ifPayed ? (
       <a
         ref={i + 1 === activeChapterIndex ? activeChapterRef : null}

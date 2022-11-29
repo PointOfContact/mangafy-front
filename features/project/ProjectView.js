@@ -188,6 +188,27 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
     setAreCommentsOpened(true);
   }
 
+  const updatePage = () => {
+    if ('gallery' in openPaymentModal) {
+      openPaymentModal.chargebee.data.push({
+        userId: user?._id,
+        subscribed: true,
+      });
+      setProject({ ...openPaymentModal });
+    } else {
+      const newChapters = chapters.map((val, index) => {
+        if (val?._id === openPaymentModal?._id) {
+          val.chargebee.data.push({
+            userId: user?._id,
+            subscribed: true,
+          });
+        }
+        return val;
+      });
+      setChapters([...newChapters]);
+    }
+  };
+
   const ifAdmin = user?._id === project.author;
 
   return (
@@ -295,10 +316,8 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
         isOpen={!!openPaymentModal}
         setIsOpen={setOpenPaymentModal}
         item={openPaymentModal}
-        setProject={setProject}
-        setChapters={setChapters}
-        chapters={chapters}
         user={user}
+        updatePage={updatePage}
       />
     </div>
   );

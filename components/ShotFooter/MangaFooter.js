@@ -20,11 +20,14 @@ const MangaFooter = ({
   user,
   manga,
   chapter,
+  setChapter,
   className,
   isOwn,
   authors,
   like,
   isLiked,
+  ifPayed,
+  setIfPayed,
   toggleComments,
   subscribe,
   updateComments,
@@ -42,7 +45,13 @@ const MangaFooter = ({
           <div className={styles.footer__mobileCommentsHeader}>Feedback</div>
           <MangaComments manga={manga} comments={comments.data} createComment={createComment} />
         </div>
-        <Pledge item={chapter} image={chapter?.cover} user={user} />
+        <Pledge
+          item={chapter}
+          image={chapter?.cover}
+          user={user}
+          ifPayed={ifPayed}
+          setIfPayed={setIfPayed}
+        />
         <ShotAndMangaTitle
           className={styles.footer__info}
           title={manga?.mangaStoryTitle}

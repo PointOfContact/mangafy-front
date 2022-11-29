@@ -12,7 +12,7 @@ import ChapterItems from './chapterItems';
 
 const sliderItemWidth = 100;
 
-const MangaSlider = ({ manga, activeChapterIndex, user }) => {
+const MangaSlider = ({ manga, activeChapterIndex, user, ifPayed }) => {
   const containerRef = useRef(null);
   const sliderRef = useRef(null);
   const activeChapterRef = useRef(null);
@@ -71,6 +71,7 @@ const MangaSlider = ({ manga, activeChapterIndex, user }) => {
           </div>
           <div className={styles.slider__content} ref={sliderRef}>
             <ChapterItems
+              ifPayedChapter={ifPayed}
               manga={manga}
               activeChapterIndex={activeChapterIndex}
               user={user}

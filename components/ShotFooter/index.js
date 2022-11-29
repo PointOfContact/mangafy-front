@@ -18,6 +18,7 @@ import Pledge from './pledge';
 const ShotFooter = ({
   user,
   shot,
+  setShot,
   className,
   isOwn,
   isSubscribed,
@@ -27,6 +28,8 @@ const ShotFooter = ({
   subscribe,
   updateShotInfo,
   shareUrl,
+  ifPayed,
+  setIfPayed,
   setIsLoginModalVisible,
 }) => {
   return (
@@ -41,10 +44,16 @@ const ShotFooter = ({
             setIsLoginModalVisible={setIsLoginModalVisible}
           />
         </div>
-        <Pledge item={shot} image={shot?.image} user={user} />
+        <Pledge
+          item={shot}
+          image={shot?.image}
+          user={user}
+          ifPayed={ifPayed}
+          setIfPayed={setIfPayed}
+        />
         <ShotAndMangaTitle
           title={shot?.isOld ? shot?.authorInfo?.name : shot?.title}
-          link={'/profile/' + shot?.authorInfo._id}
+          link={'/profile/' + shot?.authorInfo?._id}
           author={{ ...shot?.authorInfo, isFollowed: isSubscribed }}
           isOwn={isOwn}
           subscribe={subscribe}

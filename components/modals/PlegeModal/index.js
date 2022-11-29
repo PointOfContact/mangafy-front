@@ -9,7 +9,7 @@ import PlanCard from './PlanCard';
 import Fire from 'components/icon/new/Fire';
 import { useAppContext } from 'context';
 
-const PledgeModal = ({ isOpen, setIsOpen, item, user, setProject, setChapters, chapters }) => {
+const PledgeModal = ({ isOpen, setIsOpen, item, user, updatePage }) => {
   const { cbInstance, openPlanModal } = useAppContext();
 
   const plans = [
@@ -25,36 +25,16 @@ const PledgeModal = ({ isOpen, setIsOpen, item, user, setProject, setChapters, c
     },
   ];
 
-  function openProjectCheckout() {
-    const updateItem = () => {
-      if ('gallery' in item) {
-        item.chargebee.data.push({
-          userId: user?._id,
-          subscribed: true,
-        });
-        setProject({ ...item });
-      } else {
-        const newChapters = chapters.map((val, index) => {
-          if (val?._id === item?._id) {
-            val.chargebee.data.push({
-              userId: user?._id,
-              subscribed: true,
-            });
-          }
-          return val;
-        });
-        setChapters([...newChapters]);
-      }
-    };
+  const openProjectCheckout = () => {
     openPlanModal(
       cbInstance,
       item?.planId,
       item?._id,
       user?.customerId,
       () => setIsOpen(false),
-      updateItem
+      updatePage
     );
-  }
+  };
 
   return (
     <Modal

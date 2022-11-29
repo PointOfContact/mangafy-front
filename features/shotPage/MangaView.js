@@ -42,7 +42,20 @@ const MangaView = ({
   const [imagesHeight, setImagesHeight] = useState([]);
   const [isLiked, setIsLiked] = useState(false);
   const [manga, setManga] = useState(serverSideManga);
-  const chapter = manga?.chapters[activeChapterIndex - 1];
+  const [chapter, setChapter] = useState({});
+  const [ifPayed, setIfPayed] = useState(false);
+
+  useEffect(() => {
+    const data = user?.chargebee?.data?.some((val) => {
+      return val.itemId === chapter._id || val?.subscribed;
+    });
+    setIfPayed(data);
+  }, [chapter]);
+
+  useEffect(() => {
+    const data = manga?.chapters[activeChapterIndex - 1];
+    setChapter(data);
+  }, [activeChapterIndex]);
 
   const [areCommentsOpened, setAreCommentsOpened] = useState(false);
   function toggleComments() {
@@ -96,12 +109,14 @@ const MangaView = ({
     updateMangaInfo();
     updateAuthorsInfo();
     const imagesHeights = [''];
-    for (const image of chapter?.mangaUrls) {
-      const { height } = await reactImageSize(client.UPLOAD_URL + image);
-      imagesHeights.push(height);
+    if (chapter?.mangaUrls) {
+      for (const image of chapter?.mangaUrls) {
+        const { height } = await reactImageSize(client.UPLOAD_URL + image);
+        imagesHeights.push(height);
+      }
     }
     setImagesHeight(imagesHeights);
-  }, [router.query.mid]);
+  }, [router.query.mid, chapter]);
 
   useEffect(() => {
     if (
@@ -305,6 +320,7 @@ const MangaView = ({
         /> */}
         <MangaFooter
           chapter={chapter}
+          setChapter={setChapter}
           manga={manga}
           user={user}
           isOwn={isOwn}
@@ -312,6 +328,8 @@ const MangaView = ({
           authors={authors}
           comments={comments}
           isLiked={isLiked}
+          ifPayed={ifPayed}
+          setIfPayed={setIfPayed}
           like={like}
           toggleComments={toggleComments}
           updateComments={updateChapterCommentsInfo}
@@ -323,7 +341,12 @@ const MangaView = ({
           createComment={createCommentChapter}
           setIsLoginModalVisible={setIsLoginModalVisible}
         />
-        <MangaSlider manga={manga} user={user} activeChapterIndex={activeChapterIndex} />
+        <MangaSlider
+          ifPayed={ifPayed}
+          manga={manga}
+          user={user}
+          activeChapterIndex={activeChapterIndex}
+        />
         <SignInModal
           page={'/project/view/' + manga?.id}
           title="Sign in"

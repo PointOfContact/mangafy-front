@@ -16,7 +16,7 @@ const urlEncode = (data) => {
   return str.join('&');
 };
 
-const openPlanModal = (cbInstance, plan_id, item_id, customer_id, closePayModal, updateItem) =>
+const openPlanModal = (cbInstance, plan_id, item_id, customer_id, closePayModal, updatePage) =>
   cbInstance.openCheckout({
     hostedPage: async () => {
       // required
@@ -65,7 +65,7 @@ const openPlanModal = (cbInstance, plan_id, item_id, customer_id, closePayModal,
     },
     success: (hostedPageId) => {
       console.log('Success: ' + hostedPageId);
-      updateItem();
+      updatePage();
       closePayModal();
       // Optional
       // will be called when a successful checkout happens.

@@ -12,7 +12,7 @@ import ShotItems from './shotItems';
 
 const sliderItemWidth = 100;
 
-const ShotSlider = ({ className, shot, allShots, user }) => {
+const ShotSlider = ({ className, shot, allShots, user, ifPayedShot }) => {
   const containerRef = useRef(null);
   const sliderRef = useRef(null);
   const activeShotRef = useRef(null);
@@ -63,7 +63,13 @@ const ShotSlider = ({ className, shot, allShots, user }) => {
             <ArrowDown2 />
           </div>
           <div className={styles.slider__content} ref={sliderRef}>
-            <ShotItems shot={shot} user={user} allShots={allShots} activeShotRef={activeShotRef} />
+            <ShotItems
+              ifPayedShot={ifPayedShot}
+              shot={shot}
+              user={user}
+              allShots={allShots}
+              activeShotRef={activeShotRef}
+            />
           </div>
           <div
             className={cn(styles.slider__arrow, hideArrows && styles.slider__arrow_hidden)}
