@@ -61,6 +61,9 @@
 }
 
 .select {
+  padding: 0;
+  overflow: hidden;
+  
   :global {
     .ant-select-selector {
       border: none !important;
@@ -68,6 +71,18 @@
     }
     .ant-select-selection {
       background: green;
+      padding: 0.6em 1.2em;
+    }
+    .ant-select-arrow {
+      color: $black;
+      right: 25px !important;
+    }
+    .ant-select-selector {
+      margin: 0.6em 1.2em !important;
+      transform: translateX(-1.2em) !important;
+    }
+    .ant-select-selection-search, .ant-select-selection-item {
+      transform: translateX(1.2em) !important;
     }
   }
 

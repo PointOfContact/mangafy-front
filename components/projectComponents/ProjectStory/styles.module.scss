@@ -25,12 +25,23 @@
       }
     }
   }
-
   &__description {
     font-weight: 400;
     font-size: 15px;
+    & > p {
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      word-break: normal;
+      -webkit-box-orient: vertical;
+      word-break: break-all;
+      overflow: hidden;
+    }
   }
-
+  &__showAll {
+    & > p {
+      -webkit-line-clamp: 50;
+    }
+  }
   &__more {
     font-weight: 400;
     font-size: 15px;

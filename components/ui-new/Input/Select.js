@@ -30,8 +30,7 @@ const Select = ({
           styles.select
         )}
         dropdownClassName={styles.select__dropdown}
-        onChange={onChange}
-      >
+        onChange={onChange}>
         {options.map((option) => (
           <Option value={option.key}>{option.value}</Option>
         ))}

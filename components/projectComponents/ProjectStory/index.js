@@ -9,7 +9,7 @@ import Edit2 from 'components/icon/new/Edit2';
 const ProjectStory = ({ className, project, user }) => {
   const isMoreThan200 = project?.story?.length > 200;
   const [showMore, setShowMore] = useState(false);
-  const ifAdmin = user?._id === project.author;
+  const ifAdmin = user?._id === project?.author;
 
   return (
     <div className={cn(className, styles.story)}>
@@ -24,10 +24,11 @@ const ProjectStory = ({ className, project, user }) => {
         )}
       </div>
       <div
-        className={styles.story__description}
+        className={cn(styles.story__description, showMore && styles.story__showAll)}
         dangerouslySetInnerHTML={{
           __html: formatHtml(showMore ? project?.story : project?.story?.slice(0, 400), false),
-        }}></div>
+        }}
+      />
       {isMoreThan200 && (
         <div className={styles.story__more} onClick={() => setShowMore(!showMore)}>
           {showMore ? 'Hide text' : 'Read more ...'}
@@ -35,8 +36,10 @@ const ProjectStory = ({ className, project, user }) => {
       )}
       <div className={styles.story__genres}>
         Genres:
-        {project?.genres?.map((genre) => (
-          <div className={styles.story__genre}>{genre.name}</div>
+        {project?.genres?.map((genre, index) => (
+          <div key={genre._id + index} className={styles.story__genre}>
+            {genre.name}
+          </div>
         ))}
         {ifAdmin && (
           <Link href={'/project/production/' + project?._id + '?tab=settings#genres'}>

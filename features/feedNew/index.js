@@ -245,7 +245,14 @@ const FeedNew = (props) => {
   function makeCardsElements(newCards = []) {
     return newCards.map((card) => {
       if (card.postType === 'Task' || card.postType === 'Collab')
-        return <TaskCard key={card._id} card={card} user={user} />;
+        return (
+          <TaskCard
+            key={card._id}
+            card={card}
+            user={user}
+            setShowLoginModal={setSignInModalVisible}
+          />
+        );
       else if (card.postType === 'Project' || card.postType === 'Ongoing')
         return <PublishedCard key={card._id} card={card} user={user} />;
       else if (card.postType === 'Portfolio')
@@ -260,7 +267,14 @@ const FeedNew = (props) => {
           />
         );
       else if (card.postType === 'Profile')
-        return <PortfolioCard key={card._id} card={card} user={user} />;
+        return (
+          <PortfolioCard
+            key={card._id}
+            card={card}
+            user={user}
+            setShowLoginModal={(visible) => setSignInModalVisible(visible)}
+          />
+        );
     });
   }
 

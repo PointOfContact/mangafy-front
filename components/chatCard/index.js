@@ -101,8 +101,7 @@ const ChatCard = ({
         showMessages(e, dialogUser);
         setShowMessageMobile(true);
       }}
-      data-id={conversations[0] && conversations[0]._id}
-    >
+      data-id={conversations[0] && conversations[0]._id}>
       <div className={cn(styles.message_community, 'row')}>
         <div className={styles.mess_content}>
           <div className={cn(styles.title_block)}>
@@ -129,8 +128,7 @@ const ChatCard = ({
                 setRecvestStatus(event, rid, 'rejected');
               }}
               okText="Yes"
-              cancelText="No"
-            >
+              cancelText="No">
               <PrimaryButton className="buttonsProfile_cancel" text="Cancel" isDark isRound />
             </Popconfirm>
             <Popconfirm
@@ -141,8 +139,7 @@ const ChatCard = ({
               }}
               onClick={(event) => event.stopPropagation()}
               okText="Yes"
-              cancelText="No"
-            >
+              cancelText="No">
               <PrimaryButton className="buttonsProfile_save" text="save" isActive isRound />
             </Popconfirm>
           </div>
