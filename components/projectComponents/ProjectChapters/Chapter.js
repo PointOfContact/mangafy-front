@@ -28,7 +28,11 @@ const Chapter = ({
           <div className={styles.blur__container}>
             <Lock className={styles.blur__lock} />
             <div className={styles.blur__text}>To unlock this chapter, become a subscriber</div>
-            <Button rounded pink md onClick={() => setOpenPaymentModal(chapter)}>
+            <Button
+              rounded
+              pink
+              md
+              onClick={() => setOpenPaymentModal({ item: chapter, type: 'Chapter' })}>
               Subscribe
             </Button>
           </div>

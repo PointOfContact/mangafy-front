@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 import PledgeModal from 'components/modals/PlegeModal';
 
-const Pledge = ({ item, image, user, updatePage, ifPayed, setIfPayed }) => {
+const Pledge = ({ item, image, user, updatePage, ifPayed, setIfPayed, type }) => {
   const [openPaymentModal, setOpenPaymentModal] = useState(false);
 
   return (
@@ -21,7 +21,7 @@ const Pledge = ({ item, image, user, updatePage, ifPayed, setIfPayed }) => {
         />
         {!!item.planId && (
           <div
-            onClick={() => setOpenPaymentModal(item)}
+            onClick={() => setOpenPaymentModal({ item, type })}
             className={cn(styles.pledge, (ifPayed || !user) && styles.disabled)}>
             Pledge
           </div>
@@ -30,7 +30,7 @@ const Pledge = ({ item, image, user, updatePage, ifPayed, setIfPayed }) => {
       <PledgeModal
         isOpen={!!openPaymentModal}
         setIsOpen={setOpenPaymentModal}
-        item={openPaymentModal}
+        object={openPaymentModal}
         updatePage={() => setIfPayed(true)}
         user={user}
       />

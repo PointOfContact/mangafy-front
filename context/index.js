@@ -16,7 +16,15 @@ const urlEncode = (data) => {
   return str.join('&');
 };
 
-const openPlanModal = (cbInstance, plan_id, item_id, customer_id, closePayModal, updatePage) =>
+const openPlanModal = (
+  cbInstance,
+  plan_id,
+  item_id,
+  customer_id,
+  closePayModal,
+  updatePage,
+  type
+) =>
   cbInstance.openCheckout({
     hostedPage: async () => {
       // required
@@ -26,7 +34,7 @@ const openPlanModal = (cbInstance, plan_id, item_id, customer_id, closePayModal,
       try {
         const jwt = client.getCookie('feathers-jwt');
         const data = await client.service(`api/v2/generate-checkout-new-url`).create(
-          { plan_id, customer_id, item_id },
+          { plan_id, customer_id, item_id, type },
           {
             headers: { Authorization: `Bearer ${jwt}` },
             mode: 'no-cors',

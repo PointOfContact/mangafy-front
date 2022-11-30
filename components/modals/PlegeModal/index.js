@@ -9,13 +9,13 @@ import PlanCard from './PlanCard';
 import Fire from 'components/icon/new/Fire';
 import { useAppContext } from 'context';
 
-const PledgeModal = ({ isOpen, setIsOpen, item, user, updatePage }) => {
+const PledgeModal = ({ isOpen, setIsOpen, object, user, updatePage, type }) => {
   const { cbInstance, openPlanModal } = useAppContext();
 
   const plans = [
     {
-      id: item?.planId,
-      title: 'Test plan: ' + item?.planId,
+      id: object?.item?.planId,
+      title: 'Test plan: ' + object?.item?.planId,
       features: [
         {
           icon: <Fire />,
@@ -28,11 +28,12 @@ const PledgeModal = ({ isOpen, setIsOpen, item, user, updatePage }) => {
   const openProjectCheckout = () => {
     openPlanModal(
       cbInstance,
-      item?.planId,
-      item?._id,
+      object?.item?.planId,
+      object?.item._id,
       user?.customerId,
       () => setIsOpen(false),
-      updatePage
+      updatePage,
+      object?.type
     );
   };
 
@@ -46,8 +47,12 @@ const PledgeModal = ({ isOpen, setIsOpen, item, user, updatePage }) => {
       onCancel={() => setIsOpen(false)}>
       <div>
         <div>
-          <Avatar size={60} image={item?.image} text={item?.title && item?.title[0]} />
-          <div>{item?.title}</div>
+          <Avatar
+            size={60}
+            image={object?.item?.image}
+            text={object?.item?.title && object?.item?.title[0]}
+          />
+          <div>{object?.item?.title}</div>
         </div>
         <div>
           {plans.map((plan) => (

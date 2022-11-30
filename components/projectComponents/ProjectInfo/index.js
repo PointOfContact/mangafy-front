@@ -39,7 +39,7 @@ const ProjectInfo = ({
       </div>
       <ProjectStory className={styles.info__story} project={project} user={user} />
       <SubscribeField
-        openPledgeModal={() => setOpenPaymentModal(project)}
+        openPledgeModal={() => setOpenPaymentModal({ item: project, type: 'Project' })}
         payPalEmail={project?.authorInfo?.payPalEmail}
         user={user}
         subscribedProject={subscribedProject}

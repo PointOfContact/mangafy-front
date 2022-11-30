@@ -50,6 +50,7 @@ const ShotFooter = ({
           user={user}
           ifPayed={ifPayed}
           setIfPayed={setIfPayed}
+          type="Shot"
         />
         <ShotAndMangaTitle
           title={shot?.isOld ? shot?.authorInfo?.name : shot?.title}

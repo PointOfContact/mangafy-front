@@ -51,6 +51,7 @@ const MangaFooter = ({
           user={user}
           ifPayed={ifPayed}
           setIfPayed={setIfPayed}
+          type="Chapter"
         />
         <ShotAndMangaTitle
           className={styles.footer__info}

@@ -189,15 +189,15 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
   }
 
   const updatePage = () => {
-    if ('gallery' in openPaymentModal) {
-      openPaymentModal.chargebee.data.push({
+    if (openPaymentModal.type === 'Project') {
+      openPaymentModal.item.chargebee.data.push({
         userId: user?._id,
         subscribed: true,
       });
-      setProject({ ...openPaymentModal });
+      setProject({ ...openPaymentModal.item });
     } else {
       const newChapters = chapters.map((val, index) => {
-        if (val?._id === openPaymentModal?._id) {
+        if (val?._id === openPaymentModal?.item?._id) {
           val.chargebee.data.push({
             userId: user?._id,
             subscribed: true,
@@ -315,7 +315,7 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
       <PledgeModal
         isOpen={!!openPaymentModal}
         setIsOpen={setOpenPaymentModal}
-        item={openPaymentModal}
+        object={openPaymentModal}
         user={user}
         updatePage={updatePage}
       />
