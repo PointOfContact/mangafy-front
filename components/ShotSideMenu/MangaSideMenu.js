@@ -27,6 +27,7 @@ const MangaSideMenu = ({
   isParticipant,
   createComment,
   isPublished,
+  setIsLoginModalVisible,
 }) => {
   const commentsRef = useRef(null);
   // const [commentsCount, setCommentsCount] = useState(0);
@@ -65,7 +66,13 @@ const MangaSideMenu = ({
         )}
         <div className={styles.menu__buttons}>
           <Button
-            onClick={() => setAreCommentsOpened(!areCommentsOpened)}
+            onClick={() => {
+              if (!user) {
+                setIsLoginModalVisible(true);
+                return;
+              }
+              setAreCommentsOpened(!areCommentsOpened);
+            }}
             rounded
             outline
             iconRight

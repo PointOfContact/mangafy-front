@@ -10,7 +10,7 @@ import Send from 'components/icon/new/Send';
 import Avatar from 'components/Avatar';
 import cn from 'classnames';
 
-const ShotComments = ({ shotId, user, onUpload, className }) => {
+const ShotComments = ({ shotId, user, onUpload, className, setIsLoginModalVisible }) => {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
   const inputRef = useRef(null);
@@ -43,7 +43,10 @@ const ShotComments = ({ shotId, user, onUpload, className }) => {
   }
 
   function createComment() {
-    console.log(newComment);
+    if (!user) {
+      setIsLoginModalVisible(true);
+      return;
+    }
     if (newComment.length < 3) {
       return notification.error({
         message: 'Comment must be at least 3 characters',

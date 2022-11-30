@@ -1,0 +1,127 @@
+@import '../../../styles/variables.scss';
+
+.items {
+  max-width: 382px;
+  width: 100%;
+  background: $text_white;
+  border: 1px solid #f1f1f1;
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.05);
+  border-radius: 7px;
+  .imageConatiner {
+    height: 300px;
+    position: relative;
+    img {
+      object-fit: cover;
+    }
+  }
+  .content {
+    padding: 14px;
+    .dataContainer {
+      border-bottom: 1px solid #f0f0f0;
+      margin-bottom: 9px;
+      padding-bottom: 12px;
+      h2 {
+        font-weight: 700;
+        font-size: $text7;
+        line-height: $text1;
+        color: $black;
+        word-break: break-all;
+        margin: 0;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        overflow: hidden;
+        white-space: pre-wrap;
+        -webkit-box-orient: vertical;
+      }
+      .description {
+        font-weight: 400;
+        font-size: $text7;
+        line-height: $text1;
+        color: $black;
+        word-break: break-all;
+      }
+      .participents {
+        display: flex;
+        align-items: center;
+        margin-right: 10px;
+        .avatar {
+          width: 25px;
+          height: 25px;
+          margin-right: 10px;
+          span {
+            width: 25px;
+            height: 25px;
+            & > span {
+              width: 25px;
+              height: 25px;
+              top: -2px;
+            }
+          }
+        }
+        .avatar + p {
+          font-weight: 400;
+          font-size: 12px;
+          line-height: 30px;
+          color: $black;
+          margin: 0;
+        }
+      }
+      .participentsContainer {
+        display: flex;
+      }
+    }
+  }
+  .footerContainer {
+    display: flex;
+    justify-content: space-between;
+    & > div {
+      display: flex;
+    }
+    .type {
+      width: 91px;
+      height: 29px;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      border-radius: 60px;
+      justify-content: space-between;
+      background-color: $primaryDark;
+      margin-right: 10px;
+      p {
+        color: white;
+        margin: 0;
+        font-weight: 700;
+        font-size: 12px;
+        line-height: 30px;
+        &::first-letter {
+          text-transform: uppercase;
+        }
+      }
+      svg {
+        width: 13.33px;
+        path {
+          fill: $primaryDark;
+          stroke: #b0a1fc;
+        }
+      }
+    }
+    div > span {
+      &:first-child {
+        margin-right: 26px;
+      }
+      &:last-child {
+        path {
+          fill: rgb(255 255 255);
+          stroke: rgb(145 144 144);
+        }
+      }
+      & > p {
+        font-weight: 800;
+        font-size: 12px;
+        line-height: 30px;
+        color: $black;
+        margin-right: 6px;
+      }
+    }
+  }
+}

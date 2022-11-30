@@ -2,6 +2,7 @@ import Button from 'components/ui-new/Button';
 import React, { useState, useEffect } from 'react';
 import styles from './styles.module.scss';
 import cn from 'classnames';
+import Close from 'components/icon/new/Close';
 
 const suggestedTags = ['manga', 'short story', 'webtoon', 'character'];
 
@@ -17,7 +18,12 @@ const SelectTags = ({ className, onChange, defaultSelectedTags }) => {
     if (!tag) return;
     setSelectedTags((oldTags) => {
       const newTags = oldTags?.slice();
-      newTags.push(tag);
+      if (newTags?.includes(tag)) {
+        const index = newTags.indexOf(tag);
+        newTags.splice(index, 1);
+      } else {
+        newTags.push(tag);
+      }
       return newTags;
     });
   }
@@ -40,13 +46,24 @@ const SelectTags = ({ className, onChange, defaultSelectedTags }) => {
     }
   }
 
+  function removeTag(tag) {
+    setSelectedTags((oldTags) => {
+      const newTags = oldTags?.slice();
+      const index = newTags.indexOf(tag);
+      if (index > -1) {
+        newTags.splice(index, 1);
+      }
+      return newTags;
+    });
+  }
+
   useEffect(() => {
     onChange(selectedTags);
   }, [selectedTags]);
 
   const tagsElements = selectedTags.map((tag) => (
-    <span key={tag} className={styles.select__tag}>
-      {tag}
+    <span key={tag} className={styles.select__tag} onClick={() => removeTag(tag)}>
+      {tag} <Close color="#fff" bold />
     </span>
   ));
 
@@ -65,8 +82,7 @@ const SelectTags = ({ className, onChange, defaultSelectedTags }) => {
           placeholder={'Input any tags'}
           contentEditable="true"
           onKeyDown={keyPressHandler}
-          onInput={onInput}
-        ></input>
+          onInput={onInput}></input>
       </div>
       <div className={styles.select__suggested}>Suggested: {suggestedTagsElements}</div>
     </div>

@@ -45,6 +45,7 @@ const ProfileTopBar = (props) => {
     handleChangeGenres,
     showModalEdit,
     setShowModalEdit,
+    openLoginModal,
   } = props;
 
   const [showModal, changeShowModal] = useState(false);
@@ -146,7 +147,8 @@ const ProfileTopBar = (props) => {
           });
       });
     } else {
-      history.push(`/sign-in?page=profile/${profile._id}`);
+      // history.push(`/sign-in?page=profile/${profile._id}`);
+      openLoginModal();
     }
   };
 
@@ -250,6 +252,7 @@ const ProfileTopBar = (props) => {
                       user={user}
                       likedUsers={user?.likedUsers}
                       setLikedUsers={setLikedUsers}
+                      openLoginModal={openLoginModal}
                     />
                   </div>
                 ) : (
@@ -259,6 +262,7 @@ const ProfileTopBar = (props) => {
                     user={user}
                     likedUsers={likedUsers}
                     setLikedUsers={setLikedUsers}
+                    openLoginModal={openLoginModal}
                   />
                 )}
               </>

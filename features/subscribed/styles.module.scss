@@ -1,0 +1,30 @@
+@import '../../styles/variables.scss';
+
+.container {
+  h1 {
+    font-weight: 800;
+    font-size: 32px;
+    line-height: 38px;
+    color: $black;
+    text-align: center;
+    margin-top: 30px;
+  }
+  h3 {
+    font-weight: 400;
+    font-size: $text3;
+    line-height: 22px;
+    text-align: center;
+    color: $black;
+    margin-top: $text1;
+    margin-bottom: 61px;
+  }
+  .tabs {
+    max-width: 80%;
+    margin: auto;
+    & > div:last-child {
+      padding: 0;
+    }
+    margin-bottom: 20px;
+    display: flex;
+  }
+}

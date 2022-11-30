@@ -10,6 +10,8 @@ import Button from 'components/ui-new/Button';
 import Facebook from 'components/icon/new/Facebook';
 import Input from 'components/ui-new/Input';
 import Imgix from 'components/imgix';
+import Eye from 'components/icon/new/Eye';
+import EyeClosed from 'components/icon/new/EyeClosed';
 
 import { EVENTS } from 'helpers/amplitudeEvents';
 import myAmplitude, { setUser } from 'utils/amplitude';
@@ -17,15 +19,20 @@ import { notification } from 'antd';
 import { login } from 'store';
 import { validateEmail, validatePassword } from 'helpers/shared';
 import client from 'api/client';
+import cn from 'classnames';
 
 const SignIn = () => {
   const router = useRouter();
-  const page = router.query.page || 'feed';
+  let page = router.query.page || '';
+  if (page.includes('sign-in') || page.includes('sign-up')) {
+    page = '';
+  }
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState(null);
   const [passwordError, setPasswordError] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
 
   const [loading, setLoading] = useState(false);
 
@@ -39,6 +46,10 @@ const SignIn = () => {
     const error = validatePassword(pass);
     setPasswordError(error);
     setPassword(pass);
+  };
+
+  const handleShowPasswordClick = () => {
+    setShowPassword(!showPassword);
   };
 
   const handleSubmit = (e) => {
@@ -136,16 +147,20 @@ const SignIn = () => {
               rounded
               placeholder="Email"
             />
-            <Input
-              className={styles.loginPage__input}
-              err={passwordError}
-              type="password"
-              onChange={handlePasswordChange}
-              pink
-              full
-              rounded
-              placeholder="Password"
-            />
+            <div className={cn(styles.loginPage__input, styles.loginPage__password)}>
+              <Input
+                err={passwordError}
+                onChange={handlePasswordChange}
+                pink
+                full
+                rounded
+                type={showPassword ? 'text' : 'password'}
+                placeholder="Password"
+              />
+              <div className={styles.loginPage__showPassword} onClick={handleShowPasswordClick}>
+                {showPassword ? <EyeClosed className={styles.loginPage__closedEye} /> : <Eye />}
+              </div>
+            </div>
             <Link href="forgot-password">
               <a className={styles.loginPage__forgotPassword}>Forgot your password?</a>
             </Link>

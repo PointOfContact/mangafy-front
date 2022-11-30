@@ -25,6 +25,7 @@ const CreatePreviousWorks = ({
   showUploadList,
   profile,
   updateShots,
+  openLoginModal,
 }) => (
   <div className={styles.imagesBlock}>
     {images?.length ? (
@@ -48,6 +49,7 @@ const CreatePreviousWorks = ({
             setSelectedGallery,
             setCreateGalleryModal,
             setIsModalVisible,
+            openLoginModal,
           }}
         />
       ))
@@ -58,8 +60,7 @@ const CreatePreviousWorks = ({
             beforeUpload={onBeforeGalleryUpload}
             showUploadList={showUploadList}
             multiple={true}
-            accept="image/jpg, image/png, application/pdf, image/jpeg"
-          >
+            accept="image/jpg, image/png, application/pdf, image/jpeg">
             <Card
               description="Do you not want <br/> to add a gallery?"
               btnText=""

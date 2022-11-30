@@ -1,5 +1,8 @@
 @import './styles/variables.scss';
 
+* {
+  box-sizing: border-box;
+}
 html,
 body {
   height: inherit;

@@ -12,6 +12,7 @@ import myAmplitude from 'utils/amplitude';
 
 import styles from './styles.module.scss';
 import TaskItems from './taskItems';
+import { useRouter } from 'next/router';
 
 const Tasks = ({ baseData, isOwn, user, toTeam, isParticipant, showPayPalContent }) => {
   const { tasks } = baseData;
@@ -19,6 +20,14 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipant, showPayPalContent
   const [showModal, changeShowModal] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
   const [taskItemsArray, setTaskItemsArray] = useState(null);
+
+  const router = useRouter();
+  useEffect(() => {
+    if (router.query.hasOwnProperty('createTask')) {
+      changeShowModal(true);
+      setSelectedTask(null);
+    }
+  }, []);
 
   // useEffect(() => {
   //   const task = taskList.find((task) => task._id === openedTask);

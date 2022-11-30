@@ -19,6 +19,7 @@ const ShotSideMenu = ({
   comments,
   setIsShareModalOpened,
   isOld,
+  setIsLoginModalVisible,
 }) => {
   const commentsRef = useRef(null);
   // const [commentsCount, setCommentsCount] = useState(0);
@@ -47,7 +48,13 @@ const ShotSideMenu = ({
         />
         <div className={styles.menu__buttons}>
           <Button
-            onClick={() => setAreCommentsOpened(!areCommentsOpened)}
+            onClick={() => {
+              if (!user) {
+                setIsLoginModalVisible(true);
+                return;
+              }
+              setAreCommentsOpened(!areCommentsOpened);
+            }}
             rounded
             outline
             iconRight
@@ -78,7 +85,12 @@ const ShotSideMenu = ({
         ref={commentsRef}
         className={cn(styles.sideComments, areCommentsOpened && styles.sideComments_opened)}>
         <div className={styles.sideComments__header}>Feedback</div>
-        <ShotComments shotId={shot._id} user={user} onUpload={updateShotInfo} />
+        <ShotComments
+          shotId={shot._id}
+          user={user}
+          onUpload={updateShotInfo}
+          setIsLoginModalVisible={setIsLoginModalVisible}
+        />
       </div>
     </>
   );

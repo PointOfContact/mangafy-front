@@ -15,6 +15,7 @@ import ShotComments from 'components/shotComments';
 import ShotAndMangaTitle from 'components/ShotAndMangaTitle';
 import { useAppContext } from 'context';
 import PrimaryButton from 'components/ui-elements/button';
+import { useRouter } from 'next/router';
 
 const ShotFooter = ({
   user,
@@ -28,8 +29,10 @@ const ShotFooter = ({
   subscribe,
   updateShotInfo,
   shareUrl,
+  setIsLoginModalVisible,
 }) => {
   const { cbInstance, openPlanModal } = useAppContext();
+  const router = useRouter();
 
   return (
     <div name="footer" className={cn(styles.footer, className)}>
@@ -40,9 +43,14 @@ const ShotFooter = ({
         />
       )} */}
       <div className={styles.footer__container}>
-        <div className={styles.footer__mobileComments}>
+        <div className={styles.footer__mobileComments} id="comments">
           <div className={styles.footer__mobileCommentsHeader}>Feedback</div>
-          <ShotComments shotId={shot._id} user={user} onUpload={updateShotInfo} />
+          <ShotComments
+            shotId={shot._id}
+            user={user}
+            onUpload={updateShotInfo}
+            setIsLoginModalVisible={setIsLoginModalVisible}
+          />
         </div>
         <ShotAndMangaTitle
           title={shot?.isOld ? shot?.authorInfo?.name : shot?.title}
@@ -64,6 +72,19 @@ const ShotFooter = ({
               icon={<Comment color="#7B65F3" />}>
               {shot?.comments?.total || 0}
             </Button>
+            <Link href="#comments">
+              <a>
+                <Button
+                  className={styles.footer__commentButtonMobile}
+                  sm
+                  rounded
+                  outline
+                  iconRight
+                  icon={<Comment color="#7B65F3" />}>
+                  {shot?.comments?.total || 0}
+                </Button>
+              </a>
+            </Link>
             {!shot.isOld && (
               <Button
                 sm

@@ -19,6 +19,7 @@ import PropTypes from 'prop-types';
 import myAmplitude from 'utils/amplitude';
 
 import styles from './styles.module.scss';
+import { SignInModal } from 'components/modals/SignInModal';
 
 const Profile = (props) => {
   const router = useRouter();
@@ -44,6 +45,7 @@ const Profile = (props) => {
     galleryLikedUsers: user?.galleryLikedUsers,
     avatar: user?.avatar,
   });
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
   const profileGenres = genresEnums?.data?.filter(
     (item) => profile.genresIds && profile.genresIds.includes(item._id)
@@ -134,6 +136,10 @@ const Profile = (props) => {
   const images = [userImg, ...gallerys];
   const bioUser = props?.profile?.content;
 
+  const openLoginModal = () => {
+    setIsLoginModalOpen(true);
+  };
+
   return (
     <>
       <NextSeo
@@ -195,6 +201,7 @@ const Profile = (props) => {
                     handleChangeGenres,
                     showModalEdit,
                     setShowModalEdit,
+                    openLoginModal,
                   }}
                 />
               </div>
@@ -221,6 +228,7 @@ const Profile = (props) => {
                     genres,
                     total,
                     ifMyProfile,
+                    openLoginModal,
                   }}
                 />
               </div>
@@ -245,6 +253,12 @@ const Profile = (props) => {
         {!user && <Footer user={user} />}
         {!user && <FooterPolicy />}
         <FooterLogin user={user} />
+        <SignInModal
+          page={router?.asPath}
+          title={'Sign in'}
+          visible={isLoginModalOpen}
+          setVisible={setIsLoginModalOpen}
+        />
       </div>
     </>
   );
