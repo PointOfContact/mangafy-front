@@ -9,7 +9,7 @@ const ProjectMembers = ({ className, project }) => {
   const author = project.authorInfo;
   return (
     <div className={cn(className, styles.members)}>
-      <Link key={author._id} href={client.API_ENDPOINT + '/profile/' + author._id}>
+      <Link key={author._id} href={'/profile/' + author._id}>
         <a className={styles.members__member}>
           <Avatar size={50} image={author.avatar} text={author.name[0]} />
           <div className={styles.members__info}>
@@ -19,7 +19,7 @@ const ProjectMembers = ({ className, project }) => {
         </a>
       </Link>
       {project?.participentsInfo?.map((member) => (
-        <Link key={member._id} href={client.API_ENDPOINT + '/profile/' + member._id}>
+        <Link key={member._id} href={'/profile/' + member._id}>
           <a className={styles.members__member}>
             <Avatar size={50} image={member.avatar} text={member.name[0]} />
             <div className={styles.members__info}>

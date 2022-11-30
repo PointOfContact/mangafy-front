@@ -175,7 +175,7 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
     setAreCommentsOpened(true);
   }
 
-  const ifAdmin = user?._id === project.author;
+  const ifAdmin = user?._id === project?.author;
 
   return (
     <div className={styles.project}>
@@ -265,6 +265,7 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
           createChapterOrProjectComment(text, currentChapterId ? 'chapter' : 'project')
         }
         isParticipant={isParticipant || isOwner}
+        setIsLoginModalVisible={setIsSignInModalOpened}
       />
 
       <ShareModal

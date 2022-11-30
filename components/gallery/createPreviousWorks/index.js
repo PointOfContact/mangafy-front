@@ -25,6 +25,7 @@ const CreatePreviousWorks = ({
   showUploadList,
   profile,
   updateShots,
+  openLoginModal,
 }) => (
   <div className={styles.imagesBlock}>
     {images?.length ? (
@@ -48,6 +49,7 @@ const CreatePreviousWorks = ({
             setSelectedGallery,
             setCreateGalleryModal,
             setIsModalVisible,
+            openLoginModal,
           }}
         />
       ))
