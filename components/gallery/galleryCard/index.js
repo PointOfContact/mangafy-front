@@ -37,6 +37,7 @@ const GalleryCard = ({
   setIsModalVisible,
   profileId,
   updateShots,
+  openLoginModal,
 }) => {
   const ifNotStories = galleryItem?.original;
   const getTypeImg = ifNotStories && image?.slice(-3);
@@ -81,7 +82,7 @@ const GalleryCard = ({
               console.log(err);
             }
           })
-      : router.push('/sign-in');
+      : openLoginModal();
   };
 
   const onRemoveImg = (e, _id) => {
@@ -135,8 +136,7 @@ const GalleryCard = ({
         className={cd(
           styles.galleryImg,
           !image && type !== 'pdf' && type !== 'PDF' && styles.typeRender
-        )}
-      >
+        )}>
         {!!canEditInit && (
           <>
             <Popconfirm
@@ -149,8 +149,7 @@ const GalleryCard = ({
               onConfirm={(e) => onRemoveImg(e, galleryItem?._id)}
               onCancel={() => {}}
               okText="Delete"
-              cancelText="No"
-            >
+              cancelText="No">
               <span className={styles.dustbin} data-id={galleryItem?._id}>
                 <SvgDustbin width="18px" />
               </span>
@@ -159,8 +158,7 @@ const GalleryCard = ({
               <span
                 onClick={(e) => onEditImg(e, galleryItem?._id)}
                 className={styles.edit}
-                data-id={galleryItem?._id}
-              >
+                data-id={galleryItem?._id}>
                 <SvgEdit width="18px" />
               </span>
             )}

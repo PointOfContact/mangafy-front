@@ -13,7 +13,7 @@ import styles from './styles.module.scss';
 const confettiAmount = 60;
 const confettiColors = ['#7d32f5', '#f6e434', '#63fdf1', '#e672da', '#295dfe', '#6e57ff'];
 
-const Follow = ({ count, user, profile, likedUsers, setLikedUsers }) => {
+const Follow = ({ count, user, profile, likedUsers, setLikedUsers, openLoginModal }) => {
   const [isMe] = useState(user?._id === profile?._id || !profile);
 
   const history = useRouter();
@@ -64,7 +64,8 @@ const Follow = ({ count, user, profile, likedUsers, setLikedUsers }) => {
           });
         });
     } else {
-      history.push(`/sign-in?page=profile/${profile._id}`);
+      // history.push(`/sign-in?page=profile/${profile._id}`);
+      openLoginModal();
     }
   };
 
@@ -92,7 +93,8 @@ const Follow = ({ count, user, profile, likedUsers, setLikedUsers }) => {
           });
         });
     } else {
-      history.push(`/sign-in?page=profile/${profile._id}`);
+      // history.push(`/sign-in?page=profile/${profile._id}`);
+      openLoginModal();
     }
   };
 
@@ -132,7 +134,8 @@ const Follow = ({ count, user, profile, likedUsers, setLikedUsers }) => {
         }
       });
     } else if (!user?._id) {
-      history.push(`/sign-in?page=profile/${profile._id}`);
+      // history.push(`/sign-in?page=profile/${profile._id}`);
+      openLoginModal();
     }
   };
 

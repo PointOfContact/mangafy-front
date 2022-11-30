@@ -26,6 +26,7 @@ import SvgBell from 'components/icon/Bell';
 import MenuMobilePopover from 'components/menu-mobile-popover';
 import Avatar from 'components/Avatar';
 import SvgProjectIcon from 'components/icon/ProjectIcon';
+import { SignInModal } from 'components/modals/SignInModal';
 
 const findNotificationsCount = (onSuccess, onFailure = () => {}) => {
   const jwt = client.getCookie('feathers-jwt');
@@ -61,6 +62,7 @@ const HeaderNew = ({ user }) => {
   const [showNotificationModalMobile, setShowNotificationModalMobile] = useState(false);
   const [unreadNotificationsId, setUnreadNotificationsId] = useState([]);
   const [notificationsCount, setNotificationsCount] = useState(0);
+  const [isLoginWindowVisible, setIsLoginWindowVisible] = useState(false);
   const page = router.asPath;
 
   const sendEvent = (event_type, post = 'New') => {
@@ -135,8 +137,10 @@ const HeaderNew = ({ user }) => {
     },
     {
       key: 'create-2',
-      label: user ? (
-        <div className={styles.nav__dropdownItem} onClick={createPostHandler}>
+      label: (
+        <div
+          className={styles.nav__dropdownItem}
+          onClick={user ? createPostHandler : () => setIsLoginWindowVisible(true)}>
           <div className={styles.nav__dropdownIcon}>
             <Edit2 color="#D01E8E" bold />
           </div>
@@ -145,18 +149,6 @@ const HeaderNew = ({ user }) => {
             <div className={styles.nav__dropdownSubtitle}>Your Work in Progress</div>
           </div>
         </div>
-      ) : (
-        <Link href={'/sign-in?page=' + page}>
-          <a className={styles.nav__dropdownItem}>
-            <div className={styles.nav__dropdownIcon}>
-              <Edit2 color="#D01E8E" bold />
-            </div>
-            <div className={styles.nav__dropdownContent}>
-              <div className={styles.nav__dropdownTitle}>Shot</div>
-              <div className={styles.nav__dropdownSubtitle}>Your Work in Progress</div>
-            </div>
-          </a>
-        </Link>
       ),
     },
   ];
@@ -502,6 +494,12 @@ const HeaderNew = ({ user }) => {
         createProjectModal={isCreateProjectModalVisible}
         showCreateProjectModal={setIsCreateProjectModalVisible}
         user={user}
+      />
+      <SignInModal
+        page={router.asPath}
+        title="Sign in"
+        visible={isLoginWindowVisible}
+        setVisible={setIsLoginWindowVisible}
       />
     </>
   );

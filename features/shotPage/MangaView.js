@@ -40,6 +40,14 @@ const MangaView = ({
   const [readStyle, setReadStyle] = useState(false);
   const [conutPage, setConutPage] = useState(1);
   const [imagesHeight, setImagesHeight] = useState([]);
+
+  const hashPath = router.asPath.split('#')[1];
+  useEffect(() => {
+    if (hashPath) {
+      router.push('#' + hashPath);
+    }
+  }, [router.asPath]);
+
   const [isLiked, setIsLiked] = useState(false);
   const [manga, setManga] = useState(serverSideManga);
   const [chapter, setChapter] = useState({});
@@ -352,6 +360,7 @@ const MangaView = ({
           title="Sign in"
           visible={isLoginModalVisible}
           setVisible={setIsLoginModalVisible}></SignInModal>
+        <div id="test">test</div>
       </div>
     </>
   );

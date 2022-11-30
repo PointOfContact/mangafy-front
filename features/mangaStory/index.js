@@ -260,15 +260,8 @@ const MangeStory = (props) => {
     return (
       <>
         <div className={styles.workspaceLink}>
-          <Link href="/feed">
-            <a>
-              <Button outline sm rounded color="#000" icon={<ArrowDown color="#000" />} iconRight>
-                Back to feed
-              </Button>
-            </a>
-          </Link>
-          <Link href={'/profile/' + user?._id}>
-            <a className={styles.workspaceLink_link}>{'My workspace'}</a>
+          <Link href={'/profile/' + user._id + '/projects'}>
+            <a className={styles.workspaceLink_link}>My projects</a>
           </Link>
           <span>&nbsp;/&nbsp;</span>
           <span>{baseData.title}</span>

@@ -41,7 +41,7 @@ const MangaFooter = ({
   return (
     <div name="footer" className={cn(styles.footer, className)}>
       <div className={styles.footer__container}>
-        <div className={styles.footer__mobileComments}>
+        <div className={styles.footer__mobileComments} id={'comments'}>
           <div className={styles.footer__mobileCommentsHeader}>Feedback</div>
           <MangaComments manga={manga} comments={comments.data} createComment={createComment} />
         </div>
@@ -80,6 +80,19 @@ const MangaFooter = ({
               icon={<Comment color="#7B65F3" />}>
               {comments?.total || 0}
             </Button>
+            <Link href="#comments">
+              <a>
+                <Button
+                  className={styles.footer__commentButtonMobile}
+                  sm
+                  rounded
+                  outline
+                  iconRight
+                  icon={<Comment color="#7B65F3" />}>
+                  {comments?.total || 0}
+                </Button>
+              </a>
+            </Link>
             <Button
               sm
               rounded
