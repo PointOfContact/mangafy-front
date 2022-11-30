@@ -89,7 +89,7 @@ const Profile = (props) => {
     import('../../api/restClient').then((m) => {
       m.default
         .service('/api/v2/users')
-        .patch(user._id, data, {
+        .patch(user?._id, data, {
           headers: { Authorization: `Bearer ${jwt}` },
           mode: 'no-cors',
         })

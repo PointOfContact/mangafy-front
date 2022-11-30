@@ -63,7 +63,7 @@ const Introduce = ({ user }) => {
           const data = [
             {
               event_type: EVENTS.CREATE_MANGA_STORY,
-              user_id: user._id,
+              user_id: user?._id,
               user_properties: {
                 ...user,
               },
@@ -78,7 +78,7 @@ const Introduce = ({ user }) => {
         })
         .catch((err) => {
           openNotification('error', err.message);
-          Router.push(`/profile/${user._id}`);
+          Router.push(`/profile/${user?._id}`);
         });
     });
   };
@@ -159,8 +159,7 @@ const Introduce = ({ user }) => {
                       type="primary"
                       loading={loadings[2]}
                       onClick={publish}
-                      className="title_but"
-                    >
+                      className="title_but">
                       Publish!
                     </Button>
                   ) : (

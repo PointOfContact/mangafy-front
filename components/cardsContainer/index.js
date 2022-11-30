@@ -76,21 +76,18 @@ const CardsContainer = ({
         <div className={styles.welcomeCard__buttons}>
           <div
             className={styles.welcomeCard__button}
-            onClick={() => router.push('/profile/' + user._id + '?active=project&createProject')}
-          >
+            onClick={() => router.push('/profile/' + user?._id + '?active=project&createProject')}>
             <div>Time to start your project!</div> <ArrowDown2 color="#fff" />
           </div>
           <div
             className={styles.welcomeCard__button}
             // onClick={() => router.push('/profile/' + user._id + '?active=project')}
-            onClick={() => openCreateShotModal()}
-          >
+            onClick={() => openCreateShotModal()}>
             <div>Share your work in progress</div> <ArrowDown2 color="#fff" />
           </div>
           <div
             className={styles.welcomeCard__button}
-            onClick={() => router.push('/profile/' + user._id)}
-          >
+            onClick={() => router.push('/profile/' + user?._id)}>
             <div>Customize your profile</div> <ArrowDown2 color="#fff" />
           </div>
         </div>

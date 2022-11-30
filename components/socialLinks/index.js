@@ -17,7 +17,7 @@ const SocialLinks = (props) => {
     canEditInit = false;
   } else if (!profile && user) {
     canEditInit = true;
-  } else if (profile._id === user._id) {
+  } else if (profile._id === user?._id) {
     canEditInit = true;
   }
 
@@ -40,8 +40,7 @@ const SocialLinks = (props) => {
                   <a
                     href={social.link.includes('http') ? social.link : `https://${social.link}`}
                     rel="noreferrer"
-                    target="_blank"
-                  >
+                    target="_blank">
                     <SocialButton name={social.platform} link={social.link} />
                   </a>
                 </span>
@@ -54,8 +53,7 @@ const SocialLinks = (props) => {
                   className={styles.noSocial}
                   onClick={() => {
                     setVisible(!visible);
-                  }}
-                >
+                  }}>
                   <Card
                     description="Do you not want <br/> to add a social?"
                     btnText=""
@@ -97,8 +95,7 @@ const SocialLinks = (props) => {
             md={{ span: 2 }}
             xl={{ span: 2 }}
             xxl={{ span: 2 }}
-            className={styles.add_button}
-          >
+            className={styles.add_button}>
             {canEditInit && (
               <Popover
                 overlayStyle={{ zIndex: '935' }}
@@ -113,8 +110,7 @@ const SocialLinks = (props) => {
                 }
                 trigger="click"
                 visible={visible}
-                onVisibleChange={() => setVisible(!visible)}
-              >
+                onVisibleChange={() => setVisible(!visible)}>
                 <AddButton />
               </Popover>
             )}

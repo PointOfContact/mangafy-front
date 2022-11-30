@@ -8,7 +8,7 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
   const { query } = context;
   if (user) {
     context.res.writeHead(302, {
-      Location: LinkCreator.toQuery({ ...query }, `/profile/${user._id}`),
+      Location: LinkCreator.toQuery({ ...query }, `/profile/${user?._id}`),
     });
   } else {
     context.res.writeHead(302, {

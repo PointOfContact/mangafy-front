@@ -98,7 +98,7 @@ export const setUser = async (user) => {
     return;
   }
   if (process.browser) {
-    await amplitude.getInstance().setUserId(user._id);
+    await amplitude.getInstance().setUserId(user?._id);
     await amplitude.getInstance().setUserProperties(user);
     setSeveralProperty();
   }

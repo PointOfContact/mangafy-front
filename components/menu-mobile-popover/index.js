@@ -18,12 +18,12 @@ const MenuMobilePopover = ({ removeAllStorage, user }) => (
         </p>
       </div> */}
       <div className={styles.box__subtitle}>
-        <Link href={`/profile/${user._id}`}>
+        <Link href={`/profile/${user?._id}`}>
           <a className={styles.box__link}>Profile</a>
         </Link>
       </div>
       <div className={styles.box__subtitle}>
-        <Link href={`/profile/${user._id}?active=project`}>
+        <Link href={`/profile/${user?._id}?active=project`}>
           <a className={styles.box__link}>Project</a>
         </Link>
       </div>
