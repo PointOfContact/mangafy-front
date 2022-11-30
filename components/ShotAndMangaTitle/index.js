@@ -8,7 +8,7 @@ const ShotAndMangaTitle = ({ className, title, link, author, isOwn, subscribe })
   return (
     <div className={cn(className, styles.header__container)}>
       <div className={styles.header__image}>
-        <Avatar image={author?.avatar} text={author?.name} size={80} />
+        <Avatar image={author?.avatar} text={author?.name} />
       </div>
 
       <div className={styles.header__info}>

@@ -33,8 +33,8 @@ const MangaHeader = ({ user, manga, className, authors, subscribe, isOwn, active
           subscribe={subscribe}
         />
 
-        {/* <div className={styles.header__arrows}>
-          <Link href={'/project/view/' + manga.id + '?ongoing=' + prevChapterIndex}>
+        <div className={styles.header__arrows}>
+          <Link href={'/project/view/' + manga.id + '?chapter=' + prevChapterIndex}>
             <a
               className={cn(
                 styles.header__arrow,
@@ -44,7 +44,7 @@ const MangaHeader = ({ user, manga, className, authors, subscribe, isOwn, active
             </a>
           </Link>
           #{chapterCount}
-          <Link href={'/project/view/' + manga.id + '?ongoing=' + nextChapterIndex}>
+          <Link href={'/project/view/' + manga.id + '?chapter=' + nextChapterIndex}>
             <a
               className={cn(
                 styles.header__arrow,
@@ -53,7 +53,7 @@ const MangaHeader = ({ user, manga, className, authors, subscribe, isOwn, active
               <ArrowDown2 />
             </a>
           </Link>
-        </div> */}
+        </div>
 
         {/* <Button rounded pink className={styles.header__tip}>
           Tip
@@ -69,7 +69,7 @@ const MangaHeader = ({ user, manga, className, authors, subscribe, isOwn, active
 
       <div className={styles.header__mobileArrowsAndTip}>
         <div className={cn(styles.header__arrows, styles.header__arrows_mobile)}>
-          <Link href={'/project/view/' + manga.id + '?ongoing=' + prevChapterIndex}>
+          <Link href={'/project/view/' + manga.id + '?chapter=' + prevChapterIndex}>
             <a
               className={cn(
                 styles.header__arrow,
@@ -79,7 +79,7 @@ const MangaHeader = ({ user, manga, className, authors, subscribe, isOwn, active
             </a>
           </Link>
           #{activeChapterIndex}
-          <Link href={'/project/view/' + manga.id + '?ongoing=' + nextChapterIndex}>
+          <Link href={'/project/view/' + manga.id + '?chapter=' + nextChapterIndex}>
             <a
               className={cn(
                 styles.header__arrow,

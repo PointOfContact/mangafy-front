@@ -334,7 +334,6 @@ const MangaView = ({
           title="Sign in"
           visible={isLoginModalVisible}
           setVisible={setIsLoginModalVisible}></SignInModal>
-        <div id="test">test</div>
       </div>
     </>
   );
