@@ -12,13 +12,35 @@
     overflow: hidden;
     height: 80px;
     width: 80px;
+    @include media-sm {
+      height: 60px;
+      width: 60px;
+    }
     flex: 0 0 auto;
     margin-right: 20px;
+
+    > div {
+      height: 80px;
+      width: 80px;
+      @include media-sm {
+        height: 60px;
+        width: 60px;
+      }
+    }
   }
 
   &__title {
     font-weight: 800;
     font-size: 30px;
+    @include media-md {
+      font-size: 24px;
+    }
+    @include media-sm {
+      font-size: 20px;
+    }
+    @include media-xs {
+      font-size: 18px;
+    }
     line-height: 1em;
     margin-bottom: 5px;
     color: inherit;
