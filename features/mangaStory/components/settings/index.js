@@ -30,6 +30,8 @@ const Settings = ({
   confirmDelete,
   storyBoard,
   user,
+  chapters,
+  setChapters,
 }) => {
   const collabRef = useRef();
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -71,6 +73,49 @@ const Settings = ({
 
   const onPublish = () => {
     if (baseData?.published) {
+      chapters.forEach(async (chapter) => {
+        if (!chapter.published) {
+          return;
+        }
+        try {
+          await mangaStoryClient.chapter.patch(
+            chapter?._id,
+            { published: false, mangaStoryId: storyBoard?.mangaStoryId },
+            () => {},
+            () => {},
+            setChapters,
+            (res) => {
+              const dataEvent = [
+                {
+                  event_properties: { chapter },
+                },
+              ];
+
+              if (res.published) {
+                dataEvent[0].event_type = EVENTS.PUBLISHED_CHAPTER;
+              } else {
+                dataEvent[0].event_type = EVENTS.DRAFT_CHAPTER;
+              }
+
+              myAmplitude(dataEvent);
+
+              const updatedChapters = chapters.map((val, i) => {
+                if (i === index) {
+                  val.published = publishedValue;
+                  return val;
+                }
+                return val;
+              });
+
+              setStoryBoard({ ...storyBoard, chapters: updatedChapters });
+            }
+          );
+        } catch (error) {
+          console.log('Error in un-publishing chapter:');
+          console.log(error);
+        }
+      });
+
       patchStory({
         ...baseData,
         published: false,

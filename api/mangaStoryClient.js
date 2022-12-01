@@ -43,7 +43,7 @@ const API = {
             headers: { Authorization: `Bearer ${jwt}` },
           })
           .then((res) => {
-            console.log(res);
+            // console.log(res);
           })
           .catch((err) => {
             notification.error({
@@ -90,7 +90,7 @@ const API = {
             headers: { Authorization: `Bearer ${jwt}` },
           })
           .then((res) => {
-            console.log(res, 'ewsssssssss');
+            // console.log(res, 'ewsssssssss');
             callback(res);
           })
           .catch((err) => {
