@@ -288,7 +288,6 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
           router.push('/project/production/' + project?._id + '?tab=settings#visible');
         }}
         cancelText={'Cancel'}
-        onCancel={() => {}}
       />
     </div>
   );

@@ -103,7 +103,7 @@ const MangaSideMenu = ({
             outline
             iconRight
             icon={<Share color="#7B65F3" />}
-            onClick={() => shareHandler()}
+            onClick={shareHandler}
           />
           {isParticipant && (
             <Link href={'/project/production/' + manga?.mangaStoryId + '?tab=details'}>
