@@ -437,7 +437,7 @@ const HeaderNew = ({ user }) => {
               ) : (
                 <>
                   <Link href={'/sign-up?page=' + page}>
-                    <a>
+                    <a style={{ marginRight: '10px' }}>
                       <Button rounded outline pink>
                         Join
                       </Button>

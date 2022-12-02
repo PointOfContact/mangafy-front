@@ -12,6 +12,7 @@ import OpenedProject from './OpenedProject';
 import ModalCreateProject from 'components/modalCreateProject';
 import client from 'api/client';
 import { NextSeo } from 'next-seo';
+import Close from 'components/icon/new/Close';
 
 const ProfileProjects = ({ user, profile }) => {
   const [openedProject, setOpenedProject] = useState(null);
@@ -74,7 +75,6 @@ const ProfileProjects = ({ user, profile }) => {
           isOpened && styles.projects__container_withProjectOpened
         )}>
         <div className={styles.projects__all}>
-          Stories
           <div className={styles.projects__header}>
             <Link href={'/profile/' + profile._id}>
               <a>
@@ -91,13 +91,25 @@ const ProfileProjects = ({ user, profile }) => {
             </Link>
             Projects
           </div>
+          <div className={styles.projects__message}>
+            <div className={styles.projects__messageTitle}>All projects</div>
+            <div className={styles.projects__messageSubtitle}>
+              Hi, <span>{user?.name}</span>, welcome to the world of storytelling. <br /> You can
+              now create, collaborate and access all your dazzling ideas on this dashboard.
+            </div>
+          </div>
           {!!projectsElements?.length && (
             <div className={styles.projects__create}>
-              <div
-                className={styles.projects__createEmpty}
-                onClick={() => setIsCreateModalOpen(true)}>
-                Create
-                <Add2 />
+              <div>
+                <div
+                  className={styles.projects__createEmpty}
+                  onClick={() => setIsCreateModalOpen(true)}>
+                  Create
+                  <div className={styles.projects__createEmptyPlus}></div>
+                </div>
+                <div className={styles.projects__createText}>
+                  <b>Add</b> to create and manage your big story.
+                </div>
               </div>
             </div>
           )}
@@ -117,6 +129,9 @@ const ProfileProjects = ({ user, profile }) => {
               </div>
             )}
           </div>
+        </div>
+        <div className={styles.projects__help}>
+          Need help? Contact us: <a href="mailto:max@mangafy.club">max@mangafy.club</a>.
         </div>
         <OpenedProject
           user={user}
