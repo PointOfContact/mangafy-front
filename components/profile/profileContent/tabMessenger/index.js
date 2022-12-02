@@ -20,6 +20,7 @@ const TabMessenger = (props) => {
   const [showArchive, setShowArchive] = useState(true);
   const [selectedRequest, setSelectedRequest] = useState({});
   const [noRequest, setNoRequest] = useState(false);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const [showMessageMobile, setShowMessageMobile] = useState();
   const openNotification = (type, message) => {
@@ -58,6 +59,7 @@ const TabMessenger = (props) => {
   });
 
   const getConversation = (isArchive = true) => {
+    setLoading(true);
     const jwt = client.getCookie('feathers-jwt');
     const options = {
       headers: { Authorization: `Bearer ${jwt}` },
@@ -68,6 +70,7 @@ const TabMessenger = (props) => {
         .service('/api/v2/conversations')
         .find(options)
         .then((res) => {
+          setLoading(false);
           let newRequests;
           if (isArchive) {
             const data = res.data || res;
@@ -97,6 +100,7 @@ const TabMessenger = (props) => {
             }
             setSelectedRequest(newSelectedRequest);
           } else {
+            setLoading(false);
             setNoRequest(true);
           }
         })
@@ -113,54 +117,48 @@ const TabMessenger = (props) => {
 
   return (
     <div>
-      {/* <h2 className={cn(styles.title)}>Messenger</h2> */}
-      {noRequest ? (
-        <NoRequest />
-      ) : (
-        <div className={cn(styles.messenger_tab)}>
-          {/* <SearchInput mobile={true} /> */}
-          {showMessageMobile && (
-            <UserName
+      <div className={cn(styles.messenger_tab)}>
+        {/* <SearchInput mobile={true} /> */}
+        {showMessageMobile && (
+          <UserName
+            selectedRequest={selectedRequest}
+            mobile={true}
+            setShowMessageMobile={setShowMessageMobile}
+          />
+        )}
+        <div className={styles.content}>
+          <div
+            className={cn(
+              showMessageMobile && styles.messenger_list_mobile,
+              styles.messenger_list
+            )}>
+            <MessengerList
+              user={user}
+              arcRequests={arcRequests}
+              getConversation={getConversation}
+              showArchive={showArchive}
+              requests={requests}
               selectedRequest={selectedRequest}
-              mobile={true}
+              setSelectedRequest={setSelectedRequest}
               setShowMessageMobile={setShowMessageMobile}
+              loading={loading}
             />
-          )}
-          <div className={styles.content}>
-            <div
-              className={cn(
-                showMessageMobile && styles.messenger_list_mobile,
-                styles.messenger_list
-              )}
-            >
-              <MessengerList
-                user={user}
-                arcRequests={arcRequests}
-                getConversation={getConversation}
-                showArchive={showArchive}
-                requests={requests}
-                selectedRequest={selectedRequest}
-                setSelectedRequest={setSelectedRequest}
-                setShowMessageMobile={setShowMessageMobile}
-              />
-            </div>
-            <div
-              className={cn(
-                showMessageMobile && styles.messenger_content_mobile,
-                styles.messenger_content
-              )}
-            >
-              <MessengerContent
-                user={user}
-                selectedRequest={selectedRequest}
-                requests={requests}
-                setRequests={setRequests}
-                setSelectedRequest={setSelectedRequest}
-              />
-            </div>
+          </div>
+          <div
+            className={cn(
+              showMessageMobile && styles.messenger_content_mobile,
+              styles.messenger_content
+            )}>
+            <MessengerContent
+              user={user}
+              selectedRequest={selectedRequest}
+              requests={requests}
+              setRequests={setRequests}
+              setSelectedRequest={setSelectedRequest}
+            />
           </div>
         </div>
-      )}
+      </div>
     </div>
   );
 };
