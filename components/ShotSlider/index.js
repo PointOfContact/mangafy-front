@@ -29,7 +29,7 @@ const ShotSlider = ({ className, shot, allShots }) => {
               {sh?.title?.length > 8 ? sh?.title?.slice(0, 8) + '...' : sh?.title}
             </Avatar>
           )}
-          {/* {sh?.title && <div className={styles.slider__itemTitle}>{sh?.title}</div>} */}
+          {sh?.title && <div className={styles.slider__itemTitle}>{sh?.title}</div>}
         </a>
       </Link>
     );
@@ -73,7 +73,6 @@ const ShotSlider = ({ className, shot, allShots }) => {
   return (
     <div className={cn(className, styles.moreShots)}>
       <div className={styles.moreShots__container}>
-        <div className={styles.moreShots__title}>More shots from {shot?.authorInfo?.name}</div>
         <div className={styles.slider} ref={containerRef}>
           <div
             className={cn(styles.slider__arrow, hideArrows && styles.slider__arrow_hidden)}
