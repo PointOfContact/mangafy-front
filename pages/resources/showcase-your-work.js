@@ -1,5 +1,5 @@
 import { withAuthServerSideProps, withAuthComponent } from 'components/withAuth';
-import ShowcaseYourWork from 'features/showcaseYourWork ';
+import ShowcaseYourWork from 'features/showcaseYourWork';
 import { store } from 'store';
 
 export default withAuthComponent(ShowcaseYourWork);
