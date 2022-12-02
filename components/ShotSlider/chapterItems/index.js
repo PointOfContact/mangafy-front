@@ -19,8 +19,11 @@ const ChapterItems = ({
   ifPayedChapter,
 }) => {
   return publishedChapters.map((ch, i) => {
-    const ifPayed = user?.chargebee?.data?.some((val) => val.itemId === ch._id || ifPayedChapter);
-    return !!ch?.planId && !ifPayed ? (
+    const ifPayed = user?.chargebee?.data?.some((val) => {
+      return val.itemId === manga?.mangaStoryId || ifPayedChapter;
+    });
+    const showFirstItem = i > 0;
+    return !ifPayed && showFirstItem ? (
       <a
         ref={i + 1 === activeChapterIndex ? activeChapterRef : null}
         className={cn(

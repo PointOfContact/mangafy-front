@@ -49,7 +49,7 @@ const ShotFooter = ({
           image={shot?.image}
           user={user}
           ifPayed={ifPayed}
-          setIfPayed={setIfPayed}
+          updatePage={() => setIfPayed(true)}
           type="Shot"
         />
         <ShotAndMangaTitle

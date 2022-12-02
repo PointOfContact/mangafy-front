@@ -130,9 +130,7 @@ const ProjectChapters = ({
         </div>
       )}
       {chapters?.map((chapter, index) => {
-        const subscribedChapter = chapter?.chargebee?.data?.some((val) => {
-          return val.userId === user?._id || val?.subscribed;
-        });
+        const subscribedChapter = index > 0;
         return (
           <Chapter
             key={chapter._id + index}
@@ -141,7 +139,6 @@ const ProjectChapters = ({
             subscribedChapter={subscribedChapter}
             chapter={chapter}
             isLiked={isLiked}
-            setOpenPaymentModal={setOpenPaymentModal}
           />
         );
       })}

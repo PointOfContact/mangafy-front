@@ -10,31 +10,16 @@ import Comment from 'components/icon/new/Comment';
 import Button from 'components/ui-new/Button';
 import Lock from 'components/icon/new/Lock';
 
-const Chapter = ({
-  project,
-  subscribedChapter,
-  chapter,
-  isLiked,
-  subscribedProject,
-  setOpenPaymentModal,
-}) => {
+const Chapter = ({ project, subscribedChapter, chapter, isLiked, subscribedProject }) => {
   const ifSubscribedProject = !subscribedProject && project.planId;
-  const ifSubscribedChapter = !subscribedChapter && chapter?.planId;
 
   if (ifSubscribedProject) {
-    if (ifSubscribedChapter) {
+    if (subscribedChapter) {
       return (
         <div className={styles.blur}>
           <div className={styles.blur__container}>
             <Lock className={styles.blur__lock} />
             <div className={styles.blur__text}>To unlock this chapter, become a subscriber</div>
-            <Button
-              rounded
-              pink
-              md
-              onClick={() => setOpenPaymentModal({ item: chapter, type: 'Chapter' })}>
-              Subscribe
-            </Button>
           </div>
           <div key={chapter._id} className={styles.chapters__chapter}>
             <div className={styles.chapters__cover}>

@@ -46,12 +46,14 @@ const MangaFooter = ({
           <MangaComments manga={manga} comments={comments.data} createComment={createComment} />
         </div>
         <Pledge
-          item={chapter}
+          item={manga}
           image={chapter?.cover}
           user={user}
+          updatePage={() => {
+            setIfPayed(true);
+          }}
           ifPayed={ifPayed}
-          setIfPayed={setIfPayed}
-          type="Chapter"
+          type="Project"
         />
         <ShotAndMangaTitle
           className={styles.footer__info}

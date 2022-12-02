@@ -29,7 +29,7 @@ const PledgeModal = ({ isOpen, setIsOpen, object, user, updatePage, type }) => {
     openPlanModal(
       cbInstance,
       object?.item?.planId,
-      object?.item._id,
+      object?.item._id || object?.item.mangaStoryId,
       user?.customerId,
       () => setIsOpen(false),
       updatePage,

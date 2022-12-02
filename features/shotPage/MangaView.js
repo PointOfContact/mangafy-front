@@ -40,22 +40,21 @@ const MangaView = ({
   const [readStyle, setReadStyle] = useState(false);
   const [conutPage, setConutPage] = useState(1);
   const [imagesHeight, setImagesHeight] = useState([]);
-
-  const hashPath = router.asPath.split('#')[1];
-  useEffect(() => {
-    if (hashPath) {
-      router.push('#' + hashPath);
-    }
-  }, [router.asPath]);
-
   const [isLiked, setIsLiked] = useState(false);
   const [manga, setManga] = useState(serverSideManga);
   const [chapter, setChapter] = useState({});
   const [ifPayed, setIfPayed] = useState(false);
+  // const hashPath = router.asPath.split('#')[1];
+
+  // useEffect(() => {
+  //   if (hashPath) {
+  //     router.push('#' + hashPath);
+  //   }
+  // }, [router.asPath]);
 
   useEffect(() => {
     const data = user?.chargebee?.data?.some((val) => {
-      return val.itemId === chapter._id || val?.subscribed;
+      return val.itemId === manga?.mangaStoryId || val?.subscribed;
     });
     setIfPayed(data);
   }, [chapter]);
@@ -130,7 +129,7 @@ const MangaView = ({
     if (
       !router.query.chapter ||
       router.query.chapter < 1 ||
-      router.query.chapter > manga.chapters.length
+      router.query.chapter > manga?.chapters?.length
     ) {
     } else {
       setActiveChapterIndex(1);
@@ -360,7 +359,6 @@ const MangaView = ({
           title="Sign in"
           visible={isLoginModalVisible}
           setVisible={setIsLoginModalVisible}></SignInModal>
-        <div id="test">test</div>
       </div>
     </>
   );

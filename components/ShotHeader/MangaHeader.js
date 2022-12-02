@@ -14,7 +14,7 @@ import Close from 'components/icon/new/Close';
 const MangaHeader = ({ user, manga, className, authors, subscribe, isOwn, activeChapterIndex }) => {
   const prevChapterIndex = activeChapterIndex === 0 ? null : activeChapterIndex - 1;
   const nextChapterIndex =
-    activeChapterIndex === manga.chapters.length ? null : activeChapterIndex + 1;
+    activeChapterIndex === manga?.chapters?.length ? null : activeChapterIndex + 1;
   const chapterCount = useMemo(() => {
     const publishedData = manga.chapters.filter((item) => {
       return item.published && item.deletedAt === '1969-12-31T23:59:59.999Z';
