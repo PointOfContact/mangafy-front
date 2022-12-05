@@ -43,7 +43,14 @@
         font-size: $text7;
         line-height: $text1;
         color: $black;
-        word-break: break-all;
+        p {
+          word-break: break-all;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          height: 60px;
+        }
       }
       .participents {
         display: flex;
