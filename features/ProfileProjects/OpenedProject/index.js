@@ -32,6 +32,9 @@ import Hierarchy from 'components/icon/new/Hierarchy';
 import Close from 'components/icon/new/Close';
 import Edit2 from 'components/icon/new/Edit2';
 import Edit3 from 'components/icon/new/Edit3';
+import Edit from 'components/icon/new/Edit';
+import Copy from 'components/icon/new/Copy';
+import Settings3 from 'components/icon/new/Settings3';
 
 const OpenedProject = ({
   user,
@@ -150,7 +153,7 @@ const OpenedProject = ({
               Here can be your cover.
               <Link href={'/project/production/' + project?._id + '?tab=settings#cover'}>
                 <a>
-                  Change cover <Edit2 color="#fff" />
+                  Change here <Edit3 color="#fff" />
                 </a>
               </Link>
             </div>
@@ -164,12 +167,12 @@ const OpenedProject = ({
             </a>
           </Link>
           <div className={styles.openedProject__option} onClick={() => shareHandler()}>
-            <Share />
+            <Copy />
             Share
           </div>
           <Link href={'/project/production/' + project?._id}>
             <a className={styles.openedProject__option}>
-              <Settings2 />
+              <Settings3 />
               Edit
             </a>
           </Link>
@@ -187,7 +190,7 @@ const OpenedProject = ({
           {project?.title}
           <Link href={'/project/production/' + project?._id + '?tab=settings#basics'}>
             <a className={styles.openedProject__titleEdit}>
-              <Edit2 />
+              <Edit3 color="#000" />
             </a>
           </Link>
         </div>
