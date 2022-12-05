@@ -43,7 +43,7 @@ import getDeviceId from 'utils/deviceId';
 import { viewMangaFun } from 'utils';
 
 const tabs = {
-  DETAILS: 'details',
+  DETAILS: 'jobs',
   PLOT: 'plot',
   ASSETS: 'assets',
   EPISODES: 'episodes',
@@ -270,14 +270,14 @@ const MangeStory = (props) => {
         </div>
         <h2 className={styles.sectionTitle}>
           {activeTab}
-          {activeTab === tabs.DETAILS && !editMode && (
+          {/* {activeTab === tabs.DETAILS && !editMode && (
             <span
               onClick={() => {
                 setEditMode(true);
               }}>
               <Edit2 color="#777" />
             </span>
-          )}
+          )} */}
         </h2>
       </>
     );
