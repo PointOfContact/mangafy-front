@@ -1,12 +1,27 @@
 @import '../../styles/variables.scss';
 
-.mangaBody {
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    filter: drop-shadow($smallShadow);
-    > *:first-child {
-        border-radius: 10px;
+
+.body {
+
+    > div {
+        border-radius: 10px 10px 0 0;
+        overflow: hidden;
+    }
+
+    &__text {
+        max-width: 700px;
+        margin-top: 100px;
+        margin-bottom: 40px;
+    }
+    
+    &__title {
+        font-weight: 700;
+        font-size: 30px;
+        margin-bottom: 25px;
+    }
+    
+    &__description {
+        font-weight: 400;
+        font-size: 20px;
     }
 }
