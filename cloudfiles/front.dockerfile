@@ -8,9 +8,9 @@ WORKDIR /usr/src/app
 # where available (npm@5+)
 
 # Bundle app source
-COPY ./mangafy-front .
+COPY . .
 
-COPY ./mangafy-front/package*.json ./
+COPY ./package*.json ./
 
 RUN npm install
 # If you are building your code for production
