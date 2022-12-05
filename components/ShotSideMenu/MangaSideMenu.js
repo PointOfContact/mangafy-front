@@ -22,9 +22,11 @@ const MangaSideMenu = ({
   like,
   comments,
   setIsShareModalOpened,
+  setIsGoToSettingsModalOpened,
   authors,
   isParticipant,
   createComment,
+  isPublished,
   setIsLoginModalVisible,
 }) => {
   const commentsRef = useRef(null);
@@ -42,6 +44,14 @@ const MangaSideMenu = ({
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
+
+  function shareHandler() {
+    if (isPublished) {
+      setIsShareModalOpened(true);
+    } else {
+      setIsGoToSettingsModalOpened(true);
+    }
+  }
 
   return (
     <>
@@ -93,7 +103,7 @@ const MangaSideMenu = ({
             outline
             iconRight
             icon={<Share color="#7B65F3" />}
-            onClick={() => setIsShareModalOpened(true)}
+            onClick={shareHandler}
           />
           {isParticipant && (
             <Link href={'/project/production/' + manga?.mangaStoryId + '?tab=details'}>

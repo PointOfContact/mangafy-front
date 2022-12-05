@@ -22,7 +22,9 @@ const ConfirmModal = ({
 
   function handleCancel() {
     setIsOpen(false);
-    onCancel();
+    if (typeof onCancel === 'function') {
+      onCancel();
+    }
   }
 
   const footerElement = (
