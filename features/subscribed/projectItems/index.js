@@ -44,7 +44,7 @@ const ProjectItems = ({ user, items }) => {
                 <Heart />
               </div>
               <div className={styles.type}>
-                <p>{value.type}</p>
+                <p>{value.projectType}</p>
                 <Diamond />
               </div>
             </div>
@@ -54,7 +54,7 @@ const ProjectItems = ({ user, items }) => {
                 <SvgComment width={17.42} height={17.42} />
               </span>
               <span>
-                {value.viewManga?.viwerId?.length ? <p>{value.viwerManga.viwerId.length}</p> : ''}
+                {value.viewManga.view ? <p>{value.viewManga.view}</p> : ''}
                 <Eye width={22} height={22} />
               </span>
             </div>
@@ -69,6 +69,7 @@ ProjectItems.propTypes = {
   user: PropTypes.object,
   items: PropTypes.array,
 };
+
 ProjectItems.defaultProps = {
   user: {},
   items: [],
