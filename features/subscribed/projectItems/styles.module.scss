@@ -87,9 +87,15 @@
   .footerContainer {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
     & > div {
       display: flex;
       align-items: center;
+      @include media-md{
+        &:last-child{
+          margin-top: 10px;
+        }
+      }
     }
     .type {
       width: 91px;
