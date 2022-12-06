@@ -8,13 +8,7 @@ import Cherry from 'components/icon/new/Cherry';
 const FeedCardTaskFooter = ({ budget, mangaId, onApply }) => {
   return (
     <div className={styles.feedCardTaskFooter}>
-      <Button
-        sm={1}
-        iconRight={1}
-        rounded={1}
-        icon={<Heart color="#fff" />}
-        onClick={(e) => onApply(e)}
-      >
+      <Button sm={1} iconRight={1} rounded={1} icon={<Heart color="#fff" />} onClick={onApply}>
         Apply
       </Button>
       {budget ? (
