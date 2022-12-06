@@ -13,6 +13,7 @@ import myAmplitude from 'utils/amplitude';
 import styles from './styles.module.scss';
 import TaskItems from './taskItems';
 import { useRouter } from 'next/router';
+import Button from 'components/ui-new/Button';
 
 const Tasks = ({ baseData, isOwn, user, toTeam, isParticipant, showPayPalContent }) => {
   const { tasks } = baseData;
@@ -155,11 +156,11 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipant, showPayPalContent
 
   return (
     <div className={cn(styles.tasks, !taskList.length && styles.noTasks)}>
-      <span className={styles.mobile_add}>
+      {/* <span className={styles.mobile_add}>
         {isOwn && (
           <AddButton
             className={styles.createTaskMobileBut}
-            text={'Post a task'}
+            text={'Post'}
             onClick={() => {
               sendMiniJobEvent(EVENTS.MINI_JOB_OPEN_CREATE_MODAL);
               changeShowModal(true);
@@ -167,48 +168,56 @@ const Tasks = ({ baseData, isOwn, user, toTeam, isParticipant, showPayPalContent
             }}
           />
         )}
-      </span>
-      {!!taskList.length && (
-        <div className={styles.items}>
-          {!isParticipant && !taskList.length && !isOwn && (
-            <PrimaryButton
-              className={styles.contributeBtn}
+      </span> */}
+      {isOwn ? (
+        <Button
+          md
+          rounded
+          pink
+          onClick={() => {
+            sendMiniJobEvent(EVENTS.MINI_JOB_OPEN_CREATE_MODAL);
+            changeShowModal(true);
+            setSelectedTask(null);
+          }}>
+          Post
+        </Button>
+      ) : (
+        <>
+          {!tasks?.length && !isParticipant && (
+            <Button
+              rounded
+              pink
+              md
               onClick={() => {
                 sendEvent(EVENTS.OPEN_MODAL_REQUEST_TO_JOIN);
                 toTeam(null);
-              }}
-              text="Join a team"
-            />
+              }}>
+              Join a team
+            </Button>
+          )}
+        </>
+      )}
+      {!!taskList.length && (
+        <div className={styles.items}>
+          {!isParticipant && !taskList.length && !isOwn && (
+            <Button
+              md
+              rounded
+              pink
+              onClick={() => {
+                sendEvent(EVENTS.OPEN_MODAL_REQUEST_TO_JOIN);
+                toTeam(null);
+              }}>
+              Join a team
+            </Button>
           )}
           {taskItemsArray}
         </div>
       )}
       <div className={styles.createTask}>
-        <div className={isOwn ? styles.addButtonOwn : styles.addBtn}>
-          {isOwn ? (
-            <PrimaryButton
-              onClick={() => {
-                sendMiniJobEvent(EVENTS.MINI_JOB_OPEN_CREATE_MODAL);
-                changeShowModal(true);
-                setSelectedTask(null);
-              }}
-              className={showPayPalContent && styles.createTaskButton}
-              text="Post a task"
-            />
-          ) : (
-            <>
-              {!tasks?.length && !isParticipant && (
-                <PrimaryButton
-                  onClick={() => {
-                    sendEvent(EVENTS.OPEN_MODAL_REQUEST_TO_JOIN);
-                    toTeam(null);
-                  }}
-                  text="Join a team"
-                />
-              )}
-            </>
-          )}
-        </div>
+        {/* <div className={styles.addBtn}> */}
+
+        {/* </div> */}
       </div>
       <Modal
         baseData={baseData}

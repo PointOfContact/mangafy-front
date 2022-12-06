@@ -21,10 +21,17 @@
   .tabs {
     max-width: 80%;
     margin: auto;
+    margin-bottom: 20px;
+    display: flex;
     & > div:last-child {
       padding: 0;
     }
-    margin-bottom: 20px;
-    display: flex;
+    .itemContainer {
+      display: flex;
+      flex-wrap: wrap;
+      @include media-md {
+        justify-content: center;
+      }
+    }
   }
 }
