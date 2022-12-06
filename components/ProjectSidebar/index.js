@@ -63,9 +63,8 @@ const ProjectSidebar = ({ tabs, activeTab, setActiveTab, onCollapsedChange, rout
               // }}
               collapsed={isCollapsed}
               isActive={activeTab === tabs.DETAILS}
-              icon={<Home color="#D01E8E" />}
-            >
-              Details
+              icon={<Home color="#D01E8E" />}>
+              Jobs
             </SidebarTab>
           </a>
         </Link>
@@ -77,8 +76,7 @@ const ProjectSidebar = ({ tabs, activeTab, setActiveTab, onCollapsedChange, rout
               // }}
               collapsed={isCollapsed}
               isActive={activeTab === tabs.PLOT}
-              icon={<Edit bold color="#D01E8E" />}
-            >
+              icon={<Edit bold color="#D01E8E" />}>
               Plot
             </SidebarTab>
           </a>
@@ -91,8 +89,7 @@ const ProjectSidebar = ({ tabs, activeTab, setActiveTab, onCollapsedChange, rout
               // }}
               collapsed={isCollapsed}
               isActive={activeTab === tabs.ASSETS}
-              icon={<Box bold color="#D01E8E" />}
-            >
+              icon={<Box bold color="#D01E8E" />}>
               Assets
             </SidebarTab>
           </a>
@@ -105,8 +102,7 @@ const ProjectSidebar = ({ tabs, activeTab, setActiveTab, onCollapsedChange, rout
               // }}
               collapsed={isCollapsed}
               isActive={activeTab === tabs.EPISODES}
-              icon={<Episodes color="#D01E8E" />}
-            >
+              icon={<Episodes color="#D01E8E" />}>
               Episodes
             </SidebarTab>
           </a>
@@ -119,8 +115,7 @@ const ProjectSidebar = ({ tabs, activeTab, setActiveTab, onCollapsedChange, rout
               // }}
               collapsed={isCollapsed}
               isActive={activeTab === tabs.PUBLISH}
-              icon={<Planet bold color="#D01E8E" />}
-            >
+              icon={<Planet bold color="#D01E8E" />}>
               Publish
             </SidebarTab>
           </a>
@@ -133,8 +128,7 @@ const ProjectSidebar = ({ tabs, activeTab, setActiveTab, onCollapsedChange, rout
               // }}
               collapsed={isCollapsed}
               isActive={activeTab === tabs.COMMENTS}
-              icon={<Message bold color="#D01E8E" />}
-            >
+              icon={<Message bold color="#D01E8E" />}>
               Comments
             </SidebarTab>
           </a>
@@ -149,8 +143,7 @@ const ProjectSidebar = ({ tabs, activeTab, setActiveTab, onCollapsedChange, rout
               // }}
               collapsed={isCollapsed}
               isActive={activeTab === tabs.MESSAGES}
-              icon={<Message2 color="#D01E8E" />}
-            >
+              icon={<Message2 color="#D01E8E" />}>
               Messages
             </SidebarTab>
           </a>
@@ -163,8 +156,7 @@ const ProjectSidebar = ({ tabs, activeTab, setActiveTab, onCollapsedChange, rout
               // }}
               collapsed={isCollapsed}
               isActive={activeTab === tabs.SETTINGS}
-              icon={<Settings color="#D01E8E" />}
-            >
+              icon={<Settings color="#D01E8E" />}>
               Settings
             </SidebarTab>
           </a>

@@ -63,7 +63,7 @@ const StoryTab = ({
 
   return (
     <div className={cn(styles.storyTab, isOwn && styles.isOwner)}>
-      {isOwn && (
+      {/* {isOwn && (
         <div>
           <h1 className={styles.storyTabTitle}>My Goal</h1>
           <span className={styles.sub_info}>
@@ -71,19 +71,19 @@ const StoryTab = ({
           </span>
           <pre>{introduce}</pre>
         </div>
-      )}
-      <div>
+      )} */}
+      {/* <div>
         <h2 className={styles.storyTabTitle}>Project Description</h2>
         <pre>{deleteTagsFromString(story)}</pre>
-      </div>
+      </div> */}
       <div>
         {isOwn ? (
           <div className={styles.containerTasks}>
             <div>
-              <h3 className={cn(styles.storyTabTitle, styles.participate)}>Find a team</h3>
-              <span className={styles.sub_info}>
-                It takes more than one person to make an amazing webcomic.
-              </span>
+              <h3 className={cn(styles.storyTabTitle, styles.participate)}>
+                Interested in collaborating?
+              </h3>
+              <span className={styles.sub_info}>Post a job</span>
               <Tasks
                 baseData={baseData}
                 isOwn={isOwn}
@@ -92,7 +92,6 @@ const StoryTab = ({
                 isParticipant={isParticipant}
                 showImage={true}
                 showPayPalContent={showPayPalContent}
-                // openedTask={history.query?.task}
               />
             </div>
           </div>
@@ -110,15 +109,14 @@ const StoryTab = ({
               toTeam={toTeam}
               isParticipant={isParticipant}
               showPayPalContent={showPayPalContent}
-              // openedTask={history.query?.task}
             />
           </>
         )}
       </div>
-      <div className={styles.isOwnBubble}>
+      {/* <div className={styles.isOwnBubble}>
         {showPayPalContent && <BuyBubbleTea payPalEmail={userData?.authorInfo?.payPalEmail} />}
-      </div>
-      <div className={cn(styles.storyTabDescription, styles.authorBlock)}>
+      </div> */}
+      {/* <div className={cn(styles.storyTabDescription, styles.authorBlock)}>
         <Link href={`/profile/${author}`}>
           <a>
             <span className={styles.storyKey}>Owner | </span>
@@ -142,7 +140,7 @@ const StoryTab = ({
             user={user}
           />
         </div>
-      </div>
+      </div> */}
       <Modal
         user={user}
         baseData={baseData}
