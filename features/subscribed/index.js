@@ -19,10 +19,10 @@ const Subscribed = ({ user, profile }) => {
 
   useEffect(() => {
     const filterItems = profile?.subscribItems?.filter((val) => val.type === 'project');
-    setShowingItems(filterItems);
-  }, []);
-
-  useEffect(() => {
+    const subscribedMangas = filterItems
+      ? [...filterItems, profile.mySubscribedMangas]
+      : profile.mySubscribedMangas;
+    setShowingItems(subscribedMangas);
     setItem(1);
   }, []);
 
@@ -32,8 +32,10 @@ const Subscribed = ({ user, profile }) => {
       <h1>Your Subscriptions</h1>
       <h3>View all your subscribed content and creators here.</h3>
       <Tabs onChange={(key) => setItem(key)} className={styles.tabs} defaultActiveKey={item}>
-        <Tabs.TabPane tab="Projects" key="1">
-          <ProjectItems user={user} items={showingItems} />
+        <Tabs.TabPane lassName={styles.aa} tab="Projects" key="1">
+          <div className={styles.itemContainer}>
+            <ProjectItems user={user} items={showingItems} />
+          </div>
         </Tabs.TabPane>
         {/* <Tabs.TabPane tab="Ongoings" key="2">
           Content of Tab Pane 2
