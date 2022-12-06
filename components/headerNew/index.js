@@ -349,17 +349,6 @@ const HeaderNew = ({ user }) => {
 
           <div className={styles.nav}>
             <div className={styles.nav__dropdowns}>
-              {/* <Dropdown
-              arrow
-              placement="bottom"
-              overlay={exploreMenu}
-              className={styles.nav__dropdown}
-              trigger="click">
-              <Space>
-                <ArrowDown2 className={styles.nav__dropdownArrow} />
-                Explore
-              </Space>
-            </Dropdown> */}
               <Dropdown
                 arrow
                 placement="bottom"
@@ -453,36 +442,6 @@ const HeaderNew = ({ user }) => {
                 </>
               )}
             </div>
-
-            {user && (
-              <span className={cn(styles.notification, styles.notification_mobile)}>
-                <Popover
-                  overlayClassName={styles.popover}
-                  placement="bottom"
-                  onVisibleChange={(visible) =>
-                    setShowNotificationModalMobile(!showNotificationModalMobile)
-                  }
-                  visible={showNotificationModalMobile}
-                  content={
-                    <MenuNotificationsBox
-                      user={user}
-                      unreadNotificationsId={unreadNotificationsId}
-                      notificationsCount={notificationsCount}
-                      setNotificationsCount={setNotificationsCount}
-                    />
-                  }
-                  trigger="click">
-                  <Badge
-                    count={notificationsCount}
-                    onClick={() => {
-                      setShowNotificationModalMobile(!showNotificationModalMobile);
-                    }}>
-                    {/* <SvgBell width="23px" height="23px" /> */}
-                    <Bell size={23} />
-                  </Badge>
-                </Popover>
-              </span>
-            )}
 
             <button className={cn(styles.nav_mobile)}>
               <Dropdown arrow placement="bottomRight" overlay={mobileMenu} trigger="click">

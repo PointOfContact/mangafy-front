@@ -72,6 +72,9 @@
   &__myProjects {
     align-self: center;
     margin-right: 40px;
+    @include media-sm {
+      display: none;
+    }
 
     button {
       font-weight: 600;
@@ -100,13 +103,7 @@
     }
   }
   &__buttons {
-    @include media-sm {
-      display: none;
-    }
     display: flex;
-    // & > *:not(:last-child) {
-    //   margin-right: 15px;
-    // }
   }
 
   &__dropdowns {
@@ -128,6 +125,9 @@
   }
 
   &__dropdown {
+    @include media-sm {
+      display: none;
+    }
     cursor: pointer;
     color: #3e3e3e;
     transition: 0.2s;

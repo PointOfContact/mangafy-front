@@ -82,7 +82,7 @@ const CardsContainer = ({
           <div
             className={styles.welcomeCard__button}
             // onClick={() => router.push('/profile/' + user._id + '?active=project')}
-            onClick={() => openCreateShotModal()}>
+            onClick={openCreateShotModal}>
             <div>Share your work in progress</div> <ArrowDown2 color="#fff" />
           </div>
           <div
