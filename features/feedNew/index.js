@@ -34,7 +34,6 @@ import { SignInModal } from 'components/modals/SignInModal';
 import { projectTypes, userTypes } from 'helpers/constant';
 
 const FeedNew = (props) => {
-  console.log(188);
   const { jwt, user, posts, genres } = props;
 
   const filterTypes = {
