@@ -286,7 +286,7 @@ const API = {
               mode: 'no-cors',
             })
             .then((res) => {
-              chapters[index].pages.push(res);
+              chapters[index].pages = [...chapters[index].pages, res];
               chapters[index].pages.sort((a, b) => a.order - b.order);
               setChapters([...chapters]);
               setVisibleModal(false);
@@ -329,9 +329,9 @@ const API = {
               chapters[index].pages.sort(
                 (firstItem, secondItem) => firstItem.order - secondItem.order
               );
+              chapters[index].pages = [...chapters[index].pages];
               setChapters([...chapters]);
             }
-
             setVisibleModal(false);
           })
           .catch((err) => {
@@ -357,6 +357,7 @@ const API = {
           })
           .then(() => {
             chapters[index].pages.splice(pageItem?.index, 1);
+            chapters[index].pages = [...chapters[index].pages];
             setChapters([...chapters]);
             setVisibleModal(false);
           })
