@@ -1,0 +1,12 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'asia.gcr.io/mangafy/front:latest-dev', '-f', 'cloudfiles/front.dockerfile', '.']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'push', 'asia.gcr.io/mangafy/front:latest-dev']
+  - name: "gcr.io/cloud-builders/gke-deploy"
+    args:
+      - run
+      - --filename=cloudfiles/front_deployment-dev.yaml
+      - --image=asia.gcr.io/mangafy/front:latest-dev
+      - --location=asia-east1
+      - --cluster=mangafy-cluster-dev
