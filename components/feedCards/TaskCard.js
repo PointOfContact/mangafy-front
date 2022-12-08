@@ -30,20 +30,16 @@ const TaskCard = ({ card, user, setShowLoginModal }) => {
   const title = card.lookingFor;
   const [showModal, setShowModal] = useState(false);
   const [modal, setModal] = useState(false);
-  const [apply, setApply] = useState(false);
-
   let time = new Date(card.createdAt).toLocaleDateString();
 
   const author = card.authorInfo?.name;
   const budget = card.amount || null;
   const avatar = card.authorInfo?.avatar;
 
-  useEffect(() => {
-    const ifMember = card?.mangastories?.participents?.some((val) => user?._id === val?._id);
-    const ifCreater = user?._id !== card?.authorInfo?._id;
-    const ifExistInProject = ifMember && ifCreater;
-    setApply(!ifExistInProject);
-  }, []);
+  const checkProjectParticipents = (e) => {
+    const ifCreater = user?._id === card?.authorInfo?._id;
+    !ifCreater && setShowModal(e);
+  };
 
   const debouncedMouseEventHandler = useCallback(
     AwesomeDebouncePromise(mouseEventHandler, 200),
@@ -74,7 +70,7 @@ const TaskCard = ({ card, user, setShowLoginModal }) => {
         avatar={avatar}
         author={author}
         budget={budget}
-        setShowModal={setShowModal}
+        setShowModal={checkProjectParticipents}
       />
       <div className={styles.card} onClick={handleClick} onDoubleClick={handleDoubleClick}>
         {text && (
@@ -96,20 +92,18 @@ const TaskCard = ({ card, user, setShowLoginModal }) => {
             mangaId={card.mangaStoryId}
             onApply={(e) => {
               e.stopPropagation();
-              setShowModal(true);
+              checkProjectParticipents(true);
             }}
           />
         </div>
       </div>
-      {apply && (
-        <ModalStart
-          changeShowModal={setShowModal}
-          showModal={showModal}
-          baseData={card.mangastories}
-          selectedTask={card}
-          user={user}
-        />
-      )}
+      <ModalStart
+        changeShowModal={checkProjectParticipents}
+        showModal={showModal}
+        baseData={card.mangastories}
+        selectedTask={card}
+        user={user}
+      />
     </>
   );
 };
