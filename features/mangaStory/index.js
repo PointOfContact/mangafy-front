@@ -421,6 +421,8 @@ const MangeStory = (props) => {
                 setShowPayPalContent={setShowPayPalContent}
                 confirmDelete={confirmDelete}
                 storyBoard={storyBoard}
+                chapters={chapters}
+                setChapters={setChapters}
               />
             )}
             {/* {!isOwn && (

@@ -16,12 +16,12 @@ const logickView = async (user, data, id, key) => {
 
 export const viewShot = async (user, data) => {
   const changeData = await logickView(user, data, data.authorId, 'authorId');
-  editGallery(data._id, changeData);
+  editGallery(data?._id, changeData);
 };
 
 export const viewMangaFun = async (user, data, mangaStoryId) => {
   const changeData = await logickView(user, data, mangaStoryId, 'mangaStoryId');
-  viewManga(data._id, changeData);
+  viewManga(data?._id, changeData);
 };
 
 export const viewChapterFun = async (user, data) => {
@@ -30,5 +30,5 @@ export const viewChapterFun = async (user, data) => {
   const view = data?.view + 1;
   const changeData = { view, storyBoardId: data?.storyBoardId };
   if (!existUser) changeData.viewDeviceUnique = [...data?.viewDeviceUnique, userId];
-  API.chapter.patch(data._id, changeData);
+  API.chapter.patch(data?._id, changeData);
 };

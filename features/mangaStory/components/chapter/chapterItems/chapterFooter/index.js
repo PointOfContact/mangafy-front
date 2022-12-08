@@ -68,6 +68,14 @@ const ChapterFooter = ({
 
   const publishedChapter = async () => {
     const publishedValue = publishedRef.current.checked;
+    if (publishedValue && !baseData?.published) {
+      publishedRef.current.checked = false;
+      return notification.error({
+        message: 'Please publish the project before publishing a chapter',
+        placement: 'bottomLeft',
+      });
+      return;
+    }
     setPublish(publishedValue);
 
     if (publishedValue && !hasPages) {
