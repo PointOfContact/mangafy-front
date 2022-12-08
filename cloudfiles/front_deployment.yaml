@@ -8,7 +8,7 @@ metadata:
   namespace: default
 spec:
   progressDeadlineSeconds: 600
-  replicas: 3
+  replicas: 2
   revisionHistoryLimit: 10
   selector:
     matchLabels:
@@ -28,7 +28,10 @@ spec:
         - name: front-app
           image: asia.gcr.io/mangafy/front:latest
           imagePullPolicy: Always
-          resources: {}
+          resources:
+            requests:
+              memory: "8Gi"
+              cpu: "2.0"
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
       dnsPolicy: ClusterFirst
