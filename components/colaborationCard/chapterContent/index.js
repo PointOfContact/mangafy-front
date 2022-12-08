@@ -16,8 +16,7 @@ const ChapterContent = ({ label }) => {
         target={'_blank'}
         onClick={(e) => {
           e.stopPropagation();
-        }}
-      >
+        }}>
         <div className={styles.colabWrap__publish}>
           Chapter
           <span>{publishedChapter.length}</span>
