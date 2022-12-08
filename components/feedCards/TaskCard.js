@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import cn from 'classnames';
 import styles from './styles.module.scss';
 import Flash from 'components/icon/new/Flash';
@@ -30,12 +30,20 @@ const TaskCard = ({ card, user, setShowLoginModal }) => {
   const title = card.lookingFor;
   const [showModal, setShowModal] = useState(false);
   const [modal, setModal] = useState(false);
+  const [apply, setApply] = useState(false);
 
   let time = new Date(card.createdAt).toLocaleDateString();
 
   const author = card.authorInfo?.name;
   const budget = card.amount || null;
   const avatar = card.authorInfo?.avatar;
+
+  useEffect(() => {
+    const ifMember = card?.mangastories?.participents?.some((val) => user?._id === val?._id);
+    const ifCreater = user?._id !== card?.authorInfo?._id;
+    const ifExistInProject = ifMember && ifCreater;
+    setApply(!ifExistInProject);
+  }, []);
 
   const debouncedMouseEventHandler = useCallback(
     AwesomeDebouncePromise(mouseEventHandler, 200),
@@ -51,11 +59,7 @@ const TaskCard = ({ card, user, setShowLoginModal }) => {
   }
 
   function mouseEventHandler(type) {
-    if (type === 'doubleClick') {
-      router.push(`/project/production/${card.mangaStoryId}?tab=details&task=${card._id}`);
-    } else {
-      setModal(!modal);
-    }
+    setModal(!modal);
   }
 
   return (
@@ -97,7 +101,7 @@ const TaskCard = ({ card, user, setShowLoginModal }) => {
           />
         </div>
       </div>
-      {user?._id !== card?.authorInfo?._id && (
+      {apply && (
         <ModalStart
           changeShowModal={setShowModal}
           showModal={showModal}

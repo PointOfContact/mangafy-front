@@ -86,10 +86,14 @@ OpenTaskModal.propTypes = {
   title: PropTypes.string.isRequired,
   card: PropTypes.object.isRequired,
   text: PropTypes.string.isRequired,
-  avatar: PropTypes.string.isRequired,
-  author: PropTypes.object.isRequired,
-  budget: PropTypes.string.isRequired,
+  avatar: PropTypes.string,
+  author: PropTypes.any.isRequired,
+  budget: PropTypes.number.isRequired,
   setShowModal: PropTypes.func.isRequired,
+};
+
+OpenTaskModal.defaultPrpos = {
+  avatar: '',
 };
 
 export default OpenTaskModal;
