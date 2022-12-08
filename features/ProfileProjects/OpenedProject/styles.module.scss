@@ -182,9 +182,6 @@
             margin-bottom: 10px;
         }
         margin-bottom: 30px;
-        button {
-            margin-top: 10px;
-        }
     }
 
     &__member {
@@ -222,6 +219,10 @@
         font-weight: 400;
         font-size: 12px;
         color: #858585;
+    }
+
+    &__invite {
+        margin-top: 20px;
     }
 
     &__needHelp {

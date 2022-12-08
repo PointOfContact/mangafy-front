@@ -15,6 +15,7 @@ const Input = ({
   defaultValue,
   rounded,
   onBlur,
+  inputRef,
 }) => {
   return (
     <div className={cn(className, styles.input__container)}>
@@ -34,7 +35,7 @@ const Input = ({
         )}
         onInput={onChange ? (e) => onChange(e.target.value) : null}
         defaultValue={defaultValue}
-      ></input>
+        ref={inputRef}></input>
       {typeof err === 'string' && <div className={styles.input__error}>{err}</div>}
     </div>
   );

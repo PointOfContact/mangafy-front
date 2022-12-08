@@ -581,3 +581,10 @@ export const taskTypesArray = [
     value: 'Archived',
   },
 ];
+
+export const projectRoles = {
+  ADMIN: 'Admin',
+  MEMBER: 'Member',
+  COMMENTER: 'Commenter',
+  OBSERVERS: 'Observers',
+};

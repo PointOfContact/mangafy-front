@@ -14,10 +14,12 @@ const Select = ({
   defaultValue,
   rounded,
   options,
+  disabled,
 }) => {
   return (
     <div className={cn(className, styles.input__container)}>
       <AntdSelect
+        disabled={disabled}
         defaultValue={defaultValue}
         placeholder={placeholder}
         className={cn(
@@ -27,6 +29,7 @@ const Select = ({
           err && styles.input_red,
           typeof err === 'string' && styles.input_error,
           rounded && styles.input_rounded,
+          disabled && styles.input_disabled,
           styles.select
         )}
         dropdownClassName={styles.select__dropdown}
@@ -35,8 +38,6 @@ const Select = ({
           <Option value={option.key}>{option.value}</Option>
         ))}
       </AntdSelect>
-
-      <div className={styles.select__arrow}></div>
       {typeof err === 'string' && <div className={styles.input__error}>{err}</div>}
     </div>
   );

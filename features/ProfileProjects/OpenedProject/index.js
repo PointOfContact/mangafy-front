@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import cn from 'classnames';
 import client from 'api/client';
 import { formatHtml } from 'helpers/shared';
-import { userTypes } from 'helpers/constant';
+import { projectRoles, userTypes } from 'helpers/constant';
 import { countPages, getCreatedDate, getEditedDate } from '../helpers';
 import myAmplitude from 'utils/amplitude';
 import { EVENTS } from 'helpers/amplitudeEvents';
@@ -31,6 +31,7 @@ import Tag from 'components/icon/new/Tag';
 import Hierarchy from 'components/icon/new/Hierarchy';
 import Close from 'components/icon/new/Close';
 import Edit2 from 'components/icon/new/Edit2';
+import InviteModal from 'components/modals/InviteModal';
 
 const OpenedProject = ({
   user,
@@ -45,6 +46,7 @@ const OpenedProject = ({
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const [isGoToSettingsModalOpen, setIsGoToSettingsModalOpen] = useState(false);
   const [isConfirmDeleteOpen, setIsConfirmDeleteOpen] = useState(false);
+  const [isInviteModalOpen, setIsInviteModalOpen] = useState(false);
 
   const isOwn = user?._id === project?.author;
   const pagesCount = useMemo(() => countPages(project), [project]);
@@ -127,6 +129,12 @@ const OpenedProject = ({
       setIsGoToSettingsModalOpen(true);
     }
   }
+
+  const isAdmin = useMemo(() => {
+    if (project?.author === user?._id) return true;
+    const userObj = project?.participents.find((member) => member?._id === user?._id);
+    return userObj?.role === projectRoles?.ADMIN;
+  }, [project]);
 
   return (
     <div className={cn(className, styles.openedProject, isOpened && styles.openedProject_opened)}>
@@ -214,16 +222,19 @@ const OpenedProject = ({
           Members
         </div>
         <div className={styles.openedProject__members}>
-          {/* {authorsElements?.length > 1 ? ( */}
           {authorsElements}
-          {/* ) : (
-            <>
-              Don’t work by yourself, invite your friends to join your team!
-              <Button full rounded pink>
-                invite
-              </Button>
-            </>
-          )} */}
+          {isAdmin && (
+            <Button
+              rounded
+              pink
+              full
+              md
+              bold
+              className={styles.openedProject__invite}
+              onClick={() => setIsInviteModalOpen(true)}>
+              Invite friends to join MangaFY
+            </Button>
+          )}
         </div>
         <div className={styles.openedProject__needHelp}>
           <div className={styles.openedProject__needHelpText}>
@@ -269,6 +280,14 @@ const OpenedProject = ({
         }}
         cancelText={'Cancel'}
         onCancel={() => {}}
+      />
+      <InviteModal
+        visible={isInviteModalOpen}
+        setVisible={setIsInviteModalOpen}
+        mangaStoryId={project?._id}
+        participants={project?.participents}
+        participantsInfo={project?.participentsInfo}
+        inviterId={user?._id}
       />
     </div>
   );
