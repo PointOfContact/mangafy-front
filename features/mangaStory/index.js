@@ -31,7 +31,7 @@ import Idea from 'components/Idea';
 import Chapter from './components/chapter';
 import DragDrop from './components/dragDrop';
 import Preview from './components/preview';
-import Publish from './components/publish';
+// import Publish from './components/publish';
 import ProjectMobileMenu from 'components/ProjectMobileMenu';
 import Edit from 'components/icon/new/Edit';
 import Edit2 from 'components/icon/new/Edit2';
@@ -50,7 +50,7 @@ const tabs = {
   COMMENTS: 'comments',
   MESSAGES: 'messages',
   SETTINGS: 'settings',
-  PUBLISH: 'publish',
+  // PUBLISH: 'publish',
 };
 
 const MangeStory = (props) => {
@@ -391,9 +391,9 @@ const MangeStory = (props) => {
                 baseData={baseData}
               />
             )}
-            {activeTab === tabs.PUBLISH && (
+            {/* {activeTab === tabs.PUBLISH && (
               <Publish baseData={baseData} storyBoard={storyBoard} chapters={chapters} />
-            )}
+            )} */}
             {activeTab === tabs.COMMENTS && (
               <Comments
                 commentsData={comments}
