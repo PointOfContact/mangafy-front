@@ -152,7 +152,7 @@ const ProjectChapters = ({
               />
             </div>
             <div className={styles.chapters__title}>{chapter.title}</div>
-            <div className={styles.chapters__subtitle}>Chapter {chapter.order}</div>
+            <div className={styles.chapters__subtitle}>Episode {chapter.order}</div>
             <div className={styles.chapters__info}>
               <div
                 className={styles.chapters__comments}

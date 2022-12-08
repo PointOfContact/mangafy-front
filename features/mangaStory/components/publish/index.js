@@ -107,8 +107,7 @@ const Publish = ({ baseData, storyBoard, chapters }) => {
                 setCopyText('Copied');
                 copy(link);
               }}
-              onMouseOut={() => setCopyText('Copy to clipboard')}
-            >
+              onMouseOut={() => setCopyText('Copy to clipboard')}>
               <SvgCopy width="18px" height="18px" alt="mangaFy copy icon" />
             </div>
           </Tooltip>
@@ -124,17 +123,15 @@ const Publish = ({ baseData, storyBoard, chapters }) => {
         <Link
           href={`/feed?postType=Manga&pid=${storyBoard?._id}&title=${
             baseData?.title
-          }${publishImage()}`}
-        >
+          }${publishImage()}`}>
           <a className={!ifExistPublishedChapter && styles.postManga} target="_blank">
             <h4>Post on MangaFY</h4>
-            <p>The MangaFY feed will show your chapter &gt;&gt;</p>
+            <p>The MangaFY feed will show your episode &gt;&gt;</p>
           </a>
         </Link>
         <Link
           href="https://form.typeform.com/to/UX99IGQe?typeform-source=trello.com"
-          onClick={clickProtectSell}
-        >
+          onClick={clickProtectSell}>
           <a target="_blank">
             <h4>Protect and Sell</h4>
             <p>Protect and sell your unique webcomics assets &gt;&gt;</p>

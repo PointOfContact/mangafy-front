@@ -40,7 +40,7 @@ const MangaSlider = ({ manga, activeChapterIndex }) => {
                     {ch?.title?.length > 8 ? ch?.title?.slice(0, 8) + '...' : ch?.title}
                   </Avatar>
                 )}
-                <div className={styles.slider__itemTitle}>Chapter {ch.order}</div>
+                <div className={styles.slider__itemTitle}>Episode {ch.order}</div>
               </a>
             </Link>
           );
