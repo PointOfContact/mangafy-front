@@ -103,7 +103,7 @@ const SignIn = () => {
           </a>
         </Link>
         <div className={styles.loginPage__container}>
-          <div className={styles.loginPage__title}>Sing in to MangaFY</div>
+          <div className={styles.loginPage__title}>Sign in to MangaFY</div>
           <div className={styles.loginPage__subTitle}>
             MangaFY is a space for webcomics creators.
           </div>
