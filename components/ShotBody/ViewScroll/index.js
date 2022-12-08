@@ -22,7 +22,6 @@ const ViewScroll = ({ images, className }) => {
     if (width <= 767) {
       delete options.width;
     } else if (width <= 991) {
-      console.log(11);
       options.width = width - 120;
     }
     return imgixClient.buildURL('https://mangafy.club/api/v2/uploads/' + image, options);
@@ -45,7 +44,10 @@ const ViewScroll = ({ images, className }) => {
           const imageFromImgix = getImageFromImgix(image, width);
           const largeImageFromImgix = getImageFromImgix(image, largeWidth);
           return (
-            <div id={`page${index + 1}`} key={image + index}>
+            <div
+              id={`page${index + 1}`}
+              key={image + index}
+              style={{ overflow: 'hidden', borderRadius: '10px', marginBottom: '5px' }}>
               <InnerImageZoom
                 moveType="pan"
                 fullscreenOnMobile
