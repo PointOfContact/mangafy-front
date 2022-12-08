@@ -74,7 +74,7 @@ const Introduce = ({ user }) => {
           ];
           myAmplitude(data);
           localStorage.removeItem('mangaStory');
-          Router.push(`/project/production/${res._id}?tab=details`);
+          Router.push(`/project/production/${res._id}?tab=jobs`);
         })
         .catch((err) => {
           openNotification('error', err.message);

@@ -55,7 +55,7 @@ const ProjectSidebar = ({ tabs, activeTab, setActiveTab, onCollapsedChange, rout
         </a>
       </Link>
       <div className={styles.tabs}>
-        <Link href={routerBasePath + 'details'}>
+        <Link href={routerBasePath + 'jobs'}>
           <a>
             <SidebarTab
               // onClick={() => {

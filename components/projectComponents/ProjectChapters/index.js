@@ -71,7 +71,7 @@ const ProjectChapters = ({
           </Link>
         )}
         {(isParticipant || isOwner) && (
-          <Link href={'/project/production/' + project._id + '?tab=details'}>
+          <Link href={'/project/production/' + project._id + '?tab=jobs'}>
             <a className={styles.chapters__edit}>
               <Button rounded md>
                 Edit
