@@ -74,9 +74,6 @@ const CardsContainer = ({
   function WelcomeCard({ openCreateShotModal, createProjectHandler }) {
     return (
       <div className={styles.welcomeCard}>
-        <div className={styles.welcomeCard__logo}>
-          <Logo color="#fff" />
-        </div>
         <div className={styles.welcomeCard__title}>Our community is a place where you can</div>
         <div className={styles.welcomeCard__text}>
           Connect with other graphic novel creators, share your work, and get inspiration for your
