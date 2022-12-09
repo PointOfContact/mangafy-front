@@ -174,8 +174,7 @@ const Header = ({ user, path, setShowModalEdit }) => {
                   className={cn(
                     styles.header__menu,
                     router.pathname === '/collaborations' && styles.header__menu_active
-                  )}
-                >
+                  )}>
                   Collabs
                 </a>
               </Link>
@@ -184,8 +183,7 @@ const Header = ({ user, path, setShowModalEdit }) => {
                   className={cn(
                     styles.header__menu,
                     router.pathname === '/profiles' && styles.header__menu_active
-                  )}
-                >
+                  )}>
                   People
                 </a>
               </Link>
@@ -194,8 +192,7 @@ const Header = ({ user, path, setShowModalEdit }) => {
                   className={cn(
                     styles.header__menu,
                     router.pathname === '/projects' && styles.header__menu_active
-                  )}
-                >
+                  )}>
                   Ongoing
                 </a>
               </Link>
@@ -223,14 +220,12 @@ const Header = ({ user, path, setShowModalEdit }) => {
                           setNotificationsCount={setNotificationsCount}
                         />
                       }
-                      trigger="click"
-                    >
+                      trigger="click">
                       <Badge
                         count={notificationsCount}
                         onClick={() => {
                           setShowNotificationModal(!showNotificationModal);
-                        }}
-                      >
+                        }}>
                         <SvgBell width="23px" height="23px" />
                       </Badge>
                     </Popover>
@@ -244,8 +239,7 @@ const Header = ({ user, path, setShowModalEdit }) => {
                       }
                       visible={showNotification}
                       onVisibleChange={(visible) => setShowNotification(visible)}
-                      trigger="click"
-                    >
+                      trigger="click">
                       <div className={cn(styles.img, styles.imgOnline)}>
                         <div className={styles.avatar}>
                           {user.avatar ? (
@@ -311,8 +305,7 @@ const Header = ({ user, path, setShowModalEdit }) => {
                       className={cn(
                         styles.header__menu,
                         router.pathname === '/sign-in' && styles.header__menu_active
-                      )}
-                    >
+                      )}>
                       Log in
                     </a>
                   </Link>
