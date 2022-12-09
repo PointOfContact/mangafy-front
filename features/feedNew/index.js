@@ -32,6 +32,7 @@ import myAmplitude from 'utils/amplitude';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { SignInModal } from 'components/modals/SignInModal';
 import { projectTypes, userTypes } from 'helpers/constant';
+import ModalCreateProject from 'components/modalCreateProject';
 
 const FeedNew = (props) => {
   const { jwt, user, posts, genres } = props;
@@ -85,6 +86,7 @@ const FeedNew = (props) => {
   const [error, setError] = useState(null);
 
   const [shotModalVisible, setShotModalVisible] = useState(false);
+  const [projectModalVisible, setProjectModalVisible] = useState(false);
   const [signInModalVisible, setSignInModalVisible] = useState(false);
   const [shotToEdit, setShotToEdit] = useState(null);
 
@@ -294,6 +296,11 @@ const FeedNew = (props) => {
           updateCards(cardsElements, [true], true, postType);
         }}
       />
+      <ModalCreateProject
+        createProjectModal={projectModalVisible}
+        showCreateProjectModal={setProjectModalVisible}
+        user={user}
+      />
       <NextSeo
         title={'MangaFY – From story buidling to a full digital release.'}
         description={
@@ -353,6 +360,7 @@ const FeedNew = (props) => {
                 onPageEnd={onPageEnd}
                 shouldFetchCards={shouldFetchCards}
                 openCreateShotModal={() => setShotModalVisible(true)}
+                openCreateProjectModal={() => setProjectModalVisible(true)}
               />
             </Col>
           </Row>

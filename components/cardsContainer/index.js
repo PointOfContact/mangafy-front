@@ -42,6 +42,7 @@ const CardsContainer = ({
   user,
   onPageEnd,
   openCreateShotModal,
+  openCreateProjectModal,
 }) => {
   const router = useRouter();
   const [firstColRef, secondColRef, thirdColRef] = [useRef(null), useRef(null), useRef(null)];
@@ -65,30 +66,36 @@ const CardsContainer = ({
     }
   }
 
-  function WelcomeCard({ openCreateShotModal }) {
+  function createProjectHandler() {
+    sendEvent(EVENTS.OPEN_CREATE_NEW_PROJECT_MODAL);
+    openCreateProjectModal();
+  }
+
+  function WelcomeCard({ openCreateShotModal, createProjectHandler }) {
     return (
       <div className={styles.welcomeCard}>
         <div className={styles.welcomeCard__logo}>
           <Logo color="#fff" />
         </div>
-        <div className={styles.welcomeCard__title}>You're now a part of the community!</div>
-        <div className={styles.welcomeCard__text}>This Is What You can Do Right Now</div>
+        <div className={styles.welcomeCard__title}>Our community is a place where you can</div>
+        <div className={styles.welcomeCard__text}>
+          Connect with other graphic novel creators, share your work, and get inspiration for your
+          next project.
+        </div>
         <div className={styles.welcomeCard__buttons}>
-          <div
-            className={styles.welcomeCard__button}
-            onClick={() => router.push('/profile/' + user?._id + '?active=project&createProject')}>
-            <div>Time to start your project!</div> <ArrowDown2 color="#fff" />
-          </div>
           <div
             className={styles.welcomeCard__button}
             // onClick={() => router.push('/profile/' + user._id + '?active=project')}
             onClick={() => openCreateShotModal()}>
-            <div>Share your work in progress</div> <ArrowDown2 color="#fff" />
+            <div>Share Your Progress</div> <ArrowDown2 color="#fff" />
+          </div>
+          <div className={styles.welcomeCard__button} onClick={() => openCreateProjectModal()}>
+            <div>Start your new project</div> <ArrowDown2 color="#fff" />
           </div>
           <div
             className={styles.welcomeCard__button}
             onClick={() => router.push('/profile/' + user?._id)}>
-            <div>Customize your profile</div> <ArrowDown2 color="#fff" />
+            <div>Edit Your Profile</div> <ArrowDown2 color="#fff" />
           </div>
         </div>
         <div className={styles.welcomeCard__close} onClick={closeWelcomeCard}>
@@ -136,7 +143,10 @@ const CardsContainer = ({
       <Row align="top" gutter={20} style={{ marginTop: '1.5em' }}>
         <Col ref={firstColRef} span={24 / columns} className={styles.col}>
           {!!user && !!welcomeCardVisible ? (
-            <WelcomeCard openCreateShotModal={openCreateShotModal} />
+            <WelcomeCard
+              openCreateShotModal={openCreateShotModal}
+              createProjectHandler={createProjectHandler}
+            />
           ) : null}
           {firstCol}
         </Col>
