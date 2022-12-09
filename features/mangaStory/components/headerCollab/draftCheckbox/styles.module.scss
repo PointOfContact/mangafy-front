@@ -1,93 +1,118 @@
 @import '../../../../../styles/variables.scss';
 
-.publishedModal {
-  text-align: center;
-  img {
-    margin: auto;
-  }
-  .modalTitle {
-    font-weight: 900;
-    font-size: 40px;
-    line-height: 35px;
-    color: $black;
-    @include media-xs {
-      font-size: 36px;
-    }
-  }
-  h3 {
-    max-width: 580px;
-    padding: 0 15px;
-    font-weight: 500;
-    font-size: 25px;
-    line-height: 36px;
-    margin: 48px auto 50px auto;
-  }
-  & > h4 {
-    font-weight: 900;
-    font-size: 30px;
-    line-height: 35px;
-    color: $black;
-    @include media-xs {
-      font-size: 26px;
-    }
-  }
-  .containerPayPalEmail {
-    max-width: 400px;
-    margin-bottom: 30px;
-    margin-left: auto;
-    margin-right: auto;
-    h4 {
-      font-size: 20px;
-      font-weight: bold;
-      color: $black;
-    }
-    .email {
-      margin-bottom: 20px;
-      input {
-        height: 40px;
-        border-radius: 4px;
-        margin-top: 10px;
-      }
-    }
-    button {
-      width: 100%;
-      height: 50px;
-      margin: auto;
-    }
-  }
-}
+
 .modal {
-  top: 125px !important;
-  width: 100% !important;
-  max-width: 1000px !important;
-  @include media-md {
-    padding: 0 10px;
-  }
-  & > div > button {
-    width: 31px !important;
-    height: 31px !important;
-    background: $primaryDark !important;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: 31px;
-    margin-top: 20px;
-    svg {
-      width: 14px;
-      height: 14px;
-      path {
-        fill: white !important;
-      }
+    --padding: 60px;
+    @include media-sm {
+        --padding: 30px;
     }
-    &:hover {
-      background: $primaryLight !important;
+    @include media-xs {
+        --padding: 20px;
     }
-  }
-}
-.shareButtons {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 40px;
-  margin-top: 20px;
+
+    :global {
+        .ant-modal-content {
+            border-radius: var(--padding);
+            padding: var(--padding);
+            overflow: hidden;
+        }
+        .ant-modal-body {
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        .ant-modal-close {
+            top: var(--padding);
+            right: var(--padding);
+            height: 24px;
+            width: 24px;
+        }
+        .ant-modal-close-x {
+            height: 24px;
+            width: 24px;
+            line-height: 24px;
+
+            svg {
+                height: 24px;
+                width: 24px;
+            }
+        }
+    }
+
+
+    &__title {
+        font-weight: 700;
+        font-size: 30px;
+        line-height: 1em;
+        margin-bottom: 120px;
+        @include media-xs {
+            font-size: 24px;
+            margin-bottom: 70px;
+        }
+    }
+
+    &__checkIcon {
+        width: 200px;
+        height: 200px;
+        @include media-xs {
+            width: 150px;
+            height: 150px;
+        }
+        align-self: center;
+        margin-bottom: 40px;
+    }
+
+    &__content {
+        max-width: 500px;
+        align-self: center;
+    }
+
+    &__text {
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 23px;
+        text-align: center;
+        margin-bottom: 70px;
+        @include media-xs {
+            font-size: 16px;
+            margin-bottom: 40px;
+        }
+    }
+
+    &__inputTitle {
+        font-weight: 700;
+        font-size: 15px;
+        color: #848484;
+        margin-bottom: 10px;
+    }
+
+    &__linkContainer {
+        display: flex;
+        @include media-sm {
+            flex-direction: column;
+        }
+    }
+    
+    &__link {
+        flex-grow: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 5em;
+        border: 1px solid #848484;
+        font-weight: 500;
+        font-size: 12px;
+        padding: 10px 20px;
+        margin-right: 20px;
+        @include media-sm {
+            margin-right: 0;
+            margin-bottom: 10px;
+        }
+        word-break: break-all;
+    }
+
+    &__copyButton {
+
+    }
+  
 }
