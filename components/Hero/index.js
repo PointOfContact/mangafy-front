@@ -222,7 +222,7 @@ const Hero = ({ storyBoard, setStoryBoard, getStoryBoard, user }) => {
             }
             {
               <CreateBoard
-                title="Components"
+                title="Assets"
                 list={getLists(HeroTypes.component)}
                 addHero={addHero}
                 heroTypes={HeroTypes.component}
