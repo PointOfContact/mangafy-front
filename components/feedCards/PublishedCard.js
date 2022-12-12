@@ -24,10 +24,12 @@ const PublishedCard = ({ card, user }) => {
   const avatar = card.authorInfo?.avatar;
   const likes = card.likedUsers?.length || card?.likes || card?.like;
   const comments = card.comments?.total;
-  const mangaUrl =
-    card.postType === 'Ongoing'
-      ? card.button.navigateTo + '?ongoing=' + card?.order
-      : `/project/${card._id}`;
+  // const mangaUrl =
+  //   card.postType === 'Ongoing'
+  //     ? card.button.navigateTo + '?ongoing=' + card?.order
+  //     : `/project/${card._id}`;
+
+  const mangaUrl = `/project/${card._id}`;
 
   const [isLiked, setIsLiked] = useState(card?.likedUsers?.includes(user?.id));
   const router = useRouter();
@@ -126,9 +128,10 @@ const PublishedCard = ({ card, user }) => {
         <FeedCardImage
           image={client.UPLOAD_URL + image}
           isOwned={
-            card.postType === 'Ongoing'
-              ? card.authorInfo?._id === user?._id
-              : card.author === user?._id
+            // card.postType === 'Ongoing'
+            //   ? card.authorInfo?._id === user?._id
+            //   : card.author === user?._id
+            card.author === user?._id
           }
           mangaId={card._id}
           mangaUrl={client.API_ENDPOINT + mangaUrl}

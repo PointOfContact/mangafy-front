@@ -12,6 +12,7 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
       $sort: {
         createdAt: -1,
       },
+      postType: 'Project',
     };
 
     const posts = await client.service('/api/v2/posts').find({ query: queryPosts });
