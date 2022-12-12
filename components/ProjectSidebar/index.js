@@ -120,7 +120,7 @@ const ProjectSidebar = ({ tabs, activeTab, setActiveTab, onCollapsedChange, rout
             </SidebarTab>
           </a>
         </Link> */}
-        <Link href={routerBasePath + 'comments'}>
+        {/* <Link href={routerBasePath + 'comments'}>
           <a>
             <SidebarTab
               // onClick={() => {
@@ -132,7 +132,7 @@ const ProjectSidebar = ({ tabs, activeTab, setActiveTab, onCollapsedChange, rout
               Comments
             </SidebarTab>
           </a>
-        </Link>
+        </Link> */}
       </div>
       <div className={styles.additionalTabs}>
         <Link href={routerBasePath + 'messages'}>

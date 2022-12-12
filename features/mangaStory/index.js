@@ -47,7 +47,7 @@ const tabs = {
   PLOT: 'plot',
   ASSETS: 'assets',
   EPISODES: 'episodes',
-  COMMENTS: 'comments',
+  // COMMENTS: 'comments',
   MESSAGES: 'messages',
   SETTINGS: 'settings',
   // PUBLISH: 'publish',
@@ -394,14 +394,14 @@ const MangeStory = (props) => {
             {/* {activeTab === tabs.PUBLISH && (
               <Publish baseData={baseData} storyBoard={storyBoard} chapters={chapters} />
             )} */}
-            {activeTab === tabs.COMMENTS && (
+            {/* {activeTab === tabs.COMMENTS && (
               <Comments
                 commentsData={comments}
                 isOwn={isOwn}
                 mangaStory={baseData}
                 user={userData}
               />
-            )}
+            )} */}
             {activeTab === tabs.MESSAGES && (
               <Chat mangaStory={baseData} user={userData} isOwn={isOwn} />
             )}
