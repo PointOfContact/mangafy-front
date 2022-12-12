@@ -348,7 +348,6 @@ const MangaView = ({
           }}
           cancelText={'Cancel'}
         />
-        <div id="test">test</div>
       </div>
     </>
   );
