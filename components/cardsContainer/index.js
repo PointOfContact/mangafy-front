@@ -1,12 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styles from './styles.module.scss';
 import { Col, Row } from 'antd';
-import Logo from 'components/icon/new/Logo';
-import Close from 'components/icon/new/Close';
 import client from 'api/client';
-import { useRouter } from 'next/router';
 
-import ArrowDown2 from 'components/icon/new/ArrowDown2';
+import WelcomeCard from './WelcomeCard';
+import myAmplitude from 'utils/amplitude';
+import { EVENTS } from 'helpers/amplitudeEvents';
 
 const placeholderData = [
   {
@@ -44,7 +43,6 @@ const CardsContainer = ({
   openCreateShotModal,
   openCreateProjectModal,
 }) => {
-  const router = useRouter();
   const [firstColRef, secondColRef, thirdColRef] = [useRef(null), useRef(null), useRef(null)];
   const [welcomeCardVisible, setWelcomeCardVisible] = useState(false);
 
@@ -66,40 +64,19 @@ const CardsContainer = ({
     }
   }
 
+  const sendEvent = (event_type, post = 'New') => {
+    const eventData = [
+      {
+        event_type,
+        event_properties: { post },
+      },
+    ];
+    myAmplitude(eventData);
+  };
+
   function createProjectHandler() {
     sendEvent(EVENTS.OPEN_CREATE_NEW_PROJECT_MODAL);
     openCreateProjectModal();
-  }
-
-  function WelcomeCard({ openCreateShotModal, createProjectHandler }) {
-    return (
-      <div className={styles.welcomeCard}>
-        <div className={styles.welcomeCard__title}>Our community is a place where you can</div>
-        <div className={styles.welcomeCard__text}>
-          Connect with other graphic novel creators, share your work, and get inspiration for your
-          next project.
-        </div>
-        <div className={styles.welcomeCard__buttons}>
-          <div
-            className={styles.welcomeCard__button}
-            // onClick={() => router.push('/profile/' + user._id + '?active=project')}
-            onClick={() => openCreateShotModal()}>
-            <div>Share Your Progress</div> <ArrowDown2 color="#fff" />
-          </div>
-          <div className={styles.welcomeCard__button} onClick={() => openCreateProjectModal()}>
-            <div>Start your new project</div> <ArrowDown2 color="#fff" />
-          </div>
-          <div
-            className={styles.welcomeCard__button}
-            onClick={() => router.push('/profile/' + user?._id)}>
-            <div>Edit Your Profile</div> <ArrowDown2 color="#fff" />
-          </div>
-        </div>
-        <div className={styles.welcomeCard__close} onClick={closeWelcomeCard}>
-          <Close color="#fff" />
-        </div>
-      </div>
-    );
   }
 
   useEffect(async () => {
@@ -141,8 +118,10 @@ const CardsContainer = ({
         <Col ref={firstColRef} span={24 / columns} className={styles.col}>
           {!!user && !!welcomeCardVisible ? (
             <WelcomeCard
+              closeWelcomeCard={closeWelcomeCard}
               openCreateShotModal={openCreateShotModal}
               createProjectHandler={createProjectHandler}
+              user={user}
             />
           ) : null}
           {firstCol}
