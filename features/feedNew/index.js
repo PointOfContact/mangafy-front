@@ -46,14 +46,31 @@ const FeedNew = (props) => {
         inQuery: 'types',
         options: userTypes.map((type) => ({ title: type.value, value: type.key })),
       },
+      {
+        title: 'Sort by',
+        inQuery: 'filter',
+        options: [{ title: 'Recent', value: 'new' }],
+      },
     ],
-    shots: [{ title: 'Search', inQuery: 'search' }],
+    shots: [
+      { title: 'Search', inQuery: 'search' },
+      {
+        title: 'Sort by',
+        inQuery: 'filter',
+        options: [{ title: 'Recent', value: 'new' }],
+      },
+    ],
     tasks: [
       { title: 'Search', inQuery: 'search' },
       {
         title: 'Looking for',
         inQuery: 'types',
         options: userTypes.map((type) => ({ title: type.value, value: type.value })),
+      },
+      {
+        title: 'Sort by',
+        inQuery: 'filter',
+        options: [{ title: 'Recent', value: 'new' }],
       },
     ],
     projects: [
@@ -63,6 +80,11 @@ const FeedNew = (props) => {
         title: 'Looking for',
         inQuery: 'searchingFor',
         options: userTypes.map((type) => ({ title: type.value, value: type.value })),
+      },
+      {
+        title: 'Sort by',
+        inQuery: 'filter',
+        options: [{ title: 'Recent', value: 'new' }],
       },
     ],
     ongoing: [{ title: 'Search', inQuery: 'search' }],
@@ -189,9 +211,9 @@ const FeedNew = (props) => {
   async function getCards(limit = 10, skip = 0, postType) {
     const query = {
       $limit: limit,
-      $sort: {
-        createdAt: -1,
-      },
+      // $sort: {
+      //   createdAt: -1,
+      // },
       $skip: skip,
       ...activeFilters,
     };
@@ -374,6 +396,10 @@ function createFiltersQuery(selectedFilters) {
     } else {
       query[filter.inQuery] = [filter.value];
     }
+  });
+  // If filter contains only one value, turn it into a string
+  Object.keys(query).forEach((key) => {
+    if (query[key].length === 1) query[key] = query[key][0];
   });
   return query;
 }

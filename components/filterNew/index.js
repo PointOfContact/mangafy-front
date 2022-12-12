@@ -59,6 +59,7 @@ const FilterNew = ({ activeTab, filters, onChange }) => {
         if (currentFilter) {
           newCurrentContentElement = (
             <Options
+              selectedOptions={selectedOptions}
               inQuery={currentFilter.inQuery}
               applyFilter={applyFilter}
               options={currentFilter?.options.map((option) => {
@@ -129,18 +130,21 @@ const FilterNew = ({ activeTab, filters, onChange }) => {
   );
 };
 
-const Options = ({ applyFilter, options, inQuery }) => {
+const Options = ({ applyFilter, options, inQuery, selectedOptions }) => {
   return (
     <div className={cn(styles.options)}>
       {options.length > 0 ? (
-        options.map((option) => (
-          <Option
-            inQuery={inQuery}
-            applyFilter={(args) => applyFilter(args)}
-            option={option}
-            key={option.value}
-          />
-        ))
+        options.map((option) => {
+          if (selectedOptions.some((so) => so.value === option.value)) option.isSelected = true;
+          return (
+            <Option
+              inQuery={inQuery}
+              applyFilter={(args) => applyFilter(args)}
+              option={option}
+              key={option.value}
+            />
+          );
+        })
       ) : (
         <p className={styles.noOptions}>There is no options yet</p>
       )}
@@ -188,8 +192,7 @@ const FiltersInput = ({ filterClickHandler, currentContent, filters }) => {
             styles.filter,
             currentContent === filter.title ? styles.filter_active : null
           )}
-          onClick={() => filterClickHandler(filter.title)}
-        >
+          onClick={() => filterClickHandler(filter.title)}>
           {filter.title}
           <SvgBottomArrow />
         </div>
@@ -204,8 +207,7 @@ const FiltersInput = ({ filterClickHandler, currentContent, filters }) => {
             styles.searchFilterMobile,
             currentContent === 'search' ? styles.searchFilterMobile_active : null
           )}
-          onClick={() => filterClickHandler('search')}
-        >
+          onClick={() => filterClickHandler('search')}>
           <SvgSearch />
         </div>
       ) : null}
@@ -218,8 +220,7 @@ const FiltersInput = ({ filterClickHandler, currentContent, filters }) => {
               styles.filter_search,
               currentContent === 'search' ? styles.filter_active : null
             )}
-            onClick={() => filterClickHandler('search')}
-          >
+            onClick={() => filterClickHandler('search')}>
             Search
             <SvgBottomArrow />
           </div>
