@@ -8,8 +8,6 @@ import { projectRoles } from 'helpers/constant';
 
 const Members = ({ className, members, roleOptions, mangaStoryId, inviterId, participants }) => {
   async function changeRole(memberId, newRole) {
-    console.log(memberId, newRole);
-
     const newParticipants = participants.map((participant) =>
       participant._id === memberId ? { ...participant, role: newRole } : participant
     );
@@ -23,7 +21,6 @@ const Members = ({ className, members, roleOptions, mangaStoryId, inviterId, par
     //   headers: { Authorization: `Bearer ${jwt}` },
     //   mode: 'no-cors',
     // });
-    console.log(data);
     client
       .service(`/api/v2/manga-stories`)
       .patch(mangaStoryId, data, {
