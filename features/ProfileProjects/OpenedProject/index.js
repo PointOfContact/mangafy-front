@@ -243,7 +243,7 @@ const OpenedProject = ({
             <div className={styles.openedProject__needHelpTitle}>Interested in collaborating?</div>
             <div className={styles.openedProject__needHelpSubtitle}>Post a job</div>
           </div>
-          <Link href={'/project/production/' + project?._id + '?tab=details&createTask'}>
+          <Link href={'/project/production/' + project?._id + '?tab=jobs&createTask'}>
             <a>
               <Button sm rounded pink iconRight icon={<Flash color="#fff" bold />}>
                 Post

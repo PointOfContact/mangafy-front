@@ -4,8 +4,10 @@ import cn from 'classnames';
 
 const Input = ({
   type,
+  value,
   name,
   sm,
+  md,
   full,
   err,
   pink,
@@ -19,6 +21,7 @@ const Input = ({
   return (
     <div className={cn(className, styles.input__container)}>
       <input
+        value={value}
         onBlur={onBlur}
         name={name}
         placeholder={placeholder}
@@ -26,6 +29,7 @@ const Input = ({
         className={cn(
           styles.input,
           sm && styles.input_sm,
+          md && styles.input_md,
           full && styles.input_fullWidth,
           err && styles.input_red,
           typeof err === 'string' && styles.input_error,
@@ -33,8 +37,7 @@ const Input = ({
           pink && styles.input_pink
         )}
         onInput={onChange ? (e) => onChange(e.target.value) : null}
-        defaultValue={defaultValue}
-      ></input>
+        defaultValue={defaultValue}></input>
       {typeof err === 'string' && <div className={styles.input__error}>{err}</div>}
     </div>
   );

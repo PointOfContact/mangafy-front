@@ -71,7 +71,7 @@ const ProjectChapters = ({
           </Link>
         )}
         {(isParticipant || isOwner) && (
-          <Link href={'/project/production/' + project._id + '?tab=details'}>
+          <Link href={'/project/production/' + project._id + '?tab=jobs'}>
             <a className={styles.chapters__edit}>
               <Button rounded md>
                 Edit
@@ -130,13 +130,7 @@ const ProjectChapters = ({
       {chapters?.map((chapter) => (
         <Link
           key={chapter._id}
-          href={
-            client.API_ENDPOINT +
-            '/project/view/' +
-            project.storyBoards.data[0]._id +
-            '?chapter=' +
-            chapter.order
-          }>
+          href={'/project/view/' + project.storyBoards.data[0]._id + '?chapter=' + chapter.order}>
           <a
             key={chapter._id}
             className={cn(

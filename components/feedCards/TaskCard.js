@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import cn from 'classnames';
 import styles from './styles.module.scss';
 import Flash from 'components/icon/new/Flash';
@@ -20,19 +20,26 @@ import Dollar from 'components/icon/new/Dollar';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { notification } from 'antd';
+import ModalStart from 'components/modals/joinToTeam';
+import Imgix from 'components/imgix';
+import OpenTaskModal from './openTaskModal';
 
-const TaskCard = ({ card, user, setShowLoginModal }) => {
+const TaskCard = ({ card, user }) => {
   const router = useRouter();
   let text = card.description;
   const title = card.lookingFor;
-
+  const [showModal, setShowModal] = useState(false);
+  const [modal, setModal] = useState(false);
   let time = new Date(card.createdAt).toLocaleDateString();
 
   const author = card.authorInfo?.name;
   const budget = card.amount || null;
   const avatar = card.authorInfo?.avatar;
 
-  const [modal, setModal] = useState(false);
+  const checkProjectParticipents = (e) => {
+    const ifCreater = user?._id === card?.authorInfo?._id;
+    !ifCreater && setShowModal(e);
+  };
 
   const debouncedMouseEventHandler = useCallback(
     AwesomeDebouncePromise(mouseEventHandler, 200),
@@ -48,72 +55,23 @@ const TaskCard = ({ card, user, setShowLoginModal }) => {
   }
 
   function mouseEventHandler(type) {
-    if (type === 'doubleClick') {
-      router.push(`/project/production/${card.mangaStoryId}?tab=details&task=${card._id}`);
-    } else {
-      setModal(!modal);
-    }
-  }
-
-  function onApply(e) {
-    e.stopPropagation();
-    if (user) {
-      router.push(`/project/production/${card.mangaStoryId}?tab=details&task=${card._id}`);
-    } else {
-      setShowLoginModal(true);
-    }
+    setModal(!modal);
   }
 
   return (
     <>
-      {modal && (
-        <Modal
-          visible={modal}
-          onCancel={() => setModal(false)}
-          style={{ top: 50 }}
-          wrapClassName={styles.modal}
-          closeIcon={<Close className={styles.modal__close} />}
-          footer={null}>
-          <div className={styles.modal__title}>
-            <div className={styles.modal__time}>
-              <Clock color="#C3BAFA" />
-              {`${time}`}
-            </div>
-            {title}
-          </div>
-          <div className={styles.modal__content}>
-            {text && <div className={styles.modal__text}>{text}</div>}
-          </div>
-          <FeedCardLine />
-          <div className={styles.modal__footer}>
-            <Link href={'/profile/' + card.authorInfo?._id}>
-              <a className={styles.modal__authorInfo}>
-                <div className={styles.modal__avatar}>
-                  <img
-                    src={avatar ? client.UPLOAD_URL + avatar : 'img/feedTemp/avatar.png'}
-                    alt="user avatar"
-                  />
-                </div>
-                <div className={styles.modal__author}>{author}</div>
-              </a>
-            </Link>
-            <div className={styles.modal__budgetAndApply}>
-              <div className={styles.modal__budget}>
-                {budget + ' USD'}
-                <Dollar color={'#C3BAFA'} />
-              </div>
-              <Button
-                sm={1}
-                iconRight={1}
-                rounded={1}
-                icon={<Heart color="#fff" />}
-                onClick={onApply}>
-                Apply
-              </Button>
-            </div>
-          </div>
-        </Modal>
-      )}
+      <OpenTaskModal
+        modal={modal}
+        setModal={setModal}
+        time={time}
+        title={title}
+        card={card}
+        text={text}
+        avatar={avatar}
+        author={author}
+        budget={budget}
+        setShowModal={checkProjectParticipents}
+      />
       <div className={styles.card} onClick={handleClick} onDoubleClick={handleDoubleClick}>
         {text && (
           <FeedCardTaskContent
@@ -129,9 +87,23 @@ const TaskCard = ({ card, user, setShowLoginModal }) => {
             time={time}
           />
           <FeedCardLine />
-          <FeedCardTaskFooter budget={budget} mangaId={card.mangaStoryId} onApply={onApply} />
+          <FeedCardTaskFooter
+            budget={budget}
+            mangaId={card.mangaStoryId}
+            onApply={(e) => {
+              e.stopPropagation();
+              checkProjectParticipents(true);
+            }}
+          />
         </div>
       </div>
+      <ModalStart
+        changeShowModal={checkProjectParticipents}
+        showModal={showModal}
+        baseData={card.mangastories}
+        selectedTask={card}
+        user={user}
+      />
     </>
   );
 };

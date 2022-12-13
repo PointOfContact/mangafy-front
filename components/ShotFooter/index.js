@@ -58,8 +58,10 @@ const ShotFooter = ({
           author={{ ...shot?.authorInfo, isFollowed: isSubscribed }}
           isOwn={isOwn}
           subscribe={subscribe}
+          className={styles.footer__title}
         />
-        Share this series and show support for the creator!
+        Share this series
+        <br /> and show support for the creator!
         <div className={styles.footer__buttonsAndLinks}>
           <div className={styles.footer__buttons}>
             <Button
