@@ -28,6 +28,7 @@ const MenuNotificationsInvite = ({
   const setRequestStatus = (event, id, newStatus) => {
     onAccept(event, id, newStatus)
       .then((res) => {
+        setNotificationsCount(notificationsCount - 1);
         setStatus(res?.status);
         addUnreadNotificationsId();
         let event_type = '';
@@ -65,7 +66,6 @@ const MenuNotificationsInvite = ({
           <div className={cn(styles.div_button, 'buttonsProfile_styles')}>
             <PrimaryButton
               onClick={(event) => {
-                setNotificationsCount(notificationsCount - 1);
                 setRequestStatus(event, requestId, 'rejected');
               }}
               className="buttonsProfile_cancel"
@@ -75,7 +75,6 @@ const MenuNotificationsInvite = ({
             />
             <PrimaryButton
               onClick={(event) => {
-                setNotificationsCount(notificationsCount - 1);
                 setRequestStatus(event, requestId, 'accepted');
               }}
               className="buttonsProfile_save"
