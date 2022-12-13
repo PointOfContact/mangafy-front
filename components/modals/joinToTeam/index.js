@@ -24,7 +24,6 @@ const MyCheckboxes = userTypes.map((item) => ({
 const ModalStart = ({ changeShowModal, showModal, baseData, selectedTask, user }) => {
   const [joinAs, changeJoinAs] = useState('');
   const [disbeldButton, setDisbeldButton] = useState(false);
-
   const defaultJoinAs = MyCheckboxes.find((role) => role.value === selectedTask?.lookingFor)?.value;
   const [form] = Form.useForm();
 
@@ -166,7 +165,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, selectedTask, user }
               name="taskRequest"
               onFinish={(e) => {
                 changeJoinAs(e.joinAs);
-                createRequest(e.plan, e.yourseld, e.joinAs || 'Writer');
+                createRequest(e.plan, e.yourseld, e.joinAs || selectedTask?.lookingFor);
               }}>
               <h2>Introduce yourself *</h2>
               <GrammarlyEditorPlugin clientId={`${process.env.NEXT_PUBLIC_GRAMMARLY_ID}`}>
