@@ -25,8 +25,7 @@ const ProjectMobileMenu = ({ tabs, activeTab, setActiveTab, routerBasePath }) =>
           className={cn(
             styles.menu__element,
             activeTab === tabs.PLOT && styles.menu__element_active
-          )}
-        >
+          )}>
           <Edit color={activeTab === tabs.PLOT ? '#fff' : '#D01E8E'} />
         </a>
       </Link>
@@ -38,8 +37,7 @@ const ProjectMobileMenu = ({ tabs, activeTab, setActiveTab, routerBasePath }) =>
           className={cn(
             styles.menu__element,
             activeTab === tabs.ASSETS && styles.menu__element_active
-          )}
-        >
+          )}>
           <Box color={activeTab === tabs.ASSETS ? '#fff' : '#D01E8E'} />
         </a>
       </Link>
@@ -51,8 +49,7 @@ const ProjectMobileMenu = ({ tabs, activeTab, setActiveTab, routerBasePath }) =>
           className={cn(
             styles.menu__element,
             activeTab === tabs.EPISODES && styles.menu__element_active
-          )}
-        >
+          )}>
           <Episodes color={activeTab === tabs.EPISODES ? '#fff' : '#D01E8E'} />
         </a>
       </Link>
@@ -64,8 +61,7 @@ const ProjectMobileMenu = ({ tabs, activeTab, setActiveTab, routerBasePath }) =>
           className={cn(
             styles.menu__element,
             activeTab === tabs.MESSAGES && styles.menu__element_active
-          )}
-        >
+          )}>
           <Message2 color={activeTab === tabs.MESSAGES ? '#fff' : '#D01E8E'} />
         </a>
       </Link>
@@ -73,11 +69,10 @@ const ProjectMobileMenu = ({ tabs, activeTab, setActiveTab, routerBasePath }) =>
         className={styles.menu__element}
         onClick={() => {
           setDropdown((old) => !old);
-        }}
-      >
+        }}>
         <List color={'#D01E8E'} />
         <div className={cn(styles.dropdown, dropdown && styles.dropdown_active)}>
-          <Link href={routerBasePath + 'details'}>
+          <Link href={routerBasePath + 'jobs'}>
             <a
               className={styles.dropdown__element}
               // onClick={() => {
