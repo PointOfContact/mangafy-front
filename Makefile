@@ -3,7 +3,7 @@ get_gcp_cluster:
 
 all: front
 
-front: front_build_push front_delete_pod
+front: front_build_push front_delete_pod front_apply
 
 front_build_push:
 	docker build -t front -f cloudfiles/front.dockerfile .
@@ -15,3 +15,6 @@ front_apply: get_gcp_cluster
 
 front_delete_pod:
 	kubectl delete pods -l app=front-app || true
+
+front_run_local:
+	winpty docker run -it -p 3000:3000 --rm front
