@@ -39,8 +39,10 @@ const DraftCheckbox = ({ originUrl, isModalVisible, setIsModalVisible }) => (
     <div className={styles.modal__content}>
       <div className={styles.modal__text}>
         You've worked hard to bring your story to life, and now it's time to share it with the
-        world. By sharing your graphic novel with others, you can gain your first fans and begin to
-        build your audience.
+        world.
+        <br />
+        By sharing your graphic novel with others, you can gain your first fans and begin to build
+        your audience.
         <br />
         <br />
         Don't be shy - spread the word about your work and see how it resonates with readers.
