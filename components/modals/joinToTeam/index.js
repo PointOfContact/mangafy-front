@@ -86,37 +86,38 @@ const ModalStart = ({ changeShowModal, showModal, baseData, selectedTask, user }
           }
         );
 
-      const isConv = await restClient.service('/api/v2/conversations').find({
-        query: {
-          $sort: {
-            createdAt: -1,
-          },
-          $or: [
-            { participents: [user?._id, baseData.author] },
-            { participents: [baseData.author, user?._id] },
-          ],
-        },
-        headers: { Authorization: `Bearer ${jwt}` },
-      });
+      // const isConv = await restClient.service('/api/v2/conversations').find({
+      //   query: {
+      //     $sort: {
+      //       createdAt: -1,
+      //     },
+      //     $or: [
+      //       { participents: [user?._id, baseData.author] },
+      //       { participents: [baseData.author, user?._id] },
+      //     ],
+      //   },
+      //   headers: { Authorization: `Bearer ${jwt}` },
+      // });
 
-      const isConvData = isConv.data || isConv;
-      const conv = isConvData?.find((item) => !item.joinMangaStoryRequestId && !item.mangaStoryId);
+      // const isConvData = isConv.data || isConv;
+      // const conv = isConvData?.find((item) => !item.joinMangaStoryRequestId && !item.mangaStoryId);
 
-      let conversation;
+      // let conversation;
 
-      if (!conv?._id) {
-        conversation = await restClient.service('/api/v2/conversations').create(
-          {
-            participents: [baseData.author],
-          },
-          {
-            headers,
-          }
-        );
-      }
+      // if (!conv?._id) {
+      //   conversation = await restClient.service('/api/v2/conversations').create(
+      //     {
+      //       participents: [baseData.author],
+      //       joinMangaStoryRequestId: mangaStoryRequest?._id,
+      //     },
+      //     {
+      //       headers,
+      //     }
+      //   );
+      // }
 
-      sendMessage(plan, conv, conversation, mangaStoryRequest, headers, restClient);
-      sendMessage(yourself, conv, conversation, mangaStoryRequest, headers, restClient);
+      // sendMessage(plan, conv, conversation, mangaStoryRequest, headers, restClient);
+      // sendMessage(yourself, conv, conversation, mangaStoryRequest, headers, restClient);
       return;
     } catch (err) {
       if (err.name === 'Conflict') {
