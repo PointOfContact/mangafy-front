@@ -17,10 +17,9 @@ const MangeStoryCard = ({ mangaStories, setMangaStories, client, user }) =>
       key={label._id}
       href={
         label.author === user?._id
-          ? `/project/production/${label._id}?tab=details`
+          ? `/project/production/${label._id}?tab=jobs`
           : `/project/${label._id}`
-      }
-    >
+      }>
       <a>
         <div className={styles.mangeStoryCard}>
           <div>

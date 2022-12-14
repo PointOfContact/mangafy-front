@@ -1,0 +1,165 @@
+@import '../../../styles/variables.scss';
+
+.modal {
+  a {
+    font-weight: 600;
+    display: inline;
+    color: $primaryDark;
+    &:hover {
+      color: $pink;
+    }
+  }
+  :global {
+    .ant-modal-content {
+      border-radius: 8px;
+    }
+  }
+  &__content {
+    & > img {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 1em;
+    }
+  }
+
+  &__text {
+    margin-bottom: 1em;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 1em;
+    // display: flex;
+    // align-items: center;
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    @include media-xs {
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
+
+  &__authorInfo {
+    display: flex !important;
+    align-items: center;
+  }
+
+  &__author {
+    display: flex !important;
+    align-items: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 700;
+    font-size: 15px;
+    margin-right: 2em;
+    color: $black !important;
+  }
+
+  &__avatar {
+    margin-right: 1em;
+    height: 40px;
+    width: 40px;
+    aspect-ratio: 1;
+    flex: 0 0 auto;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__likes {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    transition: 0.2s;
+    cursor: pointer;
+    margin-left: auto;
+    &:hover {
+      opacity: 0.8;
+    }
+    &:active {
+      opacity: 0.5;
+    }
+    & > svg {
+      margin-left: 0.4em;
+      height: 1.4em;
+    }
+    &_liked {
+      & > svg {
+        animation: spin 0.6s forwards;
+        transition-timing-function: ease-in-out;
+        opacity: 1;
+        fill: rgb(255, 35, 145);
+        stroke: rgb(190, 7, 78);
+
+        @keyframes spin {
+          0% {
+            transform: scale(1);
+          }
+          33% {
+            transform: scale(1.3);
+          }
+          100% {
+            transform: scale(1);
+          }
+        }
+      }
+    }
+  }
+  &__followers {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    & > button {
+      margin-left: 0.4em;
+    }
+  }
+
+  &__close {
+    transition: 0.2s;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  &__time {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 400;
+    // margin-left: 1.5em;
+    & > svg {
+      height: 1.2em;
+      margin-right: 5px;
+    }
+  }
+
+  &__budget {
+    margin-right: 1em;
+    & > svg {
+      height: 1.5em;
+      margin-left: 5px;
+    }
+  }
+
+  &__budgetAndApply {
+    margin-left: auto;
+    @include media-xs {
+      margin-left: 0;
+    }
+    display: flex;
+    align-items: center;
+  }
+}

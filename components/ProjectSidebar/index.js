@@ -55,7 +55,7 @@ const ProjectSidebar = ({ tabs, activeTab, setActiveTab, onCollapsedChange, rout
         </a>
       </Link>
       <div className={styles.tabs}>
-        <Link href={routerBasePath + 'details'}>
+        <Link href={routerBasePath + 'jobs'}>
           <a>
             <SidebarTab
               // onClick={() => {
@@ -107,7 +107,7 @@ const ProjectSidebar = ({ tabs, activeTab, setActiveTab, onCollapsedChange, rout
             </SidebarTab>
           </a>
         </Link>
-        <Link href={routerBasePath + 'publish'}>
+        {/* <Link href={routerBasePath + 'publish'}>
           <a>
             <SidebarTab
               // onClick={() => {
@@ -119,8 +119,8 @@ const ProjectSidebar = ({ tabs, activeTab, setActiveTab, onCollapsedChange, rout
               Publish
             </SidebarTab>
           </a>
-        </Link>
-        <Link href={routerBasePath + 'comments'}>
+        </Link> */}
+        {/* <Link href={routerBasePath + 'comments'}>
           <a>
             <SidebarTab
               // onClick={() => {
@@ -132,7 +132,7 @@ const ProjectSidebar = ({ tabs, activeTab, setActiveTab, onCollapsedChange, rout
               Comments
             </SidebarTab>
           </a>
-        </Link>
+        </Link> */}
       </div>
       <div className={styles.additionalTabs}>
         <Link href={routerBasePath + 'messages'}>

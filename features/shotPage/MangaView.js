@@ -24,6 +24,7 @@ import reactImageSize from 'react-image-size';
 import ChangeViewTab from './changeViewTab';
 import { NextSeo } from 'next-seo';
 import { SignInModal } from 'components/modals/SignInModal';
+import ConfirmModal from 'components/modals/ConfirmModal';
 
 const MangaView = ({
   user,
@@ -64,6 +65,7 @@ const MangaView = ({
 
   const [isShareModalOpened, setIsShareModalOpened] = useState(false);
   const [isLoginModalVisible, setIsLoginModalVisible] = useState(false);
+  const [isGoToSettingsModalOpened, setIsGoToSettingsModalOpened] = useState(false);
 
   async function updateMangaInfo() {
     const newManga = await client.service(`/api/v2/manga-view`).get(manga?.id, {
@@ -279,6 +281,7 @@ const MangaView = ({
           chapter={chapter}
           isParticipant={isParticipant}
           setIsLoginModalVisible={setIsLoginModalVisible}
+          setIsGoToSettingsModalOpened={setIsGoToSettingsModalOpened}
         />
         <MangaHeader
           user={user}
@@ -334,7 +337,17 @@ const MangaView = ({
           title="Sign in"
           visible={isLoginModalVisible}
           setVisible={setIsLoginModalVisible}></SignInModal>
-        <div id="test">test</div>
+        <ConfirmModal
+          isOpen={isGoToSettingsModalOpened}
+          setIsOpen={setIsGoToSettingsModalOpened}
+          question={'Publish your project before sharing it'}
+          description='Please, go to the settings and set "Is visible" to "Visible"'
+          okText={'Go to settings'}
+          onOk={() => {
+            router.push('/project/production/' + manga?.mangaStoryId + '?tab=settings#visible');
+          }}
+          cancelText={'Cancel'}
+        />
       </div>
     </>
   );
