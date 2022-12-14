@@ -10,6 +10,7 @@ import MangaComments from 'components/shotComments/MangaComments';
 import Edit from 'components/icon/new/Edit';
 import Link from 'next/link';
 import Diamond from 'components/icon/new/Diamond';
+import Close from 'components/icon/new/Close';
 
 const MangaSideMenu = ({
   manga,
@@ -117,8 +118,13 @@ const MangaSideMenu = ({
       <div
         ref={commentsRef}
         className={cn(styles.sideComments, areCommentsOpened && styles.sideComments_opened)}>
-        <div className={styles.sideComments__header}>Feedback</div>
-        <MangaComments manga={manga} comments={comments.data} createComment={createComment} />
+        <div onClick={() => setAreCommentsOpened(false)} className={styles.sideComments__close}>
+          <Close bold />
+        </div>
+        <div className={styles.sideComments__container}>
+          <div className={styles.sideComments__header}>Feedback</div>
+          <MangaComments manga={manga} comments={comments.data} createComment={createComment} />
+        </div>
       </div>
     </>
   );
