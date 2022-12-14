@@ -26,6 +26,7 @@ import SvgBell from 'components/icon/Bell';
 import MenuMobilePopover from 'components/menu-mobile-popover';
 import Avatar from 'components/Avatar';
 import SvgProjectIcon from 'components/icon/ProjectIcon';
+import Bell from 'components/icon/new/Bell';
 import { SignInModal } from 'components/modals/SignInModal';
 
 const findNotificationsCount = (onSuccess, onFailure = () => {}) => {
@@ -339,148 +340,117 @@ const HeaderNew = ({ user }) => {
   return (
     <>
       <header className={styles.header}>
-        <Link href={'/feed'}>
-          <a className={styles.logo}>
-            <Logo />
-          </a>
-        </Link>
+        <div className={styles.header__container}>
+          <Link href={'/feed'}>
+            <a className={styles.logo}>
+              <Logo />
+            </a>
+          </Link>
 
-        <div className={styles.nav}>
-          <div className={styles.nav__dropdowns}>
-            {/* <Dropdown
-              arrow
-              placement="bottom"
-              overlay={exploreMenu}
-              className={styles.nav__dropdown}
-              trigger="click">
-              <Space>
-                <ArrowDown2 className={styles.nav__dropdownArrow} />
-                Explore
-              </Space>
-            </Dropdown> */}
-            <Dropdown
-              arrow
-              placement="bottom"
-              overlay={createMenu}
-              className={styles.nav__dropdown}
-              trigger="click">
-              <Space>
-                <ArrowDown2 className={styles.nav__dropdownArrow} />
-                Create
-              </Space>
-            </Dropdown>
-          </div>
+          <div className={styles.nav}>
+            <div className={styles.nav__dropdowns}>
+              <Dropdown
+                arrow
+                placement="bottom"
+                overlay={createMenu}
+                className={styles.nav__dropdown}
+                trigger="click">
+                <Space>
+                  <ArrowDown2 className={styles.nav__dropdownArrow} />
+                  Create
+                </Space>
+              </Dropdown>
+            </div>
 
-          <div className={styles.nav__buttons}>
-            {user ? (
-              <>
-                <Link href={'/profile/' + user?._id + '/projects'}>
-                  <a>
-                    <Button rounded={1} outline={1} pink={1}>
-                      My projects
-                    </Button>
-                  </a>
-                </Link>
-                <span className={styles.notification}>
-                  <Popover
-                    overlayClassName={styles.popover}
-                    placement="bottomRight"
-                    visible={showNotificationModal}
-                    content={
-                      <MenuNotificationsBox
-                        user={user}
-                        unreadNotificationsId={unreadNotificationsId}
-                        notificationsCount={notificationsCount}
-                        setNotificationsCount={setNotificationsCount}
-                      />
-                    }
-                    onVisibleChange={(visible) => setShowNotificationModal(!showNotificationModal)}
+            <div className={styles.nav__buttons}>
+              {user ? (
+                <>
+                  <Link href={'/profile/' + user?._id + '/projects'}>
+                    <a className={styles.nav__myProjects}>
+                      <Button rounded={1} outline={1} pink={1}>
+                        My projects
+                      </Button>
+                    </a>
+                  </Link>
+                  <span className={styles.notification}>
+                    <Popover
+                      overlayClassName={styles.popover}
+                      placement="bottomRight"
+                      visible={showNotificationModal}
+                      content={
+                        <MenuNotificationsBox
+                          user={user}
+                          unreadNotificationsId={unreadNotificationsId}
+                          notificationsCount={notificationsCount}
+                          setNotificationsCount={setNotificationsCount}
+                        />
+                      }
+                      onVisibleChange={(visible) =>
+                        setShowNotificationModal(!showNotificationModal)
+                      }
+                      trigger="click">
+                      <Badge
+                        count={notificationsCount}
+                        onClick={() => {
+                          setShowNotificationModal(!showNotificationModal);
+                        }}>
+                        <Bell size={23} />
+                      </Badge>
+                    </Popover>
+                  </span>
+
+                  <Dropdown
+                    arrow
+                    overlay={profileMenu}
+                    className={styles.nav__dropdown}
                     trigger="click">
-                    <Badge
-                      count={notificationsCount}
-                      onClick={() => {
-                        setShowNotificationModal(!showNotificationModal);
-                      }}>
-                      <SvgBell width="23px" height="23px" />
-                    </Badge>
-                  </Popover>
-                </span>
-
-                <Dropdown
-                  arrow
-                  overlay={profileMenu}
-                  className={styles.nav__dropdown}
-                  trigger="click">
-                  <Space>
-                    <div className={styles.nav__avatar}>
-                      {/* {user.avatar ? (
+                    <Space>
+                      <div className={styles.nav__avatar}>
+                        {/* {user.avatar ? (
                         <img src={client.UPLOAD_URL + user.avatar} alt="Profile avatar" />
                       ) : (
                         <Avatar size={38} style={{ backgroundColor: '#7b65f3', color: '#ffffff' }}>
                           {user.name[0]}
                         </Avatar>
                       )} */}
-                      <Avatar size={38} image={user?.avatar} text={user?.name[0]} />
-                    </div>
-                  </Space>
-                </Dropdown>
-              </>
-            ) : (
-              <>
-                <Link href={'/sign-up?page=' + page}>
-                  <a>
-                    <Button rounded outline pink>
-                      Join
-                    </Button>
-                  </a>
-                </Link>
-                <Link href={'/sign-in?page=' + page}>
-                  <a>
-                    <Button rounded pink>
-                      Log in
-                    </Button>
-                  </a>
-                </Link>
-              </>
-            )}
+                        <Avatar
+                          size={60}
+                          image={user?.avatar}
+                          text={user?.name[0]}
+                          useNoImageIcon
+                        />
+                      </div>
+                    </Space>
+                  </Dropdown>
+                </>
+              ) : (
+                <>
+                  <Link href={'/sign-up?page=' + page}>
+                    <a style={{ marginRight: '10px' }}>
+                      <Button rounded outline pink>
+                        Join
+                      </Button>
+                    </a>
+                  </Link>
+                  <Link href={'/sign-in?page=' + page}>
+                    <a>
+                      <Button rounded pink>
+                        Log in
+                      </Button>
+                    </a>
+                  </Link>
+                </>
+              )}
+            </div>
+
+            <button className={cn(styles.nav_mobile)}>
+              <Dropdown arrow placement="bottomRight" overlay={mobileMenu} trigger="click">
+                <Space>
+                  <List className={styles.nav_mobile__icon} color="#D01E8E" />
+                </Space>
+              </Dropdown>
+            </button>
           </div>
-
-          {user && (
-            <span className={cn(styles.notification, styles.notification_mobile)}>
-              <Popover
-                overlayClassName={styles.popover}
-                placement="bottom"
-                onVisibleChange={(visible) =>
-                  setShowNotificationModalMobile(!showNotificationModalMobile)
-                }
-                visible={showNotificationModalMobile}
-                content={
-                  <MenuNotificationsBox
-                    user={user}
-                    unreadNotificationsId={unreadNotificationsId}
-                    notificationsCount={notificationsCount}
-                    setNotificationsCount={setNotificationsCount}
-                  />
-                }
-                trigger="click">
-                <Badge
-                  count={notificationsCount}
-                  onClick={() => {
-                    setShowNotificationModalMobile(!showNotificationModalMobile);
-                  }}>
-                  <SvgBell width="23px" height="23px" />
-                </Badge>
-              </Popover>
-            </span>
-          )}
-
-          <button className={cn(styles.nav_mobile)}>
-            <Dropdown arrow placement="bottomRight" overlay={mobileMenu} trigger="click">
-              <Space>
-                <List className={styles.nav_mobile__icon} color="#D01E8E" />
-              </Space>
-            </Dropdown>
-          </button>
         </div>
       </header>
       <CreateShotModal
