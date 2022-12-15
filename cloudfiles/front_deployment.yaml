@@ -5,7 +5,7 @@ metadata:
   labels:
     app: front-app
   name: front-app
-  namespace: default
+  namespace: mangafy
 spec:
   progressDeadlineSeconds: 600
   replicas: 2
