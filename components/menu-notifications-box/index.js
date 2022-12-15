@@ -91,7 +91,7 @@ const MenuNotificationsBox = ({
   const patchNotification = (newUnreadNotificationsId) => {
     patchUnreadNotificationsId(
       newUnreadNotificationsId,
-      () => {
+      (res) => {
         getNotifications();
       },
       (err) => {
@@ -107,7 +107,7 @@ const MenuNotificationsBox = ({
   };
 
   // useEffect(() => {
-  //   // getNotifications();
+  //   getNotifications();
   // }, [user, getNotifications]);
 
   const getMore = () => {

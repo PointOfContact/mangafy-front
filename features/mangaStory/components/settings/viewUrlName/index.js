@@ -47,11 +47,11 @@ const ViewUrlName = ({ baseData, onChangeSingleField, sendEvent, storyBoard }) =
   const error = errorMessage ? (
     <p className={styles.error}>{errorMessage && errorMessage}</p>
   ) : (
-    validViewUrlName &&
+    !!validViewUrlName &&
     isTouched && (
       <p className={styles.error}>
         {errorMessage && errorMessage}
-        {viewUrlName.length < 2
+        {viewUrlName?.length < 2
           ? 'Use your creativity. Minimum 2 characters'
           : 'Subdomain is invalid. Only characters are allowed.'}
       </p>
@@ -59,6 +59,7 @@ const ViewUrlName = ({ baseData, onChangeSingleField, sendEvent, storyBoard }) =
   );
 
   const onBlur = () => {
+    setIsTouched(true);
     const data = {
       target: {
         name: 'viewUrlName',
@@ -66,8 +67,7 @@ const ViewUrlName = ({ baseData, onChangeSingleField, sendEvent, storyBoard }) =
       },
     };
     setEditSubdomain(true);
-    console.log(validViewUrlName, ' !validViewUrlName');
-    validViewUrlName &&
+    !validViewUrlName &&
       onChangeSingleField(data, true, (err) => {
         setErrorMessage(err);
       }) &&
@@ -75,8 +75,8 @@ const ViewUrlName = ({ baseData, onChangeSingleField, sendEvent, storyBoard }) =
   };
 
   const ifCustomSubdomain = value === 'Custom subdomain';
-  const copyUrl = `${viewUrlName}.mangafy.club/project/${baseData._id}`;
-  const url = `${viewUrlName}.mangafy.club`;
+  const copyUrl = `${viewUrlName || ''}.mangafy.club/project/production/${baseData._id}`;
+  const url = `${viewUrlName || ''}.mangafy.club`;
 
   return (
     <div ref={ref} className={styles.viewLink}>
@@ -90,18 +90,21 @@ const ViewUrlName = ({ baseData, onChangeSingleField, sendEvent, storyBoard }) =
       {editSubdomain ? (
         <div className={styles.copyView}>
           <div className={styles.viewUrl}>{url}</div>
-          <Tooltip placement="topLeft" title={copyText}>
-            <div
-              className={styles.copy}
-              onClick={() => {
-                setCopyText('Copied');
-                copy(copyUrl);
-              }}
-              onMouseOut={() => setCopyText('Copy to clipboard')}
-            >
-              <SvgCopy width="18px" height="18px" alt="mangaFy copy icon" />
-            </div>
-          </Tooltip>
+          <div className={styles.copy}>
+            {!!viewUrlName && (
+              <Tooltip placement="topLeft" title={copyText}>
+                <div
+                  // className={styles.copy}
+                  onClick={() => {
+                    setCopyText('Copied');
+                    copy(copyUrl);
+                  }}
+                  onMouseOut={() => setCopyText('Copy to clipboard')}>
+                  <SvgCopy width="18px" height="18px" alt="mangaFy copy icon" />
+                </div>
+              </Tooltip>
+            )}
+          </div>
           <Tooltip placement="topLeft" title={'Edit'}>
             <Edit width={20} height={20} onClick={() => setEditSubdomain(false)} />
           </Tooltip>
@@ -113,7 +116,6 @@ const ViewUrlName = ({ baseData, onChangeSingleField, sendEvent, storyBoard }) =
             placeholder="Your domain"
             value={viewUrlName}
             onChange={(e) => {
-              setIsTouched(true);
               setErrorMessage('');
               setViewUrlName(e.target.value);
             }}
@@ -122,6 +124,7 @@ const ViewUrlName = ({ baseData, onChangeSingleField, sendEvent, storyBoard }) =
           <span>.mangafy.club</span>
         </div>
       )}
+      {error}
     </div>
   );
 };

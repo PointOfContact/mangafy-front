@@ -142,17 +142,17 @@ const Settings = ({
           </div>
         </div>
       </div>
-      {publishedChapter && (
-        <div className={styles.container}>
-          <ViewUrlName
-            baseData={baseData}
-            sendEvent={sendEvent}
-            onChangeSingleField={onChangeSingleField}
-            storyBoard={storyBoard}
-            publishedChapter={publishedChapter}
-          />
-        </div>
-      )}
+      {/* {publishedChapter && ( */}
+      <div className={styles.container}>
+        <ViewUrlName
+          baseData={baseData}
+          sendEvent={sendEvent}
+          onChangeSingleField={onChangeSingleField}
+          storyBoard={storyBoard}
+          publishedChapter={publishedChapter}
+        />
+      </div>
+      {/* )} */}
       <div className={styles.container}>
         <PaypalEmailField
           sendEvent={sendEvent}
