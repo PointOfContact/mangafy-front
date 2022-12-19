@@ -5,7 +5,7 @@ import styles from './styles.module.scss';
 import cn from 'classnames';
 import { Col, Row, Carousel, Tabs, notification } from 'antd';
 import client from 'api/client';
-import { useRouter } from 'next/router';
+import Router, { useRouter } from 'next/router';
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
 
 const { TabPane } = Tabs;
@@ -296,6 +296,11 @@ const FeedNew = (props) => {
     });
   }
 
+  const tabsOnChange = (activeKey) => {
+    Router.push(`/feed?tab=${activeKey}`, undefined, { shallow: true });
+    setActiveTab(activeKey);
+  };
+
   return (
     <>
       <SignInModal
@@ -354,7 +359,7 @@ const FeedNew = (props) => {
                 defaultActiveKey={defaultActiveTab}
                 tabPosition="top"
                 moreIcon={null}
-                onChange={(tab) => setActiveTab(tab)}>
+                onChange={tabsOnChange}>
                 {/* <TabPane tab="Recent" key="recent"></TabPane> */}
                 <TabPane tab="Projects" key="projects"></TabPane>
                 <TabPane tab="Shots" key="shots"></TabPane>
