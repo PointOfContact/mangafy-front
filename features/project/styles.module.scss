@@ -1,5 +1,20 @@
 @import '../../styles/variables.scss';
 
+.removeCover {
+  background: none;
+  border-color: white !important;
+  color: white !important;
+  &:hover {
+    background: rgba($color: #fff, $alpha: 0.05);
+    border-color: white !important;
+    color: white !important;
+  }
+  &:active {
+    background: rgba($color: #fff, $alpha: 0.1);
+    border-color: white !important;
+    color: white !important;
+  }
+}
 .project {
   &__container {
     margin: 20px auto 0;
@@ -53,7 +68,30 @@
     &Title {
       font-weight: 700;
       font-size: 22px;
+      line-height: 26px;
       color: #fff;
+      margin-bottom: 15px;
+    }
+    &Subtitle {
+      font-weight: 500;
+      font-size: 15px;
+      line-height: 18px;
+      margin-bottom: 20px;
+    }
+    &Buttons {
+      span {
+        display: flex;
+        *:not(:last-child) {
+          margin-right: 10px;
+        }
+    }
+    }
+    &Upload {
+      :global {
+        .ant-upload-select-picture-card {
+          
+        }
+      }
     }
     button {
       margin-top: 10px;
