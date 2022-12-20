@@ -47,7 +47,7 @@ const Project = ({ setOpenedProject, setIsOpened, project }) => {
         )}
       </div>
       <div className={styles.project__title}>{project?.title}</div>
-      <div className={styles.project__description}>
+      <div className={styles.project__subtitle}>
         Edited {editedDate} | {pagesCount} pages
       </div>
     </div>

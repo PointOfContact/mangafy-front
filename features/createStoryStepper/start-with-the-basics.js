@@ -1,56 +1,42 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './styles.module.scss';
 import cn from 'classnames';
-import PrimaryButton from 'components/ui-elements/button';
 import { notification } from 'antd';
 import { GrammarlyEditorPlugin } from '@grammarly/editor-sdk-react';
+import Input from 'components/ui-new/Input';
+import Textarea from 'components/ui-new/Textarea';
+import Button from 'components/ui-new/Button';
 
 const StartWithTheBasics = ({ storyInfo, goNext, goBack, setStoryInfo }) => {
   const [loading, setLoading] = useState(null);
-  const [isInputValid, setIsInputValid] = useState(true);
-  const [isTextareaValid, setIsTextareaValid] = useState(true);
-  const textareaRef = useRef(null);
-  const inputRef = useRef(null);
 
-  function textareaAutoresize() {
-    textareaRef.current.style.height = 'inherit';
-    textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+  const [titleError, setTitleError] = useState('');
+  const [descriptionError, setDescriptionError] = useState('');
+
+  function textareaChangeHandler(text) {
+    setTitleError('');
+    setDescriptionError('');
+    setStoryInfo({ ...storyInfo, seriesDescription: text.trim() });
   }
 
-  function textareaChangeHandler() {
-    if (!textareaRef.current) return;
-    setIsTextareaValid(true);
-    setStoryInfo({ ...storyInfo, seriesDescription: textareaRef.current.value.trim() });
-  }
-
-  function inputChangeHandler() {
-    if (!inputRef.current) return;
-    setIsInputValid(true);
-    setStoryInfo({ ...storyInfo, seriesTitle: inputRef.current.value.trim() });
+  function inputChangeHandler(text) {
+    setTitleError('');
+    setDescriptionError('');
+    setStoryInfo({ ...storyInfo, seriesTitle: text.trim() });
   }
 
   function nextHandler() {
+    setTitleError('');
+    setDescriptionError('');
     if (!storyInfo.seriesTitle) {
-      setIsInputValid(false);
-      return notification.error({
-        message: 'Please enter a title of your series',
-        placement: 'bottomLeft',
-      });
+      return setTitleError('Please enter a title of your series');
     }
     if (!storyInfo.seriesDescription) {
-      setIsTextareaValid(false);
-      return notification.error({
-        message: 'Please enter a description of your project',
-        placement: 'bottomLeft',
-      });
+      return setDescriptionError('Please enter a description of your project');
     }
     setLoading('next');
     goNext();
   }
-
-  useEffect(() => {
-    textareaAutoresize();
-  }, []);
 
   return (
     <div className={cn(styles.container)}>
@@ -61,38 +47,40 @@ const StartWithTheBasics = ({ storyInfo, goNext, goBack, setStoryInfo }) => {
           The titles and subtitles will appear on your project and pre-launch pages.
         </p>
         <div className={cn(styles.basicsForm)}>
-          <input
-            ref={inputRef}
+          <Input
+            err={titleError}
             onChange={inputChangeHandler}
-            type="text"
-            className={cn(styles.input, !isInputValid && styles.input_error)}
+            className={styles.input}
             placeholder="Series Title"
             defaultValue={storyInfo.seriesTitle}
+            rounded
+            pink
           />
           <GrammarlyEditorPlugin clientId={`${process.env.NEXT_PUBLIC_GRAMMARLY_ID}`}>
-            <textarea
-              ref={textareaRef}
-              className={cn(styles.input, styles.textarea, !isTextareaValid && styles.input_error)}
+            <Textarea
+              err={descriptionError}
+              pink
+              rounded
+              onChange={textareaChangeHandler}
               placeholder="State what your project is, and what makes it unique. Avoid using all caps or exclamation points. Be honest and transparent"
-              onChange={() => {
-                textareaAutoresize();
-                textareaChangeHandler();
-              }}
               defaultValue={storyInfo.seriesDescription}
             />
           </GrammarlyEditorPlugin>
           <div className={styles.buttons}>
-            <PrimaryButton text="Let's go" onClick={nextHandler} loading={loading === 'next'} />
-            <PrimaryButton
-              isWhite={true}
-              className={styles.button_blackLoading}
-              text="Go back"
+            <Button rounded pink onClick={nextHandler} loading={loading === 'next'}>
+              Let's go
+            </Button>
+            <Button
+              rounded
+              pink
+              outline
               onClick={() => {
                 setLoading('prev');
                 goBack();
               }}
-              loading={loading === 'prev'}
-            />
+              loading={loading === 'prev'}>
+              Go back
+            </Button>
           </div>
         </div>
       </div>

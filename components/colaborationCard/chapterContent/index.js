@@ -18,7 +18,7 @@ const ChapterContent = ({ label }) => {
           e.stopPropagation();
         }}>
         <div className={styles.colabWrap__publish}>
-          Chapter
+          Episode
           <span>{publishedChapter.length}</span>
         </div>
       </a>

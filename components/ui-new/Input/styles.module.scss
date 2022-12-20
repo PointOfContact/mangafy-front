@@ -9,6 +9,9 @@
 
   &__container {
     position: relative;
+    &_multiple {
+      min-width: 200px;
+    }
   }
 
   &:focus {
@@ -37,6 +40,10 @@
     margin-top: 23px;
   }
 
+  &_errorPosAbs {
+    margin-top: 0;
+  }
+
   &_fullWidth {
     width: 100%;
   }
@@ -53,7 +60,11 @@
     color: $red;
     position: absolute;
     top: 0;
+    white-space: nowrap;
     left: 20px;
+    &_abs {
+      top: -23px;
+    }
   }
   &_error ~ &__error {
     opacity: 1;

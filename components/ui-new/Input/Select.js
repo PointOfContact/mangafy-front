@@ -14,10 +14,18 @@ const Select = ({
   defaultValue,
   rounded,
   options,
+  mode,
 }) => {
   return (
-    <div className={cn(className, styles.input__container)}>
+    <div
+      className={cn(
+        className,
+        styles.input__container,
+        mode === 'multiple' && styles.input__container_multiple,
+        full && styles.input_fullWidth
+      )}>
       <AntdSelect
+        mode={mode}
         defaultValue={defaultValue}
         placeholder={placeholder}
         className={cn(
