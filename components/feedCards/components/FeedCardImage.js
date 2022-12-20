@@ -63,8 +63,7 @@ function FeedCardImage({ image, isOwned, shareUrl, onEdit, onDelete, mangaId, ma
             onClick={(e) => {
               e.stopPropagation();
               setAreShareButtonsVisible((old) => !old);
-            }}
-          >
+            }}>
             Share
           </Button>
           <ShareButtons
@@ -81,7 +80,7 @@ function FeedCardImage({ image, isOwned, shareUrl, onEdit, onDelete, mangaId, ma
         {isOwned && (
           <div className={styles.share__buttons}>
             {mangaId ? (
-              <Link href={'/project/production/' + mangaId + '?tab=details'}>
+              <Link href={'/project/production/' + mangaId + '?tab=jobs'}>
                 <a>
                   <Button rounded pink iconRight icon={<Edit color="#fff" />}>
                     Edit
@@ -98,8 +97,7 @@ function FeedCardImage({ image, isOwned, shareUrl, onEdit, onDelete, mangaId, ma
                   onClick={(e) => {
                     e.stopPropagation();
                     onEdit();
-                  }}
-                >
+                  }}>
                   Edit
                 </Button>
                 <Button
@@ -111,8 +109,7 @@ function FeedCardImage({ image, isOwned, shareUrl, onEdit, onDelete, mangaId, ma
                   onClick={(e) => {
                     e.stopPropagation();
                     onDelete();
-                  }}
-                >
+                  }}>
                   Delete
                 </Button>
               </>

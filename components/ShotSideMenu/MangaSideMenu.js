@@ -106,7 +106,7 @@ const MangaSideMenu = ({
             onClick={shareHandler}
           />
           {isParticipant && (
-            <Link href={'/project/production/' + manga?.mangaStoryId + '?tab=details'}>
+            <Link href={'/project/production/' + manga?.mangaStoryId + '?tab=jobs'}>
               <a>
                 <Button rounded outline iconRight icon={<Edit color="#7B65F3" />} />
               </a>

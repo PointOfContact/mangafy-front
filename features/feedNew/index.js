@@ -32,12 +32,13 @@ import myAmplitude from 'utils/amplitude';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { SignInModal } from 'components/modals/SignInModal';
 import { projectTypes, userTypes } from 'helpers/constant';
+import ModalCreateProject from 'components/modalCreateProject';
 
 const FeedNew = (props) => {
   const { jwt, user, posts, genres } = props;
 
   const filterTypes = {
-    recent: [{ title: 'Search', inQuery: 'search' }],
+    // recent: [{ title: 'Search', inQuery: 'search' }],
     people: [
       { title: 'Search', inQuery: 'search' },
       { title: 'Genres', inQuery: 'genresIds', options: genres },
@@ -46,14 +47,31 @@ const FeedNew = (props) => {
         inQuery: 'types',
         options: userTypes.map((type) => ({ title: type.value, value: type.key })),
       },
+      {
+        title: 'Sort by',
+        inQuery: 'filter',
+        options: [{ title: 'Recent', value: 'new' }],
+      },
     ],
-    shots: [{ title: 'Search', inQuery: 'search' }],
+    shots: [
+      { title: 'Search', inQuery: 'search' },
+      {
+        title: 'Sort by',
+        inQuery: 'filter',
+        options: [{ title: 'Recent', value: 'new' }],
+      },
+    ],
     tasks: [
       { title: 'Search', inQuery: 'search' },
       {
         title: 'Looking for',
         inQuery: 'types',
         options: userTypes.map((type) => ({ title: type.value, value: type.value })),
+      },
+      {
+        title: 'Sort by',
+        inQuery: 'filter',
+        options: [{ title: 'Recent', value: 'new' }],
       },
     ],
     projects: [
@@ -64,12 +82,18 @@ const FeedNew = (props) => {
         inQuery: 'searchingFor',
         options: userTypes.map((type) => ({ title: type.value, value: type.value })),
       },
+      {
+        title: 'Sort by',
+        inQuery: 'filter',
+        options: [{ title: 'Recent', value: 'new' }],
+      },
     ],
-    ongoing: [{ title: 'Search', inQuery: 'search' }],
+    // ongoing: [{ title: 'Search', inQuery: 'search' }],
   };
 
   const router = useRouter();
-  const defaultActiveTab = router.query?.tab || 'recent';
+  // const defaultActiveTab = router.query?.tab || 'recent';
+  const defaultActiveTab = router.query?.tab || 'projects';
 
   const [screenWidth, setScreenWidth] = useState(0);
 
@@ -77,7 +101,7 @@ const FeedNew = (props) => {
     setScreenWidth(window.innerWidth);
   }
 
-  const [activeTab, setActiveTab] = useState('recent');
+  const [activeTab, setActiveTab] = useState('projects');
   const [cardsElements, setCardsElements] = useState(makeCardsElements(posts));
   const [shouldFetchCards, setShouldFetchCards] = useState(false);
   const [endOfCardsReached, setEndOfCardsReached] = useState(false);
@@ -85,6 +109,7 @@ const FeedNew = (props) => {
   const [error, setError] = useState(null);
 
   const [shotModalVisible, setShotModalVisible] = useState(false);
+  const [projectModalVisible, setProjectModalVisible] = useState(false);
   const [signInModalVisible, setSignInModalVisible] = useState(false);
   const [shotToEdit, setShotToEdit] = useState(null);
 
@@ -132,10 +157,9 @@ const FeedNew = (props) => {
       case 'projects':
         type = 'Project';
         break;
-
-      case 'ongoing':
-        type = 'Ongoing';
-        break;
+      // case 'ongoing':
+      //   type = 'Ongoing';
+      //   break;
     }
     clearCardsElements();
     setPostType(type);
@@ -189,9 +213,9 @@ const FeedNew = (props) => {
   async function getCards(limit = 10, skip = 0, postType) {
     const query = {
       $limit: limit,
-      $sort: {
-        createdAt: -1,
-      },
+      // $sort: {
+      //   createdAt: -1,
+      // },
       $skip: skip,
       ...activeFilters,
     };
@@ -245,15 +269,9 @@ const FeedNew = (props) => {
   function makeCardsElements(newCards = []) {
     return newCards.map((card) => {
       if (card.postType === 'Task' || card.postType === 'Collab')
-        return (
-          <TaskCard
-            key={card._id}
-            card={card}
-            user={user}
-            setShowLoginModal={setSignInModalVisible}
-          />
-        );
-      else if (card.postType === 'Project' || card.postType === 'Ongoing')
+        return <TaskCard key={card._id} card={card} user={user} />;
+      // else if (card.postType === 'Project' || card.postType === 'Ongoing')
+      else if (card.postType === 'Project')
         return <PublishedCard key={card._id} card={card} user={user} />;
       else if (card.postType === 'Portfolio')
         return (
@@ -294,6 +312,11 @@ const FeedNew = (props) => {
           updateCards(cardsElements, [true], true, postType);
         }}
       />
+      <ModalCreateProject
+        createProjectModal={projectModalVisible}
+        showCreateProjectModal={setProjectModalVisible}
+        user={user}
+      />
       <NextSeo
         title={'MangaFY – From story buidling to a full digital release.'}
         description={
@@ -332,12 +355,12 @@ const FeedNew = (props) => {
                 tabPosition="top"
                 moreIcon={null}
                 onChange={(tab) => setActiveTab(tab)}>
-                <TabPane tab="Recent" key="recent"></TabPane>
-                <TabPane tab="Shots" key="shots"></TabPane>
+                {/* <TabPane tab="Recent" key="recent"></TabPane> */}
                 <TabPane tab="Projects" key="projects"></TabPane>
-                <TabPane tab="Ongoing" key="ongoing"></TabPane>
-                <TabPane tab="People" key="people"></TabPane>
+                <TabPane tab="Shots" key="shots"></TabPane>
+                {/* <TabPane tab="Ongoing" key="ongoing"></TabPane> */}
                 <TabPane tab="Tasks" key="tasks"></TabPane>
+                <TabPane tab="People" key="people"></TabPane>
               </Tabs>
               <FilterNew
                 activeTab={activeTab}
@@ -353,6 +376,7 @@ const FeedNew = (props) => {
                 onPageEnd={onPageEnd}
                 shouldFetchCards={shouldFetchCards}
                 openCreateShotModal={() => setShotModalVisible(true)}
+                openCreateProjectModal={() => setProjectModalVisible(true)}
               />
             </Col>
           </Row>
@@ -374,6 +398,10 @@ function createFiltersQuery(selectedFilters) {
     } else {
       query[filter.inQuery] = [filter.value];
     }
+  });
+  // If filter contains only one value, turn it into a string
+  Object.keys(query).forEach((key) => {
+    if (query[key].length === 1) query[key] = query[key][0];
   });
   return query;
 }

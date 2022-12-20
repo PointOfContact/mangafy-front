@@ -45,7 +45,7 @@ const Start = ({ genres, jwt, user }) => {
         };
         amplitude(data);
         // eslint- disable-next-line no-underscore-dangle
-        Router.push(`/project/production/${response._id}?tab=details`);
+        Router.push(`/project/production/${response._id}?tab=jobs`);
 
         setTimeout(() => {
           setCloseTypeForm(false);

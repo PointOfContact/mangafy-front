@@ -3,7 +3,18 @@ import styles from './styles.module.scss';
 import cn from 'classnames';
 import { GrammarlyEditorPlugin } from '@grammarly/editor-sdk-react';
 
-const Textarea = ({ sm, full, className, onChange, placeholder, err, defaultValue }) => {
+const Textarea = ({
+  sm,
+  full,
+  className,
+  onChange,
+  placeholder,
+  err,
+  errPosAbs,
+  defaultValue,
+  rounded,
+  pink,
+}) => {
   const textareaRef = useRef(null);
   function onInput() {
     if (!textareaRef.current) return;
@@ -16,25 +27,33 @@ const Textarea = ({ sm, full, className, onChange, placeholder, err, defaultValu
 
   return (
     <GrammarlyEditorPlugin clientId={`${process.env.NEXT_PUBLIC_GRAMMARLY_ID}`}>
-      <textarea
-        ref={textareaRef}
-        placeholder={placeholder}
-        type="text"
-        className={cn(
-          styles.textarea,
-          className,
-          sm && styles.textarea_sm,
-          full && styles.textarea_fullWidth,
-          err && styles.textarea_error
+      <div className={cn(className, styles.textarea__container)}>
+        <textarea
+          ref={textareaRef}
+          placeholder={placeholder}
+          type="text"
+          className={cn(
+            styles.textarea,
+            sm && styles.textarea_sm,
+            full && styles.textarea_fullWidth,
+            err && styles.textarea_error,
+            rounded && styles.textarea_rounded,
+            pink && styles.textarea_pink
+          )}
+          onInput={(e) => {
+            onInput();
+            if (onChange) {
+              onChange(e.target.value);
+            }
+          }}
+          defaultValue={defaultValue}
+        />
+        {typeof err === 'string' && (
+          <div className={cn(styles.textarea__error, errPosAbs && styles.textarea__error_abs)}>
+            {err}
+          </div>
         )}
-        onInput={(e) => {
-          onInput();
-          if (onChange) {
-            onChange(e.target.value);
-          }
-        }}
-        defaultValue={defaultValue}
-      />
+      </div>
     </GrammarlyEditorPlugin>
   );
 };

@@ -33,7 +33,7 @@ const ProjectJobs = ({ className, project, user, isOwner }) => {
             {isOwner ? (
               <>
                 Need help with your project?
-                <Link href={'/project/production/' + project._id + '?tab=details&createTask'}>
+                <Link href={'/project/production/' + project._id + '?tab=jobs&createTask'}>
                   <a>
                     <Button md rounded pink>
                       Post a Task
@@ -51,8 +51,7 @@ const ProjectJobs = ({ className, project, user, isOwner }) => {
                   onClick={() => {
                     setSelectedTask({});
                     setShowModal(true);
-                  }}
-                >
+                  }}>
                   Offer your service
                 </Button>
               </>
@@ -76,8 +75,7 @@ const ProjectJobs = ({ className, project, user, isOwner }) => {
                   setSelectedTask(task);
                   setShowModal(true);
                   onApplyButtonClick(task._id);
-                }}
-              >
+                }}>
                 Apply
               </Button>
             </div>

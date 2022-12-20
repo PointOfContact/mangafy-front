@@ -30,24 +30,7 @@
       margin-bottom: 2em;
     }
     .input {
-      color: $black;
-      border: 1px solid $gray85;
-      border-radius: 10px;
-      padding: 10px 20px;
-      transition: 0.2s;
-      &::placeholder {
-        transition: 0.2s;
-        color: $gray85;
-      }
-      &:focus {
-        border-color: $primaryDark;
-        &::placeholder {
-          opacity: 0;
-        }
-      }
-      &_error {
-        border-color: $red;
-      }
+      margin-right: 15px;
     }
     .textarea {
       overflow: hidden;
@@ -97,6 +80,7 @@
       align-self: stretch;
       .input {
         margin-bottom: 1em;
+        margin-right: 0;
       }
     }
     .signUpForm {

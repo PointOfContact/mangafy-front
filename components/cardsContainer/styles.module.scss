@@ -51,18 +51,6 @@
       height: 1.5em;
       transform: rotate(-90deg);
     }
-    &:nth-child(0n + 1):before {
-      content: '😎';
-      margin-right: 1em;
-    }
-    &:nth-child(0n + 2):before {
-      content: '💎';
-      margin-right: 1em;
-    }
-    &:nth-child(0n + 3):before {
-      content: '💫';
-      margin-right: 1em;
-    }
   }
   &__close {
     position: absolute;

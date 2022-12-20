@@ -24,7 +24,7 @@ import ModalStart from 'components/modals/joinToTeam';
 import Imgix from 'components/imgix';
 import OpenTaskModal from './openTaskModal';
 
-const TaskCard = ({ card, user, setShowLoginModal }) => {
+const TaskCard = ({ card, user }) => {
   const router = useRouter();
   let text = card.description;
   const title = card.lookingFor;
