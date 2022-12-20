@@ -16,6 +16,8 @@ const MenuNotificationsInvite = ({
   addUnreadNotificationsId,
   user,
   type,
+  notificationsCount,
+  setNotificationsCount,
 }) => {
   const [status, setStatus] = useState('');
   const onAccept = (event, id, newStatus) => {
@@ -24,30 +26,37 @@ const MenuNotificationsInvite = ({
   };
 
   const setRequestStatus = (event, id, newStatus) => {
-    onAccept(event, id, newStatus).then((res) => {
-      setStatus(res?.status);
-      addUnreadNotificationsId();
-      let event_type = '';
-      if (type === 'GET_INVITE_FOR_COLLABORATION') {
-        event_type = status === 'accepted' ? EVENTS.INVITE_ACCEPTED : EVENTS.INVITE_REJECTED;
-      } else {
-        event_type = status === 'accepted' ? EVENTS.REQUEST_ACCEPTED : EVENTS.REQUEST_REJECTED;
-      }
-      const eventData = [
-        {
-          event_type,
-          event_properties: { inviteRequestId: id },
-        },
-      ];
-      myAmplitude(eventData);
-      status === 'accepted' && Router.push(`${navigateTo}`);
-    });
+    onAccept(event, id, newStatus)
+      .then((res) => {
+        setNotificationsCount(notificationsCount - 1);
+        setStatus(res?.status);
+        addUnreadNotificationsId();
+        let event_type = '';
+        if (type === 'GET_INVITE_FOR_COLLABORATION') {
+          event_type = status === 'accepted' ? EVENTS.INVITE_ACCEPTED : EVENTS.INVITE_REJECTED;
+        } else {
+          event_type = status === 'accepted' ? EVENTS.REQUEST_ACCEPTED : EVENTS.REQUEST_REJECTED;
+        }
+        const eventData = [
+          {
+            event_type,
+            event_properties: { inviteRequestId: id },
+          },
+        ];
+        myAmplitude(eventData);
+        status === 'accepted' && Router.push(`${navigateTo}`);
+      })
+      .catch((err) => console.log(`Patch Join project ERROR: ${err}`));
   };
 
   useEffect(() => {
-    getRequest(requestId).then((res) => {
-      setStatus(res.status);
-    });
+    getRequest(requestId)
+      .then((res) => {
+        setStatus(res.status);
+      })
+      .catch((err) => {
+        console.log(`Get Join project ERROR: ${err}`);
+      });
   });
 
   return (
@@ -97,6 +106,8 @@ MenuNotificationsInvite.propTypes = {
   navigateTo: PropTypes.string.isRequired,
   requestId: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
+  notificationsCount: PropTypes.bool.isRequired,
+  setNotificationsCount: PropTypes.func.isRequired,
 };
 
 export default MenuNotificationsInvite;

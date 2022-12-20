@@ -35,8 +35,7 @@ function PrimarySelect({
           label={item.value}
           disabled={
             countLimit ? optionsSelected.length > 9 && !optionsSelected.includes(item.key) : false
-          }
-        >
+          }>
           {item.value}
         </Option>
       ))
@@ -75,8 +74,7 @@ function PrimarySelect({
           inputValue ? option.label.toLowerCase().includes(inputValue.toLowerCase()) : true
         }
         {...rest}
-        placeholder={placeholder}
-      >
+        placeholder={placeholder}>
         {itemOptions}
       </Select>
     </>
