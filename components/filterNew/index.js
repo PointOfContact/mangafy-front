@@ -132,14 +132,14 @@ const FilterNew = ({ activeTab, filters, onChange }) => {
 
 const Options = ({ applyFilter, options, inQuery, selectedOptions }) => {
   return (
-    <div className={cn(styles.options)}>
+    <div className={styles.options}>
       {options.length > 0 ? (
         options.map((option) => {
           if (selectedOptions.some((so) => so.value === option.value)) option.isSelected = true;
           return (
             <Option
               inQuery={inQuery}
-              applyFilter={(args) => applyFilter(args)}
+              applyFilter={applyFilter}
               option={option}
               key={option.value}
             />
@@ -199,6 +199,7 @@ const FiltersInput = ({ filterClickHandler, currentContent, filters }) => {
       );
     }
   });
+
   return (
     <div className={styles.searchAndFilters}>
       {searchVisible ? (

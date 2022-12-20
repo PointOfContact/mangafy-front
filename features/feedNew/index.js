@@ -112,7 +112,6 @@ const FeedNew = (props) => {
   const [projectModalVisible, setProjectModalVisible] = useState(false);
   const [signInModalVisible, setSignInModalVisible] = useState(false);
   const [shotToEdit, setShotToEdit] = useState(null);
-
   const [activeFilters, setActiveFilters] = useState({});
 
   useEffect(async () => {
