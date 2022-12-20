@@ -149,11 +149,11 @@ const ProfileContent = (props) => {
                   {tabPanel.component}
                 </TabPane>
               ))}
-              {ifMyProfile && (
+              {/* {ifMyProfile && (
                 <TabPane tab="MESSENGER" key={'4'}>
                   <TabMessenger {...{ user }} />
                 </TabPane>
-              )}
+              )} */}
             </Tabs>
           </Col>
         </Row>
