@@ -35,7 +35,7 @@ const ProjectJobs = ({ className, project, user, isOwner }) => {
                 Need help with your project?
                 <Link href={'/project/production/' + project._id + '?tab=jobs&createTask'}>
                   <a>
-                    <Button md rounded pink>
+                    <Button md rounded>
                       Post a Task
                     </Button>
                   </a>
@@ -47,7 +47,6 @@ const ProjectJobs = ({ className, project, user, isOwner }) => {
                 <Button
                   md
                   rounded
-                  pink
                   onClick={() => {
                     setSelectedTask({});
                     setShowModal(true);
@@ -67,9 +66,11 @@ const ProjectJobs = ({ className, project, user, isOwner }) => {
             <div className={styles.jobs__button}>
               <Button
                 pink
+                outline
                 rounded
                 iconRight
-                icon={<Flash color="#fff" bold />}
+                bold
+                icon={<Flash color="#000" bold />}
                 sm
                 onClick={() => {
                   setSelectedTask(task);
