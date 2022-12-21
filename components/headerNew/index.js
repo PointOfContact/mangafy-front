@@ -28,6 +28,7 @@ import Avatar from 'components/Avatar';
 import SvgProjectIcon from 'components/icon/ProjectIcon';
 import Bell from 'components/icon/new/Bell';
 import { SignInModal } from 'components/modals/SignInModal';
+import Imgix from 'components/imgix';
 
 const findNotificationsCount = (onSuccess, onFailure = () => {}) => {
   const jwt = client.getCookie('feathers-jwt');
@@ -336,7 +337,6 @@ const HeaderNew = ({ user }) => {
   );
 
   const profileMenu = <Menu items={profileMenuOptions} />;
-
   return (
     <>
       <header className={styles.header}>
@@ -406,19 +406,27 @@ const HeaderNew = ({ user }) => {
                     trigger="click">
                     <Space>
                       <div className={styles.nav__avatar}>
-                        {/* {user.avatar ? (
-                        <img src={client.UPLOAD_URL + user.avatar} alt="Profile avatar" />
-                      ) : (
-                        <Avatar size={38} style={{ backgroundColor: '#7b65f3', color: '#ffffff' }}>
-                          {user.name[0]}
-                        </Avatar>
-                      )} */}
-                        <Avatar
-                          size={60}
+                        {user.avatar ? (
+                          <Imgix
+                            layout="fill"
+                            src={client.UPLOAD_URL + user.avatar}
+                            alt="Profile avatar"
+                          />
+                        ) : (
+                          <Avatar
+                            size={50}
+                            text={user.name}
+                            style={{
+                              backgroundColor: '#7b65f3',
+                              color: '#ffffff',
+                            }}></Avatar>
+                        )}
+                        {/* <Avatar
+                          size={50}
                           image={user?.avatar}
                           text={user?.name[0]}
                           useNoImageIcon
-                        />
+                        /> */}
                       </div>
                     </Space>
                   </Dropdown>
