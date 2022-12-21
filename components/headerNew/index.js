@@ -348,23 +348,22 @@ const HeaderNew = ({ user }) => {
           </Link>
 
           <div className={styles.nav}>
-            <div className={styles.nav__dropdowns}>
-              <Dropdown
-                arrow
-                placement="bottom"
-                overlay={createMenu}
-                className={styles.nav__dropdown}
-                trigger="click">
-                <Space>
-                  <ArrowDown2 className={styles.nav__dropdownArrow} />
-                  Create
-                </Space>
-              </Dropdown>
-            </div>
-
-            <div className={styles.nav__buttons}>
-              {user ? (
-                <>
+            {user ? (
+              <>
+                <div className={styles.nav__dropdowns}>
+                  <Dropdown
+                    arrow
+                    placement="bottom"
+                    overlay={createMenu}
+                    className={styles.nav__dropdown}
+                    trigger="click">
+                    <Space>
+                      <ArrowDown2 className={styles.nav__dropdownArrow} />
+                      Create
+                    </Space>
+                  </Dropdown>
+                </div>
+                <div className={styles.nav__buttons}>
                   <Link href={'/profile/' + user?._id + '/projects'}>
                     <a className={styles.nav__myProjects}>
                       <Button rounded={1} outline={1} pink={1}>
@@ -430,26 +429,29 @@ const HeaderNew = ({ user }) => {
                       </div>
                     </Space>
                   </Dropdown>
-                </>
-              ) : (
-                <>
-                  <Link href={'/sign-up?page=' + page}>
-                    <a style={{ marginRight: '10px' }}>
-                      <Button rounded outline pink>
-                        Join
-                      </Button>
-                    </a>
-                  </Link>
-                  <Link href={'/sign-in?page=' + page}>
-                    <a>
-                      <Button rounded pink>
-                        Log in
-                      </Button>
-                    </a>
-                  </Link>
-                </>
-              )}
-            </div>
+                </div>
+              </>
+            ) : (
+              <div className={styles.nav__buttons}>
+                <Link href={'/sign-in?page=' + page}>
+                  <a className={styles.signIn}>Sign in</a>
+                </Link>
+                <Link href={'/sign-up?page=' + page}>
+                  <a className={styles.join}>
+                    <Button md rounded outline pink>
+                      Join
+                    </Button>
+                  </a>
+                </Link>
+                <Link href={'/create-story'}>
+                  <a className={styles.createStory}>
+                    <Button md rounded pink>
+                      Create story
+                    </Button>
+                  </a>
+                </Link>
+              </div>
+            )}
 
             <button className={cn(styles.nav_mobile)}>
               <Dropdown arrow placement="bottomRight" overlay={mobileMenu} trigger="click">
