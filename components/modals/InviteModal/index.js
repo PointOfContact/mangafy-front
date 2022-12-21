@@ -15,6 +15,7 @@ import Members from './Members';
 const roleOptions = Object.keys(projectRoles).map((key) => ({ key, value: projectRoles[key] }));
 
 const InviteModal = ({
+  projectTitle,
   visible,
   setVisible,
   mangaStoryId,
@@ -82,7 +83,7 @@ const InviteModal = ({
       title={null}
       footer={null}
       width={775}>
-      <div className={styles.modal__title}>Share (Project Title)</div>
+      <div className={styles.modal__title}>Share "{projectTitle}"</div>
       <div className={styles.modal__label}>Email adress or name</div>
       <form
         className={styles.modal__form}
@@ -100,17 +101,19 @@ const InviteModal = ({
           onChange={setEmail}
           inputRef={inputRef}
         />
-        <Select
-          className={styles.modal__select}
-          sm
-          rounded
-          options={roleOptions}
-          defaultValue={roleOptions[1]}
-          onChange={(option) => setRole(projectRoles[option])}
-        />
-        <Button className={styles.modal__button} md bold rounded pink>
-          Invite
-        </Button>
+        <div className={styles.modal__buttonAndSelect}>
+          <Select
+            className={styles.modal__select}
+            sm
+            rounded
+            options={roleOptions}
+            defaultValue={roleOptions[1]}
+            onChange={(option) => setRole(projectRoles[option])}
+          />
+          <Button className={styles.modal__button} md bold rounded pink>
+            Invite
+          </Button>
+        </div>
       </form>
       <div className={styles.line}></div>
       <Members

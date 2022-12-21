@@ -2,18 +2,51 @@
 
 .modal {
     :global {
+        .ant-modal {
+            @include media-xs {
+                top: 0;
+                margin: 0;
+                padding: 0;
+                width: 100vw;
+                margin-right: 0 !important;
+            }
+        }
         .ant-modal-content {
             border-radius: 30px;
             overflow: hidden;
             padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
             @include media-sm {
                 padding: 30px;
             }
+            @include media-xs {
+                padding: 10px;
+                border-radius: 0;
+                margin: 0;
+                height: 100vh;
+                width: 100vw;
+            }
+            
         }
         .ant-modal-close {
             padding: 0;
             top: 50px;
             right: 50px;
+            @include media-sm {
+                top: 30px;
+                right: 30px;
+            }
+            @include media-xs {
+                top: 10px;
+                right: 10px;
+            }
+        }
+        .ant-modal-body {
+            // display: flex;
+            // flex-direction: column;
+            // justify-content: center;
         }
     }
 
@@ -35,6 +68,14 @@
         align-items: flex-end;
         margin-top: 10px;
         margin-bottom: 30px;
+        @include media-xs {
+            flex-direction: column;
+            align-items: stretch;
+        }
+    }
+
+    &__buttonAndSelect {
+        display: flex;
     }
 
     &__input {
@@ -42,11 +83,18 @@
             font-size: 16px;
         }
         margin-right: 15px;
+        @include media-xs {
+            margin-right: 0;
+            margin-bottom: 15px;
+        }
     }
 
     &__select {
         margin-right: 15px;
         align-self: flex-end;
+        @include media-xs {
+            flex-grow: 1;
+        }
     }
 
     &__button {
@@ -102,5 +150,6 @@
         line-height: 1em;
         color: #858585;
         align-self: start;
+        
     }
 }

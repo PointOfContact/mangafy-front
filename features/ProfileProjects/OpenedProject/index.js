@@ -282,6 +282,7 @@ const OpenedProject = ({
         onCancel={() => {}}
       />
       <InviteModal
+        projectTitle={project?.title}
         visible={isInviteModalOpen}
         setVisible={setIsInviteModalOpen}
         mangaStoryId={project?._id}
