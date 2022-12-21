@@ -55,7 +55,7 @@ const CollaborationCards = ({ label, client, href }) => {
   };
 
   return (
-    <Link href={href || `/project/production/${label._id}?tab=details`}>
+    <Link href={href || `/project/production/${label._id}?tab=jobs`}>
       <a className={styles.colabWrap__item} onClick={navigateToManga}>
         <div className={styles.colabWrap__image}>
           {mangaCover ? <img src={client.UPLOAD_URL + mangaCover} /> : null}

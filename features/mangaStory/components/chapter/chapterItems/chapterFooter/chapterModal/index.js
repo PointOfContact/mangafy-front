@@ -128,7 +128,7 @@ const ChapterModal = ({
           setEdit(value._id);
           setChapterListVisible({ state: false, _id: value?._id });
         }}>
-        Rename
+        Rename Episode
       </p>
       <p onClick={addPages}>
         <Upload
@@ -138,7 +138,7 @@ const ChapterModal = ({
           multiple
           showUploadList={false}
           beforeUpload={(file, fileList) => beforeUpload(pages, file, fileList, createPage)}>
-          Upload pages
+          Upload Multiple Pages
         </Upload>
       </p>
       <p onClick={addChapterCover}>
@@ -148,7 +148,7 @@ const ChapterModal = ({
           className={cn('avatar-uploader', styles.upload)}
           showUploadList={false}
           beforeUpload={(file, fileList) => beforeUpload(pages, file, fileList, uploadImage)}>
-          Upload cover
+          Upload Episode Cover
         </Upload>
       </p>
       <Popconfirm

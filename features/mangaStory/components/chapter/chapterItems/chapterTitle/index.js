@@ -14,7 +14,7 @@ const ChapterTitle = ({ value, chapters, storyBoard, setChapters, edit, setEdit,
 
   const error = validate && mouseOut && (
     <p className={styles.error}>
-      Please enter a name for your chapter. You can leave it blank if you want
+      Please enter a name for your episode. You can leave it blank if you want
     </p>
   );
 
@@ -51,7 +51,7 @@ const ChapterTitle = ({ value, chapters, storyBoard, setChapters, edit, setEdit,
                 maxLength={30}
                 autoFocus={true}
                 isFieldTouched={() => true}
-                placeholder="Chapter name"
+                placeholder="Episode name"
                 className={styles.chapterNameInput}
                 onChange={(e) => setEditName(e.target.value)}
                 onMouseOut={() => {

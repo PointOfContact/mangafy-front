@@ -21,7 +21,7 @@ const MangaSlider = ({ manga, activeChapterIndex }) => {
         ?.filter((ch) => ch.published)
         .map((ch, i) => {
           return (
-            <Link key={i} href={'/manga-view/' + manga?.id + '?ongoing=' + (i + 1)}>
+            <Link key={i} href={'/project/view/' + manga?.id + '?chapter=' + (i + 1)}>
               <a
                 ref={i + 1 === activeChapterIndex ? activeChapterRef : null}
                 className={cn(
@@ -40,7 +40,7 @@ const MangaSlider = ({ manga, activeChapterIndex }) => {
                     {ch?.title?.length > 8 ? ch?.title?.slice(0, 8) + '...' : ch?.title}
                   </Avatar>
                 )}
-                <div className={styles.slider__itemTitle}>Chapter {ch.order}</div>
+                <div className={styles.slider__itemTitle}>Episode {ch.order}</div>
               </a>
             </Link>
           );

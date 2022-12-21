@@ -9,6 +9,7 @@
   border-radius: 7px;
   margin-right: 12px;
   margin-bottom: 12px;
+  overflow: hidden;
   @include media-md {
     max-width: 304px;
   }

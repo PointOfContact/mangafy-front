@@ -9,10 +9,13 @@
   display: flex;
   align-items: center;
   cursor: pointer;
-  margin-right: 20px;
+  margin-right: 22px;
+  path {
+    transition: 0.2s;
+  }
   &:hover {
     path {
-      fill: $primaryDark;
+      stroke: $primaryDark;
     }
   }
   &_mobile {
@@ -24,19 +27,26 @@
 }
 
 .header {
-  display: flex;
   position: sticky;
-  width: 100vw;
   top: 0;
   z-index: 1000;
-  justify-content: space-between;
-  align-items: center;
-  background: #fff;
+  width: 100vw;
   box-shadow: $bigShadow;
-  padding: 15px 50px;
-  font-size: 15px;
-  @include media-sm {
-    padding: 15px 15px;
+  padding: 10px 50px;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  
+  &__container {
+    flex-grow: 1;
+    max-width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 15px;
+    @include media-sm {
+      padding: 15px 15px;
+    }
   }
 }
 
@@ -49,7 +59,7 @@
   > svg {
     height: 100%;
     * {
-      fill: $pink;
+      fill: #03FFC2;
     }
   }
 }
@@ -58,6 +68,21 @@
   display: flex;
   align-items: center;
   font-weight: 700;
+
+  &__myProjects {
+    align-self: center;
+    margin-right: 40px;
+    @include media-sm {
+      display: none;
+    }
+
+    button {
+      font-weight: 600;
+      font-size: 15px;
+      padding: 6px 12px;
+    }
+  }
+
   &__subscriptions {
     font-weight: 700;
     font-size: 15px;
@@ -65,13 +90,18 @@
     color: $black;
   }
   &__avatar {
+    width: 50px;
+    height: 50px;
     display: flex;
-    height: 42px;
     aspect-ratio: 1;
     border-radius: 50%;
     overflow: hidden;
     cursor: pointer;
-    border: solid 2px $pink;
+    position: relative;
+    span {
+      width: 100% !important;
+      height: 100% !important;
+    }
     img {
       width: 100%;
       height: 100%;
@@ -79,13 +109,7 @@
     }
   }
   &__buttons {
-    @include media-sm {
-      display: none;
-    }
     display: flex;
-    & > *:not(:last-child) {
-      margin-right: 15px;
-    }
   }
 
   &__dropdowns {
@@ -96,7 +120,7 @@
     & > *:not(:last-child) {
       margin-right: 20px;
     }
-    margin-right: 30px;
+    margin-right: 60px;
     :global {
       .ant-dropdown-open {
         svg {
@@ -107,6 +131,9 @@
   }
 
   &__dropdown {
+    @include media-sm {
+      display: none;
+    }
     cursor: pointer;
     color: #3e3e3e;
     transition: 0.2s;

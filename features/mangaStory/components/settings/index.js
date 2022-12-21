@@ -114,15 +114,15 @@ const Settings = ({
       </div>
       <div className={styles.container}>
         <div className={styles.publicProject} id="visible">
-          <h2>Make visible</h2>
+          <h2>Make Your Project Public</h2>
           <p>
-            Visible projects will only show general information about your project (inc. what you
-            look for, and what you aim to work on without disclosing anything else). In draft mode,
-            you go off-grid and need to invite collaborations manually, while the member you invite
-            sees nothing.
+            The publish button allows you to share your graphic novel project with the world. Once
+            you hit publish, your project will be visible to other users who can leave comments,
+            follow new episodes, and show their support. By publishing your project, you open it up
+            to a wider audience and give others the opportunity to engage with your work.
           </p>
           <div className={styles.toggleStylesMakeVisible}>
-            <span className={styles.toggleTitle}>Invisible</span>
+            <span className={styles.toggleTitle}>Draft</span>
             <span
               onClick={() => {
                 if (!isReadyToPublish() && !baseData.published)
@@ -138,7 +138,7 @@ const Settings = ({
                 disabled={!isReadyToPublish() && !baseData.published}
               />
             </span>
-            <span className={styles.toggleTitle}>Visible</span>
+            <span className={styles.toggleTitle}>Publish</span>
           </div>
         </div>
       </div>
