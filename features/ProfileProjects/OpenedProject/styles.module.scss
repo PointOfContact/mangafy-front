@@ -13,7 +13,7 @@
 
     &__container {
         height: 100%;
-        padding: 122px  50px;
+        padding: 122px 50px;
         @include media-sm {
             padding: 100px  20px;
         }
@@ -62,7 +62,7 @@
             }
             font-size: 16px;
             svg {
-                height: 20px;
+                height: 24px;
                 margin-left: 5px;
             }
         }
@@ -79,9 +79,19 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 24px;
         height: 100%;
         color: #fff;
+        font-size: 16px;
+        // padding: 30px;
+
+        a {
+            color: #fff;
+            margin-left: 8px;
+            font-weight: 500;
+            svg {
+                height: 24px;
+            }
+        }
     }
 
     &__options {
