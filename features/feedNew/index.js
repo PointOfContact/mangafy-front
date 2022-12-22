@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import Image from 'next/image';
 import { NextSeo } from 'next-seo';
@@ -34,89 +35,84 @@ import { SignInModal } from 'components/modals/SignInModal';
 import { projectTypes, userTypes } from 'helpers/constant';
 import ModalCreateProject from 'components/modalCreateProject';
 
+const getFilterTypes = (genres) => ({
+  // recent: [{ title: 'Search', inQuery: 'search' }],
+  people: [
+    { title: 'Search', inQuery: 'search' },
+    { title: 'Genres', inQuery: 'genresIds', options: genres },
+    {
+      title: 'Role',
+      inQuery: 'types',
+      options: userTypes.map((type) => ({ title: type.value, value: type.key })),
+    },
+    {
+      title: 'Sort by',
+      inQuery: 'filter',
+      options: [{ title: 'Recent', value: 'new' }],
+    },
+  ],
+  shots: [
+    { title: 'Search', inQuery: 'search' },
+    {
+      title: 'Sort by',
+      inQuery: 'filter',
+      options: [{ title: 'Recent', value: 'new' }],
+    },
+  ],
+  tasks: [
+    { title: 'Search', inQuery: 'search' },
+    {
+      title: 'Looking for',
+      inQuery: 'types',
+      options: userTypes.map((type) => ({ title: type.value, value: type.value })),
+    },
+    {
+      title: 'Sort by',
+      inQuery: 'filter',
+      options: [{ title: 'Recent', value: 'new' }],
+    },
+  ],
+  projects: [
+    { title: 'Search', inQuery: 'search' },
+    { title: 'Genres', inQuery: 'genresIds', options: genres },
+    {
+      title: 'Looking for',
+      inQuery: 'searchingFor',
+      options: userTypes.map((type) => ({ title: type.value, value: type.value })),
+    },
+    {
+      title: 'Sort by',
+      inQuery: 'filter',
+      options: [{ title: 'Recent', value: 'new' }],
+    },
+  ],
+  // ongoing: [{ title: 'Search', inQuery: 'search' }],
+});
+
 const FeedNew = (props) => {
-  const { jwt, user, posts, genres } = props;
-
-  const filterTypes = {
-    // recent: [{ title: 'Search', inQuery: 'search' }],
-    people: [
-      { title: 'Search', inQuery: 'search' },
-      { title: 'Genres', inQuery: 'genresIds', options: genres },
-      {
-        title: 'Role',
-        inQuery: 'types',
-        options: userTypes.map((type) => ({ title: type.value, value: type.key })),
-      },
-      {
-        title: 'Sort by',
-        inQuery: 'filter',
-        options: [{ title: 'Recent', value: 'new' }],
-      },
-    ],
-    shots: [
-      { title: 'Search', inQuery: 'search' },
-      {
-        title: 'Sort by',
-        inQuery: 'filter',
-        options: [{ title: 'Recent', value: 'new' }],
-      },
-    ],
-    tasks: [
-      { title: 'Search', inQuery: 'search' },
-      {
-        title: 'Looking for',
-        inQuery: 'types',
-        options: userTypes.map((type) => ({ title: type.value, value: type.value })),
-      },
-      {
-        title: 'Sort by',
-        inQuery: 'filter',
-        options: [{ title: 'Recent', value: 'new' }],
-      },
-    ],
-    projects: [
-      { title: 'Search', inQuery: 'search' },
-      { title: 'Genres', inQuery: 'genresIds', options: genres },
-      {
-        title: 'Looking for',
-        inQuery: 'searchingFor',
-        options: userTypes.map((type) => ({ title: type.value, value: type.value })),
-      },
-      {
-        title: 'Sort by',
-        inQuery: 'filter',
-        options: [{ title: 'Recent', value: 'new' }],
-      },
-    ],
-    // ongoing: [{ title: 'Search', inQuery: 'search' }],
-  };
-
-  const router = useRouter();
-  // const defaultActiveTab = router.query?.tab || 'recent';
-  const defaultActiveTab = router.query?.tab || 'projects';
-
-  const [screenWidth, setScreenWidth] = useState(0);
-
-  function onWindowResize() {
-    setScreenWidth(window.innerWidth);
-  }
-
-  const [activeTab, setActiveTab] = useState('projects');
-  const [cardsElements, setCardsElements] = useState(makeCardsElements(posts));
+  const [cardsElements, setCardsElements] = useState([]);
   const [shouldFetchCards, setShouldFetchCards] = useState(false);
   const [endOfCardsReached, setEndOfCardsReached] = useState(false);
   const [postType, setPostType] = useState(null);
   const [error, setError] = useState(null);
-
   const [shotModalVisible, setShotModalVisible] = useState(false);
   const [projectModalVisible, setProjectModalVisible] = useState(false);
   const [signInModalVisible, setSignInModalVisible] = useState(false);
   const [shotToEdit, setShotToEdit] = useState(null);
   const [activeFilters, setActiveFilters] = useState({});
+  const [screenWidth, setScreenWidth] = useState(0);
+  const { jwt, user, posts, genres } = props;
+  const router = useRouter();
+  // const defaultActiveTab = router.query?.tab || 'recent';
+  const defaultActiveTab = router.query?.tab || 'projects';
+  function onWindowResize() {
+    setScreenWidth(window.innerWidth);
+  }
+  const filterTypes = getFilterTypes(genres);
 
   useEffect(async () => {
     if (!(posts && posts.length > 0)) {
-      const posts = await getCards(10, 0);
+      const posts = await getCards(10, 0, defaultActiveTab);
       setCardsElements(makeCardsElements(posts));
     }
 
@@ -140,7 +136,7 @@ const FeedNew = (props) => {
 
   useEffect(() => {
     let type = null;
-    switch (activeTab) {
+    switch (defaultActiveTab) {
       case 'people':
         type = 'Profile';
         break;
@@ -163,7 +159,7 @@ const FeedNew = (props) => {
     clearCardsElements();
     setPostType(type);
     setActiveFilters({});
-  }, [activeTab]);
+  }, [defaultActiveTab]);
 
   useEffect(() => {
     let isLastRequest = [true];
@@ -295,10 +291,8 @@ const FeedNew = (props) => {
     });
   }
 
-  const tabsOnChange = (activeKey) => {
+  const tabsOnChange = (activeKey) =>
     Router.push(`/feed?tab=${activeKey}`, undefined, { shallow: true });
-    setActiveTab(activeKey);
-  };
 
   return (
     <>
@@ -356,27 +350,28 @@ const FeedNew = (props) => {
                 tabBarGutter={30}
                 className={styles.filter__tabs}
                 defaultActiveKey={defaultActiveTab}
+                activeKey={defaultActiveTab}
                 tabPosition="top"
                 moreIcon={null}
                 onChange={tabsOnChange}>
-                {/* <TabPane tab="Recent" key="recent"></TabPane> */}
-                <TabPane tab="Projects" key="projects"></TabPane>
-                <TabPane tab="Shots" key="shots"></TabPane>
-                {/* <TabPane tab="Ongoing" key="ongoing"></TabPane> */}
-                <TabPane tab="Tasks" key="tasks"></TabPane>
-                <TabPane tab="People" key="people"></TabPane>
+                {/* <TabPane tab="Recent" key="recent"/> */}
+                <TabPane tab="Projects" key="projects" />
+                <TabPane tab="Shots" key="shots" />
+                {/* <TabPane tab="Ongoing" key="ongoing"/> */}
+                <TabPane tab="Tasks" key="tasks" />
+                <TabPane tab="People" key="people" />
               </Tabs>
               <FilterNew
-                activeTab={activeTab}
+                activeTab={defaultActiveTab}
                 onChange={(filters) => setActiveFilters(createFiltersQuery(filters))}
-                filters={filterTypes[activeTab]}
+                filters={filterTypes[defaultActiveTab]}
               />
               <CardsContainer
                 cardsElements={cardsElements}
                 error={error}
                 columns={screenWidth >= 1000 ? 3 : screenWidth >= 700 ? 2 : 1}
                 user={user}
-                activeTab={activeTab}
+                activeTab={defaultActiveTab}
                 onPageEnd={onPageEnd}
                 shouldFetchCards={shouldFetchCards}
                 openCreateShotModal={() => setShotModalVisible(true)}
