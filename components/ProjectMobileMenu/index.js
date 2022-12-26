@@ -93,17 +93,6 @@ const ProjectMobileMenu = ({ tabs, activeTab, setActiveTab, routerBasePath }) =>
               Settings
             </a>
           </Link>
-          <Link href={routerBasePath + 'comments'}>
-            <a
-              className={styles.dropdown__element}
-              // onClick={() => {
-              //   setActiveTab(tabs.COMMENTS);
-              // }}
-            >
-              <Message2 color="#D01E8E" />
-              Comments
-            </a>
-          </Link>
         </div>
       </div>
     </div>
