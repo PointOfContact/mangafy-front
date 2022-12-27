@@ -26,12 +26,12 @@ const ProjectInfo = ({
 
   return (
     <div className={cn(className, styles.info)}>
-      {project.planId && (
+      {/* {project.planId && (
         <PrimaryButton
           text="Suscribe"
           onClick={() => openPlanModal(cbInstance, project.planId, project._id, user?.customerId)}
         />
-      )}
+      )} */}
       <div className={styles.info__rates}>
         {/* <div className={styles.rate}>
           <div className={styles.rate__value}>4.345</div>
