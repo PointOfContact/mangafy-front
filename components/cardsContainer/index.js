@@ -92,12 +92,14 @@ const CardsContainer = ({
 
   let colToPush = 1;
   let elements = cardsElements;
-  if (cardsElements.length === 0 && !error)
-    elements = placeholderData
-      .sort(() => (Math.random() > 0.5 ? 1 : -1))
-      .map((card) => (
-        <div key={card.id} style={{ height: card.height }} className={styles.placeholder}></div>
-      ));
+  // if (cardsElements.length === 0 && !error) {
+  //   elements = placeholderData
+  //     .sort(() => (Math.random() > 0.5 ? 1 : -1))
+  //     .map((card) => (
+  //       <div key={card.id} style={{ height: card.height }} className={styles.placeholder}></div>
+  //     ));
+  // }
+
   for (let i = 0; i < elements.length; i++) {
     if (elements[i]) {
       if (colToPush === 1) firstCol.push(elements[i]);

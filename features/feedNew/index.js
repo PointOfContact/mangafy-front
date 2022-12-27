@@ -32,7 +32,7 @@ import { removeShortStory } from 'components/gallery/utils';
 import myAmplitude from 'utils/amplitude';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { SignInModal } from 'components/modals/SignInModal';
-import { projectTypes, userTypes } from 'helpers/constant';
+import { feedFilterTypes, projectTypes, userTypes } from 'helpers/constant';
 import ModalCreateProject from 'components/modalCreateProject';
 
 const getFilterTypes = (genres) => ({
@@ -101,6 +101,7 @@ const FeedNew = (props) => {
   const [shotToEdit, setShotToEdit] = useState(null);
   const [activeFilters, setActiveFilters] = useState({});
   const [screenWidth, setScreenWidth] = useState(0);
+  const [selectedOptions, setSelectedOptions] = useState([]);
   const { jwt, user, posts, genres } = props;
   const router = useRouter();
   // const defaultActiveTab = router.query?.tab || 'recent';
@@ -126,13 +127,85 @@ const FeedNew = (props) => {
   useEffect(async () => {
     let isLastRequest = [true];
     if (shouldFetchCards) {
-      updateCards(cardsElements, isLastRequest, false, postType);
+      getFeedData(isLastRequest, false);
+      // updateCards(cardsElements, isLastRequest, false, postType);
     }
-
     return () => {
       isLastRequest[0] = false;
     };
   }, [shouldFetchCards]);
+
+  const createDefaultSelectedOptions = (ifDataString, query, choosedData, val) => {
+    const data = {
+      inQuery: val,
+      isDisabled: false,
+      isSelected: true,
+    };
+    switch (val) {
+      case 'genresIds':
+        if (ifDataString) {
+          data.title = query.genresType;
+          data.value = query[val];
+          choosedData.push(data);
+        } else {
+          query[val].forEach((item, i) => {
+            data.title = query.genresType[i];
+            data.value = item;
+            choosedData.push({ ...data });
+          });
+        }
+        break;
+      case 'searchingFor':
+        if (ifDataString) {
+          data.value = query[val];
+          data.title = query[val];
+          choosedData.push(data);
+        } else {
+          query[val].forEach((item, i) => {
+            data.value = item;
+            data.title = item;
+            choosedData.push({ ...data });
+          });
+        }
+        break;
+      case 'filter':
+        data.title = 'Recent';
+        data.value = query[val];
+        choosedData.push({ ...data });
+        break;
+      case 'search':
+        data.title = query.genresType;
+        data.value = query[val];
+        choosedData.push({ ...data });
+        break;
+      case 'types':
+        if (ifDataString) {
+          data.title = query[val];
+          data.value = query[val];
+          choosedData.push(data);
+        } else {
+          query[val].forEach((item, i) => {
+            data.title = item;
+            data.value = item;
+            choosedData.push({ ...data });
+          });
+        }
+        break;
+    }
+    return data;
+  };
+
+  const setDefaultChoosedFilterData = () => {
+    const query = Router.router.state.query;
+    const choosedData = [];
+    feedFilterTypes.forEach((val) => {
+      if (query[val]) {
+        const ifDataString = typeof query[val] === 'string';
+        const data = createDefaultSelectedOptions(ifDataString, query, choosedData, val);
+      }
+    });
+    setSelectedOptions(choosedData);
+  };
 
   useEffect(() => {
     let type = null;
@@ -159,12 +232,73 @@ const FeedNew = (props) => {
     clearCardsElements();
     setPostType(type);
     setActiveFilters({});
+    setDefaultChoosedFilterData();
   }, [defaultActiveTab]);
+
+  const changeURL = () => {
+    const tab = Router.router?.state?.query?.tab;
+    const path = `/feed?tab=${tab || 'projects'}`;
+    selectedOptions.forEach((val) => {
+      path += `&${val.inQuery}=${val.value}`;
+      if (val.inQuery === 'genresIds') path += `&genresType=${val.title}`;
+    });
+    Router.push(path, undefined, { shallow: true });
+  };
+
+  const createQuery = (postQuery, asPath, feedFilterTypes) => {
+    feedFilterTypes.forEach((val) => {
+      const ifFilterExist = asPath.indexOf(val);
+      if (ifFilterExist >= 0) {
+        const query = Router.router.state.query;
+        postQuery[val] = query[val];
+      }
+    });
+  };
+
+  const addPostTypeInQuery = (postQuery, asPath, feedFilterTypes) => {
+    createQuery(postQuery, asPath, feedFilterTypes);
+    switch (Router.router.state.query?.tab) {
+      case 'projects':
+        postQuery.postType = 'Project';
+        break;
+      case 'tasks':
+        postQuery.postType = 'Task';
+        break;
+      case 'shots':
+        postQuery.postType = 'Portfolio';
+        break;
+      case 'people':
+        postQuery.postType = 'Profile';
+        break;
+    }
+  };
+
+  const getFeedData = (isLastRequest, shouldCleanCards) => {
+    const asPath = Router.router.state.asPath;
+    const ifComedBack = feedFilterTypes.some((val) => asPath.includes(val));
+    if (!ifComedBack) {
+      updateCards(cardsElements, isLastRequest, shouldCleanCards, postType);
+    } else {
+      let postQuery = {
+        genresIds: [],
+        searchingFor: [],
+        types: [],
+      };
+      addPostTypeInQuery(postQuery, asPath, feedFilterTypes);
+      client
+        .service('/api/v2/posts')
+        .find({ query: postQuery })
+        .then((res) => {
+          const newItems = makeCardsElements(res?.data);
+          setCardsElements(newItems);
+        });
+    }
+    changeURL();
+  };
 
   useEffect(() => {
     let isLastRequest = [true];
-    updateCards(cardsElements, isLastRequest, true, postType);
-
+    getFeedData(isLastRequest, true);
     return () => {
       isLastRequest[0] = false;
     };
@@ -291,8 +425,9 @@ const FeedNew = (props) => {
     });
   }
 
-  const tabsOnChange = (activeKey) =>
+  const tabsOnChange = (activeKey) => {
     Router.push(`/feed?tab=${activeKey}`, undefined, { shallow: true });
+  };
 
   return (
     <>
@@ -365,6 +500,8 @@ const FeedNew = (props) => {
                 activeTab={defaultActiveTab}
                 onChange={(filters) => setActiveFilters(createFiltersQuery(filters))}
                 filters={filterTypes[defaultActiveTab]}
+                selectedOptions={selectedOptions}
+                setSelectedOptions={setSelectedOptions}
               />
               <CardsContainer
                 cardsElements={cardsElements}

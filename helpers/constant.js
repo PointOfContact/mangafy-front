@@ -581,3 +581,5 @@ export const taskTypesArray = [
     value: 'Archived',
   },
 ];
+
+export const feedFilterTypes = ['genresIds', 'searchingFor', 'filter', 'search', 'types'];
