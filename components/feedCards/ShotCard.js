@@ -121,9 +121,17 @@ const ShotCard = ({ card, user, editShot, deleteShot, setShowSignInModal }) => {
     setLikes(card.likedUsers?.length);
   }, []);
 
+  const textLength = text?.length > 200 ? 200 : text?.length;
+  let span = 20 + Math.ceil((textLength / 200) * 5) - 3;
+  if (!image) span -= 12;
+
   return (
     <>
-      <div className={styles.card} onClick={handleClick} onDoubleClick={handleDoubleClick}>
+      <div
+        className={styles.card}
+        onClick={handleClick}
+        onDoubleClick={handleDoubleClick}
+        style={{ gridRow: `span ${span}` }}>
         {image && (
           <FeedCardImage
             image={client.UPLOAD_URL + image}
@@ -133,7 +141,7 @@ const ShotCard = ({ card, user, editShot, deleteShot, setShowSignInModal }) => {
             onDelete={() => deleteShot(card._id)}
           />
         )}
-        <div className={styles.card__content}>
+        <div className={cn(styles.card__content, !image && styles.card__content_noImage)}>
           {(title || text) && (
             <FeedCardText
               title={title}

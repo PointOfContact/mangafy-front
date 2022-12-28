@@ -21,7 +21,7 @@ const FeedCardText = ({
   const [areShareButtonsVisible, setAreShareButtonsVisible] = useState(false);
 
   return (
-    <div className={styles.feedCardText}>
+    <div className={cn(styles.feedCardText, textOnly && styles.feedCardText_noImage)}>
       <div className={cn(styles.feedCardTitle, description && styles.feedCardTitle_withMargin)}>
         {title}
       </div>
