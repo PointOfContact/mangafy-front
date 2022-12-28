@@ -91,13 +91,15 @@ const ProfileProjects = ({ user, profile }) => {
             </Link>
             Projects
           </div>
-          <div className={styles.projects__message}>
-            <div className={styles.projects__messageTitle}>All projects</div>
-            <div className={styles.projects__messageSubtitle}>
-              Hi, <span>{user?.name}</span>, welcome to the world of storytelling. <br /> You can
-              now create, collaborate and access all your dazzling ideas on this dashboard.
+          {!!projectsElements?.length && (
+            <div className={styles.projects__message}>
+              <div className={styles.projects__messageTitle}>All projects</div>
+              <div className={styles.projects__messageSubtitle}>
+                Hi, <span>{user?.name}</span>, welcome to the world of storytelling. <br /> You can
+                now create, collaborate and access all your dazzling ideas on this dashboard.
+              </div>
             </div>
-          </div>
+          )}
           {!!projectsElements?.length && (
             <div className={styles.projects__create}>
               <div>
@@ -130,9 +132,11 @@ const ProfileProjects = ({ user, profile }) => {
             )}
           </div>
         </div>
-        <div className={styles.projects__help}>
-          Need help? Contact us: <a href="mailto:max@mangafy.club">max@mangafy.club</a>.
-        </div>
+        {!!projectsElements?.length && (
+          <div className={styles.projects__help}>
+            Need help? Contact us: <a href="mailto:max@mangafy.club">max@mangafy.club</a>.
+          </div>
+        )}
         <OpenedProject
           user={user}
           isOpened={isOpened}

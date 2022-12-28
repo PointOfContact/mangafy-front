@@ -1,7 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import styles from './styles.module.scss';
 import { Col, Row } from 'antd';
 import client from 'api/client';
+import AwesomeDebouncePromise from 'awesome-debounce-promise';
 
 import WelcomeCard from './WelcomeCard';
 import myAmplitude from 'utils/amplitude';
@@ -45,13 +46,18 @@ const CardsContainer = ({
 }) => {
   const [firstColRef, secondColRef, thirdColRef] = [useRef(null), useRef(null), useRef(null)];
   const [welcomeCardVisible, setWelcomeCardVisible] = useState(false);
-
+  let oldScroll = 0;
+  const debouncedOnScroll = useCallback(AwesomeDebouncePromise(onScroll, 500), []);
   function closeWelcomeCard() {
     setWelcomeCardVisible(false);
     localStorage.setItem('welcomeCardClosed', true);
   }
 
   function onScroll(e) {
+    const scrollDown = window.pageYOffset > oldScroll;
+    oldScroll = window.scrollY;
+    if (!scrollDown) return;
+
     const firstColRect = firstColRef.current?.getBoundingClientRect();
     const secondColRect = secondColRef.current?.getBoundingClientRect();
     const thirdColRect = thirdColRef.current?.getBoundingClientRect();
@@ -60,6 +66,7 @@ const CardsContainer = ({
       window.innerHeight > secondColRect?.bottom ||
       window.innerHeight > thirdColRect?.bottom
     ) {
+      console.log('Page ended');
       onPageEnd();
     }
   }
@@ -82,9 +89,9 @@ const CardsContainer = ({
   useEffect(async () => {
     if (!localStorage.getItem('welcomeCardClosed')) setWelcomeCardVisible(true);
 
-    window.addEventListener('scroll', onScroll);
+    window.addEventListener('scroll', debouncedOnScroll);
     return () => {
-      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('scroll', debouncedOnScroll);
     };
   }, []);
 

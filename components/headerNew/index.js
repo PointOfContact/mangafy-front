@@ -452,7 +452,6 @@ const HeaderNew = ({ user }) => {
                 </Link>
               </div>
             )}
-
             <button className={cn(styles.nav_mobile)}>
               <Dropdown arrow placement="bottomRight" overlay={mobileMenu} trigger="click">
                 <Space>
