@@ -12,6 +12,8 @@ const Button = (props) => {
     outline,
     iconRight,
     pink,
+    white,
+    shadow,
     full,
     bold,
     color,
@@ -30,6 +32,8 @@ const Button = (props) => {
         outline ? styles.button_outline : styles.button_solid,
         iconRight ? styles['button_icon-right'] : null,
         pink ? styles.button_pink : null,
+        white ? styles.button_white : null,
+        shadow ? styles.button_shadow : null,
         full && styles.button_fullWidth,
         bold && styles.button_bold,
         !props.children && props.children !== 0 && styles.button_noText,
@@ -38,8 +42,7 @@ const Button = (props) => {
         className
       )}
       onClick={props.onClick}
-      style={{ color }}
-    >
+      style={{ color }}>
       {props.icon}
       {props.children}
       <Loader className={styles.button__loader} />

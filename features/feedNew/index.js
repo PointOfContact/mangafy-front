@@ -33,6 +33,7 @@ import { EVENTS } from 'helpers/amplitudeEvents';
 import { SignInModal } from 'components/modals/SignInModal';
 import { projectTypes, userTypes } from 'helpers/constant';
 import ModalCreateProject from 'components/modalCreateProject';
+import FeedBanner from 'components/feedBanner';
 
 const FeedNew = (props) => {
   const { jwt, user, posts, genres } = props;
@@ -340,6 +341,7 @@ const FeedNew = (props) => {
         <HeaderNew user={user} />
         <div className={styles.feed}>
           <Row className={styles.feedContent}>
+            <FeedBanner className={styles.feed__banner} />
             <div className={styles.feed__info}>
               <h1 className={styles.feed__title}>Explore the MangaFY - collaboration platform</h1>
               <div className={styles.feed__description}>
