@@ -256,7 +256,7 @@ const OpenedProject = ({
           </div>
           <Link href={'/project/production/' + project?._id + '?tab=jobs&createTask'}>
             <a>
-              <Button sm rounded pink iconRight icon={<Flash color="#fff" bold />}>
+              <Button sm rounded iconRight icon={<Flash color="#fff" bold />}>
                 Post
               </Button>
             </a>
