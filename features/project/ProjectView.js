@@ -26,7 +26,13 @@ import getDeviceId from 'utils/deviceId';
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
 import Button from 'components/ui-new/Button';
+import { Upload } from 'antd';
 import ConfirmModal from 'components/modals/ConfirmModal';
+import HeroUpload from 'components/ui-elements/heroUpload';
+import cn from 'classnames';
+import Close from 'components/icon/new/Close';
+import mangaStoryClient from 'api/mangaStoryClient';
+import beforeUploadFromAMZ from 'utils/upload';
 
 const ProjectView = ({ ssProject, ssComments, user }) => {
   const router = useRouter();
@@ -39,10 +45,19 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
   const [isGoToSettingsModalOpened, setIsGoToSettingsModalOpened] = useState(false);
   const [isSignInModalOpened, setIsSignInModalOpened] = useState(false);
   const [deviceId, setDeviceId] = useState(null);
+  const [fileList, setFileList] = useState([]);
 
   useEffect(() => {
     viewMangaFun(user, project.viewManga, project._id);
     getDeviceId(setDeviceId);
+    if (project.image)
+      setFileList([
+        {
+          uid: '-1',
+          url: client.UPLOAD_URL + project?.image,
+          status: 'done',
+        },
+      ]);
   }, []);
 
   useEffect(() => {
@@ -177,6 +192,56 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
     setAreCommentsOpened(true);
   }
 
+  function onCoverUpload(info) {
+    const newFileList = [...info.fileList];
+    const file = newFileList[0];
+    setFileList(newFileList);
+  }
+
+  const setMangaPhoto = (image) => {
+    const jwt = client.getCookie('feathers-jwt');
+    const data = { image };
+    client
+      .service('/api/v2/manga-stories')
+      .patch(project?._id, data, {
+        headers: { Authorization: `Bearer ${jwt}` },
+      })
+      .then((res) => {
+        updateProjectInfo();
+      })
+      .catch((err) => {
+        notification.error({
+          message: err.message,
+          placement: 'bottomLeft',
+        });
+      });
+  };
+
+  const beforeUpload = (file) => {
+    const isJpgOrPng =
+      file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/jpg';
+    if (!isJpgOrPng) {
+      notification.error({ message: 'You can only upload JPG/PNG file!', placement: 'bottomLeft' });
+    }
+
+    const isLt2M = file.size / 1024 / 1024 < 50;
+
+    if (!isLt2M) {
+      notification.error({ message: 'Image must smaller than 50MB!', placement: 'bottomLeft' });
+    }
+
+    if (isJpgOrPng && isLt2M) {
+      beforeUploadFromAMZ(
+        file,
+        setMangaPhoto,
+        () => {},
+        () => {}
+      );
+    }
+
+    return isJpgOrPng && isLt2M;
+  };
+
   const ifAdmin = user?._id === project?.author;
 
   return (
@@ -210,20 +275,46 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
           <div className={styles.project__cover}>
             {ifAdmin && (
               <div className={styles.project__coverOverlay}>
-                <div className={styles.project__coverTitle}>Set Cover Image</div>
-                Optimal dimensions 3200x410px
-                <Link href={'/project/production/' + project?._id + '?tab=settings#cover'}>
-                  <a>
-                    <Button md rounded>
-                      Set image
+                <div className={styles.project__coverTitle}>Change Cover Image</div>
+                <div className={styles.project__coverSubtitle}>Optimal dimensions 3200x410px</div>
+                {/* <Link href={'/project/production/' + project?._id + '?tab=settings#cover'}>
+                  <a> */}
+                <div className={styles.project__coverButtons}>
+                  <Upload
+                    disabled={false}
+                    accept="image/jpg, image/png, image/jpeg"
+                    itemRender={(originNode, file, fileList, actions) => {
+                      return (
+                        <Button
+                          className={styles.removeCover}
+                          md
+                          rounded
+                          pink
+                          outline
+                          onClick={actions.remove}>
+                          Remove
+                        </Button>
+                      );
+                    }}
+                    maxCount={1}
+                    fileList={fileList}
+                    onChange={onCoverUpload}
+                    beforeUpload={beforeUpload}
+                    onRemove={() => {
+                      setMangaPhoto('');
+                    }}
+                    onPreview={() => {}}>
+                    <Button md rounded pink>
+                      Change image
                     </Button>
-                  </a>
-                </Link>
+                  </Upload>
+                </div>
               </div>
             )}
             <Imgix layout="fill" objectFit="cover" src={client.UPLOAD_URL + project?.image} />
           </div>
         )}
+        <div className={styles.project__coverUpload}></div>
         <div className={styles.project__content}>
           <ProjectInfo
             className={styles.project__info}

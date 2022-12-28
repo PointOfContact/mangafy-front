@@ -219,6 +219,7 @@ const FeedNew = (props) => {
       $skip: skip,
       ...activeFilters,
     };
+    console.log(query);
     if (postType) query.postType = postType;
 
     try {

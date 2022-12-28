@@ -48,4 +48,10 @@
       margin-top: 15px;
     }
   }
+
+  &__button {
+    button {
+      color: #000 !important;
+    }
+  }
 }

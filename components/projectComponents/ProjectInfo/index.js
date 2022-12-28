@@ -11,6 +11,7 @@ import { EVENTS } from 'helpers/amplitudeEvents';
 import Diamond from 'components/icon/new/Diamond';
 import PrimaryButton from 'components/ui-elements/button';
 import { useAppContext } from 'context';
+import Button from 'components/ui-new/Button';
 
 const ProjectInfo = ({
   isOwner,
@@ -47,6 +48,11 @@ const ProjectInfo = ({
         </div>
       </div>
       <ProjectStory className={styles.info__story} project={project} user={user} />
+      <div className={styles.info__line}></div>
+      <div className={styles.subscribe__title}>Subscribe to my stories</div>
+      <div className={styles.subscribe__subtitle}>
+        Show your support and receive all my stories in your feed.
+      </div>
       <SubscribeField
         user={user}
         className={styles.info__subscribe}
@@ -54,6 +60,8 @@ const ProjectInfo = ({
         subscribe={subscribe}
         unsubscribe={unsubscribe}
       />
+      <div className={styles.tip__title}>Send me a tip</div>
+      <div className={styles.tip__subtitle}>Show your support with a small one-off tip.</div>
       {!!project?.authorInfo?.payPalEmail && (
         <a
           onClick={() => {
@@ -69,8 +77,9 @@ const ProjectInfo = ({
           }}
           className={styles.info__support}
           href={`https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=${project?.authorInfo?.payPalEmail}&item_name=Friends+of+the+Park&item_number=Fall+Cleanup+Campaign&currency_code=USD`}>
-          Support
-          <Diamond />
+          <Button rounded outline md>
+            Tip
+          </Button>
         </a>
       )}
       <ProjectChapters

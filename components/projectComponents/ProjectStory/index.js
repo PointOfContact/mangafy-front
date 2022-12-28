@@ -5,6 +5,8 @@ import { formatHtml } from 'helpers/shared';
 
 import Link from 'next/link';
 import Edit2 from 'components/icon/new/Edit2';
+import Edit from 'components/icon/new/Edit';
+import Edit3 from 'components/icon/new/Edit3';
 
 const ProjectStory = ({ className, project, user }) => {
   const isMoreThan200 = project?.story?.length > 200;
@@ -18,7 +20,7 @@ const ProjectStory = ({ className, project, user }) => {
         {ifAdmin && (
           <Link href={'/project/production/' + project?._id + '?tab=settings#basics'}>
             <a>
-              <Edit2 />
+              <Edit3 />
             </a>
           </Link>
         )}
@@ -31,7 +33,7 @@ const ProjectStory = ({ className, project, user }) => {
       />
       {isMoreThan200 && (
         <div className={styles.story__more} onClick={() => setShowMore(!showMore)}>
-          {showMore ? 'Hide text' : 'Read more ...'}
+          {showMore ? 'Hide text' : 'More ...'}
         </div>
       )}
       <div className={styles.story__genres}>

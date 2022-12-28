@@ -11,10 +11,11 @@
   }
 
   &__story {
-    margin-bottom: 30px;
+    margin-bottom: 15px;
   }
 
   &__subscribe {
+    margin-top: 15px;
     margin-bottom: 30px;
   }
 
@@ -51,11 +52,13 @@
   }
 
   &__support {
-    font-weight: 700;
+    font-weight: 900;
     font-size: 15px;
-    color: #d01e8e;
-    &:hover {
-      color: #e237a3;
+    margin-bottom: 20px;
+    button {
+      font-weight: 900;
+      font-size: 15px;
+      color: #000;
     }
 
     svg {
@@ -78,5 +81,24 @@
   &__value {
     font-weight: 700;
     font-size: 15px;
+  }
+}
+
+.subscribe__title {
+  margin-top: 15px;
+}
+.tip, .subscribe {
+  &__title {
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 27px;
+    margin-bottom: 10px;
+  }
+
+  &__subtitle {
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 20px;
+    margin-bottom: 20px;
   }
 }
