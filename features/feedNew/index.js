@@ -47,11 +47,11 @@ const FeedNew = (props) => {
         inQuery: 'types',
         options: userTypes.map((type) => ({ title: type.value, value: type.key })),
       },
-      {
-        title: 'Sort by',
-        inQuery: 'filter',
-        options: [{ title: 'Recent', value: 'new' }],
-      },
+      // {
+      //   title: 'Sort by',
+      //   inQuery: 'filter',
+      //   options: [{ title: 'Recent', value: 'new' }],
+      // },
     ],
     shots: [
       { title: 'Search', inQuery: 'search' },
@@ -68,11 +68,11 @@ const FeedNew = (props) => {
         inQuery: 'types',
         options: userTypes.map((type) => ({ title: type.value, value: type.value })),
       },
-      {
-        title: 'Sort by',
-        inQuery: 'filter',
-        options: [{ title: 'Recent', value: 'new' }],
-      },
+      // {
+      //   title: 'Sort by',
+      //   inQuery: 'filter',
+      //   options: [{ title: 'Recent', value: 'new' }],
+      // },
     ],
     projects: [
       { title: 'Search', inQuery: 'search' },
@@ -82,11 +82,11 @@ const FeedNew = (props) => {
         inQuery: 'searchingFor',
         options: userTypes.map((type) => ({ title: type.value, value: type.value })),
       },
-      {
-        title: 'Sort by',
-        inQuery: 'filter',
-        options: [{ title: 'Recent', value: 'new' }],
-      },
+      // {
+      //   title: 'Sort by',
+      //   inQuery: 'filter',
+      //   options: [{ title: 'Recent', value: 'new' }],
+      // },
     ],
     // ongoing: [{ title: 'Search', inQuery: 'search' }],
   };
