@@ -44,7 +44,8 @@ const CardsContainer = ({
   openCreateShotModal,
   openCreateProjectModal,
 }) => {
-  const [firstColRef, secondColRef, thirdColRef] = [useRef(null), useRef(null), useRef(null)];
+  // const [firstColRef, secondColRef, thirdColRef] = [useRef(null), useRef(null), useRef(null)];
+  const containerRef = useRef(null);
   const [welcomeCardVisible, setWelcomeCardVisible] = useState(false);
   let oldScroll = 0;
   const debouncedOnScroll = useCallback(AwesomeDebouncePromise(onScroll, 500), []);
@@ -58,15 +59,11 @@ const CardsContainer = ({
     oldScroll = window.scrollY;
     if (!scrollDown) return;
 
-    const firstColRect = firstColRef.current?.getBoundingClientRect();
-    const secondColRect = secondColRef.current?.getBoundingClientRect();
-    const thirdColRect = thirdColRef.current?.getBoundingClientRect();
-    if (
-      window.innerHeight > firstColRect?.bottom ||
-      window.innerHeight > secondColRect?.bottom ||
-      window.innerHeight > thirdColRect?.bottom
-    ) {
-      console.log('Page ended');
+    // const firstColRect = firstColRef.current?.getBoundingClientRect();
+    // const secondColRect = secondColRef.current?.getBoundingClientRect();
+    // const thirdColRect = thirdColRef.current?.getBoundingClientRect();
+    const containerRect = containerRef.current?.getBoundingClientRect();
+    if (window.innerHeight > containerRect?.bottom - 400) {
       onPageEnd();
     }
   }
@@ -95,16 +92,37 @@ const CardsContainer = ({
     };
   }, []);
 
-  const [firstCol, secondCol, thirdCol] = [[], [], []];
+  // const [firstCol, secondCol, thirdCol] = [[], [], []];
+
+  // let colToPush = 1;
+  // let elements = cardsElements;
+  // if (cardsElements.length === 0 && !error)
+  //   elements = placeholderData
+  //     .sort(() => (Math.random() > 0.5 ? 1 : -1))
+  //     .map((card) => (
+  //       <div key={card.id} style={{ height: card.height }} className={styles.placeholder}></div>
+  //     ));
+
+  // for (let i = 0; i < elements.length; i++) {
+  //   if (elements[i]) {
+  //     if (colToPush === 1) firstCol.push(elements[i]);
+  //     if (colToPush === 2) secondCol.push(elements[i]);
+  //     if (colToPush === 3) thirdCol.push(elements[i]);
+  //     if (colToPush >= columns) colToPush = 1;
+  //     else colToPush++;
+  //   }
+  // }
 
   let colToPush = 1;
   let elements = cardsElements;
-  if (cardsElements.length === 0 && !error)
-    elements = placeholderData
-      .sort(() => (Math.random() > 0.5 ? 1 : -1))
-      .map((card) => (
-        <div key={card.id} style={{ height: card.height }} className={styles.placeholder}></div>
-      ));
+  // if (cardsElements.length === 0 && !error) {
+  //   elements = placeholderData
+  //     .sort(() => (Math.random() > 0.5 ? 1 : -1))
+  //     .map((card) => (
+  //       <div key={card.id} style={{ height: card.height }} className={styles.placeholder}></div>
+  //     ));
+  // }
+
   for (let i = 0; i < elements.length; i++) {
     if (elements[i]) {
       if (colToPush === 1) firstCol.push(elements[i]);
@@ -121,7 +139,7 @@ const CardsContainer = ({
 
   return (
     <>
-      <Row align="top" gutter={20} style={{ marginTop: '1.5em' }}>
+      {/* <Row align="top" gutter={20} style={{ marginTop: '1.5em' }}>
         <Col ref={firstColRef} span={24 / columns} className={styles.col}>
           {!!user && !!welcomeCardVisible ? (
             <WelcomeCard
@@ -143,7 +161,10 @@ const CardsContainer = ({
             {thirdCol}
           </Col>
         ) : null}
-      </Row>
+      </Row> */}
+      <div className={styles.container} ref={containerRef}>
+        {cardsElements}
+      </div>
       {!!error && <div className={styles.error}>{/* Place for error placeholder */}</div>}
     </>
   );

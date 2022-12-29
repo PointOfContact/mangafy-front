@@ -582,6 +582,7 @@ export const taskTypesArray = [
   },
 ];
 
+export const feedFilterTypes = ['genresIds', 'searchingFor', 'filter', 'search', 'types'];
 export const projectRoles = {
   ADMIN: 'Admin',
   MEMBER: 'Member',
