@@ -1,51 +1,33 @@
-import PrimaryButton from 'components/ui-elements/button';
-// import PrimaryInput from 'components/ui-elements/input';
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import styles from './styles.module.scss';
 import cn from 'classnames';
 import { notification } from 'antd';
 import client from 'api/client';
+import Button from 'components/ui-new/Button';
+import Input from 'components/ui-new/Input';
 
 const CreateStory = ({ storyInfo, goNext, setStoryInfo, loading, setLoading }) => {
-  const [isValid, setIsValid] = useState(true);
-  const inputRef = useRef(null);
+  const [error, setError] = useState(false);
 
-  function inputChangeHandler() {
-    if (!inputRef.current) return;
-    setIsValid(true);
-    setStoryInfo({ ...storyInfo, projectName: inputRef.current.value.trim().toLowerCase() });
+  function inputChangeHandler(title) {
+    setError(false);
+    setStoryInfo({ ...storyInfo, projectName: title.trim().toLowerCase() });
   }
 
   function nextHandler() {
     setLoading('next');
     if (!storyInfo.projectName) {
-      notification.error({
-        message: 'Please enter the name of your project',
-        placement: 'bottomLeft',
-      });
       setLoading(null);
-      setIsValid(false);
+      setError('Please enter the name of your project');
     } else if (!storyInfo.projectName.match(/^[a-z]+$/)) {
-      notification.error({
-        message: 'Please enter corrent project name without spaces and numbers',
-        placement: 'bottomLeft',
-      });
       setLoading(null);
-      setIsValid(false);
+      setError('Please enter corrent project name without spaces and numbers');
     } else if (storyInfo.projectName.length < 3) {
-      notification.error({
-        message: 'Project name should be more than 2 characters',
-        placement: 'bottomLeft',
-      });
       setLoading(null);
-      setIsValid(false);
+      setError('Project name should be more than 2 characters');
     } else if (storyInfo.projectName.length >= 20) {
-      notification.error({
-        message: 'Project name should be less than 20 characters',
-        placement: 'bottomLeft',
-      });
       setLoading(null);
-      setIsValid(false);
+      setError('Project name should be less than 20 characters');
     } else {
       client
         .service('/api/v2/manga-stories')
@@ -65,7 +47,6 @@ const CreateStory = ({ storyInfo, goNext, setStoryInfo, loading, setLoading }) =
             goNext();
           }
         });
-      // goNext()
     }
   }
 
@@ -77,18 +58,24 @@ const CreateStory = ({ storyInfo, goNext, setStoryInfo, loading, setLoading }) =
           Accept donations. Find collaborations. Produce your story. It’s easier than you think.
         </div>
         <div className={cn(styles.createStoryForm)}>
-          <input
+          <Input
+            rounded
+            pink
+            md
             type="text"
-            className={cn(styles.input, !isValid && styles.input_error)}
+            className={styles.input}
+            err={error}
+            errPosAbs
             placeholder="Your Project"
-            ref={inputRef}
             onChange={inputChangeHandler}
             defaultValue={storyInfo.projectName}
           />
           <span className={cn(styles.mangafy)}>.mangafy.club</span>
         </div>
         <div className={styles.buttons}>
-          <PrimaryButton text="Let’s do it" onClick={nextHandler} loading={loading === 'next'} />
+          <Button onClick={nextHandler} loading={loading === 'next'} rounded pink>
+            Let’s do it
+          </Button>
         </div>
       </div>
     </div>

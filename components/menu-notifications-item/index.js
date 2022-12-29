@@ -27,6 +27,8 @@ const MenuNotificationsItem = ({
   requestId,
   user,
   params,
+  notificationsCount,
+  setNotificationsCount,
 }) => {
   const [verify, setVerify] = useState(null);
   const querySymbol = navigateTo.includes('?') ? '&' : '?';
@@ -98,8 +100,7 @@ const MenuNotificationsItem = ({
         <Tooltip
           overlayClassName={cn(styles.tooltip, 'tooltip')}
           placement="leftTop"
-          title="Mark as read"
-        >
+          title="Mark as read">
           <button className={styles.isVerifiedBtn} onClick={addUnreadNotificationsId}></button>
         </Tooltip>
         <div>
@@ -119,6 +120,8 @@ const MenuNotificationsItem = ({
               user={user}
               navigateTo={navigate}
               requestId={requestId}
+              notificationsCount={notificationsCount}
+              setNotificationsCount={setNotificationsCount}
               addUnreadNotificationsId={addUnreadNotificationsId}
             />
           )}
@@ -146,6 +149,8 @@ MenuNotificationsItem.propTypes = {
   requestId: PropTypes.string,
   user: PropTypes.object.isRequired,
   params: PropTypes.object,
+  notificationsCount: PropTypes.bool.isRequired,
+  setNotificationsCount: PropTypes.func.isRequired,
 };
 
 MenuNotificationsItem.defaultProps = {

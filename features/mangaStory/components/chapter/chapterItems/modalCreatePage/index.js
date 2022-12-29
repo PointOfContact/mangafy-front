@@ -279,7 +279,7 @@ const ModalCreatePage = ({
               isWhite={true}
               htmlType="submit"
               onClick={() => setOpenNew(true)}
-              text="New Page"
+              text="Add Page"
             />
           )}
         </Form.Item>

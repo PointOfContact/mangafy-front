@@ -31,15 +31,13 @@ const ModalPublishedChapter = ({
             setOpenPublishedModal(false);
             setIsModalVisible(false);
           }}
-          className={styles.close}
-        >
+          className={styles.close}>
           <SvgClose />
         </span>
       }
-      footer={null}
-    >
+      footer={null}>
       <div className={styles.container}>
-        <h2>Chapter {index + 1} published!</h2>
+        <h2>Episode {index + 1} published!</h2>
         <p>Get a peek and share with your friends and fans.</p>
         <div className={styles.copyView}>
           <div className={styles.viewUrl}>{link}</div>
@@ -50,8 +48,7 @@ const ModalPublishedChapter = ({
                 setCopyText('Copied');
                 copy(link);
               }}
-              onMouseOut={() => setCopyText('Copy to clipboard')}
-            >
+              onMouseOut={() => setCopyText('Copy to clipboard')}>
               <SvgCopy width="18px" height="18px" alt="mangaFy copy icon" />
             </div>
           </Tooltip>
@@ -63,8 +60,7 @@ const ModalPublishedChapter = ({
               window.open(link, '_self');
               setIsModalVisible(false);
               setOpenPublishedModal(false);
-            }}
-          >
+            }}>
             Link settings
           </p>
         </div>

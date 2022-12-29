@@ -23,7 +23,7 @@ const MyCheckboxes = userTypes.map((item) => ({
 
 const ModalStart = ({ changeShowModal, showModal, baseData, selectedTask, user }) => {
   const [joinAs, changeJoinAs] = useState('');
-
+  const [disbeldButton, setDisbeldButton] = useState(false);
   const defaultJoinAs = MyCheckboxes.find((role) => role.value === selectedTask?.lookingFor)?.value;
   const [form] = Form.useForm();
 
@@ -73,6 +73,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, selectedTask, user }
         Authorization: `Bearer ${jwt}`,
       };
       const { default: restClient } = await import('api/restClient');
+      setDisbeldButton(true);
       const mangaStoryRequest = await restClient
         .service('/api/v2/join-manga-story-requests')
         .create(
@@ -85,43 +86,46 @@ const ModalStart = ({ changeShowModal, showModal, baseData, selectedTask, user }
             headers,
           }
         );
+      setDisbeldButton(false);
 
-      const isConv = await restClient.service('/api/v2/conversations').find({
-        query: {
-          $sort: {
-            createdAt: -1,
-          },
-          $or: [
-            { participents: [user?._id, baseData.author] },
-            { participents: [baseData.author, user?._id] },
-          ],
-        },
-        headers: { Authorization: `Bearer ${jwt}` },
-      });
+      // const isConv = await restClient.service('/api/v2/conversations').find({
+      //   query: {
+      //     $sort: {
+      //       createdAt: -1,
+      //     },
+      //     $or: [
+      //       { participents: [user?._id, baseData.author] },
+      //       { participents: [baseData.author, user?._id] },
+      //     ],
+      //   },
+      //   headers: { Authorization: `Bearer ${jwt}` },
+      // });
 
-      const isConvData = isConv.data || isConv;
-      const conv = isConvData?.find((item) => !item.joinMangaStoryRequestId && !item.mangaStoryId);
+      // const isConvData = isConv.data || isConv;
+      // const conv = isConvData?.find((item) => !item.joinMangaStoryRequestId && !item.mangaStoryId);
 
-      let conversation;
+      // let conversation;
 
-      if (!conv?._id) {
-        conversation = await restClient.service('/api/v2/conversations').create(
-          {
-            participents: [baseData.author],
-          },
-          {
-            headers,
-          }
-        );
-      }
+      // if (!conv?._id) {
+      //   conversation = await restClient.service('/api/v2/conversations').create(
+      //     {
+      //       participents: [baseData.author],
+      //       joinMangaStoryRequestId: mangaStoryRequest?._id,
+      //     },
+      //     {
+      //       headers,
+      //     }
+      //   );
+      // }
 
-      sendMessage(plan, conv, conversation, mangaStoryRequest, headers, restClient);
-      sendMessage(yourself, conv, conversation, mangaStoryRequest, headers, restClient);
+      // sendMessage(plan, conv, conversation, mangaStoryRequest, headers, restClient);
+      // sendMessage(yourself, conv, conversation, mangaStoryRequest, headers, restClient);
       return;
     } catch (err) {
+      setDisbeldButton(false);
       if (err.name === 'Conflict') {
         notification.error({
-          message: `You have already sent a request with "${join_as}"`,
+          message: err.message,
           placement: 'bottomLeft',
         });
       } else {
@@ -162,7 +166,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, selectedTask, user }
               name="taskRequest"
               onFinish={(e) => {
                 changeJoinAs(e.joinAs);
-                createRequest(e.plan, e.yourseld, e.joinAs || 'Writer');
+                createRequest(e.plan, e.yourseld, e.joinAs || selectedTask?.lookingFor);
               }}>
               <h2>Introduce yourself *</h2>
               <GrammarlyEditorPlugin clientId={`${process.env.NEXT_PUBLIC_GRAMMARLY_ID}`}>
@@ -220,6 +224,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, selectedTask, user }
                   className={styles.hugeButton}
                   isFullWidth={false}
                   text="Cancel"
+                  disabled={disbeldButton}
                 />
                 <PrimaryButton
                   id="modalJoinMyJourneySubmitBtnId"
@@ -227,6 +232,7 @@ const ModalStart = ({ changeShowModal, showModal, baseData, selectedTask, user }
                   isFullWidth={false}
                   text="Submit"
                   htmlType="submit"
+                  disabled={disbeldButton}
                 />
               </div>
             </Form>
