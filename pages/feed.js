@@ -22,12 +22,17 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
       value: genre._id,
     }));
 
+    const bannerProject = await client
+      .service('/api/v2/manga-stories')
+      .get('633bf4bdd9d2d65581db8a61');
+
     return {
       props: {
         user,
         posts: posts.data,
         jwt,
         genres,
+        bannerProject,
       },
     };
   } catch (error) {

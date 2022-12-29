@@ -36,7 +36,7 @@ import ModalCreateProject from 'components/modalCreateProject';
 import FeedBanner from 'components/feedBanner';
 
 const FeedNew = (props) => {
-  const { jwt, user, posts, genres } = props;
+  const { jwt, user, posts, genres, bannerProject } = props;
 
   const filterTypes = {
     // recent: [{ title: 'Search', inQuery: 'search' }],
@@ -341,7 +341,7 @@ const FeedNew = (props) => {
         <HeaderNew user={user} />
         <div className={styles.feed}>
           <Row className={styles.feedContent}>
-            <FeedBanner className={styles.feed__banner} />
+            {!user && <FeedBanner className={styles.feed__banner} project={bannerProject} />}
             <div className={styles.feed__info}>
               <h1 className={styles.feed__title}>Explore the MangaFY - collaboration platform</h1>
               <div className={styles.feed__description}>

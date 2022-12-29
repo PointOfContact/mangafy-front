@@ -5,8 +5,18 @@ import Button from 'components/ui-new/Button';
 import React from 'react';
 import styles from './styles.module.scss';
 import cn from 'classnames';
+import moment from 'moment';
+import { formatHtml } from 'helpers/shared';
+import Link from 'next/link';
+import client from 'api/client';
 
-const FeedBanner = ({ className }) => {
+const FeedBanner = ({ className, project }) => {
+  // const humanifiedDate = new Intl.RelativeTimeFormat('en', { style: 'narrow' }).format(-3, 'day');
+  const humanifiedDate = moment(project?.authorInfo?.lastLoginDate).fromNow();
+  const text =
+    project?.story.length > 200
+      ? project?.story.slice(0, 200).replace(/<[^>]*>?/gm, '') + '...'
+      : project?.story.replace(/<[^>]*>?/gm, '');
   return (
     <div className={cn(styles.banner, className)}>
       <div className={styles.banner__leftContainer}>
@@ -15,23 +25,30 @@ const FeedBanner = ({ className }) => {
           Find new, handpicked graphic novels you’ll love, updated daily.
         </div>
         <div className={styles.banner__image}>
-          <Imgix objectFit={'cover'} src="img/feedTemp/cover.png" layout="fill" />
+          <Imgix
+            objectFit={'cover'}
+            src={client.API_ENDPOINT + '/img/loginCover.jpg'}
+            layout="fill"
+          />
         </div>
-        <div className={styles.banner__projectTitle}>
-          Title asd fasdfasdf sfa sdf asdfasd fasdfas fsdfasdf asdfasdfasdfads f
-        </div>
-        <div className={styles.banner__projectDescription}>
-          Description Description Description Description Description Description Description
-          Description Description Description
-          Descriptionnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
-        </div>
-        <div className={styles.banner__projectAuthor}>
-          <Avatar className={styles.banner__projectAuthorAvatar} size={50} text={'U'} />
-          <div className={styles.banner__projectAuthorName}>
-            Authorrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
-          </div>
-          <div className={styles.banner__projectAuthorLastSeen}>About 30 minutes ago</div>
-        </div>
+        <Link href={'/project/' + project?._id}>
+          <a className={styles.banner__project}>
+            <div className={styles.banner__projectTitle}>{project?.title}</div>
+            <div className={styles.banner__projectDescription}>{text}</div>
+          </a>
+        </Link>
+        <Link href={'/profile/' + project?.author}>
+          <a className={styles.banner__projectAuthor}>
+            <Avatar
+              className={styles.banner__projectAuthorAvatar}
+              image={project?.authorInfo?.avatar}
+              size={50}
+              text={project?.authorInfo?.name[0]}
+            />
+            <div className={styles.banner__projectAuthorName}>{project?.authorInfo?.name}</div>
+            <div className={styles.banner__projectAuthorLastSeen}>About {humanifiedDate}</div>
+          </a>
+        </Link>
       </div>
       <div className={styles.banner__rightContainer}>
         <div className={styles.banner__rTitle}>
@@ -40,9 +57,13 @@ const FeedBanner = ({ className }) => {
         <div className={styles.banner__rDescription}>
           Mangafy: The Ultimate Platform for Sharing Your Graphic Novels and Earning Revenue
         </div>
-        <Button rounded white shadow className={styles.banner__button}>
-          Become a creator
-        </Button>
+        <Link href="/sign-up?page=feed">
+          <a>
+            <Button rounded white shadow className={styles.banner__button}>
+              Become a creator
+            </Button>
+          </a>
+        </Link>
         <div className={styles.banner__rSubtitle}>Why creators choose MangaFY:</div>
         <ul className={styles.banner__advantages}>
           <li className={styles.banner__advantage}>
