@@ -45,15 +45,15 @@ const ViewUrlName = ({ baseData, onChangeSingleField, sendEvent, storyBoard }) =
   };
 
   const error = errorMessage ? (
-    <p className={styles.error}>{errorMessage && errorMessage}</p>
+    <p className={styles.error}>{errorMessage}</p>
   ) : (
     !!validViewUrlName &&
     isTouched && (
       <p className={styles.error}>
-        {errorMessage && errorMessage}
+        {errorMessage}
         {viewUrlName?.length < 2
           ? 'Use your creativity. Minimum 2 characters'
-          : 'Subdomain is invalid. Only characters are allowed.'}
+          : 'Subdomain is invalid. Only symbols and uppercase characters are allowed.'}
       </p>
     )
   );
