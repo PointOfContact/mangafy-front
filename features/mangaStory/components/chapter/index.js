@@ -27,7 +27,7 @@ const Chapter = ({ storyBoard, setStoryBoard, chapters, setChapters, user, baseD
 
   const error = validateMin ? (
     <p className={styles.error}>
-      Please enter a name for your chapter. You can leave it blank if you want
+      Please enter a name for your episode. You can leave it blank if you want
     </p>
   ) : (
     validateMax &&
@@ -68,14 +68,14 @@ const Chapter = ({ storyBoard, setStoryBoard, chapters, setChapters, user, baseD
           <Form
             name="chapterCreate"
             initialValues={{
-              chapterName: 'Untitled Chapter',
+              chapterName: 'Untitled Episode',
             }}
             onFinish={onFinish}>
             <Form.Item name="chapterName">
               <PrimaryInput
                 inputRef={inputRef}
                 value={chapterName}
-                placeholder="Chapter name"
+                placeholder="Episode name"
                 className={styles.chapterName}
                 onChange={(e) => setChapterName(e.target.value)}
                 onMouseOut={() => {
@@ -102,10 +102,10 @@ const Chapter = ({ storyBoard, setStoryBoard, chapters, setChapters, user, baseD
             className={styles.addChapter}
             onClick={() => {
               setCreateChapter(true);
-              setChapterName(`Untitled Chapter`);
+              setChapterName(`Untitled Episode`);
             }}>
             <SvgAdd width={50} height={50} />
-            Add Chapter
+            Add Episode
           </div>
         )}
       </div>

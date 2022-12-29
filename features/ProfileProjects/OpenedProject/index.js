@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import cn from 'classnames';
 import client from 'api/client';
 import { formatHtml } from 'helpers/shared';
-import { userTypes } from 'helpers/constant';
+import { projectRoles, userTypes } from 'helpers/constant';
 import { countPages, getCreatedDate, getEditedDate } from '../helpers';
 import myAmplitude from 'utils/amplitude';
 import { EVENTS } from 'helpers/amplitudeEvents';
@@ -31,6 +31,11 @@ import Tag from 'components/icon/new/Tag';
 import Hierarchy from 'components/icon/new/Hierarchy';
 import Close from 'components/icon/new/Close';
 import Edit2 from 'components/icon/new/Edit2';
+import InviteModal from 'components/modals/InviteModal';
+import Edit3 from 'components/icon/new/Edit3';
+import Edit from 'components/icon/new/Edit';
+import Copy from 'components/icon/new/Copy';
+import Settings3 from 'components/icon/new/Settings3';
 
 const OpenedProject = ({
   user,
@@ -45,6 +50,7 @@ const OpenedProject = ({
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const [isGoToSettingsModalOpen, setIsGoToSettingsModalOpen] = useState(false);
   const [isConfirmDeleteOpen, setIsConfirmDeleteOpen] = useState(false);
+  const [isInviteModalOpen, setIsInviteModalOpen] = useState(false);
 
   const isOwn = user?._id === project?.author;
   const pagesCount = useMemo(() => countPages(project), [project]);
@@ -128,6 +134,12 @@ const OpenedProject = ({
     }
   }
 
+  const isAdmin = useMemo(() => {
+    if (project?.author === user?._id) return true;
+    const userObj = project?.participents.find((member) => member?._id === user?._id);
+    return userObj?.role === projectRoles?.ADMIN;
+  }, [project]);
+
   return (
     <div className={cn(className, styles.openedProject, isOpened && styles.openedProject_opened)}>
       <div className={styles.openedProject__container}>
@@ -135,15 +147,24 @@ const OpenedProject = ({
           <File color={'#d11e8e'} className={styles.openedProject__sectionIcon} /> Project preview
         </div>
         <div className={styles.openedProject__cover}>
-          <Link href={'/project/production/' + project?._id + '?tab=settings#cover'}>
-            <a className={styles.openedProject__coverOverlay}>
-              Change cover <Edit2 color="#fff" />
-            </a>
-          </Link>
           {project?.image ? (
-            <Imgix src={client.UPLOAD_URL + project?.image} objectFit="cover" layout="fill" />
+            <>
+              <Link href={'/project/production/' + project?._id + '?tab=settings#cover'}>
+                <a className={styles.openedProject__coverOverlay}>
+                  <Edit3 color="#fff" />
+                </a>
+              </Link>
+              <Imgix src={client.UPLOAD_URL + project?.image} objectFit="cover" layout="fill" />
+            </>
           ) : (
-            <div className={styles.openedProject__noImage}>Here can be your cover</div>
+            <div className={styles.openedProject__noImage}>
+              Here can be your cover.
+              <Link href={'/project/production/' + project?._id + '?tab=settings#cover'}>
+                <a>
+                  Change here <Edit3 color="#fff" />
+                </a>
+              </Link>
+            </div>
           )}
         </div>
         <div className={styles.openedProject__options}>
@@ -154,12 +175,12 @@ const OpenedProject = ({
             </a>
           </Link>
           <div className={styles.openedProject__option} onClick={() => shareHandler()}>
-            <Share />
+            <Copy />
             Share
           </div>
           <Link href={'/project/production/' + project?._id}>
             <a className={styles.openedProject__option}>
-              <Settings2 />
+              <Settings3 />
               Edit
             </a>
           </Link>
@@ -177,7 +198,7 @@ const OpenedProject = ({
           {project?.title}
           <Link href={'/project/production/' + project?._id + '?tab=settings#basics'}>
             <a className={styles.openedProject__titleEdit}>
-              <Edit2 />
+              <Edit3 color="#000" />
             </a>
           </Link>
         </div>
@@ -214,16 +235,19 @@ const OpenedProject = ({
           Members
         </div>
         <div className={styles.openedProject__members}>
-          {/* {authorsElements?.length > 1 ? ( */}
           {authorsElements}
-          {/* ) : (
-            <>
-              Don’t work by yourself, invite your friends to join your team!
-              <Button full rounded pink>
-                invite
-              </Button>
-            </>
-          )} */}
+          {isAdmin && (
+            <Button
+              rounded
+              pink
+              full
+              md
+              bold
+              className={styles.openedProject__invite}
+              onClick={() => setIsInviteModalOpen(true)}>
+              Invite friends to join MangaFY
+            </Button>
+          )}
         </div>
         <div className={styles.openedProject__needHelp}>
           <div className={styles.openedProject__needHelpText}>
@@ -232,7 +256,7 @@ const OpenedProject = ({
           </div>
           <Link href={'/project/production/' + project?._id + '?tab=jobs&createTask'}>
             <a>
-              <Button sm rounded pink iconRight icon={<Flash color="#fff" bold />}>
+              <Button sm rounded iconRight icon={<Flash color="#fff" bold />}>
                 Post
               </Button>
             </a>
@@ -269,6 +293,15 @@ const OpenedProject = ({
         }}
         cancelText={'Cancel'}
         onCancel={() => {}}
+      />
+      <InviteModal
+        projectTitle={project?.title}
+        visible={isInviteModalOpen}
+        setVisible={setIsInviteModalOpen}
+        mangaStoryId={project?._id}
+        participants={project?.participents}
+        participantsInfo={project?.participentsInfo}
+        inviterId={user?._id}
       />
     </div>
   );

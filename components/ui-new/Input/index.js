@@ -10,6 +10,7 @@ const Input = ({
   md,
   full,
   err,
+  errPosAbs,
   pink,
   onChange,
   className,
@@ -17,6 +18,7 @@ const Input = ({
   defaultValue,
   rounded,
   onBlur,
+  inputRef,
 }) => {
   return (
     <div className={cn(className, styles.input__container)}>
@@ -33,12 +35,16 @@ const Input = ({
           full && styles.input_fullWidth,
           err && styles.input_red,
           typeof err === 'string' && styles.input_error,
+          errPosAbs && styles.input_errorPosAbs,
           rounded && styles.input_rounded,
           pink && styles.input_pink
         )}
         onInput={onChange ? (e) => onChange(e.target.value) : null}
-        defaultValue={defaultValue}></input>
-      {typeof err === 'string' && <div className={styles.input__error}>{err}</div>}
+        defaultValue={defaultValue}
+        ref={inputRef}></input>
+      {typeof err === 'string' && (
+        <div className={cn(styles.input__error, errPosAbs && styles.input__error_abs)}>{err}</div>
+      )}
     </div>
   );
 };

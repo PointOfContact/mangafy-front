@@ -7,6 +7,7 @@ import styles from './styles.module.scss';
 import cn from 'classnames';
 import ShotComments from 'components/shotComments';
 import Share from 'components/icon/new/Share';
+import Close from 'components/icon/new/Close';
 
 const ShotSideMenu = ({
   shot,
@@ -84,13 +85,18 @@ const ShotSideMenu = ({
       <div
         ref={commentsRef}
         className={cn(styles.sideComments, areCommentsOpened && styles.sideComments_opened)}>
-        <div className={styles.sideComments__header}>Feedback</div>
-        <ShotComments
-          shotId={shot._id}
-          user={user}
-          onUpload={updateShotInfo}
-          setIsLoginModalVisible={setIsLoginModalVisible}
-        />
+        <div onClick={() => setAreCommentsOpened(false)} className={styles.sideComments__close}>
+          <Close bold />
+        </div>
+        <div className={styles.sideComments__container}>
+          <div className={styles.sideComments__header}>Feedback</div>
+          <ShotComments
+            shotId={shot._id}
+            user={user}
+            onUpload={updateShotInfo}
+            setIsLoginModalVisible={setIsLoginModalVisible}
+          />
+        </div>
       </div>
     </>
   );

@@ -1,7 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import styles from './styles.module.scss';
 import { Col, Row } from 'antd';
 import client from 'api/client';
+import AwesomeDebouncePromise from 'awesome-debounce-promise';
 
 import WelcomeCard from './WelcomeCard';
 import myAmplitude from 'utils/amplitude';
@@ -43,23 +44,26 @@ const CardsContainer = ({
   openCreateShotModal,
   openCreateProjectModal,
 }) => {
-  const [firstColRef, secondColRef, thirdColRef] = [useRef(null), useRef(null), useRef(null)];
+  // const [firstColRef, secondColRef, thirdColRef] = [useRef(null), useRef(null), useRef(null)];
+  const containerRef = useRef(null);
   const [welcomeCardVisible, setWelcomeCardVisible] = useState(false);
-
+  let oldScroll = 0;
+  const debouncedOnScroll = useCallback(AwesomeDebouncePromise(onScroll, 500), []);
   function closeWelcomeCard() {
     setWelcomeCardVisible(false);
     localStorage.setItem('welcomeCardClosed', true);
   }
 
   function onScroll(e) {
-    const firstColRect = firstColRef.current?.getBoundingClientRect();
-    const secondColRect = secondColRef.current?.getBoundingClientRect();
-    const thirdColRect = thirdColRef.current?.getBoundingClientRect();
-    if (
-      window.innerHeight > firstColRect?.bottom ||
-      window.innerHeight > secondColRect?.bottom ||
-      window.innerHeight > thirdColRect?.bottom
-    ) {
+    const scrollDown = window.pageYOffset > oldScroll;
+    oldScroll = window.scrollY;
+    if (!scrollDown) return;
+
+    // const firstColRect = firstColRef.current?.getBoundingClientRect();
+    // const secondColRect = secondColRef.current?.getBoundingClientRect();
+    // const thirdColRect = thirdColRef.current?.getBoundingClientRect();
+    const containerRect = containerRef.current?.getBoundingClientRect();
+    if (window.innerHeight > containerRect?.bottom - 400) {
       onPageEnd();
     }
   }
@@ -82,13 +86,32 @@ const CardsContainer = ({
   useEffect(async () => {
     if (!localStorage.getItem('welcomeCardClosed')) setWelcomeCardVisible(true);
 
-    window.addEventListener('scroll', onScroll);
+    window.addEventListener('scroll', debouncedOnScroll);
     return () => {
-      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('scroll', debouncedOnScroll);
     };
   }, []);
 
-  const [firstCol, secondCol, thirdCol] = [[], [], []];
+  // const [firstCol, secondCol, thirdCol] = [[], [], []];
+
+  // let colToPush = 1;
+  // let elements = cardsElements;
+  // if (cardsElements.length === 0 && !error)
+  //   elements = placeholderData
+  //     .sort(() => (Math.random() > 0.5 ? 1 : -1))
+  //     .map((card) => (
+  //       <div key={card.id} style={{ height: card.height }} className={styles.placeholder}></div>
+  //     ));
+
+  // for (let i = 0; i < elements.length; i++) {
+  //   if (elements[i]) {
+  //     if (colToPush === 1) firstCol.push(elements[i]);
+  //     if (colToPush === 2) secondCol.push(elements[i]);
+  //     if (colToPush === 3) thirdCol.push(elements[i]);
+  //     if (colToPush >= columns) colToPush = 1;
+  //     else colToPush++;
+  //   }
+  // }
 
   let colToPush = 1;
   let elements = cardsElements;
@@ -116,7 +139,7 @@ const CardsContainer = ({
 
   return (
     <>
-      <Row align="top" gutter={20} style={{ marginTop: '1.5em' }}>
+      {/* <Row align="top" gutter={20} style={{ marginTop: '1.5em' }}>
         <Col ref={firstColRef} span={24 / columns} className={styles.col}>
           {!!user && !!welcomeCardVisible ? (
             <WelcomeCard
@@ -138,7 +161,10 @@ const CardsContainer = ({
             {thirdCol}
           </Col>
         ) : null}
-      </Row>
+      </Row> */}
+      <div className={styles.container} ref={containerRef}>
+        {cardsElements}
+      </div>
       {!!error && <div className={styles.error}>{/* Place for error placeholder */}</div>}
     </>
   );

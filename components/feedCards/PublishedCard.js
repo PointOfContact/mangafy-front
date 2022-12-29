@@ -122,8 +122,15 @@ const PublishedCard = ({ card, user }) => {
   //   setIsLiked(false);
   // }
 
+  const textLength = text?.length > 200 ? 200 : text?.length;
+  const span = 20 + Math.ceil((textLength / 200) * 5) - 3;
+
   return (
-    <div className={styles.card} onClick={handleClick} onDoubleClick={handleDoubleClick}>
+    <div
+      className={cn(styles.card, styles.card)}
+      style={{ gridRow: `span ${span}` }}
+      onClick={handleClick}
+      onDoubleClick={handleDoubleClick}>
       {image && (
         <FeedCardImage
           image={client.UPLOAD_URL + image}

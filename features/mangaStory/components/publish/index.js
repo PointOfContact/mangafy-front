@@ -126,7 +126,7 @@ const Publish = ({ baseData, storyBoard, chapters }) => {
           }${publishImage()}`}>
           <a className={!ifExistPublishedChapter && styles.postManga} target="_blank">
             <h4>Post on MangaFY</h4>
-            <p>The MangaFY feed will show your chapter &gt;&gt;</p>
+            <p>The MangaFY feed will show your episode &gt;&gt;</p>
           </a>
         </Link>
         <Link
