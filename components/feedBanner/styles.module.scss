@@ -55,9 +55,6 @@
         font-size: 30px;
         line-height: 35px;
         margin-bottom: 8px;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
         color: #000;
     }
 
@@ -115,6 +112,12 @@
     &__rightContainer {
         background: $primaryDark;
         padding: 52px 14px 73px 49px;
+        @include media-sm {
+            padding: 40px ;
+        }
+        @include media-xs {
+            padding: 20px;
+        }
         color: #fff;
     }
 
@@ -149,10 +152,12 @@
         font-size: 30px;
         line-height: 35px;
         margin-bottom: 30px;
+        max-width: 450px;
     }
 
     &__advantages {
         margin: 0;
+        max-width: 450px;
     }
 
     &__advantage {
