@@ -25,6 +25,7 @@ import ChangeViewTab from './changeViewTab';
 import { NextSeo } from 'next-seo';
 import { SignInModal } from 'components/modals/SignInModal';
 import ConfirmModal from 'components/modals/ConfirmModal';
+import ShareModal from 'components/modals/shareModal';
 
 const MangaView = ({
   user,
@@ -227,6 +228,7 @@ const MangaView = ({
 
   const isOwn = authors && authors[0]?._id === user?._id;
   const isParticipant = authors && authors.some((author) => author?._id === user?._id);
+  console.log(router.asPath, 'router');
 
   return (
     <>
@@ -337,17 +339,25 @@ const MangaView = ({
           title="Sign in"
           visible={isLoginModalVisible}
           setVisible={setIsLoginModalVisible}></SignInModal>
-        <ConfirmModal
-          isOpen={isGoToSettingsModalOpened}
-          setIsOpen={setIsGoToSettingsModalOpened}
-          question={'Publish your project before sharing it'}
-          description='Please, go to the settings and set "Is visible" to "Visible"'
-          okText={'Go to settings'}
-          onOk={() => {
-            router.push('/project/production/' + manga?.mangaStoryId + '?tab=settings#visible');
-          }}
-          cancelText={'Cancel'}
-        />
+        {isOwn ? (
+          <ConfirmModal
+            isOpen={isGoToSettingsModalOpened}
+            setIsOpen={setIsGoToSettingsModalOpened}
+            question={'Publish your project before sharing it'}
+            description='Please, go to the settings and set "Is visible" to "Visible"'
+            okText={'Go to settings'}
+            onOk={() => {
+              router.push('/project/production/' + manga?.mangaStoryId + '?tab=settings#visible');
+            }}
+            cancelText={'Cancel'}
+          />
+        ) : (
+          <ShareModal
+            isShareModalOpened={isGoToSettingsModalOpened}
+            setIsShareModalOpened={setIsGoToSettingsModalOpened}
+            shareUrl={client.API_ENDPOINT + router.asPath}
+          />
+        )}
       </div>
     </>
   );

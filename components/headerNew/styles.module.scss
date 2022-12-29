@@ -110,6 +110,12 @@
   }
   &__buttons {
     display: flex;
+    &Login {
+      display: flex;
+      @include media-sm {
+        display: none;
+      }
+    }
   }
 
   &__dropdowns {

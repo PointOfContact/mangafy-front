@@ -7,6 +7,9 @@ $openProjectWidth: 450px;
         max-width: 1200px;
         margin: 0 auto;
         transition: 0.4s;
+        min-height: calc(100vh - 100px);
+        display: flex;
+        flex-direction: column;
         &_withProjectOpened {
             padding-right: calc($openProjectWidth + 10px);
             @include media-sm {
@@ -35,6 +38,13 @@ $openProjectWidth: 450px;
         padding: 15px;
         font-size: 20px;
         color: #121219;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__projects {
+        flex-grow: 1;
     }
 
     &__noProjects {
@@ -47,6 +57,7 @@ $openProjectWidth: 450px;
         justify-content: center;
         justify-self: center;
         grid-column: 1 / -1;
+        margin-top: -150px;
         &Title {
             font-weight: 800;
             font-size: 32px;

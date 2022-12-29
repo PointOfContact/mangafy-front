@@ -432,7 +432,7 @@ const HeaderNew = ({ user }) => {
                   </Dropdown>
                 </>
               ) : (
-                <>
+                <div className={styles.nav__buttonsLogin}>
                   <Link href={'/sign-up?page=' + page}>
                     <a style={{ marginRight: '10px' }}>
                       <Button rounded outline pink>
@@ -447,7 +447,7 @@ const HeaderNew = ({ user }) => {
                       </Button>
                     </a>
                   </Link>
-                </>
+                </div>
               )}
             </div>
 
