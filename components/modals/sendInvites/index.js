@@ -193,7 +193,7 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
                   </Form.Item>
                 </>
               )}
-              <h2>Your message</h2>
+              {/* <h2>Your message</h2>
               <GrammarlyEditorPlugin clientId={`${process.env.NEXT_PUBLIC_GRAMMARLY_ID}`}>
                 <Form.Item
                   hasFeedback
@@ -213,7 +213,7 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
                     className={styles.modalTexarea}
                   />
                 </Form.Item>
-              </GrammarlyEditorPlugin>
+              </GrammarlyEditorPlugin> */}
               <div className="modal_select_btn">
                 <Form.Item>
                   <PrimaryButton

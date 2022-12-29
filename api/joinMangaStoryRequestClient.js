@@ -53,43 +53,43 @@ const createRequest = async ({
     }
   );
 
-  const isConv = await restClient.service('/api/v2/conversations').find({
-    query: {
-      $sort: {
-        createdAt: -1,
-      },
-      $or: [{ participents: [userId, senderId] }, { participents: [senderId, userId] }],
-    },
-    headers: { Authorization: `Bearer ${jwt}` },
-  });
+  // const isConv = await restClient.service('/api/v2/conversations').find({
+  //   query: {
+  //     $sort: {
+  //       createdAt: -1,
+  //     },
+  //     $or: [{ participents: [userId, senderId] }, { participents: [senderId, userId] }],
+  //   },
+  //   headers: { Authorization: `Bearer ${jwt}` },
+  // });
 
-  const conv = isConv?.data?.find((item) => !item.joinMangaStoryRequestId && !item.mangaStoryId);
+  // const conv = isConv?.data?.find((item) => !item.joinMangaStoryRequestId && !item.mangaStoryId);
 
-  let conversation;
+  // let conversation;
 
-  if (!conv?._id) {
-    conversation = await restClient.service('/api/v2/conversations').create(
-      {
-        participents: [senderId],
-      },
-      {
-        headers,
-      }
-    );
-  }
+  // if (!conv?._id) {
+  //   conversation = await restClient.service('/api/v2/conversations').create(
+  //     {
+  //       participents: [senderId],
+  //     },
+  //     {
+  //       headers,
+  //     }
+  //   );
+  // }
 
-  setLoading(false);
+  // setLoading(false);
 
-  return restClient.service('/api/v2/messages').create(
-    {
-      content: text || 'Hi',
-      conversationId: conv?._id || conversation._id,
-      joinMangaStoryRequestId: mangaStoryRequest._id,
-    },
-    {
-      headers,
-    }
-  );
+  // return restClient.service('/api/v2/messages').create(
+  //   {
+  //     content: text || 'Hi',
+  //     conversationId: conv?._id || conversation._id,
+  //     joinMangaStoryRequestId: mangaStoryRequest._id,
+  //   },
+  //   {
+  //     headers,
+  //   }
+  // );
 };
 
 export { createRequest, patchRequest, getRequest };

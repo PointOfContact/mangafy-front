@@ -70,7 +70,7 @@ const ShareProfile = ({ ifMyProfile, originUrl, profile, user, sendInvites, send
               </Popover>
             </div>
           )}
-        {profile && user?._id !== profile?._id && (
+        {/* {profile && user?._id !== profile?._id && (
           <div className={styles.contacts}>
             <Popover
               overlayClassName={styles.popover}
@@ -87,7 +87,7 @@ const ShareProfile = ({ ifMyProfile, originUrl, profile, user, sendInvites, send
               </div>
             </Popover>
           </div>
-        )}
+        )} */}
       </div>
     </>
   );
