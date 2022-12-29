@@ -24,7 +24,7 @@ import ModalStart from 'components/modals/joinToTeam';
 import Imgix from 'components/imgix';
 import OpenTaskModal from './openTaskModal';
 
-const TaskCard = ({ card, user }) => {
+const TaskCard = ({ card, user, setSignInModalVisible }) => {
   const router = useRouter();
   let text = card.description;
   const title = card.lookingFor;
@@ -92,7 +92,11 @@ const TaskCard = ({ card, user }) => {
             mangaId={card.mangaStoryId}
             onApply={(e) => {
               e.stopPropagation();
-              checkProjectParticipents(true);
+              if (user) {
+                checkProjectParticipents(true);
+              } else {
+                setSignInModalVisible(true);
+              }
             }}
           />
         </div>
