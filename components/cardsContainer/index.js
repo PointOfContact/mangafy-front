@@ -113,16 +113,28 @@ const CardsContainer = ({
   //   }
   // }
 
-  if (cardsElements.length === 0 && error) {
-    return <div className={styles.error}>{/* Place for error placeholder */}</div>;
+  let colToPush = 1;
+  let elements = cardsElements;
+  // if (cardsElements.length === 0 && !error) {
+  //   elements = placeholderData
+  //     .sort(() => (Math.random() > 0.5 ? 1 : -1))
+  //     .map((card) => (
+  //       <div key={card.id} style={{ height: card.height }} className={styles.placeholder}></div>
+  //     ));
+  // }
+
+  for (let i = 0; i < elements.length; i++) {
+    if (elements[i]) {
+      if (colToPush === 1) firstCol.push(elements[i]);
+      if (colToPush === 2) secondCol.push(elements[i]);
+      if (colToPush === 3) thirdCol.push(elements[i]);
+      if (colToPush >= columns) colToPush = 1;
+      else colToPush++;
+    }
   }
 
-  if (cardsElements.length === 0 && !error) {
-    cardsElements = placeholderData
-      .sort(() => (Math.random() > 0.5 ? 1 : -1))
-      .map((card) => (
-        <div key={card.id} style={{ height: card.height }} className={styles.placeholder}></div>
-      ));
+  if (cardsElements.length === 0 && error) {
+    return <div className={styles.error}>{/* Place for error placeholder */}</div>;
   }
 
   return (
