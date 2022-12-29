@@ -228,20 +228,26 @@ const MangaView = ({
 
   const isOwn = authors && authors[0]?._id === user?._id;
   const isParticipant = authors && authors.some((author) => author?._id === user?._id);
-  console.log(router.asPath, 'router');
 
   return (
     <>
       <NextSeo
         title={manga?.mangaStoryTitle}
-        description={`Read ${manga?.mangaStoryTitle} on MangaFY`}
+        description={`Read "${manga?.mangaStoryTitle}" on MangaFY`}
         canonical={`${client.API_ENDPOINT}/project/view/${manga?._id}`}
         openGraph={{
           url: `${client.API_ENDPOINT}/project/view/${manga?._id}`,
           title: manga?.mangaStoryTitle,
-          description: `Read ${manga?.mangaStoryTitle} on MangaFY`,
+          description: `Read "${manga?.mangaStoryTitle}" on MangaFY`,
           type: 'article',
           site_name: 'MangaFY',
+          images: [
+            {
+              url:
+                client.API_ENDPOINT + '/api/v2/uploads/' + manga?.chapters[0]?.pages[0]?.imageUrl,
+              alt: 'Project cover',
+            },
+          ],
         }}
         twitter={{
           handle: '@handle',
