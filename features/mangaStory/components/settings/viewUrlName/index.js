@@ -37,7 +37,7 @@ const ViewUrlName = ({ baseData, onChangeSingleField, sendEvent, storyBoard }) =
 
   const onChange = (e) => {
     const targetValue = e.target.value;
-    onChangeSingleField(e, true, (err) => {
+    onChangeSingleField(e, (err) => {
       setErrorMessage(err);
     }) &&
       sendEvent(EVENTS.EDIT_PROJECT_DOMAIN, 'customDomain', `https://${viewUrlName}.mangafy.club`);
@@ -68,7 +68,7 @@ const ViewUrlName = ({ baseData, onChangeSingleField, sendEvent, storyBoard }) =
     };
     setEditSubdomain(true);
     !validViewUrlName &&
-      onChangeSingleField(data, true, (err) => {
+      onChangeSingleField(data, (err) => {
         setErrorMessage(err);
       }) &&
       sendEvent(EVENTS.EDIT_PROJECT_DOMAIN, 'customDomain', `https://${viewUrlName}.mangafy.club`);
