@@ -45,7 +45,7 @@ const openPlanModal = (
       } catch (err) {
         console.log('Error catch: ', err);
         closePayModal();
-        if (err.message === 'jwt expired') {
+        if (err.message === 'jwt expired' || err.message === 'jwt malformed') {
           Router.push(`/sign-in`);
         } else {
           notification.error({

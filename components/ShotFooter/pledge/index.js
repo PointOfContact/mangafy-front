@@ -5,9 +5,11 @@ import client from 'api/client';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 import PledgeModal from 'components/modals/PlegeModal';
+import { SignInModal } from 'components/modals/SignInModal';
 
 const Pledge = ({ item, image, user, updatePage, ifPayed, type }) => {
   const [openPaymentModal, setOpenPaymentModal] = useState(false);
+  const [isSignInModalOpened, setIsSignInModalOpened] = useState(false);
 
   return (
     <>
@@ -21,8 +23,12 @@ const Pledge = ({ item, image, user, updatePage, ifPayed, type }) => {
         />
         {!!item.planId && (
           <div
-            onClick={() => setOpenPaymentModal({ item, type })}
-            className={cn(styles.pledge, (ifPayed || !user) && styles.disabled)}>
+            onClick={() => {
+              const jwt = client.getCookie('feathers-jwt');
+              if (jwt) return setOpenPaymentModal({ item, type });
+              setIsSignInModalOpened(true);
+            }}
+            className={cn(styles.pledge, ifPayed && styles.disabled)}>
             Pledge
           </div>
         )}
@@ -33,6 +39,12 @@ const Pledge = ({ item, image, user, updatePage, ifPayed, type }) => {
         object={openPaymentModal}
         updatePage={updatePage}
         user={user}
+      />
+      <SignInModal
+        title={'Sign in to pledge shot'}
+        page={'/shot/' + item?._id}
+        visible={isSignInModalOpened}
+        setVisible={setIsSignInModalOpened}
       />
     </>
   );
