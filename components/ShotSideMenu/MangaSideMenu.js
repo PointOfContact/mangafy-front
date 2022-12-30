@@ -10,6 +10,7 @@ import MangaComments from 'components/shotComments/MangaComments';
 import Edit from 'components/icon/new/Edit';
 import Link from 'next/link';
 import Diamond from 'components/icon/new/Diamond';
+import Close from 'components/icon/new/Close';
 
 const MangaSideMenu = ({
   manga,
@@ -22,9 +23,11 @@ const MangaSideMenu = ({
   like,
   comments,
   setIsShareModalOpened,
+  setIsGoToSettingsModalOpened,
   authors,
   isParticipant,
   createComment,
+  isPublished,
   setIsLoginModalVisible,
 }) => {
   const commentsRef = useRef(null);
@@ -42,6 +45,14 @@ const MangaSideMenu = ({
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
+
+  function shareHandler() {
+    if (isPublished) {
+      setIsShareModalOpened(true);
+    } else {
+      setIsGoToSettingsModalOpened(true);
+    }
+  }
 
   return (
     <>
@@ -93,10 +104,10 @@ const MangaSideMenu = ({
             outline
             iconRight
             icon={<Share color="#7B65F3" />}
-            onClick={() => setIsShareModalOpened(true)}
+            onClick={shareHandler}
           />
           {isParticipant && (
-            <Link href={'/project/production/' + manga?.mangaStoryId + '?tab=details'}>
+            <Link href={'/project/production/' + manga?.mangaStoryId + '?tab=jobs'}>
               <a>
                 <Button rounded outline iconRight icon={<Edit color="#7B65F3" />} />
               </a>
@@ -107,8 +118,13 @@ const MangaSideMenu = ({
       <div
         ref={commentsRef}
         className={cn(styles.sideComments, areCommentsOpened && styles.sideComments_opened)}>
-        <div className={styles.sideComments__header}>Feedback</div>
-        <MangaComments manga={manga} comments={comments.data} createComment={createComment} />
+        <div onClick={() => setAreCommentsOpened(false)} className={styles.sideComments__close}>
+          <Close bold />
+        </div>
+        <div className={styles.sideComments__container}>
+          <div className={styles.sideComments__header}>Feedback</div>
+          <MangaComments manga={manga} comments={comments.data} createComment={createComment} />
+        </div>
       </div>
     </>
   );

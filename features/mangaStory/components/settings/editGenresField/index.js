@@ -46,7 +46,7 @@ const EditGenresField = ({
       },
     };
     sendEvent(EVENTS.EDIT_PROJECT_LANGUAGE, 'language', value);
-    onChangeSingleField(data, true);
+    onChangeSingleField(data);
   };
 
   const chooseTypes = (value) => {
@@ -57,7 +57,7 @@ const EditGenresField = ({
       },
     };
     sendEvent(EVENTS.EDIT_PROJECT_TYPE, 'type', value);
-    onChangeSingleField(data, true);
+    onChangeSingleField(data);
   };
 
   useEffect(() => {

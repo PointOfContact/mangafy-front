@@ -91,7 +91,7 @@ const MenuNotificationsBox = ({
   const patchNotification = (newUnreadNotificationsId) => {
     patchUnreadNotificationsId(
       newUnreadNotificationsId,
-      () => {
+      (res) => {
         getNotifications();
       },
       (err) => {
@@ -107,7 +107,7 @@ const MenuNotificationsBox = ({
   };
 
   // useEffect(() => {
-  //   // getNotifications();
+  //   getNotifications();
   // }, [user, getNotifications]);
 
   const getMore = () => {
@@ -159,6 +159,8 @@ const MenuNotificationsBox = ({
                 profileId={notification.meta.params?.userId}
                 patchNotification={patchNotification}
                 _id={notification._id}
+                notificationsCount={notificationsCount}
+                setNotificationsCount={setNotificationsCount}
                 navigateTo={notification.meta.navigateTo}
                 requestId={notification?.meta?.params?.requestId}
                 user={user}

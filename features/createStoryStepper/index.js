@@ -87,39 +87,32 @@ const CreateStoryStepper = ({ genres, path, user, query, jwt }) => {
         findStoryBoard(
           user?._id,
           createdStory._id,
-          (storyBoard) => {
-            // Then publish first chapter
-            mangaStoryClient.chapter.patch(
-              storyBoard?.data[0]?.chapters[0]?._id,
-              { published: true, mangaStoryId: storyBoard.mangaStoryId },
-              async (data) => {
-                try {
-                  // Then publish story, set subdomain and set paypalPublished
-                  await client.service('/api/v2/manga-stories/').patch(
-                    createdStory._id,
-                    {
-                      payPalPublished: true,
-                      published: true,
-                      typeUrlView: 'Custom subdomain',
-                      viewUrlName: storyInfo.projectName,
-                      mangaStoryId: storyBoard.mangaStoryId,
-                    },
-                    {
-                      headers: { Authorization: `Bearer ${jwt}` },
-                      mode: 'no-cors',
-                    }
-                  );
-                  // Then set paypal email
-                  mangaStoryClient.draft.saveUserDataByKey(storyInfo.paypal, user, () => {});
-                  setLink('https://' + storyInfo.projectName + '.mangafy.club/');
-                  toNextStep();
-                } catch (err) {
-                  throw new Error(err);
+          async (storyBoard) => {
+            try {
+              // Then publish story, set subdomain and set paypalPublished
+              await client.service('/api/v2/manga-stories/').patch(
+                createdStory._id,
+                {
+                  payPalPublished: true,
+                  published: true,
+                  typeUrlView: 'Custom subdomain',
+                  viewUrlName: storyInfo.projectName,
+                  mangaStoryId: storyBoard.mangaStoryId,
+                },
+                {
+                  headers: { Authorization: `Bearer ${jwt}` },
+                  mode: 'no-cors',
                 }
-              },
-              () => {},
-              () => {}
-            );
+              );
+              // Then set paypal email
+              if (storyInfo.paypal)
+                mangaStoryClient.draft.saveUserDataByKey(storyInfo.paypal, user, () => {});
+              // setLink('https://' + storyInfo.projectName + '.mangafy.club/');
+              setLink(client.API_ENDPOINT + '/project/' + createdStory._id);
+              toNextStep();
+            } catch (err) {
+              throw new Error(err);
+            }
           },
           (err) => {
             throw new Error(err);

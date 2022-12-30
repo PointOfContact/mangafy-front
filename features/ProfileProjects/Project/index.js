@@ -27,7 +27,7 @@ const Project = ({ setOpenedProject, setIsOpened, project }) => {
 
   function mouseEventHandler(type) {
     if (type === 'doubleClick') {
-      router.push('/project/' + project?._id);
+      router.push('/project/production/' + project?._id);
     } else {
       setOpenedProject(project);
       setIsOpened(true);
@@ -41,11 +41,13 @@ const Project = ({ setOpenedProject, setIsOpened, project }) => {
         {project.image ? (
           <Imgix src={client.UPLOAD_URL + project?.image} objectFit="cover" layout="fill" />
         ) : (
-          <div className={styles.project__noImage}>{project?.title}</div>
+          <div className={styles.project__noImage}>
+            <p>{project?.title}</p>
+          </div>
         )}
       </div>
       <div className={styles.project__title}>{project?.title}</div>
-      <div className={styles.project__description}>
+      <div className={styles.project__subtitle}>
         Edited {editedDate} | {pagesCount} pages
       </div>
     </div>

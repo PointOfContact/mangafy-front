@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import Image from 'next/image';
 import { NextSeo } from 'next-seo';
@@ -5,7 +6,7 @@ import styles from './styles.module.scss';
 import cn from 'classnames';
 import { Col, Row, Carousel, Tabs, notification } from 'antd';
 import client from 'api/client';
-import { useRouter } from 'next/router';
+import Router, { useRouter } from 'next/router';
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
 
 const { TabPane } = Tabs;
@@ -31,68 +32,88 @@ import { removeShortStory } from 'components/gallery/utils';
 import myAmplitude from 'utils/amplitude';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import { SignInModal } from 'components/modals/SignInModal';
-import { projectTypes, userTypes } from 'helpers/constant';
+import { feedFilterTypes, projectTypes, userTypes } from 'helpers/constant';
+import ModalCreateProject from 'components/modalCreateProject';
+
+const getFilterTypes = (genres) => ({
+  // recent: [{ title: 'Search', inQuery: 'search' }],
+  people: [
+    { title: 'Search', inQuery: 'search' },
+    { title: 'Genres', inQuery: 'genresIds', options: genres },
+    {
+      title: 'Role',
+      inQuery: 'types',
+      options: userTypes.map((type) => ({ title: type.value, value: type.key })),
+    },
+    {
+      title: 'Sort by',
+      inQuery: 'filter',
+      options: [{ title: 'Recent', value: 'new' }],
+    },
+  ],
+  shots: [
+    { title: 'Search', inQuery: 'search' },
+    {
+      title: 'Sort by',
+      inQuery: 'filter',
+      options: [{ title: 'Recent', value: 'new' }],
+    },
+  ],
+  tasks: [
+    { title: 'Search', inQuery: 'search' },
+    {
+      title: 'Looking for',
+      inQuery: 'types',
+      options: userTypes.map((type) => ({ title: type.value, value: type.value })),
+    },
+    {
+      title: 'Sort by',
+      inQuery: 'filter',
+      options: [{ title: 'Recent', value: 'new' }],
+    },
+  ],
+  projects: [
+    { title: 'Search', inQuery: 'search' },
+    { title: 'Genres', inQuery: 'genresIds', options: genres },
+    {
+      title: 'Looking for',
+      inQuery: 'searchingFor',
+      options: userTypes.map((type) => ({ title: type.value, value: type.value })),
+    },
+    {
+      title: 'Sort by',
+      inQuery: 'filter',
+      options: [{ title: 'Recent', value: 'new' }],
+    },
+  ],
+  // ongoing: [{ title: 'Search', inQuery: 'search' }],
+});
 
 const FeedNew = (props) => {
-  const { jwt, user, posts, genres } = props;
-
-  const filterTypes = {
-    recent: [{ title: 'Search', inQuery: 'search' }],
-    people: [
-      { title: 'Search', inQuery: 'search' },
-      { title: 'Genres', inQuery: 'genresIds', options: genres },
-      {
-        title: 'Role',
-        inQuery: 'types',
-        options: userTypes.map((type) => ({ title: type.value, value: type.key })),
-      },
-    ],
-    shots: [{ title: 'Search', inQuery: 'search' }],
-    tasks: [
-      { title: 'Search', inQuery: 'search' },
-      {
-        title: 'Looking for',
-        inQuery: 'types',
-        options: userTypes.map((type) => ({ title: type.value, value: type.value })),
-      },
-    ],
-    projects: [
-      { title: 'Search', inQuery: 'search' },
-      { title: 'Genres', inQuery: 'genresIds', options: genres },
-      {
-        title: 'Looking for',
-        inQuery: 'searchingFor',
-        options: userTypes.map((type) => ({ title: type.value, value: type.value })),
-      },
-    ],
-    ongoing: [{ title: 'Search', inQuery: 'search' }],
-  };
-
-  const router = useRouter();
-  const defaultActiveTab = router.query?.tab || 'recent';
-
-  const [screenWidth, setScreenWidth] = useState(0);
-
-  function onWindowResize() {
-    setScreenWidth(window.innerWidth);
-  }
-
-  const [activeTab, setActiveTab] = useState('recent');
-  const [cardsElements, setCardsElements] = useState(makeCardsElements(posts));
+  const [cardsElements, setCardsElements] = useState([]);
   const [shouldFetchCards, setShouldFetchCards] = useState(false);
   const [endOfCardsReached, setEndOfCardsReached] = useState(false);
   const [postType, setPostType] = useState(null);
   const [error, setError] = useState(null);
-
   const [shotModalVisible, setShotModalVisible] = useState(false);
+  const [projectModalVisible, setProjectModalVisible] = useState(false);
   const [signInModalVisible, setSignInModalVisible] = useState(false);
   const [shotToEdit, setShotToEdit] = useState(null);
-
   const [activeFilters, setActiveFilters] = useState({});
+  const [screenWidth, setScreenWidth] = useState(0);
+  const [selectedOptions, setSelectedOptions] = useState([]);
+  const { jwt, user, posts, genres } = props;
+  const router = useRouter();
+  // const defaultActiveTab = router.query?.tab || 'recent';
+  const defaultActiveTab = router.query?.tab || 'projects';
+  function onWindowResize() {
+    setScreenWidth(window.innerWidth);
+  }
+  const filterTypes = getFilterTypes(genres);
 
   useEffect(async () => {
     if (!(posts && posts.length > 0)) {
-      const posts = await getCards(10, 0);
+      const posts = await getCards(10, 0, defaultActiveTab);
       setCardsElements(makeCardsElements(posts));
     }
 
@@ -106,17 +127,89 @@ const FeedNew = (props) => {
   useEffect(async () => {
     let isLastRequest = [true];
     if (shouldFetchCards) {
-      updateCards(cardsElements, isLastRequest, false, postType);
+      getFeedData(isLastRequest, false);
+      // updateCards(cardsElements, isLastRequest, false, postType);
     }
-
     return () => {
       isLastRequest[0] = false;
     };
   }, [shouldFetchCards]);
 
+  const createDefaultSelectedOptions = (ifDataString, query, choosedData, val) => {
+    const data = {
+      inQuery: val,
+      isDisabled: false,
+      isSelected: true,
+    };
+    switch (val) {
+      case 'genresIds':
+        if (ifDataString) {
+          data.title = query.genresType;
+          data.value = query[val];
+          choosedData.push(data);
+        } else {
+          query[val].forEach((item, i) => {
+            data.title = query.genresType[i];
+            data.value = item;
+            choosedData.push({ ...data });
+          });
+        }
+        break;
+      case 'searchingFor':
+        if (ifDataString) {
+          data.value = query[val];
+          data.title = query[val];
+          choosedData.push(data);
+        } else {
+          query[val].forEach((item, i) => {
+            data.value = item;
+            data.title = item;
+            choosedData.push({ ...data });
+          });
+        }
+        break;
+      case 'filter':
+        data.title = 'Recent';
+        data.value = query[val];
+        choosedData.push({ ...data });
+        break;
+      case 'search':
+        data.title = query.genresType;
+        data.value = query[val];
+        choosedData.push({ ...data });
+        break;
+      case 'types':
+        if (ifDataString) {
+          data.title = query[val];
+          data.value = query[val];
+          choosedData.push(data);
+        } else {
+          query[val].forEach((item, i) => {
+            data.title = item;
+            data.value = item;
+            choosedData.push({ ...data });
+          });
+        }
+        break;
+    }
+    return data;
+  };
+
+  const setDefaultChoosedFilterData = () => {
+    const query = Router.router.state.query;
+    const choosedData = [];
+    feedFilterTypes.forEach((val) => {
+      if (query[val]) {
+        const ifDataString = typeof query[val] === 'string';
+        const data = createDefaultSelectedOptions(ifDataString, query, choosedData, val);
+      }
+    });
+    setSelectedOptions(choosedData);
+  };
+
   useEffect(() => {
     let type = null;
-    switch (activeTab) {
+    switch (defaultActiveTab) {
       case 'people':
         type = 'Profile';
         break;
@@ -132,20 +225,80 @@ const FeedNew = (props) => {
       case 'projects':
         type = 'Project';
         break;
-
-      case 'ongoing':
-        type = 'Ongoing';
-        break;
+      // case 'ongoing':
+      //   type = 'Ongoing';
+      //   break;
     }
     clearCardsElements();
     setPostType(type);
     setActiveFilters({});
-  }, [activeTab]);
+    setDefaultChoosedFilterData();
+  }, [defaultActiveTab]);
+
+  const changeURL = () => {
+    const tab = Router.router?.state?.query?.tab;
+    const path = `/feed?tab=${tab || 'projects'}`;
+    selectedOptions.forEach((val) => {
+      path += `&${val.inQuery}=${val.value}`;
+      if (val.inQuery === 'genresIds') path += `&genresType=${val.title}`;
+    });
+    Router.push(path, undefined, { shallow: true });
+  };
+
+  const createQuery = (postQuery, asPath, feedFilterTypes) => {
+    feedFilterTypes.forEach((val) => {
+      const ifFilterExist = asPath.indexOf(val);
+      if (ifFilterExist >= 0) {
+        const query = Router.router.state.query;
+        postQuery[val] = query[val];
+      }
+    });
+  };
+
+  const addPostTypeInQuery = (postQuery, asPath, feedFilterTypes) => {
+    createQuery(postQuery, asPath, feedFilterTypes);
+    switch (Router.router.state.query?.tab) {
+      case 'projects':
+        postQuery.postType = 'Project';
+        break;
+      case 'tasks':
+        postQuery.postType = 'Task';
+        break;
+      case 'shots':
+        postQuery.postType = 'Portfolio';
+        break;
+      case 'people':
+        postQuery.postType = 'Profile';
+        break;
+    }
+  };
+
+  const getFeedData = (isLastRequest, shouldCleanCards) => {
+    const asPath = Router.router.state.asPath;
+    const ifComedBack = feedFilterTypes.some((val) => asPath.includes(val));
+    if (!ifComedBack) {
+      updateCards(cardsElements, isLastRequest, shouldCleanCards, postType);
+    } else {
+      let postQuery = {
+        genresIds: [],
+        searchingFor: [],
+        types: [],
+      };
+      addPostTypeInQuery(postQuery, asPath, feedFilterTypes);
+      client
+        .service('/api/v2/posts')
+        .find({ query: postQuery })
+        .then((res) => {
+          const newItems = makeCardsElements(res?.data);
+          setCardsElements(newItems);
+        });
+    }
+    changeURL();
+  };
 
   useEffect(() => {
     let isLastRequest = [true];
-    updateCards(cardsElements, isLastRequest, true, postType);
-
+    getFeedData(isLastRequest, true);
     return () => {
       isLastRequest[0] = false;
     };
@@ -189,9 +342,9 @@ const FeedNew = (props) => {
   async function getCards(limit = 10, skip = 0, postType) {
     const query = {
       $limit: limit,
-      $sort: {
-        createdAt: -1,
-      },
+      // $sort: {
+      //   createdAt: -1,
+      // },
       $skip: skip,
       ...activeFilters,
     };
@@ -245,15 +398,9 @@ const FeedNew = (props) => {
   function makeCardsElements(newCards = []) {
     return newCards.map((card) => {
       if (card.postType === 'Task' || card.postType === 'Collab')
-        return (
-          <TaskCard
-            key={card._id}
-            card={card}
-            user={user}
-            setShowLoginModal={setSignInModalVisible}
-          />
-        );
-      else if (card.postType === 'Project' || card.postType === 'Ongoing')
+        return <TaskCard key={card._id} card={card} user={user} />;
+      // else if (card.postType === 'Project' || card.postType === 'Ongoing')
+      else if (card.postType === 'Project')
         return <PublishedCard key={card._id} card={card} user={user} />;
       else if (card.postType === 'Portfolio')
         return (
@@ -278,6 +425,10 @@ const FeedNew = (props) => {
     });
   }
 
+  const tabsOnChange = (activeKey) => {
+    Router.push(`/feed?tab=${activeKey}`, undefined, { shallow: true });
+  };
+
   return (
     <>
       <SignInModal
@@ -293,6 +444,11 @@ const FeedNew = (props) => {
         onUpload={() => {
           updateCards(cardsElements, [true], true, postType);
         }}
+      />
+      <ModalCreateProject
+        createProjectModal={projectModalVisible}
+        showCreateProjectModal={setProjectModalVisible}
+        user={user}
       />
       <NextSeo
         title={'MangaFY – From story buidling to a full digital release.'}
@@ -329,30 +485,34 @@ const FeedNew = (props) => {
                 tabBarGutter={30}
                 className={styles.filter__tabs}
                 defaultActiveKey={defaultActiveTab}
+                activeKey={defaultActiveTab}
                 tabPosition="top"
                 moreIcon={null}
-                onChange={(tab) => setActiveTab(tab)}>
-                <TabPane tab="Recent" key="recent"></TabPane>
-                <TabPane tab="Shots" key="shots"></TabPane>
-                <TabPane tab="Projects" key="projects"></TabPane>
-                <TabPane tab="Ongoing" key="ongoing"></TabPane>
-                <TabPane tab="People" key="people"></TabPane>
-                <TabPane tab="Tasks" key="tasks"></TabPane>
+                onChange={tabsOnChange}>
+                {/* <TabPane tab="Recent" key="recent"/> */}
+                <TabPane tab="Projects" key="projects" />
+                <TabPane tab="Shots" key="shots" />
+                {/* <TabPane tab="Ongoing" key="ongoing"/> */}
+                <TabPane tab="Tasks" key="tasks" />
+                <TabPane tab="People" key="people" />
               </Tabs>
               <FilterNew
-                activeTab={activeTab}
+                activeTab={defaultActiveTab}
                 onChange={(filters) => setActiveFilters(createFiltersQuery(filters))}
-                filters={filterTypes[activeTab]}
+                filters={filterTypes[defaultActiveTab]}
+                selectedOptions={selectedOptions}
+                setSelectedOptions={setSelectedOptions}
               />
               <CardsContainer
                 cardsElements={cardsElements}
                 error={error}
                 columns={screenWidth >= 1000 ? 3 : screenWidth >= 700 ? 2 : 1}
                 user={user}
-                activeTab={activeTab}
+                activeTab={defaultActiveTab}
                 onPageEnd={onPageEnd}
                 shouldFetchCards={shouldFetchCards}
                 openCreateShotModal={() => setShotModalVisible(true)}
+                openCreateProjectModal={() => setProjectModalVisible(true)}
               />
             </Col>
           </Row>
@@ -374,6 +534,10 @@ function createFiltersQuery(selectedFilters) {
     } else {
       query[filter.inQuery] = [filter.value];
     }
+  });
+  // If filter contains only one value, turn it into a string
+  Object.keys(query).forEach((key) => {
+    if (query[key].length === 1) query[key] = query[key][0];
   });
   return query;
 }

@@ -1,15 +1,16 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import myAmplitude, { setUser } from 'utils/amplitude';
 import cn from 'classnames';
 import SvgGoogle from 'components/icon/Google';
 import SvgWhiteFacebook from 'components/icon/WhiteFacebook';
-import PrimaryButton from 'components/ui-elements/button';
 import styles from './styles.module.scss';
 import { register } from 'store';
 import { notification, Form } from 'antd';
 import { userTypes } from 'helpers/constant';
+import Button from 'components/ui-new/Button';
+import Input from 'components/ui-new/Input';
 
 const SignUp = ({ storyInfo, goNext, goBack, setStoryInfo, loading, setLoading }) => {
   const router = useRouter();
@@ -20,73 +21,28 @@ const SignUp = ({ storyInfo, goNext, goBack, setStoryInfo, loading, setLoading }
     type: 'editor',
   });
 
-  const error = null;
-
-  const refs = {
-    name: useRef(null),
-    email: useRef(null),
-    password: useRef(null),
-  };
-
-  const [isNameValid, setIsNameValid] = useState(true);
-  const [isEmailValid, setIsEmailValid] = useState(true);
-  const [isPasswordValid, setIsPasswordValid] = useState(true);
-
   const [nameError, setNameError] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
 
-  function nameChangeHandler() {
-    if (!refs.name.current) return;
-    setRegisterInfo({ ...registerInfo, name: refs.name.current.value.trim() });
+  function nameChangeHandler(text) {
+    setNameError(false);
+    setRegisterInfo({ ...registerInfo, name: text.trim() });
   }
-  function emailChangeHandler() {
-    if (!refs.email.current) return;
-    setRegisterInfo({ ...registerInfo, email: refs.email.current.value.trim() });
+  function emailChangeHandler(text) {
+    setEmailError(false);
+    setRegisterInfo({ ...registerInfo, email: text.trim() });
   }
-  function passwordChangeHandler() {
-    if (!refs.password.current) return;
-    setRegisterInfo({ ...registerInfo, password: refs.password.current.value.trim() });
-  }
-
-  function nameBlurHandler() {
-    if (nameError)
-      notification.error({
-        message: nameError,
-        placement: 'bottomLeft',
-      });
-  }
-  function emailBlurHandler() {
-    if (emailError)
-      notification.error({
-        message: emailError,
-        placement: 'bottomLeft',
-      });
-  }
-  function passwordBlurHandler() {
-    if (passwordError)
-      notification.error({
-        message: passwordError,
-        placement: 'bottomLeft',
-      });
+  function passwordChangeHandler(text) {
+    setPasswordError(false);
+    setRegisterInfo({ ...registerInfo, password: text.trim() });
   }
 
   function registerHandler() {
-    if (nameError)
-      return notification.error({
-        message: nameError,
-        placement: 'bottomLeft',
-      });
-    if (emailError)
-      return notification.error({
-        message: emailError,
-        placement: 'bottomLeft',
-      });
-    if (passwordError)
-      return notification.error({
-        message: passwordError,
-        placement: 'bottomLeft',
-      });
+    if (nameError) return;
+    if (emailError) return;
+    if (passwordError) return;
+    setLoading(true);
     register(registerInfo)
       .then(({ user: newUser }) => {
         goNext();
@@ -122,17 +78,15 @@ const SignUp = ({ storyInfo, goNext, goBack, setStoryInfo, loading, setLoading }
                     setNameError(null);
                   },
                 },
-              ]}
-            >
-              <input
-                ref={refs.name}
-                type="text"
+              ]}>
+              <Input
+                rounded
+                pink
                 className={cn(styles.input, nameError ? styles.input_error : null)}
                 placeholder="Your dream name"
                 onChange={nameChangeHandler}
-                onBlur={nameBlurHandler}
-                name="name"
-              ></input>
+                err={nameError}
+              />
             </Form.Item>
             <Form.Item
               className={styles.form_item}
@@ -149,17 +103,16 @@ const SignUp = ({ storyInfo, goNext, goBack, setStoryInfo, loading, setLoading }
                   type: 'email',
                   message: () => setEmailError('Please input correct email'),
                 },
-              ]}
-            >
-              <input
-                ref={refs.email}
-                type="text"
+              ]}>
+              <Input
+                rounded
+                pink
+                type="email"
                 className={cn(styles.input, emailError ? styles.input_error : null)}
                 placeholder="Your email"
                 onChange={emailChangeHandler}
-                name="email"
-                onBlur={emailBlurHandler}
-              ></input>
+                err={emailError}
+              />
             </Form.Item>
             <Form.Item
               className={styles.form_item}
@@ -176,33 +129,31 @@ const SignUp = ({ storyInfo, goNext, goBack, setStoryInfo, loading, setLoading }
                     setPasswordError(null);
                   },
                 },
-              ]}
-            >
-              <input
-                ref={refs.password}
+              ]}>
+              <Input
+                rounded
+                pink
                 type="password"
                 className={cn(styles.input, passwordError ? styles.input_error : null)}
                 placeholder="Password"
                 onChange={passwordChangeHandler}
-                onBlur={passwordBlurHandler}
-                name="password"
-              ></input>
+                err={passwordError}
+              />
             </Form.Item>
           </div>
           <div className={styles.buttons}>
-            <PrimaryButton
-              onClick={registerHandler}
-              text="Create account"
-              loading={loading === 'next'}
-              disabled={loading === 'next'}
-            />
-            <PrimaryButton
-              className={styles.button_blackLoading}
-              onClick={() => goBack()}
-              text="Go back"
+            <Button rounded pink onClick={registerHandler} loading={loading === 'next'}>
+              Create account
+            </Button>
+            <Button
+              rounded
+              pink
+              outline
               loading={loading === 'prev'}
-              isWhite={true}
-            />
+              className={styles.button_blackLoading}
+              onClick={() => goBack()}>
+              Go back
+            </Button>
           </div>
         </Form>
         <div className={styles.signUpWith}>

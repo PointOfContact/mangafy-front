@@ -55,7 +55,6 @@ const ShotSlider = ({ className, shot, allShots, user, ifPayedShot }) => {
   return (
     <div className={cn(className, styles.moreShots)}>
       <div className={styles.moreShots__container}>
-        <div className={styles.moreShots__title}>More shots from {shot?.authorInfo?.name}</div>
         <div className={styles.slider} ref={containerRef}>
           <div
             className={cn(styles.slider__arrow, hideArrows && styles.slider__arrow_hidden)}

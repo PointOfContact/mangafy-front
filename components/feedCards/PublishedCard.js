@@ -24,10 +24,12 @@ const PublishedCard = ({ card, user }) => {
   const avatar = card.authorInfo?.avatar;
   const likes = card.likedUsers?.length || card?.likes || card?.like;
   const comments = card.comments?.total;
-  const mangaUrl =
-    card.postType === 'Ongoing'
-      ? card.button.navigateTo + '?ongoing=' + card?.order
-      : `/project/${card._id}`;
+  // const mangaUrl =
+  //   card.postType === 'Ongoing'
+  //     ? card.button.navigateTo + '?ongoing=' + card?.order
+  //     : `/project/${card._id}`;
+
+  const mangaUrl = `/project/${card._id}`;
 
   const [isLiked, setIsLiked] = useState(card?.likedUsers?.includes(user?.id));
   const router = useRouter();
@@ -120,15 +122,23 @@ const PublishedCard = ({ card, user }) => {
   //   setIsLiked(false);
   // }
 
+  const textLength = text?.length > 200 ? 200 : text?.length;
+  const span = 20 + Math.ceil((textLength / 200) * 5) - 3;
+
   return (
-    <div className={styles.card} onClick={handleClick} onDoubleClick={handleDoubleClick}>
+    <div
+      className={cn(styles.card, styles.card)}
+      style={{ gridRow: `span ${span}` }}
+      onClick={handleClick}
+      onDoubleClick={handleDoubleClick}>
       {image && (
         <FeedCardImage
           image={client.UPLOAD_URL + image}
           isOwned={
-            card.postType === 'Ongoing'
-              ? card.authorInfo?._id === user?._id
-              : card.author === user?._id
+            // card.postType === 'Ongoing'
+            //   ? card.authorInfo?._id === user?._id
+            //   : card.author === user?._id
+            card.author === user?._id
           }
           mangaId={card._id}
           mangaUrl={client.API_ENDPOINT + mangaUrl}

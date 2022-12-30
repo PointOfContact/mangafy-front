@@ -5,6 +5,11 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
+  flex-direction: column;
+  button {
+    align-self: flex-start;
+    margin-bottom: 30px;
+  }
 }
 .items {
   padding-bottom: 15px;
@@ -16,9 +21,6 @@
     @include media-sm {
       display: block;
     }
-  }
-  @media (max-width: 630px) {
-    margin-top: 65px;
   }
 }
 
@@ -53,89 +55,75 @@
   }
 }
 
-.addBtn {
-  margin-left: 35px;
-  div {
-    @include media-md {
-      display: none !important;
-    }
-  }
-  img {
-    max-width: 200px;
-  }
-  button {
-    margin: 15px auto;
-  }
-}
+// .addBtn {
+//   margin-left: 35px;
+//   div {
+//     @include media-md {
+//       display: none !important;
+//     }
+//   }
+//   img {
+//     max-width: 200px;
+//   }
+//   button {
+//     margin: 15px auto;
+//   }
+// }
 
-.mobile_add {
-  display: none;
-  @include media-sm {
-    position: absolute;
-    display: block;
-    top: -57px;
-    right: 0;
-  }
-  @media (max-width: 630px) {
-    top: 0;
-  }
-  .createTaskMobileBut {
-    span {
-      color: $grey;
-    }
-    svg {
-      path {
-        fill: $primaryDark;
-      }
-    }
-    &:hover {
-      svg {
-        path {
-          fill: $primaryLight;
-        }
-      }
-    }
-  }
-}
+// .mobile_add {
+//   display: none;
+//   @include media-sm {
+//     // position: absolute;
+//     display: block;
+//     top: -57px;
+//     right: 0;
+//   }
+//   @media (max-width: 630px) {
+//     top: 0;
+//   }
+//   .createTaskMobileBut {
+//     span {
+//       color: $grey;
+//     }
+//     svg {
+//       path {
+//         fill: $primaryDark;
+//       }
+//     }
+//     &:hover {
+//       svg {
+//         path {
+//           fill: $primaryLight;
+//         }
+//       }
+//     }
+//   }
+// }
 
-.noTasks {
-  .createTask {
-    width: 100%;
-    text-align: center;
-  }
-}
+// .noTasks {
+//   .createTask {
+//     width: 100%;
+//     text-align: center;
+//   }
+// }
 
 .createTask {
-  @include media-sm {
-    display: none;
-  }
+  // @include media-sm {
+  //   display: none;
+  // }
 }
 
-.addButtonOwn {
-  button {
-    width: 176px;
-    height: 46px;
-    background: $primaryDark;
-    border: 1px solid $primaryLight;
-    box-sizing: border-box;
-    font-weight: 900;
-    font-size: 15px;
-    line-height: 22px;
-    position: absolute;
-    top: -64px;
-    left: 535px;
-    @include media-md {
-      width: 156px;
-      height: 46px;
-      font-size: 13px;
-      left: 570px;
-    }
-    @include media-sm {
-      display: none;
-    }
-  }
-  .createTaskButton {
-    top: -25px;
-    left: 520px;
-  }
-}
+// .addButtonOwn {
+//   button {
+//     background: $primaryDark;
+//     border: 1px solid $primaryLight;
+//     box-sizing: border-box;
+//     font-weight: 900;
+//     font-size: 15px;
+//     line-height: 22px;
+//   }
+//   .createTaskButton {
+//     // top: -25px;
+//     // left: 520px;
+//   }
+// }

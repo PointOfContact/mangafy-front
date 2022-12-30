@@ -23,26 +23,24 @@ const EditMode = ({
 }) => (
   <div className={styles.tabWrap}>
     <p>
-      {!editMode ? (
+      {/* {!editMode ? ( */}
+      <div>
+        <StoryTab
+          setBaseData={setBaseData}
+          baseData={baseData}
+          user={user}
+          isOwn={isOwn}
+          isParticipant={isParticipant}
+          showPayPalContent={showPayPalContent}
+          userData={userData}
+        />
         <div>
-          <StoryTab
-            setBaseData={setBaseData}
-            baseData={baseData}
-            user={user}
-            isOwn={isOwn}
-            isParticipant={isParticipant}
-            showPayPalContent={showPayPalContent}
-            userData={userData}
-          />
-          <div>
-            <div className={styles.containerEdit}>
-              {showPayPalContent && (
-                <BuyBubbleTea payPalEmail={baseData?.authorInfo?.payPalEmail} />
-              )}
-            </div>
+          <div className={styles.containerEdit}>
+            {showPayPalContent && <BuyBubbleTea payPalEmail={baseData?.authorInfo?.payPalEmail} />}
           </div>
         </div>
-      ) : (
+      </div>
+      {/* ) : (
         canEdit && (
           <EditStoryTab
             baseData={baseData}
@@ -51,7 +49,7 @@ const EditMode = ({
             saveMangaStoryData={saveMangaStoryData}
           />
         )
-      )}
+      )} */}
       <p></p>
     </p>
   </div>

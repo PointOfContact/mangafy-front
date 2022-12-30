@@ -581,3 +581,11 @@ export const taskTypesArray = [
     value: 'Archived',
   },
 ];
+
+export const feedFilterTypes = ['genresIds', 'searchingFor', 'filter', 'search', 'types'];
+export const projectRoles = {
+  ADMIN: 'Admin',
+  MEMBER: 'Member',
+  COMMENTER: 'Commenter',
+  OBSERVERS: 'Observers',
+};

@@ -31,7 +31,7 @@ import Idea from 'components/Idea';
 import Chapter from './components/chapter';
 import DragDrop from './components/dragDrop';
 import Preview from './components/preview';
-import Publish from './components/publish';
+// import Publish from './components/publish';
 import ProjectMobileMenu from 'components/ProjectMobileMenu';
 import Edit from 'components/icon/new/Edit';
 import Edit2 from 'components/icon/new/Edit2';
@@ -43,14 +43,14 @@ import getDeviceId from 'utils/deviceId';
 import { viewMangaFun } from 'utils';
 
 const tabs = {
-  DETAILS: 'details',
+  DETAILS: 'jobs',
   PLOT: 'plot',
   ASSETS: 'assets',
   EPISODES: 'episodes',
-  COMMENTS: 'comments',
+  // COMMENTS: 'comments',
   MESSAGES: 'messages',
   SETTINGS: 'settings',
-  PUBLISH: 'publish',
+  // PUBLISH: 'publish',
 };
 
 const MangeStory = (props) => {
@@ -188,14 +188,13 @@ const MangeStory = (props) => {
           setBaseData(res);
         })
         .catch((err) => {
-          // reject(err.message);
-          console.log(err);
+          reject(err.message);
           // openNotification('error', err.message);
         });
     });
   };
 
-  const onChangeSingleField = ({ target }, reject = () => {}) => {
+  const onChangeSingleField = ({ target }, reject) => {
     const { name, value } = target;
     const data = { ...baseData, [name]: value };
     setBaseData(data);
@@ -270,14 +269,14 @@ const MangeStory = (props) => {
         </div>
         <h2 className={styles.sectionTitle}>
           {activeTab}
-          {activeTab === tabs.DETAILS && !editMode && (
+          {/* {activeTab === tabs.DETAILS && !editMode && (
             <span
               onClick={() => {
                 setEditMode(true);
               }}>
               <Edit2 color="#777" />
             </span>
-          )}
+          )} */}
         </h2>
       </>
     );
@@ -391,17 +390,17 @@ const MangeStory = (props) => {
                 baseData={baseData}
               />
             )}
-            {activeTab === tabs.PUBLISH && (
+            {/* {activeTab === tabs.PUBLISH && (
               <Publish baseData={baseData} storyBoard={storyBoard} chapters={chapters} />
-            )}
-            {activeTab === tabs.COMMENTS && (
+            )} */}
+            {/* {activeTab === tabs.COMMENTS && (
               <Comments
                 commentsData={comments}
                 isOwn={isOwn}
                 mangaStory={baseData}
                 user={userData}
               />
-            )}
+            )} */}
             {activeTab === tabs.MESSAGES && (
               <Chat mangaStory={baseData} user={userData} isOwn={isOwn} />
             )}

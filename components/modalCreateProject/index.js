@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { Button, Modal, notification } from 'antd';
+import { Modal, notification } from 'antd';
 import client from 'api/client';
 import cn from 'classnames';
 import SvgAllowLeft from 'components/icon/AllowLeft';
@@ -12,18 +12,33 @@ import PropTypes from 'prop-types';
 import myAmplitude from 'utils/amplitude';
 
 import styles from './styles.module.scss';
+import Input from 'components/ui-new/Input';
+import Button from 'components/ui-new/Button';
+import Close from 'components/icon/new/Close';
 
 const ModalCreateProject = ({ createProjectModal, showCreateProjectModal, user }) => {
   const [title, setTitle] = useState('');
   const [loading, setLoading] = useState(false);
   const [change, setChange] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     setChange(false);
     setTitle('');
   }, [createProjectModal]);
 
+  // useEffect(() => {
+  //   const error = validateTitle(title);
+  //   setError(error);
+  // }),
+  //   [title];
+
   const createMangaStory = () => {
+    const error = validateTitle(title);
+    setError(error);
+    if (error) {
+      return;
+    }
     const data = { title };
     const jwt = client.getCookie('feathers-jwt');
     setLoading(true);
@@ -67,41 +82,39 @@ const ModalCreateProject = ({ createProjectModal, showCreateProjectModal, user }
     });
   };
 
-  const errorMessage = (className) =>
-    title?.trim()?.length < 2 &&
-    change && (
-      <p className={cn(styles.error, className)}>
-        You need a unique title that fits your webcomic and makes a wow effect
-      </p>
-    );
-
   return (
     <Modal
       className={styles.modalCreateProject}
-      closeIcon={
-        <span className={styles.close}>
-          <SvgClose />
-        </span>
-      }
+      closeIcon={<Close bold className={styles.close} />}
       onCancel={() => {
         showCreateProjectModal(false);
       }}
       visible={createProjectModal}
       footer={null}>
-      <h1 className={styles.title}>Bring your creative project to life.</h1>
+      <h1 className={styles.title}>Transform Your Ideas to Project</h1>
       <p className={styles.description}>
-        You can get your work on your fan&apos;s walls with a MangaFY project, whether you work
-        alone or with a team.
+        Create captivating graphic novels. Collaborate with a team or work alone to bring your
+        stories to life for your fans to enjoy.
       </p>
+      <div className={styles.inputTitle}>Project name</div>
       <div className={styles.containerCreateProject}>
-        <PrimaryInput
+        {/* <PrimaryInput
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           onMouseOut={() => setChange(true)}
           placeholder="Project Name"
+        /> */}
+        <Input
+          err={error}
+          md
+          rounded
+          pink
+          placeholder={'Project name'}
+          value={title}
+          onChange={(text) => setTitle(text)}
+          className={styles.input}
         />
-        {errorMessage(styles.errorMobile)}
-        <Button
+        {/* <Button
           className={styles.button}
           loading={loading}
           onClick={() => title?.trim()?.length > 1 && createMangaStory()}>
@@ -109,9 +122,16 @@ const ModalCreateProject = ({ createProjectModal, showCreateProjectModal, user }
             Start a project
             <SvgAllowLeft />
           </div>
+        </Button> */}
+        <Button
+          rounded
+          pink
+          className={styles.button}
+          loading={loading}
+          onClick={() => createMangaStory()}>
+          Start a project
         </Button>
       </div>
-      {errorMessage()}
     </Modal>
   );
 };
@@ -127,3 +147,9 @@ ModalCreateProject.defaultProps = {
 };
 
 export default ModalCreateProject;
+
+function validateTitle(title) {
+  if (title.length < 4) {
+    return 'Title must be at least 4 characters';
+  }
+}

@@ -4,7 +4,7 @@ import { LinkCreator } from 'utils/linkCreator';
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import * as qs from 'query-string';
 import cn from 'classnames';
-import { projectTypes, userTypes } from 'helpers/constant';
+import { feedFilterTypes, projectTypes, userTypes } from 'helpers/constant';
 import SvgBottomArrow from 'components/icon/BottomArrow';
 import SvgSearch from 'components/icon/Search';
 import Option from './filterOption';
@@ -13,9 +13,8 @@ import client from 'api/client';
 import styles from './styles.module.scss';
 import { parse } from 'cookie';
 
-const FilterNew = ({ activeTab, filters, onChange }) => {
+const FilterNew = ({ activeTab, filters, onChange, selectedOptions, setSelectedOptions }) => {
   const [currentContent, setCurrentContent] = useState(null);
-  const [selectedOptions, setSelectedOptions] = useState([]);
 
   useEffect(() => {
     setSelectedOptions([]);
@@ -59,6 +58,7 @@ const FilterNew = ({ activeTab, filters, onChange }) => {
         if (currentFilter) {
           newCurrentContentElement = (
             <Options
+              selectedOptions={selectedOptions}
               inQuery={currentFilter.inQuery}
               applyFilter={applyFilter}
               options={currentFilter?.options.map((option) => {
@@ -66,9 +66,7 @@ const FilterNew = ({ activeTab, filters, onChange }) => {
                   return so.inQuery === option.inQuery && so.value === option.value;
                 });
                 let isDisabled = false;
-
                 // A place for checking isDisabled conditions
-
                 return {
                   ...option,
                   isSelected,
@@ -129,18 +127,21 @@ const FilterNew = ({ activeTab, filters, onChange }) => {
   );
 };
 
-const Options = ({ applyFilter, options, inQuery }) => {
+const Options = ({ applyFilter, options, inQuery, selectedOptions }) => {
   return (
-    <div className={cn(styles.options)}>
+    <div className={styles.options}>
       {options.length > 0 ? (
-        options.map((option) => (
-          <Option
-            inQuery={inQuery}
-            applyFilter={(args) => applyFilter(args)}
-            option={option}
-            key={option.value}
-          />
-        ))
+        options.map((option) => {
+          if (selectedOptions.some((so) => so.value === option.value)) option.isSelected = true;
+          return (
+            <Option
+              inQuery={inQuery}
+              applyFilter={applyFilter}
+              option={option}
+              key={option.value}
+            />
+          );
+        })
       ) : (
         <p className={styles.noOptions}>There is no options yet</p>
       )}
@@ -188,14 +189,14 @@ const FiltersInput = ({ filterClickHandler, currentContent, filters }) => {
             styles.filter,
             currentContent === filter.title ? styles.filter_active : null
           )}
-          onClick={() => filterClickHandler(filter.title)}
-        >
+          onClick={() => filterClickHandler(filter.title)}>
           {filter.title}
           <SvgBottomArrow />
         </div>
       );
     }
   });
+
   return (
     <div className={styles.searchAndFilters}>
       {searchVisible ? (
@@ -204,8 +205,7 @@ const FiltersInput = ({ filterClickHandler, currentContent, filters }) => {
             styles.searchFilterMobile,
             currentContent === 'search' ? styles.searchFilterMobile_active : null
           )}
-          onClick={() => filterClickHandler('search')}
-        >
+          onClick={() => filterClickHandler('search')}>
           <SvgSearch />
         </div>
       ) : null}
@@ -218,8 +218,7 @@ const FiltersInput = ({ filterClickHandler, currentContent, filters }) => {
               styles.filter_search,
               currentContent === 'search' ? styles.filter_active : null
             )}
-            onClick={() => filterClickHandler('search')}
-          >
+            onClick={() => filterClickHandler('search')}>
             Search
             <SvgBottomArrow />
           </div>

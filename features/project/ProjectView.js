@@ -26,7 +26,11 @@ import getDeviceId from 'utils/deviceId';
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
 import Button from 'components/ui-new/Button';
+<<<<<<< HEAD
 import PledgeModal from 'components/modals/PlegeModal';
+=======
+import ConfirmModal from 'components/modals/ConfirmModal';
+>>>>>>> develop
 
 const ProjectView = ({ ssProject, ssComments, user }) => {
   const router = useRouter();
@@ -38,6 +42,7 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
   const [currentChapterId, setCurrentChapterId] = useState(null);
   const [areCommentsOpened, setAreCommentsOpened] = useState(false);
   const [isShareModalOpened, setIsShareModalOpened] = useState(false);
+  const [isGoToSettingsModalOpened, setIsGoToSettingsModalOpened] = useState(false);
   const [isSignInModalOpened, setIsSignInModalOpened] = useState(false);
   const [openPaymentModal, setOpenPaymentModal] = useState(false);
   const [deviceId, setDeviceId] = useState(null);
@@ -295,10 +300,12 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
 
       <MangaSideMenu
         manga={project?.storyBoards.data[0]}
+        isPublished={project?.published}
         areCommentsOpened={areCommentsOpened}
         setAreCommentsOpened={setAreCommentsOpened}
         user={user}
         setIsShareModalOpened={setIsShareModalOpened}
+        setIsGoToSettingsModalOpened={setIsGoToSettingsModalOpened}
         authors={[project?.authorInfo]}
         comments={currentChapterId ? chapterComments : comments}
         createComment={(text) =>
@@ -312,12 +319,17 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
         setIsShareModalOpened={setIsShareModalOpened}
         shareUrl={client.API_ENDPOINT + '/project/' + project?._id}
       />
-      <PledgeModal
-        isOpen={!!openPaymentModal}
-        setIsOpen={setOpenPaymentModal}
-        object={openPaymentModal}
-        user={user}
-        updatePage={updatePage}
+
+      <ConfirmModal
+        isOpen={isGoToSettingsModalOpened}
+        setIsOpen={setIsGoToSettingsModalOpened}
+        question={'Publish your project before sharing it'}
+        description='Please, go to the settings and set "Is visible" to "Visible"'
+        okText={'Go to settings'}
+        onOk={() => {
+          router.push('/project/production/' + project?._id + '?tab=settings#visible');
+        }}
+        cancelText={'Cancel'}
       />
     </div>
   );
