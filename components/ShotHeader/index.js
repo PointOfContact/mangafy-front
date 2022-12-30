@@ -71,7 +71,7 @@ const ShotHeader = ({ user, shot, className, allShots, isOwn, isSubscribed, subs
         </div> */}
         <ShotAndMangaTitle
           title={shot?.isOld ? shot?.authorInfo?.name : shot?.title}
-          link={'/profile/' + shot?.authorInfo._id}
+          link={'/profile/' + shot?.authorInfo?._id}
           author={{ ...shot?.authorInfo, isFollowed: isSubscribed }}
           isOwn={isOwn}
           subscribe={subscribe}

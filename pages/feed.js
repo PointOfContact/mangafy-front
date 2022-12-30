@@ -15,12 +15,18 @@ export const getServerSideProps = withAuthServerSideProps(async (context, user =
       postType: 'Project',
     };
 
-    const posts = await client.service('/api/v2/posts').find({ query: queryPosts });
+    // const posts = await client.service('/api/v2/posts').find({ query: queryPosts });
+    const posts = { data: [] };
 
-    const genres = (await client.service('/api/v2/genres').find()).data.map((genre) => ({
-      title: genre.name,
-      value: genre._id,
-    }));
+    // const genres = (await client.service('/api/v2/genres').find()).data.map((genre) => ({
+    //   title: genre.name,
+    //   value: genre._id,
+    // }));
+
+    const genres = [];
+
+    console.log('------------------ cookie user ------------------');
+    console.log(user);
 
     return {
       props: {
