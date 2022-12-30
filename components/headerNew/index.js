@@ -446,13 +446,13 @@ const HeaderNew = ({ user }) => {
                   </a>
                 </Link>
                 {/* <Link href={'/create-story'}> */}
-                <Link href={'/sign-up'}>
+                {/* <Link href={'/sign-up'}>
                   <a className={styles.createStory}>
                     <Button md rounded pink>
                       Create story
                     </Button>
                   </a>
-                </Link>
+                </Link> */}
               </div>
             )}
             <button className={cn(styles.nav_mobile)}>
