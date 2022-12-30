@@ -30,9 +30,9 @@ const SubscribeField = ({
 
   function onSubscribe() {
     const emailToSubscribe = email || user?.email;
-    if (!validateEmail(emailToSubscribe)) {
-      return notification.error({ message: 'Please enter valid email', placement: 'bottomLeft' });
-    }
+    // if (!validateEmail(emailToSubscribe)) {
+    //   return notification.error({ message: 'Please enter valid email', placement: 'bottomLeft' });
+    // }
     subscribe(emailToSubscribe);
   }
 
