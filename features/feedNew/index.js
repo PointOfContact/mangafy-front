@@ -470,7 +470,7 @@ const FeedNew = (props) => {
         }}
       />
       <div className={styles.pageContent}>
-        <HeaderNew user={user} />
+        <HeaderNew user={user} onShotUpload={() => router.reload()} />
         <div className={styles.feed}>
           <Row className={styles.feedContent}>
             <div className={styles.feed__info}>
