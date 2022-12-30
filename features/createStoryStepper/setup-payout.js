@@ -19,13 +19,13 @@ const SetupPayout = ({ storyInfo, createStory, goBack, setStoryInfo, loading }) 
     } else if (!storyInfo.paypal.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
       setError('Please enter correct paypal email');
     } else {
-      createStory();
+      createStory(false);
     }
   }
 
   function skipHandler() {
-    setStoryInfo({ ...storyInfo, paypal: '' });
-    createStory();
+    setStoryInfo({ ...storyInfo, paypal: null });
+    createStory(true);
   }
 
   return (
