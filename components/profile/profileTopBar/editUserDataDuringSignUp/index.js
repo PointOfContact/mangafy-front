@@ -43,8 +43,7 @@ const EditUserDataDuringSignUp = ({
       closable={false}
       className={styles.modal}
       footer={null}
-      visible={showModalEdit}
-    >
+      visible={showModalEdit}>
       <HeaderEditUser
         setShowModalEdit={setShowModalEdit}
         saveUserDataByKey={saveUserDataByKey}

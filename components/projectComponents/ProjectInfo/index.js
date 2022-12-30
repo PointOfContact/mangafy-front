@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import cn from 'classnames';
 import styles from './styles.module.scss';
 import ProjectStory from '../ProjectStory';
@@ -21,22 +21,13 @@ const ProjectInfo = ({
   subscribe,
   unsubscribe,
   subscription,
+  chapters,
+  setOpenPaymentModal,
+  subscribedProject,
 }) => {
-  const { cbInstance, openPlanModal } = useAppContext();
-
   return (
     <div className={cn(className, styles.info)}>
-      {project.planId && (
-        <PrimaryButton
-          text="Suscribe"
-          onClick={() => openPlanModal(cbInstance, project.planId, project._id, user?.customerId)}
-        />
-      )}
       <div className={styles.info__rates}>
-        {/* <div className={styles.rate}>
-          <div className={styles.rate__value}>4.345</div>
-          <div className={styles.rate__title}>likes</div>
-        </div> */}
         <div className={styles.rate}>
           <div className={styles.rate__value}>{project?.subscribers?.length}</div>
           <div className={styles.rate__title}>following</div>
@@ -48,11 +39,15 @@ const ProjectInfo = ({
       </div>
       <ProjectStory className={styles.info__story} project={project} user={user} />
       <SubscribeField
+        openPledgeModal={() => setOpenPaymentModal({ item: project, type: 'Project' })}
+        payPalEmail={project?.authorInfo?.payPalEmail}
         user={user}
+        subscribedProject={subscribedProject}
         className={styles.info__subscribe}
         subscription={subscription}
         subscribe={subscribe}
         unsubscribe={unsubscribe}
+        project={project}
       />
       {!!project?.authorInfo?.payPalEmail && (
         <a
@@ -78,7 +73,10 @@ const ProjectInfo = ({
         project={project}
         updateProjectInfo={updateProjectInfo}
         user={user}
+        subscribedProject={subscribedProject}
         isMobile={true}
+        chapters={chapters}
+        setOpenPaymentModal={setOpenPaymentModal}
       />
       <div className={styles.info__title}>Members</div>
       <div className={styles.info__line}></div>

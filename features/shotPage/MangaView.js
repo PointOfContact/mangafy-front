@@ -36,24 +36,35 @@ const MangaView = ({
 }) => {
   const router = useRouter();
   const refBook = useRef(null);
-  const [activeChapterIndex, setActiveChapterIndex] = useState(+router.query.chapter || 1);
+  const [activeChapterIndex, setActiveChapterIndex] = useState(+router.query.ongoing || 1);
   const [authors, setAuthors] = useState(serverSideAuthors);
   const [comments, setComments] = useState(serverSideComments);
   const [readStyle, setReadStyle] = useState(false);
   const [conutPage, setConutPage] = useState(1);
   const [imagesHeight, setImagesHeight] = useState([]);
-
-  const hashPath = router.asPath.split('#')[1];
-  useEffect(() => {
-    if (hashPath) {
-      router.push('#' + hashPath);
-    }
-  }, [router.asPath]);
-
   const [isLiked, setIsLiked] = useState(false);
-
   const [manga, setManga] = useState(serverSideManga);
-  const chapter = manga?.chapters[activeChapterIndex - 1];
+  const [chapter, setChapter] = useState({});
+  const [ifPayed, setIfPayed] = useState(false);
+  // const hashPath = router.asPath.split('#')[1];
+
+  // useEffect(() => {
+  //   if (hashPath) {
+  //     router.push('#' + hashPath);
+  //   }
+  // }, [router.asPath]);
+
+  useEffect(() => {
+    const data = user?.chargebee?.data?.some((val) => {
+      return val.itemId === manga?.mangaStoryId || val?.subscribed;
+    });
+    setIfPayed(data);
+  }, [chapter]);
+
+  useEffect(() => {
+    const data = manga?.chapters[activeChapterIndex - 1];
+    setChapter(data);
+  }, [activeChapterIndex]);
 
   const [areCommentsOpened, setAreCommentsOpened] = useState(false);
   function toggleComments() {
@@ -100,22 +111,28 @@ const MangaView = ({
     updateChapterCommentsInfo();
   }, [manga]);
 
+  useEffect(() => {
+    setActiveChapterIndex(+router.query.ongoing);
+  }, [router.query.ongoing]);
+
   useEffect(async () => {
     updateMangaInfo();
     updateAuthorsInfo();
     const imagesHeights = [''];
-    for (const image of chapter?.mangaUrls) {
-      const { height } = await reactImageSize(client.UPLOAD_URL + image);
-      imagesHeights.push(height);
+    if (chapter?.mangaUrls) {
+      for (const image of chapter?.mangaUrls) {
+        const { height } = await reactImageSize(client.UPLOAD_URL + image);
+        imagesHeights.push(height);
+      }
     }
     setImagesHeight(imagesHeights);
-  }, [router.query.mid]);
+  }, [router.query.mid, chapter]);
 
   useEffect(() => {
     if (
       !router.query.chapter ||
       router.query.chapter < 1 ||
-      router.query.chapter > manga.chapters.length
+      router.query.chapter > manga?.chapters?.length
     ) {
     } else {
       setActiveChapterIndex(1);
@@ -315,6 +332,7 @@ const MangaView = ({
         /> */}
         <MangaFooter
           chapter={chapter}
+          setChapter={setChapter}
           manga={manga}
           user={user}
           isOwn={isOwn}
@@ -322,6 +340,8 @@ const MangaView = ({
           authors={authors}
           comments={comments}
           isLiked={isLiked}
+          ifPayed={ifPayed}
+          setIfPayed={setIfPayed}
           like={like}
           toggleComments={toggleComments}
           updateComments={updateChapterCommentsInfo}
@@ -333,7 +353,12 @@ const MangaView = ({
           createComment={createCommentChapter}
           setIsLoginModalVisible={setIsLoginModalVisible}
         />
-        <MangaSlider manga={manga} activeChapterIndex={activeChapterIndex} />
+        <MangaSlider
+          ifPayed={ifPayed}
+          manga={manga}
+          user={user}
+          activeChapterIndex={activeChapterIndex}
+        />
         <SignInModal
           page={'/project/view/' + manga?.id}
           title="Sign in"

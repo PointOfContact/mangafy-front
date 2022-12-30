@@ -1,0 +1,84 @@
+@import '../../../styles/variables.scss';
+
+.modal {
+    &__wrap {
+        :global {
+            .ant-modal {
+                border-radius: 15px;
+                overflow: hidden;
+                padding: 0;
+            }
+            .ant-modal-body {
+                padding: 30px;
+            }
+        }
+    }
+
+    &__header {
+        display: flex;
+        align-items: center;
+        font-weight: 700;
+        font-size: 30px;
+        margin-bottom: 30px;
+    }
+
+    &__title {
+        margin-left: 20px;
+    }
+    
+    &__plans {
+        display: flex;
+        flex-wrap: wrap;
+        margin-right: -20px;
+        margin-bottom: -20px;
+    }
+}
+
+.plan {
+    flex: 1 1 10%;
+    min-width: 300px;
+    border: 3px solid #C9BEFF;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+
+    &__title {
+        font-weight: 700;
+        font-size: 20px;  
+        margin-bottom: 30px;  
+    }
+
+    &__features {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        margin-bottom: 20px;
+    }
+
+    &__feature {
+        display: flex;
+        align-items: center;
+        &:not(:last-child) {
+            margin-bottom: 15px;
+        }
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 14px;
+
+        svg {
+            height: 24px;
+            flex: 0 0 24px;
+            margin-right: 10px;
+        }
+    }
+
+    &__description {
+        margin-bottom: 30px;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 14px;
+    }
+}

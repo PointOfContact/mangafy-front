@@ -14,19 +14,20 @@ import { notification } from 'antd';
 import MangaComments from 'components/shotComments/MangaComments';
 import Edit from 'components/icon/new/Edit';
 import ShotAndMangaTitle from 'components/ShotAndMangaTitle';
-import PrimaryButton from 'components/ui-elements/button';
-import { useAppContext } from 'context';
-import { useRouter } from 'next/router';
+import Pledge from './pledge';
 
 const MangaFooter = ({
   user,
   manga,
   chapter,
+  setChapter,
   className,
   isOwn,
   authors,
   like,
   isLiked,
+  ifPayed,
+  setIfPayed,
   toggleComments,
   subscribe,
   updateComments,
@@ -37,22 +38,23 @@ const MangaFooter = ({
   createComment,
   setIsLoginModalVisible,
 }) => {
-  const { cbInstance, openPlanModal } = useAppContext();
-  const router = useRouter();
-
   return (
     <div name="footer" className={cn(styles.footer, className)}>
-      {/* {chapter.planId && (
-        <PrimaryButton
-          text="Suscribe"
-          onClick={() => openPlanModal(cbInstance, chapter.planId, chapter._id, user?.customerId)}
-        />
-      )} */}
       <div className={styles.footer__container}>
         <div className={styles.footer__mobileComments} id={'comments'}>
           <div className={styles.footer__mobileCommentsHeader}>Feedback</div>
           <MangaComments manga={manga} comments={comments.data} createComment={createComment} />
         </div>
+        <Pledge
+          item={manga}
+          image={chapter?.cover}
+          user={user}
+          updatePage={() => {
+            setIfPayed(true);
+          }}
+          ifPayed={ifPayed}
+          type="Project"
+        />
         <ShotAndMangaTitle
           className={styles.footer__info}
           title={manga?.mangaStoryTitle}

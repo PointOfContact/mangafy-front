@@ -21,26 +21,28 @@ import { SignInModal } from 'components/modals/SignInModal';
 const ShotPage = ({ user, allShots, serverSideShot, serverSideAuthor }) => {
   const router = useRouter();
 
-  const [shot, setShot] = useState(
-    serverSideShot?.isOld ? prepareOldShot(serverSideShot) : serverSideShot
-  );
-
+  const [shot, setShot] = useState({});
   const [author, setAuthor] = useState(serverSideAuthor);
-
   const [isSubscribed, setIsSubscribed] = useState(author?.likedUsers?.includes(user?._id));
   const [isLiked, setIsLiked] = useState(
     !!shot?.likedUsers?.find((obj) => {
       return obj.likedUserId === user?._id;
     })
   );
-
   const [isLoginModalVisible, setIsLoginModalVisible] = useState(false);
+  const [ifPayed, setIfPayed] = useState(false);
 
   useEffect(() => {
     viewShot(user, shot);
+    const shotItem = serverSideShot?.isOld ? prepareOldShot(serverSideShot) : serverSideShot;
+    setShot(shotItem);
   }, []);
 
   useEffect(() => {
+    const data = user?.chargebee?.data?.some((val) => {
+      return val.itemId === shot._id || val?.subscribed;
+    });
+    setIfPayed(data);
     setIsLiked(!!shot?.likedUsers?.find((obj) => obj.likedUserId === user?._id));
   }, [shot]);
 
@@ -193,17 +195,26 @@ const ShotPage = ({ user, allShots, serverSideShot, serverSideAuthor }) => {
           className={styles.shotPage__footer}
           user={user}
           shot={shot}
+          setShot={setShot}
           isOwn={isOwn}
           isSubscribed={isSubscribed}
           subscribe={subscribe}
           isLiked={isLiked}
+          ifPayed={ifPayed}
+          setIfPayed={setIfPayed}
           like={() => like()}
           toggleComments={toggleComments}
           updateShotInfo={updateShotInfo}
           shareUrl={client.API_ENDPOINT + buildShotURL(shot?._id, shot?.isOld ? author?._id : null)}
           setIsLoginModalVisible={setIsLoginModalVisible}
         />
-        <ShotSlider className={styles.shotPage__slider} shot={shot} allShots={allShots} />
+        <ShotSlider
+          className={styles.shotPage__slider}
+          shot={shot}
+          ifPayedShot={ifPayed}
+          allShots={allShots}
+          user={user}
+        />
       </div>
       <SignInModal
         page={'/shot/' + shot?._id}

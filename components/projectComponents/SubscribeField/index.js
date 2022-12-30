@@ -4,8 +4,20 @@ import styles from './styles.module.scss';
 import notification from 'antd/lib/notification';
 import cn from 'classnames';
 import Check from 'components/icon/new/Check';
+import Link from 'next/link';
 
-const SubscribeField = ({ user, className, subscription, subscribe, unsubscribe }) => {
+const SubscribeField = ({
+  openPledgeModal,
+  payPalEmail,
+  user,
+  className,
+  subscription,
+  subscribe,
+  unsubscribe,
+  mobile,
+  project,
+  subscribedProject,
+}) => {
   const [email, setEmail] = useState('');
 
   function onInput(e) {
@@ -26,34 +38,77 @@ const SubscribeField = ({ user, className, subscription, subscribe, unsubscribe 
 
   return (
     <div className={className}>
-      {subscription ? (
-        <Button
-          pink
-          outline
-          rounded
-          iconRight
-          icon={<Check bold />}
-          className={styles.unsubscribe}
-          onClick={unsubscribe}
-        >
-          Subscribed
-        </Button>
-      ) : user ? (
-        <Button pink rounded onClick={onSubscribe}>
-          Subscribe
-        </Button>
-      ) : (
-        <div className={styles.subscribe}>
-          <input
-            onKeyUp={onInput}
-            className={styles.subscribe__input}
-            type="text"
-            placeholder="Type your email..."
-          />
-          <Button pink rounded onClick={onSubscribe}>
-            Subscribe
-          </Button>
-        </div>
+      <div className={styles.title}>Subscribe to my stories</div>
+      <div className={styles.subtitle}>
+        Show your support and receive all my stories in your feed.
+      </div>
+      <div className={styles.buttons}>
+        {subscription ? (
+          <>
+            <Button
+              pink
+              outline
+              rounded
+              iconRight
+              icon={<Check bold />}
+              className={styles.unsubscribe}
+              onClick={unsubscribe}>
+              Subscribed
+            </Button>
+            {project?.planId && (
+              <Button
+                disabled={subscribedProject || !user}
+                rounded
+                outline
+                onClick={openPledgeModal}>
+                Pledge
+              </Button>
+            )}
+          </>
+        ) : user ? (
+          <>
+            <Button pink rounded onClick={onSubscribe}>
+              Subscribe
+            </Button>
+            {project?.planId && (
+              <Button
+                disabled={subscribedProject || !user}
+                rounded
+                outline
+                onClick={openPledgeModal}>
+                Pledge
+              </Button>
+            )}
+          </>
+        ) : (
+          <div className={styles.subscribe}>
+            <input
+              onKeyUp={onInput}
+              className={styles.subscribe__input}
+              type="text"
+              placeholder="Type your email..."
+            />
+            <Button pink rounded onClick={onSubscribe}>
+              Subscribe
+            </Button>
+          </div>
+        )}
+      </div>
+      {payPalEmail && (
+        <>
+          <div className={styles.title}>Send me a tip</div>
+          <div className={styles.subtitle}>Show your support with a small one-off tip.</div>
+          <div className={styles.buttons}>
+            <Link
+              href={`https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=${payPalEmail}&item_name=Friends+of+the+Park&item_number=Fall+Cleanup+Campaign&currency_code=USD`}>
+              <a>
+                <Button outline rounded>
+                  Tip
+                </Button>
+              </a>
+            </Link>
+          </div>
+        </>
       )}
     </div>
   );

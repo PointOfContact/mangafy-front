@@ -1,11 +1,13 @@
 @import '../../../styles/variables.scss';
 
+.container {
+}
+
 .subscribe {
   display: flex;
   border-radius: 5em;
   background: #e5e5e5;
   width: 100%;
-  grid-template-columns: 1fr 1fr;
 
   &__input {
     min-width: 0;
@@ -27,9 +29,31 @@
 
 .unsubscribe {
   padding: 0.5em 2em;
-  margin-bottom: 20px;
   svg {
     height: 1.1em;
     stroke: $pink;
+  }
+}
+
+.title {
+  font-weight: 700;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-weight: 400;
+  font-size: 15px;
+  margin-bottom: 20px;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+  row-gap: 10px;
+  *:not(:last-child) {
+    margin-right: 10px;
   }
 }
