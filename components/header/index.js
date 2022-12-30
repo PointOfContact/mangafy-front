@@ -354,12 +354,14 @@ const Header = ({ user, path, setShowModalEdit }) => {
                 </>
               ) : (
                 <>
-                  <Link href="/create-story">
+                  {/* <Link href="/create-story"> */}
+                  <Link href="/sign-up">
                     <a>
                       <PrimaryButton text="Start a project" className={styles.fullStartProject} />
                     </a>
                   </Link>
-                  <Link href="/create-story">
+                  {/* <Link href="/create-story"> */}
+                  <Link href="/sign-up">
                     <a>
                       <PrimaryButton text="Start" className={styles.startProject} />
                     </a>
