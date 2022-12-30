@@ -11,6 +11,8 @@ import { EVENTS } from 'helpers/amplitudeEvents';
 import Diamond from 'components/icon/new/Diamond';
 import PrimaryButton from 'components/ui-elements/button';
 import { useAppContext } from 'context';
+import { SignInModal } from 'components/modals/SignInModal';
+import client from 'api/client';
 
 const ProjectInfo = ({
   isOwner,
@@ -25,6 +27,7 @@ const ProjectInfo = ({
   setOpenPaymentModal,
   subscribedProject,
 }) => {
+  const [isSignInModalOpened, setIsSignInModalOpened] = useState(false);
   return (
     <div className={cn(className, styles.info)}>
       <div className={styles.info__rates}>
@@ -39,7 +42,11 @@ const ProjectInfo = ({
       </div>
       <ProjectStory className={styles.info__story} project={project} user={user} />
       <SubscribeField
-        openPledgeModal={() => setOpenPaymentModal({ item: project, type: 'Project' })}
+        openPledgeModal={() => {
+          const jwt = client.getCookie('feathers-jwt');
+          if (jwt) return setOpenPaymentModal({ item: project, type: 'Project' });
+          setIsSignInModalOpened(true);
+        }}
         payPalEmail={project?.authorInfo?.payPalEmail}
         user={user}
         subscribedProject={subscribedProject}
@@ -84,6 +91,12 @@ const ProjectInfo = ({
       <div className={styles.info__title}>Tasks</div>
       <div className={styles.info__line}></div>
       <ProjectJobs className={styles.info__jobs} project={project} user={user} isOwner={isOwner} />
+      <SignInModal
+        title={'Sign in to pledge project'}
+        page={'/project/' + project?._id}
+        visible={isSignInModalOpened}
+        setVisible={setIsSignInModalOpened}
+      />
     </div>
   );
 };

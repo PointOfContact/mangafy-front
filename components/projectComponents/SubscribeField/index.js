@@ -56,43 +56,36 @@ const SubscribeField = ({
               Subscribed
             </Button>
             {project?.planId && (
-              <Button
-                disabled={subscribedProject || !user}
-                rounded
-                outline
-                onClick={openPledgeModal}>
-                Pledge
-              </Button>
-            )}
-          </>
-        ) : user ? (
-          <>
-            <Button pink rounded onClick={onSubscribe}>
-              Subscribe
-            </Button>
-            {project?.planId && (
-              <Button
-                disabled={subscribedProject || !user}
-                rounded
-                outline
-                onClick={openPledgeModal}>
+              <Button disabled={subscribedProject} rounded outline onClick={openPledgeModal}>
                 Pledge
               </Button>
             )}
           </>
         ) : (
-          <div className={styles.subscribe}>
-            <input
-              onKeyUp={onInput}
-              className={styles.subscribe__input}
-              type="text"
-              placeholder="Type your email..."
-            />
+          <>
             <Button pink rounded onClick={onSubscribe}>
               Subscribe
             </Button>
-          </div>
+            {project?.planId && (
+              <Button disabled={subscribedProject} rounded outline onClick={openPledgeModal}>
+                Pledge
+              </Button>
+            )}
+          </>
         )}
+        {/* ) : (
+           <div className={styles.subscribe}>
+              <input
+                onKeyUp={onInput}
+                className={styles.subscribe__input}
+                type="text"
+                placeholder="Type your email..."
+              />
+              <Button pink rounded onClick={onSubscribe}>
+                Subscribe
+              </Button>
+            </div>
+          )} */}
       </div>
       {payPalEmail && (
         <>
