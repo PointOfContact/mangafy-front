@@ -71,7 +71,7 @@ const PaypalEmailField = ({
             };
             sendEvent(EVENTS.EDIT_PROJECT_PAY_PAL_PUBLISHED, 'payPalPublished', e.target.checked);
             setBubbleVisible(e.target.checked);
-            onChangeSingleField(data, true);
+            onChangeSingleField(data);
             setShowPayPalContent(!showPayPalContent);
           }}
         />

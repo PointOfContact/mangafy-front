@@ -204,3 +204,43 @@
     }
   }
 }
+
+.signIn, .join, .createStory {
+  @include media-sm {
+    display: none !important;
+  }
+}
+.signIn {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19.36px;
+  margin-right: 28px;
+  color: #000;
+  display: flex;
+  align-items: center;
+  &:hover {
+    color: lighten($color: #000, $amount: 15%)
+  }
+  &:active {
+    color: lighten($color: #000, $amount: 25%)
+  }
+}
+
+.join {
+  margin-right: 20px;
+  button {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+    padding: 10px 37px;
+  }
+}
+
+.createStory {
+  button {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+    padding: 10px 11px;
+  }
+}

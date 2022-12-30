@@ -188,14 +188,13 @@ const MangeStory = (props) => {
           setBaseData(res);
         })
         .catch((err) => {
-          // reject(err.message);
-          console.log(err);
+          reject(err.message);
           // openNotification('error', err.message);
         });
     });
   };
 
-  const onChangeSingleField = ({ target }, reject = () => {}) => {
+  const onChangeSingleField = ({ target }, reject) => {
     const { name, value } = target;
     const data = { ...baseData, [name]: value };
     setBaseData(data);
