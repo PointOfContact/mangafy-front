@@ -46,8 +46,7 @@ const FeedCreateButton = ({ user }) => {
             }
             setAreOptionsVisible(false);
           }}
-          className={cn(styles.option, styles.option_post)}
-        >
+          className={cn(styles.option, styles.option_post)}>
           Create a post
         </button>
         <button
@@ -57,20 +56,19 @@ const FeedCreateButton = ({ user }) => {
               setIsCreateProjectModalVisible(true);
             } else {
               sendEvent(EVENTS.UNAUTHORIZED_CREATE_NEW_POST);
-              router.push('/create-story', undefined, { scroll: false });
+              // router.push('/create-story', undefined, { scroll: false });
+              router.push('/sign-up', undefined, { scroll: false });
             }
             setAreOptionsVisible(false);
           }}
-          className={cn(styles.option, styles.option_project)}
-        >
+          className={cn(styles.option, styles.option_project)}>
           <SvgCopy /> Create a project
         </button>
       </div>
       {/* Plus icon */}
       <div
         className={cn(styles.plus, areOptionsVisible && styles.plus_active)}
-        onClick={() => setAreOptionsVisible((oldState) => !oldState)}
-      >
+        onClick={() => setAreOptionsVisible((oldState) => !oldState)}>
         <SvgAdd2 />
       </div>
       {/* Create post modal */}

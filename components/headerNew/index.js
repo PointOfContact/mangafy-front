@@ -100,7 +100,8 @@ const HeaderNew = ({ user }) => {
       setIsCreateProjectModalVisible(true);
     } else {
       sendEvent(EVENTS.UNAUTHORIZED_CREATE_NEW_POST);
-      router.push('/create-story', undefined, { scroll: false });
+      // router.push('/create-story', undefined, { scroll: false });
+      router.push('/sign-up', undefined, { scroll: false });
     }
   }
   function createPostHandler() {
@@ -124,7 +125,8 @@ const HeaderNew = ({ user }) => {
           </div>
         </div>
       ) : (
-        <Link href={'/create-story'}>
+        // <Link href={'/create-story'}>
+        <Link href={'/sign-up'}>
           <a className={styles.nav__dropdownItem} onClick={createProjectHandler}>
             <div className={styles.nav__dropdownIcon}>
               <NewFile color="#D01E8E" bold={1} />
@@ -443,13 +445,14 @@ const HeaderNew = ({ user }) => {
                     </Button>
                   </a>
                 </Link>
-                <Link href={'/create-story'}>
+                {/* <Link href={'/create-story'}> */}
+                {/* <Link href={'/sign-up'}>
                   <a className={styles.createStory}>
                     <Button md rounded pink>
                       Create story
                     </Button>
                   </a>
-                </Link>
+                </Link> */}
               </div>
             )}
             <button className={cn(styles.nav_mobile)}>
