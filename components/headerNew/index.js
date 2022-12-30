@@ -55,7 +55,7 @@ const findNotificationsCount = (onSuccess, onFailure = () => {}) => {
   });
 };
 
-const HeaderNew = ({ user }) => {
+const HeaderNew = ({ user, onShotUpload }) => {
   const router = useRouter();
   const [isCreateShotModalVisible, setIsCreateShotModalVisible] = useState(false);
   const [isCreateProjectModalVisible, setIsCreateProjectModalVisible] = useState(false);
@@ -468,8 +468,8 @@ const HeaderNew = ({ user }) => {
       <CreateShotModal
         isVisible={isCreateShotModalVisible}
         setIsVisible={setIsCreateShotModalVisible}
-        onUpload={() => {
-          router.reload();
+        onUpload={(res) => {
+          if (typeof onShotUpload === 'function') onShotUpload(res);
         }}
       />
       <ModalCreateProject

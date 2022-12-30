@@ -46,6 +46,8 @@ const Profile = (props) => {
     avatar: user?.avatar,
   });
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  // const [shotPublishedModalVisible, setShotPublishedModalVisible] = useState(false);
+  // const [shotUrl, setShotUrl] = useState('');
 
   const profileGenres = genresEnums?.data?.filter(
     (item) => profile.genresIds && profile.genresIds.includes(item._id)
@@ -140,6 +142,10 @@ const Profile = (props) => {
     setIsLoginModalOpen(true);
   };
 
+  function onShotUpload(shot) {
+    router.reload();
+  }
+
   return (
     <>
       <NextSeo
@@ -174,7 +180,7 @@ const Profile = (props) => {
       <ButtonToTop user={user} />
       <div className={'wrapper'}>
         <div className={'content'}>
-          <HeaderNew user={user} />
+          <HeaderNew user={user} onShotUpload={onShotUpload} />
           <main>
             <section className={cn(styles.container)}>
               <div className="container">
