@@ -26,11 +26,8 @@ import getDeviceId from 'utils/deviceId';
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
 import Button from 'components/ui-new/Button';
-<<<<<<< HEAD
 import PledgeModal from 'components/modals/PlegeModal';
-=======
 import ConfirmModal from 'components/modals/ConfirmModal';
->>>>>>> develop
 
 const ProjectView = ({ ssProject, ssComments, user }) => {
   const router = useRouter();
@@ -319,7 +316,13 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
         setIsShareModalOpened={setIsShareModalOpened}
         shareUrl={client.API_ENDPOINT + '/project/' + project?._id}
       />
-
+      <PledgeModal
+        isOpen={!!openPaymentModal}
+        setIsOpen={setOpenPaymentModal}
+        object={openPaymentModal}
+        user={user}
+        updatePage={updatePage}
+      />
       <ConfirmModal
         isOpen={isGoToSettingsModalOpened}
         setIsOpen={setIsGoToSettingsModalOpened}
