@@ -236,7 +236,7 @@ const OpenedProject = ({
         </div>
         <div className={styles.openedProject__members}>
           {authorsElements}
-          {isAdmin && (
+          {isAdmin && project?.published && (
             <Button
               rounded
               pink
