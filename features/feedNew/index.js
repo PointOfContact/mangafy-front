@@ -103,7 +103,7 @@ const FeedNew = (props) => {
   const [activeFilters, setActiveFilters] = useState({});
   const [screenWidth, setScreenWidth] = useState(0);
   const [selectedOptions, setSelectedOptions] = useState([]);
-  const { jwt, user, posts, genres } = props;
+  const { jwt, user, posts, genres, bannerProject } = props;
   const router = useRouter();
   // const defaultActiveTab = router.query?.tab || 'recent';
   const defaultActiveTab = router.query?.tab || 'projects';

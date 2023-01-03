@@ -123,16 +123,6 @@ const CardsContainer = ({
   //     ));
   // }
 
-  for (let i = 0; i < elements.length; i++) {
-    if (elements[i]) {
-      if (colToPush === 1) firstCol.push(elements[i]);
-      if (colToPush === 2) secondCol.push(elements[i]);
-      if (colToPush === 3) thirdCol.push(elements[i]);
-      if (colToPush >= columns) colToPush = 1;
-      else colToPush++;
-    }
-  }
-
   if (cardsElements.length === 0 && error) {
     return <div className={styles.error}>{/* Place for error placeholder */}</div>;
   }
