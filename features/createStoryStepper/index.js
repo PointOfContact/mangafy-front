@@ -11,10 +11,11 @@ import { useRouter } from 'next/router';
 import { notification } from 'antd';
 import { findStoryBoard } from 'api/storyBoardClient';
 import mangaStoryClient from 'api/mangaStoryClient';
+import { projectTypes } from 'helpers/constant';
 
 const defaultStoryInfo = {
   projectName: null,
-  type: null,
+  type: projectTypes[0],
   genres: [],
   seriesTitle: null,
   seriesDescription: null,
@@ -64,7 +65,10 @@ const CreateStoryStepper = ({ genres, path, user, query, jwt }) => {
     setLoading('prev');
   }
 
-  function createStory() {
+  function createStory(noPayPal) {
+    console.log('Create story');
+    console.log(storyInfo);
+
     setLoading('next');
     client
       .service('/api/v2/manga-stories')
@@ -93,7 +97,7 @@ const CreateStoryStepper = ({ genres, path, user, query, jwt }) => {
               await client.service('/api/v2/manga-stories/').patch(
                 createdStory._id,
                 {
-                  payPalPublished: true,
+                  payPalPublished: !noPayPal,
                   published: true,
                   typeUrlView: 'Custom subdomain',
                   viewUrlName: storyInfo.projectName,
@@ -105,7 +109,7 @@ const CreateStoryStepper = ({ genres, path, user, query, jwt }) => {
                 }
               );
               // Then set paypal email
-              if (storyInfo.paypal)
+              if (!noPayPal && storyInfo.paypal)
                 mangaStoryClient.draft.saveUserDataByKey(storyInfo.paypal, user, () => {});
               // setLink('https://' + storyInfo.projectName + '.mangafy.club/');
               setLink(client.API_ENDPOINT + '/project/' + createdStory._id);

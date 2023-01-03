@@ -82,8 +82,12 @@
 
   :global {
     .ant-select-selector {
+      flex: 1 1 auto;
       border: none !important;
       box-shadow: none !important;
+      margin: 0.6em 1.2em !important;
+      // padding: 0.6em 1.2em !important;
+      // transform: translateX(-1.2em) !important;
     }
     .ant-select-selection {
       background: green;
@@ -93,12 +97,16 @@
       color: $black;
       right: 25px !important;
     }
-    .ant-select-selector {
-      margin: 0.6em 1.2em !important;
-      transform: translateX(-1.2em) !important;
-    }
     .ant-select-selection-search, .ant-select-selection-item {
-      transform: translateX(1.2em) !important;
+      margin: 0;
+      // transform: translateX(1.2em) !important;
+    }
+    .ant-select-selection-overflow-item:not(:first-child) {
+      margin-left: 5px;
+    }
+    .ant-select-selection-placeholder {
+      // left: 1.2em;
+      // right: 1.2em;
     }
   }
 
