@@ -34,6 +34,7 @@ import { EVENTS } from 'helpers/amplitudeEvents';
 import { SignInModal } from 'components/modals/SignInModal';
 import { feedFilterTypes, projectTypes, userTypes } from 'helpers/constant';
 import ModalCreateProject from 'components/modalCreateProject';
+import FeedBanner from 'components/feedBanner';
 
 const getFilterTypes = (genres) => ({
   // recent: [{ title: 'Search', inQuery: 'search' }],
@@ -473,6 +474,7 @@ const FeedNew = (props) => {
         <HeaderNew user={user} />
         <div className={styles.feed}>
           <Row className={styles.feedContent}>
+            {!user && <FeedBanner className={styles.feed__banner} project={bannerProject} />}
             <div className={styles.feed__info}>
               <h1 className={styles.feed__title}>Explore the MangaFY - collaboration platform</h1>
               <div className={styles.feed__description}>

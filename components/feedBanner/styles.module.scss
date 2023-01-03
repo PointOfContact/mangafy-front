@@ -1,0 +1,178 @@
+@import '../../styles/variables.scss';
+
+.banner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 30px;
+    color: #000;
+    @include media-sm {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+    }
+
+    &__leftContainer {
+        // overflow: hidden;
+    }
+    
+    &__lTitle {
+        font-weight: 700;
+        font-size: 50px;
+        line-height: 59px;
+        margin-bottom: 20px;
+        @include media-sm {
+            font-size: 40px;
+            line-height: 47px;
+        }
+    }
+    
+    &__lDescription {
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 23px;
+        margin-bottom: 20px;
+        overflow-wrap: break-word;
+    }
+
+    &__project {
+        transition: 0.2s;
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+    
+    &__image {
+        height: 400px;
+        position: relative;
+        border-radius: 10px;
+        overflow: hidden;
+        margin-bottom: 30px;
+        box-shadow: $smallShadow;
+    }
+
+    &__projectTitle {
+        font-weight: 700;
+        font-size: 30px;
+        line-height: 35px;
+        margin-bottom: 8px;
+        color: #000;
+    }
+
+    &__projectDescription {
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 23px;
+        color: #858585;
+        margin-bottom: 19px;
+        word-break: break-word;
+    }
+
+    &__projectAuthor {
+        display: grid;
+        grid-template-areas: "avatar name" "avatar lastSeen";
+        grid-template-columns: 50px 1fr;
+        grid-template-rows: 1fr 1fr;
+        column-gap: 10px;
+        border-radius: 4em;
+        transition: 0.2s;
+
+        &:hover {
+            background: #f3f3f3;
+        }
+
+        &:active {
+            background: #f0f0f0;
+        }
+    }
+
+    &__projectAuthorAvatar {
+        grid-area: avatar;
+        align-self: center;
+    }
+
+    &__projectAuthorName {
+        grid-area: name;
+        font-weight: 700;
+        font-size: 15px;
+        align-self: end;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        color: #000;
+    }
+
+    &__projectAuthorLastSeen {
+        font-weight: 400;
+        font-size: 12px;
+        // line-height: 30px;
+        color: #858585;
+        align-self: start;
+    }
+
+    &__rightContainer {
+        background: $primaryDark;
+        padding: 52px 14px 73px 49px;
+        @include media-sm {
+            padding: 40px ;
+        }
+        @include media-xs {
+            padding: 20px;
+        }
+        color: #fff;
+    }
+
+    &__rTitle {
+        font-weight: 700;
+        font-size: 40px;
+        line-height: 47px;
+        margin-bottom: 17px;
+        @include media-sm {
+            font-size: 30px;
+            line-height: 35px;
+        }
+    }
+
+    &__rDescription {
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 23px;
+        margin-bottom: 30px;
+    }
+
+    &__button {
+        margin-bottom: 39px;
+        padding: 8px 36px;
+        font-weight: 700;
+        font-size: 15px;
+        line-height: 30px;
+    }
+
+    &__rSubtitle {
+        font-weight: 700;
+        font-size: 30px;
+        line-height: 35px;
+        margin-bottom: 30px;
+        max-width: 450px;
+    }
+
+    &__advantages {
+        margin: 0;
+        max-width: 450px;
+    }
+
+    &__advantage {
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 23px;
+        display: flex;
+        &:not(:last-child) {
+            margin-bottom: 20px;
+        }
+        svg {
+            flex: 0 0 24px;
+            height: 24px;
+            width: 24px;
+            margin-right: 14px;
+        }
+    }
+}
