@@ -13,13 +13,12 @@ import Avatar from 'components/Avatar';
 import { notification } from 'antd';
 import ShotComments from 'components/shotComments';
 import ShotAndMangaTitle from 'components/ShotAndMangaTitle';
-import { useAppContext } from 'context';
-import PrimaryButton from 'components/ui-elements/button';
-import { useRouter } from 'next/router';
+import Pledge from './pledge';
 
 const ShotFooter = ({
   user,
   shot,
+  setShot,
   className,
   isOwn,
   isSubscribed,
@@ -29,19 +28,12 @@ const ShotFooter = ({
   subscribe,
   updateShotInfo,
   shareUrl,
+  ifPayed,
+  setIfPayed,
   setIsLoginModalVisible,
 }) => {
-  const { cbInstance, openPlanModal } = useAppContext();
-  const router = useRouter();
-
   return (
     <div name="footer" className={cn(styles.footer, className)}>
-      {/* {shot.planId && (
-        <PrimaryButton
-          text="Suscribe"
-          onClick={() => openPlanModal(cbInstance, shot.planId, shot._id, user?.customerId)}
-        />
-      )} */}
       <div className={styles.footer__container}>
         <div className={styles.footer__mobileComments} id="comments">
           <div className={styles.footer__mobileCommentsHeader}>Feedback</div>
@@ -52,9 +44,17 @@ const ShotFooter = ({
             setIsLoginModalVisible={setIsLoginModalVisible}
           />
         </div>
+        <Pledge
+          item={shot}
+          image={shot?.image}
+          user={user}
+          ifPayed={ifPayed}
+          updatePage={() => setIfPayed(true)}
+          type="Shot"
+        />
         <ShotAndMangaTitle
           title={shot?.isOld ? shot?.authorInfo?.name : shot?.title}
-          link={'/profile/' + shot?.authorInfo._id}
+          link={'/profile/' + shot?.authorInfo?._id}
           author={{ ...shot?.authorInfo, isFollowed: isSubscribed }}
           isOwn={isOwn}
           subscribe={subscribe}

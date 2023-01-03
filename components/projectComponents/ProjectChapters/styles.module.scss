@@ -185,3 +185,39 @@
     gap: 10px;
   }
 }
+
+.blur {
+  overflow: hidden;
+  border-radius: 10px;
+  position: relative;
+  &:not(:last-child) {
+    margin-bottom: 10px;
+  }
+  .chapters__chapter {
+    filter: blur(15px);
+    pointer-events: none;
+  }
+
+  &__container {
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+  }
+
+  &__text {
+    font-weight: 400;
+    font-size: 22px;
+    margin-right: 50px;
+  }
+
+  &__lock {
+    height: 24px;
+    margin-right: 10px;
+  }
+}

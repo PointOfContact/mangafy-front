@@ -1,11 +1,8 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import styles from './styles.module.scss';
 import cn from 'classnames';
-import Comment from 'components/icon/new/Comment';
-import Fire from 'components/icon/new/Fire';
 import Imgix from 'components/imgix';
 import client from 'api/client';
-import Avatar from 'components/Avatar';
 import Link from 'next/link';
 import { likeChapter } from 'helpers/shared';
 import { notification } from 'antd';
@@ -13,6 +10,7 @@ import Button from 'components/ui-new/Button';
 import myAmplitude from 'utils/amplitude';
 import { EVENTS } from 'helpers/amplitudeEvents';
 import Diamond from 'components/icon/new/Diamond';
+import Chapter from './Chapter';
 
 const ProjectChapters = ({
   isParticipant,
@@ -24,8 +22,12 @@ const ProjectChapters = ({
   isMobile,
   onCommentClick,
   setIsSignInModalOpened,
+  setOpenPaymentModal,
+  chapters,
+  subscribedProject,
 }) => {
-  const chapters = project?.storyBoards?.data[0]?.chapters.filter((ch) => ch.published);
+  let hasPaidSubscription = false;
+  // check for paid subscription will be here
 
   const isLiked = useCallback(
     (chapter) => {
@@ -127,52 +129,19 @@ const ProjectChapters = ({
           </div>
         </div>
       )}
-      {chapters?.map((chapter) => (
-        <Link
-          key={chapter._id}
-          href={'/project/view/' + project.storyBoards.data[0]._id + '?chapter=' + chapter.order}>
-          <a
-            key={chapter._id}
-            className={cn(
-              styles.chapters__chapter,
-              !chapter.published && styles.chapters__chapter_disabled
-            )}>
-            <div className={styles.chapters__cover}>
-              <Avatar
-                size={70}
-                image={chapter.chapterImg}
-                text={chapter.title[0]}
-                borderRadius={10}
-              />
-            </div>
-            <div className={styles.chapters__title}>{chapter.title}</div>
-            <div className={styles.chapters__subtitle}>Episode {chapter.order}</div>
-            <div className={styles.chapters__info}>
-              <div
-                className={styles.chapters__comments}
-                onClick={(e) => {
-                  e.preventDefault();
-                  onCommentClick(chapter._id);
-                }}>
-                {chapter.comment?.length} <Comment color="#C3BAFA" />
-              </div>
-              {chapter.likedUsers && (
-                <div
-                  className={cn(
-                    styles.chapters__likes,
-                    isLiked(chapter) && styles.chapters__likes_liked
-                  )}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    onLike(chapter);
-                  }}>
-                  {chapter.likedUsers.length} <Fire color="#C3BAFA" />
-                </div>
-              )}
-            </div>
-          </a>
-        </Link>
-      ))}
+      {chapters?.map((chapter, index) => {
+        const subscribedChapter = index > 0;
+        return (
+          <Chapter
+            key={chapter._id + index}
+            subscribedProject={subscribedProject}
+            project={project}
+            subscribedChapter={subscribedChapter}
+            chapter={chapter}
+            isLiked={isLiked}
+          />
+        );
+      })}
     </div>
   );
 };
