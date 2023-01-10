@@ -10,7 +10,7 @@ import Fire from 'components/icon/new/Fire';
 import { useAppContext } from 'context';
 
 const PledgeModal = ({ isOpen, setIsOpen, object, user, updatePage, type }) => {
-  const { cbInstance, openPlanModal } = useAppContext();
+  const { cbInstance, chargebee, openPlanModal } = useAppContext();
 
   const plans = [
     {
@@ -37,6 +37,25 @@ const PledgeModal = ({ isOpen, setIsOpen, object, user, updatePage, type }) => {
     );
   };
 
+  const openCheckout = () => {
+    chargebee.plan
+      .create({
+        id: 'silver',
+        name: 'Silver',
+        invoice_name: 'sample plan',
+        price: 5000,
+      })
+      .request(function (error, result) {
+        if (error) {
+          //handle error
+          console.log(`Create plan error: ${error}`);
+        } else {
+          const plan = result.plan;
+          console.log(`Created plan: ${plan}`);
+        }
+      });
+  };
+
   return (
     <Modal
       width={800}
@@ -59,6 +78,7 @@ const PledgeModal = ({ isOpen, setIsOpen, object, user, updatePage, type }) => {
             <PlanCard key={plan.title} {...plan} openProjectCheckout={openProjectCheckout} />
           ))}
         </div>
+        <button onClick={openCheckout}>Create Plan</button>
       </div>
     </Modal>
   );
