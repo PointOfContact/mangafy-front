@@ -78,7 +78,7 @@ const PledgeModal = ({ isOpen, setIsOpen, object, user, updatePage, type }) => {
             <PlanCard key={plan.title} {...plan} openProjectCheckout={openProjectCheckout} />
           ))}
         </div>
-        <button onClick={openCheckout}>Create Plan</button>
+        {/* <button onClick={openCheckout}>Create Plan</button> */}
       </div>
     </Modal>
   );
