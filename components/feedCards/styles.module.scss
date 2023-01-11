@@ -10,6 +10,7 @@
   transition: 0.2s;
   display: flex;
   flex-direction: column;
+  align-self: flex-start;
   // &_span-4 {
   //   grid-row: span 4;
   //   transform: rotate(2deg);
