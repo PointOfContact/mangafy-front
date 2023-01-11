@@ -19,6 +19,9 @@
     display: flex;
     margin-left: -8px !important;
     cursor: pointer;
+    p {
+      margin-top: -4px;
+    }
   }
   .avatar {
     width: 24px !important;
