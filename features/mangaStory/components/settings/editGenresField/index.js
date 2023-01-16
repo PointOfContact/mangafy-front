@@ -34,7 +34,8 @@ const EditGenresField = ({
   const [imgId, setImgId] = useState('');
   const [radioValue, setRadioValue] = useState(baseData?.budget);
   const [projectType, setProjectType] = useState(baseData?.projectType);
-
+  const [description, setDescription] = useState(baseData?.story);
+  const [savingStatus, setSavingStatus] = useState('loading');
   const genres = genresEnums.map(({ _id: key, value }) => ({ key, value }));
   const defaultGenres = baseData.genres?.map(({ _id }) => _id);
 
@@ -100,8 +101,6 @@ const EditGenresField = ({
 
     saveMangaStoryData(data, () => {}, 'budget');
   };
-  const [description, setDescription] = useState(baseData?.story);
-  const [savingStatus, setSavingStatus] = useState('loading');
 
   useEffect(() => {
     setDescription(baseData?.story);
@@ -109,10 +108,6 @@ const EditGenresField = ({
     else setSavingStatus('saved');
   }, [baseData]);
 
-  const saveDescriptionDebounced = useCallback(AwesomeDebouncePromise(saveDescription, 600), [
-    baseData,
-    userData,
-  ]);
   const onChangeSingleFieldDebounced = useCallback(
     AwesomeDebouncePromise(onChangeSingleField, 600),
     [baseData, userData]
@@ -122,7 +117,6 @@ const EditGenresField = ({
     if (baseData._id && userData._id) {
       setDescription(text);
       setSavingStatus('saving');
-      await saveDescriptionDebounced(text);
     }
   };
 
@@ -218,6 +212,7 @@ const EditGenresField = ({
         //   };
         //   onChangeSingleField({ target });
         // }}
+        onBlur={() => saveDescription(description)}
         result={handleTextChange}
         value={description}
         // onBlur={() => {
