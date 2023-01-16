@@ -15,19 +15,18 @@
       font-size: 30px;
     }
   }
-
   h2 {
     font-weight: 700;
     font-size: 15px;
     margin-bottom: 0.7em;
-    color: #848484;
+    color: $gray85;
   }
 
   input,
   textarea {
     margin-bottom: 1.5em;
+    font-size: $text4;
   }
-
   &__close {
     cursor: pointer;
     transition: 0.2s;
@@ -54,5 +53,33 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+  }
+}
+.moreDetails {
+  margin-bottom: 1.5em;
+  & textarea {
+    min-height: 97px;
+    margin-bottom: 0;
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: $primaryLight;
+      border-radius: 50px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background: $primaryDark;
+    }
+    &::placeholder {
+      font-size: $text4;
+      position: absolute;
+      top: 4px;
+    }
   }
 }

@@ -124,16 +124,18 @@ const CreateShotModal = ({
       />
 
       <h2>More details</h2>
-      <GrammarlyEditorPlugin clientId={`${process.env.NEXT_PUBLIC_GRAMMARLY_ID}`}>
-        <Textarea
-          placeholder="Write what went int this shot, and anything else you'd like to mention. It could be your memo, a synopsis, or just a short story. "
-          err={errors.descriptionError}
-          sm
-          full
-          onChange={(text) => setDescription(text)}
-          defaultValue={description}
-        />
-      </GrammarlyEditorPlugin>
+      <div className={styles.moreDetails}>
+        <GrammarlyEditorPlugin clientId={`${process.env.NEXT_PUBLIC_GRAMMARLY_ID}`}>
+          <Textarea
+            placeholder="Write what went int this shot, and anything else you'd like to mention. It could be your memo, a synopsis, or just a short story. "
+            err={errors.descriptionError}
+            sm
+            full
+            onChange={(text) => setDescription(text)}
+            defaultValue={description}
+          />
+        </GrammarlyEditorPlugin>
+      </div>
       <h2>Upload your design (if you have)</h2>
       <HeroUpload setImgId={setImage} mangaUrl={image} />
 
