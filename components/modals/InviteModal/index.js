@@ -15,6 +15,7 @@ import Members from './Members';
 const roleOptions = Object.keys(projectRoles).map((key) => ({ key, value: projectRoles[key] }));
 
 const InviteModal = ({
+  user,
   projectTitle,
   visible,
   setVisible,
@@ -39,7 +40,7 @@ const InviteModal = ({
   }, [participants, participantsInfo]);
 
   function onInvite() {
-    const error = validateEmail(email);
+    const error = validateEmail(email, user);
     setError(error);
     if (error) return;
 

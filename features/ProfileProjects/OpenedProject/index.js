@@ -295,6 +295,7 @@ const OpenedProject = ({
         onCancel={() => {}}
       />
       <InviteModal
+        user={user}
         projectTitle={project?.title}
         visible={isInviteModalOpen}
         setVisible={setIsInviteModalOpen}

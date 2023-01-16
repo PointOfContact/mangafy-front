@@ -228,7 +228,8 @@ export async function createChapterComment(content, chapterId, senderId) {
   );
 }
 
-export function validateEmail(email) {
+export function validateEmail(email, user) {
+  if (email === user?.email) return "You can't send a request to you";
   if (email.length === 0) {
     return 'Email is required';
   }
