@@ -126,7 +126,7 @@
     box-sizing: border-box;
     font-size: 15px;
     line-height: 22px;
-    margin-right: 34px;
+    margin-right: 110px;
     @include media-sm {
       min-width: calc(100% - 60px);
       max-width: calc(100% - 0px);
@@ -156,7 +156,7 @@
     margin-bottom: 11px;
   }
   & > p:first-child {
-    max-width: 386px;
+    max-width: 294px;
     margin-right: 34px;
   }
   & > p:last-child {
