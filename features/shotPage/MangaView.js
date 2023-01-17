@@ -36,7 +36,7 @@ const MangaView = ({
 }) => {
   const router = useRouter();
   const refBook = useRef(null);
-  const [activeChapterIndex, setActiveChapterIndex] = useState(+router.query.ongoing || 1);
+  const [activeChapterIndex, setActiveChapterIndex] = useState();
   const [authors, setAuthors] = useState(serverSideAuthors);
   const [comments, setComments] = useState(serverSideComments);
   const [readStyle, setReadStyle] = useState(false);
@@ -111,7 +111,7 @@ const MangaView = ({
   }, [manga]);
 
   useEffect(() => {
-    setActiveChapterIndex(+router.query.ongoing);
+    setActiveChapterIndex(+router.query.ongoing || 1);
   }, [router.query.ongoing]);
 
   useEffect(async () => {
@@ -322,6 +322,7 @@ const MangaView = ({
           authors={authors}
           subscribe={subscribe}
           isOwn={isOwn}
+          router={router}
           activeChapterIndex={activeChapterIndex}
         />
         <MangaBody
