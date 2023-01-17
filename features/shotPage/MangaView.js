@@ -44,10 +44,13 @@ const MangaView = ({
   const [imagesHeight, setImagesHeight] = useState([]);
   const [isLiked, setIsLiked] = useState(false);
   const [manga, setManga] = useState(serverSideManga);
+  const [likeChapterLoding, setLikeChapterLoding] = useState(false);
   const [chapter, setChapter] = useState({});
   const [ifPayed, setIfPayed] = useState(false);
+  const [isShareModalOpened, setIsShareModalOpened] = useState(false);
+  const [isLoginModalVisible, setIsLoginModalVisible] = useState(false);
+  const [isGoToSettingsModalOpened, setIsGoToSettingsModalOpened] = useState(false);
   // const hashPath = router.asPath.split('#')[1];
-
   // useEffect(() => {
   //   if (hashPath) {
   //     router.push('#' + hashPath);
@@ -74,10 +77,6 @@ const MangaView = ({
     }
     setAreCommentsOpened(!areCommentsOpened);
   }
-
-  const [isShareModalOpened, setIsShareModalOpened] = useState(false);
-  const [isLoginModalVisible, setIsLoginModalVisible] = useState(false);
-  const [isGoToSettingsModalOpened, setIsGoToSettingsModalOpened] = useState(false);
 
   async function updateMangaInfo() {
     const newManga = await client.service(`/api/v2/manga-view`).get(manga?.id, {
@@ -161,7 +160,7 @@ const MangaView = ({
     }
 
     const jwt = client.getCookie('feathers-jwt');
-
+    setLikeChapterLoding(true);
     client
       .service('/api/v2/chapter-like')
       .create(data, {
@@ -169,6 +168,7 @@ const MangaView = ({
         mode: 'no-cors',
       })
       .then((res) => {
+        setLikeChapterLoding(false);
         const eventData = [
           {
             event_type: EVENTS.EPISODE_LIKE,
@@ -179,10 +179,15 @@ const MangaView = ({
             },
           },
         ];
+        setChapter((item) => {
+          const chapetLike = res?.like === 'decrement' ? item.like - 1 : item.like + 1;
+          return { ...chapter, like: chapetLike };
+        });
         myAmplitude(eventData);
         updateMangaInfo();
       })
       .catch((err) => {
+        setLikeChapterLoding(false);
         notification.error({
           message: err.message,
           placement: 'bottomLeft',
@@ -298,6 +303,7 @@ const MangaView = ({
           user={user}
           isLiked={isLiked}
           like={like}
+          likeChapterLoding={likeChapterLoding}
           updateMangaInfo={updateMangaInfo}
           setIsShareModalOpened={setIsShareModalOpened}
           authors={authors}
