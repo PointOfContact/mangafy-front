@@ -3,6 +3,7 @@ import { createContext, useContext, useEffect, useState } from 'react';
 const axios = require('axios').default;
 import Router from 'next/router';
 import { notification } from 'antd';
+import chargebee from 'chargebee';
 
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
@@ -88,11 +89,18 @@ const openPlanModal = (
 
 const AppContext = createContext({
   cbInstance: {},
+  chargebee: {},
   openCheckout: () => {},
+});
+
+chargebee.configure({
+  site: process.env.NEXT_PUBLIC_CHARGBEE_SITE,
+  api_key: process.env.NEXT_PUBLIC_CHARGBEE_KEY,
 });
 
 const AppWrapper = ({ children }) => {
   const [cbInstance, setCbInstance] = useState({});
+  const [chargebeeInterface, setChargebeeInterface] = useState({});
 
   useEffect(() => {
     const cbInstanceData = window.Chargebee.init({
@@ -100,11 +108,14 @@ const AppWrapper = ({ children }) => {
       publishableKey: process.env.NEXT_PUBLIC_CHARGBEE_KEY, // this is an optional parameter.
       // Use this, if custom domain is enabled for your site
     });
+    setChargebeeInterface(chargebee);
     setCbInstance(cbInstanceData);
   }, []);
 
   return (
-    <AppContext.Provider value={{ cbInstance, openPlanModal }}>{children}</AppContext.Provider>
+    <AppContext.Provider value={{ cbInstance, chargebee, openPlanModal }}>
+      {children}
+    </AppContext.Provider>
   );
 };
 

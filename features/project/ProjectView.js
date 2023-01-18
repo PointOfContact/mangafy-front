@@ -217,7 +217,7 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
     <div className={styles.project}>
       <NextSeo
         title={project?.title}
-        description={project?.story}
+        description={project?.story.replace(/<[^>]*>?/gm, '')}
         canonical={`${client.API_ENDPOINT}/project/${project?._id}`}
         openGraph={{
           url: `${client.API_ENDPOINT}/project/${project?._id}`,
@@ -225,6 +225,12 @@ const ProjectView = ({ ssProject, ssComments, user }) => {
           description: project?.story,
           type: 'article',
           site_name: 'MangaFY',
+          images: [
+            {
+              url: client.API_ENDPOINT + '/api/v2/uploads/' + project?.image,
+              alt: 'Project cover',
+            },
+          ],
         }}
         twitter={{
           handle: '@handle',
