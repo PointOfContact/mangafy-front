@@ -89,6 +89,12 @@
     line-height: 15px;
     margin-top: 5px;
   }
+  .errorTextArea {
+    border: 1px solid $red;
+    &:hover {
+      border: 1px solid $red;
+    }
+  }
 }
 .genres_wrap {
   margin: 30px 0;

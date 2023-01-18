@@ -90,7 +90,6 @@ const API = {
             headers: { Authorization: `Bearer ${jwt}` },
           })
           .then((res) => {
-            console.log(res, 'ewsssssssss');
             callback(res);
           })
           .catch((err) => {

@@ -10,10 +10,17 @@ import { GrammarlyEditorPlugin } from '@grammarly/editor-sdk-react';
 
 const { TextArea } = Input;
 
-const EditContent = ({ profile, storyEditMode, ifMyProfile, userData, setUserData }) => {
-  const [touchInput, setTouchInput] = useState(false);
-  const ifBioLengthSmall = touchInput && userData?.content?.length < 3;
-
+const EditContent = ({
+  profile,
+  storyEditMode,
+  ifMyProfile,
+  userData,
+  bioError,
+  setTouchInput,
+  setBioError,
+  bioText,
+  setBioText,
+}) => {
   return ifMyProfile ? (
     userData && (userData?.content || storyEditMode) && (
       <>
@@ -26,24 +33,19 @@ const EditContent = ({ profile, storyEditMode, ifMyProfile, userData, setUserDat
                 <TextArea
                   autoSize={{ minRows: 3, maxRows: 10 }}
                   placeholder="Type here..."
-                  value={userData.content}
+                  value={bioText}
                   onChange={(e) => {
                     setTouchInput(true);
-                    setUserData({
-                      ...userData,
-                      content: e.target.value,
-                    });
+                    setBioError('');
+                    setBioText(e.target.value);
                   }}
-                  required
                   type="text"
                   minLength={10}
                   maxLength={1000}
-                  className={styles.textarea_text}
+                  className={cn(styles.textarea_text, bioError && styles.errorTextArea)}
                 />
               </GrammarlyEditorPlugin>
-              {ifBioLengthSmall && (
-                <p className={styles.errorBio}>This field data should be minimum 3 character</p>
-              )}
+              {bioError && <p className={styles.errorBio}>{bioError}</p>}
             </>
           ) : (
             userData?.content && (
@@ -69,10 +71,18 @@ const EditContent = ({ profile, storyEditMode, ifMyProfile, userData, setUserDat
 
 EditContent.propTypes = {
   profile: PropTypes.object.isRequired,
-  setUserData: PropTypes.func.isRequired,
   ifMyProfile: PropTypes.bool.isRequired,
   storyEditMode: PropTypes.bool.isRequired,
-  userData: PropTypes.object.isRequired,
+  userData: PropTypes.object,
+  bioError: PropTypes.any.required,
+  setTouchInput: PropTypes.func.isRequired,
+  setBioError: PropTypes.func.isRequired,
+  bioText: PropTypes.string.isRequired,
+  setBioText: PropTypes.func.isRequired,
+};
+
+EditContent.defaultProps = {
+  userData: {},
 };
 
 export default EditContent;
