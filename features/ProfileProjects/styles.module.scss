@@ -153,10 +153,11 @@ $openProjectWidth: 450px;
     }
 
     &__createEmpty {
+        height: 60px;
         display: flex;
         align-items: center;
         background: $primaryDark;
-        border-radius: 20px;
+        border-radius: 4px;
         font-size: 20px;
         font-weight: 700;
         padding: 20px;

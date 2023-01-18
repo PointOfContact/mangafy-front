@@ -1,21 +1,76 @@
 @import '../../../styles/variables.scss';
 
 .openedProject {
-  background: #fff;
-  transition: 0.4s;
-  border-left: 1px solid #f0f0f0;
-  height: 100vh;
+    background: #fff;
+    transition: 0.4s;
+    border-left: 1px solid #F0F0F0;
+    height: 100vh;
 
-  transform: translateX(110%);
-  &_opened {
-    transform: translateX(0);
-  }
+    transform: translateX(110%);
+    &_opened {
+        transform: translateX(0);
+    }
 
-  &__container {
-    height: 100%;
-    padding: 122px 50px;
-    @include media-sm {
-      padding: 100px 20px;
+    &__container {
+        height: 100%;
+        padding: 122px 50px;
+        @include media-sm {
+            padding: 100px  20px;
+        }
+        overflow-y: auto;
+    }
+
+    &__sectionTitle {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 20px;
+        color: #848484;
+        margin-bottom: 20px;
+    }
+
+    &__sectionIcon {
+        height: 24px;
+        margin-right: 10px;
+    }
+
+    &__cover {
+        border-radius: 30px;
+        overflow: hidden;
+        height: 200px;
+        width: 100%;
+        margin-bottom: 15px;
+        position: relative;
+        &Overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.473);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            opacity: 0;
+            transition: 0.2s;
+            color: #fff;
+            &:visited {
+                color: #fff;
+            }
+            font-size: 16px;
+            svg {
+                height: 24px;
+                margin-left: 5px;
+            }
+        }
+
+        &:hover {
+            .openedProject__coverOverlay {
+                opacity: 1;
+            }
+        }
     }
     overflow-y: auto;
   }
