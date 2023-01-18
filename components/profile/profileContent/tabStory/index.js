@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+/* eslint-disable react/no-unknown-property */
+import React, { useEffect, useState } from 'react';
 
 import cn from 'classnames';
 import Card from 'components/card';
@@ -32,8 +33,14 @@ const TabStory = (props) => {
   } = props;
 
   const [createProjectModal, showCreateProjectModal] = useState(false);
-
+  const [touchInput, setTouchInput] = useState(false);
+  const [bioError, setBioError] = useState(false);
+  const [bioText, setBioText] = useState('');
   const editIfNotData = !!userData?.content || !!userData?.genresIds?.length;
+
+  useEffect(() => {
+    setBioText(userData.content);
+  }, [storyEditMode]);
 
   return (
     <div className={cn(styles.content_tab_profile_1)}>
@@ -49,6 +56,12 @@ const TabStory = (props) => {
         storyEditMode={storyEditMode}
         cancelStoryEditMode={cancelStoryEditMode}
         saveUserDataByKey={saveUserDataByKey}
+        setBioError={setBioError}
+        userData={userData}
+        setTouchInput={setTouchInput}
+        bioText={bioText}
+        setBioText={setBioText}
+        setUserData={setUserData}
       />
 
       <div>
@@ -58,6 +71,11 @@ const TabStory = (props) => {
           ifMyProfile={ifMyProfile}
           userData={userData}
           setUserData={setUserData}
+          setTouchInput={setTouchInput}
+          setBioError={setBioError}
+          bioError={bioError}
+          setBioText={setBioText}
+          bioText={bioText}
         />
         {ifMyProfile
           ? userGenres &&

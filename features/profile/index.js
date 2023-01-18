@@ -101,7 +101,7 @@ const Profile = (props) => {
             };
             myAmplitude(event);
           }
-          setUserData(res);
+          // setUserData(res);
           setEditMode(false);
           setStoryEditMode(false);
         })

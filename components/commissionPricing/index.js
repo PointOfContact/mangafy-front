@@ -49,7 +49,7 @@ export const CommissionPricing = ({ id, user }) => {
   }, [id]);
 
   const setPricing = (newList) => {
-    const empti = newList.find((item) => item.first === '' || item.last === '');
+    const empti = newList.some((item) => item.first === '' || item.last === '');
     if (!empti) {
       const jwt = client.getCookie('feathers-jwt');
       import('api/restClient').then((m) => {
@@ -72,7 +72,6 @@ export const CommissionPricing = ({ id, user }) => {
             ];
             setErrMessage('');
             myAmplitude(data);
-            setPricingList(res.pricingTable);
             setEditMode(false);
           })
           .catch((err) => {
@@ -81,7 +80,7 @@ export const CommissionPricing = ({ id, user }) => {
           });
       });
     } else {
-      setErrMessage('Please complete both fields before submitting');
+      // setErrMessage('Please complete both fields before submitting');
       setSubmitted(true);
     }
   };

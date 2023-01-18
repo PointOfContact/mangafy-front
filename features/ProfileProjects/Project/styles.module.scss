@@ -12,7 +12,7 @@
     &__cover {
         position: relative;
         aspect-ratio: 1;
-        border-radius: 30px;
+        border-radius: 4px;
         overflow: hidden;
         margin-bottom: 7px;
         img {
@@ -49,7 +49,7 @@
         color: rgb(31, 31, 31);
         font-size: 24px;
         border: 2px solid $primaryDark;
-        border-radius: 30px;
+        border-radius: 4px;
         p {
             overflow: hidden;
             text-overflow: ellipsis;

@@ -27,13 +27,18 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
 
   useEffect(() => {
     if (!user) return;
-    setOptionsMangaStories(
-      user.mangaStories?.data?.map((item) => ({
+    const options = [];
+    user.mangaStories?.data?.forEach((item) => {
+      // if (item.published) {
+      options.push({
         key: item._id,
-        value: `${item.title} ${!item.published && '(Draft project*)'}`,
+        // value: `${item.title} ${!item.published && '(Draft project*)'}`,
+        value: item.title,
         disabled: !item.published,
-      }))
-    );
+      });
+      // }
+    });
+    setOptionsMangaStories(options);
   }, [user]);
 
   useEffect(() => {

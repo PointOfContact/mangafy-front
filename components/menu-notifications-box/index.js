@@ -10,7 +10,17 @@ import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
-const patchUnreadNotificationsId = (newUnreadNotificationsId, onSuccess, onFailure = () => {}) => {
+const patchUnreadNotificationsId = (
+  newUnreadNotificationsId,
+  clearAll,
+  onSuccess,
+  onFailure = () => {}
+) => {
+  const query = {
+    _id: { $in: newUnreadNotificationsId },
+  };
+  if (clearAll) query.clearAll = clearAll;
+
   const jwt = client.getCookie('feathers-jwt');
   import('../../api/restClient').then((m) => {
     m.default
@@ -19,9 +29,7 @@ const patchUnreadNotificationsId = (newUnreadNotificationsId, onSuccess, onFailu
         null,
         {},
         {
-          query: {
-            _id: { $in: newUnreadNotificationsId },
-          },
+          query,
           headers: { Authorization: `Bearer ${jwt}` },
         }
       )
@@ -88,9 +96,10 @@ const MenuNotificationsBox = ({
     [user]
   );
 
-  const patchNotification = (newUnreadNotificationsId) => {
+  const patchNotification = (newUnreadNotificationsId, clearAll = false) => {
     patchUnreadNotificationsId(
       newUnreadNotificationsId,
+      clearAll,
       (res) => {
         getNotifications();
       },
@@ -101,9 +110,8 @@ const MenuNotificationsBox = ({
   };
 
   const makeAllRead = () => {
-    notificationsCount = notificationsCount < 10 ? 0 : notificationsCount - 10;
-    setNotificationsCount(notificationsCount);
-    patchNotification(unreadNotificationsId.map(({ _id }) => _id));
+    setNotificationsCount(0);
+    patchNotification([], true);
   };
 
   // useEffect(() => {

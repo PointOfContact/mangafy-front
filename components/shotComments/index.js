@@ -47,9 +47,12 @@ const ShotComments = ({ shotId, user, onUpload, className, setIsLoginModalVisibl
       setIsLoginModalVisible(true);
       return;
     }
-    if (newComment.length < 3) {
+
+    const ifOnlySpace = newComment.trim().length;
+    if (!ifOnlySpace) {
+      if (!newComment.length) return;
       return notification.error({
-        message: 'Comment must be at least 3 characters',
+        message: "You can't write only spaces",
         placement: 'bottomLeft',
       });
     }

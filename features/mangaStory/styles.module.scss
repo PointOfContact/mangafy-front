@@ -1,11 +1,25 @@
 @import '../../styles/variables.scss';
 $borderColor: #f0f0f0;
 $colorAllBorder: rgba(33, 33, 33, 0.07);
-
+.containerProject {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  a {
+    color: $black;
+    font-size: $text3;
+    margin-left: 10px;
+    font-weight: bold;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
 .workspaceLink {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: space-between;
   color: $gray85;
   font-size: 18px;
   margin-bottom: 30px;

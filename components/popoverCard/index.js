@@ -6,9 +6,7 @@ import SvgLink from '../icon/Link';
 
 const PopoverCard = (props) => {
   const [visibility, changeVisibility] = useState(false);
-  const hide = () => {
-    changeVisibility(false);
-  };
+
   const handleVisibleChange = (visible) => {
     changeVisibility(visible);
   };
