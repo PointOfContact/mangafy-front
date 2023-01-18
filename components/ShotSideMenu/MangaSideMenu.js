@@ -29,6 +29,7 @@ const MangaSideMenu = ({
   createComment,
   isPublished,
   setIsLoginModalVisible,
+  likeChapterLoding,
 }) => {
   const commentsRef = useRef(null);
   // const [commentsCount, setCommentsCount] = useState(0);
@@ -87,6 +88,7 @@ const MangaSideMenu = ({
               rounded
               outline
               iconRight
+              disabled={likeChapterLoding}
               icon={<Fire color="#7B65F3" />}>
               {chapter?.like || 0}
             </Button>
