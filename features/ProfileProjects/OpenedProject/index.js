@@ -17,7 +17,7 @@ import Link from 'next/link';
 import ShareModal from 'components/modals/shareModal';
 import DeleteProjectButton from 'components/mangeStoryCard/deleteProjectButton';
 import ConfirmModal from 'components/modals/ConfirmModal';
-import { notification } from 'antd';
+import { notification, Popover } from 'antd';
 
 import Share from 'components/icon/new/Share';
 import Eye from 'components/icon/new/Eye';
@@ -36,6 +36,7 @@ import Edit3 from 'components/icon/new/Edit3';
 import Edit from 'components/icon/new/Edit';
 import Copy from 'components/icon/new/Copy';
 import Settings3 from 'components/icon/new/Settings3';
+import Authors from './authors';
 
 const OpenedProject = ({
   user,
@@ -56,35 +57,6 @@ const OpenedProject = ({
   const pagesCount = useMemo(() => countPages(project), [project]);
   const editedDate = useMemo(() => getEditedDate(project), [project]);
   const createdDate = useMemo(() => getCreatedDate(project), [project]);
-
-  const authorsElements = useMemo(() => {
-    const authors = [project?.authorInfo];
-    if (project?.participentsInfo?.length) {
-      project?.participentsInfo.forEach((member) => {
-        if (member?._id !== project?.authorInfo?._id) {
-          authors.push(member);
-        }
-      });
-    }
-
-    const elements = authors.map((member) => (
-      <Link href={'/profile/' + member?._id} key={member?._id}>
-        <a className={styles.openedProject__member}>
-          <Avatar
-            className={styles.openedProject__memberAvatar}
-            image={member?.avatar}
-            text={member?.name[0]}
-            size={50}
-          />
-          <div className={styles.openedProject__memberName}>{member?.name}</div>
-          <div className={styles.openedProject__memberRole}>
-            {userTypes.find((t) => t.key === member?.type)?.value}
-          </div>
-        </a>
-      </Link>
-    ));
-    return elements;
-  }, [project]);
 
   function deleteProject(pid) {
     setIsOpened(false);
@@ -217,7 +189,11 @@ const OpenedProject = ({
         </div>
         <div className={styles.openedProject__tags}>
           {project?.genres?.length > 0 ? (
-            project?.genres?.map((tag) => <div className={styles.openedProject__tag}>tag1</div>)
+            project?.genres?.map((tag, i) => (
+              <div key={tag + i} className={styles.openedProject__tag}>
+                tag1
+              </div>
+            ))
           ) : (
             <>
               Here can be your tags
@@ -235,7 +211,13 @@ const OpenedProject = ({
           Members
         </div>
         <div className={styles.openedProject__members}>
-          {authorsElements}
+          <Authors
+            user={user}
+            project={project}
+            userType={userTypes}
+            isOwn={isOwn}
+            setProject={setProject}
+          />
           {isAdmin && (
             <Button
               rounded

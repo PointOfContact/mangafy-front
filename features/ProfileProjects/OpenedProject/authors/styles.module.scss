@@ -1,0 +1,51 @@
+@import '../../../../styles/variables.scss';
+
+.openedProject {
+  &__member {
+    color: $black;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    grid-template-areas: 'avatar name' 'avatar role';
+    grid-gap: 0px 10px;
+    border-radius: 5em;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    &:hover {
+      color: $black;
+      background: $silver;
+    }
+    & > div {
+      width: 100%;
+    }
+  }
+  &__memberAvatar {
+    grid-area: avatar;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+  &__memberName {
+    grid-area: name;
+    font-weight: 700;
+    font-size: 15px;
+    align-self: end;
+  }
+
+  &__memberRole {
+    grid-area: role;
+    font-weight: 400;
+    font-size: 12px;
+    color: $gray85;
+  }
+}
+.leaveProject {
+  cursor: pointer;
+  & > p {
+    font-size: $text4;
+    font-weight: 500;
+    margin: 0;
+  }
+}
