@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import cn from 'classnames';
 import PrimaryButton from 'components/ui-elements/button';
@@ -37,9 +37,12 @@ const EditButtons = ({
       });
       setBioError('');
       setTouchInput(false);
-      saveUserDataByKey('content', 'genresIds');
     }
   };
+
+  useEffect(() => {
+    saveUserDataByKey('content', 'genresIds');
+  }, [userData.content]);
 
   return (
     storyEditMode && (

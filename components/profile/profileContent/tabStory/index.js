@@ -61,6 +61,7 @@ const TabStory = (props) => {
         setTouchInput={setTouchInput}
         bioText={bioText}
         setBioText={setBioText}
+        setUserData={setUserData}
       />
 
       <div>
