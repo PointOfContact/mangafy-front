@@ -41,6 +41,8 @@ import ArrowDown2 from 'components/icon/new/ArrowDown2';
 import ArrowDown from 'components/icon/new/ArrowDown';
 import getDeviceId from 'utils/deviceId';
 import { viewMangaFun } from 'utils';
+import NewFile from 'components/icon/new/NewFile';
+import SvgProjectIcon from 'components/icon/ProjectIcon';
 
 const tabs = {
   DETAILS: 'jobs',
@@ -259,13 +261,19 @@ const MangeStory = (props) => {
     return (
       <>
         <div className={styles.workspaceLink}>
-          <Link href={'/profile/' + user._id + '/projects'}>
-            <a className={styles.workspaceLink_link}>My projects</a>
-          </Link>
-          <span>&nbsp;/&nbsp;</span>
-          <span>{baseData.title}</span>
-          <span>&nbsp;/&nbsp;</span>
-          <span>{activeTab}</span>
+          <div className={styles.containerProject}>
+            <SvgProjectIcon color="#D01E8E" bold={1} />
+            <Link href={'/profile/' + user._id + '/projects'}>
+              <a className={styles.workspaceLink_link}>My projects</a>
+            </Link>
+          </div>
+          <div>
+            <span>Path</span>
+            <span>&nbsp;:&nbsp;</span>
+            <span>{baseData.title}</span>
+            <span>&nbsp;/&nbsp;</span>
+            <span>{activeTab}</span>
+          </div>
         </div>
         <h2 className={styles.sectionTitle}>
           {activeTab}

@@ -23,7 +23,8 @@ export function login(payload) {
   return auth.login(payload.email, payload.password).then((_) => {
     setClientCookie(FEATHERS_COOKIE, _.accessToken, 5);
     store.user = _.user;
-    if (payload.page) {
+    const ifProfile = payload?.page?.includes('profile');
+    if (payload.page && !ifProfile) {
       Router.push(`/${payload.page}`);
     } else {
       Router.push(`/feed${postId}`);

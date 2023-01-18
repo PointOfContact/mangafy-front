@@ -398,7 +398,14 @@ const FeedNew = (props) => {
   function makeCardsElements(newCards = []) {
     return newCards.map((card) => {
       if (card.postType === 'Task' || card.postType === 'Collab')
-        return <TaskCard key={card._id} card={card} user={user} />;
+        return (
+          <TaskCard
+            key={card._id}
+            card={card}
+            user={user}
+            setSignInModalVisible={setSignInModalVisible}
+          />
+        );
       // else if (card.postType === 'Project' || card.postType === 'Ongoing')
       else if (card.postType === 'Project')
         return <PublishedCard key={card._id} card={card} user={user} />;

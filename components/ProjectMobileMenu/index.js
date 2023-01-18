@@ -79,7 +79,7 @@ const ProjectMobileMenu = ({ tabs, activeTab, setActiveTab, routerBasePath }) =>
               //   setActiveTab(tabs.DETAILS);
               // }}
             >
-              <Home color="#D01E8E" /> Details
+              <Home color="#D01E8E" /> Jobs
             </a>
           </Link>
           <Link href={routerBasePath + 'settings'}>
@@ -91,28 +91,6 @@ const ProjectMobileMenu = ({ tabs, activeTab, setActiveTab, routerBasePath }) =>
             >
               <Settings color="#D01E8E" />
               Settings
-            </a>
-          </Link>
-          <Link href={routerBasePath + 'comments'}>
-            <a
-              className={styles.dropdown__element}
-              // onClick={() => {
-              //   setActiveTab(tabs.COMMENTS);
-              // }}
-            >
-              <Message2 color="#D01E8E" />
-              Comments
-            </a>
-          </Link>
-          <Link href={routerBasePath + 'publish'}>
-            <a
-              className={styles.dropdown__element}
-              // onClick={() => {
-              //   setActiveTab(tabs.PUBLISH);
-              // }}
-            >
-              <Planet color="#D01E8E" />
-              Publish
             </a>
           </Link>
         </div>

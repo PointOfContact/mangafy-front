@@ -35,7 +35,6 @@ const СardGenres = ({ title, subTitle, genres, limit }) => {
                   />
                 ))}
                 <Popover placement="bottomLeft" title={title} content={genresContent}>
-                  {' '}
                   <ButtonColab
                     className={cn(styles.ButtonPurple)}
                     text={`+ ${genres.length - limit + 1}`}

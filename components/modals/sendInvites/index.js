@@ -27,13 +27,18 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
 
   useEffect(() => {
     if (!user) return;
-    setOptionsMangaStories(
-      user.mangaStories?.data?.map((item) => ({
+    const options = [];
+    user.mangaStories?.data?.forEach((item) => {
+      // if (item.published) {
+      options.push({
         key: item._id,
-        value: `${item.title} ${!item.published && '(Draft project*)'}`,
+        // value: `${item.title} ${!item.published && '(Draft project*)'}`,
+        value: item.title,
         disabled: !item.published,
-      }))
-    );
+      });
+      // }
+    });
+    setOptionsMangaStories(options);
   }, [user]);
 
   useEffect(() => {
@@ -193,7 +198,7 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
                   </Form.Item>
                 </>
               )}
-              <h2>Your message</h2>
+              {/* <h2>Your message</h2>
               <GrammarlyEditorPlugin clientId={`${process.env.NEXT_PUBLIC_GRAMMARLY_ID}`}>
                 <Form.Item
                   hasFeedback
@@ -213,7 +218,7 @@ const SendInvites = ({ changeShowModal, showModal, user, profile }) => {
                     className={styles.modalTexarea}
                   />
                 </Form.Item>
-              </GrammarlyEditorPlugin>
+              </GrammarlyEditorPlugin> */}
               <div className="modal_select_btn">
                 <Form.Item>
                   <PrimaryButton

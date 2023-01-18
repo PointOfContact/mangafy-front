@@ -36,7 +36,7 @@ const MangaView = ({
 }) => {
   const router = useRouter();
   const refBook = useRef(null);
-  const [activeChapterIndex, setActiveChapterIndex] = useState(+router.query.ongoing || 1);
+  const [activeChapterIndex, setActiveChapterIndex] = useState();
   const [authors, setAuthors] = useState(serverSideAuthors);
   const [comments, setComments] = useState(serverSideComments);
   const [readStyle, setReadStyle] = useState(false);
@@ -44,10 +44,13 @@ const MangaView = ({
   const [imagesHeight, setImagesHeight] = useState([]);
   const [isLiked, setIsLiked] = useState(false);
   const [manga, setManga] = useState(serverSideManga);
+  const [likeChapterLoding, setLikeChapterLoding] = useState(false);
   const [chapter, setChapter] = useState({});
   const [ifPayed, setIfPayed] = useState(false);
+  const [isShareModalOpened, setIsShareModalOpened] = useState(false);
+  const [isLoginModalVisible, setIsLoginModalVisible] = useState(false);
+  const [isGoToSettingsModalOpened, setIsGoToSettingsModalOpened] = useState(false);
   // const hashPath = router.asPath.split('#')[1];
-
   // useEffect(() => {
   //   if (hashPath) {
   //     router.push('#' + hashPath);
@@ -74,10 +77,6 @@ const MangaView = ({
     }
     setAreCommentsOpened(!areCommentsOpened);
   }
-
-  const [isShareModalOpened, setIsShareModalOpened] = useState(false);
-  const [isLoginModalVisible, setIsLoginModalVisible] = useState(false);
-  const [isGoToSettingsModalOpened, setIsGoToSettingsModalOpened] = useState(false);
 
   async function updateMangaInfo() {
     const newManga = await client.service(`/api/v2/manga-view`).get(manga?.id, {
@@ -112,7 +111,7 @@ const MangaView = ({
   }, [manga]);
 
   useEffect(() => {
-    setActiveChapterIndex(+router.query.ongoing);
+    setActiveChapterIndex(+router.query.ongoing || 1);
   }, [router.query.ongoing]);
 
   useEffect(async () => {
@@ -161,7 +160,7 @@ const MangaView = ({
     }
 
     const jwt = client.getCookie('feathers-jwt');
-
+    setLikeChapterLoding(true);
     client
       .service('/api/v2/chapter-like')
       .create(data, {
@@ -169,6 +168,7 @@ const MangaView = ({
         mode: 'no-cors',
       })
       .then((res) => {
+        setLikeChapterLoding(false);
         const eventData = [
           {
             event_type: EVENTS.EPISODE_LIKE,
@@ -179,10 +179,15 @@ const MangaView = ({
             },
           },
         ];
+        setChapter((item) => {
+          const chapetLike = res?.like === 'decrement' ? item.like - 1 : item.like + 1;
+          return { ...chapter, like: chapetLike };
+        });
         myAmplitude(eventData);
         updateMangaInfo();
       })
       .catch((err) => {
+        setLikeChapterLoding(false);
         notification.error({
           message: err.message,
           placement: 'bottomLeft',
@@ -245,20 +250,26 @@ const MangaView = ({
 
   const isOwn = authors && authors[0]?._id === user?._id;
   const isParticipant = authors && authors.some((author) => author?._id === user?._id);
-  console.log(router.asPath, 'router');
 
   return (
     <>
       <NextSeo
         title={manga?.mangaStoryTitle}
-        description={`Read ${manga?.mangaStoryTitle} on MangaFY`}
+        description={`Read "${manga?.mangaStoryTitle}" on MangaFY`}
         canonical={`${client.API_ENDPOINT}/project/view/${manga?._id}`}
         openGraph={{
           url: `${client.API_ENDPOINT}/project/view/${manga?._id}`,
           title: manga?.mangaStoryTitle,
-          description: `Read ${manga?.mangaStoryTitle} on MangaFY`,
+          description: `Read "${manga?.mangaStoryTitle}" on MangaFY`,
           type: 'article',
           site_name: 'MangaFY',
+          images: [
+            {
+              url:
+                client.API_ENDPOINT + '/api/v2/uploads/' + manga?.chapters[0]?.pages[0]?.imageUrl,
+              alt: 'Project cover',
+            },
+          ],
         }}
         twitter={{
           handle: '@handle',
@@ -292,6 +303,7 @@ const MangaView = ({
           user={user}
           isLiked={isLiked}
           like={like}
+          likeChapterLoding={likeChapterLoding}
           updateMangaInfo={updateMangaInfo}
           setIsShareModalOpened={setIsShareModalOpened}
           authors={authors}
@@ -310,6 +322,7 @@ const MangaView = ({
           authors={authors}
           subscribe={subscribe}
           isOwn={isOwn}
+          router={router}
           activeChapterIndex={activeChapterIndex}
         />
         <MangaBody

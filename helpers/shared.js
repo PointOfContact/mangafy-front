@@ -182,19 +182,21 @@ export async function subscribeToProject(mangaStoryId, userId, email) {
   const jwt = client.getCookie('feathers-jwt');
 
   const payload = { mangaStoryId, email, userId };
-
-  return client.service('/api/v2/manga-subscribe').create(payload, {
+  const params = {
     mode: 'no-cors',
-  });
+  };
+  if (jwt) params.headers = { Authorization: `Bearer ${jwt}` };
+  return client.service('/api/v2/manga-subscribe').create(payload, params);
 }
 
 export async function unSubscribeOfProject(subscriptionId, mangaStoryId) {
   const jwt = client.getCookie('feathers-jwt');
-
-  return client.service('/api/v2/manga-subscribe').remove(subscriptionId, {
+  const params = {
     query: { mangaStoryId },
     mode: 'no-cors',
-  });
+  };
+  if (jwt) params.headers = { Authorization: `Bearer ${jwt}` };
+  return client.service('/api/v2/manga-subscribe').remove(subscriptionId, params);
 }
 
 export async function createComment(content, projectId) {
@@ -226,7 +228,8 @@ export async function createChapterComment(content, chapterId, senderId) {
   );
 }
 
-export function validateEmail(email) {
+export function validateEmail(email, user) {
+  if (email === user?.email) return "You can't send a request to you";
   if (email.length === 0) {
     return 'Email is required';
   }

@@ -11,7 +11,17 @@ import { buildShotURL } from 'helpers/shared';
 import ShotAndMangaTitle from 'components/ShotAndMangaTitle';
 import Close from 'components/icon/new/Close';
 
-const MangaHeader = ({ user, manga, className, authors, subscribe, isOwn, activeChapterIndex }) => {
+const MangaHeader = ({
+  user,
+  manga,
+  className,
+  router,
+  authors,
+  subscribe,
+  isOwn,
+  activeChapterIndex,
+}) => {
+  const chapterCurrentNumber = router?.query?.chapter;
   const prevChapterIndex = activeChapterIndex === 0 ? null : activeChapterIndex - 1;
   const nextChapterIndex =
     activeChapterIndex === manga?.chapters?.length ? null : activeChapterIndex + 1;
@@ -43,7 +53,7 @@ const MangaHeader = ({ user, manga, className, authors, subscribe, isOwn, active
               <ArrowDown2 />
             </a>
           </Link>
-          #{chapterCount}
+          #{chapterCurrentNumber || 1}
           <Link href={'/project/view/' + manga.id + '?chapter=' + nextChapterIndex}>
             <a
               className={cn(
